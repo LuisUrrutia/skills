@@ -1,6 +1,6 @@
 ---
 name: commit
-description: Create git commits with conventional commit messages. Use when user says "commit", "/commit", "make a commit", or asks to commit changes. Accepts optional context argument for commit message guidance.
+description: Create git commits with conventional commit messages. ALWAYS use this skill when committing code - whether user-requested or after completing a task. Triggers on "commit", "/commit", "make a commit", "git commit", "save changes", or any request to commit. Accepts optional context argument for commit message guidance.
 ---
 
 ## Context
