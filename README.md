@@ -1,6 +1,6 @@
-# Claude Code Skills
+# Agent Skills
 
-A collection of skills for [Claude Code](https://docs.anthropic.com/en/docs/claude-code) that enhance your development workflow.
+A collection of skills for AI coding agents (Claude Code, OpenCode, and others) that enhance your development workflow.
 
 ## Skills
 
@@ -44,17 +44,29 @@ Guidelines for writing secure and maintainable GitHub Actions workflows.
 
 ## Installation
 
-Copy the skill folders to your Claude Code skills directory:
+### Using npx (Recommended)
 
 ```bash
-# macOS/Linux
-cp -r commit pr github-actions ~/.config/claude/skills/
+npx skills add LuisUrrutia/skills
+```
 
-# Or clone and symlink
+### Manual Installation
+
+Clone the repository and symlink to your agent's skills directory:
+
+```bash
 git clone https://github.com/LuisUrrutia/skills.git
-ln -s $(pwd)/skills/commit ~/.config/claude/skills/commit
-ln -s $(pwd)/skills/pr ~/.config/claude/skills/pr
-ln -s $(pwd)/skills/github-actions ~/.config/claude/skills/github-actions
+cd skills
+
+# For Claude Code
+ln -s $(pwd)/commit ~/.config/claude/skills/commit
+ln -s $(pwd)/pr ~/.config/claude/skills/pr
+ln -s $(pwd)/github-actions ~/.config/claude/skills/github-actions
+
+# For OpenCode
+ln -s $(pwd)/commit ~/.config/opencode/skills/commit
+ln -s $(pwd)/pr ~/.config/opencode/skills/pr
+ln -s $(pwd)/github-actions ~/.config/opencode/skills/github-actions
 ```
 
 ## License
