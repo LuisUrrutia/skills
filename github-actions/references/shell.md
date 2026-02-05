@@ -2,18 +2,17 @@
 
 ## Strict Mode
 
-Always start shell scripts with strict mode:
+GitHub Actions defaults to `bash -eo pipefail` for `run:` steps on Linux/macOS. This means `-e` (exit on error) and `-o pipefail` (fail on pipe errors) are already active.
+
+The only flag NOT included by default is `-u` (error on undefined variables). Adding `set -u` is recommended for complex scripts to catch variable name typos, but its absence is a minor style issue, not a security gap.
 
 ```yaml
 - run: |
-    set -euo pipefail
-    npm install
-    npm run build
+    set -u  # Only -u is not already set by default
+    echo "$MY_VAR"  # Would error if MY_VAR is unset
 ```
 
-- `set -e`: Exit on command failure
-- `set -u`: Error on unset variables
-- `set -o pipefail`: Fail if any command in a pipeline fails (critical for `cmd | grep` patterns)
+**Do NOT flag missing `set -euo pipefail` as a significant finding.** It's mostly already handled by the runner defaults.
 
 ## Temporary Files
 
@@ -21,7 +20,7 @@ Use `$RUNNER_TEMP` (automatically cleaned up per job):
 
 ```yaml
 - run: |
-    set -euo pipefail
+    set -u
     echo "$CONTENT" > "$RUNNER_TEMP/body.md"
     gh issue create --title "Report" -F body=@"$RUNNER_TEMP/body.md"
 ```
@@ -31,10 +30,12 @@ Use `$RUNNER_TEMP` (automatically cleaned up per job):
 Use `-F field=@file` instead of `-f` to preserve whitespace:
 
 ```yaml
-- run: |
-    set -euo pipefail
+- env:
+    REPO: ${{ github.repository }}
+  run: |
+    set -u
     printf '%s\n' "$BODY" > "$RUNNER_TEMP/body.md"
-    gh api repos/${{ github.repository }}/issues -F body=@"$RUNNER_TEMP/body.md"
+    gh api "repos/$REPO/issues" -F body=@"$RUNNER_TEMP/body.md"
 ```
 
 ## Heredocs
@@ -57,7 +58,6 @@ Check prerequisites before operations:
 
 ```yaml
 - run: |
-    set -euo pipefail
     command -v node || { echo "Error: node required"; exit 1; }
     [[ -f package.json ]] || { echo "Error: package.json not found"; exit 1; }
     npm install
@@ -81,7 +81,6 @@ Reserve `|| true` for expected failures. Use conditionals for commands with spec
 
 ```yaml
 - run: |
-    set -euo pipefail
     if git diff --quiet; then
       echo "No changes"
     else

@@ -5,7 +5,7 @@
 Has built-in retries with exponential backoff:
 
 ```yaml
-- uses: actions/github-script@v7
+- uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8.0.0
   with:
     retries: 3
     retry-exempt-status-codes: 400 401 403 404 422
@@ -26,18 +26,20 @@ Has built-in retries with exponential backoff:
 When using `gh` CLI, handle errors and rate limits:
 
 ```yaml
-- run: |
-    set -euo pipefail
+- env:
+    REPO: ${{ github.repository }}
+  run: |
+    set -u
     API_STDERR="$RUNNER_TEMP/api_stderr.log"
 
-    if ! RESULT=$(gh api repos/${{ github.repository }}/pulls \
+    if ! RESULT=$(gh api "repos/$REPO/pulls" \
       --header "Accept: application/vnd.github+json" \
       --jq '.[0].number' 2>"$API_STDERR"); then
 
       if grep -q "rate limit" "$API_STDERR" 2>/dev/null; then
         echo "::warning::Rate limited, waiting 60s..."
         sleep 60
-        RESULT=$(gh api repos/${{ github.repository }}/pulls --jq '.[0].number')
+        RESULT=$(gh api "repos/$REPO/pulls" --jq '.[0].number')
       else
         echo "::error::API call failed"
         exit 1
@@ -51,7 +53,6 @@ For any command that may fail transiently (network calls, external services):
 
 ```yaml
 - run: |
-    set -euo pipefail
     MAX_ATTEMPTS=3
     DELAY=2
 
@@ -139,15 +140,7 @@ jobs:
   deploy:
     needs: build
     steps:
-      - run: echo "Deploying ${{ needs.build.outputs.version }}"
-```
-
-## Useful Commands
-
-```bash
-# Check latest action version
-gh api repos/{owner}/{repo}/releases/latest --jq '.tag_name'
-
-# Get commit SHA for a tag (for SHA pinning)
-gh api repos/{owner}/{repo}/git/ref/tags/{tag} --jq '.object.sha'
+      - env:
+          VERSION: ${{ needs.build.outputs.version }}
+        run: echo "Deploying $VERSION"
 ```
