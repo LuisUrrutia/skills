@@ -13,25 +13,29 @@ description: Create git commits with conventional commit messages. ALWAYS use th
 
 ## Steps
 
-1. **Analyze** - Review staged changes, unstaged modifications, and current branch
-2. **Generate** - Create commit message
+1. **Analyze** — Review staged changes, unstaged modifications, and current branch
+2. **Generate** — Create commit message following conventional commits: `type(scope): message`
    - Use context if provided: `context: $ARGUMENTS`
-   - Follow conventional commits: `type(scope): message`
-   - Types: feat, fix, docs, style, refactor, test, chore
+   - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
+   - Infer scope from staged files (e.g., `feat(auth):` for changes in `auth/`)
    - Match recent commits style when possible
-   - Suggest scope from staged files (e.g., `feat(auth):` if changes in `auth/`)
    - No co-authors
-    - Simple changes → 1 line
-    - Complex changes → Add body explaining **why** from the end-user perspective, not **what** was changed (the diff already shows that)
-    - Be specific about user-facing impact — avoid vague messages like "improved experience" or "enhanced performance"; say exactly what changed for the user
-3. **Single confirmation** - Ask ALL relevant questions at once:
+   - **Subject line**: imperative mood, present tense, lowercase, no period
+   - **Body**:
+     - Explain **why**, not **what** — the diff already shows what changed
+     - Use imperative mood and present tense (e.g., "allow users to filter by date" not "allowed" or "allows")
+     - Include motivation for the change
+     - Contrast with previous behavior when relevant
+     - Be specific about user-facing impact — avoid vague messages like "improved experience"; say exactly what changed
+   - **Breaking changes**: indicate with `!` before `:` (e.g., `feat(api)!: remove v1 endpoints`) or a `BREAKING CHANGE:` footer — MUST be uppercase
+3. **Confirm** — Ask ALL relevant questions at once:
    - No staged files? → "Stage all changes?" / "Select files to stage?"
    - Unstaged mods in staged files? → "Include unstaged changes?"
    - On main/master? → "Create new branch?" with suggested name
    - Show commit message → "Approve?" / "Edit message?"
    - "Push after commit?" → Yes/No
-4. **Execute** - Apply user choices, commit, and push if requested
-5. **Handle failures** - If commit/push fails:
+4. **Execute** — Apply user choices, commit, and push if requested
+5. **Handle failures** — If commit/push fails:
    - Report the error clearly
    - Never use `--no-verify` to bypass hooks
    - Suggest fixes (e.g., fix lint errors, resolve conflicts)
