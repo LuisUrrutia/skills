@@ -21,8 +21,9 @@ description: Create git commits with conventional commit messages. ALWAYS use th
    - Match recent commits style when possible
    - Suggest scope from staged files (e.g., `feat(auth):` if changes in `auth/`)
    - No co-authors
-   - Simple changes → 1 line
-   - Complex changes → Add body
+    - Simple changes → 1 line
+    - Complex changes → Add body explaining **why** from the end-user perspective, not **what** was changed (the diff already shows that)
+    - Be specific about user-facing impact — avoid vague messages like "improved experience" or "enhanced performance"; say exactly what changed for the user
 3. **Single confirmation** - Ask ALL relevant questions at once:
    - No staged files? → "Stage all changes?" / "Select files to stage?"
    - Unstaged mods in staged files? → "Include unstaged changes?"
