@@ -27,7 +27,7 @@ description: Create git commits with conventional commit messages. ALWAYS use th
      - Include motivation for the change
      - Contrast with previous behavior when relevant
      - Be specific about user-facing impact — avoid vague messages like "improved experience"; say exactly what changed
-   - **Breaking changes**: indicate with `!` before `:` (e.g., `feat(api)!: remove v1 endpoints`) or a `BREAKING CHANGE:` footer — MUST be uppercase
+   - **Breaking changes**: add **!** before the colon in the type prefix (e.g., `feat(api)!: remove v1 endpoints`) or use a `BREAKING CHANGE:` footer — MUST be uppercase
 3. **Confirm** — Ask ALL relevant questions at once:
    - No staged files? → "Stage all changes?" / "Select files to stage?"
    - Unstaged mods in staged files? → "Include unstaged changes?"
