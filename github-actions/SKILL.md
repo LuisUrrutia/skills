@@ -5,10 +5,9 @@ description: Guidelines for writing secure and maintainable GitHub Actions workf
 
 ## Context
 
-- Workflow files: !`ls -la .github/workflows/ 2>/dev/null || echo "No workflows directory"`
-- Current workflow (truncated): !`cat .github/workflows/*.yml 2>/dev/null | head -100 || echo "No workflow files"`
+- Workflow files: !`ls .github/workflows/ 2>/dev/null`
 
-Note: If workflows are truncated, read specific files as needed.
+Note: Read specific workflow files as needed before making changes.
 
 ## Key Principles
 
