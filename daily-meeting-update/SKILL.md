@@ -164,22 +164,22 @@ Use `--json` for structured parsing, `--csv` when tabular output is easier, `--f
 
 ### OpenCode History
 
-Run the digest script automatically when the OpenCode database exists:
+Run the bundled digest script automatically when the OpenCode database exists. Refer to the script from this skill bundle, not from an installation-specific absolute path. Depending on the host agent, use its native bundled-file reference such as `@scripts/opencode_digest.py`, or resolve `scripts/opencode_digest.py` relative to this `SKILL.md` file.
 
 ```bash
-python3 ~/.config/opencode/skills/daily-meeting-update/scripts/opencode_digest.py --format json
+python3 scripts/opencode_digest.py --format json
 ```
 
 By default, the digest scans all OpenCode projects in the local database. Only pass `--project` when the user explicitly wants one project:
 
 ```bash
-python3 ~/.config/opencode/skills/daily-meeting-update/scripts/opencode_digest.py --project ~/my-app --format json
+python3 scripts/opencode_digest.py --project ~/my-app --format json
 ```
 
 If the user asks for today's sessions:
 
 ```bash
-python3 ~/.config/opencode/skills/daily-meeting-update/scripts/opencode_digest.py --date today --format json
+python3 scripts/opencode_digest.py --date today --format json
 ```
 
 Use the digest output as context. Filter out obviously irrelevant or personal sessions from the summary, and let the user correct or exclude noisy items during the interview.
@@ -192,7 +192,7 @@ Store pulled data as interview context. Do not generate the update yet unless th
 
 ## Phase 3: Interview With Context
 
-Ask all four standup questions before generating the update unless the user explicitly asks for a no-interview summary. Use pulled data as context prompts, not as final wording.
+Ask all four standup questions before generating the update unless the user explicitly asks for a no-interview summary. Stop after asking the interview questions and wait for the user's answers; do not infer answers from tool data alone. Use pulled data as context prompts, not as final wording.
 
 ### 1. Yesterday / Since Last Update
 
