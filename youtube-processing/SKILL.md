@@ -1,198 +1,85 @@
 ---
 name: youtube-processing
-description: Process YouTube URLs into Obsidian-ready notes by extracting canonical video IDs, handling transcript download/reuse, downloading the video thumbnail, generating bilingual (EN/ES) summaries, and organizing files under Personal/Youtube with frontmatter compatibility. Use when the user shares one or more YouTube links and wants structured transcript plus summary notes.
+description: Process YouTube URLs into Obsidian-ready study notes with transcript reuse, local thumbnails, bilingual EN/ES summaries, and Personal/Youtube frontmatter compatibility. Use when the user shares one or more YouTube links and wants structured transcript plus summary notes saved to Obsidian.
 ---
 
-# YouTube Video Processing System
+# YouTube Processing
 
-Vault root for this workflow:
+Convert YouTube videos into a complete Obsidian note set under the Personal vault: `transcript.md`, English summary, Spanish summary, and a local thumbnail.
 
-- Prefer `$HOME`-based paths.
-- Linux default: `$HOME/obsidian/Personal`
-- Current macOS setup example: `$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/Personal`
+## Scope And Output
 
-Convert a YouTube link into a structured note set: `transcript.md`, English
-summary, Spanish summary, and local thumbnail image, all stored in an
-Obsidian-compatible folder with stable metadata and filtering tags.
+- Use only for YouTube video URLs; do not use for articles, podcasts, generic webpages, or non-YouTube videos.
+- Write only under the Personal Obsidian vault. Prefer `$HOME`-based paths: Linux `$HOME/obsidian/Personal`; macOS `$HOME/Library/Mobile Documents/iCloud~md~obsidian/Documents/Personal`.
+- Ask for the vault path if the Personal vault cannot be found.
+- Store outputs at `./Youtube/{main_topic}/{video_folder_title}/`.
+- Required files: English summary, Spanish summary, `transcript.md`, and `attachments/{safe_video_id}.jpg`.
 
-Follow this exact processing order and do not reorder steps.
+## Ordered Workflow
 
-## Workflow
+Follow this order exactly:
 
-1. Video ID extraction
-2. Duplicate check
-3. Transcript handling
-4. Thumbnail attachment
-5. Summary creation
-6. Folder and file organization
-7. Base compatibility update
+1. Extract canonical `video_id` from the URL.
+2. Search `./Youtube/**/*.md` for an existing matching `video_id`.
+3. Decide whether to reuse or refresh any existing `transcript.md`.
+4. Download or read `transcript.md`.
+5. Extract title, channel, duration, and upload date.
+6. Download the best available thumbnail to local `attachments/`.
+7. Choose `main_topic`, folder title, filenames, and English tags.
+8. Create English and Spanish summary notes.
+9. Verify folder structure, frontmatter, tags, local links, and Base compatibility.
 
-## 1) Video ID Extraction
+## Identity And Duplicate Rules
 
-- Parse `video_id` from URL.
-  - Example: `https://www.youtube.com/watch?v=dQw4w9WgXcQ` -> `dQw4w9WgXcQ`
-- Use `video_id` as canonical identity for duplicate detection.
-
-## 2) Duplicate Check
-
-- Search existing notes under `./Youtube/**/*.md`:
-  - `rg 'video_id:\s*"?{video_id}"?' ./Youtube -g '*.md'`
-- If a match exists, locate whether `transcript.md` already exists in that
-  video folder.
-- If transcript exists, ask user exactly:
-  - Override transcript and reprocess everything, or
+- Parse `video_id` from common URL forms, including `watch?v=`, `youtu.be/`, and Shorts URLs.
+- Treat `video_id` as the canonical identity.
+- Search before downloading anything: `rg 'video_id:\s*"?{video_id}"?' ./Youtube -g '*.md'`.
+- Match quoted and unquoted `video_id` values.
+- If a matching video folder has `transcript.md`, ask exactly one question with these choices:
+  - Override transcript and reprocess everything.
   - Reuse existing transcript and regenerate summaries only.
-- If no match exists, continue with transcript download.
+- If a matching summary exists but no transcript exists, download the transcript and reuse the existing folder when practical.
 
-## 3) Transcript Handling
+## Transcript And Thumbnail Rules
 
-- Use `yt-dlp` MCP for subtitle/transcript retrieval.
-- Language priority:
-  1. English subtitles first
-  2. Spanish subtitles fallback
-
-Transcript rules:
-
-- Save transcript exactly as returned (no rewriting).
+- Use `yt-dlp` or available YouTube transcript MCP/tooling for subtitle retrieval.
+- If `$HOME/youtube_cookies.txt` exists, pass it to `yt-dlp` as `--cookies "$HOME/youtube_cookies.txt"`.
+- Prefer English subtitles when available; otherwise prefer the video's original-language subtitles before any translated subtitle track.
+- Save transcript text exactly as returned; do not rewrite, summarize, or translate it.
 - Filename must be exactly `transcript.md`.
-- Include YAML frontmatter with at least:
-  - `video_id`
-  - `channel`
-  - `original_video`
+- Include transcript frontmatter with at least `video_id`, `channel`, and `original_video`.
+- Save one thumbnail as `attachments/{safe_video_id}.jpg`.
+- Build `safe_video_id` by replacing invalid filename characters (`:` `/` `\\` `*` `?` `"` `<` `>` `|`) with `-`.
+- Try thumbnail URLs in order: `maxresdefault.jpg`, `hqdefault.jpg`, `mqdefault.jpg`, `default.jpg`.
+- Use only local thumbnail links in notes; never hotlink YouTube image URLs.
 
-Also extract metadata for summaries:
+## Folder, Filename, And Tag Rules
 
-- Title
-- Channel
-- Duration
-- Upload date
+- Choose `main_topic` from the first meaningful non-system tag.
+- Exclude `youtube`, `en`, and `es` when choosing `main_topic`.
+- Normalize `main_topic` to a lowercase slug and replace `/` with `-`, such as `ai/agents` becoming `ai-agents`.
+- Derive concise natural-language filenames from each summary's `Brief Summary`.
+- Use spaces in filenames; do not use dash-separated slug filenames.
+- Replace invalid macOS filename characters safely.
+- Include at least five relevant English tags, including `youtube`.
+- Do not include `en` or `es` tags.
 
-## 4) Thumbnail Attachment
+## Summary Contract
 
-- Create `attachments/` inside the video folder if missing.
-- Download and save a local thumbnail in `attachments/`.
-- Preferred filename pattern: `{safe_video_id}.jpg`.
-- Build `safe_video_id` from `video_id` by replacing filesystem-invalid
-  characters (`:` `/` `\\` `*` `?` `"` `<` `>` `|`) with `-`.
-- Try thumbnail URLs in this order until one succeeds:
-  1. `https://img.youtube.com/vi/{video_id}/maxresdefault.jpg`
-  2. `https://img.youtube.com/vi/{video_id}/hqdefault.jpg`
-  3. `https://img.youtube.com/vi/{video_id}/mqdefault.jpg`
-  4. `https://img.youtube.com/vi/{video_id}/default.jpg`
-- Keep the thumbnail local (do not hotlink remote YouTube image URLs in notes).
+- Create exactly two summary notes per video, one English and one Spanish.
+- Use `language: "en"` for the English note and `language: "es"` for the Spanish note.
+- Add `spanish_file: "{spanish_filename}.md"` to the English note only.
+- Make `spanish_file` exactly match the Spanish filename, including spaces, capitalization, accents if present, and `.md`.
+- Keep `thumbnail_file` exactly `attachments/{safe_video_id}.jpg`.
+- Translate directly with context awareness; do not use external translation tools.
+- If the transcript is not English or Spanish, translate summaries into English, Spanish, or both as needed while keeping the transcript unchanged.
+- Preserve technical terms, proper nouns, links, and code examples.
+- Do not invent claims, examples, or conclusions not supported by the transcript.
 
-## 5) Summary Creation
+Each summary must include frontmatter for `original_video`, `channel`, `duration`, `upload_date`, `video_id`, `thumbnail_file`, `category`, `language`, and `tags`. The English note also includes `spanish_file`.
 
-- If reusing existing transcript, read `transcript.md` from existing folder.
-- Create bilingual summaries (English and Spanish) from transcript content.
-- Translation constraints:
-  - Do not use external translation tools.
-  - Translate directly with context awareness.
-  - Preserve technical terms, proper nouns, and code examples.
+Each summary body must include the local thumbnail image, `## Brief Summary`, `## Key Points`, and `## Comprehensive Summary` with concept-focused section titles. Prioritize educational value for future study and keep key points to 15 bullets or fewer.
 
-## 6) Folder and File Organization
+## Completion Standard
 
-### Main Topic Rules
-
-- Set `main_topic` as first non-system tag.
-- Exclude `youtube`, `en`, `es`.
-- Normalize `main_topic` to lowercase slug.
-- Replace `/` with `-` (example: `ai/agents` -> `ai-agents`).
-
-### Folder Structure
-
-- `./Youtube/{main_topic}/{video_folder_title}/`
-
-### Title and Filename Rules
-
-- Derive concise title from `Brief Summary`.
-- Generate English title for English summary filename.
-- Generate equivalent Spanish title for Spanish summary filename.
-- Use natural-language filenames (with spaces), not dash-separated slugs.
-  - Example: `Como uso Claude Code 50 consejos practicos.md` (correct)
-  - Not: `como-uso-claude-code-50-consejos-practicos.md`
-- Required files in each folder:
-  - `{english_title}.md`
-  - `{spanish_title}.md`
-  - `transcript.md`
-  - `attachments/{safe_video_id}.jpg`
-
-## 7) Base Compatibility Update
-
-In English summary frontmatter only:
-
-- Add `spanish_file: "{spanish_filename}.md"`
-
-Compatibility constraints:
-
-- `spanish_file` must exactly match the Spanish filename.
-- Keep transcript filename fixed as `transcript.md`.
-- Keep thumbnail path fixed as `attachments/{safe_video_id}.jpg`.
-- Do not include `en` or `es` in tags.
-- Use `language: "en"` and `language: "es"` in frontmatter.
-
-## Summary Template
-
-```markdown
----
-original_video: "{Video URL}"
-channel: "{Channel Name}"
-duration: "{Duration}"
-upload_date: {YYYY-MM-DD}
-video_id: "{Video ID}"
-thumbnail_file: "attachments/{safe_video_id}.jpg"
-category: "{Main Category}"
-language: "en"
-spanish_file: "{Spanish filename}.md"
-tags:
-  - youtube
-  - {programming-language}
-  - {tool}
-  - {topic-specific}
-  - {framework}
----
-
-![Video Thumbnail](attachments/{safe_video_id}.jpg)
-
-## Brief Summary
-{One concise paragraph overview}
-
-## Key Points
-- {Important point 1}
-- {Important point 2}
-
-## Comprehensive Summary
-
-### {Descriptive Section Title 1}
-{Detailed explanation of what is being taught in this section}
-```
-
-## Comprehensive Summary Requirements
-
-- Prioritize educational value for future study.
-- Use descriptive section titles naming concepts or skills.
-- Explain methods, techniques, and key insights.
-- Keep key points to maximum 15 bullets.
-
-## System Configuration
-
-- Write markdown files directly to filesystem first.
-- If direct write fails, fallback to Obsidian MCP functions.
-- Report download or processing failures clearly.
-
-## Final QA Checklist
-
-- Video folder exists at expected path.
-- Transcript exists as `transcript.md` (or explicit reuse path used).
-- Thumbnail exists as `attachments/{safe_video_id}.jpg`.
-- English and Spanish summary files exist with title-based names.
-- English summary includes exact `spanish_file`.
-- Required frontmatter fields are present in both summaries.
-- `thumbnail_file` is present and equals `attachments/{safe_video_id}.jpg`.
-- All tags are in English.
-- Tags exclude `en` and `es`.
-- At least 5 relevant tags are present.
-- `upload_date` is formatted as `YYYY-MM-DD`.
-- Brief summary, key points, and comprehensive summary are complete.
-- Comprehensive summary uses clear, learning-oriented section titles.
-- Markdown has no broken links or missing resources.
+Before reporting completion, verify: folder and required files exist; required frontmatter is present; `upload_date` uses `YYYY-MM-DD` when available; `thumbnail_file` and all thumbnail links are local; English `spanish_file` exactly matches the Spanish filename; Spanish note omits `spanish_file`; tags are English, include `youtube`, exclude `en` and `es`, and include at least five relevant tags; transcript is faithful; summaries are complete, language-specific, and transcript-grounded; duplicate detection happened before download; existing transcript flow asked whether to override or reuse; failures are reported clearly.
