@@ -1,9 +1,13 @@
 ---
 name: commit
-description: Create git commits with conventional commit messages. ALWAYS use this skill when committing code - whether user-requested or after completing a task. Triggers on "commit", "/commit", "make a commit", "git commit", "save changes", or any request to commit. Accepts optional context argument for commit message guidance.
+description: Create safe git commits with Conventional Commit messages. ALWAYS use this skill when committing code, whether user-requested or after completing a task. Use when the user says "commit", "/commit", "make a commit", "git commit", "save changes", or asks to prepare a commit. Accepts optional context for commit-message guidance.
 ---
 
 # Commit
+
+Create one safe, intentional commit. Inspect the work, choose a clean boundary, stage only what belongs, validate the staged intent, then commit when the user explicitly asked for it or approves the draft.
+
+Never push from this skill. Use `/pr` for push and draft-only pull-request work.
 
 ## Context
 
@@ -13,124 +17,94 @@ description: Create git commits with conventional commit messages. ALWAYS use th
 - Changed files: !`git diff --name-only`
 - Staged files: !`git diff --cached --name-only`
 
-## Steps
+## Modes
 
-1. **Run safety gates and choose the next boundary** - Stop before reading diffs
-   or staging files when risk is present:
-   - Secret-looking paths: `.env*`, private keys, certificates, token files,
-     credential files, database files, or paths with obvious secret names
-   - Binary, generated, or dependency noise unrelated to the user's requested work
-   - Changed files that appear unrelated to the requested work
-   - If unrelated files are present, ask which files to include. Do not stage or
-     commit them by default.
-   - Decide whether the work forms one clean commit before staging anything.
-   - Split commits when changes differ by feature vs. refactor,
-     backend vs. frontend, formatting vs. logic, tests vs. production code,
-     dependency bumps vs. behavior changes, or any other separable intent.
-   - If the staged change cannot be described cleanly in 1-2 sentences, the
-     commit is probably too large or mixed. Return to the boundary decision.
-2. **Analyze relevant diffs and stage intentionally** - Inspect only relevant
-   diffs after the safety gates pass:
-   - `git diff -- <path>` for unstaged changes
-   - `git diff --cached -- <path>` for staged changes
-   - Review staged changes, unstaged modifications in the same files, and
-     current branch against the selected commit boundary.
-   - Stage only files or hunks that belong in the next commit.
-   - Prefer patch staging for mixed-purpose files: `git add -p <path>`.
-   - To unstage a hunk or file, use `git restore --staged -p <path>` or
-     `git restore --staged <path>`.
-3. **Validate the staged intent** - Determine and run the narrowest useful
-   validation before proposing a commit:
-   - Prefer existing repo checks and file-specific syntax/type checks before
-     broad test suites.
-   - For production changes, run the closest existing test, type check,
-     syntax check, or build slice that exercises the staged behavior.
-   - For test-only commits, validate the test file or expected pass/fail
-     behavior where practical.
-   - If validation fails, stop and report the exact command plus a concise
-     failure summary.
-   - Do not propose or create a commit while relevant validation is failing.
-4. **Describe and generate** - First describe the staged change in 1-2
-   sentences, then create the commit message:
-   - Description must answer: "What changed?" and "Why?"
-   - If the description is awkward, broad, or needs multiple unrelated clauses,
-     revisit Step 1 and split the commit.
-   - Follow Conventional Commits exactly:
+- **Commit mode**: If the user explicitly asked to commit, commit after safety gates pass.
+- **Draft mode**: If the user asked to prepare, review, or suggest a commit, stop with a draft.
+- **Split mode**: One commit per run by default. If obvious separate intents exist, propose the sequence and handle one approved boundary at a time.
 
-     ```text
-     type(scope): short summary
+## Safety Gates
 
-     Body explaining why the change was needed, then what changed.
+Stop and ask before staging or committing when there are:
 
-     BREAKING CHANGE: footer when needed.
-     ```
+- Secret-looking paths or content: `.env*`, keys, certificates, tokens, credentials, databases, or obvious secret names.
+- Unrelated changed files, generated noise, dependency changes, lockfiles, or binary files outside the chosen boundary.
+- Staged changes that cannot be described cleanly in 1-2 sentences.
+- Staged files with ambiguous unstaged edits in the same files.
+- `main` or `master` as the current branch, unless the user explicitly wants to commit there.
+- Push, force-push, amend, destructive git action, dependency change, or package-manager change not explicitly requested.
 
-   - Use context if provided: `context: $ARGUMENTS`
-   - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`
-   - Infer scope from staged files (e.g., `feat(auth):` for changes in `auth/`)
-   - Match recent commits style when possible
-   - No co-authors
-   - **Subject line**: imperative, specific, and no period. Use verbs like
-     "add", "fix", "remove", or "refactor".
-   - **Body**:
-      - Explain why the change was needed first, then what changed. The why must
-        be specific enough to justify the commit.
-      - Use imperative mood and present tense, such as "allow users to filter by
-        date" instead of "allowed" or "allows"
-      - Include motivation for the change
-      - Contrast with previous behavior when relevant
-      - Be specific about user-facing impact. Avoid vague messages like
-        "improved experience"; say exactly what changed.
-   - **Footer**: include only required metadata such as `BREAKING CHANGE:` or
-     issue references
-   - **Breaking changes**: add **!** before the colon in the type prefix, such
-     as `feat(api)!: remove v1 endpoints`, and/or use a `BREAKING CHANGE:`
-     footer. The footer label MUST be uppercase.
-   - Apply Humanizer rules: write naturally, avoid generic AI phrasing, remove
-     filler, and keep the message specific to the change.
-5. **Report draft** - Use this output format before any write action:
+Respect already-staged files as likely intent, but inspect them. Commit them only when they are coherent and match the request.
 
-   ```markdown
-   ## Status
-   [Branch, changed-file count, staged-file count]
+## Workflow
 
-   ## Risk Check
-   [Secrets/unrelated files/destructive action risks, or "None found"]
+1. **Choose the boundary**
+   - Split when changes are separable by feature vs. refactor, production vs. tests, frontend vs. backend, formatting vs. logic, dependency updates vs. behavior, or another obvious intent.
+   - Ask when splitting would require interpretation.
 
-   ## Validation
-   [Commands run and pass/fail results]
+2. **Inspect relevant diffs**
+   - Use `git diff -- <path>` and `git diff --cached -- <path>`.
+   - Review staged changes, unstaged edits in the same files, and recent commit style.
 
-   ## Commit Boundary
-   [What belongs in this commit and what, if anything, is intentionally left unstaged]
+3. **Stage intentionally**
+   - Stage only files or hunks in the selected boundary.
+   - Patch-stage automatically when the boundary is clear.
+   - Ask before staging ambiguous hunks.
+   - Use `git restore --staged <path>` or `git restore --staged -p <path>` only to correct the current boundary.
 
-   ## Staged Change
-   [1-2 sentences: what changed and why]
+4. **Validate the staged intent**
+   - Run the narrowest useful read-only check when relevant and available: targeted tests, formatter check, linter, typecheck, syntax check, or build slice.
+   - Prefer specific checks over broad suites.
+   - If no useful check exists, continue and report: `Validation: not run, no targeted check found`.
+   - If validation fails, stop, report the command and concise failure summary, then ask whether to fix before committing.
+   - Do not run write-fixers such as `prettier --write`, `eslint --fix`, codegen, or lockfile updates without explicit approval.
 
-   ## Commit Draft
-   [Suggested commit message]
+5. **Generate the message**
+   - Use Conventional Commits: `type(scope): imperative summary`.
+   - Types: `feat`, `fix`, `docs`, `style`, `refactor`, `test`, `chore`.
+   - Infer scope from staged files and match recent commit style when practical.
+   - Subject: imperative, specific, no period.
+   - Body is optional for obvious small commits.
+   - Body is required for breaking changes, migrations, multi-file behavior changes, non-obvious fixes, or tradeoffs the subject cannot preserve.
+   - Put why first, then what changed. Add `BREAKING CHANGE:` only when required.
+   - No co-authors unless explicitly requested.
+   - Apply Humanizer rules: natural, specific, no filler, no generic AI phrasing.
+   - Use optional context from `$ARGUMENTS` when provided.
 
-   ## Actions Taken
-   [Exactly what was staged, committed, or pushed. If none, say "No write
-   actions taken"]
+6. **Commit or draft**
+   - Record the intended boundary before the first `git commit` attempt. Keep that boundary fixed for all retry and amend checks.
+   - In commit mode, run `git commit` after staging and validation pass.
+   - In draft mode, do not commit; show the proposed boundary and message.
+   - After every `git commit` attempt, inspect `git status --short`, `git diff -- <boundary>`, and `git diff --cached -- <boundary>` before deciding success or retry.
+   - If the commit succeeds and hook rewrites leave dirty files:
+     - Confirm every dirty path is already inside the intended boundary and clearly caused by hooks.
+     - Stage those exact paths only.
+     - If the dirty files belong to the just-created commit, run `git commit --amend --no-edit` once.
+     - Inspect status and diff again before calling it done.
+   - If the commit fails and hook rewrites changed files inside the intended boundary:
+     - Stage the exact hook-touched paths only.
+     - Retry once.
+     - Inspect status and diff again after the retry.
+   - If the dirty files are outside the boundary, untracked, generated, lockfiles, partially staged, have ambiguous unstaged edits, or the hook ownership is unclear, stop and report the exact files and reason.
+   - If hook rewrites repeat after the allowed retry, stop and report.
+   - Never use `--no-verify`. Never amend unless the commit was just created in this invocation.
 
-   ## Next Step
-   [One clear next command or decision]
-   ```
+## Output
 
-6. **Confirm** - Ask ALL relevant questions at once:
-   - No staged files? → "Stage all changes?" / "Select files to stage?"
-   - Unstaged mods in staged files? → "Include unstaged changes?"
-   - On main/master? → "Create new branch?" with suggested name
-   - Show commit message → "Approve?" / "Edit message?"
-   - Commit requested? → Commit only after explicit approval
-   - Push requested? → Push only after explicit approval
-7. **Execute** - Apply only explicit user choices:
-   - Stage only the next approved commit's files or hunks.
-   - Commit only if the user explicitly requested or approved commit creation.
-   - Push only if the user explicitly requested or approved pushing.
-   - Never amend an existing commit unless the user explicitly requested amend.
-8. **Handle failures** - If commit/push fails:
-    - Report the error clearly
-    - Never use `--no-verify` to bypass hooks
-    - Suggest fixes (e.g., fix lint errors, resolve conflicts)
-    - Retry after user addresses the issue
+Use terse output for a clean commit only after the post-commit status and diff checks pass cleanly, including any safe amend flow:
+
+```markdown
+Committed `type(scope): summary`
+
+Branch: `branch-name`
+Boundary: what was included
+Validation: command passed, or not run with reason
+Risk check: post-commit status/diff clean after any safe amend
+Next: use `/pr` to push or open a draft PR, if relevant
+```
+
+Use a structured report only for drafts, blocked commits, risky state, failed validation, decisions, or unsafe hook-rewrite stops: `Status`, `Commit Result`, `Dirty Files`, `Reason`, and `Next`.
+
+Unsafe hook-rewrite states stop here. Do not retry, amend, or broaden staging.
+
+Ask all required questions in one turn. If commit, validation, or staging fails, report the exact problem and do not bypass hooks. If push or PR work is requested, stop after the commit and hand off to `/pr`; new PRs must remain draft-only there.
