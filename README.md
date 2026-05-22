@@ -26,7 +26,7 @@ Create or update GitHub pull requests.
 - Analyzes all commits since branching from main
 - Generates PR title and description
 - Respects `.github/PULL_REQUEST_TEMPLATE.md` if present
-- Handles push, draft PRs, reviewers, and labels
+- Always creates new PRs as drafts and refuses to report success unless draft state is verified
 - Requires `gh` CLI
 
 ### github-actions
