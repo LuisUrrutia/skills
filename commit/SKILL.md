@@ -7,7 +7,7 @@ description: Create safe git commits with Conventional Commit messages. ALWAYS u
 
 Create one safe, intentional commit. Inspect the work, choose a clean boundary, stage only what belongs, validate the staged intent, then commit when the user explicitly asked for it or approves the draft.
 
-Never push from this skill. Use `/pr` for push and pull-request work.
+Never push from this skill. Use `/pr` for push and draft-only pull-request work.
 
 ## Context
 
@@ -72,14 +72,26 @@ Respect already-staged files as likely intent, but inspect them. Commit them onl
    - Use optional context from `$ARGUMENTS` when provided.
 
 6. **Commit or draft**
+   - Record the intended boundary before the first `git commit` attempt. Keep that boundary fixed for all retry and amend checks.
    - In commit mode, run `git commit` after staging and validation pass.
    - In draft mode, do not commit; show the proposed boundary and message.
-   - If hooks mutate files, inspect the new diff, re-stage only intended changes, and retry only when the boundary remains clear. Otherwise report what changed and ask.
-   - Never use `--no-verify`. Never amend unless explicitly requested.
+   - After every `git commit` attempt, inspect `git status --short`, `git diff -- <boundary>`, and `git diff --cached -- <boundary>` before deciding success or retry.
+   - If the commit succeeds and hook rewrites leave dirty files:
+     - Confirm every dirty path is already inside the intended boundary and clearly caused by hooks.
+     - Stage those exact paths only.
+     - If the dirty files belong to the just-created commit, run `git commit --amend --no-edit` once.
+     - Inspect status and diff again before calling it done.
+   - If the commit fails and hook rewrites changed files inside the intended boundary:
+     - Stage the exact hook-touched paths only.
+     - Retry once.
+     - Inspect status and diff again after the retry.
+   - If the dirty files are outside the boundary, untracked, generated, lockfiles, partially staged, have ambiguous unstaged edits, or the hook ownership is unclear, stop and report the exact files and reason.
+   - If hook rewrites repeat after the allowed retry, stop and report.
+   - Never use `--no-verify`. Never amend unless the commit was just created in this invocation.
 
 ## Output
 
-Use terse output for a clean commit:
+Use terse output for a clean commit only after the post-commit status and diff checks pass cleanly, including any safe amend flow:
 
 ```markdown
 Committed `type(scope): summary`
@@ -87,10 +99,12 @@ Committed `type(scope): summary`
 Branch: `branch-name`
 Boundary: what was included
 Validation: command passed, or not run with reason
-Risk check: no unrelated files or secret-looking paths found
-Next: use `/pr` to push or open a PR, if relevant
+Risk check: post-commit status/diff clean after any safe amend
+Next: use `/pr` to push or open a draft PR, if relevant
 ```
 
-Use a structured report only for drafts, blocked commits, risky state, failed validation, or decisions: `Status`, `Risk Check`, `Validation`, `Commit Boundary`, `Commit Draft`, and `Decision Needed`.
+Use a structured report only for drafts, blocked commits, risky state, failed validation, decisions, or unsafe hook-rewrite stops: `Status`, `Commit Result`, `Dirty Files`, `Reason`, and `Next`.
 
-Ask all required questions in one turn. If commit, validation, or staging fails, report the exact problem and do not bypass hooks. If push or PR work is requested, stop after the commit and hand off to `/pr`.
+Unsafe hook-rewrite states stop here. Do not retry, amend, or broaden staging.
+
+Ask all required questions in one turn. If commit, validation, or staging fails, report the exact problem and do not bypass hooks. If push or PR work is requested, stop after the commit and hand off to `/pr`; new PRs must remain draft-only there.
