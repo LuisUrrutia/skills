@@ -7,6 +7,8 @@ description: Create or update GitHub pull requests with safe git and gh CLI hand
 
 Create or update one GitHub pull request. Inspect the branch, commits, diff, template, and existing PR state; always create new PRs as drafts; ask only before destructive, unusual, or ambiguous decisions.
 
+Use `scripts/create-draft-pr.sh` for every new PR. Treat raw `gh pr create` as forbidden unless the wrapper is unavailable; if raw creation is unavoidable, it must use the exact draft enforcement sequence below.
+
 Own push and PR work here. Use `/commit` before this skill when the branch still needs a clean commit.
 
 ## Context
@@ -15,7 +17,7 @@ Own push and PR work here. Use `/commit` before this skill when the branch still
 - Status: !`git status -sb 2>/dev/null || echo "No git repo"`
 - Upstream: !`git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo "No upstream"`
 - Existing PR: !`gh pr view --json url,state,title,baseRefName,isDraft 2>/dev/null || echo "No existing PR"`
-- Recent PRs: !`gh pr list --state merged --limit 5 --json number,title,url,body 2>/dev/null || echo "No recent PRs"`
+- Recent PRs: !`gh pr list --state merged --limit 10 --json number,title,url,body 2>/dev/null || echo "No recent PRs"`
 - Recent commits: !`git log --oneline --decorate -10 2>/dev/null`
 - Branch diff: !`git diff --stat @{u}...HEAD 2>/dev/null || git diff --stat origin/HEAD...HEAD 2>/dev/null || git diff --stat HEAD 2>/dev/null`
 - PR template: !`ls .github/PULL_REQUEST_TEMPLATE.md .github/pull_request_template.md 2>/dev/null`
@@ -43,6 +45,24 @@ Stop and ask before continuing when:
 
 Never create a non-draft PR. Never rebase, force-push, change base branch away from the resolved default, add reviewers, add labels, change draft state, or close/reopen a PR without explicit approval.
 
+### Draft Enforcement
+
+This rule is absolute: every new PR creation command must include `--draft`. Prefer the bundled wrapper because it inserts `--draft`, blocks interactive/non-deterministic flags, verifies the result, attempts one conversion back to draft, and fails closed if draft state cannot be proven.
+
+Before running any raw `gh pr create` command, inspect the exact command string. If `--draft` is missing, stop and rewrite the command; do not ask the user whether to continue, and do not run it.
+
+After creating a PR, immediately verify draft state with `gh pr view <url-or-branch> --json isDraft,url`. If `isDraft` is not `true`, run `gh pr ready --undo <url-or-branch>` once, then verify again. If `isDraft` is still not `true`, report the URL as a policy violation and do not continue with metadata edits or any other PR actions.
+
+Never use `gh pr create --web`, `gh pr create -w`, `gh pr create --editor`, `gh pr create -e`, `gh pr create --recover`, `--draft=false`, or any interactive create flow. Never use `gh pr ready` without `--undo` from this skill.
+
+### Metadata Consistency Enforcement
+
+If no PR template exists, inspecting previous merged PRs is mandatory. Run `gh pr list --state merged --limit 10 --json number,title,url,body` before drafting the title or body. Do not create, update, or propose PR metadata until that lookup has been performed and summarized.
+
+When recent merged PRs exist, copy their dominant conventions: title prefix/case, section headings, checklist style, validation wording, risk wording, and level of detail. If conventions conflict, follow the newest matching PRs that are closest to the current change type.
+
+Only use the fallback `summary, changes, validation, risks` structure after proving that no template exists and recent merged PRs are unavailable or unusable. If the `gh pr list` lookup fails for an authenticated GitHub repository, stop and report the lookup failure instead of inventing a style.
+
 ## Workflow
 
 1. **Resolve repository state**
@@ -58,11 +78,14 @@ Never create a non-draft PR. Never rebase, force-push, change base branch away f
 3. **Prepare PR metadata**
    - Follow `.github/PULL_REQUEST_TEMPLATE.md` or `.github/pull_request_template.md` when present.
    - For template checklists, infer checked items from the diff when the evidence is strong. Leave unverifiable items unchecked.
-   - If no template exists, inspect the previous five merged PRs first, then follow the dominant title/body convention if one is present.
-   - If no template or usable recent-PR convention exists after inspection, use: summary, changes, validation, risks.
+   - If no template exists, run `gh pr list --state merged --limit 10 --json number,title,url,body`, inspect the previous merged PRs, and write down the dominant title/body convention before drafting metadata.
+   - If recent merged PRs are available, follow their dominant convention. Do not use the fallback structure just because it is easier.
+   - If no template exists and the recent-PR lookup fails, stop and report the exact command failure instead of creating or updating PR metadata.
+   - If no template exists and no usable recent-PR convention exists after a successful lookup, use: summary, changes, validation, risks.
    - If no tests or checks were run in the current session, write `Validation: not run` with the reason.
    - Title should be concise, imperative, and specific. Match the recent merged PR style when a pattern exists; otherwise use commit style only as a last resort.
    - Body should explain why the change exists, what changed, how it was validated, and any reviewer risks.
+   - If the work started from a GitHub issue, append `Fixes #<issue-number>` as the last line of the PR body so GitHub tracks the closure.
 
 4. **Decide or ask once**
    - If only low-risk draft-only actions are needed and no PR exists, proceed: push the current branch if needed, then create a draft PR.
@@ -72,7 +95,9 @@ Never create a non-draft PR. Never rebase, force-push, change base branch away f
 
 5. **Execute approved actions**
    - Push with `git push -u origin <branch>` when the branch has no upstream and the push is low-risk.
-   - Create with `gh pr create --draft --base <base> --head <branch> --title <title> --body <body>`. Do not omit `--draft` for any new PR.
+   - Create only with `scripts/create-draft-pr.sh --base <base> --head <branch> --title <title> --body <body>`. The wrapper must print the PR URL only after proving `isDraft: true`.
+   - If the wrapper is unavailable, create only with `gh pr create --draft --base <base> --head <branch> --title <title> --body <body>`. Do not omit `--draft` for any new PR. If the command you are about to run does not contain `--draft`, stop before execution and rebuild it.
+   - Immediately verify the created PR with `gh pr view <url-or-branch> --json isDraft,url`; the result must show `isDraft: true` before reporting success. If needed, run `gh pr ready --undo <url-or-branch>` once and verify again.
    - Update with `gh pr edit <url-or-branch> --title <title> --body <body>` and only the approved metadata flags.
    - If a command fails, report the exact command, concise failure, and next decision. Do not retry with broader permissions or destructive git actions.
 
