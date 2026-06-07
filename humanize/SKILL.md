@@ -11,7 +11,7 @@ Make text sound like a real person wrote it. Do not dumb it down, inflate it, or
 
 1. Read the full text before editing.
 2. Identify clusters of AI tells, not isolated false positives.
-3. Rewrite the affected passages while preserving meaning, facts, names, numbers, citations, and useful structure.
+3. Rewrite the affected passages while preserving meaning, facts, names, numbers, citations, and useful structure. In rewrite mode, confirmed AI tells are output constraints: do not recreate them in cleaner prose.
 4. Match the author's voice. If the user provides a writing sample, mirror its rhythm, vocabulary, punctuation habits, and level of formality.
 5. Read the result aloud. If it sounds like a press release, chatbot reply, SEO article, or polished committee memo, revise again.
 
@@ -50,7 +50,7 @@ Common AI tells:
 - Chatbot residue: "Great question," "I hope this helps," "Let me know," cutoff disclaimers, reasoning-chain artifacts, placeholder text, leaked citation markup, AI-tool UTM parameters.
 - Low information density: sentences that restate the previous sentence without adding facts, examples, stakes, or useful nuance.
 
-Do not over-flag normal human choices. One em dash, one transition word, title case under a style guide, or formal vocabulary in academic writing is not enough. Look for density and interaction. Formal, academic, technical, multilingual, and house-style prose is not automatically AI-written.
+Do not over-flag normal human choices. One em dash, one transition word, title case under a style guide, or formal vocabulary in academic writing is not enough. Look for density and interaction. Formal, academic, technical, multilingual, and house-style prose is not automatically AI-written. This false-positive guardrail protects source text; it does not permit adding those tells in rewrite mode.
 
 ### 3. Rewrite with substance
 
@@ -60,6 +60,8 @@ Do not over-flag normal human choices. One em dash, one transition word, title c
 - Break forced triads. Keep the natural number of items.
 - Repeat the clearest noun when repetition helps. Do not synonym-cycle.
 - Vary rhythm with short, medium, and longer sentences. Let some paragraphs stop without a tidy moral.
+- Treat confirmed AI tells as rewrite bans for generated wording. Do not recreate dash-heavy phrasing, decorative formatting, chatbot transitions, forced section shapes, synonym cycling, or other patterns you just diagnosed.
+- Do not introduce em dashes unless preserving quoted/source text or matching a provided writing sample, house style, or explicit user preference. When a dashy or over-polished sentence needs repair, reconnect the ideas with sentence craft: subordinate clauses, conjunctions, commas, colons, semicolons when natural, reordered clauses, or paragraph flow. Do not fix em dashes by chopping every connection into isolated period-separated sentences.
 - Use contractions, first person, asides, humor, or sharper opinions only when they fit the audience and source voice.
 - Keep citations, code blocks, data, technical terms, and quoted text intact unless the user asks otherwise.
 
@@ -85,5 +87,7 @@ For file edits, summarize the files changed and the validation performed.
 - The rewrite fits the requested audience and format.
 - Pattern clusters are fixed without flattening legitimate human voice.
 - The text has sentence-length variation and concrete details.
+- Confirmed AI tells are absent from generated wording, including unnecessary em dash characters (`—`).
+- Idea connections still flow; punctuation cleanup did not create choppy period-stacked prose.
 - Chatbot framing, filler, generic conclusions, and unsupported claims are gone.
 - The result passes the read-aloud test.

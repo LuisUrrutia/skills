@@ -8,6 +8,7 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 - Preserve house style. Formal, academic, legal, technical, multilingual, or accessibility-oriented prose can sound controlled without being AI-written.
 - Separate detection from judgment. A pattern means "review this," not "accuse the author."
 - Prefer concrete repairs. Replace puffery with facts, vague authority with named sources, and chatbot framing with content.
+- In rewrite mode, confirmed AI tells become output constraints. Preserve legitimate source style, but do not recreate diagnosed patterns in generated wording.
 - Keep the user's facts, citations, names, numbers, quoted text, code, and domain terms unless asked to change them.
 
 ## 1. Language and lexical tells
@@ -63,12 +64,12 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 **False positives:** Some academic and legal prose uses nominal style. Some `-ing` clauses are normal and precise.
 
-**Rewrite or detection tactic:** Try the simple version. If the sentence improves with "is," "has," or a period, use it. Split false ranges into a list of actual topics.
+**Rewrite or detection tactic:** Try the simple version. If the sentence improves with "is" or "has," use it. If a trailing clause is fake analysis, cut it, fold it into the sentence, or start a new sentence only when that is the most natural connection. Split false ranges into a list of actual topics.
 
 **Example:**
 
 - Before: "The report serves as a roadmap for leaders, highlighting the importance of alignment."
-- After: "The report gives leaders a roadmap. It recommends weekly budget reviews."
+- After: "The report gives leaders a roadmap and recommends weekly budget reviews."
 
 ## 5. Structure and outline artifacts
 
@@ -87,13 +88,13 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 6. Formatting tells
 
-**Signal:** Overuse of bold inline labels, emoji bullets, title-case headings in casual prose, boxed takeaway lists, excessive blockquotes, too many colons, mechanical tables, curly quotes in otherwise plain text, invisible Unicode, nonbreaking spaces, zero-width characters, smart punctuation that differs from the file style, and repeated Markdown fences without need.
+**Signal:** Overuse of bold inline labels, emoji bullets, title-case headings in casual prose, boxed takeaway lists, excessive blockquotes, em dash characters (`—`) as default idea connectors, too many colons, mechanical tables, curly quotes in otherwise plain text, invisible Unicode, nonbreaking spaces, zero-width characters, smart punctuation that differs from the file style, and repeated Markdown fences without need.
 
 **Why suspicious:** Chatbots often overformat to look organized. Some tools also introduce hidden or typographic characters during generation.
 
 **False positives:** Style guides may require title case, curly quotes, tables, or callouts. Accessibility docs may use consistent labels for scanning.
 
-**Rewrite or detection tactic:** Match the destination format. Remove decorative formatting. Normalize invisible or inconsistent characters when editing files, but preserve intentional typography in published copy.
+**Rewrite or detection tactic:** Match the destination format. Remove decorative formatting. Normalize invisible or inconsistent characters when editing files, but preserve intentional typography in published copy. Do not introduce em dashes unless quoted/source text, a provided writing sample, house style, or the user's explicit preference calls for them. When replacing dash-heavy AI prose, repair the connection between ideas with subordinate clauses, conjunctions, commas, colons, semicolons when natural, reordered clauses, or paragraph flow rather than chopping every link into a period.
 
 **Example:**
 
@@ -256,12 +257,13 @@ Use these checks before flagging text:
 
 - Does the suspected phrase appear alone, or in a cluster?
 - Is the phrase required by a style guide, legal template, academic convention, accessibility pattern, or brand voice?
+- Is the punctuation part of quoted/source text, a provided writing sample, house style, or a deliberate author habit?
 - Does the sentence contain concrete detail despite the flagged phrase?
 - Is the writer using a second language, dialect, or regional convention?
 - Is the text a draft, outline, transcript, support reply, or generated artifact by design?
 - Would rewriting remove useful precision, citation discipline, or the author's real voice?
 
-If the answer is yes, soften the finding. Recommend a targeted edit, not a full rewrite.
+If the answer is yes, soften the finding. Recommend a targeted edit, not a full rewrite. These guardrails protect existing human choices; they do not license adding AI-tell punctuation, formatting, or structure during a rewrite.
 
 ## Review rubric
 
@@ -278,4 +280,5 @@ For audit work, score by clusters rather than isolated words:
 - Cut chatbot framing and prompt residue.
 - Keep formal, technical, academic, multilingual, and house-style choices when they are legitimate.
 - Vary rhythm without adding fake personality.
+- Remove generated AI-tell punctuation and formatting, including unnecessary em dashes, without flattening flow into choppy period-stacked prose.
 - Preserve the user's facts, citations, code, quoted text, and constraints.
