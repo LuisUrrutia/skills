@@ -5,7 +5,7 @@ description: Create or update GitHub pull requests with safe git and gh CLI hand
 
 # Pull Request
 
-Create or update one GitHub pull request. Inspect the branch, commits, diff, template, and existing PR state; always create new PRs as drafts; ask only before destructive, unusual, or ambiguous decisions.
+Create or update one GitHub pull request with concise, reviewer-facing metadata. Inspect the branch, commits, diff, template, and existing PR state; always create new PRs as drafts; ask only before destructive, unusual, or ambiguous decisions.
 
 Use `scripts/create-draft-pr.sh` for every new PR. Treat raw `gh pr create` as forbidden unless the wrapper is unavailable; if raw creation is unavoidable, it must use the exact draft enforcement sequence below.
 
@@ -78,14 +78,11 @@ GitHub-supported locations are `pull_request_template.md`,
 drafting the title or body. Do not create, update, or propose PR metadata until
 that lookup has been performed and summarized.
 
-When recent merged PRs exist, copy their dominant conventions: title prefix/case, section headings, checklist style, validation wording, risk wording, and level of detail. If conventions conflict, follow the newest matching PRs that are closest to the current change type.
+When recent merged PRs exist, copy their dominant conventions: title prefix/case, section headings, checklist style, validation wording, risk wording, and level of detail. If conventions conflict, follow the newest matching PRs closest to the current change type.
 
-Only use the fallback `Summary`, `Why this change`, `Changes`,
-`Validation`, and `Risks` structure after
-proving that no supported single-template file or multi-template directory
-exists and recent merged PRs are unavailable or unusable. If the `gh pr list`
-lookup fails for an authenticated GitHub repository, stop and report the lookup
-failure instead of inventing a style.
+Only use the fallback `Summary`, `Why this change`, `Changes`, `Validation`, and `Risks` structure after proving that no supported template exists and recent merged PRs are unavailable or unusable. If the `gh pr list` lookup fails for an authenticated GitHub repository, stop and report the lookup failure instead of inventing a style.
+
+PR content must be skimmable: lead with what changed and why, keep only review-relevant detail, avoid implementation diaries, and do not repeat the same fact in multiple sections.
 
 ## Workflow
 
@@ -132,23 +129,17 @@ failure instead of inventing a style.
    - If no supported template exists and no usable recent-PR convention exists
      after a successful lookup, use these sections in order: `Summary`,
      `Why this change`, `Changes`, `Validation`, and `Risks`.
-   - In fallback bodies, keep `Summary` and `Why this change` short,
-     easy to scan, and focused on what matters. Highlight the user or reviewer
-     benefit when it is relevant, but do not pad with promotional wording.
-   - Always run the PR title and body through the `humanize` skill when it is
-     available.
-   - Verification is the agent's responsibility. Do not write reviewer-facing
-     instructions like "How to verify" when the agent can verify with `git`,
-     `gh`, tests, builds, file inspection, or manual QA evidence.
-   - If no tests or checks were run in the current session, write
-     `Validation: not run` with the reason. Otherwise state what was actually
-     verified and summarize concrete evidence.
-   - Title should be concise, specific, and match the recent merged PR style when
-     a pattern exists. If no clear title pattern exists, use Conventional Commit
-     format: `type(scope): summary`, omitting scope only when no useful scope is
-     obvious.
-   - Body should explain why the change exists, what changed, how it was
-     validated, and any reviewer risks.
+   - Write PR content for reviewers, not for yourself:
+     - `Summary`: one or two sentences covering what changed and why.
+     - `Why this change`: one short paragraph only when the motivation is not obvious from the summary or linked issue.
+     - `Changes`: three to five bullets, grouped by behavior or reviewer concern, not by file.
+     - `Validation`: exact commands, checks, or manual QA performed. If none ran in the current session, write `Validation: not run` with the reason.
+     - `Risks`: only real reviewer risks, rollout notes, or known gaps. Omit filler like "low risk" unless recent PR convention requires it.
+   - Avoid duplicate sections, promotional wording, exhaustive file inventories, and vague claims such as "improved UX" without evidence.
+   - Always run the PR title and body through the `humanize` skill when it is available.
+   - Verification is the agent's responsibility. Do not write reviewer-facing instructions like "How to verify" when the agent can verify with `git`, `gh`, tests, builds, file inspection, or manual QA evidence.
+   - Title should be concise, specific, and match the recent merged PR style when a pattern exists. If no clear title pattern exists, use Conventional Commit format: `type(scope): summary`, omitting scope only when no useful scope is obvious.
+   - Body should explain why the change exists, what changed, how it was validated, and any reviewer risks without restating the commit log.
    - Never add `Co-authored-by`, co-author trailers, or authorship footers to the PR title or body.
    - If the work started from a GitHub issue, append `Fixes #<issue-number>` as the last line of the PR body so GitHub tracks the closure.
 

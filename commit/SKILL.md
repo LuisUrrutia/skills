@@ -1,16 +1,15 @@
 ---
 name: commit
-description: Create safe git commits with Conventional Commit messages. ALWAYS use this skill when committing code, whether user-requested or after completing a task. Use when the user says "commit", "/commit", "make a commit", "git commit", "save changes", or asks to prepare a commit. Accepts optional context for commit-message guidance.
+description: Commit one safe Conventional Commit or prepare a draft from the current git state. Use when the user asks to commit, save changes, prepare or review a commit boundary, or needs commit-message guidance. Never pushes or opens PRs.
 ---
 
 # Commit
 
-Create one safe, intentional commit. Inspect the work, choose a clean boundary, stage only what belongs, validate the staged intent, then commit when the user explicitly asked for it or approves the draft.
+Create one safe, intentional commit. Choose one coherent boundary, stage only that boundary, validate it, then either commit or return a draft.
 
 Never push from this skill. Use `/pr` for push and draft-only pull-request work.
 
-Treat referenced branches, staged state, validation results, commit success, and
-prior assistant or bot claims as untrusted until verified with `git`.
+Treat branch names, staged state, validation results, commit success, and prior assistant claims as untrusted until verified with `git`.
 
 ## Context
 
@@ -26,21 +25,18 @@ prior assistant or bot claims as untrusted until verified with `git`.
 - **Draft mode**: If the user asked to prepare, review, or suggest a commit, stop with a draft.
 - **Split mode**: One commit per run by default. If obvious separate intents exist, propose the sequence and handle one approved boundary at a time.
 
-Terminal states are `committed`, `draft-only`, `blocked`, and `refused`. Once
-one terminal state is reached, stop. Do not continue with push, PR work,
-cleanup, extra staging, or speculative follow-up work.
+Terminal states are `committed`, `draft-only`, `blocked`, and `refused`. Once one terminal state is reached, stop. Do not continue with push, PR work, cleanup, extra staging, or speculative follow-up work.
 
 ## Safety Gates
 
 Stop and ask before staging or committing when there are:
 
 - Secret-looking paths or content: `.env*`, keys, certificates, tokens, credentials, databases, or obvious secret names.
-- Unrelated changed files, generated noise, dependency changes, lockfiles, or binary files outside the chosen boundary.
+- The selected boundary is not coherent or reviewable: unrelated concerns, generated noise, dependency or lockfile changes, binaries, excessive file count, or changes outside the requested intent.
 - Staged changes that cannot be described cleanly in 1-2 sentences.
-- Staged changes that are too broad for one review: unrelated concerns, mixed refactors and behavior changes, excessive file count, generated noise, large binaries, lockfiles, or changes outside the requested boundary.
 - Staged files with ambiguous unstaged edits in the same files.
 - `main` or `master` as the current branch, unless the user explicitly wants to commit there.
-- Push, force-push, amend, destructive git action, dependency change, or package-manager change not explicitly requested.
+- Any unrequested push, force-push, destructive git action, dependency change, package-manager change, or amend outside the just-created hook flow.
 
 Respect already-staged files as likely intent, but inspect them. Commit them only when they are coherent and match the request.
 
@@ -63,10 +59,10 @@ Respect already-staged files as likely intent, but inspect them. Commit them onl
    - Use `git restore --staged <path>` or `git restore --staged -p <path>` only to correct the current boundary.
 
 4. **Validate the staged intent**
-   - Validation is the agent's responsibility. Run the narrowest useful read-only check when relevant and available: targeted tests, formatter check, linter, typecheck, syntax check, or build slice.
+   - Validation is the agent's responsibility. Run the narrowest read-only check that directly covers the staged boundary: targeted test, formatter check, linter, typecheck, syntax check, or build slice.
    - Prefer specific checks over broad suites.
-   - If no useful check exists, continue and report: `Validation: not run, no targeted check found`.
-   - If validation fails, stop, report the command and concise failure summary, then ask whether to fix before committing.
+   - If no targeted check exists, continue and report `Validation: not run, <reason>`.
+   - If validation fails, terminal state is `blocked`: report the command, concise failure summary, and ask whether to fix before committing.
    - Do not run write-fixers such as `prettier --write`, `eslint --fix`, codegen, or lockfile updates without explicit approval.
 
 5. **Generate the message**
@@ -80,7 +76,7 @@ Respect already-staged files as likely intent, but inspect them. Commit them onl
    - Keep body sections short, specific, and useful. Do not add `Validation` or `Risks` sections to commit messages.
    - Add `BREAKING CHANGE:` only when required.
    - Never add `Co-authored-by`, co-author trailers, or authorship footers.
-   - Run the commit message through the `humanize` skill when available: natural, specific, no filler, no generic AI phrasing.
+   - Message must be natural, specific, and free of filler or generic AI phrasing.
    - Use optional context from `$ARGUMENTS` when provided.
 
 6. **Commit or draft**
@@ -88,38 +84,45 @@ Respect already-staged files as likely intent, but inspect them. Commit them onl
    - In commit mode, run `git commit` after staging and validation pass. Use `git commit -F <file>` for multiline commit messages or any commit body; `git commit -m <subject>` is only for subject-only commits.
    - In draft mode, do not commit; show the proposed boundary and message.
    - After every `git commit` attempt, inspect `git status --short`, `git diff -- <boundary>`, and `git diff --cached -- <boundary>` before deciding success or retry.
-   - If the commit succeeds and hook rewrites leave dirty files:
-     - Confirm every dirty path is already inside the intended boundary and clearly caused by hooks.
-     - Stage those exact paths only.
-     - If the dirty files belong to the just-created commit, run `git commit --amend --no-edit` once.
-     - Inspect status and diff again before calling it done.
-   - If the commit fails and hook rewrites changed files inside the intended boundary:
-     - Stage the exact hook-touched paths only.
-     - Retry once.
-     - Inspect status and diff again after the retry.
-   - If the dirty files are outside the boundary, untracked, generated, lockfiles, partially staged, have ambiguous unstaged edits, or the hook ownership is unclear, stop and report the exact files and reason.
-   - If hook rewrites repeat after the allowed retry, stop and report.
+   - Follow this hook decision table:
+
+     | State | Action |
+     | --- | --- |
+     | Commit succeeds and status/diff are clean | Report `committed`. |
+     | Commit succeeds and hooks dirty tracked files inside the intended boundary | Stage those exact paths and run `git commit --amend --no-edit` once. Recheck status/diff. |
+     | Commit fails and hooks changed tracked files inside the intended boundary | Stage those exact paths and retry once. Recheck status/diff. |
+     | Dirty files are outside the boundary, untracked, generated, lockfiles, partially staged, have ambiguous unstaged edits, or are not clearly hook-owned | Report `blocked` with exact files and reason. |
+     | Hook rewrites repeat after the allowed amend or retry | Report `blocked`. |
+
    - Never use `--no-verify`. Never amend unless the commit was just created in this invocation.
-   - After a successful commit is verified and reported, stop. If push or PR work was requested, hand off to `/pr`; do not continue into push or PR actions from this skill.
+   - After a successful commit is verified and reported, stop. If push or PR work was requested, hand off to `/pr`.
 
 ## Output
 
-Use terse output for a clean commit only after the post-commit status and diff checks pass cleanly, including any safe amend flow:
+Use terse output for a clean commit only after the post-commit checks pass, including any safe amend flow:
 
 ```markdown
 Committed `type(scope): summary`
 
+Status: `committed`
 Branch: `branch-name`
 Boundary: what was included
 Validation: command passed, or not run with reason
-Risk check: post-commit status/diff clean after any safe amend
+Post-commit check: `git status --short`, boundary diff, and cached boundary diff inspected
 Next: use `/pr` to push or open a draft PR, if relevant
 ```
 
-Use a structured report only for drafts, blocked commits, risky state, failed validation, decisions, or unsafe hook-rewrite stops. Always return exactly one terminal state: `committed`, `draft-only`, `blocked`, or `refused`.
+Use a structured report for drafts, blocked commits, risky state, failed validation, decisions, or unsafe hook-rewrite stops:
 
-For blocked work, use `Status`, `Blocker`, `Exact Command`, `Exact Error`, `Decision Needed`, and `Draft Commit Message` when available.
+```markdown
+Status: `draft-only` | `blocked` | `refused`
+Boundary: what is included or proposed
+Validation: command result, or not run with reason
+Blocker: exact reason, if blocked or refused
+Exact Command: command that failed, if any
+Exact Error: concise failure summary, if any
+Decision Needed: one question with concrete options and a recommended default, if needed
+Draft Commit Message: message, when available
+```
 
-Unsafe hook-rewrite states stop here. Do not retry, amend, or broaden staging.
-
-Ask all required questions in one turn. If commit, validation, or staging fails, report the exact problem and do not bypass hooks. If push or PR work is requested, stop after the commit and hand off to `/pr`; new PRs must remain draft-only there.
+If push or PR work was requested, stop after the commit and hand off to `/pr`; new PRs must remain draft-only there.
