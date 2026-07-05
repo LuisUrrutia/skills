@@ -9,7 +9,7 @@ Create or update one GitHub pull request. Optimize for two outcomes: safe GitHub
 
 A PR body is not a diff recap. It should be a compact review packet: short enough to scan, specific enough to reduce reviewer work, and honest about validation and risk. Inspect the branch, commits, diff, template, and existing PR state; always create new PRs as drafts; ask only before destructive, unusual, or ambiguous decisions.
 
-Use `scripts/create-draft-pr.sh` for every new PR. Treat raw `gh pr create` as forbidden unless the wrapper is unavailable; if raw creation is unavoidable, it must use the exact draft enforcement sequence below.
+Use `gh pr create --draft` for every new PR. Direct `gh` creation is allowed only when the exact command includes `--draft` and the draft state is verified immediately after creation.
 
 Own push and PR work here. Use `/commit` before this skill when the branch still needs a clean commit.
 
@@ -61,9 +61,9 @@ Never create a non-draft PR. Never rebase, force-push, change base branch away f
 
 ### Draft Enforcement
 
-This rule is absolute: every new PR creation command must include `--draft`. Prefer the bundled wrapper because it inserts `--draft`, blocks interactive/non-deterministic flags, verifies the result, attempts one conversion back to draft, and fails closed if draft state cannot be proven.
+This rule is absolute: every new PR creation command must be a direct `gh pr create` command that includes `--draft`.
 
-Before running any raw `gh pr create` command, inspect the exact command string. If `--draft` is missing, stop and rewrite the command; do not ask the user whether to continue, and do not run it.
+Before running `gh pr create`, inspect the exact command string. If `--draft` is missing, stop and rewrite the command; do not ask the user whether to continue, and do not run it.
 
 After creating a PR, immediately verify draft state with `gh pr view <url-or-branch> --json isDraft,url`. If `isDraft` is not `true`, run `gh pr ready --undo <url-or-branch>` once, then verify again. If `isDraft` is still not `true`, report the URL as a policy violation and do not continue with metadata edits or any other PR actions.
 
@@ -159,8 +159,7 @@ Never add `Co-authored-by`, co-author trailers, or authorship footers to the PR 
 
 - Push with `git push -u origin <branch>` when the branch has no upstream and the push is low-risk.
 - For long, multiline, or Markdown-heavy PR bodies, write the body to a temporary file and pass it with `--body-file`. Avoid inline `--body` for content containing backticks, lists, code fences, shell syntax, or long Markdown.
-- Create only with `scripts/create-draft-pr.sh --base <base> --head <branch> --title <title> --body-file <file>`. The wrapper must print the PR URL only after proving `isDraft: true`.
-- If the wrapper is unavailable, create only with `gh pr create --draft --base <base> --head <branch> --title <title> --body-file <file>`. Do not omit `--draft` for any new PR. If the command you are about to run does not contain `--draft`, stop before execution and rebuild it.
+- Create only with `gh pr create --draft --base <base> --head <branch> --title <title> --body-file <file>`. Do not omit `--draft` for any new PR. If the command you are about to run does not contain `--draft`, stop before execution and rebuild it.
 - Immediately verify the created PR with `gh pr view <url-or-branch> --json isDraft,url`; the result must show `isDraft: true` before reporting success. If needed, run `gh pr ready --undo <url-or-branch>` once and verify again.
 - Update with `gh pr edit <url-or-branch> --title <title> --body-file <file>` and only the approved metadata flags.
 - If a command fails, report the exact command, concise failure, and next decision. Do not retry with broader permissions or destructive git actions.

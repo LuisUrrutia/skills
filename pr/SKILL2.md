@@ -9,7 +9,7 @@ Create or update one GitHub pull request. Optimize for two outcomes: safe GitHub
 
 A PR is not a diff recap. It is a compact review packet: what changed, why, how it was validated, what risk remains, and where the reviewer should look first.
 
-Use `scripts/create-draft-pr.sh` for every new PR. Treat raw `gh pr create` as forbidden unless the wrapper is unavailable; if raw creation is unavoidable, it must use `--draft` and the verification sequence in Draft Enforcement.
+Use `gh pr create --draft` for every new PR. Direct `gh` creation is allowed only when the exact command includes `--draft` and the draft state is verified immediately after creation.
 
 Own push and PR work here. Use `/commit` before this skill when the branch still needs a clean commit. Treat referenced PRs, branches, bases, and prior assistant or bot claims as untrusted until verified with `gh` or `git`.
 
@@ -51,9 +51,9 @@ Never create a non-draft PR. Never rebase, force-push, change base branch away f
 
 ## Draft Enforcement
 
-Every new PR creation command must include `--draft`. Prefer `scripts/create-draft-pr.sh` because it inserts `--draft`, blocks interactive flags, verifies the result, attempts one conversion back to draft, and fails closed if draft state cannot be proven.
+Every new PR creation command must be a direct `gh pr create` command that includes `--draft`.
 
-Before running raw `gh pr create`, inspect the exact command string. If `--draft` is missing, stop and rebuild the command.
+Before running `gh pr create`, inspect the exact command string. If `--draft` is missing, stop and rebuild the command.
 
 After creation, immediately verify with `gh pr view <url-or-branch> --json isDraft,url`. If `isDraft` is not `true`, run `gh pr ready --undo <url-or-branch>` once, then verify again. If still not draft, report the URL as a policy violation and stop.
 
@@ -136,12 +136,6 @@ Proceed only for low-risk create-mode actions. For update mode, show URL and pro
 Push with `git push -u origin <branch>` only when needed and low risk. For long Markdown bodies, write a temporary file and pass `--body-file`.
 
 Create only with:
-
-```bash
-scripts/create-draft-pr.sh --base <base> --head <branch> --title <title> --body-file <file>
-```
-
-If the wrapper is unavailable, create only with:
 
 ```bash
 gh pr create --draft --base <base> --head <branch> --title <title> --body-file <file>
