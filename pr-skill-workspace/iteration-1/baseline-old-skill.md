@@ -5,7 +5,7 @@ description: Create or update GitHub pull requests with safe git and gh CLI hand
 
 # Pull Request
 
-Create or update one GitHub pull request with safe git/`gh` handling and concise reviewer-facing metadata. A PR body is a review decision packet: it should reduce reviewer cost without hiding risk by explaining what changed, why it matters, how it was validated, and where reviewers should look first. Inspect the branch, commits, diff, template, and existing PR state; always create new PRs as drafts; ask only before destructive, unusual, or ambiguous decisions.
+Create or update one GitHub pull request with concise, reviewer-facing metadata. Inspect the branch, commits, diff, template, and existing PR state; always create new PRs as drafts; ask only before destructive, unusual, or ambiguous decisions.
 
 Use `scripts/create-draft-pr.sh` for every new PR. Treat raw `gh pr create` as forbidden unless the wrapper is unavailable; if raw creation is unavoidable, it must use the exact draft enforcement sequence below.
 
@@ -80,7 +80,7 @@ that lookup has been performed and summarized.
 
 When recent merged PRs exist, copy their dominant conventions: title prefix/case, section headings, checklist style, validation wording, risk wording, and level of detail. If conventions conflict, follow the newest matching PRs closest to the current change type.
 
-Only use the fallback structure after proving that no supported template exists and recent merged PRs are unavailable or unusable. The fallback body order is: `Summary`, `Why this change`, `Approach`, `Changes`, `Validation`, `Risks and impact`, `Review guide`, and `AI assistance` when applicable. If the `gh pr list` lookup fails for an authenticated GitHub repository, stop and report the lookup failure instead of inventing a style.
+Only use the fallback `Summary`, `Why this change`, `Changes`, `Validation`, and `Risks` structure after proving that no supported template exists and recent merged PRs are unavailable or unusable. If the `gh pr list` lookup fails for an authenticated GitHub repository, stop and report the lookup failure instead of inventing a style.
 
 PR content must be skimmable: lead with what changed and why, keep only review-relevant detail, avoid implementation diaries, and do not repeat the same fact in multiple sections.
 
@@ -128,23 +128,14 @@ PR content must be skimmable: lead with what changed and why, keep only review-r
      metadata.
    - If no supported template exists and no usable recent-PR convention exists
      after a successful lookup, use these sections in order: `Summary`,
-     `Why this change`, `Approach`, `Changes`, `Validation`,
-     `Risks and impact`, `Review guide`, and `AI assistance` when applicable.
-   - Write PR content as a compact decision packet, not a diff narration:
-     - `Summary`: one or two sentences covering the net change and why it matters. Put the conclusion first.
-     - `Why this change`: one short paragraph with the problem, issue, incident, user need, or engineering reason when it is not obvious from the summary or linked issue.
-     - `Approach`: important design choices, alternatives rejected, or tradeoffs when the implementation is not obvious. Omit when there is no meaningful design decision.
-     - `Changes`: three to five bullets grouped by behavior, surface, or reviewer concern; do not list files mechanically.
-     - `Validation`: exact commands, checks, manual QA, screenshots/logs, security scans, or performance checks performed. If none ran in the current session, write `Validation: not run` with the reason. Include `Not tested` only for meaningful gaps.
-     - `Risks and impact`: real user, data, security, performance, compatibility, migration, dependency, rollout, or rollback concerns. Omit filler like `low risk` unless recent PR convention requires it.
-     - `Review guide`: where to start, risky areas, generated/mechanical changes, snapshots or lockfiles to review separately, and feedback wanted.
-     - `AI assistance`: include when substantial AI help was used or the user mentions it. State what AI helped with, what files or surfaces it affected, what the human reviewed or rewrote, and what verification backs it up.
-   - Make the body easy to read under review pressure:
-     - Use informative headings and parallel bullets so reviewers can scan before reading deeply.
-     - Prefer concrete, familiar words over decorative or promotional phrasing.
-     - Keep paragraphs short, but preserve causal links such as `because`, `so`, `therefore`, and `not tested because`.
-     - State evidence separately from claims; a polished AI-generated sentence is not proof.
-     - Remove duplicate facts, implementation diaries, exhaustive file inventories, and unsupported claims such as `improved UX` or `more robust` without evidence.
+     `Why this change`, `Changes`, `Validation`, and `Risks`.
+   - Write PR content for reviewers, not for yourself:
+     - `Summary`: one or two sentences covering what changed and why.
+     - `Why this change`: one short paragraph only when the motivation is not obvious from the summary or linked issue.
+     - `Changes`: three to five bullets, grouped by behavior or reviewer concern, not by file.
+     - `Validation`: exact commands, checks, or manual QA performed. If none ran in the current session, write `Validation: not run` with the reason.
+     - `Risks`: only real reviewer risks, rollout notes, or known gaps. Omit filler like "low risk" unless recent PR convention requires it.
+   - Avoid duplicate sections, promotional wording, exhaustive file inventories, and vague claims such as "improved UX" without evidence.
    - Always run the PR title and body through the `humanize` skill when it is available.
    - Verification is the agent's responsibility. Do not write reviewer-facing instructions like "How to verify" when the agent can verify with `git`, `gh`, tests, builds, file inspection, or manual QA evidence.
    - Title should be concise, specific, and match the recent merged PR style when a pattern exists. If no clear title pattern exists, use Conventional Commit format: `type(scope): summary`, omitting scope only when no useful scope is obvious.
