@@ -1,6 +1,6 @@
 # AI-writing pattern detection catalog
 
-Use this reference for comprehensive review, audit, or rewrite work. It expands the quick checks in `SKILL.md` without changing the main rule: clusters beat isolated false positives.
+Use this reference as the diagnostic catalog for comprehensive review, audit, or rewrite work. `SKILL.md` owns the workflow, output contracts, and completion gate.
 
 ## Detection principles
 
@@ -8,12 +8,11 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 - Preserve house style. Formal, academic, legal, technical, multilingual, or accessibility-oriented prose can sound controlled without being AI-written.
 - Separate detection from judgment. A pattern means "review this," not "accuse the author."
 - Prefer concrete repairs. Replace puffery with facts, vague authority with named sources, and chatbot framing with content.
-- In rewrite mode, confirmed AI tells become output constraints. Preserve legitimate source style, but do not recreate diagnosed patterns in generated wording.
-- Keep the user's facts, citations, names, numbers, quoted text, code, and domain terms unless asked to change them.
+- Apply the catalog by pattern family. Pattern-specific false positives matter more than a keyword match.
 
 ## 1. Language and lexical tells
 
-**Signal:** Clusters of statistically common AI words and phrases: "delve," "realm," "landscape," "tapestry," "pivotal," "crucial," "robust," "seamless," "underscore," "foster," "garner," "enhance," "valuable," "comprehensive," "transformative," "ever-evolving," "plays a key role," "at the forefront."
+**Watch for:** Clusters of statistically common AI words and phrases: "delve," "realm," "landscape," "tapestry," "pivotal," "crucial," "robust," "seamless," "underscore," "foster," "garner," "enhance," "valuable," "comprehensive," "transformative," "ever-evolving," "plays a key role," "at the forefront."
 
 **Why suspicious:** These words often appear where plain verbs or concrete nouns would do. AI drafts lean on broadly applicable words that fit many topics but add little.
 
@@ -28,7 +27,7 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 2. Significance and notability padding
 
-**Signal:** Inflated importance: "serves as a testament," "marks a pivotal moment," "stands as a reminder," "reflects broader trends," "leaves an indelible mark," "contributes to the ongoing legacy." Also watch source-listing as importance: "covered by Forbes, Wired, TechCrunch, and local media" without explaining what the coverage established.
+**Watch for:** Inflated importance: "serves as a testament," "marks a pivotal moment," "stands as a reminder," "reflects broader trends," "leaves an indelible mark," "contributes to the ongoing legacy." Also watch source-listing as importance: "covered by Forbes, Wired, TechCrunch, and local media" without explaining what the coverage established.
 
 **Why suspicious:** AI writing often adds significance claims to make ordinary facts sound article-worthy. It may confuse mention, coverage, and importance.
 
@@ -43,7 +42,7 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 3. Promotional and SEO tone
 
-**Signal:** Advertisement language: "boasts," "nestled," "renowned," "breathtaking," "must-visit," "world-class," "cutting-edge," "game-changing," "unlock," "supercharge," "elevate," "revolutionize," "seamless experience," "designed to help you thrive."
+**Watch for:** Advertisement language: "boasts," "nestled," "renowned," "breathtaking," "must-visit," "world-class," "cutting-edge," "game-changing," "unlock," "supercharge," "elevate," "revolutionize," "seamless experience," "designed to help you thrive."
 
 **Why suspicious:** AI systems trained on marketing pages often slide into brochure copy, especially for products, places, culture, travel, education, and SaaS.
 
@@ -58,7 +57,7 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 4. Grammar and syntax tics
 
-**Signal:** Copula avoidance and ornate substitutions: "serves as," "stands as," "represents," "boasts," "features" where "is" or "has" is clearer. Also watch forced parallelism, "not only...but also," "it's not just X, it's Y," false "from X to Y" ranges, and sentence-ending `-ing` clauses such as "highlighting," "showcasing," "underscoring," "ensuring," "reflecting."
+**Watch for:** Copula avoidance and ornate substitutions: "serves as," "stands as," "represents," "boasts," "features" where "is" or "has" is clearer. Also watch forced parallelism, "not only...but also," "it's not just X, it's Y," false "from X to Y" ranges, and sentence-ending `-ing` clauses such as "highlighting," "showcasing," "underscoring," "ensuring," "reflecting."
 
 **Why suspicious:** AI often avoids direct sentences and adds trailing clauses that pretend to analyze rather than add facts.
 
@@ -73,7 +72,7 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 5. Structure and outline artifacts
 
-**Signal:** Formulaic sections: "Introduction," "Background," "Key Takeaways," "Challenges and Future Prospects," "Conclusion," "Final Thoughts," even when the content is short. Repeated paragraph shape: broad claim, generic explanation, neat closing sentence. Watch paragraph-closing "whether" summaries: "Whether you're a founder, marketer, or student, this tool can help."
+**Watch for:** Formulaic sections: "Introduction," "Background," "Key Takeaways," "Challenges and Future Prospects," "Conclusion," "Final Thoughts," even when the content is short. Repeated paragraph shape: broad claim, generic explanation, neat closing sentence. Watch paragraph-closing "whether" summaries: "Whether you're a founder, marketer, or student, this tool can help."
 
 **Why suspicious:** AI drafts often start from an outline template and fill each slot with safe generalities.
 
@@ -88,13 +87,13 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 6. Formatting tells
 
-**Signal:** Overuse of bold inline labels, emoji bullets, title-case headings in casual prose, boxed takeaway lists, excessive blockquotes, em dash characters (`—`) as default idea connectors, too many colons, mechanical tables, curly quotes in otherwise plain text, invisible Unicode, nonbreaking spaces, zero-width characters, smart punctuation that differs from the file style, and repeated Markdown fences without need.
+**Watch for:** Overuse of bold inline labels, emoji bullets, title-case headings in casual prose, boxed takeaway lists, excessive blockquotes, em dash characters (`—`) as default idea connectors, too many colons, mechanical tables, curly quotes or curly apostrophes in otherwise plain text, invisible Unicode, nonbreaking spaces, zero-width characters, smart punctuation that differs from the file style, and repeated Markdown fences without need.
 
 **Why suspicious:** Chatbots often overformat to look organized. Some tools also introduce hidden or typographic characters during generation.
 
-**False positives:** Style guides may require title case, curly quotes, tables, or callouts. Accessibility docs may use consistent labels for scanning.
+**False positives:** Style guides may require title case, curly quotes, curly apostrophes, tables, or callouts. Accessibility docs may use consistent labels for scanning.
 
-**Rewrite or detection tactic:** Match the destination format. Remove decorative formatting. Normalize invisible or inconsistent characters when editing files, but preserve intentional typography in published copy. Do not introduce em dashes unless quoted/source text, a provided writing sample, house style, or the user's explicit preference calls for them. When replacing dash-heavy AI prose, repair the connection between ideas with subordinate clauses, conjunctions, commas, colons, semicolons when natural, reordered clauses, or paragraph flow rather than chopping every link into a period.
+**Rewrite or detection tactic:** Match the destination format. Remove decorative formatting. Use straight ASCII quotes (`"`) and apostrophes (`'`) in generated wording when the destination is plain text or Markdown, unless quoted/source text, a writing sample, house style, or explicit user preference calls for smart punctuation. Normalize invisible or inconsistent characters when editing files, but preserve intentional typography in published copy. When replacing dash-heavy AI prose, repair the connection between ideas with subordinate clauses, conjunctions, commas, colons, semicolons when natural, reordered clauses, or paragraph flow rather than chopping every link into a period. Preserve em dashes in quoted/source text, a provided writing sample, house style, or explicit user preference.
 
 **Example:**
 
@@ -103,7 +102,7 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 7. Chatbot residue
 
-**Signal:** Conversational scaffolding left in content: "Great question," "Certainly," "Of course," "I hope this helps," "Let me know if you'd like," "Here is a revised version," "As an AI," "I can't browse," "based on my training," "as of my last update," "up to my knowledge cutoff." Also watch leaked prompts, placeholders, reasoning notes, "[insert citation]," "turn0search," citation brackets, tool traces, and AI-generated UTM parameters.
+**Watch for:** Conversational scaffolding left in content: "Great question," "Certainly," "Of course," "I hope this helps," "Let me know if you'd like," "Here is a revised version," "As an AI," "I can't browse," "based on my training," "as of my last update," "up to my knowledge cutoff." Also watch leaked prompts, placeholders, reasoning notes, "[insert citation]," "turn0search," citation brackets, tool traces, and AI-generated UTM parameters.
 
 **Why suspicious:** These are direct artifacts from a chat session or generation tool, not natural content.
 
@@ -118,7 +117,7 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 8. Context contamination and prompt leakage
 
-**Signal:** Text refers to instructions, roles, files, or constraints that should not be visible to the reader: "as requested," "following your prompt," "the user wants," "this section should," "TODO: verify," "maintain a professional tone," "do not mention," "make it sound human," or unrelated context from another task.
+**Watch for:** Text refers to instructions, roles, files, or constraints that should not be visible to the reader: "as requested," "following your prompt," "the user wants," "this section should," "TODO: verify," "maintain a professional tone," "do not mention," "make it sound human," or unrelated context from another task.
 
 **Why suspicious:** AI outputs can blend the task prompt, hidden instructions, earlier messages, or examples into the final prose.
 
@@ -133,7 +132,7 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 9. Academic and citation patterns
 
-**Signal:** Unsupported literature gestures: "scholars have long debated," "research suggests," "studies show," "it is widely recognized," "the literature highlights." Watch fabricated precision, citations that do not support the sentence, excessive hedging, source laundering, and generic transitions between papers.
+**Watch for:** Unsupported literature gestures: "scholars have long debated," "research suggests," "studies show," "it is widely recognized," "the literature highlights." Watch fabricated precision, citations that do not support the sentence, excessive hedging, source laundering, and generic transitions between papers.
 
 **Why suspicious:** AI often mimics academic style without doing the evidentiary work. It can preserve citation shape while weakening source accuracy.
 
@@ -148,7 +147,7 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 10. Social and LinkedIn cliches
 
-**Signal:** Platform formulas: "I am thrilled to announce," "humbled and honored," "big news," "after months of hard work," "here's what I learned," "agree?" "thoughts?" "comment below," "build in public," "founder journey," "10 lessons from," "I used to think X, then Y changed everything."
+**Watch for:** Platform formulas: "I am thrilled to announce," "humbled and honored," "big news," "after months of hard work," "here's what I learned," "agree?" "thoughts?" "comment below," "build in public," "founder journey," "10 lessons from," "I used to think X, then Y changed everything."
 
 **Why suspicious:** AI-generated social posts often imitate engagement bait and thought-leader cadence.
 
@@ -163,7 +162,7 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 11. Content density and treadmill restatement
 
-**Signal:** Low-information sentences that restate the heading or previous line: "This is important because it matters," "The tool helps teams work better," "These benefits can improve outcomes." Watch paragraphs that keep moving but do not add names, numbers, examples, mechanisms, tradeoffs, or stakes.
+**Watch for:** Low-information sentences that restate the heading or previous line: "This is important because it matters," "The tool helps teams work better," "These benefits can improve outcomes." Watch paragraphs that keep moving but do not add names, numbers, examples, mechanisms, tradeoffs, or stakes.
 
 **Why suspicious:** AI can maintain fluent motion while avoiding commitment. The prose feels smooth, but the reader learns little.
 
@@ -178,7 +177,7 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 12. Statistical and rhythm tells
 
-**Signal:** Metronomic sentence length, uniform paragraph size, low burstiness, repeated transition placement, too-even punctuation, smooth but predictable cadence, low type-token variety, or weirdly high synonym variety from synonym cycling.
+**Watch for:** Metronomic sentence length, uniform paragraph size, low burstiness, repeated transition placement, too-even punctuation, smooth but predictable cadence, low type-token variety, or weirdly high synonym variety from synonym cycling.
 
 **Why suspicious:** AI prose often has a statistically even rhythm. It may avoid fragments, sharp turns, long messy sentences, or honest pauses.
 
@@ -193,7 +192,7 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 13. Multilingual and translation artifacts
 
-**Signal:** Literal calques, overly formal register, unnatural idioms, English AI phrases translated word for word, inconsistent pronouns, mixed punctuation norms, overexplained cultural context, or machine-like preservation of source sentence order.
+**Watch for:** Literal calques, overly formal register, unnatural idioms, English AI phrases translated word for word, inconsistent pronouns, mixed punctuation norms, overexplained cultural context, or machine-like preservation of source sentence order.
 
 **Why suspicious:** AI translation and multilingual rewriting can flatten voice and import English chatbot patterns into other languages.
 
@@ -208,7 +207,7 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 14. Emerging model artifacts
 
-**Signal:** Hidden model fingerprints: repeated safety caveats, generic compliance language, unexplained refusal residue, "I cannot verify," fake browsing confidence, tool output pasted into prose, JSON fragments, Markdown tables from prompts, hallucinated anchors, broken footnotes, synthetic URLs, and placeholder source names.
+**Watch for:** Hidden model fingerprints: repeated safety caveats, generic compliance language, unexplained refusal residue, "I cannot verify," fake browsing confidence, tool output pasted into prose, JSON fragments, Markdown tables from prompts, hallucinated anchors, broken footnotes, synthetic URLs, and placeholder source names.
 
 **Why suspicious:** Newer model workflows mix generation, tools, citations, and wrappers. Artifacts may survive even after surface editing.
 
@@ -223,7 +222,7 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 15. Openings, closings, and transition residue
 
-**Signal:** Formulaic openings: "In today's fast-paced world," "As technology continues to evolve," "In an era where," "It goes without saying." Formulaic closings: "The future looks bright," "Only time will tell," "This is just the beginning," "Exciting times lie ahead," "Moving forward." Overused transitions: "Furthermore," "Additionally," "Moreover," "In conclusion."
+**Watch for:** Formulaic openings: "In today's fast-paced world," "As technology continues to evolve," "In an era where," "It goes without saying." Formulaic closings: "The future looks bright," "Only time will tell," "This is just the beginning," "Exciting times lie ahead," "Moving forward." Overused transitions: "Furthermore," "Additionally," "Moreover," "In conclusion."
 
 **Why suspicious:** These phrases buy time and sound polished without giving the reader content.
 
@@ -238,7 +237,7 @@ Use this reference for comprehensive review, audit, or rewrite work. It expands 
 
 ## 16. Hedging, filler, and sycophancy
 
-**Signal:** Excessive hedging: "could potentially," "may possibly," "it might be argued." Filler: "it is important to note," "in order to," "due to the fact that," "at this point in time." Sycophancy: "great question," "you are absolutely right," "excellent point," "I completely agree."
+**Watch for:** Excessive hedging: "could potentially," "may possibly," "it might be argued." Filler: "it is important to note," "in order to," "due to the fact that," "at this point in time." Sycophancy: "great question," "you are absolutely right," "excellent point," "I completely agree."
 
 **Why suspicious:** AI assistants often overqualify, over-explain, and flatter the user.
 
@@ -273,12 +272,10 @@ For audit work, score by clusters rather than isolated words:
 - **Medium concern:** Several families appear together, such as AI vocabulary, generic structure, and low content density.
 - **High concern:** Chatbot residue, prompt leakage, fabricated or weak citations, formulaic structure, and generic language appear across the piece.
 
-## Rewrite checklist
+## Catalog tactics for revision
 
 - Replace importance claims with facts or sourced claims.
 - Replace vague adjectives with observable details.
 - Cut chatbot framing and prompt residue.
-- Keep formal, technical, academic, multilingual, and house-style choices when they are legitimate.
 - Vary rhythm without adding fake personality.
-- Remove generated AI-tell punctuation and formatting, including unnecessary em dashes, without flattening flow into choppy period-stacked prose.
-- Preserve the user's facts, citations, code, quoted text, and constraints.
+- Remove generated AI-tell punctuation and formatting without flattening flow into choppy period-stacked prose.
