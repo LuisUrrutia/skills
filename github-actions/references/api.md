@@ -1,146 +1,117 @@
-# GitHub API Usage in Actions
+# GitHub API and Workflow Channels
 
-## Prefer actions/github-script
+Apply the sections matching each API call, workflow output, environment write, or summary.
 
-Has built-in retries with exponential backoff:
+## Choose the narrowest interface
+
+- Use `actions/github-script` for short REST or GraphQL operations that benefit from authenticated Octokit, pagination, and structured JavaScript.
+- Use `gh api` when the surrounding step is already shell-based or the endpoint is easier to express directly.
+- Use a dedicated action when it provides a maintained domain contract that would otherwise be reimplemented.
+
+Every interface still needs explicit `GITHUB_TOKEN` permissions in the job.
+
+## Structured API access with `github-script`
+
+Pin the action to a verified commit SHA. Retries fit reads and idempotent operations; a repeated create or dispatch request can duplicate side effects.
 
 ```yaml
-- uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd  # v8.0.0
+- name: Count open pull requests
+  id: pulls
+  uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
   with:
     retries: 3
-    retry-exempt-status-codes: 400 401 403 404 422
     script: |
-      await github.rest.issues.createComment({
+      const pulls = await github.paginate(github.rest.pulls.list, {
         owner: context.repo.owner,
         repo: context.repo.repo,
-        issue_number: context.issue.number,
-        body: 'Automated comment'
-      });
+        state: 'open',
+        per_page: 100
+      })
+      core.setOutput('count', pulls.length)
 ```
 
-- `retries`: Number of retry attempts (uses exponential backoff)
-- `retry-exempt-status-codes`: Client errors that should fail immediately
+The action's default terminal status codes are `400,401,403,404,422`. Handle a rate-limit `403` with response-aware delay rather than making every authorization failure retryable.
 
-## gh CLI with Error Handling
+Version 8 runs on Node 24 and requires Actions Runner `v2.327.1` or newer. Verify that floor before using this example on self-hosted runners.
 
-When using `gh` CLI, handle errors and rate limits:
+Pass dynamic expressions through step-level `env` and read them from `process.env`; direct `${{ ... }}` inside `script:` is evaluated as JavaScript source before execution.
+
+## Shell API access with `gh`
+
+Pass authentication and dynamic path components through `env`. Request every page when the answer is not intentionally capped, and make an empty or malformed response fail when the contract requires data.
 
 ```yaml
-- env:
-    REPO: ${{ github.repository }}
+- name: Read latest release
+  env:
+    GH_TOKEN: ${{ github.token }}
+    REPOSITORY: ${{ github.repository }}
+  shell: bash
   run: |
     set -u
-    API_STDERR="$RUNNER_TEMP/api_stderr.log"
-
-    if ! RESULT=$(gh api "repos/$REPO/pulls" \
-      --header "Accept: application/vnd.github+json" \
-      --jq '.[0].number' 2>"$API_STDERR"); then
-
-      if grep -q "rate limit" "$API_STDERR" 2>/dev/null; then
-        echo "::warning::Rate limited, waiting 60s..."
-        sleep 60
-        RESULT=$(gh api "repos/$REPO/pulls" --jq '.[0].number')
-      else
-        echo "::error::API call failed"
-        exit 1
-      fi
+    tag=$(gh api "repos/$REPOSITORY/releases/latest" --jq '.tag_name | select(length > 0)')
+    if [[ -z "$tag" ]]; then
+      printf '%s\n' 'Latest release response has no tag' >&2
+      exit 1
     fi
+    printf 'tag=%s\n' "$tag" >> "$GITHUB_OUTPUT"
 ```
 
-## Retry with Exponential Backoff
+For retries, classify the operation first:
 
-For any command that may fail transiently (network calls, external services):
+- retry reads and idempotent writes on transient `5xx`, connection failures, and rate limits
+- honor `Retry-After` or rate-limit reset metadata
+- use bounded exponential backoff with jitter
+- make authentication, authorization, validation, and contract failures terminal
+- give non-idempotent writes a lookup key or reconciliation step before retrying
 
-```yaml
-- run: |
-    MAX_ATTEMPTS=3
-    DELAY=2
+## Secret scanning custom patterns
 
-    for attempt in $(seq 1 $MAX_ATTEMPTS); do
-      if curl -sSf https://example.com/api/deploy; then
-        echo "Succeeded on attempt $attempt"
-        break
-      fi
+GitHub's REST API supports custom-pattern CRUD for secret scanning customers at repository, organization, and enterprise scope:
 
-      if [[ "$attempt" -eq "$MAX_ATTEMPTS" ]]; then
-        echo "::error::Failed after $MAX_ATTEMPTS attempts"
-        exit 1
-      fi
+- `GET .../secret-scanning/custom-patterns` lists patterns.
+- `POST .../secret-scanning/custom-patterns` bulk-creates patterns.
+- `PATCH .../secret-scanning/custom-patterns/{pattern_id}` updates one pattern.
+- `DELETE .../secret-scanning/custom-patterns` bulk-deletes patterns.
 
-      echo "::warning::Attempt $attempt failed, retrying in ${DELAY}s..."
-      sleep "$DELAY"
-      DELAY=$((DELAY * 2))
-    done
-```
+Use the current API version header; the initial GA contract uses `X-GitHub-Api-Version: 2026-03-10`. Resolve the token requirement for the exact repository, organization, or enterprise endpoint instead of assuming the job's default `GITHUB_TOKEN` has administrative scope.
 
-## Workflow Commands
+Carry `custom_pattern_version` through update and delete requests as the optimistic-concurrency token, and handle `412 Precondition Failed` by rereading state rather than overwriting a concurrent edit. Set `post_delete_action` deliberately because deletion can either remove associated alerts or resolve them as pattern-deleted.
 
-### Outputs and Environment Variables
+REST automation prepares and reconciles pattern definitions. Dry runs and final publishing remain UI operations, so keep those human gates visible in the workflow rather than claiming end-to-end publication.
+
+## Workflow channels
+
+Use the channel whose scope matches the data:
 
 ```yaml
-- name: Set output
+- name: Export version
   id: version
-  run: echo "version=1.2.3" >> "$GITHUB_OUTPUT"
+  shell: bash
+  run: printf 'value=%s\n' "1.2.3" >> "$GITHUB_OUTPUT"
 
-- name: Set env var
-  run: echo "BUILD_DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
+- name: Export build date
+  shell: bash
+  run: printf 'BUILD_DATE=%s\n' "$(date -u +%Y-%m-%dT%H:%M:%SZ)" >> "$GITHUB_ENV"
 
-- name: Multiline output
-  run: |
-    {
-      echo 'content<<EOF'
-      cat report.txt
-      echo 'EOF'
-    } >> "$GITHUB_OUTPUT"
+- name: Summarize
+  shell: bash
+  run: printf '## Build results\n\nPassed.\n' >> "$GITHUB_STEP_SUMMARY"
 ```
 
-### Log Annotations
+Map step outputs to job outputs before a downstream job consumes them. Map job outputs to `on.workflow_call.outputs` before a caller consumes reusable-workflow data.
 
-```yaml
-- run: |
-    echo "::notice file=app.js,line=1::Consider refactoring"
-    echo "::warning file=config.yaml,line=10::Deprecated setting"
-    echo "::error file=main.py,line=42::Missing bracket"
-```
+Pass arbitrary multiline content through a file or artifact rather than a static delimiter. Register generated sensitive values with `::add-mask::` before another command can emit them.
 
-### Log Groups and Masking
+## API review criterion
 
-```yaml
-- run: |
-    echo "::group::Installing dependencies"
-    npm install
-    echo "::endgroup::"
+The job has the exact API permission, pagination matches the endpoint, retries preserve idempotency, response shape and emptiness are checked, optimistic-concurrency tokens are preserved, required UI gates remain visible, untrusted values stay out of generated shell, and each output crosses the correct scope boundary.
 
-- run: |
-    token=$(generate-temp-token)
-    echo "::add-mask::$token"
-    echo "TOKEN=$token" >> "$GITHUB_ENV"
-```
+## Official sources
 
-### Job Outputs and Summaries
+https://github.com/actions/github-script
 
-```yaml
-jobs:
-  build:
-    outputs:
-      version: ${{ steps.extract.outputs.version }}
-    steps:
-      - id: extract
-        run: echo "version=1.2.3" >> "$GITHUB_OUTPUT"
+https://docs.github.com/api/article/body?pathname=/en/actions/reference/workflows-and-actions/workflow-commands
 
-      - name: Write summary
-        run: |
-          {
-            echo "## Build Results"
-            echo "| Test | Status |"
-            echo "|------|--------|"
-            echo "| Unit | Passed |"
-          } >> "$GITHUB_STEP_SUMMARY"
+https://docs.github.com/api/article/body?pathname=/en/rest/secret-scanning/custom-patterns
 
-  deploy:
-    needs: build
-    steps:
-      - env:
-          VERSION: ${{ needs.build.outputs.version }}
-        run: echo "Deploying $VERSION"
-```
+https://github.blog/changelog/2026-07-13-create-and-manage-secret-scanning-custom-patterns-via-rest-api/

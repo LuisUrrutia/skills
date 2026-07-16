@@ -1,113 +1,88 @@
-# Shell Best Practices for GitHub Actions
+# Shell in GitHub Actions
 
-## Strict Mode
+Apply every section that matches a changed or reviewed `run:` block.
 
-GitHub Actions defaults to `bash -eo pipefail` for `run:` steps on Linux/macOS. This means `-e` (exit on error) and `-o pipefail` (fail on pipe errors) are already active.
+## Select shell semantics explicitly
 
-The only flag NOT included by default is `-u` (error on undefined variables). Adding `set -u` is recommended for complex scripts to catch variable name typos, but its absence is a minor style issue, not a security gap.
-
-```yaml
-- run: |
-    set -u  # Only -u is not already set by default
-    echo "$MY_VAR"  # Would error if MY_VAR is unset
-```
-
-**Do NOT flag missing `set -euo pipefail` as a significant finding.** It's mostly already handled by the runner defaults.
-
-## Temporary Files
-
-Use `$RUNNER_TEMP` (automatically cleaned up per job):
+On Linux and macOS, an unspecified shell runs `bash -e {0}` and can fall back to `sh`. Explicit `shell: bash` runs `bash --noprofile --norc -eo pipefail {0}`. Use the explicit form when the script relies on Bash syntax or pipeline failure propagation:
 
 ```yaml
-- run: |
-    set -u
-    echo "$CONTENT" > "$RUNNER_TEMP/body.md"
-    gh issue create --title "Report" -F body=@"$RUNNER_TEMP/body.md"
-```
-
-## Multiline Strings
-
-Use `-F field=@file` instead of `-f` to preserve whitespace:
-
-```yaml
-- env:
-    REPO: ${{ github.repository }}
+- name: Build
+  shell: bash
   run: |
     set -u
-    printf '%s\n' "$BODY" > "$RUNNER_TEMP/body.md"
-    gh api "repos/$REPO/issues" -F body=@"$RUNNER_TEMP/body.md"
+    npm run build
 ```
 
-## Heredocs
+Add `set -u` when unset variables are errors by contract. Initialize optional variables before enabling it. PowerShell and `cmd` have different failure rules; write and validate those scripts in their selected shell.
 
-Use `<<-` to strip leading tabs (tabs only, not spaces). Quote the delimiter to prevent variable expansion:
+## Cross the expression boundary through `env`
+
+Keep `${{ ... }}` out of generated shell syntax. Bind expressions to environment variables, then quote every expansion:
 
 ```yaml
-- run: |
-	cat <<- 'EOF' > "$RUNNER_TEMP/config.json"
-	{
-	  "key": "value",
-	  "env": "$NOT_EXPANDED"
-	}
-	EOF
+- name: Print ref
+  env:
+    REF_NAME: ${{ github.ref_name }}
+  shell: bash
+  run: printf '%s\n' "$REF_NAME"
 ```
 
-## Validation
+Use arrays for argument lists and `printf` for data. Quote file paths, URLs, and variables even when their current source appears constrained.
 
-Check prerequisites before operations:
+## Use runner-owned temporary storage
+
+Write transient files under `$RUNNER_TEMP`, which is scoped and cleaned with the job:
 
 ```yaml
-- run: |
-    command -v node || { echo "Error: node required"; exit 1; }
-    [[ -f package.json ]] || { echo "Error: package.json not found"; exit 1; }
-    npm install
+- name: Create request body
+  env:
+    BODY: ${{ github.event.issue.body }}
+    GH_TOKEN: ${{ github.token }}
+  shell: bash
+  run: |
+    body_file="$RUNNER_TEMP/issue-body.md"
+    printf '%s' "$BODY" > "$body_file"
+    gh issue create --title "Report" --body-file "$body_file"
 ```
 
-## AWK/sed Exact Matching
+Quote heredoc delimiters when literal content is intended. `<<-` strips tabs only; ordinary YAML indentation uses spaces, so use it only when the script actually contains tab-indented data.
 
-Use field delimiters and exact patterns to avoid false positives:
+## Handle failure as data only when expected
 
-```bash
-# Exact field match
-awk -F',' '$1 == "production"' file.txt
-
-# Word boundaries
-sed -n '/\bproduction\b/p' file.txt
-```
-
-## Error Handling
-
-Reserve `|| true` for expected failures. Use conditionals for commands with specific exit codes:
+The runner's fail-fast shell should surface unexpected failures. Capture status explicitly when a command has an expected nonzero result:
 
 ```yaml
-- run: |
+- name: Detect changes
+  id: changes
+  shell: bash
+  run: |
     if git diff --quiet; then
-      echo "No changes"
+      echo "changed=false" >> "$GITHUB_OUTPUT"
     else
-      echo "Changes detected"
+      status=$?
+      if [[ "$status" -eq 1 ]]; then
+        echo "changed=true" >> "$GITHUB_OUTPUT"
+      else
+        exit "$status"
+      fi
     fi
 ```
 
-## continue-on-error
+Apply the [`continue-on-error` contract](reliability.md#failure-cancellation-and-time-bounds) when a nonzero result becomes workflow data.
 
-Use for non-critical steps where failure should not block the workflow:
+## Write workflow data safely
 
-```yaml
-- name: Upload coverage
-  continue-on-error: true
-  run: curl -sSf https://codecov.io/upload.sh | bash
+Use the [workflow channel](api.md#workflow-channels) whose scope matches the value. Within a shell step:
 
-- name: Optional lint
-  id: lint
-  continue-on-error: true
-  run: npm run lint
+- append one logical record at a time with `printf`
+- pass arbitrary multiline or attacker-controlled content through a file or artifact because a static delimiter can collide with the payload
+- mask a generated sensitive value before another command can log it; keep sensitive data in its authoritative secret channel
 
-- name: Check lint outcome
-  if: steps.lint.outcome == 'failure'
-  run: echo "::warning::Lint failed but continuing"
-```
+## Review criterion
 
-**Use when:**
-- Step is informational (comments, labels, notifications)
-- Failure does not affect core workflow outcome
-- You have fallback handling
+Every dynamic value crosses through `env`, every shell expansion is quoted, expected failures preserve unexpected exit codes, temporary data stays under `$RUNNER_TEMP`, and the selected shell matches the script syntax.
+
+## Official source
+
+https://docs.github.com/api/article/body?pathname=/en/actions/reference/workflows-and-actions/workflow-syntax#jobsjob_idstepsshell
