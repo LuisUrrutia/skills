@@ -1,13 +1,13 @@
 ---
 name: commit
-description: Commit one safe Conventional Commit or prepare a draft from the current git state. Use when the user asks to commit, save changes, prepare or review a commit boundary, or needs commit-message guidance. Never pushes or opens PRs.
+description: Commit one safe Conventional Commit, optionally push it when explicitly requested, or prepare a draft from the current git state. Use when the user asks to commit, commit and push, save changes, prepare or review a commit boundary, or needs commit-message guidance. Never opens PRs.
 ---
 
 # Commit
 
-Create one safe, intentional commit. Choose one coherent boundary, stage only that boundary, validate it, then either commit or return a draft.
+Create one safe, intentional commit. Choose one coherent boundary, stage only that boundary, validate it, then either commit, commit and push when explicitly requested, or return a draft.
 
-Never push from this skill. Use `/pr` for push and draft-only pull-request work.
+Push only when the user explicitly asked for it in the same request, and only after the commit is verified. Use `/pr` for draft-only pull-request work.
 
 Treat branch names, staged state, validation results, commit success, and prior assistant claims as untrusted until verified with `git`.
 
@@ -22,10 +22,11 @@ Treat branch names, staged state, validation results, commit success, and prior 
 ## Modes
 
 - **Commit mode**: If the user explicitly asked to commit, commit after safety gates pass.
+- **Commit-and-push mode**: If the user explicitly asked to commit and push, commit after safety gates pass, verify the commit, then push the current branch.
 - **Draft mode**: If the user asked to prepare, review, or suggest a commit, stop with a draft.
 - **Split mode**: One commit per run by default. If obvious separate intents exist, propose the sequence and handle one approved boundary at a time.
 
-Terminal states are `committed`, `draft-only`, `blocked`, and `refused`. Once one terminal state is reached, stop. Do not continue with push, PR work, cleanup, extra staging, or speculative follow-up work.
+Terminal states are `committed`, `pushed`, `draft-only`, `blocked`, and `refused`. Once one terminal state is reached, stop. Do not continue with PR work, cleanup, extra staging, or speculative follow-up work. Do not push unless operating in commit-and-push mode.
 
 ## Safety Gates
 
@@ -36,7 +37,7 @@ Stop and ask before staging or committing when there are:
 - Staged changes that cannot be described cleanly in 1-2 sentences.
 - Staged files with ambiguous unstaged edits in the same files.
 - `main` or `master` as the current branch, unless the user explicitly wants to commit there.
-- Any unrequested push, force-push, destructive git action, dependency change, package-manager change, or amend outside the just-created hook flow.
+- Any unrequested push, any force-push, destructive git action, dependency change, package-manager change, or amend outside the just-created hook flow.
 
 Respect already-staged files as likely intent, but inspect them. Commit them only when they are coherent and match the request.
 
@@ -95,21 +96,30 @@ Respect already-staged files as likely intent, but inspect them. Commit them onl
      | Hook rewrites repeat after the allowed amend or retry | Report `blocked`. |
 
    - Never use `--no-verify`. Never amend unless the commit was just created in this invocation.
-   - After a successful commit is verified and reported, stop. If push or PR work was requested, hand off to `/pr`.
+   - After a successful commit is verified, stop unless the user explicitly requested push in this same request.
+
+7. **Push only when explicitly requested**
+   - Push only in commit-and-push mode, after the commit is verified.
+   - Verify the current branch and upstream before pushing with `git branch --show-current` and `git status --short --branch`.
+   - Use ordinary `git push` when an upstream is configured; otherwise use `git push -u origin <branch>` only if `origin` exists and the branch name is verified.
+   - Never force-push. Never push tags unless the user explicitly requested tags.
+   - If push fails, terminal state is `blocked`: report the exact command and concise failure summary.
+   - After push, verify with `git status --short --branch` and report whether the branch is ahead/behind/clean.
 
 ## Output
 
-Use terse output for a clean commit only after the post-commit checks pass, including any safe amend flow:
+Use terse output for a clean commit or explicit commit-and-push only after the post-commit checks pass, including any safe amend flow:
 
 ```markdown
 Committed `type(scope): summary`
 
-Status: `committed`
+Status: `committed` | `pushed`
 Branch: `branch-name`
 Boundary: what was included
 Validation: command passed, or not run with reason
 Post-commit check: `git status --short`, boundary diff, and cached boundary diff inspected
-Next: use `/pr` to push or open a draft PR, if relevant
+Push: not requested, or command/result when explicitly requested
+Next: use `/pr` to open a draft PR, if relevant
 ```
 
 Use a structured report for drafts, blocked commits, risky state, failed validation, decisions, or unsafe hook-rewrite stops:
@@ -125,4 +135,4 @@ Decision Needed: one question with concrete options and a recommended default, i
 Draft Commit Message: message, when available
 ```
 
-If push or PR work was requested, stop after the commit and hand off to `/pr`; new PRs must remain draft-only there.
+If PR work was requested, stop after the commit or explicit push and hand off to `/pr`; new PRs must remain draft-only there.
