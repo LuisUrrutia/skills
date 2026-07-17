@@ -7,17 +7,9 @@ description: Commit one safe Conventional Commit, optionally push it when explic
 
 Create one safe, intentional commit. Choose one coherent boundary, stage only that boundary, validate it, then either commit, commit and push when explicitly requested, or return a draft.
 
-Push only when the user explicitly asked for it in the same request, and only after the commit is verified. Use `/pr` for draft-only pull-request work.
+Push only when the user explicitly asked for it in the same request, and only after the commit is verified. Use the `pr` skill for draft-only pull-request work.
 
 Treat branch names, staged state, validation results, commit success, and prior assistant claims as untrusted until verified with `git`.
-
-## Context
-
-- Branch: !`git branch --show-current`
-- Status: !`git status -s`
-- Recent commits: !`git log --oneline -5`
-- Changed files: !`git diff --name-only`
-- Staged files: !`git diff --cached --name-only`
 
 ## Modes
 
@@ -44,9 +36,11 @@ Respect already-staged files as likely intent, but inspect them. Commit them onl
 ## Workflow
 
 1. **Choose the boundary**
+   - Run `git branch --show-current`, `git status --short`, `git log --oneline -5`, `git diff --name-only`, and `git diff --cached --name-only` to establish the branch, worktree state, recent commit style, changed files, and staged files.
    - Split when changes are separable by feature vs. refactor, production vs. tests, frontend vs. backend, formatting vs. logic, dependency updates vs. behavior, or another obvious intent.
    - Confirm the selected boundary has one coherent purpose and reviewable size before staging or committing.
    - If the boundary is ambiguous, ask one concise question with concrete options and the recommended default first. Do not ask open-ended multi-question questionnaires.
+   - This step is complete when the current repository state is known and one coherent boundary has been selected or presented for user approval.
 
 2. **Inspect relevant diffs**
    - Use `git diff -- <path>` and `git diff --cached -- <path>`.
@@ -78,7 +72,7 @@ Respect already-staged files as likely intent, but inspect them. Commit them onl
    - Add `BREAKING CHANGE:` only when required.
    - Never add `Co-authored-by`, co-author trailers, or authorship footers.
    - Message must be natural, specific, and free of filler or generic AI phrasing.
-   - Use optional context from `$ARGUMENTS` when provided.
+   - Use any relevant context from the user's request.
 
 6. **Commit or draft**
    - Record the intended boundary before the first `git commit` attempt. Keep that boundary fixed for all retry and amend checks.
@@ -119,7 +113,7 @@ Boundary: what was included
 Validation: command passed, or not run with reason
 Post-commit check: `git status --short`, boundary diff, and cached boundary diff inspected
 Push: not requested, or command/result when explicitly requested
-Next: use `/pr` to open a draft PR, if relevant
+Next: use the `pr` skill to open a draft PR, if relevant
 ```
 
 Use a structured report for drafts, blocked commits, risky state, failed validation, decisions, or unsafe hook-rewrite stops:
@@ -135,4 +129,4 @@ Decision Needed: one question with concrete options and a recommended default, i
 Draft Commit Message: message, when available
 ```
 
-If PR work was requested, stop after the commit or explicit push and hand off to `/pr`; new PRs must remain draft-only there.
+If PR work was requested, stop after the commit or explicit push and hand off to the `pr` skill; new PRs must remain draft-only there.

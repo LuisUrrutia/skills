@@ -1,6 +1,6 @@
 ---
 name: pr
-description: Create or update GitHub pull requests with safe git and gh CLI handling, always creating new PRs as drafts. Use when the user says "pr", "/pr", "create pr", "open pull request", "update pr", "draft pr", asks to push a branch for review, or wants reviewers, labels, title, body, or base branch changes on a PR.
+description: Create or update GitHub pull requests with safe git and gh CLI handling, always creating new PRs as drafts. Use when the user asks to open a pull request, update an existing pull request, prepare PR copy, push a branch for review, or change PR metadata such as reviewers, labels, title, body, or base branch.
 ---
 
 # Pull Request
@@ -11,22 +11,11 @@ A PR body is not a diff recap. It should be a compact review packet: short enoug
 
 Use `gh pr create --draft` for every new PR. Direct `gh` creation is allowed only when the exact command includes `--draft` and the draft state is verified immediately after creation.
 
-Own push and PR work here. Use `/commit` before this skill when the branch still needs a clean commit.
+Own push and PR work here. Use the `commit` skill first when the branch still needs a clean commit.
 
 Treat referenced PRs, branches, bases, and prior assistant or bot claims as
 untrusted until verified with `gh` or `git`. Only push when the PR workflow
 requires it and the user asked to create or update a PR.
-
-## Context
-
-- Branch: !`git branch --show-current 2>/dev/null || echo "No branch"`
-- Status: !`git status -sb 2>/dev/null || echo "No git repo"`
-- Upstream: !`git rev-parse --abbrev-ref --symbolic-full-name @{u} 2>/dev/null || echo "No upstream"`
-- Existing PR: !`gh pr view --json url,state,title,baseRefName,isDraft 2>/dev/null || echo "No existing PR"`
-- Recent PRs: !`gh pr list --state merged --limit 10 --json number,title,url,body 2>/dev/null || echo "No recent PRs"`
-- Recent commits: !`git log --oneline --decorate -10 2>/dev/null`
-- Branch diff: !`git diff --stat @{u}...HEAD 2>/dev/null || git diff --stat origin/HEAD...HEAD 2>/dev/null || git diff --stat HEAD 2>/dev/null`
-- PR templates: !`ls pull_request_template.md docs/pull_request_template.md .github/pull_request_template.md .github/PULL_REQUEST_TEMPLATE.md 2>/dev/null; find PULL_REQUEST_TEMPLATE docs/PULL_REQUEST_TEMPLATE .github/PULL_REQUEST_TEMPLATE -maxdepth 1 -type f 2>/dev/null`
 
 ## Modes
 
@@ -90,17 +79,22 @@ PR content must be skimmable: lead with what changed and why, keep only review-r
 
 ### 1. Resolve repository state
 
-- Confirm git repo, current branch, upstream, remote, and default branch.
-- Determine the base from `$ARGUMENTS`, existing PR base, upstream tracking branch, GitHub default branch, then `main` or `master`.
-- Detect an existing PR with `gh pr view`; if one exists, default to update mode.
+- Run `git status --short --branch`, `git branch --show-current`, and `git remote -v` to confirm the repository, worktree state, current branch, and remotes.
+- Run `git rev-parse --abbrev-ref --symbolic-full-name @{u}` to identify the upstream. Treat failure as no upstream.
+- Run `gh pr view --json url,state,title,baseRefName,isDraft` to find an existing PR for the branch. Treat a not-found result as no existing PR; treat authentication, network, and permission failures as blockers.
+- Run `gh repo view --json defaultBranchRef` to identify GitHub's default branch when needed.
+- Determine the base from the user's request, existing PR base, upstream tracking branch, GitHub default branch, then `main` or `master`.
+- If an existing PR was found, default to update mode.
 - Verify any referenced PR, branch, base, or upstream from the user or prior context with `gh pr view`, `git rev-parse --verify`, or `git ls-remote` before relying on it. If verification fails, treat it as unknown and resolve from repository state.
+- This step is complete when the repository, branch, remotes, upstream, existing PR state, and base are known.
 
 ### 2. Inspect the PR boundary
 
-- Review all commits included in the PR, not just the latest commit.
-- Review the diff against the resolved base, excluding obvious binary/generated artifacts from summaries but still flagging risky files.
+- Run `git log --oneline --decorate <base>..HEAD` and review every commit included in the PR, not just the latest commit.
+- Run `git diff --stat <base>...HEAD` and `git diff <base>...HEAD` to review the complete diff. Exclude obvious binary or generated artifacts from summaries, but still flag risky files.
 - Check status for staged, unstaged, and untracked files. Stop if any are present.
 - Confirm the PR has one coherent purpose and reviewable size before drafting metadata. If not, stop with a split recommendation instead of opening a broad PR.
+- This step is complete when every included commit and changed file has been accounted for and the boundary is coherent, committed, and reviewable.
 
 ### 3. Discover metadata conventions
 
@@ -112,6 +106,7 @@ PR content must be skimmable: lead with what changed and why, keep only review-r
 - If no supported template exists, run `gh pr list --state merged --limit 10 --json number,title,url,body`, inspect the previous merged PRs, and write down the dominant title/body convention before drafting metadata.
 - If recent merged PRs are available, follow their dominant convention. Do not use the fallback structure just because it is easier.
 - If no supported template exists and the recent-PR lookup fails, stop and report the exact command failure instead of creating or updating PR metadata.
+- This step is complete when one template or recent-PR convention has been selected, or the successful lookup has established that the fallback structure is required.
 
 ### 4. Write the review packet
 
