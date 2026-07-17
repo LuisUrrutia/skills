@@ -1,50 +1,46 @@
 # Agent Skills
 
-A collection of skills for AI coding agents (Claude Code, OpenCode, and others) that enhance your development workflow.
+[![skills.sh](https://skills.sh/b/LuisUrrutia/skills)](https://skills.sh/LuisUrrutia/skills)
+
+A collection of reusable skills for AI agents, including Claude Code, OpenCode,
+and other tools that support the Agent Skills format. The repository covers
+development workflows, writing, meeting updates, and Obsidian knowledge
+management.
 
 ## Skills
 
-### commit
+| Skill | Use it for |
+| --- | --- |
+| [`article-processing`](article-processing/) | Turn article URLs into bilingual English/Spanish Obsidian notes with canonical URL deduplication, local attachments, and Medium/Freedium fallback. |
+| [`commit`](commit/) | Create one safe Conventional Commit from a coherent change boundary, validate it, and optionally push only when explicitly requested. |
+| [`daily-meeting-update`](daily-meeting-update/) | Build a meeting-ready development update from recent Git, GitHub, Jira/Atlassian, and OpenCode activity. |
+| [`github-actions`](github-actions/) | Create, modify, or audit GitHub Actions workflows for security, correctness, reliability, cost, and performance. |
+| [`humanize`](humanize/) | Rewrite, review, or edit prose so it sounds natural while preserving meaning, facts, citations, and the author's voice. |
+| [`people-memory`](people-memory/) | Maintain persistent Obsidian People profiles from names, aliases, and contextual references in conversation. |
+| [`pr`](pr/) | Create or update GitHub pull requests with safe Git and `gh` handling; every new PR is created and verified as a draft. |
+| [`walkthrough`](walkthrough/) | Explain the current branch's changes from a user perspective, organized around flows, behavior, risks, and validation. |
+| [`youtube-processing`](youtube-processing/) | Turn YouTube URLs into bilingual Obsidian study notes with reusable transcripts, local thumbnails, and compatible frontmatter. |
 
-Create git commits with conventional commit messages.
+## Usage
 
-**Triggers:** `commit`, `/commit`, `make a commit`
+Ask your agent for the outcome in natural language. For example:
 
-**Features:**
-- Analyzes staged changes and generates conventional commit messages
-- Follows `type(scope): message` format (feat, fix, docs, style, refactor, test, chore)
-- Matches your repository's existing commit style
-- Handles staging, branch protection warnings, and push in one flow
+```text
+Create a safe commit for these changes.
+Open a draft PR for the current branch.
+Audit this GitHub Actions workflow for security and performance issues.
+Turn this YouTube video into bilingual Obsidian study notes.
+Summarize my recent development activity for today's standup.
+```
 
-### pr
-
-Create or update GitHub pull requests.
-
-**Triggers:** `pr`, `/pr`, `create pr`, `open pr`, `pull request`
-
-**Features:**
-- Analyzes all commits since branching from main
-- Generates PR title and description
-- Respects `.github/PULL_REQUEST_TEMPLATE.md` if present
-- Always creates new PRs as drafts and refuses to report success unless draft state is verified
-- Requires `gh` CLI
-
-### github-actions
-
-Guidelines for writing secure and maintainable GitHub Actions workflows.
-
-**Triggers:** `workflow`, `github actions`, `CI/CD`, `actions yaml`
-
-**Features:**
-- Security best practices (pinned actions, least-privilege permissions)
-- Performance patterns (caching, parallel execution, fail-fast)
-- Shell scripting guidelines
-- Reference docs for API calls, matrix builds, and reusable workflows
-- Integrates with `actionlint` for validation
+The agent selects the matching skill from its description and follows that
+skill's safety checks and workflow.
 
 ## Installation
 
-### Using npx (Recommended)
+### Using the Skills CLI
+
+Install the repository with the recommended `skills` CLI:
 
 ```bash
 npx skills add LuisUrrutia/skills
@@ -52,22 +48,32 @@ npx skills add LuisUrrutia/skills
 
 ### Manual Installation
 
-Clone the repository and symlink to your agent's skills directory:
+Clone the repository, then symlink its skill directories into your agent's
+personal skills directory:
 
 ```bash
 git clone https://github.com/LuisUrrutia/skills.git
 cd skills
 
-# For Claude Code
-ln -s $(pwd)/commit ~/.config/claude/skills/commit
-ln -s $(pwd)/pr ~/.config/claude/skills/pr
-ln -s $(pwd)/github-actions ~/.config/claude/skills/github-actions
+# Claude Code
+mkdir -p "$HOME/.claude/skills"
+for skill_file in "$PWD"/*/SKILL.md; do
+  skill_dir=${skill_file%/SKILL.md}
+  skill_name=${skill_dir##*/}
+  ln -s "$skill_dir" "$HOME/.claude/skills/$skill_name"
+done
 
-# For OpenCode
-ln -s $(pwd)/commit ~/.config/opencode/skills/commit
-ln -s $(pwd)/pr ~/.config/opencode/skills/pr
-ln -s $(pwd)/github-actions ~/.config/opencode/skills/github-actions
+# OpenCode
+mkdir -p "$HOME/.config/opencode/skills"
+for skill_file in "$PWD"/*/SKILL.md; do
+  skill_dir=${skill_file%/SKILL.md}
+  skill_name=${skill_dir##*/}
+  ln -s "$skill_dir" "$HOME/.config/opencode/skills/$skill_name"
+done
 ```
+
+To install only selected skills, symlink those directories instead of running
+the loops above.
 
 ## License
 
