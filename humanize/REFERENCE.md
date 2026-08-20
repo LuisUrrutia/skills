@@ -1,18 +1,29 @@
-# AI-writing pattern detection catalog
+# AI-associated writing pattern catalog
 
-Use this reference as the diagnostic catalog for comprehensive review, audit, or rewrite work. `SKILL.md` owns the workflow, output contracts, and completion gate.
+Use this reference to diagnose prose that feels generated, generic, or unnatural. It describes observable writing patterns, not a method for identifying who or what wrote the text. `SKILL.md` owns the workflow, output contracts, and completion gate.
+
+## Route map
+
+For a full `review`, inspect every family and apply the false-positive guardrails. For a targeted `rewrite` or `edit`, load the families that match the initial scan, then rescan the result against those same families.
+
+- **Generic wording and syntax:** [1. Lexical tells](#1-language-and-lexical-tells), [2. Significance padding](#2-significance-and-notability-padding), [3. Promotional and positioning fog](#3-promotional-tone-and-product-positioning-fog), [4. Formulaic syntax and stock metaphors](#4-formulaic-syntax-and-stock-metaphors), [11. Content economy](#11-content-economy-and-treadmill-restatement), [17. Hedging and filler](#17-hedging-filler-and-sycophancy)
+- **Organization and surface style:** [5. Outline artifacts](#5-structure-and-outline-artifacts), [6. Formatting and punctuation](#6-formatting-and-punctuation-tells), [12. Rhythm](#12-rhythm-and-sentence-boundary-tells), [13. Whole-text cohesion](#13-whole-text-cohesion-and-referential-continuity), [16. Openings and closings](#16-openings-closings-and-transition-residue)
+- **Generation residue and evidence:** [7. Chatbot residue](#7-chatbot-residue), [8. Prompt leakage](#8-context-contamination-and-prompt-leakage), [9. Attribution and citations](#9-attribution-evidence-and-citation-patterns), [15. Tool and model artifacts](#15-emerging-model-artifacts), [18. Shadowboxing and phantom alternatives](#18-shadowboxing-and-phantom-alternatives)
+- **Genre and language:** [10. Social formulas](#10-social-and-linkedin-cliches), [14. Multilingual artifacts](#14-multilingual-and-translation-artifacts)
+- **Verdict safeguards:** [19. False-positive guardrails](#19-false-positive-guardrails) and [Review rubric](#review-rubric)
 
 ## Detection principles
 
 - Look for density, repetition, and interaction. One generic phrase can be human. Five generic phrases stacked with tidy structure and no concrete detail is suspicious.
 - Preserve house style. Formal, academic, legal, technical, multilingual, or accessibility-oriented prose can sound controlled without being AI-written.
-- Separate detection from judgment. A pattern means "review this," not "accuse the author."
+- Separate observation from provenance. A pattern means "review this passage," not "infer authorship."
 - Prefer concrete repairs. Replace puffery with facts, vague authority with named sources, and chatbot framing with content.
 - Apply the catalog by pattern family. Pattern-specific false positives matter more than a keyword match.
+- Use only details present in the source. Examples below include every fact used in their rewrites; they are demonstrations, not facts to borrow.
 
 ## 1. Language and lexical tells
 
-**Watch for:** Clusters of statistically common AI words and phrases: "delve," "realm," "landscape," "tapestry," "pivotal," "crucial," "robust," "seamless," "underscore," "foster," "garner," "enhance," "valuable," "comprehensive," "transformative," "ever-evolving," "plays a key role," "at the forefront."
+**Watch for:** Clusters of broad, fashionable words and phrases that could fit almost any topic: "delve," "realm," "landscape," "tapestry," "pivotal," "crucial," "robust," "seamless," "underscore," "foster," "garner," "enhance," "valuable," "comprehensive," "transformative," "ever-evolving," "align with," "interplay," "intricate" or "intricacies," "meticulous" or "meticulously," "plays a key role," and "at the forefront." Judge repeated reliance and co-occurrence, not isolated words.
 
 **Why suspicious:** These words often appear where plain verbs or concrete nouns would do. AI drafts lean on broadly applicable words that fit many topics but add little.
 
@@ -22,7 +33,7 @@ Use this reference as the diagnostic catalog for comprehensive review, audit, or
 
 **Example:**
 
-- Before: "The initiative plays a crucial role in fostering innovation across the evolving AI landscape."
+- Before: "The program plays a crucial role in fostering innovation across the evolving AI landscape by funding six AI safety labs and publishing their evaluation results."
 - After: "The program funds six AI safety labs and publishes their evaluation results."
 
 ## 2. Significance and notability padding
@@ -37,38 +48,42 @@ Use this reference as the diagnostic catalog for comprehensive review, audit, or
 
 **Example:**
 
-- Before: "The launch marks a pivotal shift in how teams collaborate."
+- Before: "The launch marks a pivotal shift in how teams collaborate because they can now edit the same document at the same time."
 - After: "After the launch, teams could edit the same document at the same time."
 
-## 3. Promotional and SEO tone
+## 3. Promotional tone and product-positioning fog
 
-**Watch for:** Advertisement language: "boasts," "nestled," "renowned," "breathtaking," "must-visit," "world-class," "cutting-edge," "game-changing," "unlock," "supercharge," "elevate," "revolutionize," "seamless experience," "designed to help you thrive."
+**Watch for:** Advertisement language such as "boasts," "nestled," "renowned," "breathtaking," "vibrant," "must-visit," "world-class," "cutting-edge," "game-changing," "supercharge," "elevate," "revolutionize," and "designed to help you thrive." Also watch product-positioning fog that replaces the actual user, task, mechanism, decision, or observed result with a broad business outcome. Common forms include "drive engagement," "unlock value," "enhance the user experience," "seamless," "frictionless," or "intuitive experience," "actionable insights," "align stakeholders," "move the needle," "single source of truth," "customer-centric," "delight users," and "optimize workflows." Treat these as patterns, not banned phrases: they become fog when the surrounding text never says who benefits, what changed, or how the claimed improvement could be observed.
 
-**Why suspicious:** AI systems trained on marketing pages often slide into brochure copy, especially for products, places, culture, travel, education, and SaaS.
+**Why suspicious:** AI systems trained on marketing pages often slide into brochure copy, especially for products, places, culture, travel, education, and SaaS. Product-positioning fog states the desired impression or business result instead of explaining the product behavior, making a claim sound measurable or user-focused while withholding the information needed to understand or verify it.
 
-**False positives:** Landing pages and product copy may intentionally sell. Even there, vague praise still weakens the piece.
+**False positives:** Landing pages and product copy may intentionally sell, and strategy documents may state objectives before results exist. Terms such as "single source of truth" or "stakeholder alignment" can be precise when the text names the authoritative system, decision, owner, or conflict involved. A phrase is not fog when nearby text supplies the missing behavior or evidence. Even in promotional genres, vague praise still weakens the piece.
 
-**Rewrite or detection tactic:** Convert praise into features, constraints, proof, or user outcomes. Cut adjectives that cannot be verified.
-
-**Example:**
-
-- Before: "Our platform delivers a seamless, world-class experience."
-- After: "The app saves drafts offline and syncs them when the connection returns."
-
-## 4. Grammar and syntax tics
-
-**Watch for:** Copula avoidance and ornate substitutions: "serves as," "stands as," "represents," "boasts," "features" where "is" or "has" is clearer. Also watch forced parallelism, "not only...but also," "it's not just X, it's Y," false "from X to Y" ranges, and sentence-ending `-ing` clauses such as "highlighting," "showcasing," "underscoring," "ensuring," "reflecting."
-
-**Why suspicious:** AI often avoids direct sentences and adds trailing clauses that pretend to analyze rather than add facts.
-
-**False positives:** Some academic and legal prose uses nominal style. Some `-ing` clauses are normal and precise.
-
-**Rewrite or detection tactic:** Try the simple version. If the sentence improves with "is" or "has," use it. If a trailing clause is fake analysis, cut it, fold it into the sentence, or start a new sentence only when that is the most natural connection. Split false ranges into a list of actual topics.
+**Rewrite or detection tactic:** Remove the positioning language and inspect what remains. Ask who does what differently, in which task or workflow, and what supported evidence shows the result. Replace praise and broad outcomes with any user, behavior, mechanism, decision, constraint, proof, or measurement already present. If the source supplies only an objective, present it as an objective rather than a delivered result. Cut claims that add no supported meaning, and do not invent a metric, baseline, or customer need.
 
 **Example:**
 
-- Before: "The report serves as a roadmap for leaders, highlighting the importance of alignment."
-- After: "The report gives leaders a roadmap and recommends weekly budget reviews."
+- Before: "The new onboarding flow delivered a seamless, customer-centric experience that drove engagement and unlocked value. It saved unfinished applications, restored them on the next visit, and increased application completion from 62 percent to 78 percent."
+- After: "The new onboarding flow saved unfinished applications, restored them on the next visit, and increased application completion from 62 percent to 78 percent."
+
+## 4. Formulaic syntax and stock metaphors
+
+**Watch for:** Formulaic syntax that makes a claim sound more polished or profound than its content. Patterns include copula avoidance and ornate substitutions such as "serves as," "stands as," "represents," "boasts," or "features" where "is" or "has" is clearer; forced parallelism, including repeated rule-of-three constructions in which the third item completes a cadence rather than a real category; "not only...but also" and "it's not just X, it's Y" constructions; false "from X to Y" ranges; and sentence-ending `-ing` clauses such as "highlighting," "showcasing," "underscoring," "ensuring," or "reflecting." Repeated runs of three adjectives, abstract nouns, clauses, or bullets can make thin material feel comprehensive. Also watch stock metaphors that cast a claim as a maxim, including "X is the Y of Z," "X is not a tool but a mirror," and "X becomes a trap," especially when abstract words such as "language," "currency," or "architecture" stand in for an unnamed relationship.
+
+**Why suspicious:** These structures can replace a direct relationship with an ornate predicate, a balanced slogan, or an underdefined metaphor. Repeated triads can make thin material feel complete and force unrelated items into matching grammar. Trailing clauses can also pretend to analyze rather than add facts.
+
+**False positives:** Academic and legal prose may use nominal style. Essays, speeches, fiction, advertising, and an established authorial voice may use metaphor deliberately. "Language," "currency," and "architecture" can be literal domain terms, and some `-ing` clauses are normal and precise. Three items may form an exact count, a natural classification, or a deliberate rhetorical pattern. A single triad is weak evidence; repetition and low-information items make the pattern meaningful.
+
+**Rewrite or detection tactic:** Recover the underlying proposition before changing its form. Prefer a direct verb when it preserves the claim. Translate a stock metaphor into a literal relationship only when the source supplies that relationship; preserve a deliberate or underdefined metaphor rather than inventing its meaning. For a triad, map each item to distinct source information. Keep the three-part structure when every item is real and parallel; remove padding, merge overlap, or abandon the shape when an item exists only to complete the rhythm. If a trailing clause is fake analysis, cut it, fold it into the sentence, or start a new sentence when that is the clearest connection. Split false ranges into a list of actual topics.
+
+**Examples:**
+
+- Before: "The report serves as a roadmap for managers, not only outlining the approval process but also highlighting where requests tend to stall."
+- After: "The report shows managers how the approval process works and where requests tend to stall."
+- Before: "Speed is the currency of customer support: teams that answer tickets within an hour retain more customers."
+- After: "Teams that answer support tickets within an hour retain more customers."
+- Before: "The release delivers speed, security, and resilience. It starts in 4 seconds instead of 12, encrypts tokens at rest, and resumes failed uploads automatically."
+- After: "The release starts in 4 seconds instead of 12, encrypts tokens at rest, and resumes failed uploads automatically."
 
 ## 5. Structure and outline artifacts
 
@@ -82,23 +97,30 @@ Use this reference as the diagnostic catalog for comprehensive review, audit, or
 
 **Example:**
 
-- Before: "In conclusion, whether you are starting out or scaling up, the future of productivity is bright."
+- Before: "In conclusion, whether you are starting out or scaling up, the next release adds shared folders and admin audit logs."
 - After: "The next release adds shared folders and admin audit logs."
 
-## 6. Formatting tells
+## 6. Formatting and punctuation tells
 
-**Watch for:** Overuse of bold inline labels, emoji bullets, title-case headings in casual prose, boxed takeaway lists, excessive blockquotes, em dash characters (`—`) as default idea connectors, too many colons, mechanical tables, curly quotes or curly apostrophes in otherwise plain text, invisible Unicode, nonbreaking spaces, zero-width characters, smart punctuation that differs from the file style, and repeated Markdown fences without need.
+**Watch for:** Overuse of bold inline labels, emoji bullets, title-case headings in casual prose, boxed takeaway lists, excessive blockquotes, mechanical tables, curly quotes or apostrophes in otherwise plain text, invisible Unicode, and repeated Markdown fences. In the prose itself, watch repeated "announcement: point" structures and em dashes (`—`) used as default connectors, dramatic pauses, or all-purpose asides.
 
-**Why suspicious:** Chatbots often overformat to look organized. Some tools also introduce hidden or typographic characters during generation.
+**Why suspicious:** Chatbots often use formatting and punctuation as shortcuts for structure. A colon can delay a point behind an empty announcement, while a dash can conceal whether ideas are connected, opposed, or independent.
 
-**False positives:** Style guides may require title case, curly quotes, curly apostrophes, tables, or callouts. Accessibility docs may use consistent labels for scanning.
+**False positives:** A colon naturally introduces a list, example, explanation, or result. During review, style guides may require em dashes, title case, smart punctuation, tables, or callouts; accessibility docs may use consistent labels for scanning.
 
-**Rewrite or detection tactic:** Match the destination format. Remove decorative formatting. Use straight ASCII quotes (`"`) and apostrophes (`'`) in generated wording when the destination is plain text or Markdown, unless quoted/source text, a writing sample, house style, or explicit user preference calls for smart punctuation. Normalize invisible or inconsistent characters when editing files, but preserve intentional typography in published copy. When replacing dash-heavy AI prose, repair the connection between ideas with subordinate clauses, conjunctions, commas, colons, semicolons when natural, reordered clauses, or paragraph flow rather than chopping every link into a period. Preserve em dashes in quoted/source text, a provided writing sample, house style, or explicit user preference.
+**Rewrite or detection tactic:** Follow the straight-ASCII punctuation convention in `SKILL.md` for generated or edited prose and preserve other intentional typography. For a colon, remove the lead-in as a test: if the remainder already states the whole point, write it directly. For an em dash, identify the logical relationship and rebuild it with ordinary syntax, a comma and conjunction, reordered clauses, or a new sentence. Swapping in parentheses, an en dash, or a hyphen leaves the structural problem untouched.
 
-**Example:**
+**Examples:**
 
-- Before: "**Innovation:** The company is pushing boundaries."
-- After: "The company added image search and team permissions."
+- Before: "The advantage is clear: the cache avoids repeated queries."
+- After: "The cache avoids repeated queries."
+- Before: "If you come from traditional automation: here you describe activation conditions instead of registering event handlers."
+- After: "With traditional automation, you register event handlers. Here, you describe activation conditions."
+- Keep: "The command accepts three formats: JSON, CSV, and XML."
+- Before: "The change seems small — but it breaks the API."
+- After: "The change seems small, but it breaks the API."
+- Before: "Only one option remains — restart the server."
+- After: "Only one option remains. The server must be restarted."
 
 ## 7. Chatbot residue
 
@@ -127,23 +149,23 @@ Use this reference as the diagnostic catalog for comprehensive review, audit, or
 
 **Example:**
 
-- Before: "This section should reassure users that the migration is simple."
+- Before: "This section should reassure users that the migration is simple because most teams can finish it in one afternoon."
 - After: "Most teams can finish the migration in one afternoon."
 
-## 9. Academic and citation patterns
+## 9. Attribution, evidence, and citation patterns
 
-**Watch for:** Unsupported literature gestures: "scholars have long debated," "research suggests," "studies show," "it is widely recognized," "the literature highlights." Watch fabricated precision, citations that do not support the sentence, excessive hedging, source laundering, and generic transitions between papers.
+**Watch for:** Vague or inflated attribution: "experts say," "observers have noted," "industry reports," "critics argue," "research suggests," "studies show," "it is widely recognized," and "the literature highlights." Also watch claims attributed to "several sources" when only one is cited, citations that do not support the sentence, fabricated precision, source laundering, and generic transitions between sources.
 
-**Why suspicious:** AI often mimics academic style without doing the evidentiary work. It can preserve citation shape while weakening source accuracy.
+**Why suspicious:** Vague authority can make an opinion look established while hiding whether the evidence supports its scope, certainty, or attribution.
 
-**False positives:** Academic writing needs careful hedging, field framing, and citation density. Formality alone is not suspicious.
+**False positives:** Literature reviews, field summaries, and consensus statements may need collective attribution. A plural attribution is valid when several supplied sources support it.
 
-**Rewrite or detection tactic:** Keep claims tied to cited sources. Replace vague field claims with named authors, dates, methods, or findings. Do not invent sources.
+**Rewrite or detection tactic:** Identify who holds each claim and which source supports it. Name the source when it is available, and match singular or plural attribution to the evidence. If the source is missing, preserve the uncertainty instead of promoting the claim to fact; ask for the source when verification matters.
 
 **Example:**
 
-- Before: "Recent studies highlight the importance of motivation in learning outcomes."
-- After: "Deci and Ryan's self-determination theory links autonomy and competence to motivation."
+- Before: "Several industry reports show that the migration is more reliable. Acme's 2025 benchmark found that failed jobs fell from 4 percent to 1 percent."
+- After: "Acme's 2025 benchmark found that failed jobs fell from 4 percent to 1 percent."
 
 ## 10. Social and LinkedIn cliches
 
@@ -157,10 +179,10 @@ Use this reference as the diagnostic catalog for comprehensive review, audit, or
 
 **Example:**
 
-- Before: "I am humbled and honored to share this exciting milestone."
+- Before: "I am humbled and honored to share this exciting milestone: I joined Render's infrastructure team this week, and I feel nervous, excited, and ready to learn."
 - After: "I joined the infrastructure team at Render this week. Nervous, excited, and ready to learn."
 
-## 11. Content density and treadmill restatement
+## 11. Content economy and treadmill restatement
 
 **Watch for:** Low-information sentences that restate the heading or previous line: "This is important because it matters," "The tool helps teams work better," "These benefits can improve outcomes." Watch paragraphs that keep moving but do not add names, numbers, examples, mechanisms, tradeoffs, or stakes.
 
@@ -168,31 +190,59 @@ Use this reference as the diagnostic catalog for comprehensive review, audit, or
 
 **False positives:** Executive summaries and abstracts may compress detail by design. Transitional sentences can be useful.
 
-**Rewrite or detection tactic:** Demand one new unit of information per sentence. Add a fact, example, mechanism, or consequence. If none exists, delete.
+**Rewrite or detection tactic:** Find the shortest version that preserves the full claim, qualification, tone, and necessary context. Combine repeated points, move support next to the claim it explains, and remove a sentence when it adds no fact, example, mechanism, consequence, or useful connection.
 
-**Example:**
+**Examples:**
 
-- Before: "Better onboarding improves the employee experience and creates a stronger workplace."
+- Before: "Better onboarding improves the employee experience by giving new hires their laptop, payroll login, and first-week schedule before day one."
 - After: "New hires now get their laptop, payroll login, and first-week schedule before day one."
+- Before: "The user can retry again."
+- After: "The user can retry."
 
-## 12. Statistical and rhythm tells
+## 12. Rhythm and sentence-boundary tells
 
-**Watch for:** Metronomic sentence length, uniform paragraph size, low burstiness, repeated transition placement, too-even punctuation, smooth but predictable cadence, low type-token variety, or weirdly high synonym variety from synonym cycling.
+**Watch for:** Metronomic sentence length, uniform paragraph size, repeated transition placement, too-even punctuation, choppy period-stacked prose, or abrupt breaks between ideas that belong together. Watch especially for runs of short declarations or fragments that isolate every fact as a punchline, including formulas such as "No X. No Y. Just Z." Also watch detached verdicts: short sentences built around an abstract judgment such as "The separation is deliberate," "The distinction matters," or "The tradeoff is clear," followed immediately by the mechanism or reason that makes the judgment meaningful. Related defaults, conditions, and exceptions can produce the same fragmentation when they become consecutive standalone sentences, especially with a repeated subject followed by "The exception is." Dense sentences often contain several asides, switch actors midstream, chain many actions, mix conditions with results, or make the reader revisit the opening to understand the ending.
 
-**Why suspicious:** AI prose often has a statistically even rhythm. It may avoid fragments, sharp turns, long messy sentences, or honest pauses.
+**Why suspicious:** Uniform rhythm can make prose feel templated. At the other extreme, isolating every fact for emphasis gives ordinary information a staged cadence. A detached verdict makes the reader hold an abstract conclusion and wait for the next sentence to learn what it means, separating the judgment from its evidence or mechanism. Fragmented rules force the reader to reconstruct the policy hierarchy and decide which requirement an exception overrides. These patterns make sentence boundaries feel imposed rather than shaped by meaning.
 
-**False positives:** Technical manuals, policies, abstracts, and style-guide-compliant docs may deliberately use steady rhythm.
+**False positives:** Technical manuals, policies, abstracts, accessibility-oriented prose, and style-guide-compliant docs may deliberately use short sentences or a steady rhythm. Tables, checklists, legal provisions, and procedures may require one rule or exception per line. Dialogue, speeches, fiction, and advertising may use staccato cadence for effect. A short verdict may summarize evidence already presented, mark a genuine turn, or carry deliberate emphasis in the author's voice. A single short sentence can create legitimate emphasis, and a long sentence can remain clear when its parts have an obvious relationship.
 
-**Rewrite or detection tactic:** Read aloud. Vary sentence length only where it helps meaning. Use direct repetition when it is clearer than synonym swaps.
+**Rewrite or detection tactic:** Map the actors, actions, conditions, and sequence before choosing sentence boundaries. Let each sentence hold one understandable movement, which may include several closely related facts or clauses. Keep actions together while the actor and focus remain stable; split near a change of actor, stage, or main point, then preserve continuity with an explicit subject or natural transition. When a short verdict and its explanation keep the same actor, stage, and focus, build the judgment into the concrete relationship. If two sentences remain clearer, let the first state the mechanism and the second continue from a specific referent. For rules, map the default, affected subset, and exceptions before drafting. Keep them in one grammatical unit or in explicitly linked sentences; use scope-bearing syntax such as "those that," "except," and "unless," and make clear which requirement each exception overrides. Join ideas when grammar shows their relationship more clearly than a full stop, and split whenever nesting, ambiguity, or cognitive load makes the reader retrace the sentence. Keep a short sentence when it carries the passage's real point of emphasis rather than making every intermediate fact sound conclusive.
 
-**Example:**
+**Examples:**
 
-- Before: Four consecutive paragraphs each have three medium sentences ending with a broad takeaway.
-- After: Merge repeated points, add one concrete example, and let one paragraph end on the fact.
+- Before: "The deployment stopped because the nightly backup held the database lock. The backup finished. The team restarted the deployment. It completed."
+- After: "The nightly backup held the database lock and stopped the deployment. Once the backup finished, the team restarted the deployment, and it completed."
+- Before: "When the user posts a photo, the app, after checking the session and validating the selected file, sends the image to the server, which processes it and returns its identifier."
+- After: "When the user posts a photo, the app checks the session and validates the selected file before sending the image to the server. The server processes it and returns its identifier."
+- Before: "The separation is deliberate. Command modules stay small, while protocol details live in independently testable library modules."
+- After: "The deliberate separation keeps command modules small by leaving protocol details out of them. Those details live in library modules, where they can be tested independently."
+- Before: "Most commands are read-only. Commands that change the profile or a relationship require explicit confirmation. The exception is `note set`, which sends by default and provides `--dry-run` for previewing the operation."
+- After: "Most commands are read-only. Those that change the profile or a relationship require explicit confirmation, except `note set`, which sends by default and supports `--dry-run` to preview the operation."
 
-## 13. Multilingual and translation artifacts
+## 13. Whole-text cohesion and referential continuity
 
-**Watch for:** Literal calques, overly formal register, unnatural idioms, English AI phrases translated word for word, inconsistent pronouns, mixed punctuation norms, overexplained cultural context, or machine-like preservation of source sentence order.
+**Watch for:** A text that reads like separately polished fragments, preserves the source order despite weak logic, opens consecutive sentences on the same subject without a rhetorical purpose, or rotates among aliases such as a proper name, "the company," "the organization," and "the platform." Also watch referent drift, where one catch-all noun names different kinds of objects across the passage, and topic-word saturation, where the brief's central noun or adjective modifies unrelated phrases after the text has already established its scope. The local sentences may be clean while the whole piece still wanders, doubles back, or manufactures cohesion through repeated labels.
+
+**Why suspicious:** Local rewriting can preserve boundaries and decisions that weaken the whole. It may leave redundancy, detach support, hide causal links, or produce opposite failures of cohesion: forced aliases that obscure a stable referent, catch-all nouns that collapse distinct objects, topic words that blur scope through repetition, and repeated openings that preserve sentence boundaries the thought no longer needs.
+
+**False positives:** Technical, legal, and academic text may repeat one term or preserve a fixed order for precision. An umbrella term is useful when its members are explicit or its meaning remains defined and stable. A repeated modifier may distinguish real scopes, preserve an established term, or make standalone content understandable. Rhetorical repetition can create emphasis or rhythm. Pronouns and omitted subjects behave differently across languages, so judge cohesion in the target language rather than imposing English patterns.
+
+**Rewrite or detection tactic:** Identify the text's throughline and rebuild around it. Move evidence beside its claim, combine ideas that do the same work, remove restatement, and reorder material when the logic improves. Keep one precise label per concept and one stable concept per label. For referent drift, map each occurrence to the concrete source-supported object and rewrite it independently; do not choose one universal synonym. For topic-word saturation, establish the default scope once, remove later modifiers that add no contrast, and name the exact scope when it matters. Do not hide repetition through synonym cycling. When consecutive sentences share an actor and focus, combine their actions. When they need separate sentences, vary the opening only if time, condition, contrast, consequence, or another real relationship provides a better entry. Use a pronoun only when its antecedent is unmistakable, and use a different role label only when that role matters to the point.
+
+**Examples:**
+
+- Before: "Westbridge Museum acquired the letters in 1998. Westbridge Museum digitized them in 2019. The museum now provides online access to the letters. The institution also offers downloadable transcripts."
+- After: "Westbridge Museum acquired the letters in 1998, digitized them in 2019, and now provides online access to the letters and downloadable transcripts."
+- Before: "Los municipios reciben señales vecinales por correo, teléfono y formularios. El piloto llevará esas señales a un canal interno que funciona como cola de moderación, sin sustituir canales de emergencia como el 112."
+- After: "Los municipios reciben avisos vecinales por correo, teléfono y formularios. El piloto reunirá esos avisos en una cola de moderación sin sustituir servicios de emergencia como el 112."
+- Before: "El piloto reunirá avisos locales, servicios locales y contenido local de un barrio antes de escalar la propuesta a toda la ciudad."
+- After: "El piloto reunirá los avisos, servicios y contenidos de un barrio antes de extenderse a toda la ciudad."
+- Keep: "La normativa distingue entre la administración local, autonómica y estatal."
+
+## 14. Multilingual and translation artifacts
+
+**Watch for:** Literal calques, overly formal register, unnatural idioms, English AI phrases translated word for word, inconsistent pronouns, mixed punctuation norms, overexplained cultural context, or machine-like preservation of source sentence order. For Spanish prose, treat "La señal es clara:" as a local form of the [announcement: point pattern](#6-formatting-and-punctuation-tells) when the opener adds no stance or evidence. Treat shifting abstract uses of "señal" or "canal," and repeated uses of "local" after the scope is established, as local forms of [referent drift and topic-word saturation](#13-whole-text-cohesion-and-referential-continuity). These are routing cues, not banned words.
 
 **Why suspicious:** AI translation and multilingual rewriting can flatten voice and import English chatbot patterns into other languages.
 
@@ -202,10 +252,10 @@ Use this reference as the diagnostic catalog for comprehensive review, audit, or
 
 **Example:**
 
-- Before: "Es importante notar que esta herramienta facilita un paisaje robusto de productividad."
+- Before: "Es importante notar que esta herramienta facilita un paisaje robusto de productividad al ayudar a organizar tareas y revisar avances."
 - After: "Esta herramienta ayuda a organizar tareas y revisar avances."
 
-## 14. Emerging model artifacts
+## 15. Emerging model artifacts
 
 **Watch for:** Hidden model fingerprints: repeated safety caveats, generic compliance language, unexplained refusal residue, "I cannot verify," fake browsing confidence, tool output pasted into prose, JSON fragments, Markdown tables from prompts, hallucinated anchors, broken footnotes, synthetic URLs, and placeholder source names.
 
@@ -217,40 +267,65 @@ Use this reference as the diagnostic catalog for comprehensive review, audit, or
 
 **Example:**
 
-- Before: "According to search result [3], this is widely adopted."
+- Before: "According to search result [3], the 2024 CNCF survey reports adoption at 38 percent, so this is widely adopted."
 - After: "The 2024 CNCF survey reports adoption at 38 percent."
 
-## 15. Openings, closings, and transition residue
+## 16. Openings, closings, and transition residue
 
-**Watch for:** Formulaic openings: "In today's fast-paced world," "As technology continues to evolve," "In an era where," "It goes without saying." Formulaic closings: "The future looks bright," "Only time will tell," "This is just the beginning," "Exciting times lie ahead," "Moving forward." Overused transitions: "Furthermore," "Additionally," "Moreover," "In conclusion."
+**Watch for:** Formulaic openings such as "In today's fast-paced world," "As technology continues to evolve," "In an era where," or "It goes without saying." Watch fake-candid hooks and pause-and-reveal fragments, including the standalone question "Honestly?" and phrases such as "Look," "Here's the thing," "The thing is," "Let's be honest," or "Real talk," when they precede an ordinary claim without changing its stance or meaning. Meta-announcements such as "Let's dive in," "Let's explore," "Let's break this down," "Here's what you need to know," "Now let's look at," and "Without further ado" announce the next point instead of presenting it. Treat "a deep dive into" as the same pattern when it promises depth instead of establishing useful scope. Casual recastings such as "Heads up," "Quick note," and "Before I forget" have the same defect when they serve only as introductions. Formulaic closings include "The future looks bright," "Only time will tell," "This is just the beginning," and "Exciting times lie ahead." Overused transitions include "Moving forward," "Furthermore," "Additionally," "Moreover," and "In conclusion."
 
-**Why suspicious:** These phrases buy time and sound polished without giving the reader content.
+**Why suspicious:** These phrases can buy time, simulate candor, make an ordinary point sound consequential, or replace content with commentary about the content. A casual register does not repair an announcement whose only job is to introduce the next point.
 
-**False positives:** Speeches, school essays, and highly formal articles may use explicit transitions. Some readers need signposting.
+**False positives:** Dialogue, speeches, personal essays, informal correspondence, advertising, and an established authorial voice may use conversational openers naturally. An opener can mark a genuine concession, correction, disagreement, or personal admission. School essays and formal articles may require explicit transitions; long documents, procedures, presentations, and accessibility-oriented writing may need signposting. Warnings and navigation cues are functional when they change what the reader notices or does.
 
-**Rewrite or detection tactic:** Start with the claim, scene, question, or fact. End on the most useful consequence, not a generic moral.
+**Rewrite or detection tactic:** Remove the framing as a test. If the claim, stance, sequence, and reader guidance remain intact, state the point directly. Preserve an opener or signpost when it carries a real change in attitude, navigation, warning, sequence, or accessibility; express that function in natural syntax or functional formatting. Start with the claim, scene, question, or fact; use transitions only when they clarify a relationship; and end on the most useful consequence rather than a generic moral.
+
+**Examples:**
+
+- Before: "Is it worth the price? Honestly? It depends on how often you'll use it."
+- After: "Whether it's worth the price depends on how often you'll use it."
+- Before (scripted): "Let's break down the retry policy. Here's what you need to know: the API retries a failed request twice."
+- Before (casual): "Quick heads-up before we continue: the API retries a failed request twice."
+- After either: "The API retries a failed request twice."
+- Before: "The release fixed the login bug. Moving forward, the team will monitor error rates. Only time will tell whether the fix holds."
+- After: "The release fixed the login bug. The team will monitor error rates. It is not yet clear whether the fix will hold."
+
+## 17. Hedging, filler, and sycophancy
+
+**Watch for:** Excessive or stacked hedging such as "could potentially," "may possibly," and "might arguably"; repeated fairness clauses such as "to be fair"; or several uncertainty markers attached to the same claim. Treat "it's also possible" and "this is an inference" as signals only when they add no distinct alternative, attribution, or epistemic status. Filler: "it is important to note," "in order to," "due to the fact that," "at this point in time." Sycophancy: "great question," "you are absolutely right," "excellent point," "I completely agree."
+
+**Why suspicious:** Stacked qualifiers blur which limitation is real. Repeated cautious edits can leave a sentence defending against a stronger claim it no longer makes. Filler delays the point, while servile praise replaces substantive engagement.
+
+**False positives:** Risk, medicine, law, science, and policy writing may need careful uncertainty or explicit inference labels, and a claim may need several qualifiers when each marks a different limit. Polite correspondence may need warmth.
+
+**Rewrite or detection tactic:** Map each qualifier to certainty, scope, attribution, condition, or stance in the meaning contract. Keep every truth-changing limit, but express each one once. Collapse qualifiers that perform the same job. When a caveat only shields an unsupported stronger version of the claim, state the supported claim directly. Cut filler and servile praise; keep warmth when the genre requires it.
 
 **Example:**
 
-- Before: "In today's fast-paced digital world, cybersecurity is more important than ever."
-- After: "The breach exposed 42,000 customer records."
+- Before: "To be fair, the change could potentially reduce latency in some cases, although this is only an inference from the benchmark."
+- After: "The benchmark suggests that the change reduces latency in some cases."
 
-## 16. Hedging, filler, and sycophancy
+## 18. Shadowboxing and phantom alternatives
 
-**Watch for:** Excessive hedging: "could potentially," "may possibly," "it might be argued." Filler: "it is important to note," "in order to," "due to the fact that," "at this point in time." Sycophancy: "great question," "you are absolutely right," "excellent point," "I completely agree."
+**Watch for:** Unattributed defenses against positions the text never raises, or alternatives introduced only to be dismissed: "This isn't about," "I'm not saying" or "I'm not arguing," "To be clear," "Don't get me wrong," "This is not to say," "You could frame this differently, but," "Some might say... but," "A tempting approach would be," "One might be tempted to," "An obvious approach would be," "You might think... but," "It would be easy to just," and "Some would suggest." A phantom alternative usually appears nowhere else, is dismissed within a clause or two, and contributes no decision, constraint, evidence, or useful comparison. One occurrence is ambiguous; repeated digressions across unrelated points strengthen the pattern.
 
-**Why suspicious:** AI assistants often overqualify, over-explain, and flatter the user.
+**Why suspicious:** Drafting can leave replies to objections and alternatives that the published argument no longer needs. The reader is forced to follow branches that do not advance the point.
 
-**False positives:** Risk, medicine, law, science, and policy writing may need careful uncertainty. Polite correspondence may need warmth.
+**False positives:** An object-level negation is a claim: "The API is not thread-safe." Preserve a defense or alternative that documents an actual decision, explains a relevant tradeoff, establishes a constraint, answers an attributed objection, or compares options the reader genuinely needs to understand.
 
-**Rewrite or detection tactic:** Keep necessary uncertainty. Cut stacked qualifiers and servile praise. Say the point plainly.
+**Rewrite or detection tactic:** Ask what unique information the objection or alternative contributes. If the answer is none, remove the entire digression and reconnect the surrounding argument. If its rebuttal carries a real constraint or concession, state that claim affirmatively where it belongs. Keep genuine comparisons and counterarguments, and attribute them when attribution matters.
 
-**Example:**
+**Examples:**
 
-- Before: "It could potentially be argued that this may possibly reduce costs."
-- After: "This may reduce costs."
+- Before: "Some might frame this differently, but the parser fails when the input lacks a closing bracket."
+- After: "The parser fails when the input lacks a closing bracket."
+- Before: "The client retries a failed request twice. It would be easy to keep retrying until it succeeds, but the client stops after the second retry. It then returns the error to the caller."
+- After: "The client retries a failed request twice, then returns the error to the caller."
+- Before: "The importer validates the entire file before writing any records. An obvious approach would be to write each row as it is parsed, but a later error would leave a partial import. Invalid files add no records."
+- After: "The importer validates the entire file before writing any records, so invalid files cannot leave a partial import."
+- Keep: "The API is not thread-safe."
 
-## 17. False-positive guardrails
+## 19. False-positive guardrails
 
 Use these checks before flagging text:
 
@@ -266,16 +341,10 @@ If the answer is yes, soften the finding. Recommend a targeted edit, not a full 
 
 ## Review rubric
 
-For audit work, score by clusters rather than isolated words:
+Rate the prose by cluster strength, not presumed authorship. Weigh density, repetition across the piece, severity, and interaction between families. Concrete detail, distinctive voice, functional formatting, and genre conventions count as counterevidence.
 
-- **Low concern:** One or two common phrases, but the text has concrete detail, natural rhythm, and no chatbot residue.
-- **Medium concern:** Several families appear together, such as AI vocabulary, generic structure, and low content density.
-- **High concern:** Chatbot residue, prompt leakage, fabricated or weak citations, formulaic structure, and generic language appear across the piece.
+- **Low concern:** A few isolated markers appear, while the prose remains specific, coherent, and suited to its genre.
+- **Medium concern:** Multiple families recur or combine in ways that flatten voice, obscure claims, or make the structure feel generated.
+- **High concern:** Strong provenance residue, prompt leakage, unsupported evidence, or dense interacting clusters affect much of the piece.
 
-## Catalog tactics for revision
-
-- Replace importance claims with facts or sourced claims.
-- Replace vague adjectives with observable details.
-- Cut chatbot framing and prompt residue.
-- Vary rhythm without adding fake personality.
-- Remove generated AI-tell punctuation and formatting without flattening flow into choppy period-stacked prose.
+Report this as concern about the writing patterns. Prose alone cannot establish human or model authorship.

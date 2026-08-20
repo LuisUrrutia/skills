@@ -1,101 +1,102 @@
 ---
 name: humanize
-description: Humanize prose through natural-voice rewriting, AI-pattern review, and in-place file editing. Use when the user wants text rewritten in a more human voice, asks whether writing sounds AI-generated, or gives a file path and asks for humanizing edits while preserving meaning, facts, citations, and author voice.
+description: Use whenever producing, refining, or reviewing written content, including requests to humanize it or remove AI-sounding patterns.
 ---
 
 # Humanize
 
-Make text sound like a real person wrote it. Don't dumb it down, inflate it, or swap one kind of fake voice for another.
+Recompose prose so it reads as one coherent piece written by a person. Preserve the writer's meaning, intelligence, and register. Optimize for effortless comprehension, then for brevity.
 
-## Modes
+## Choose the mode
 
-- `rewrite`: Return the humanized text first. Add a short `Changes` section only when useful or requested.
-- `review`: Return findings only. Use the review table under [Output contracts](#output-contracts), and don't rewrite the full piece unless the user asks.
-- `edit`: Modify the requested file in place. Preserve unrelated content, then report changed files and validation performed.
+- `rewrite`: Return revised prose. The source may be pasted or supplied through context.
+- `review`: Diagnose why prose feels generated, generic, or unnatural. Assess the writing, not whether a person or model authored it.
+- `edit`: Modify the requested file in place while preserving unrelated content.
 
-Ask one brief question only when voice, audience, or format would materially change the result. If the user says "just make it human," use a clear, direct voice and proceed.
+Ask one brief question only when voice, audience, or format would materially change the result. When the user says only "make it human," infer the register from the source and proceed in a clear, direct voice.
 
-## Primary workflow
+## Workflow
 
-### 1. Read and lock constraints
+### 1. Lock the meaning contract
 
-- Read the full text before editing or judging it.
-- Identify nonnegotiables: meaning, facts, names, numbers, citations, code, quotes, domain terms, format, audience, and user constraints.
-- If the user provides a writing sample, note its rhythm, vocabulary, punctuation habits, and level of formality.
+- Read the complete target before judging or rewriting it. For a scoped file edit, also read enough surrounding material to understand its role and local style.
+- For `rewrite` and `edit`, read [FIDELITY.md](FIDELITY.md) before drafting and build the meaning contract it defines. For `review`, read it when evaluating semantic drift between versions.
+- Protect names, numbers, citations, code, quotations, domain terms, formatting requirements, and user constraints.
+- Treat secondhand text as protected: preserve watched phrases inside quotations, titles, proper names, and examples where the phrase is discussed rather than used.
+- Treat a supplied writing sample as the authority for rhythm, vocabulary, formality, and punctuation choices not fixed by this skill.
 
-Done when you can state what must survive unchanged and what voice the result should match.
+Complete this step when the protected claims, exclusions, constraints, and target voice are explicit enough to compare against a rewrite.
 
-### 2. Diagnose clusters
+### 2. Find the throughline and clusters
 
-- Identify clusters of AI tells, not isolated false positives.
-- Treat stacked patterns as one strong finding. Don't pad a review by listing the same phrase under five labels.
-- Use [REFERENCE.md](REFERENCE.md) for comprehensive audits, disputed false positives, or pattern families beyond the obvious.
+- State what the reader should understand, feel, or do after reading the piece. Infer this purpose from the source when it is unstated.
+- Trace the route to that purpose across the whole text. Mark repetition, misplaced support, missing links, unsupported claims, and sections that preserve an outline rather than advance the thought.
+- Diagnose interacting pattern clusters. A single fashionable word, punctuation mark, or tidy sentence is weak evidence; density and repetition across families are useful evidence.
+- Route into [REFERENCE.md](REFERENCE.md): for `review`, read the complete catalog and its false-positive guardrails; for `rewrite` or `edit`, use its route map to load the sections that match observed clusters. Read the complete catalog for a piece-wide audit or a disputed case.
+- Describe observable effects on the prose. Style alone cannot establish whether a human or a model wrote it.
 
-Done when every major edit or review finding is tied to a cluster, and normal human choices are not flagged on their own.
+Complete this step when the purpose, route, and material clusters are accounted for without turning ordinary author choices into findings.
 
-### 3. Rewrite with voice and substance
+### 3. Recompose from the throughline
 
-- Preserve the register the context needs: academic, technical, casual, professional, warm, blunt, or personal.
-- Add personality only when the content supports it. Blog posts, essays, LinkedIn posts, and emails can have opinions and texture. Reference docs, legal text, academic prose, and API docs should stay plain and precise.
-- Replace puffery with concrete facts, vague authority with named sources, and filler with useful content.
-- Keep the author's intelligence level. Human does not mean simplistic.
-- Keep citations, code blocks, data, technical terms, quoted text, and constraints intact unless the user asks otherwise.
+- Rewrite from the intended route instead of polishing the source line by line. Cut repetition, combine related ideas, move support beside its claim, and reorder material when the meaning contract permits it.
+- Prefer familiar, direct language when it carries the same meaning, precision, and tone. Keep technical or specialized wording when a simpler term would blur a distinction.
+- Use the shortest formulation that preserves the full claim and remains easy to understand on the first read. Keep transitions that reveal a useful relationship.
+- Build cause, contrast, sequence, condition, and consequence into the syntax. Choose sentence boundaries from changes in actor, stage, focus, or cognitive load rather than a target length.
+- Match the context's register. Personal and persuasive writing can carry opinion and texture; reference, legal, academic, and technical prose should remain controlled and precise.
+- Use only facts, examples, measurements, and sources already present or supplied by the user. Concrete writing comes from exposing supported detail, not inventing it.
 
-Done when the text says the same thing more naturally, with facts and author voice stronger than polish.
+Complete this step when the text reaches its point by the clearest economical route and every unique substantive claim still has a faithful home.
 
-### 4. Enforce rewrite constraints
+### 4. Tune voice, cohesion, and surface style
 
-- Confirmed AI tells become constraints on generated wording. Don't recreate dash-heavy phrasing, decorative formatting, chatbot transitions, forced section shapes, synonym cycling, vague authority, or other diagnosed patterns.
-- Don't introduce em dashes unless preserving quoted or source text, matching a provided writing sample or house style, or following an explicit user preference.
-- Use straight ASCII quotes (`"`) and apostrophes (`'`) in generated wording unless preserving quoted or source text, matching a provided writing sample or house style, or following an explicit user preference.
-- Preserve legitimate formal, academic, technical, multilingual, and house-style choices. The goal is natural voice, not flattening.
+- Read the draft continuously. Make referents unmistakable, vary rhythm where the thought calls for it, and keep deliberate repetition used for precision, emphasis, or cadence.
+- Repair mechanical synonym cycling, repeated paragraph templates, separately polished fragments, and choppy period-stacked prose through structure rather than cosmetic word swaps.
+- Turn every diagnosed cluster into a constraint on the new wording, then rescan the revised passage for the same cluster and for new patterns introduced by the rewrite.
+- Let punctuation express the relationship between ideas. A colon should introduce what precedes it; an em dash should serve the author's voice rather than act as an all-purpose connector. Use straight ASCII quotation marks (`"`) and apostrophes (`'`) in all generated or edited prose, including plain text and Markdown. Convert curly quotation marks and apostrophes unless exact character preservation is required for code, identifiers, filenames, or protected text. Match a writing sample and house style for other punctuation.
+- Keep headings, lists, tables, callouts, and emphasis that help the intended reader; remove formatting that merely makes the prose look processed.
 
-Done when the generated text avoids every confirmed tell while keeping protected source choices intact.
+Complete this step when the draft reads as a continuous thought, its variation feels purposeful, and no repair has flattened the author's legitimate style.
 
-### 5. Read aloud and revise
+### 5. Run two verification passes
 
-- Read the result as if it were going to be published under the author's name.
-- Revise again if it sounds like a press release, chatbot reply, SEO article, polished committee memo, or a mechanical anti-AI filter.
+1. **Reader pass:** Read the draft without consulting the source. Repair unclear logic, missing connections, vague referents, awkward cadence, and sentences that require backtracking.
+2. **Fidelity pass:** Compare it with the source claim by claim using the meaning contract. Restore anything weakened, strengthened, generalized, narrowed, reassigned, or erased. Remove anything newly invented.
 
-Done when the prose sounds publishable for the stated audience and still means what the source meant.
+Repeat both passes after any substantive repair. Complete when the reader pass is natural and the fidelity pass finds no semantic drift.
 
-## Output contracts
+## Deliver the selected mode
 
-For `rewrite`, return the revised text first. If useful or requested, add:
+For `rewrite`, put the revised text first without chatbot framing. Add a brief `### Changes` section only when the user requests it or when material restructuring needs explanation.
+
+For `review`, keep findings proportional to the evidence:
 
 ```md
-### Changes
+### Writing-pattern review
 
-- Replaced generic claims with concrete details.
-- Cut chatbot framing and repeated structure.
+Overall concern: Low | Medium | High
+
+| Passage | Cluster and effect | Suggested repair |
+| --- | --- | --- |
+| "..." | Significance padding weakens a concrete claim. | State the supported result directly. |
+
+This rating describes the prose, not who or what wrote it.
 ```
 
-For `review`, use this compact format:
-
-```md
-### AI-writing tells
-
-| Passage | Pattern | Suggested fix |
-|-|-|-|
-| "..." | Significance inflation + vague authority | Replace with a specific source or delete the claim. |
-```
-
-For `edit`, use this compact format:
+For `edit`, report the actual paths and checks performed:
 
 ```md
 Changed: `path/to/file.md`
-Validation: Re-read the edited passage and checked protected facts, citations, and constraints.
+Validation: Checked the rewrite against the meaning contract, local style, and diagnosed clusters.
 ```
 
 ## Completion gate
 
-Pass only when all gates are true. If any gate fails, revise again before answering.
+Finish only when every gate passes:
 
-- Meaning, facts, names, numbers, citations, constraints, and protected wording are preserved.
-- The result matches the requested audience, format, and author voice.
-- Pattern clusters are fixed without flattening legitimate human choices.
-- Confirmed AI tells are absent from generated wording.
-- Em dashes were not introduced except for quoted/source text, writing samples, house style, or explicit user preference.
-- Straight ASCII quotes and apostrophes are used in generated wording except for quoted/source text, writing samples, house style, or explicit user preference.
-- The prose has concrete detail, natural rhythm, and no chatbot framing, filler, generic conclusions, or unsupported claims.
-- The read-aloud test passes.
+- **Fidelity:** The claim-by-claim pass in `FIDELITY.md` succeeds; protected material remains intact and no specificity was invented.
+- **Voice:** Audience, format, register, dialect, and author choices survive without mechanical imitation.
+- **Purpose:** The throughline is clear, support sits where the reader needs it, and source order remains only when it serves the piece.
+- **Economy and cohesion:** Every remaining sentence adds content or a useful connection; referents are clear; repetition and variation are purposeful.
+- **Naturalness:** Diagnosed clusters are absent from generated wording, punctuation and formatting serve the prose, and the reader pass sounds publishable under the author's name.
+- **Contract:** The response follows the selected mode and includes no unnecessary preamble or process residue.
