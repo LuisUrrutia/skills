@@ -1,0 +1,59 @@
+{
+  "skill_name": "pr",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Prepare a GitHub PR command from this simulated repository state, but do not push or call GitHub. Treat these values as verified command output: the current branch is `feature/cache-key`; its upstream is `origin/feature/cache-key`; remote `origin` is `git@github.com:acme/widget.git`; `gh repo view` identifies `acme/widget`, which is not a fork and whose default branch is `develop`; no PR matches this head; the user did not request a base and prefers draft PRs. Return the resolved target repository, push remote and repository, head ref, base, mode, and exact non-interactive `gh pr create` command with title/body placeholders.",
+      "expected_output": "A Create-mode plan targeting acme/widget from feature/cache-key, pushed through origin, based on develop, with a draft gh command. The branch upstream is used only as the push destination and never as the PR base.",
+      "files": [],
+      "expectations": [
+        "The resolved base is `develop`, the target repository's default branch.",
+        "The output does not use `origin/feature/cache-key` or `feature/cache-key` as the PR base.",
+        "The resolved target repository is `acme/widget`, the push remote is `origin`, and the head ref is `feature/cache-key`.",
+        "The proposed command includes `--repo acme/widget`, `--base develop`, `--head feature/cache-key`, `--draft`, `--title`, and `--body-file`.",
+        "No push or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Prepare a GitHub PR command for an upstream contribution from this simulated repository state, but do not push or call GitHub. Treat these values as verified command output: branch `feature/a11y-labels` tracks `origin/feature/a11y-labels`; `origin` is `git@github.com:alice/widget.git`; checkout repo `alice/widget` is a fork whose parent is `acme/widget`; remote `upstream` is `git@github.com:acme/widget.git`; target repo `acme/widget` has default branch `develop`; Alice explicitly asked to contribute this branch to the parent; no exact PR matches owner `alice` plus branch `feature/a11y-labels`; Alice prefers draft PRs. Return checkout, target and push repositories/remotes, head owner/ref, base, mode, and the exact non-interactive create command.",
+      "expected_output": "A fork-aware Create-mode plan that pushes to Alice's origin, targets acme/widget through upstream, uses alice:feature/a11y-labels as the cross-repository head, and bases the PR on acme/widget's develop branch.",
+      "files": [],
+      "expectations": [
+        "The target repository is `acme/widget` and its target remote is `upstream`.",
+        "The push repository is `alice/widget` and its push remote is `origin`.",
+        "The head owner is `alice` and the head ref is `alice:feature/a11y-labels`.",
+        "The resolved base is the target repository's `develop`, not the fork's default branch or `origin/feature/a11y-labels`.",
+        "The proposed command includes `--repo acme/widget --base develop --head alice:feature/a11y-labels --draft`.",
+        "PR discovery is described as matching both the branch name and `headRepositoryOwner.login`, not the branch name alone.",
+        "No push or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Audit, but do not edit, open PR https://github.com/acme/widget/pull/42. Treat this fixture as verified: target and push repository are both `acme/widget`; head is `feature/export`; base is `main`; the exact owner+branch match is OPEN. Its current body says `Exports are hidden for every user` and `No download endpoint exists yet`. The current diff shows the export action is visible to users with `reports:download`, wires `GET /reports/{id}/download`, and adds authorization tests. Return the mode, every stale claim, and replacement wording grounded only in the fixture.",
+      "expected_output": "Update mode with both obsolete body claims identified and corrected using the current permission gate, endpoint, and test evidence. The PR remains untouched pending approval.",
+      "files": [],
+      "expectations": [
+        "The mode is Update because the exact PR match is open.",
+        "The output identifies `Exports are hidden for every user` as stale and replaces it with the verified `reports:download` audience.",
+        "The output identifies `No download endpoint exists yet` as stale and accounts for `GET /reports/{id}/download`.",
+        "The proposed replacement mentions the authorization tests without inventing test results beyond the fixture.",
+        "The existing PR is not edited because the task requests an audit only."
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Classify two independent simulated PR snapshots without mutating GitHub. In both snapshots the target is `acme/widget`, the head owner is `acme`, the branch is `feature/search`, and there is no exact OPEN match. Snapshot A has exact historical PR https://github.com/acme/widget/pull/18 with state CLOSED. Snapshot B has exact historical PR https://github.com/acme/widget/pull/11 with state MERGED. In each snapshot, commits remain against the target default branch. Explain the mode or terminal state and the next user decision.",
+      "expected_output": "Neither historical PR is treated as Update. Each URL/state is reported, no edit or reopen occurs, and creating a new PR is presented as an explicit user decision because commits remain.",
+      "files": [],
+      "expectations": [
+        "The CLOSED PR is identified as historical state and is not classified as Update.",
+        "The MERGED PR is identified as historical state and is not classified as Update.",
+        "The output does not propose `gh pr edit` against either historical PR.",
+        "The output does not reopen either PR or create a replacement without approval.",
+        "Both exact PR URLs and states are reported, together with the decision whether the remaining commits should become a new PR."
+      ]
+    }
+  ]
+}
