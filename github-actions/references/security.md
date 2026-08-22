@@ -2,6 +2,8 @@
 
 Apply every section matching the workflow. Calibrate findings from the actual path between an entrant and a capability.
 
+Base reference: [secure use of GitHub Actions](https://docs.github.com/en/actions/reference/security/secure-use).
+
 ## Map the trust boundary
 
 For each job, identify three things together:
@@ -73,11 +75,13 @@ A direct path from contributor-controlled code or generated source to a write to
 
 Current `actions/checkout` releases include guardrails against common fork pull-request checkouts in privileged events. Full-SHA, minor, and patch pins do not receive backports automatically. For every affected checkout, verify the selected commit contains the current guard, satisfies the runner floor, and has no unsafe opt-out. Treat the guard as defense in depth: it does not cover manual `git` or `gh` fetches, every trigger, unrelated repositories, or execution of untrusted artifacts.
 
+Sources: [secure use of `pull_request_target`](https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target) and the [safer checkout defaults release note](https://github.blog/changelog/2026-06-18-safer-pull_request_target-defaults-for-github-actions-checkout/).
+
 ## Dependencies and workflow governance
 
 - Route every external action and reusable workflow through the [dependency verification procedure](../SKILL.md#when-an-external-reference-changes); keep its release tag or source URL in a same-line comment so update tooling can maintain it.
 - A verified publisher badge establishes identity, while source review establishes behavior. Inspect release notes, action metadata, runner requirements, inputs, network access, and relevant source before giving a dependency data or capabilities.
-- A local action referenced as `./path` executes files present in the job workspace. Map the checked-out repository and ref, and invoke only trusted workspace code from a privileged job. For same-repository reusable workflows, apply the [reusable-workflow contract](reliability.md#reusable-workflows).
+- On GitHub.com, `$/path` resolves a local action from the repository of the running workflow or action at its running commit and needs no checkout. A `./path` reference instead executes files from the checked-out job workspace and inherits that checkout's repository and ref. `$/` is unavailable on GHES. Map the exact source before invoking local code from a privileged job. For same-repository reusable workflows, apply the [reusable-workflow contract](reliability.md#reusable-workflows). See [local-action reference semantics](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#jobsjob_idstepsuses).
 - Set `persist-credentials: false` on checkout by default; enable persisted credentials only for authenticated Git operations later in the job.
 - Pin container images by digest when they execute in a privileged or reproducible path.
 - Account for allowed-actions policies, required full-SHA policies, dependency updates, dependency review, and ownership of workflow files. Report missing governance separately unless changing it is in scope.
@@ -88,9 +92,13 @@ Current `actions/checkout` releases include guardrails against common fork pull-
 - Prefer OIDC-issued short-lived credentials to long-lived cloud secrets.
 - Bind cloud trust to the narrowest stable claims the provider supports: repository identity, audience, ref or protected environment, and reusable `job_workflow_ref` where applicable. Scope the subject to the intended branches and workflows.
 - Gate deployments with protected environments and scope their secrets and OIDC trust to the deployment job.
+- Decide whether a job's environment represents a deployment. Set `deployment: false` for CI or test jobs that need environment secrets, variables, branch policies, or built-in approvals without creating a deployment record.
+- With `deployment: false`, wait timers and required reviewers still apply. A custom deployment protection app requires a deployment object, so an environment that enables one makes the job fail instead of requesting approval.
 - Pass secrets through environment variables or standard input rather than command-line arguments.
 - Mask every dynamically produced or transformed sensitive value before another command can emit it. Keep sensitive values out of outputs, summaries, caches, and artifacts.
 - Verify actual fork, Dependabot, bot, and environment-approval behavior instead of assuming secrets are present or absent.
+
+Sources: [OpenID Connect security](https://docs.github.com/en/actions/concepts/security/openid-connect) and [using environments without deployments](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/control-deployments#using-environments-without-deployments).
 
 ## Artifact promotion
 
@@ -101,6 +109,8 @@ An artifact is a data channel. Establish trust from its producer, source run, co
 - Scope attestation generation to release software users will verify. Provenance becomes a control when the consumer verifies it against an explicit repository, workflow, ref or environment, and signer policy.
 - Keep release and deployment authority out of the untrusted build job.
 - Set the shortest retention that satisfies debugging, audit, and promotion.
+
+Source: [artifact attestations](https://docs.github.com/en/actions/concepts/security/artifact-attestations).
 
 ## Cache-poisoning chain
 
@@ -116,6 +126,8 @@ Break both ends of the chain:
 
 GitHub's low-trust cache write restrictions close some producer edges. Verify the current event allowlist and repository or enterprise cache policy. Use restore-only operations where the service grants read-only access, and treat every restored entry as untrusted rebuildable state.
 
+Sources: [dependency caching security](https://docs.github.com/en/actions/concepts/workflows-and-actions/dependency-caching) and the [read-only cache release note](https://github.blog/changelog/2026-06-26-read-only-actions-cache-for-untrusted-triggers/).
+
 ## Runners and network reach
 
 GitHub-hosted runners are ephemeral, but code in a job can still consume every capability available to that job. Public pull-request code belongs on an isolated GitHub-hosted runner or a clean, single-job ephemeral runner.
@@ -129,11 +141,15 @@ For every self-hosted label:
 - verify the live runner version and update policy against current GitHub.com or GHES requirements
 - rebuild stale images and templates; auto-update is effective only when runners can reach the update service
 
+Sources: [self-hosted runner REST API](https://docs.github.com/en/rest/actions/self-hosted-runners) and the [minimum runner version timeline](https://github.blog/changelog/2026-06-12-github-actions-minimum-version-enforcement-timeline-for-self-hosted-runners/).
+
 ## Platform execution protections
 
 Inspect repository, organization, and enterprise settings that govern workflow execution: trigger and actor rules, fork approval, default token permissions, allowed actions, SHA-pinning policy, environment protection, and runner-group access. Where workflow-execution rulesets are available, evaluate them before enforcement and scope centralized rules with repository properties.
 
 Platform policy forms an outer trust boundary. Pair it with least privilege and safe data handling inside every allowed workflow, and verify its enforcement state against the repository's GitHub.com plan or GHES version.
+
+Source: [workflow execution protections](https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/actions-policies/workflow-execution-protections).
 
 ## Finding calibration
 
@@ -143,24 +159,4 @@ Platform policy forms an outer trust boundary. Pair it with least privilege and 
 
 ## Security criterion
 
-Complete when every job's entrants, execution, and capabilities are mapped; every path from untrusted influence to a capability is blocked or reported with its exact execution step and impact; and policies, permissions, secrets, OIDC claims, refs, dependencies, artifacts, caches, environments, networks, runner isolation, and update posture are accounted for.
-
-## Official sources
-
-https://docs.github.com/api/article/body?pathname=/en/actions/reference/security/secure-use
-
-https://docs.github.com/api/article/body?pathname=/en/actions/reference/security/securely-using-pull_request_target
-
-https://docs.github.com/api/article/body?pathname=/en/actions/concepts/security/openid-connect
-
-https://docs.github.com/api/article/body?pathname=/en/actions/concepts/security/artifact-attestations
-
-https://docs.github.com/api/article/body?pathname=/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows
-
-https://docs.github.com/api/article/body?pathname=/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/actions-policies/workflow-execution-protections
-
-https://docs.github.com/api/article/body?pathname=/en/rest/actions/self-hosted-runners
-
-https://github.blog/changelog/2026-06-18-safer-pull_request_target-defaults-for-github-actions-checkout/
-
-https://github.blog/changelog/2026-06-12-github-actions-minimum-version-enforcement-timeline-for-self-hosted-runners/
+Complete when every job's entrants, execution, and capabilities are mapped; every path from untrusted influence to a capability is blocked or reported with its exact execution step and impact; and policies, permissions, secrets, OIDC claims, refs, dependencies, artifacts, caches, environments, deployment-record intent, networks, runner isolation, and update posture are accounted for.

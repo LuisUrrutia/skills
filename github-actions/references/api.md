@@ -12,7 +12,7 @@ Every interface still needs explicit `GITHUB_TOKEN` permissions in the job.
 
 ## Structured API access with `github-script`
 
-Pin the action to a verified commit SHA. Retries fit reads and idempotent operations; a repeated create or dispatch request can duplicate side effects.
+Pin the action to a verified commit SHA. Retries fit reads and idempotent operations; reconcile non-idempotent writes before retrying them.
 
 ```yaml
 - name: Count open pull requests
@@ -35,6 +35,8 @@ The action's default terminal status codes are `400,401,403,404,422`. Handle a r
 Version 8 runs on Node 24 and requires Actions Runner `v2.327.1` or newer. Verify that floor before using this example on self-hosted runners.
 
 Pass dynamic expressions through step-level `env` and read them from `process.env`; direct `${{ ... }}` inside `script:` is evaluated as JavaScript source before execution.
+
+Source: [actions/github-script documentation](https://github.com/actions/github-script).
 
 ## Shell API access with `gh`
 
@@ -64,20 +66,13 @@ For retries, classify the operation first:
 - make authentication, authorization, validation, and contract failures terminal
 - give non-idempotent writes a lookup key or reconciliation step before retrying
 
-## Secret scanning custom patterns
+## Workflow dispatch
 
-GitHub's REST API supports custom-pattern CRUD for secret scanning customers at repository, organization, and enterprise scope:
+The REST endpoint that creates a `workflow_dispatch` event returns HTTP `200` with `workflow_run_id`, `run_url`, and `html_url`. Capture that response and use the returned run ID for status, logs, cancellation, or downstream links instead of correlating a run by creation time, workflow name, or commit alone.
 
-- `GET .../secret-scanning/custom-patterns` lists patterns.
-- `POST .../secret-scanning/custom-patterns` bulk-creates patterns.
-- `PATCH .../secret-scanning/custom-patterns/{pattern_id}` updates one pattern.
-- `DELETE .../secret-scanning/custom-patterns` bulk-deletes patterns.
+A dispatch is non-idempotent. After a transport failure with no usable response, reconcile against a caller-supplied correlation input when the target workflow supports one; otherwise report the ambiguous result instead of retrying blindly and possibly creating a second run. Check the response object before exposing its fields as workflow outputs.
 
-Use the current API version header; the initial GA contract uses `X-GitHub-Api-Version: 2026-03-10`. Resolve the token requirement for the exact repository, organization, or enterprise endpoint instead of assuming the job's default `GITHUB_TOKEN` has administrative scope.
-
-Carry `custom_pattern_version` through update and delete requests as the optimistic-concurrency token, and handle `412 Precondition Failed` by rereading state rather than overwriting a concurrent edit. Set `post_delete_action` deliberately because deletion can either remove associated alerts or resolve them as pattern-deleted.
-
-REST automation prepares and reconciles pattern definitions. Dry runs and final publishing remain UI operations, so keep those human gates visible in the workflow rather than claiming end-to-end publication.
+Source: [create a workflow dispatch event](https://docs.github.com/en/rest/actions/workflows#create-a-workflow-dispatch-event).
 
 ## Workflow channels
 
@@ -102,16 +97,8 @@ Map step outputs to job outputs before a downstream job consumes them. Map job o
 
 Pass arbitrary multiline content through a file or artifact rather than a static delimiter. Register generated sensitive values with `::add-mask::` before another command can emit them.
 
+Source: [GitHub Actions workflow commands](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-commands).
+
 ## API review criterion
 
-The job has the exact API permission, pagination matches the endpoint, retries preserve idempotency, response shape and emptiness are checked, optimistic-concurrency tokens are preserved, required UI gates remain visible, untrusted values stay out of generated shell, and each output crosses the correct scope boundary.
-
-## Official sources
-
-https://github.com/actions/github-script
-
-https://docs.github.com/api/article/body?pathname=/en/actions/reference/workflows-and-actions/workflow-commands
-
-https://docs.github.com/api/article/body?pathname=/en/rest/secret-scanning/custom-patterns
-
-https://github.blog/changelog/2026-07-13-create-and-manage-secret-scanning-custom-patterns-via-rest-api/
+The job has the exact API permission, pagination matches the endpoint, retries preserve idempotency, dispatches retain their returned run identity or report ambiguity, response shape and emptiness are checked, untrusted values stay out of generated shell, and each output crosses the correct scope boundary.

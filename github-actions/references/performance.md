@@ -1,6 +1,6 @@
 # Performance and Cost
 
-Apply every section matching latency, runner cost, parallelism, dependency setup, caches, artifacts, or toolchains. Optimize the measured **critical path** against a named target.
+Apply every section matching latency, runner cost, metrics, billing attribution, parallelism, dependency setup, caches, artifacts, or toolchains. Optimize the measured **critical path** against a named target.
 
 ## Name the target and baseline
 
@@ -12,6 +12,19 @@ Choose the objective before changing the graph:
 - **Reliability under load:** queue delay, cancellation waste, and cache stability.
 
 Use representative run and job timings, queue time, cache hit and transfer data, artifact sizes, and runner labels. Compare like-for-like commits and warm or cold states. A baseline contains multiple representative runs. When run data is inaccessible, model the dependency graph and label the expected improvement as unmeasured.
+
+## Collect and attribute evidence
+
+Use Actions usage metrics to find minutes consumed by workflow, job, repository, operating system, and runner type. Use performance metrics to compare average run time, job time, queue time, and failure rate. Record the metric scope, time window, runner class, and warm or cold state so the baseline remains comparable. If the required view is inaccessible, name the missing role or report rather than substituting an unrelated metric.
+
+For cost attribution:
+
+- Use the detailed billing usage report when workflow identity matters. Its `workflow_path` field attributes Actions usage; summarized reports omit that dimension.
+- Identify GitHub-generated workflows by their current `workflow_path`, actor, and product-specific Actions label rather than display name alone. Treat those identifiers as a versioned external contract: verify them before changing a billing filter, dashboard, or alert.
+- GitHub Code Quality currently reports deterministic scans under `dynamic/github-code-quality/codeql` with actor `github-code-quality`. Filters using the earlier `dynamic/github-code-scanning/codeql` path or `github-advanced-security` actor no longer isolate Code Quality. Code Quality and code scanning can both display the workflow name `CodeQL`, so that name is not a reliable discriminator.
+- When estimating a generated product's total cost, separate Actions compute from product licenses, AI credits, storage, and other metered dimensions. Do not present Actions minutes as the whole product cost.
+
+Sources: [Actions metrics](https://docs.github.com/en/actions/concepts/metrics), [billing reports](https://docs.github.com/en/billing/reference/billing-reports), [Code Quality workflow identification](https://docs.github.com/en/code-security/reference/code-quality/codeql-detection), [Code Quality costs](https://docs.github.com/en/code-security/how-tos/maintain-quality-code/view-and-manage-cost), and the [Code Quality workflow-path change](https://github.blog/changelog/2026-08-20-separate-github-actions-path-for-github-code-quality/).
 
 ## Execution graph
 
@@ -65,6 +78,8 @@ steps:
 
 Verify `parallel`, `background`, `wait`, `cancel`, and concurrency-queue availability against the repository's GitHub.com or GHES version. If a configured linter lags current server syntax, report its version and the source-backed compatibility gap rather than weakening valid semantics.
 
+Sources: [GitHub Actions workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax) and the [parallel-steps release note](https://github.blog/changelog/2026-06-25-actions-steps-can-now-be-run-in-parallel/).
+
 ## Checkout and dependency setup
 
 - Use the repository's locked install command: `npm ci`, `pnpm install --frozen-lockfile`, Yarn Berry's `yarn install --immutable`, Yarn 1's `yarn install --frozen-lockfile`, or the ecosystem equivalent.
@@ -72,6 +87,8 @@ Verify `parallel`, `background`, `wait`, `cancel`, and concurrency-queue availab
 - Let checkout keep its shallow default when history and tags are unnecessary. Use sparse checkout for large repositories only when every required path, local action, and generated input is included.
 - Reuse source checkout, dependency installation, code generation, and compilation within one job. Across isolated jobs, compare repetition with artifact-transfer and startup costs before consolidating.
 - Put deterministic tool and dependency versions in repository-owned files when the ecosystem supports it.
+
+Source: [actions/checkout](https://github.com/actions/checkout).
 
 ## Runner toolchains
 
@@ -82,6 +99,8 @@ Resolve preinstalled tools from the exact runner image manifest. `-latest` label
 - When removing a setup action, run the underlying command and record the resolved version.
 - Select the smallest runner that meets memory, CPU, disk, architecture, and network needs. Use a larger runner only when measured speedup or queue behavior justifies its cost.
 - Set bounded job and step timeouts for work that can hang or consume scarce capacity.
+
+Source: [GitHub-hosted runners](https://docs.github.com/en/actions/reference/runners/github-hosted-runners).
 
 ## Caches
 
@@ -94,7 +113,9 @@ A cache should save more time and cost than restore, validation, and save consum
 - Keep cache key cardinality and paths bounded to prevent eviction churn. Review hit rate, restore and save duration, entry size, retention, repository limits, and read-only cache warnings.
 - Use restore-only behavior for consumers that should not publish shared state.
 
-For any untrusted producer or privileged consumer, also apply [`security.md`](security.md#cache-poisoning-chain).
+For any untrusted producer or privileged consumer, also apply the [cache-poisoning chain](security.md#cache-poisoning-chain).
+
+Source: [GitHub Actions dependency caching](https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows).
 
 ## Artifacts
 
@@ -104,7 +125,9 @@ Use artifacts to transfer immutable results or preserve evidence. Use caches for
 - Transfer only files downstream jobs need; exclude dependency trees and temporary data when rebuilding is cheaper than compression and transfer.
 - Tune compression only for large measured payloads; incompressible data can trade substantial CPU for negligible size reduction.
 - Give matrix producers unique names and upload shared content once.
-- At a privilege boundary, apply the artifact-promotion rules in [`security.md`](security.md#artifact-promotion).
+- At a privilege boundary, apply the [artifact-promotion rules](security.md#artifact-promotion).
+
+Sources: [downloading workflow artifacts](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/download-workflow-artifacts) and [actions/upload-artifact](https://github.com/actions/upload-artifact).
 
 ## Matrices and concurrency
 
@@ -115,24 +138,8 @@ Use [`reliability.md`](reliability.md#matrices) to preserve matrix and concurren
 - Cancel obsolete runs early. Preserve queued deployment and release runs whose side effects remain meaningful.
 - Keep setup, checkout, and artifact transfers proportional to required matrix combinations.
 
+Source: [larger concurrency queues release note](https://github.blog/changelog/2026-05-07-github-actions-concurrency-groups-now-allow-larger-queues/).
+
 ## Performance criterion
 
-Complete when the critical path contains no unnecessary edge or repeated build; parallel boundaries reflect isolation and measured overhead; background services have readiness and termination; toolchains and runners are intentional; cache benefit exceeds cache cost without trust escalation or churn; artifact transfer is minimal and immutable; and the target metric has representative before-and-after evidence or an explicit measurement gap.
-
-## Official sources
-
-https://docs.github.com/api/article/body?pathname=/en/actions/reference/workflows-and-actions/workflow-syntax
-
-https://docs.github.com/api/article/body?pathname=/en/actions/reference/runners/github-hosted-runners
-
-https://docs.github.com/api/article/body?pathname=/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows
-
-https://docs.github.com/api/article/body?pathname=/en/actions/how-tos/manage-workflow-runs/download-workflow-artifacts
-
-https://github.com/actions/upload-artifact
-
-https://github.com/actions/checkout
-
-https://github.blog/changelog/2026-06-25-actions-steps-can-now-be-run-in-parallel/
-
-https://github.blog/changelog/2026-05-07-github-actions-concurrency-groups-now-allow-larger-queues/
+Complete when the critical path contains no unnecessary edge or repeated build; parallel boundaries reflect isolation and measured overhead; background services have readiness and termination; toolchains and runners are intentional; cache benefit exceeds cache cost without trust escalation or churn; artifact transfer is minimal and immutable; every cost filter uses a verified attribution dimension; and the target metric has representative before-and-after evidence or an explicit measurement gap.

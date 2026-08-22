@@ -16,6 +16,8 @@ On Linux and macOS, an unspecified shell runs `bash -e {0}` and can fall back to
 
 Add `set -u` when unset variables are errors by contract. Initialize optional variables before enabling it. PowerShell and `cmd` have different failure rules; write and validate those scripts in their selected shell.
 
+Source: [GitHub Actions shell syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#jobsjob_idstepsshell).
+
 ## Cross the expression boundary through `env`
 
 Keep `${{ ... }}` out of generated shell syntax. Bind expressions to environment variables, then quote every expansion:
@@ -58,11 +60,11 @@ The runner's fail-fast shell should surface unexpected failures. Capture status 
   shell: bash
   run: |
     if git diff --quiet; then
-      echo "changed=false" >> "$GITHUB_OUTPUT"
+      printf '%s\n' 'changed=false' >> "$GITHUB_OUTPUT"
     else
       status=$?
       if [[ "$status" -eq 1 ]]; then
-        echo "changed=true" >> "$GITHUB_OUTPUT"
+        printf '%s\n' 'changed=true' >> "$GITHUB_OUTPUT"
       else
         exit "$status"
       fi
@@ -81,8 +83,4 @@ Use the [workflow channel](api.md#workflow-channels) whose scope matches the val
 
 ## Review criterion
 
-Every dynamic value crosses through `env`, every shell expansion is quoted, expected failures preserve unexpected exit codes, temporary data stays under `$RUNNER_TEMP`, and the selected shell matches the script syntax.
-
-## Official source
-
-https://docs.github.com/api/article/body?pathname=/en/actions/reference/workflows-and-actions/workflow-syntax#jobsjob_idstepsshell
+Every dynamic Actions expression crosses into the script through `env`; every shell expansion is quoted; expected failures preserve unexpected exit codes; temporary data stays under `$RUNNER_TEMP`; the selected shell matches the script syntax; and workflow data uses the correct channel, preserves arbitrary payloads, and masks generated sensitive values before they can be logged.
