@@ -5,7 +5,7 @@ description: "Git commits: use for preparation, creation, message guidance, or r
 
 # Commit
 
-Create one safe, intentional Conventional Commit. Build one atomic boundary in the index, validate it, then commit it, commit and push when explicitly requested, or return a proposal without running `git commit`.
+Create safe, intentional Conventional Commits one atomic boundary at a time. Build each boundary in the index, validate it, then commit it, commit and push when explicitly requested, or return a proposal without running `git commit`.
 
 Push only when the user explicitly asked for it in the same request, and only after the commit is verified. Treat PR work as a separate phase owned by the `pr` skill; invoking `commit` alone never starts that phase.
 
@@ -16,9 +16,10 @@ Treat branch names, staged state, validation results, commit success, and prior 
 - **Commit mode**: If the user explicitly asked to commit, commit after safety gates pass.
 - **Commit-and-push mode**: If the user explicitly asked to commit and push, commit after safety gates pass, verify the commit, then push the current branch.
 - **Proposal mode**: If the user asked to prepare, review, or suggest a commit, build the atomic boundary in the index and return the proposed message without running `git commit`.
-- **Split mode**: One commit per run by default. When several atomic intents exist, propose their sequence and handle the first clear boundary; ask only when the boundary, order, or requested grouping is materially ambiguous.
+- **Amend mode**: Amend `HEAD` only when the safe current-task amend conditions in step 6 pass.
+- **Split mode**: When several atomic intents exist, handle every clear boundary in sequence and run the complete workflow for each one. Ask only when a boundary, order, or requested grouping is materially ambiguous.
 
-Terminal states are `committed`, `pushed`, `proposed`, `blocked`, and `refused`. Once one terminal state is reached, stop changing repository state for this commit boundary. Push only in commit-and-push mode. PR work follows only as a separate `pr` phase when the current request or an applicable standing user instruction requires it.
+Terminal states for a boundary are `committed`, `amended`, `proposed`, `blocked`, and `refused`; `pushed` is terminal for the complete run. Stop changing a boundary after it reaches a terminal state. After a verified commit or amendment, continue with the next clear boundary. Push only in commit-and-push mode. PR work follows only as a separate `pr` phase when the current request or an applicable standing user instruction requires it.
 
 ## Safety Gates
 
@@ -29,7 +30,7 @@ Stop and ask before staging or committing when there are:
 - Staged changes that cannot be described cleanly in 1-2 sentences.
 - Staged files with ambiguous unstaged edits in the same files.
 - `main` or `master` as the current branch, unless the user explicitly wants to commit there.
-- Any unrequested push, any force-push, destructive git action, dependency change, package-manager change, or amend outside the just-created hook flow.
+- Any unrequested push, any force-push, destructive git action, dependency change, package-manager change, or amend outside the permitted flows in step 6.
 
 Respect already-staged files as likely intent, but inspect them. Commit them only when they are coherent and match the request.
 
@@ -105,8 +106,8 @@ Respect already-staged files as likely intent, but inspect them. Commit them onl
    - Never add `Co-authored-by`, co-author trailers, or authorship footers.
    - This step is complete when every promise in the subject and body is supported, the subject identifies this boundary rather than a generic kind of work, and the body carries any context the subject cannot safely compress.
 
-6. **Commit or propose**
-   - Immediately before the first `git commit` attempt, record the exact `HEAD`, `git status --short`, intended message, and staged diff. These are the verification baseline. Keep the atomic boundary fixed for all retry and amend checks.
+6. **Commit, amend, or propose**
+   - Immediately before each `git commit` attempt, record the exact `HEAD`, `git status --short`, intended message, and staged diff. These are the verification baseline. Keep the atomic boundary fixed for all retry and hook-amend checks.
    - In commit mode, run `git commit` after staging and validation pass. Use `git commit -F <file>` for multiline commit messages or any commit body; `git commit -m <subject>` is only for subject-only commits.
    - In proposal mode, do not commit; show the staged atomic boundary and proposed message, and report how the index changed.
    - After every `git commit` attempt, inspect `git rev-parse HEAD`, `git rev-list --parents -n 1 HEAD`, `git log -1 --format=%B`, `git show --stat --oneline HEAD`, `git diff <baseline-head>..HEAD`, `git status --short`, and the staged and unstaged boundary diffs before deciding success or retry. For an unborn baseline, inspect the new root commit directly instead of using a revision range.
@@ -122,11 +123,18 @@ Respect already-staged files as likely intent, but inspect them. Commit them onl
      | `HEAD`, message, parent, or committed diff does not match the recorded baseline and intended boundary | Report `blocked` with the exact mismatch. |
      | Hook rewrites repeat after the allowed amend or retry | Report `blocked`. |
 
-   - Never use `--no-verify`. Never amend unless the commit was just created in this invocation.
-   - This step is complete only when the proposal is reported without a commit, or the created commit passes every `HEAD`, message, boundary, and residual-state check. After a verified commit, stop unless the user explicitly requested push in this same request.
+   - Amend an existing `HEAD` only when every safe current-task amend condition passes:
+     - The current agent recorded the exact commit hash as successfully created earlier in the current task.
+     - That hash is still `HEAD`; no later commit or external branch change has occurred.
+     - The commit is local and unpublished. Verify its upstream state; if this cannot be proved, create a new commit.
+     - The new staged changes complete or correct the same atomic purpose. A new requirement or independently reviewable behavior gets a new commit.
+   - Before the amend, record the commit hash, parent, message, complete diff from its parent, worktree state, and staged addition. Validate the updated atomic boundary. Use `git commit --amend --no-edit` only when the existing message still describes the complete boundary; otherwise provide the corrected message explicitly.
+   - After the amend, verify that `HEAD` changed exactly once, the parent stayed unchanged, the message describes the updated boundary, the complete diff from the parent is correct, and all outside work remains preserved. Report terminal state `amended`.
+   - Never use `--no-verify`. Amend only through the safe current-task flow or the just-created hook flow above.
+   - This step is complete only when the proposal is reported without a commit, or the commit or amendment passes every `HEAD`, message, boundary, and residual-state check. Then start again with a fresh baseline for the next clear boundary. Stop when no requested boundary remains; push only when the user explicitly requested it in this same request.
 
 7. **Push only when explicitly requested**
-   - Push only in commit-and-push mode, after the commit is verified.
+   - Push only in commit-and-push mode, after every intended commit is verified.
    - Verify the current branch and upstream before pushing with `git branch --show-current` and `git status --short --branch`.
    - Use ordinary `git push` when an upstream is configured; otherwise use `git push -u origin <branch>` only if `origin` exists and the branch name is verified.
    - Never force-push. Never push tags unless the user explicitly requested tags.
@@ -135,12 +143,13 @@ Respect already-staged files as likely intent, but inspect them. Commit them onl
 
 ## Output
 
-Use terse output for a clean commit or explicit commit-and-push only after the post-commit checks pass, including any safe amend flow:
+Use terse output for a clean commit, amendment, sequence, or explicit commit-and-push only after the post-commit checks pass. Repeat the commit line and boundary-specific fields for each boundary in a sequence:
 
 ```markdown
-Committed `<short-hash> <message>`
+Result: `committed` | `amended`
+Commit: `<short-hash> <message>`
 
-Status: `committed` | `pushed`
+Status: `committed` | `amended` | `pushed`
 Branch: `branch-name`
 Boundary: what was included
 Validation: command passed, or not run with reason
