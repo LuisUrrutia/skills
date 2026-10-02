@@ -1,0 +1,330 @@
+{
+  "format_version": 1,
+  "date": "2026-10-02",
+  "baseline_commit": "9613debe0fa71553e2f95412fc6f78f0baff8e61",
+  "decision": {
+    "approach": "Standalone derivation of Matt Pocock prototype and Lauren Tan pstack prototype playbook.",
+    "normal_runtime_skill_dependencies": [],
+    "maintenance_dependency": "agent-instructions, only for requested authoring or source maintenance.",
+    "installed_globally": false,
+    "work_mode_implemented": false
+  },
+  "consultation": {
+    "runner": "Claude Code 2.1.287",
+    "requested_model": "fable",
+    "observed_model": "claude-fable-5-1",
+    "effort_argument": "--effort xhigh",
+    "auxiliary_model": "claude-haiku-4-5-20251001",
+    "duration_ms": 111367,
+    "result": "Completed; supported a small derivation.",
+    "adopted": [
+      "Decision first, disposable artifact, observed evidence, explicit handoff.",
+      "Matt logic-demo anatomy and pstack empirical experiments.",
+      "Separate upstream inspiration from runtime dependencies."
+    ],
+    "not_adopted": [
+      "Mandatory variant counts or a blanket framework ban: use the experiment needed by the question.",
+      "Routine confirmation before using app context: preserve existing authorization.",
+      "One large entrypoint: retain conditional references for the three modes and requested maintenance.",
+      "Labeling pstack as its own repository: record Lauren Tan / pstack as author and cursor/plugins as host."
+    ]
+  },
+  "verified_sources": [
+    {
+      "repo": "matt",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "path": "skills/engineering/prototype/SKILL.md",
+      "sha256": "714de632d116bb73f65cdb5a882db15b9369a6713b9a47c0fad827848f0bfbe3"
+    },
+    {
+      "repo": "matt",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "path": "skills/engineering/prototype/LOGIC.md",
+      "sha256": "f61c7d249e786a79ef289018901c348271e1798dd0b0bc5607b5c6f4d4a01ab9"
+    },
+    {
+      "repo": "matt",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "path": "skills/engineering/prototype/UI.md",
+      "sha256": "723211e878acbc7b6ff09755263f3295cde724ba902ff0064da41eed51d45ad3"
+    },
+    {
+      "repo": "matt",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "path": "LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "repo": "cursor",
+      "commit": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+      "path": "pstack/skills/poteto-mode/playbooks/prototype.md",
+      "sha256": "7aa1f52c691c3d46d5afc527b23f90977fce869ce33573c73c81a4c7f0cde962"
+    },
+    {
+      "repo": "cursor",
+      "commit": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+      "path": "pstack/LICENSE",
+      "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
+    }
+  ],
+  "skill_files_sha256": {
+    "prototype/SKILL.md": "350e483e98c9b63ee64a11b88f452ae90deb022c66c5b98f3c469bb8f245bd71",
+    "prototype/THIRD-PARTY-NOTICES.txt": "2b537bc241aa6032b3337657829a72ad42cec4c875caa63643828c9a10d844eb",
+    "prototype/evals/cases.json": "94c25fc3a79c046a9057cca2fde8ec84608682a57297c3fc70bddf83872c1770",
+    "prototype/origin.txt": "0388525cb6104fb292b21aafa971d0bfbe286f25e605e5cbdfbb09139a433d10",
+    "prototype/references/experiment.md": "bbfe549bd29c93cb2fbcf17b91ee39324c86dccdc4e2bd33e584e0b376462238",
+    "prototype/references/logic.md": "ea5107b7567c8d2190f947692822cdf757a574543968fa642cfb763c389f6df7",
+    "prototype/references/ui.md": "2973e99868b49659845ef89000071a53d6934d804aebdd2311947a75a50f887f",
+    "prototype/references/upstream-updates.md": "5177a043ef99e037b6340d299de4a0d8db716bac76d11af3354ad947652e1e3f"
+  },
+  "execution_revision": {
+    "initial_reference_sha256": "da6458a4a875e2706fa2da4b2947236bfe8ba6f190d1a7e48bf02f0df4816921",
+    "final_reference_sha256": "bbfe549bd29c93cb2fbcf17b91ee39324c86dccdc4e2bd33e584e0b376462238",
+    "change": "Replaced the abstract recommendation rule with a check against every observed condition after a contradictory heuristic appeared in the first empirical trial. Artifact trials used the initial reference; targeted decision probes compared the initial and revised references."
+  },
+  "matched_artifact_comparison": {
+    "case": "lookup-experiment",
+    "controls": "Same Fable model, X High effort, clean contexts, fixtures, authorization, tool configuration, and output format; candidate alone received the skill.",
+    "baseline": {
+      "result": "incomplete_timeout",
+      "timeout_seconds": 600,
+      "artifact_sha256": {
+        "output/bench.cjs": "6376d7b5bd6f51ae5b77a47ffe22775a69ebc81c2cb21577d760c06e9d9a1e12",
+        "output/lookup-indexed.cjs": "5c7ca41bd155e2b39419676adbd39baeac17f46bce9c9fd108c1346cf75b120b",
+        "output/results-run1.json": "d22952a2472dd6de8f91a525d0fb9f5e7681de8ef63da2f99c74fbd70ddc0185",
+        "output/results-run2.json": "ab7c86fe29c975d8819a1ac240fefb18ced3933d9176c03a3588ec5ecea497bd"
+      },
+      "observation": "Produced runnable benchmark files and two measurement records, but no final handoff before the time limit. No surviving benchmark child process was found afterward."
+    },
+    "conclusion": "No claim that the skill outperforms the baseline; the baseline handoff was incomplete and the candidate produced a contradictory additional selection heuristic."
+  },
+  "artifact_trials": [
+    {
+      "case": "lookup-experiment",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "duration_seconds": 431.49,
+      "executor_exit_code": 0,
+      "supplied_files_unchanged": true,
+      "artifact_sha256": {
+        "output/README.md": "a3cfd562f379dc38bb379f39fc029d595676012f0219e73d8bcd361fd3a23740",
+        "output/map-vs-scan.cjs": "9ab51cd5aee66d9705b2f3a22f30b0b26321f96f9484954421a52b058ade0d7d",
+        "output/results.json": "bd536de8a4dc9c5f95b819a8bf47058c886dc5cb577642ae512b065d428e7738"
+      },
+      "executor_completed": true,
+      "verdict": "Execution and equivalence passed; the additional misses-based heuristic contradicted a measured case and triggered the reference refinement.",
+      "observations": {
+        "equivalence_mismatches": 0,
+        "first_match_violations": 0,
+        "checked_ids": 402,
+        "naive_last_match_mismatches": 100,
+        "execution_commands": [
+          "node output/map-vs-scan.cjs",
+          "node output/map-vs-scan.cjs --samples=100 --out=.tmp/map-vs-scan/results-samples100.json"
+        ],
+        "problematic_recommendation": "build the index only when a request will do roughly 64 or more lookups or expects misses",
+        "counterexample": "The observed single miss still favored scan, so expecting misses alone did not justify a Map."
+      }
+    },
+    {
+      "case": "booking-model",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "duration_seconds": 306.26,
+      "executor_exit_code": 0,
+      "supplied_files_unchanged": true,
+      "artifact_sha256": {
+        "output/README.md": "e71e669aa2dca71a4d045ba6da5c50977ac7ca4af837614ccbbb22025e4091db",
+        "output/booking-demo/app.js": "1673879a565f1f7dbc41f2df6a2dc3bc978f66e44e8b5a0115cbb2f4655d46fe",
+        "output/booking-demo/index.html": "f84f25b584864bfb2d5262ffcc69857f6d73cbb7f0534b6e343b3886311704c5",
+        "output/booking-demo/model.js": "b1671ccc229b84fd72df3ef2fd875af4f1d0f050f4cbc3d564aacee80e50ef51",
+        "output/booking-demo/run-scenarios.js": "d0e84f30518e3ee786598c6d772087531ce624c1c346106421f44381bbb14518",
+        "output/booking-demo/scenarios.js": "d13ac6ce354ce826761780c9106b2272672e33d2b159052594cd3210c9c448d8",
+        "output/booking-demo/styles.css": "f2ccd6bedee4f4994d4d0ddba545a4c121b00c8abdf4819b1850612f5c141faf"
+      },
+      "executor_completed": true,
+      "verdict": "Passed model behavior and browser walkthrough checks; understandability requires user feedback.",
+      "observations": {
+        "command": "node output/booking-demo/run-scenarios.js",
+        "result": "Normal, awkward and invalid sequences passed. Parent also drove all three through the browser and verified reset.",
+        "user_understandability": "Not tested with a user."
+      }
+    },
+    {
+      "case": "triage-layout",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "duration_seconds": null,
+      "executor_exit_code": null,
+      "supplied_files_unchanged": true,
+      "artifact_sha256": {
+        "output/preview/app.js": "1891f0340cd13ae7010cdd28e3f6e1ef0371245a6989c04bde1c1d65d450950c",
+        "output/preview/check.mjs": "b0d6caea02e09b2834439902e316ee9dd2e9516bf768be75f7343151e309fa58",
+        "output/preview/compare.css": "6ca9c026daada1c338b1d0f32d89fe74fe9228a009540da7612a5f5a5a388734",
+        "output/preview/compare.html": "7ec7f9942d55917e64729d0e6472bd9ed500edcee1ebe9e00c5f2aa409c284f7",
+        "output/preview/compare.js": "c89ffafbf442d3b307edd854f1a043a7f81244c782a272710b27b4dde9867057",
+        "output/preview/index.html": "570d3a869e4cdc55ad72edb8ef4c59acff501125c906b89a78907653ebdbf14a",
+        "output/preview/prototype.css": "2dbc17efcfe5e6418747b524c04db8b7adb1a3daa0bb0e9b884adbe9e1ba934f",
+        "output/preview/records.js": "3d76f3215447d7f98552fe0dbc82895c9bf26c18b1742d0626b91aa94051bc03",
+        "output/preview/triage-model.js": "0cc1cce9c2c37b2ecdbf93293689d1d61747ec384de155da5b16eddb9b9b9443"
+      },
+      "executor_completed": false,
+      "verdict": "Incomplete executor handoff: timed out at 600 seconds after creating the artifact. Parent verification passed 18 local checks, variants at 480px and 1200px, assignment, details, and source preservation. No final executor recommendation was received.",
+      "time_limit_seconds": 600,
+      "observations": {
+        "command": "node .tmp/prototype-derivation/runs/ui-candidate/output/preview/check.mjs",
+        "result": "18 of 18 checks passed in parent verification after timeout.",
+        "scope_of_unchanged_check": "Both supplied app files were verified against their seeded contents; no initial full-file hash snapshot survived the timed-out runner."
+      }
+    }
+  ],
+  "selection_probe": {
+    "result": "8 of 8 selections matched the intended entrypoints.",
+    "model": "claude-fable-5-1",
+    "effort": "xhigh",
+    "input": "Name and description only, eight requests from selection-boundaries.",
+    "observed": [
+      "prototype",
+      "prototype",
+      "prototype",
+      "ordinary-implementation",
+      "debug",
+      "agent-instructions",
+      "review-audit",
+      "performance-optimization"
+    ],
+    "limit": "Tool-free selection probe; automatic host invocation was not tested."
+  },
+  "decision_probes": [
+    {
+      "revision": "previous",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "duration_ms": 79783,
+      "cases": [
+        "decision-rule-counterexample",
+        "inconclusive-measurement"
+      ],
+      "core_result": "Use scan for a single lookup and early-hit workload, Map for the observed 400 mixed queries; no parser switch justified by three samples.",
+      "limits": "See reasoning limitations; neither probe proves the instruction change improves outcomes.",
+      "response_sha256": "8740a3a27864398e4c8b97e9b323697b74c8a9974eaf3e125eb242134a83c330"
+    },
+    {
+      "revision": "revised",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "duration_ms": 92276,
+      "cases": [
+        "decision-rule-counterexample",
+        "inconclusive-measurement"
+      ],
+      "core_result": "Use scan for a single lookup and early-hit workload, Map for the observed 400 mixed queries; no parser switch justified by three samples.",
+      "limits": "See reasoning limitations; neither probe proves the instruction change improves outcomes.",
+      "response_sha256": "b82d96ac28a230012bf737d550bd75c28b136c6f2547b9d6af209a3cab1da31e"
+    }
+  ],
+  "browser_observations": {
+    "logic": {
+      "normal": "\nRoom is OCCUPIED by booking #2 (confirmed, Ben).\n\nLast action\n\nAccepted: Booking #2 is confirmed. The room stays occupied.\n\nActions\nGuest name\nRequest booking\nBookings\nBooking\tGuest\tStatus\tTry an action\n#1\tAna\tcancelled\t\nConfirm\nCancel\n\n#2\tBen\tconfirmed\t\nConfirm\nCancel\n\nReset everything\n\n",
+      "awkward": "\nRoom is FREE.\n\nLast action\n\nAccepted: Booking #2 is cancelled. The room is now free.\n\nActions\nGuest name\nRequest booking\nBookings\nBooking\tGuest\tStatus\tTry an action\n#1\tAna\tcancelled\t\nConfirm\nCancel\n\n#2\tBen\tcancelled\t\nConfirm\nCancel\n\nReset everything\n\n",
+      "invalid": "\nRoom is OCCUPIED by booking #2 (pending, Ben).\n\nLast action\n\nRejected (nothing changed): Booking #1 was cancelled and cannot be confirmed again.\n\nActions\nGuest name\nRequest booking\nBookings\nBooking\tGuest\tStatus\tTry an action\n#1\tAna\tcancelled\t\nConfirm\nCancel\n\n#2\tBen\tpending\t\nConfirm\nCancel\n\nReset everything\n\n"
+    },
+    "logic_reset": "Reset restored an empty booking list and Room is FREE.",
+    "ui": {
+      "desktopQueue": {
+        "groups": [
+          "Urgent\n4 open · 1 without owner",
+          "Urgent",
+          "Normal\n4 open · 2 without owner",
+          "Normal",
+          "Low\n4 open · 2 without owner",
+          "Low"
+        ],
+        "overflow": false,
+        "summary": "12 open · 5 unassigned · 1 urgent without owner",
+        "variant": "queue",
+        "width": 1200
+      },
+      "mobileQueue": {
+        "dialog": "T-7 · Payment declined\nPriority\nUrgent\nOwner\nUnassigned\n\nStub: the production screen would navigate to the request. Nothing is persisted.\n\nOwner \nAssign…\nSam\nPriya\nLee\n\nClose",
+        "dialogOpen": true,
+        "overflow": false,
+        "width": 480
+      },
+      "mobileTable": {
+        "overflow": false,
+        "rows": 12,
+        "scrollers": [
+          {
+            "scrollWidth": 640,
+            "tag": "DIV",
+            "width": 415
+          }
+        ],
+        "variant": "table",
+        "width": 480
+      }
+    },
+    "desktop_table": "At 1200px, assigning T-1 to Priya changed the summary from 6 to 5 unassigned and 2 to 1 urgent without owner; Open T-1 showed Priya in an open dialog. No document overflow.",
+    "visual_inspection": "Dia screenshots showed the table and grouped queue at 480px in the comparison page. The table requires horizontal scrolling; the queue keeps assignment and Open controls visible. At 1200px, rendered DOM, grouping, and interactions were checked through T3; no desktop screenshot was obtained.",
+    "screenshot_limit": "T3 preview_snapshot failed twice; DOM inspection and interaction remained available.",
+    "atlas": "122 entries rendered; work-mode remains the last section; created prototype status and maintenance text visible in Dia."
+  },
+  "checks": [
+    {
+      "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py prototype",
+      "result": "passed"
+    },
+    {
+      "command": "uv run --no-project --with pyyaml python .tmp/prototype-derivation/check_structure.py",
+      "result": "passed: metadata, references, provenance commits and hashes, notices, eight cases, atlas JSON/JS equality, HTML structure, section order"
+    },
+    {
+      "command": "node --check reports/skill-atlas/app.js",
+      "result": "passed"
+    },
+    {
+      "command": "node --check reports/skill-atlas/catalog.js",
+      "result": "passed"
+    },
+    {
+      "command": "env PYTHONPATH=daily-meeting-update python3 -B -m unittest tests.test_opencode_digest -v",
+      "result": "passed: 3 tests"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "build",
+      "result": "Not applicable: declarative skill resources and static HTML; this repository has no configured application build."
+    },
+    {
+      "command": "node .tmp/prototype-derivation/runs/ui-candidate/output/preview/check.mjs",
+      "result": "passed: 18 checks"
+    }
+  ],
+  "limits": [
+    "One executor model with a small fixture sample; no general superiority claim.",
+    "The complete no-skill baseline exceeded 600 seconds, so end-to-end improvement is unproved.",
+    "The empirical candidate initially proposed a rule contradicted by a single-miss observation. The final reference makes the consistency check explicit; both old and new targeted probes avoided that exact rule, so an improvement is not established.",
+    "Decision probes reached the intended core choices but added speculative crossover reasoning and imprecise latency-bound language; these probes do not validate statistical reasoning in general.",
+    "CLI executors had no browser; the parent separately checked artifacts through the collaborative browser. Screenshot capture in T3 failed and native Dia was used for the available visual inspection.",
+    "Executors read more conditional references than necessary; reduced context usage was not demonstrated.",
+    "The UI executor also exceeded 600 seconds before its final recommendation; the parent checked the generated artifact, not a completed autonomous handoff.",
+    "Automatic host discovery, installation, production framework integration, maintenance updates, and continuation inside an orchestrator were not exercised.",
+    "Artifact trials and full traces were temporary; hashes and observations remain in this report after scratch cleanup."
+  ],
+  "not_executed_cases": [
+    "authorized-continuation",
+    "source-check"
+  ],
+  "executed_cases": [
+    "lookup-experiment",
+    "decision-rule-counterexample",
+    "inconclusive-measurement",
+    "booking-model",
+    "triage-layout",
+    "selection-boundaries"
+  ]
+}

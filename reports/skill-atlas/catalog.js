@@ -330,7 +330,7 @@ window.SKILL_ATLAS = {
       "lines": 26,
       "category": "Planificación",
       "decision": "Blend",
-      "owner": "prototype (skill independiente propuesta)",
+      "owner": "prototype (derivación independiente creada en el repositorio)",
       "summary": "Construye una demostración desechable de lógica y estado, o variantes de interfaz, para responder a una duda de diseño.",
       "reason": "Preferir sus demos de estado y variantes dentro de la aplicación; combinarlas con el experimento aislado y la evidencia de pstack en una derivación pequeña.",
       "caution": "Adaptar ubicación temporal, CSS y conservación. Separar la decisión de implementar código real, crear ramas o actualizar issues; verificar el código que se reutilice antes de producción."
@@ -991,7 +991,7 @@ window.SKILL_ATLAS = {
       "lines": 14,
       "category": "Planificación",
       "decision": "Blend",
-      "owner": "prototype (skill independiente propuesta)",
+      "owner": "prototype (derivación independiente creada en el repositorio)",
       "summary": "Procedimiento de poteto-mode para resolver una decisión mediante un experimento desechable y aislado, visual o de comportamiento.",
       "reason": "Combinar su alcance pequeño, observación, alternativas y recomendación con las demos de estado y variantes de interfaz de Matt.",
       "caution": "No es una skill instalable por separado. Extraer sus criterios sin depender de poteto-mode, de sus herramientas de control ni del paso a Feature; adaptar las reglas absolutas sobre frameworks y pruebas.",

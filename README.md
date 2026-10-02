@@ -32,6 +32,20 @@ using this extraction workflow.
 - Reuses an existing skill owner when appropriate and continues through the actual edit
 - Separates missed activation from missing instructions, using traceable upstream extraction criteria
 
+### prototype
+
+Resolve a design, state-model, or behavior question with a disposable experiment.
+Use it directly or as one phase of a larger task; it does not require work-mode.
+
+**Triggers:** `prototype these layouts`, `explore this state model`, `try a small experiment before choosing an approach`
+
+**Features:**
+- Loads separate guidance for logic demos, interface alternatives, and empirical experiments
+- Returns a runnable artifact, observed evidence, tradeoffs, and a bounded recommendation
+- Keeps production implementation and delivery outside the prototype's scope
+- Records Matt Pocock and Lauren Tan's pstack sources at exact commits
+- Delegates requested source maintenance to `agent-instructions`; ordinary use has no skill dependency
+
 ### commit
 
 Create git commits with conventional commit messages.
