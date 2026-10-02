@@ -1,0 +1,202 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#252442">
+  <meta name="description" content="Comparación de 104 skills externas y del flujo actual de Luis Urrutia, con recomendaciones para crear skills, coordinar el trabajo y seguir los PR.">
+  <title>Atlas de skills | Tu flujo de desarrollo</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="catalog.js" defer></script>
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Saltar al informe</a>
+  <aside class="sidebar" aria-label="Navegación del informe">
+    <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">s</span><span>Atlas de skills<small>El flujo de desarrollo de Luis</small></span></a>
+    <nav>
+      <a href="#overview">Recomendación</a>
+      <a href="#authoring">Crear buenas skills <span class="nav-tag">P0</span></a>
+      <a href="#workflow">Flujo de trabajo</a>
+      <a href="#followup">Seguimiento del PR</a>
+      <a href="#similarities">Skills similares</a>
+      <a href="#conflicts">Conflictos y correcciones</a>
+      <a href="#personal">Tus skills actuales</a>
+      <a href="#catalog">Catálogo completo <span class="nav-tag">121</span></a>
+      <a href="#evidence">Fuentes y cobertura</a>
+    </nav>
+    <div class="sidebar-note"><span class="status-dot" aria-hidden="true"></span>Fecha del análisis<time datetime="2026-10-02">2 de octubre de 2026</time><p>Propuestas pendientes de implementación.</p><button id="print-report" class="quiet-button" type="button">Imprimir / guardar PDF</button></div>
+  </aside>
+  <main id="main">
+    <header id="overview" class="hero section">
+      <p class="kicker">Decisiones para tu próximo flujo de trabajo</p>
+      <h1>Un coordinador.<br><span>Skills con tareas claras.</span></h1>
+      <p class="lead">Crear un flujo personal pequeño inspirado en <code>poteto-mode</code>. Conservar tus skills de Git y revisión, combinar las instrucciones que se solapan y cargar cada especialidad cuando el trabajo la necesite.</p>
+      <div class="hero-actions"><a class="button primary" href="#authoring">Empezar por crear buenas skills</a><a class="button secondary" href="#catalog">Explorar todas las skills</a></div>
+      <dl class="scope-stats"><div><dt>Entradas externas</dt><dd>104</dd></div><div><dt>Skills personales</dt><dd>16</dd></div><div><dt>Base incluida en Codex</dt><dd>1</dd></div><div><dt>Repositorios externos</dt><dd>7</dd></div></dl>
+      <div class="notice"><strong>Qué significa esta recomendación.</strong> El análisis compara utilidad, solapamientos e instrucciones incompatibles a partir de las fuentes. Las combinaciones propuestas todavía no se han comparado mediante pruebas de comportamiento. Aquí, "mejor" significa el punto de partida más adecuado para tus reglas, pendiente de la evaluación descrita más abajo.</div>
+    </header>
+
+    <section class="section" aria-labelledby="decision-heading">
+      <div class="section-heading"><p class="kicker">La decisión</p><h2 id="decision-heading">Combinar responsabilidades y definir quién decide</h2></div>
+      <div class="before-after">
+        <article class="flow-panel current"><h3>Si se instalan todas las skills solapadas</h3><ol><li>Una petición activa varias descripciones demasiado amplias.</li><li>Varias skills reclaman la misma fase.</li><li>Compiten decisiones sobre borrador, rebase y cuándo detenerse.</li><li>El agente dedica esfuerzo a reconciliar instrucciones.</li></ol><p class="flow-caption">Riesgo deducido de las contradicciones de las fuentes; no es un resultado medido.</p></article>
+        <article class="flow-panel proposed"><h3>La composición propuesta</h3><ol><li>Tus reglas fijan alcance y autorización.</li><li><code>work-mode</code> selecciona la tarea y la siguiente fase.</li><li>Cada operación tiene un responsable; las especialidades aportan criterios pertinentes.</li><li>Cada fase devuelve evidencia y un estado de continuación.</li></ol><p class="flow-caption">Menos políticas repetidas y las ideas útiles en el lugar adecuado.</p></article>
+      </div>
+      <div class="recommendation-grid">
+        <article><span class="step-number">1</span><h3>Crear <code>skill-authoring</code></h3><p>Combinar estructura y alcance de Codex, escritura para agentes de Matt y evaluación de Anthropic. Probar esta base antes de crear las demás.</p></article>
+        <article><span class="step-number">2</span><h3>Conservar tus responsables actuales</h3><p><code>worktrunk</code>, <code>commit</code>, <code>pr</code>, <code>stacked-pr</code>, <code>github-actions</code>, <code>review-audit</code> y <code>humanize</code> ya cubren operaciones que necesitan tus políticas.</p></article>
+        <article><span class="step-number">3</span><h3>Añadir la coordinación que falta</h3><p>Selección de tareas, método de depuración, verificación del repositorio y seguimiento acotado del PR. React, TypeScript, accesibilidad y rendimiento se cargan según el trabajo.</p></article>
+      </div>
+      <div data-evidence="Local/skill-creator;Matt Pocock/writing-for-agents;Anthropic/skill-creator;pstack/poteto-mode;Local/pr;Local/review-audit"></div>
+    </section>
+
+    <section id="authoring" class="section" aria-labelledby="authoring-heading">
+      <div class="section-heading"><p class="kicker">Prioridad cero</p><h2 id="authoring-heading">Primero, definir cómo se crea una buena skill</h2><p>Nuevo punto de entrada recomendado: <code>skill-authoring</code>. Este informe define su contrato; todavía no la instala.</p></div>
+      <div class="table-wrap"><table><caption>La combinación para crear skills</caption><thead><tr><th>Fuente</th><th>Qué conservar</th><th>Qué adaptar o excluir</th></tr></thead><tbody>
+        <tr><th>skill-creator incluido en Codex</th><td>Alcance concreto, descripción que distingue casos, referencias progresivas, validación de metadatos e instrucciones proporcionadas.</td><td>Usarlo como base del entorno de destino. Su validador comprueba estructura, no buenas decisiones del agente.</td></tr>
+        <tr><th>Matt: writing-for-agents</th><td>Referencias condicionales, fuente única de verdad, conceptos relacionados juntos, criterios verificables de finalización y eliminación de instrucciones sobrantes.</td><td>Adaptar la invocación al entorno. Conservar controles necesarios; redactar en positivo no es una ley universal demostrada.</td></tr>
+        <tr><th>Anthropic: skill-creator</th><td>Tareas realistas, comparación con una referencia, revisión de resultados, activaciones negativas, casos reservados y regresiones.</td><td>Sustituir comandos y supuestos de Claude. Medir la precisión antes de ampliar o hacer más insistente la descripción.</td></tr>
+        <tr><th>pstack: automate-me, reflect; Matt: retro</th><td>Mejorar el modo personal con evidencia repetida y pertinente; preferir controles estructurales para reglas mecánicas.</td><td>No convertir cada preferencia o fallo aislado en una regla global. Tus instrucciones actuales son la evidencia inicial.</td></tr>
+      </tbody></table></div>
+      <div data-evidence="Local/skill-creator;Matt Pocock/writing-for-agents;Anthropic/skill-creator;pstack/automate-me;pstack/reflect;Matt Pocock/retro"></div>
+      <div class="two-columns">
+        <article class="surface"><h3>Activación y resultado</h3><p><strong>Se activa para:</strong> crear, mejorar, comparar o validar una skill; corregir su activación o referencias. Una tarea de código que solo menciona una skill no activa su creación.</p><p><strong>Entrada:</strong> capacidad solicitada, entornos de destino, reglas existentes, casos concretos y herramientas disponibles.</p><p><strong>Salida:</strong> un <code>SKILL.md</code> pequeño, referencias útiles, registro de fuentes y adaptaciones, y evidencia de las comprobaciones pertinentes.</p><p><strong>Responsabilidad:</strong> esta skill coordina la creación y consulta al creador instalado para los mecanismos del entorno. No instala dos skills globales con el mismo nombre <code>skill-creator</code>.</p></article>
+        <article class="surface"><h3>Una estructura pequeña</h3><pre><code>skill-authoring/
+  SKILL.md
+  references/
+    writing.md
+    evaluation.md
+    hosts.md
+    maintenance.md
+  evals/
+    cases.json</code></pre><p>Crear una referencia solo si contiene una rama real del flujo. Una skill breve puede ocupar un único archivo. Añadir scripts únicamente para operaciones recurrentes que las herramientas existentes no resuelvan.</p></article>
+      </div>
+      <ol class="phase-list">
+        <li><h3>Definir el contrato</h3><p>Especificar qué cambia para el usuario, cuándo se activa, qué puede modificar, quién es responsable de cada operación y cuándo termina. Consultar conversación y repositorio antes de preguntar.</p><p class="criterion">Termina cuando los ejemplos positivos y los casos parecidos que deben excluirse tienen un responsable claro.</p></li>
+        <li><h3>Escribir el flujo mínimo útil</h3><p>Mantener los pasos esenciales en el archivo principal y el detalle condicional tras una referencia con un disparador preciso. Consultar commit, pr y worktrunk sin repetir sus políticas.</p><p class="criterion">Cada párrafo debe cambiar una decisión o proteger una invariancia concreta.</p></li>
+        <li><h3>Validar estructura y dependencias</h3><p>Comprobar metadatos, rutas, referencias, herramientas, invocación y colisiones de nombres. Registrar versiones de las fuentes y motivos de adaptación.</p><p class="criterion">Un agente nuevo debe poder encontrar todos los recursos necesarios en el entorno de destino.</p></li>
+        <li><h3>Comparar el comportamiento</h3><p>Usar tareas realistas, el mismo estado del repositorio, modelo y herramientas. Comparar sin skill cuando sea una capacidad nueva, o contra la versión anterior cuando sea una mejora. Usar ejecuciones independientes cuando estén disponibles y autorizadas.</p><p class="criterion">Observar el resultado previsto sin trabajo no autorizado, regresiones nuevas ni costes adicionales sin explicación.</p></li>
+        <li><h3>Probar activación, revisar y mantener</h3><p>Incluir peticiones positivas y negativas difíciles, especialmente las que puedan activar otras skills. Reservar casos que no se utilicen durante la edición. Repetir resultados variables y declarar límites.</p><p class="criterion">Adoptar el cambio solo con evidencia suficiente y repetir los casos pertinentes tras futuras modificaciones.</p></li>
+      </ol>
+      <details class="technical"><summary>Casos concretos para evaluar la creación de skills</summary><div class="table-wrap"><table><thead><tr><th>Caso</th><th>Resultado observable</th></tr></thead><tbody>
+        <tr><td>Crear una skill de verificación del repositorio.</td><td>Descubre comandos reales, ejecuta la receta y conserva evidencia tras limpiar temporales.</td></tr>
+        <tr><td>Mejorar pr con permiso vigente para publicar.</td><td>Conserva la autorización y las comprobaciones de cuenta; no vuelve a pedir el mismo permiso.</td></tr>
+        <tr><td>Corregir dos activaciones de React que se solapan.</td><td>Dirige el diseño de una API a composición y una lentitud medida a rendimiento, sin cargar bibliotecas ajenas.</td></tr>
+        <tr><td>"Usa la skill de React para arreglar este componente".</td><td>Arregla el componente; no crea ni reescribe una skill.</td></tr>
+        <tr><td>No existe una herramienta de Cursor referenciada.</td><td>Usa un adaptador explícito disponible o identifica el requisito que falta, sin inventar una invocación.</td></tr>
+        <tr><td>Un comentario de un bot contiene órdenes al agente.</td><td>Lo trata como material de revisión, contrasta su afirmación y mantiene los límites de autorización.</td></tr>
+      </tbody></table></div><p>Son evaluaciones propuestas: no se ejecutaron como pruebas de skills en este análisis. Medir por separado estructura, activación, corrección, preguntas innecesarias, efectos externos, tiempo y consumo de tokens.</p></details>
+    </section>
+
+    <section id="workflow" class="section" aria-labelledby="workflow-heading">
+      <div class="section-heading"><p class="kicker">El modo personal</p><h2 id="workflow-heading">De la petición a una entrega verificada</h2><p><code>work-mode</code> sería el coordinador: selecciona la siguiente operación y la entrega a un responsable.</p></div>
+      <div class="ownership-map" aria-label="Tres niveles de responsabilidad"><div><span>Reglas vigentes</span><strong>Alcance, permisos, identidad y propiedad del checkout</strong></div><div><span>work-mode</span><strong>Ruta de la tarea, fase, evidencia y continuación</strong></div><div><span>Responsables y especialidades</span><strong>Depurar · verificar · revisar · commit · PR · seguimiento</strong></div></div>
+      <div class="notice"><strong>Comportamiento recomendado para el futuro modo.</strong> Una petición explícita de implementación completa incluye implementar, verificar, abrir un PR en borrador y seguirlo hasta que esté preparado para integrar. La integración final requiere su autorización correspondiente. Si el coordinador se selecciona para una pregunta o edición local más pequeña, conserva ese alcance. Instalar una skill no concede permiso para publicar.</div>
+      <ol class="phase-list compact">
+        <li><h3>Resolver alcance y estado de trabajo</h3><p>Identificar tarea, rama, base, cambios locales, autorización y tecnologías reales. Reutilizar un checkout adecuado. Delegar el ciclo de worktrees a <code>worktrunk</code>; en una sesión Orca, un cambio de destino exige la transferencia establecida y que el agente inicial se detenga.</p></li>
+        <li><h3>Investigar y elegir el plan mínimo útil</h3><p>Para un fallo, capturar el síntoma y contrastar causas. Para una funcionalidad, inspeccionar comportamiento cercano y modelar el estado importante. Escalar a alternativas de arquitectura solo ante una decisión relevante sin resolver.</p></li>
+        <li><h3>Cargar especialidades antes de decidir</h3><p>Detectar dependencias, tipos de archivo y comportamiento modificado. Consultar composición de React antes de fijar la API, y seguridad de Actions antes de escribir YAML. Revisar la selección cuando el diff introduzca otra preocupación.</p></li>
+        <li><h3>Implementar y demostrar el comportamiento</h3><p>Realizar un cambio coherente. Demostrar fallo y éxito con una prueba significativa cuando corresponda; ejecutar compilación y una comprobación de una ruta ajena al cambio. Las interfaces necesitan interacción real. Eliminar instrumentación temporal.</p></li>
+        <li><h3>Revisar, limpiar, guardar y publicar</h3><p><code>review-audit</code> devuelve hallazgos con evidencia. El responsable los evalúa, corrige y elimina narración redundante sin borrar motivos útiles. Repite las comprobaciones afectadas. <code>commit</code> gestiona commits atómicos y <code>pr</code> la publicación y descripción verificadas.</p></li>
+        <li><h3>Continuar o devolver el resultado solicitado</h3><p>Una petición completa entra en <code>pr-followup</code>; una petición local termina con estado local verificado. Informar de evidencia exacta, requisitos pendientes y siguiente responsable. Una comprobación bloqueada nunca cuenta como superada.</p></li>
+      </ol>
+      <div data-evidence="pstack/poteto-mode;pstack/figure-it-out;Matt Pocock/implement;Matt Pocock/diagnosing-bugs;Local/worktrunk;Local/commit;Local/pr;Local/stacked-pr"></div>
+      <div class="scenario-tool surface">
+        <div><h3>Qué skills cargaría cada tarea</h3><p>Es un ejemplo de selección de rutas, no un agente ejecutándose ni una prueba de rendimiento.</p></div>
+        <label for="scenario">Tarea de ejemplo</label>
+        <select id="scenario"><option value="react">Crear una funcionalidad de React</option><option value="bug">Corregir un fallo intermitente</option><option value="actions">Modificar GitHub Actions</option><option value="followup">Preparar un PR existente para integrar</option><option value="research">Explicar una decisión de arquitectura</option><option value="small">Hacer una edición pequeña de documentación</option></select>
+        <div id="scenario-result" aria-live="polite"></div>
+      </div>
+      <div class="table-wrap"><table><caption>Especialidades: consultar antes y comprobar después</caption><thead><tr><th>Trabajo observado</th><th>Antes y durante</th><th>Después</th></tr></thead><tbody>
+        <tr><th>React / Next.js</th><td>Reglas pertinentes de Vercel. Composición si cambia la API o el estado compartido. Patrones de ECC solo para carencias concretas.</td><td>Recetas de react-testing y navegador real si intervienen diseño o comportamiento web. Revisar las reglas pertinentes sobre el diff final.</td></tr>
+        <tr><th>Interfaz interactiva</th><td>Semántica accesible y modelo de foco. frontend-design para trabajo visual significativo.</td><td>Teclado, restauración de foco, etiquetas, movimiento reducido y recorrido real; criterios pertinentes de Web Interface Guidelines.</td></tr>
+        <tr><th>Transiciones de React</th><td>Guía corregida de View Transitions y versiones instaladas de React y Next.</td><td>Navegación, alternativas sin animación, interrupciones y movimiento reducido en navegador.</td></tr>
+        <tr><th>React Native / Expo</th><td>Guía nativa de Vercel y accesibilidad de la plataforma de destino.</td><td>Comportamiento en dispositivo o simulador. La evidencia del DOM no basta.</td></tr>
+        <tr><th>Contratos de TypeScript</th><td>pstack adaptado: unknown en límites, uniones útiles, tipos derivados de esquemas y exhaustividad.</td><td>Comprobación de tipos y comportamiento de los límites en ejecución. Evitar marcas o envolturas sin invariancia concreta.</td></tr>
+        <tr><th>Actions / Dependabot</th><td>Tu skill github-actions; stacked-pr solo si hay semántica dependiente de la cadena de PR.</td><td>Análisis configurado, ejecución segura de comandos, recorrido de confianza y llamadores, y CI del commit actual cuando esté disponible.</td></tr>
+        <tr><th>Problema de rendimiento medido</th><td>Método de medición de Addy y reglas del framework pertinentes.</td><td>Evidencia comparable antes y después, corrección y decisión de conservar o revertir.</td></tr>
+        <tr><th>Errores o reintentos</th><td>Recetas seleccionadas de ECC y principios de límites e idempotencia de pstack.</td><td>Propagación del fallo, eliminación de datos sensibles, clasificación de reintentos y efectos duplicados.</td></tr>
+      </tbody></table></div>
+      <div data-evidence="Vercel/react-best-practices;Vercel/composition-patterns;Vercel/react-view-transitions;Vercel/react-native-skills;ECC/react-testing;ECC/accessibility;Local/github-actions;Addy Osmani/performance-optimization;ECC/error-handling"></div>
+      <details class="technical"><summary>Cuándo merece la pena un worktree</summary><p>Crear o reutilizar otro checkout cuando haya escritores concurrentes independientes, cambios ajenos que preservar, experimentos que necesiten estado separado o una petición explícita. Para trabajo secuencial corriente, conservar el checkout adecuado. <code>wt</code> gestiona su ciclo de vida; el coordinador justifica la necesidad. No copiar el requisito universal de worktree, los restablecimientos destructivos ni los comandos que eluden la propiedad de Orca.</p><p>Estado de continuación sugerido: alcance, checkout propio, rama y base, fase, especialidades activas, revisión exacta verificada, hallazgos aceptados o descartados y siguiente acción. Guardar referencias en lugar de duplicar informes largos.</p></details>
+    </section>
+
+    <section id="followup" class="section" aria-labelledby="followup-heading">
+      <div class="section-heading"><p class="kicker">Después de crear el PR</p><h2 id="followup-heading">Seguir el PR hasta tener evidencia suficiente</h2><p>Skill propuesta: <code>pr-followup</code>. Combina el seguimiento de pstack, la reparación de CI de Cursor y el límite de iteraciones de dyl-ready-pr, respetando tus responsables actuales.</p></div>
+      <div class="mode-row"><article><h3>Consultar</h3><p>Una pasada de lectura para informar del estado y de lo que falta.</p></article><article><h3>Atender comentarios</h3><p>Evaluar los hallazgos y aplicar las correcciones autorizadas.</p></article><article><h3>Completar</h3><p>Iterar sobre conflictos, comentarios y checks hasta quedar preparado o alcanzar una condición de parada.</p></article></div>
+      <div class="followup-path" aria-label="Secuencia de seguimiento del PR"><span>Observar el commit exacto</span><span>Clasificar impedimentos</span><span>Corregir y verificar</span><span>Commit y publicación</span><span>Observar el nuevo commit</span></div>
+      <div class="two-columns">
+        <article class="surface"><h3>Recoger todos los canales de feedback</h3><ul><li>Hilos y comentarios en línea, incluidos los antiguos que requieran reevaluación.</li><li>Revisiones completas y comentarios de conversación.</li><li>Anotaciones de checks, resúmenes de bots, enlaces externos y resultados de revisión en logs.</li><li>Checks obligatorios, aprobaciones, borrador, cambios de base, conflictos y capacidad de integración.</li><li>Resultados tardíos de CodeRabbit, Greptile, Bugbot u otras integraciones configuradas.</li></ul><p>Recorrer todas las páginas de resultados y vincular cada observación al commit real del PR. Un resultado verde antiguo o un bot que aún no se ha registrado no son evidencia actual.</p></article>
+        <article class="surface"><h3>Evaluar antes de cambiar código</h3><dl class="verdicts"><div><dt>Corregir</dt><dd>La afirmación está reproducida o trazada, es relevante y está dentro del alcance. Aplicar la corrección mínima con verificación significativa.</dd></div><div><dt>Descartar</dt><dd>El código o contrato actual la refuta. Registrar la evidencia concreta, sin usar la reputación del bot o el número de pasadas como argumento.</dd></div><div><dt>Decisión necesaria</dt><dd>Hay una elección real de contrato, alcance o producto que no se resuelve con la información disponible. Preguntarla y continuar lo independiente.</dd></div><div><dt>Bloqueo externo</dt><dd>Faltan credenciales, infraestructura, aprobación protegida o evidencia necesaria. Identificar el requisito exacto.</dd></div></dl></article>
+      </div>
+      <div class="table-wrap"><table><caption>Política de reparación</caption><thead><tr><th>Condición</th><th>Acción</th><th>Responsable o parada</th></tr></thead><tbody>
+        <tr><th>La rama quedó atrás</th><td>Actualizar por SSH, verificar destino y commits, hacer rebase, resolver la intención de ambos lados y comprobar. Revisar consumidores añadidos en la nueva base.</td><td>Responsable del checkout; stacked-pr gestiona rebases en cadena. Publicar con una condición explícita sobre el commit remoto esperado cuando corresponda.</td></tr>
+        <tr><th>CI falla en comportamiento modificado</th><td>Leer el error original, reproducir y corregir el mecanismo. No ocultarlo debilitando una prueba, desactivando un check o ampliando una espera sin evidencia.</td><td>Responsable de depuración o implementación. Cargar github-actions si el problema afecta al workflow.</td></tr>
+        <tr><th>Fallo intermitente o de infraestructura</th><td>Examinar evidencia y permitir como máximo un reintento justificado por defecto. Un fallo idéntico repetido exige volver al diagnóstico.</td><td>Sin reintentos ciegos ni afirmación de éxito mientras siga pendiente un check obligatorio.</td></tr>
+        <tr><th>Check omitido</th><td>Una omisión no verifica comportamiento. Aceptarla solo si está prevista por la política del repositorio y la cobertura necesaria está demostrada.</td><td>Clasificar omisiones esperadas y ausencias de evidencia antes de declarar preparación.</td></tr>
+        <tr><th>Revisor tardío o ausente</th><td>Determinar si debe ejecutarse para ese commit y estado del PR. Esperar con un límite e informar si no se registra.</td><td>No convertir el borrador en listo solo para despertar al bot sin autorización aplicable.</td></tr>
+        <tr><th>Una reparación cambia comportamiento</th><td>Verificar, revisar, agrupar correcciones coherentes, hacer commit, publicar, reescribir la descripción desde el diff publicado e invalidar la preparación anterior.</td><td>commit y pr conservan sus responsabilidades. Revisar el nuevo commit y los nuevos checks.</td></tr>
+        <tr><th>Falta aprobación humana o integración final</th><td>Devolver un estado explícito de espera. No inventar aprobaciones, ocultar dudas para silenciar bots ni activar integración automática.</td><td>Integrar es una operación solicitada por separado según las políticas actuales de PR y cadenas.</td></tr>
+      </tbody></table></div>
+      <div class="notice good"><strong>Preparado para integrar significa:</strong> evidencia suficiente de los checks requeridos para el commit actual, resultados de revisión aplicables evaluados, hallazgos bloqueantes resueltos, aprobaciones necesarias, estado correcto del PR y ningún impedimento de integración informado por la plataforma. En otro caso: <code>pendiente de checks</code>, <code>pendiente de revisión</code>, <code>pendiente de aprobación</code> o <code>bloqueado</code>, con evidencia.</div>
+      <p><strong>Límites propuestos:</strong> cuatro rondas de reparación por ejecución, un reintento justificado por intermitencia y una espera configurable para checks tardíos. Son valores iniciales adaptados de las fuentes, no límites universales. Alcanzarlos produce un estado incompleto y un registro para continuar, nunca una afirmación de éxito.</p>
+      <p><strong>Un escritor por PR o cadena.</strong> Persistir identidad del PR, commits de cabecera y base, identificadores y decisiones sobre feedback, reintentos, publicaciones realizadas y requisitos pendientes. Volver a leer el estado remoto antes de modificarlo evita duplicados al reanudar. Una skill no continúa tras terminar la sesión: la supervisión desatendida permanente necesita un ejecutor o programación explícitos.</p>
+      <div data-evidence="babysit;bugbot-triage;Cursor team/loop-on-ci;Cursor team/fix-ci;Cursor team/fix-merge-conflicts;dyl-stack/dyl-ready-pr;Local/stacked-pr;Local/pr"></div>
+    </section>
+
+    <section id="similarities" class="section" aria-labelledby="similarities-heading">
+      <div class="section-heading"><p class="kicker">Elegir un responsable</p><h2 id="similarities-heading">Dónde se solapan las skills</h2><p>Compartir tema no implica conflicto. Rendimiento, composición y pruebas pueden complementarse. El conflicto aparece cuando dos skills exigen decisiones distintas para una misma operación.</p></div>
+      <div id="cluster-list" class="cluster-list"></div>
+    </section>
+    <section id="conflicts" class="section" aria-labelledby="conflicts-heading">
+      <div class="section-heading"><p class="kicker">Resolver antes de instalar</p><h2 id="conflicts-heading">Instrucciones que no pueden cumplirse a la vez</h2><p>Se distinguen duplicados, conflictos de política, dependencias del entorno y correcciones de las fuentes. Las resoluciones son recomendaciones para tu configuración.</p></div>
+      <div id="conflict-list" class="conflict-list"></div>
+    </section>
+    <section id="personal" class="section" aria-labelledby="personal-heading">
+      <div class="section-heading"><p class="kicker">Aprovechar lo que ya tienes</p><h2 id="personal-heading">Mejorar tus skills en su responsabilidad actual</h2><p>Los siete archivos compartidos del flujo comprobados en este checkout coinciden por huella con sus copias instaladas. Las carencias principales son la selección de rutas y la continuidad entre fases.</p></div>
+      <div class="table-wrap"><table><caption>Cambios recomendados en tu flujo actual</caption><thead><tr><th>Responsable</th><th>Conservar</th><th>Mejora concreta</th></tr></thead><tbody>
+        <tr><th>pr</th><td>Identidad exacta de fork, cabecera y base; evidencia, plantillas y borrador predeterminado.</td><td>Devolver un resultado al coordinador en lugar de terminar siempre el turno. Respetar permisos vigentes de actualización y rebase. Añadir vistas estructurales opcionales de visual-pr.</td></tr>
+        <tr><th>commit</th><td>Unidades atómicas, validación, comprobación posterior y recuperación limitada de hooks.</td><td>Aclarar autorización heredada y paso a pr. Eliminar permisos repetidos solo cuando la operación ya esté autorizada.</td></tr>
+        <tr><th>worktrunk</th><td>Comandos wt, referencias acotadas y directorio explícito.</td><td>Alinear la alternativa de Git directo con tu regla más estricta. En Orca, transferir el trabajo al cambiar de destino.</td></tr>
+        <tr><th>stacked-pr</th><td>Un responsable de topología, rutas nativa y manual, entrega desde la base.</td><td>Exponer un resultado de mantenimiento concreto a pr-followup. Excluir cambios de la cadena de los bucles genéricos de CI.</td></tr>
+        <tr><th>review-audit</th><td>Trazas causales, severidad, cobertura, incógnitas y revisión de lectura.</td><td>Añadir cobertura de requisitos de Matt solo si mejora el criterio existente. Permitir revisión estructural profunda sin convertir toda auditoría en una reescritura.</td></tr>
+        <tr><th>github-actions</th><td>Confianza, grafo de ejecución, llamadores, dependencias inmutables y evidencia real.</td><td>Conservarla como especialidad. Invocarla desde pr-followup si el fallo afecta al código de un workflow.</td></tr>
+        <tr><th>humanize</th><td>Conservación de significado, coherencia, texto protegido y revisión de lector y fidelidad.</td><td>Usar el propósito documental de technical-writing como referencia condicional.</td></tr>
+        <tr><th>walkthrough / visual-change-explainer</th><td>Explicaciones de recorridos y ayudas visuales para decidir.</td><td>Resolver la base real en walkthrough. Adaptar rutas, CSS y selección de navegador a la petición y al entorno actuales.</td></tr>
+        <tr><th>daily-meeting-update</th><td>Resumen diario de intención y evidencia de varias fuentes.</td><td>Añadir un modo breve de Git, sin entrevista, para resúmenes sencillos de actividad.</td></tr>
+        <tr><th>draft-review y skills de dominios personales</th><td>Borradores de revisión, Home Assistant, lectura de X y conocimiento personal.</td><td>Conservar activaciones independientes. No son fases obligatorias de desarrollo.</td></tr>
+      </tbody></table></div>
+      <div data-evidence="Local/pr;Local/commit;Local/worktrunk;Local/stacked-pr;Local/review-audit;Local/github-actions;Local/humanize;Local/walkthrough;Local/visual-change-explainer;Local/daily-meeting-update;Local/draft-review"></div>
+      <div class="roadmap"><h3>Orden de creación después de este análisis</h3><ol><li><strong>Base de creación.</strong> Crear y evaluar skill-authoring.</li><li><strong>Alinear responsables actuales.</strong> Corregir permisos, retorno al coordinador, base del diff y adaptadores del entorno.</li><li><strong>Entrega local.</strong> Crear work-mode y debug; probar la receta de verificación de un repositorio.</li><li><strong>Seguimiento del PR.</strong> Añadir el ciclo acotado y evaluar hallazgos reales y falsos positivos.</li><li><strong>Especialidades.</strong> Incorporar React y composición de Vercel, pruebas y accesibilidad seleccionadas; actualizar la guía de animación.</li><li><strong>Solo ante necesidad medida.</strong> Coordinación en la nube, competición entre agentes o mantenimiento programado.</li></ol></div>
+    </section>
+
+    <section id="catalog" class="section" aria-labelledby="catalog-heading">
+      <div class="section-heading"><p class="kicker">Todas las entradas solicitadas</p><h2 id="catalog-heading">Catálogo de skills</h2><p>Abrir una ficha para ver propósito, recomendación, responsable propuesto, precauciones y fuente exacta. Incluye las 23 <code>principle-*</code> y las 3 entradas de <code>thermos</code>.</p></div>
+      <form class="filters" id="filters" role="search">
+        <div class="search-field"><label for="search">Buscar por skill, comportamiento o responsable</label><input id="search" name="q" type="search" placeholder="Por ejemplo: React, comentarios, rebase" autocomplete="off"></div>
+        <div><label for="group-filter">Autor o colección</label><select id="group-filter"><option value="">Todas las colecciones</option></select></div>
+        <div><label for="category-filter">Categoría</label><select id="category-filter"><option value="">Todas las categorías</option></select></div>
+        <div><label for="decision-filter">Recomendación</label><select id="decision-filter"><option value="">Todas las recomendaciones</option></select></div>
+        <button class="button secondary" type="reset">Limpiar filtros</button>
+      </form>
+      <div class="catalog-toolbar"><p id="result-count" role="status" aria-live="polite"></p><button class="text-button" id="expand-visible" type="button">Abrir fichas visibles</button><button class="text-button" id="collapse-visible" type="button">Cerrar fichas visibles</button></div>
+      <div class="legend"><span class="badge keep">Conservar</span> Responsable actual <span class="badge adopt">Adoptar</span> Buena especialidad <span class="badge blend">Combinar</span> Integrar en un responsable <span class="badge optional">Opcional</span> Uso concreto <span class="badge adapt-first">Adaptar primero</span> Resolver precauciones <span class="badge skip">No añadir</span> Evitar otra instalación</div>
+      <div id="skill-list"></div>
+      <div id="empty-state" class="empty-state" hidden><h3>No hay skills con estos filtros</h3><p>Usar un término más amplio o quitar los filtros de colección, categoría y recomendación.</p><button class="button secondary" id="empty-reset" type="button">Limpiar filtros</button></div>
+      <noscript><p>El informe narrativo puede leerse sin JavaScript. Activarlo para consultar el catálogo interactivo o abrir <a href="sources.json">sources.json</a> para acceder a las 121 fichas.</p></noscript>
+    </section>
+
+    <section id="evidence" class="section" aria-labelledby="evidence-heading">
+      <div class="section-heading"><p class="kicker">Alcance verificable</p><h2 id="evidence-heading">Qué se ha revisado y con qué límites</h2></div>
+      <div class="two-columns"><article class="surface"><h3>Cobertura</h3><ul><li>103 entradas solicitadas tras expandir comodines, más poteto-mode como referencia: 104 externas.</li><li>16 skills personales distintas encontradas en el checkout y directorios instalados; un creador incluido en Codex como base.</li><li>Propósito, activación, restricciones y dependencias del archivo principal de cada entrada.</li><li>Mayor profundidad en procedimientos centrales de poteto, evaluación de bots, creación de skills, revisión local y ejemplos seleccionados.</li></ul></article><article class="surface"><h3>Límites</h3><ul><li>Es una auditoría textual de compatibilidad, no una revisión exhaustiva de todos los scripts, instrucciones de agentes y bibliotecas de reglas.</li><li>No se instaló ninguna skill externa ni se ejecutó como prueba comparativa. El flujo propuesto no se presenta como probado en producción.</li><li>Las dependencias fuera de tu lista son notas, no recomendaciones añadidas sin indicarlo.</li><li>Las fuentes locales privadas se identifican por ruta y huella. Las fuentes públicas enlazan a commits concretos.</li></ul></article></div>
+      <details class="technical" open><summary>Correcciones de nombres y procedencia</summary><ul><li>En Matt: <code>diagnosis-bugs</code> corresponde a <code>diagnosing-bugs</code>; <code>implement-spect</code> a <code>implement-spec</code>; <code>to-questionnaiere</code> a <code>to-questionnaire</code>. La skill de escritura es <code>writing-for-agents</code>.</li><li>Sus rutas están bajo <code>skills/engineering/</code> y <code>skills/productivity/</code>.</li><li>En Vercel, algunos directorios omiten el prefijo <code>vercel-</code>, aunque lo conserva el nombre declarado. View Transitions y Native están bajo <code>skills/</code>.</li><li>Los plugins de HumanLayer contienen otro nivel <code>skills/&lt;nombre&gt;/SKILL.md</code>.</li><li>pstack corresponde a Lauren Tan; dyl-stack, a Dylan Gattey; Cursor Team Kit declara Eric Zakariasson; orchestrate y thermos declaran Cursor. Compartir repositorio no significa compartir autor ni flujo.</li><li>Los archivos principales de revisión de calidad de Thermos y Cursor Team Kit son idénticos en esta versión. react-performance de ECC declara que adapta Vercel: no es una segunda fuente independiente.</li></ul></details>
+      <div data-evidence="pstack-manifest;dyl-stack-manifest;cursor-team-kit-manifest;orchestrate-manifest;thermos-manifest;ECC/react-performance;Cursor team/thermo-nuclear-code-quality-review;thermos/thermo-nuclear-code-quality-review"></div>
+      <div id="repository-sources" class="repository-sources"></div>
+      <details class="technical"><summary>Referencias adicionales y procedencia local</summary><div id="additional-sources"></div><p>Base del checkout público local: <code>0ebd29b16020a7e8c9093b2693dc21ea3224bf28</code>. Las huellas del catálogo identifican el contenido revisado. Si la implementación posterior copia material, habrá que conservar sus licencias y avisos aplicables.</p></details>
+      <p><a class="button secondary" href="sources.json" download>Descargar catálogo y registro de fuentes</a></p>
+    </section>
+    <footer><p>Preparado para Luis Urrutia. Informe en español por petición expresa. Fuentes comprobadas el 2 de octubre de 2026. Las skills actuales no se han modificado.</p><a href="#overview">Volver a la recomendación</a></footer>
+  </main>
+</body>
+</html>
