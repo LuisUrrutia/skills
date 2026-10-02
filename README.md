@@ -46,6 +46,20 @@ Use it directly or as one phase of a larger task; it does not require work-mode.
 - Records Matt Pocock and Lauren Tan's pstack sources at exact commits
 - Delegates requested source maintenance to `agent-instructions`; ordinary use has no skill dependency
 
+### debug
+
+Diagnose an observed bug or performance regression, and repair it when requested.
+Use it directly, without work-mode or an installed upstream skill.
+
+**Triggers:** `diagnose this failure`, `fix this bug`, `investigate this regression`
+
+**Features:**
+- Distinguishes diagnosis-only requests from authorized repairs
+- Builds an observation that reaches the reported symptom and tests causal explanations
+- Uses regression tests where they exercise the failure without disproportionate setup
+- Loads conditional guidance for missing reproduction, intermittent failures, performance, and cross-boundary investigation
+- Preserves exact source commits and delegates requested maintenance to `agent-instructions`
+
 ### commit
 
 Create git commits with conventional commit messages.

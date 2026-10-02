@@ -61,7 +61,7 @@ const clusters = [
       "Matt Pocock/research"
     ],
     "text": "El diagnóstico reproduce fallos y contrasta causas. how explica estructura y ejecución; why reconstruye motivos; blast-radius sigue efectos; research consulta hechos externos. Son ramas complementarias, no cinco fases obligatorias.",
-    "why": "Usar el ciclo de diagnóstico de Matt como base y cargar how, why o blast-radius según la incertidumbre concreta."
+    "why": "debug ya deriva el ciclo de Matt y las pruebas proporcionadas de pstack. Su referencia local adapta criterios de how, why y blast-radius según la incertidumbre; no exige instalar esas skills."
   },
   {
     "title": "Entrevistas, especificaciones y tareas",
@@ -509,7 +509,7 @@ const scenarios = {
     "stages": [
       [
         "Antes",
-        "debug construye un ciclo de observación fallido y reduce el desencadenante. how ayuda con comportamiento desconocido y why con posibles regresiones."
+        "debug construye una observación del fallo y reduce el desencadenante. Carga su referencia de investigación si falta la reproducción o necesita rastrear comportamiento, historia o consumidores."
       ],
       [
         "Durante",

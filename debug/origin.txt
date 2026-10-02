@@ -1,0 +1,66 @@
+format_version = 1
+skill = "debug"
+created = "2026-10-02"
+approach = "Standalone derivation with conditional investigation guidance. Upstream skills are sources of ideas, not invoked runtime dependencies."
+
+[[sources]]
+id = "mattpocock-debugging-and-tests"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+baseline_paths = ["skills/engineering/diagnosing-bugs/SKILL.md", "skills/engineering/tdd/SKILL.md", "skills/engineering/tdd/tests.md", "skills/engineering/tdd/mocking.md", "LICENSE"]
+paths = ["skills/engineering/diagnosing-bugs/SKILL.md", "skills/engineering/tdd/SKILL.md", "skills/engineering/tdd/tests.md", "skills/engineering/tdd/mocking.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "An observation must reach the reported symptom; improve the feedback loop, minimize the trigger, test predictions, and rerun the original scenario.",
+  "Distinguish a real regression boundary from a shallow test that misses the interacting behavior.",
+  "Use public behavior and independent expected values, with real collaborators or controlled system boundaries.",
+  "Measure performance regressions before changing them and clean up temporary instrumentation."
+]
+local_choices = [
+  "Diagnosis alone is read-only; repair follows existing task authorization, without a new routine confirmation gate.",
+  "Reading code and developing labeled hypotheses remain useful without a runnable reproduction; lack of evidence limits claims.",
+  "No fixed hypothesis count, exhaustive minimization gate, universal speed target, mandatory stress count, or interactive shell template.",
+  "Intermittent evidence uses a bounded sample and reports uncertainty; production load and instrumentation follow task authority.",
+  "No mandatory seam approval or blanket ban on a refactor needed for the authorized correction.",
+  "Repository and caller rules own commits, worktrees, PRs, and delivery; debug does not initiate those workflows."
+]
+reviews = []
+
+[[sources]]
+id = "pstack-debugging-principles"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "7022c81efb48d8b5eb15498ce6043a3bd74b694c"
+reviewed_through = "7022c81efb48d8b5eb15498ce6043a3bd74b694c"
+baseline_paths = ["pstack/skills/tdd/SKILL.md", "pstack/skills/principle-fix-root-causes/SKILL.md", "pstack/skills/how/SKILL.md", "pstack/skills/how/references/explorer-prompt.md", "pstack/skills/why/SKILL.md", "pstack/skills/why/references/epistemics.md", "pstack/skills/why/references/sources/code-archaeology.md", "pstack/skills/why/references/sources/incident-postmortem.md", "pstack/skills/blast-radius/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/tdd/SKILL.md", "pstack/skills/principle-fix-root-causes/SKILL.md", "pstack/skills/how/SKILL.md", "pstack/skills/how/references/explorer-prompt.md", "pstack/skills/why/SKILL.md", "pstack/skills/why/references/epistemics.md", "pstack/skills/why/references/sources/code-archaeology.md", "pstack/skills/why/references/sources/incident-postmortem.md", "pstack/skills/blast-radius/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Prefer a focused failing-before, passing-after regression test when a meaningful local test path exists; explain a practical fallback.",
+  "Repair the mechanism, investigate related patterns, and inspect persistent state when restart behavior suggests it.",
+  "Trace entrypoints, transformations, state ownership, and boundaries rather than guessing from names.",
+  "Separate mechanics from historical intent, qualify claims by evidence, and retain unknowns and contradictions.",
+  "Follow non-symbol consumers such as serialized formats and ordering, then exercise the assumptions that matter."
+]
+local_choices = [
+  "Keep legitimate guards and recovery behavior; do not fix every similar occurrence without evidence and scope.",
+  "A disproportionate new test does not waive explicit testing requests or required project checks.",
+  "Adapt how, why, and blast-radius criteria into one conditional reference; do not invoke their orchestration or take over their broader tasks.",
+  "Search sources relevant to the current uncertainty rather than every available MCP category.",
+  "No fixed agents, model slugs, Cursor tools, donor invocation flags, or unslop dependency.",
+  "One verified safety assumption does not dismiss independent risks."
+]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+entrypoint = "../agent-instructions/SKILL.md"
+required = false
+role = "Required only for requested source maintenance and skill authoring; ordinary debugging has no skill dependency."
