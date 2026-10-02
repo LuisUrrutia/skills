@@ -60,6 +60,20 @@ Use it directly, without work-mode or an installed upstream skill.
 - Loads conditional guidance for missing reproduction, intermittent failures, performance, and cross-boundary investigation
 - Preserves exact source commits and delegates requested maintenance to `agent-instructions`
 
+### tdd
+
+Implement features or authorized fixes through test-first increments. Use it
+directly when TDD is requested, without work-mode or an installed upstream skill.
+
+**Triggers:** `implement this with TDD`, `fix this test-first`, `use red-green-refactor`
+
+**Features:**
+- Observes a meaningful failing test before implementing each behavior
+- Tests caller-visible contracts using independent expected results
+- Allows focused refactoring while tests remain green
+- Distinguishes setup failures and already supported behavior from a valid red state
+- Preserves Matt Pocock's exact source revision and delegates requested maintenance to `agent-instructions`
+
 ### commit
 
 Create git commits with conventional commit messages.

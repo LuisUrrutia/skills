@@ -1,0 +1,686 @@
+{
+  "date": "2026-10-03",
+  "skill": "tdd",
+  "status": "Created in the repository; not globally installed or observed through implicit host activation.",
+  "authoring": {
+    "owner": "agent-instructions",
+    "host_packaging": "Codex skill-creator",
+    "approach": "Standalone derivation from the reviewed Matt Pocock revision, with no upstream runtime dependency."
+  },
+  "skill_files_sha256": {
+    "tdd/origin.txt": "c8d1625e698b4143ce5629720ec15edbe317dae7db56da297a9d4059fe43d5a8",
+    "tdd/SKILL.md": "224e655607cbf594e5b6345a0516a11b65b6757ee3f1628a3e3c98232b7a5c67",
+    "tdd/THIRD-PARTY-NOTICES.txt": "602904f4b14409b7b9f7e79f57bf0acac6350800cf67e22ad9c258498a6f07d0",
+    "tdd/evals/cases.json": "33188d1a418b5899b890fc8cefdc12152f4cbf75e04266690db7c2f4d5fcb2c8",
+    "tdd/references/test-design.md": "09ff8c08c4db37c75127f9130d6baa1997481226a043f7bc5e80e71d7b719b05",
+    "tdd/references/upstream-updates.md": "d286c4da4364b4b6a1f9da66759a4a24c612a0672dffa98c08c691069c7e05fd"
+  },
+  "source_evidence": [
+    {
+      "path": "skills/engineering/tdd/SKILL.md",
+      "url": "https://raw.githubusercontent.com/mattpocock/skills/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/engineering/tdd/SKILL.md",
+      "sha256": "93ea419b76e9caaf26153b828e984f7c3fb136f4caa67b14af95f32ea965a1cc"
+    },
+    {
+      "path": "skills/engineering/tdd/tests.md",
+      "url": "https://raw.githubusercontent.com/mattpocock/skills/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/engineering/tdd/tests.md",
+      "sha256": "859f9e592c188fda4fc7277dd180e4ce9c7a2e13f6efe1f6f29eccc9d28c106a"
+    },
+    {
+      "path": "skills/engineering/tdd/mocking.md",
+      "url": "https://raw.githubusercontent.com/mattpocock/skills/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/engineering/tdd/mocking.md",
+      "sha256": "3ceb807fdf4a47d6a93d4d9a891e5ba6d362a6247bd08adc451feebfc17361ef"
+    },
+    {
+      "path": "LICENSE",
+      "url": "https://raw.githubusercontent.com/mattpocock/skills/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    }
+  ],
+  "consultation": {
+    "cli": "Claude Code 2.1.287",
+    "model_requested": "fable",
+    "model_observed": "claude-fable-5-1",
+    "auxiliary_model": "claude-haiku-4-5-20251001",
+    "effort_argument": "xhigh",
+    "command": "claude --print --model fable --effort xhigh --safe-mode --strict-mcp-config --no-session-persistence --permission-prompts none --permission-mode dontAsk --restricted --tools Read --allowedTools Read --output-format stream-json --verbose",
+    "duration_ms": 150225,
+    "trace_sha256": "91b6727459d0f4fad9b5783bea5a2f1745befc4fbb40ed5b26f9839eb818d6ee",
+    "kind": "Read-only review of the three donor texts, initial candidate entrypoint, test-design reference, origin and maintenance reference; not behavioral execution.",
+    "adopted": [
+      "Separate diagnosis input from TDD repair; broad code review remains separate.",
+      "Name tests using observable behavior and project terms, consistent with the recorded source idea.",
+      "Minimal scaffolding must not satisfy the new assertion; setup uses established tooling and existing authority."
+    ],
+    "not_adopted": [
+      "No assumption-based fallback for unanswered material contracts: user rules require pausing dependent work.",
+      "No expanded synonym list or authorization word in the selection description; its TDD condition distinguishes the task and its body preserves scope.",
+      "No universal injection or SDK-style abstraction; the test-design reference retains project-established boundaries."
+    ],
+    "discarded_attempt": {
+      "kind": "Tool-free consultation",
+      "duration_ms": 586822,
+      "output_sha256": "acf06217d13cea86a1e37e818e181964f8388f35448a7d01d2cf7f87e3c5509a",
+      "reason": "Returned simulated Bash-call markup instead of findings. No review evidence was accepted from this output; it was replaced by the successful Read-only consultation."
+    }
+  },
+  "execution_setup": {
+    "cli_arguments": [
+      "--print",
+      "--model",
+      "fable",
+      "--effort",
+      "xhigh",
+      "--safe-mode",
+      "--strict-mcp-config",
+      "--no-session-persistence",
+      "--permission-prompts",
+      "none",
+      "--permission-mode",
+      "dontAsk",
+      "--restricted",
+      "--tools",
+      "Read,Write,Edit,Glob,Bash",
+      "--allowedTools",
+      "Read",
+      "Write",
+      "Edit",
+      "Glob",
+      "Bash(node --test*)",
+      "Bash(node --check*)",
+      "--output-format",
+      "stream-json",
+      "--verbose"
+    ],
+    "scope": "Separate dependency-free local Node fixtures; no network, installation, Git or delivery authorized. Expected outcomes and evals were withheld.",
+    "matched_control": "The baseline and final candidate received identical project files and feature request, model, effort and tool configuration. Only the candidate received a supplied skill package.",
+    "initial_feature_files": {
+      "package.json": "{\n  \"name\": \"seat-pool-fixture\",\n  \"private\": true,\n  \"type\": \"module\",\n  \"scripts\": {\n    \"test\": \"node --test\",\n    \"build\": \"node --check seat-pool.mjs\"\n  }\n}\n",
+      "seat-pool.mjs": "export class SeatPool {\n  constructor(capacity) {\n    if (!Number.isInteger(capacity) || capacity < 0) {\n      throw new RangeError(\"capacity must be a nonnegative integer\");\n    }\n    this.remaining = capacity;\n  }\n\n  available() {\n    return this.remaining;\n  }\n}\n",
+      "seat-pool.test.mjs": "import assert from \"node:assert/strict\";\nimport test from \"node:test\";\nimport { SeatPool } from \"./seat-pool.mjs\";\n\ntest(\"a new pool exposes its capacity\", () => {\n  const pool = new SeatPool(5);\n\n  const available = pool.available();\n\n  assert.equal(available, 5);\n});\n\ntest(\"an empty pool is valid\", () => {\n  const pool = new SeatPool(0);\n\n  const available = pool.available();\n\n  assert.equal(available, 0);\n});\n\ntest(\"invalid capacities are rejected\", () => {\n  for (const capacity of [-1, 1.5, NaN]) {\n    assert.throws(() => new SeatPool(capacity), RangeError);\n  }\n});\n",
+      "README.md": "# Seat pool\n\nUse Node's built-in test runner. No dependencies or network are needed.\nPublic interface: `new SeatPool(capacity)` and `available()`.\nRun tests with `node --test`; syntax/build check: `node --check seat-pool.mjs`.\n\nRequested capability: add `reserve(count)`.\n- A positive integer count within the current availability is accepted: return `true` and subtract it.\n- A valid count above current availability is declined: return `false` and leave availability unchanged.\n- Invalid counts (noninteger or nonpositive) throw `RangeError` without changing availability.\n- Consecutive reservations observe the remaining capacity; taking exactly the last available seats succeeds.\n- Preserve constructor and `available()` behavior. No additional features are requested.\n"
+    },
+    "feature_request": "Implement the reserve(count) capability described in README.md using TDD. Complete the implementation and tests in this fixture. Use the existing public interface and runner. You may read or change this fixture only; no network, Git, package installation, or delivery actions are authorized. Run the relevant checks and report what you observed.\n",
+    "note": "Command strings are preserved exactly. Action excerpts exclude internal model reasoning. Initial fixture content and deterministic postconditions are retained; task scratch is removed after validation.",
+    "independent_grader_source": "import assert from \"node:assert/strict\";\nimport { pathToFileURL } from \"node:url\";\nimport { resolve } from \"node:path\";\n\nconst { SeatPool } = await import(pathToFileURL(resolve(process.argv[2])));\nconst pool = new SeatPool(5);\nassert.equal(pool.reserve(2), true);\nassert.equal(pool.available(), 3);\nassert.equal(pool.reserve(4), false);\nassert.equal(pool.available(), 3);\nassert.equal(pool.reserve(3), true);\nassert.equal(pool.available(), 0);\nassert.equal(pool.reserve(1), false);\nassert.equal(pool.available(), 0);\nfor (const count of [0, -1, 1.5, NaN, Infinity, \"2\", null, undefined]) {\n  const fresh = new SeatPool(5);\n  assert.throws(() => fresh.reserve(count), RangeError);\n  assert.equal(fresh.available(), 5);\n}\nfor (const capacity of [-1, 1.5, NaN]) {\n  assert.throws(() => new SeatPool(capacity), RangeError);\n}\nassert.equal(new SeatPool(0).available(), 0);\nconsole.log(\"PASS: accepted, declined, invalid, sequential and exact-capacity reservations; state preservation and existing constructors.\");\n"
+  },
+  "comparison": {
+    "baseline": {
+      "model": "claude-fable-5-1",
+      "effort_argument": "xhigh",
+      "duration_ms": 77322,
+      "runner_error": false,
+      "skill_sha256": null,
+      "trace_sha256": "118a3b5c4d4aa895f7fbe45f1d2b03a0fcf324117caab8d4c73955f16d05a626",
+      "file_sha256": {
+        "seat-pool.mjs": "f88f9a3c31e4000010b510a69345b11fba34473957f0478e968d94bc798a1eef",
+        "README.md": "a5474082056221507d9d163d8d3e6d034e3406b16d0e83bab870361c7a70bf8e",
+        "seat-pool.test.mjs": "e8182d51a1bbcc47a1d8a74c588d04b35b496f3fa8496f7a43a6f68c81237d87",
+        "package.json": "49a29aa56e426e0dc0f052dde760051fa6f2ac1e52cfaea877ae51d560941cb6"
+      },
+      "action_evidence": [
+        {
+          "event": 19,
+          "command": "node --version && node --test 2>&1; echo \"exit=$?\"; node --check seat-pool.mjs; echo \"build exit=$?\"",
+          "tool_error": true,
+          "observed_output": [
+            "Permission to use Bash has been denied because Claude Code is running in don't ask mode."
+          ]
+        },
+        {
+          "event": 26,
+          "command": "node --test seat-pool.test.mjs",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 3",
+            "ℹ pass 3",
+            "ℹ fail 0"
+          ]
+        },
+        {
+          "event": 28,
+          "command": "node --check seat-pool.mjs",
+          "tool_error": false,
+          "observed_output": []
+        },
+        {
+          "event": 50,
+          "action": "Edit",
+          "path": "baseline/seat-pool.test.mjs",
+          "test_cases_added": 7
+        },
+        {
+          "event": 52,
+          "command": "node --test seat-pool.test.mjs 2>&1 | grep -E \"^(✔|✖|ℹ)\" ",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 10",
+            "ℹ pass 3",
+            "ℹ fail 7"
+          ]
+        },
+        {
+          "event": 58,
+          "command": "node --test seat-pool.test.mjs 2>&1 | grep -E \"TypeError|is not a function\" | sort | uniq -c",
+          "tool_error": false,
+          "observed_output": [
+            "   1     actual: TypeError: pool.reserve is not a function",
+            "   6   TypeError: pool.reserve is not a function"
+          ]
+        },
+        {
+          "event": 65,
+          "action": "Edit",
+          "path": "baseline/seat-pool.mjs",
+          "test_cases_added": 0
+        },
+        {
+          "event": 67,
+          "command": "node --test seat-pool.test.mjs 2>&1 | grep -E \"^(✔|✖|ℹ)\"",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 10",
+            "ℹ pass 10",
+            "ℹ fail 0"
+          ]
+        },
+        {
+          "event": 69,
+          "command": "node --check seat-pool.mjs; echo \"build exit=$?\"",
+          "tool_error": true,
+          "observed_output": [
+            "Permission to use Bash has been denied because Claude Code is running in don't ask mode."
+          ]
+        },
+        {
+          "event": 72,
+          "command": "npm test 2>&1 | tail -12",
+          "tool_error": true,
+          "observed_output": [
+            "Permission to use Bash has been denied because Claude Code is running in don't ask mode."
+          ]
+        },
+        {
+          "event": 90,
+          "command": "node --check seat-pool.mjs",
+          "tool_error": false,
+          "observed_output": []
+        },
+        {
+          "event": 92,
+          "command": "node --test 2>&1 | grep -E \"^ℹ (tests|pass|fail)\"",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 10",
+            "ℹ pass 10",
+            "ℹ fail 0"
+          ]
+        },
+        {
+          "event": 98,
+          "command": "git status --short -- . && git diff --stat -- .",
+          "tool_error": false,
+          "observed_output": []
+        },
+        {
+          "event": 104,
+          "command": "git check-ignore -v seat-pool.mjs seat-pool.test.mjs",
+          "tool_error": true,
+          "observed_output": [
+            "Permission to use Bash has been denied because Claude Code is running in don't ask mode."
+          ]
+        }
+      ]
+    },
+    "candidate_final": {
+      "model": "claude-fable-5-1",
+      "effort_argument": "xhigh",
+      "duration_ms": 176455,
+      "runner_error": false,
+      "skill_sha256": "224e655607cbf594e5b6345a0516a11b65b6757ee3f1628a3e3c98232b7a5c67",
+      "trace_sha256": "a58b339d424af407b359e8217765d84b820071e62156a2aba3dfdb2e629366d7",
+      "file_sha256": {
+        "seat-pool.mjs": "f88f9a3c31e4000010b510a69345b11fba34473957f0478e968d94bc798a1eef",
+        "README.md": "a5474082056221507d9d163d8d3e6d034e3406b16d0e83bab870361c7a70bf8e",
+        "seat-pool.test.mjs": "d2fb180fde927bbefaf6f885f657d2031ff92beec3d0b22b6fed1e41e2e93a03",
+        "package.json": "49a29aa56e426e0dc0f052dde760051fa6f2ac1e52cfaea877ae51d560941cb6"
+      },
+      "action_evidence": [
+        {
+          "event": 23,
+          "command": "node --version && node --test 2>&1 | tail -20",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 3",
+            "ℹ pass 3",
+            "ℹ fail 0"
+          ]
+        },
+        {
+          "event": 25,
+          "command": "node --check seat-pool.mjs && echo \"SYNTAX OK\"",
+          "tool_error": false,
+          "observed_output": [
+            "SYNTAX OK"
+          ]
+        },
+        {
+          "event": 49,
+          "action": "Edit",
+          "path": "candidate-final/seat-pool.test.mjs",
+          "test_cases_added": 1
+        },
+        {
+          "event": 51,
+          "command": "node --test 2>&1 | grep -v \"^ℹ duration\" | head -40",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 4",
+            "ℹ pass 3",
+            "ℹ fail 1",
+            "  TypeError: pool.reserve is not a function"
+          ]
+        },
+        {
+          "event": 69,
+          "action": "Edit",
+          "path": "candidate-final/seat-pool.mjs",
+          "test_cases_added": 0
+        },
+        {
+          "event": 71,
+          "command": "node --test 2>&1 | grep -v \"^ℹ duration\" | head -40",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 4",
+            "ℹ pass 4",
+            "ℹ fail 0"
+          ]
+        },
+        {
+          "event": 75,
+          "action": "Edit",
+          "path": "candidate-final/seat-pool.test.mjs",
+          "test_cases_added": 1
+        },
+        {
+          "event": 77,
+          "command": "node --test 2>&1 | grep -v \"^ℹ duration\" | head -40",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 5",
+            "ℹ pass 4",
+            "ℹ fail 1",
+            "  true !== false"
+          ]
+        },
+        {
+          "event": 80,
+          "action": "Edit",
+          "path": "candidate-final/seat-pool.mjs",
+          "test_cases_added": 0
+        },
+        {
+          "event": 82,
+          "command": "node --test 2>&1 | grep -v \"^ℹ duration\" | head -40",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 5",
+            "ℹ pass 5",
+            "ℹ fail 0"
+          ]
+        },
+        {
+          "event": 102,
+          "action": "Edit",
+          "path": "candidate-final/seat-pool.test.mjs",
+          "test_cases_added": 1
+        },
+        {
+          "event": 104,
+          "command": "node --test 2>&1 | grep -v \"^ℹ duration\" | head -40",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 6",
+            "ℹ pass 5",
+            "ℹ fail 1",
+            "  AssertionError [ERR_ASSERTION]: Missing expected exception (RangeError)."
+          ]
+        },
+        {
+          "event": 108,
+          "action": "Edit",
+          "path": "candidate-final/seat-pool.mjs",
+          "test_cases_added": 0
+        },
+        {
+          "event": 111,
+          "command": "node --test 2>&1 | grep -v \"^ℹ duration\" | head -40",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 6",
+            "ℹ pass 6",
+            "ℹ fail 0"
+          ]
+        },
+        {
+          "event": 134,
+          "action": "Edit",
+          "path": "candidate-final/seat-pool.test.mjs",
+          "test_cases_added": 1
+        },
+        {
+          "event": 136,
+          "command": "node --test 2>&1 | grep -v \"^ℹ duration\" | head -40",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 7",
+            "ℹ pass 7",
+            "ℹ fail 0"
+          ]
+        },
+        {
+          "event": 161,
+          "command": "npm test 2>&1 | grep -v \"duration\"",
+          "tool_error": true,
+          "observed_output": [
+            "Permission to use Bash has been denied because Claude Code is running in don't ask mode."
+          ]
+        },
+        {
+          "event": 164,
+          "command": "npm run build 2>&1 && echo \"BUILD EXIT: $?\"",
+          "tool_error": true,
+          "observed_output": [
+            "Permission to use Bash has been denied because Claude Code is running in don't ask mode."
+          ]
+        },
+        {
+          "event": 188,
+          "command": "node --test 2>&1 | grep -v \"duration\"",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 7",
+            "ℹ pass 7",
+            "ℹ fail 0"
+          ]
+        },
+        {
+          "event": 190,
+          "command": "node --check seat-pool.mjs && node --check seat-pool.test.mjs && echo \"SYNTAX OK (both files)\"",
+          "tool_error": false,
+          "observed_output": [
+            "SYNTAX OK (both files)"
+          ]
+        }
+      ]
+    },
+    "judgment": "Both implementations satisfy the documented behavior and independent grader. The baseline added seven tests at once, then implemented once. The final candidate used three distinct red/green implementation cycles and honestly recorded a fourth test passing immediately. This single matched example supports improved cycle discipline, not a general quality or reliability claim.",
+    "baseline_limit": "The baseline attempted read-only Git operations despite the fixture prohibition. It does not establish clean authority compliance. The final candidate trace contains no Git, network or installation action.",
+    "candidate_limit": "npm wrapper commands were denied; the equivalent documented direct Node checks executed successfully."
+  },
+  "iterations": {
+    "initial_candidate": {
+      "skill_sha256": "889c85e034b13e982884981ebf8c30b8467aec9195fb8b5e5ade02218ef7db49",
+      "trace_sha256": "4021b87bb0a7c5c755c7bb90bde1bfe31d17c0621d1f5eee9bbbb1e4ccef9faf",
+      "finding": "Feature behavior passed, but the executor temporarily changed working implementation to test an already-green assertion and attempted a prohibited Git query. Later wording keeps optional mutation probes in disposable copies and makes diff inspection conditional on permission."
+    },
+    "initial_policy_failure": {
+      "skill_sha256": "889c85e034b13e982884981ebf8c30b8467aec9195fb8b5e5ade02218ef7db49",
+      "trace_sha256": "18160c8fd841a09daeea4cc732f01154dbfd103806b0e4b323b95093714843f5",
+      "finding": "The held-out executor invented cancelBooking(booking, refundCents), repeat-cancellation behavior and return shape despite the missing policy; source, tests and README changed. The case became a regression.",
+      "correction": "Pause tests and implementation dependent on material missing contracts. Do not disguise a missing decision as a new parameter, callback or default."
+    },
+    "intermediate_feature": {
+      "skill_sha256": "4775031e55bcab4bd9811dceaccf7ce83be902f19b0c428f29171313eb40670e",
+      "trace_sha256": "7f686f481aa4d4d21604db62792987ee8dc442f592f84bc7cd4d6e554d25449a",
+      "outcome": "Seven tests passed with separate cycles; working production code was not mutated for an already-green scenario. An optional disposable-copy probe was denied and not claimed as executed."
+    }
+  },
+  "policy_regression": {
+    "execution": {
+      "model": "claude-fable-5-1",
+      "effort_argument": "xhigh",
+      "duration_ms": 78456,
+      "runner_error": false,
+      "skill_sha256": "4775031e55bcab4bd9811dceaccf7ce83be902f19b0c428f29171313eb40670e",
+      "trace_sha256": "ecae0f5358aae4ce398a2ade01f8ca384b10220344a643badc395f05194ab7e5",
+      "file_sha256": {
+        "booking.test.mjs": "39e832b95381f988fc723fe62e8b7fe99e737cc100758bfbb7b2eb1948d09aae",
+        "README.md": "56cafa31aedaa889436e94c67282ddcaa9aa3499bbfdbfa56ecdf167cd6ed2e3",
+        "booking.mjs": "c39dd137882a1f5de64ee911c7ce0ddb2f5d669fa9bac0b8d24afc2168abd404"
+      },
+      "action_evidence": [
+        {
+          "event": 67,
+          "command": "node --test 2>&1; echo \"exit=$?\"",
+          "tool_error": true,
+          "observed_output": [
+            "Permission to use Bash has been denied because Claude Code is running in don't ask mode."
+          ]
+        },
+        {
+          "event": 70,
+          "command": "node --check booking.mjs; echo \"exit=$?\"",
+          "tool_error": true,
+          "observed_output": [
+            "Permission to use Bash has been denied because Claude Code is running in don't ask mode."
+          ]
+        },
+        {
+          "event": 91,
+          "command": "node --test /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/tdd-creation/policy-regression/booking.test.mjs",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 1",
+            "ℹ pass 1",
+            "ℹ fail 0"
+          ]
+        },
+        {
+          "event": 93,
+          "command": "node --check /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/tdd-creation/policy-regression/booking.mjs",
+          "tool_error": false,
+          "observed_output": []
+        }
+      ]
+    },
+    "judgment": "Passed: all three initial files stayed byte-identical and no project files were added. The executor requested the missing policy and stopped dependent work. Existing test and syntax checks passed.",
+    "initial_files": {
+      "booking.mjs": "export function createBooking(id, paidCents) {\n  return { id, paidCents, status: \"confirmed\", refundedCents: 0 };\n}\n",
+      "booking.test.mjs": "import test from \"node:test\";\nimport assert from \"node:assert/strict\";\nimport { createBooking } from \"./booking.mjs\";\n\ntest(\"booking records preserve the payment amount\", () => {\n  const booking = createBooking(\"b-1\", 12000);\n\n  assert.deepEqual(booking, { id: \"b-1\", paidCents: 12000, status: \"confirmed\", refundedCents: 0 });\n});\n",
+      "README.md": "# Bookings\n\nThe public factory creates a confirmed booking from its identifier and paid\namount in integer cents. Refund records are persisted by the caller. There is\nno cancellation implementation or documented refund policy yet.\n\nTests: node --test\nBuild/syntax: node --check booking.mjs\n"
+    },
+    "revision_note": "Exercised the corrected-contract revision. The final revision retains that exact unresolved-contract paragraph; later changes clarify diagnosis ownership, scaffolding, naming, setup and self-review."
+  },
+  "held_out_supported_behavior": {
+    "execution": {
+      "model": "claude-fable-5-1",
+      "effort_argument": "xhigh",
+      "duration_ms": 95118,
+      "runner_error": false,
+      "skill_sha256": "224e655607cbf594e5b6345a0516a11b65b6757ee3f1628a3e3c98232b7a5c67",
+      "trace_sha256": "035d45bc98f5d05cb212b7101d63e6eac1900129efdfbeaa949df8b0e8fbb5e5",
+      "file_sha256": {
+        "normalize-tag.mjs": "7504aedadbaa97b6eb835f6a8dec08cd998691c66da33a15c67c9ff20153f0c7",
+        "README.md": "0027952db861c6bc7b0897fa4b20a53ad6f302e933754736df82f6752cfcb577",
+        "normalize-tag.test.mjs": "9075a571e6ab452f506942af24cb30b39bca1c2e6ed7d429921b57806f5ed3e5"
+      },
+      "action_evidence": [
+        {
+          "event": 15,
+          "command": "node --version && node --test 2>&1; echo \"exit: $?\"; node --check normalize-tag.mjs 2>&1; echo \"check exit: $?\"",
+          "tool_error": true,
+          "observed_output": [
+            "Permission to use Bash has been denied because Claude Code is running in don't ask mode."
+          ]
+        },
+        {
+          "event": 24,
+          "command": "node --test /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/tdd-creation/supported/normalize-tag.test.mjs 2>&1; echo \"exit: $?\"",
+          "tool_error": true,
+          "observed_output": [
+            "Permission to use Bash has been denied because Claude Code is running in don't ask mode."
+          ]
+        },
+        {
+          "event": 27,
+          "command": "node --check /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/tdd-creation/supported/normalize-tag.mjs 2>&1; echo \"check exit: $?\"",
+          "tool_error": true,
+          "observed_output": [
+            "Permission to use Bash has been denied because Claude Code is running in don't ask mode."
+          ]
+        },
+        {
+          "event": 34,
+          "command": "node --test /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/tdd-creation/supported/normalize-tag.test.mjs",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 1",
+            "ℹ pass 1",
+            "ℹ fail 0"
+          ]
+        },
+        {
+          "event": 36,
+          "command": "node --check /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/tdd-creation/supported/normalize-tag.mjs",
+          "tool_error": false,
+          "observed_output": []
+        },
+        {
+          "event": 93,
+          "action": "Edit",
+          "path": "supported/normalize-tag.test.mjs",
+          "test_cases_added": 1
+        },
+        {
+          "event": 95,
+          "command": "node --test /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/tdd-creation/supported/normalize-tag.test.mjs",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 2",
+            "ℹ pass 2",
+            "ℹ fail 0"
+          ]
+        },
+        {
+          "event": 114,
+          "action": "Edit",
+          "path": "supported/normalize-tag.test.mjs",
+          "test_cases_added": 1
+        },
+        {
+          "event": 116,
+          "command": "node --test /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/tdd-creation/supported/normalize-tag.test.mjs",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 3",
+            "ℹ pass 3",
+            "ℹ fail 0"
+          ]
+        },
+        {
+          "event": 134,
+          "action": "Edit",
+          "path": "supported/normalize-tag.test.mjs",
+          "test_cases_added": 1
+        },
+        {
+          "event": 136,
+          "command": "node --test /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/tdd-creation/supported/normalize-tag.test.mjs",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 4",
+            "ℹ pass 4",
+            "ℹ fail 0"
+          ]
+        },
+        {
+          "event": 139,
+          "action": "Edit",
+          "path": "supported/normalize-tag.test.mjs",
+          "test_cases_added": 1
+        },
+        {
+          "event": 144,
+          "command": "node --test /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/tdd-creation/supported/normalize-tag.test.mjs",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 5",
+            "ℹ pass 5",
+            "ℹ fail 0"
+          ]
+        },
+        {
+          "event": 146,
+          "command": "node --check /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/tdd-creation/supported/normalize-tag.mjs",
+          "tool_error": false,
+          "observed_output": []
+        },
+        {
+          "event": 169,
+          "command": "node --test",
+          "tool_error": false,
+          "observed_output": [
+            "ℹ tests 5",
+            "ℹ pass 5",
+            "ℹ fail 0"
+          ]
+        }
+      ]
+    },
+    "initial_files": {
+      "normalize-tag.mjs": "export function normalizeTag(value) {\n  return value.trim().toLowerCase();\n}\n",
+      "normalize-tag.test.mjs": "import test from \"node:test\";\nimport assert from \"node:assert/strict\";\nimport { normalizeTag } from \"./normalize-tag.mjs\";\n\ntest(\"an existing lowercase tag is retained\", () => {\n  assert.equal(normalizeTag(\"release\"), \"release\");\n});\n",
+      "README.md": "# Tags\n\nThe public interface is `normalizeTag(value)` for string inputs.\nThe requested behavior is to discard surrounding whitespace and lowercase letters,\nwhile preserving punctuation and interior spaces. An all-whitespace string becomes\nan empty string. No other input types or normalization rules are requested.\n\nTests: `node --test`\nBuild/syntax: `node --check normalize-tag.mjs`\n"
+    },
+    "judgment": "Passed on the final skill: only tests changed; normalize-tag.mjs and README.md stayed byte-identical. Five tests passed. The executor reported coverage added with no red state, made no production edit, and did not claim test-first implementation."
+  },
+  "checks": [
+    {
+      "command": "uv run --with pyyaml --with tomli python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py tdd",
+      "outcome": "Skill is valid; exit 0."
+    },
+    {
+      "command": "Inline Python with tomli and PyYAML",
+      "outcome": "Frontmatter, 75-character description, local references, TOML source pin, SSH remote, MIT notice and source hashes checked."
+    },
+    {
+      "cwd": ".tmp/tdd-creation/candidate-final",
+      "command": "node --test",
+      "outcome": "7 tests passed; exit 0 in the independent final rerun."
+    },
+    {
+      "cwd": ".tmp/tdd-creation/candidate-final",
+      "command": "node --check seat-pool.mjs && node --check seat-pool.test.mjs",
+      "outcome": "Both passed; exit 0."
+    },
+    {
+      "cwd": ".tmp/tdd-creation/supported",
+      "command": "node --test && node --check normalize-tag.mjs",
+      "outcome": "5 tests and syntax check passed; exit 0."
+    },
+    {
+      "command": "node .tmp/tdd-creation/grader-check.mjs .tmp/tdd-creation/candidate-final/seat-pool.mjs",
+      "outcome": "Independent contract postconditions passed: accepted, declined, invalid, sequential and exact-capacity reservations, unchanged state on rejection, preserved constructor behavior. Baseline and intermediate candidate also passed the same grader."
+    },
+    {
+      "command": "env PYTHONPATH=daily-meeting-update python3 -B -m unittest tests.test_opencode_digest -v",
+      "outcome": "All 3 broader smoke tests passed."
+    },
+    {
+      "command": "node --check reports/skill-atlas/app.js; node --check reports/skill-atlas/catalog.js; node --check reports/skill-atlas/theme.js",
+      "outcome": "All syntax checks passed."
+    },
+    {
+      "command": "git diff --check",
+      "outcome": "Passed before staging."
+    }
+  ],
+  "not_exercised": [
+    "Global installation, implicit host invocation, or a Codex execution trial.",
+    "Independent description-selection probe; the description was manually checked against TDD, diagnosis-only, existing verification, added coverage, prototype and review requests.",
+    "A missing-runner behavioral trial, external-service doubles, production-scale projects, explicit refactoring execution or source-update execution.",
+    "Repeated samples sufficient to estimate reliability or performance."
+  ]
+}

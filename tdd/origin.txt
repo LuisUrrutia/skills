@@ -1,0 +1,41 @@
+format_version = 1
+skill = "tdd"
+created = "2026-10-03"
+approach = "Standalone derivation. Upstream instructions supply ideas, not an installed or invoked runtime dependency."
+
+[[sources]]
+id = "mattpocock-tdd"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+baseline_paths = ["skills/engineering/tdd/SKILL.md", "skills/engineering/tdd/tests.md", "skills/engineering/tdd/mocking.md", "LICENSE"]
+paths = ["skills/engineering/tdd/SKILL.md", "skills/engineering/tdd/tests.md", "skills/engineering/tdd/mocking.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Implement one observable behavior at a time, with a failing test before the behavior change.",
+  "Test through caller-visible interfaces with independent expected results rather than duplicating the production algorithm.",
+  "Prefer real collaborators and control external boundaries when a reliable test needs it.",
+  "Use existing project vocabulary and contracts rather than speculative test structure."
+]
+local_choices = [
+  "TDD is selected for test-first work; integration tests alone, diagnosis, and running existing checks do not imply this workflow.",
+  "Infer established test boundaries without mandatory user confirmation; ask only about material unresolved contracts.",
+  "Pause dependent tests and implementation on an unresolved material contract; do not disguise that decision as a new parameter or callback.",
+  "Allow focused refactoring while tests are green; do not require a separate review skill for each cycle.",
+  "Distinguish behavioral red from setup failures, already implemented behavior, and tests written after production changes.",
+  "Keep optional mutation probes in disposable copies and separate their evidence from test-first ordering.",
+  "Stop affected cycles on inaccessible execution prerequisites instead of silently replacing requested TDD with unverified implementation.",
+  "Call counts, ordering, and persistence are valid test observations when the public contract makes them meaningful.",
+  "No codebase-design, code-review, Skill-tool, or host-specific model dependency; delivery follows repository and caller authority."
+]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+entrypoint = "../agent-instructions/SKILL.md"
+required = false
+role = "Required only for requested source maintenance and skill authoring; ordinary TDD has no skill dependency."

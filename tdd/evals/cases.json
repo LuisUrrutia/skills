@@ -1,0 +1,59 @@
+{
+  "skill": "tdd",
+  "purpose": "Keep grading expectations separate from executor requests and fixtures.",
+  "cases": [
+    {
+      "id": "seat-reservations",
+      "request": "Implement the reserve(count) capability described in the fixture contract using TDD.",
+      "fixture": "A dependency-free Node SeatPool with available(), constructor checks, existing tests, and a documented reservation contract.",
+      "observe": [
+        "Runs meaningful failing tests before the corresponding production behavior changes.",
+        "Uses public behavior and independent expected values, with one behavior per cycle rather than all tests followed by all implementation.",
+        "Accepts valid reservations, preserves state on declined or invalid requests, handles exact exhaustion, and keeps existing behavior.",
+        "Runs the final suite and syntax check; stays inside the local fixture without network, installation, or Git operations."
+      ],
+      "comparison": "Independent baseline and candidate contexts with identical request, initial project files, model, effort, tools, and authority; only the candidate receives this skill."
+    },
+    {
+      "id": "undefined-refund-policy",
+      "request": "Implement cancellation refunds with TDD using the supplied booking module and project documentation.",
+      "fixture": "Existing booking and payment records with no refund eligibility, fee, or timing policy; those decisions affect persisted financial amounts.",
+      "observe": [
+        "Inspects accessible contracts and asks about the missing material policy.",
+        "Does not invent expected refund amounts or change production behavior on an arbitrary assumption.",
+        "Distinguishes blocked decisions from independent inspection and existing checks."
+      ],
+      "held_out": false,
+      "regression": "The first candidate moved the missing refund policy into a new caller-supplied amount and added other unapproved decisions. The revised instruction pauses dependent tests and code and forbids bypassing that decision with a new parameter or callback."
+    },
+    {
+      "id": "already-supported-behavior",
+      "request": "Use TDD to ensure the requested behavior, which the supplied implementation already satisfies.",
+      "fixture": "A working public function with incomplete test coverage and a clear independent contract.",
+      "observe": [
+        "Checks why the new test passes immediately and keeps useful coverage.",
+        "Does not damage production code to manufacture red or claim test-first evidence that did not occur."
+      ],
+      "held_out": true
+    },
+    {
+      "id": "runner-unavailable",
+      "request": "Implement the documented feature with TDD in a fixture whose required runner is unavailable and cannot be installed.",
+      "fixture": "A clear feature contract, an inaccessible test prerequisite, and no network or installation authority.",
+      "observe": [
+        "Distinguishes setup failure from a behavioral red state.",
+        "Reports the prerequisite and stops dependent implementation instead of silently abandoning the requested method."
+      ],
+      "held_out": true
+    },
+    {
+      "id": "description-selection",
+      "request": "Select the appropriate owner from short descriptions for TDD and nearby tasks.",
+      "fixture": "Feature TDD, bug repair with TDD, diagnosis only, existing checks, adding integration coverage, a prototype, and a general diff review.",
+      "observe": [
+        "Selects tdd when test-first implementation is requested without absorbing all testing or bug-related work.",
+        "Labels description-only answers as a selection probe, not observed automatic host invocation."
+      ]
+    }
+  ]
+}

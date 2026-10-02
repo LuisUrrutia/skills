@@ -390,9 +390,9 @@ window.SKILL_ATLAS = {
       "lines": 38,
       "category": "Verificación",
       "decision": "Blend",
-      "owner": "tdd independiente (derivación propuesta); criterios reutilizados en debug",
+      "owner": "tdd (derivación independiente creada en el repositorio); criterios también en debug",
       "summary": "Desarrolla funcionalidades o corrige bugs empezando por pruebas de comportamiento, en incrementos pequeños y con expectativas independientes.",
-      "reason": "Derivar una tdd invocable por separado para desarrollo con pruebas. Su utilidad excede la regresión de bugs incluida en debug.",
+      "reason": "Derivación creada para implementar por ciclos de pruebas, con refactorización acotada y sin confirmaciones rutinarias. Su utilidad excede la regresión de bugs incluida en debug; no se ha instalado globalmente.",
       "caution": "Exige confirmar cada límite de prueba con el usuario y excluye la refactorización del ciclo. Ninguna regla debe convertirse en una barrera incondicional."
     },
     {

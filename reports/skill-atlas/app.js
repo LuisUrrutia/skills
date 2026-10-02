@@ -95,7 +95,7 @@ const clusters = [
   },
   {
     "title": "Regresiones y TDD",
-    "winner": "TDD de Matt independiente; regresiones de pstack en debug",
+    "winner": "tdd derivada de Matt; regresiones de pstack en debug",
     "keys": [
       "pstack/tdd",
       "Matt Pocock/tdd",
@@ -103,7 +103,7 @@ const clusters = [
       "ECC/react-testing"
     ],
     "text": "El TDD de pstack prioriza fallos con una prueba local barata y útil. Matt aporta límites públicos, expectativas independientes y ciclos verticales. react-testing aporta técnicas concretas de pruebas de componentes.",
-    "why": "Derivar tdd de Matt para implementar funcionalidades por incrementos de pruebas. Conservar el criterio de pstack dentro de debug para bugs; no confundir ninguna de esas tareas con ejecutar una verificación existente."
+    "why": "tdd ya deriva de Matt y se puede usar directamente para implementar por incrementos de pruebas. debug conserva el criterio de pstack para regresiones; ejecutar una verificación existente sigue siendo otra tarea."
   },
   {
     "title": "Revisión de código",
