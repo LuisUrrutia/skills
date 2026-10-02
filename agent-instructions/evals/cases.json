@@ -150,6 +150,23 @@
         "The skill is created from the supplied contract without requiring prior repetition.",
         "It returns the requested summary and does not acquire publishing authority."
       ]
+    },
+    {
+      "id": "thin-wrapper",
+      "kind": "artifact",
+      "prompt": "Standardize partner exports for this project. Each request supplies a TSV input path and a CSV output path. Get the ordered columns from partner-columns.json and return the output path and row count. The existing table-export skill is available through the supplied catalog. Choose the smallest maintainable implementation in output/partner-export/. Keep the existing exporter unchanged.",
+      "fixture": {
+        "files": {
+          "partner-columns.json": "{\"columns\":[\"sku\",\"label\",\"quantity\"]}\n",
+          "installed/table-export/SKILL.md": "---\nname: table-export\ndescription: Use when exporting selected TSV columns to CSV.\n---\n\n# Table export\n\nAccept an input TSV path, output CSV path, and ordered column names. Read the header, reject missing or duplicate column names, and export those columns in the given order. Preserve cell text and the source file. Quote CSV fields as needed. Return the output path and data-row count. Ask before overwriting an existing destination.\n"
+        }
+      },
+      "expectations": [
+        "A local wrapper resolves the project column configuration and delegates conversion to the available table-export dependency.",
+        "The exporter remains byte-identical; the wrapper does not copy its conversion algorithm.",
+        "The wrapper identifies its dependency and requested inputs, reports actual validation limits, and does not fabricate an upstream commit.",
+        "Creating the wrapper does not perform an export or publish anything."
+      ]
     }
   ]
 }

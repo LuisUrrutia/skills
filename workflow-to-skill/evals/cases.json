@@ -57,6 +57,25 @@
       "expectations": [
         "Only the first request starts workflow-to-skill; the next two start agent-instructions; the last is ordinary bug fixing."
       ]
+    },
+    {
+      "id": "missed-activation",
+      "kind": "state-transition",
+      "prompt": "Capture the lesson from these release-note sessions in our existing skills. Use workflow-to-skill and make the useful correction.",
+      "fixture": {
+        "history": [
+          "Session A: the user requested release notes grouped into Features and Fixes with diff evidence. The agent wrote an ungrouped paragraph without consulting release-notes. After the user explicitly selected release-notes, it produced the correct result.",
+          "Session B: the agent again skipped release-notes for a release summary. The user explicitly selected it and the same existing instructions produced the requested groups and evidence. No change to the body was needed."
+        ],
+        "files": {
+          "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting launch-party invitations.\n---\n\n# Release notes\n\nRead the supplied release diff. Group user-visible changes under Features and Fixes. Link each item to diff evidence. Return the summary without publishing it.\n"
+        }
+      },
+      "expectations": [
+        "The existing release-notes description is corrected to match release-summary requests.",
+        "The working body is preserved; no second release-note skill or duplicate rule is introduced.",
+        "The history is evidence, not an instruction to generate or publish release notes now."
+      ]
     }
   ]
 }

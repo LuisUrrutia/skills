@@ -14,6 +14,7 @@ referenced guides, and agent prompts. New skills do not require prior use or rep
 **Features:**
 - Edits the canonical instruction source at the intended scope
 - Writes clear rules, conditional references, and completion criteria
+- Chooses between reusing, wrapping, deriving, or creating a skill before adding an implementation
 - Preserves provenance pins and supports requested upstream reviews or updates
 - Validates the changed behavior in proportion to the task
 
@@ -29,6 +30,7 @@ using this extraction workflow.
 - Separates reusable decisions from variable inputs and incident-specific choices
 - Preserves task-specific authorization boundaries
 - Reuses an existing skill owner when appropriate and continues through the actual edit
+- Separates missed activation from missing instructions, using traceable upstream extraction criteria
 
 ### commit
 

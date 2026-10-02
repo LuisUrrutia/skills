@@ -16,16 +16,24 @@ it does not schedule background work.
 Both modes run the research automatically once invoked. A schedule is separate
 work and needs a requested cadence and execution environment.
 
+For installed runtime dependencies recorded under `[[dependencies]]`, use the
+dependency update procedure in [reuse.md](reuse.md). The source comparison below
+maintains ideas adapted into local instructions; a wrapper does not merge the
+donor's whole implementation.
+
 ## Provenance format
 
 `origin.txt` is UTF-8 TOML. Use [../origin.txt](../origin.txt) as a concrete example. Record
-each consulted repository, the verified full commit ID, relevant paths, borrowed
+each repository actually used as inspiration, the verified full commit ID, relevant paths, borrowed
 ideas, and intentional local choices. Record supplied or installed material with
 unknown Git provenance as a local snapshot with its SHA-256; never invent a
 matching upstream commit. Retain a verified local repository commit when one is
 known, distinguishing it from a commit confirmed on a remote. Local snapshots are
 historical evidence, not automatically remote update feeds. A target with no
 tracked repository sources has no automatic upstream range to fetch.
+
+Keep the skill's own obsolete drafts and renames in Git history. `origin.txt`
+records external inspiration and dependencies, not a second local changelog.
 
 Each repository source has:
 

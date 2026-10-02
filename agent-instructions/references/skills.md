@@ -12,6 +12,10 @@ the requested capability, expected output, positive activation cases, likely nea
 misses, authority, and completion evidence. Extend an existing owner when that
 fits the request better than a second skill with the same responsibility.
 
+When standardizing a capability or adopting an external skill, read
+[reuse.md](reuse.md) to choose installation, a thin wrapper, a derivation, or a
+new implementation before writing one.
+
 Before choosing metadata, invocation controls, tool calls, or dependencies, read
 [hosts.md](hosts.md). Preserve supported existing metadata and invocation policy.
 

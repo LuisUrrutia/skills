@@ -1,0 +1,137 @@
+{
+  "format_version": 1,
+  "date": "2026-10-02",
+  "baseline_commit": "3feefc235f5c957ec04172cca2d289c51fc9f22a",
+  "decision": {
+    "workflow-to-skill": "Retain a small derivation of reflect filtering and skill-creator intent capture, with agent-instructions as the writing dependency.",
+    "standardization": "Choose unchanged installation, a thin wrapper, a derivation, or new instructions based on contract fit and local maintenance.",
+    "external_candidates_installed": false
+  },
+  "consultation": {
+    "model": "claude-fable-5-1",
+    "effort_argument": "--effort xhigh",
+    "result": "success",
+    "duration_ms": 102348,
+    "finding": "The supplied candidates would require replacing substantial procedures for general extraction; use selected criteria rather than a nominal wrapper."
+  },
+  "verified_source_commits": {
+    "cursor/plugins": "c47b12849e43f18d5c374c7069c744cc55b0ea00",
+    "mattpocock/skills": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+    "anthropics/skills": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+  },
+  "candidate_decisions": [
+    {
+      "candidate": "pstack/reflect",
+      "decision": "Adapt criteria",
+      "reason": "Useful durable-learning filters and missed-activation routing; Cursor-specific orchestration and automatic backlog writes do not fit."
+    },
+    {
+      "candidate": "Anthropic/skill-creator",
+      "decision": "Adapt Capture Intent",
+      "reason": "Useful extraction questions; complete authoring and evaluation remain with the existing writer."
+    },
+    {
+      "candidate": "pstack/automate-me",
+      "decision": "Keep as a future personal-mode candidate",
+      "reason": "Its declared scope excludes narrow task workflows."
+    },
+    {
+      "candidate": "Matt Pocock/retro",
+      "decision": "Do not use as the extraction implementation",
+      "reason": "Produces environment improvement findings rather than a task skill."
+    },
+    {
+      "candidate": "pstack/create-verification-skill and maintain-verification-skill",
+      "decision": "Keep as specialized verification candidates",
+      "reason": "Generate and maintain an app verification harness, not arbitrary workflows."
+    }
+  ],
+  "trials": [
+    {
+      "case": "missed-activation",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "result": "passed",
+      "duration_ms": 69228,
+      "observation": "Only the release-notes description changed. Its body and every other supplied file remained identical; no second skill or release artifact was created.",
+      "artifact_sha256": {
+        "skills/release-notes/SKILL.md": "c1bd2a38a509245a1b98789cba73516098b502bbc0c4ed1111b5f4bc4f87335a"
+      }
+    },
+    {
+      "case": "thin-wrapper",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "result": "passed",
+      "duration_ms": 212595,
+      "observation": "The executor created a partner-export wrapper that reads project columns and delegates conversion. The installed exporter remained byte-identical; provenance reports unknown upstream metadata rather than inventing a commit.",
+      "artifact_sha256": {
+        "output/partner-export/SKILL.md": "b5a5a2c0b3ace0e718aa6cbdcea2f34420c7bd063c655b0a6bba5723dc265265",
+        "output/partner-export/evals/cases.json": "c22755cdbc1877396a57d5a3902466e51459d6ed6c8d128aad3713f3332eb930",
+        "output/partner-export/origin.txt": "97fdf8b340b14666ddc6fb5162d8a4d356f49062752f8cf3d241e2e9cd7b6018"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py agent-instructions",
+      "result": "passed"
+    },
+    {
+      "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py workflow-to-skill",
+      "result": "passed"
+    },
+    {
+      "command": "python3 .tmp/workflow-sources/check_structure.py",
+      "result": "passed"
+    },
+    {
+      "command": "uv run --no-project --with pyyaml python .tmp/workflow-sources/check_trials.py",
+      "result": "passed"
+    },
+    {
+      "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py .tmp/workflow-sources/runs/missed-activation/skills/release-notes",
+      "result": "passed"
+    },
+    {
+      "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py .tmp/workflow-sources/runs/thin-wrapper/output/partner-export",
+      "result": "passed"
+    },
+    {
+      "command": "node --check reports/skill-atlas/app.js",
+      "result": "passed"
+    },
+    {
+      "command": "node --check reports/skill-atlas/catalog.js",
+      "result": "passed"
+    },
+    {
+      "command": "env PYTHONPATH=daily-meeting-update python3 -B -m unittest tests.test_opencode_digest -v",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    }
+  ],
+  "browser": {
+    "method": "T3 preview navigation, snapshot, and DOM evaluation",
+    "result": "Spanish standardization table and candidate decision loaded; 121 catalog entries; no horizontal overflow at 1280px."
+  },
+  "limits": [
+    "Trials used actual skill files and raw fixtures with grader expectations withheld. Executors could Read, Write, and Edit; shell and network were unavailable.",
+    "The parent parsed and validated the generated files and checked exact state changes. No TSV export, host invocation, installation, or remote dependency update was performed.",
+    "These are scoped artifact and state-transition checks, not a matched performance comparison or a claim that every evaluation case passed.",
+    "No application build applies to these declarative skills. The report JavaScript passed syntax checks, and all three repository smoke tests passed.",
+    "Temporary source clones, model responses, fixtures, and one-off check scripts are removed after recording results."
+  ],
+  "skill_file_sha256": {
+    "workflow-to-skill/SKILL.md": "92472361c387e9edba7a0e83a6fcea3a0d8627cf0987ebfb193bcc6ae1c41566",
+    "workflow-to-skill/origin.txt": "02db327f7de20494d786cde806dc855f52ca63381eea87836f5a592cd931ac85",
+    "workflow-to-skill/evals/cases.json": "74188795fc3c3d22625ee7d48c4c0372e77941f6f96d702b06ad857a32568c1a",
+    "agent-instructions/references/reuse.md": "eaf5393ff47fbd0ba7b3ef79bc1ab015a9fd41e175e4b559d4eb676f830b3dc7",
+    "agent-instructions/references/skills.md": "05394cf7416a7edd3de9f30ba4fb22f82a14b266a044e7b4cfa96d2506636bc7",
+    "agent-instructions/references/upstream-updates.md": "6a6f2cb40417242e4b0fe7d13905edda96c3e632a28bb99d37b6259ffee164e7",
+    "agent-instructions/evals/cases.json": "1ff5e201c8c1da2ac7b0d702c720051283833268526824d51224eb3c09db8140"
+  }
+}

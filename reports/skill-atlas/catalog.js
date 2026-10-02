@@ -798,9 +798,9 @@ window.SKILL_ATLAS = {
       "lines": 104,
       "category": "Creación de skills",
       "decision": "Blend",
-      "owner": "extracción de workflow-to-skill",
+      "owner": "modo personal de work-mode",
       "summary": "Deriva un modo personal a partir de conversaciones pertinentes y preferencias explícitas.",
-      "reason": "Aporta la lectura de conversaciones para extraer un flujo; agent-instructions se ocupa de redactar las instrucciones resultantes.",
+      "reason": "Candidata para capturar convenciones personales. Excluye los flujos concretos, por lo que no sustituye workflow-to-skill.",
       "caution": "Partir de tu AGENTS.md. No revisar conversaciones ajenas al proyecto ni depender de rutas y herramientas exclusivas de Cursor."
     },
     {
@@ -1458,10 +1458,10 @@ window.SKILL_ATLAS = {
       "lines": 73,
       "category": "Creación de skills",
       "decision": "Blend",
-      "owner": "mantenimiento de agent-instructions",
-      "summary": "Contrasta la sesión con el modo personal y propone mejoras concretas en instrucciones y herramientas.",
-      "reason": "Incorporarla al mantenimiento de agent-instructions cuando haya evidencia recurrente.",
-      "caution": "No modificar reglas globales por una preferencia aislada ni convertirla en una fase automática de cada arreglo."
+      "owner": "extracción de workflow-to-skill",
+      "summary": "Analiza una conversación y dirige aprendizajes duraderos a correcciones de skills o de su activación.",
+      "reason": "Adoptar filtros de aprendizajes duraderos y distinguir fallos de activación, instrucciones ocultas y reglas ausentes; mantener la redacción en agent-instructions.",
+      "caution": "Su ejecución completa depende de Cursor, coordina revisores con modelos concretos y publica un backlog automáticamente. Por esos cambios necesarios, se derivan criterios y no se invoca completa."
     },
     {
       "id": "pstack-show-me-your-work",

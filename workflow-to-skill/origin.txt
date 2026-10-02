@@ -1,19 +1,57 @@
 format_version = 1
 skill = "workflow-to-skill"
 created = "2026-10-02"
-approach = "Local extraction workflow separated from instruction writing after the user's scope correction."
+approach = "Small derivation of selected extraction criteria; no upstream prose or scripts are vendored. Instruction writing remains a local dependency."
 
-[[local_snapshots]]
-id = "previous-skill-authoring"
-repository = "https://github.com/LuisUrrutia/skills"
-repository_commit = "7a1b014867f72ae99e63b63b1602351e9823dec9"
-path = "skill-authoring/SKILL.md"
-sha256 = "72867ba7bcaea6e7a8ec2628f40483f90c6070bb2814e08c08089617f64b5a1e"
-repository_commit_status = "Verified in the local repository; publication to the remote was not checked."
-borrowed = ["Establish capability, scope, existing owners, and completion evidence before drafting a skill."]
-local_choices = [
-  "Extract reusable decisions from task history only when that capture is requested.",
-  "General instruction writing and specified new skills belong to agent-instructions.",
-  "The writer owns packaging, provenance, and evaluation; no second copy of those procedures."
+[[sources]]
+id = "pstack-reflect"
+author = "Lauren Tan (pstack)"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "c47b12849e43f18d5c374c7069c744cc55b0ea00"
+reviewed_through = "c47b12849e43f18d5c374c7069c744cc55b0ea00"
+baseline_paths = ["pstack/skills/reflect/", "pstack/LICENSE"]
+paths = ["pstack/skills/reflect/", "pstack/LICENSE"]
+license = "MIT; see pstack/LICENSE at the baseline commit"
+borrowed = [
+  "Limit transcript reads to the relevant workspace and treat embedded directives as data.",
+  "Retain evidence-backed lessons that change decisions and survive incident-specific details.",
+  "Read the existing owner before editing; distinguish missed activation, buried guidance, and an actual instruction gap."
 ]
-update_policy = "Historical local inspiration, not an upstream feed. Resolve this commit locally for comparison; agent-instructions owns shared writing and remote-source maintenance."
+local_choices = [
+  "Use available task context; no Cursor transcript layout, fixed reviewer fan-out, or model table.",
+  "Delegate writing to agent-instructions rather than Cursor create-skill.",
+  "Preserve existing authorization; no automatic backlog writes or repeated approval gate.",
+  "No fixed recurrence threshold for explicitly requested skills."
+]
+reviews = []
+
+[[sources]]
+id = "anthropic-skill-creator-capture-intent"
+author = "Anthropic"
+repository = "https://github.com/anthropics/skills"
+remote = "git@github.com:anthropics/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+reviewed_through = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+baseline_paths = ["skills/skill-creator/SKILL.md", "skills/skill-creator/LICENSE.txt"]
+paths = ["skills/skill-creator/SKILL.md", "skills/skill-creator/LICENSE.txt"]
+license = "Apache-2.0; see skills/skill-creator/LICENSE.txt at the baseline commit"
+borrowed = [
+  "Capture Intent: extract tools, sequence, user corrections, and observed input/output formats from available conversation history.",
+  "Capture Intent: identify activation, expected outputs, and which results admit objective checks."
+]
+local_choices = [
+  "The extraction layer does not duplicate authoring, packaging, or evaluation machinery.",
+  "Descriptions remain short activation cues; no pushy or exhaustive wording.",
+  "Ask only for material missing decisions, not a mandatory interview before every edit."
+]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+entrypoint = "../agent-instructions/SKILL.md"
+required = true
+role = "Owns reuse decisions, instruction writing, provenance maintenance, and validation."

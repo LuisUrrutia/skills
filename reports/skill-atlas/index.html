@@ -57,9 +57,27 @@
         <tr><th>skill-creator incluido en Codex</th><td>Alcance concreto, descripción que distingue casos, referencias progresivas, validación de metadatos e instrucciones proporcionadas.</td><td>Usarlo como base del entorno de destino. Su validador comprueba estructura, no buenas decisiones del agente.</td></tr>
         <tr><th>Matt: writing-for-agents</th><td>Referencias condicionales, fuente única de verdad, conceptos relacionados juntos, criterios verificables de finalización y eliminación de instrucciones sobrantes.</td><td>Adaptar la invocación al entorno. Conservar controles necesarios; redactar en positivo no es una ley universal demostrada.</td></tr>
         <tr><th>Anthropic: skill-creator</th><td>Tareas realistas, comparación con una referencia, revisión de resultados, activaciones negativas, casos reservados y regresiones.</td><td>Sustituir comandos y supuestos de Claude. Medir la precisión antes de ampliar o hacer más insistente la descripción.</td></tr>
-        <tr><th>pstack: automate-me, reflect; Matt: retro</th><td>Mejorar el modo personal con evidencia repetida y pertinente; preferir controles estructurales para reglas mecánicas.</td><td>No convertir cada preferencia o fallo aislado en una regla global. Tus instrucciones actuales son la evidencia inicial.</td></tr>
+        <tr><th>pstack: reflect, de Lauren Tan</th><td>Filtrar aprendizajes duraderos, buscar evidencia y distinguir una activación fallida de una instrucción que falta.</td><td>Adaptar el acceso al historial y delegar la escritura a agent-instructions. Excluir la publicación automática en el backlog, las herramientas de Cursor y los modelos fijados.</td></tr>
       </tbody></table></div>
       <div data-evidence="Local/skill-creator;Matt Pocock/writing-for-agents;Anthropic/skill-creator;pstack/automate-me;pstack/reflect;Matt Pocock/retro"></div>
+      <div class="surface">
+        <h3>Elegir qué mantener antes de crear otra skill</h3>
+        <div class="table-wrap"><table><caption>Cuatro formas de estandarizar una capacidad</caption><thead><tr><th>Opción</th><th>Cuándo conviene</th><th>Qué mantenemos</th></tr></thead><tbody>
+          <tr><th>Instalar sin cambios</th><td>La skill existente encaja con la tarea, el entorno y los permisos.</td><td>La versión elegida y su verificación.</td></tr>
+          <tr><th>Crear una capa que la invoque</th><td>El procedimiento encaja y solo faltan entradas, reglas locales o comprobaciones pequeñas.</td><td>La capa local; la implementación sigue con su autor.</td></tr>
+          <tr><th>Crear una derivación</th><td>Hay ideas útiles, pero invocarla exigiría reemplazar varios pasos.</td><td>La implementación local y los cambios relevantes de las fuentes.</td></tr>
+          <tr><th>Crear desde cero</th><td>Ninguna candidata cubre la capacidad solicitada.</td><td>El comportamiento nuevo y sus pruebas.</td></tr>
+        </tbody></table></div>
+        <p>Una capa pequeña reduce las instrucciones que mantenemos. Al actualizar su dependencia, todavía hay que comprobar los cambios que afecten a activación, entradas, resultados, herramientas y permisos. No hace falta fusionar cada cambio del autor con una copia local.</p>
+      </div>
+      <details class="technical"><summary>Decisión para workflow-to-skill y sus fuentes</summary><div class="table-wrap"><table><thead><tr><th>Candidata</th><th>Encaje real</th><th>Decisión</th></tr></thead><tbody>
+        <tr><th>pstack / reflect</th><td>Extrae aprendizajes del historial y los dirige a skills existentes.</td><td>Adoptar sus criterios. Invocarla completa exigiría sustituir demasiada coordinación propia de Cursor.</td></tr>
+        <tr><th>Anthropic / skill-creator</th><td>Capture Intent extrae herramientas, secuencia, correcciones y formatos de una conversación.</td><td>Adoptar esa parte; conservar la escritura y evaluación en agent-instructions.</td></tr>
+        <tr><th>pstack / automate-me</th><td>Crea un modo personal y excluye expresamente los flujos concretos.</td><td>Reservarla como candidata para el futuro modo personal.</td></tr>
+        <tr><th>Matt / retro</th><td>Propone mejoras al entorno tras una sesión.</td><td>Tratarla como una retrospectiva; no sustituye la creación de una skill de tarea.</td></tr>
+        <tr><th>pstack / create-verification-skill y maintain-verification-skill</th><td>Crean y mantienen la verificación de una aplicación.</td><td>Conservarlas para esa especialidad; no son extractores generales.</td></tr>
+      </tbody></table></div><p><strong>Decisión actual:</strong> una derivación pequeña basada en reflect y Capture Intent, con agent-instructions como dependencia local. No se han instalado esas candidatas externas. <code>origin.txt</code> registra las dos fuentes con commits completos y la dependencia real; la evolución interna queda en Git.</p></details>
+      <div data-evidence="pstack/reflect;Anthropic/skill-creator;pstack/automate-me;Matt Pocock/retro;pstack/create-verification-skill;pstack/maintain-verification-skill"></div>
       <div class="two-columns">
         <article class="surface"><h3>Dos responsabilidades</h3><p><strong>agent-instructions:</strong> escribir, revisar o mejorar AGENTS.md, CLAUDE.md, una skill o una guía para agentes. Puede crear instrucciones nuevas aunque nunca se hayan usado.</p><p><strong>workflow-to-skill:</strong> analizar tareas realizadas, distinguir lo reutilizable de lo específico del caso y entregar ese contrato a agent-instructions para redactar la skill.</p><p><strong>Edición proporcionada:</strong> una regla puntual se modifica en su fuente canónica; no exige crear una skill ni demostrar repetición.</p><p><strong>Resultado:</strong> el documento solicitado, su alcance y comprobaciones pertinentes. La procedencia por commit y la actualización de fuentes se conservan para las skills derivadas.</p></article>
         <article class="surface"><h3>Una estructura pequeña</h3><pre><code>agent-instructions/
@@ -69,6 +87,7 @@
     writing.md
     instruction-files.md
     skills.md
+    reuse.md
     hosts.md
     evaluation.md
     upstream-updates.md

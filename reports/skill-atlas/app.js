@@ -13,17 +13,18 @@ const normalizedSearch = (value) => value.toLocaleLowerCase("es").normalize("NFD
 
 const clusters = [
   {
-    "title": "Crear skills",
+    "title": "Escribir instrucciones y extraer flujos",
     "winner": "agent-instructions y workflow-to-skill",
     "keys": [
       "Local/skill-creator",
       "Matt Pocock/writing-for-agents",
       "Anthropic/skill-creator",
+      "pstack/reflect",
       "pstack/automate-me",
       "HumanLayer/improve-claude-md"
     ],
-    "text": "Resuelven partes distintas: Codex aporta estructura y alcance; Matt, diseño de instrucciones; Anthropic, evaluación. automate-me ayuda a descubrir preferencias. La reorganización XML es una alternativa específica de un entorno.",
-    "why": "agent-instructions redacta instrucciones y skills, también desde cero. workflow-to-skill extrae decisiones reutilizables de trabajos anteriores y le entrega la redacción. La repetición no es un requisito para crear instrucciones."
+    "text": "Codex aporta estructura; Matt, escritura; Anthropic, captura de intención y evaluación. reflect aporta filtros para extraer aprendizajes. automate-me se centra en modos personales, no en flujos concretos.",
+    "why": "Elegir instalación, capa de invocación, derivación o creación según el encaje. workflow-to-skill conserva una extracción pequeña y delega la escritura a agent-instructions. Crear instrucciones no exige repetición."
   },
   {
     "title": "Implementación completa",
