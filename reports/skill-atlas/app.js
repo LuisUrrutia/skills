@@ -52,7 +52,7 @@ const clusters = [
   },
   {
     "title": "Entender y depurar",
-    "winner": "debug e investigación acotada",
+    "winner": "debug, how y why con entradas propias",
     "keys": [
       "Matt Pocock/diagnosing-bugs",
       "pstack/how",
@@ -61,7 +61,7 @@ const clusters = [
       "Matt Pocock/research"
     ],
     "text": "El diagnóstico reproduce fallos y contrasta causas. how explica estructura y ejecución; why reconstruye motivos; blast-radius sigue efectos; research consulta hechos externos. Son ramas complementarias, no cinco fases obligatorias.",
-    "why": "debug ya deriva el ciclo de Matt y las pruebas proporcionadas de pstack. Su referencia local adapta criterios de how, why y blast-radius según la incertidumbre; no exige instalar esas skills."
+    "why": "debug toma solo criterios útiles para investigar fallos. how y why conservan tareas independientes propuestas; blast-radius debe distinguir su análisis de impacto de la auditoría general que ya cubre review-audit."
   },
   {
     "title": "Entrevistas, especificaciones y tareas",
@@ -95,7 +95,7 @@ const clusters = [
   },
   {
     "title": "Regresiones y TDD",
-    "winner": "Activación de pstack y calidad de Matt",
+    "winner": "TDD de Matt independiente; regresiones de pstack en debug",
     "keys": [
       "pstack/tdd",
       "Matt Pocock/tdd",
@@ -103,7 +103,7 @@ const clusters = [
       "ECC/react-testing"
     ],
     "text": "El TDD de pstack prioriza fallos con una prueba local barata y útil. Matt aporta límites públicos, expectativas independientes y ciclos verticales. react-testing aporta técnicas concretas de pruebas de componentes.",
-    "why": "Mantener el criterio de comportamiento y evitar pruebas frágiles. Inferir los límites establecidos del repositorio cuando sea posible, sin preguntar por cada prueba."
+    "why": "Derivar tdd de Matt para implementar funcionalidades por incrementos de pruebas. Conservar el criterio de pstack dentro de debug para bugs; no confundir ninguna de esas tareas con ejecutar una verificación existente."
   },
   {
     "title": "Revisión de código",

@@ -390,9 +390,9 @@ window.SKILL_ATLAS = {
       "lines": 38,
       "category": "Verificación",
       "decision": "Blend",
-      "owner": "referencia de depuración y verificación",
-      "summary": "Trabaja en ciclos de fallo y éxito sobre interfaces públicas, con resultados esperados derivados de una fuente independiente.",
-      "reason": "Incorporar sus criterios de calidad, límites públicos y rechazo de pruebas que repiten la implementación.",
+      "owner": "tdd independiente (derivación propuesta); criterios reutilizados en debug",
+      "summary": "Desarrolla funcionalidades o corrige bugs empezando por pruebas de comportamiento, en incrementos pequeños y con expectativas independientes.",
+      "reason": "Derivar una tdd invocable por separado para desarrollo con pruebas. Su utilidad excede la regresión de bugs incluida en debug.",
       "caution": "Exige confirmar cada límite de prueba con el usuario y excluye la refactorización del ciclo. Ninguna regla debe convertirse en una barrera incondicional."
     },
     {
@@ -830,9 +830,9 @@ window.SKILL_ATLAS = {
       "lines": 50,
       "category": "Revisión de código",
       "decision": "Blend",
-      "owner": "review-audit",
+      "owner": "blast-radius acotada (propuesta); review-audit conserva la auditoría del diff",
       "summary": "Traza efectos fuera del diff: formatos, orden de ejecución y consumidores; después contrasta una premisa de seguridad.",
-      "reason": "Complemento útil para auditar contratos compartidos y cambios pequeños con efectos amplios.",
+      "reason": "Adaptar para una pregunta concreta de impacto; añadir el análisis previo de cambios propuestos como extensión local. Prioridad menor porque review-audit ya traza contratos y consumidores de cambios existentes.",
       "caution": "Una invariancia decisiva no descarta todos los riesgos independientes. Mantener el inventario de consumidores afectados."
     },
     {
@@ -890,9 +890,9 @@ window.SKILL_ATLAS = {
       "lines": 58,
       "category": "Investigación",
       "decision": "Blend",
-      "owner": "referencia de investigación",
+      "owner": "how independiente (derivación propuesta)",
       "summary": "Explica el comportamiento del código y dónde vive cada responsabilidad, ajustando la exploración a la complejidad.",
-      "reason": "Distinguir investigación simple y transversal antes de modificar código desconocido.",
+      "reason": "Adaptar para explicar ejecución, responsabilidades y límites aun sin un bug. La derivación permitirá investigación directa y delegación según alcance y autorización.",
       "caution": "Incluso su ruta simple crea un agente explicador. El flujo personalizado debe permitir investigar directamente."
     },
     {
@@ -1558,7 +1558,7 @@ window.SKILL_ATLAS = {
       "decision": "Blend",
       "owner": "debug (derivación independiente creada en el repositorio)",
       "summary": "Escribe y ejecuta una prueba de regresión fallida cuando existe un límite local barato y significativo.",
-      "reason": "Criterio de pruebas incorporado en debug, junto con las expectativas independientes de Matt. Conserva los requisitos explícitos del usuario y del proyecto.",
+      "reason": "Conservar su criterio de regresión en debug. El procedimiento se centra en bugs; no hace falta instalar otra entrada equivalente ni usarla como sustituto de TDD para funcionalidades nuevas.",
       "caution": "Se puede omitir una prueba nueva costosa con una razón, pero el comportamiento sigue necesitando la mejor verificación disponible."
     },
     {
@@ -1656,9 +1656,9 @@ window.SKILL_ATLAS = {
       "lines": 158,
       "category": "Investigación",
       "decision": "Blend",
-      "owner": "referencia de investigación",
+      "owner": "why independiente (derivación propuesta)",
       "summary": "Reconstruye la intención mediante historial, incidencias, documentación, conversaciones y evidencia operativa.",
-      "reason": "Usarla en regresiones y restricciones sorprendentes que el código no explica.",
+      "reason": "Adaptar como investigación histórica invocable por separado, con fuentes pertinentes y conclusiones calibradas. Su alcance incluye decisiones de diseño aunque no haya ningún fallo.",
       "caution": "Acotar las fuentes. La historia inaccesible sigue siendo desconocida; el texto externo aporta evidencia, no autoridad."
     },
     {
