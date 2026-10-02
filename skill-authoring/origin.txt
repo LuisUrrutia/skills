@@ -1,0 +1,81 @@
+format_version = 1
+skill = "skill-authoring"
+created = "2026-10-02"
+approach = "Original synthesis of selected ideas; no upstream prose or scripts are vendored."
+
+[[sources]]
+id = "mattpocock-writing-for-agents"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+baseline_paths = ["skills/productivity/writing-for-agents/", "LICENSE"]
+paths = ["skills/productivity/writing-for-agents/", "LICENSE"]
+license = "MIT; see LICENSE at the baseline commit"
+borrowed = [
+  "Context pointers with explicit loading conditions and branch-specific references.",
+  "Observable completion criteria and one authoritative home for each rule.",
+  "Prune repetition and consult the environment instead of caching discoverable facts."
+]
+local_choices = [
+  "Keep new skills discoverable unless the user chooses another invocation mode.",
+  "Verify host invocation semantics instead of adopting SKILL-MECHANICS.md as universal.",
+  "Use familiar terms without requiring leading-word jargon or universal splitting rules."
+]
+reviews = []
+
+[[sources]]
+id = "anthropic-skill-creator"
+repository = "https://github.com/anthropics/skills"
+remote = "git@github.com:anthropics/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+reviewed_through = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+baseline_paths = ["skills/skill-creator/"]
+paths = ["skills/skill-creator/"]
+license = "Apache-2.0; see skills/skill-creator/LICENSE.txt at the baseline commit"
+borrowed = [
+  "Matched skill versus baseline trials and inspection of actual artifacts.",
+  "Positive and near-miss activation cases, reserved cases, and regression checks.",
+  "Grade with observable evidence and report the limits of a small sample."
+]
+local_choices = [
+  "Precise discovery takes precedence over broad or pushy descriptions.",
+  "Use available evaluators; no dependency on Claude-only scripts, viewers, or workspace layouts.",
+  "Scale evaluations to the change and preserve existing authorization instead of mandatory interview or approval loops."
+]
+reviews = []
+
+[[sources]]
+id = "openai-public-skill-creator"
+repository = "https://github.com/openai/skills"
+remote = "git@github.com:openai/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "49f948faa9258a0c61caceaf225e179651397431"
+reviewed_through = "49f948faa9258a0c61caceaf225e179651397431"
+baseline_paths = ["skills/.system/skill-creator/"]
+paths = ["skills/.system/skill-creator/"]
+license = "Apache-2.0; see skills/.system/skill-creator/LICENSE.txt at the baseline commit"
+borrowed = [
+  "Small SKILL.md entrypoint with conditional references and resources justified by use.",
+  "Instruction specificity proportional to workflow fragility.",
+  "Separate packaging checks from evidence of useful behavior."
+]
+local_choices = [
+  "The installed host creator owns current packaging mechanics and validation.",
+  "Initializers and UI metadata are conditional rather than requirements for every host.",
+  "Preserve supported existing metadata and avoid duplicate creator installations."
+]
+reviews = []
+
+[[local_snapshots]]
+id = "installed-codex-skill-creator"
+path = "~/.codex/skills/.system/skill-creator/SKILL.md"
+sha256 = "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66"
+repository_commit_status = "Unverified; this content differs from the public OpenAI baseline above."
+borrowed = [
+  "Preserve intent, scope, existing authorization, and normal discoverability.",
+  "Prefer meaningful behavioral checks and independent trials without leaking expected answers."
+]
+update_policy = "Compare a future installed snapshot by hash and content; do not assign an upstream commit without matching evidence."

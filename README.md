@@ -4,6 +4,18 @@ A collection of skills for AI coding agents (Claude Code, OpenCode, and others) 
 
 ## Skills
 
+### skill-authoring
+
+Create, combine, improve, and evaluate agent skills with precise activation rules.
+
+**Triggers:** `create a skill`, `combine these skills`, `evaluate a skill`, `update a skill from upstream`
+
+**Features:**
+- Composes instructions with one owner per responsibility and conditional references
+- Checks behavior against a baseline, including activation near misses and regressions
+- Records inspiration in `origin.txt` with exact source commits
+- Reviews or incorporates upstream updates while preserving local decisions
+
 ### commit
 
 Create git commits with conventional commit messages.

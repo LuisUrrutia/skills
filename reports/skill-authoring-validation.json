@@ -1,0 +1,168 @@
+{
+  "format_version": 1,
+  "date": "2026-10-02",
+  "skill": "skill-authoring",
+  "consultation": {
+    "runner": "Claude Code 2.1.287",
+    "requested_model": "fable",
+    "observed_model": "claude-fable-5-1",
+    "effort_argument": "--effort xhigh",
+    "result": "success",
+    "decisions": [
+      "Combine conditional writing guidance, host packaging mechanics, and evidence-based evaluations without copying donor workflows wholesale.",
+      "Use an immutable baseline plus one fully resolved review cursor and per-range decisions; check-only mode does not mutate provenance.",
+      "Keep upstream maintenance as an invoked agent procedure; do not install a scheduler or copy upstream automation.",
+      "Keep the unmatched installed Codex creator as a hashed local snapshot with an explicitly unverified repository commit."
+    ]
+  },
+  "verification": [
+    {
+      "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py skill-authoring",
+      "outcome": "passed"
+    },
+    {
+      "command": "python3 .tmp/skill-authoring/validate_sources.py",
+      "outcome": "passed: TOML, three real source commits and SSH remotes, tracked paths, installed snapshot hash, local Markdown links, seven evaluation definitions",
+      "note": "Temporary check run with the Fish-selected Python 3.14.7; scratch script removed after completion."
+    },
+    {
+      "command": "uv run --no-project --with pyyaml python .tmp/skill-authoring/verify_trials.py",
+      "outcome": "passed: five successful Fable runs, parseable generated artifacts, unchanged check-only target, description-only edit, corrected trial package identical to final skill",
+      "note": "Temporary evidence checker; scratch script removed after completion."
+    },
+    {
+      "command": "env PYTHONPATH=daily-meeting-update python3 -B -m unittest tests.test_opencode_digest -v",
+      "outcome": "passed: three existing repository tests"
+    },
+    {
+      "command": "git diff --cached --check",
+      "outcome": "passed"
+    }
+  ],
+  "execution_notes": [
+    "Commands requiring the configured Python or Claude CLI were launched through Fish.",
+    "The system Python lacked PyYAML; the final validator used an isolated uv runtime dependency without changing repository manifests.",
+    "Directory-based unittest discovery failed because tests is a namespace package; the explicit module command above passed.",
+    "There is no project compile or build command for this declarative skill change."
+  ],
+  "artifact_trial_runner": "claude --print --model fable --effort xhigh --safe-mode --restricted --tools Read,Write,Edit --allowedTools Read,Write,Edit --strict-mcp-config --no-session-persistence --permission-prompts none --output-format json < request.txt > response.json",
+  "behavioral_trials": [
+    {
+      "id": "compose_without",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "duration_ms": 170878,
+      "turns": 7,
+      "runner_result": "success",
+      "permission_denials": [],
+      "outcome": "diagnostic failure",
+      "evidence": [
+        "Generated instructions preserved the input and delegated owners, but invented a schema, two-decimal amount precision, and row-exclusion rules absent from the fixture."
+      ],
+      "artifact_sha256": {
+        "output/report.md": "1fce6e49b3c7d1d7061ffc5093a0707496e315952c732f95b5d5286a61453423",
+        "output/expense-export/SKILL.md": "d95f6dbd397e71ac056132c810707629676378e6c57a1b1623c7769b97d230c0",
+        "output/expense-export/references/normalization.md": "341a075bf2d5091954c800f1a93287a07740d5a4f517dd23c589f8decc75c623"
+      }
+    },
+    {
+      "id": "compose_with",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "duration_ms": 261045,
+      "turns": 16,
+      "runner_result": "success",
+      "permission_denials": [],
+      "outcome": "diagnostic failure",
+      "evidence": [
+        "Generated provenance, conditional ownership, and evaluation cases, but also invented a default schema, two-decimal precision, and row-exclusion policy."
+      ],
+      "artifact_sha256": {
+        "output/report.md": "3b666dfad7c3d2af20e0602c787b2b76bec12c73b9e310144008b58542b71db6",
+        "output/expense-export/origin.txt": "8d9d096e37d80b765b62aa96f906e49b19978dbefc0544d3fbb1242674fc17bc",
+        "output/expense-export/SKILL.md": "584373dd5b8d9f34b8b4ea0464b8e17017c61824183af247002cfa9c9453ed86",
+        "output/expense-export/evals/cases.json": "c3e4fc3c9a055435843ab20a239a27fdc52f850178f5514d9576763ab944e5ea",
+        "output/expense-export/templates/normalized-header.csv": "c8dd31b8f7bd0e1102080010735bea7218be44b24d21368fe2789a4a22aea390"
+      }
+    },
+    {
+      "id": "compose_with_v2",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "duration_ms": 253097,
+      "turns": 18,
+      "runner_result": "success",
+      "permission_denials": [],
+      "outcome": "corrected artifact regression passed",
+      "evidence": [
+        "The generated skill resolves columns, precision, rounding, invalid-row treatment, and output path from a cited contract before writing.",
+        "Unresolved contract items become specific questions while independent work continues.",
+        "The generated skill uses only portable name/description metadata, preserves source input, and delegates validation, upload, and commits.",
+        "The report distinguishes manual inspection from unperformed parsers, runtime tests, and installation."
+      ],
+      "artifact_sha256": {
+        "output/report.md": "6ca5a3b2ac3d3f0018e8247367d440c1af5e4f0d94be22625ab01fe0069ffee0",
+        "output/expense-export/origin.txt": "6d1aa3e1dc0e8ebdc88c17adbb6c4ec6d8388221f33f86effe76933ef4a40f3b",
+        "output/expense-export/SKILL.md": "50b5449730f195616fccedb054ff6f9bba5374c8f6a5d706941c2d3ef9b03726",
+        "output/expense-export/evals/cases.json": "a465e7bffb16294b4f476d5e7ceeb132bf53ba7f765b89b2081ba9f248dad6b4"
+      }
+    },
+    {
+      "id": "check_with",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "duration_ms": 171303,
+      "turns": 39,
+      "runner_result": "success",
+      "permission_denials": [],
+      "outcome": "check-only state transition passed",
+      "evidence": [
+        "SHA-256 comparisons prove that target SKILL.md and origin.txt stayed byte-identical.",
+        "The report followed a real synthetic Git rename, recommended conditional GitHub Actions routing, and rejected automatic publication.",
+        "The report identified the exact fixture candidate and explicitly disclaimed a live remote check."
+      ],
+      "artifact_sha256": {
+        "target-review/origin.txt": "ec2f3ae88810b9d4e462d95efedc881b60cd8ae71cf2c91225b4842079cbb546",
+        "target-review/SKILL.md": "41b14821a93668fb89f7e3a215aa08c34624d68ec6a309e07e4b00d9d3434f35"
+      }
+    },
+    {
+      "id": "metadata_regression",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "duration_ms": 97718,
+      "turns": 13,
+      "runner_result": "success",
+      "permission_denials": [],
+      "outcome": "narrow-edit state transition passed",
+      "evidence": [
+        "The resulting SKILL.md differs only in description.",
+        "Skill body, other frontmatter, invocation policy, and dependency block stayed unchanged.",
+        "Evaluator-only cases were withheld; the executor reported no parser or host-selection run."
+      ],
+      "artifact_sha256": {
+        "target/SKILL.md": "44648b6c95c5d7ab945e26a1e27f74ab31446a597bc84291609c3521c8a9fb47",
+        "target/agents/openai.yaml": "25dcc8bbb8c76dd1cbb3786dfb78fc8173d311ca092ce83cab51f1299cbe112b"
+      }
+    }
+  ],
+  "change_from_trial": "references/writing.md now distinguishes reusable workflow from missing domain policy. evals/cases.json retains that failure as a regression case.",
+  "limits": [
+    "Small diagnostic sample, not a statistical benchmark or proof of general superiority.",
+    "The corrected composition run is a known regression, not a held-out evaluation; the skill corpus contains its expected contract.",
+    "The parent agent graded generated instructions and state changes. The design consultation and executions used independent Claude contexts.",
+    "Generated expense-export instructions were inspected; no expense CSV was transformed or uploaded.",
+    "Read/Write/Edit trials had no shell or network. The maintenance trial used snapshots and command output from a real disposable local Git repository.",
+    "Check-only maintenance was exercised. Authorized incorporation, live fetching through the full maintenance procedure, rewritten-history handling, and repeated update idempotence remain defined cases, not executed end-to-end checks.",
+    "Host implicit invocation and global installation were not tested. The deliverable is stored in this repository."
+  ],
+  "skill_file_sha256": {
+    "skill-authoring/SKILL.md": "72867ba7bcaea6e7a8ec2628f40483f90c6070bb2814e08c08089617f64b5a1e",
+    "skill-authoring/evals/cases.json": "c6fa6c9ccdfc6f09ab4094accf043e3552e1edf38465ba3720536f0bdfb93e6c",
+    "skill-authoring/origin.txt": "34e8796fca0c8c4d6c736db5904cff50026af366d7e93c709082c792c57b0f93",
+    "skill-authoring/references/evaluation.md": "dc69f91ee0b8d439e6baa9a0e1894e2eacccaca00807e343e25eae54d6fb3d81",
+    "skill-authoring/references/hosts.md": "9da38fa4ef34d3aaf836799dd44ca7e49b59afecf870f56f9eaa8ce16c9d93e0",
+    "skill-authoring/references/upstream-updates.md": "cdbb29beb1fdb93eb0b8da256ac25390535471202487f79b9757460d4608a9ce",
+    "skill-authoring/references/writing.md": "582cd393c945756f42f886d85fb5286c03125454514725c6bb646e2c56474cd3"
+  }
+}

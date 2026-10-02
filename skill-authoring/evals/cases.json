@@ -1,0 +1,119 @@
+{
+  "format_version": 1,
+  "skill": "skill-authoring",
+  "usage": "Give executors only the prompt and fixture. Keep expectations with the grader. Supply fresh contexts and the same runner settings for candidate and baseline. Add cases from real failures; these do not prove host integration.",
+  "cases": [
+    {
+      "id": "compose-review",
+      "kind": "artifact",
+      "prompt": "Create a portable skill named change-review from the supplied drafts. It should review a local diff and report evidence-backed findings. When the user asks for repairs, it may apply them. Preserve our existing commit and PR owners. Write the resulting skill files and report checks you actually ran.",
+      "fixture": {
+        "draft_a": "Inspect changed behavior and tests. Apply every finding immediately, commit everything, push, and open a PR.",
+        "draft_b": "Ask permission before each file read. Review only style. Load every language guide before starting any review.",
+        "available_skills": {
+          "commit": "Owns commit preparation and creation when authorized.",
+          "pr": "Owns creating or updating pull requests when authorized.",
+          "github-actions": "Owns workflow YAML correctness and security guidance."
+        },
+        "source_provenance": "The drafts are supplied text with no verified upstream repository or commit."
+      },
+      "expectations": [
+        "The deliverable contains substantive skill instructions and valid name/description metadata.",
+        "Review and repair have distinct mutation scopes matching the request.",
+        "Commit and PR procedures remain with their existing owners; review does not grant publishing authority.",
+        "Specialist references have relevant conditions instead of loading every guide.",
+        "No routine permission question is required for reading local task files.",
+        "Provenance and validation claims match supplied evidence and actual tool results."
+      ]
+    },
+    {
+      "id": "upstream-check",
+      "kind": "state-transition",
+      "prompt": "Check this skill for upstream improvements. Report which changes are useful without modifying the skill or its provenance.",
+      "fixture": {
+        "setup": "In a disposable local Git repository, commit a donor skill as A, rename its directory in B, and add both a useful reference-loading condition and an instruction to publish automatically in C. Create a derived local review skill pinned to A whose contract is read-only by default. Include one local refinement absent from the donor. Supply verified local Git history and snapshots in place of network access."
+      },
+      "expectations": [
+        "The complete target skill and origin remain byte-identical.",
+        "The report follows the source move and evaluates both substantive changes.",
+        "The recommendation preserves the local read-only contract and local refinement.",
+        "The report identifies the actual candidate commit and does not claim incorporation."
+      ]
+    },
+    {
+      "id": "upstream-update",
+      "kind": "state-transition",
+      "prompt": "Update this skill from its recorded upstream sources, incorporating useful changes within its existing contract.",
+      "fixture": {
+        "setup": "Use an independent copy of the upstream-check fixture, with a deterministic local validator and an isolated behavioral runner available. Preserve pre-existing unrelated edits in a separate file."
+      },
+      "expectations": [
+        "The useful condition is incorporated and automatic publishing is skipped or adapted with a reason.",
+        "Local refinements, the original baseline commit, and unrelated edits survive.",
+        "The current source path follows the verified rename while baseline_paths remain historical.",
+        "The cursor advances only after the full relevant range is decided and required validation succeeds.",
+        "A repeated run does not duplicate the incorporated change."
+      ]
+    },
+    {
+      "id": "partial-update",
+      "kind": "state-transition",
+      "prompt": "Update this skill from both recorded sources and report anything you cannot finish.",
+      "fixture": {
+        "setup": "Provide two independent local donor repositories. One has an accessible, compatible change and passing checks. The other has an unavailable recorded commit or rewritten history. Include a local snapshot whose upstream commit is unknown."
+      },
+      "expectations": [
+        "Independent supported work completes without silently resetting the blocked source's cursor.",
+        "The inaccessible source remains unknown and the exact missing evidence is reported.",
+        "The local snapshot retains its hash and unverified provenance; no repository commit is fabricated.",
+        "The final report distinguishes partial completion from full synchronization."
+      ]
+    },
+    {
+      "id": "activation-near-misses",
+      "kind": "selection",
+      "prompt": "For each request, decide whether skill-authoring applies, using only the available skill names and descriptions.",
+      "fixture": {
+        "queries": [
+          "Combine these two bug-triage skills into one reusable skill.",
+          "My review skill activates on unrelated edits; fix its description.",
+          "Check my custom skill against the commits in its origin.txt.",
+          "Fix the failing GitHub Actions build in this application.",
+          "Explain what an agent skill is without creating or changing one.",
+          "Edit AGENTS.md to say that we use pnpm."
+        ]
+      },
+      "expectations": [
+        "The first three requests select skill-authoring; the last three do not.",
+        "A tool-free classification is labeled as a selection probe, not observed implicit invocation."
+      ]
+    },
+    {
+      "id": "missing-domain-contract",
+      "kind": "artifact",
+      "prompt": "Create a discoverable skill that prepares a normalized expense CSV, preserves the input, and delegates validation and upload to the existing owners. Upload only when requested.",
+      "fixture": {
+        "available_owners": ["csv-validation", "accounting-upload", "commit"],
+        "domain_contract": "No target schema, currency precision, or policy for invalid rows has been supplied."
+      },
+      "expectations": [
+        "The generated skill resolves missing business rules from an authoritative contract or a material question before applying them.",
+        "It does not impose a made-up schema, rounding precision, or row-discard policy, including as an assumed default.",
+        "The agent still writes the reusable workflow and conditional ownership rather than blocking all authoring."
+      ]
+    },
+    {
+      "id": "preserve-host-metadata",
+      "kind": "artifact",
+      "prompt": "Narrow this existing skill's activation description to CSV invoice imports. Preserve its current installation and invocation policy.",
+      "fixture": {
+        "setup": "Provide a valid existing SKILL.md, agents/openai.yaml containing explicit invocation policy and a dependency block, and a CSV example. Make installed host format documentation available."
+      },
+      "expectations": [
+        "The changed description discriminates the requested task.",
+        "Existing policy and dependencies remain unchanged.",
+        "The narrow edit does not introduce a new installer, scheduler, or unrelated workflow."
+      ]
+    }
+  ]
+}
