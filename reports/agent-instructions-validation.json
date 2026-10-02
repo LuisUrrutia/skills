@@ -2,6 +2,7 @@
   "format_version": 1,
   "date": "2026-10-02",
   "baseline_commit": "7a1b014867f72ae99e63b63b1602351e9823dec9",
+  "validated_commit": "a7b756ffec53c787b911479ec136583b9db2f7a0",
   "skills": [
     "agent-instructions",
     "workflow-to-skill"
@@ -97,5 +98,43 @@
     "workflow-to-skill/SKILL.md": "0f9bb57cd961d58a257b5c58d5a5811450e0d9983861009342f71f0bee5a6680",
     "workflow-to-skill/evals/cases.json": "b6eee610d890d7a71211003aab838453fdd087f921b8d70f46902acd0fafcda7",
     "workflow-to-skill/origin.txt": "fff82cac113e2f068087a30fb78d9771ea6b0fded339bdd83986411a9e6d84c2"
+  },
+  "description_revision": {
+    "baseline_commit": "a7b756ffec53c787b911479ec136583b9db2f7a0",
+    "case": "activation-near-misses",
+    "model": "claude-fable-5-1",
+    "effort_argument": "--effort xhigh",
+    "inputs": "Only the two skill names and shortened descriptions, plus the nine requests. No skill bodies or expected selections.",
+    "observed_selections": [
+      "agent-instructions",
+      "agent-instructions",
+      "agent-instructions",
+      "agent-instructions",
+      "agent-instructions",
+      "agent-instructions",
+      "workflow-to-skill",
+      "neither",
+      "neither"
+    ],
+    "result": "Nine expected selections matched. This is a selection probe, not observed host invocation.",
+    "repeated_checks": [
+      {
+        "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py agent-instructions",
+        "result": "passed"
+      },
+      {
+        "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py workflow-to-skill",
+        "result": "passed"
+      },
+      {
+        "command": "env PYTHONPATH=daily-meeting-update python3 -B -m unittest tests.test_opencode_digest -v",
+        "result": "passed: three repository tests"
+      }
+    ],
+    "skill_file_sha256": {
+      "agent-instructions/SKILL.md": "ff3a7b1f9a29d74c6d1ce2cfb9847e19d4733d5aa1a3594a43db2781719442c0",
+      "agent-instructions/references/skills.md": "1304058dc74445e69870f33cb9be5409b38736fae8a83ac8b668eef1ce478603",
+      "workflow-to-skill/SKILL.md": "656bb1fdfe16d8b36e0e01bfdc8078fbd3d4c91c763d3258943cc708e57622c2"
+    }
   }
 }

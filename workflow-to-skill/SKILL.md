@@ -1,6 +1,6 @@
 ---
 name: workflow-to-skill
-description: Extract a reusable skill from demonstrated work, recurring tasks, or a session history when the user asks to capture that workflow. Use for discovering what to retain and generalize from past work; direct requests to write AGENTS.md, CLAUDE.md, or an already specified skill belong to agent-instructions.
+description: Use when turning completed tasks, recurring work, or session history into a reusable skill.
 ---
 
 # Workflow to skill

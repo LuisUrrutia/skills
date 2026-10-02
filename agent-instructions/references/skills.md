@@ -20,6 +20,17 @@ retain, adapt, or exclude against the user's contract. Record actual inspiration
 verified revisions, and intentional deviations in `origin.txt` using
 [upstream-updates.md](upstream-updates.md). Keep unknown provenance explicit.
 
+## Write the selection description
+
+On creation or review, make `description` the shortest clear answer to when the
+skill should be used. State the requested action and distinguishing context so
+the name and description suffice for selection before loading the body.
+
+Keep procedures, tool choices, deliverable details, and feature lists in the body
+or references. Add an exclusion only to prevent a likely overlap. Preserve words
+needed to distinguish related requests; brevity must not broaden or narrow the
+intended activation scope.
+
 ## Package the instructions
 
 Use `SKILL.md` for shared decisions and steps. Put substantial conditional detail
@@ -35,6 +46,10 @@ React or GitHub Actions guidance when the task reaches those domains rather than
 copying their rules into the coordinator.
 
 ## Validate
+
+Check the name and description alone against intended requests and nearby requests
+that should not activate the skill. Clarify the distinguishing condition when
+selection is ambiguous.
 
 Run the available host validator, resolve local references and dependencies, and
 execute added or changed helpers. Read [evaluation.md](evaluation.md) for new

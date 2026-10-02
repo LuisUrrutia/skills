@@ -1,6 +1,6 @@
 ---
 name: agent-instructions
-description: Write, review, or improve instructions for agents in AGENTS.md, CLAUDE.md, claude.md, SKILL.md, referenced guides, and agent prompts. Use when the requested deliverable is agent instructions, including a new or existing skill; merely following those instructions during another task does not activate this skill.
+description: Use when creating, reviewing, or improving AGENTS.md, CLAUDE.md, skills, or other agent instructions.
 ---
 
 # Agent instructions
