@@ -1,14 +1,15 @@
 # Writing instructions
 
-Use this reference when writing or revising a skill's behavior.
+Use this reference when writing or revising any instruction an agent consumes.
 
 ## Put decisions where they are needed
 
-The description helps select the skill. Name the task and its distinct activation
-conditions; add exclusions for likely collisions. Test discovery against nearby
-skills instead of making every description more insistent.
+An entrypoint or pointer determines when an agent reaches detailed guidance. Name
+the task and its distinct conditions. In a skill, the description does this work;
+in a persistent instruction file, a scoped rule or reference does. Use exclusions
+for likely collisions rather than making every instruction more insistent.
 
-Keep instructions needed on every path in `SKILL.md`. Move substantial guidance
+Keep instructions needed on every path in the entrypoint. Move substantial guidance
 used only on one path into a reference. A useful pointer states both the condition
 and the file to read: "When changing workflow YAML, load the GitHub Actions skill."
 Writing "see references" leaves the selection decision unspecified.
@@ -47,9 +48,11 @@ completion evidence, and authority. Similar wording can hide incompatible
 behavior: a read-only review and a repair workflow need different mutation scope.
 
 Select one rule or introduce an explicit condition. Record intentional deviations
-from donors in `origin.txt`, especially defaults for invocation, approvals,
-testing, tools, and external writes. Source popularity is not a reason to replace
-a local rule that serves the contract.
+from donors in the existing provenance record when maintaining a derived skill.
+For other documents, preserve their established attribution conventions rather
+than adding skill-specific files. Source popularity is not a reason to replace
+a local rule that serves the contract. Pay particular attention to changes in
+invocation, approvals, testing, tools, and external writes.
 
 Keep common procedures in the existing owner. Split a new skill only when it has
 a distinct task or needs independent invocation. Use a conditional reference for

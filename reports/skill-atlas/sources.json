@@ -358,7 +358,7 @@
       "lines": 44,
       "category": "Creación de skills",
       "decision": "Blend",
-      "owner": "mantenimiento de skill-authoring",
+      "owner": "mantenimiento de agent-instructions",
       "summary": "Revisa una sesión para mejorar comprobaciones, instrucciones, herramientas y acceso a información.",
       "reason": "Priorizar controles ejecutables antes de añadir más instrucciones escritas.",
       "caution": "No convertir cada sesión en una retrospectiva ni modificar automáticamente las reglas globales."
@@ -598,9 +598,9 @@
       "lines": 81,
       "category": "Creación de skills",
       "decision": "Blend",
-      "owner": "skill-authoring",
+      "owner": "agent-instructions",
       "summary": "Diseña referencias de contexto, jerarquía de información, criterios de finalización e instrucciones concisas para agentes.",
-      "reason": "Referencia principal de escritura para skill-authoring, junto al creador incluido y la evaluación de comportamiento.",
+      "reason": "Referencia principal de escritura para agent-instructions, junto al creador incluido y la evaluación de comportamiento.",
       "caution": "Sus mecanismos de invocación pertenecen a un entorno concreto. No trasladar sin comprobar la semántica de disable-model-invocation a Codex."
     },
     {
@@ -798,9 +798,9 @@
       "lines": 104,
       "category": "Creación de skills",
       "decision": "Blend",
-      "owner": "perfil personal de skill-authoring",
+      "owner": "extracción de workflow-to-skill",
       "summary": "Deriva un modo personal a partir de conversaciones pertinentes y preferencias explícitas.",
-      "reason": "Distinguir evidencia repetida de correcciones aisladas al diseñar work-mode.",
+      "reason": "Aporta la lectura de conversaciones para extraer un flujo; agent-instructions se ocupa de redactar las instrucciones resultantes.",
       "caution": "Partir de tu AGENTS.md. No revisar conversaciones ajenas al proyecto ni depender de rutas y herramientas exclusivas de Cursor."
     },
     {
@@ -1038,7 +1038,7 @@
       "lines": 31,
       "category": "Principios",
       "decision": "Blend",
-      "owner": "mantenimiento de skill-authoring",
+      "owner": "mantenimiento de agent-instructions",
       "summary": "Transforma correcciones repetidas en tipos, reglas de análisis, validaciones o herramientas.",
       "reason": "Usarla como pregunta de mantenimiento cuando la repetición esté demostrada.",
       "caution": "Elegir el mecanismo mínimo dentro del alcance autorizado. La recurrencia no autoriza cambios de herramientas ajenos a la tarea."
@@ -1458,9 +1458,9 @@
       "lines": 73,
       "category": "Creación de skills",
       "decision": "Blend",
-      "owner": "mantenimiento de skill-authoring",
+      "owner": "mantenimiento de agent-instructions",
       "summary": "Contrasta la sesión con el modo personal y propone mejoras concretas en instrucciones y herramientas.",
-      "reason": "Incorporarla al mantenimiento de skill-authoring cuando haya evidencia recurrente.",
+      "reason": "Incorporarla al mantenimiento de agent-instructions cuando haya evidencia recurrente.",
       "caution": "No modificar reglas globales por una preferencia aislada ni convertirla en una fase automática de cada arreglo."
     },
     {
@@ -1858,7 +1858,7 @@
       "lines": 485,
       "category": "Creación de skills",
       "decision": "Blend",
-      "owner": "evaluación de skill-authoring",
+      "owner": "evaluación de agent-instructions",
       "summary": "Crea y mejora skills con casos realistas, comparación con una referencia, revisión de resultados y pruebas de activación.",
       "reason": "Tomar la comparación con y sin skill, los casos negativos, los casos reservados y las regresiones.",
       "caution": "Adaptar el CLI de Claude, el visor y las descripciones insistentes al entorno real; evitar activaciones solapadas."
@@ -2558,9 +2558,9 @@
       "lines": 229,
       "category": "Creación de skills",
       "decision": "Keep",
-      "owner": "base de skill-authoring",
+      "owner": "base de agent-instructions",
       "summary": "Crea skills de Codex con alcance concreto, activación precisa, referencias progresivas, metadatos válidos y comprobaciones proporcionadas.",
-      "reason": "Usarla como base de estructura y alcance de skill-authoring.",
+      "reason": "Usarla como base de estructura y alcance de agent-instructions.",
       "caution": "La validación estructural no demuestra buenas decisiones. Añadir evaluación de comportamiento y activación de Anthropic."
     }
   ],

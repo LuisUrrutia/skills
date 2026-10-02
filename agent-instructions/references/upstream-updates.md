@@ -22,7 +22,10 @@ work and needs a requested cadence and execution environment.
 each consulted repository, the verified full commit ID, relevant paths, borrowed
 ideas, and intentional local choices. Record supplied or installed material with
 unknown Git provenance as a local snapshot with its SHA-256; never invent a
-matching upstream commit.
+matching upstream commit. Retain a verified local repository commit when one is
+known, distinguishing it from a commit confirmed on a remote. Local snapshots are
+historical evidence, not automatically remote update feeds. A target with no
+tracked repository sources has no automatic upstream range to fetch.
 
 Each repository source has:
 

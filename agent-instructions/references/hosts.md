@@ -1,7 +1,8 @@
 # Host compatibility
 
-Read this before choosing invocation controls, host metadata, tool calls, or
-dependencies on other skills.
+Read this for skills before choosing invocation controls, host metadata, tool
+calls, or dependencies on other skills. Persistent instruction-file placement is
+covered by [instruction-files.md](instruction-files.md).
 
 Inspect the intended host's installed skill format, available tools, and current
 primary documentation when local evidence is insufficient. Separate portable

@@ -14,7 +14,7 @@ const normalizedSearch = (value) => value.toLocaleLowerCase("es").normalize("NFD
 const clusters = [
   {
     "title": "Crear skills",
-    "winner": "Componer skill-authoring",
+    "winner": "agent-instructions y workflow-to-skill",
     "keys": [
       "Local/skill-creator",
       "Matt Pocock/writing-for-agents",
@@ -23,7 +23,7 @@ const clusters = [
       "HumanLayer/improve-claude-md"
     ],
     "text": "Resuelven partes distintas: Codex aporta estructura y alcance; Matt, diseño de instrucciones; Anthropic, evaluación. automate-me ayuda a descubrir preferencias. La reorganización XML es una alternativa específica de un entorno.",
-    "why": "Combinar las partes complementarias bajo una entrada y un contrato de evaluación. Evitar concatenar documentos enteros o instalar dos creadores con el mismo nombre."
+    "why": "agent-instructions redacta instrucciones y skills, también desde cero. workflow-to-skill extrae decisiones reutilizables de trabajos anteriores y le entrega la redacción. La repetición no es un requisito para crear instrucciones."
   },
   {
     "title": "Implementación completa",
@@ -130,7 +130,7 @@ const clusters = [
       "Matt Pocock/writing-for-agents"
     ],
     "text": "humanize y unslop se solapan directamente. technical-writing aporta estructura documental y claridad técnica. writing-for-agents se centra en ejecución y descubrimiento de instrucciones.",
-    "why": "humanize para lectores humanos y skill-authoring para instrucciones de agentes. Cargar criterios específicos del documento solo cuando hagan falta."
+    "why": "humanize para lectores humanos y agent-instructions para instrucciones de agentes. Cargar criterios específicos del documento solo cuando hagan falta."
   },
   {
     "title": "Descripción del PR y orientación del revisor",

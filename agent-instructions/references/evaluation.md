@@ -1,11 +1,11 @@
 # Evaluation
 
-Read this when creating capabilities, changing routing, combining skills,
-incorporating upstream changes, or correcting observed failures.
+Read this when changing instruction behavior, creating or combining skills,
+changing routing, incorporating upstream changes, or correcting observed failures.
 
 ## Choose evidence before tuning
 
-Derive cases from the skill's contract and realistic artifacts. Cover ordinary
+Derive cases from the instruction's contract and realistic artifacts. Cover ordinary
 work, ambiguous inputs, and relevant boundaries. For a router, include tasks that
 select different specialists and tasks that should select none. For a workflow
 with external effects, observe actions and resulting state, not just the final
@@ -17,13 +17,19 @@ reserved failure informs a fix, it is a regression case; use a new unseen case
 before making a further generalization claim.
 
 [../evals/cases.json](../evals/cases.json) contains reusable cases for
-`skill-authoring` itself. They are examples of observable contracts, not a
-mandatory suite for every skill it creates.
+`agent-instructions` itself. Read that corpus only when evaluating this skill,
+and keep its expectations with the grader. Other documents and skills need cases
+derived from their own contracts.
+
+For persistent instruction files, test scope as well as meaning: a global rule,
+a repository rule, and a nested override reach different work. Include imports
+or adapters in the fixture when they determine the effective instruction. A
+focused edit need not acquire a permanent evaluation suite.
 
 ## Run a matched comparison
 
-For a new skill, compare with the same task without that skill. For an update,
-compare with the previous skill snapshot. Keep model, effort, tools, fixtures,
+For new instructions, compare with the same task without those instructions. For
+an update, compare with the previous document or skill snapshot. Keep model, effort, tools, fixtures,
 authorization, and output format equal. Use independent clean contexts so a
 baseline cannot see the candidate or an earlier answer.
 
@@ -44,7 +50,7 @@ Separate these claims:
 
 | Claim | Required evidence |
 | --- | --- |
-| Valid package | Parsed metadata, resolved resources, required host checks |
+| Valid structure | Resolved pointers/imports; metadata and host checks when packaging a skill |
 | Correct selection | Positive and near-miss requests with observed host selection |
 | Useful task behavior | Actual output artifacts, actions, and postconditions |
 | Safe authority | Observed side effects stay within the supplied authorization |

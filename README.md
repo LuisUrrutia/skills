@@ -4,17 +4,31 @@ A collection of skills for AI coding agents (Claude Code, OpenCode, and others) 
 
 ## Skills
 
-### skill-authoring
+### agent-instructions
 
-Create, combine, improve, and evaluate agent skills with precise activation rules.
+Write and improve instructions for agents in `AGENTS.md`, `CLAUDE.md`, skills,
+referenced guides, and agent prompts. New skills do not require prior use or repetition.
 
-**Triggers:** `create a skill`, `combine these skills`, `evaluate a skill`, `update a skill from upstream`
+**Triggers:** `update AGENTS.md`, `improve these agent instructions`, `create a skill`, `revise a skill`
 
 **Features:**
-- Composes instructions with one owner per responsibility and conditional references
-- Checks behavior against a baseline, including activation near misses and regressions
-- Records inspiration in `origin.txt` with exact source commits
-- Reviews or incorporates upstream updates while preserving local decisions
+- Edits the canonical instruction source at the intended scope
+- Writes clear rules, conditional references, and completion criteria
+- Preserves provenance pins and supports requested upstream reviews or updates
+- Validates the changed behavior in proportion to the task
+
+### workflow-to-skill
+
+Extract a reusable workflow from task history or repeated work, then use
+`agent-instructions` to write and validate the resulting skill. Install both when
+using this extraction workflow.
+
+**Triggers:** `turn this workflow into a skill`, `extract a skill from these sessions`
+
+**Features:**
+- Separates reusable decisions from variable inputs and incident-specific choices
+- Preserves task-specific authorization boundaries
+- Reuses an existing skill owner when appropriate and continues through the actual edit
 
 ### commit
 

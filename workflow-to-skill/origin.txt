@@ -1,0 +1,19 @@
+format_version = 1
+skill = "workflow-to-skill"
+created = "2026-10-02"
+approach = "Local extraction workflow separated from instruction writing after the user's scope correction."
+
+[[local_snapshots]]
+id = "previous-skill-authoring"
+repository = "https://github.com/LuisUrrutia/skills"
+repository_commit = "7a1b014867f72ae99e63b63b1602351e9823dec9"
+path = "skill-authoring/SKILL.md"
+sha256 = "72867ba7bcaea6e7a8ec2628f40483f90c6070bb2814e08c08089617f64b5a1e"
+repository_commit_status = "Verified in the local repository; publication to the remote was not checked."
+borrowed = ["Establish capability, scope, existing owners, and completion evidence before drafting a skill."]
+local_choices = [
+  "Extract reusable decisions from task history only when that capture is requested.",
+  "General instruction writing and specified new skills belong to agent-instructions.",
+  "The writer owns packaging, provenance, and evaluation; no second copy of those procedures."
+]
+update_policy = "Historical local inspiration, not an upstream feed. Resolve this commit locally for comparison; agent-instructions owns shared writing and remote-source maintenance."

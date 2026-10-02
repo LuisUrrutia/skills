@@ -1,0 +1,101 @@
+{
+  "format_version": 1,
+  "date": "2026-10-02",
+  "baseline_commit": "7a1b014867f72ae99e63b63b1602351e9823dec9",
+  "skills": [
+    "agent-instructions",
+    "workflow-to-skill"
+  ],
+  "consultation": {
+    "model": "claude-fable-5-1",
+    "effort_argument": "--effort xhigh",
+    "result": "success",
+    "decisions": [
+      "Instruction writing owns the shared guidance, source placement, provenance, and validation.",
+      "Workflow extraction interprets past work and delegates writing; it does not require history for a specified new skill.",
+      "A review-only request remains read-only. A one-line instruction edit does not create a skill or evaluation suite."
+    ]
+  },
+  "checks": [
+    {
+      "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py agent-instructions",
+      "result": "passed"
+    },
+    {
+      "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py workflow-to-skill",
+      "result": "passed"
+    },
+    {
+      "command": "python3 .tmp/agent-instructions/check_structure.py",
+      "result": "passed: existing source pins preserved, local inspiration commit/hash verified, references and case definitions resolve, atlas data and anchors consistent"
+    },
+    {
+      "command": "uv run --no-project --with pyyaml python .tmp/agent-instructions/check_trials.py",
+      "result": "passed: three Fable executions, artifact parsing, canonical-only edit, final skill copies match"
+    },
+    {
+      "command": "env PYTHONPATH=daily-meeting-update python3 -B -m unittest tests.test_opencode_digest -v",
+      "result": "passed: three repository tests"
+    },
+    {
+      "command": "node --check reports/skill-atlas/app.js",
+      "result": "passed"
+    },
+    {
+      "command": "node --check reports/skill-atlas/catalog.js",
+      "result": "passed"
+    }
+  ],
+  "trials": [
+    {
+      "case": "instructions",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "result": "success",
+      "duration_ms": 89457,
+      "evidence": "Only Use npm for new packages became Use pnpm for new packages in the canonical file. Both adapters, unrelated rules, and the legacy exception remained byte-identical. No skill package was created."
+    },
+    {
+      "case": "new_skill",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "result": "success",
+      "duration_ms": 473389,
+      "evidence": "The executor wrote release-summary from a supplied new capability with no prior runs. Generated instructions preserve feature/fix grouping, evidence, and the boundary between summary generation and publishing."
+    },
+    {
+      "case": "extract",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "result": "success",
+      "duration_ms": 301666,
+      "evidence": "The executor wrote tsv-export after extracting a common workflow. Source/destination are inputs; the source is preserved; one run-specific upload permission is not promoted to standing authorization."
+    }
+  ],
+  "browser": {
+    "method": "T3 preview DOM evaluation after reloading the local report",
+    "result": "Updated Spanish priority section rendered; 121 catalog entries loaded; no old skill-authoring name in main text; no horizontal document overflow at 1280px.",
+    "limitation": "Snapshot failed twice; DOM evaluation succeeded. No pixel screenshot was captured."
+  },
+  "limits": [
+    "Executors received actual skill files and raw fixtures with grader-only cases withheld. Read/Write/Edit were available; shell and network were unavailable.",
+    "The parent inspected generated instructions and validated resulting files. No real release was summarized, TSV converted, or upload performed.",
+    "Trials did not test implicit host selection, global installation, or every defined case. This is a scoped behavior check, not a statistical benchmark.",
+    "No project build applies to declarative skills; changed report JavaScript passed syntax checks.",
+    "Temporary fixtures, model responses, and one-off check scripts were removed after recording these results."
+  ],
+  "skill_file_sha256": {
+    "agent-instructions/SKILL.md": "4593f2d06ed3e4c2c1a90c6cc0d30d17ce445e41b3a30d31f41529d4158654d5",
+    "agent-instructions/evals/cases.json": "646ed8059a1c812934a690b12c553e0ffcc3d4b1c9a4982ff7c7af774286f061",
+    "agent-instructions/origin.txt": "1c9fe779cbe719150cf0c83a3ecb3a1257af097acb8a63232893a3045a0f1076",
+    "agent-instructions/references/evaluation.md": "aa81aa2eb703e0034d07dae6e03e79f123c8774b67dfda9d0fd1b1222e078491",
+    "agent-instructions/references/hosts.md": "bdebaae1e39aa512646b4e64dde3f46ab0d8251311a3466356b3b61cdb4b4b71",
+    "agent-instructions/references/instruction-files.md": "45096367c0ff8795292e192241cea7d4233a23428fdd29fd750a7ebd9535a456",
+    "agent-instructions/references/skills.md": "107a84e69f4426f336c8f365069fc5e9bd1a60bf1f17c9f11781bc2d838ce3d3",
+    "agent-instructions/references/upstream-updates.md": "126f568377bf38ed218116d898524f420906720fda2d7f6f3ece647188487eae",
+    "agent-instructions/references/writing.md": "3195fe585f92f78ca5a86957bb0912f305cc5a48d29d75c4be3be0adc1353284",
+    "workflow-to-skill/SKILL.md": "0f9bb57cd961d58a257b5c58d5a5811450e0d9983861009342f71f0bee5a6680",
+    "workflow-to-skill/evals/cases.json": "b6eee610d890d7a71211003aab838453fdd087f921b8d70f46902acd0fafcda7",
+    "workflow-to-skill/origin.txt": "fff82cac113e2f068087a30fb78d9771ea6b0fded339bdd83986411a9e6d84c2"
+  }
+}

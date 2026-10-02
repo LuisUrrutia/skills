@@ -1,6 +1,6 @@
 {
   "format_version": 1,
-  "skill": "skill-authoring",
+  "skill": "agent-instructions",
   "usage": "Give executors only the prompt and fixture. Keep expectations with the grader. Supply fresh contexts and the same runner settings for candidate and baseline. Add cases from real failures; these do not prove host integration.",
   "cases": [
     {
@@ -72,20 +72,23 @@
     {
       "id": "activation-near-misses",
       "kind": "selection",
-      "prompt": "For each request, decide whether skill-authoring applies, using only the available skill names and descriptions.",
+      "prompt": "For each request, select agent-instructions, workflow-to-skill, or neither as the entrypoint, using only their names and descriptions.",
       "fixture": {
         "queries": [
-          "Combine these two bug-triage skills into one reusable skill.",
+          "Combine these two bug-triage skills into one skill.",
           "My review skill activates on unrelated edits; fix its description.",
           "Check my custom skill against the commits in its origin.txt.",
+          "Edit AGENTS.md to say that this repository uses pnpm.",
+          "Clarify the instructions in claude.md without changing their scope.",
+          "Create a skill for a new workflow we have not tried yet; here is its complete specification.",
+          "Read these three completed task histories and extract a skill for their shared workflow.",
           "Fix the failing GitHub Actions build in this application.",
-          "Explain what an agent skill is without creating or changing one.",
-          "Edit AGENTS.md to say that we use pnpm."
+          "Follow AGENTS.md and fix this React bug."
         ]
       },
       "expectations": [
-        "The first three requests select skill-authoring; the last three do not.",
-        "A tool-free classification is labeled as a selection probe, not observed implicit invocation."
+        "The first six requests enter agent-instructions; the seventh enters workflow-to-skill; the final two enter neither.",
+        "A selection probe is not reported as observed host invocation."
       ]
     },
     {
@@ -93,7 +96,11 @@
       "kind": "artifact",
       "prompt": "Create a discoverable skill that prepares a normalized expense CSV, preserves the input, and delegates validation and upload to the existing owners. Upload only when requested.",
       "fixture": {
-        "available_owners": ["csv-validation", "accounting-upload", "commit"],
+        "available_owners": [
+          "csv-validation",
+          "accounting-upload",
+          "commit"
+        ],
         "domain_contract": "No target schema, currency precision, or policy for invalid rows has been supplied."
       },
       "expectations": [
@@ -113,6 +120,35 @@
         "The changed description discriminates the requested task.",
         "Existing policy and dependencies remain unchanged.",
         "The narrow edit does not introduce a new installer, scheduler, or unrelated workflow."
+      ]
+    },
+    {
+      "id": "canonical-instruction-edit",
+      "kind": "state-transition",
+      "prompt": "Update our agent instructions so new packages use pnpm, preserving exceptions for legacy/. Keep adapters unchanged.",
+      "fixture": {
+        "files": {
+          "AGENTS.md": "Canonical source: .agents/project.md\n",
+          "CLAUDE.md": "@.agents/project.md\n",
+          ".agents/project.md": "# Project\nUse npm for new packages.\nKeep commands from package.json as the source of truth.\n",
+          "legacy/AGENTS.md": "Use yarn in legacy/.\n"
+        }
+      },
+      "expectations": [
+        "Only the canonical new-package rule changes; adapters, unrelated guidance, and the legacy exception survive.",
+        "No new skill, skill metadata, or recurring-task interview is created."
+      ]
+    },
+    {
+      "id": "new-skill-without-history",
+      "kind": "artifact",
+      "prompt": "Create a skill called release-summary for a workflow we have not used yet: read a supplied release diff, group user-visible changes, and return a Markdown summary. Publishing is a separate task.",
+      "fixture": {
+        "history": "No previous runs. The supplied workflow is the requested capability."
+      },
+      "expectations": [
+        "The skill is created from the supplied contract without requiring prior repetition.",
+        "It returns the requested summary and does not acquire publishing authority."
       ]
     }
   ]

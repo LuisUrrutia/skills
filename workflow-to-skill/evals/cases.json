@@ -1,0 +1,62 @@
+{
+  "format_version": 1,
+  "skill": "workflow-to-skill",
+  "usage": "Give executors prompts and fixtures only; retain expectations with the grader. The writing dependency must be available.",
+  "cases": [
+    {
+      "id": "extract-and-write",
+      "kind": "artifact",
+      "prompt": "Turn these completed export tasks into a reusable skill.",
+      "fixture": {
+        "history": [
+          "First run: user selected source-a.csv and destination-a.csv, required preserving the input, and approved one upload after checking the result.",
+          "Second run: user selected source-b.csv and destination-b.csv, required preserving the input, and asked only for the local export."
+        ],
+        "installed_skills": [
+          "agent-instructions",
+          "csv-validation",
+          "accounting-upload"
+        ]
+      },
+      "expectations": [
+        "Varying paths are inputs rather than hardcoded rules.",
+        "A single approved upload does not become standing permission.",
+        "The process continues through creating a skill using agent-instructions, rather than stopping at an extraction plan."
+      ]
+    },
+    {
+      "id": "existing-owner",
+      "kind": "artifact",
+      "prompt": "Capture the recurring report-formatting corrections from this history in our existing report skill.",
+      "fixture": {
+        "history": [
+          "Use the existing report columns and preserve totals in each run."
+        ],
+        "installed_skills": [
+          "agent-instructions",
+          "report-formatting"
+        ]
+      },
+      "expectations": [
+        "The existing owner is improved rather than duplicated.",
+        "Only demonstrated reusable corrections are retained; unrelated policies are not added."
+      ]
+    },
+    {
+      "id": "routing-boundaries",
+      "kind": "selection",
+      "prompt": "Choose the entrypoint for each request.",
+      "fixture": {
+        "queries": [
+          "Extract a skill from this completed debugging session.",
+          "Write a new skill from this complete specification.",
+          "Update AGENTS.md to prefer pnpm.",
+          "We often hit this bug; fix it now."
+        ]
+      },
+      "expectations": [
+        "Only the first request starts workflow-to-skill; the next two start agent-instructions; the last is ordinary bug fixing."
+      ]
+    }
+  ]
+}

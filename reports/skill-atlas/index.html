@@ -16,7 +16,7 @@
     <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">s</span><span>Atlas de skills<small>El flujo de desarrollo de Luis</small></span></a>
     <nav>
       <a href="#overview">Recomendación</a>
-      <a href="#authoring">Crear buenas skills <span class="nav-tag">P0</span></a>
+      <a href="#authoring">Escribir instrucciones <span class="nav-tag">P0</span></a>
       <a href="#workflow">Flujo de trabajo</a>
       <a href="#followup">Seguimiento del PR</a>
       <a href="#similarities">Skills similares</a>
@@ -25,16 +25,16 @@
       <a href="#catalog">Catálogo completo <span class="nav-tag">121</span></a>
       <a href="#evidence">Fuentes y cobertura</a>
     </nav>
-    <div class="sidebar-note"><span class="status-dot" aria-hidden="true"></span>Fecha del análisis<time datetime="2026-10-02">2 de octubre de 2026</time><p>Propuestas pendientes de implementación.</p><button id="print-report" class="quiet-button" type="button">Imprimir / guardar PDF</button></div>
+    <div class="sidebar-note"><span class="status-dot" aria-hidden="true"></span>Fecha del análisis<time datetime="2026-10-02">2 de octubre de 2026</time><p>Base de instrucciones creada en el repositorio; el resto del flujo sigue propuesto.</p><button id="print-report" class="quiet-button" type="button">Imprimir / guardar PDF</button></div>
   </aside>
   <main id="main">
     <header id="overview" class="hero section">
       <p class="kicker">Decisiones para tu próximo flujo de trabajo</p>
       <h1>Un coordinador.<br><span>Skills con tareas claras.</span></h1>
       <p class="lead">Crear un flujo personal pequeño inspirado en <code>poteto-mode</code>. Conservar tus skills de Git y revisión, combinar las instrucciones que se solapan y cargar cada especialidad cuando el trabajo la necesite.</p>
-      <div class="hero-actions"><a class="button primary" href="#authoring">Empezar por crear buenas skills</a><a class="button secondary" href="#catalog">Explorar todas las skills</a></div>
+      <div class="hero-actions"><a class="button primary" href="#authoring">Empezar por las instrucciones</a><a class="button secondary" href="#catalog">Explorar todas las skills</a></div>
       <dl class="scope-stats"><div><dt>Entradas externas</dt><dd>104</dd></div><div><dt>Skills personales</dt><dd>16</dd></div><div><dt>Base incluida en Codex</dt><dd>1</dd></div><div><dt>Repositorios externos</dt><dd>7</dd></div></dl>
-      <div class="notice"><strong>Qué significa esta recomendación.</strong> El análisis compara utilidad, solapamientos e instrucciones incompatibles a partir de las fuentes. Las combinaciones propuestas todavía no se han comparado mediante pruebas de comportamiento. Aquí, "mejor" significa el punto de partida más adecuado para tus reglas, pendiente de la evaluación descrita más abajo.</div>
+      <div class="notice"><strong>Qué significa esta recomendación.</strong> El análisis compara utilidad, solapamientos e instrucciones incompatibles a partir de las fuentes. La base de instrucciones cuenta con ensayos acotados; las demás combinaciones propuestas siguen pendientes de pruebas de comportamiento. Aquí, "mejor" significa el punto de partida más adecuado para tus reglas, pendiente de la evaluación descrita más abajo.</div>
     </header>
 
     <section class="section" aria-labelledby="decision-heading">
@@ -44,7 +44,7 @@
         <article class="flow-panel proposed"><h3>La composición propuesta</h3><ol><li>Tus reglas fijan alcance y autorización.</li><li><code>work-mode</code> selecciona la tarea y la siguiente fase.</li><li>Cada operación tiene un responsable; las especialidades aportan criterios pertinentes.</li><li>Cada fase devuelve evidencia y un estado de continuación.</li></ol><p class="flow-caption">Menos políticas repetidas y las ideas útiles en el lugar adecuado.</p></article>
       </div>
       <div class="recommendation-grid">
-        <article><span class="step-number">1</span><h3>Crear <code>skill-authoring</code></h3><p>Combinar estructura y alcance de Codex, escritura para agentes de Matt y evaluación de Anthropic. Probar esta base antes de crear las demás.</p></article>
+        <article><span class="step-number">1</span><h3>Escribir con <code>agent-instructions</code></h3><p>La prioridad es redactar y mejorar instrucciones para agentes. <code>workflow-to-skill</code> extrae flujos de trabajos anteriores y recurre a esa base para escribirlos.</p></article>
         <article><span class="step-number">2</span><h3>Conservar tus responsables actuales</h3><p><code>worktrunk</code>, <code>commit</code>, <code>pr</code>, <code>stacked-pr</code>, <code>github-actions</code>, <code>review-audit</code> y <code>humanize</code> ya cubren operaciones que necesitan tus políticas.</p></article>
         <article><span class="step-number">3</span><h3>Añadir la coordinación que falta</h3><p>Selección de tareas, método de depuración, verificación del repositorio y seguimiento acotado del PR. React, TypeScript, accesibilidad y rendimiento se cargan según el trabajo.</p></article>
       </div>
@@ -52,8 +52,8 @@
     </section>
 
     <section id="authoring" class="section" aria-labelledby="authoring-heading">
-      <div class="section-heading"><p class="kicker">Prioridad cero</p><h2 id="authoring-heading">Primero, definir cómo se crea una buena skill</h2><p>Nuevo punto de entrada recomendado: <code>skill-authoring</code>. Este informe define su contrato; todavía no la instala.</p></div>
-      <div class="table-wrap"><table><caption>La combinación para crear skills</caption><thead><tr><th>Fuente</th><th>Qué conservar</th><th>Qué adaptar o excluir</th></tr></thead><tbody>
+      <div class="section-heading"><p class="kicker">Prioridad cero</p><h2 id="authoring-heading">Primero, escribir buenas instrucciones para agentes</h2><p>Punto de entrada principal: <code>agent-instructions</code>, para AGENTS.md, CLAUDE.md, skills y guías. <code>workflow-to-skill</code> se ocupa de extraer flujos reutilizables. Ambas están creadas en el repositorio; no se ha verificado su instalación global.</p></div>
+      <div class="table-wrap"><table><caption>Escritura de instrucciones y extracción de flujos</caption><thead><tr><th>Fuente</th><th>Qué conservar</th><th>Qué adaptar o excluir</th></tr></thead><tbody>
         <tr><th>skill-creator incluido en Codex</th><td>Alcance concreto, descripción que distingue casos, referencias progresivas, validación de metadatos e instrucciones proporcionadas.</td><td>Usarlo como base del entorno de destino. Su validador comprueba estructura, no buenas decisiones del agente.</td></tr>
         <tr><th>Matt: writing-for-agents</th><td>Referencias condicionales, fuente única de verdad, conceptos relacionados juntos, criterios verificables de finalización y eliminación de instrucciones sobrantes.</td><td>Adaptar la invocación al entorno. Conservar controles necesarios; redactar en positivo no es una ley universal demostrada.</td></tr>
         <tr><th>Anthropic: skill-creator</th><td>Tareas realistas, comparación con una referencia, revisión de resultados, activaciones negativas, casos reservados y regresiones.</td><td>Sustituir comandos y supuestos de Claude. Medir la precisión antes de ampliar o hacer más insistente la descripción.</td></tr>
@@ -61,22 +61,28 @@
       </tbody></table></div>
       <div data-evidence="Local/skill-creator;Matt Pocock/writing-for-agents;Anthropic/skill-creator;pstack/automate-me;pstack/reflect;Matt Pocock/retro"></div>
       <div class="two-columns">
-        <article class="surface"><h3>Activación y resultado</h3><p><strong>Se activa para:</strong> crear, mejorar, comparar o validar una skill; corregir su activación o referencias. Una tarea de código que solo menciona una skill no activa su creación.</p><p><strong>Entrada:</strong> capacidad solicitada, entornos de destino, reglas existentes, casos concretos y herramientas disponibles.</p><p><strong>Salida:</strong> un <code>SKILL.md</code> pequeño, referencias útiles, registro de fuentes y adaptaciones, y evidencia de las comprobaciones pertinentes.</p><p><strong>Responsabilidad:</strong> esta skill coordina la creación y consulta al creador instalado para los mecanismos del entorno. No instala dos skills globales con el mismo nombre <code>skill-creator</code>.</p></article>
-        <article class="surface"><h3>Una estructura pequeña</h3><pre><code>skill-authoring/
+        <article class="surface"><h3>Dos responsabilidades</h3><p><strong>agent-instructions:</strong> escribir, revisar o mejorar AGENTS.md, CLAUDE.md, una skill o una guía para agentes. Puede crear instrucciones nuevas aunque nunca se hayan usado.</p><p><strong>workflow-to-skill:</strong> analizar tareas realizadas, distinguir lo reutilizable de lo específico del caso y entregar ese contrato a agent-instructions para redactar la skill.</p><p><strong>Edición proporcionada:</strong> una regla puntual se modifica en su fuente canónica; no exige crear una skill ni demostrar repetición.</p><p><strong>Resultado:</strong> el documento solicitado, su alcance y comprobaciones pertinentes. La procedencia por commit y la actualización de fuentes se conservan para las skills derivadas.</p></article>
+        <article class="surface"><h3>Una estructura pequeña</h3><pre><code>agent-instructions/
   SKILL.md
+  origin.txt
   references/
     writing.md
-    evaluation.md
+    instruction-files.md
+    skills.md
     hosts.md
-    maintenance.md
-  evals/
-    cases.json</code></pre><p>Crear una referencia solo si contiene una rama real del flujo. Una skill breve puede ocupar un único archivo. Añadir scripts únicamente para operaciones recurrentes que las herramientas existentes no resuelvan.</p></article>
+    evaluation.md
+    upstream-updates.md
+  evals/cases.json
+workflow-to-skill/
+  SKILL.md
+  origin.txt
+  evals/cases.json</code></pre><p>Crear una referencia solo si contiene una rama real del flujo. Una skill breve puede ocupar un único archivo. Añadir scripts únicamente para operaciones recurrentes que las herramientas existentes no resuelvan.</p></article>
       </div>
       <ol class="phase-list">
         <li><h3>Definir el contrato</h3><p>Especificar qué cambia para el usuario, cuándo se activa, qué puede modificar, quién es responsable de cada operación y cuándo termina. Consultar conversación y repositorio antes de preguntar.</p><p class="criterion">Termina cuando los ejemplos positivos y los casos parecidos que deben excluirse tienen un responsable claro.</p></li>
-        <li><h3>Escribir el flujo mínimo útil</h3><p>Mantener los pasos esenciales en el archivo principal y el detalle condicional tras una referencia con un disparador preciso. Consultar commit, pr y worktrunk sin repetir sus políticas.</p><p class="criterion">Cada párrafo debe cambiar una decisión o proteger una invariancia concreta.</p></li>
+        <li><h3>Escribir el flujo mínimo útil</h3><p>Editar la fuente canónica de AGENTS.md o CLAUDE.md, o redactar la skill solicitada. Mantener el detalle condicional tras una referencia con un disparador preciso. Consultar commit, pr y worktrunk sin repetir sus políticas.</p><p class="criterion">Cada párrafo debe cambiar una decisión o proteger una invariancia concreta.</p></li>
         <li><h3>Validar estructura y dependencias</h3><p>Comprobar metadatos, rutas, referencias, herramientas, invocación y colisiones de nombres. Registrar versiones de las fuentes y motivos de adaptación.</p><p class="criterion">Un agente nuevo debe poder encontrar todos los recursos necesarios en el entorno de destino.</p></li>
-        <li><h3>Comparar el comportamiento</h3><p>Usar tareas realistas, el mismo estado del repositorio, modelo y herramientas. Comparar sin skill cuando sea una capacidad nueva, o contra la versión anterior cuando sea una mejora. Usar ejecuciones independientes cuando estén disponibles y autorizadas.</p><p class="criterion">Observar el resultado previsto sin trabajo no autorizado, regresiones nuevas ni costes adicionales sin explicación.</p></li>
+        <li><h3>Comparar el comportamiento</h3><p>Para cambios sustanciales, usar tareas realistas con el mismo estado del repositorio, modelo y herramientas. En una corrección de redacción, comprobar la fidelidad al significado. Comparar sin skill cuando sea una capacidad nueva, o contra la versión anterior cuando sea una mejora. Usar ejecuciones independientes cuando estén disponibles y autorizadas.</p><p class="criterion">Observar el resultado previsto sin trabajo no autorizado, regresiones nuevas ni costes adicionales sin explicación.</p></li>
         <li><h3>Probar activación, revisar y mantener</h3><p>Incluir peticiones positivas y negativas difíciles, especialmente las que puedan activar otras skills. Reservar casos que no se utilicen durante la edición. Repetir resultados variables y declarar límites.</p><p class="criterion">Adoptar el cambio solo con evidencia suficiente y repetir los casos pertinentes tras futuras modificaciones.</p></li>
       </ol>
       <details class="technical"><summary>Casos concretos para evaluar la creación de skills</summary><div class="table-wrap"><table><thead><tr><th>Caso</th><th>Resultado observable</th></tr></thead><tbody>
@@ -168,7 +174,7 @@
         <tr><th>draft-review y skills de dominios personales</th><td>Borradores de revisión, Home Assistant, lectura de X y conocimiento personal.</td><td>Conservar activaciones independientes. No son fases obligatorias de desarrollo.</td></tr>
       </tbody></table></div>
       <div data-evidence="Local/pr;Local/commit;Local/worktrunk;Local/stacked-pr;Local/review-audit;Local/github-actions;Local/humanize;Local/walkthrough;Local/visual-change-explainer;Local/daily-meeting-update;Local/draft-review"></div>
-      <div class="roadmap"><h3>Orden de creación después de este análisis</h3><ol><li><strong>Base de creación.</strong> Crear y evaluar skill-authoring.</li><li><strong>Alinear responsables actuales.</strong> Corregir permisos, retorno al coordinador, base del diff y adaptadores del entorno.</li><li><strong>Entrega local.</strong> Crear work-mode y debug; probar la receta de verificación de un repositorio.</li><li><strong>Seguimiento del PR.</strong> Añadir el ciclo acotado y evaluar hallazgos reales y falsos positivos.</li><li><strong>Especialidades.</strong> Incorporar React y composición de Vercel, pruebas y accesibilidad seleccionadas; actualizar la guía de animación.</li><li><strong>Solo ante necesidad medida.</strong> Coordinación en la nube, competición entre agentes o mantenimiento programado.</li></ol></div>
+      <div class="roadmap"><h3>Orden de creación después de este análisis</h3><ol><li><strong>Base de instrucciones.</strong> Usar agent-instructions para redactar; recurrir a workflow-to-skill al extraer flujos de tareas anteriores.</li><li><strong>Alinear responsables actuales.</strong> Corregir permisos, retorno al coordinador, base del diff y adaptadores del entorno.</li><li><strong>Entrega local.</strong> Crear work-mode y debug; probar la receta de verificación de un repositorio.</li><li><strong>Seguimiento del PR.</strong> Añadir el ciclo acotado y evaluar hallazgos reales y falsos positivos.</li><li><strong>Especialidades.</strong> Incorporar React y composición de Vercel, pruebas y accesibilidad seleccionadas; actualizar la guía de animación.</li><li><strong>Solo ante necesidad medida.</strong> Coordinación en la nube, competición entre agentes o mantenimiento programado.</li></ol></div>
     </section>
 
     <section id="catalog" class="section" aria-labelledby="catalog-heading">
