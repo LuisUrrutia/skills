@@ -1,6 +1,6 @@
 {
   "date": "2026-10-02",
-  "upstreamCount": 104,
+  "upstreamCount": 105,
   "personalCount": 16,
   "systemCount": 1,
   "repositories": [
@@ -25,7 +25,7 @@
     {
       "repo": "cursor/plugins",
       "sha": "c47b12849e43f18d5c374c7069c744cc55b0ea00",
-      "count": 57,
+      "count": 58,
       "url": "https://github.com/cursor/plugins/tree/c47b12849e43f18d5c374c7069c744cc55b0ea00"
     },
     {
@@ -140,6 +140,18 @@
       "label": "Protocolo local de auditoría de código",
       "path": "~/.agents/skills/review-audit/references/protocol.md",
       "sha256": "6eba8b3b12585c29dc6dbdefe2aa391c44f11afda53d86172b006d45c0805e09"
+    },
+    {
+      "id": "matt-prototype-logic",
+      "label": "Matt Pocock / prototype / LOGIC.md",
+      "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/engineering/prototype/LOGIC.md",
+      "sha256": "f61c7d249e786a79ef289018901c348271e1798dd0b0bc5607b5c6f4d4a01ab9"
+    },
+    {
+      "id": "matt-prototype-ui",
+      "label": "Matt Pocock / prototype / UI.md",
+      "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/engineering/prototype/UI.md",
+      "sha256": "723211e878acbc7b6ff09755263f3295cde724ba902ff0064da41eed51d45ad3"
     }
   ],
   "skills": [
@@ -178,7 +190,7 @@
       "lines": 114,
       "category": "Arquitectura",
       "decision": "Blend",
-      "owner": "referencia de diseño",
+      "owner": "architecture",
       "summary": "Define módulos con interfaces pequeñas, límites públicos para pruebas y criterios para colocar dependencias.",
       "reason": "Combinar sus preguntas sobre interfaces con los principios de dominio y límites de pstack.",
       "caution": "No imponer su vocabulario particular cuando el repositorio ya utiliza términos precisos del dominio."
@@ -317,11 +329,11 @@
       "sha256": "714de632d116bb73f65cdb5a882db15b9369a6713b9a47c0fad827848f0bfbe3",
       "lines": 26,
       "category": "Planificación",
-      "decision": "Optional",
-      "owner": "prototype",
+      "decision": "Blend",
+      "owner": "prototype (skill independiente propuesta)",
       "summary": "Construye una demostración desechable de lógica y estado, o variantes de interfaz, para responder a una duda de diseño.",
-      "reason": "Usarla cuando un experimento barato pueda resolver una incertidumbre antes de implementar.",
-      "caution": "Adaptar las rutas temporales y la conservación de resultados. Un prototipo no verifica producción ni autoriza ramas adicionales."
+      "reason": "Preferir sus demos de estado y variantes dentro de la aplicación; combinarlas con el experimento aislado y la evidencia de pstack en una derivación pequeña.",
+      "caution": "Adaptar ubicación temporal, CSS y conservación. Separar la decisión de implementar código real, crear ramas o actualizar issues; verificar el código que se reutilice antes de producción."
     },
     {
       "id": "matt-pocock-research",
@@ -618,7 +630,7 @@
       "lines": 22,
       "category": "Revisión de código",
       "decision": "Blend",
-      "owner": "referencia de limpieza de código",
+      "owner": "deslop (adaptada)",
       "summary": "Elimina del diff comentarios redundantes nuevos, defensas sin fundamento, escapes de tipos y estilos incoherentes.",
       "reason": "Usarla como limpieza acotada antes de commit.",
       "caution": "Resolver la base real en lugar de asumir main. Demostrar la invariancia antes de eliminar una validación o un catch."
@@ -758,7 +770,7 @@
       "lines": 83,
       "category": "Arquitectura",
       "decision": "Optional",
-      "owner": "referencia de diseño",
+      "owner": "architecture",
       "summary": "Investiga el problema, compara diseños tipados y ajusta el diseño cuando la implementación lo contradice.",
       "reason": "Tomar sus alternativas para decisiones importantes sobre interfaces.",
       "caution": "La competición entre modelos y los commits de estructura inicial son excesivos para cada límite entre funciones. Ajustar el esfuerzo al problema."
@@ -838,7 +850,7 @@
       "lines": 44,
       "category": "Verificación",
       "decision": "Blend",
-      "owner": "creación de verificación",
+      "owner": "verification-authoring",
       "summary": "Genera instrucciones del repositorio para arrancar, comprobar salud, interactuar, recoger evidencia y limpiar; luego ejecuta un recorrido.",
       "reason": "Mejor base para una capacidad verify-<repo> con comandos y resultados observables.",
       "caution": "Usar tus rutas de skills y las herramientas del navegador activo. No crear otro sistema de pruebas si el existente ya sirve."
@@ -918,9 +930,9 @@
       "lines": 39,
       "category": "Verificación",
       "decision": "Blend",
-      "owner": "mantenimiento de verificación",
+      "owner": "verification-authoring",
       "summary": "Compara el mapa de verificación con el código y el comportamiento real, y corrige sus propias instrucciones o herramientas.",
-      "reason": "Integrarla como modo de mantenimiento de la misma skill de verificación.",
+      "reason": "Incorporar su revisión de recetas en verification-authoring, separada de la ejecución de verify.",
       "caution": "Una regresión del producto debe seguir siendo un hallazgo; no redefinirla como comportamiento esperado en la documentación."
     },
     {
@@ -962,6 +974,32 @@
       "summary": "Selecciona procedimientos para investigar, implementar, depurar, medir rendimiento, verificar, crear PR y hacer seguimiento.",
       "reason": "Usar su selección de rutas y sus fases basadas en evidencia como modelo del coordinador.",
       "caution": "Sustituir herramientas de Cursor, modelos prefijados, worktrees obligatorios, PR siempre listos, autoridad sobre acciones externas y delegación generalizada."
+    },
+    {
+      "id": "pstack-prototype",
+      "key": "pstack/prototype",
+      "name": "prototype",
+      "declaredName": "Prototype",
+      "group": "pstack",
+      "author": "Lauren Tan",
+      "kind": "upstream",
+      "entryType": "playbook",
+      "path": "pstack/skills/poteto-mode/playbooks/prototype.md",
+      "source": "https://github.com/cursor/plugins/blob/c47b12849e43f18d5c374c7069c744cc55b0ea00/pstack/skills/poteto-mode/playbooks/prototype.md",
+      "sha": "c47b12849e43f18d5c374c7069c744cc55b0ea00",
+      "sha256": "7aa1f52c691c3d46d5afc527b23f90977fce869ce33573c73c81a4c7f0cde962",
+      "lines": 14,
+      "category": "Planificación",
+      "decision": "Blend",
+      "owner": "prototype (skill independiente propuesta)",
+      "summary": "Procedimiento de poteto-mode para resolver una decisión mediante un experimento desechable y aislado, visual o de comportamiento.",
+      "reason": "Combinar su alcance pequeño, observación, alternativas y recomendación con las demos de estado y variantes de interfaz de Matt.",
+      "caution": "No es una skill instalable por separado. Extraer sus criterios sin depender de poteto-mode, de sus herramientas de control ni del paso a Feature; adaptar las reglas absolutas sobre frameworks y pruebas.",
+      "sourceCheck": {
+        "observedHead": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+        "unchangedFromPinnedCommit": true,
+        "date": "2026-10-02"
+      }
     },
     {
       "id": "pstack-principle-attack-the-premise",
@@ -1578,7 +1616,7 @@
       "lines": 31,
       "category": "TypeScript",
       "decision": "Adapt first",
-      "owner": "referencia de TypeScript",
+      "owner": "typescript-best-practices (adaptada)",
       "summary": "Aplica uniones discriminadas, inferencia de esquemas, exhaustividad, límites validados y tipos precisos.",
       "reason": "Complemento compacto tras inspeccionar las convenciones y el compilador del repositorio.",
       "caution": "Matizar las reglas universales sobre argumentos objeto y conversiones; conservar aserciones justificadas y convenciones existentes."
@@ -2118,7 +2156,7 @@
       "lines": 377,
       "category": "Arquitectura",
       "decision": "Blend",
-      "owner": "referencia de límites de error",
+      "owner": "error-handling (adaptada)",
       "summary": "Ofrece errores tipados, resultados explícitos, límites de error, reintentos y mensajes separados para usuarios y desarrolladores.",
       "reason": "Cargarla al cambiar un límite de error o un contrato de reintentos.",
       "caution": "No imponer AppError ni su formato JSON a todos los proyectos. Registrar no siempre basta; reintentar exige controlar efectos duplicados."

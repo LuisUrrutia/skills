@@ -27,6 +27,17 @@ const clusters = [
     "why": "Elegir instalación, capa de invocación, derivación o creación según el encaje. workflow-to-skill conserva una extracción pequeña y delega la escritura a agent-instructions. Crear instrucciones no exige repetición."
   },
   {
+    "title": "Prototipos para decidir",
+    "winner": "Una skill prototype independiente",
+    "keys": [
+      "Matt Pocock/prototype",
+      "pstack/prototype",
+      "pstack/principle-exhaust-the-design-space"
+    ],
+    "text": "Matt ofrece una skill con demos de lógica y variantes de interfaz en contexto. pstack ofrece un procedimiento dentro de poteto-mode, orientado al experimento aislado y la evidencia observada.",
+    "why": "Derivar una entrada pequeña con las modalidades de Matt y la observación de pstack. Debe terminar en el experimento y la decisión, sin necesitar work-mode ni arrancar implementación o publicación."
+  },
+  {
     "title": "Implementación completa",
     "winner": "work-mode, después de elegir las demás skills",
     "keys": [
@@ -70,7 +81,7 @@ const clusters = [
   },
   {
     "title": "Arquitectura y modelado de dominio",
-    "winner": "Una referencia de diseño",
+    "winner": "architecture, invocable por separado",
     "keys": [
       "Matt Pocock/codebase-design",
       "Matt Pocock/domain-modeling",
@@ -111,7 +122,7 @@ const clusters = [
   },
   {
     "title": "Comentarios y limpieza de código",
-    "winner": "Una referencia deslop moderada",
+    "winner": "deslop independiente y acotada",
     "keys": [
       "Cursor team/deslop",
       "pstack/no-comments",
@@ -188,7 +199,7 @@ const clusters = [
   },
   {
     "title": "Verificación en ejecución",
-    "winner": "Una capacidad verify del repositorio",
+    "winner": "verify y verification-authoring, tareas distintas",
     "keys": [
       "pstack/create-verification-skill",
       "pstack/maintain-verification-skill",
@@ -197,7 +208,7 @@ const clusters = [
       "ECC/react-testing"
     ],
     "text": "pstack enseña a arrancar y utilizar esta aplicación concreta. Addy explica qué observar en el navegador; ECC, cómo implementar pruebas duraderas. El mantenimiento comprueba que la receta siga coincidiendo con la realidad.",
-    "why": "Una receta por repositorio que use comandos existentes y herramientas del entorno. Añadir infraestructura de pruebas solo para una carencia concreta."
+    "why": "verify ejecuta la receta y devuelve evidencia. verification-authoring crea o mantiene esa receta con agent-instructions. Ambas se pueden pedir directamente; añadir infraestructura de pruebas solo para una carencia concreta."
   },
   {
     "title": "Reflexión, memoria y transferencia",
@@ -618,7 +629,7 @@ document.querySelector("#cluster-list").innerHTML = clusters.map((cluster) => `<
 
 document.querySelector("#conflict-list").innerHTML = conflicts.map((conflict, index) => `<details class="conflict" ${index < 3 ? "open" : ""}><summary><h3>${escapeHtml(conflict.title)}</h3><span class="badge ${slug(conflict.kind)}">${escapeHtml(kindLabels[conflict.kind])}</span></summary><div><p><strong>Qué pide la fuente.</strong> ${escapeHtml(conflict.before)}</p><p class="resolution"><strong>Resolución recomendada.</strong> ${escapeHtml(conflict.after)}</p>${evidenceMarkup(conflict.keys)}</div></details>`).join("");
 
-document.querySelector("#skill-list").innerHTML = atlas.skills.map((skill) => `<details class="skill-row" id="${skill.id}"><summary><span><span class="skill-title">${escapeHtml(skill.name)}</span><span class="skill-meta">${escapeHtml(skill.group === "Local" ? skill.kind === "system" ? "Incluida en Codex" : "Tus skills" : groupLabels[skill.group] || skill.group)} · ${escapeHtml(skill.category)}</span></span><span class="badge ${slug(skill.decision)}">${escapeHtml(decisionLabels[skill.decision])}</span></summary><div class="skill-body"><p>${escapeHtml(skill.summary)}</p><p class="skill-owner">Responsable propuesto: <strong>${escapeHtml(skill.owner)}</strong></p><dl><div><dt>Por qué incluirla o elegirla</dt><dd>${escapeHtml(skill.reason)}</dd></div><div><dt>Qué adaptar o tener en cuenta</dt><dd>${escapeHtml(skill.caution)}</dd></div></dl><p class="skill-meta">${escapeHtml(skill.author)}. Nombre declarado: <code>${escapeHtml(skill.declaredName)}</code>. ${skill.lines} líneas en la fuente.</p>${evidenceMarkup([skill.key])}</div></details>`).join("");
+document.querySelector("#skill-list").innerHTML = atlas.skills.map((skill) => `<details class="skill-row" id="${skill.id}"><summary><span><span class="skill-title">${escapeHtml(skill.name)}</span><span class="skill-meta">${escapeHtml(skill.group === "Local" ? skill.kind === "system" ? "Incluida en Codex" : "Tus skills" : groupLabels[skill.group] || skill.group)} · ${escapeHtml(skill.category)}${skill.entryType === "playbook" ? " · Procedimiento de poteto-mode" : ""}</span></span><span class="badge ${slug(skill.decision)}">${escapeHtml(decisionLabels[skill.decision])}</span></summary><div class="skill-body"><p>${escapeHtml(skill.summary)}</p><p class="skill-owner">Responsable propuesto: <strong>${escapeHtml(skill.owner)}</strong></p><dl><div><dt>Por qué incluirla o elegirla</dt><dd>${escapeHtml(skill.reason)}</dd></div><div><dt>Qué adaptar o tener en cuenta</dt><dd>${escapeHtml(skill.caution)}</dd></div></dl><p class="skill-meta">${escapeHtml(skill.author)}. ${skill.entryType === "playbook" ? "Título del procedimiento" : "Nombre declarado"}: <code>${escapeHtml(skill.declaredName)}</code>. ${skill.lines} líneas en la fuente.</p>${evidenceMarkup([skill.key])}</div></details>`).join("");
 
 document.querySelector("#repository-sources").innerHTML = atlas.repositories.map((repository) => `<article class="repo-source"><strong>${escapeHtml(repository.repo)}</strong><span>${repository.count} entradas revisadas</span><a href="${escapeHtml(repository.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(repository.url)}</a></article>`).join("");
 document.querySelector("#additional-sources").innerHTML = `<ul class="evidence">${atlas.supplementary.map((source) => sourceMarkup(source.id)).join("")}</ul><h3>Fuentes locales e incluidas</h3><ul class="evidence">${atlas.skills.filter((skill) => skill.kind !== "upstream" && !skill.source).map((skill) => sourceMarkup(skill.key)).join("")}</ul>`;
