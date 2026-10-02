@@ -28,7 +28,7 @@ const clusters = [
   },
   {
     "title": "Implementación completa",
-    "winner": "Un coordinador work-mode pequeño",
+    "winner": "work-mode, después de elegir las demás skills",
     "keys": [
       "pstack/poteto-mode",
       "pstack/figure-it-out",
@@ -37,7 +37,7 @@ const clusters = [
       "orchestrate/orchestrate"
     ],
     "text": "poteto-mode ofrece la selección de tareas más amplia. implement es deliberadamente breve. implement-spec ejecuta un grafo de tareas y orchestrate gestiona un programa en la nube de Cursor; ambos resuelven problemas mayores que una funcionalidad corriente.",
-    "why": "Tomar procedimientos de poteto y la sencillez de implement. Escalar a grafos o coordinación en la nube solo cuando lo justifique el alcance."
+    "why": "Diseñarlo al final, sobre las skills que hayamos elegido y verificado. Tomar procedimientos de poteto y la sencillez de implement. Escalar a grafos o coordinación en la nube solo cuando lo justifique el alcance."
   },
   {
     "title": "Entender y depurar",
@@ -722,16 +722,17 @@ window.addEventListener("afterprint", () => { printState.forEach(([details, open
 document.querySelector("#print-report").addEventListener("click", () => window.print());
 
 const navLinks = [...document.querySelectorAll("nav a")];
-const sectionObserver = new IntersectionObserver((entries) => {
-  const visible = entries.filter((entry) => entry.isIntersecting).sort((a, b) => a.boundingClientRect.top - b.boundingClientRect.top);
-  if (!visible.length) return;
-  const hash = `#${visible[0].target.id}`;
+const sections = [...document.querySelectorAll("main .section[id]")];
+const sectionObserver = new IntersectionObserver(() => {
+  const current = sections.findLast((section) => section.getBoundingClientRect().top <= innerHeight * .35);
+  if (!current) return;
+  const hash = `#${current.id}`;
   navLinks.forEach((link) => {
     if (link.hash === hash) link.setAttribute("aria-current", "location");
     else link.removeAttribute("aria-current");
   });
 }, { rootMargin: "0px 0px -65% 0px", threshold: 0 });
-document.querySelectorAll("main .section[id]").forEach((section) => sectionObserver.observe(section));
+sections.forEach((section) => sectionObserver.observe(section));
 
 readFiltersFromUrl();
 renderScenario();

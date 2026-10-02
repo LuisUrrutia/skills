@@ -65,6 +65,11 @@ main { margin-left: 250px; max-width: 1600px; }
 .section-heading { max-width: 900px; margin-bottom: 28px; }
 .section-heading > p:not(.kicker) { color: var(--muted); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 29px 0 34px; }
+.reading-order { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 20px; padding: 0; list-style: none; margin: 28px 0; }
+.reading-order li { margin: 0; }
+.reading-order a { display: flex; align-items: center; gap: 10px; padding: 10px 0; font-size: .9rem; font-weight: 600; text-decoration: none; }
+.reading-order a:hover { text-decoration: underline; }
+.reading-order span { display: grid; place-items: center; flex: 0 0 28px; height: 28px; border: 1px solid #bdaee0; border-radius: 50%; font-size: .75rem; }
 .button { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 10px 17px; border: 1px solid transparent; border-radius: 7px; font-weight: 630; text-decoration: none; font-size: .88rem; line-height: 1.5; }
 .primary { background: var(--accent); color: white; }
 .primary:hover { background: #4b329f; color: white; }
@@ -86,16 +91,13 @@ main { margin-left: 250px; max-width: 1600px; }
 .proposed h3 { color: var(--green); }
 .flow-panel li { padding: 8px 0 8px 5px; font-size: .93rem; }
 .flow-caption { font-size: .78rem; margin: 18px 0 0; color: var(--muted); }
-.recommendation-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; margin: 40px 0 25px; }
-.recommendation-grid article { padding-top: 18px; border-top: 2px solid #c7b7e8; }
-.recommendation-grid p { font-size: .92rem; }
-.step-number { display: inline-block; margin-bottom: 15px; color: var(--accent); font-weight: 720; font-size: .82rem; }
 .table-wrap { overflow-x: auto; margin: 25px 0; border: 1px solid var(--line); border-radius: 10px; background: white; }
 table { width: 100%; border-collapse: collapse; font-size: .86rem; text-align: left; }
 caption { padding: 17px 20px; text-align: left; font-weight: 680; background: #fff; }
 th, td { padding: 17px 20px; vertical-align: top; border-bottom: 1px solid var(--line); }
 thead th { background: #eeeef5; color: #4e4a63; font-size: .77rem; }
 tbody th { min-width: 160px; width: 22%; font-weight: 660; }
+tbody th a { display: inline-block; overflow-wrap: anywhere; }
 tbody td { min-width: 230px; }
 tbody tr:last-child > * { border-bottom: 0; }
 .phase-list { list-style: none; counter-reset: phase; padding: 0; margin: 36px 0; }
@@ -157,8 +159,6 @@ input, select { min-height: 43px; border: 1px solid #c8c7d7; border-radius: 6px;
 .conflict > div { padding: 22px 0 0 26px; }
 .conflict p { font-size: .9rem; }
 .resolution { color: #255d49; }
-.roadmap { background: #efedf6; border-radius: 12px; padding: 29px 32px; margin-top: 36px; }
-.roadmap li { padding: 7px 0; font-size: .91rem; }
 .filters { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; padding: 23px; background: #eeeaf7; border: 1px solid #d8cee9; border-radius: 12px; }
 .search-field { grid-column: 1 / -1; }
 .filters select { width: 100%; }
@@ -206,7 +206,6 @@ footer p { max-width: 800px; }
   .section { padding: 52px 32px; }
   .two-columns, .before-after { gap: 16px; }
   .surface, .flow-panel { padding: 22px; }
-  .recommendation-grid { gap: 18px; }
   .ownership-map div { grid-template-columns: 160px 1fr; }
 }
 @media (max-width: 820px) {
@@ -230,11 +229,9 @@ footer p { max-width: 800px; }
   .hero { padding-top: 42px; }
   nav { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .hero-actions { flex-direction: column; }
+  .reading-order { grid-template-columns: 1fr; gap: 2px; }
   .scope-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
-  .recommendation-grid, .scenario-stages, .mode-row { grid-template-columns: 1fr; gap: 15px; }
-  .recommendation-grid { margin-top: 28px; }
-  .recommendation-grid article { padding-top: 12px; }
-  .step-number { margin-bottom: 8px; }
+  .scenario-stages, .mode-row { grid-template-columns: 1fr; gap: 15px; }
   .ownership-map div { grid-template-columns: 1fr; gap: 5px; padding: 16px 18px; }
   .phase-list > li { padding-left: 33px; }
   .filters { grid-template-columns: 1fr; padding: 18px; }
@@ -247,7 +244,6 @@ footer p { max-width: 800px; }
   .cluster-header { flex-direction: column; gap: 0; }
   .conflict { padding: 20px 18px; }
   .technical { padding: 17px; }
-  .roadmap { padding: 24px; }
   .followup-path { gap: 7px; padding: 13px; }
   .followup-path span { width: 100%; }
 }
