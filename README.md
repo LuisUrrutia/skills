@@ -150,6 +150,21 @@ concrete software change. Use it directly for a decision or during authorized im
 - Revisits a design when repeated implementation friction exposes a wrong assumption
 - Records pstack and Matt Pocock sources with conditional upstream maintenance
 
+### simplify-code
+
+Simplify changed code through focused edits that preserve behavior. Use it
+directly for cleanup or as a bounded step in an implementation task.
+
+**Triggers:** `simplify this change`, `clean up this diff`, `remove unnecessary complexity`
+
+**Features:**
+
+- Resolves the actual change scope and base, preserving unrelated work and staging
+- Removes redundant comments, type escapes, nesting, and indirection when evidence supports it
+- Preserves necessary guards, error handling, resource lifetime, contracts, and explanations
+- Respects review-only requests and separates cleanup from behavior-changing bug fixes
+- Uses why and verify conditionally, with pinned Cursor and pstack provenance
+
 ### verification-authoring
 
 Create and maintain project-local `verify-<app>` skills that another agent can

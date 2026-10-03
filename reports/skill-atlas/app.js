@@ -129,7 +129,7 @@ const clusters = [
   },
   {
     "title": "Comentarios y limpieza de código",
-    "winner": "deslop independiente y acotada",
+    "winner": "simplify-code, creada e independiente",
     "keys": [
       "Cursor team/deslop",
       "pstack/no-comments",
@@ -137,7 +137,7 @@ const clusters = [
       "pstack/principle-subtract-before-you-add"
     ],
     "text": "deslop limpia el diff de forma concreta. no-comments impone una política más fuerte, con agente dedicado, reglas de borrado, reparación arquitectónica y codificación de restricciones.",
-    "why": "Eliminar narración redundante e incoherencias nuevas. Conservar motivos, invariancias, avisos legales, restricciones externas y supresiones justificadas hasta resolver su necesidad."
+    "why": "simplify-code resuelve el diff real, simplifica con evidencia y comprueba el resultado. Conserva motivos, invariantes, errores y recursos; una petición de limpieza no autoriza cambiar el contrato."
   },
   {
     "title": "Calidad de la prosa",
@@ -372,7 +372,7 @@ const conflicts = [
     "title": "La limpieza puede borrar un motivo importante",
     "kind": "Policy",
     "before": "no-comments puede borrar un comentario de restricción ambiguo y dejar la restricción sin aplicación, señalada como pendiente. Tu política conserva motivos no evidentes, invariancias, restricciones externas y particularidades importantes.",
-    "after": "Usar la limpieza acotada de deslop. Confirmar por qué existe el comentario antes de quitarlo, codificar la invariancia si procede y conservar la explicación cuando el código no la expresa.",
+    "after": "Usar simplify-code. Confirmar la necesidad actual de la restricción, codificarla cuando encaje en el alcance y conservar la explicación que el código no expresa. La duda no autoriza el borrado.",
     "keys": [
       "pstack/no-comments#L19-L24",
       "Cursor team/deslop#L10-L21"

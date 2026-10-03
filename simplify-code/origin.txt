@@ -1,0 +1,52 @@
+format_version = 1
+skill = "simplify-code"
+created = "2026-10-03"
+approach = "Derive: Cursor supplies focused cleanup; scope, equivalence, validation and selected pstack comment criteria need local rules rather than a wrapper around conflicting behavior."
+
+[[sources]]
+id = "cursor-deslop"
+author = "Cursor Team Kit"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+baseline_paths = ["cursor-team-kit/skills/deslop/SKILL.md", "cursor-team-kit/LICENSE"]
+paths = ["cursor-team-kit/skills/deslop/SKILL.md", "cursor-team-kit/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Clean changed code through small edits to comments, defenses, type escapes, nesting and local style."]
+local_choices = ["Resolve the actual caller scope and base, including only relevant uncommitted work.", "Preserve behavior; bug fixes require existing task authority and distinct verification.", "Require evidence for removing checks and catches, and preserve async and resource-lifetime contracts."]
+reviews = []
+
+[[sources]]
+id = "pstack-comments"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+baseline_paths = ["pstack/skills/no-comments/SKILL.md", "pstack/agents/comment-sicko.md", "pstack/LICENSE"]
+paths = ["pstack/skills/no-comments/SKILL.md", "pstack/agents/comment-sicko.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Inspect comments against surrounding code and trace consequential constraints.", "Distinguish narration from public contracts, external gotchas, legal notices and tooling directives; prefer a scoped code encoding where it preserves the constraint."]
+local_choices = ["Keep necessary internal invariants and uncertain constraints; do not delete because an exception is unproven.", "No mandatory Comment Sicko, architect call, deletion quota or approval ritual for routine authorized cleanup.", "Inspect suppression meaning; remove only when its underlying reason is resolved and checks still pass."]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "why"
+required = false
+role = "Optional historical rationale for a consequential unclear constraint; direct investigation remains available."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Conditional application verification through the project recipe when needed."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested skill authoring or source maintenance."

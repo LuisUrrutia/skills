@@ -470,6 +470,36 @@
       "label": "Matt Pocock / LICENSE",
       "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/LICENSE",
       "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+    },
+    {
+      "id": "simplify-cursor-source",
+      "label": "Cursor Team Kit / deslop",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/cursor-team-kit/skills/deslop/SKILL.md",
+      "sha256": "2f7b7def74af7ed11f5b44b4d32f0f91fca8c5d1f92bf2171e8d12fd33a0f810"
+    },
+    {
+      "id": "simplify-cursor-license",
+      "label": "Cursor Team Kit / MIT",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/cursor-team-kit/LICENSE",
+      "sha256": "702f5f331b56aff0e33d8c7826df5202559f894145eb70355c6477b55b5bb8a0"
+    },
+    {
+      "id": "simplify-pstack-comments",
+      "label": "pstack / no-comments",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/no-comments/SKILL.md",
+      "sha256": "5c5b0882297d704c3a9720c52b7a793c68b013eaf717989f0945624efdfe2b05"
+    },
+    {
+      "id": "simplify-pstack-reviewer",
+      "label": "pstack / Comment Sicko",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/agents/comment-sicko.md",
+      "sha256": "c0fd0383008da45fc78cfac17b9007d62c42f87ad1c8d5c2fb658b1fd01f7c82"
+    },
+    {
+      "id": "simplify-pstack-license",
+      "label": "pstack / MIT",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/LICENSE",
+      "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
     }
   ],
   "skills": [
@@ -948,10 +978,10 @@
       "lines": 22,
       "category": "Revisión de código",
       "decision": "Blend",
-      "owner": "deslop (adaptada)",
+      "owner": "simplify-code (creada)",
       "summary": "Elimina del diff comentarios redundantes nuevos, defensas sin fundamento, escapes de tipos y estilos incoherentes.",
-      "reason": "Usarla como limpieza acotada antes de commit.",
-      "caution": "Resolver la base real en lugar de asumir main. Demostrar la invariancia antes de eliminar una validación o un catch."
+      "reason": "Derivación creada para limpiar el cambio real, con comprobación de equivalencia y preservación del trabajo ajeno.",
+      "caution": "No asumir main ni confundir tracking con base. Conservar validaciones, catches, await y comentarios cuando mantienen un contrato; reparar bugs solo bajo el alcance autorizado."
     },
     {
       "id": "cursor-team-fix-merge-conflicts",
@@ -1267,11 +1297,11 @@
       "sha256": "5c5b0882297d704c3a9720c52b7a793c68b013eaf717989f0945624efdfe2b05",
       "lines": 24,
       "category": "Revisión de código",
-      "decision": "Adapt first",
-      "owner": "referencia de limpieza de código",
+      "decision": "Blend",
+      "owner": "simplify-code (criterios selectivos)",
       "summary": "Delega la auditoría de comentarios y aplica correcciones acotadas o controles estructurales.",
-      "reason": "Tomar solo la distinción entre narración redundante y motivos no evidentes que merece la pena conservar.",
-      "caution": "La fuente puede borrar comentarios de restricciones ambiguas y dejar la restricción sin aplicar. Esa política contradice tu conservación del porqué."
+      "reason": "Aporta inspección de comentarios y restricciones; simplify-code conserva motivos útiles, invariantes y directivas necesarias.",
+      "caution": "Se excluyen el borrado ante la duda, el agente obligatorio y el rediseño automático. Un comentario ambiguo no demuestra que la restricción sea prescindible."
     },
     {
       "id": "pstack-poteto-mode",
