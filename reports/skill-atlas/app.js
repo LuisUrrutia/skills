@@ -1,6 +1,8 @@
 "use strict";
 
 const atlas = window.SKILL_ATLAS;
+const repositoryInventory = atlas.repositoryInventory;
+const repositorySkills = new Map(repositoryInventory.skills.map((skill) => [skill.name, skill]));
 const byKey = new Map(atlas.skills.map((skill) => [skill.key, skill]));
 const byId = new Map(atlas.skills.map((skill) => [skill.id, skill]));
 const supplements = new Map(atlas.supplementary.map((source) => [source.id, source]));
@@ -8,13 +10,13 @@ const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => (
 const slug = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 const decisionLabels = { Keep: "Conservar", Adopt: "Adoptar", Blend: "Combinar", Optional: "Opcional", "Adapt first": "Adaptar primero", Skip: "No añadir" };
 const kindLabels = { Policy: "Política", Duplicate: "Duplicado", Runtime: "Entorno", Correction: "Corrección" };
-const groupLabels = { Local: "Tus skills", "Cursor team": "Equipo de Cursor" };
+const groupLabels = { Local: "Original local snapshots", "Cursor team": "Equipo de Cursor" };
 const normalizedSearch = (value) => value.toLocaleLowerCase("es").normalize("NFD").replace(/\p{Diacritic}/gu, "");
 
 const clusters = [
   {
     "title": "Escribir instrucciones y extraer flujos",
-    "winner": "agent-instructions y workflow-to-skill",
+    "winner": "agent-instructions, create-project-instructions and workflow-to-skill",
     "keys": [
       "Local/skill-creator",
       "Matt Pocock/writing-for-agents",
@@ -28,14 +30,14 @@ const clusters = [
   },
   {
     "title": "Prototipos para decidir",
-    "winner": "Una skill prototype independiente",
+    "winner": "prototype: created, with an independent entrypoint",
     "keys": [
       "Matt Pocock/prototype",
       "pstack/prototype",
       "pstack/principle-exhaust-the-design-space"
     ],
     "text": "Matt ofrece una skill con demos de lógica y variantes de interfaz en contexto. pstack ofrece un procedimiento dentro de poteto-mode, orientado al experimento aislado y la evidencia observada.",
-    "why": "Derivar una entrada pequeña con las modalidades de Matt y la observación de pstack. Debe terminar en el experimento y la decisión, sin necesitar work-mode ni arrancar implementación o publicación."
+    "why": "The repository skill combines Matt's experiment formats with pstack's observed evidence. It ends with an experiment and a decision; implementation and publication keep their own scope."
   },
   {
     "title": "Comparar intentos completos",
@@ -162,7 +164,7 @@ const clusters = [
       "HumanLayer/show-me"
     ],
     "text": "Tu skill pr tiene controles más precisos de afirmaciones y convenciones. visual-pr aporta diagramas estructurales; make-pr-easy-to-review añade puntos de entrada y evidencia de que limpiar el historial no cambió el contenido.",
-    "why": "Conservar plantilla y evidencia. Añadir un diagrama o ruta de lectura cuando explique un cambio relevante, sin imponer una plantilla visual a todos los PR."
+    "why": "The current pr skill preserves the repository template, captures visible changes and uploads images with supported gh --attach operations. It verifies the saved body, recovers partial uploads and retains valid attachment URLs during rewrites."
   },
   {
     "title": "CI, comentarios y preparación",
@@ -229,7 +231,7 @@ const clusters = [
       "Addy Osmani/context-engineering"
     ],
     "text": "reflect y retro mejoran el trabajo futuro; recall reconstruye estado; handoff permite continuar; el registro de decisiones hace revisable una ejecución larga. Actúan en momentos distintos.",
-    "why": "Continuar desde estado actual y un registro breve. Realizar retrospectivas de forma deliberada y convertir en reglas duraderas solo evidencia repetida."
+    "why": "Continue from current evidence and a concise record. workflow-to-skill already extracts reusable decisions from completed work; agent-instructions owns writing and validation. Recurrence helps establish value, but a supported reusable lesson need not have happened repeatedly."
   },
   {
     "title": "Enseñanza, resúmenes y visualizaciones",
@@ -243,7 +245,7 @@ const clusters = [
       "HumanLayer/show-me"
     ],
     "text": "Las dos teach comparten nombre, pero una explica código y la otra mantiene un curso. Un resumen de actividad y un informe visual también atienden necesidades distintas.",
-    "why": "how usa solo criterios puntuales de claridad de pstack/teach. Las dos teach completas se reservan para evaluar la futura enseñanza. walkthrough, daily-meeting-update y visual-change-explainer conservan sus tareas."
+    "why": "how uses limited presentation guidance from pstack/teach; a full teaching skill remains optional future work. daily-meeting-update is present in the repository. walkthrough is absent, and visual-change-explainer is recorded only in the original local inventory."
   }
 ];
 
@@ -316,8 +318,8 @@ const conflicts = [
   {
     "title": "Terminar al crear el PR o continuar",
     "kind": "Policy",
-    "before": "Tu skill pr trata la creación o actualización como fin del turno. poteto-mode normalmente no inicia seguimiento solo por abrir un PR. Tu flujo personal solicitado sí incluye preparar el resultado para integrar.",
-    "after": "Añadir un contrato de retorno al coordinador. Una petición completa incluye seguimiento; crear un PR por separado puede terminar al crearlo. Ninguna implica integrar automáticamente.",
+    "before": "The initial local pr snapshot ended the turn after creation or update. poteto-mode did not start monitoring merely because it opened a PR. The requested full workflow also needs PR follow-up.",
+    "after": "Implemented: pr returns the verified result to its caller. pr-followup handles monitoring and feedback when the enclosing request authorizes that phase. Creating a PR alone does not start monitoring or merge it.",
     "keys": [
       "Local/pr#L14-L20",
       "opening-a-pr#L29-L33",
@@ -578,7 +580,7 @@ const scenarios = {
       ],
       [
         "Explicar",
-        "Usar walkthrough o una visualización cuando aclare la relación. Devolver una respuesta con fuentes y las premisas que sigan pendientes."
+        "Use how for a concrete mechanism and a diagram when it clarifies the relationship. Return the sources and remaining assumptions."
       ]
     ],
     "note": "Una consulta de lectura no necesita cambiar de checkout, crear ramas, commits, incidencias, PR ni seguimiento."
@@ -628,6 +630,24 @@ function skillLinks(keys) {
   }).join("")}</div>`;
 }
 
+function repositoryReference(skill) {
+  if (skill.kind !== "personal") return "";
+  const currentName = repositoryInventory.replacements[skill.name] || skill.name;
+  const current = repositorySkills.get(currentName);
+  const status = current
+    ? `Current repository package: <a href="#repository-${escapeHtml(current.name)}"><code>${escapeHtml(current.name)}</code></a>.`
+    : "This name is not present in the repository inventory. Its installation was not rechecked.";
+  return `<p class="notice" lang="en">${status} The description and source below record the original local snapshot.</p>`;
+}
+
+document.querySelectorAll("[data-repository-count]").forEach((element) => { element.textContent = repositoryInventory.skills.length; });
+document.querySelectorAll("[data-pending-count]").forEach((element) => { element.textContent = repositoryInventory.pending.length; });
+document.querySelector("#repository-inventory").innerHTML = repositoryInventory.groups.map((group) => {
+  const skills = repositoryInventory.skills.filter((skill) => skill.category === group);
+  return `<article class="surface"><h3>${escapeHtml(group)} <span class="badge keep">${skills.length}</span></h3><dl class="repository-skills">${skills.map((skill) => `<div id="repository-${escapeHtml(skill.name)}"><dt>${skill.section ? `<a href="#${escapeHtml(skill.section)}"><code>${escapeHtml(skill.name)}</code></a>` : `<code>${escapeHtml(skill.name)}</code>`}</dt><dd>${escapeHtml(skill.summary)}<span class="skill-meta">${escapeHtml(skill.path)}</span></dd></div>`).join("")}</dl></article>`;
+}).join("");
+document.querySelector("#pending-skills").innerHTML = `<dl class="repository-skills">${repositoryInventory.pending.map((skill) => `<div><dt><a href="#${escapeHtml(skill.section)}"><code>${escapeHtml(skill.name)}</code></a> <span class="badge adapt-first">${escapeHtml(skill.status)}</span></dt><dd>${escapeHtml(skill.summary)}</dd></div>`).join("")}</dl>`;
+
 document.querySelectorAll("[data-evidence]").forEach((element) => {
   element.innerHTML = evidenceMarkup(element.dataset.evidence.split(";"));
 });
@@ -636,7 +656,7 @@ document.querySelector("#cluster-list").innerHTML = clusters.map((cluster) => `<
 
 document.querySelector("#conflict-list").innerHTML = conflicts.map((conflict, index) => `<details class="conflict" ${index < 3 ? "open" : ""}><summary><h3>${escapeHtml(conflict.title)}</h3><span class="badge ${slug(conflict.kind)}">${escapeHtml(kindLabels[conflict.kind])}</span></summary><div><p><strong>Qué pide la fuente.</strong> ${escapeHtml(conflict.before)}</p><p class="resolution"><strong>Resolución recomendada.</strong> ${escapeHtml(conflict.after)}</p>${evidenceMarkup(conflict.keys)}</div></details>`).join("");
 
-document.querySelector("#skill-list").innerHTML = atlas.skills.map((skill) => `<details class="skill-row" id="${skill.id}"><summary><span><span class="skill-title">${escapeHtml(skill.name)}</span><span class="skill-meta">${escapeHtml(skill.group === "Local" ? skill.kind === "system" ? "Incluida en Codex" : "Tus skills" : groupLabels[skill.group] || skill.group)} · ${escapeHtml(skill.category)}${skill.entryType === "playbook" ? " · Procedimiento de poteto-mode" : ""}</span></span><span class="badge ${slug(skill.decision)}">${escapeHtml(decisionLabels[skill.decision])}</span></summary><div class="skill-body"><p>${escapeHtml(skill.summary)}</p><p class="skill-owner">Responsable propuesto: <strong>${escapeHtml(skill.owner)}</strong></p><dl><div><dt>Por qué incluirla o elegirla</dt><dd>${escapeHtml(skill.reason)}</dd></div><div><dt>Qué adaptar o tener en cuenta</dt><dd>${escapeHtml(skill.caution)}</dd></div></dl><p class="skill-meta">${escapeHtml(skill.author)}. ${skill.entryType === "playbook" ? "Título del procedimiento" : "Nombre declarado"}: <code>${escapeHtml(skill.declaredName)}</code>. ${skill.lines} líneas en la fuente.</p>${evidenceMarkup([skill.key])}</div></details>`).join("");
+document.querySelector("#skill-list").innerHTML = atlas.skills.map((skill) => `<details class="skill-row" id="${skill.id}"><summary><span><span class="skill-title">${escapeHtml(skill.name)}</span><span class="skill-meta">${escapeHtml(skill.group === "Local" ? skill.kind === "system" ? "Incluida en Codex" : "Original local snapshot" : groupLabels[skill.group] || skill.group)} · ${escapeHtml(skill.category)}${skill.entryType === "playbook" ? " · Procedimiento de poteto-mode" : ""}</span></span><span class="badge ${slug(skill.decision)}">${escapeHtml(decisionLabels[skill.decision])}</span></summary><div class="skill-body">${repositoryReference(skill)}<p>${escapeHtml(skill.summary)}</p><p class="skill-owner">Responsable propuesto: <strong>${escapeHtml(skill.owner)}</strong></p><dl><div><dt>Por qué incluirla o elegirla</dt><dd>${escapeHtml(skill.reason)}</dd></div><div><dt>Qué adaptar o tener en cuenta</dt><dd>${escapeHtml(skill.caution)}</dd></div></dl><p class="skill-meta">${escapeHtml(skill.author)}. ${skill.entryType === "playbook" ? "Título del procedimiento" : "Nombre declarado"}: <code>${escapeHtml(skill.declaredName)}</code>. ${skill.lines} líneas en la fuente.</p>${evidenceMarkup([skill.key])}</div></details>`).join("");
 
 document.querySelector("#repository-sources").innerHTML = atlas.repositories.map((repository) => `<article class="repo-source"><strong>${escapeHtml(repository.repo)}</strong><span>${repository.count} entradas revisadas</span><a href="${escapeHtml(repository.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(repository.url)}</a></article>`).join("");
 document.querySelector("#additional-sources").innerHTML = `<ul class="evidence">${atlas.supplementary.map((source) => sourceMarkup(source.id)).join("")}</ul><h3>Fuentes locales e incluidas</h3><ul class="evidence">${atlas.skills.filter((skill) => skill.kind !== "upstream" && !skill.source).map((skill) => sourceMarkup(skill.key)).join("")}</ul>`;
@@ -653,7 +673,7 @@ function fillOptions(select, values) {
   [...new Set(values)].sort().forEach((value) => {
     const option = document.createElement("option");
     option.value = value;
-    option.textContent = value === "Local" ? "Tus skills y creador incluido" : decisionLabels[value] || groupLabels[value] || value;
+    option.textContent = value === "Local" ? "Original local and bundled sources" : decisionLabels[value] || groupLabels[value] || value;
     select.append(option);
   });
 }
