@@ -47,7 +47,8 @@ in the decision report, not as active source feeds.
 
 Use `[[sources]]` from [upstream-updates.md](upstream-updates.md) for ideas adapted
 into local instructions. Use `[[dependencies]]` for runtime dependencies: a local
-dependency records its name, relative entrypoint, and whether it is required.
+dependency records its registered name, role, and whether it is required; the host
+resolves the name.
 An installed upstream also records its repository, SSH remote, relevant paths,
 approved full commit, installation or lockfile location, and local additions.
 Distinguish the approved revision from the revision actually found in the host;

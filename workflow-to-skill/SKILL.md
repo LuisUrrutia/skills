@@ -22,6 +22,8 @@ recurrence or one example; neither a fixed count nor repetition alone proves val
 Separate:
 
 - Stable decisions, non-obvious constraints, and evidence of completion.
+- Deterministic operations that code can perform, such as discovery, prerequisite
+  checks, validation, parsing, and transformations.
 - Inputs that vary between runs, such as paths, branch names, services, and dates.
 - Incident-specific repairs, temporary workarounds, and permissions limited to
   the original task.
@@ -36,8 +38,11 @@ out of reusable resources.
 Identify the future request, expected result, activation boundaries, dependencies,
 authority, and stopping conditions. Check existing skills and instruction owners
 before proposing another one. Prefer improving the relevant owner when it already
-covers the workflow. A mechanical repeated operation may belong in an existing
-tool or script rather than a new skill.
+covers the workflow. A wholly mechanical workflow may need only a tool or script.
+When the workflow also needs judgment, plan to delegate its deterministic parts
+to existing commands, project tasks, or scripts. Propose a bundled helper when
+those parts need reusable composition or result handling. Keep interpretation,
+tradeoffs, and decisions that depend on user intent with the agent.
 
 Read the proposed owner's relevant instructions before adding a rule. If the
 lesson is already covered, improve selection for a missed invocation or placement
@@ -47,11 +52,13 @@ or versions change.
 
 If the user already supplied a complete new capability rather than task history,
 route directly to `agent-instructions`. Missing recurrence is not a reason to
-refuse an explicitly requested skill. Ask only for missing evidence or decisions
-that materially affect what the workflow should do.
+refuse an explicitly requested skill. If the sources leave the intended objective
+or a conflict unresolved, ask the user before encoding that behavior. Accepted
+past outputs alone do not settle inconsistent future objectives.
 
 Finish extraction when each retained rule has a reason, varying inputs are
-explicit, and the result separates reusable behavior from the source incident.
+explicit, and the division between code and agent decisions is clear. Separate
+that reusable behavior from the source incident.
 Label conclusions as confirmed, inferred, or unresolved. If the user asks only
 whether a workflow merits a skill, return that evidence brief and recommendation;
 if they ask to create the skill, continue into writing.
@@ -59,11 +66,13 @@ if they ask to create the skill, continue into writing.
 ## Write and verify the result
 
 Pass `agent-instructions` the proposed capability, source evidence, stable rules,
-varying inputs, exclusions, existing owners, suitable upstream candidates, and
-meaningful success/failure cases. Identify which outputs can be checked objectively.
+confirmed user decisions, unresolved questions, varying inputs, exclusions,
+existing owners, suitable upstream candidates, and meaningful success/failure
+cases. Identify which outputs can be checked objectively.
+For proposed automation, include existing execution owners, inputs, outputs,
+failure states, and effects; the writer owns helper implementation and packaging.
 The writer chooses reuse or derivation before drafting another implementation.
-Locate it in the installed skill catalog; in this repository its entrypoint is
-[../agent-instructions/SKILL.md](../agent-instructions/SKILL.md). This is a required
+Resolve `agent-instructions` by name in the installed skill catalog. It is a required
 writing dependency: if unavailable, preserve the extracted contract and report
 the missing skill rather than silently inventing a second authoring workflow.
 

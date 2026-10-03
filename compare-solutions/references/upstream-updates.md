@@ -3,11 +3,8 @@
 Read this only when checking or updating compare-solutions from its recorded
 sources. Ordinary compare-solutions runs do not fetch skill sources.
 
-Use `agent-instructions` with this folder as the target. Resolve it from the
-installed catalog; this repository contains
-[../../agent-instructions/SKILL.md](../../agent-instructions/SKILL.md) and the
-shared procedure at
-[../../agent-instructions/references/upstream-updates.md](../../agent-instructions/references/upstream-updates.md).
+Use `agent-instructions` by name from the installed skill catalog for requested
+source maintenance, with this folder as the target.
 If that maintenance-only dependency is unavailable, report the blocker and
 preserve the source pins. Ordinary use remains available.
 

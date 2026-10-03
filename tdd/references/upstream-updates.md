@@ -3,11 +3,8 @@
 Read this only when checking or updating tdd from its recorded sources.
 Ordinary test-driven development does not fetch upstream or require another skill.
 
-Use `agent-instructions` with this folder as the target. Resolve it from the
-installed catalog; in this repository its entrypoint is
-[../../agent-instructions/SKILL.md](../../agent-instructions/SKILL.md), and the
-shared procedure is
-[../../agent-instructions/references/upstream-updates.md](../../agent-instructions/references/upstream-updates.md).
+Use `agent-instructions` by name from the installed skill catalog for requested
+source maintenance, with this folder as the target.
 If this maintenance-only dependency is unavailable, report the blocker and
 preserve the source pins. Ordinary use remains available.
 

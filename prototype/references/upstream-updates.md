@@ -3,11 +3,8 @@
 Read this only when checking or updating this skill from its recorded sources.
 Ordinary prototype work neither fetches upstream nor requires another skill.
 
-Use `agent-instructions` with this folder as the target. Locate it in the installed
-catalog; in this repository its entrypoint is
-[../../agent-instructions/SKILL.md](../../agent-instructions/SKILL.md), and its
-maintenance procedure is
-[../../agent-instructions/references/upstream-updates.md](../../agent-instructions/references/upstream-updates.md).
+Use `agent-instructions` by name from the installed skill catalog for requested
+source maintenance, with this folder as the target.
 This is a maintenance-only dependency. If unavailable, report that exact blocker
 and leave source pins unchanged; prototyping remains usable.
 

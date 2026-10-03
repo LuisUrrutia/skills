@@ -136,5 +136,365 @@
       "agent-instructions/references/skills.md": "1304058dc74445e69870f33cb9be5409b38736fae8a83ac8b668eef1ce478603",
       "workflow-to-skill/SKILL.md": "656bb1fdfe16d8b36e0e01bfdc8078fbd3d4c91c763d3258943cc708e57622c2"
     }
+  },
+  "writing_skills_review": {
+    "date": "2026-10-03",
+    "baseline_commit": "24522dc80b359f1f1ada62738fd9651c4511b5fe",
+    "upstream": {
+      "repository": "https://github.com/obra/superpowers",
+      "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "paths": [
+        "skills/writing-skills/SKILL.md",
+        "skills/writing-skills/testing-skills-with-subagents.md",
+        "LICENSE"
+      ],
+      "retrieval": "GitHub API commit resolution followed by raw files pinned to that commit.",
+      "license": "MIT; ideas adapted in local wording without vendored prose or scripts."
+    },
+    "consultation": {
+      "task_id": "node:delegated-task:command%3Amcp%3A372da8db-bc4b-4c07-99ff-057f0c426e0a%3Adelegate-task%3Awriting-skills-fable-max-comparison-20261003",
+      "model": "claude-fable-5-1",
+      "effort": "max",
+      "configuration_verified": true,
+      "result": "Completed independent comparison. No demonstrated local behavior defect; recommended two optional writing/evaluation refinements and a packaging suggestion."
+    },
+    "decision": {
+      "preserve": [
+        "agent-instructions owns writing, source maintenance, host packaging coordination, and validation.",
+        "workflow-to-skill owns extraction and delegates writing; its entire package remains unchanged.",
+        "Existing activation descriptions, canonical-source rules, matched comparisons, reserved cases, and authorization boundaries remain unchanged."
+      ],
+      "adopt": [
+        "Select an instruction's form from the observed failure: output structure, missing element, condition, or bypassed requirement.",
+        "When relevant, exercise requirements under competing pressure and inspect actions and stated justifications."
+      ],
+      "decline": [
+        "A failing-test prerequisite for every edit, deleting untested work, fixed trial counts, and claims of perfect compliance.",
+        "Universal persuasion templates, word budgets, renaming conventions, automatic publication, and a required Superpowers dependency.",
+        "A universal interpreter-invocation rule: no bundled helper changes here, and actual host execution belongs to the existing packaging guidance."
+      ]
+    },
+    "trial_setup": {
+      "model": "claude-fable-5-1",
+      "effort": "max",
+      "method": "The initial matched pair used one independent T3 context per variant, with the same three requests and fixtures and only the guidance snapshot changed. A fresh final context reran the affected authoring case and nearby typo case. Executors returned artifacts and an evaluation plan without executing a release.",
+      "grader_expectations": "Kept outside all snapshots and executor prompts.",
+      "cases": [
+        "output-contract",
+        "pressure-evaluation",
+        "narrow-wording"
+      ],
+      "observed_tool_use": "Baseline and first-candidate activity showed reads of only the permitted guidance snapshots plus in-memory checks. No executor mutated project files or used the network. Checkpoints reflected the parent's edits in the shared checkout."
+    },
+    "checks": [
+      {
+        "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py agent-instructions",
+        "result": "passed"
+      },
+      {
+        "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py workflow-to-skill",
+        "result": "passed"
+      },
+      {
+        "command": "/opt/homebrew/bin/fish -c 'python3 -B .tmp/compare-agent-skills/check_structure.py'",
+        "result": "passed: 17 local links, JSON cases, TOML provenance, existing source pins, guidance snapshots, unchanged extraction package"
+      },
+      {
+        "command": "env PYTHONPATH=daily-meeting-update python3 -B -m unittest tests.test_opencode_digest -v",
+        "result": "passed: three existing repository tests"
+      },
+      {
+        "command": "git diff --check",
+        "result": "passed"
+      },
+      {
+        "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py .tmp/compare-agent-skills/baseline-incident-brief",
+        "result": "passed"
+      },
+      {
+        "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py .tmp/compare-agent-skills/candidate-incident-brief",
+        "result": "passed"
+      },
+      {
+        "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py .tmp/compare-agent-skills/final-incident-brief",
+        "result": "passed"
+      },
+      {
+        "result": "All three generated incident-brief packages validated, every typo response matched the one-word correction, and the candidate plan's six fixture objects parsed. Behavioral verdicts were based on reading complete artifacts, not keyword checks.",
+        "method": "Parent artifact inspection and inline Python checks"
+      }
+    ],
+    "environment_notes": [
+      "The first structural check used a Python without tomllib. Running through the configured Fish -c environment selected Python 3.14.8 and passed.",
+      "No compile or build command applies to this declarative skill change."
+    ],
+    "limits": [
+      "The trials inspect generated instructions and a proposed evaluation plan. They do not execute the fake release system or verify actual release behavior.",
+      "One matched pair is diagnostic evidence, not a statistical benchmark or proof of general improvement.",
+      "Explicitly supplied snapshots do not test implicit host selection or installation.",
+      "Installed catalog symlinks still target t3code-6f322d8f; these edits belong to this work branch.",
+      "The comparison exposed a first-candidate overclaim. It is recorded as a failure; a later regression check is distinct from an unseen holdout.",
+      "The pressure-plan comparison used the first candidate. The final edit changes only the writing reference's handling of missing loading evidence; the final regression reruns the affected authoring case and the nearby typo case."
+    ],
+    "trials": [
+      {
+        "variant": "baseline",
+        "task_id": "node:delegated-task:command%3Amcp%3A372da8db-bc4b-4c07-99ff-057f0c426e0a%3Adelegate-task%3Awriting-skills-fable-max-baseline-20261003",
+        "snapshot_sha256": "785d0431277a949e8be87f379bbe7110a406af6b82c52b62a396b5a28b3806d2",
+        "outcomes": [
+          {
+            "case": "output-contract",
+            "verdict": "passed",
+            "evidence": "Produced ordered disposition, evidence, and owner/action parts, explicit supplied/absent brief branches, and a no-publish boundary."
+          },
+          {
+            "case": "pressure-evaluation",
+            "verdict": "partial",
+            "evidence": "Proposed action/state checks under pressure and matched trials, but explicitly deferred the unauthorized-target negative case and added an unscored authorization-waiver probe."
+          },
+          {
+            "case": "narrow-wording",
+            "verdict": "passed",
+            "evidence": "Returned exactly the original text with exsists changed to exists; no extra workflow."
+          }
+        ],
+        "response_sha256": "e3af35c578ada62802d5b211a68548ca15f9e0b77972db393f40a9327c919a6c"
+      },
+      {
+        "variant": "first-candidate",
+        "task_id": "node:delegated-task:command%3Amcp%3A372da8db-bc4b-4c07-99ff-057f0c426e0a%3Adelegate-task%3Awriting-skills-fable-max-candidate-20261003",
+        "snapshot_sha256": "14a0f17cb9068d41b1d0c79d28523df1386823417eb6c409428002eec09ba8df",
+        "outcomes": [
+          {
+            "case": "output-contract",
+            "verdict": "diagnostic failure",
+            "evidence": "The instruction artifact met the shape/scope contract, but its explanation asserted that the agent reached the skill in both runs. No loading trace was supplied."
+          },
+          {
+            "case": "pressure-evaluation",
+            "verdict": "passed as a plan",
+            "evidence": "Included passing, missing, stale, failing, wrong-revision, and unauthorized-target cases, action/state grading, unchanged conditional authorization, and explicit limits. The fake was not executed."
+          },
+          {
+            "case": "narrow-wording",
+            "verdict": "passed",
+            "evidence": "Returned the exact one-word correction."
+          }
+        ],
+        "response_sha256": "1fdb425d24a7fb5c27f319f9b0f490b847451bc8d00e8aec6b38d95463e78353"
+      },
+      {
+        "variant": "final-writing-regression",
+        "task_id": "node:delegated-task:command%3Amcp%3A372da8db-bc4b-4c07-99ff-057f0c426e0a%3Adelegate-task%3Awriting-skills-fable-max-regression-20261003",
+        "outcomes": [
+          {
+            "case": "output-contract",
+            "verdict": "passed for the tested contract",
+            "evidence": "Preserved the ordered output parts, both context branches, and no-publish boundary. Explicitly stated that outputs lacked a loading/action trace and the cause could not be determined."
+          },
+          {
+            "case": "narrow-wording",
+            "verdict": "passed",
+            "evidence": "Returned the exact one-word correction without introducing a workflow or evaluation suite."
+          }
+        ],
+        "snapshot_sha256": "fd97dc356586fc7ca7abbb8289792e2000aea34646decd2ce6f148317a00df67",
+        "response_sha256": "247643193f54106fee4b734451bab99224815fb6d25fcdbe495446b40b69f9e1"
+      }
+    ],
+    "correction_from_trial": "The writing reference now requires loading evidence before attributing a failure to unread or unclear instructions and keeps missing loading evidence unresolved. The corpus retains this observed overclaim as a regression expectation.",
+    "result": "Retained two scoped refinements and corrected an unsupported loading claim found in the first candidate. The final writing regression passed. The evaluation-plan case passed on the first candidate, and its evaluation reference remained unchanged through the final correction. No general performance improvement is claimed.",
+    "skill_file_sha256": {
+      "agent-instructions/SKILL.md": "ff3a7b1f9a29d74c6d1ce2cfb9847e19d4733d5aa1a3594a43db2781719442c0",
+      "agent-instructions/evals/cases.json": "6b52c910c6dc548f4da99eb77381d151b90f26403c44118ec64b8b63f3504696",
+      "agent-instructions/origin.txt": "fbd4810700cfcdb4c61dd5b793c4f2e6e6d6a8b30d544790a3bb2e2ce91224bf",
+      "agent-instructions/references/evaluation.md": "e22ec395e549fd59e179e83d573b570f475b4802b8beefa45527755b34c08dec",
+      "agent-instructions/references/hosts.md": "bdebaae1e39aa512646b4e64dde3f46ab0d8251311a3466356b3b61cdb4b4b71",
+      "agent-instructions/references/instruction-files.md": "45096367c0ff8795292e192241cea7d4233a23428fdd29fd750a7ebd9535a456",
+      "agent-instructions/references/reuse.md": "eaf5393ff47fbd0ba7b3ef79bc1ab015a9fd41e175e4b559d4eb676f830b3dc7",
+      "agent-instructions/references/skills.md": "05394cf7416a7edd3de9f30ba4fb22f82a14b266a044e7b4cfa96d2506636bc7",
+      "agent-instructions/references/upstream-updates.md": "6a6f2cb40417242e4b0fe7d13905edda96c3e632a28bb99d37b6259ffee164e7",
+      "agent-instructions/references/writing.md": "050f139df92a22390d509230dcfb2a12ef2a3e96c6c869762a37bd7d47ed101b",
+      "workflow-to-skill/SKILL.md": "92472361c387e9edba7a0e83a6fcea3a0d8627cf0987ebfb193bcc6ae1c41566",
+      "workflow-to-skill/evals/cases.json": "74188795fc3c3d22625ee7d48c4c0372e77941f6f96d702b06ad857a32568c1a",
+      "workflow-to-skill/origin.txt": "02db327f7de20494d786cde806dc855f52ca63381eea87836f5a592cd931ac85"
+    }
+  },
+  "meaning_revision": {
+    "date": "2026-10-03",
+    "baseline_commit": "1859ac047fe7f481c7345a203d71b8aa74837719",
+    "request": "Choose words for their meaning and connotations; ask the user when the intended objective or a conflict remains unclear, including during instruction rewrites and workflow extraction.",
+    "decision": "Replace the materiality-only clarification threshold with unresolved intent; pause dependent work, preserve settled decisions, review wording for obligation and quantity, and resolve conflicts before combining rules.",
+    "setup": "Two independent Fable Max tasks received identical four-case fixtures and separate before/after snapshots of both skills' Markdown guidance. Grader expectations and reports were withheld. Responses contain draft instructions and draft questions to the user, not a live user interaction.",
+    "cases": {
+      "agent-instructions/evals/cases.json": [
+        "ambiguous-test-objective",
+        "preserve-wording-force",
+        "unresolved-donor-conflict"
+      ],
+      "workflow-to-skill/evals/cases.json": [
+        "unconfirmed-workflow-objective"
+      ]
+    },
+    "trials": [
+      {
+        "variant": "baseline",
+        "task_id": "node:delegated-task:command%3Amcp%3A372da8db-bc4b-4c07-99ff-057f0c426e0a%3Adelegate-task%3Ainstruction-meaning-baseline-20261003",
+        "thread_id": "thread:delegated-task:command%3Amcp%3A372da8db-bc4b-4c07-99ff-057f0c426e0a%3Adelegate-task%3Ainstruction-meaning-baseline-20261003",
+        "model_selection": {
+          "instanceId": "claudeAgent",
+          "model": "claude-fable-5-1",
+          "options": [
+            {
+              "id": "effort",
+              "value": "max"
+            }
+          ]
+        },
+        "duration_ms": 188008,
+        "guidance_read_evidence": [
+          {
+            "path": "agent-instructions/SKILL.md",
+            "read_item_id": "turn-item:provider:claudeAgent:native-item:toolu_011tCwmWujpYqM2DFY4bdW92",
+            "evidence": "Completed command returned the matching Markdown snapshot."
+          },
+          {
+            "path": "workflow-to-skill/SKILL.md",
+            "read_item_id": "turn-item:provider:claudeAgent:native-item:toolu_011tCwmWujpYqM2DFY4bdW92",
+            "evidence": "Completed command returned the matching Markdown snapshot."
+          },
+          {
+            "path": "agent-instructions/references/writing.md",
+            "read_item_id": "turn-item:provider:claudeAgent:native-item:toolu_012wEmrRMGqbjNqAi3yoEWsS",
+            "evidence": "Completed command returned the matching Markdown snapshot."
+          }
+        ],
+        "guidance_sha256": {
+          "agent-instructions/SKILL.md": "ff3a7b1f9a29d74c6d1ce2cfb9847e19d4733d5aa1a3594a43db2781719442c0",
+          "agent-instructions/references/writing.md": "050f139df92a22390d509230dcfb2a12ef2a3e96c6c869762a37bd7d47ed101b",
+          "workflow-to-skill/SKILL.md": "83220cbd4df83c387380a76a0e4283f0c93b0a0c09414cfc191a015ac38f775e"
+        },
+        "response_sha256": "6f7fc63562772aad2bb6b11600c633d063fcbac362e0b59bfe83c393e4213a4d",
+        "cases": [
+          {
+            "case": "ambiguous-test-objective",
+            "verdict": "failed",
+            "evidence": "Asked about objective, level, and sufficiency, but claimed the original already required running tests. Its draft added automated tests for changed behavior, execution, and an exact-command report before those choices were confirmed."
+          },
+          {
+            "case": "preserve-wording-force",
+            "verdict": "passed",
+            "evidence": "Preserved prefer, one sign-in smoke check, staging, the unavailable-environment exception, and the non-gating release rule; no clarification question."
+          },
+          {
+            "case": "unresolved-donor-conflict",
+            "verdict": "passed",
+            "evidence": "Drafted shared read/report content and asked the user to choose read-only, repair, or a conditional policy; it did not enact a compromise."
+          },
+          {
+            "case": "unconfirmed-workflow-objective",
+            "verdict": "passed",
+            "evidence": "Marked the goal unresolved and asked whether future checking means figures, editorial work, or both, with mutation authority as a separate choice."
+          }
+        ]
+      },
+      {
+        "variant": "candidate",
+        "task_id": "node:delegated-task:command%3Amcp%3A372da8db-bc4b-4c07-99ff-057f0c426e0a%3Adelegate-task%3Ainstruction-meaning-candidate-20261003",
+        "thread_id": "thread:delegated-task:command%3Amcp%3A372da8db-bc4b-4c07-99ff-057f0c426e0a%3Adelegate-task%3Ainstruction-meaning-candidate-20261003",
+        "model_selection": {
+          "instanceId": "claudeAgent",
+          "model": "claude-fable-5-1",
+          "options": [
+            {
+              "id": "effort",
+              "value": "max"
+            }
+          ]
+        },
+        "duration_ms": 170272,
+        "guidance_read_evidence": [
+          {
+            "path": "agent-instructions/SKILL.md",
+            "read_item_id": "turn-item:provider:claudeAgent:native-item:toolu_01A3SanwxnAYFi75geFsLQ8G",
+            "evidence": "Completed command returned the matching Markdown snapshot."
+          },
+          {
+            "path": "workflow-to-skill/SKILL.md",
+            "read_item_id": "turn-item:provider:claudeAgent:native-item:toolu_01RJ2dX6v8fvP2SAc8ZSn3MR",
+            "evidence": "Completed command returned the matching Markdown snapshot."
+          },
+          {
+            "path": "agent-instructions/references/writing.md",
+            "read_item_id": "turn-item:provider:claudeAgent:native-item:toolu_01LPfdfzxdWkXjbcx8tFgs3g",
+            "evidence": "Completed command returned the matching Markdown snapshot."
+          }
+        ],
+        "guidance_sha256": {
+          "agent-instructions/SKILL.md": "b855cbaeb67ccc56737f9730f3b4b0b0d52962202fc27e88e6d7d1b415d8f453",
+          "agent-instructions/references/writing.md": "95469a2c6ea5b58a1d96dbaf745f736d1480e8aa2695e84df9caddabfe8d9e23",
+          "workflow-to-skill/SKILL.md": "a8f909e37a8f5787ddf4be8bd0427fc6021303d3f7cc73d106a064665446e007"
+        },
+        "response_sha256": "4086318e8d9819dcaba3f8c6a5b726f746fd27cf6437faee1c8e08729f870f44",
+        "cases": [
+          {
+            "case": "ambiguous-test-objective",
+            "verdict": "passed",
+            "evidence": "Kept scope, level, and sufficiency pending and explicitly asked whether completion means tests exist or tests pass. It paused the dependent rewrite instead of asserting an execution requirement."
+          },
+          {
+            "case": "preserve-wording-force",
+            "verdict": "passed",
+            "evidence": "Retained prefer, one, sign-in, staging, the exception, and the non-gating rule, and explicitly found no clarification necessary."
+          },
+          {
+            "case": "unresolved-donor-conflict",
+            "verdict": "passed",
+            "evidence": "Kept mutation and commit behavior pending; offered policy alternatives as questions, not as selected defaults."
+          },
+          {
+            "case": "unconfirmed-workflow-objective",
+            "verdict": "passed",
+            "evidence": "Extracted confirmed history and variable inputs, kept the future objective unresolved, and asked for the intended checking and mutation policy before writing dependent behavior."
+          }
+        ]
+      }
+    ],
+    "result": "In this paired sample, baseline passed three cases and failed the test-creation rewrite by adding execution as established intent. Candidate passed all four. The candidate preserved an explicit recommendation without extra questions and left unresolved goals and conflicting mutation policy for the user.",
+    "checks": [
+      {
+        "command": "/opt/homebrew/bin/fish -c 'uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py agent-instructions; and uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py workflow-to-skill'",
+        "result": "Both skills passed."
+      },
+      {
+        "command": "/opt/homebrew/bin/fish -c 'python3 .tmp/instruction-meaning/check-structure.py; and git diff --check'",
+        "result": "Passed 17 local references, four added cases, unique case IDs, matching snapshots and recorded hashes, unchanged TOML provenance, and preservation of earlier cases and report evidence."
+      },
+      {
+        "command": "/opt/homebrew/bin/fish -c 'env PYTHONPATH=daily-meeting-update python3 -B -m unittest tests.test_opencode_digest -v'",
+        "result": "All three repository smoke tests passed."
+      },
+      {
+        "command": "git diff --check",
+        "result": "Passed."
+      }
+    ],
+    "fidelity_review": "The patch changes the clarification threshold and adds word-choice guidance. Existing authority, extraction/writing ownership, deterministic-code guidance, host behavior, provenance, and unrelated content remain intact.",
+    "limits": [
+      "One paired sample with four authoring cases. It demonstrates the observed rewrite correction, not a general performance gain or universal clarification compliance.",
+      "Read-tool output confirms the changed guidance was loaded. No automatic skill selection, live clarification exchange, generated workflow execution, or host installation was tested.",
+      "The create-versus-run expectation was made explicit in the corpus after observing the baseline failure; that distinction was already in the candidate guidance before either result was graded. No candidate wording was tuned from the results.",
+      "Draft skeletons intentionally retain unresolved fields; they were not graded as installable skill packages. Draft questions were evaluated for the stated contract, not as an exhaustive usability benchmark.",
+      "Both children saw their host's skill catalog but read only the supplied Markdown snapshot. Baseline also used a local word-count command; no project behavior was executed and no files were changed.",
+      "No application build applies to this instruction-only change. Existing host symlinks still point to another checkout; installation and publishing were not performed.",
+      "Temporary snapshots and one-off checks are removed after recording evidence. Delegated responses remain identified by task and thread."
+    ],
+    "changed_file_sha256": {
+      "agent-instructions/SKILL.md": "b855cbaeb67ccc56737f9730f3b4b0b0d52962202fc27e88e6d7d1b415d8f453",
+      "agent-instructions/references/writing.md": "95469a2c6ea5b58a1d96dbaf745f736d1480e8aa2695e84df9caddabfe8d9e23",
+      "workflow-to-skill/SKILL.md": "a8f909e37a8f5787ddf4be8bd0427fc6021303d3f7cc73d106a064665446e007",
+      "agent-instructions/evals/cases.json": "b421b8b01ac4d0f290222f9fb68de1225a8ce15948e22e8994ece905ba1904b6",
+      "workflow-to-skill/evals/cases.json": "65d4327de38486500f5b9756ad110e81c47699f72b4216f66e9da339fdecfa87"
+    }
   }
 }

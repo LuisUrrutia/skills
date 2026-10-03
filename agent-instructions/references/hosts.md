@@ -14,14 +14,17 @@ portable merely because another agent accepts it.
 - Preserve the existing invocation policy. New skills remain discoverable unless
   the user requests another mode; changing invocation is a product decision,
   separate from permission for a particular action.
-- In Codex, consult the installed creator's `references/openai_yaml.md` before
-  editing `agents/openai.yaml`. A generator may replace the entire file; preserve
+- In Codex, use `skill-creator` for host requirements before editing
+  `agents/openai.yaml`. A generator may replace the entire file; preserve
   unrelated policy and dependency settings.
 - Treat Claude-style frontmatter and Codex invocation policy as separate host
   features. Verify their current behavior rather than copying one into the other.
-- Resolve a specialist by its actual installed identity and supported invocation
-  mechanism. Loading a Markdown file and invoking a skill are not interchangeable
-  on every host. Detect missing required dependencies before dependent work.
+- Reference other skills by their registered names, never by filesystem paths to
+  their entrypoints or internal resources. Resolve each name through the installed
+  catalog and the host's supported invocation mechanism. File links within the
+  current skill may address its own resources.
+- Loading a Markdown file and invoking a skill are not interchangeable on every
+  host. Detect missing required dependencies before dependent work.
 - Prefer available host tooling. A reference to a donor's CLI, task manager,
   evaluator, or viewer does not install it or make it necessary.
 

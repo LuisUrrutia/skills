@@ -18,6 +18,59 @@ Keep each rule, its reason, and its exceptions together. Give each behavior one
 authoritative home. Restating a specialist's procedure in an orchestrator creates
 two versions to maintain; name its input and completion evidence instead.
 
+## Make command and file locations explicit
+
+When a prompt references another skill, follow the name-based resolution rules
+in [hosts.md](hosts.md).
+
+Identify the current skill's installed folder when a prompt uses its bundled
+scripts or references. Name the script to run, its invocation and working
+directory, and which reference files to read under which conditions. Locate these
+resources within that skill without assuming its installation path or the caller's
+working directory.
+
+Identify the target project root separately. State where inputs are read and
+outputs are created relative to that root, following the user's requested layout
+and project conventions. When running from the skill folder, pass project paths
+explicitly so output locations do not depend on the shell's current directory.
+
+## Choose words for their intended effect
+
+Use familiar terms and direct verbs. Check literal meaning and connotations:
+words can imply an obligation, breadth, effort, certainty, or permission that the
+user did not intend. "Prefer" and "require", "create" and "run", or "one" and
+"all" produce different behavior; they are not interchangeable in a rewrite.
+Explain a non-obvious constraint once. Prefer the desired action over a list of
+prohibitions; retain boundaries that protect authority, scope, or correctness.
+
+Make type, scope, quantity, depth, and completion evidence explicit where they
+distinguish plausible interpretations. For "create tests", establish what behavior
+or risk the tests must check, the relevant level (unit, integration, end-to-end,
+or smoke), whether to write or run them, and sufficient coverage or quantity.
+Use the user's objective and established context; an installed framework alone
+does not settle these choices. Ask the user about intent that remains unclear
+before encoding a test level, quota, or depth. Preserve room for judgment within
+the confirmed objective.
+
+## Choose the form from the observed failure
+
+When correcting a failure, inspect the output and action trace before adding a
+rule. Check loading evidence before attributing the failure to an unread or
+unclear instruction. An unread rule needs a selection or placement fix. If
+loading is unobserved, report that limit while correcting defects visible in
+the text.
+
+| Observed failure | Useful correction |
+| --- | --- |
+| The result has the wrong structure or order | Describe the required parts in the order the reader needs them. |
+| A required element is missing | Give it a named field or slot in the existing output structure. |
+| A rule is applied in the wrong circumstances | State an observable condition and the action for each relevant branch. |
+| An understood requirement is bypassed | State the boundary and address the observed shortcut; test it under the relevant pressure. |
+
+Preserve material exceptions when making conditions explicit. Add counters for
+observed workarounds only; a growing prohibition list is not a substitute for a
+clear output contract.
+
 ## Make progress observable
 
 Describe actions with enough freedom for the task. Use fixed sequences where
@@ -29,10 +82,6 @@ attempt. "Understand the failure" is weak; "reproduce the failing behavior or
 identify the inaccessible prerequisite" lets the next phase start honestly.
 For loops, state what progress means, what ends the loop, and what happens when
 the same blocker persists.
-
-Use familiar terms and direct verbs. Explain a non-obvious constraint once.
-Prefer the desired action over a list of prohibitions; retain explicit boundaries
-when crossing one changes authority, scope, or correctness.
 
 Separate the reusable workflow from domain decisions that the sources do not
 establish. A missing schema, rounding policy, or rule for dropping records is a
@@ -47,8 +96,11 @@ For each overlapping instruction, compare trigger, responsible owner, action,
 completion evidence, and authority. Similar wording can hide incompatible
 behavior: a read-only review and a repair workflow need different mutation scope.
 
-Select one rule or introduce an explicit condition. Record intentional deviations
-from donors in the existing provenance record when maintaining a derived skill.
+Resolve conflicts from established authority, scope, or an explicit user decision.
+If those do not establish the intended behavior, ask the user before combining the
+affected rules. Once intent is clear, keep the governing rule or state distinct
+conditions. Record intentional deviations from donors in the existing provenance
+record when maintaining a derived skill.
 For other documents, preserve their established attribution conventions rather
 than adding skill-specific files. Source popularity is not a reason to replace
 a local rule that serves the contract. Pay particular attention to changes in
