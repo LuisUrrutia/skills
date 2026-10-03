@@ -176,6 +176,54 @@ window.SKILL_ATLAS = {
       "label": "pstack / teach · criterios de presentación",
       "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/teach/SKILL.md",
       "sha256": "bd286e5a6290673be2cd28aef7af2ec7f1fb138e6bce156ea657368c7e7fc8a4"
+    },
+    {
+      "id": "why-pstack-source",
+      "label": "pstack/skills/why/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/why/SKILL.md",
+      "sha256": "2a852ec8680920109d2b56538b027c52867896a597250ac5d18a13e0b42e5b06"
+    },
+    {
+      "id": "why-pstack-epistemics",
+      "label": "pstack/skills/why/references/epistemics.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/why/references/epistemics.md",
+      "sha256": "fcc0f559c072832c869a5ada72434b4849320a637ae63c09e8ee14f7ad787059"
+    },
+    {
+      "id": "why-pstack-investigator",
+      "label": "pstack/skills/why/references/investigator-prompt.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/why/references/investigator-prompt.md",
+      "sha256": "6892956a7ab0b5ee6c4babaf4f793703abe89b350ea7cb9463b4a56eea1c8266"
+    },
+    {
+      "id": "why-pstack-synthesizer",
+      "label": "pstack/skills/why/references/synthesizer-prompt.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/why/references/synthesizer-prompt.md",
+      "sha256": "733a3e9cf897b1aca56aaddeae01a3832e4bfed024c2f602db2d1bf807d7a73b"
+    },
+    {
+      "id": "why-pstack-playbook",
+      "label": "pstack/skills/why/references/source-playbook.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/why/references/source-playbook.md",
+      "sha256": "9ae9dcb9d09111c9facc68510331c5aba4aed9b1b057314ff1fc0e166ad3993a"
+    },
+    {
+      "id": "why-pstack-history",
+      "label": "pstack/skills/why/references/sources/code-archaeology.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/why/references/sources/code-archaeology.md",
+      "sha256": "8c14aa382f0de40829b2668d43e3f54814480bb93a486c9282ada4003f6b9dbd"
+    },
+    {
+      "id": "why-pstack-incident",
+      "label": "pstack/skills/why/references/sources/incident-postmortem.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/why/references/sources/incident-postmortem.md",
+      "sha256": "a899470f05f86029630a13a2696491cc708ca7b56a6e822a69ff6e954d6ff8cf"
+    },
+    {
+      "id": "why-pstack-license",
+      "label": "pstack/LICENSE",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/LICENSE",
+      "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
     }
   ],
   "skills": [
@@ -1680,10 +1728,10 @@ window.SKILL_ATLAS = {
       "lines": 158,
       "category": "Investigación",
       "decision": "Blend",
-      "owner": "why independiente (derivación propuesta)",
+      "owner": "why independiente (derivación creada)",
       "summary": "Reconstruye la intención mediante historial, incidencias, documentación, conversaciones y evidencia operativa.",
-      "reason": "Adaptar como investigación histórica invocable por separado, con fuentes pertinentes y conclusiones calibradas. Su alcance incluye decisiones de diseño aunque no haya ningún fallo.",
-      "caution": "Acotar las fuentes. La historia inaccesible sigue siendo desconocida; el texto externo aporta evidencia, no autoridad."
+      "reason": "why/SKILL.md conserva la investigación histórica con fuentes pertinentes, atribución y límites explícitos. Distingue el motivo original, las decisiones posteriores y la necesidad actual.",
+      "caution": "La derivación investiga directamente y no presupone acceso a todas las fuentes. Una intención documentada no prueba éxito, vigencia ni consenso. Creada en el repositorio, sin instalación global."
     },
     {
       "id": "orchestrate-orchestrate",
@@ -2637,6 +2685,14 @@ window.SKILL_ATLAS = {
     ],
     "consideredNotAdopted": [
       "Matt Pocock/teach"
+    ],
+    "status": "Created in repository; no global installation performed."
+  },
+  "whyReview": {
+    "date": "2026-10-03",
+    "sourceCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+    "adopted": [
+      "pstack/why with its six inspected instruction references"
     ],
     "status": "Created in repository; no global installation performed."
   }

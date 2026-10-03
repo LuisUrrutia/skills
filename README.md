@@ -89,6 +89,20 @@ Use it directly for a mechanism, subsystem, or ownership question.
 - Derives from pstack/how with limited presentation guidance from pstack/teach
 - Records exact source commits and supports requested maintenance through `agent-instructions`
 
+### why
+
+Reconstruct the reasons behind existing code or design decisions from historical
+evidence. Use it directly, without work-mode or an installed upstream skill.
+
+**Triggers:** `why did we choose polling`, `what motivated this guard`, `where did this threshold come from`
+
+**Features:**
+- Follows relevant history and linked discussions, including earlier paths and revisions
+- Separates recorded reasons, supported inferences, and unanswered questions
+- Distinguishes original motivation from later decisions and current necessity
+- Preserves contradictory evidence and reports missing sources without inventing intent
+- Derives from Lauren Tan's pstack/why with exact provenance and requested source maintenance
+
 ### commit
 
 Create git commits with conventional commit messages.

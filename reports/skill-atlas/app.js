@@ -61,7 +61,7 @@ const clusters = [
       "Matt Pocock/research"
     ],
     "text": "El diagnóstico reproduce fallos y contrasta causas. how explica estructura y ejecución; why reconstruye motivos; blast-radius sigue efectos; research consulta hechos externos. Son ramas complementarias, no cinco fases obligatorias.",
-    "why": "debug toma solo criterios útiles para investigar fallos. how ya está creada y why conserva una tarea independiente propuesta; blast-radius debe distinguir su análisis de impacto de la auditoría general que ya cubre review-audit."
+    "why": "debug investiga fallos; how y why ya están creadas para explicar mecanismos y reconstruir decisiones por separado. blast-radius debe distinguir su análisis de impacto de la auditoría general que ya cubre review-audit."
   },
   {
     "title": "Entrevistas, especificaciones y tareas",
