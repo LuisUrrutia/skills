@@ -134,6 +134,22 @@ solutions or independent investigations justify the extra work.
 - Records failed candidates, missing judges, graft decisions, and verification limits
 - Preserves exact pstack sources and supports requested maintenance through `agent-instructions`
 
+### design-code-structure
+
+Design or compare data models, public interfaces, and module boundaries for a
+concrete software change. Use it directly for a decision or during authorized implementation.
+
+**Triggers:** `design this module`, `compare these interface designs`, `model the state and ownership for this change`
+
+**Features:**
+
+- Derives types and operations from real caller usage and established constraints
+- Compares meaningful alternatives by correctness, caller effort, locality, state, and cost
+- Uses how, why, analyze-change-effects, prototype, and compare-solutions when the decision needs them
+- Handles shared invariants, retries, cancellation, external contracts, and migration when relevant
+- Revisits a design when repeated implementation friction exposes a wrong assumption
+- Records pstack and Matt Pocock sources with conditional upstream maintenance
+
 ### verification-authoring
 
 Create and maintain project-local `verify-<app>` skills that another agent can

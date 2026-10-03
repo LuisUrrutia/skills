@@ -88,7 +88,7 @@ const clusters = [
   },
   {
     "title": "Arquitectura y modelado de dominio",
-    "winner": "architecture, invocable por separado",
+    "winner": "design-code-structure, creada e independiente",
     "keys": [
       "Matt Pocock/codebase-design",
       "Matt Pocock/domain-modeling",
@@ -98,7 +98,7 @@ const clusters = [
       "pstack/principle-minimize-reader-load"
     ],
     "text": "Matt destaca interfaces pequeñas con comportamiento sustancial y límites públicos de prueba. pstack propone definir datos pronto y comparar diseños. domain-modeling aclara el lenguaje; la auditoría arquitectónica busca oportunidades de refactorización más amplias.",
-    "why": "Combinar profundidad de interfaces, invariancias del estado y esfuerzo de lectura. Reservar entrevistas y experimentos costosos para decisiones importantes sin resolver."
+    "why": "design-code-structure parte del uso real, compara estructuras y recomienda una con sus invariantes y costes. Conserva how, why, compare-solutions y prototype como apoyos condicionales. La auditoría del repositorio completo sigue siendo otra tarea."
   },
   {
     "title": "Regresiones y TDD",

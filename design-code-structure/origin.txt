@@ -1,0 +1,91 @@
+format_version = 1
+skill = "design-code-structure"
+created = "2026-10-03"
+approach = "Derive: pstack architect and Matt Pocock provide the design method; local scope, composition, host integration and completion require changes across the workflow."
+
+[[sources]]
+id = "pstack-architect"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+baseline_paths = ["pstack/skills/architect/SKILL.md", "pstack/skills/architect/references/runner-prompt.md", "pstack/skills/architect/references/rationale-template.md", "pstack/skills/architect/references/design-red-flags.md", "pstack/skills/principle-exhaust-the-design-space/SKILL.md", "pstack/skills/principle-foundational-thinking/SKILL.md", "pstack/skills/principle-model-the-domain/SKILL.md", "pstack/skills/principle-minimize-reader-load/SKILL.md", "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md", "pstack/skills/principle-boundary-discipline/SKILL.md", "pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-redesign-from-first-principles/SKILL.md", "pstack/skills/principle-subtract-before-you-add/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/architect/SKILL.md", "pstack/skills/architect/references/runner-prompt.md", "pstack/skills/architect/references/rationale-template.md", "pstack/skills/architect/references/design-red-flags.md", "pstack/skills/principle-exhaust-the-design-space/SKILL.md", "pstack/skills/principle-foundational-thinking/SKILL.md", "pstack/skills/principle-model-the-domain/SKILL.md", "pstack/skills/principle-minimize-reader-load/SKILL.md", "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md", "pstack/skills/principle-boundary-discipline/SKILL.md", "pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-redesign-from-first-principles/SKILL.md", "pstack/skills/principle-subtract-before-you-add/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Ground the existing mechanism and its consequential rationale before changing ownership.",
+  "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
+  "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+]
+local_choices = [
+  "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
+  "Inventory source and local contracts within a bounded scope with ignored paths included before treating required evidence as unavailable.",
+  "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
+  "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
+  "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
+  "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+]
+reviews = []
+
+[[sources]]
+id = "matt-design"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+baseline_paths = ["skills/engineering/codebase-design/SKILL.md", "skills/engineering/codebase-design/DEEPENING.md", "skills/engineering/codebase-design/DESIGN-IT-TWICE.md", "skills/engineering/domain-modeling/SKILL.md", "skills/engineering/domain-modeling/GLOSSARY-FORMAT.md", "skills/engineering/domain-modeling/ADR-FORMAT.md", "LICENSE"]
+paths = ["skills/engineering/codebase-design/SKILL.md", "skills/engineering/codebase-design/DEEPENING.md", "skills/engineering/codebase-design/DESIGN-IT-TWICE.md", "skills/engineering/domain-modeling/SKILL.md", "skills/engineering/domain-modeling/GLOSSARY-FORMAT.md", "skills/engineering/domain-modeling/ADR-FORMAT.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "A public interface includes the caller's required knowledge, not only signatures; prefer substantial behavior behind a simple surface.",
+  "Use deletion, locality, real usage and interface-level behavioral tests to evaluate a module boundary.",
+  "Resolve overloaded domain terms through concrete scenarios and code; record durable tradeoffs and glossary terms only when they warrant it."
+]
+local_choices = [
+  "Use the project's terminology rather than enforcing a fixed architecture vocabulary.",
+  "Meaningful alternatives need not start three agents with different requirements; compare-solutions owns requested independent attempts with matched constraints.",
+  "A real isolation or ownership boundary may be justified with one implementation; a test fake does not establish remote semantics.",
+  "Retain useful tests after refactoring and preserve legitimate effects and runtime validation.",
+  "Glossary and ADR edits follow the active documentation scope or project convention; neither is compulsory for every decision."
+]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "how"
+required = false
+role = "Conditional grounding of current behavior and ownership."
+
+[[dependencies]]
+kind = "local"
+name = "why"
+required = false
+role = "Conditional historical rationale for a consequential existing constraint."
+
+[[dependencies]]
+kind = "local"
+name = "analyze-change-effects"
+required = false
+role = "Conditional investigation of compatibility and indirect consumers."
+
+[[dependencies]]
+kind = "local"
+name = "prototype"
+required = false
+role = "Conditional experiment to resolve a deciding empirical uncertainty."
+
+[[dependencies]]
+kind = "local"
+name = "compare-solutions"
+required = false
+role = "Required for requested independent design attempts; owns execution, judging and synthesis."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested skill authoring or source maintenance."
