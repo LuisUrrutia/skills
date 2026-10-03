@@ -15,6 +15,10 @@ in Update mode. Neither request creates a background schedule.
 Read `../origin.txt` for baselines, review cursors, relevant paths, and deliberate
 deviations. Preserve direct invocation, diagnosis-only authority, proportionate
 regression checks, and the distinction between evidence and an untested hypothesis.
+Retain the environment comparisons, observed component boundaries, and reassessment
+of stalled attempts adapted from Every, Addy, and Superpowers. A failed-attempt
+quota does not prove an architecture defect, and session forensics remains a
+separate task rather than a new trigger for debug.
 The sources are inspiration, not runtime dependencies. In particular, new donor
 approval gates, mandatory agents, tool names, or production actions do not become
 local requirements automatically. The shared procedure owns fetching, moved paths,

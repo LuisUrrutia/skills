@@ -56,8 +56,9 @@ Use it directly, without work-mode or an installed upstream skill.
 **Features:**
 - Distinguishes diagnosis-only requests from authorized repairs
 - Builds an observation that reaches the reported symptom and tests causal explanations
-- Uses regression tests where they exercise the failure without disproportionate setup
-- Loads conditional guidance for missing reproduction, intermittent failures, performance, and cross-boundary investigation
+- Reuses or adds regression tests that exercise the failure without disproportionate setup
+- Compares effective environments and component boundaries, and revisits stalled explanations
+- Handles observation-sensitive failures with controlled schedules and explicit evidence limits
 - Preserves exact source commits and delegates requested maintenance to `agent-instructions`
 
 ### tdd

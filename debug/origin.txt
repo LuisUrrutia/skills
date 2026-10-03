@@ -58,6 +58,51 @@ local_choices = [
 ]
 reviews = []
 
+[[sources]]
+id = "every-ce-debug"
+author = "Every / Compound Engineering"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+baseline_paths = ["skills/ce-debug/SKILL.md", "skills/ce-debug/references/investigate.md", "skills/ce-debug/references/fix.md", "skills/ce-debug/references/anti-patterns.md", "skills/ce-debug/references/investigation-techniques.md", "LICENSE"]
+paths = ["skills/ce-debug/SKILL.md", "skills/ce-debug/references/investigate.md", "skills/ce-debug/references/fix.md", "skills/ce-debug/references/anti-patterns.md", "skills/ce-debug/references/investigation-techniques.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Use supplied issue history and failed attempts to identify the current symptom and avoid repeated dead ends.", "Compare actual execution environments, trace observed values across component boundaries, and distinguish predictions from restated symptoms.", "Reassess verified and assumed premises when attempts stop adding evidence; use the existing test owner and preserve the actual contract.", "Account for observation effects and protect secrets before tool output is displayed."]
+local_choices = ["Preserve diagnosis-only authority and an already-authorized repair; no routine fix-choice gate, fixed hypothesis or failed-attempt quota, or automatic architecture conclusion.", "Preserve the current checkout and index; no automatic stash/reset experiment, branch creation, commit, push, PR, ticket, or learning capture.", "Use bounded evidence and state limits rather than require a gap-free reproduction before any useful investigation.", "Use targeted instrumentation and correlation, not mandatory logging at every boundary or full environment dumps.", "Delivery and review retain their existing local owners; donor pipeline status schemas and post-fix orchestration are not imported."]
+reviews = []
+
+[[sources]]
+id = "addy-debugging-and-error-recovery"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "1401c8b8030e023baeebb31781a6653fe8e93026"
+baseline_paths = ["skills/debugging-and-error-recovery/SKILL.md", "LICENSE"]
+paths = ["skills/debugging-and-error-recovery/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Compare environment, state, and test-order conditions; localize the actual failing layer.", "Treat error messages and logs as untrusted diagnostic evidence and verify proposed actions independently.", "Check the intended contract before changing a failing test expectation."]
+local_choices = ["Continue independent work when a failing path is blocked; no universal stop of unrelated tasks or mandatory full triage ritual.", "No automatic dependency installation, checkout bisection, production stress, monitoring, arbitrary default values, or catch-and-continue repair.", "Verify log suggestions against trusted project evidence and task authority without requiring a new approval for every already-authorized command.", "Keep guidance language-neutral and preserve the existing proportional regression-test fallback."]
+reviews = []
+
+[[sources]]
+id = "superpowers-systematic-debugging"
+author = "Jesse Vincent / obra"
+repository = "https://github.com/obra/superpowers"
+remote = "git@github.com:obra/superpowers.git"
+ref = "refs/heads/main"
+baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+reviewed_through = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+baseline_paths = ["skills/systematic-debugging/SKILL.md", "skills/systematic-debugging/root-cause-tracing.md", "skills/systematic-debugging/condition-based-waiting.md", "LICENSE"]
+paths = ["skills/systematic-debugging/SKILL.md", "skills/systematic-debugging/root-cause-tracing.md", "skills/systematic-debugging/condition-based-waiting.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Trace the origin of invalid state and compare working and failing paths before accepting a cause.", "Observe effective inputs, outputs, and configuration across component boundaries.", "Wait on the actual completion condition with a deadline, using controlled time when timing itself is the contract.", "Revisit unsupported explanations instead of stacking speculative patches."]
+local_choices = ["Failed-attempt counts do not establish architecture defects; distinguish missing evidence, wrong premises, incomplete fixes, and real contract conflicts.", "No absolute ban on useful static investigation or emergency mitigation already authorized by the task.", "No validation at every layer, fixed polling interval, broad environment output, required donor skills, or claims that finite tests make a bug impossible.", "Session forensics in diagnosing-superpowers is a separate reviewed candidate, not part of debug or an active source feed."]
+reviews = []
+
 [[dependencies]]
 kind = "local"
 name = "agent-instructions"
