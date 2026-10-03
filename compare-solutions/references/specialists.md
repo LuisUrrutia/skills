@@ -20,7 +20,9 @@ Read its entrypoint and authoritative protocol before writing the candidate prom
 Supply the exact comparison, changed-path inventory, intent, applicable standards,
 caller-owned seams, and separate canonical report destinations. Every worker
 remains one auditor: it does not spawn reviewers, repair code, or publish feedback.
-Preserve its required validation and handoff.
+Identify it as a comparison participant so the skill's adaptive facet delegation
+stays disabled. Each candidate reviews the complete assigned change. Preserve its
+required validation and handoff.
 
 Read the complete candidate reports, including open questions and coverage. Merge
 duplicate causal findings without losing distinct failure paths. Recheck disputed

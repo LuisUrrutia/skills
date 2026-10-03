@@ -73,9 +73,16 @@ location. Read [references/specialists.md](references/specialists.md) when selec
 support. Missing optional help permits direct investigation with stated limits;
 a missing requested specialist or essential source blocks only its affected claim.
 
-Remain one reviewer. `compare-solutions` can coordinate independent audits when
-the caller requests them; it owns delegation and synthesis. A review worker never
-starts another reviewer or recursively invokes that coordinator.
+For a straightforward change, perform the review directly. When the snapshot
+exposes distinct consequential risks that benefit from separate investigation,
+read [references/delegation.md](references/delegation.md) and coordinate focused
+subagents automatically, within the caller's authority and host limits. Select
+their questions from the change, not a fixed roster or file-size threshold.
+
+An assigned facet worker or a `compare-solutions` participant performs its single
+assigned review without delegation. `compare-solutions` remains the owner of
+comparing independent complete audits; this skill's coordinator owns complementary
+facets of one review. Neither mode recursively starts the other.
 
 ## Deliver the report
 

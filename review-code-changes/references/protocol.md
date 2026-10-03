@@ -135,6 +135,12 @@ replace that inspection. Attribute external findings that survive and explain a
 material disagreement with evidence. An outdated comment must be rechecked on
 the reviewed snapshot.
 
+Challenge the implementation against the expected contract, including failure,
+duplicate execution, and ordering where those inputs are reachable. For changes
+to tests, CI, or review tools, inspect whether a failed or missing check can be
+reported as success. A change may support zero findings; neither a persona nor
+a separate agent has a finding quota.
+
 Classify findings as `correctness`, `security`, `requirements`, `standards`,
 `maintainability`, `performance`, or `verification`. Use `required` for a supported
 defect, unmet requirement/standard, or concrete material regression; use `optional`

@@ -980,6 +980,72 @@
       "label": "Matt Pocock / skills/misc/git-guardrails-claude-code/SKILL.md",
       "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/misc/git-guardrails-claude-code/SKILL.md",
       "sha256": "69b291d655626a01602b998a1836fcb93c058ede68dfafddfd71e87f17074764"
+    },
+    {
+      "id": "review-v2-compound-entry",
+      "label": "Every / ce-code-review",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-code-review/SKILL.md",
+      "sha256": "4dbdc4485af006035e1a8622735e58eb4298be69b404b1241e748b0057a7e9ac"
+    },
+    {
+      "id": "review-v2-compound-dispatch",
+      "label": "Every / bounded reviewer dispatch",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-code-review/references/dispatch-reviewers.md",
+      "sha256": "64f1053094f3e2a7256dd50a2a5972f0dc3d0b48bd9cadfaf94ff9f1bce35bf5"
+    },
+    {
+      "id": "review-v2-compound-finish",
+      "label": "Every / evidence integration",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-code-review/references/finish-review.md",
+      "sha256": "37174b6fd80c138b9316a92253f45281fe8a12acc86089113ab478f9e72d3971"
+    },
+    {
+      "id": "review-v2-openclaw-entry",
+      "label": "OpenClaw / autoreview",
+      "url": "https://github.com/openclaw/agent-skills/blob/edf1e2f436fa2a5375c98052180a090a57223f9e/skills/autoreview/SKILL.md",
+      "sha256": "9f75e6c243d7d701fb8bcc2d5df6a2fe43f79c39a9f220525bec08bd0e539ed5"
+    },
+    {
+      "id": "review-v2-openclaw-results",
+      "label": "OpenClaw / diagnostics and results",
+      "url": "https://github.com/openclaw/agent-skills/blob/edf1e2f436fa2a5375c98052180a090a57223f9e/skills/autoreview/references/diagnostics-and-results.md",
+      "sha256": "a4e542bd1815ad67dfdfae75eb446f024ab7f8bfaa396e1cb1c20015113d980b"
+    },
+    {
+      "id": "review-v2-matt-diagnosis",
+      "label": "Matt Pocock / diagnosing-bugs",
+      "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/engineering/diagnosing-bugs/SKILL.md",
+      "sha256": "9168404abda0967a5d32977e3498cd95fda6807018852f3de736a78357c82b40"
+    },
+    {
+      "id": "review-v2-addy-current",
+      "label": "Addy Osmani / current review source",
+      "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/code-review-and-quality/SKILL.md",
+      "sha256": "2db1e850379f255fd3091ef278cde24cd6c7d2ba23e360cc52ea522c40d4396e"
+    },
+    {
+      "id": "review-v2-alireza-adversarial",
+      "label": "ekreloff / adversarial-reviewer",
+      "url": "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/skills/adversarial-reviewer/SKILL.md",
+      "sha256": "d69e917a7c84405a18b40bd6e41d5fae9aba966db903171028f86bb5c25f6f94"
+    },
+    {
+      "id": "review-v2-alireza-reviewer",
+      "label": "Alireza Rezvani / code-reviewer",
+      "url": "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/skills/code-reviewer/SKILL.md",
+      "sha256": "28d80f6710369919e751679e588ba67db3fe5d11461a8f59c53fead2e119978a"
+    },
+    {
+      "id": "review-v2-alireza-checker",
+      "label": "Alireza Rezvani / quality checker source",
+      "url": "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/skills/code-reviewer/scripts/code_quality_checker.py",
+      "sha256": "df2f1be10fb9a0d8f7ab888e548897d6fd280b755136d38a0c9efc96eb07beb8"
+    },
+    {
+      "id": "review-v2-alireza-reporter",
+      "label": "Alireza Rezvani / report generator source",
+      "url": "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/skills/code-reviewer/scripts/review_report_generator.py",
+      "sha256": "9507bf76ab19c18feac70746554e104a96f03cf51bf82c6c18cf7a53bedc7719"
     }
   ],
   "skills": [
@@ -3496,7 +3562,25 @@
     "matchedComparison": "Both versions found both supported defects and rejected supplied false feedback; no detection superiority established.",
     "boundaryCase": "No supported findings; one caller-owned compatibility question and partial coverage.",
     "helperTests": 12,
-    "installedPredecessorModified": false
+    "installedPredecessorModified": false,
+    "delegationRevision": {
+      "date": "2026-10-03",
+      "activation": "Automatic focused delegation when distinct consequential risks justify separate investigation; direct review for straightforward changes.",
+      "sourceFiles": 37,
+      "localSnapshots": 3,
+      "mitNotices": 7,
+      "sourceReview": "reports/review-code-changes-delegation-validation.json",
+      "delegationOwner": "review-code-changes coordinator; leaf workers never delegate",
+      "completeAuditOwner": "compare-solutions",
+      "installedPredecessorModified": false,
+      "status": "adaptive delegation implemented; bounded behavioral and mechanical checks passed",
+      "liveTrials": 3,
+      "focusedChildAgents": 1,
+      "matchedComparison": "Both versions found two behavioral defects and one explicit standards violation; no detection superiority established.",
+      "simpleCase": "No subagents, no findings; existing test and eleven equivalence cases passed.",
+      "validationReport": "reports/review-code-changes-delegation-validation.json",
+      "untested": "Worker failure recovery, compare-solutions composition runtime, host activation, installation, optional skill invocation and real GitHub."
+    }
   },
   "debugSourcesReview": {
     "date": "2026-10-03",

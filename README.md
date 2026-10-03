@@ -182,8 +182,9 @@ review-audit skill; it preserves a read-only review phase and local reports.
 - Traces causal evidence, requirements, standards, structure, security, and verification
 - Distinguishes required changes, optional improvements, and unresolved questions
 - Uses relevant specialists within the review's scope and permissions
+- Delegates independent risk areas automatically when useful, with one coordinator validating evidence and complete coverage
 - Validates Markdown coverage against a path inventory and renders HTML with an external stylesheet
-- Records local snapshot hashes and pinned Addy, Superpowers, Thermos, Cursor Team Kit, and Matt Pocock sources
+- Records local snapshots and pinned review sources, including Compound Engineering, OpenClaw, and Alireza Rezvani
 
 ### verification-authoring
 
