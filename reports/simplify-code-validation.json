@@ -708,5 +708,83 @@
     "simplify-code/origin.txt": "d75198c48683b7ddd051c9e3f5f14cecdc47f32e557db7aa6c322553dd9bcc89",
     "simplify-code/references/upstream-updates.md": "d2448d086d9a216754956ee60475190e0a1a045ec1ca6b26da8a688a09d76a8a"
   },
-  "artifact_retention": "Raw prompts, input files, initial Git snapshots, supplied and final skill text, changed outputs, action records, parent probes and setup script are embedded with hashes. Scratch paths identify historical executions and can be removed after completion; source repositories remain recoverable from exact pins."
+  "artifact_retention": "Raw prompts, input files, initial Git snapshots, supplied and final skill text, changed outputs, action records, parent probes and setup script are embedded with hashes. Scratch paths identify historical executions and can be removed after completion; source repositories remain recoverable from exact pins.",
+  "follow_up_revisions": [
+    {
+      "date": "2026-10-03",
+      "purpose": "Express simplify-code in language-neutral terms without language-specific code examples; incorporate selected Addy Osmani clarity criteria.",
+      "base_commit": "690425cc7247f01b584588a417f5b5daa6b3d9d2",
+      "prior_skill_sha256": "fc2830ee9e5c559337072e2a3fadfc6d861f2f3ad7850d1051b63db02fd09b96",
+      "skill_sha256": "1693dee4286449e71560f51a930e6a227324bf3b58c7e13fd09d98cc4d50d5d7",
+      "source_commit": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
+      "source_verification": "SSH ls-remote and a shallow SSH clone resolved main to the same commit; the complete source and MIT license were read with git show. Exact URLs and content hashes are retained in reports/skill-atlas/sources.json.",
+      "fidelity_review": [
+        "The entrypoint now explicitly applies criteria through the project language, runtime semantics, and conventions. No language-specific code samples were added.",
+        "Callback/await guard wording became guarantee lifetime across yielding, other calls, and concurrent mutation; checks remain required where their guarantee is used.",
+        "Promise/try/catch/await examples became preservation of failure delivery, deferred completion, and resource-release timing; the equivalence prerequisite still governs every removal.",
+        "Named TypeScript escape types became domain contracts expressed through the applicable type and validation mechanisms, retaining the rule against hiding invalid data.",
+        "Falsy-value and public-shape wording became distinctions among valid values and public data representations; evaluation order and side effects remain explicit.",
+        "Selection description, scope, review-only authority, optional why/verify routing, bug-fix authorization, no-op termination, and required completion evidence are unchanged."
+      ],
+      "selected_additions": [
+        "Retain helpers that name useful concepts or isolate cohesive responsibilities; use demonstrated clarity rather than numeric thresholds.",
+        "Preserve relevant performance/resource constraints and measure potentially material cost changes on sensitive paths."
+      ],
+      "excluded_donor_guidance": [
+        "Language-specific examples, numeric refactoring thresholds, mandatory separate PRs, full-suite runs after every small edit, and automatic deletion based on the number of callers or implementations."
+      ],
+      "checks": [
+        {
+          "command": "/opt/homebrew/bin/fish -c 'uv run --offline --with pyyaml --with tomli python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py simplify-code'",
+          "outcome": "exit 0; Skill is valid!"
+        },
+        {
+          "commands": [
+            "node --check reports/skill-atlas/app.js",
+            "node --check reports/skill-atlas/catalog.js",
+            "node --check reports/skill-atlas/theme.js",
+            "git diff --check"
+          ],
+          "outcome": "All exited 0."
+        },
+        {
+          "command": "env PYTHONPATH=daily-meeting-update python3 -B -m unittest discover -s daily-meeting-update/tests -p test_opencode_digest.py -v",
+          "outcome": "exit 0; 3 tests passed."
+        },
+        {
+          "method": "One-off Python/TOML/JSON assertions against the prior Git snapshot and pinned donor blobs.",
+          "outcome": "Existing source records, dependency roles, MIT notices, and all 122 original catalog records preserved. New source hashes, license text, local references, generated catalog parity, asset hashes and evidence keys match."
+        }
+      ],
+      "browser": {
+        "url": "http://localhost:8765/?revision=simplify-language-neutral#simplify-code",
+        "viewports": [
+          [
+            1280,
+            900
+          ],
+          [
+            480,
+            900
+          ]
+        ],
+        "cards": 122,
+        "adaptation_explanations": 16,
+        "source_links": 7,
+        "last_section": "workflow",
+        "page_overflow": false,
+        "mobile_table": {
+          "client_width": 392,
+          "scroll_width": 620,
+          "observed_scroll_left": 228
+        },
+        "visual_review": "Screenshots inspected at both sizes. Text is readable; the comparison table remains scrollable within its container."
+      },
+      "limits": [
+        "This revision received author fidelity review, structural validation, repository smoke checks and browser inspection. No new matched executor trial was run; the earlier three trials and their hashes above remain historical evidence for the initial version.",
+        "Generic instructions do not establish tested behavior in every language. Performance measurement decisions, implicit host activation, installation and optional specialist invocation were not exercised.",
+        "No build task exists for this Markdown/static-HTML change; package validation and JavaScript syntax checks are the applicable format checks."
+      ]
+    }
+  ]
 }

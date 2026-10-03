@@ -6,8 +6,9 @@ description: Use when simplifying changed code and removing unnecessary complexi
 # Simplify code
 
 Make the requested change easier to read and maintain through focused edits that
-preserve its behavior. Judge the code against its purpose and local conventions;
-its appearance does not establish who wrote it or whether it is wrong.
+preserve its behavior. Apply the criteria using the project's language, runtime
+semantics, and conventions. Judge code against its purpose; its appearance does
+not establish who wrote it or whether it is wrong.
 
 An explicit review-only request returns recommendations without edits. A cleanup
 request authorizes the cleanup, not new features or a repository-wide redesign.
@@ -45,21 +46,28 @@ behavioral equivalence are supported:
   automatically replace a reason. Encode a constraint when that fits the current
   scope and preserves it, then remove only the prose made redundant.
 - Check the actual producer, trust boundary, and lifetime before removing a
-  validation or guard. Static types alone do not validate external data. A check
-  before a callback or `await` may no longer establish mutable state afterward.
-  Keep necessary checks at the point where their guarantee is used.
-- Inspect error handling for recovery, translation, cleanup, logging, and async
-  behavior. Remove a catch only when those effects and the caller's failure
-  contract remain equivalent. In particular, a returned promise can reject after
-  a surrounding `try` has exited; removing `await` can bypass its catch or run
-  its finally before the operation settles.
-- Replace type escapes with the real domain type, corrected API use, or `unknown`
-  narrowed at an untyped boundary. Replacing `any` with an unchecked assertion,
-  a suppression, or a fallback that hides invalid data does not fix the type gap.
+  validation or guard. Static types alone do not validate external data. A
+  guarantee about mutable state can expire when execution yields, calls other
+  code, or shares that state with concurrent work. Keep necessary checks at the
+  point where their guarantee is used.
+- Inspect error handling for recovery, translation, cleanup, and logging.
+  Preserve how and when callers receive failures, including failures delivered
+  after execution has been deferred. Removing a wrapper or wait must preserve
+  operation completion and resource-release timing, not just the eventual result.
+- Use the language's type and validation mechanisms to express the real domain
+  contract. Correct unsafe type escapes, unchecked conversions, or suppressions
+  at their cause. Replacing one escape with another or hiding invalid data behind
+  a fallback does not establish safety.
 - Reduce nesting, duplicate decisions, dead code, and unnecessary indirection when
   the local flow becomes clearer. Preserve evaluation order, side effects,
-  resource lifetime, public shape, and valid falsy values. A shorter expression
-  or an extra abstraction is not automatically simpler.
+  resource lifetime, public data representations, and distinctions among valid
+  values. A shorter expression is not automatically simpler.
+- Keep helpers and abstractions that name a useful concept or isolate a cohesive
+  responsibility. Judge their value by what the reader must understand; line
+  counts and numbers of callers do not decide whether to inline or extract them.
+- Preserve relevant performance and resource constraints. If a simpler form could
+  materially change cost on a sensitive path, measure against those constraints
+  before adopting it.
 - Match established formatting and naming. Keep broad reformatting, dependency
   changes, and unrelated renames outside a focused cleanup.
 

@@ -153,7 +153,8 @@ concrete software change. Use it directly for a decision or during authorized im
 ### simplify-code
 
 Simplify changed code through focused edits that preserve behavior. Use it
-directly for cleanup or as a bounded step in an implementation task.
+directly for cleanup or as a bounded step in an implementation task. Its criteria
+adapt to the project's language and runtime without language-specific examples.
 
 **Triggers:** `simplify this change`, `clean up this diff`, `remove unnecessary complexity`
 
@@ -162,8 +163,9 @@ directly for cleanup or as a bounded step in an implementation task.
 - Resolves the actual change scope and base, preserving unrelated work and staging
 - Removes redundant comments, type escapes, nesting, and indirection when evidence supports it
 - Preserves necessary guards, error handling, resource lifetime, contracts, and explanations
+- Retains useful abstractions and checks material cost changes on sensitive paths
 - Respects review-only requests and separates cleanup from behavior-changing bug fixes
-- Uses why and verify conditionally, with pinned Cursor and pstack provenance
+- Uses why and verify conditionally, with pinned Cursor, pstack, and Addy Osmani provenance
 
 ### verification-authoring
 

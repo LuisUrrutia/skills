@@ -13,6 +13,9 @@ Read `../origin.txt` for exact sources, baselines, cursors, and local choices.
 Preserve actual diff scope, current behavior, necessary constraints and tooling
 directives, conditional specialist use, and the caller's mutation authority.
 Cursor owns the cleanup focus; pstack supplies comment inspection and constraint
-analysis. Its ambiguous-comment deletion rule and mandatory reviewer/redesign
-workflow were intentionally excluded. The shared maintenance procedure owns
-fetching, rename tracking, classification, validation, and cursor advancement.
+analysis; Addy supplies criteria for readable structure and cost-sensitive
+simplification. Keep these criteria language-neutral, without language-specific
+code examples or numeric refactoring thresholds. pstack's ambiguous-comment
+deletion and mandatory reviewer/redesign workflow, and Addy's mandatory separate
+PRs, were intentionally excluded. The shared maintenance procedure owns fetching,
+rename tracking, classification, validation, and cursor advancement.

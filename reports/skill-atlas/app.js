@@ -136,8 +136,8 @@ const clusters = [
       "pstack/principle-laziness-protocol",
       "pstack/principle-subtract-before-you-add"
     ],
-    "text": "deslop limpia el diff de forma concreta. no-comments impone una política más fuerte, con agente dedicado, reglas de borrado, reparación arquitectónica y codificación de restricciones.",
-    "why": "simplify-code resuelve el diff real, simplifica con evidencia y comprueba el resultado. Conserva motivos, invariantes, errores y recursos; una petición de limpieza no autoriza cambiar el contrato."
+    "text": "deslop aporta limpieza del diff; no-comments examina comentarios y restricciones con una política más fuerte. De code-simplification de Addy conservamos criterios de claridad, abstracciones útiles y coste, sin sus ejemplos por lenguaje.",
+    "why": "simplify-code aplica criterios independientes del lenguaje al diff real. Conserva motivos, invariantes, errores, datos y recursos; una petición de limpieza no autoriza cambiar el contrato."
   },
   {
     "title": "Calidad de la prosa",

@@ -1,7 +1,7 @@
 format_version = 1
 skill = "simplify-code"
 created = "2026-10-03"
-approach = "Derive: Cursor supplies focused cleanup; scope, equivalence, validation and selected pstack comment criteria need local rules rather than a wrapper around conflicting behavior."
+approach = "Derive: combine Cursor's focused cleanup, selected pstack comment criteria and Addy's clarity criteria with local, language-neutral scope and equivalence rules."
 
 [[sources]]
 id = "cursor-deslop"
@@ -31,6 +31,21 @@ paths = ["pstack/skills/no-comments/SKILL.md", "pstack/agents/comment-sicko.md",
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Inspect comments against surrounding code and trace consequential constraints.", "Distinguish narration from public contracts, external gotchas, legal notices and tooling directives; prefer a scoped code encoding where it preserves the constraint."]
 local_choices = ["Keep necessary internal invariants and uncertain constraints; do not delete because an exception is unproven.", "No mandatory Comment Sicko, architect call, deletion quota or approval ritual for routine authorized cleanup.", "Inspect suppression meaning; remove only when its underlying reason is resolved and checks still pass."]
+reviews = []
+
+[[sources]]
+id = "addy-simplification"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
+reviewed_through = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
+baseline_paths = ["skills/code-simplification/SKILL.md", "LICENSE"]
+paths = ["skills/code-simplification/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Preserve helpers that name useful concepts and boundaries that isolate cohesive responsibilities.", "Judge clarity rather than line counts; retain relevant performance constraints when simplifying sensitive paths."]
+local_choices = ["Use language-neutral criteria without language-specific code examples or syntax prescriptions.", "Do not adopt numeric refactoring thresholds, mandatory separate PRs, or automatic removal of single-use abstractions.", "Preserve data representation, failure delivery and resource timing even when a shorter source example changes them.", "Keep verification proportional to the changed behavior and the repository's checks; do not require the full suite after every small edit."]
 reviews = []
 
 [[dependencies]]
