@@ -72,8 +72,7 @@ cases. Identify which outputs can be checked objectively.
 For proposed automation, include existing execution owners, inputs, outputs,
 failure states, and effects; the writer owns helper implementation and packaging.
 The writer chooses reuse or derivation before drafting another implementation.
-Locate it in the installed skill catalog; in this repository its entrypoint is
-[../agent-instructions/SKILL.md](../agent-instructions/SKILL.md). This is a required
+Resolve `agent-instructions` by name in the installed skill catalog. It is a required
 writing dependency: if unavailable, preserve the extracted contract and report
 the missing skill rather than silently inventing a second authoring workflow.
 
