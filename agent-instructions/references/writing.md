@@ -18,6 +18,22 @@ Keep each rule, its reason, and its exceptions together. Give each behavior one
 authoritative home. Restating a specialist's procedure in an orchestrator creates
 two versions to maintain; name its input and completion evidence instead.
 
+## Make command and file locations explicit
+
+When a prompt references another skill, follow the name-based resolution rules
+in [hosts.md](hosts.md).
+
+Identify the current skill's installed folder when a prompt uses its bundled
+scripts or references. Name the script to run, its invocation and working
+directory, and which reference files to read under which conditions. Locate these
+resources within that skill without assuming its installation path or the caller's
+working directory.
+
+Identify the target project root separately. State where inputs are read and
+outputs are created relative to that root, following the user's requested layout
+and project conventions. When running from the skill folder, pass project paths
+explicitly so output locations do not depend on the shell's current directory.
+
 ## Choose words for their intended effect
 
 Use familiar terms and direct verbs. Check literal meaning and connotations:
