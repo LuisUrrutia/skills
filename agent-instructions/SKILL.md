@@ -16,7 +16,10 @@ the requested edit scope.
 
 When the task is to discover and extract a reusable workflow from past work,
 `workflow-to-skill` owns that analysis and hands the resulting contract here for
-writing. A direct request to create or improve instructions starts here.
+writing. `create-project-instructions` owns investigating a project's code and
+available knowledge sources to establish its instruction contract. Write directly
+from either skill's evidence handoff; do not send it back through discovery.
+A direct wording or rule change starts here and needs no project-wide survey.
 
 For a request to check or update a skill from its recorded sources, use
 [references/upstream-updates.md](references/upstream-updates.md). Ordinary writing
@@ -34,6 +37,8 @@ Establish:
 - Who reads the instructions, when they apply, and where the authoritative text lives.
 - Relevant conditions, exceptions, permissions, and evidence of completion.
 - Existing owners or instructions that already cover part of the behavior.
+- Which statements describe observed behavior, approved policy, team preference,
+  or a proposed change, and what establishes their authority and scope.
 
 Use accessible evidence before asking. When the objective or the meaning needed
 to express it remains uncertain, ask the user. State the plausible interpretations

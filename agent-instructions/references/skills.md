@@ -35,6 +35,11 @@ or references. Add an exclusion only to prevent a likely overlap. Preserve words
 needed to distinguish related requests; brevity must not broaden or narrow the
 intended activation scope.
 
+Check the description beside neighboring skills, not only in isolation. A shared
+writer can serve project discovery and workflow extraction without repeating
+their investigations. Name the handoff and the distinct task that selects each
+owner; do not make every description advertise the whole collection.
+
 ## Package the instructions
 
 Use `SKILL.md` for shared decisions and steps. Put substantial conditional detail

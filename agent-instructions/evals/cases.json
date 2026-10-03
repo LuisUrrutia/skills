@@ -251,6 +251,50 @@
         "Do not silently choose either donor or invent a review-default/repair-on-request compromise that the user has not selected.",
         "Preserve the shared read-and-report work as independent draft content while keeping the unresolved behavior explicit."
       ]
+    },
+    {
+      "id": "project-rule-pruning",
+      "kind": "artifact",
+      "prompt": "Improve docs/agent-rules.md so it is concise and useful for agents, preserving the project requirements. Make the document edit using the provided context.",
+      "fixture": {
+        "files": {
+          "Makefile": "test:\n\tpython3 -m unittest discover -s tests\ncompile:\n\tpython3 -m compileall -q src\n",
+          "pyproject.toml": "[project]\nname = \"orbit\"\nversion = \"0.1.0\"\nrequires-python = \">=3.11\"\n[tool.ruff.format]\nquote-style = \"double\"\n",
+          "README.md": "# Orbit\nLegacy setup: pipenv run old-check. The current entrypoints are in the Makefile.\n",
+          "AGENTS.md": "Read docs/agent-rules.md for repository instructions.\n",
+          "CLAUDE.md": "@docs/agent-rules.md\n",
+          "tests/test_refunds.py": "import unittest\nfrom src.refunds import refund\nclass Refunds(unittest.TestCase):\n    def test_captured_rate(self):\n        self.assertEqual(refund(10, 2), 20)\n",
+          "docs/refunds.md": "# Refunds\nApproved settlement contract: use the original captured exchange rate, including partial refunds.\n",
+          "docs/agent-rules.md": "# Orbit agent instructions\nThis file is the canonical repository instruction source.\nUse Python 3.11 or later. Run `make test` from the root before delivery.\nRun `make compile` from the root to check import syntax.\nPrefer small functions. Prefer small functions that are easy to read.\nUse Python. Write good code. Follow best practices.\nNever include customer addresses in logs, even in failed-job diagnostics. Our collectors forward errors to customer-visible support exports.\nPrefer double quotes; the formatter checks this.\nRead docs/refunds.md when changing refund calculations. Partial refunds must use the original captured currency and exchange rate; current spot rates break settlement reconciliation.\nWhen changing packages/lab, read packages/lab/AGENTS.md.\nThe CLAUDE.md import is required for the configured host; preserve it.\n",
+          "packages/lab/AGENTS.md": "# Lab\nThe lab uses synthetic customers. Synthetic addresses may appear in local lab diagnostics; customer data still follows the root rule.\n",
+          "src/refunds.py": "def refund(amount, captured_rate):\n    return amount * captured_rate\n"
+        }
+      },
+      "expectations": [
+        "Preserve the customer-data boundary, captured-rate requirement, preference strength, canonical owner, imports and lab exception.",
+        "Remove duplicate or generic material without deleting material domain rules on the premise that a formatter enforces them.",
+        "Check actual commands and report execution separately from inspection. No host migration or claim of automatic reload."
+      ]
+    },
+    {
+      "id": "three-authoring-owners",
+      "kind": "selection",
+      "prompt": "Choose the entrypoint using only the supplied names and descriptions.",
+      "fixture": {
+        "queries": [
+          "Investigate this repository and its linked team documentation and create AGENTS.md.",
+          "Change this known AGENTS.md rule to prefer pnpm.",
+          "Turn these completed sessions into a reusable skill.",
+          "Write a skill from this complete new capability specification.",
+          "Explain why this subsystem chose polling."
+        ]
+      },
+      "expectations": [
+        "Project discovery selects create-project-instructions.",
+        "A narrow rule edit and a new skill specification select agent-instructions.",
+        "History extraction selects workflow-to-skill; a causal code question selects why rather than any authoring skill.",
+        "A supplied research contract goes directly to writing without recursive discovery."
+      ]
     }
   ]
 }

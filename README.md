@@ -17,6 +17,22 @@ referenced guides, and agent prompts. New skills do not require prior use or rep
 - Chooses between reusing, wrapping, deriving, or creating a skill before adding an implementation
 - Preserves provenance pins and supports requested upstream reviews or updates
 - Validates the changed behavior in proportion to the task
+- Preserves business constraints and preferences when pruning, and distinguishes file size from actual loaded context
+
+### create-project-instructions
+
+Investigate a project's implementation and available knowledge sources, then use
+`agent-instructions` to create or update its `AGENTS.md` or `CLAUDE.md`. Install
+both skills for this workflow.
+
+**Triggers:** `create project instructions`, `research this project and write AGENTS.md`, `update CLAUDE.md from our project decisions`
+
+**Features:**
+- Uses repository evidence and relevant available docs, tickets, PRs, and discussions
+- Distinguishes current behavior, approved business decisions, proposals, and unknowns
+- Preserves canonical instruction owners, host adapters, and scoped exceptions
+- Checks real commands and keeps private context appropriate for the destination
+- Reports source coverage, unresolved conflicts, and checks actually performed
 
 ### workflow-to-skill
 
@@ -31,6 +47,7 @@ using this extraction workflow.
 - Preserves task-specific authorization boundaries
 - Reuses an existing skill owner when appropriate and continues through the actual edit
 - Separates missed activation from missing instructions, using traceable upstream extraction criteria
+- Follows deciding context and routes lessons to skills, project instructions, personal preferences, or existing checks
 
 ### prototype
 

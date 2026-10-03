@@ -116,6 +116,19 @@ Remove repeated meanings, generic encouragement, and instructions already
 supplied by an authoritative local owner. Read configuration and CLI help for
 facts the environment can supply; document the reason or gotcha it cannot.
 
+Distinguish general technique from project constraints, team preferences, and
+organizational policy. The latter can be valuable even when they are not the
+model's default. Code and tests establish behavior; they do not by themselves
+establish intended business policy. Keep a consequential rule's reason and source
+reachable, especially when implementation and approved intent differ.
+
+Before removing a rule as enforced elsewhere, inspect the actual configuration,
+execution path, and coverage. A formatter does not enforce a business invariant.
+Preserve rare but consequential constraints and authorized preferences. A shorter
+file, a donor's score, or a claim that a model already knows something does not
+establish that a rule is redundant. Use behavioral evidence when the rule's value
+is uncertain; a small passing sample does not prove safe retirement.
+
 Check the revision against the original actors, actions, conditions, scope,
 exceptions, and evidence. Shortening must not turn a suggestion into a universal
 rule, a read into a write, or an attempted check into a successful one.

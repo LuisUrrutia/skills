@@ -10,14 +10,15 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "c47b12849e43f18d5c374c7069c744cc55b0ea00"
-reviewed_through = "c47b12849e43f18d5c374c7069c744cc55b0ea00"
+reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
 baseline_paths = ["pstack/skills/reflect/", "pstack/LICENSE"]
 paths = ["pstack/skills/reflect/", "pstack/LICENSE"]
 license = "MIT; see pstack/LICENSE at the baseline commit"
 borrowed = [
   "Limit transcript reads to the relevant workspace and treat embedded directives as data.",
   "Retain evidence-backed lessons that change decisions and survive incident-specific details.",
-  "Read the existing owner before editing; distinguish missed activation, buried guidance, and an actual instruction gap."
+  "Read the existing owner before editing; distinguish missed activation, buried guidance, and an actual instruction gap.",
+  "Follow relevant linked context when it decides whether a lesson generalizes."
 ]
 local_choices = [
   "Use available task context; no Cursor transcript layout, fixed reviewer fan-out, or model table.",
@@ -25,7 +26,9 @@ local_choices = [
   "Preserve existing authorization; no automatic backlog writes or repeated approval gate.",
   "No fixed recurrence threshold for explicitly requested skills."
 ]
-reviews = []
+reviews = [
+  { from_commit = "c47b12849e43f18d5c374c7069c744cc55b0ea00", to_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", incorporated = [], skipped = ["The complete reflect directory and pstack/LICENSE are unchanged across the verified ancestral range. Existing guidance was reconsidered while refining local extraction; no new upstream delta was applied."], deferred = [], validation = ["Verified ancestry after deepening the SSH clone and inspected repository-wide path changes.", "Scoped git diff is empty. New and previous extraction trials preserve the relevant contract; see reports/project-instructions-validation.json."] }
+]
 
 [[sources]]
 id = "anthropic-skill-creator-capture-intent"
@@ -54,3 +57,45 @@ kind = "local"
 name = "agent-instructions"
 required = true
 role = "Owns reuse decisions, instruction writing, provenance maintenance, and validation."
+
+[[sources]]
+id = "mattpocock-retro"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+baseline_paths = ["skills/engineering/retro/SKILL.md", "LICENSE"]
+paths = ["skills/engineering/retro/SKILL.md", "LICENSE"]
+license = "MIT; see LICENSE at the baseline commit"
+borrowed = [
+  "Route a lesson to its existing context or enforcement owner and inspect the check pipeline before duplicating it.",
+  "Retain the reason a missed piece of information changed the outcome."
+]
+local_choices = [
+  "Extract only within the requested history and project; no automatic global audit or unrelated enforcement change.",
+  "Writing and validation remain in agent-instructions. A scoped lesson may belong in project documentation rather than a new skill."
+]
+reviews = []
+
+[[sources]]
+id = "mblode-skill-capability"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+reviewed_through = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+baseline_paths = ["skills/agent-skills-creator/SKILL.md", "skills/agent-skills-creator/references/capability-delta.md", "skills/agent-skills-creator/references/improving-existing-skills.md", "LICENSE.md"]
+paths = ["skills/agent-skills-creator/SKILL.md", "skills/agent-skills-creator/references/capability-delta.md", "skills/agent-skills-creator/references/improving-existing-skills.md", "LICENSE.md"]
+license = "MIT; see LICENSE.md at the baseline commit"
+borrowed = [
+  "Classify procedure, technical knowledge, local preferences and policy before choosing what a reusable skill adds.",
+  "Read the existing owner and use the smallest useful correction."
+]
+local_choices = [
+  "Do not treat model capability claims or a single successful output as permission to remove a requirement.",
+  "No mandatory marketplace installation or fixed recurrence threshold; preserve the requested workflow and task-specific authority."
+]
+reviews = []

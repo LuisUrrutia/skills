@@ -134,6 +134,26 @@
         "Do not treat acceptance of two different past outputs as confirmation of a single future objective.",
         "Keep dependent skill behavior unresolved until the user answers; distinguish confirmed history from the unconfirmed reusable objective."
       ]
+    },
+    {
+      "id": "linked-decision-and-existing-check",
+      "kind": "artifact",
+      "prompt": "Turn the completed billing-import work in sessions.md into reusable instructions. Improve the existing owner if it fits. Use the available project artifacts and make the skill edit.",
+      "fixture": {
+        "files": {
+          "context-index.json": "{\"decisions\": [{\"id\": \"D-14\", \"file\": \"decisions/d14.md\"}], \"owner\": \"skills/import-records/SKILL.md\"}",
+          "sessions.md": "# Relevant completed work: billing-import\n2026-09-22: Imported the Aurora partner export. The task began without the existing import-records skill loaded. A new one-off check_rows.py was proposed. User pointed to `python3 tools/import_records.py --validate-only` already in the repository. The built-in check found three invalid rows. Final work used it and preserved the full rejection file.\nUser: \"For this test run only, do not send the partner email until I approve it. In the reusable workflow follow the actual notification policy.\"\nAssistant: \"We should reject padded identifiers because whitespace is always bad.\"\nUser: \"Read the approval in decision D-14 first; this vendor is a migration exception.\"\nThe successful artifact normalized padded external identifiers before validation and saved original identifiers in a local reconciliation ledger. It did not change prices or round amounts. The operator later ran the normal notification job.\n2026-09-28: Boreal export. The existing skill was loaded. It used the built-in validator and preserved rejects. No extra script was necessary. Fixed decimals were kept. No email approval was requested by this user.\n",
+          "tools/import_records.py": "import argparse\np = argparse.ArgumentParser()\np.add_argument('--validate-only', action='store_true')\np.add_argument('input')\nargs = p.parse_args()\nprint('Validator fixture: rows retain the supplied precision; no imports or notifications are executed.')\n",
+          "decisions/d14.md": "# D-14: external identifiers\nStatus: approved for Aurora migration imports only; owner: Billing platform.\n2026-09-20: Trim surrounding whitespace for Aurora imports and keep an original-to-normalized ledger. Other partners retain exact identifiers and reject malformed rows. Financial amounts are preserved as supplied; unresolved format or precision requires a contract decision.\nNotification policy: use the existing operator notification job; this document does not grant an agent permission to contact partners.\n",
+          "skills/import-records/SKILL.md": "---\nname: import-records\ndescription: Validate and import partner billing records from an export file.\n---\n# Import records\nRead the partner schema and the current approved migration decisions before changing records.\nUse the repository's `tools/import_records.py --validate-only` from the repository root before an authorized import. Keep the full rejection report.\nUse the notification job only within the active task's authorization. Do not embed paths, dates, or partner names from a past run as universal defaults.\n"
+        }
+      },
+      "expectations": [
+        "Read D-14 and preserve its partner-limited scope. A successful Aurora migration does not make normalization universal.",
+        "Use the existing validator; do not add a second script or copy project-specific policy into a portable skill default.",
+        "Preserve rejection reports, financial precision and the notification authority boundary.",
+        "Separate a missed invocation from missing guidance and actual business knowledge. Continue through the authorized edit."
+      ]
     }
   ]
 }

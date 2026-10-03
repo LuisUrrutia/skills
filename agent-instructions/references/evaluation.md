@@ -44,6 +44,13 @@ an update, compare with the previous document or skill snapshot. Keep model, eff
 authorization, and output format equal. Use independent clean contexts so a
 baseline cannot see the candidate or an earlier answer.
 
+When the question is whether guidance still earns its place, a no-instruction
+comparison or removal of the disputed rule can supplement the prior-version
+comparison. Test the behavior that rule protects, including relevant exceptions.
+Check whether a stated team preference is actually followed; passing unrelated
+cases cannot justify deleting it. Keep the distinction between an editorial
+recommendation and a measured behavioral improvement.
+
 If independent agents are available and authorized, give an executor the realistic
 request, relevant skill, and raw artifacts. Keep expected outcomes, suspected
 defects, and proposed fixes out of its prompt. Otherwise use the available runner
