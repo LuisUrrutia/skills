@@ -272,6 +272,78 @@ window.SKILL_ATLAS = {
       "label": "pstack/LICENSE",
       "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/LICENSE",
       "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
+    },
+    {
+      "id": "verification-pstack-create",
+      "label": "cursor-plugins / pstack/skills/create-verification-skill/SKILL.md · verificación",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/create-verification-skill/SKILL.md",
+      "sha256": "644f2551403c1bca01a2855b34611b6e7be0ce0dc5b204514c376c0f6a6e6ac4"
+    },
+    {
+      "id": "verification-pstack-maintain",
+      "label": "cursor-plugins / pstack/skills/maintain-verification-skill/SKILL.md · verificación",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/maintain-verification-skill/SKILL.md",
+      "sha256": "515c0eaa054b3f6be1b1fb06f2c2f173c80fddb58bbcac57576f89c479bc68e8"
+    },
+    {
+      "id": "verification-pstack-index",
+      "label": "cursor-plugins / pstack/skills/create-verification-skill/references/feature-map-example/README.md · verificación",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/create-verification-skill/references/feature-map-example/README.md",
+      "sha256": "cb7bd782cf89968a4ba3d58a5151db837430db92d19a6f52a906973b77b516ba"
+    },
+    {
+      "id": "verification-pstack-note",
+      "label": "cursor-plugins / pstack/skills/create-verification-skill/references/feature-map-example/create-note.md · verificación",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/create-verification-skill/references/feature-map-example/create-note.md",
+      "sha256": "644a44c74f35d38c2feb7cd05a0121fdebbb623e8dc376c185b565a581d1ccf7"
+    },
+    {
+      "id": "verification-pstack-search",
+      "label": "cursor-plugins / pstack/skills/create-verification-skill/references/feature-map-example/search.md · verificación",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/create-verification-skill/references/feature-map-example/search.md",
+      "sha256": "6e87b9e7f2791a7776ba1bb83f371cd285c306c67f19d245cc4dd6ca3015c823"
+    },
+    {
+      "id": "verification-pstack-license",
+      "label": "cursor-plugins / pstack/LICENSE · verificación",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/LICENSE",
+      "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
+    },
+    {
+      "id": "verification-superpowers",
+      "label": "superpowers / skills/verification-before-completion/SKILL.md · verificación",
+      "url": "https://github.com/obra/superpowers/blob/8ca22dba9a94f28898bbce59f2537ff4d87c747d/skills/verification-before-completion/SKILL.md",
+      "sha256": "2befe7fc55bcadaa3d97dd9e8efeb633d2561c0ebe74c5a8b17c4d9e7e4520b3"
+    },
+    {
+      "id": "verification-superpowers-license",
+      "label": "superpowers / LICENSE · verificación",
+      "url": "https://github.com/obra/superpowers/blob/8ca22dba9a94f28898bbce59f2537ff4d87c747d/LICENSE",
+      "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400"
+    },
+    {
+      "id": "verification-gsd",
+      "label": "gsd-2 / src/resources/skills/verify-before-complete/SKILL.md · verificación",
+      "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/skills/verify-before-complete/SKILL.md",
+      "sha256": "bb91ccba0fcb7a0fc8a13e7caa1f752f94b160785c237a9ff8e748b872502800"
+    },
+    {
+      "id": "verification-gsd-license",
+      "label": "gsd-2 / LICENSE · verificación",
+      "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/LICENSE",
+      "sha256": "ae7573921c444c8b6f7552060e7920a5b4c5d072fe584c1055dc1fbbf99f24db"
+    },
+    {
+      "id": "verification-addy",
+      "label": "addy-agent-skills / skills/browser-testing-with-devtools/SKILL.md · verificación",
+      "url": "https://github.com/addyosmani/agent-skills/blob/a06bc63b3f8b829c14b0bbf53d99fefc39d58092/skills/browser-testing-with-devtools/SKILL.md",
+      "sha256": "4e3aacd6a380cd25bc6c2d67fdd1c926a9b22535b8a62109ecd33cefd909e3d9"
+    },
+    {
+      "id": "verification-addy-license",
+      "label": "addy-agent-skills / LICENSE · verificación",
+      "url": "https://github.com/addyosmani/agent-skills/blob/a06bc63b3f8b829c14b0bbf53d99fefc39d58092/LICENSE",
+      "sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7"
     }
   ],
   "skills": [
@@ -972,8 +1044,8 @@ window.SKILL_ATLAS = {
       "decision": "Blend",
       "owner": "verification-authoring",
       "summary": "Genera instrucciones del repositorio para arrancar, comprobar salud, interactuar, recoger evidencia y limpiar; luego ejecuta un recorrido.",
-      "reason": "Mejor base para una capacidad verify-<repo> con comandos y resultados observables.",
-      "caution": "Usar tus rutas de skills y las herramientas del navegador activo. No crear otro sistema de pruebas si el existente ya sirve."
+      "reason": "Base principal de verification-authoring: seis secciones operativas, mapa y prueba real de una funcionalidad.",
+      "caution": "La revisión nueva está fijada en las fuentes complementarias. Una receta sin ejecución es un borrador; no demuestra todo el mapa."
     },
     {
       "id": "pstack-figure-it-out",
@@ -1052,7 +1124,7 @@ window.SKILL_ATLAS = {
       "decision": "Blend",
       "owner": "verification-authoring",
       "summary": "Compara el mapa de verificación con el código y el comportamiento real, y corrige sus propias instrucciones o herramientas.",
-      "reason": "Incorporar su revisión de recetas en verification-authoring, separada de la ejecución de verify.",
+      "reason": "Modo Maintain de verification-authoring: cobertura de fuente y ejecución de todas las funcionalidades; un coordinador conduce el estado mutable.",
       "caution": "Una regresión del producto debe seguir siendo un hallazgo; no redefinirla como comportamiento esperado en la documentación."
     },
     {
@@ -2036,9 +2108,9 @@ window.SKILL_ATLAS = {
       "lines": 317,
       "category": "Verificación",
       "decision": "Blend",
-      "owner": "referencia de verificación",
+      "owner": "verify, referencia condicional de navegador",
       "summary": "Usa un navegador real para observar DOM, consola, red, ejecución y rendimiento, con límites explícitos sobre datos.",
-      "reason": "Aprovechar la observación y el aislamiento de perfiles cuando haga falta un navegador de pruebas separado.",
+      "reason": "Observación de interacción, DOM, red, consola y renderizado según la afirmación; sin imponer otro navegador ni umbrales inventados.",
       "caution": "Respetar el navegador solicitado, como Dia aquí; en su ausencia, usar las herramientas preferidas del entorno. No volver a pedir permiso para interacciones ya autorizadas."
     },
     {
@@ -2761,5 +2833,21 @@ window.SKILL_ATLAS = {
     ],
     "status": "Created in repository with conditional specialist composition; no global installation performed.",
     "localSkill": "compare-solutions"
+  },
+  "verificationReview": {
+    "date": "2026-10-03",
+    "localSkills": [
+      "verification-authoring",
+      "verify"
+    ],
+    "design": "Common verify entrypoint selects project-local verify-<app>; verification-authoring creates and maintains them.",
+    "status": "Created in repository; supplied-context behavioral trials and structural checks recorded separately. No global installation.",
+    "sourceCommits": {
+      "cursor-plugins": "23e4138daa01c42d4969f7a5465f82704e64f798",
+      "superpowers": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "gsd-2": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "addy-agent-skills": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
+    },
+    "catalogScope": "Original 122 catalog entries retained. Newly requested Superpowers and GSD sources and updated derivation pins are supplementary evidence."
   }
 };

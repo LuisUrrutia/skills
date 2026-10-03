@@ -1,0 +1,115 @@
+format_version = 1
+skill = "verify"
+created = "2026-10-03"
+approach = "Derive a common evidence and selection entrypoint over project-local pstack-style verification recipes."
+
+[[sources]]
+id = "pstack-verification"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+baseline_paths = ["pstack/skills/create-verification-skill/SKILL.md", "pstack/skills/maintain-verification-skill/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/create-verification-skill/SKILL.md", "pstack/skills/maintain-verification-skill/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Discover Surface, Run, Drive, Observe and Isolate from the repository before writing commands.",
+  "Project-local verify-<app> with Launch, Doctor, Drive, Evidence, Cleanup and Helpers.",
+  "Feature map with source-grounded user entry points, real action and result proof, independently observed side effects, and evidence that survives cleanup.",
+  "Creation proves one mapped feature; maintenance covers every feature from source and live, with separate readers and one mutable driver.",
+  "Distinguish recipe drift, harness gaps and product defects; bounded doctor repair and ownership-aware cleanup on every attempt."
+]
+local_choices = [
+  "Common verify owns selection, scope and result claims; project-local verify-<app> owns executable application procedures. verification-authoring owns creation and maintenance.",
+  "Resolve the target host and local skill location; do not require Cursor, tmux, a fixed browser tool or a global installation.",
+  "Use agent-instructions by registered name for authoring. Keep general writing rules with that owner.",
+  "Product repair, dependency installation, commits, PRs and scheduling follow the active caller and repository rules; maintenance does not automatically publish.",
+  "Unreachable routes are blocked behavior coverage, with the attempted route and concrete missing prerequisite; they are not a behavioral pass.",
+  "Direct source review is an explicit disclosed fallback when independent workers cannot run and the caller permits it.",
+  "A bundled read-only map validator checks links and section structure; source and live proof still establish correctness."
+]
+reviews = []
+
+[[sources]]
+id = "superpowers-verification"
+author = "Jesse Vincent / obra"
+repository = "https://github.com/obra/superpowers"
+remote = "git@github.com:obra/superpowers.git"
+ref = "refs/heads/main"
+baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+reviewed_through = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+baseline_paths = ["skills/verification-before-completion/SKILL.md", "LICENSE"]
+paths = ["skills/verification-before-completion/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Match completion claims to current execution output, exit statuses and the exact check that proves them.",
+  "Prior logs, delegated summaries, lint and confident reasoning do not replace current behavioral or build evidence."
+]
+local_choices = [
+  "Freshness depends on relevant inputs, code and environment, not on whether evidence appeared in the current chat message.",
+  "Retain useful partial passes while precisely reporting failures and blocked checks. Verification alone does not authorize repairs or new tests."
+]
+reviews = []
+
+[[sources]]
+id = "gsd-verification"
+author = "Lex Christopherson / gsd-build"
+repository = "https://github.com/gsd-build/gsd-2"
+remote = "git@github.com:gsd-build/gsd-2.git"
+ref = "refs/heads/main"
+baseline_commit = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+reviewed_through = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+baseline_paths = ["src/resources/skills/verify-before-complete/SKILL.md", "LICENSE"]
+paths = ["src/resources/skills/verify-before-complete/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Inventory requirements and checks before reporting completion; observe the original bug and real build.",
+  "Report incomplete checks and remaining blockers rather than inferring that passing adjacent checks prove the requested behavior."
+]
+local_choices = [
+  "Do not require the GSD slice framework, its fixed tools or an automatic fix-everything loop.",
+  "The original reproduction is required for a bug claim; do not invent historical red/green evidence or mandate a new test suite."
+]
+reviews = []
+
+[[sources]]
+id = "addy-browser-verification"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
+reviewed_through = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
+baseline_paths = ["skills/browser-testing-with-devtools/SKILL.md", "LICENSE"]
+paths = ["skills/browser-testing-with-devtools/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Exercise the actual browser UI and use rendering, DOM, console, network and persistence evidence appropriate to each claim.",
+  "Use browser tooling for concrete behavior, accessibility or performance questions, with relevant measurements and observed errors."
+]
+local_choices = [
+  "Use the host-supported browser and project harness. Do not install Chrome DevTools MCP as a universal prerequisite.",
+  "Preserve existing authority for UI interactions instead of adding a confirmation before every modifying click.",
+  "Apply accessibility, performance and error thresholds from the task or project contract; do not invent universal zero-warning or numeric budgets."
+]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "General instruction writing, packaging and requested upstream maintenance."
+
+[[dependencies]]
+kind = "local"
+name = "verification-authoring"
+required = false
+role = "Create or maintain a project recipe only when that work is authorized."
+
+[[dependencies]]
+kind = "local"
+name = "debug"
+required = false
+role = "Diagnose a failure only when the active task requests or authorizes diagnosis."

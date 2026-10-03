@@ -214,8 +214,8 @@ const clusters = [
       "ECC/e2e-testing",
       "ECC/react-testing"
     ],
-    "text": "pstack enseña a arrancar y utilizar esta aplicación concreta. Addy explica qué observar en el navegador; ECC, cómo implementar pruebas duraderas. El mantenimiento comprueba que la receta siga coincidiendo con la realidad.",
-    "why": "verify ejecuta la receta y devuelve evidencia. verification-authoring crea o mantiene esa receta con agent-instructions. Ambas se pueden pedir directamente; añadir infraestructura de pruebas solo para una carencia concreta."
+    "text": "pstack aporta la receta local y su mantenimiento. Superpowers y GSD refuerzan qué evidencia permite afirmar que algo funciona; Addy concreta la observación en navegador. ECC queda como referencia de pruebas, sin convertirse en una dependencia de estas dos skills.",
+    "why": "Ya creadas: verify es la entrada común y selecciona verify-<app>. verification-authoring crea y mantiene esas recetas con agent-instructions. Crear exige demostrar una funcionalidad; mantener exige revisar y conducir todo el mapa. La evidencia actual decide el resultado."
   },
   {
     "title": "Reflexión, memoria y transferencia",

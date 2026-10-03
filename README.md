@@ -134,6 +134,36 @@ solutions or independent investigations justify the extra work.
 - Records failed candidates, missing judges, graft decisions, and verification limits
 - Preserves exact pstack sources and supports requested maintenance through `agent-instructions`
 
+### verification-authoring
+
+Create and maintain project-local `verify-<app>` skills that another agent can
+execute from a cold start. Install `agent-instructions` alongside this authoring skill.
+
+**Triggers:** `create a verification skill for this app`, `maintain verify-memo`, `update the verification recipe`
+
+**Features:**
+
+- Discovers real launch commands, driving tools, observation points, and isolation
+- Preserves pstack's Launch, Doctor, Drive, Evidence, Cleanup, and Helpers contract
+- Creates a feature map and proves one feature; maintenance reviews and drives every feature
+- Distinguishes recipe drift from product defects and preserves evidence after cleanup
+- Includes a read-only map checker and pinned pstack sources with requested upstream maintenance
+
+### verify
+
+Verify a change or completion claim using current execution evidence. Select the
+project's local `verify-<app>` recipe for application behavior.
+
+**Triggers:** `verify this change`, `check this bug is fixed`, `verify before calling this complete`
+
+**Features:**
+
+- Matches requirements and affected entry points to the checks that can prove them
+- Runs project checks and the relevant local application recipe within the active scope
+- Checks real user paths, side effects, build identity, and retained evidence
+- Separates failures, blocked checks, and partial success; a verification-only request does not authorize repair
+- Adds conditional browser evidence guidance and records pstack, Superpowers, GSD, and Addy Osmani sources
+
 ### commit
 
 Create git commits with conventional commit messages.
