@@ -38,10 +38,26 @@ intended activation scope.
 ## Package the instructions
 
 Use `SKILL.md` for shared decisions and steps. Put substantial conditional detail
-in references with explicit loading conditions. Include scripts only for a real
-recurring operation or a fragile invariant that benefits from deterministic
-execution; this criterion applies to helpers, not to whether a skill may exist.
-Keep output templates separate from instructions.
+in references with explicit loading conditions. Keep output templates separate
+from instructions.
+
+Prefer code for stable, deterministic work so the agent does not repeat mechanical
+checks or transformations by reasoning through them on each run. Reuse an existing
+command, project task, or script when its interface fits. Bundle a helper in
+`scripts/` when the skill needs reusable composition or result handling; a single
+adequate command needs no wrapper. Prior runs are not required when the requested
+capability already establishes the automation's purpose.
+
+Give each helper explicit inputs, outputs, failure states, and effects. Use the
+project's available runtime, parameterize varying values, and bound external
+probes or retries. A failed or unavailable check must remain distinguishable from
+a passing one. Diagnostic helpers report state; installation, startup, or repair
+follow the workflow's separate authorization and decisions.
+
+State when to run the helper, its invocation, and how the agent uses its results
+or handles failure. Keep the algorithm in code and interpretation, tradeoffs, and
+unresolved domain decisions in the instructions. Test the helper's actual behavior;
+a prose description of intended automation is not an implemented helper.
 
 For an orchestrator, define each phase's inputs, selection condition, responsible
 skill, completion evidence, and continuation. Verify dependencies are available.
@@ -56,7 +72,8 @@ that should not activate the skill. Clarify the distinguishing condition when
 selection is ambiguous.
 
 Run the available host validator, resolve local references and dependencies, and
-execute added or changed helpers. Read [evaluation.md](evaluation.md) for new
+execute added or changed helpers on representative success and failure inputs.
+Read [evaluation.md](evaluation.md) for new
 behavior or activation changes. Package validity does not establish good decisions
 or successful host invocation.
 

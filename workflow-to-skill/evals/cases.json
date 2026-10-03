@@ -76,6 +76,47 @@
         "The working body is preserved; no second release-note skill or duplicate rule is introduced.",
         "The history is evidence, not an instruction to generate or publish release notes now."
       ]
+    },
+    {
+      "id": "deterministic-preflight",
+      "kind": "artifact",
+      "prompt": "Turn these completed local startup sessions into a reusable skill named compose-start. Future runs should prepare and start a user-requested local development stack. Return the complete skill package, including any supporting resources the workflow needs, as fenced file blocks labeled with their relative paths. Keep the host's Python 3 runtime; no third-party Python packages are available. Do not operate a real stack or install anything while authoring.",
+      "fixture": {
+        "history": [
+          "Session A: user requested the stack at /project-a/compose.yaml. The agent looked up docker on PATH, ran docker --version, docker compose version --short, and docker info, then read the compose configuration. The user chose the api profile from two valid profiles. With the prerequisites satisfied, the agent ran docker compose -f /project-a/compose.yaml --profile api up -d and checked the result.",
+          "Session B: user requested /project-b/dev/compose.yaml. The agent repeated the same executable, Compose, and engine checks. Docker and Compose were available but docker info failed with a connection error. The agent reported the failure, and the user started their engine. After rechecking, the agent read this project's configuration and started the user-selected web profile."
+        ],
+        "existing_automation": "No preflight script or project task exists. The installed Docker CLI owns its native commands. Python 3 and its standard library are available.",
+        "reference_commands": {
+          "docker --version": "Reports the Docker client version; exit 0 when usable.",
+          "docker compose version --short": "Reports the Compose command version; exit 0 when available.",
+          "docker info": "Queries the configured engine; exit 0 when reachable and usable, nonzero with diagnostic stderr otherwise. A connection failure does not establish whether the cause is a stopped engine, permissions, or a remote endpoint."
+        },
+        "variable_inputs": "Compose file, project location, requested services/profile, and executable paths can vary. The available Compose invocation is docker compose. No separate plugin filesystem path is supplied.",
+        "authority": "The future request authorizes starting its chosen stack after checks. Installing software, changing the Docker context, or starting/reconfiguring the engine is separate work. A preflight check must not perform those repairs."
+      },
+      "expectations": [
+        "Bundle runnable Python standard-library code that composes the deterministic executable, client, Compose, and engine checks; do not stop at describing a future script.",
+        "Discover executable paths at runtime and preserve meaningful check outcomes and diagnostics. A missing executable, failed command, or unreachable engine must not be reported as a passing preflight.",
+        "Parameterize varying inputs, invoke subprocesses without shell interpolation, and bound external probes. The helper performs diagnostics without installation, engine startup, context changes, or stack mutation.",
+        "The skill invokes the helper and uses its results before startup. Project interpretation, unresolved profile or service choices, and repair decisions remain with the agent.",
+        "Run the generated helper against isolated ready, Docker-missing, Compose-unavailable, engine-unreachable, and path-with-spaces fixtures. Record executed checks separately from proposed validation."
+      ]
+    },
+    {
+      "id": "judgment-with-existing-tool",
+      "kind": "artifact",
+      "prompt": "Capture this completed workflow in a reusable skill named ticket-brief. Return its complete package.",
+      "fixture": {
+        "history": "The user supplied a ticket with contradictory acceptance criteria. The agent read the ticket, identified the conflicting requirements, asked which behavior was intended, and returned the clarified acceptance summary. A second ticket used different wording and required the same kind of interpretation.",
+        "existing_automation": "An existing ticket-export command already supplies the ticket as text; no custom parsing, transformation, calculation, or environment probe was needed.",
+        "expected_future_output": "A clarified acceptance summary grounded in the supplied ticket, with material unresolved choices asked of the user."
+      },
+      "expectations": [
+        "Reuse the supplied ticket or existing ticket-export command as the input source.",
+        "Keep interpreting conflicts, asking material unresolved choices, and producing an evidence-grounded summary with the agent.",
+        "Do not add a script or wrapper without a concrete deterministic responsibility beyond the adequate existing command."
+      ]
     }
   ]
 }
