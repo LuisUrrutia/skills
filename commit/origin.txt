@@ -1,0 +1,82 @@
+format_version = 1
+skill = "commit"
+created = "2026-10-03"
+approach = "Conventional messages grounded in the verified index; preserve user staging and atomic behavior/test pairs."
+
+[[sources]]
+id = "addy-git"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "1401c8b8030e023baeebb31781a6653fe8e93026"
+baseline_paths = ["skills/git-workflow-and-versioning/SKILL.md", "LICENSE"]
+paths = ["skills/git-workflow-and-versioning/SKILL.md", "LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Split independently understandable intent; keep coherent history and explain consequential reasons."]
+local_choices = ["No numeric commit quotas, forced branching model, runtime-specific release tooling, destructive recovery or hook installation."]
+reviews = []
+
+[[sources]]
+id = "compound-commit"
+author = "Every"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+baseline_paths = ["skills/ce-commit/SKILL.md", "LICENSE"]
+paths = ["skills/ce-commit/SKILL.md", "LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Scope commits by intent and preserve exclusions; publish only when requested."]
+local_choices = ["Commit the verified index, not path arguments that can bypass hunk staging; retain local validation and post-commit protocol. No mandatory new branch or forced file-count quota."]
+reviews = []
+
+[[sources]]
+id = "cursor-reviewable-pr"
+author = "Cursor Team Kit"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+baseline_paths = ["cursor-team-kit/skills/new-branch-and-pr/SKILL.md", "cursor-team-kit/skills/make-pr-easy-to-review/SKILL.md", "cursor-team-kit/LICENSE"]
+paths = ["cursor-team-kit/skills/new-branch-and-pr/SKILL.md", "cursor-team-kit/skills/make-pr-easy-to-review/SKILL.md", "cursor-team-kit/LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Keep a reviewable purpose, useful verification and reviewer entry points; assess history by reader effort."]
+local_choices = ["Reuse checkout ownership and local publication owners. Keep behavior with required tests. No automatic rewrite, origin/main assumption or split by file type."]
+reviews = []
+
+[[local_snapshots]]
+id = "commit-SKILL.md"
+path = "~/.agents/skills/commit/SKILL.md"
+sha256 = "2166778b493372dd8da0c5d011e58e0825b81a5ca9c0031cfd28e734cd27d562"
+local_repository_commit = "298ca54897912921b7a052d5dd1e6f327f3a3ff1"
+repository_commit_status = "Checkout content matched the installed snapshot at task start; the hash identifies the source."
+borrowed = ["Preserve applicable local workflow, evidence and authority constraints."]
+update_policy = "Compare installed content by hash; no remote update feed is inferred."
+
+[[dependencies]]
+kind = "local"
+name = "humanize"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "pr"
+required = false
+role = "Required for its routed operation when reached; ordinary use loads only relevant owners. Source maintenance uses agent-instructions."
+
+[[dependencies]]
+kind = "local"
+name = "stacked-pr"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."

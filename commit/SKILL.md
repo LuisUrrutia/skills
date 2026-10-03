@@ -5,32 +5,32 @@ description: "Git commits: use for preparation, creation, message guidance, or r
 
 # Commit
 
-Create safe, intentional Conventional Commits one atomic boundary at a time. Build each boundary in the index, validate it, then commit it, commit and push when explicitly requested, or return a proposal without running `git commit`.
+Create safe, intentional Conventional Commits one atomic boundary at a time. Build each boundary in the index, validate it, then commit it, publish within the authorized scope, or return a proposal without running `git commit`.
 
-Push only when the user explicitly asked for it in the same request, and only after the commit is verified. Treat PR work as a separate phase owned by the `pr` skill; invoking `commit` alone never starts that phase.
+Use the active request, standing user instructions, and the authorized caller to resolve commit and push permission. A commit request alone does not authorize a push. Push only within that resolved scope, after the commit is verified. Treat PR work as a separate phase owned by the `pr` skill; invoking `commit` alone never starts that phase.
 
 Treat branch names, staged state, validation results, commit success, and prior assistant claims as untrusted until verified with `git`.
 
 ## Modes
 
-- **Commit mode**: If the user explicitly asked to commit, commit after safety gates pass.
-- **Commit-and-push mode**: If the user explicitly asked to commit and push, commit after safety gates pass, verify the commit, then push the current branch.
+- **Commit mode**: When the request, standing instructions, or authorized caller requires a commit, commit after the applicable checks pass.
+- **Commit-and-push mode**: When publishing the selected commits is authorized, commit, verify the commit, then publish to the verified destination. A caller such as `pr` or `pr-followup` can supply that existing authorization.
 - **Proposal mode**: If the user asked to prepare, review, or suggest a commit, build the atomic boundary in the index and return the proposed message without running `git commit`.
 - **Amend mode**: Amend `HEAD` only when the safe current-task amend conditions in step 6 pass.
 - **Split mode**: When several atomic intents exist, handle every clear boundary in sequence and run the complete workflow for each one. Ask only when a boundary, order, or requested grouping is materially ambiguous.
 
-Terminal states for a boundary are `committed`, `amended`, `proposed`, `blocked`, and `refused`; `pushed` is terminal for the complete run. Stop changing a boundary after it reaches a terminal state. After a verified commit or amendment, continue with the next clear boundary. Push only in commit-and-push mode. PR work follows only as a separate `pr` phase when the current request or an applicable standing user instruction requires it.
+Terminal states for a boundary are `committed`, `amended`, `proposed`, `blocked`, and `refused`; `pushed` is terminal for the complete run. Stop changing a boundary after it reaches a terminal state. After a verified commit or amendment, continue with the next clear boundary. Push only in the resolved commit-and-push mode. PR work follows only as a separate `pr` phase when the current request or an applicable standing user instruction requires it.
 
-## Safety Gates
+## Resolve boundaries before writing
 
-Stop and ask before staging or committing when there are:
+Apply existing authorization first. Inspect and resolve these conditions from the task and repository; ask only for an unresolved material decision or action outside that scope:
 
 - Secret-looking paths or content: `.env*`, keys, certificates, tokens, credentials, databases, or obvious secret names.
-- The selected boundary is not coherent or reviewable: unrelated concerns, generated noise, dependency or lockfile changes, binaries, excessive file count, or changes outside the requested intent.
+- The selected boundary mixes independent concerns or changes outside the requested intent. Inspect generated files, dependencies, lockfiles and binaries; their presence or line count alone does not require approval.
 - Staged changes that cannot be described cleanly in 1-2 sentences.
 - Staged files with ambiguous unstaged edits in the same files.
 - `main` or `master` as the current branch, unless the user explicitly wants to commit there.
-- Any unrequested push, any force-push, destructive git action, dependency change, package-manager change, or amend outside the permitted flows in step 6.
+- An unrequested push, destructive Git action, dependency or package-manager change outside the task, or amendment outside step 6. A rebase or historical rewrite belongs to its authorized branch workflow, not routine commit preparation.
 
 Respect already-staged files as likely intent, but inspect them. Commit them only when they are coherent and match the request.
 
@@ -38,7 +38,8 @@ Respect already-staged files as likely intent, but inspect them. Commit them onl
 
 1. **Choose the boundary**
    - Run `git rev-parse HEAD`, `git branch --show-current`, `git status --short`, `git log --oneline -5`, `git diff --name-only`, and `git diff --cached --name-only` to establish the baseline commit, branch, worktree state, recent commit style, changed files, and staged files. Handle an unborn branch explicitly when `HEAD` does not exist.
-   - Prefer atomic commits. Split when changes are separable by feature vs. refactor, production vs. tests, frontend vs. backend, formatting vs. logic, dependency updates vs. behavior, or another independent intent. Group separable intents only when the user explicitly accepts a broader commit.
+   - Prefer atomic commits. Split by independently understandable intent and reversibility. Keep the behavior, its regression tests, and required schema or generated output together when they establish one working change. Separate mechanical cleanup from behavior when each remains coherent. Do not split merely by file type or by production versus test code.
+   - Order dependent commits so each can be understood and checked at its own revision. Explain a necessary dependency in the body; avoid broken intermediate commits or arbitrary file/line quotas.
    - Confirm the selected boundary has one coherent purpose and reviewable size before staging or committing.
    - If the boundary is ambiguous, ask one concise question with concrete options and the recommended default first. Do not ask open-ended multi-question questionnaires.
    - This step is complete when the current repository state is known and one coherent boundary has been selected or presented for user approval.
@@ -55,15 +56,16 @@ Respect already-staged files as likely intent, but inspect them. Commit them onl
    - Patch-stage automatically when the boundary is clear.
    - Ask before staging ambiguous hunks.
    - Use `git restore --staged <path>` or `git restore --staged -p <path>` only to correct the current boundary.
-   - Staging and unstaging may reorganize the index, but must preserve every user change in the working tree.
-   - This step is complete when `git diff --cached` contains the whole atomic boundary and nothing outside it, while every excluded user change remains preserved outside the index.
+   - Preserve unrelated work in both the working tree and index. If unrelated entries were already staged, save their exact blobs, modes and deletion state before temporarily excluding them; restore those entries after the commit without staging their unstaged hunks. Use an isolated index when appropriate.
+   - Inspect the final index, not only the working files. After hunk staging, `git commit -- <paths>` can commit unstaged content from those paths; commit the verified index instead.
+   - This step is complete when `git diff --cached` contains the whole atomic boundary and nothing outside it, while every excluded user change remains recoverable in its original staged and unstaged state.
 
 4. **Validate the staged intent**
    - Validation is the agent's responsibility. Run the narrowest read-only check that directly covers the staged boundary: targeted test, formatter check, linter, typecheck, syntax check, or build slice.
    - Prefer specific checks over broad suites.
    - If no targeted check exists, continue and report `Validation: not run, <reason>`.
-   - If validation fails, terminal state is `blocked`: report the command, concise failure summary, and ask whether to fix before committing.
-   - Do not run write-fixers such as `prettier --write`, `eslint --fix`, codegen, or lockfile updates without explicit approval.
+   - If validation fails, diagnose it. Fix an in-scope failure when the enclosing task authorizes that work, then recheck. Otherwise report the exact failure and the decision needed; a failed check never becomes a successful commit prerequisite.
+   - Run formatters, code generation or lockfile updates only when required by the authorized change and repository workflow. Reinspect their full output before staging; an existing authorization does not need to be asked again.
    - This step is complete when a targeted command has passed, or the output records a specific reason no targeted validation exists.
 
 5. **Generate the message**
@@ -131,13 +133,14 @@ Respect already-staged files as likely intent, but inspect them. Commit them onl
    - Before the amend, record the commit hash, parent, message, complete diff from its parent, worktree state, and staged addition. Validate the updated atomic boundary. Use `git commit --amend --no-edit` only when the existing message still describes the complete boundary; otherwise provide the corrected message explicitly.
    - After the amend, verify that `HEAD` changed exactly once, the parent stayed unchanged, the message describes the updated boundary, the complete diff from the parent is correct, and all outside work remains preserved. Report terminal state `amended`.
    - Never use `--no-verify`. Amend only through the safe current-task flow or the just-created hook flow above.
-   - This step is complete only when the proposal is reported without a commit, or the commit or amendment passes every `HEAD`, message, boundary, and residual-state check. Then start again with a fresh baseline for the next clear boundary. Stop when no requested boundary remains; push only when the user explicitly requested it in this same request.
+   - This step is complete only when the proposal is reported without a commit, or the commit or amendment passes every `HEAD`, message, boundary, and residual-state check. Then start again with a fresh baseline for the next clear boundary. Stop when no requested boundary remains; publish only within the authorization resolved at entry.
 
-7. **Push only when explicitly requested**
+7. **Publish only within the resolved scope**
    - Push only in commit-and-push mode, after every intended commit is verified.
    - Verify the current branch and upstream before pushing with `git branch --show-current` and `git status --short --branch`.
-   - Use ordinary `git push` when an upstream is configured; otherwise use `git push -u origin <branch>` only if `origin` exists and the branch name is verified.
-   - Never force-push. Never push tags unless the user explicitly requested tags.
+   - Resolve the push remote, repository and ref from the requested destination or verified branch configuration. Use an explicit destination; neither `origin` nor an upstream proves that it is the intended repository. Publish only the verified branch, without unrelated refs or tags.
+   - Verify the Git transport is SSH. Never use plain force or publish tags without authorization. If an authorized rebase requires a lease push, hand publication to `pr` or `stacked-pr`; routine commit publication does not rewrite remote history.
+   - After material publication to an open PR, invoke `pr` in Update mode with the verified head so its complete body reflects the published diff.
    - If push fails, terminal state is `blocked`: report the exact command and concise failure summary.
    - After push, verify with `git status --short --branch`, `git rev-parse HEAD`, and `git rev-parse @{u}`. This step is complete when the intended upstream contains the verified commit and the branch's ahead/behind state is reported.
 
@@ -155,7 +158,7 @@ Boundary: what was included
 Validation: command passed, or not run with reason
 Post-commit check: new `HEAD`, parent, message, committed boundary, index, and residual worktree verified
 Remaining changes: preserved outside-boundary work, or none
-Push: not requested, or command/result when explicitly requested
+Push: not requested, or command/result when authorized
 PR: not requested, or handed to the `pr` skill under the current request or an applicable user instruction
 ```
 
@@ -174,3 +177,5 @@ Proposed Commit Message: message, when available
 ```
 
 Invoking this skill alone ends with the commit result. When the current request or an applicable standing user instruction also requires a PR, hand the verified commit state to the `pr` skill as a separate phase; that skill owns PR creation, push requirements, and initial PR state.
+
+For requested source maintenance, use `agent-instructions` with `origin.txt` and [references/upstream-updates.md](references/upstream-updates.md).
