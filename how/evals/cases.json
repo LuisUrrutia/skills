@@ -1,0 +1,47 @@
+{
+  "skill": "how",
+  "purpose": "Keep grading expectations separate from executor requests and fixtures.",
+  "cases": [
+    {
+      "id": "queued-invitation",
+      "request": "Explain the existing invitation flow to a product teammate, including what accepted means and what happens if sending fails.",
+      "fixture": "A small API and background worker, stale README wording, and a mail transport whose implementation is unavailable.",
+      "observe": [
+        "Explains the request, durable work item, separate worker, success acknowledgement, and retry in a concrete reader-oriented flow.",
+        "Resolves the README's sent claim against the queued response in code and cites relevant source locations.",
+        "Does not infer exactly-once delivery from an idempotency key or invent historical intent.",
+        "Provides the complete requested explanation without unnecessary teaching gates and preserves all fixture files."
+      ],
+      "comparison": "Independent baseline and candidate contexts with equal request, fixture, model, effort, tools, and authority; only the candidate receives this skill."
+    },
+    {
+      "id": "narrow-nullish-default",
+      "request": "Explain what this configuration helper does with 0, false, an empty string, and an absent value.",
+      "fixture": "A short function using nullish coalescing and an unrelated legacy document.",
+      "observe": [
+        "Answers the concrete values accurately and proportionately, with a source location.",
+        "Does not force a diagram, a course, a multi-section report, a quiz, or a history sweep."
+      ],
+      "held_out": true
+    },
+    {
+      "id": "historical-unknown",
+      "request": "Explain this polling mechanism and why the team chose it instead of push notifications.",
+      "fixture": "Polling source without decision history or accessible external records.",
+      "observe": [
+        "Explains the available mechanism and marks the historical reason as unestablished.",
+        "Preserves the unanswered part of the request instead of inventing a reason, pretending to invoke why, or abandoning the answer."
+      ],
+      "held_out": true
+    },
+    {
+      "id": "description-selection",
+      "request": "Choose the relevant owner from short skill descriptions for explanation and nearby tasks.",
+      "fixture": "Explanation, ownership, a reported failure, a branch diff, a historical decision, general teaching, and skill authoring.",
+      "observe": [
+        "Selects how for existing mechanisms and ownership without absorbing diagnosis, change reports, or unrelated teaching.",
+        "Labels a description-only probe separately from actual automatic host activation."
+      ]
+    }
+  ]
+}

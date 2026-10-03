@@ -152,6 +152,30 @@ window.SKILL_ATLAS = {
       "label": "Matt Pocock / prototype / UI.md",
       "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/engineering/prototype/UI.md",
       "sha256": "723211e878acbc7b6ff09755263f3295cde724ba902ff0064da41eed51d45ad3"
+    },
+    {
+      "id": "how-pstack-source",
+      "label": "pstack / how · fuente de la derivación",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/how/SKILL.md",
+      "sha256": "d31805589c7f6a63a6db6c9fadebbd79fb9660682cf1654e9b2e5e1e7cd30bc0"
+    },
+    {
+      "id": "how-pstack-explorer",
+      "label": "pstack / how · trazado de ejecución",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/how/references/explorer-prompt.md",
+      "sha256": "a3b44a6e5bb16a6d4d1cac19db8ed5322ffd5f5f5d45baca4e73990ca096f8be"
+    },
+    {
+      "id": "how-pstack-explainer",
+      "label": "pstack / how · explicación",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/how/references/explainer-prompt.md",
+      "sha256": "ddb89cebefc24e2b54517a331aedfe045b6971e101f45c71b8cef4cccff45bff"
+    },
+    {
+      "id": "how-pstack-teach",
+      "label": "pstack / teach · criterios de presentación",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/teach/SKILL.md",
+      "sha256": "bd286e5a6290673be2cd28aef7af2ec7f1fb138e6bce156ea657368c7e7fc8a4"
     }
   ],
   "skills": [
@@ -570,10 +594,10 @@ window.SKILL_ATLAS = {
       "lines": 140,
       "category": "Escritura y aprendizaje",
       "decision": "Optional",
-      "owner": "espacio de aprendizaje",
+      "owner": "teach futura / aprendizaje de varias sesiones",
       "summary": "Mantiene un espacio de aprendizaje con lecciones, recursos, HTML de consulta y registro de progreso.",
-      "reason": "Conservarla solo si quieres un sistema de aprendizaje independiente.",
-      "caution": "Es muy distinta de teach de pstack, que explica código actual. Evitar instalarlas con el mismo nombre sin distinguirlas."
+      "reason": "Consultada al crear how, pero no incorporada ni registrada como fuente activa. Su misión, lecciones y progreso sirven para evaluar la futura capacidad de enseñanza.",
+      "caution": "No convertir una pregunta sobre código existente en un curso ni crear registros de aprendizaje. Su procedimiento no es equivalente a pstack/teach."
     },
     {
       "id": "matt-pocock-to-questionnaire",
@@ -890,10 +914,10 @@ window.SKILL_ATLAS = {
       "lines": 58,
       "category": "Investigación",
       "decision": "Blend",
-      "owner": "how independiente (derivación propuesta)",
+      "owner": "how (derivación independiente creada en el repositorio)",
       "summary": "Explica el comportamiento del código y dónde vive cada responsabilidad, ajustando la exploración a la complejidad.",
-      "reason": "Adaptar para explicar ejecución, responsabilidades y límites aun sin un bug. La derivación permitirá investigación directa y delegación según alcance y autorización.",
-      "caution": "Incluso su ruta simple crea un agente explicador. El flujo personalizado debe permitir investigar directamente."
+      "reason": "Base de how: trazado del sistema actual, responsabilidades y fuentes. La derivación permite investigación directa y añade criterios puntuales de claridad de pstack/teach; no requiere un coordinador.",
+      "caution": "La original delega incluso preguntas simples. La derivación elimina ese requisito y conserva explicación de mecanismos; enseñanza guiada e investigación histórica mantienen su alcance propio."
     },
     {
       "id": "pstack-interrogate",
@@ -1576,10 +1600,10 @@ window.SKILL_ATLAS = {
       "lines": 21,
       "category": "Escritura y aprendizaje",
       "decision": "Blend",
-      "owner": "walkthrough",
+      "owner": "how (solo criterios de presentación); teach futura",
       "summary": "Explica conjuntamente cómo funciona el código y por qué se diseñó así.",
-      "reason": "Incorporar la estructura de comportamiento y motivo a walkthrough.",
-      "caution": "No es el espacio de aprendizaje de Matt. Distinguir los motivos documentados de las inferencias históricas."
+      "reason": "how toma definiciones pertinentes, recorrido concreto y detalle ajustado a la pregunta. El procedimiento completo de enseñanza queda reservado para una futura skill teach.",
+      "caution": "Invoca how y why, exige unslop y prescribe pausas y series de diagramas. Esas obligaciones no se trasladan a how; sus fuentes históricas conservan la incertidumbre."
     },
     {
       "id": "pstack-technical-writing",
@@ -2602,5 +2626,18 @@ window.SKILL_ATLAS = {
       "caution": "La validación estructural no demuestra buenas decisiones. Añadir evaluación de comportamiento y activación de Anthropic."
     }
   ],
-  "language": "es"
+  "language": "es",
+  "howReview": {
+    "date": "2026-10-03",
+    "sourceCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+    "consultedMattCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+    "adopted": [
+      "pstack/how",
+      "pstack/teach (selected presentation criteria)"
+    ],
+    "consideredNotAdopted": [
+      "Matt Pocock/teach"
+    ],
+    "status": "Created in repository; no global installation performed."
+  }
 };

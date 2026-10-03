@@ -61,7 +61,7 @@ const clusters = [
       "Matt Pocock/research"
     ],
     "text": "El diagnóstico reproduce fallos y contrasta causas. how explica estructura y ejecución; why reconstruye motivos; blast-radius sigue efectos; research consulta hechos externos. Son ramas complementarias, no cinco fases obligatorias.",
-    "why": "debug toma solo criterios útiles para investigar fallos. how y why conservan tareas independientes propuestas; blast-radius debe distinguir su análisis de impacto de la auditoría general que ya cubre review-audit."
+    "why": "debug toma solo criterios útiles para investigar fallos. how ya está creada y why conserva una tarea independiente propuesta; blast-radius debe distinguir su análisis de impacto de la auditoría general que ya cubre review-audit."
   },
   {
     "title": "Entrevistas, especificaciones y tareas",
@@ -226,7 +226,7 @@ const clusters = [
   },
   {
     "title": "Enseñanza, resúmenes y visualizaciones",
-    "winner": "Conservar tus responsables actuales",
+    "winner": "how para mecanismos; teach se definirá por separado",
     "keys": [
       "pstack/teach",
       "Matt Pocock/teach",
@@ -236,7 +236,7 @@ const clusters = [
       "HumanLayer/show-me"
     ],
     "text": "Las dos teach comparten nombre, pero una explica código y la otra mantiene un curso. Un resumen de actividad y un informe visual también atienden necesidades distintas.",
-    "why": "Conservar walkthrough, daily-meeting-update y visual-change-explainer. Incorporar técnicas útiles sin añadir activaciones automáticas que compitan."
+    "why": "how usa solo criterios puntuales de claridad de pstack/teach. Las dos teach completas se reservan para evaluar la futura enseñanza. walkthrough, daily-meeting-update y visual-change-explainer conservan sus tareas."
   }
 ];
 

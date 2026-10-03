@@ -74,6 +74,21 @@ directly when TDD is requested, without work-mode or an installed upstream skill
 - Distinguishes setup failures and already supported behavior from a valid red state
 - Preserves Matt Pocock's exact source revision and delegates requested maintenance to `agent-instructions`
 
+### how
+
+Explain how existing code works and which component owns each responsibility.
+Use it directly for a mechanism, subsystem, or ownership question.
+
+**Triggers:** `how does this flow work`, `explain this subsystem`, `which module owns this state`
+
+**Features:**
+- Traces entry points, data, state transitions, and boundaries from actual source
+- Answers at the requested depth with a concrete flow and relevant code locations
+- Distinguishes inspected behavior, observed execution, documented reasons, and unknowns
+- Keeps diagnosis, branch change reports, and guided teaching with their own owners
+- Derives from pstack/how with limited presentation guidance from pstack/teach
+- Records exact source commits and supports requested maintenance through `agent-instructions`
+
 ### commit
 
 Create git commits with conventional commit messages.

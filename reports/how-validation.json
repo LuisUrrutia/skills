@@ -1,0 +1,553 @@
+{
+  "date": "2026-10-03",
+  "skill": "how",
+  "status": "Created in repository; not globally installed.",
+  "authoring": [
+    "agent-instructions",
+    "Codex host skill-creator",
+    "humanize"
+  ],
+  "contract": "Explain existing mechanics and ownership. Borrow only limited presentation criteria from teach; guided learning remains a future separate capability.",
+  "skill_files_sha256": {
+    "how/SKILL.md": "9221ef2b4755675c2229806578e44544974f2962f07ab9a6edb3bd61e3120f8f",
+    "how/THIRD-PARTY-NOTICES.txt": "d5a261f9a1d2a164936c6ae23fc693e726f94b3b31c4523c661aeb7d74af7544",
+    "how/evals/cases.json": "09f9cad9663d0f9e8feb949cb10a1d3f8b9d13668ded2d8c2b415b2544d76123",
+    "how/origin.txt": "9ea7b9c85fdb66f14309740a9d6731fb839752711ea8dce655ca0a829b55105a",
+    "how/references/upstream-updates.md": "9a5a69b937eaf0cd9584b9baf6f81917fb83f168d3993a44e4548ab01b8cee86"
+  },
+  "source_evidence": {
+    "pstack_commit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+    "pstack_remote": "git@github.com:cursor/plugins.git",
+    "files": {
+      "pstack/skills/how/SKILL.md": "d31805589c7f6a63a6db6c9fadebbd79fb9660682cf1654e9b2e5e1e7cd30bc0",
+      "pstack/skills/how/references/explorer-prompt.md": "a3b44a6e5bb16a6d4d1cac19db8ed5322ffd5f5f5d45baca4e73990ca096f8be",
+      "pstack/skills/how/references/explainer-prompt.md": "ddb89cebefc24e2b54517a331aedfe045b6971e101f45c71b8cef4cccff45bff",
+      "pstack/skills/teach/SKILL.md": "bd286e5a6290673be2cd28aef7af2ec7f1fb138e6bce156ea657368c7e7fc8a4",
+      "pstack/LICENSE": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
+    },
+    "matt_teach_considered_not_adopted": {
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "path": "skills/productivity/teach/SKILL.md",
+      "sha256": "a32df9dcdfc0c4fdc1c98e1ed3940c5f56b84c1aa90ff60346f32b8b53915b43",
+      "reason": "A stateful teaching workspace is outside how. The user explicitly limited teach reuse to improving how output; no Matt source feed or runtime dependency was added."
+    },
+    "catalog_snapshot": "The how and teach entrypoints at the new pstack pin have the same SHA-256 as the original catalog snapshot. That snapshot is retained; the derivation adds exact pinned reference URLs."
+  },
+  "consultation": {
+    "request": "Read-only consultation for a new atomic agent skill called how. Do not edit files or execute commands. Use Read to inspect only the source files named below, then return your actual analysis, not simulated tool calls.\n\nThe user wants an independently invocable skill to make an existing codebase or subsystem understandable. They asked us to consider both teach skills (pstack and Matt Pocock), as well as pstack/how. They value concrete mechanisms, useful sources, a short activation-focused description, appropriate depth, and clear reasons for adapting a source rather than installing it. Existing local owners cover diagnosing/repairing bugs (debug), explanation of current branch changes (walkthrough), writing instructions (agent-instructions), and future historical investigation (why, not yet created). Work-mode is a future optional coordinator and must not be a prerequisite. The user has not requested installing global skills, changing the explained code, or maintaining a course.\n\nRead these raw sources and their directly relevant references:\n- .tmp/how-creation/cursor-plugins/pstack/skills/how/SKILL.md\n- .tmp/how-creation/cursor-plugins/pstack/skills/how/references/explorer-prompt.md\n- .tmp/how-creation/cursor-plugins/pstack/skills/how/references/explainer-prompt.md\n- .tmp/how-creation/cursor-plugins/pstack/skills/teach/SKILL.md\n- .tmp/how-creation/matt-skills/skills/productivity/teach/SKILL.md\n- .tmp/how-creation/matt-skills/skills/productivity/teach/LEARNING-RECORD-FORMAT.md\n- walkthrough/SKILL.md\n- debug/SKILL.md\n- agent-instructions/references/skills.md\n- agent-instructions/references/reuse.md\n\nRecommend what to adopt, adapt, or omit, with evidence from the source instructions. Consider installing unchanged, wrapping, deriving, or creating; choose the smallest maintainable approach that meets the requested scope. Address conflicts in pacing, audience, required tools, delegation, historical intent, side effects, and unsolicited learning infrastructure. Propose a concise capability contract and description, then 3 or 4 realistic behavioral evaluation cases, including a near-miss. Be candid about tradeoffs and material gaps. A prose review is not execution evidence. Keep the answer under 1400 words.\n",
+    "skill_sha256": null,
+    "model_requested": "fable",
+    "primary_model_observed": "claude-fable-5-1",
+    "auxiliary_models": [
+      "claude-haiku-4-5-20251001"
+    ],
+    "effort_argument": "xhigh",
+    "duration_ms": 154913,
+    "output_words_whitespace": 1237,
+    "output": "**Recommendation: derive a single-agent skill from pstack/how, borrow four pacing rules from pstack/teach, and omit Matt Pocock's teach apart from one principle how already states.**\n\nWhy derive rather than install or wrap. Every step in pstack/how is Cursor plumbing. Steps 2a, 2b, and 3 each spawn a Task subagent with a fixed agent type, a model slug read from a Cursor rules file, and a read-only flag. Step 4 only presents the subagent's text. A wrapper would replace scope, tools, ordering, and every step, which reuse.md names as the signal to compare a small derivation. The actual method and output format live in the two reference prompts, and those port cleanly. Both sources also set `disable-model-invocation: true`, which blocks the auto-activation the user wants. Record pstack/how in origin.txt as an adapted source. I did not read either repository's license, so check before copying any sentence verbatim.\n\n## Adopt from pstack/how\n\n- **Complexity triage.** Simple questions get one pass. Complex ones split into two to four angles. \"When in doubt, take the simple path.\"\n- **Exploration order** from the explorer prompt. Entry point, trace the flow, map abstractions, find boundaries, look for the non-obvious. \"Don't guess from names. Read the code.\"\n- **Honesty rule.** \"I couldn't determine how X connects to Y is better than making something up.\" Carry Open Questions into the output.\n- **Output sections** from the explainer prompt. Overview, Key Concepts, How It Works, Where Things Live, Gotchas, dropping any that do not apply. The depth anchor is right: a senior engineer onboarding, \"not so much that it reads like annotated source code.\"\n- **Communication style.** Name the concrete call, not \"the service delegates to the client.\" Diagram only when it clarifies, mermaid or ASCII.\n- **Activation triggers.** \"How does X work,\" walkthroughs before changing something, ownership and layering questions.\n\nAdapt delegation. Make decomposition a planning step the single agent does itself. Say it may use read-only subagents for parallel angles when the host offers them, and that the method is identical when it runs alone. Drop the model table, the slug fallback rules, and the \"do not substantially rewrite\" step, which only makes sense when another agent wrote the text.\n\nAdapt historical intent. The explorer prompt asks for \"historical artifact\" and Gotchas includes \"historical context.\" Keep the observation but bound it. The skill may say \"this looks like a leftover from an earlier design\" from code alone. It does not run git archaeology or infer motives. That belongs to the future why skill, and how must not require it.\n\nAdapt placement questions. \"Which package owns this\" is factual and stays. \"Where should this live\" is advice. Keep it, but answer from observed conventions and layering, never by redesigning or editing code.\n\n## Take from the teach skills\n\nFrom pstack/teach, four rules fit and nothing else does:\n\n- **Read the audience from the conversation.** Choose depth from why they are asking, \"about to change it, reviewing it, debugging it, new to it.\" Skip what they already know. Do not quiz.\n- **Plain definition first,** then tie it to this codebase. \"Listing functions and constants is reference, not teaching.\"\n- **Smallest complete answer first,** then layers on request. This handles narrow questions better than the five-section template.\n- **The one-shot clause.** \"Running one-shot with no live human, deliver it cleanly and put any offer to go deeper at the end.\" This settles the pacing conflict. How's structured report wins by default, with teach's no-theater rules applied to the prose. No \"Pause,\" no \"here is the tricky part.\"\n\nOmit the coordinator role, since it invokes how and why as real skills and why does not exist. Omit the unslop dependency and the image-generation tool. Omit the build-up diagram series. Redrawing a flow three times is a live-tutoring device that triples a one-shot reply. One diagram per flow at most.\n\nOmit Matt Pocock's teach almost entirely. It is a multi-session course engine. It writes a mission file, a resources list, HTML lessons, learning records, and a shared asset library into the current directory, then opens lessons with a CLI command. Its first move is to interrogate the user about their mission, which conflicts with how's \"state your interpretation and explore. The user can redirect.\" Quizzes, spacing, retrieval practice, and community referral are learning infrastructure nobody requested. The one keeper, \"never trust your parametric knowledge,\" is already how's \"read the code.\" The learning-record format adds nothing to a stateless explanation.\n\nSide effects. The skill is read-only in the sense walkthrough already enforces: no file writes, checkout, stash, or mutating commands. Running an existing test or CLI to observe a flow is fine when it changes nothing. Walkthrough's optional audience argument is a good idea, but its shell-injected context block is host-specific. Do not copy it.\n\n## Contract, description, evaluations\n\nCapability contract:\n\n- **Input:** a question about how existing code works, a subsystem to onboard to, or which module or layer owns a behavior. Audience and depth cues come from the conversation.\n- **Procedure:** state the interpretation of scope. Read from entry point through flow, abstractions, and boundaries. Split complex subsystems into angles. Explain at the depth the question needs.\n- **Output:** a direct answer for narrow questions. For subsystems, the five sections plus Open Questions when any remain. Every claim cites a file and location.\n- **Constraints:** read-only. No fixes, no diff explanation, no git history for motive, no course artifacts. Work-mode, why, and subagents are not prerequisites.\n- **Completion:** the reader can locate and start working in the code, and gaps are named.\n\nDescription:\n\n```\nUse when asked how existing code or a subsystem works, or which module or layer owns a behavior, to build a working mental model from the source. Not for a branch diff or an observed failure.\n```\n\nThe exclusion is justified under skills.md because walkthrough and debug are both likely overlaps.\n\nEvaluation cases. These are proposals. Nothing has been run, so none of this is execution evidence.\n\n1. **Complex subsystem.** \"How does token refresh work in this API?\" Pass if it traces entry point and call chain, produces sectioned output with file references, includes at most one diagram, lists open questions, and creates no files.\n2. **Narrow question.** \"How does the config loader handle a missing env var?\" Pass if the reply is a few sentences with a file reference and no template. Fail if it emits five headers for a ten-line function.\n3. **Near-miss, debug.** \"How does retry work here? It loops forever in production.\" Pass if debug is selected from the description alone, or if how explains the mechanism and hands off explicitly. Fail if how starts proposing a cause or fix.\n4. **Historical boundary.** \"How does the event bus work, and why polling instead of websockets?\" Pass if the mechanism comes from code, polling is reported as observed, and the motive is marked out of scope. Fail if it invents a rationale or digs through git log.\n\nTradeoffs and gaps:\n\n- Dropping mandatory parallel explorers slows large subsystems and risks context exhaustion in one agent. Optional subagents help only on hosts with read-only ones.\n- Depth calibration is judgment. Four cases sample it but do not prove it.\n- Mermaid does not render in every terminal. Prefer ASCII when output is terminal-bound.\n- I did not read hosts.md or evaluation.md, so metadata and the eval format still need checking against them.\n- Licenses for both source repositories were not inspected.",
+    "tool_calls": [
+      {
+        "tool": "Read",
+        "input": {
+          "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/cursor-plugins/pstack/skills/how/SKILL.md"
+        }
+      },
+      {
+        "tool": "Read",
+        "input": {
+          "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/cursor-plugins/pstack/skills/how/references/explorer-prompt.md"
+        }
+      },
+      {
+        "tool": "Read",
+        "input": {
+          "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/cursor-plugins/pstack/skills/how/references/explainer-prompt.md"
+        }
+      },
+      {
+        "tool": "Read",
+        "input": {
+          "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/cursor-plugins/pstack/skills/teach/SKILL.md"
+        }
+      },
+      {
+        "tool": "Read",
+        "input": {
+          "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/matt-skills/skills/productivity/teach/SKILL.md"
+        }
+      },
+      {
+        "tool": "Read",
+        "input": {
+          "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/matt-skills/skills/productivity/teach/LEARNING-RECORD-FORMAT.md"
+        }
+      },
+      {
+        "tool": "Read",
+        "input": {
+          "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/walkthrough/SKILL.md"
+        }
+      },
+      {
+        "tool": "Read",
+        "input": {
+          "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/debug/SKILL.md"
+        }
+      },
+      {
+        "tool": "Read",
+        "input": {
+          "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/agent-instructions/references/skills.md"
+        }
+      },
+      {
+        "tool": "Read",
+        "input": {
+          "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/agent-instructions/references/reuse.md"
+        }
+      }
+    ],
+    "permission_denials": [],
+    "trace_sha256": "bfc5ecf0d45b92bc7a033252cfbfebb95448692a1d65c0054b0cc3a2ca11b206",
+    "kind": "Read-only source consultation; not behavioral execution.",
+    "adopted": [
+      "Derive rather than wrap mandatory Cursor orchestration.",
+      "Keep source tracing as the core, with selected presentation criteria from pstack/teach.",
+      "Omit the multi-session teaching workspace from Matt; record it as considered, not an active source.",
+      "Use direct investigation, narrow activation, code references, and explicit historical uncertainty."
+    ],
+    "not_adopted": [
+      "No fixed two-to-four exploration angles, five-section output, or one-diagram maximum.",
+      "Do not restrict all readers to senior engineers or use a long list of exclusions in the description.",
+      "Relevant documented rationale can be included without a historical sweep; an explicit combined request retains its unanswered historical question."
+    ]
+  },
+  "execution_setup": {
+    "cli": "Claude Code 2.1.288",
+    "command": "claude --print --model fable --effort xhigh --safe-mode --strict-mcp-config --no-session-persistence --permission-prompts none --permission-mode dontAsk --restricted --tools Read,Glob,Grep --allowedTools Read,Glob,Grep --output-format stream-json --verbose",
+    "consultation_tools": "Read only",
+    "scope": "Supplied source fixtures only, with the skill entrypoint added for candidate contexts. No writes, network, or code execution.",
+    "comparison": "Same request, fixture, host options, model and effort in independent contexts; only the candidate receives how. System context and model nondeterminism are not controlled beyond CLI options."
+  },
+  "fixtures": {
+    "invitation-fixture": {
+      "README.md": "# Invitation delivery\n\nThe invitation API accepts an email address. A 202 response means the email has been sent.\n\nThe worker is started by a separate deployment. This excerpt does not include its scheduler, the database transaction adapter, the mail provider implementation, or historical design records.\n",
+      "api.ts": "import type { Database } from \"./ports\";\n\nexport async function invite(db: Database, email: string) {\n  const invitationId = crypto.randomUUID();\n  await db.transaction(async (tx) => {\n    await tx.insertInvitation({ id: invitationId, email });\n    await tx.insertOutbox({ id: invitationId, email, status: \"pending\", attempts: 0 });\n  });\n  return { status: 202, body: { invitationId, delivery: \"queued\" } };\n}\n",
+      "outbox.sql": "CREATE TABLE invitations (id uuid PRIMARY KEY, email text NOT NULL);\nCREATE TABLE invitation_outbox (\n  id uuid PRIMARY KEY REFERENCES invitations(id),\n  email text NOT NULL,\n  status text NOT NULL CHECK (status IN ('pending', 'leased', 'sent')),\n  attempts integer NOT NULL DEFAULT 0\n);\n",
+      "outbox.ts": "import type { Outbox } from \"./ports\";\n\ntype Query = <T>(sql: string, parameters?: unknown[]) => Promise<{ rows: T[] }>;\n\nexport function createOutbox(query: Query): Outbox {\n  return {\n    async claimNext() {\n      const result = await query<{ id: string; email: string }>(`\n        UPDATE invitation_outbox SET status = 'leased', attempts = attempts + 1\n        WHERE id = (\n          SELECT id FROM invitation_outbox WHERE status = 'pending'\n          ORDER BY id FOR UPDATE SKIP LOCKED LIMIT 1\n        ) RETURNING id, email\n      `);\n      return result.rows[0] ?? null;\n    },\n    async markSent(id) {\n      await query(\"UPDATE invitation_outbox SET status = 'sent' WHERE id = $1\", [id]);\n    },\n    async releaseForRetry(id) {\n      await query(\"UPDATE invitation_outbox SET status = 'pending' WHERE id = $1\", [id]);\n    },\n  };\n}\n",
+      "ports.ts": "export interface Transaction {\n  insertInvitation(row: { id: string; email: string }): Promise<void>;\n  insertOutbox(row: { id: string; email: string; status: \"pending\"; attempts: number }): Promise<void>;\n}\nexport interface Database {\n  transaction<T>(work: (tx: Transaction) => Promise<T>): Promise<T>;\n}\nexport interface Outbox {\n  claimNext(): Promise<{ id: string; email: string } | null>;\n  markSent(id: string): Promise<void>;\n  releaseForRetry(id: string): Promise<void>;\n}\nexport interface MailTransport {\n  sendInvitation(email: string, options: { idempotencyKey: string }): Promise<void>;\n}\n",
+      "worker.ts": "import type { Outbox, MailTransport } from \"./ports\";\n\nexport async function deliverOne(outbox: Outbox, mail: MailTransport) {\n  const job = await outbox.claimNext();\n  if (job === null) return;\n  try {\n    await mail.sendInvitation(job.email, { idempotencyKey: job.id });\n    await outbox.markSent(job.id);\n  } catch {\n    await outbox.releaseForRetry(job.id);\n  }\n}\n"
+    },
+    "narrow-fixture": {
+      "config.mjs": "export function readSetting(settings, key, fallback) {\n  return settings[key] ?? fallback;\n}\n",
+      "legacy-notes.md": "# Earlier settings loader\n\nAn older loader replaced all falsy values with defaults. This note predates config.mjs and does not document the reason for the current design.\n"
+    },
+    "history-fixture": {
+      "README.md": "# Job status watcher\n\nThe injected API and wait function are supplied by the caller. Historical decisions and production configuration are not available in this excerpt.\n",
+      "poll-status.mjs": "export async function watchJob(api, id, onStatus, wait) {\n  let done = false;\n  while (!done) {\n    const job = await api.getJob(id);\n    onStatus(job.status);\n    done = job.status === \"complete\" || job.status === \"failed\";\n    if (!done) await wait(2000);\n  }\n}\n"
+    }
+  },
+  "runs": {
+    "baseline": {
+      "request": "Read-only explanation. Use Read, Glob, or Grep only inside .tmp/how-creation/invitation-fixture. Do not inspect other repository files, use network, edit anything, or execute the application. The source excerpt is the available evidence. Return the explanation itself in Spanish, not a report about the task.\n\nSoy de producto y estoy revisando la experiencia de invitar a alguien. Explícame el recorrido desde que se solicita la invitación hasta que se envía el correo. ¿Qué significa que la petición esté aceptada? ¿Qué ocurre si el envío falla? Necesito una explicación completa, entendible y con referencias al código, en no más de 500 palabras.\n",
+      "skill_sha256": null,
+      "model_requested": "fable",
+      "primary_model_observed": "claude-fable-5-1",
+      "auxiliary_models": [
+        "claude-haiku-4-5-20251001"
+      ],
+      "effort_argument": "xhigh",
+      "duration_ms": 47852,
+      "output_words_whitespace": 471,
+      "output": "El recorrido tiene dos etapas separadas: la petición guarda la invitación y la pone en cola, y un proceso aparte la envía más tarde.\n\n**1. Solicitud de la invitación.** La función `invite` en `api.ts:3-10` genera un identificador único y abre una sola transacción de base de datos. Dentro de ella crea la fila de la invitación y una fila en la bandeja de salida con estado `pending` y cero intentos. Al ir en la misma transacción, o se guardan las dos filas o ninguna. La función responde de inmediato con un 202, el identificador y la marca `delivery: \"queued\"`. En este punto no se ha enviado ningún correo.\n\n**2. Qué significa \"aceptada\".** El 202 significa que la invitación quedó registrada y encolada para envío. No significa que el correo haya salido. El README afirma lo contrario en `README.md:3`, pero el código de la petición no llama a ningún proveedor de correo. Ese texto está desactualizado o es incorrecto. El comportamiento real es el del código.\n\n**3. Envío por el worker.** Un proceso independiente ejecuta `deliverOne` en `worker.ts:3-12`. Cada ejecución hace tres pasos:\n- Reclama el siguiente trabajo pendiente con la consulta de `outbox.ts:7-16`. Esa consulta cambia el estado a `leased`, suma uno al contador de intentos y usa bloqueo con `SKIP LOCKED` para que dos workers nunca tomen la misma invitación.\n- Llama al proveedor de correo pasando el identificador de la invitación como clave de idempotencia, en `worker.ts:7`. Así el proveedor puede descartar duplicados si el mismo envío se repite.\n- Si el envío va bien, marca la fila como `sent` en `outbox.ts:17-19`. Ese es el estado final.\n\n**4. Qué pasa si el envío falla.** Si el proveedor lanza un error, el worker devuelve la fila a `pending` en `worker.ts:10`. El contador de intentos conserva el incremento. En la siguiente pasada del worker la invitación se vuelve a reclamar y se reintenta. Consecuencias para producto:\n- No hay límite de reintentos en este extracto. El contador sube, pero nada lo consulta, así que una dirección que falle siempre se reintentará indefinidamente.\n- No existe estado de fallo definitivo. La tabla solo admite `pending`, `leased` y `sent` según `outbox.sql:5`. Nadie puede ver que una invitación falló ni avisar al usuario que invitó.\n- Si el worker se cae entre reclamar y marcar, la fila queda en `leased` sin nadie que la libere. El extracto no tiene caducidad del lease.\n- Si el correo sale pero falla la marca como enviado, se reintenta. La clave de idempotencia evita un segundo correo, siempre que el proveedor la respete.\n\n**5. Lo que el extracto no muestra.** Según `README.md:5`, faltan el planificador del worker, el adaptador de transacciones y la implementación del proveedor de correo. Por eso no puedo decir con qué frecuencia se reintenta ni cuánto tarda un correo en salir después del 202.",
+      "tool_calls": [
+        {
+          "tool": "Glob",
+          "input": {
+            "pattern": "**/*",
+            "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/api.ts"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/worker.ts"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/ports.ts"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/outbox.sql"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/outbox.ts"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/README.md"
+          }
+        }
+      ],
+      "permission_denials": [],
+      "trace_sha256": "b55ab7fd5742e30a2b8cfa0f39327b28473d72c15d1c5e02908b40559547d61a"
+    },
+    "initial_candidate": {
+      "request": "Use the how skill in how/SKILL.md. You may read that one additional file as instructions, but do not read its evaluations, origin, or references for this task.\n\nRead-only explanation. Use Read, Glob, or Grep only inside .tmp/how-creation/invitation-fixture. Do not inspect other repository files, use network, edit anything, or execute the application. The source excerpt is the available evidence. Return the explanation itself in Spanish, not a report about the task.\n\nSoy de producto y estoy revisando la experiencia de invitar a alguien. Explícame el recorrido desde que se solicita la invitación hasta que se envía el correo. ¿Qué significa que la petición esté aceptada? ¿Qué ocurre si el envío falla? Necesito una explicación completa, entendible y con referencias al código, en no más de 500 palabras.\n",
+      "skill_sha256": "3a0ce7ec5a2f4186ecd495d21911df36fe2a4e9f8e77a31db3a275cecd638727",
+      "model_requested": "fable",
+      "primary_model_observed": "claude-fable-5-1",
+      "auxiliary_models": [
+        "claude-haiku-4-5-20251001"
+      ],
+      "effort_argument": "xhigh",
+      "duration_ms": 131201,
+      "output_words_whitespace": 499,
+      "output": "**Respuesta corta:** una petición aceptada, es decir una respuesta 202, significa que la invitación quedó guardada y encolada en la base de datos, no que el correo se haya enviado. El envío ocurre después en un proceso aparte y, si falla, se reintenta. Además, el README lo contradice.\n\nLas rutas siguientes están dentro de `.tmp/how-creation/invitation-fixture/`.\n\n**1. Solicitud.** La función `invite` recibe el email y genera un identificador único en `api.ts:3-4`. Dentro de una sola transacción escribe dos filas: la invitación y un registro en la tabla outbox, una cola de pendientes, con estado `pending` y cero intentos, en `api.ts:5-8` y `outbox.sql:2-7`. La intención es que se guarden ambas o ninguna, aunque el adaptador de transacciones no está en el extracto. Si la transacción falla, la función lanza error y no hay 202.\n\nSi todo se guarda, responde 202 con el id y `delivery: \"queued\"` en `api.ts:9`. El propio cuerpo dice encolado, no enviado.\n\n**Conflicto documental.** El README afirma en `README.md:3` que un 202 significa que el correo ya fue enviado. El código no lo respalda: en ese momento nadie ha contactado al proveedor de correo. Conviene corregirlo antes de prometer entrega inmediata en la interfaz.\n\n**2. Envío.** Un worker desplegado por separado, según `README.md:5`, ejecuta `deliverOne` en `worker.ts:3`:\n\n- **Reclama** la siguiente fila `pending`, la pasa a `leased`, que significa reservada, y suma un intento en una única sentencia SQL en `outbox.ts:8-14`. La cláusula `FOR UPDATE SKIP LOCKED` evita que dos workers tomen la misma invitación.\n- **Llama al proveedor** de correo pasando el id como clave de idempotencia en `worker.ts:7`. Así el proveedor puede evitar duplicados si recibe la misma clave dos veces.\n- **Marca la fila** como `sent` si el envío va bien, en `worker.ts:8` y `outbox.ts:17-19`.\n\nCada cuánto corre el worker no se sabe desde el extracto. El planificador no está incluido.\n\n**3. Si el envío falla.** Cualquier excepción dentro del bloque devuelve la fila a `pending` en `worker.ts:9-11` y `outbox.ts:20-22`. El contador de intentos conserva el incremento. En la siguiente pasada la invitación vuelve a ser candidata, así que un fallo transitorio del proveedor se recupera solo.\n\nLo que el código no cubre:\n\n- **Sin tope de reintentos.** `attempts` se incrementa pero nunca se consulta, y el estado solo admite `pending`, `leased` o `sent` según `outbox.sql:5`. No hay estado \"fallida\": una dirección inválida se reintentaría sin fin.\n- **Filas atascadas.** Si el worker muere a mitad, o la propia liberación falla, la fila queda en `leased` y nadie la retoma, porque `claimNext` solo busca `pending` en `outbox.ts:11`. No hay caducidad de reservas.\n- **Posible duplicado.** Si el correo sale pero falla el `markSent` posterior, el `catch` también lo captura y la fila vuelve a `pending`. Evitar el reenvío depende de que el proveedor respete la clave de idempotencia, y su implementación no está en el extracto.\n\nPara producto: el 202 promete \"lo tenemos y lo intentaremos\", no \"ya llegó\". Confirmar entrega exigiría consultar el estado `sent` de la outbox, algo que esta API no expone.",
+      "tool_calls": [
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/how/SKILL.md"
+          }
+        },
+        {
+          "tool": "Glob",
+          "input": {
+            "pattern": "**/*",
+            "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/README.md"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/api.ts"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/outbox.ts"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/outbox.sql"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/worker.ts"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/ports.ts"
+          }
+        }
+      ],
+      "permission_denials": [],
+      "trace_sha256": "09ae46f48dca93d24dcfe9504fd0cd712a689efb80b49a64bb0bf7ce36d82513"
+    },
+    "final_candidate": {
+      "request": "Use the how skill in how/SKILL.md. You may read that one additional file as instructions, but do not read its evaluations, origin, or references for this task.\n\nRead-only explanation. Use Read, Glob, or Grep only inside .tmp/how-creation/invitation-fixture. Do not inspect other repository files, use network, edit anything, or execute the application. The source excerpt is the available evidence. Return the explanation itself in Spanish, not a report about the task.\n\nSoy de producto y estoy revisando la experiencia de invitar a alguien. Explícame el recorrido desde que se solicita la invitación hasta que se envía el correo. ¿Qué significa que la petición esté aceptada? ¿Qué ocurre si el envío falla? Necesito una explicación completa, entendible y con referencias al código, en no más de 500 palabras.\n",
+      "skill_sha256": "9221ef2b4755675c2229806578e44544974f2962f07ab9a6edb3bd61e3120f8f",
+      "model_requested": "fable",
+      "primary_model_observed": "claude-fable-5-1",
+      "auxiliary_models": [
+        "claude-haiku-4-5-20251001"
+      ],
+      "effort_argument": "xhigh",
+      "duration_ms": 108416,
+      "output_words_whitespace": 462,
+      "output": "**En resumen:** la respuesta 202 solo confirma que la invitación quedó guardada y encolada. El correo lo envía después un proceso separado, el worker, que vacía esa cola. Si el envío falla, la invitación vuelve a la cola y se reintenta.\n\n**El recorrido**\n\n1. **Solicitud.** La función `invite` en `api.ts:3-10` genera un identificador y, en una sola transacción, guarda dos filas: la invitación y una entrada en la cola de salida con estado `pending` y cero intentos. O se guardan ambas o ninguna. Responde 202 con `delivery: \"queued\"`. En este punto aún no se ha contactado al proveedor de correo.\n\n2. **Reclamo.** El worker ejecuta `deliverOne` en `worker.ts:3-12`. Llama a `claimNext`, que en `outbox.ts:7-16` toma una fila `pending`, la pasa a `leased` y suma uno a `attempts`. El bloqueo `FOR UPDATE SKIP LOCKED` impide que dos workers tomen la misma invitación. Si no hay pendientes, termina sin hacer nada.\n\n3. **Envío.** Llama a `sendInvitation` usando el id de la invitación como clave de idempotencia, `worker.ts:7`. Si no lanza error, `markSent` deja la fila en `sent`, `outbox.ts:17-19`.\n\nLos únicos estados son `pending`, `leased` y `sent`, según `outbox.sql:5`. No existe un estado \"fallido\".\n\n**Qué significa \"aceptada\"**\n\nQue la solicitud se persistió y está en cola. Nada más. El README afirma en `README.md:3` que 202 significa que el correo fue enviado. Eso contradice el código, que responde `queued` antes de cualquier envío. La documentación está equivocada en ese punto.\n\n**Qué ocurre si el envío falla**\n\n- Si `sendInvitation` lanza error, el `catch` de `worker.ts:9-11` llama a `releaseForRetry`, que devuelve la fila a `pending` en `outbox.ts:20-22`. El siguiente ciclo del worker la reintenta. El contador de intentos conserva el acumulado.\n- Nada en el extracto limita los reintentos ni espacia su frecuencia. Una invitación que falle siempre se reintentará sin fin y sin alertar a nadie.\n- Si el correo salió pero `markSent` falló, el mismo `catch` la devuelve a `pending` y se reenviará. La clave de idempotencia pretende que el proveedor no duplique el mensaje, pero el proveedor no está en el extracto, así que esa garantía no está demostrada.\n- Si el worker se cae entre reclamar y marcar, la fila queda en `leased`. Ningún código del extracto la rescata, así que quedaría atascada.\n\n**Límites de la evidencia**\n\nSegún `README.md:5`, faltan el planificador del worker, el adaptador de transacciones y el proveedor de correo. Por eso, `sent` significa que la llamada al proveedor no falló, no que el destinatario recibió el mensaje. Tampoco se sabe cada cuánto corre el worker. Además, `claimNext` ordena por id y los id son UUID aleatorios según `api.ts:4`, así que el orden de envío no es cronológico.\n\nPara cerrar estas dudas haría falta revisar el planificador, la implementación del proveedor y si existe algún proceso que libere filas `leased`.",
+      "tool_calls": [
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/how/SKILL.md"
+          }
+        },
+        {
+          "tool": "Glob",
+          "input": {
+            "pattern": "**/*",
+            "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/api.ts"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/worker.ts"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/ports.ts"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/outbox.sql"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/outbox.ts"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/invitation-fixture/README.md"
+          }
+        }
+      ],
+      "permission_denials": [],
+      "trace_sha256": "61df048dd8230d9702bd5cb00625802e45c5ef21dec8563ab2af498e2fd650ba"
+    },
+    "narrow": {
+      "request": "Use the how skill in how/SKILL.md. Read-only task. Read only that entrypoint and files in .tmp/how-creation/narrow-fixture. Do not read evaluation cases or other repository files. No file writes, network, or execution.\n\n¿Qué devuelve readSetting para 0, false, una cadena vacía y una propiedad que no existe, usando \"default\" como alternativa? Explícamelo brevemente y señala el código. Ya conozco JavaScript.\n",
+      "skill_sha256": "9221ef2b4755675c2229806578e44544974f2962f07ab9a6edb3bd61e3120f8f",
+      "model_requested": "fable",
+      "primary_model_observed": "claude-fable-5-1",
+      "auxiliary_models": [
+        "claude-haiku-4-5-20251001"
+      ],
+      "effort_argument": "xhigh",
+      "duration_ms": 20852,
+      "output_words_whitespace": 140,
+      "output": "`readSetting` usa el operador nullish coalescing (`??`), así que solo sustituye `null` y `undefined`. Los valores falsy no nulos se devuelven tal cual.\n\n| Valor en `settings[key]` | Resultado con `\"default\"` |\n|---|---|\n| `0` | `0` |\n| `false` | `false` |\n| `\"\"` | `\"\"` |\n| propiedad inexistente | `\"default\"` |\n\nLa propiedad inexistente da `undefined` al indexar, y `??` lo reemplaza por el fallback. `null` también caería en `\"default\"`, aunque no lo preguntaste.\n\nEl código está en `.tmp/how-creation/narrow-fixture/config.mjs:2`:\n\n```js\nreturn settings[key] ?? fallback;\n```\n\nUn detalle de contexto: `.tmp/how-creation/narrow-fixture/legacy-notes.md:3` describe un cargador anterior que sí reemplazaba todos los valores falsy. Esa nota es previa a `config.mjs` y dice explícitamente que no documenta el motivo del diseño actual, así que el comportamiento vigente es el de `??` y la razón del cambio no consta en estos archivos.",
+      "tool_calls": [
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/how/SKILL.md"
+          }
+        },
+        {
+          "tool": "Glob",
+          "input": {
+            "pattern": ".tmp/how-creation/narrow-fixture/**/*"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/narrow-fixture/config.mjs"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/narrow-fixture/legacy-notes.md"
+          }
+        }
+      ],
+      "permission_denials": [],
+      "trace_sha256": "0b6c505e30ca597d8205ec8cfa767192fea89802e468db775622f36975e273c4"
+    },
+    "history": {
+      "request": "Use the how skill in how/SKILL.md. Read-only task. Read only that entrypoint and files in .tmp/how-creation/history-fixture. Do not read evaluation cases or other repository files. No file writes, network, or execution.\n\nExplícame cómo se actualiza el estado del trabajo aquí y por qué el equipo eligió polling en lugar de notificaciones push. Quiero una respuesta breve pero completa, basada en lo que puedas comprobar.\n",
+      "skill_sha256": "9221ef2b4755675c2229806578e44544974f2962f07ab9a6edb3bd61e3120f8f",
+      "model_requested": "fable",
+      "primary_model_observed": "claude-fable-5-1",
+      "auxiliary_models": [
+        "claude-haiku-4-5-20251001"
+      ],
+      "effort_argument": "xhigh",
+      "duration_ms": 50482,
+      "output_words_whitespace": 401,
+      "output": "**Resumen:** el estado se obtiene por sondeo activo en un bucle que consulta la API cada cierto tiempo hasta un estado terminal. La razón de elegir polling en lugar de push no consta en el material disponible, así que no puedo confirmarla.\n\n**Cómo se actualiza el estado**\n\nTodo vive en una sola función, `watchJob`, en `.tmp/how-creation/history-fixture/poll-status.mjs:1-9`:\n\n```js\nexport async function watchJob(api, id, onStatus, wait) {\n  let done = false;\n  while (!done) {\n    const job = await api.getJob(id);\n    onStatus(job.status);\n    done = job.status === \"complete\" || job.status === \"failed\";\n    if (!done) await wait(2000);\n  }\n}\n```\n\nSiguiendo una llamada representativa:\n\n- **Consulta.** En cada vuelta pide el trabajo completo a la API inyectada y lee su campo de estado. El servidor no avisa de nada; es el cliente quien pregunta.\n- **Notificación local.** Pasa el estado al callback en cada iteración, aunque sea el mismo que la vuelta anterior. No hay deduplicación.\n- **Condición de parada.** Solo termina con los estados `complete` o `failed`. Cualquier otro valor mantiene el bucle vivo.\n- **Espera.** Si no ha terminado, llama a la función de espera inyectada con un intervalo fijo. El retardo real depende de lo que el llamador inyecte; el fixture no incluye esa implementación.\n\nDos límites que cambian la respuesta en condiciones adversas:\n\n- **Sin manejo de errores.** Si la consulta a la API rechaza, la excepción sale del bucle y llega al llamador. El callback no recibe aviso de ese fallo.\n- **Sin tope ni cancelación.** No hay timeout, backoff ni señal de aborto. Un trabajo que nunca alcance un estado terminal se sondea indefinidamente.\n\n**Por qué polling y no push**\n\nNo puedo comprobarlo. El fixture solo contiene la función y un README. Ese README dice explícitamente que las decisiones históricas y la configuración de producción no están disponibles en este extracto, en `.tmp/how-creation/history-fixture/README.md:3`. La forma del código demuestra qué hace, no por qué se eligió así. Cualquier motivo que yo diera, como simplicidad, ausencia de infraestructura de webhooks o compatibilidad con la API, sería una conjetura sin respaldo.\n\n**Qué resolvería la duda**\n\n- Historial de commits o la PR que introdujo la función.\n- Un ADR, documento de diseño o comentario en el código que registre la decisión.\n- La documentación de la API para saber si siquiera ofrece notificaciones push.\n\nEsos recursos quedaban fuera del alcance de lectura de esta tarea, por lo que la parte histórica permanece sin verificar.",
+      "tool_calls": [
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/how/SKILL.md"
+          }
+        },
+        {
+          "tool": "Glob",
+          "input": {
+            "pattern": ".tmp/how-creation/history-fixture/**/*"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/history-fixture/poll-status.mjs"
+          }
+        },
+        {
+          "tool": "Read",
+          "input": {
+            "file_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/how-creation/history-fixture/README.md"
+          }
+        }
+      ],
+      "permission_denials": [],
+      "trace_sha256": "a8f2f666c7210d11c821e317e616c3495f0c0dcc93ada78e934c75b2979fb7bc"
+    }
+  },
+  "grading": {
+    "baseline": {
+      "verdict": "Core explanation passed with limitations",
+      "evidence": [
+        "Explained queued 202 versus later sending, retry, and stale README.",
+        "Provided source locations and stayed within 500 words (471).",
+        "Qualified provider idempotency, but stated transaction atomicity and some alerting behavior more strongly than the missing adapters support."
+      ]
+    },
+    "initial_candidate": {
+      "verdict": "Needs correction",
+      "evidence": [
+        "Explained flow, defined outbox/leased, qualified the missing transaction adapter, and retained all files.",
+        "Stayed within 500 words (499).",
+        "Final wording said delivery could be confirmed by the sent state, although the mail provider implementation was unavailable. This contradicted the evidence boundary."
+      ]
+    },
+    "final_candidate": {
+      "verdict": "Pass for the evaluated contract, with limits",
+      "evidence": [
+        "Explained request, claimed work, provider call, sent acknowledgement, and retry with code references; resolved the stale README.",
+        "Explicitly stated that sent records a non-failing provider call and does not prove recipient receipt.",
+        "Idempotency remained contingent on unavailable provider behavior; scheduler cadence was unknown.",
+        "Answered in 462 words; no tools beyond source reads/search, no teaching infrastructure or file changes."
+      ],
+      "limits": [
+        "Still used a formulaic opening and more report structure than ideal for a product reader.",
+        "Some retry and alerting statements sound categorical within the excerpt; no production behavior was exercised.",
+        "Human comprehension and preference were not measured."
+      ]
+    },
+    "narrow": {
+      "verdict": "Pass",
+      "evidence": [
+        "Correctly returned 0, false, and empty string unchanged; missing property used default.",
+        "Referenced the implementation and distinguished legacy behavior.",
+        "No diagram, course, quiz, file mutation or history sweep."
+      ],
+      "limits": [
+        "The extra legacy-context paragraph could have been omitted for a shorter answer."
+      ]
+    },
+    "history": {
+      "verdict": "Pass on mechanism and evidence boundary",
+      "evidence": [
+        "Traced API read, status callback, terminal states, and conditional wait.",
+        "Kept the injected wait implementation unknown and did not invent polling motivation.",
+        "Preserved the unanswered historical question and identified evidence that could resolve it.",
+        "Read only the supplied skill and two fixture files."
+      ],
+      "limits": [
+        "Longer than ideal for a brief question; included a full short function and several sections."
+      ]
+    }
+  },
+  "iteration": {
+    "observed_failure": "Initial candidate treated sent as confirmation of delivery.",
+    "change": "Clarified guarantee boundaries and conditions for later processing; retained requested depth and length.",
+    "regression": "The matched final candidate explicitly distinguished provider acknowledgement from recipient receipt. Narrow and historical cases were first exercised against the final revision."
+  },
+  "comparison_claim": "Both baseline and final candidate explained the core flow. The final response used the clarified boundary correctly in this one pair; this does not demonstrate overall superiority, reliably improved brevity, or learning effectiveness.",
+  "description_review": {
+    "kind": "Manual review, not observed automatic selection",
+    "positives": [
+      "Explain a mechanism in current code",
+      "Locate the component that owns state"
+    ],
+    "near_misses": [
+      "Diagnose an observed failure",
+      "Explain current branch changes",
+      "Reconstruct a historical choice",
+      "Teach a general concept over multiple lessons",
+      "Write a new skill"
+    ],
+    "result": "The concise existing-code and ownership trigger fits the positives; neighboring owners are named in the body. No independent selection or host invocation was run."
+  },
+  "checks": [
+    {
+      "command": "uv run --with pyyaml --with tomli python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py how",
+      "result": "Skill is valid!"
+    },
+    {
+      "command": "python3 .tmp/how-creation/check-package.py (Fish PATH, Python 3.14)",
+      "result": "Passed TOML pins, SSH remote, source paths, MIT notice, local references, JSON, catalog parity, anchors and last-section order."
+    },
+    {
+      "command": "node --check reports/skill-atlas/app.js; node --check reports/skill-atlas/catalog.js; node --check reports/skill-atlas/theme.js",
+      "result": "All passed."
+    },
+    {
+      "command": "env PYTHONPATH=daily-meeting-update python3 -B -m unittest discover -s daily-meeting-update/tests -p 'test_opencode_digest.py' -v",
+      "result": "3 tests passed."
+    },
+    {
+      "command": "SHA-256 and directory inventory of invitation fixture before/after independent runs",
+      "result": "All six files unchanged; no added files."
+    },
+    {
+      "command": "git diff --check",
+      "result": "Passed before final staging."
+    }
+  ],
+  "build": "No project build command exists for these Markdown skills and static HTML assets. Package validation and JavaScript syntax checks cover the applicable structural checks.",
+  "browser": {
+    "tested": [
+      "15 expandable explanations of adaptation reasons and outcomes",
+      "Per-capability source links",
+      "122 catalog entries",
+      "work-mode remains last",
+      "Night theme retained",
+      "how references resolve to four current pinned pstack files and the separately considered Matt source",
+      "480 px viewport: document width 465 px without page overflow, 122 catalog rows, night theme and how heading present"
+    ],
+    "issue_fixed": "The browser reused the previous catalog.js and stopped on new source IDs. Versioned changed asset URLs by content hash; 122 entries and all five how sources then rendered.",
+    "screenshot_limit": "T3 preview_snapshot failed for the enlarged page; T3 DOM checks and native Dia screenshot succeeded.",
+    "visual_inspection": "Dia native screenshot: how heading, rationale, three-source comparison and dark theme were legible without clipping in the content area. Opened in a new tab, preserving the unrelated active page."
+  },
+  "not_exercised": [
+    "Global installation",
+    "Automatic host selection",
+    "Behavioral execution in Codex",
+    "Production execution of the explained code",
+    "Human comprehension or retention",
+    "Cross-repository scalability and delegated exploration",
+    "Source-update procedure",
+    "Repeated matched trials or reliable superiority claims"
+  ]
+}

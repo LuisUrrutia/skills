@@ -1,0 +1,43 @@
+format_version = 1
+skill = "how"
+created = "2026-10-03"
+approach = "Standalone derivation of source tracing with limited presentation guidance. Upstream skills supply ideas, not installed or invoked runtime dependencies."
+
+[[sources]]
+id = "pstack-how-and-teach"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+baseline_paths = ["pstack/skills/how/SKILL.md", "pstack/skills/how/references/explorer-prompt.md", "pstack/skills/how/references/explainer-prompt.md", "pstack/skills/teach/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/how/SKILL.md", "pstack/skills/how/references/explorer-prompt.md", "pstack/skills/how/references/explainer-prompt.md", "pstack/skills/teach/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Trace entry points, concrete calls, data transformations, ownership, and boundaries from the actual implementation.",
+  "Scale exploration to the question, reconcile conflicting evidence, and name gaps instead of guessing.",
+  "Explain a working mental model with relevant source locations and useful visual relationships.",
+  "Use only selected presentation criteria from teach: appropriate technical depth, necessary definitions, and a concrete flow the reader can follow.",
+  "Preserve confidence and attribution when making an explanation easier to read."
+]
+local_choices = [
+  "Investigate directly; delegation requires host and task authorization and is never a prerequisite.",
+  "Use a short activation description and normal host discoverability; no Cursor-only invocation flag, Task API, or model table.",
+  "Keep how focused on current mechanics and ownership; guided teaching, exercises, and learning plans remain separate capabilities.",
+  "Match requested depth in the current response rather than forcing a two-sentence stop or a senior-engineer audience.",
+  "Keep read-only explanation separate from diagnosis, branch-diff walkthroughs, historical investigation, and implementation.",
+  "Allow relevant documented rationale with attribution without requiring why or an exhaustive historical sweep.",
+  "Choose visual aids by usefulness; no mandatory repeated diagrams, image generation, English-only output, or unslop dependency.",
+  "Distinguish source inspection from observed execution and unknown external guarantees; do not imply tests ran merely because they were read.",
+  "Do not promote internal status or an external acknowledgement into an unobserved delivery guarantee; name the condition for later work.",
+  "Write a requested explanatory artifact only within its scope; ordinary use creates no course or learning records."
+]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+entrypoint = "../agent-instructions/SKILL.md"
+required = false
+role = "Required only for requested source maintenance and skill authoring; ordinary explanation has no skill dependency."
