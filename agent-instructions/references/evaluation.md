@@ -11,6 +11,17 @@ select different specialists and tasks that should select none. For a workflow
 with external effects, observe actions and resulting state, not just the final
 explanation.
 
+Match the check to the behavior: exercise a technique on changed inputs, retrieve
+and apply reference information, and test both sides of a conditional rule.
+When a requirement competes with a deadline, prior effort, or pressure to skip a
+check, include that conflict in a realistic task. Keep authorization unchanged
+and ask the executor to act using isolated fixtures or fakes. Reciting the rule
+does not show whether the agent follows it under pressure.
+
+Retain the action trace, omitted checks, and the agent's stated justification.
+Use that evidence to distinguish an instruction it missed, misunderstood, or
+bypassed. Treat its explanation as a hypothesis to test against the trace.
+
 Keep expected outcomes separate from executor inputs. Reserve some cases for a
 later check, without using their results to write the first revision. Once a
 reserved failure informs a fix, it is a regression case; use a new unseen case

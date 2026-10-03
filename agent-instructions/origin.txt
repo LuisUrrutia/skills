@@ -71,6 +71,30 @@ local_choices = [
 ]
 reviews = []
 
+[[sources]]
+id = "superpowers-writing-skills"
+author = "Jesse Vincent (obra)"
+repository = "https://github.com/obra/superpowers"
+remote = "git@github.com:obra/superpowers.git"
+ref = "refs/heads/main"
+baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+reviewed_through = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+baseline_paths = ["skills/writing-skills/SKILL.md", "skills/writing-skills/testing-skills-with-subagents.md", "LICENSE"]
+paths = ["skills/writing-skills/SKILL.md", "skills/writing-skills/testing-skills-with-subagents.md", "LICENSE"]
+license = "MIT; see LICENSE at the baseline commit"
+borrowed = [
+  "Choose instruction structure from observed output, omission, conditional-scope, or requirement-bypass failures.",
+  "Exercise requirements under relevant competing pressures and inspect actions and stated justifications."
+]
+local_choices = [
+  "Preserve material exceptions and use explicit conditions; no universal ban on nuance.",
+  "Use pressure scenarios when relevant; no failing-test prerequisite for every edit, fixed repetition count, or requirement to delete untested work.",
+  "Treat agent explanations as hypotheses and judge artifacts and actions rather than rule recitation or claims of perfect compliance.",
+  "Keep extraction in workflow-to-skill and retain host-neutral packaging, provenance, and proportionate evaluation.",
+  "Commit, publication, and installation follow the active request and local owners; upstream checklists grant no authority."
+]
+reviews = []
+
 [[local_snapshots]]
 id = "installed-codex-skill-creator"
 path = "~/.codex/skills/.system/skill-creator/SKILL.md"

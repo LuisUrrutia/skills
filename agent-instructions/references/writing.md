@@ -18,6 +18,25 @@ Keep each rule, its reason, and its exceptions together. Give each behavior one
 authoritative home. Restating a specialist's procedure in an orchestrator creates
 two versions to maintain; name its input and completion evidence instead.
 
+## Choose the form from the observed failure
+
+When correcting a failure, inspect the output and action trace before adding a
+rule. Check loading evidence before attributing the failure to an unread or
+unclear instruction. An unread rule needs a selection or placement fix. If
+loading is unobserved, report that limit while correcting defects visible in
+the text.
+
+| Observed failure | Useful correction |
+| --- | --- |
+| The result has the wrong structure or order | Describe the required parts in the order the reader needs them. |
+| A required element is missing | Give it a named field or slot in the existing output structure. |
+| A rule is applied in the wrong circumstances | State an observable condition and the action for each relevant branch. |
+| An understood requirement is bypassed | State the boundary and address the observed shortcut; test it under the relevant pressure. |
+
+Preserve material exceptions when making conditions explicit. Add counters for
+observed workarounds only; a growing prohibition list is not a substitute for a
+clear output contract.
+
 ## Make progress observable
 
 Describe actions with enough freedom for the task. Use fixed sequences where
