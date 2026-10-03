@@ -1298,6 +1298,48 @@
       "label": "GitHub CLI / LICENSE",
       "url": "https://github.com/cli/cli/blob/6fc1c29d5477bfe71da7af290eb481c0df7811f1/LICENSE",
       "sha256": "6da4adc42392c8485e40b4251c7e332fc3352df1947c9ffade71dd60b14a7a4f"
+    },
+    {
+      "id": "error-handling-source-1",
+      "label": "Affaan Mustafa / ECC / skills/error-handling/SKILL.md",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/error-handling/SKILL.md",
+      "sha256": "e8eec6756c950b570486493e64e3bf14c12baf6bf0858bf3928097fe2bfeaf79"
+    },
+    {
+      "id": "error-handling-source-2",
+      "label": "Affaan Mustafa / ECC / LICENSE",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/LICENSE",
+      "sha256": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2"
+    },
+    {
+      "id": "error-handling-source-3",
+      "label": "Lauren Tan / pstack / pstack/skills/principle-boundary-discipline/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/9511e60321f7e533a187d62854a3d53a53752874/pstack/skills/principle-boundary-discipline/SKILL.md",
+      "sha256": "62ac2862c2caa22dd14531f51c9c6bb445ceb198ca98a687e25b4d47c1f10a28"
+    },
+    {
+      "id": "error-handling-source-4",
+      "label": "Lauren Tan / pstack / pstack/skills/principle-make-operations-idempotent/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/9511e60321f7e533a187d62854a3d53a53752874/pstack/skills/principle-make-operations-idempotent/SKILL.md",
+      "sha256": "540738217c3da7bf513b9886924ad6a2bc77e58be867f5bd2e1831c74bf2ce70"
+    },
+    {
+      "id": "error-handling-source-5",
+      "label": "Lauren Tan / pstack / pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/9511e60321f7e533a187d62854a3d53a53752874/pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+      "sha256": "87e40efe4e486f7ea639d2ed1fc0abe6c93b8fd0e89a81218086909d2470a52e"
+    },
+    {
+      "id": "error-handling-source-6",
+      "label": "Lauren Tan / pstack / pstack/.cursor-plugin/plugin.json",
+      "url": "https://github.com/cursor/plugins/blob/9511e60321f7e533a187d62854a3d53a53752874/pstack/.cursor-plugin/plugin.json",
+      "sha256": "038e68152891d94476aab330f326620e22dbfbaf6aa48f70d2d21b8e9125d451"
+    },
+    {
+      "id": "error-handling-source-7",
+      "label": "Lauren Tan / pstack / pstack/LICENSE",
+      "url": "https://github.com/cursor/plugins/blob/9511e60321f7e533a187d62854a3d53a53752874/pstack/LICENSE",
+      "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
     }
   ],
   "skills": [
@@ -3975,8 +4017,8 @@
     "validation": "reports/pr-attachments-validation.json"
   },
   "repositoryInventory": {
-    "checkedAt": "2026-10-03",
-    "repositoryCommit": "a34e3ceee0ab814c6805e2d82b3464bea1350943",
+    "checkedAt": "2026-10-04",
+    "repositoryCommit": "ce5e971ab4e9943eabf5b1dacde7c0983ae3c614",
     "scope": "Top-level skill packages present in this working tree. Presence does not prove installation, activation or production validation.",
     "groups": [
       "Instruction authoring",
@@ -4073,6 +4115,14 @@
         "path": "tdd/SKILL.md",
         "sha256": "224e655607cbf594e5b6345a0516a11b65b6757ee3f1628a3e3c98232b7a5c67",
         "section": "tdd"
+      },
+      {
+        "name": "error-handling",
+        "category": "Implementation, verification and review",
+        "summary": "Design, implement or review failure contracts and bounded recovery, preserving caller semantics and avoiding repeated effects.",
+        "path": "error-handling/SKILL.md",
+        "sha256": "369d6f7d56b46ed6ac5e1be9ff60d7f3ae4924338056c94e3e63778bc044a63e",
+        "section": "error-handling"
       },
       {
         "name": "verification-authoring",
@@ -4209,12 +4259,6 @@
         "section": "create"
       },
       {
-        "name": "error-handling",
-        "status": "Proposed adaptation",
-        "summary": "Define propagation and recovery guidance that preserves existing error contracts.",
-        "section": "create"
-      },
-      {
         "name": "teach",
         "status": "Optional future skill",
         "summary": "Define teaching separately; how already explains mechanisms without becoming a course.",
@@ -4238,6 +4282,28 @@
     "replacements": {
       "review-audit": "review-code-changes"
     },
-    "validationScope": "Package presence, declared names and entrypoint content hashes checked. Existing behavioral evidence remains in each skill analysis; no skill was re-evaluated or installed during this inventory refresh."
+    "validationScope": "Package presence, declared names and entrypoint hashes checked. error-handling has its own bounded behavioral evaluation; existing evidence for other skills remains unchanged. Repository presence does not establish installation or host activation."
+  },
+  "errorHandlingReview": {
+    "date": "2026-10-04",
+    "sourceIds": [
+      "error-handling-source-1",
+      "error-handling-source-2",
+      "error-handling-source-3",
+      "error-handling-source-4",
+      "error-handling-source-5",
+      "error-handling-source-6",
+      "error-handling-source-7"
+    ],
+    "skill": "error-handling",
+    "approach": "Derive ECC error-contract coverage and selected pstack boundary, idempotency and behavioral-testing principles into language-neutral guidance.",
+    "decisions": [
+      "Preserve existing public error contracts and runtime cleanup/cancellation semantics.",
+      "Do not treat logging as recovery or unknown outcomes as known failure.",
+      "Retry only with an operation-specific transient classification, replay safety and bounded policy.",
+      "Keep business fallback and compensation decisions with their authorized owner.",
+      "Use debug for wider diagnosis and verify for application evidence only when relevant."
+    ],
+    "record": "reports/error-handling-validation.json"
   }
 }

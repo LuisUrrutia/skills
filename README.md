@@ -168,6 +168,22 @@ concrete software change. Use it directly for a decision or during authorized im
 - Revisits a design when repeated implementation friction exposes a wrong assumption
 - Records pstack and Matt Pocock sources with conditional upstream maintenance
 
+### error-handling
+
+Design, implement, or review error contracts and recovery across software
+boundaries. Adapt to the project's language and existing public interfaces.
+
+**Triggers:** `review this operation's error handling`, `design safe recovery`, `implement retries for this boundary`
+
+**Features:**
+
+- Preserves established error representations, useful causes, cancellation, and resource ownership
+- Separates known failure from an unknown or partially completed operation
+- Bases retries on real replay guarantees, transient classification, deadlines, and one retry owner
+- Keeps public messages accurate and filters sensitive diagnostic content before recording it
+- Tests observable results and effects, including recovery and effects that must not repeat
+- Uses debug and verify conditionally, with pinned ECC and pstack provenance
+
 ### simplify-code
 
 Simplify changed code through focused edits that preserve behavior. Use it

@@ -1,0 +1,52 @@
+format_version = 1
+skill = "error-handling"
+created = "2026-10-03"
+approach = "Derive: retain ECC's error-contract coverage and pstack's boundary, reconciliation and behavioral-testing criteria while replacing language-specific recipes and unsafe general defaults."
+
+[[sources]]
+id = "ecc-error-handling"
+author = "Affaan Mustafa and ECC contributors"
+repository = "https://github.com/affaan-m/ECC"
+remote = "git@github.com:affaan-m/ECC.git"
+ref = "refs/heads/main"
+baseline_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+reviewed_through = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+baseline_paths = ["skills/error-handling/SKILL.md", "LICENSE"]
+paths = ["skills/error-handling/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Treat errors as a caller-visible contract with useful classification and propagation.", "Separate user-facing failure messages from diagnostic context; inspect asynchronous boundaries and recovery policies."]
+local_choices = ["Use the project's language and existing representations without prescribing AppError, Result, a JSON envelope or language-specific code examples.", "Logging alone is not recovery; preserve causal evidence while filtering sensitive data before it is recorded.", "Replace retry-all defaults and blanket status-range rules with operation-specific replay safety, transient classification, cancellation and budgets.", "Circuit breakers are conditional design work, not a mandatory new dependency or a capability proved by the donor's examples."]
+reviews = []
+
+[[sources]]
+id = "pstack-boundaries-and-recovery"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "9511e60321f7e533a187d62854a3d53a53752874"
+reviewed_through = "9511e60321f7e533a187d62854a3d53a53752874"
+baseline_paths = ["pstack/skills/principle-boundary-discipline/SKILL.md", "pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-test-behavior-not-implementation/SKILL.md", "pstack/.cursor-plugin/plugin.json", "pstack/LICENSE"]
+paths = ["pstack/skills/principle-boundary-discipline/SKILL.md", "pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-test-behavior-not-implementation/SKILL.md", "pstack/.cursor-plugin/plugin.json", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Assign validation and translation to their boundaries and preserve domain contracts.", "Examine duplicate execution, interrupted work and reconciliation before replaying state changes.", "Exercise caller-visible results and effects against independent expectations."]
+local_choices = ["Internal trust depends on an invariant that still holds across persistence, concurrency and lifecycle changes.", "An idempotency key requires verified server-side guarantees; local flags or read-before-write do not prove deduplication.", "Do not import lifecycle-specific cleanup recipes or assume every operation can be replayed safely.", "Keep meaningful absence, status and interaction assertions when they establish a failure contract; no universal test-deletion rule.", "Preserve the caller's design, review or implementation scope, including unresolved business recovery policy."]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "debug"
+required = false
+role = "Conditional investigation of an observed symptom beyond the error-contract decisions."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Conditional application verification using the current revision and relevant failure scenarios."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested skill authoring or source maintenance."
