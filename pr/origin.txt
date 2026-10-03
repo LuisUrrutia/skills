@@ -93,6 +93,21 @@ borrowed = ["Use focused flow, call, dependency or before/after views to make th
 local_choices = ["Use the repository template and smallest useful view, not the donor fixed template, full file inventory or automatic artifact commits. Screenshots must be observed and accessible."]
 reviews = []
 
+[[sources]]
+id = "github-cli-attachments"
+author = "GitHub CLI / GitHub Inc."
+repository = "https://github.com/cli/cli"
+remote = "git@github.com:cli/cli.git"
+ref = "refs/heads/trunk"
+baseline_commit = "6fc1c29d5477bfe71da7af290eb481c0df7811f1"
+reviewed_through = "6fc1c29d5477bfe71da7af290eb481c0df7811f1"
+baseline_paths = ["skills/gh/SKILL.md", "internal/attachments/attach.go", "internal/attachments/attach_test.go", "pkg/cmd/pr/create/create.go", "pkg/cmd/pr/edit/edit.go", "LICENSE"]
+paths = ["skills/gh/SKILL.md", "internal/attachments/attach.go", "internal/attachments/attach_test.go", "pkg/cmd/pr/create/create.go", "pkg/cmd/pr/edit/edit.go", "LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Use supported gh --attach operations to upload files and rewrite matching local Markdown references.", "Check installed command capabilities, exact target, structured state and partial-write outcomes."]
+local_choices = ["Keep capture provenance, current-head claims, repository templates and existing publication authorization with pr.", "Prefer direct PR-body attachments; preserve successful remote URLs, retry missing files only and verify rendering.", "No new gh skill dependency, skill installation, release publishing, automatic tool upgrades or alternate worktree lifecycle owner."]
+reviews = []
+
 [[local_snapshots]]
 id = "pr-SKILL.md"
 path = "~/.agents/skills/pr/SKILL.md"

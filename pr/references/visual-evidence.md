@@ -25,8 +25,10 @@ available tooling; report an unrendered diagram as such rather than claiming vis
 ## Screenshots and recordings
 
 For visible UI changes, use the project's actual app and applicable `verify`
-recipe. Capture the relevant state, including an interaction or alternate viewport
-when it materially changes the result. Match before and after scenario, data,
+recipe. Use the host's actual browser, device or native-app capture tool and save
+the resulting file in ignored task storage. Capture the relevant state, including
+an interaction or alternate viewport when it materially changes the result.
+Match before and after scenario, data,
 viewport and theme; identify baseline and changed revisions. Respect checkout
 ownership when running another revision.
 
@@ -35,12 +37,11 @@ missing comparison. Never reconstruct a fake before image, use generated images 
 runtime evidence, or present a screenshot from an earlier build as current proof.
 Do not expose credentials, private user data or unrelated desktop content.
 
-Use the host's supported attachment flow or the repository's established asset
-location within authorized publication scope. Verify that the embedded URL exists
-and intended reviewers can access it. A local capture path, guessed asset URL or
-successful upload alone does not prove a working embed. When upload/access cannot
-be verified, retain the capture locally, state the gap, and provide the usable text
-evidence. Do not create a new public bucket or third-party upload destination.
+Read [attachments.md](attachments.md) to upload and place the captures in the PR.
+Complete that operation when available under the authorized PR publication scope;
+do not stop at recommending screenshots or listing local paths. Verify that the
+final embeds render for the intended repository audience. If access or rendering
+cannot be observed, report the exact limit and retain the available evidence.
 
 Use concise captions and alt text explaining what the reviewer should observe.
 Avoid dumping whole pages, unrelated screenshots or recordings too long to locate

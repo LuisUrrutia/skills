@@ -258,7 +258,9 @@ Create or update a GitHub PR with a concise explanation and useful review eviden
 - Resolves the exact target, fork, head and actual base
 - Checks claims against implementation, requirements and current verification
 - Follows repository conventions while allowing useful additions where the format permits
-- Uses diagrams, genuine screenshots and measured comparisons when they aid review
+- Captures visible UI changes and attaches real images through supported `gh --attach` operations
+- Preserves uploaded URLs on rewrites and recovers partial uploads without duplicate PRs
+- Uses diagrams and measured comparisons when they aid review
 - Preserves draft preference, verifies the GitHub actor and publishes over SSH
 - Refreshes the whole description after material publication under existing authorization
 

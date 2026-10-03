@@ -51,6 +51,9 @@ only when follow-up work is already requested.
 ## Create or update metadata
 
 Prepare multiline bodies in an ignored temporary file and use `--body-file`.
+When including screenshots or recordings, read [attachments.md](attachments.md)
+and add the verified files with `--attach` to this same create or edit operation.
+Check the installed subcommand's help; do not infer support from a floating source.
 Pass explicit repo, head, base and title. Creation defaults to:
 
 ```text
@@ -63,6 +66,10 @@ interactive creation, `--web`, `--editor`, `--recover` or `--draft=false`.
 Recheck exact open PR identity immediately before creating to avoid a duplicate.
 
 Verify URL, head repository/ref/SHA, base, title, body and `isDraft` after writing.
+For attached local references, expect `gh` to replace paths with uploaded URLs;
+verify that transformation and surrounding content rather than byte equality with
+the prepared body. Read back partial upload failures before any retry, as specified
+in [attachments.md](attachments.md).
 If a newly created PR has the wrong initial state, correct it once with
 `gh pr ready <url>` or `gh pr ready --undo <url>` under the resolved initial-state
 authorization, then verify. A continuing mismatch blocks further writes.

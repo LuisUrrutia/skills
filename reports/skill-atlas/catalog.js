@@ -1256,6 +1256,48 @@ window.SKILL_ATLAS = {
       "label": "addyosmani/agent-skills / LICENSE",
       "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/LICENSE",
       "sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7"
+    },
+    {
+      "id": "github-cli-attachments-1",
+      "label": "GitHub CLI / skills/gh/SKILL.md",
+      "url": "https://github.com/cli/cli/blob/6fc1c29d5477bfe71da7af290eb481c0df7811f1/skills/gh/SKILL.md",
+      "sha256": "789a8bfa1605ae1ed6f6cb0eeeacea218a9671684638ab59f7e9a63cf64ccba7"
+    },
+    {
+      "id": "github-cli-attachments-2",
+      "label": "GitHub CLI / skills/gh-skill/SKILL.md",
+      "url": "https://github.com/cli/cli/blob/6fc1c29d5477bfe71da7af290eb481c0df7811f1/skills/gh-skill/SKILL.md",
+      "sha256": "5771c04aee6bc7c19fd5d963a0d42549c8f90a4f3a7bb7ad2c9843861730f801"
+    },
+    {
+      "id": "github-cli-attachments-3",
+      "label": "GitHub CLI / internal/attachments/attach.go",
+      "url": "https://github.com/cli/cli/blob/6fc1c29d5477bfe71da7af290eb481c0df7811f1/internal/attachments/attach.go",
+      "sha256": "7247e5b4c348812d6c92e861f60f32c9329443582e912359795fc50280b0fd5b"
+    },
+    {
+      "id": "github-cli-attachments-4",
+      "label": "GitHub CLI / internal/attachments/attach_test.go",
+      "url": "https://github.com/cli/cli/blob/6fc1c29d5477bfe71da7af290eb481c0df7811f1/internal/attachments/attach_test.go",
+      "sha256": "52e8bee82542a3de82d7f581560003fb21f52487a3654052e361d8a3cc1b0693"
+    },
+    {
+      "id": "github-cli-attachments-5",
+      "label": "GitHub CLI / pkg/cmd/pr/create/create.go",
+      "url": "https://github.com/cli/cli/blob/6fc1c29d5477bfe71da7af290eb481c0df7811f1/pkg/cmd/pr/create/create.go",
+      "sha256": "9fe12a8c6459a4200d5b55395045e4d2a7309c9278ecfa6c883866d315f7a23c"
+    },
+    {
+      "id": "github-cli-attachments-6",
+      "label": "GitHub CLI / pkg/cmd/pr/edit/edit.go",
+      "url": "https://github.com/cli/cli/blob/6fc1c29d5477bfe71da7af290eb481c0df7811f1/pkg/cmd/pr/edit/edit.go",
+      "sha256": "da53e3a0ec33b8b5eaaa828f79ff3c7108c2709e9f19d156feb482834f852c49"
+    },
+    {
+      "id": "github-cli-attachments-7",
+      "label": "GitHub CLI / LICENSE",
+      "url": "https://github.com/cli/cli/blob/6fc1c29d5477bfe71da7af290eb481c0df7811f1/LICENSE",
+      "sha256": "6da4adc42392c8485e40b4251c7e332fc3352df1947c9ffade71dd60b14a7a4f"
     }
   ],
   "skills": [
@@ -3914,5 +3956,22 @@ window.SKILL_ATLAS = {
       "A selection probe does not prove automatic host invocation.",
       "Existing source baselines remain immutable; source review cursors are maintained separately."
     ]
+  },
+  "prAttachmentsReview": {
+    "date": "2026-10-03",
+    "sourceCommit": "6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+    "installedCli": "gh 2.102.0; --attach present in pr create/edit help",
+    "sourceIds": [
+      "github-cli-attachments-1",
+      "github-cli-attachments-2",
+      "github-cli-attachments-3",
+      "github-cli-attachments-4",
+      "github-cli-attachments-5",
+      "github-cli-attachments-6",
+      "github-cli-attachments-7"
+    ],
+    "adopted": "Native attachment uploads and body rewriting with exact-target readback and partial-failure recovery.",
+    "notAdopted": "gh-skill manages installation and release publication; no runtime PR dependency or automatic update-all.",
+    "validation": "reports/pr-attachments-validation.json"
   }
 };

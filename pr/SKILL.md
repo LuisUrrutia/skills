@@ -91,6 +91,12 @@ a changed interface, flow or structure would be easier to assess visually.
 Use the smallest useful diagram, genuine screenshots or measured comparison.
 Ordinary small changes can be explained in a sentence.
 
+For visible UI changes, capture and attach the relevant app states when the app,
+capture tool and upload route are available. Use existing verified captures when
+they match the revision. Follow [references/attachments.md](references/attachments.md)
+to upload them into the PR body; a local screenshot path is not an attachment.
+If a prerequisite is inaccessible, report which one and the evidence retained.
+
 Follow repository requirements and preserve meaningful template fields. When a
 style convention leaves useful context out, a small addition is appropriate;
 explain a material departure. An exact enforced format still applies unless the
@@ -111,8 +117,9 @@ remaining authorization. Existing request and standing authorization take preced
 over source workflows that require blanket confirmation.
 
 A successful phase has the exact PR URL, expected head and base, verified title
-and body, intended state, and only requested metadata changes. A failed write is
-unknown until inspected; avoid duplicate creation or claims of success on timeout.
+and body, intended state, and only requested metadata changes. Included captures
+have verified uploaded references and a recorded rendering/access result. A failed
+write is unknown until inspected; avoid duplicate creation or claims of success on timeout.
 Do not start monitoring, respond to reviews, change ready state on an existing PR,
 or merge solely because this phase succeeded.
 
