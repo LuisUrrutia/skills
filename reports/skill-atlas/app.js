@@ -52,7 +52,7 @@ const clusters = [
   },
   {
     "title": "Entender y depurar",
-    "winner": "debug, how y why con entradas propias",
+    "winner": "debug, how, why y blast-radius con entradas propias",
     "keys": [
       "Matt Pocock/diagnosing-bugs",
       "pstack/how",
@@ -60,8 +60,8 @@ const clusters = [
       "pstack/blast-radius",
       "Matt Pocock/research"
     ],
-    "text": "El diagnóstico reproduce fallos y contrasta causas. how explica estructura y ejecución; why reconstruye motivos; blast-radius sigue efectos; research consulta hechos externos. Son ramas complementarias, no cinco fases obligatorias.",
-    "why": "debug investiga fallos; how y why ya están creadas para explicar mecanismos y reconstruir decisiones por separado. blast-radius debe distinguir su análisis de impacto de la auditoría general que ya cubre review-audit."
+    "text": "El diagnóstico reproduce fallos y contrasta causas. how explica estructura y ejecución; why reconstruye motivos; blast-radius comprueba efectos indirectos con código real; research consulta hechos externos. Son ramas complementarias, no cinco fases obligatorias.",
+    "why": "Las cuatro capacidades están creadas: debug investiga fallos; how explica mecanismos; why reconstruye decisiones; blast-radius prueba los supuestos que determinan qué puede romper un cambio en otra parte."
   },
   {
     "title": "Entrevistas, especificaciones y tareas",

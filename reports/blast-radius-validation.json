@@ -1,0 +1,896 @@
+{
+  "date": "2026-10-03",
+  "skill": "blast-radius",
+  "status": "Created in repository and evaluated on bounded synthetic cases; useful execution behavior observed, with qualification defects recorded. No global installation.",
+  "authoring": {
+    "skills": [
+      "agent-instructions",
+      "skill-creator",
+      "humanize"
+    ],
+    "runtime_independence": "No prerequisite work-mode, review-audit, why, arena, or unslop invocation. agent-instructions is needed only for requested source maintenance."
+  },
+  "contract": {
+    "task": "Trace indirect effects of an implemented or proposed change and test the deciding assumptions with actual code.",
+    "result": "Confirmed breakage, cleared paths under stated conditions, unproven assumptions and the next useful check.",
+    "authority": "Preserve product source, committed tests, pins, configuration, and remote state. Disposable probes allowed only within task authority; explicit inspection-only requests remain inspection-only."
+  },
+  "skill_files_sha256": {
+    "blast-radius/origin.txt": "40e707a5229a9c4f55b44dfeb2d4c6f840fe2ad41793122d58d50d45ba269e8a",
+    "blast-radius/SKILL.md": "6fe214de198ff469d70d505e53865ea0cdc6fe686b048cbf26cfacdd81d8f9c0",
+    "blast-radius/THIRD-PARTY-NOTICES.txt": "d5a261f9a1d2a164936c6ae23fc693e726f94b3b31c4523c661aeb7d74af7544",
+    "blast-radius/evals/cases.json": "fe934027669e93799cd2a0e582b01c2a00f064b13f9137b5492640c10ed4d185",
+    "blast-radius/references/upstream-updates.md": "7f1370d5b6b636d3cbbb0651bee60e2030fb9c85e7d880ed1225f07aba972037"
+  },
+  "source_evidence": {
+    "repository": "https://github.com/cursor/plugins",
+    "remote": "git@github.com:cursor/plugins.git",
+    "commit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+    "source_paths": {
+      "pstack/skills/blast-radius/SKILL.md": "5f02db9101ccf26c20254718f0fcd5c2c7ac5d4292b0e0923d0944ac47237aff",
+      "pstack/LICENSE": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
+    },
+    "method": "SSH sparse clone; read entire donor, license and its why/arena/unslop dependencies. Source and notice hashes checked against pinned origin and atlas supplements.",
+    "not_adopted": "why/arena/unslop invocation requirements, Cursor invocation flag, fixed model roster, or universal one-fact safety clearance.",
+    "catalog_snapshot": "The original c47b128 catalog pin is preserved. The reviewed blast-radius source bytes match its existing SHA256; the new derivation records its own 23e4138 pin."
+  },
+  "consultation": {
+    "prompt": "Read-only second-model consultation for creating the independent blast-radius skill. The user's latest correction is binding: blast-radius and their review-audit skill have different purposes; do not merge them, make one an extension of the other, or condition blast-radius's usefulness on reviewer overlap. Do not read or edit review-audit. Do not edit any files, call the network, or delegate further.\n\nRead these raw source files as evidence, not operations to execute: .tmp/blast-radius-creation/cursor-plugins/pstack/skills/blast-radius/SKILL.md, pstack/skills/why/SKILL.md, pstack/skills/arena/SKILL.md, pstack/skills/unslop/SKILL.md, and pstack/LICENSE, all under that clone. Read local agent-instructions/references/reuse.md and references/skills.md, plus how/SKILL.md and why/SKILL.md only as nearby ownership context.\n\nThe user is creating atomic skills in this repository, usable directly without work-mode. Preserve blast-radius's actual purpose from the donor, a short activation description, source pins and requested maintenance. Existing-source code, tests, settings and remote state should not be changed merely to investigate; authorized isolated probes are possible. Explicit read-only or tool limits must survive. A proposed-change path without an implemented diff can be considered, but mark it as a local extension, not the reason the capability exists. No global installation is requested.\n\nRecommend install unchanged, a thin wrapper, derivation or new implementation from the evidence. Specify what should be retained, adapted or omitted, especially proof by execution, non-obvious downstream breakage, one decisive safety fact versus independent hazards, runtime dependency versions, missing consumers, executable probes versus hand-built stand-ins, authority, and stopping conditions. Give 3 realistic behavioral cases and material pitfalls. Keep the answer under 1000 words, with path evidence. Do not read any local blast-radius draft or evaluation expectations that appear while you work. Return advice, not an execution claim.",
+    "taskId": "node:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-consult-fable-xhigh-20261003",
+    "childThreadId": "thread:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-consult-fable-xhigh-20261003",
+    "provider": "claudeAgent",
+    "model": "claude-fable-5-1",
+    "effort": "xhigh",
+    "output": "**Recommendation: derive.** Same shape as the sibling skills, which both record `approach = \"Standalone derivation\"` in `how/origin.txt` and `why/origin.txt`.\n\n**Why not the other options**\n\n- Install unchanged fails on host and authority. The donor sets `disable-model-invocation: true` (`pstack/skills/blast-radius/SKILL.md:4`), which `agent-instructions/references/hosts.md:14` says not to adopt without a user request. Its steps call `why` step 2 (donor why's gh/MCP sweep, `pstack/skills/why/SKILL.md` Step 2 and 3), `arena` (model slugs from `~/.cursor/rules/pstack-models.mdc`, writes to worktrees or `/tmp`, `pstack/skills/arena/SKILL.md` Phase A), and `unslop`.\n- A wrapper would replace scope, tools, ordering and dependencies across steps 1, 6 and the hand-back section. `agent-instructions/references/reuse.md` (\"Choose what to maintain\") says to compare a small derivation in that case. The donor body is about 60 lines, so derivation is cheap.\n- New implementation discards a good core for no reason.\n\n**Retain from the donor**\n\n- The purpose statement: breakage grep will not show, not a caller list (`blast-radius/SKILL.md` \"Listing the callers is not the job\").\n- \"Don't trust your own writeup\" and the five-rung evidence ladder, with the requirement to say where each fact stopped.\n- \"Look where grep stops\": library source at the pinned version plus local patches, scheduling and teardown timing, JSON and wire formats, DB columns, other languages reading the same bytes, feature flags, code several hops downstream.\n- Risk honesty: likelihood and cost per risk, confirmed and cleared listed separately, never invent a caller or API.\n- Proof by running real code and pasting the output.\n- The hand-back content: what changed including the non-obvious part, the decisive fact and its proof state, risks with `file:line`, cleared items, and the cheapest pre-merge check.\n\n**Adapt**\n\n- Decisive fact versus independent hazards. The donor says most risky changes are safe because of one fact. Keep that as the first search, but state that a change touching unrelated consumers or mixing a schema change with a timing change has several facts, each needing its own evidence. Never collapse them. A change may have no safe fact; then the deliverable is the risk list.\n- Probes versus stand-ins. The probe must import the actually installed dependency and call the exact production function. A reimplementation, a mock, or a sketch of the library proves nothing about the shipped code. Resolve the version from the lockfile and check `patches/` or `pnpm.patchedDependencies` before trusting documentation.\n- Probe location and authority. Probes live in `.tmp/<task>/` per the global `AGENTS.md` scratch rule. Do not add test files to the suite, edit settings, or touch remote or shared state to investigate. When a task declares read-only or tool limits, the ladder stops at rung 3 and the fact is reported as unproven with the exact probe that would prove it. Match the how and why wording: \"Keep source, tests, configuration, and remote state unchanged\" (`how/SKILL.md`, `why/SKILL.md`).\n- Missing consumers. A search with no hits is evidence within its searched scope only. Name the scope and what it cannot see: other repositories, string-keyed or reflective access, generated code, rows already stored in the old shape, mobile or third-party clients.\n- Multi-model consultation. Replace step 6 with the how/why clause: delegation or a second opinion is optional, only when host and task authorize it, and must preserve read-only authority. No model table.\n- Proposed change without a diff. Allow it as a local extension, labelled so in `origin.txt` `local_choices`. Build the symbol set from the description and prove the current invariant the proposal would rely on. Output becomes planning input, like why's \"Answer and stop\" section. No implementation.\n- Stopping. Finish when each decisive fact is proven or marked unproven with its cheapest test, or when the evidence is inaccessible. Do not drift into fixing, a general audit, or a PR body. Observed failures belong to debug, branch explanation to walkthrough.\n\n**Omit**\n\n- `disable-model-invocation`, the `why`, `arena` and `unslop` references, the Solid versus React example (generalize to framework lifecycle and scheduling), and the fixed report template. Local precedent in how and why avoids fixed sections; keep the five content requirements, scaled to the question.\n- Keep one line on not publishing findings unless requested instead of \"strip anything private\".\n\n**Description.** Something like \"Use when assessing what a code change could break elsewhere before it ships, or to prove a risky-looking change is safe.\" Do not use review vocabulary. The skill's value stands on its own.\n\n**Provenance and maintenance**\n\n- `origin.txt`: source id `pstack-blast-radius`, author \"Lauren Tan / pstack\", repository `https://github.com/cursor/plugins`, remote `git@github.com:cursor/plugins.git`, ref `refs/heads/main`, baseline and `reviewed_through` at `23e4138daa01c42d4969f7a5465f82704e64f798` (verified by `git rev-parse HEAD` in the clone), paths `pstack/skills/blast-radius/SKILL.md` and `pstack/LICENSE`. Record arena, unslop and why as rejected dependencies in `local_choices`, not as paths, per reuse.md \"Record rejected candidates in the decision report\".\n- `THIRD-PARTY-NOTICES.txt` with the MIT notice, copyright 2026 Lauren Tan, as `how/` and `why/` do.\n- A \"Source maintenance\" section pointing at `references/upstream-updates.md`, same as `how/SKILL.md` and `why/SKILL.md`.\n- `[[dependencies]]`: local `agent-instructions`, `required = false`.\n\n**Three behavioral cases**\n\n1. A one-line diff changes a cache call so it also drops entries with zero TTL. Expected: the decisive fact is \"this call only touches already-dead entries\". Read the installed library source at the lockfile version, write a probe in `.tmp/` that imports that library and runs the real call on a fixture, paste the output, and list cleared items with `file:line`.\n2. An API renames a JSON field. Local symbol search finds no consumers. Expected: state the search scope, name the consumers it cannot see, report the fact as unproven, and name the contract test or consumer-repo search that would prove it. Do not call it safe.\n3. \"What breaks if we remove the retry in the upload client?\" with no diff. Expected: mark it a proposed-change assessment, prove whether the transport already retries by probing current code, report risks as planning constraints, and stop without editing.\n\n**Pitfalls**\n\n- A probe that mocks or reimplements the function and claims rung 4.\n- Running the probe against a globally installed or newer version than the lockfile.\n- Declaring \"proven\" after pointing at a line (rung 2).\n- Forcing one fact onto independent hazards.\n- Writing probes into the test suite or running them against shared state.\n- Letting donor couplings leak back in through the invocation flag, model slugs or a dependency on unslop."
+  },
+  "consultation_decisions": {
+    "adopted": [
+      "Standalone derivation rather than wholesale install or wrapper.",
+      "Actual-code probes, pinned dependency and patch inspection, independent hazards, explicit evidence levels and coverage limits.",
+      "Optional authorized delegation and requested source maintenance."
+    ],
+    "qualified": [
+      "A fake outside the property under test can be appropriate; replacing the implementation under test does not prove its behavior.",
+      "A blast-radius investigation may reproduce a change-induced failure itself; it need not hand every observed failure to debug. Repair is a distinct authorization."
+    ],
+    "rejected": [
+      "Restricting this skill to pre-change planning to justify its existence relative to review-audit.",
+      "Automatic dependency installation, a model roster, or broad code-quality auditing."
+    ]
+  },
+  "fixtures": {
+    "wire-fixture": {
+      "files": {
+        "README.md": "# Job events\n\nSynthetic source packet. change.patch compares before/producer.mjs with producer.mjs. dashboard.mjs and worker.py are unchanged deployed consumer implementations supplied for this exercise. No enclosing Git history or network evidence belongs to this packet. Producer input createdAt is an ISO timestamp; retryAfter is a number or null.\n",
+        "before/producer.mjs": "export function encodeJob(job) {\n  return JSON.stringify({ id: job.id, createdAt: job.createdAt, retryAfter: job.retryAfter });\n}\n",
+        "change.patch": "--- before/producer.mjs\n+++ producer.mjs\n@@ -1,3 +1,5 @@\n export function encodeJob(job) {\n-  return JSON.stringify({ id: job.id, createdAt: job.createdAt, retryAfter: job.retryAfter });\n+  const payload = { id: job.id, createdAt: Math.floor(Date.parse(job.createdAt) / 1000) };\n+  if (job.retryAfter !== null) payload.retryAfter = job.retryAfter;\n+  return JSON.stringify(payload);\n }\n",
+        "dashboard.mjs": "export function renderEvent(wire) {\n  const event = JSON.parse(wire);\n  return { delay: event.retryAfter ?? 0, year: new Date(event.createdAt).getUTCFullYear() };\n}\n",
+        "producer.mjs": "export function encodeJob(job) {\n  const payload = { id: job.id, createdAt: Math.floor(Date.parse(job.createdAt) / 1000) };\n  if (job.retryAfter !== null) payload.retryAfter = job.retryAfter;\n  return JSON.stringify(payload);\n}\n",
+        "producer.test.mjs": "import assert from \"node:assert/strict\";\nimport { encodeJob } from \"./producer.mjs\";\nconst event = JSON.parse(encodeJob({ id: \"j1\", createdAt: \"2025-03-01T10:00:00Z\", retryAfter: null }));\nassert.equal(typeof event.createdAt, \"number\");\nassert.equal(Object.hasOwn(event, \"retryAfter\"), false);\nconsole.log(\"producer contract assertions passed\");\n",
+        "worker.py": "import json\nfrom datetime import datetime\n\n\ndef decode_event(wire):\n    event = json.loads(wire)\n    retry = event[\"retryAfter\"]\n    created = datetime.fromisoformat(event[\"createdAt\"].replace(\"Z\", \"+00:00\"))\n    return {\"id\": event[\"id\"], \"retry\": retry, \"year\": created.year}\n"
+      },
+      "sha256": {
+        "README.md": "4e750264bce91f3f4d44ee2377236d14a2ddfb85122ef3c48bd8f150916a2657",
+        "before/producer.mjs": "c11de8f7cd0c0343b882eabc2d0b97a4c19385d56569c6cb49101b659845ba3e",
+        "change.patch": "c4d2aa6fd5d5b76629007355d13a1c1ed00e21e67a29d3ff53ff013fa66d05ca",
+        "dashboard.mjs": "abdb745c5c1f695beefc597346c54f7335142b5923c2c0b9309706fe22f82d8f",
+        "producer.mjs": "cdb6255289ddf99a0ad49ddd4927165c7292dfbe7e46a32cdba31d59f41fd7bb",
+        "producer.test.mjs": "c1dac03be26428e5e02742643f15ae941467e8dcc985f73f6bebdda6713d824d",
+        "worker.py": "696908fdf0ae3cb43ab47ed5ba29d5322666cdac1a16909b6a21cf5d29e2357e"
+      }
+    },
+    "lifecycle-fixture": {
+      "files": {
+        "README.md": "# Screen cache\n\nSynthetic source packet. change.patch compares before/close.mjs with close.mjs. The resolved cache implementation is vendor/cache.mjs, version 1.4.2 with local patch P-17 applied. No network or enclosing repository history belongs to this packet. cache.mjs in this vendor directory is the actual module imported by session.mjs.\n",
+        "before/close.mjs": "export function closeSession(session, now) {\n  session.unsubscribe();\n  session.closed = true;\n  session.cache.gc(now);\n}\n",
+        "change.patch": "--- before/close.mjs\n+++ close.mjs\n@@ -1,5 +1,5 @@\n export function closeSession(session, now) {\n-  session.unsubscribe();\n   session.closed = true;\n   session.cache.gc(now);\n+  session.unsubscribe();\n }\n",
+        "close.mjs": "export function closeSession(session, now) {\n  session.closed = true;\n  session.cache.gc(now);\n  session.unsubscribe();\n}\n",
+        "dependency-lock.json": "{\n  \"cache\": {\n    \"version\": \"1.4.2\",\n    \"resolved\": \"./vendor/cache.mjs\",\n    \"patches\": [\n      \"./patches/P-17.md\"\n    ]\n  }\n}\n",
+        "patches/P-17.md": "# Local patch P-17\n\nCache eviction notifications run synchronously during gc() to make removal ordering deterministic. The upstream deferred-notification behavior is not the behavior of this resolved module.\n",
+        "session.mjs": "import { Cache } from \"./vendor/cache.mjs\";\nexport function openSession() {\n  const session = { closed: false, renders: 0, cache: new Cache() };\n  session.unsubscribe = session.cache.onEvict(() => {\n    if (session.closed) throw new Error(\"render after close\");\n    session.renders += 1;\n  });\n  return session;\n}\n",
+        "vendor/cache.mjs": "export class Cache {\n  constructor() { this.entries = new Map(); this.listeners = new Set(); }\n  put(key, value, expiresAt) { this.entries.set(key, { value, expiresAt }); }\n  onEvict(listener) { this.listeners.add(listener); return () => this.listeners.delete(listener); }\n  gc(now) {\n    for (const [key, entry] of this.entries) {\n      if (entry.expiresAt > now) continue;\n      this.entries.delete(key);\n      for (const listener of this.listeners) listener(key);\n    }\n  }\n}\n"
+      },
+      "sha256": {
+        "README.md": "33d8dac0ac62c4d0ff4703b446a218482783f7edeb0db4f9d1d2d728407d2b22",
+        "before/close.mjs": "7aa22036b5a100b3e19d7e1a01cfee818ccc87fbe358894e1c34ef7559e714d0",
+        "change.patch": "1cdf149936bb5750c1557aeb5b06cc505f5029a1d0ed95cdbe6c1e7aaa7e08a8",
+        "close.mjs": "1f35fd1e1bd0a85c64c2680dce5abae2a2193dbd9c72c68332a830775a9d7f04",
+        "dependency-lock.json": "ae6f684888c166d38607ea7c613f8237eedd5cbecd675a21afacefc3efc9fa54",
+        "patches/P-17.md": "5d334a0699a061da20ef0fbe0cc9729cea3d789df08bd03149cb647e2b1b1553",
+        "session.mjs": "40e178012627bddd25da87d6582996847487b4abec7431a3e709e612d1a89771",
+        "vendor/cache.mjs": "15bbb101ba554983d6a200530227496054326403a9ec5bbcb46dd8b7af01001c"
+      }
+    },
+    "proposal-fixture": {
+      "files": {
+        "README.md": "# Candidate identifier encoding\n\nSynthetic source packet with no installed dependency implementation, historical records or deployed-consumer inventory. The referenced codec version cannot be inspected or executed from this packet.\n",
+        "dependency-lock.json": "{\n  \"opaque-codec\": {\n    \"version\": \"3.2.1\",\n    \"source_available\": false\n  }\n}\n",
+        "proposal.md": "# Proposed change\n\nUse opaque-codec encodeCompact instead of encodeReadable for the job identifier written to existing job rows. Keep column name public_id. No implementation has been made. The intended byte-level compatibility of encodeCompact with encodeReadable is not specified here.\n",
+        "reader.py": "def load_job(db, public_id):\n    return db.find_one(\"jobs\", {\"public_id\": public_id})\n",
+        "writer.mjs": "import { encodeReadable } from \"opaque-codec\";\nexport async function saveJob(db, id) {\n  await db.insert(\"jobs\", { public_id: encodeReadable(id) });\n}\n"
+      },
+      "sha256": {
+        "README.md": "8c6118712b96e86e3e67057dffb6439c6bcd2d6135a1e12655c01126e41822ae",
+        "dependency-lock.json": "4d62f0946f1ab9344ae6fd203c976a9d4cb7424a483c1680874fcd03892d599f",
+        "proposal.md": "98a28c8df8349b38309495875e1fa23cc5a609a64e943e7b4a40b77c302f1130",
+        "reader.py": "f888e3b1aa80f2da560286d2158f1034e743223a9c549713b34543852dff68fa",
+        "writer.mjs": "888543ce9c7a01488cbb119db41476349924e23ebec67e0626a336d940bf07b1"
+      }
+    },
+    "description": "Synthetic modules; the vendor cache is the actual dependency in this packet, not an external library replacement in the probe. Raw inputs were separate from grader expectations."
+  },
+  "grader_expectations": {
+    "skill": "blast-radius",
+    "purpose": "Evaluate indirect effects, real executable evidence, and bounded investigation authority. Expectations belong to the grader, not executor prompts.",
+    "cases": [
+      {
+        "id": "wire-consumers",
+        "request": "Assess what a producer change could break outside its passing test and check the available code.",
+        "fixture": "A JavaScript producer changes an ISO date to epoch seconds and omits a null field. Unchanged JavaScript and Python consumers read the wire payload.",
+        "observe": [
+          "Exercises the actual before/after producer and the supplied consumers, rather than reconstructing their behavior in a probe.",
+          "Finds the Python missing-key failure and the independent integer-versus-string failure, without letting the first exception mask the second.",
+          "Finds the JavaScript seconds-versus-milliseconds date error while clearing its nullish delay default under the tested inputs.",
+          "Explains why the producer-only passing test does not establish compatibility.",
+          "Records inputs, commands, and observed evidence without claiming application or deployment validation.",
+          "Preserves supplied files, dependencies, and remote state; writes only authorized scratch probes."
+        ],
+        "comparison": "Independent clean baseline and candidate tasks with the same model, effort, source packet, tools, authority, and response request; only the candidate receives the skill."
+      },
+      {
+        "id": "patched-lifecycle",
+        "request": "Assess what a reordered screen-close operation could break and check the relevant behavior.",
+        "fixture": "The changed close function runs cache collection before unsubscribing. The resolved cache version has a local patch that makes eviction callbacks synchronous.",
+        "observe": [
+          "Reads the resolved dependency and patch rather than assuming upstream timing.",
+          "Runs the actual close, session, and cache modules through an expiration boundary.",
+          "Reproduces the callback after close and observes that the exception prevents unsubscription.",
+          "Checks an applicable normal control and limits its clearance to that condition.",
+          "Does not modify source, dependency pins, committed tests, or production configuration."
+        ],
+        "initially_held_out": true,
+        "current_role": "Regression case after the initial evaluation."
+      },
+      {
+        "id": "unimplemented-encoding",
+        "request": "Assess a proposed encoding change by inspection only, without running code or writing files.",
+        "fixture": "A proposal switches dependency encoding functions for a persisted identifier; the pinned dependency implementation and external-consumer inventory are unavailable.",
+        "observe": [
+          "Distinguishes a proposed behavior from an implemented diff and does not implement it.",
+          "Traces the stored identifier and equality lookup without asserting that the unknown encodings actually differ.",
+          "Reports the unavailable pinned implementation and consumer inventory as limits, not evidence of safety or certain failure.",
+          "Names the smallest old/new encoding and stored-data checks that would settle the material uncertainty.",
+          "Uses only permitted inspection, with no probes, installs, stubs, network requests, or file writes."
+        ],
+        "initially_held_out": true,
+        "current_role": "Regression case after the initial evaluation."
+      },
+      {
+        "id": "description-boundaries",
+        "kind": "Manual description review; not observed automatic host invocation",
+        "positive": [
+          "What could this change break elsewhere?",
+          "Can the existing consumers read this new payload?",
+          "Is the new cleanup order safe?"
+        ],
+        "near_miss": [
+          "Explain how this code works",
+          "Why was this design chosen?",
+          "Perform a general code-quality audit",
+          "Fix the failing worker",
+          "Publish the PR"
+        ]
+      }
+    ]
+  },
+  "skill_revisions": {
+    "initial": {
+      "sha256": "ab74766e1e631ae683a2bfc0120660a57e8bf6696d69d072edb1317a57895dcb",
+      "content": "---\nname: blast-radius\ndescription: Use when tracing and testing what a change could break elsewhere.\n---\n\n# Blast radius\n\nFind effects beyond the changed code and test the assumptions that would make\nthem safe. The result is a bounded account of breakage, cleared risks, and\nunproven conditions, with evidence from the actual implementation.\nUse this skill directly; no coordinator or upstream skill is required.\n\n## Establish the change\n\nIdentify the requested change and its before/after behavior. For an existing\ndiff, establish the intended base and target rather than assuming the latest\ncommit or upstream contains the whole change. Read the surrounding implementation,\ncallers, configuration, and relevant contracts. Use history when it clarifies a\nspecific constraint; a complete historical investigation is not a prerequisite.\n\nFor a proposed change, state the behavior being considered and which details\nremain undecided. Investigate current consumers and contracts without implementing\nthe proposal. A probe using a proposed value or format tests that scenario; it\ndoes not establish the behavior of an implementation that does not yet exist.\nAsk only when an unresolved choice would materially change the analysis.\n\n## Follow effects beyond the diff\n\nTrace how the changed behavior reaches a consumer or observable outcome. Symbol\nsearches find leads; read the actual path across calls, generated or serialized\ndata, persisted state, runtime configuration, and other processes or languages\nwhen the change reaches those boundaries. Name what the recipient assumes and\nhow the change preserves or violates it.\n\nInspect the dependency version and local patches used by the project when its\nsemantics decide the outcome. Follow execution order, callbacks, task scheduling,\ncleanup, shared state, or rollout versions when they affect the path. A compatible\ntype signature does not establish compatible timing or serialized behavior.\n\nIdentify the concrete assumptions each plausible risk depends on. Prioritize the\nassumptions that decide the most consequential paths, while keeping independent\nhazards separate. Proving one property clears only the risks that depend on it.\nAvoid inventing callers, broad lists of hypothetical failures, or likelihood\npercentages unsupported by evidence. Describe reachability and consequences.\n\nDistinguish a path that exists in source from one known to be active in a deployed\nconfiguration. A search with no matches establishes only that search's result;\nit does not rule out dynamic dispatch, stored data, or external consumers. Mark\nunavailable implementations and unknown deployment state as coverage limits.\n\n## Test the deciding assumptions\n\nFor each material path, state a falsifiable claim and the smallest observation\nthat could refute it. Prefer an existing focused test or a disposable probe that\nimports and exercises the actual code and resolved dependency. Observe the\nfailure path as well as a relevant normal case when needed to interpret the result.\n\nA probe must check the behavior under question, not a reimplementation of it.\nUse a fake only at a boundary outside the claim being tested and explain that\nlimit. For compatibility, exercise the relevant old/new producers and consumers\nor data versions; a test of only the new producer does not test its old readers.\nWhen timing matters, reach the lifecycle or scheduler boundary that decides it.\n\nRecord the command, input or scenario, observed output, and what that observation\nsupports. A setup failure is not a reproduction. A passing sample or aggregate\ntest suite does not prove every consumer safe. An assertion-free script that\nexits successfully may not have checked the claimed property.\n\nKeep product source, committed tests, dependency pins, configuration, and remote\nstate unchanged during investigation. Use permitted scratch storage for disposable\nprobes and generated output. Respect an explicit inspection-only request or an\nexecution restriction. Do not install, upgrade, repair, publish, or call a live\nmutating service just to obtain proof. If execution or the real dependency is\nunavailable, return the supported analysis, mark the affected claim unproven,\nand name the smallest missing check. Do not quietly substitute another version.\n\nInvestigate directly. Independent exploration is optional when both the host and\ntask authorize it; reconcile any findings against source and execution evidence.\nAgreement among agents is not proof and no model roster is required.\n\n## Deliver the impact and evidence\n\nLead with the consequential effects and the scope examined. For each material\nconclusion, connect the changed behavior, triggering condition, affected consumer,\nand consequence to source locations and any observed check. Keep confirmed\nbreakage, risks cleared under stated conditions, and unproven paths distinct.\nDistinguish source inspection, a traced unreachable path, a local execution, and\nreproduction in the application rather than collapsing them into \"verified\".\n\nName the deciding assumptions, the evidence reached for each, and the remaining\ntest or integration prerequisite. Explain an unresolved risk's impact without\npresenting it as an observed failure. Use a compact table or causal path when it\nhelps; respect the requested length and avoid a general code-quality report.\n\nStop when the material paths have evidence or explicit limits and the next useful\ncheck is clear. Do not turn an analysis request into repair or delivery. A caller\nwith a wider authorized task can use the result to choose its next action.\n\n## Source maintenance\n\nWhen asked to check or update this skill from its sources, read\n[references/upstream-updates.md](references/upstream-updates.md). Ordinary impact\ninvestigation does not fetch skill sources or require another skill.\n"
+    },
+    "final": {
+      "sha256": "6fe214de198ff469d70d505e53865ea0cdc6fe686b048cbf26cfacdd81d8f9c0",
+      "content": "---\nname: blast-radius\ndescription: Use when tracing and testing what a change could break elsewhere.\n---\n\n# Blast radius\n\nFind effects beyond the changed code and test the assumptions that would make\nthem safe. The result is a bounded account of breakage, cleared risks, and\nunproven conditions, with evidence from the actual implementation.\nUse this skill directly; no coordinator or upstream skill is required.\n\n## Establish the change\n\nIdentify the requested change and its before/after behavior. For an existing\ndiff, establish the intended base and target rather than assuming the latest\ncommit or upstream contains the whole change. Read the surrounding implementation,\ncallers, configuration, and relevant contracts. Use history when it clarifies a\nspecific constraint; a complete historical investigation is not a prerequisite.\n\nFor a proposed change, state the behavior being considered and which details\nremain undecided. Investigate current consumers and contracts without implementing\nthe proposal. A probe using a proposed value or format tests that scenario; it\ndoes not establish the behavior of an implementation that does not yet exist.\nAsk only when an unresolved choice would materially change the analysis.\n\n## Follow effects beyond the diff\n\nTrace how the changed behavior reaches a consumer or observable outcome. Symbol\nsearches find leads; read the actual path across calls, generated or serialized\ndata, persisted state, runtime configuration, and other processes or languages\nwhen the change reaches those boundaries. Name what the recipient assumes and\nhow the change preserves or violates it.\n\nInspect the dependency version and local patches used by the project when its\nsemantics decide the outcome. Follow execution order, callbacks, task scheduling,\ncleanup, shared state, or rollout versions when they affect the path. A compatible\ntype signature does not establish compatible timing or serialized behavior.\n\nIdentify the concrete assumptions each plausible risk depends on. Prioritize the\nassumptions that decide the most consequential paths, while keeping independent\nhazards separate. Proving one property clears only the risks that depend on it.\nAvoid inventing callers, broad lists of hypothetical failures, or likelihood\npercentages unsupported by evidence. Describe reachability and consequences.\n\nDistinguish a path that exists in source from one known to be active in a deployed\nconfiguration. A search with no matches establishes only that search's result;\nit does not rule out dynamic dispatch, stored data, or external consumers. Mark\nunavailable implementations and unknown deployment state as coverage limits.\n\n## Test the deciding assumptions\n\nFor each material path, state a falsifiable claim and the smallest observation\nthat could refute it. Prefer an existing focused test or a disposable probe that\nimports and exercises the actual code and resolved dependency. Observe the\nfailure path as well as a relevant normal case when needed to interpret the result.\n\nA probe must check the behavior under question, not a reimplementation of it.\nUse a fake only at a boundary outside the claim being tested and explain that\nlimit. For compatibility, exercise the relevant old/new producers and consumers\nor data versions; a test of only the new producer does not test its old readers.\nWhen timing matters, reach the lifecycle or scheduler boundary that decides it.\n\nRecord the command, input or scenario, observed output, and what that observation\nsupports. A setup failure is not a reproduction. A passing sample or aggregate\ntest suite supports only the paths and inputs it exercises; broader claims need\ntheir own source trace or execution evidence. An assertion-free script that\nexits successfully may not have checked the claimed property.\n\nKeep product source, committed tests, dependency pins, configuration, and remote\nstate unchanged during investigation. Use permitted scratch storage for disposable\nprobes and generated output. Respect an explicit inspection-only request or an\nexecution restriction. Do not install, upgrade, repair, publish, or call a live\nmutating service just to obtain proof. If execution or the real dependency is\nunavailable, return the supported analysis, mark the affected claim unproven,\nand name the smallest missing check. Do not quietly substitute another version.\n\nInvestigate directly. Independent exploration is optional when both the host and\ntask authorize it; reconcile any findings against source and execution evidence.\nAgreement among agents is not proof and no model roster is required.\n\n## Deliver the impact and evidence\n\nLead with the consequential effects and the scope examined. For each material\nconclusion, connect the changed behavior, triggering condition, affected consumer,\nand consequence to source locations and any observed check. Keep confirmed\nbreakage, risks cleared under stated conditions, and unproven paths distinct.\nDistinguish source inspection, a traced unreachable path, a local execution, and\nreproduction in the application rather than collapsing them into \"verified\".\n\nName the deciding assumptions, the evidence reached for each, and the remaining\ntest or integration prerequisite. Explain an unresolved risk's impact without\npresenting it as an observed failure. Apply the same standard to alternative\ndependency versions and suggested remedies: reproducing the current failure does\nnot verify an alternative. Leave untested alternatives conditional. Use a compact\ntable or causal path when it helps; respect the requested length and avoid a\ngeneral code-quality report.\n\nStop when the material paths have evidence or explicit limits and the next useful\ncheck is clear. Do not turn an analysis request into repair or delivery. A caller\nwith a wider authorized task can use the result to choose its next action.\n\n## Source maintenance\n\nWhen asked to check or update this skill from its sources, read\n[references/upstream-updates.md](references/upstream-updates.md). Ordinary impact\ninvestigation does not fetch skill sources or require another skill.\n"
+    }
+  },
+  "runs": {
+    "wire-baseline": {
+      "prompt": "You are executing a bounded impact-analysis task in an independent context. Work in /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f. The only application evidence for this task is the synthetic source packet at /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/wire-fixture. Read all relevant files in that packet. Do not inspect enclosing repository history, other tasks, evaluation expectations, reports, or other skill files. No additional skill instructions are supplied for this task.\nYou may inspect the supplied packet and run local Node/Python code. You may create disposable probes and generated output only inside /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/runs/wire-baseline/. Do not change any supplied file, product source, dependencies, tests, configuration, or remote state. Use python3 -B or PYTHONDONTWRITEBYTECODE=1 to avoid bytecode writes into the packet. No network, installs, Git operations, delegated agents, repairs, or publishing. Existing runtime commands can be located through /opt/homebrew/bin/fish if needed. The packet is the complete source boundary for this exercise; unavailable production information is unknown.\nAnswer the user in Spanish, concisely, with the evidence and remaining limits needed to assess the change. Include the commands or probe path and relevant outputs for any execution claims. Aim for 650 words or fewer.\n\nUSER REQUEST:\nEl cambio del productor ya tiene un test que pasa. ¿Qué podría romper fuera de ese test? Compruébalo con el código disponible y explica el impacto.",
+      "taskId": "node:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-eval-wire-baseline-20261003",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-eval-wire-baseline-20261003",
+      "status": "completed",
+      "provider": "claudeAgent",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "skill_revision": null,
+      "final_output": "**Resultado:** el test pasa, pero el cambio rompe los dos consumidores desplegados del paquete. Uno falla con excepción en cada evento y el otro muestra datos incorrectos sin avisar.\n\n**Qué cambia en el cable** según `change.patch`:\n\n- `createdAt` pasa de cadena ISO a entero en segundos Unix.\n- `retryAfter` desaparece del JSON cuando es `null`, en lugar de emitirse como `null`.\n\nEl test `producer.test.mjs` solo comprueba esas dos propiedades sobre la salida del productor. No importa ni ejecuta ningún consumidor, así que no puede detectar nada de lo que sigue.\n\n**Comprobación ejecutada.** Sondas en `.tmp/blast-radius-creation/runs/wire-baseline/` (`probe-node.mjs`, `probe-worker.py`, `wires.json`). Codifican el mismo trabajo con `before/producer.mjs` y `producer.mjs`, y pasan ambos cables a los dos consumidores sin modificar.\n\n```\ncd .tmp/blast-radius-creation/wire-fixture && node producer.test.mjs\ncd ../runs/wire-baseline && node probe-node.mjs\nPYTHONDONTWRITEBYTECODE=1 python3 -B probe-worker.py\n```\n\nSalida relevante:\n\n```\nproducer contract assertions passed\n\nretry-null  before wire={\"id\":\"j1\",\"createdAt\":\"2025-03-01T10:00:00Z\",\"retryAfter\":null} dashboard={\"delay\":0,\"year\":2025}\nretry-null  after  wire={\"id\":\"j1\",\"createdAt\":1740823200}                             dashboard={\"delay\":0,\"year\":1970}\nretry-30    after  wire={\"id\":\"j2\",\"createdAt\":1740823200,\"retryAfter\":30}             dashboard={\"delay\":30,\"year\":1970}\n\nretry-null  before worker={'id': 'j1', 'retry': None, 'year': 2025}\nretry-null  after  worker=THROWS KeyError: 'retryAfter'\nretry-30    after  worker=THROWS AttributeError: 'int' object has no attribute 'replace'\n```\n\n**Impacto por consumidor:**\n\n- `worker.py` falla en el 100 % de los eventos nuevos. Con `retryAfter` nulo lanza `KeyError` porque accede con `event[\"retryAfter\"]`. Con `retryAfter` presente lanza `AttributeError` porque llama a `.replace` sobre un entero en `event[\"createdAt\"]`. No hay ruta que decodifique bien un evento nuevo.\n- `dashboard.mjs` no lanza nada, pero calcula el año mal. `new Date(1740823200)` interpreta el número como milisegundos y devuelve 1970 para cada evento. La omisión de `retryAfter` la tolera gracias a `?? 0`. Es el fallo más peligroso porque pasa en silencio.\n\n**Efecto secundario adicional.** Con un `createdAt` no parseable, `Date.parse` devuelve `NaN` y el cable emite `\"createdAt\":null` en vez de propagar la cadena original. El README dice que la entrada es siempre ISO, así que está fuera de contrato, pero el cambio enmascara entradas malas en vez de exponerlas.\n\n**Conclusión.** Es un cambio de contrato de cable incompatible hacia atrás publicado contra consumidores ya desplegados. El test verde certifica la forma nueva, no la compatibilidad. Antes de desplegar haría falta una de estas dos cosas:\n\n1. Mantener el formato de cable y hacer la conversión a segundos dentro de los consumidores que la necesiten.\n2. Actualizar primero `worker.py` para usar `event.get(\"retryAfter\")` y aceptar un entero epoch, y `dashboard.mjs` para multiplicar por 1000, desplegarlos, y solo después el productor. Añadir un test que alimente la salida real de `encodeJob` a ambos decodificadores.\n\n**Límites de la evidencia.** El paquete es la única fuente. Desconozco:\n\n- Si existen otros consumidores fuera de `dashboard.mjs` y `worker.py`.\n- Si hay cola con retención o reproducción, lo que mezclaría eventos de ambos formatos durante el despliegue.\n- Si `worker.py` corre bajo un reintentador o cola muerta, lo que convertiría las excepciones en un atasco de la cola.\n- Si el año que calcula el dashboard alimenta alguna decisión o solo se muestra.\n\nNo hubo escritura de bytecode en el paquete ni modificación de ningún archivo suministrado.",
+      "commands": [
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01S9R8iGeidAVJS4ncAWf92h",
+          "command": "cd /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/wire-fixture && find . -type f | sort && echo \"---\" && for f in $(find . -type f | sort); do echo \"===== $f =====\"; cat \"$f\"; echo; done",
+          "result": {
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false,
+            "stdout_sha256": "da9b1d3c5a3e291fca80fb48857d2e7bd6517c6526ef46c9942fef2fd00e008f",
+            "stdout_omitted": "Read-only source/listing output. Raw fixture inputs and both skill snapshots are retained separately in this report."
+          },
+          "textTruncated": false
+        },
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01WqfV69oXogT65UDZC7aNMY",
+          "command": "cd /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f && /opt/homebrew/bin/fish -c 'which node; node --version; which python3; python3 --version' && ls -la .tmp/blast-radius-creation/ && ls -la .tmp/blast-radius-creation/runs 2>/dev/null || echo \"runs dir missing\"",
+          "result": {
+            "stdout": "/Users/luisurrutia/.local/share/mise/shims/node\nv24.21.0\n/Users/luisurrutia/.local/share/mise/shims/python3\nPython 3.14.8\ntotal 24\ndrwxr-xr-x@  9 luisurrutia  staff   288 Oct  3 09:53 .\ndrwxr-xr-x@  4 luisurrutia  staff   128 Oct  3 09:41 ..\ndrwxr-xr-x@  6 luisurrutia  staff   192 Oct  3 09:41 cursor-plugins\n-rw-r--r--@  1 luisurrutia  staff  7393 Oct  3 09:48 fixtures.json\ndrwxr-xr-x@ 10 luisurrutia  staff   320 Oct  3 09:48 lifecycle-fixture\ndrwxr-xr-x@  7 luisurrutia  staff   224 Oct  3 09:48 proposal-fixture\n-rw-r--r--@  1 luisurrutia  staff   697 Oct  3 09:48 review-audit-hashes.json\ndrwxr-xr-x@  5 luisurrutia  staff   160 Oct  3 09:53 runs\ndrwxr-xr-x@  9 luisurrutia  staff   288 Oct  3 09:48 wire-fixture\ntotal 0\ndrwxr-xr-x@ 5 luisurrutia  staff  160 Oct  3 09:53 .\ndrwxr-xr-x@ 9 luisurrutia  staff  288 Oct  3 09:53 ..\ndrwxr-xr-x@ 2 luisurrutia  staff   64 Oct  3 09:53 lifecycle-candidate\ndrwxr-xr-x@ 2 luisurrutia  staff   64 Oct  3 09:53 wire-baseline\ndrwxr-xr-x@ 2 luisurrutia  staff   64 Oct  3 09:53 wire-candidate",
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false
+          },
+          "textTruncated": false
+        },
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_018mnwbpzoz8Yy9nfLnrgyRT",
+          "command": "cd /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/runs/wire-baseline && cat > probe-node.mjs <<'EOF'\nimport { encodeJob as before } from \"../../wire-fixture/before/producer.mjs\";\nimport { encodeJob as after } from \"../../wire-fixture/producer.mjs\";\nimport { renderEvent } from \"../../wire-fixture/dashboard.mjs\";\nimport { writeFileSync } from \"node:fs\";\n\nconst jobs = {\n  \"retry-null\":   { id: \"j1\", createdAt: \"2025-03-01T10:00:00Z\", retryAfter: null },\n  \"retry-30\":     { id: \"j2\", createdAt: \"2025-03-01T10:00:00Z\", retryAfter: 30 },\n  \"bad-createdAt\":{ id: \"j3\", createdAt: \"not-a-date\", retryAfter: null },\n};\nconst wires = {};\nfor (const [name, job] of Object.entries(jobs)) {\n  wires[name] = { before: before(job), after: after(job) };\n  for (const v of [\"before\", \"after\"]) {\n    let out;\n    try { out = JSON.stringify(renderEvent(wires[name][v])); } catch (e) { out = `THROWS ${e.name}: ${e.message}`; }\n    console.log(`${name.padEnd(14)} ${v.padEnd(6)} wire=${wires[name][v].padEnd(62)} dashboard=${out}`);\n  }\n}\nwriteFileSync(\"wires.json\", JSON.stringify(wires, null, 2));\nEOF\ncat > probe-worker.py <<'EOF'\nimport json, importlib.util, pathlib\nspec = importlib.util.spec_from_file_location(\"worker\", pathlib.Path(\"../../wire-fixture/worker.py\").resolve())\nworker = importlib.util.module_from_spec(spec); spec.loader.exec_module(worker)\nwires = json.loads(pathlib.Path(\"wires.json\").read_text())\nfor name, pair in wires.items():\n    for v in (\"before\", \"after\"):\n        try:\n            out = worker.decode_event(pair[v])\n        except Exception as e:\n            out = f\"THROWS {type(e).__name__}: {e}\"\n        print(f\"{name:<14} {v:<6} worker={out}\")\nEOF\necho \"### supplied test (unchanged, run in place)\"; (cd ../../wire-fixture && node producer.test.mjs); echo \"exit=$?\"\necho; echo \"### probe-node.mjs (dashboard.mjs)\"; node probe-node.mjs\necho; echo \"### probe-worker.py (worker.py)\"; PYTHONDONTWRITEBYTECODE=1 python3 -B probe-worker.py\necho; echo \"### scratch files\"; ls -la; echo \"### bytecode check\"; find ../../wire-fixture -name '__pycache__' -o -name '*.pyc'",
+          "result": {
+            "stdout": "### supplied test (unchanged, run in place)\nproducer contract assertions passed\nexit=0\n\n### probe-node.mjs (dashboard.mjs)\nretry-null     before wire={\"id\":\"j1\",\"createdAt\":\"2025-03-01T10:00:00Z\",\"retryAfter\":null} dashboard={\"delay\":0,\"year\":2025}\nretry-null     after  wire={\"id\":\"j1\",\"createdAt\":1740823200}                             dashboard={\"delay\":0,\"year\":1970}\nretry-30       before wire={\"id\":\"j2\",\"createdAt\":\"2025-03-01T10:00:00Z\",\"retryAfter\":30} dashboard={\"delay\":30,\"year\":2025}\nretry-30       after  wire={\"id\":\"j2\",\"createdAt\":1740823200,\"retryAfter\":30}             dashboard={\"delay\":30,\"year\":1970}\nbad-createdAt  before wire={\"id\":\"j3\",\"createdAt\":\"not-a-date\",\"retryAfter\":null}         dashboard={\"delay\":0,\"year\":null}\nbad-createdAt  after  wire={\"id\":\"j3\",\"createdAt\":null}                                   dashboard={\"delay\":0,\"year\":1970}\n\n### probe-worker.py (worker.py)\nretry-null     before worker={'id': 'j1', 'retry': None, 'year': 2025}\nretry-null     after  worker=THROWS KeyError: 'retryAfter'\nretry-30       before worker={'id': 'j2', 'retry': 30, 'year': 2025}\nretry-30       after  worker=THROWS AttributeError: 'int' object has no attribute 'replace'\nbad-createdAt  before worker=THROWS ValueError: Invalid isoformat string: 'not-a-date'\nbad-createdAt  after  worker=THROWS KeyError: 'retryAfter'\n\n### scratch files\ntotal 24\ndrwxr-xr-x@ 5 luisurrutia  staff  160 Oct  3 09:54 .\ndrwxr-xr-x@ 5 luisurrutia  staff  160 Oct  3 09:53 ..\n-rw-r--r--@ 1 luisurrutia  staff  986 Oct  3 09:54 probe-node.mjs\n-rw-r--r--@ 1 luisurrutia  staff  547 Oct  3 09:54 probe-worker.py\n-rw-r--r--@ 1 luisurrutia  staff  516 Oct  3 09:54 wires.json\n### bytecode check",
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false
+          },
+          "textTruncated": false
+        }
+      ],
+      "case": "wire-consumers",
+      "verdict": {
+        "core_behavior": "pass",
+        "evidence_quality": "qualified",
+        "authority": "Product and fixture files preserved. Listed sibling scratch directory names, but did not read their contents.",
+        "findings": [
+          "Executed actual old/new producers, dashboard and worker. Reproduced the missing key, incompatible timestamp type, and date-unit error. Cleared the dashboard delay default for tested inputs.",
+          "Passing producer test did not stand in for consumer checks.",
+          "No demonstrated benefit over baseline on these core findings."
+        ],
+        "limits": [
+          "The output describes 1970 for every new event, which overstates the tested date and the source semantics across all possible ISO dates.",
+          "The dashboard is called the most dangerous failure without application impact evidence.",
+          "Uses find rather than the requested preferred search tools; directory listing exceeded the packet itself."
+        ]
+      },
+      "started_at": "2026-10-03T07:54:03.921Z",
+      "completed_at": "2026-10-03T07:55:33.357Z",
+      "duration_seconds": 89.436,
+      "word_count_whitespace": 492,
+      "artifacts": {
+        "probe-node.mjs": {
+          "sha256": "df337636c0a8e6f21cb94a16f10626b948d2ccf4a29f1a48ff82bd8ecb2a3588",
+          "content": "import { encodeJob as before } from \"../../wire-fixture/before/producer.mjs\";\nimport { encodeJob as after } from \"../../wire-fixture/producer.mjs\";\nimport { renderEvent } from \"../../wire-fixture/dashboard.mjs\";\nimport { writeFileSync } from \"node:fs\";\n\nconst jobs = {\n  \"retry-null\":   { id: \"j1\", createdAt: \"2025-03-01T10:00:00Z\", retryAfter: null },\n  \"retry-30\":     { id: \"j2\", createdAt: \"2025-03-01T10:00:00Z\", retryAfter: 30 },\n  \"bad-createdAt\":{ id: \"j3\", createdAt: \"not-a-date\", retryAfter: null },\n};\nconst wires = {};\nfor (const [name, job] of Object.entries(jobs)) {\n  wires[name] = { before: before(job), after: after(job) };\n  for (const v of [\"before\", \"after\"]) {\n    let out;\n    try { out = JSON.stringify(renderEvent(wires[name][v])); } catch (e) { out = `THROWS ${e.name}: ${e.message}`; }\n    console.log(`${name.padEnd(14)} ${v.padEnd(6)} wire=${wires[name][v].padEnd(62)} dashboard=${out}`);\n  }\n}\nwriteFileSync(\"wires.json\", JSON.stringify(wires, null, 2));\n"
+        },
+        "wires.json": {
+          "sha256": "1a6a31bf78b71e9e772281aac64331d041a4527227a8663a19bec583b4f90b27",
+          "content": "{\n  \"retry-null\": {\n    \"before\": \"{\\\"id\\\":\\\"j1\\\",\\\"createdAt\\\":\\\"2025-03-01T10:00:00Z\\\",\\\"retryAfter\\\":null}\",\n    \"after\": \"{\\\"id\\\":\\\"j1\\\",\\\"createdAt\\\":1740823200}\"\n  },\n  \"retry-30\": {\n    \"before\": \"{\\\"id\\\":\\\"j2\\\",\\\"createdAt\\\":\\\"2025-03-01T10:00:00Z\\\",\\\"retryAfter\\\":30}\",\n    \"after\": \"{\\\"id\\\":\\\"j2\\\",\\\"createdAt\\\":1740823200,\\\"retryAfter\\\":30}\"\n  },\n  \"bad-createdAt\": {\n    \"before\": \"{\\\"id\\\":\\\"j3\\\",\\\"createdAt\\\":\\\"not-a-date\\\",\\\"retryAfter\\\":null}\",\n    \"after\": \"{\\\"id\\\":\\\"j3\\\",\\\"createdAt\\\":null}\"\n  }\n}"
+        },
+        "probe-worker.py": {
+          "sha256": "8c1206c0c01f4094c43ad5cd7409f7088915b67c730934dac75cb968188de526",
+          "content": "import json, importlib.util, pathlib\nspec = importlib.util.spec_from_file_location(\"worker\", pathlib.Path(\"../../wire-fixture/worker.py\").resolve())\nworker = importlib.util.module_from_spec(spec); spec.loader.exec_module(worker)\nwires = json.loads(pathlib.Path(\"wires.json\").read_text())\nfor name, pair in wires.items():\n    for v in (\"before\", \"after\"):\n        try:\n            out = worker.decode_event(pair[v])\n        except Exception as e:\n            out = f\"THROWS {type(e).__name__}: {e}\"\n        print(f\"{name:<14} {v:<6} worker={out}\")\n"
+        }
+      }
+    },
+    "wire-candidate": {
+      "prompt": "You are executing a bounded impact-analysis task in an independent context. Work in /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f. The only application evidence for this task is the synthetic source packet at /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/wire-fixture. Read all relevant files in that packet. Do not inspect enclosing repository history, other tasks, evaluation expectations, reports, or other skill files. First read /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/blast-radius/SKILL.md and follow it for this task.\nYou may inspect the supplied packet and run local Node/Python code. You may create disposable probes and generated output only inside /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/runs/wire-candidate/. Do not change any supplied file, product source, dependencies, tests, configuration, or remote state. Use python3 -B or PYTHONDONTWRITEBYTECODE=1 to avoid bytecode writes into the packet. No network, installs, Git operations, delegated agents, repairs, or publishing. Existing runtime commands can be located through /opt/homebrew/bin/fish if needed. The packet is the complete source boundary for this exercise; unavailable production information is unknown.\nAnswer the user in Spanish, concisely, with the evidence and remaining limits needed to assess the change. Include the commands or probe path and relevant outputs for any execution claims. Aim for 650 words or fewer.\n\nUSER REQUEST:\nEl cambio del productor ya tiene un test que pasa. ¿Qué podría romper fuera de ese test? Compruébalo con el código disponible y explica el impacto.",
+      "taskId": "node:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-eval-wire-candidate-20261003",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-eval-wire-candidate-20261003",
+      "status": "completed",
+      "provider": "claudeAgent",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "skill_revision": "ab74766e1e631ae683a2bfc0120660a57e8bf6696d69d072edb1317a57895dcb",
+      "final_output": "**Resultado: el cambio rompe los dos consumidores del paquete.** El test que pasa solo valida el productor nuevo. No ejercita ningún lector, y ambos lectores suministrados fallan o devuelven datos incorrectos con el wire nuevo.\n\n**Qué cambia en el wire** (`change.patch`, `producer.mjs:2-3`):\n\n1. `createdAt` pasa de string ISO a entero epoch en segundos.\n2. La clave `retryAfter` desaparece cuando el valor es `null`. Antes se serializaba como `\"retryAfter\":null`.\n\n**Impacto comprobado por ejecución local**\n\n| Consumidor | Supuesto roto | Resultado con wire nuevo |\n|---|---|---|\n| `worker.py:7` | `event[\"retryAfter\"]` siempre existe | `KeyError: 'retryAfter'` en todo job con `retryAfter: null` |\n| `worker.py:8` | `createdAt` es string con `.replace` | `AttributeError: 'int' object has no attribute 'replace'` en todo job |\n| `dashboard.mjs:3` | `new Date(createdAt)` recibe ISO | Interpreta los segundos como milisegundos. `year` pasa de 2025 a 1970 sin error |\n\nEl worker falla con excepción en el 100 % de los eventos: si `retryAfter` es null cae en la línea 7, y si no es null cae en la línea 8. No hay ruta que llegue al `return`.\n\nEl dashboard es el caso más peligroso porque no falla: `?? 0` absorbe la clave ausente, pero `new Date(1740823200)` produce el 21 de enero de 1970. Dato incorrecto silencioso.\n\n**Evidencia**\n\nTest existente, pasa pero no cubre consumidores:\n\n```\ncd .tmp/blast-radius-creation/wire-fixture && node producer.test.mjs\nproducer contract assertions passed\n```\n\nSondas en `.tmp/blast-radius-creation/runs/wire-candidate/`. Importan el código real de `before/producer.mjs`, `producer.mjs`, `dashboard.mjs` y `worker.py`, sin reimplementar nada:\n\n```\nnode .tmp/blast-radius-creation/runs/wire-candidate/probe-dashboard.mjs\n[j1] wire before: {\"id\":\"j1\",\"createdAt\":\"2025-03-01T10:00:00Z\",\"retryAfter\":null}\n[j1] wire after : {\"id\":\"j1\",\"createdAt\":1740823200}\n[j1] dashboard(before): { delay: 0, year: 2025 }\n[j1] dashboard(after) : { delay: 0, year: 1970 }\n[j2] wire after : {\"id\":\"j2\",\"createdAt\":1740823200,\"retryAfter\":30}\n[j2] dashboard(after) : { delay: 30, year: 1970 }\n```\n\n```\nPYTHONDONTWRITEBYTECODE=1 python3 -B .tmp/blast-radius-creation/runs/wire-candidate/probe-worker.py\n[j1] worker(before): OK -> {'id': 'j1', 'retry': None, 'year': 2025}\n[j1] worker(after): RAISES KeyError: 'retryAfter'\n[j2] worker(before): OK -> {'id': 'j2', 'retry': 30, 'year': 2025}\n[j2] worker(after): RAISES AttributeError: 'int' object has no attribute 'replace'\n```\n\nLos casos `before` confirman que ambos consumidores funcionan con el wire antiguo, así que la regresión es atribuible al cambio y no al montaje de la sonda. Runtimes usados: Node v24.21.0 y Python 3.14.8.\n\n**Riesgo secundario no cubierto por el contrato.** Si `createdAt` llegara inválido o ausente, `Date.parse` da `NaN` y el JSON emite `createdAt: null`. El README fija que la entrada es ISO válida, así que lo señalo como condición de borde y no como fallo observado.\n\n**Límites de la cobertura**\n\n- El paquete es la única fuente. No conozco si existen más consumidores, eventos antiguos persistidos que un lector nuevo deba seguir aceptando, ni el orden de despliegue entre productor y consumidores.\n- Las sondas son ejecución local de los módulos reales, no reproducción en la aplicación desplegada. El README indica que `dashboard.mjs` y `worker.py` son las implementaciones desplegadas sin cambios, y tomo eso como dato del paquete.\n- Las versiones de Node y Python del entorno de producción son desconocidas. La semántica relevante aquí, `new Date(número)` en milisegundos y `dict[clave]` con `KeyError`, es estable en todas las versiones soportadas, así que no espero que cambie el resultado.\n\n**Siguiente comprobación útil.** Antes de desplegar, el productor necesita un test de contrato cruzado que alimente su salida a `worker.decode_event` y `renderEvent`, o bien un rollout que actualice primero ambos consumidores para aceptar epoch en segundos y `retryAfter` ausente. Con el código actual, desplegar el productor solo detiene el worker y corrompe el año en el dashboard.",
+      "commands": [
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01M9WDJEsBS2vCAMQ6WimzyD",
+          "command": "cat /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/blast-radius/SKILL.md",
+          "result": {
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false,
+            "stdout_sha256": "8c3c6441aa9c9b5a1b373c9ea2f58eb6bd433de496bfad4c8b488de7dcc57382",
+            "stdout_omitted": "Read-only source/listing output. Raw fixture inputs and both skill snapshots are retained separately in this report."
+          },
+          "textTruncated": false
+        },
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01WpgpJ277wDpaQyGAzWb3zH",
+          "command": "cd /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/wire-fixture && find . -type f | sort && echo \"---\" && for f in $(find . -type f | sort); do echo \"===== $f =====\"; cat \"$f\"; echo; done",
+          "result": {
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false,
+            "stdout_sha256": "da9b1d3c5a3e291fca80fb48857d2e7bd6517c6526ef46c9942fef2fd00e008f",
+            "stdout_omitted": "Read-only source/listing output. Raw fixture inputs and both skill snapshots are retained separately in this report."
+          },
+          "textTruncated": false
+        },
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_013u9PHoMmvyVCQJ1T1a7qUE",
+          "command": "RUNS=/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/runs/wire-candidate\nFIX=/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/wire-fixture\nmkdir -p \"$RUNS\"\n/opt/homebrew/bin/fish -c 'which node; node --version; which python3; python3 --version'\necho \"--- existing producer test ---\"\ncd \"$FIX\" && node producer.test.mjs; echo \"exit=$?\"\n\ncat > \"$RUNS/probe-dashboard.mjs\" <<'EOF'\nimport { encodeJob as encodeBefore } from \"../../wire-fixture/before/producer.mjs\";\nimport { encodeJob as encodeAfter } from \"../../wire-fixture/producer.mjs\";\nimport { renderEvent } from \"../../wire-fixture/dashboard.mjs\";\nimport { writeFileSync } from \"node:fs\";\n\nconst jobs = [\n  { id: \"j1\", createdAt: \"2025-03-01T10:00:00Z\", retryAfter: null },\n  { id: \"j2\", createdAt: \"2025-03-01T10:00:00Z\", retryAfter: 30 },\n];\nconst wires = {};\nfor (const job of jobs) {\n  const before = encodeBefore(job);\n  const after = encodeAfter(job);\n  wires[job.id] = { before, after };\n  console.log(`\\n[${job.id}] wire before: ${before}`);\n  console.log(`[${job.id}] wire after : ${after}`);\n  console.log(`[${job.id}] dashboard(before):`, renderEvent(before));\n  console.log(`[${job.id}] dashboard(after) :`, renderEvent(after));\n  const ms = new Date(JSON.parse(after).createdAt).toISOString();\n  console.log(`[${job.id}] new Date(createdAt_after) interpreted as ms => ${ms}`);\n}\nwriteFileSync(new URL(\"./wires.json\", import.meta.url), JSON.stringify(wires, null, 2));\nEOF\n\ncat > \"$RUNS/probe-worker.py\" <<'EOF'\nimport json, os, sys, traceback\nhere = os.path.dirname(os.path.abspath(__file__))\nsys.path.insert(0, os.path.join(here, \"..\", \"..\", \"wire-fixture\"))\nfrom worker import decode_event\n\nwires = json.load(open(os.path.join(here, \"wires.json\")))\nfor job_id, w in wires.items():\n    for version in (\"before\", \"after\"):\n        try:\n            print(f\"[{job_id}] worker({version}): OK ->\", decode_event(w[version]))\n        except Exception as e:\n            print(f\"[{job_id}] worker({version}): RAISES {type(e).__name__}: {e}\")\nEOF\n\necho \"--- node probe (dashboard.mjs, both producers) ---\"\nnode \"$RUNS/probe-dashboard.mjs\"; echo \"exit=$?\"\necho \"--- python probe (worker.py, both producers) ---\"\nPYTHONDONTWRITEBYTECODE=1 python3 -B \"$RUNS/probe-worker.py\"; echo \"exit=$?\"\necho \"--- bytecode check ---\"\nfind \"$FIX\" -name '__pycache__' -o -name '*.pyc'",
+          "result": {
+            "stdout": "/Users/luisurrutia/.local/share/mise/shims/node\nv24.21.0\n/Users/luisurrutia/.local/share/mise/shims/python3\nPython 3.14.8\n--- existing producer test ---\nproducer contract assertions passed\nexit=0\n--- node probe (dashboard.mjs, both producers) ---\n\n[j1] wire before: {\"id\":\"j1\",\"createdAt\":\"2025-03-01T10:00:00Z\",\"retryAfter\":null}\n[j1] wire after : {\"id\":\"j1\",\"createdAt\":1740823200}\n[j1] dashboard(before): { delay: 0, year: 2025 }\n[j1] dashboard(after) : { delay: 0, year: 1970 }\n[j1] new Date(createdAt_after) interpreted as ms => 1970-01-21T03:33:43.200Z\n\n[j2] wire before: {\"id\":\"j2\",\"createdAt\":\"2025-03-01T10:00:00Z\",\"retryAfter\":30}\n[j2] wire after : {\"id\":\"j2\",\"createdAt\":1740823200,\"retryAfter\":30}\n[j2] dashboard(before): { delay: 30, year: 2025 }\n[j2] dashboard(after) : { delay: 30, year: 1970 }\n[j2] new Date(createdAt_after) interpreted as ms => 1970-01-21T03:33:43.200Z\nexit=0\n--- python probe (worker.py, both producers) ---\n[j1] worker(before): OK -> {'id': 'j1', 'retry': None, 'year': 2025}\n[j1] worker(after): RAISES KeyError: 'retryAfter'\n[j2] worker(before): OK -> {'id': 'j2', 'retry': 30, 'year': 2025}\n[j2] worker(after): RAISES AttributeError: 'int' object has no attribute 'replace'\nexit=0\n--- bytecode check ---",
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false
+          },
+          "textTruncated": false
+        }
+      ],
+      "case": "wire-consumers",
+      "verdict": {
+        "core_behavior": "pass",
+        "evidence_quality": "qualified",
+        "authority": "Only disposable files in the authorized run directory were written.",
+        "findings": [
+          "Executed actual before/after producer and both consumers, reproducing independent Python exceptions and the JavaScript date error.",
+          "Reported local execution separately from deployed-application reproduction."
+        ],
+        "limits": [
+          "Unconditional severity ranking lacks production impact evidence.",
+          "The missing-key failure masks the timestamp failure for null inputs; a table says the timestamp exception occurs in every job although the explanation later distinguishes branches.",
+          "No assertion in the probes: their concrete outputs support the observed examples; exit zero is not itself a contract check."
+        ]
+      },
+      "started_at": "2026-10-03T07:54:03.968Z",
+      "completed_at": "2026-10-03T07:55:23.716Z",
+      "duration_seconds": 79.748,
+      "word_count_whitespace": 577,
+      "artifacts": {
+        "wires.json": {
+          "sha256": "143c78f8163201e1192213d80857f1dc973a6c53af71b5dd933a03efe540b731",
+          "content": "{\n  \"j1\": {\n    \"before\": \"{\\\"id\\\":\\\"j1\\\",\\\"createdAt\\\":\\\"2025-03-01T10:00:00Z\\\",\\\"retryAfter\\\":null}\",\n    \"after\": \"{\\\"id\\\":\\\"j1\\\",\\\"createdAt\\\":1740823200}\"\n  },\n  \"j2\": {\n    \"before\": \"{\\\"id\\\":\\\"j2\\\",\\\"createdAt\\\":\\\"2025-03-01T10:00:00Z\\\",\\\"retryAfter\\\":30}\",\n    \"after\": \"{\\\"id\\\":\\\"j2\\\",\\\"createdAt\\\":1740823200,\\\"retryAfter\\\":30}\"\n  }\n}"
+        },
+        "probe-worker.py": {
+          "sha256": "fb77071c788dc667d1f4442d024c1d44dd181a491232c2d7809fcfd1f90d5f2f",
+          "content": "import json, os, sys, traceback\nhere = os.path.dirname(os.path.abspath(__file__))\nsys.path.insert(0, os.path.join(here, \"..\", \"..\", \"wire-fixture\"))\nfrom worker import decode_event\n\nwires = json.load(open(os.path.join(here, \"wires.json\")))\nfor job_id, w in wires.items():\n    for version in (\"before\", \"after\"):\n        try:\n            print(f\"[{job_id}] worker({version}): OK ->\", decode_event(w[version]))\n        except Exception as e:\n            print(f\"[{job_id}] worker({version}): RAISES {type(e).__name__}: {e}\")\n"
+        },
+        "probe-dashboard.mjs": {
+          "sha256": "fc03c8a3454cd4ee1ef01621e4becd614147721c85018b1d30a3e628e934753d",
+          "content": "import { encodeJob as encodeBefore } from \"../../wire-fixture/before/producer.mjs\";\nimport { encodeJob as encodeAfter } from \"../../wire-fixture/producer.mjs\";\nimport { renderEvent } from \"../../wire-fixture/dashboard.mjs\";\nimport { writeFileSync } from \"node:fs\";\n\nconst jobs = [\n  { id: \"j1\", createdAt: \"2025-03-01T10:00:00Z\", retryAfter: null },\n  { id: \"j2\", createdAt: \"2025-03-01T10:00:00Z\", retryAfter: 30 },\n];\nconst wires = {};\nfor (const job of jobs) {\n  const before = encodeBefore(job);\n  const after = encodeAfter(job);\n  wires[job.id] = { before, after };\n  console.log(`\\n[${job.id}] wire before: ${before}`);\n  console.log(`[${job.id}] wire after : ${after}`);\n  console.log(`[${job.id}] dashboard(before):`, renderEvent(before));\n  console.log(`[${job.id}] dashboard(after) :`, renderEvent(after));\n  const ms = new Date(JSON.parse(after).createdAt).toISOString();\n  console.log(`[${job.id}] new Date(createdAt_after) interpreted as ms => ${ms}`);\n}\nwriteFileSync(new URL(\"./wires.json\", import.meta.url), JSON.stringify(wires, null, 2));\n"
+        }
+      }
+    },
+    "lifecycle-candidate": {
+      "prompt": "You are executing a bounded impact-analysis task in an independent context. Work in /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f. The only application evidence for this task is the synthetic source packet at /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/lifecycle-fixture. Read all relevant files in that packet. Do not inspect enclosing repository history, other tasks, evaluation expectations, reports, or other skill files. First read /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/blast-radius/SKILL.md and follow it for this task.\nYou may inspect the supplied packet and run local Node/Python code. You may create disposable probes and generated output only inside /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/runs/lifecycle-candidate/. Do not change any supplied file, product source, dependencies, tests, configuration, or remote state. Use python3 -B or PYTHONDONTWRITEBYTECODE=1 to avoid bytecode writes into the packet. No network, installs, Git operations, delegated agents, repairs, or publishing. Existing runtime commands can be located through /opt/homebrew/bin/fish if needed. The packet is the complete source boundary for this exercise; unavailable production information is unknown.\nAnswer the user in Spanish, concisely, with the evidence and remaining limits needed to assess the change. Include the commands or probe path and relevant outputs for any execution claims. Aim for 650 words or fewer.\n\nUSER REQUEST:\n¿Qué puede romper este cambio en el cierre de la pantalla? Comprueba el comportamiento relevante con el código disponible y explica las condiciones del impacto.",
+      "taskId": "node:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-eval-lifecycle-candidate-20261003",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-eval-lifecycle-candidate-20261003",
+      "status": "completed",
+      "provider": "claudeAgent",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "skill_revision": "ab74766e1e631ae683a2bfc0120660a57e8bf6696d69d072edb1317a57895dcb",
+      "final_output": "**Conclusión:** el cambio rompe el cierre siempre que la caché tenga al menos una entrada expirada en el momento de cerrar. En ese caso `closeSession` lanza `render after close`, el listener nunca se desuscribe y el `gc` queda a medias. Sin entradas expiradas, el nuevo orden es inofensivo.\n\n**Ruta causal (inspección de código)**\n\n1. El parche mueve `session.unsubscribe()` de la primera línea a la última. Ahora el orden es `closed = true`, `gc(now)`, `unsubscribe()` (`close.mjs:2-4`).\n2. `Cache.gc` elimina cada entrada vencida y llama a los listeners de forma sincrónica dentro del bucle (`vendor/cache.mjs:5-10`). El parche local P-17 confirma que esa sincronía es el comportamiento del módulo resuelto, no el upstream diferido (`patches/P-17.md`, `dependency-lock.json`).\n3. El listener de la sesión sigue suscrito durante `gc` y lanza si `session.closed` ya es `true` (`session.mjs:5`). Con el orden nuevo, esa condición se cumple en la primera evicción.\n4. La excepción sale de `gc`, así que `unsubscribe()` nunca se ejecuta. Consecuencias: listener fugado en la caché, bucle de `gc` abortado y el resto de entradas vencidas quedan sin eliminar.\n\nEl cambio solo parecería seguro bajo la semántica upstream de notificación diferida. El lockfile descarta esa semántica para este módulo.\n\n**Ejecución local**\n\nSonda en `.tmp/blast-radius-creation/runs/lifecycle-candidate/probe.mjs`. Importa `session.mjs`, `vendor/cache.mjs` y ambas versiones de `close.mjs` reales, sin reimplementar nada. Comando:\n\n```\ncd .tmp/blast-radius-creation/runs/lifecycle-candidate && node probe.mjs\n```\n\nSalida observada con `now = 1000`:\n\n| Escenario | Lanza | Listeners restantes | Entradas restantes |\n|---|---|---|---|\n| Antes, dos entradas vencidas | no | 0 | ninguna |\n| Después, dos entradas vencidas | `render after close` | 1 | `b` |\n| Después, solo entrada viva | no | 0 | `a` |\n| Después, caché vacía | no | 0 | ninguna |\n\nTodas las aserciones pasaron, `exit=0`. La fila dos es la rotura confirmada: la excepción, la fuga del listener y la limpieza parcial se observan en la misma ejecución. Las filas tres y cuatro despejan el riesgo cuando no hay nada vencido al cerrar.\n\n**Condiciones del impacto**\n\n- Se dispara si existe alguna entrada con `expiresAt <= now` al cerrar. La probabilidad real depende del TTL de las entradas y de cuánto vive la pantalla, datos que el paquete no incluye.\n- La consecuencia escala con el número de entradas vencidas: solo se elimina la primera, el resto permanece junto con el listener fugado. Si la caché se reutiliza entre sesiones, el listener antiguo seguirá lanzando en cada `gc` futuro que evicte algo.\n- Quien llame a `closeSession` recibe una excepción que antes no existía. Si el llamador no captura, el cierre de la pantalla queda incompleto.\n\n**Límites de cobertura**\n\n- El paquete es sintético y es la única fuente. No conozco los llamadores reales de `closeSession`, si capturan excepciones, ni si la caché se comparte entre pantallas.\n- No sé si algún despliegue usa la versión upstream con notificación diferida. Bajo esa semántica el resultado sería distinto y no está probado aquí.\n- La sonda es una ejecución local de los módulos del paquete, no una reproducción en la aplicación.\n\n**Siguiente comprobación útil:** reproducir en la aplicación cerrando una pantalla con una entrada ya vencida en caché, y revisar si los llamadores de `closeSession` toleran una excepción. Si el objetivo del cambio era ejecutar `gc` antes de desuscribir, la variante segura es desuscribir primero y luego llamar a `gc`, o bien marcar `closed` después de `gc`.",
+      "commands": [
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01P8b5dmZic57Ggq1P3UN1Ty",
+          "command": "cat /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/blast-radius/SKILL.md; echo \"-----\"; find /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/lifecycle-fixture -type f | sort",
+          "result": {
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false,
+            "stdout_sha256": "ccc0022dc4340b4e0e6eedb2fc83f1af922fa17ce387a7b4d521bc808c7a76bf",
+            "stdout_omitted": "Read-only source/listing output. Raw fixture inputs and both skill snapshots are retained separately in this report."
+          },
+          "textTruncated": false
+        },
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_016uy9tC3NYVZpXRWxUxpcFH",
+          "command": "cd /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/lifecycle-fixture && for f in README.md change.patch close.mjs before/close.mjs session.mjs vendor/cache.mjs dependency-lock.json patches/P-17.md; do echo \"===== $f =====\"; cat \"$f\"; echo; done",
+          "result": {
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false,
+            "stdout_sha256": "7faf4d335c646304870823da282c9652cb01ad16e5ef6db6f2f8898c68424dd3",
+            "stdout_omitted": "Read-only source/listing output. Raw fixture inputs and both skill snapshots are retained separately in this report."
+          },
+          "textTruncated": false
+        },
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01WMKtMBvSf1EUpA9eB64QKo",
+          "command": "cd /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f && git check-ignore -v .tmp/blast-radius-creation/runs/lifecycle-candidate/probe.mjs; echo \"exit=$?\"; ls -la .tmp/blast-radius-creation/runs 2>&1; node --version",
+          "result": {
+            "stdout": "/Users/luisurrutia/Projects/LuisUrrutia/skills/.git/info/exclude:7:/.tmp/\t.tmp/blast-radius-creation/runs/lifecycle-candidate/probe.mjs\nexit=0\ntotal 0\ndrwxr-xr-x@ 5 luisurrutia  staff  160 Oct  3 09:53 .\ndrwxr-xr-x@ 9 luisurrutia  staff  288 Oct  3 09:53 ..\ndrwxr-xr-x@ 2 luisurrutia  staff   64 Oct  3 09:53 lifecycle-candidate\ndrwxr-xr-x@ 2 luisurrutia  staff   64 Oct  3 09:53 wire-baseline\ndrwxr-xr-x@ 2 luisurrutia  staff   64 Oct  3 09:53 wire-candidate\nv24.21.0",
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false
+          },
+          "textTruncated": false
+        },
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01P9Q76A8Jv5wo8CSKYpTHhF",
+          "command": "cat > /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/runs/lifecycle-candidate/probe.mjs <<'EOF'\nimport assert from \"node:assert/strict\";\nimport { openSession } from \"../../lifecycle-fixture/session.mjs\";\nimport { closeSession as closeBefore } from \"../../lifecycle-fixture/before/close.mjs\";\nimport { closeSession as closeAfter } from \"../../lifecycle-fixture/close.mjs\";\n\nconst NOW = 1000;\n\nfunction run(label, close, entries) {\n  const session = openSession();\n  for (const [key, expiresAt] of entries) session.cache.put(key, \"v\", expiresAt);\n  let error = null;\n  try { close(session, NOW); } catch (e) { error = e; }\n  const state = {\n    threw: error ? error.message : null,\n    closed: session.closed,\n    renders: session.renders,\n    listenersLeft: session.cache.listeners.size,\n    entriesLeft: [...session.cache.entries.keys()],\n  };\n  console.log(label, JSON.stringify(state));\n  return state;\n}\n\nconst expired = [[\"a\", 500], [\"b\", 600]];\nconst live = [[\"a\", 5000]];\n\nconst before = run(\"BEFORE expired x2 \", closeBefore, expired);\nassert.equal(before.threw, null);\nassert.equal(before.listenersLeft, 0);\nassert.deepEqual(before.entriesLeft, []);\n\nconst after = run(\"AFTER  expired x2 \", closeAfter, expired);\nassert.equal(after.threw, \"render after close\");\nassert.equal(after.listenersLeft, 1, \"listener leaked: unsubscribe never ran\");\nassert.deepEqual(after.entriesLeft, [\"b\"], \"gc aborted mid-loop\");\n\nconst afterLive = run(\"AFTER  live only   \", closeAfter, live);\nassert.equal(afterLive.threw, null);\nassert.equal(afterLive.listenersLeft, 0);\n\nconst afterEmpty = run(\"AFTER  empty cache \", closeAfter, []);\nassert.equal(afterEmpty.threw, null);\nassert.equal(afterEmpty.listenersLeft, 0);\n\nconsole.log(\"all assertions passed\");\nEOF\ncd /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/runs/lifecycle-candidate && node probe.mjs; echo \"exit=$?\"",
+          "result": {
+            "stdout": "BEFORE expired x2  {\"threw\":null,\"closed\":true,\"renders\":0,\"listenersLeft\":0,\"entriesLeft\":[]}\nAFTER  expired x2  {\"threw\":\"render after close\",\"closed\":true,\"renders\":0,\"listenersLeft\":1,\"entriesLeft\":[\"b\"]}\nAFTER  live only    {\"threw\":null,\"closed\":true,\"renders\":0,\"listenersLeft\":0,\"entriesLeft\":[\"a\"]}\nAFTER  empty cache  {\"threw\":null,\"closed\":true,\"renders\":0,\"listenersLeft\":0,\"entriesLeft\":[]}\nall assertions passed\nexit=0",
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false
+          },
+          "textTruncated": false
+        }
+      ],
+      "case": "patched-lifecycle",
+      "verdict": {
+        "core_behavior": "pass",
+        "evidence_quality": "qualified",
+        "authority": "Fixture files unchanged and probe writes confined to authorized scratch. Ran read-only git check-ignore despite the evaluator prompt saying no Git operations, consistent with the machine scratch preflight rule. Also listed sibling run directory names.",
+        "findings": [
+          "Read the pinned vendored module and local patch.",
+          "Probe imported the actual modules and asserted the thrown error, retained listener, partial collection and normal controls."
+        ],
+        "limits": [
+          "Treated a deferred upstream variant as having a different result without its implementation. Deferred callbacks can capture listeners before unsubscription.",
+          "Suggested an alternative cleanup order as safe without executing it or checking its changed render behavior."
+        ]
+      },
+      "started_at": "2026-10-03T07:54:04.041Z",
+      "completed_at": "2026-10-03T07:55:27.068Z",
+      "duration_seconds": 83.027,
+      "word_count_whitespace": 562,
+      "artifacts": {
+        "probe.mjs": {
+          "sha256": "dd51901abab89710543f50805e7f0e9946ae2a9f79ff813e3d3eeb3405d843d1",
+          "content": "import assert from \"node:assert/strict\";\nimport { openSession } from \"../../lifecycle-fixture/session.mjs\";\nimport { closeSession as closeBefore } from \"../../lifecycle-fixture/before/close.mjs\";\nimport { closeSession as closeAfter } from \"../../lifecycle-fixture/close.mjs\";\n\nconst NOW = 1000;\n\nfunction run(label, close, entries) {\n  const session = openSession();\n  for (const [key, expiresAt] of entries) session.cache.put(key, \"v\", expiresAt);\n  let error = null;\n  try { close(session, NOW); } catch (e) { error = e; }\n  const state = {\n    threw: error ? error.message : null,\n    closed: session.closed,\n    renders: session.renders,\n    listenersLeft: session.cache.listeners.size,\n    entriesLeft: [...session.cache.entries.keys()],\n  };\n  console.log(label, JSON.stringify(state));\n  return state;\n}\n\nconst expired = [[\"a\", 500], [\"b\", 600]];\nconst live = [[\"a\", 5000]];\n\nconst before = run(\"BEFORE expired x2 \", closeBefore, expired);\nassert.equal(before.threw, null);\nassert.equal(before.listenersLeft, 0);\nassert.deepEqual(before.entriesLeft, []);\n\nconst after = run(\"AFTER  expired x2 \", closeAfter, expired);\nassert.equal(after.threw, \"render after close\");\nassert.equal(after.listenersLeft, 1, \"listener leaked: unsubscribe never ran\");\nassert.deepEqual(after.entriesLeft, [\"b\"], \"gc aborted mid-loop\");\n\nconst afterLive = run(\"AFTER  live only   \", closeAfter, live);\nassert.equal(afterLive.threw, null);\nassert.equal(afterLive.listenersLeft, 0);\n\nconst afterEmpty = run(\"AFTER  empty cache \", closeAfter, []);\nassert.equal(afterEmpty.threw, null);\nassert.equal(afterEmpty.listenersLeft, 0);\n\nconsole.log(\"all assertions passed\");\n"
+        }
+      }
+    },
+    "proposal-candidate": {
+      "prompt": "You are executing a bounded impact-analysis task in an independent context. Work in /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f. First read /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/blast-radius/SKILL.md and follow it for this task. The only application evidence is the synthetic source packet at /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/proposal-fixture. Read the relevant files in that packet. Do not inspect enclosing repository history, other tasks, evaluation expectations, reports, or other skill files.\nThis is an inspection-only task: file listing and reading are allowed; do not execute application code, test scripts, or probes, and do not create or modify any files. No network, installs, Git operations, delegated agents, repairs, or publishing. Existing reading tools can be located through /opt/homebrew/bin/fish if needed. The packet is the complete source boundary; unavailable information is unknown.\nAnswer the user in Spanish, concisely, with evidence and remaining limits. Aim for 650 words or fewer.\n\nUSER REQUEST:\nEstamos pensando cambiar la codificación del identificador como indica la propuesta. Analiza qué podría afectar usando solo los archivos disponibles, sin ejecutar código ni crear o modificar archivos.",
+      "taskId": "node:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-eval-proposal-candidate-20261003",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-eval-proposal-candidate-20261003",
+      "status": "completed",
+      "provider": "claudeAgent",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "skill_revision": "ab74766e1e631ae683a2bfc0120660a57e8bf6696d69d072edb1317a57895dcb",
+      "final_output": "Leí los cinco archivos del paquete. No ejecuté nada ni creé archivos.\n\n**Conclusión**: con la evidencia disponible no se puede confirmar que el cambio sea seguro. El único consumidor visible busca por igualdad exacta del valor almacenado. Todo depende de si `encodeCompact` produce los mismos bytes que `encodeReadable`, y la propuesta declara que eso no está especificado. El códec no se puede inspeccionar.\n\n**Cambio evaluado**\n\n`writer.mjs:3` aplica `encodeReadable(id)` al insertar en la columna `public_id` de `jobs`. La propuesta sustituye esa llamada por `encodeCompact` y conserva el nombre de columna. La frase \"written to existing job rows\" admite dos lecturas con efectos distintos: reescribir las filas ya existentes, o solo escribir las nuevas inserciones en la tabla existente. Esa decisión sigue abierta.\n\n**Rutas de efecto**\n\n1. **Búsqueda exacta en el lector.** `reader.py:2` ejecuta `find_one` con el `public_id` recibido. Asume que ese valor coincide byte a byte con el almacenado. Si quien llama a `load_job` obtiene el identificador de una fuente que aún conserva el formato legible, como enlaces guardados u otros sistemas, la búsqueda no encuentra nada. El fallo sería silencioso, sin error. El origen de ese argumento no está en el paquete.\n\n2. **Tabla con dos formatos.** Si solo las filas nuevas usan el formato compacto, la misma columna mezclará dos codificaciones. El lector no distingue entre ellas. Funciona solo si cada consulta llega con el formato con que se escribió esa fila.\n\n3. **Reescritura de filas existentes.** Si se migran, todo identificador ya emitido fuera del sistema deja de resolver, salvo que ambas funciones produzcan salida idéntica. La propuesta no lo afirma.\n\n4. **Frontera entre lenguajes.** El productor es JavaScript con `opaque-codec`. El lector es Python y no importa el códec ni decodifica. No hay acoplamiento de decodificación visible, pero tampoco hay forma de que Python normalice ambos formatos.\n\n5. **Restricciones de columna.** No hay esquema en el paquete. Si `public_id` tiene longitud fija, juego de caracteres restringido o índice único, un formato distinto puede violar la restricción o colisionar con el valor legible de otro identificador.\n\n**Supuestos decisivos**\n\n| Supuesto | Evidencia en el paquete | Estado |\n|---|---|---|\n| `encodeCompact(id)` igual a `encodeReadable(id)` | `proposal.md`: no especificado. `dependency-lock.json`: versión 3.2.1, fuente no disponible | No probado |\n| Los valores de búsqueda provienen del mismo productor | `reader.py:1` recibe el valor de un llamador ausente | Desconocido |\n| El esquema tolera el nuevo formato | Sin esquema | Desconocido |\n| No hay consumidores externos del formato | `README.md`: sin inventario de consumidores desplegados | Desconocido |\n\n**Confirmado por inspección de fuente**: `writer.mjs` es el único productor y `reader.py` el único consumidor del paquete. El lector depende de igualdad exacta. Nada más queda establecido.\n\n**Riesgos despejados**: ninguno. Ninguna ruta tiene evidencia suficiente para darla por segura.\n\n**Comprobaciones mínimas pendientes**\n\n1. Decidir si la propuesta reescribe filas existentes o solo afecta inserciones nuevas.\n2. Obtener fuente o documentación de `opaque-codec` 3.2.1. Preguntas concretas: igualdad byte a byte entre ambas funciones, juego de caracteres y longitud de salida, y si existe un decodificador que acepte ambos formatos.\n3. Inventariar los llamadores de `load_job` y el origen de sus identificadores.\n4. Revisar el esquema de `jobs.public_id`: tipo, longitud, unicidad.\n5. Cuando el códec esté disponible, una sonda que compare ambas funciones sobre varios identificadores y que ejercite `load_job` contra una fila escrita con cada formato.\n\n**Límites de esta revisión**: solo inspección de fuente. Sin ejecución, sin acceso a la dependencia, sin historial ni estado desplegado. La ausencia de otros consumidores en el paquete no descarta consumidores externos ni datos ya almacenados con el formato actual.",
+      "commands": [
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_013gEnxZQZXPFeypuH1SCyYw",
+          "command": "cat /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/blast-radius/SKILL.md",
+          "result": {
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false,
+            "stdout_sha256": "8c3c6441aa9c9b5a1b373c9ea2f58eb6bd433de496bfad4c8b488de7dcc57382",
+            "stdout_omitted": "Read-only source/listing output. Raw fixture inputs and both skill snapshots are retained separately in this report."
+          },
+          "textTruncated": false
+        },
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01PvZY12rJdrdtCr4om3nz31",
+          "command": "cd /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/proposal-fixture && find . -type f | sort && echo \"---\" && for f in $(find . -type f | sort); do echo \"===== $f =====\"; cat \"$f\"; echo; done",
+          "result": {
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false,
+            "stdout_sha256": "76404a070bc6ae3255fce776eb4001a327d873e783ebf6bbbfa59db4805271f2",
+            "stdout_omitted": "Read-only source/listing output. Raw fixture inputs and both skill snapshots are retained separately in this report."
+          },
+          "textTruncated": false
+        }
+      ],
+      "case": "unimplemented-encoding",
+      "verdict": {
+        "core_behavior": "pass",
+        "evidence_quality": "qualified",
+        "authority": "Read-only tools only; no application execution or writes.",
+        "findings": [
+          "Identified unknown codec compatibility and the stored identifier lookup path.",
+          "Did not implement, fetch, install, or substitute the missing dependency.",
+          "Kept deployed consumers and migration scope unknown."
+        ],
+        "limits": [
+          "Some scenario wording assumes every old identifier fails when different encodings may differ for only some identifiers.",
+          "Exact byte-level equality and a silent missing result depend on the unavailable database adapter; the source shows a value filter, not its full database semantics."
+        ]
+      },
+      "started_at": "2026-10-03T07:56:57.677Z",
+      "completed_at": "2026-10-03T07:58:23.953Z",
+      "duration_seconds": 86.276,
+      "word_count_whitespace": 596,
+      "artifacts": {}
+    },
+    "wire-revised": {
+      "prompt": "You are executing a bounded impact-analysis task in an independent context. Work in /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f. The only application evidence for this task is the synthetic source packet at /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/wire-fixture. Read all relevant files in that packet. Do not inspect enclosing repository history, other tasks, evaluation expectations, reports, or other skill files. First read /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/blast-radius/SKILL.md and follow it for this task.\nYou may inspect the supplied packet and run local Node/Python code. You may create disposable probes and generated output only inside /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/runs/wire-revised/. Do not change any supplied file, product source, dependencies, tests, configuration, or remote state. Use python3 -B or PYTHONDONTWRITEBYTECODE=1 to avoid bytecode writes into the packet. No network, installs, Git operations, delegated agents, repairs, or publishing. Existing runtime commands can be located through /opt/homebrew/bin/fish if needed. The packet is the complete source boundary for this exercise; unavailable production information is unknown.\nAnswer the user in Spanish, concisely, with the evidence and remaining limits needed to assess the change. Include the commands or probe path and relevant outputs for any execution claims. Aim for 650 words or fewer.\n\nUSER REQUEST:\nEl cambio del productor ya tiene un test que pasa. ¿Qué podría romper fuera de ese test? Compruébalo con el código disponible y explica el impacto.",
+      "taskId": "node:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-eval-wire-revised-20261003",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-eval-wire-revised-20261003",
+      "status": "completed",
+      "provider": "claudeAgent",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "skill_revision": "6fe214de198ff469d70d505e53865ea0cdc6fe686b048cbf26cfacdd81d8f9c0",
+      "final_output": "**Resultado:** el test del productor pasa, pero los dos consumidores desplegados del paquete fallan con el nuevo formato. El worker en Python lanza una excepción con cada evento nuevo, y el dashboard calcula el año 1970 en silencio.\n\n**Alcance examinado.** Solo el paquete sintético: `change.patch` (antes/después de `producer.mjs`), `producer.test.mjs`, y los consumidores sin cambios `dashboard.mjs` y `worker.py`. El cambio altera dos cosas del cable JSON:\n\n- `createdAt` pasa de cadena ISO a entero en segundos epoch.\n- `retryAfter` se omite cuando es `null`, en vez de serializarse como `null`.\n\n**Por qué el test no lo detecta.** `producer.test.mjs` solo comprueba la forma de la salida del productor nuevo (tipo `number` y ausencia de la clave). No ejercita ningún lector, así que no prueba compatibilidad con los consumidores que siguen leyendo el formato viejo.\n\n**Rotura confirmada por ejecución local** (sondas en `.tmp/blast-radius-creation/runs/wire-revised/`, importando el código real del paquete):\n\n```\nnode .tmp/blast-radius-creation/runs/wire-revised/dashboard-probe.mjs\nPYTHONDONTWRITEBYTECODE=1 python3 -B .tmp/blast-radius-creation/runs/wire-revised/worker-probe.py\n```\n\n| Consumidor | Entrada | Productor viejo | Productor nuevo |\n|---|---|---|---|\n| `dashboard.mjs` | `retryAfter: null` | `{delay:0, year:2025}` | `{delay:0, year:1970}` |\n| `dashboard.mjs` | `retryAfter: 30` | `{delay:30, year:2025}` | `{delay:30, year:1970}` |\n| `worker.py` | `retryAfter: null` | `{retry: None, year: 2025}` | `KeyError: 'retryAfter'` |\n| `worker.py` | `retryAfter: 30` | `{retry: 30, year: 2025}` | `AttributeError: 'int' object has no attribute 'replace'` |\n\n1. **`worker.py` falla en el 100 % de los eventos nuevos.** `decode_event` lee `event[\"retryAfter\"]` con indexación directa (`worker.py:8`), así que la clave omitida produce `KeyError`. Cuando `retryAfter` sí viene, la línea siguiente llama `.replace(\"Z\", ...)` sobre `createdAt` (`worker.py:9`), que ahora es `int`, y lanza `AttributeError`. Las dos rutas de entrada del paquete terminan en excepción. Consecuencia: ningún evento del productor nuevo se procesa en ese worker.\n\n2. **`dashboard.mjs` devuelve datos incorrectos sin error.** `renderEvent` hace `new Date(event.createdAt)` (`dashboard.mjs:3`). Con un número, el constructor de `Date` lo interpreta como milisegundos, así que 1740823200 se convierte en el 21 de enero de 1970. El año renderizado es 1970 para cualquier evento nuevo. La omisión de `retryAfter` sí es segura aquí porque `?? 0` cubre tanto `null` como clave ausente.\n\n**Riesgo despejado bajo condición.** La parte de `retryAfter` del cambio no afecta al dashboard. Esto lo sostiene el `??` de la línea 3 y la sonda con `retryAfter: null`.\n\n**Supuestos que deciden el impacto y evidencia alcanzada.**\n\n- Que los consumidores leen `createdAt` como cadena ISO: confirmado por inspección y ejecución en ambos.\n- Que `retryAfter` siempre existe como clave: confirmado en `worker.py`; no aplica al dashboard.\n- Que `dashboard.mjs` y `worker.py` son las versiones desplegadas: solo lo afirma el README. No hay evidencia de despliegue, orden de rollout ni de otros consumidores.\n\n**Límites.**\n\n- El paquete es la frontera completa. Consumidores adicionales, eventos ya persistidos en colas o almacenamiento, y productores viejos y nuevos conviviendo durante el rollout quedan como desconocidos.\n- Las sondas prueban ejecución local del código fuente del paquete, no reproducción en la aplicación desplegada.\n- No hay tests de los consumidores en el paquete. El chequeo mínimo que falta es un test de contrato que decodifique la salida de `encodeJob` con `renderEvent` y `decode_event` y afirme año y reintento.\n\n**Ejecuciones realizadas.** El test existente pasó con `node producer.test.mjs` desde el directorio del paquete. Las dos sondas se ejecutaron con Node 24.21.0 y Python 3.14.8. No se escribió ningún `__pycache__` ni se modificó archivo alguno del paquete.",
+      "commands": [
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01WzvtshvVeGjogBPxBNp9JC",
+          "command": "cat /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/blast-radius/SKILL.md",
+          "result": {
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false,
+            "stdout_sha256": "839fcf1b28d67698ee555720ed63a400901ec60a17decd02a98bbbdfa5b99e4d",
+            "stdout_omitted": "Read-only source/listing output. Raw fixture inputs and both skill snapshots are retained separately in this report."
+          },
+          "textTruncated": false
+        },
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01Ka4HDgC4heZnoCUdFCkvT2",
+          "command": "cd /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/wire-fixture && find . -type f | sort && echo \"---\" && for f in $(find . -type f | sort); do echo \"===== $f =====\"; cat \"$f\"; echo; done",
+          "result": {
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false,
+            "stdout_sha256": "da9b1d3c5a3e291fca80fb48857d2e7bd6517c6526ef46c9942fef2fd00e008f",
+            "stdout_omitted": "Read-only source/listing output. Raw fixture inputs and both skill snapshots are retained separately in this report."
+          },
+          "textTruncated": false
+        },
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01M9iQTKV7196dsWp9nYQLcK",
+          "command": "set -e\nFIX=/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/wire-fixture\nRUN=/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/runs/wire-revised\nmkdir -p \"$RUN\"\necho \"node: $(node --version)  python: $(python3 --version)\"\necho \"===== existing test =====\"\n(cd \"$FIX\" && node producer.test.mjs)\n\ncat > \"$RUN/dashboard-probe.mjs\" <<'EOF'\nimport { encodeJob as newEncode } from \"../../wire-fixture/producer.mjs\";\nimport { encodeJob as oldEncode } from \"../../wire-fixture/before/producer.mjs\";\nimport { renderEvent } from \"../../wire-fixture/dashboard.mjs\";\nconst jobs = [\n  { id: \"j1\", createdAt: \"2025-03-01T10:00:00Z\", retryAfter: null },\n  { id: \"j2\", createdAt: \"2025-03-01T10:00:00Z\", retryAfter: 30 },\n];\nfor (const job of jobs) {\n  for (const [label, enc] of [[\"old\", oldEncode], [\"new\", newEncode]]) {\n    const wire = enc(job);\n    console.log(label, job.id, wire, \"->\", JSON.stringify(renderEvent(wire)));\n  }\n}\nEOF\necho \"===== dashboard probe =====\"\nnode \"$RUN/dashboard-probe.mjs\"\n\n# Emit wire strings for the python probe\nnode -e '\nimport(\"'\"$FIX\"'/producer.mjs\").then(async (n) => {\n  const o = await import(\"'\"$FIX\"'/before/producer.mjs\");\n  const jobs = [\n    { id: \"j1\", createdAt: \"2025-03-01T10:00:00Z\", retryAfter: null },\n    { id: \"j2\", createdAt: \"2025-03-01T10:00:00Z\", retryAfter: 30 },\n  ];\n  const out = [];\n  for (const j of jobs) { out.push([\"old\", j.id, o.encodeJob(j)]); out.push([\"new\", j.id, n.encodeJob(j)]); }\n  process.stdout.write(JSON.stringify(out));\n});' > \"$RUN/wires.json\"\n\ncat > \"$RUN/worker-probe.py\" <<'EOF'\nimport json, sys, pathlib\nhere = pathlib.Path(__file__).resolve().parent\nsys.path.insert(0, str(here.parent.parent / \"wire-fixture\"))\nfrom worker import decode_event\nfor label, jid, wire in json.loads((here / \"wires.json\").read_text()):\n    try:\n        print(label, jid, wire, \"->\", decode_event(wire))\n    except Exception as e:\n        print(label, jid, wire, \"-> RAISES\", type(e).__name__ + \":\", e)\nEOF\necho \"===== worker probe =====\"\nPYTHONDONTWRITEBYTECODE=1 python3 -B \"$RUN/worker-probe.py\"\necho \"===== pycache check =====\"\nfind \"$FIX\" -name '__pycache__' -o -name '*.pyc' | wc -l",
+          "result": {
+            "stdout": "node: v24.21.0  python: Python 3.14.8\n===== existing test =====\nproducer contract assertions passed\n===== dashboard probe =====\nold j1 {\"id\":\"j1\",\"createdAt\":\"2025-03-01T10:00:00Z\",\"retryAfter\":null} -> {\"delay\":0,\"year\":2025}\nnew j1 {\"id\":\"j1\",\"createdAt\":1740823200} -> {\"delay\":0,\"year\":1970}\nold j2 {\"id\":\"j2\",\"createdAt\":\"2025-03-01T10:00:00Z\",\"retryAfter\":30} -> {\"delay\":30,\"year\":2025}\nnew j2 {\"id\":\"j2\",\"createdAt\":1740823200,\"retryAfter\":30} -> {\"delay\":30,\"year\":1970}\n===== worker probe =====\nold j1 {\"id\":\"j1\",\"createdAt\":\"2025-03-01T10:00:00Z\",\"retryAfter\":null} -> {'id': 'j1', 'retry': None, 'year': 2025}\nnew j1 {\"id\":\"j1\",\"createdAt\":1740823200} -> RAISES KeyError: 'retryAfter'\nold j2 {\"id\":\"j2\",\"createdAt\":\"2025-03-01T10:00:00Z\",\"retryAfter\":30} -> {'id': 'j2', 'retry': 30, 'year': 2025}\nnew j2 {\"id\":\"j2\",\"createdAt\":1740823200,\"retryAfter\":30} -> RAISES AttributeError: 'int' object has no attribute 'replace'\n===== pycache check =====\n       0",
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false
+          },
+          "textTruncated": false
+        }
+      ],
+      "case": "wire-consumers",
+      "verdict": {
+        "core_behavior": "pass",
+        "evidence_quality": "qualified",
+        "authority": "Only authorized scratch writes; fixture files unchanged.",
+        "findings": [
+          "Repeated actual producer-to-consumer execution and before controls.",
+          "Kept producer-only tests distinct from consumer compatibility and named scope limits."
+        ],
+        "limits": [
+          "Still says every new event renders 1970; only the supplied 2025 timestamp was exercised, and arbitrary ISO dates need not map to that year.",
+          "Cites worker.py:8 and :9 for operations actually at :7 and :8.",
+          "Probe outputs are observations, not assertion-backed pass/fail checks.",
+          "No demonstrated general improvement over baseline."
+        ]
+      },
+      "started_at": "2026-10-03T07:59:44.573Z",
+      "completed_at": "2026-10-03T08:00:48.673Z",
+      "duration_seconds": 64.1,
+      "word_count_whitespace": 561,
+      "artifacts": {
+        "wires.json": {
+          "sha256": "d7809c88b70ae377ea26503eb18e212a4c36ab050f2647bd47c886e2d1fdaf10",
+          "content": "[[\"old\",\"j1\",\"{\\\"id\\\":\\\"j1\\\",\\\"createdAt\\\":\\\"2025-03-01T10:00:00Z\\\",\\\"retryAfter\\\":null}\"],[\"new\",\"j1\",\"{\\\"id\\\":\\\"j1\\\",\\\"createdAt\\\":1740823200}\"],[\"old\",\"j2\",\"{\\\"id\\\":\\\"j2\\\",\\\"createdAt\\\":\\\"2025-03-01T10:00:00Z\\\",\\\"retryAfter\\\":30}\"],[\"new\",\"j2\",\"{\\\"id\\\":\\\"j2\\\",\\\"createdAt\\\":1740823200,\\\"retryAfter\\\":30}\"]]"
+        },
+        "worker-probe.py": {
+          "sha256": "dd8e8147c83b0586186266022033bcb298d59d84405acb55927a3f3eadc603f1",
+          "content": "import json, sys, pathlib\nhere = pathlib.Path(__file__).resolve().parent\nsys.path.insert(0, str(here.parent.parent / \"wire-fixture\"))\nfrom worker import decode_event\nfor label, jid, wire in json.loads((here / \"wires.json\").read_text()):\n    try:\n        print(label, jid, wire, \"->\", decode_event(wire))\n    except Exception as e:\n        print(label, jid, wire, \"-> RAISES\", type(e).__name__ + \":\", e)\n"
+        },
+        "dashboard-probe.mjs": {
+          "sha256": "0e3c8dfb4ce78e9415dd744690fd15b2e1550d34b663ffbf73e23b8d6808d467",
+          "content": "import { encodeJob as newEncode } from \"../../wire-fixture/producer.mjs\";\nimport { encodeJob as oldEncode } from \"../../wire-fixture/before/producer.mjs\";\nimport { renderEvent } from \"../../wire-fixture/dashboard.mjs\";\nconst jobs = [\n  { id: \"j1\", createdAt: \"2025-03-01T10:00:00Z\", retryAfter: null },\n  { id: \"j2\", createdAt: \"2025-03-01T10:00:00Z\", retryAfter: 30 },\n];\nfor (const job of jobs) {\n  for (const [label, enc] of [[\"old\", oldEncode], [\"new\", newEncode]]) {\n    const wire = enc(job);\n    console.log(label, job.id, wire, \"->\", JSON.stringify(renderEvent(wire)));\n  }\n}\n"
+        }
+      }
+    },
+    "lifecycle-revised": {
+      "prompt": "You are executing a bounded impact-analysis task in an independent context. Work in /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f. The only application evidence for this task is the synthetic source packet at /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/lifecycle-fixture. Read all relevant files in that packet. Do not inspect enclosing repository history, other tasks, evaluation expectations, reports, or other skill files. First read /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/blast-radius/SKILL.md and follow it for this task.\nYou may inspect the supplied packet and run local Node/Python code. You may create disposable probes and generated output only inside /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/runs/lifecycle-revised/. Do not change any supplied file, product source, dependencies, tests, configuration, or remote state. Use python3 -B or PYTHONDONTWRITEBYTECODE=1 to avoid bytecode writes into the packet. No network, installs, Git operations, delegated agents, repairs, or publishing. Existing runtime commands can be located through /opt/homebrew/bin/fish if needed. The packet is the complete source boundary for this exercise; unavailable production information is unknown.\nAnswer the user in Spanish, concisely, with the evidence and remaining limits needed to assess the change. Include the commands or probe path and relevant outputs for any execution claims. Aim for 650 words or fewer.\n\nUSER REQUEST:\n¿Qué puede romper este cambio en el cierre de la pantalla? Comprueba el comportamiento relevante con el código disponible y explica las condiciones del impacto.",
+      "taskId": "node:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-eval-lifecycle-revised-20261003",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-eval-lifecycle-revised-20261003",
+      "status": "completed",
+      "provider": "claudeAgent",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "skill_revision": "6fe214de198ff469d70d505e53865ea0cdc6fe686b048cbf26cfacdd81d8f9c0",
+      "final_output": "**Conclusión:** el cambio rompe el cierre cuando la caché contiene al menos una entrada vencida en el instante `now`. En ese caso `closeSession` lanza `render after close`, el listener nunca se desuscribe y el `gc` queda incompleto. Sin entradas vencidas, el cierre sigue siendo correcto.\n\n**Qué cambió.** El patch mueve `session.unsubscribe()` del principio al final de `closeSession` (`.tmp/blast-radius-creation/lifecycle-fixture/change.patch`). El orden nuevo es: marcar `closed`, ejecutar `cache.gc(now)`, y después desuscribir.\n\n**Cadena causal del fallo.**\n\n1. El listener que registra `session.mjs:4-7` lanza si `session.closed` es verdadero.\n2. El módulo resuelto `vendor/cache.mjs` (1.4.2 con el parche local P-17) notifica a los listeners de forma sincrónica dentro de `gc()`, entrada por entrada, justo después de borrarla (`vendor/cache.mjs:5-11`). `patches/P-17.md` confirma que la notificación diferida de upstream no es el comportamiento de este módulo.\n3. Con el orden nuevo, `gc` corre con `closed = true` y el listener aún suscrito. La primera entrada con `expiresAt <= now` dispara el listener, que lanza.\n4. La excepción sale de `closeSession`. La llamada a `unsubscribe()` nunca se alcanza.\n\n**Consecuencias observadas en la sonda** (ejecución local sobre el código real del paquete, no una reimplementación):\n\n| Escenario | Antes | Después |\n|---|---|---|\n| Una entrada vencida | sin error, listener eliminado, caché limpia | lanza `render after close`, listener sigue registrado |\n| `expiresAt === now` | sin error | lanza (gc trata `<=` como vencido) |\n| Dos entradas vencidas | caché vacía | lanza; la segunda entrada vencida sobrevive |\n| Ninguna vencida o caché vacía | sin error | sin error, listener eliminado |\n| Un `gc` posterior sobre la misma caché | n/a | vuelve a lanzar por el listener filtrado |\n\nComando y salida:\n\n```\nnode .tmp/blast-radius-creation/runs/lifecycle-revised/probe.mjs\n```\n\n```\nafter/one-expired {\"error\":\"render after close\",\"closed\":true,\"renders\":0,\"listenersLeft\":1,\"entriesLeft\":[]}\nafter/boundary-equal-now {\"error\":\"render after close\",...,\"listenersLeft\":1}\nafter/two-expired {\"error\":\"render after close\",...,\"listenersLeft\":1,\"entriesLeft\":[\"b\"]}\nafter/none-expired {\"error\":null,...,\"listenersLeft\":0,\"entriesLeft\":[\"a\"]}\nbefore/one-expired {\"error\":null,...,\"listenersLeft\":0,\"entriesLeft\":[]}\nafter/leaked-listener-later-gc {\"error\":\"render after close\",\"entriesLeft\":[]}\nALL ASSERTIONS PASSED\n```\n\nSonda y salida completa en `.tmp/blast-radius-creation/runs/lifecycle-revised/` (archivos `probe.mjs` y `probe-output.txt`). Exit code 0. Ningún archivo del paquete fue modificado.\n\n**Condiciones del impacto.**\n\n- **Dispara el fallo:** cualquier entrada con `expiresAt <= now` en el momento del cierre. Es la única condición necesaria con el módulo resuelto.\n- **Efectos secundarios además de la excepción:** el listener queda registrado en la caché (fuga), y si la caché se comparte o reutiliza, cada `gc` futuro que venza algo volverá a lanzar. Las entradas vencidas posteriores a la primera no se eliminan en ese ciclo.\n- **Camino seguro:** caché vacía o sin entradas vencidas. Ahí el nuevo orden es equivalente al anterior.\n\n**Supuesto decisivo.** El riesgo depende de que las notificaciones de evicción sean sincrónicas. El paquete lo establece de dos formas: el código de `vendor/cache.mjs` y la nota del parche P-17. Si en algún despliegue se resolviera la versión upstream con notificación diferida, el resultado sería distinto y no está probado aquí, porque ese módulo no forma parte del paquete.\n\n**Límites de cobertura.**\n\n- El paquete no incluye al llamador de `closeSession`, así que no se sabe si la excepción se captura, se registra o derriba la pantalla. La sonda muestra que la excepción escapa de la función; lo que ocurra después es desconocido.\n- No hay evidencia de si la caché es por sesión o compartida. Si es compartida, la fuga del listener afecta a cierres y a ciclos de `gc` de otras sesiones.\n- No se conoce la frecuencia con que hay entradas vencidas al cerrar en producción. La sonda demuestra reachability y consecuencia, no frecuencia.\n- Resultado de ejecución local, no de reproducción en la aplicación.\n\n**Siguiente comprobación útil:** localizar al llamador real de `closeSession` y confirmar si maneja excepciones y si la instancia de `Cache` vive más allá de la sesión.",
+      "commands": [
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01YDZ8kwhSnuNGQ8nmvrV6rK",
+          "command": "cat /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/blast-radius/SKILL.md; echo \"-----PACKET-----\"; find /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/lifecycle-fixture -type f | sort",
+          "result": {
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false,
+            "stdout_sha256": "c0e5b15cfa32cd878c38d3724ec03c89f43979df58270bfc9d552c571b1d0c1d",
+            "stdout_omitted": "Read-only source/listing output. Raw fixture inputs and both skill snapshots are retained separately in this report."
+          },
+          "textTruncated": false
+        },
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01HZp7SazEHf14HZTGb4TH2x",
+          "command": "cd /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/lifecycle-fixture && for f in README.md change.patch close.mjs before/close.mjs session.mjs vendor/cache.mjs dependency-lock.json patches/P-17.md; do echo \"===== $f =====\"; cat \"$f\"; echo; done",
+          "result": {
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false,
+            "stdout_sha256": "7faf4d335c646304870823da282c9652cb01ad16e5ef6db6f2f8898c68424dd3",
+            "stdout_omitted": "Read-only source/listing output. Raw fixture inputs and both skill snapshots are retained separately in this report."
+          },
+          "textTruncated": false
+        },
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01Qzo476yxrx124mBGZi8fGQ",
+          "command": "cd /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f && /opt/homebrew/bin/fish -c 'node --version; which node' ; git check-ignore -v .tmp/blast-radius-creation/runs/lifecycle-revised/probe.mjs; echo \"check-ignore exit=$?\"; mkdir -p .tmp/blast-radius-creation/runs/lifecycle-revised && ls -la .tmp/blast-radius-creation/runs/",
+          "result": {
+            "stdout": "v24.21.0\n/Users/luisurrutia/.local/share/mise/shims/node\n/Users/luisurrutia/Projects/LuisUrrutia/skills/.git/info/exclude:7:/.tmp/\t.tmp/blast-radius-creation/runs/lifecycle-revised/probe.mjs\ncheck-ignore exit=0\ntotal 0\ndrwxr-xr-x@  7 luisurrutia  staff  224 Oct  3 09:59 .\ndrwxr-xr-x@ 10 luisurrutia  staff  320 Oct  3 09:59 ..\ndrwxr-xr-x@  3 luisurrutia  staff   96 Oct  3 09:54 lifecycle-candidate\ndrwxr-xr-x@  2 luisurrutia  staff   64 Oct  3 09:59 lifecycle-revised\ndrwxr-xr-x@  5 luisurrutia  staff  160 Oct  3 09:54 wire-baseline\ndrwxr-xr-x@  5 luisurrutia  staff  160 Oct  3 09:54 wire-candidate\ndrwxr-xr-x@  5 luisurrutia  staff  160 Oct  3 10:00 wire-revised",
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false
+          },
+          "textTruncated": false
+        },
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01Dd11tDfFrUhYQ5u18govJx",
+          "command": "cat > .tmp/blast-radius-creation/runs/lifecycle-revised/probe.mjs <<'EOF'\n// Disposable probe: exercises the real close.mjs / before/close.mjs with the\n// real session.mjs and the resolved vendor/cache.mjs (1.4.2 + P-17).\nimport assert from \"node:assert/strict\";\nimport { openSession } from \"../../lifecycle-fixture/session.mjs\";\nimport { closeSession as closeAfter } from \"../../lifecycle-fixture/close.mjs\";\nimport { closeSession as closeBefore } from \"../../lifecycle-fixture/before/close.mjs\";\n\nconst NOW = 1000;\nconst out = [];\nfunction log(name, data) { out.push({ name, ...data }); console.log(name, JSON.stringify(data)); }\n\nfunction withEntries(spec) {\n  const s = openSession();\n  for (const [key, expiresAt] of Object.entries(spec)) s.cache.put(key, `v:${key}`, expiresAt);\n  return s;\n}\n\nfunction run(name, close, spec) {\n  const s = withEntries(spec);\n  let error = null;\n  try { close(s, NOW); } catch (e) { error = e.message; }\n  const data = {\n    error,\n    closed: s.closed,\n    renders: s.renders,\n    listenersLeft: s.cache.listeners.size,\n    entriesLeft: [...s.cache.entries.keys()],\n  };\n  log(name, data);\n  return data;\n}\n\n// 1. AFTER, one expired entry (expiresAt <= now): deciding scenario.\nconst a1 = run(\"after/one-expired\", closeAfter, { a: 500 });\nassert.equal(a1.error, \"render after close\");\nassert.equal(a1.listenersLeft, 1, \"unsubscribe never ran: listener leaked\");\nassert.equal(a1.renders, 0);\n\n// 2. AFTER, boundary expiresAt === now is treated as expired by gc (`>` keeps).\nconst a2 = run(\"after/boundary-equal-now\", closeAfter, { a: NOW });\nassert.equal(a2.error, \"render after close\");\n\n// 3. AFTER, several expired entries: first evicted, throw aborts the rest of gc.\nconst a3 = run(\"after/two-expired\", closeAfter, { a: 100, b: 200 });\nassert.equal(a3.error, \"render after close\");\nassert.deepEqual(a3.entriesLeft, [\"b\"], \"partial gc: second expired entry survives\");\nassert.equal(a3.listenersLeft, 1);\n\n// 4. AFTER, nothing expired: safe path.\nconst a4 = run(\"after/none-expired\", closeAfter, { a: 5000 });\nassert.equal(a4.error, null);\nassert.equal(a4.listenersLeft, 0);\nassert.deepEqual(a4.entriesLeft, [\"a\"]);\n\n// 5. AFTER, empty cache: safe path.\nconst a5 = run(\"after/empty\", closeAfter, {});\nassert.equal(a5.error, null);\nassert.equal(a5.listenersLeft, 0);\n\n// 6. BEFORE, same expired scenarios: no throw, listener removed, full gc.\nconst b1 = run(\"before/one-expired\", closeBefore, { a: 500 });\nassert.equal(b1.error, null);\nassert.equal(b1.listenersLeft, 0);\nassert.deepEqual(b1.entriesLeft, []);\nconst b3 = run(\"before/two-expired\", closeBefore, { a: 100, b: 200 });\nassert.equal(b3.error, null);\nassert.deepEqual(b3.entriesLeft, []);\n\n// 7. AFTER + leaked listener: a later gc on the same cache keeps throwing.\n{\n  const s = withEntries({ a: 500 });\n  try { closeAfter(s, NOW); } catch {}\n  s.cache.put(\"later\", \"x\", 1500);\n  let err = null;\n  try { s.cache.gc(2000); } catch (e) { err = e.message; }\n  log(\"after/leaked-listener-later-gc\", { error: err, entriesLeft: [...s.cache.entries.keys()] });\n  assert.equal(err, \"render after close\", \"leaked listener still throws on later gc\");\n}\n\nconsole.log(\"ALL ASSERTIONS PASSED\");\nEOF\nnode .tmp/blast-radius-creation/runs/lifecycle-revised/probe.mjs 2>&1 | tee .tmp/blast-radius-creation/runs/lifecycle-revised/probe-output.txt; echo \"exit=${PIPESTATUS[0]}\"",
+          "result": {
+            "stdout": "after/one-expired {\"error\":\"render after close\",\"closed\":true,\"renders\":0,\"listenersLeft\":1,\"entriesLeft\":[]}\nafter/boundary-equal-now {\"error\":\"render after close\",\"closed\":true,\"renders\":0,\"listenersLeft\":1,\"entriesLeft\":[]}\nafter/two-expired {\"error\":\"render after close\",\"closed\":true,\"renders\":0,\"listenersLeft\":1,\"entriesLeft\":[\"b\"]}\nafter/none-expired {\"error\":null,\"closed\":true,\"renders\":0,\"listenersLeft\":0,\"entriesLeft\":[\"a\"]}\nafter/empty {\"error\":null,\"closed\":true,\"renders\":0,\"listenersLeft\":0,\"entriesLeft\":[]}\nbefore/one-expired {\"error\":null,\"closed\":true,\"renders\":0,\"listenersLeft\":0,\"entriesLeft\":[]}\nbefore/two-expired {\"error\":null,\"closed\":true,\"renders\":0,\"listenersLeft\":0,\"entriesLeft\":[]}\nafter/leaked-listener-later-gc {\"error\":\"render after close\",\"entriesLeft\":[]}\nALL ASSERTIONS PASSED\nexit=",
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false
+          },
+          "textTruncated": false
+        },
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01QGpSfbdU6nzdUAEoKFiCcy",
+          "command": "node .tmp/blast-radius-creation/runs/lifecycle-revised/probe.mjs >/dev/null 2>&1; echo \"probe exit=$?\"; ls -la .tmp/blast-radius-creation/runs/lifecycle-revised/; find .tmp/blast-radius-creation/lifecycle-fixture -newer .tmp/blast-radius-creation/runs/lifecycle-revised/probe.mjs -type f; echo \"fixture files newer than probe: (none expected above)\"",
+          "result": {
+            "stdout": "probe exit=0\ntotal 16\ndrwxr-xr-x@ 4 luisurrutia  staff   128 Oct  3 10:00 .\ndrwxr-xr-x@ 7 luisurrutia  staff   224 Oct  3 09:59 ..\n-rw-r--r--@ 1 luisurrutia  staff   817 Oct  3 10:00 probe-output.txt\n-rw-r--r--@ 1 luisurrutia  staff  3108 Oct  3 10:00 probe.mjs\nfixture files newer than probe: (none expected above)",
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false
+          },
+          "textTruncated": false
+        }
+      ],
+      "case": "patched-lifecycle",
+      "verdict": {
+        "core_behavior": "pass",
+        "evidence_quality": "qualified",
+        "authority": "Only scratch probe/output writes. Read-only git check-ignore and a sibling directory listing are the same evaluator-scope exceptions as the first lifecycle run.",
+        "findings": [
+          "Repeated all principal failure assertions and added exact-expiry and subsequent collection scenarios.",
+          "Stopped with the missing caller/cache-lifetime checks rather than proposing a verified repair.",
+          "Initial shell pipeline printed an empty exit value; the executor reran the probe and observed probe exit=0."
+        ],
+        "limits": [
+          "Still says a different upstream result would occur without inspecting that implementation; only the local synchronous variant is established.",
+          "Evidence establishes current closure retention, not an unbounded memory leak or a shared-cache deployment."
+        ]
+      },
+      "started_at": "2026-10-03T07:59:44.639Z",
+      "completed_at": "2026-10-03T08:01:28.585Z",
+      "duration_seconds": 103.946,
+      "word_count_whitespace": 611,
+      "artifacts": {
+        "probe.mjs": {
+          "sha256": "02d70e4d7bf71b1865bd291c492d810c5493b62c2ed371138fa01cf8b7ed7170",
+          "content": "// Disposable probe: exercises the real close.mjs / before/close.mjs with the\n// real session.mjs and the resolved vendor/cache.mjs (1.4.2 + P-17).\nimport assert from \"node:assert/strict\";\nimport { openSession } from \"../../lifecycle-fixture/session.mjs\";\nimport { closeSession as closeAfter } from \"../../lifecycle-fixture/close.mjs\";\nimport { closeSession as closeBefore } from \"../../lifecycle-fixture/before/close.mjs\";\n\nconst NOW = 1000;\nconst out = [];\nfunction log(name, data) { out.push({ name, ...data }); console.log(name, JSON.stringify(data)); }\n\nfunction withEntries(spec) {\n  const s = openSession();\n  for (const [key, expiresAt] of Object.entries(spec)) s.cache.put(key, `v:${key}`, expiresAt);\n  return s;\n}\n\nfunction run(name, close, spec) {\n  const s = withEntries(spec);\n  let error = null;\n  try { close(s, NOW); } catch (e) { error = e.message; }\n  const data = {\n    error,\n    closed: s.closed,\n    renders: s.renders,\n    listenersLeft: s.cache.listeners.size,\n    entriesLeft: [...s.cache.entries.keys()],\n  };\n  log(name, data);\n  return data;\n}\n\n// 1. AFTER, one expired entry (expiresAt <= now): deciding scenario.\nconst a1 = run(\"after/one-expired\", closeAfter, { a: 500 });\nassert.equal(a1.error, \"render after close\");\nassert.equal(a1.listenersLeft, 1, \"unsubscribe never ran: listener leaked\");\nassert.equal(a1.renders, 0);\n\n// 2. AFTER, boundary expiresAt === now is treated as expired by gc (`>` keeps).\nconst a2 = run(\"after/boundary-equal-now\", closeAfter, { a: NOW });\nassert.equal(a2.error, \"render after close\");\n\n// 3. AFTER, several expired entries: first evicted, throw aborts the rest of gc.\nconst a3 = run(\"after/two-expired\", closeAfter, { a: 100, b: 200 });\nassert.equal(a3.error, \"render after close\");\nassert.deepEqual(a3.entriesLeft, [\"b\"], \"partial gc: second expired entry survives\");\nassert.equal(a3.listenersLeft, 1);\n\n// 4. AFTER, nothing expired: safe path.\nconst a4 = run(\"after/none-expired\", closeAfter, { a: 5000 });\nassert.equal(a4.error, null);\nassert.equal(a4.listenersLeft, 0);\nassert.deepEqual(a4.entriesLeft, [\"a\"]);\n\n// 5. AFTER, empty cache: safe path.\nconst a5 = run(\"after/empty\", closeAfter, {});\nassert.equal(a5.error, null);\nassert.equal(a5.listenersLeft, 0);\n\n// 6. BEFORE, same expired scenarios: no throw, listener removed, full gc.\nconst b1 = run(\"before/one-expired\", closeBefore, { a: 500 });\nassert.equal(b1.error, null);\nassert.equal(b1.listenersLeft, 0);\nassert.deepEqual(b1.entriesLeft, []);\nconst b3 = run(\"before/two-expired\", closeBefore, { a: 100, b: 200 });\nassert.equal(b3.error, null);\nassert.deepEqual(b3.entriesLeft, []);\n\n// 7. AFTER + leaked listener: a later gc on the same cache keeps throwing.\n{\n  const s = withEntries({ a: 500 });\n  try { closeAfter(s, NOW); } catch {}\n  s.cache.put(\"later\", \"x\", 1500);\n  let err = null;\n  try { s.cache.gc(2000); } catch (e) { err = e.message; }\n  log(\"after/leaked-listener-later-gc\", { error: err, entriesLeft: [...s.cache.entries.keys()] });\n  assert.equal(err, \"render after close\", \"leaked listener still throws on later gc\");\n}\n\nconsole.log(\"ALL ASSERTIONS PASSED\");\n"
+        },
+        "probe-output.txt": {
+          "sha256": "c37554386c9f746cde4ddc2dbac84940522d7a14e8ea620b66dedc7e2b8ec97f",
+          "content": "after/one-expired {\"error\":\"render after close\",\"closed\":true,\"renders\":0,\"listenersLeft\":1,\"entriesLeft\":[]}\nafter/boundary-equal-now {\"error\":\"render after close\",\"closed\":true,\"renders\":0,\"listenersLeft\":1,\"entriesLeft\":[]}\nafter/two-expired {\"error\":\"render after close\",\"closed\":true,\"renders\":0,\"listenersLeft\":1,\"entriesLeft\":[\"b\"]}\nafter/none-expired {\"error\":null,\"closed\":true,\"renders\":0,\"listenersLeft\":0,\"entriesLeft\":[\"a\"]}\nafter/empty {\"error\":null,\"closed\":true,\"renders\":0,\"listenersLeft\":0,\"entriesLeft\":[]}\nbefore/one-expired {\"error\":null,\"closed\":true,\"renders\":0,\"listenersLeft\":0,\"entriesLeft\":[]}\nbefore/two-expired {\"error\":null,\"closed\":true,\"renders\":0,\"listenersLeft\":0,\"entriesLeft\":[]}\nafter/leaked-listener-later-gc {\"error\":\"render after close\",\"entriesLeft\":[]}\nALL ASSERTIONS PASSED\n"
+        }
+      }
+    },
+    "proposal-revised": {
+      "prompt": "You are executing a bounded impact-analysis task in an independent context. Work in /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f. First read /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/blast-radius/SKILL.md and follow it for this task. The only application evidence is the synthetic source packet at /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/proposal-fixture. Read the relevant files in that packet. Do not inspect enclosing repository history, other tasks, evaluation expectations, reports, or other skill files.\nThis is an inspection-only task: file listing and reading are allowed; do not execute application code, test scripts, or probes, and do not create or modify any files. No network, installs, Git operations, delegated agents, repairs, or publishing. Existing reading tools can be located through /opt/homebrew/bin/fish if needed. The packet is the complete source boundary; unavailable information is unknown.\nAnswer the user in Spanish, concisely, with evidence and remaining limits. Aim for 650 words or fewer.\n\nUSER REQUEST:\nEstamos pensando cambiar la codificación del identificador como indica la propuesta. Analiza qué podría afectar usando solo los archivos disponibles, sin ejecutar código ni crear o modificar archivos.",
+      "taskId": "node:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-eval-proposal-revised-20261003",
+      "childThreadId": "thread:delegated-task:command%3Amcp%3A16370508-25a4-47f8-87da-ae415c115c45%3Adelegate-task%3Ablast-radius-eval-proposal-revised-20261003",
+      "status": "completed",
+      "provider": "claudeAgent",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "skill_revision": "6fe214de198ff469d70d505e53865ea0cdc6fe686b048cbf26cfacdd81d8f9c0",
+      "final_output": "**Resultado principal:** el riesgo decisivo es que `reader.py` busca la fila por igualdad exacta del valor almacenado. Si `encodeCompact` produce un valor distinto a `encodeReadable` para el mismo id, todo identificador ya emitido deja de resolver. El paquete no permite decidir si eso ocurre.\n\n**Alcance examinado.** Cinco archivos del paquete, solo lectura: README, propuesta, escritor, lector y lock de dependencias. Sin ejecución, sin probes, sin historial.\n\n**Cambio considerado.** La propuesta sustituye la función de codificación del identificador escrito en filas existentes de `jobs` y conserva el nombre de columna `public_id` (proposal.md:3). No hay implementación. La compatibilidad a nivel de bytes entre ambas funciones queda explícitamente sin especificar (proposal.md:3). Tampoco se dice si se reescriben las filas existentes o solo las nuevas escrituras.\n\n**Ruta de efecto trazada.**\n\n1. El productor es JavaScript. La función de guardado inserta el id codificado bajo la clave `public_id` (writer.mjs:1-3).\n2. El consumidor es Python, en otro proceso y lenguaje. La función de carga hace `find_one` con igualdad literal sobre esa misma columna (reader.py:1-2).\n3. El lector no importa el códec ni decodifica nada. Trata el valor como opaco. Por eso su único supuesto es que el valor que recibe coincide byte a byte con el almacenado.\n\n**Consecuencias según el escenario, ambos no decididos en la propuesta.**\n\n| Escenario | Efecto en el lector | Evidencia |\n|---|---|---|\n| Se reescriben filas existentes y las codificaciones difieren | Todo id obtenido antes de la migración devuelve \"no encontrado\" | reader.py:2, proposal.md:3 |\n| Solo escrituras nuevas y las codificaciones difieren | Estado mixto en la tabla. Cada fila sigue resolviendo por igualdad, pero conviven dos formatos | writer.mjs:3, reader.py:2 |\n| Las codificaciones coinciden | El lector no se ve afectado | Indemostrable aquí |\n\n**Riesgos despejados bajo condición.** El nombre de la clave se mantiene, así que el lector no necesita cambios de nombre si la propuesta se implementa tal como está escrita (proposal.md:3, reader.py:2). El lector no parsea la estructura interna del valor, por lo que un cambio de formato no rompe parseo, solo igualdad. Ambas conclusiones son inspección de fuente, no ejecución.\n\n**Supuestos decisivos y su estado.**\n\n- **A1, igualdad de salida.** Afirmación falsable: para todo id existente, ambas funciones del códec devuelven el mismo valor. Comprobación mínima: ejecutar ambas sobre una muestra de ids reales con la versión fijada y comparar. No es posible: el lock fija `opaque-codec` 3.2.1 con fuente no disponible (dependency-lock.json:3-4) y el README confirma que no se puede inspeccionar ni ejecutar (README.md:3). El sufijo \"Compact\" frente a \"Readable\" sugiere salidas distintas, pero el nombre no es evidencia. **No probado.**\n- **A2, identificadores retenidos externamente.** Si algún cliente, enlace o caché conserva valores antiguos, una migración destructiva los invalida. El paquete no contiene quién llama al lector ni de dónde viene el `public_id` que recibe. No hay inventario de consumidores desplegados (README.md:3). **Desconocido.**\n- **A3, el esquema acepta la nueva salida.** El tipo, longitud y conjunto de caracteres de la columna no están en el paquete. Si la salida compacta es binaria o excede la columna, la inserción fallaría. **Desconocido.**\n\n**Nada confirmado como fallo observado.** Todo lo anterior es traza de fuente. No se reprodujo ningún comportamiento en la aplicación.\n\n**Límites de cobertura.** Sin el códec, sin esquema de base de datos, sin llamadores del lector, sin datos históricos y sin plan de migración. Una búsqueda vacía de otros consumidores en estos cinco archivos no descarta consumidores externos.\n\n**Siguientes comprobaciones, en orden de utilidad.**\n\n1. Obtener la versión 3.2.1 del códec o su documentación y comparar ambas funciones sobre ids reales. Esto decide A1 y con ello casi todo el riesgo.\n2. Fijar en la propuesta si se reescriben filas existentes o solo nuevas escrituras, y si se conservará el valor antiguo durante la transición.\n3. Inventariar quién pasa `public_id` al lector y si hay valores emitidos fuera del sistema.",
+      "commands": [
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01R3nFsRdZn4fcjMcB9V6Kpw",
+          "command": "cat /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/blast-radius/SKILL.md; echo \"-----PACKET-----\"; find /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/proposal-fixture -type f | sort",
+          "result": {
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false,
+            "stdout_sha256": "58f55107c8e5852a8831551b264f6cf3fac120e206781384eed2cc3012891329",
+            "stdout_omitted": "Read-only source/listing output. Raw fixture inputs and both skill snapshots are retained separately in this report."
+          },
+          "textTruncated": false
+        },
+        {
+          "itemId": "turn-item:provider:claudeAgent:native-item:toolu_01DpGJ3e1WybrGoQ4nLgaUvE",
+          "command": "cd /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/blast-radius-creation/proposal-fixture && for f in README.md proposal.md writer.mjs reader.py dependency-lock.json; do echo \"===== $f =====\"; cat -n \"$f\"; echo; done",
+          "result": {
+            "stderr": "",
+            "interrupted": false,
+            "isImage": false,
+            "noOutputExpected": false,
+            "stdout_sha256": "6f2e7be7c5ad16359ef4108cf33cd04c87166dabc0c720f8125584bedaa6838f",
+            "stdout_omitted": "Read-only source/listing output. Raw fixture inputs and both skill snapshots are retained separately in this report."
+          },
+          "textTruncated": false
+        }
+      ],
+      "case": "unimplemented-encoding",
+      "verdict": {
+        "core_behavior": "pass",
+        "evidence_quality": "qualified",
+        "authority": "Read-only tools only; no probes, installs, or file writes.",
+        "findings": [
+          "Separated an unimplemented proposal, conditional effects and unavailable evidence.",
+          "Recognized that the codec function names do not establish different outputs."
+        ],
+        "limits": [
+          "Lead omits the condition that existing stored values would need to be rewritten before retained old identifiers necessarily stop matching. Later scenarios restore that distinction.",
+          "Still generalizes from differing encodings to every old identifier and assumes byte-level lookup semantics not supplied by the DB adapter.",
+          "Comparing a sample can refute universal encoding equality but cannot prove equality for every existing identifier."
+        ]
+      },
+      "started_at": "2026-10-03T07:59:44.693Z",
+      "completed_at": "2026-10-03T08:01:06.330Z",
+      "duration_seconds": 81.637,
+      "word_count_whitespace": 641,
+      "artifacts": {}
+    }
+  },
+  "iterations": [
+    {
+      "trigger": "The first lifecycle response treated an uninspected upstream variant as different and an untested repair as safe.",
+      "change": "Clarified that evidence must support the broader claim and that alternative dependencies and proposed remedies require their own verification.",
+      "regression_runs": [
+        "wire-revised",
+        "lifecycle-revised",
+        "proposal-revised"
+      ],
+      "result": "Core impact behavior preserved. The revised lifecycle output stopped recommending an unverified repair, but other overbroad claims remained. The initial reserved cases became regression cases; no fresh held-out generalization claim is made."
+    }
+  ],
+  "comparison_claim": "Same model, xhigh effort, raw packet, tools, output request, and execution authority for the wire baseline/candidates; only skill access and isolated run directories differed. All found the principal failures. These single trials do not demonstrate superiority or a causal improvement from the revision.",
+  "description_review": {
+    "kind": "Manual contract review only",
+    "result": "Short when-to-use description covers indirect-change effects; explanations, historical why, repairs, delivery, and broad quality audits have distinct triggers. Automatic host selection was not tested."
+  },
+  "fixture_integrity": {
+    "files": 20,
+    "result": "All pre/post SHA256 hashes and file inventories match. No fixture bytecode files."
+  },
+  "review_audit_preservation": {
+    "files": 5,
+    "sha256": {
+      "/Users/luisurrutia/.agents/skills/review-audit/SKILL.md": "7567bbe256a3965ee552f49aeb2733196a1655f44a6388c2794673b23741b580",
+      "/Users/luisurrutia/.agents/skills/review-audit/references/protocol.md": "6eba8b3b12585c29dc6dbdefe2aa391c44f11afda53d86172b006d45c0805e09",
+      "/Users/luisurrutia/.agents/skills/review-audit/scripts/build-packet.sh": "89d6d20f2a1b6c36c90e7eb54c9fe6e714f53d3fb450f6d49cc2fe26c061d0ad",
+      "/Users/luisurrutia/.agents/skills/review-audit/scripts/report.py": "08258a3ed9c6f586a688567ef78dba9768c4182438853a54cf7a3085a294ef82",
+      "/Users/luisurrutia/.agents/skills/review-audit/scripts/validate.sh": "a13e64a248413ad24d99b64635b2389b9c5f67e9d9fc7533e816d96d564eeb62"
+    },
+    "result": "All pre/post hashes and file inventory match. No content adopted or changed."
+  },
+  "checks": [
+    {
+      "command": "uv run --with pyyaml --with tomli python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py blast-radius",
+      "result": "Skill is valid!",
+      "exit_code": 0
+    },
+    {
+      "command": "python3 -B .tmp/blast-radius-creation/validate.py",
+      "result": "PASS: references, pins, MIT notice, evaluation corpus, catalog parity, hashes, anchors, assets, 122 cards, 15 adaptations, work-mode last, and fixture/review-audit integrity.",
+      "exit_code": 0,
+      "temporary_script": "import hashlib\nimport json\nimport re\nimport subprocess\nimport tomllib\nfrom collections import Counter\nfrom html.parser import HTMLParser\nfrom pathlib import Path\n\nroot = Path.cwd()\nscratch = root / '.tmp/blast-radius-creation'\natlas = root / 'reports/skill-atlas'\nskill = root / 'blast-radius'\ndigest = lambda path: hashlib.sha256(path.read_bytes()).hexdigest()\n\norigin = tomllib.loads((skill / 'origin.txt').read_text())\nassert origin['skill'] == 'blast-radius'\nsource = origin['sources'][0]\nclone = scratch / 'cursor-plugins'\nassert subprocess.check_output(['git', '-C', str(clone), 'rev-parse', 'HEAD'], text=True).strip() == source['baseline_commit'] == source['reviewed_through']\nassert subprocess.check_output(['git', '-C', str(clone), 'remote', 'get-url', 'origin'], text=True).strip() == source['remote']\nassert source['baseline_paths'] == source['paths']\nassert len(source['paths']) == 2\nassert (clone / 'pstack/LICENSE').read_text().strip() in (skill / 'THIRD-PARTY-NOTICES.txt').read_text()\nassert (skill / origin['dependencies'][0]['entrypoint']).resolve().is_file()\nfor path in skill.rglob('*.md'):\n    for target in re.findall(r'\\]\\(([^)]+)\\)', path.read_text()):\n        if not target.startswith(('http:', 'https:', '#')):\n            assert (path.parent / target.split('#')[0]).resolve().exists(), (path, target)\ncases = json.loads((skill / 'evals/cases.json').read_text())\nassert len(cases['cases']) == 4\nassert 'review-audit' not in (skill / 'SKILL.md').read_text()\n\ndata = json.loads((atlas / 'sources.json').read_text())\nassert (atlas / 'catalog.js').read_text() == 'window.SKILL_ATLAS = ' + json.dumps(data, ensure_ascii=False, indent=2) + ';\\n'\nassert len(data['skills']) == 122\nassert len({s['key'] for s in data['skills']}) == 122\nentry = next(s for s in data['skills'] if s['key'] == 'pstack/blast-radius')\nassert entry['category'] == 'Análisis de impacto'\nassert 'review-audit' not in json.dumps(entry)\nassert entry['sha'] == 'c47b12849e43f18d5c374c7069c744cc55b0ea00'\nassert entry['sha256'] == digest(clone / 'pstack/skills/blast-radius/SKILL.md')\nextras = {s['id']: s for s in data['supplementary']}\nfor sid, path in [('blast-radius-pstack-source', source['paths'][0]), ('blast-radius-pstack-license', source['paths'][1])]:\n    assert extras[sid]['sha256'] == digest(clone / path)\n    assert extras[sid]['url'] == source['repository'] + '/blob/' + source['baseline_commit'] + '/' + path\n\nclass AtlasParser(HTMLParser):\n    def __init__(self):\n        super().__init__()\n        self.ids, self.links, self.evidence, self.sections, self.assets = [], [], [], [], []\n        self.adaptations = 0\n\n    def handle_starttag(self, tag, attrs):\n        a = dict(attrs)\n        if a.get('id'):\n            self.ids.append(a['id'])\n        if tag == 'a' and a.get('href', '').startswith('#'):\n            self.links.append(a['href'][1:])\n        if 'data-evidence' in a:\n            self.evidence.extend(a['data-evidence'].split(';'))\n        if tag == 'section':\n            self.sections.append(a.get('id'))\n        if tag == 'details' and 'adaptation' in a.get('class', '').split():\n            self.adaptations += 1\n        url = a.get('src') if tag == 'script' else a.get('href') if tag == 'link' else None\n        if url and '?v=' in url:\n            self.assets.append(url)\n\nparser = AtlasParser()\nparser.feed((atlas / 'index.html').read_text())\nassert not [key for key, count in Counter(parser.ids).items() if count > 1]\nassert set(parser.links) <= set(parser.ids) | {s['id'] for s in data['skills']}\nassert set(parser.evidence) <= {s['key'] for s in data['skills']} | set(extras)\nassert parser.sections[-1] == 'workflow'\nassert parser.adaptations == 15\nassert 'blast-radius' in parser.ids\nfor url in parser.assets:\n    name, version = url.split('?v=')\n    assert digest(atlas / name)[:12] == version, name\n\nfixtures = json.loads((scratch / 'fixtures.json').read_text())\nfor name, fixture in fixtures.items():\n    actual = {str(p.relative_to(scratch / name)): digest(p) for p in (scratch / name).rglob('*') if p.is_file()}\n    assert actual == fixture['sha256'], name\naudit_path = Path('/Users/luisurrutia/.agents/skills/review-audit')\naudit = {str(p): digest(p) for p in audit_path.rglob('*') if p.is_file()}\nassert audit == json.loads((scratch / 'review-audit-hashes.json').read_text())\nprint('PASS: skill references, provenance, MIT notice, evaluation corpus, catalog parity, source hashes, anchors, assets, 122 cards, 15 adaptations, work-mode last, 20 fixture files unchanged, 5 review-audit files unchanged.')\n"
+    },
+    {
+      "command": "node --check reports/skill-atlas/app.js",
+      "result": "No syntax errors.",
+      "exit_code": 0
+    },
+    {
+      "command": "node --check reports/skill-atlas/catalog.js",
+      "result": "No syntax errors.",
+      "exit_code": 0
+    },
+    {
+      "command": "node --check reports/skill-atlas/theme.js",
+      "result": "No syntax errors.",
+      "exit_code": 0
+    },
+    {
+      "command": "env PYTHONPATH=daily-meeting-update python3 -B -m unittest discover -s daily-meeting-update/tests -p test_opencode_digest.py -v",
+      "result": "3 tests passed in 0.014s.",
+      "exit_code": 0
+    },
+    {
+      "command": "node .tmp/blast-radius-creation/runs/lifecycle-revised/probe.mjs",
+      "result": "Parent reran actual module assertions: ALL ASSERTIONS PASSED.",
+      "exit_code": 0
+    },
+    {
+      "command": "node .tmp/blast-radius-creation/runs/wire-revised/dashboard-probe.mjs",
+      "result": "Parent observed 2025 before, 1970 after for both supplied jobs; delay defaults preserved.",
+      "exit_code": 0
+    },
+    {
+      "command": "env PYTHONDONTWRITEBYTECODE=1 python3 -B .tmp/blast-radius-creation/runs/wire-revised/worker-probe.py",
+      "result": "Parent observed before controls succeed, then KeyError for null retry and AttributeError for numeric retry.",
+      "exit_code": 0
+    }
+  ],
+  "build": {
+    "result": "Not applicable: Markdown skill and static HTML/JS; no package.json, Makefile, justfile or pyproject.toml build entry found. Syntax and served-page behavior checked."
+  },
+  "browser": {
+    "tool": "T3 collaborative preview",
+    "url": "http://localhost:8765/?revision=blast-radius-final#blast-radius",
+    "desktop": {
+      "viewport": [
+        1280,
+        800
+      ],
+      "document_scroll_width": 1265,
+      "cards": 122,
+      "adaptations": 15,
+      "theme": "dark",
+      "last_section": "workflow",
+      "source_links": 2,
+      "screenshot": "Returned successfully and visually inspected. No console entries in snapshot."
+    },
+    "mobile": {
+      "viewport": [
+        480,
+        900
+      ],
+      "document_scroll_width": 465,
+      "section_width": 425,
+      "cards": 122,
+      "last_section": "workflow",
+      "screenshot": "Returned successfully and visually inspected; no page overflow. Wide table scroll stays inside its container."
+    },
+    "category_filter": {
+      "value": "Análisis de impacto",
+      "result": "1 de 122 fichas",
+      "visible": [
+        "pstack-blast-radius"
+      ]
+    },
+    "opened_in_dia": {
+      "command": "open -a Dia \"http://localhost:8765/?revision=blast-radius-final#blast-radius\"",
+      "exit_code": 0
+    }
+  },
+  "not_exercised": [
+    "Global installation or automatic host activation.",
+    "Real deployed applications, databases, dependency registries or production callbacks.",
+    "Upstream Check/Update execution; only pointers and source manifest validated.",
+    "Multi-agent impact investigation as skill runtime behavior; evaluation delegation is an authoring tool.",
+    "Any general quality superiority, frequency estimate or performance claim."
+  ],
+  "remaining_limits": [
+    "Qualification, exact line citation, and universal-claim defects in executor responses remain visible in per-run verdicts; core reproductions are not a guarantee of reliable prose.",
+    "The impact fixtures are small and synthetic, with known reachable consumers. No claim of comprehensive real-repository coverage.",
+    "Read-only Git preflight and directory enumeration exceeded two lifecycle executor prompts; no product changes or cross-run content reads observed.",
+    "7 task executions and one design consultation on one model/effort setting cannot establish consistency across models or runs.",
+    "Temporary clones and probes are removed at completion; their raw source, commands, artifacts and outputs are retained here for inspection."
+  ]
+}

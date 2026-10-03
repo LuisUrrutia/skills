@@ -224,6 +224,18 @@ window.SKILL_ATLAS = {
       "label": "pstack/LICENSE",
       "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/LICENSE",
       "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
+    },
+    {
+      "id": "blast-radius-pstack-source",
+      "label": "pstack/skills/blast-radius/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/blast-radius/SKILL.md",
+      "sha256": "5f02db9101ccf26c20254718f0fcd5c2c7ac5d4292b0e0923d0944ac47237aff"
+    },
+    {
+      "id": "blast-radius-pstack-license",
+      "label": "pstack/LICENSE",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/LICENSE",
+      "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
     }
   ],
   "skills": [
@@ -900,12 +912,12 @@ window.SKILL_ATLAS = {
       "sha": "c47b12849e43f18d5c374c7069c744cc55b0ea00",
       "sha256": "5f02db9101ccf26c20254718f0fcd5c2c7ac5d4292b0e0923d0944ac47237aff",
       "lines": 50,
-      "category": "Revisión de código",
+      "category": "Análisis de impacto",
       "decision": "Blend",
-      "owner": "blast-radius acotada (propuesta); review-audit conserva la auditoría del diff",
-      "summary": "Traza efectos fuera del diff: formatos, orden de ejecución y consumidores; después contrasta una premisa de seguridad.",
-      "reason": "Adaptar para una pregunta concreta de impacto; añadir el análisis previo de cambios propuestos como extensión local. Prioridad menor porque review-audit ya traza contratos y consumidores de cambios existentes.",
-      "caution": "Una invariancia decisiva no descarta todos los riesgos independientes. Mantener el inventario de consumidores afectados."
+      "owner": "blast-radius independiente (creada)",
+      "summary": "Busca roturas indirectas y ejecuta código real para comprobar los supuestos de seguridad: formatos, dependencias, orden de ejecución y consumidores.",
+      "reason": "Derivación creada que conserva la comprobación empírica de pstack y sustituye las invocaciones obligatorias a why, arena y unslop. Tiene una tarea propia con cambios implementados y admite propuestas como extensión local.",
+      "caution": "Una prueba solo respalda las condiciones examinadas. Mantener separados los riesgos independientes, la inspección de código y la ejecución observada; informar de las dependencias o consumidores no disponibles."
     },
     {
       "id": "pstack-create-verification-skill",
@@ -2695,5 +2707,13 @@ window.SKILL_ATLAS = {
       "pstack/why with its six inspected instruction references"
     ],
     "status": "Created in repository; no global installation performed."
+  },
+  "blastRadiusReview": {
+    "date": "2026-10-03",
+    "sourceCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+    "adopted": [
+      "pstack/blast-radius"
+    ],
+    "status": "Created in repository as an independent skill; no global installation performed."
   }
 };

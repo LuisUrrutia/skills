@@ -103,6 +103,21 @@ evidence. Use it directly, without work-mode or an installed upstream skill.
 - Preserves contradictory evidence and reports missing sources without inventing intent
 - Derives from Lauren Tan's pstack/why with exact provenance and requested source maintenance
 
+### blast-radius
+
+Trace what a change could break elsewhere and test the assumptions that decide
+whether those paths are safe. Use it directly for implemented or proposed changes.
+
+**Triggers:** `what could this change break`, `check the blast radius of this change`, `test whether old consumers still work`
+
+**Features:**
+
+- Follows effects across dependency behavior, lifecycle timing, data formats, and indirect consumers
+- Uses focused execution against actual code to test deciding assumptions
+- Distinguishes confirmed breakage, cleared risks, and unproven conditions
+- Preserves product files and respects explicit inspection-only requests
+- Records pstack provenance and supports requested maintenance through `agent-instructions`
+
 ### commit
 
 Create git commits with conventional commit messages.
