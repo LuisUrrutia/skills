@@ -217,28 +217,52 @@ project's local `verify-<app>` recipe for application behavior.
 
 ### commit
 
-Create git commits with conventional commit messages.
+Create atomic Conventional Commits that a human can understand and review.
 
 **Triggers:** `commit`, `/commit`, `make a commit`
 
 **Features:**
-- Analyzes staged changes and generates conventional commit messages
-- Follows `type(scope): message` format (feat, fix, docs, style, refactor, test, chore)
-- Matches your repository's existing commit style
-- Handles staging, branch protection warnings, and push in one flow
+
+- Keeps one coherent behavior with its regression tests and required generated output
+- Preserves unrelated staged and unstaged work, including partial-file boundaries
+- Grounds the message in the verified index and supplied motivation
+- Verifies the actual commit, parent, message and residual work after hooks run
+- Publishes only within existing authorization and hands PR presentation to `pr`
 
 ### pr
 
-Create or update GitHub pull requests.
+Create or update a GitHub PR with a concise explanation and useful review evidence.
 
-**Triggers:** `pr`, `/pr`, `create pr`, `open pr`, `pull request`
+**Triggers:** `create a PR`, `update the PR description`, `draft a PR body`
 
 **Features:**
-- Analyzes all commits since branching from main
-- Generates PR title and description
-- Respects `.github/PULL_REQUEST_TEMPLATE.md` if present
-- Always creates new PRs as drafts and refuses to report success unless draft state is verified
-- Requires `gh` CLI
+
+- Resolves the exact target, fork, head and actual base
+- Checks claims against implementation, requirements and current verification
+- Follows repository conventions while allowing useful additions where the format permits
+- Uses diagrams, genuine screenshots and measured comparisons when they aid review
+- Preserves draft preference, verifies the GitHub actor and publishes over SSH
+- Refreshes the whole description after material publication under existing authorization
+
+### pr-followup
+
+Evaluate feedback on an existing PR and resolve authorized code, CI and base problems.
+
+**Triggers:** `resolve this PR's feedback`, `check PR readiness`, `babysit this PR`
+
+**Features:**
+
+- Separates read-only checks, feedback repairs and bounded active observation
+- Collects threads, reviews, conversation, check annotations and reviewer logs
+- Reevaluates edited comments and new replies in resolved or outdated threads
+- Tests claims against current code and keeps independent repairs progressing
+- Uses `commit` and `pr` for their phases; requires those local owners when those phases are reached
+- Distinguishes fixed, verified, published, replied and resolved states
+- Rechecks new heads and reports pending checks or decisions without automatic merge or scheduling
+
+All three record pinned sources and local decisions in `origin.txt`, with requested
+source maintenance through `agent-instructions`. Repository files are distinct from
+installed copies.
 
 ### github-actions
 

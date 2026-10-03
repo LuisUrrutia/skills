@@ -153,7 +153,7 @@ const clusters = [
   },
   {
     "title": "Descripción del PR y orientación del revisor",
-    "winner": "Ampliar pr",
+    "winner": "pr, actualizada con evidencia visual proporcional",
     "keys": [
       "Local/pr",
       "HumanLayer/visual-pr",
@@ -166,7 +166,7 @@ const clusters = [
   },
   {
     "title": "CI, comentarios y preparación",
-    "winner": "Componer pr-followup",
+    "winner": "pr-followup, creada con responsables separados",
     "keys": [
       "Cursor team/fix-ci",
       "Cursor team/loop-on-ci",
@@ -327,8 +327,8 @@ const conflicts = [
   {
     "title": "Permiso vigente frente a preguntas repetidas",
     "kind": "Policy",
-    "before": "Tus reglas autorizan commits atómicos en ramas de trabajo, actualizar descripciones tras publicar y publicar rebases con protección. Algunas cláusulas de commit y pr aún piden permiso en la misma petición o para cada operación.",
-    "after": "Hacer que las skills respeten la autorización vigente de la sesión y las reglas. Preguntar solo por decisiones nuevas o límites no autorizados, conservando identidad de cuenta y destino exacto.",
+    "before": "Tus reglas autorizan commits atómicos en ramas de trabajo, actualizar descripciones tras publicar y publicar rebases con protección. Las versiones anteriores de commit y pr pedían permiso en la misma petición o para cada operación.",
+    "after": "Las versiones revisadas respetan la autorización vigente de la sesión y las reglas. Preguntan solo por decisiones nuevas o límites no autorizados, conservando identidad de cuenta y destino exacto.",
     "keys": [
       "Local/commit",
       "Local/pr"
