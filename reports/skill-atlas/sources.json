@@ -236,6 +236,42 @@
       "label": "pstack/LICENSE",
       "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/LICENSE",
       "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
+    },
+    {
+      "id": "arena-pstack-source",
+      "label": "pstack/skills/arena/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/arena/SKILL.md",
+      "sha256": "e3a1f6c49a08b7e0b92134e53300d146f1f22ba83386d2019926e736df421851"
+    },
+    {
+      "id": "arena-pstack-isolation",
+      "label": "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md",
+      "sha256": "05294b40448e927c5da1c7b6f5c6b9fed3744637e3833d2d948b9154a9dd00bb"
+    },
+    {
+      "id": "arena-pstack-redesign",
+      "label": "pstack/skills/principle-redesign-from-first-principles/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/principle-redesign-from-first-principles/SKILL.md",
+      "sha256": "a1c7fd0a96b40e12a74bceb0e6bb20a9666dd844dcabfb624acb27da23b929fe"
+    },
+    {
+      "id": "arena-pstack-proof",
+      "label": "pstack/skills/principle-prove-it-works/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/principle-prove-it-works/SKILL.md",
+      "sha256": "ec79a15025bac8d33d62011c54f3b612733fd2a024e623b531b3637aa75070e2"
+    },
+    {
+      "id": "arena-pstack-laziness",
+      "label": "pstack/skills/principle-laziness-protocol/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/principle-laziness-protocol/SKILL.md",
+      "sha256": "9006579e9e3f33955d17569733db688ae65f22577dc3b21803d219a5a8445aff"
+    },
+    {
+      "id": "arena-pstack-license",
+      "label": "pstack/LICENSE",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/LICENSE",
+      "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
     }
   ],
   "skills": [
@@ -873,11 +909,11 @@
       "sha256": "e3a1f6c49a08b7e0b92134e53300d146f1f22ba83386d2019926e736df421851",
       "lines": 71,
       "category": "Coordinación",
-      "decision": "Optional",
-      "owner": "experimentos comparativos",
+      "decision": "Adapt first",
+      "owner": "arena (derivación creada)",
       "summary": "Compara soluciones, aplica una rúbrica, cruza evaluaciones y combina las mejores ideas antes de verificarlas.",
-      "reason": "Útil cuando existen diseños distintos y el coste de decidir supera el del experimento.",
-      "caution": "Requiere resultados aislados, límites de recursos, modelos disponibles y verificación final. No todas las tareas necesitan una competición."
+      "reason": "Derivación creada: conserva comparación, juez e integración, con modelos disponibles, aislamiento y contratos de especialistas.",
+      "caution": "Coste adicional de candidatos y juez. El consenso no prueba corrección; declarar fallos parciales y verificar la síntesis. Solo carga review-audit o blast-radius cuando se seleccionan como trabajadores, y conserva sus procedimientos."
     },
     {
       "id": "pstack-automate-me",
@@ -2715,5 +2751,13 @@
       "pstack/blast-radius"
     ],
     "status": "Created in repository as an independent skill; no global installation performed."
+  },
+  "arenaReview": {
+    "date": "2026-10-03",
+    "sourceCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+    "adopted": [
+      "pstack/arena"
+    ],
+    "status": "Created in repository with conditional specialist composition; no global installation performed."
   }
 }

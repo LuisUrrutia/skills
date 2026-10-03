@@ -38,6 +38,13 @@ const clusters = [
     "why": "Derivar una entrada pequeña con las modalidades de Matt y la observación de pstack. Debe terminar en el experimento y la decisión, sin necesitar work-mode ni arrancar implementación o publicación."
   },
   {
+    "title": "Comparar intentos completos",
+    "winner": "arena, con especialistas cuando corresponda",
+    "keys": ["pstack/arena", "pstack/principle-separate-before-serializing-shared-state", "Local/review-audit", "pstack/blast-radius"],
+    "text": "arena coordina intentos independientes de la misma tarea, un juez y una síntesis comprobada. review-audit produce auditorías; blast-radius investiga efectos indirectos. Pueden actuar como trabajadores sin convertirse en la misma skill.",
+    "why": "La derivación conserva el ciclo de pstack y adapta modelos, aislamiento y fallos parciales. El acuerdo no sustituye la evidencia. No necesita work-mode ni convierte al auditor individual en coordinador."
+  },
+  {
     "title": "Implementación completa",
     "winner": "work-mode, después de elegir las demás skills",
     "keys": [
@@ -298,7 +305,7 @@ const conflicts = [
     "title": "Dependencias del entorno de ejecución",
     "kind": "Runtime",
     "before": "pstack usa opciones Task, agentes con nombre, configuración de modelos, create-skill y /loop de Cursor. orchestrate necesita su SDK y una clave personal. La evaluación de activación de Anthropic utiliza el CLI de Claude.",
-    "after": "Definir primero la capacidad y adaptarla a herramientas reales de T3/Codex. Hacer condicional la delegación y omitir modelos no disponibles. No inventar comandos, agentes ni programadores.",
+    "after": "Definir primero la capacidad y adaptarla a herramientas reales de T3/Codex. Usar delegación real cuando la tarea la requiera y declarar los modelos solicitados que no estén disponibles. No inventar comandos, agentes ni programadores.",
     "keys": [
       "pstack/poteto-mode",
       "pstack/arena",

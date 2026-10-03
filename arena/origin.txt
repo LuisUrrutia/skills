@@ -1,0 +1,59 @@
+format_version = 1
+skill = "arena"
+created = "2026-10-03"
+approach = "Standalone derivation: preserve pstack's comparison cycle while adapting delegation, isolation, evidence, and specialist composition to the host."
+
+[[sources]]
+id = "pstack-arena"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+baseline_paths = ["pstack/skills/arena/SKILL.md", "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md", "pstack/skills/principle-redesign-from-first-principles/SKILL.md", "pstack/skills/principle-prove-it-works/SKILL.md", "pstack/skills/principle-laziness-protocol/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/arena/SKILL.md", "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md", "pstack/skills/principle-redesign-from-first-principles/SKILL.md", "pstack/skills/principle-prove-it-works/SKILL.md", "pstack/skills/principle-laziness-protocol/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Frame, fan out complete independent attempts, cross-judge, pick a base, graft useful parts, and verify.",
+  "Use a task-specific rubric, read every candidate, and record selection and graft provenance.",
+  "Separate mutable state before parallel work and use one integration writer.",
+  "Prefer a coherent, maintainable result and verify the actual integrated artifact."
+]
+local_choices = [
+  "Derive rather than wrap because host delegation, runner selection, paths, evidence handling, and specialist contracts change across several phases.",
+  "Use available host models and supported delegation; omit Cursor-only metadata, fixed slugs, model-rule files, and forced task-manager calls.",
+  "Share every acceptance requirement while keeping the coordinator's comparison notes and emerging preferences out of candidate prompts.",
+  "Respect host workspace ownership and isolate actual mutable targets; worktrees are conditional rather than mandatory.",
+  "Record real task IDs and settle child work; reject authored multiple personas as proof of execution.",
+  "With fewer than two usable candidates, label a verified survivor as a single attempt; disclose an unavailable judge and any unmet explicit requirement.",
+  "Bound recoverable retries and reframing instead of requiring repeated full contests.",
+  "Judge agreement and candidate consensus do not establish correctness; retain supported minority findings and unresolved premises.",
+  "Trace hard constraints to caller requirements or applicable rules; keep preferences and out-of-domain robustness distinct from contract failures.",
+  "Preserve conditional specialist procedures and strict report grammars; arena coordinates reviewers while review-audit remains an individual worker.",
+  "Keep blast-radius and review-audit distinct and prevent recursive arenas. No changes to those workers are required to create this coordinator.",
+  "Inline only the relevant principles; do not import the donors' full redesign, depth, artifact, or deletion rules.",
+  "Do not require show-me-your-work, an extra prose-cleanup skill, product repair, installation, or publication."
+]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+entrypoint = "../agent-instructions/SKILL.md"
+required = false
+role = "Required only for requested source maintenance and skill authoring."
+
+[[dependencies]]
+kind = "local"
+name = "blast-radius"
+entrypoint = "../blast-radius/SKILL.md"
+required = false
+role = "Required only when selected as the candidate's indirect-impact investigation procedure."
+
+[[dependencies]]
+kind = "local"
+name = "review-audit"
+required = false
+resolution = "Installed skill catalog; not bundled in this repository."
+role = "Required only when selected as the candidate's local audit procedure; its installed protocol and validator remain authoritative."
