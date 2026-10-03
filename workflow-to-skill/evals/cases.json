@@ -117,6 +117,23 @@
         "Keep interpreting conflicts, asking material unresolved choices, and producing an evidence-grounded summary with the agent.",
         "Do not add a script or wrapper without a concrete deterministic responsibility beyond the adequate existing command."
       ]
+    },
+    {
+      "id": "unconfirmed-workflow-objective",
+      "kind": "artifact",
+      "prompt": "Turn these completed report-checking sessions into a reusable report-check skill.",
+      "fixture": {
+        "history": [
+          "The user asked 'check this report'. The agent checked whether the figures matched the spreadsheet and found no mismatches. The user accepted the report.",
+          "The user asked 'check this report'. The agent corrected wording and section order without checking figures. The user accepted the report."
+        ],
+        "future_intent": "No future definition of 'check' has been supplied, and no instruction says whether factual reconciliation, editorial review, or both are intended."
+      },
+      "expectations": [
+        "Ask what future report checking should establish: factual reconciliation, editorial review, or both.",
+        "Do not treat acceptance of two different past outputs as confirmation of a single future objective.",
+        "Keep dependent skill behavior unresolved until the user answers; distinguish confirmed history from the unconfirmed reusable objective."
+      ]
     }
   ]
 }

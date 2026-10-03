@@ -18,6 +18,24 @@ Keep each rule, its reason, and its exceptions together. Give each behavior one
 authoritative home. Restating a specialist's procedure in an orchestrator creates
 two versions to maintain; name its input and completion evidence instead.
 
+## Choose words for their intended effect
+
+Use familiar terms and direct verbs. Check literal meaning and connotations:
+words can imply an obligation, breadth, effort, certainty, or permission that the
+user did not intend. "Prefer" and "require", "create" and "run", or "one" and
+"all" produce different behavior; they are not interchangeable in a rewrite.
+Explain a non-obvious constraint once. Prefer the desired action over a list of
+prohibitions; retain boundaries that protect authority, scope, or correctness.
+
+Make type, scope, quantity, depth, and completion evidence explicit where they
+distinguish plausible interpretations. For "create tests", establish what behavior
+or risk the tests must check, the relevant level (unit, integration, end-to-end,
+or smoke), whether to write or run them, and sufficient coverage or quantity.
+Use the user's objective and established context; an installed framework alone
+does not settle these choices. Ask the user about intent that remains unclear
+before encoding a test level, quota, or depth. Preserve room for judgment within
+the confirmed objective.
+
 ## Choose the form from the observed failure
 
 When correcting a failure, inspect the output and action trace before adding a
@@ -49,10 +67,6 @@ identify the inaccessible prerequisite" lets the next phase start honestly.
 For loops, state what progress means, what ends the loop, and what happens when
 the same blocker persists.
 
-Use familiar terms and direct verbs. Explain a non-obvious constraint once.
-Prefer the desired action over a list of prohibitions; retain explicit boundaries
-when crossing one changes authority, scope, or correctness.
-
 Separate the reusable workflow from domain decisions that the sources do not
 establish. A missing schema, rounding policy, or rule for dropping records is a
 contract to resolve, not a default to invent. Tell the future agent where to find
@@ -66,8 +80,11 @@ For each overlapping instruction, compare trigger, responsible owner, action,
 completion evidence, and authority. Similar wording can hide incompatible
 behavior: a read-only review and a repair workflow need different mutation scope.
 
-Select one rule or introduce an explicit condition. Record intentional deviations
-from donors in the existing provenance record when maintaining a derived skill.
+Resolve conflicts from established authority, scope, or an explicit user decision.
+If those do not establish the intended behavior, ask the user before combining the
+affected rules. Once intent is clear, keep the governing rule or state distinct
+conditions. Record intentional deviations from donors in the existing provenance
+record when maintaining a derived skill.
 For other documents, preserve their established attribution conventions rather
 than adding skill-specific files. Source popularity is not a reason to replace
 a local rule that serves the contract. Pay particular attention to changes in

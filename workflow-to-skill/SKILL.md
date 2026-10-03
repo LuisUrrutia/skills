@@ -52,8 +52,9 @@ or versions change.
 
 If the user already supplied a complete new capability rather than task history,
 route directly to `agent-instructions`. Missing recurrence is not a reason to
-refuse an explicitly requested skill. Ask only for missing evidence or decisions
-that materially affect what the workflow should do.
+refuse an explicitly requested skill. If the sources leave the intended objective
+or a conflict unresolved, ask the user before encoding that behavior. Accepted
+past outputs alone do not settle inconsistent future objectives.
 
 Finish extraction when each retained rule has a reason, varying inputs are
 explicit, and the division between code and agent decisions is clear. Separate
@@ -65,8 +66,9 @@ if they ask to create the skill, continue into writing.
 ## Write and verify the result
 
 Pass `agent-instructions` the proposed capability, source evidence, stable rules,
-varying inputs, exclusions, existing owners, suitable upstream candidates, and
-meaningful success/failure cases. Identify which outputs can be checked objectively.
+confirmed user decisions, unresolved questions, varying inputs, exclusions,
+existing owners, suitable upstream candidates, and meaningful success/failure
+cases. Identify which outputs can be checked objectively.
 For proposed automation, include existing execution owners, inputs, outputs,
 failure states, and effects; the writer owns helper implementation and packaging.
 The writer chooses reuse or derivation before drafting another implementation.

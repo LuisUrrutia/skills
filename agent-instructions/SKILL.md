@@ -35,9 +35,14 @@ Establish:
 - Relevant conditions, exceptions, permissions, and evidence of completion.
 - Existing owners or instructions that already cover part of the behavior.
 
-Use accessible evidence before asking. Ask only when an unresolved choice changes
-the intended behavior or scope materially; continue independent work. Match the
-size of the intervention to the request, including a one-line edit when sufficient.
+Use accessible evidence before asking. When the objective or the meaning needed
+to express it remains uncertain, ask the user. State the plausible interpretations
+and how they change the result. Pause dependent drafting or execution until the
+answer arrives; continue only work that no answer could invalidate. Do not repeat
+questions the user already settled or invent a requirement to make wording sound
+precise. Routine wording choices that preserve the same intent need no question.
+Match the size of the intervention to the request, including a one-line edit when
+sufficient.
 
 ## Choose the document and write
 
@@ -66,8 +71,8 @@ contradictions, misplaced scope, or an unresolved dependency.
 ## Verify the change
 
 Compare the revision with the intended meaning: actors, actions, conditions,
-exceptions, authority, and completion evidence. Check pointers, imports, and
-unrelated content that must survive.
+exceptions, obligation, quantity, authority, and completion evidence. Check
+pointers, imports, and unrelated content that must survive.
 
 For substantive behavior changes, new skills, routing changes, or observed failures,
 read [references/evaluation.md](references/evaluation.md) and choose relevant

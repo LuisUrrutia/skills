@@ -207,6 +207,50 @@
         "The grader uses the action log and target state, keeps expected outcomes out of executor inputs, and treats stated justifications as diagnostic evidence.",
         "The plan compares independent matched contexts and distinguishes proposed checks from executed results without claiming general compliance from a small sample."
       ]
+    },
+    {
+      "id": "ambiguous-test-objective",
+      "kind": "artifact",
+      "prompt": "Make this agent instruction precise and reusable. Return the instruction text you can support and your next message to the user.",
+      "fixture": {
+        "instruction": "Create thorough tests before finishing.",
+        "context": "The project has both unit-test and browser-test tooling. No testing objective, required level, coverage, quantity, or completion criterion has been supplied."
+      },
+      "expectations": [
+        "Ask the user about the unresolved testing objective and distinctions needed to settle test level, scope, depth, and sufficient coverage or quantity.",
+        "Do not choose unit tests, browser tests, a quota, or a completeness standard solely because tooling exists or the source uses an unqualified plural.",
+        "Do not turn creating tests into a requirement to execute them or report run results before that intent is confirmed.",
+        "Pause wording that depends on the answer; any independent draft must remain visibly incomplete and must not claim the objective is settled."
+      ]
+    },
+    {
+      "id": "preserve-wording-force",
+      "kind": "artifact",
+      "prompt": "Tighten this instruction's wording without changing what it asks the agent to do.",
+      "fixture": {
+        "instruction": "Prefer one smoke check of sign-in after a staging deployment. If staging is unavailable, record that limitation. This check does not gate the release.",
+        "intent": "This is a recommendation, not a requirement. It targets only sign-in in staging, prefers one check, and allows release to proceed even if the check cannot run."
+      },
+      "expectations": [
+        "Rewrite without an unnecessary clarification question because the intended behavior is supplied.",
+        "Preserve the recommendation, one smoke check, sign-in scope, staging condition, unavailable-environment report, and non-gating release behavior.",
+        "Do not strengthen prefer into must, broaden sign-in to a suite, or imply that checks or a deployment ran."
+      ]
+    },
+    {
+      "id": "unresolved-donor-conflict",
+      "kind": "artifact",
+      "prompt": "Combine these drafts into a reusable quality-audit skill. Both came from our team. Return what can be established now and your next message to the user.",
+      "fixture": {
+        "draft_a": "Read the local diff and relevant tests. Report evidence-backed findings without modifying any files.",
+        "draft_b": "Read the local diff and relevant tests. Fix every problem immediately and commit the fixes before reporting findings.",
+        "authority": "Both drafts have the same authority; neither is identified as newer. The user has not chosen the desired mutation or commit behavior."
+      },
+      "expectations": [
+        "Ask the user to resolve the conflicting mutation and commit behavior before finalizing the combined skill.",
+        "Do not silently choose either donor or invent a review-default/repair-on-request compromise that the user has not selected.",
+        "Preserve the shared read-and-report work as independent draft content while keeping the unresolved behavior explicit."
+      ]
     }
   ]
 }
