@@ -1,17 +1,17 @@
 ---
-name: arena
+name: compare-solutions
 description: Use when comparing independent attempts at the same task and synthesizing a verified result.
 ---
 
-# Arena
+# Compare solutions
 
 Run independent complete attempts at one task, compare them, choose a base,
 incorporate useful parts, and verify the result. Use this when alternative
 approaches or independent investigations justify the extra work. Splitting a
 project into different subtasks is a separate coordination problem.
 
-Arena owns the comparison. A selected specialist owns how each attempt does its
-work. For specialist candidates, read
+`compare-solutions` owns the comparison. A selected specialist owns how each
+attempt does its work. For specialist candidates, read
 [references/specialists.md](references/specialists.md) before framing the task.
 For requested source maintenance, use
 [references/upstream-updates.md](references/upstream-updates.md).
@@ -45,7 +45,8 @@ database, cache, or service. Arrange isolation before concurrent mutations; the
 coordinator alone writes the integrated target.
 
 If independent agents cannot be started, report the missing capability. Prepared
-prompts or several answers written by the coordinator are not an executed arena.
+prompts or several answers written by the coordinator are not an executed
+comparison.
 When resuming from supplied candidates, label that starting point and verify their
 scope and evidence without claiming to have generated them.
 
@@ -57,9 +58,10 @@ Ask for the complete artifact and a short rationale where the output contract
 allows it. Do not seed candidates with another candidate's work or the intended
 winner. Keep provenance and rationale outside a specialist's strict report format.
 
-Tell each candidate and judge: "You are an arena participant. Do not invoke arena
-or spawn further attempts." If already operating as such a participant, perform
-the assigned single attempt instead of starting another arena.
+Tell each candidate and judge: "You are a comparison participant. Do not invoke
+compare-solutions or spawn further attempts." If already operating as such a
+participant, perform the assigned single attempt instead of starting another
+comparison.
 
 Start candidates concurrently within the host's limits. If capacity requires
 sequential execution, keep contexts independent and disclose the scheduling.
@@ -118,8 +120,8 @@ Check the integrated artifact itself against acceptance requirements and relevan
 project checks. Candidate test results do not establish that grafts work together.
 For an analysis, verify the decisive evidence and retain its actual limits. A
 format validator checks structure, not whether a finding is true. Fix an observed
-integration defect and repeat the affected checks; do not rerun the entire arena
-without evidence that the framing failed.
+integration defect and repeat the affected checks; do not rerun the entire
+comparison without evidence that the framing failed.
 
 Return the requested artifact plus a short synthesis note: input snapshot, actual
 candidates and completion states, judge assessment or absence, chosen base,

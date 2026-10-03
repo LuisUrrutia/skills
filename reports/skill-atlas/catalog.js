@@ -910,10 +910,10 @@ window.SKILL_ATLAS = {
       "lines": 71,
       "category": "Coordinación",
       "decision": "Adapt first",
-      "owner": "arena (derivación creada)",
+      "owner": "compare-solutions (derivación creada)",
       "summary": "Compara soluciones, aplica una rúbrica, cruza evaluaciones y combina las mejores ideas antes de verificarlas.",
       "reason": "Derivación creada: conserva comparación, juez e integración, con modelos disponibles, aislamiento y contratos de especialistas.",
-      "caution": "Coste adicional de candidatos y juez. El consenso no prueba corrección; declarar fallos parciales y verificar la síntesis. Solo carga review-audit o blast-radius cuando se seleccionan como trabajadores, y conserva sus procedimientos."
+      "caution": "Coste adicional de candidatos y juez. El consenso no prueba corrección; declarar fallos parciales y verificar la síntesis. Solo carga review-audit o analyze-change-effects cuando se seleccionan como trabajadores, y conserva sus procedimientos."
     },
     {
       "id": "pstack-automate-me",
@@ -950,7 +950,7 @@ window.SKILL_ATLAS = {
       "lines": 50,
       "category": "Análisis de impacto",
       "decision": "Blend",
-      "owner": "blast-radius independiente (creada)",
+      "owner": "analyze-change-effects independiente (creada)",
       "summary": "Busca roturas indirectas y ejecuta código real para comprobar los supuestos de seguridad: formatos, dependencias, orden de ejecución y consumidores.",
       "reason": "Derivación creada que conserva la comprobación empírica de pstack y sustituye las invocaciones obligatorias a why, arena y unslop. Tiene una tarea propia con cambios implementados y admite propuestas como extensión local.",
       "caution": "Una prueba solo respalda las condiciones examinadas. Mantener separados los riesgos independientes, la inspección de código y la ejecución observada; informar de las dependencias o consumidores no disponibles."
@@ -2750,7 +2750,8 @@ window.SKILL_ATLAS = {
     "adopted": [
       "pstack/blast-radius"
     ],
-    "status": "Created in repository as an independent skill; no global installation performed."
+    "status": "Created in repository as an independent skill; no global installation performed.",
+    "localSkill": "analyze-change-effects"
   },
   "arenaReview": {
     "date": "2026-10-03",
@@ -2758,6 +2759,7 @@ window.SKILL_ATLAS = {
     "adopted": [
       "pstack/arena"
     ],
-    "status": "Created in repository with conditional specialist composition; no global installation performed."
+    "status": "Created in repository with conditional specialist composition; no global installation performed.",
+    "localSkill": "compare-solutions"
   }
 };

@@ -1,7 +1,7 @@
 # Requested upstream maintenance
 
-Read this only when checking or updating arena from its recorded sources.
-Ordinary arena runs do not fetch skill sources.
+Read this only when checking or updating compare-solutions from its recorded
+sources. Ordinary compare-solutions runs do not fetch skill sources.
 
 Use `agent-instructions` with this folder as the target. Resolve it from the
 installed catalog; this repository contains
@@ -11,9 +11,9 @@ shared procedure at
 If that maintenance-only dependency is unavailable, report the blocker and
 preserve the source pins. Ordinary use remains available.
 
-"Check arena for upstream changes" selects Check mode without changing files or
-pins. "Update arena from upstream" authorizes compatible changes and validation
-in Update mode. Neither request schedules background work.
+"Check compare-solutions for upstream changes" selects Check mode without changing
+files or pins. "Update compare-solutions from upstream" authorizes compatible
+changes and validation in Update mode. Neither request schedules background work.
 
 Read `../origin.txt` for source paths, baseline, review cursor, borrowed ideas, and
 local choices. Preserve independent complete attempts, settled artifacts before

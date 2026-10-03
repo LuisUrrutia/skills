@@ -103,12 +103,12 @@ evidence. Use it directly, without work-mode or an installed upstream skill.
 - Preserves contradictory evidence and reports missing sources without inventing intent
 - Derives from Lauren Tan's pstack/why with exact provenance and requested source maintenance
 
-### blast-radius
+### analyze-change-effects
 
 Trace what a change could break elsewhere and test the assumptions that decide
 whether those paths are safe. Use it directly for implemented or proposed changes.
 
-**Triggers:** `what could this change break`, `check the blast radius of this change`, `test whether old consumers still work`
+**Triggers:** `what could this change break`, `analyze the effects of this change`, `test whether old consumers still work`
 
 **Features:**
 
@@ -118,19 +118,19 @@ whether those paths are safe. Use it directly for implemented or proposed change
 - Preserves product files and respects explicit inspection-only requests
 - Records pstack provenance and supports requested maintenance through `agent-instructions`
 
-### arena
+### compare-solutions
 
 Compare independent complete attempts at one task, select a base, incorporate
 useful parts, and verify the integrated result. Use it directly when alternative
 solutions or independent investigations justify the extra work.
 
-**Triggers:** `compare independent solutions`, `run an arena on this design`, `reconcile independent audits of this diff`
+**Triggers:** `compare independent solutions`, `compare solutions to this design`, `reconcile independent audits of this diff`
 
 **Features:**
 
 - Uses actual host delegation and available models, with isolated mutable outputs
 - Judges settled candidates and checks the final artifact instead of trusting consensus
-- Supports conditional specialist workers, preserving review-audit and blast-radius contracts
+- Supports conditional specialist workers, preserving review-audit and analyze-change-effects contracts
 - Records failed candidates, missing judges, graft decisions, and verification limits
 - Preserves exact pstack sources and supports requested maintenance through `agent-instructions`
 

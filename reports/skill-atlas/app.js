@@ -39,9 +39,9 @@ const clusters = [
   },
   {
     "title": "Comparar intentos completos",
-    "winner": "arena, con especialistas cuando corresponda",
+    "winner": "compare-solutions, con especialistas cuando corresponda",
     "keys": ["pstack/arena", "pstack/principle-separate-before-serializing-shared-state", "Local/review-audit", "pstack/blast-radius"],
-    "text": "arena coordina intentos independientes de la misma tarea, un juez y una síntesis comprobada. review-audit produce auditorías; blast-radius investiga efectos indirectos. Pueden actuar como trabajadores sin convertirse en la misma skill.",
+    "text": "compare-solutions coordina intentos independientes de la misma tarea, un juez y una síntesis comprobada. review-audit produce auditorías; analyze-change-effects investiga efectos indirectos. Pueden actuar como trabajadores sin convertirse en la misma skill.",
     "why": "La derivación conserva el ciclo de pstack y adapta modelos, aislamiento y fallos parciales. El acuerdo no sustituye la evidencia. No necesita work-mode ni convierte al auditor individual en coordinador."
   },
   {
@@ -59,7 +59,7 @@ const clusters = [
   },
   {
     "title": "Entender y depurar",
-    "winner": "debug, how, why y blast-radius con entradas propias",
+    "winner": "debug, how, why y analyze-change-effects con entradas propias",
     "keys": [
       "Matt Pocock/diagnosing-bugs",
       "pstack/how",
@@ -67,8 +67,8 @@ const clusters = [
       "pstack/blast-radius",
       "Matt Pocock/research"
     ],
-    "text": "El diagnóstico reproduce fallos y contrasta causas. how explica estructura y ejecución; why reconstruye motivos; blast-radius comprueba efectos indirectos con código real; research consulta hechos externos. Son ramas complementarias, no cinco fases obligatorias.",
-    "why": "Las cuatro capacidades están creadas: debug investiga fallos; how explica mecanismos; why reconstruye decisiones; blast-radius prueba los supuestos que determinan qué puede romper un cambio en otra parte."
+    "text": "El diagnóstico reproduce fallos y contrasta causas. how explica estructura y ejecución; why reconstruye motivos; analyze-change-effects comprueba efectos indirectos con código real; research consulta hechos externos. Son ramas complementarias, no cinco fases obligatorias.",
+    "why": "Las cuatro capacidades están creadas: debug investiga fallos; how explica mecanismos; why reconstruye decisiones; analyze-change-effects prueba los supuestos que determinan qué puede romper un cambio en otra parte."
   },
   {
     "title": "Entrevistas, especificaciones y tareas",

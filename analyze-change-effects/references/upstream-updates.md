@@ -1,7 +1,7 @@
 # Requested upstream maintenance
 
-Read this only when checking or updating blast-radius from its recorded sources.
-Ordinary impact investigation does not fetch skill sources.
+Read this only when checking or updating analyze-change-effects from its recorded
+sources. Ordinary impact investigation does not fetch skill sources.
 
 Use `agent-instructions` with this folder as the target. Resolve it from the
 installed catalog; this repository contains
@@ -11,9 +11,10 @@ shared procedure at
 If that maintenance-only dependency is unavailable, report the blocker and
 preserve the source pins. Ordinary use remains available.
 
-"Check blast-radius for upstream changes" selects Check mode without changing
-files or pins. "Update blast-radius from upstream" authorizes compatible changes
-and validation in Update mode. Neither request schedules background work.
+"Check analyze-change-effects for upstream changes" selects Check mode without
+changing files or pins. "Update analyze-change-effects from upstream" authorizes
+compatible changes and validation in Update mode. Neither request schedules
+background work.
 
 Read `../origin.txt` for the baseline, review cursor, source paths, borrowed ideas,
 and local choices. Preserve the independent task of finding indirect breakage and

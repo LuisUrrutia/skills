@@ -8,9 +8,10 @@ work. Do not substitute an unrelated skill merely because it is available.
 
 Give every candidate the same specialist version, task scope, inputs, boundaries,
 and permitted actions. The skill retains its procedure and output contract.
-Arena controls the candidate agents, comparison, and integration; it does not
-rewrite the worker's responsibilities. Load domain guidance, such as React or
-GitHub Actions rules, when that candidate's task reaches the relevant domain.
+The coordinator controls the candidate agents, comparison, and integration; it
+does not rewrite the worker's responsibilities. Load domain guidance, such as
+React or GitHub Actions rules, when that candidate's task reaches the relevant
+domain.
 
 ## Review audit
 
@@ -30,16 +31,16 @@ premise or open question under the protocol; do not enlarge the audit to settle 
 Produce one report in the worker's current canonical grammar, with consistent
 finding IDs and every changed path accounted for. Validate the integrated report
 with the worker's validator. Preserve its status as candidates for verification;
-the arena does not turn it into an approved GitHub review. Put model attribution,
-judge scores, and graft decisions in the separate synthesis note. Use the worker's
-handoff or rendering mode as required by the caller.
+the coordinator does not turn it into an approved GitHub review. Put model
+attribution, judge scores, and graft decisions in the separate synthesis note.
+Use the worker's handoff or rendering mode as required by the caller.
 
-## Blast radius
+## Analyze change effects
 
-Use `blast-radius` for independent investigations of what the same change could
-break elsewhere. Preserve its deciding assumptions, evidence levels, execution
-permissions, and separation between implemented behavior and a proposal. Give
-executable probes isolated state as well as separate output paths.
+Use `analyze-change-effects` for independent investigations of what the same
+change could break elsewhere. Preserve its deciding assumptions, evidence levels,
+execution permissions, and separation between implemented behavior and a proposal.
+Give executable probes isolated state as well as separate output paths.
 
 Integrate independent hazards and their evidence. A source citation, local probe,
 and application reproduction remain different forms of support. Verify decisive
@@ -52,5 +53,5 @@ material assumption. A cleared path does not clear unrelated hazards.
 inside one candidate's work. Neither requires a new agent. Writing guidance can
 improve the synthesis note without changing technical findings or a report grammar.
 These are conditional supports, not an instruction to load every skill for every
-arena. This coordinator does not make blast-radius and review-audit equivalent,
-and workers must not recursively start arena.
+comparison. This coordinator does not make analyze-change-effects and review-audit
+equivalent, and workers must not recursively invoke compare-solutions.

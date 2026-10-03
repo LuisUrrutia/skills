@@ -1,9 +1,9 @@
 ---
-name: blast-radius
+name: analyze-change-effects
 description: Use when tracing and testing what a change could break elsewhere.
 ---
 
-# Blast radius
+# Analyze change effects
 
 Find effects beyond the changed code and test the assumptions that would make
 them safe. The result is a bounded account of breakage, cleared risks, and
