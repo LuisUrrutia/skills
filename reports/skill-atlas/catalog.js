@@ -512,6 +512,120 @@ window.SKILL_ATLAS = {
       "label": "Addy Osmani / MIT",
       "url": "https://github.com/addyosmani/agent-skills/blob/a06bc63b3f8b829c14b0bbf53d99fefc39d58092/LICENSE",
       "sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7"
+    },
+    {
+      "id": "addy-review-1",
+      "label": "Addy Osmani / skills/code-review-and-quality/SKILL.md",
+      "url": "https://github.com/addyosmani/agent-skills/blob/a06bc63b3f8b829c14b0bbf53d99fefc39d58092/skills/code-review-and-quality/SKILL.md",
+      "sha256": "2db1e850379f255fd3091ef278cde24cd6c7d2ba23e360cc52ea522c40d4396e"
+    },
+    {
+      "id": "addy-review-2",
+      "label": "Addy Osmani / references/security-checklist.md",
+      "url": "https://github.com/addyosmani/agent-skills/blob/a06bc63b3f8b829c14b0bbf53d99fefc39d58092/references/security-checklist.md",
+      "sha256": "37774056502fe8970dcd2fd27dca5fa31f2a55232649fc3056c89c3af7d62755"
+    },
+    {
+      "id": "addy-review-3",
+      "label": "Addy Osmani / references/performance-checklist.md",
+      "url": "https://github.com/addyosmani/agent-skills/blob/a06bc63b3f8b829c14b0bbf53d99fefc39d58092/references/performance-checklist.md",
+      "sha256": "40f564d1e62341e277c01ba42c42d95264b9ef3b8e5a23249dc6e121a7e70067"
+    },
+    {
+      "id": "addy-review-4",
+      "label": "Addy Osmani / LICENSE",
+      "url": "https://github.com/addyosmani/agent-skills/blob/a06bc63b3f8b829c14b0bbf53d99fefc39d58092/LICENSE",
+      "sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7"
+    },
+    {
+      "id": "superpowers-review-1",
+      "label": "Jesse Vincent / obra / skills/requesting-code-review/SKILL.md",
+      "url": "https://github.com/obra/superpowers/blob/8ca22dba9a94f28898bbce59f2537ff4d87c747d/skills/requesting-code-review/SKILL.md",
+      "sha256": "cfcee1b06774e7c0517f1e09be1a11f2d5680257072723e709ddbcf7e08b795a"
+    },
+    {
+      "id": "superpowers-review-2",
+      "label": "Jesse Vincent / obra / skills/requesting-code-review/code-reviewer.md",
+      "url": "https://github.com/obra/superpowers/blob/8ca22dba9a94f28898bbce59f2537ff4d87c747d/skills/requesting-code-review/code-reviewer.md",
+      "sha256": "82e370be6b3447523816286195571e4216ba56ba1ad6ad0e87862294c4c78dcb"
+    },
+    {
+      "id": "superpowers-review-3",
+      "label": "Jesse Vincent / obra / skills/receiving-code-review/SKILL.md",
+      "url": "https://github.com/obra/superpowers/blob/8ca22dba9a94f28898bbce59f2537ff4d87c747d/skills/receiving-code-review/SKILL.md",
+      "sha256": "091df1629510af1b92fc4abd6f96732ebedb4cb2c0f3457e8f2740b0504a2438"
+    },
+    {
+      "id": "superpowers-review-4",
+      "label": "Jesse Vincent / obra / LICENSE",
+      "url": "https://github.com/obra/superpowers/blob/8ca22dba9a94f28898bbce59f2537ff4d87c747d/LICENSE",
+      "sha256": "a37e0e9697144819e1d965176ac4ae5bc3fa02d11e7812036bbcadf6dafe2400"
+    },
+    {
+      "id": "thermos-review-1",
+      "label": "Cursor / Thermos / thermos/skills/thermo-nuclear-review/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/thermos/skills/thermo-nuclear-review/SKILL.md",
+      "sha256": "5091011c4490932d40658ae958fb55b9aaca8e2bba5196860295ab945180e434"
+    },
+    {
+      "id": "thermos-review-2",
+      "label": "Cursor / Thermos / thermos/skills/thermo-nuclear-code-quality-review/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/thermos/skills/thermo-nuclear-code-quality-review/SKILL.md",
+      "sha256": "7faca08b51b643b2ddd0836f92af15574444024685dcc1e677dbbb39ae8c9e8f"
+    },
+    {
+      "id": "thermos-review-3",
+      "label": "Cursor / Thermos / thermos/skills/thermos/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/thermos/skills/thermos/SKILL.md",
+      "sha256": "c272effc404b126d34464e8a1dacec30f6757638db39088ca5afc58dd2c1f472"
+    },
+    {
+      "id": "thermos-review-4",
+      "label": "Cursor / Thermos / thermos/agents/thermo-nuclear-review-subagent.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/thermos/agents/thermo-nuclear-review-subagent.md",
+      "sha256": "9dfa8ed88d1ea5d775edb5557b8a8ecfa9f2977b904c55c902b0ceb648b563d0"
+    },
+    {
+      "id": "thermos-review-5",
+      "label": "Cursor / Thermos / thermos/agents/thermo-nuclear-code-quality-review-subagent.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/thermos/agents/thermo-nuclear-code-quality-review-subagent.md",
+      "sha256": "636800f1e5acf501f339779a8867b95d633396930b3356a2b0c9a0018343f02d"
+    },
+    {
+      "id": "thermos-review-6",
+      "label": "Cursor / Thermos / thermos/.cursor-plugin/plugin.json",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/thermos/.cursor-plugin/plugin.json",
+      "sha256": "a9f5703ee225449ba7e23cbf68368a4d91542b69766685a9595aabaccdca1777"
+    },
+    {
+      "id": "thermos-review-7",
+      "label": "Cursor / Thermos / thermos/LICENSE",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/thermos/LICENSE",
+      "sha256": "702f5f331b56aff0e33d8c7826df5202559f894145eb70355c6477b55b5bb8a0"
+    },
+    {
+      "id": "cursor-quality-review-1",
+      "label": "Cursor Team Kit / cursor-team-kit/skills/thermo-nuclear-code-quality-review/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/cursor-team-kit/skills/thermo-nuclear-code-quality-review/SKILL.md",
+      "sha256": "7faca08b51b643b2ddd0836f92af15574444024685dcc1e677dbbb39ae8c9e8f"
+    },
+    {
+      "id": "cursor-quality-review-2",
+      "label": "Cursor Team Kit / cursor-team-kit/LICENSE",
+      "url": "https://github.com/cursor/plugins/blob/23e4138daa01c42d4969f7a5465f82704e64f798/cursor-team-kit/LICENSE",
+      "sha256": "702f5f331b56aff0e33d8c7826df5202559f894145eb70355c6477b55b5bb8a0"
+    },
+    {
+      "id": "matt-code-review-1",
+      "label": "Matt Pocock / skills/engineering/code-review/SKILL.md",
+      "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/engineering/code-review/SKILL.md",
+      "sha256": "47f4e52c21694def9c7c11cbfbf891ca35eac7a93e395797515be3c8a409ae50"
+    },
+    {
+      "id": "matt-code-review-2",
+      "label": "Matt Pocock / LICENSE",
+      "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/LICENSE",
+      "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
     }
   ],
   "skills": [
@@ -530,7 +644,7 @@ window.SKILL_ATLAS = {
       "lines": 87,
       "category": "Revisión de código",
       "decision": "Blend",
-      "owner": "review-audit",
+      "owner": "review-code-changes",
       "summary": "Separa la revisión en normas del repositorio y cobertura de requisitos, y reúne los hallazgos independientes.",
       "reason": "Aporta una comprobación explícita de requisitos frente a implementación a tu protocolo de auditoría.",
       "caution": "Depende de un gestor de tareas. Los revisores paralelos y las preguntas obligatorias deben adaptarse al entorno y a la evidencia disponible."
@@ -1070,7 +1184,7 @@ window.SKILL_ATLAS = {
       "lines": 192,
       "category": "Revisión de código",
       "decision": "Skip",
-      "owner": "criterio profundo de review-audit",
+      "owner": "criterio profundo de review-code-changes",
       "summary": "Revisa con rigor la mantenibilidad, las abstracciones, la complejidad y el crecimiento de archivos.",
       "reason": "Conservar como máximo una copia como referencia opcional para revisión profunda.",
       "caution": "Es idéntica byte a byte a la copia de thermos en la revisión analizada. Instalar ambas duplica instrucciones y nombres."
@@ -1153,7 +1267,7 @@ window.SKILL_ATLAS = {
       "owner": "compare-solutions (derivación creada)",
       "summary": "Compara soluciones, aplica una rúbrica, cruza evaluaciones y combina las mejores ideas antes de verificarlas.",
       "reason": "Derivación creada: conserva comparación, juez e integración, con modelos disponibles, aislamiento y contratos de especialistas.",
-      "caution": "Coste adicional de candidatos y juez. El consenso no prueba corrección; declarar fallos parciales y verificar la síntesis. Solo carga review-audit o analyze-change-effects cuando se seleccionan como trabajadores, y conserva sus procedimientos."
+      "caution": "Coste adicional de candidatos y juez. El consenso no prueba corrección; declarar fallos parciales y verificar la síntesis. Solo carga review-code-changes o analyze-change-effects cuando se seleccionan como trabajadores, y conserva sus procedimientos."
     },
     {
       "id": "pstack-automate-me",
@@ -1270,7 +1384,7 @@ window.SKILL_ATLAS = {
       "lines": 110,
       "category": "Revisión de código",
       "decision": "Optional",
-      "owner": "revisión profunda de review-audit",
+      "owner": "revisión profunda de review-code-changes",
       "summary": "Ejecuta revisores independientes sobre una intención y rúbrica comunes, y sintetiza un dictamen con evidencia.",
       "reason": "Aprovechar el tratamiento del desacuerdo para cambios de alto riesgo.",
       "caution": "El consenso es una señal, no una prueba. La revisión debe ser de lectura; el responsable del trabajo decide qué cambios aplicar."
@@ -2056,7 +2170,7 @@ window.SKILL_ATLAS = {
       "lines": 192,
       "category": "Revisión de código",
       "decision": "Optional",
-      "owner": "criterio profundo de review-audit",
+      "owner": "criterio profundo de review-code-changes",
       "summary": "Revisa con mucha exigencia abstracciones, complejidad estructural, tamaño de archivos y simplificaciones omitidas.",
       "reason": "Conservar preguntas estructurales seleccionadas como revisión profunda opcional.",
       "caution": "Evitar límites arbitrarios de tamaño y refactorizaciones fuera de alcance. Es idéntica a la copia de Cursor Team Kit."
@@ -2076,7 +2190,7 @@ window.SKILL_ATLAS = {
       "lines": 51,
       "category": "Revisión de código",
       "decision": "Blend",
-      "owner": "review-audit",
+      "owner": "review-code-changes",
       "summary": "Audita fallos introducidos, seguridad, cambios del flujo de desarrollo y escapes de controles de activación.",
       "reason": "Comparar sus criterios con tu protocolo causal y añadir únicamente carencias demostradas.",
       "caution": "Tu auditoría ya cubre estos ejes. Llamarla exhaustiva no sustituye demostrar que un fallo es alcanzable."
@@ -2096,7 +2210,7 @@ window.SKILL_ATLAS = {
       "lines": 21,
       "category": "Revisión de código",
       "decision": "Skip",
-      "owner": "coordinación de review-audit",
+      "owner": "coordinación de review-code-changes",
       "summary": "Ejecuta en paralelo revisiones de corrección y seguridad, y de mantenibilidad; luego elimina duplicados.",
       "reason": "Aprovechar la separación de responsabilidades cuando justifique una revisión independiente.",
       "caution": "No convertir thermos, interrogate, code-review de Matt y draft-review en cuatro revisores obligatorios."
@@ -2296,7 +2410,7 @@ window.SKILL_ATLAS = {
       "lines": 398,
       "category": "Revisión de código",
       "decision": "Blend",
-      "owner": "referencia de review-audit",
+      "owner": "referencia de review-code-changes",
       "summary": "Revisa corrección, legibilidad, arquitectura, seguridad y rendimiento con severidad y criterios prácticos.",
       "reason": "Tomar la revisión proporcionada y la separación explícita entre hechos y preferencias.",
       "caution": "Evitar otro responsable solapado, permisos generales para borrar código muerto o una auditoría profunda de rendimiento en cada diff."
@@ -2855,11 +2969,11 @@ window.SKILL_ATLAS = {
       "sha256": "7567bbe256a3965ee552f49aeb2733196a1655f44a6388c2794673b23741b580",
       "lines": 74,
       "category": "Revisión de código",
-      "decision": "Keep",
-      "owner": "review-audit",
+      "decision": "Blend",
+      "owner": "review-code-changes, creada en el repositorio",
       "summary": "Audita un diff declarado con trazas causales, cobertura de cada ruta modificada, evidencia y premisas pendientes.",
-      "reason": "Es la mejor opción principal para tu entorno. Añadir cobertura de requisitos solo si mejora su criterio actual de intención declarada.",
-      "caution": "Mantenerla de lectura. El coordinador decide y aplica los cambios aceptados."
+      "reason": "Conservamos su protocolo y generador, con requisitos, calidad estructural y comprobación de cobertura. La copia instalada permanece como fuente local.",
+      "caution": "La versión creada no está instalada. Las instantáneas originales conservan sus hashes; no atribuir sus modificaciones locales al commit del repositorio privado."
     },
     {
       "id": "local-draft-review",
@@ -3017,5 +3131,17 @@ window.SKILL_ATLAS = {
       "addy-agent-skills": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
     },
     "catalogScope": "Original 122 catalog entries retained. Newly requested Superpowers and GSD sources and updated derivation pins are supplementary evidence."
+  },
+  "reviewCodeChangesReview": {
+    "name": "review-code-changes",
+    "sourceFiles": 19,
+    "localSnapshots": 3,
+    "status": "created; bounded behavioral and mechanical validation passed",
+    "validationReport": "reports/review-code-changes-validation.json",
+    "liveTrials": 3,
+    "matchedComparison": "Both versions found both supported defects and rejected supplied false feedback; no detection superiority established.",
+    "boundaryCase": "No supported findings; one caller-owned compatibility question and partial coverage.",
+    "helperTests": 12,
+    "installedPredecessorModified": false
   }
 };

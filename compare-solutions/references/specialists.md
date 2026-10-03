@@ -13,13 +13,14 @@ does not rewrite the worker's responsibilities. Load domain guidance, such as
 React or GitHub Actions rules, when that candidate's task reaches the relevant
 domain.
 
-## Review audit
+## Review code changes
 
-Use `review-audit` for independent local audits of the same declared diff. Read
-its entrypoint and authoritative protocol before writing the candidate prompt.
-Supply the exact comparison, intent, caller-owned seams, and separate canonical
-report destinations. Every worker remains one auditor: it does not spawn reviewers,
-repair code, or publish feedback. Preserve its required validation and handoff.
+Use `review-code-changes` for independent local audits of the same declared diff.
+Read its entrypoint and authoritative protocol before writing the candidate prompt.
+Supply the exact comparison, changed-path inventory, intent, applicable standards,
+caller-owned seams, and separate canonical report destinations. Every worker
+remains one auditor: it does not spawn reviewers, repair code, or publish feedback.
+Preserve its required validation and handoff.
 
 Read the complete candidate reports, including open questions and coverage. Merge
 duplicate causal findings without losing distinct failure paths. Recheck disputed
@@ -30,7 +31,8 @@ premise or open question under the protocol; do not enlarge the audit to settle 
 
 Produce one report in the worker's current canonical grammar, with consistent
 finding IDs and every changed path accounted for. Validate the integrated report
-with the worker's validator. Preserve its status as candidates for verification;
+with the worker's validator and the shared inventory. Preserve required/optional
+actions, requirement coverage, check outcomes, and unresolved premises;
 the coordinator does not turn it into an approved GitHub review. Put model
 attribution, judge scores, and graft decisions in the separate synthesis note.
 Use the worker's handoff or rendering mode as required by the caller.
@@ -53,5 +55,5 @@ material assumption. A cleared path does not clear unrelated hazards.
 inside one candidate's work. Neither requires a new agent. Writing guidance can
 improve the synthesis note without changing technical findings or a report grammar.
 These are conditional supports, not an instruction to load every skill for every
-comparison. This coordinator does not make analyze-change-effects and review-audit
+comparison. This coordinator does not make analyze-change-effects and review-code-changes
 equivalent, and workers must not recursively invoke compare-solutions.

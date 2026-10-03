@@ -130,7 +130,7 @@ solutions or independent investigations justify the extra work.
 
 - Uses actual host delegation and available models, with isolated mutable outputs
 - Judges settled candidates and checks the final artifact instead of trusting consensus
-- Supports conditional specialist workers, preserving review-audit and analyze-change-effects contracts
+- Supports conditional specialist workers, preserving review-code-changes and analyze-change-effects contracts
 - Records failed candidates, missing judges, graft decisions, and verification limits
 - Preserves exact pstack sources and supports requested maintenance through `agent-instructions`
 
@@ -166,6 +166,23 @@ adapt to the project's language and runtime without language-specific examples.
 - Retains useful abstractions and checks material cost changes on sensitive paths
 - Respects review-only requests and separates cleanup from behavior-changing bug fixes
 - Uses why and verify conditionally, with pinned Cursor, pstack, and Addy Osmani provenance
+
+### review-code-changes
+
+Review a PR, branch, commit, or local changes for defects, unmet requirements,
+and code-quality regressions. This is the repository's successor to the installed
+review-audit skill; it preserves a read-only review phase and local reports.
+
+**Triggers:** `review this diff`, `review this branch`, `check this change against the spec`
+
+**Features:**
+
+- Pins the actual comparison and accounts for every declared changed path
+- Traces causal evidence, requirements, standards, structure, security, and verification
+- Distinguishes required changes, optional improvements, and unresolved questions
+- Uses relevant specialists within the review's scope and permissions
+- Validates Markdown coverage against a path inventory and renders HTML with an external stylesheet
+- Records local snapshot hashes and pinned Addy, Superpowers, Thermos, Cursor Team Kit, and Matt Pocock sources
 
 ### verification-authoring
 

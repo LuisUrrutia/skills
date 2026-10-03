@@ -41,7 +41,7 @@ const clusters = [
     "title": "Comparar intentos completos",
     "winner": "compare-solutions, con especialistas cuando corresponda",
     "keys": ["pstack/arena", "pstack/principle-separate-before-serializing-shared-state", "Local/review-audit", "pstack/blast-radius"],
-    "text": "compare-solutions coordina intentos independientes de la misma tarea, un juez y una síntesis comprobada. review-audit produce auditorías; analyze-change-effects investiga efectos indirectos. Pueden actuar como trabajadores sin convertirse en la misma skill.",
+    "text": "compare-solutions coordina intentos independientes de la misma tarea, un juez y una síntesis comprobada. review-code-changes produce auditorías; analyze-change-effects investiga efectos indirectos. Pueden actuar como trabajadores sin convertirse en la misma skill.",
     "why": "La derivación conserva el ciclo de pstack y adapta modelos, aislamiento y fallos parciales. El acuerdo no sustituye la evidencia. No necesita work-mode ni convierte al auditor individual en coordinador."
   },
   {
@@ -114,7 +114,7 @@ const clusters = [
   },
   {
     "title": "Revisión de código",
-    "winner": "Conservar review-audit",
+    "winner": "review-code-changes, creada desde tu auditoría",
     "keys": [
       "Local/review-audit",
       "Matt Pocock/code-review",
@@ -506,7 +506,7 @@ const scenarios = {
       ],
       [
         "Después",
-        "review-audit, limpieza acotada, commit, pr y pr-followup en la ejecución completa autorizada. Revisar las reglas pertinentes sobre el diff final."
+        "review-code-changes, limpieza acotada, commit, pr y pr-followup en la ejecución completa autorizada. Revisar las reglas pertinentes sobre el diff final."
       ]
     ],
     "note": "React Native, View Transitions y GitHub Actions se cargan solo si la tarea introduce esas necesidades."
