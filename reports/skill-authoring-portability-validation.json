@@ -1,0 +1,442 @@
+{
+  "date": "2026-10-04",
+  "status": "Completed bounded authoring correction with diagnostic failures and limits retained.",
+  "scope": "Skills authoring instructions and regression cases; the real Fleet migration remains separate work.",
+  "authority": "User-provided Fleet authoring handoff and request to correct the reported issues. No global rules or installed skill links were changed.",
+  "baseline_commit": "761cae18c3bd0d11d1b131baf59157c1e4d10e8b",
+  "files": {
+    "agent-instructions/SKILL.md": "fee06125e55bf8359953170972a88782a24a68665dcfe67adc62daf79850f8f8",
+    "agent-instructions/references/skills.md": "84020a2c9e78cd8d71fe55fcb09feb2ee453c9c501621ae7418a4bdc6f526f24",
+    "agent-instructions/evals/cases.json": "dafb22a5066e433d50dfd4c1c096d1a9c6483618f4ffa1169e485a72451c5fa9",
+    "workflow-to-skill/SKILL.md": "5e3257c690a7d17afff6ca8ad23ce0bc57f19ec4b42fcd7c3c409ad48a71594c",
+    "workflow-to-skill/evals/cases.json": "75890b2e3520cdd43daabb8f6fe6d172835fd0f44b244f572b0276409ccf04ee"
+  },
+  "decisions": [
+    "Put the history-extraction distinction in selection metadata and preserve direct writing from a complete new capability.",
+    "Keep the existing concision owner. Failed executions justified defining scope preservation through intended requests instead of retaining every old term; qualifiers need a concrete selection ambiguity. One generic build-agent example demonstrates how a capability covers subtasks. The placement rule applies to new and existing skills.",
+    "Bundle required package resources; resolve nested links and symlinks within the package while treating supplied runtime inputs, authorized outputs, external citations, and catalog dependencies separately.",
+    "Use references/ normally. The Fleet migration fixture explicitly requests that directory because its confirmed layout does.",
+    "Inspect source targets, preserve symlinks during relocation, and test required reads without the original checkout. Do not claim another operating system or login from simulated account directories.",
+    "Keep one authoritative resource and update its readers and writers during an authorized migration. No permanent validator or duplicate concision rule was added."
+  ],
+  "checks": [
+    {
+      "command": "fish -c 'uv run --offline --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py agent-instructions; and uv run --offline --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py workflow-to-skill'",
+      "result": "Both packages reported Skill is valid!; exit 0. Frontmatter/format validation only."
+    },
+    {
+      "command": "fish -c 'python3 -B -m unittest discover -s verification-authoring/tests -v'",
+      "result": "11 existing smoke tests passed; exit 0. This is outside the changed authoring behavior."
+    },
+    {
+      "command": "python3 .tmp/skill-authoring/verify-evidence.py",
+      "result": "Passed; exit 0. All frozen revisions and final package hashes match; 22/9 unique cases; 18 contained local Markdown links; unrelated cases unchanged. Six artifact trials prove actual entrypoint/reference reads and writes limited to requested outputs."
+    },
+    {
+      "command": "python3 .tmp/skill-authoring/verify-evidence.py",
+      "result": "Passed; exit 0. Broken relative links lose both files. The corrected copy yields account runner, /opt/agent/jobs, and the manual administration rule from an unrelated working directory while the disposable author repository is absent. Simulated account directories on macOS."
+    },
+    {
+      "command": "git diff --check",
+      "result": "Passed; exit 0."
+    },
+    {
+      "command": "python3 .tmp/skill-authoring/summarize-trials.py",
+      "result": "Six terminal successful CLI runs parsed. Skill event bodies match loaded entrypoints; writes, outputs, and outside-directory calls were inspected separately from process success."
+    },
+    {
+      "command": "git diff --cached --check",
+      "result": "Passed; exit 0."
+    }
+  ],
+  "build": "Not applicable: no compile/build entrypoint is configured for these Markdown/JSON package changes.",
+  "selection_probes": [
+    {
+      "context": "baseline",
+      "runner": "native collaboration",
+      "task": "/root/selection_baseline",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "result": "5/5 owner choices correct."
+    },
+    {
+      "context": "first candidate",
+      "runner": "native collaboration",
+      "task": "/root/selection_candidate",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "result": "5/5 owner choices correct; no improvement over baseline claimed."
+    },
+    {
+      "context": "final metadata",
+      "runner": "native collaboration",
+      "task": "/root/selection_final",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "result": "10/10 choices correct with the prose owner present: six direct authoring, two extraction, two unrelated tasks."
+    },
+    {
+      "context": "Generated description-r5 with the fixed neighbors from fleet-description-boundary",
+      "runner": "native collaboration",
+      "task": "/root/fleet_description_selection",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "result": "4/4: fleet, fleet, fleet, saas-billing. Description only; no body or evaluator expectations supplied."
+    }
+  ],
+  "limits": [
+    "Description-only owner probes are not host invocation. Separate Claude host traces establish the observed authoring loads.",
+    "The small diagnostic sample does not establish a reliability gain or the cause of the original selection miss.",
+    "Relocation used synthetic data and simulated account directories on macOS, not another operating system or real account login.",
+    "The real Fleet checkout, its inventory, installed links, and global routing were not changed. No SSH, remote machine operation, credential retrieval, privilege change, or publication was performed.",
+    "Normal host instruction discovery applied in routing runs. Baseline attempted out-of-fixture global-rule/Fleet globs; candidate read the real global AGENTS.md. Preserve these scope failures and generated global-rule assumptions; the routing observations do not establish filesystem isolation or end-to-end portability.",
+    "The mechanical relocation demonstration was performed by the coordinator with a subprocess read, not an independent model completing a real Fleet migration. It exercised separate simulated account directories on macOS.",
+    "Earlier host-routing and package-review runs used candidate-r2; their metadata and packaging constraints are unchanged in the final revision. Final description guidance was exercised separately.",
+    "The existing Fleet description rerun uses frozen candidate-r5. The final candidate additionally moves the general placement rule outside the existing-skill paragraph; that new-skill scope is exercised by the separate ci-log-inspection probe.",
+    "The report retains case references, settings, hashes, relevant action traces, outputs, verdicts, and failed attempts. Disposable trial packages and raw scratch streams are removed after completion; no private reasoning is included here.",
+    "Description scope was graded by coverage of access, setup, operations, and documentation requests, not a checklist requiring those exact verbs. The build-agent example resembles the incident; this known-case pass is not generalization evidence. The CI-log and backup-report probes cover nearby boundaries only."
+  ],
+  "format_version": 1,
+  "runners": {
+    "artifact": "claude --print --model claude-fable-5-1 --effort max --safe-mode --restricted --tools Read,Write,Edit --allowedTools Read,Write,Edit --strict-mcp-config --no-session-persistence --permission-prompts none --output-format stream-json --verbose < request.txt > events.jsonl 2> runner.stderr",
+    "host": "claude --print --model claude-fable-5-1 --effort max --tools Read,Write,Edit,Skill,Glob,Grep --allowedTools Read,Write,Edit,Skill,Glob,Grep --strict-mcp-config --setting-sources project --permission-prompts none --output-format stream-json --verbose",
+    "history_harness": "fish -c 'python3 .tmp/skill-authoring/run-history-trial.py baseline' and the same command with candidate. Each arm starts a unique --session-id and resumes it with --resume; the history is read and summarized in the preceding turn, then the next prompt is exactly the shorthand case prompt.",
+    "conditions": "Fresh contexts per arm, model claude-fable-5-1, effort max, evaluator expectations withheld. Package and description runs expose Read/Write/Edit only. Host trials expose project skill catalogs and normal host instruction discovery. No shell/network tools in any executor."
+  },
+  "behavioral_trials": [
+    {
+      "id": "package-baseline",
+      "revision": "baseline",
+      "runner": "artifact",
+      "terminal": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 29,
+        "duration_ms": 444206,
+        "permission_denials": []
+      },
+      "stream_sha256": "0fdcec7de2e8034ce325d7e37def9b41dfbd6511a4aff8d2fc229e7fe1c80dbc",
+      "loaded_skills": [],
+      "artifacts": {
+        "package-review.md": "2351f5b0baa2e2facadad3257551798d20bc7bc4de93fe271bcf1905345e1817",
+        "description.txt": "26e5dd786572aedd7ed764713914b4688e55dddf75923ead93f480ff8300199c"
+      },
+      "cases": [
+        "portable-resource-review",
+        "fleet-description-boundary"
+      ],
+      "supplied_resources": "Materialized variants a-e, actual resolved path metadata, old description and body contract. The description subtask did not include neighbor descriptions or selection requests.",
+      "instruction_sha256": {
+        "SKILL.md": "fba84f1987bda16a1e43cd117bd37e9cf327bdb4322135ef1cb69ba5f6f222c4",
+        "references/skills.md": "0c672674af48f16b9c897135fca90c7b858deb55b099898172f8faba60baaaae"
+      },
+      "trace": "Read the actual authoring entrypoint and skills reference, inspected the package variants, then wrote only package-review.md and description.txt. No package mutation or out-of-trial file call.",
+      "verdict": "Package classification passed: a/b/c rejected and d/e accepted, including the external runtime input/output distinction. Description failed: retained named-machine examples and a capability list.",
+      "description": "Use when inspecting or operating Luis's personal fleet machines such as Noir and Voidcore, their agent jobs and services, or when maintaining their inventory and setup instructions. Service-specific skills own application internals."
+    },
+    {
+      "id": "package-candidate",
+      "revision": "candidate-r2",
+      "runner": "artifact",
+      "terminal": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 24,
+        "duration_ms": 393150,
+        "permission_denials": []
+      },
+      "stream_sha256": "e395a639252dacf1dffe03d0471217185fdd1ff79e0aba077ad91eb7451dc9ba",
+      "loaded_skills": [],
+      "artifacts": {
+        "package-review.md": "849291d94561e5246eec872b1e334622a7b0ad34f24bde35e104d40dd6ef3a11",
+        "description.txt": "733c5fbc02f6709ec00e6c8b3e8a09ab6fb089706bcffd754d10702700d30189"
+      },
+      "cases": [
+        "portable-resource-review",
+        "fleet-description-boundary"
+      ],
+      "supplied_resources": "Materialized variants a-e, actual resolved path metadata, old description and body contract. The description subtask did not include neighbor descriptions or selection requests.",
+      "instruction_sha256": {
+        "SKILL.md": "fee06125e55bf8359953170972a88782a24a68665dcfe67adc62daf79850f8f8",
+        "references/skills.md": "ac3de09292ca40ef2e95554c67b34f8ae7fc29df6585751eac9918b54253c625"
+      },
+      "trace": "Read the actual authoring entrypoint and skills reference, inspected the package variants, then wrote only package-review.md and description.txt. No package mutation or out-of-trial file call.",
+      "verdict": "Package classification passed: a/b/c rejected and d/e accepted, including the external runtime input/output distinction. Description failed: retained named-machine examples and a capability list.",
+      "description": "Use when inspecting, configuring, or operating Luis's personal fleet machines such as Noir and Voidcore, and their agent jobs and services, or maintaining their inventory and setup instructions. Service-specific skills own application internals."
+    },
+    {
+      "id": "history-baseline",
+      "revision": "baseline",
+      "runner": "host",
+      "terminal": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 19,
+        "duration_ms": 323930,
+        "permission_denials": []
+      },
+      "stream_sha256": "3ab00b0c3f1f87dada4fe2f16e1f78b50715d5409a57413d3a511e691fd7a363",
+      "loaded_skills": [
+        {
+          "name": "workflow-to-skill",
+          "path": ".claude/skills/workflow-to-skill/SKILL.md",
+          "sha256": "dcb671370d695ec72ba2e403e43ffb2750c00f725faaba95a976aa210358d582",
+          "body_in_host_event": true
+        },
+        {
+          "name": "agent-instructions",
+          "path": ".claude/skills/agent-instructions/SKILL.md",
+          "sha256": "fba84f1987bda16a1e43cd117bd37e9cf327bdb4322135ef1cb69ba5f6f222c4",
+          "body_in_host_event": true
+        }
+      ],
+      "artifacts": {
+        "output/review-brief.md": "1e1dda5ef3e8172b329e4c2d9a76d11f16696c7a8f72d65b9c990969efc6fdc7",
+        "output/skills/fleet/origin.txt": "2f4b9626337627e33b29f73b3608a4c8cfc12ca3c250758ee5853ff7a3cffd54",
+        "output/skills/fleet/SKILL.md": "0459686a2320a782681f9d849738b54fd19e30ce170a2a8e009cb6e8d50e52d0"
+      },
+      "case": "workflow-to-skill/evals/cases.json:implicit-fleet-session-extraction",
+      "session_id": "2658fcfb-4104-4c53-99e9-0841349685b1",
+      "supplied_resources": "Synthetic history from the case presented and summarized in the preceding turn; both project authoring packages at the tested revision, with evaluator corpora excluded.",
+      "trace": "Skill(workflow-to-skill), then Skill(agent-instructions), then draft writes. Both host skill events contain the actual loaded body, verified against the source hash.",
+      "verdict": "Observed route and draft creation passed. Artifacts retain verified identity, unprivileged access, and human-admin boundaries. End-to-end portability and filesystem isolation are not established.",
+      "scope_limit": "Out-of-fixture Glob calls targeted ~/.agents/AGENTS_LOCAL.md and ~/.agents/skills/fleet; the draft also assumes the global AGENTS.md rules. No external file content was read through Read."
+    },
+    {
+      "id": "history-candidate",
+      "revision": "candidate-r2",
+      "runner": "host",
+      "terminal": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 22,
+        "duration_ms": 493545,
+        "permission_denials": []
+      },
+      "stream_sha256": "a55463036dc48536c9b8b316b1a51a0af6798b0a21b4ba0adb15e1cf62646dfe",
+      "loaded_skills": [
+        {
+          "name": "workflow-to-skill",
+          "path": ".claude/skills/workflow-to-skill/SKILL.md",
+          "sha256": "5e3257c690a7d17afff6ca8ad23ce0bc57f19ec4b42fcd7c3c409ad48a71594c",
+          "body_in_host_event": true
+        },
+        {
+          "name": "agent-instructions",
+          "path": ".claude/skills/agent-instructions/SKILL.md",
+          "sha256": "fee06125e55bf8359953170972a88782a24a68665dcfe67adc62daf79850f8f8",
+          "body_in_host_event": true
+        }
+      ],
+      "artifacts": {
+        "output/REVIEW-BRIEF.md": "40f7842dc8da2ad713e7a96cc08b8648dd314d2cb4d80c9229e0bae14a06f1df",
+        "output/fleet-agent-access/origin.txt": "e5d203bb0bba97895db303d86a12279ddd27e3fcad5da932da17886cee9eeed5",
+        "output/fleet-agent-access/SKILL.md": "69d1279d0bedaddb32ac40c4c43e0cc3acbfccb0b5f9d154279b958d1d8ab476",
+        "output/fleet-agent-access/templates/setup-record.md": "94b4085e0991fbaf04d134d524531a07adb68c02deeba6ab48aa61dd3d6328ba"
+      },
+      "case": "workflow-to-skill/evals/cases.json:implicit-fleet-session-extraction",
+      "session_id": "2db7d2de-0f08-4e8d-9024-45865d083ae1",
+      "supplied_resources": "Synthetic history from the case presented and summarized in the preceding turn; both project authoring packages at the tested revision, with evaluator corpora excluded.",
+      "trace": "Skill(workflow-to-skill), then Skill(agent-instructions), then draft writes. Both host skill events contain the actual loaded body, verified against the source hash.",
+      "verdict": "Observed route and draft creation passed. Artifacts retain verified identity, unprivileged access, and human-admin boundaries. End-to-end portability and filesystem isolation are not established.",
+      "scope_limit": "The executor read /Users/luisurrutia/.agents/AGENTS.md outside the requested trial directory and references global rules in its artifact. Preserve this scope failure."
+    },
+    {
+      "id": "direct-candidate",
+      "revision": "candidate-r2",
+      "runner": "host",
+      "terminal": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 24,
+        "duration_ms": 717905,
+        "permission_denials": []
+      },
+      "stream_sha256": "c9898b0bac2ea786a5a0668bbe123853c3c78c0f43d13db1d27bb947cf4ed4d8",
+      "loaded_skills": [
+        {
+          "name": "agent-instructions",
+          "path": ".claude/skills/agent-instructions/SKILL.md",
+          "sha256": "fee06125e55bf8359953170972a88782a24a68665dcfe67adc62daf79850f8f8",
+          "body_in_host_event": true
+        }
+      ],
+      "artifacts": {
+        "output/draft-notes.md": "4f2d7768da3cf62d97049fc3f62be514080a9b26331ac651333aab95187ad45a",
+        "output/release-summary/origin.txt": "a87a6475e37c0e75e058600368a6d43acc6a1a646006be32fe33eb38367e1018",
+        "output/release-summary/SKILL.md": "a66348d220f4bedde52b6ad7b8387105c3a1bf6ce703029f1b906d12fa844327",
+        "output/release-summary/evals/cases.json": "6b3fa05983ab7a05ec93dc1209f75d7b7a735d26d13c3ebfb0427d5beb4b3a2d",
+        "output/release-summary/evals/fixtures/misleading-subject.patch": "e912796ce32d0c566b4737fb3eefd2a4ea0b275bddffabd2c7b38f90f8f28a4b",
+        "output/release-summary/evals/fixtures/notesync-1.5.0.diff": "8d84abcff1c450d2697df3e160d761b8f47dfa818096735ce11cca53979726e4",
+        "output/release-summary/references/visibility.md": "1ab549bd38833c65075dc9102b9fecc8d66befc1ea0fa9ccb05021530f9b08ae",
+        "output/release-summary/templates/summary.md": "9d765e1b0c31c5b0d65a550f509a0ac3e8493969671f45594a6bd352dd3571dc"
+      },
+      "case": "agent-instructions/evals/cases.json:new-skill-without-history",
+      "supplied_resources": "Complete release-summary contract and project authoring catalog; no preceding task history.",
+      "trace": "Skill(agent-instructions) before draft writes; no workflow-to-skill invocation or history interview. Workflow source was read for provenance, not invoked as an extraction phase.",
+      "verdict": "Direct-authoring route passed; created a release-summary package from supplied diffs to Markdown. No publication. This does not validate execution of the generated skill."
+    },
+    {
+      "id": "route-baseline",
+      "revision": "baseline",
+      "runner": "host",
+      "terminal": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 27,
+        "duration_ms": 400785,
+        "permission_denials": []
+      },
+      "stream_sha256": "35c151a0bf14ca55f0110ff05cf108e58bf54e0e4c6539804a2da3a6d02eaa59",
+      "loaded_skills": [
+        {
+          "name": "workflow-to-skill",
+          "path": ".claude/skills/workflow-to-skill/SKILL.md",
+          "sha256": "dcb671370d695ec72ba2e403e43ffb2750c00f725faaba95a976aa210358d582",
+          "body_in_host_event": true
+        }
+      ],
+      "artifacts": {
+        "output/extraction.md": "b181fa0762f111f5b6cb905abfe1b26cf4b4bacfe6812cdd82c9a2dfbfea0f0f",
+        "output/review-brief.md": "78989633b0dd2a9733380a3b8260ff8fed28bc8742a3c473c0db4b26155f9e94",
+        "output/fleet-agent-access/origin.txt": "023c29612f72fc23f9f4ce2a540afe86fa478d304dcffc3f32a70d12515cf19d",
+        "output/fleet-agent-access/SKILL.md": "745e51bb1d3eb5e3f58d1828b69d663602bfb346ae685fc19ae441d0be92ddf7",
+        "output/fleet-agent-access/evals/cases.json": "b28dff6f7a80c406c8c35357f27f66cd374c6f3ce503d6f77364bce37c48c01d",
+        "output/fleet-agent-access/references/setup-record.md": "8bb3d2a6890043cae680abc55dc7e8a0226c61c87cca74b73ac795dae33a5b5b"
+      },
+      "case": "Supplementary supplied-history route probe",
+      "trace": "Skill(workflow-to-skill), Read(agent-instructions/SKILL.md), then draft writes.",
+      "verdict": "Observed route passed. History was attached in the same prompt, so this is not the required preceding-turn regression."
+    },
+    {
+      "id": "description-r3",
+      "revision": "candidate-r3",
+      "runner": "artifact",
+      "case": "agent-instructions/evals/cases.json:fleet-description-boundary",
+      "supplied_resources": "Old description and body contract only.",
+      "instruction_sha256": {
+        "SKILL.md": "fee06125e55bf8359953170972a88782a24a68665dcfe67adc62daf79850f8f8",
+        "references/skills.md": "5d265fa6e54751da814e1959f44a56f876b192aec9b171c93a9bf537cb71e8d4"
+      },
+      "terminal": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 7,
+        "duration_ms": 228656,
+        "permission_denials": []
+      },
+      "trace": "Read the actual authoring entrypoint, writing reference, and skills reference before writing description.txt. No external calls or source edits.",
+      "description": "Use when inspecting, operating, configuring, or documenting Luis's personal fleet machines such as Noir and Voidcore, including their agent jobs, services, inventory, and setup instructions. Service-specific skills own application internals.",
+      "artifact_sha256": "b449c673529320ba10c794ef8670d810a8b7195aa4cbf416d2b3147b2bc5104d",
+      "stream_sha256": "68d276bb11d1a4288567e4954ad0c70a3c726feddf2ec722afc030ecb1fa1d8b",
+      "verdict": "Failed concision: retained machine examples and a capability catalog. Successful CLI termination is not a behavioral pass."
+    },
+    {
+      "id": "description-context",
+      "revision": "candidate-r3",
+      "runner": "artifact",
+      "case": "agent-instructions/evals/cases.json:fleet-description-boundary",
+      "supplied_resources": "Full raw case: old description, body contract, four unlabeled requests, and fixed neighbor descriptions. Expectations withheld.",
+      "instruction_sha256": {
+        "SKILL.md": "fee06125e55bf8359953170972a88782a24a68665dcfe67adc62daf79850f8f8",
+        "references/skills.md": "5d265fa6e54751da814e1959f44a56f876b192aec9b171c93a9bf537cb71e8d4"
+      },
+      "terminal": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 7,
+        "duration_ms": 204505,
+        "permission_denials": []
+      },
+      "trace": "Read the actual authoring entrypoint, writing reference, and skills reference before writing description.txt. No external calls or source edits.",
+      "description": "Use when accessing, configuring, operating, or documenting Luis's fleet machines such as Noir and Voidcore, including their agent jobs, services, and inventory. Application internals belong to service-specific skills.",
+      "artifact_sha256": "46e2bb921920b06628944186efcd8ec21e0447dec3a0575608f1e57dd5cb6e64",
+      "stream_sha256": "5fe1431b8b0b39213d013878998ada658c3f371c76652c9562e3d40076231102",
+      "verdict": "Failed concision: retained machine examples and a capability catalog. Successful CLI termination is not a behavioral pass."
+    },
+    {
+      "id": "description-r4",
+      "revision": "candidate-r4",
+      "runner": "artifact",
+      "case": "agent-instructions/evals/cases.json:fleet-description-boundary",
+      "supplied_resources": "Full raw case: old description, body contract, four unlabeled requests, and fixed neighbor descriptions. Expectations withheld.",
+      "instruction_sha256": {
+        "SKILL.md": "fee06125e55bf8359953170972a88782a24a68665dcfe67adc62daf79850f8f8",
+        "references/skills.md": "4c9a68db18dda40875c8dbfa768fe57213daf041862ee78f971a27ac0e9ffd5a"
+      },
+      "terminal": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 8,
+        "duration_ms": 235542,
+        "permission_denials": []
+      },
+      "trace": "Read the actual authoring entrypoint, writing reference, and skills reference before writing description.txt. No external calls or source edits.",
+      "description": "Use when accessing, inspecting, configuring, operating, or documenting Luis's fleet machines, their agent jobs, or the fleet inventory. Service-specific skills own application internals.",
+      "artifact_sha256": "8d438756354d21547f724b5f5b980b5a935c20f762f0c4c4d8926dfe82d4381c",
+      "stream_sha256": "d03f129cd35f8aa2d72bdf7884d7d8cfe828bb18b8fbb59450844912c87b316b",
+      "verdict": "Partial correction: removed machine examples, but still retained a redundant enumeration of verbs and jobs/inventory objects."
+    },
+    {
+      "id": "description-r5",
+      "revision": "candidate-r5",
+      "runner": "artifact",
+      "case": "agent-instructions/evals/cases.json:fleet-description-boundary",
+      "supplied_resources": "Full raw case: old description, body contract, four unlabeled requests, and fixed neighbor descriptions. Expectations withheld.",
+      "instruction_sha256": {
+        "SKILL.md": "fee06125e55bf8359953170972a88782a24a68665dcfe67adc62daf79850f8f8",
+        "references/skills.md": "8b18cee28a0e37352b170ff4de58f7b36bfedef7224e5ea32e78538b2718953f"
+      },
+      "terminal": {
+        "subtype": "success",
+        "is_error": false,
+        "num_turns": 10,
+        "duration_ms": 227113,
+        "permission_denials": []
+      },
+      "trace": "Read the actual authoring entrypoint, writing reference, and skills reference before writing description.txt. No external calls or source edits.",
+      "description": "Use when setting up, operating, or documenting Luis's fleet machines and their agent jobs. Service-specific skills own application internals.",
+      "artifact_sha256": "b9759c8542381943dd421e173b2b1b8af4cb1eceed8badb2c40e37f1a30324f6",
+      "stream_sha256": "e4e5dd550be8429eb43c4887f7a7820eb8bda806647800d470a26d72f4e020d7",
+      "verdict": "Passed the known concise-description regression: a capability-level trigger covers setup, operations, and documentation; machine examples and the inventory/setup subtask list are absent. The short application-internals exclusion is supported by the supplied neighboring specialist. Independent selection passed all four requests."
+    }
+  ],
+  "diagnostics": [
+    "An initial restricted route run exposed only built-in skills in system/init, so it could not test project-catalog routing. The owned process was stopped and logs retained during evaluation; no behavioral score was assigned. The later normal-host run is reported separately.",
+    "Baseline and candidate package reviews both passed; matched history runs both selected the intended route. No improvement is claimed from these pairs.",
+    "The r3 full-context description run changed fixture exposure relative to the earlier r3 run. It is a diagnostic, not a matched instruction-effect comparison. The r3 full-context, r4, and r5 runs receive identical raw fixtures and runner settings.",
+    "The descriptor repeatedly preserved named examples and enumerated tasks. Public explanations described this as scope preservation. That explains the criterion targeted by the edit, not the model internal cause."
+  ],
+  "consultations": {
+    "profiles": "Codex gpt-6-astra Max via native collaboration; Claude claude-fable-5-1 with effort=max configured on five fresh T3 delegate_task calls. Both reviewed each frozen revision independently. The final Claude reviewer could not observe effort internally; Max is supported by the dispatch configuration. Reviews do not establish behavioral success.",
+    "astra_task": "/root/authoring_astra_review",
+    "fable_task_ids": [
+      "node:delegated-task:command%3Amcp%3A681985a8-df88-4343-bae8-d13b41022d0e%3Adelegate-task%3Askill-authoring-fable-max-20261004-r1",
+      "node:delegated-task:command%3Amcp%3A681985a8-df88-4343-bae8-d13b41022d0e%3Adelegate-task%3Askill-authoring-fable-max-20261004-r2",
+      "node:delegated-task:command%3Amcp%3A681985a8-df88-4343-bae8-d13b41022d0e%3Adelegate-task%3Askill-authoring-fable-max-20261004-r3",
+      "node:delegated-task:command%3Amcp%3A681985a8-df88-4343-bae8-d13b41022d0e%3Adelegate-task%3Askill-authoring-fable-max-20261004-r4",
+      "node:delegated-task:command%3Amcp%3A681985a8-df88-4343-bae8-d13b41022d0e%3Adelegate-task%3Askill-authoring-fable-max-20261004-r5"
+    ],
+    "dispositions": [
+      "Made references/ normal rather than universally mandatory; preserved symlinks during relocation and inspected source targets.",
+      "Restored creating/reviewing/improving in selection metadata, supplied fixed neighbors, strengthened direct-authoring and shorthand cases, and required preceding conversation turns.",
+      "Kept legitimate installation symlinks, exercised runtime input/output exceptions, aligned the Fleet fixture prompt with its requested references/ layout.",
+      "Retained one portability validation owner instead of adding a duplicate evidence-table row; left unrelated README and corpus usage cleanup outside scope.",
+      "Rounds 2 and 3 resolved earlier concerns. Round 4 accepted the scope-preservation criterion but Fable identified placement rules accidentally scoped only to existing skills. Final text restores general scope and includes one generic compact-description example. Both reviewers accepted candidate-final with no material remaining finding."
+    ]
+  },
+  "nearby_description_regression": {
+    "runner": "Native independent executor /root/description_boundary; gpt-6-astra Max",
+    "revision": "candidate-r4",
+    "case": "Shorten a legacy read-only backup-report description with separate backup-execution and backup-restore neighbors; queries cover report failure, snapshot listing, and database restoration.",
+    "output": "Use for read-only inspection and explanation of supplied backup reports.",
+    "verdict": "Concise artifact retains report-input and read-only boundaries; no broader execution or restoration authority. This is an artifact probe, not host invocation."
+  },
+  "new_description_regression": {
+    "runner": "Native independent executor /root/new_description_boundary; gpt-6-astra Max",
+    "revision": "candidate-final",
+    "case": "Write a new ci-log-inspection description from a complete read-only contract listing failed checks, timestamps, grouped errors, supported causes, and illustrative pipeline names. Queries cover explaining failures, listing failed checks, and fixing/rerunning CI; the ci-repair neighbor owns edits and reruns.",
+    "output": "Use for read-only analysis of supplied CI logs. For workflow edits or CI reruns, use ci-repair.",
+    "verdict": "Concise artifact omits illustrative pipeline names and the subtask list while preserving the input, read-only boundary, and distinct repair owner. Artifact probe, not host invocation."
+  }
+}

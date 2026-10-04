@@ -1,6 +1,6 @@
 ---
 name: agent-instructions
-description: Use when creating, reviewing, or improving AGENTS.md, CLAUDE.md, skills, or other agent instructions.
+description: Use when creating, reviewing, or improving AGENTS.md, CLAUDE.md, skills, or other agent instructions. For skill extraction from past work, start with workflow-to-skill.
 ---
 
 # Agent instructions
@@ -14,12 +14,13 @@ For a review-only request, return findings and proposed corrections with evidenc
 leave the source unchanged. Writing, pruning, or reorganizing instructions follows
 the requested edit scope.
 
-When the task is to discover and extract a reusable workflow from past work,
-`workflow-to-skill` owns that analysis and hands the resulting contract here for
-writing. `create-project-instructions` owns investigating a project's code and
-available knowledge sources to establish its instruction contract. Write directly
-from either skill's evidence handoff; do not send it back through discovery.
-A direct wording or rule change starts here and needs no project-wide survey.
+When a skill request draws on completed work or conversation history, start with
+`workflow-to-skill` to extract the contract before drafting, even if the user names
+no authoring skill. `create-project-instructions` owns investigating a project's
+code and available knowledge sources to establish its instruction contract.
+Write directly from either skill's evidence handoff or a fully supplied new
+capability; do not send it back through discovery. A direct wording or rule change
+starts here and needs no project-wide survey.
 
 For a request to check or update a skill from its recorded sources, use
 [references/upstream-updates.md](references/upstream-updates.md). Ordinary writing

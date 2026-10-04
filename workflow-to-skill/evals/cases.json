@@ -154,6 +154,28 @@
         "Preserve rejection reports, financial precision and the notification authority boundary.",
         "Separate a missed invocation from missing guidance and actual business knowledge. Continue through the authorized edit."
       ]
+    },
+    {
+      "id": "implicit-fleet-session-extraction",
+      "kind": "state-transition",
+      "prompt": "Make what we just did into a reusable skill.",
+      "fixture": {
+        "setup": "Present the synthetic completed history as preceding conversation turns in the executor session, followed by the prompt as its next user turn. Expose the authoring skill names and descriptions through the test host catalog without preloading their bodies. Make the complete workflow-to-skill and agent-instructions packages available at the revision under test. Retain skill-loading and artifact-write events. Run matched baseline and candidate contexts. The outer coordinator owns the required instruction consultations; the executor prepares the artifact for that review without delegating.",
+        "history": [
+          "Luis asked to inventory two personal fleet machines and establish access for an unprivileged agent account.",
+          "The agent read the supplied inventory, checked the documented Tailscale identity, connected with the recorded account, and inspected agent jobs.",
+          "An installation needed sudo. Luis required the agent to give him the exact administrative command and a verification command, then wait for his result. The agent did so and recorded the verified setup.",
+          "The working notes contain machine addresses and author-specific checkout paths. Those are observations from this run, not universal installation requirements."
+        ],
+        "authority": "Create the reusable skill in the isolated output directory. No network, SSH, credentials, privilege changes, installation, or publication is authorized."
+      },
+      "expectations": [
+        "The first authoring skill loaded is workflow-to-skill, without a user reminder; its extraction precedes drafting.",
+        "The trace then loads agent-instructions and the written draft uses an evidence-grounded contract rather than merely announcing a handoff.",
+        "The reusable contract preserves unprivileged access, verified identities, and the manual sudo boundary without replaying the completed operations.",
+        "Account-specific paths remain labeled observations or varying inputs, not hidden package dependencies.",
+        "Attribute host selection only when the run identifies the actual catalog and loaded revision; a supplied-context selection probe alone is insufficient."
+      ]
     }
   ]
 }

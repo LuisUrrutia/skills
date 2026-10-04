@@ -82,12 +82,13 @@
           "Clarify the instructions in claude.md without changing their scope.",
           "Create a skill for a new workflow we have not tried yet; here is its complete specification.",
           "Read these three completed task histories and extract a skill for their shared workflow.",
+          "Make what we just did into a reusable skill.",
           "Fix the failing GitHub Actions build in this application.",
           "Follow AGENTS.md and fix this React bug."
         ]
       },
       "expectations": [
-        "The first six requests enter agent-instructions; the seventh enters workflow-to-skill; the final two enter neither.",
+        "The first six requests enter agent-instructions; the seventh and eighth enter workflow-to-skill; the final two enter neither.",
         "A selection probe is not reported as observed host invocation."
       ]
     },
@@ -148,7 +149,8 @@
       },
       "expectations": [
         "The skill is created from the supplied contract without requiring prior repetition.",
-        "It returns the requested summary and does not acquire publishing authority."
+        "It returns the requested summary and does not acquire publishing authority.",
+        "No workflow-to-skill extraction or interview about prior runs precedes drafting."
       ]
     },
     {
@@ -422,6 +424,77 @@
         "Real child return schema and actor boundary remain intact.",
         "Preserves host-required yield/resumption and result collection; no duplicate dispatch or invented polling.",
         "Preserves explicit production approval and validation-failure blocker; no wider effects."
+      ]
+    },
+    {
+      "id": "fleet-description-boundary",
+      "kind": "artifact",
+      "prompt": "Make this Fleet skill description concise and useful for selection while preserving its scope. Return the revised description; leave procedures in the body.",
+      "fixture": {
+        "description": "Inspect and operate Luis's personal fleet machines, their agent jobs and services, or maintain their inventory and setup instructions. Use for named fleet machines such as Noir and Voidcore; service-specific skills own application internals.",
+        "body_contract": "Access, configure, operate, and document Luis's fleet machines and their agent jobs. Read the inventory for machine identities and accounts. Application internals belong to the service specialist. Administrative commands remain with the human unless separately authorized.",
+        "selection_setup": "Give the resulting name and description, without its body, to a separate selector beside the fixed synthetic neighbor_descriptions below. Keep these neighbor descriptions identical between arms and withhold the grading expectations.",
+        "queries": [
+          "Inspect the agent jobs on my fleet machine.",
+          "Set up access to a new machine in my fleet.",
+          "Update the inventory after changing a fleet machine.",
+          "Why did my external SaaS subscription price increase?"
+        ],
+        "neighbor_descriptions": {
+          "home-assistant": "Use when configuring or troubleshooting Home Assistant and its connected devices.",
+          "saas-billing": "Use when explaining external SaaS subscription invoices, prices, or charges.",
+          "agent-instructions": "Use when creating, reviewing, or improving agent instructions or skills.",
+          "workflow-to-skill": "Use when turning completed work into a reusable skill."
+        }
+      },
+      "expectations": [
+        "The description states when to select Fleet without a procedure, machine-example list, or capability catalog; no arbitrary word quota determines acceptance.",
+        "The independent selector chooses Fleet for the first three requests and the billing owner for the fourth.",
+        "The description preserves access, setup, operations, and documentation scope without granting permission to perform those actions.",
+        "Report the description-only trial as a selection probe unless host invocation is separately observed."
+      ]
+    },
+    {
+      "id": "portable-resource-review",
+      "kind": "artifact",
+      "prompt": "Review these skill packages for use after copying only each skill folder to another account. Report concrete defects and any valid cases. Do not modify the packages.",
+      "fixture": {
+        "setup": "Materialize each variant separately, with machines.md and instructions.md containing synthetic inventory data. For author-checkout paths, substitute the actual temporary author-account directory. Source resources exist during review. Preserve hashes for the read-only check.",
+        "variants": {
+          "a": "SKILL.md requires ../../machines.md and ../../instructions.md. Both files live in the repository above the skill.",
+          "b": "SKILL.md requires the absolute author-checkout path to machines.md, with a fallback to a hardcoded author home directory.",
+          "c": "SKILL.md links to references/machines.md; that file is a symlink to the author repository outside the package.",
+          "d": "SKILL.md links to references/machines.md and references/instructions.md, both regular files inside the package. references/instructions.md links to ../SKILL.md.",
+          "e": "The same contained references as d. The task supplies a project root and input/observations.json under that root as a runtime input outside the skill, and authorizes writing ../deliverables/inventory.md relative to that root. An inventory record labels /opt/agent/jobs as an observed remote workspace. An external documentation URL is a citation and home-assistant is a catalog-resolved skill dependency."
+        }
+      },
+      "expectations": [
+        "Reject a, b, and c as external bundled resource dependencies even while those resources exist on the author machine.",
+        "Accept the contained resource reads in d, including the parent traversal that stays inside the package.",
+        "Accept e without treating its supplied runtime input, authorized output, inventory data, URL, or registered dependency as an escaping bundled read.",
+        "Do not repair a relative escape by hardcoding a user, checkout, or operating-system-specific installation path.",
+        "The report separates source inspection from an actual relocation test and the packages remain byte-identical."
+      ]
+    },
+    {
+      "id": "fleet-package-relocation",
+      "kind": "state-transition",
+      "prompt": "Make this synthetic Fleet skill portable by moving its authoritative inventory and setup references under its references/ directory. Update all readers and writers, then verify the copied package from a different account layout without the original repository. Do not operate machines.",
+      "fixture": {
+        "files": {
+          "README.md": "# Fleet fixture\nRead [inventory](machines.md) and [setup](instructions.md).\n",
+          "machines.md": "# Synthetic inventory\nUnit Vega: account runner; observed remote workspace /opt/agent/jobs. This path is inventory data, not a local skill installation path.\n",
+          "instructions.md": "# Setup\nUse the verified inventory identity and unprivileged account. Supply administrative and verification commands to the human and wait for the result before dependent work. Update machines.md after verified changes.\n",
+          "skills/fleet/SKILL.md": "---\nname: fleet\ndescription: Use when accessing, configuring, or documenting fleet machines.\n---\n\n# Fleet\n\nResolve the installation symlink. The repository is two directories above this skill. Read [inventory](../../machines.md) and [setup](../../instructions.md). After authorized changes, update ../../machines.md. When the setup procedure changes, update ../../instructions.md.\n"
+        },
+        "relocation_setup": "Use separate author-account and recipient-account directories. Copy only skills/fleet with symlinks preserved, remove or deny access to the disposable source tree, and exercise reads from an unrelated working directory. Do not read the real Fleet checkout. Record whether the account change is simulated and which OS was actually tested."
+      },
+      "expectations": [
+        "Only skills/fleet/references/machines.md and references/instructions.md remain authoritative; the repository root contains no duplicate inventory or setup files.",
+        "The README, skill readers and writers, and setup instructions point to the canonical files. Remove the repository-parent assumption and reliance on symlink resolution to reach resources outside the package; locating the installed package through a symlink remains valid.",
+        "An actual read from the relocated package recovers the recorded account, workspace, and manual administration rule while the original source is unavailable.",
+        "No network, SSH, credential retrieval, privilege change, or real Fleet mutation occurs.",
+        "Report structural and relocation evidence without claiming another operating system or real account login was tested."
       ]
     }
   ]

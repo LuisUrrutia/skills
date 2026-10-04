@@ -1,6 +1,6 @@
 ---
 name: workflow-to-skill
-description: Use when turning completed tasks, recurring work, or session history into a reusable skill.
+description: Use when turning completed work, recurring tasks, or the current conversation into a reusable skill.
 ---
 
 # Workflow to skill
