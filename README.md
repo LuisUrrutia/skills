@@ -49,6 +49,7 @@ using this extraction workflow.
 - Reuses an existing skill owner when appropriate and continues through the actual edit
 - Separates missed activation from missing instructions, using traceable upstream extraction criteria
 - Follows deciding context and routes lessons to skills, project instructions, personal preferences, or existing checks
+- Gives automation owners a failing case, its rejection cause, and a valid acceptance case; extraction alone does not implement enforcement
 
 ### communicate-clearly
 
@@ -134,7 +135,8 @@ Use it directly or as one phase of a larger task; it does not require work-mode.
 - Returns a runnable artifact, observed evidence, tradeoffs, and a bounded recommendation
 - Keeps production implementation and delivery outside the prototype's scope
 - Records Matt Pocock and Lauren Tan's pstack sources at exact commits
-- Delegates requested source maintenance to `agent-instructions`; ordinary use has no skill dependency
+- Uses `verify` for performance-evidence assessment while retaining the experiment and a useful fallback when the specialist is unavailable
+- Delegates requested source maintenance to `agent-instructions`
 
 ### debug
 
@@ -149,6 +151,7 @@ Use it directly, without work-mode or an installed upstream skill.
 - Reuses or adds regression tests that exercise the failure without disproportionate setup
 - Compares effective environments and component boundaries, and revisits stalled explanations
 - Handles observation-sensitive failures with controlled schedules and explicit evidence limits
+- Uses `verify` for performance claims, including memory regressions, then continues the active diagnosis or repair
 - Preserves exact source commits and delegates requested maintenance to `agent-instructions`
 
 ### tdd
@@ -236,6 +239,7 @@ concrete software change. Use it directly for a decision or during authorized im
 
 - Derives types and operations from real caller usage and established constraints
 - Compares meaningful alternatives by correctness, caller effort, locality, state, and cost
+- Checks whether edits from partial context preserve enforced boundaries and authoritative registry relationships
 - Uses how, why, analyze-change-effects, prototype, and compare-solutions when the decision needs them
 - Handles shared invariants, retries, cancellation, external contracts, and migration when relevant
 - Revisits a design when repeated implementation friction exposes a wrong assumption
@@ -354,6 +358,8 @@ project's local `verify-<app>` recipe for application behavior.
 - Checks real user paths, side effects, build identity, and retained evidence
 - Separates failures, blocked checks, and partial success; a verification-only request does not authorize repair
 - Adds conditional browser evidence guidance and records pstack, Superpowers, GSD, and Addy Osmani sources
+- Assesses performance claims through completed correct work, comparable conditions, variation, and realistic resource budgets
+- Returns measurement verdicts to `debug` or `prototype` without starting another investigation or requiring benchmarks for functional checks
 
 ### commit
 

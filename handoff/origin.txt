@@ -10,13 +10,15 @@ repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
 baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
-reviewed_through = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "24fe0ef7737efae15c87225755e9f6f5965e4888"
 baseline_paths = ["skills/productivity/handoff/SKILL.md", "docs/productivity/handoff.md", "skills/productivity/handoff/agents/openai.yaml", "LICENSE"]
 paths = ["skills/productivity/handoff/SKILL.md", "docs/productivity/handoff.md", "skills/productivity/handoff/agents/openai.yaml", "LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Focused conversation export, references instead of copied plans, redaction, and a separate side-task continuation."]
 local_choices = ["Replace the literal Skill tool call with skill names resolved by the recipient.", "Use the normal discoverability of a new local skill; the description selects requested document creation, not an automatic phase-boundary export. No donor-specific invocation flags are imported.", "Honor the requested destination; otherwise OS temporary storage is valid subject to actual access, retention and write constraints."]
-reviews = []
+reviews = [
+  { from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60", to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+]
 
 [[sources]]
 id = "compound-handoff"

@@ -25,13 +25,15 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "9511e60321f7e533a187d62854a3d53a53752874"
-reviewed_through = "9511e60321f7e533a187d62854a3d53a53752874"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
 baseline_paths = ["pstack/skills/principle-boundary-discipline/SKILL.md", "pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-test-behavior-not-implementation/SKILL.md", "pstack/.cursor-plugin/plugin.json", "pstack/LICENSE"]
 paths = ["pstack/skills/principle-boundary-discipline/SKILL.md", "pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-test-behavior-not-implementation/SKILL.md", "pstack/.cursor-plugin/plugin.json", "pstack/LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Assign validation and translation to their boundaries and preserve domain contracts.", "Examine duplicate execution, interrupted work and reconciliation before replaying state changes.", "Exercise caller-visible results and effects against independent expectations."]
 local_choices = ["Internal trust depends on an invariant that still holds across persistence, concurrency and lifecycle changes.", "An idempotency key requires verified server-side guarantees; local flags or read-before-write do not prove deduplication.", "Do not import lifecycle-specific cleanup recipes or assume every operation can be replayed safely.", "Keep meaningful absence, status and interaction assertions when they establish a failure contract; no universal test-deletion rule.", "Preserve the caller's design, review or implementation scope, including unresolved business recovery policy."]
-reviews = []
+reviews = [
+  { from_commit = "9511e60321f7e533a187d62854a3d53a53752874", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Only pstack/.cursor-plugin/plugin.json changes version 0.15.7 to 0.15.9; the recorded behavioral files and MIT license are unchanged. No local instruction change."], deferred = [], validation = ["Verified immutable baseline and cursor ancestry; read the complete scoped diff and compared every scoped old/new blob.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+]
 
 [[dependencies]]
 kind = "local"

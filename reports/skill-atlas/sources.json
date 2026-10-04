@@ -4280,7 +4280,7 @@
   },
   "repositoryInventory": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "63dbdf9e43a54d4afe23d6f48473647a108be1a3",
+    "repositoryCommit": "f02df9bdf94164a1d280beecaf825ec6c8b90a2e",
     "scope": "Top-level skill packages present in this working tree. Presence does not prove installation, activation or production validation.",
     "groups": [
       "Instruction authoring",
@@ -4309,9 +4309,9 @@
       {
         "name": "workflow-to-skill",
         "category": "Instruction authoring",
-        "summary": "Extract reusable decisions from completed work and use agent-instructions to turn them into a skill.",
+        "summary": "Extract reusable decisions and route automation to its existing owner with failing and valid acceptance cases; agent-instructions owns writing.",
         "path": "workflow-to-skill/SKILL.md",
-        "sha256": "98467fa95351b6e688eff71493c18b698a6a847dcf0a5ab217d1d4838ec65217",
+        "sha256": "dcb671370d695ec72ba2e403e43ffb2750c00f725faaba95a976aa210358d582",
         "section": "authoring"
       },
       {
@@ -4349,7 +4349,7 @@
       {
         "name": "prototype",
         "category": "Understanding and design",
-        "summary": "Resolve a design or behavior question with a bounded experiment and observed results.",
+        "summary": "Build a bounded experiment or demo and return observed evidence; use verify for performance assessment with an explicit fallback.",
         "path": "prototype/SKILL.md",
         "sha256": "350e483e98c9b63ee64a11b88f452ae90deb022c66c5b98f3c469bb8f245bd71",
         "section": "prototype"
@@ -4357,17 +4357,17 @@
       {
         "name": "design-code-structure",
         "category": "Understanding and design",
-        "summary": "Design data models, interfaces and module boundaries, comparing alternatives when the decision is open.",
+        "summary": "Design caller-facing models and enforceable module boundaries; compare alternatives and changes made with partial context.",
         "path": "design-code-structure/SKILL.md",
-        "sha256": "540fb4f12ed044cb6d218cd715c5bf48f5ce96702ea9f3d8060ae77d099b557f",
+        "sha256": "3e8bcb4ba310977e2187c7748017a89adc17d1ea5a65c67ada8416b80de3d0ba",
         "section": "design-code-structure"
       },
       {
         "name": "debug",
         "category": "Implementation, verification and review",
-        "summary": "Reproduce an observed bug or performance regression, investigate its cause and repair it within the requested scope.",
+        "summary": "Diagnose observed failures and resource regressions; use verify for measurement assessment and repair within active authority.",
         "path": "debug/SKILL.md",
-        "sha256": "ddacafbb0b4b49c413c545221985cdcb90ffd007e556fec6503478d925adefaf",
+        "sha256": "12b71134c4d795478950975a14327d2b81dc4c164e46fede943b655b92fafc8e",
         "section": "debug"
       },
       {
@@ -4405,9 +4405,9 @@
       {
         "name": "verify",
         "category": "Implementation, verification and review",
-        "summary": "Select the local recipe, exercise relevant browser probes and user journeys, and check completion claims against current evidence.",
+        "summary": "Assess software claims against current execution evidence, with conditional browser and performance criteria and local application recipes.",
         "path": "verify/SKILL.md",
-        "sha256": "1c6fe17d6424f70abe4d954dc7b2ac09d226c60f7de40b23512be3353d7aa8a0",
+        "sha256": "a9f199e2a6d03d4a429b62ce14186822fc0646e71905826b6717715e1f1d3bef",
         "section": "verification"
       },
       {
@@ -7626,10 +7626,10 @@
   },
   "sourceProgress": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "63dbdf9e43a54d4afe23d6f48473647a108be1a3",
+    "repositoryCommit": "f02df9bdf94164a1d280beecaf825ec6c8b90a2e",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 128,
+      "ready": 131,
       "pending": 44,
       "optional": 48,
       "not-selected": 43
@@ -7647,10 +7647,10 @@
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 69,
-            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
+            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
             "sourceId": "matt-code-review",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
             "borrowed": [
               "Review specification conformance separately from applicable documented standards.",
               "Treat structural smells as judgment calls, with documented project conventions taking precedence."
@@ -7673,11 +7673,11 @@
           {
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
-            "line": 33,
-            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "line": 38,
+            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
             "sourceId": "matt-design",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
             "borrowed": [
               "A public interface includes the caller's required knowledge, not only signatures; prefer substantial behavior behind a simple surface.",
               "Use deletion, locality, real usage and interface-level behavioral tests to evaluate a module boundary.",
@@ -7705,10 +7705,10 @@
             "owner": "debug",
             "path": "debug/origin.txt",
             "line": 7,
-            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "mattpocock-debugging-and-tests",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
             "borrowed": [
               "An observation must reach the reported symptom; improve the feedback loop, minimize the trigger, test predictions, and rerun the original scenario.",
               "Distinguish a real regression boundary from a shallow test that misses the interacting behavior.",
@@ -7737,11 +7737,11 @@
           {
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
-            "line": 33,
-            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "line": 38,
+            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
             "sourceId": "matt-design",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
             "borrowed": [
               "A public interface includes the caller's required knowledge, not only signatures; prefer substantial behavior behind a simple surface.",
               "Use deletion, locality, real usage and interface-level behavioral tests to evaluate a module boundary.",
@@ -7797,10 +7797,10 @@
             "owner": "prototype",
             "path": "prototype/origin.txt",
             "line": 7,
-            "sha256": "de75fc6af220c4e8574f8fe5e509de4ac48e472d2d42aee8c5c67daee86039d8",
+            "sha256": "2816d9cb46740acaea71c9bd9ee870c80e87ba0a55b7bd4882df5faeedad898e",
             "sourceId": "mattpocock-prototype",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
             "borrowed": [
               "Choose the artifact from the question; separate logic and interface guidance.",
               "Expose relevant state, allow free exploration, and reset guided model walkthroughs.",
@@ -7828,10 +7828,10 @@
             "owner": "create-project-instructions",
             "path": "create-project-instructions/origin.txt",
             "line": 29,
-            "sha256": "ee568a65072da8240b2075cc13d18e7404fb23eef6ca6935f8ad7106fdab3f47",
+            "sha256": "74653e75c2b1e5c41b6cd272538e888809e64a0ee8b05f9a8948eb2432ac7fe1",
             "sourceId": "mattpocock-research",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
             "borrowed": [
               "Find primary evidence for consequential claims and retain references that let a reader verify them."
             ],
@@ -7853,11 +7853,11 @@
           {
             "owner": "workflow-to-skill",
             "path": "workflow-to-skill/origin.txt",
-            "line": 62,
-            "sha256": "79831a2cf2a8fde99f318a007f4e9ccacec4ba46a197b6e6674910ca8bec417f",
+            "line": 78,
+            "sha256": "3b38a8ac54a9410c3162c125949e8019be65eec24f719aabca4df9afc55725c0",
             "sourceId": "mattpocock-retro",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
             "borrowed": [
               "Route a lesson to its existing context or enforcement owner and inspect the check pipeline before duplicating it.",
               "Retain the reason a missed piece of information changed the outcome."
@@ -7882,10 +7882,10 @@
             "owner": "debug",
             "path": "debug/origin.txt",
             "line": 7,
-            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "mattpocock-debugging-and-tests",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
             "borrowed": [
               "An observation must reach the reported symptom; improve the feedback loop, minimize the trigger, test predictions, and rerun the original scenario.",
               "Distinguish a real regression boundary from a shallow test that misses the interacting behavior.",
@@ -7905,10 +7905,10 @@
             "owner": "tdd",
             "path": "tdd/origin.txt",
             "line": 7,
-            "sha256": "72bc7381dd93a0eea491631097b737bb12c4960ffa23cd2db97dcf6789a4f342",
+            "sha256": "439f5bf985721e33c2236fbc109ac07814f7eca14210d6c751cd6d5e3654af25",
             "sourceId": "mattpocock-tdd",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
             "borrowed": [
               "Implement one observable behavior at a time, with a failing test before the behavior change.",
               "Test through caller-visible interfaces with independent expected results rather than duplicating the production algorithm.",
@@ -7989,10 +7989,10 @@
             "owner": "handoff",
             "path": "handoff/origin.txt",
             "line": 7,
-            "sha256": "7d67b2ce5bab8880e9f6bcbe5e9de29b97def7886c6ae9ba8701c59e4037eefa",
+            "sha256": "8f3b25447d8381591f54ed7d1b76dbd4a1dac29c158d2eed502110fb87ecce20",
             "sourceId": "matt-handoff",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
             "borrowed": [
               "Focused conversation export, references instead of copied plans, redaction, and a separate side-task continuation."
             ],
@@ -8031,10 +8031,10 @@
             "owner": "agent-instructions",
             "path": "agent-instructions/origin.txt",
             "line": 7,
-            "sha256": "2e4a1e71fc80f08e8cf25f3199b47700810a271dd15b862ef1df0df0e2944a01",
+            "sha256": "8361b9e4cac942f936628bf15a4c76f5e316b655fd4b949f1b72097ed746dafc",
             "sourceId": "mattpocock-writing-for-agents",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
             "borrowed": [
               "Context pointers with explicit loading conditions and branch-specific references.",
               "Observable completion criteria and one authoritative home for each rule.",
@@ -8062,7 +8062,7 @@
             "owner": "simplify-code",
             "path": "simplify-code/origin.txt",
             "line": 7,
-            "sha256": "f48f70fc1f8a42e6fd5bc3fc5304824e68fbd95c06e3f8d9033df2b28f10dce3",
+            "sha256": "f5275d11eab03c2979656af8b604882ec66e1ff4be0496ae5a6aee6dc914e5ee",
             "sourceId": "cursor-deslop",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -8088,8 +8088,8 @@
           {
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
-            "line": 22,
-            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "line": 24,
+            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
             "sourceId": "cursor-ci-followup",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -8113,8 +8113,8 @@
           {
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
-            "line": 22,
-            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "line": 24,
+            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
             "sourceId": "cursor-ci-followup",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -8154,8 +8154,8 @@
           {
             "owner": "pr",
             "path": "pr/origin.txt",
-            "line": 22,
-            "sha256": "88c4aaa6aff213d0d0afcbd6af9c1c37352589e1d5f9720b9f1b954f5546e8d4",
+            "line": 24,
+            "sha256": "a1467ef6f51b587b41bf21533ce879f7e1e0b0a04300e68a70a855681608b01e",
             "sourceId": "cursor-reviewable-pr",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -8180,7 +8180,7 @@
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 54,
-            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
+            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
             "sourceId": "cursor-quality-review",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -8230,8 +8230,8 @@
           {
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
-            "line": 22,
-            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "line": 24,
+            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
             "sourceId": "cursor-ci-followup",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -8250,20 +8250,21 @@
         "owners": [
           "design-code-structure"
         ],
-        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "note": "The reviewed architect delta is adapted: partial-context design, enforceable boundaries and authoritative registries, preserving protocol, migration and invariant exceptions.",
         "evidence": [
           {
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Ground the existing mechanism and its consequential rationale before changing ownership.",
               "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
-              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion.",
+              "Evaluate edits made from partial context; make intended boundaries enforceable and derive related registries from an authority or check their relationship."
             ],
             "localChoices": [
               "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
@@ -8271,7 +8272,9 @@
               "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
               "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
               "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
-              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite.",
+              "Name existing enforcement mechanisms during design and implement only within authorized implementation; independently meaningful lists may differ.",
+              "Retain supported protocol, platform and compatibility routes until the authorized migration permits retirement; choose writer ownership from the actual invariant."
             ]
           }
         ]
@@ -8288,10 +8291,10 @@
             "owner": "compare-solutions",
             "path": "compare-solutions/origin.txt",
             "line": 7,
-            "sha256": "9e3da1e091f80a0318f89e08cca5b9d99bfa97533da71b3ef405a9c432bb88e7",
+            "sha256": "a2bee91db16df1d48fdbb3a959f9619530a43b21259838d2f7061f34b13b8d03",
             "sourceId": "pstack-arena",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Frame, fan out complete independent attempts, cross-judge, pick a base, graft useful parts, and verify.",
               "Use a task-specific rubric, read every candidate, and record selection and graft provenance.",
@@ -8337,10 +8340,10 @@
             "owner": "analyze-change-effects",
             "path": "analyze-change-effects/origin.txt",
             "line": 7,
-            "sha256": "91e707fe05777abcebc554edb4c1952d2a4284b6f529dbf6c31c3d6105cce191",
+            "sha256": "f4a85e70523a0148d8558daef51206b430541ad91ce84fd19849d1b9d8e30633",
             "sourceId": "pstack-blast-radius",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Find downstream breakage that a symbol search or the visible diff can miss.",
               "Identify deciding safety assumptions and test them by executing actual code.",
@@ -8366,11 +8369,11 @@
           {
             "owner": "debug",
             "path": "debug/origin.txt",
-            "line": 34,
-            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "line": 36,
+            "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "pstack-debugging-principles",
             "baselineCommit": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
-            "reviewedThrough": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Prefer a focused failing-before, passing-after regression test when a meaningful local test path exists; explain a practical fallback.",
               "Repair the mechanism, investigate related patterns, and inspect persistent state when restart behavior suggests it.",
@@ -8402,10 +8405,10 @@
             "owner": "verification-authoring",
             "path": "verification-authoring/origin.txt",
             "line": 7,
-            "sha256": "39b6e8f280243615e5d5cf9c5e664cfa4b31492aaf304b7dc3c403013621e912",
+            "sha256": "644950adab94aedd347fa671cfe48be455a482d0694523498b7a230a81c394b0",
             "sourceId": "pstack-verification",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Discover Surface, Run, Drive, Observe and Isolate from the repository before writing commands.",
               "Project-local verify-<app> with Launch, Doctor, Drive, Evidence, Cleanup and Helpers.",
@@ -8427,10 +8430,10 @@
             "owner": "verify",
             "path": "verify/origin.txt",
             "line": 7,
-            "sha256": "a7633efd37e995a789168d6c3fe0b84fecf1f29c688e5c5a9b2b83994164a9bd",
+            "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
             "sourceId": "pstack-verification",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Discover Surface, Run, Drive, Observe and Isolate from the repository before writing commands.",
               "Project-local verify-<app> with Launch, Doctor, Drive, Evidence, Cleanup and Helpers.",
@@ -8469,11 +8472,11 @@
           {
             "owner": "debug",
             "path": "debug/origin.txt",
-            "line": 34,
-            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "line": 36,
+            "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "pstack-debugging-principles",
             "baselineCommit": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
-            "reviewedThrough": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Prefer a focused failing-before, passing-after regression test when a meaningful local test path exists; explain a practical fallback.",
               "Repair the mechanism, investigate related patterns, and inspect persistent state when restart behavior suggests it.",
@@ -8494,10 +8497,10 @@
             "owner": "how",
             "path": "how/origin.txt",
             "line": 7,
-            "sha256": "ca148245387333f413ef911d095060bb7ad0077ee690bc77e60dd8aec6679c3f",
+            "sha256": "2f7067b727b012acfcad4da0b98dd0be037b3e816b16a43c3c5412d2673001ab",
             "sourceId": "pstack-how-and-teach",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Trace entry points, concrete calls, data transformations, ownership, and boundaries from the actual implementation.",
               "Scale exploration to the question, reconcile conflicting evidence, and name gaps instead of guessing.",
@@ -8540,10 +8543,10 @@
             "owner": "verification-authoring",
             "path": "verification-authoring/origin.txt",
             "line": 7,
-            "sha256": "39b6e8f280243615e5d5cf9c5e664cfa4b31492aaf304b7dc3c403013621e912",
+            "sha256": "644950adab94aedd347fa671cfe48be455a482d0694523498b7a230a81c394b0",
             "sourceId": "pstack-verification",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Discover Surface, Run, Drive, Observe and Isolate from the repository before writing commands.",
               "Project-local verify-<app> with Launch, Doctor, Drive, Evidence, Cleanup and Helpers.",
@@ -8565,10 +8568,10 @@
             "owner": "verify",
             "path": "verify/origin.txt",
             "line": 7,
-            "sha256": "a7633efd37e995a789168d6c3fe0b84fecf1f29c688e5c5a9b2b83994164a9bd",
+            "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
             "sourceId": "pstack-verification",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Discover Surface, Run, Drive, Observe and Isolate from the repository before writing commands.",
               "Project-local verify-<app> with Launch, Doctor, Drive, Evidence, Cleanup and Helpers.",
@@ -8600,10 +8603,10 @@
             "owner": "simplify-code",
             "path": "simplify-code/origin.txt",
             "line": 22,
-            "sha256": "f48f70fc1f8a42e6fd5bc3fc5304824e68fbd95c06e3f8d9033df2b28f10dce3",
+            "sha256": "f5275d11eab03c2979656af8b604882ec66e1ff4be0496ae5a6aee6dc914e5ee",
             "sourceId": "pstack-comments",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Inspect comments against surrounding code and trace consequential constraints.",
               "Distinguish narration from public contracts, external gotchas, legal notices and tooling directives; prefer a scoped code encoding where it preserves the constraint."
@@ -8626,8 +8629,8 @@
           {
             "owner": "handoff",
             "path": "handoff/origin.txt",
-            "line": 67,
-            "sha256": "7d67b2ce5bab8880e9f6bcbe5e9de29b97def7886c6ae9ba8701c59e4037eefa",
+            "line": 69,
+            "sha256": "8f3b25447d8381591f54ed7d1b76dbd4a1dac29c158d2eed502110fb87ecce20",
             "sourceId": "cursor-handoff",
             "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -8653,11 +8656,11 @@
           {
             "owner": "prototype",
             "path": "prototype/origin.txt",
-            "line": 32,
-            "sha256": "de75fc6af220c4e8574f8fe5e509de4ac48e472d2d42aee8c5c67daee86039d8",
+            "line": 34,
+            "sha256": "2816d9cb46740acaea71c9bd9ee870c80e87ba0a55b7bd4882df5faeedad898e",
             "sourceId": "pstack-prototype-playbook",
             "baselineCommit": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
-            "reviewedThrough": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Use an isolated disposable experiment to resolve a concrete decision.",
               "Allow small empirical behavior or timing experiments as well as visual alternatives.",
@@ -8667,7 +8670,7 @@
               "The source is a playbook inside poteto-mode, not an independently installable skill.",
               "No Cursor tool names, parent-mode dependency, or automatic handoff to Feature or architect.",
               "Gather references and alternatives only when the question needs them.",
-              "Timing evidence compares correct behavior under comparable conditions and reports variability.",
+              "Timing evidence uses verify for shared assessment, with local correctness, comparability and variability checks retained when that optional specialist is unavailable.",
               "Preserve existing wider authorization without requiring a new permission gate."
             ]
           }
@@ -8694,14 +8697,15 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Ground the existing mechanism and its consequential rationale before changing ownership.",
               "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
-              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion.",
+              "Evaluate edits made from partial context; make intended boundaries enforceable and derive related registries from an authority or check their relationship."
             ],
             "localChoices": [
               "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
@@ -8709,17 +8713,19 @@
               "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
               "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
               "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
-              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite.",
+              "Name existing enforcement mechanisms during design and implement only within authorized implementation; independently meaningful lists may differ.",
+              "Retain supported protocol, platform and compatibility routes until the authorized migration permits retirement; choose writer ownership from the actual invariant."
             ]
           },
           {
             "owner": "error-handling",
             "path": "error-handling/origin.txt",
             "line": 22,
-            "sha256": "9a4e7ece968243cd826a24f19ae701c8a8c4aac413fe7685e446b79fedbe98f9",
+            "sha256": "c07372e9c0ac8a471ce71fab6f2315527bdfbf78ec2b99de594db4880d390406",
             "sourceId": "pstack-boundaries-and-recovery",
             "baselineCommit": "9511e60321f7e533a187d62854a3d53a53752874",
-            "reviewedThrough": "9511e60321f7e533a187d62854a3d53a53752874",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Assign validation and translation to their boundaries and preserve domain contracts.",
               "Examine duplicate execution, interrupted work and reconciliation before replaying state changes.",
@@ -8802,14 +8808,15 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Ground the existing mechanism and its consequential rationale before changing ownership.",
               "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
-              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion.",
+              "Evaluate edits made from partial context; make intended boundaries enforceable and derive related registries from an authority or check their relationship."
             ],
             "localChoices": [
               "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
@@ -8817,7 +8824,9 @@
               "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
               "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
               "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
-              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite.",
+              "Name existing enforcement mechanisms during design and implement only within authorized implementation; independently meaningful lists may differ.",
+              "Retain supported protocol, platform and compatibility routes until the authorized migration permits retirement; choose writer ownership from the actual invariant."
             ]
           }
         ]
@@ -8840,11 +8849,11 @@
           {
             "owner": "debug",
             "path": "debug/origin.txt",
-            "line": 34,
-            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "line": 36,
+            "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "pstack-debugging-principles",
             "baselineCommit": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
-            "reviewedThrough": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Prefer a focused failing-before, passing-after regression test when a meaningful local test path exists; explain a practical fallback.",
               "Repair the mechanism, investigate related patterns, and inspect persistent state when restart behavior suggests it.",
@@ -8875,14 +8884,15 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Ground the existing mechanism and its consequential rationale before changing ownership.",
               "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
-              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion.",
+              "Evaluate edits made from partial context; make intended boundaries enforceable and derive related registries from an authority or check their relationship."
             ],
             "localChoices": [
               "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
@@ -8890,7 +8900,9 @@
               "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
               "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
               "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
-              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite.",
+              "Name existing enforcement mechanisms during design and implement only within authorized implementation; independently meaningful lists may differ.",
+              "Retain supported protocol, platform and compatibility routes until the authorized migration permits retirement; choose writer ownership from the actual invariant."
             ]
           }
         ]
@@ -8914,10 +8926,10 @@
             "owner": "compare-solutions",
             "path": "compare-solutions/origin.txt",
             "line": 7,
-            "sha256": "9e3da1e091f80a0318f89e08cca5b9d99bfa97533da71b3ef405a9c432bb88e7",
+            "sha256": "a2bee91db16df1d48fdbb3a959f9619530a43b21259838d2f7061f34b13b8d03",
             "sourceId": "pstack-arena",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Frame, fan out complete independent attempts, cross-judge, pick a base, graft useful parts, and verify.",
               "Use a task-specific rubric, read every candidate, and record selection and graft provenance.",
@@ -8957,14 +8969,15 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Ground the existing mechanism and its consequential rationale before changing ownership.",
               "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
-              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion.",
+              "Evaluate edits made from partial context; make intended boundaries enforceable and derive related registries from an authority or check their relationship."
             ],
             "localChoices": [
               "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
@@ -8972,17 +8985,19 @@
               "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
               "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
               "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
-              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite.",
+              "Name existing enforcement mechanisms during design and implement only within authorized implementation; independently meaningful lists may differ.",
+              "Retain supported protocol, platform and compatibility routes until the authorized migration permits retirement; choose writer ownership from the actual invariant."
             ]
           },
           {
             "owner": "error-handling",
             "path": "error-handling/origin.txt",
             "line": 22,
-            "sha256": "9a4e7ece968243cd826a24f19ae701c8a8c4aac413fe7685e446b79fedbe98f9",
+            "sha256": "c07372e9c0ac8a471ce71fab6f2315527bdfbf78ec2b99de594db4880d390406",
             "sourceId": "pstack-boundaries-and-recovery",
             "baselineCommit": "9511e60321f7e533a187d62854a3d53a53752874",
-            "reviewedThrough": "9511e60321f7e533a187d62854a3d53a53752874",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Assign validation and translation to their boundaries and preserve domain contracts.",
               "Examine duplicate execution, interrupted work and reconciliation before replaying state changes.",
@@ -9036,14 +9051,15 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Ground the existing mechanism and its consequential rationale before changing ownership.",
               "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
-              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion.",
+              "Evaluate edits made from partial context; make intended boundaries enforceable and derive related registries from an authority or check their relationship."
             ],
             "localChoices": [
               "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
@@ -9051,7 +9067,9 @@
               "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
               "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
               "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
-              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite.",
+              "Name existing enforcement mechanisms during design and implement only within authorized implementation; independently meaningful lists may differ.",
+              "Retain supported protocol, platform and compatibility routes until the authorized migration permits retirement; choose writer ownership from the actual invariant."
             ]
           },
           {
@@ -9088,14 +9106,15 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Ground the existing mechanism and its consequential rationale before changing ownership.",
               "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
-              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion.",
+              "Evaluate edits made from partial context; make intended boundaries enforceable and derive related registries from an authority or check their relationship."
             ],
             "localChoices": [
               "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
@@ -9103,7 +9122,9 @@
               "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
               "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
               "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
-              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite.",
+              "Name existing enforcement mechanisms during design and implement only within authorized implementation; independently meaningful lists may differ.",
+              "Retain supported protocol, platform and compatibility routes until the authorized migration permits retirement; choose writer ownership from the actual invariant."
             ]
           },
           {
@@ -9154,10 +9175,10 @@
             "owner": "compare-solutions",
             "path": "compare-solutions/origin.txt",
             "line": 7,
-            "sha256": "9e3da1e091f80a0318f89e08cca5b9d99bfa97533da71b3ef405a9c432bb88e7",
+            "sha256": "a2bee91db16df1d48fdbb3a959f9619530a43b21259838d2f7061f34b13b8d03",
             "sourceId": "pstack-arena",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Frame, fan out complete independent attempts, cross-judge, pick a base, graft useful parts, and verify.",
               "Use a task-specific rubric, read every candidate, and record selection and graft provenance.",
@@ -9215,10 +9236,10 @@
             "owner": "compare-solutions",
             "path": "compare-solutions/origin.txt",
             "line": 7,
-            "sha256": "9e3da1e091f80a0318f89e08cca5b9d99bfa97533da71b3ef405a9c432bb88e7",
+            "sha256": "a2bee91db16df1d48fdbb3a959f9619530a43b21259838d2f7061f34b13b8d03",
             "sourceId": "pstack-arena",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Frame, fan out complete independent attempts, cross-judge, pick a base, graft useful parts, and verify.",
               "Use a task-specific rubric, read every candidate, and record selection and graft provenance.",
@@ -9246,14 +9267,15 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Ground the existing mechanism and its consequential rationale before changing ownership.",
               "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
-              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion.",
+              "Evaluate edits made from partial context; make intended boundaries enforceable and derive related registries from an authority or check their relationship."
             ],
             "localChoices": [
               "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
@@ -9261,7 +9283,9 @@
               "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
               "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
               "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
-              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite.",
+              "Name existing enforcement mechanisms during design and implement only within authorized implementation; independently meaningful lists may differ.",
+              "Retain supported protocol, platform and compatibility routes until the authorized migration permits retirement; choose writer ownership from the actual invariant."
             ]
           }
         ]
@@ -9280,10 +9304,10 @@
             "owner": "compare-solutions",
             "path": "compare-solutions/origin.txt",
             "line": 7,
-            "sha256": "9e3da1e091f80a0318f89e08cca5b9d99bfa97533da71b3ef405a9c432bb88e7",
+            "sha256": "a2bee91db16df1d48fdbb3a959f9619530a43b21259838d2f7061f34b13b8d03",
             "sourceId": "pstack-arena",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Frame, fan out complete independent attempts, cross-judge, pick a base, graft useful parts, and verify.",
               "Use a task-specific rubric, read every candidate, and record selection and graft provenance.",
@@ -9311,14 +9335,15 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Ground the existing mechanism and its consequential rationale before changing ownership.",
               "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
-              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion.",
+              "Evaluate edits made from partial context; make intended boundaries enforceable and derive related registries from an authority or check their relationship."
             ],
             "localChoices": [
               "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
@@ -9326,7 +9351,9 @@
               "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
               "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
               "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
-              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite.",
+              "Name existing enforcement mechanisms during design and implement only within authorized implementation; independently meaningful lists may differ.",
+              "Retain supported protocol, platform and compatibility routes until the authorized migration permits retirement; choose writer ownership from the actual invariant."
             ]
           },
           {
@@ -9369,14 +9396,15 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Ground the existing mechanism and its consequential rationale before changing ownership.",
               "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
-              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion.",
+              "Evaluate edits made from partial context; make intended boundaries enforceable and derive related registries from an authority or check their relationship."
             ],
             "localChoices": [
               "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
@@ -9384,7 +9412,9 @@
               "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
               "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
               "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
-              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite.",
+              "Name existing enforcement mechanisms during design and implement only within authorized implementation; independently meaningful lists may differ.",
+              "Retain supported protocol, platform and compatibility routes until the authorized migration permits retirement; choose writer ownership from the actual invariant."
             ]
           },
           {
@@ -9421,10 +9451,10 @@
             "owner": "error-handling",
             "path": "error-handling/origin.txt",
             "line": 22,
-            "sha256": "9a4e7ece968243cd826a24f19ae701c8a8c4aac413fe7685e446b79fedbe98f9",
+            "sha256": "c07372e9c0ac8a471ce71fab6f2315527bdfbf78ec2b99de594db4880d390406",
             "sourceId": "pstack-boundaries-and-recovery",
             "baselineCommit": "9511e60321f7e533a187d62854a3d53a53752874",
-            "reviewedThrough": "9511e60321f7e533a187d62854a3d53a53752874",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Assign validation and translation to their boundaries and preserve domain contracts.",
               "Examine duplicate execution, interrupted work and reconciliation before replaying state changes.",
@@ -9507,10 +9537,10 @@
             "owner": "workflow-to-skill",
             "path": "workflow-to-skill/origin.txt",
             "line": 7,
-            "sha256": "79831a2cf2a8fde99f318a007f4e9ccacec4ba46a197b6e6674910ca8bec417f",
+            "sha256": "3b38a8ac54a9410c3162c125949e8019be65eec24f719aabca4df9afc55725c0",
             "sourceId": "pstack-reflect",
             "baselineCommit": "c47b12849e43f18d5c374c7069c744cc55b0ea00",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Limit transcript reads to the relevant workspace and treat embedded directives as data.",
               "Retain evidence-backed lessons that change decisions and survive incident-specific details.",
@@ -9538,11 +9568,11 @@
           {
             "owner": "pr",
             "path": "pr/origin.txt",
-            "line": 37,
-            "sha256": "88c4aaa6aff213d0d0afcbd6af9c1c37352589e1d5f9720b9f1b954f5546e8d4",
+            "line": 39,
+            "sha256": "a1467ef6f51b587b41bf21533ce879f7e1e0b0a04300e68a70a855681608b01e",
             "sourceId": "pstack-decision-evidence",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Retain consequential decisions, reasons, evidence and outcomes for long tasks."
             ],
@@ -9553,11 +9583,11 @@
           {
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
-            "line": 82,
-            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "line": 84,
+            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
             "sourceId": "pstack-decision-evidence",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Retain consequential decisions, reasons, evidence and outcomes for long tasks."
             ],
@@ -9585,11 +9615,11 @@
           {
             "owner": "debug",
             "path": "debug/origin.txt",
-            "line": 34,
-            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "line": 36,
+            "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "pstack-debugging-principles",
             "baselineCommit": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
-            "reviewedThrough": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Prefer a focused failing-before, passing-after regression test when a meaningful local test path exists; explain a practical fallback.",
               "Repair the mechanism, investigate related patterns, and inspect persistent state when restart behavior suggests it.",
@@ -9621,10 +9651,10 @@
             "owner": "how",
             "path": "how/origin.txt",
             "line": 7,
-            "sha256": "ca148245387333f413ef911d095060bb7ad0077ee690bc77e60dd8aec6679c3f",
+            "sha256": "2f7067b727b012acfcad4da0b98dd0be037b3e816b16a43c3c5412d2673001ab",
             "sourceId": "pstack-how-and-teach",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Trace entry points, concrete calls, data transformations, ownership, and boundaries from the actual implementation.",
               "Scale exploration to the question, reconcile conflicting evidence, and name gaps instead of guessing.",
@@ -9649,7 +9679,7 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 22,
-            "sha256": "2e038f5a8f5e8fb670970ab9c213eb16e9912a14e7ed64423ffb402b9d06a700",
+            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
             "sourceId": "cursor",
             "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9676,7 +9706,7 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 22,
-            "sha256": "2e038f5a8f5e8fb670970ab9c213eb16e9912a14e7ed64423ffb402b9d06a700",
+            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
             "sourceId": "cursor",
             "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9747,7 +9777,7 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 22,
-            "sha256": "2e038f5a8f5e8fb670970ab9c213eb16e9912a14e7ed64423ffb402b9d06a700",
+            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
             "sourceId": "cursor",
             "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9773,11 +9803,11 @@
           {
             "owner": "debug",
             "path": "debug/origin.txt",
-            "line": 34,
-            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "line": 36,
+            "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "pstack-debugging-principles",
             "baselineCommit": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
-            "reviewedThrough": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Prefer a focused failing-before, passing-after regression test when a meaningful local test path exists; explain a practical fallback.",
               "Repair the mechanism, investigate related patterns, and inspect persistent state when restart behavior suggests it.",
@@ -9798,10 +9828,10 @@
             "owner": "why",
             "path": "why/origin.txt",
             "line": 7,
-            "sha256": "205299fc0f87eb984225df2428b4d86a60f22c5d738fccf1a9ff7292e420c24c",
+            "sha256": "6ed24be9975191f9d87e9a4bf9c9b4391e2ca36dada70c5070a363319672bff6",
             "sourceId": "pstack-why",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
-            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Anchor the question in actual code, then follow history and relevant linked records.",
               "Distinguish documented motivation, indirect evidence, speculation, and unknowns; test the user's hypothesis independently.",
@@ -9848,7 +9878,7 @@
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 39,
-            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
+            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
             "sourceId": "thermos-review",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -9875,7 +9905,7 @@
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 39,
-            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
+            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
             "sourceId": "thermos-review",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -9902,7 +9932,7 @@
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 39,
-            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
+            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
             "sourceId": "thermos-review",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -9928,8 +9958,8 @@
           {
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
-            "line": 129,
-            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
+            "line": 131,
+            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
             "sourceId": "dyl-review",
             "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9958,8 +9988,8 @@
           {
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
-            "line": 37,
-            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "line": 39,
+            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
             "sourceId": "dyl-pr-readiness",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -9983,8 +10013,8 @@
           {
             "owner": "pr",
             "path": "pr/origin.txt",
-            "line": 82,
-            "sha256": "88c4aaa6aff213d0d0afcbd6af9c1c37352589e1d5f9720b9f1b954f5546e8d4",
+            "line": 86,
+            "sha256": "a1467ef6f51b587b41bf21533ce879f7e1e0b0a04300e68a70a855681608b01e",
             "sourceId": "humanlayer-visual-pr",
             "baselineCommit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
             "reviewedThrough": "ca7c8088db69e315a8b2deea43820270457f8f3c",
@@ -10015,8 +10045,8 @@
           {
             "owner": "agent-instructions",
             "path": "agent-instructions/origin.txt",
-            "line": 110,
-            "sha256": "2e4a1e71fc80f08e8cf25f3199b47700810a271dd15b862ef1df0df0e2944a01",
+            "line": 112,
+            "sha256": "8361b9e4cac942f936628bf15a4c76f5e316b655fd4b949f1b72097ed746dafc",
             "sourceId": "humanlayer-improve-claude-md",
             "baselineCommit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
             "reviewedThrough": "ca7c8088db69e315a8b2deea43820270457f8f3c",
@@ -10058,8 +10088,8 @@
           {
             "owner": "agent-instructions",
             "path": "agent-instructions/origin.txt",
-            "line": 31,
-            "sha256": "2e4a1e71fc80f08e8cf25f3199b47700810a271dd15b862ef1df0df0e2944a01",
+            "line": 33,
+            "sha256": "8361b9e4cac942f936628bf15a4c76f5e316b655fd4b949f1b72097ed746dafc",
             "sourceId": "anthropic-skill-creator",
             "baselineCommit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
             "reviewedThrough": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
@@ -10077,8 +10107,8 @@
           {
             "owner": "workflow-to-skill",
             "path": "workflow-to-skill/origin.txt",
-            "line": 34,
-            "sha256": "79831a2cf2a8fde99f318a007f4e9ccacec4ba46a197b6e6674910ca8bec417f",
+            "line": 35,
+            "sha256": "3b38a8ac54a9410c3162c125949e8019be65eec24f719aabca4df9afc55725c0",
             "sourceId": "anthropic-skill-creator-capture-intent",
             "baselineCommit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
             "reviewedThrough": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
@@ -10105,8 +10135,8 @@
           {
             "owner": "verify",
             "path": "verify/origin.txt",
-            "line": 78,
-            "sha256": "a7633efd37e995a789168d6c3fe0b84fecf1f29c688e5c5a9b2b83994164a9bd",
+            "line": 80,
+            "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
             "sourceId": "addy-browser-verification",
             "baselineCommit": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
             "reviewedThrough": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
@@ -10134,7 +10164,7 @@
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 7,
-            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
+            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
             "sourceId": "addy-review",
             "baselineCommit": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
             "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
@@ -10167,8 +10197,8 @@
           {
             "owner": "create-project-instructions",
             "path": "create-project-instructions/origin.txt",
-            "line": 49,
-            "sha256": "ee568a65072da8240b2075cc13d18e7404fb23eef6ca6935f8ad7106fdab3f47",
+            "line": 51,
+            "sha256": "74653e75c2b1e5c41b6cd272538e888809e64a0ee8b05f9a8948eb2432ac7fe1",
             "sourceId": "addy-context-engineering",
             "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
             "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
@@ -10184,8 +10214,8 @@
           {
             "owner": "handoff",
             "path": "handoff/origin.txt",
-            "line": 82,
-            "sha256": "7d67b2ce5bab8880e9f6bcbe5e9de29b97def7886c6ae9ba8701c59e4037eefa",
+            "line": 84,
+            "sha256": "8f3b25447d8381591f54ed7d1b76dbd4a1dac29c158d2eed502110fb87ecce20",
             "sourceId": "addy-handoff",
             "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
             "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
@@ -10305,7 +10335,7 @@
             "owner": "error-handling",
             "path": "error-handling/origin.txt",
             "line": 7,
-            "sha256": "9a4e7ece968243cd826a24f19ae701c8a8c4aac413fe7685e446b79fedbe98f9",
+            "sha256": "c07372e9c0ac8a471ce71fab6f2315527bdfbf78ec2b99de594db4880d390406",
             "sourceId": "ecc-error-handling",
             "baselineCommit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
             "reviewedThrough": "ef648e01899ba3e8dc6371642deaaf64b4477775",
@@ -10473,7 +10503,7 @@
             "owner": "report-work-activity",
             "path": "report-work-activity/SKILL.md",
             "line": 1,
-            "sha256": "abb075e96b739a74237bb7286b7f08bb4ef74cd87df1b31f875d81701bb5c96c"
+            "sha256": "f428fd3c2149eef348f73d0c8808a92255f9002710a359f2414e029477bdcca1"
           },
           {
             "owner": "daily-meeting-update",
@@ -10543,7 +10573,7 @@
             "owner": "review-code-changes",
             "path": "review-code-changes/SKILL.md",
             "line": 1,
-            "sha256": "916d9f0217b64b1a0de8c47e8bab5c7305afe70767a6a907eed00481fe728f4e"
+            "sha256": "731b7c5cc7b9cbb723cc6df016d23d8a5caa946610a94cde2651010d09d99627"
           }
         ]
       },
@@ -10621,8 +10651,8 @@
           {
             "owner": "agent-instructions",
             "path": "agent-instructions/origin.txt",
-            "line": 155,
-            "sha256": "2e4a1e71fc80f08e8cf25f3199b47700810a271dd15b862ef1df0df0e2944a01",
+            "line": 157,
+            "sha256": "8361b9e4cac942f936628bf15a4c76f5e316b655fd4b949f1b72097ed746dafc",
             "sourceId": "mblode-agent-skills-creator",
             "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
             "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
@@ -10640,8 +10670,8 @@
           {
             "owner": "workflow-to-skill",
             "path": "workflow-to-skill/origin.txt",
-            "line": 83,
-            "sha256": "79831a2cf2a8fde99f318a007f4e9ccacec4ba46a197b6e6674910ca8bec417f",
+            "line": 101,
+            "sha256": "3b38a8ac54a9410c3162c125949e8019be65eec24f719aabca4df9afc55725c0",
             "sourceId": "mblode-skill-capability",
             "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
             "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
@@ -10668,8 +10698,8 @@
           {
             "owner": "agent-instructions",
             "path": "agent-instructions/origin.txt",
-            "line": 132,
-            "sha256": "2e4a1e71fc80f08e8cf25f3199b47700810a271dd15b862ef1df0df0e2944a01",
+            "line": 134,
+            "sha256": "8361b9e4cac942f936628bf15a4c76f5e316b655fd4b949f1b72097ed746dafc",
             "sourceId": "mblode-agents-md",
             "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
             "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
@@ -10688,7 +10718,7 @@
             "owner": "create-project-instructions",
             "path": "create-project-instructions/origin.txt",
             "line": 7,
-            "sha256": "ee568a65072da8240b2075cc13d18e7404fb23eef6ca6935f8ad7106fdab3f47",
+            "sha256": "74653e75c2b1e5c41b6cd272538e888809e64a0ee8b05f9a8948eb2432ac7fe1",
             "sourceId": "mblode-agents-md",
             "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
             "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
@@ -10715,8 +10745,8 @@
           {
             "owner": "verify",
             "path": "verify/origin.txt",
-            "line": 154,
-            "sha256": "a7633efd37e995a789168d6c3fe0b84fecf1f29c688e5c5a9b2b83994164a9bd",
+            "line": 156,
+            "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
             "sourceId": "mblode-app-verification",
             "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
             "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
@@ -10826,7 +10856,7 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 37,
-            "sha256": "2e038f5a8f5e8fb670970ab9c213eb16e9912a14e7ed64423ffb402b9d06a700",
+            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
             "sourceId": "mblode",
             "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
             "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
@@ -10854,7 +10884,7 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 37,
-            "sha256": "2e038f5a8f5e8fb670970ab9c213eb16e9912a14e7ed64423ffb402b9d06a700",
+            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
             "sourceId": "mblode",
             "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
             "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
@@ -10910,8 +10940,8 @@
           {
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
-            "line": 67,
-            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "line": 69,
+            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
             "sourceId": "mblode-followup",
             "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
             "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
@@ -10935,8 +10965,8 @@
           {
             "owner": "pr",
             "path": "pr/origin.txt",
-            "line": 67,
-            "sha256": "88c4aaa6aff213d0d0afcbd6af9c1c37352589e1d5f9720b9f1b954f5546e8d4",
+            "line": 71,
+            "sha256": "a1467ef6f51b587b41bf21533ce879f7e1e0b0a04300e68a70a855681608b01e",
             "sourceId": "mblode-pr",
             "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
             "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
@@ -11072,8 +11102,8 @@
           {
             "owner": "verify",
             "path": "verify/origin.txt",
-            "line": 101,
-            "sha256": "a7633efd37e995a789168d6c3fe0b84fecf1f29c688e5c5a9b2b83994164a9bd",
+            "line": 103,
+            "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
             "sourceId": "mblode-ui-verification",
             "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
             "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
@@ -11138,8 +11168,8 @@
           {
             "owner": "simplify-code",
             "path": "simplify-code/origin.txt",
-            "line": 37,
-            "sha256": "f48f70fc1f8a42e6fd5bc3fc5304824e68fbd95c06e3f8d9033df2b28f10dce3",
+            "line": 39,
+            "sha256": "f5275d11eab03c2979656af8b604882ec66e1ff4be0496ae5a6aee6dc914e5ee",
             "sourceId": "addy-simplification",
             "baselineCommit": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
             "reviewedThrough": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
@@ -11174,8 +11204,8 @@
           {
             "owner": "debug",
             "path": "debug/origin.txt",
-            "line": 77,
-            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "line": 81,
+            "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "addy-debugging-and-error-recovery",
             "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
             "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
@@ -11371,8 +11401,8 @@
           {
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
-            "line": 52,
-            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "line": 54,
+            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
             "sourceId": "compound-followup",
             "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
             "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
@@ -11410,8 +11440,8 @@
           {
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
-            "line": 84,
-            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
+            "line": 86,
+            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
             "sourceId": "compound-review-coordination",
             "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
             "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
@@ -11464,8 +11494,8 @@
           {
             "owner": "pr",
             "path": "pr/origin.txt",
-            "line": 52,
-            "sha256": "88c4aaa6aff213d0d0afcbd6af9c1c37352589e1d5f9720b9f1b954f5546e8d4",
+            "line": 56,
+            "sha256": "a1467ef6f51b587b41bf21533ce879f7e1e0b0a04300e68a70a855681608b01e",
             "sourceId": "compound-pr",
             "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
             "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
@@ -11503,8 +11533,8 @@
           {
             "owner": "debug",
             "path": "debug/origin.txt",
-            "line": 62,
-            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "line": 66,
+            "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "every-ce-debug",
             "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
             "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
@@ -11542,8 +11572,8 @@
           {
             "owner": "verify",
             "path": "verify/origin.txt",
-            "line": 184,
-            "sha256": "a7633efd37e995a789168d6c3fe0b84fecf1f29c688e5c5a9b2b83994164a9bd",
+            "line": 186,
+            "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
             "sourceId": "compound-dogfood",
             "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
             "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
@@ -11576,8 +11606,8 @@
           {
             "owner": "handoff",
             "path": "handoff/origin.txt",
-            "line": 22,
-            "sha256": "7d67b2ce5bab8880e9f6bcbe5e9de29b97def7886c6ae9ba8701c59e4037eefa",
+            "line": 24,
+            "sha256": "8f3b25447d8381591f54ed7d1b76dbd4a1dac29c158d2eed502110fb87ecce20",
             "sourceId": "compound-handoff",
             "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
             "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
@@ -11675,8 +11705,8 @@
           {
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
-            "line": 52,
-            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "line": 54,
+            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
             "sourceId": "compound-followup",
             "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
             "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
@@ -11700,8 +11730,8 @@
           {
             "owner": "agent-instructions",
             "path": "agent-instructions/origin.txt",
-            "line": 178,
-            "sha256": "2e4a1e71fc80f08e8cf25f3199b47700810a271dd15b862ef1df0df0e2944a01",
+            "line": 180,
+            "sha256": "8361b9e4cac942f936628bf15a4c76f5e316b655fd4b949f1b72097ed746dafc",
             "sourceId": "compound-engineering-ce-retune",
             "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
             "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
@@ -12572,10 +12602,10 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 52,
-            "sha256": "2e038f5a8f5e8fb670970ab9c213eb16e9912a14e7ed64423ffb402b9d06a700",
+            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
             "sourceId": "matt",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
             "borrowed": [
               "Ground concepts before later material relies on them; shape a coherent reader journey from evidence."
             ],
@@ -12597,10 +12627,10 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 52,
-            "sha256": "2e038f5a8f5e8fb670970ab9c213eb16e9912a14e7ed64423ffb402b9d06a700",
+            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
             "sourceId": "matt",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
             "borrowed": [
               "Ground concepts before later material relies on them; shape a coherent reader journey from evidence."
             ],
@@ -12622,10 +12652,10 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 52,
-            "sha256": "2e038f5a8f5e8fb670970ab9c213eb16e9912a14e7ed64423ffb402b9d06a700",
+            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
             "sourceId": "matt",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
-            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
             "borrowed": [
               "Ground concepts before later material relies on them; shape a coherent reader journey from evidence."
             ],
@@ -12673,7 +12703,7 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 7,
-            "sha256": "2e038f5a8f5e8fb670970ab9c213eb16e9912a14e7ed64423ffb402b9d06a700",
+            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
             "sourceId": "blader",
             "baselineCommit": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
             "reviewedThrough": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
@@ -12686,8 +12716,106 @@
             ]
           }
         ]
+      },
+      "pstack/correct": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "workflow-to-skill"
+        ],
+        "note": "Selected criteria are adapted into the local owner with explicit deviations and bounded execution evidence. The full donor skill is not installed or copied.",
+        "evidence": [
+          {
+            "owner": "workflow-to-skill",
+            "path": "workflow-to-skill/origin.txt",
+            "line": 57,
+            "sha256": "3b38a8ac54a9410c3162c125949e8019be65eec24f719aabca4df9afc55725c0",
+            "sourceId": "pstack-correct",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Prefer eliminating an invalid path or enforcing its invariant through the existing project mechanism before adding reminders.",
+              "Reproduce the rejected behavior and verify the intended enforcement rather than relying on a new prose reminder.",
+              "Keep prevention of new violations separate from migration of accepted existing debt."
+            ],
+            "localChoices": [
+              "Extraction names the existing executor and proposes proof without changing the repository. Project enforcement belongs to its authorized owner; agent-instructions owns instruction writing and skill-bundled helpers.",
+              "Keep judgment, rationale and exceptions with their instruction owner; do not delete prose merely because a check is proposed.",
+              "Add a valid nearby acceptance control to the failing-case proof; label reconstructed cases and execute both before claiming enforcement. This paired-case requirement is a local strengthening beyond the donor.",
+              "No fixed two-occurrence threshold, automatic global audit, mandatory AGENTS rule table, exception-expiry policy, docs-last ordering, repository edits during extraction, or new approval gate.",
+              "Missing meaningful cases or expected outcomes remain unresolved rather than invented. Adoption evidence: reports/skill-atlas/workflow-upstream-adoption-validation.json"
+            ]
+          }
+        ]
+      },
+      "pstack/benchmark-checklist": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "verify"
+        ],
+        "note": "Selected criteria are adapted into the local owner with explicit deviations and bounded execution evidence. The full donor skill is not installed or copied.",
+        "evidence": [
+          {
+            "owner": "verify",
+            "path": "verify/origin.txt",
+            "line": 218,
+            "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
+            "sourceId": "pstack-performance-evidence",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Check completed correct work, meaningful measurement boundaries, comparable conditions, repeated observations and retained variation before accepting performance claims.",
+              "Separate successful work from errors, workload limits from driver limits, diagnostic profiling from scored timings, and local measurements from end-to-end gains.",
+              "Check resource and time budgets; causal bottleneck explanations need path-specific runtime evidence."
+            ],
+            "localChoices": [
+              "Shared evidence criteria live in a conditional verify reference. debug and prototype retain measurement execution, diagnosis or experiment ownership and receive the verdict without recursive handoff.",
+              "A supplied benchmark or packet can be assessed without a project recipe; retain functional checks and report missing application coverage separately.",
+              "A bounded observed effect does not require a proven limiter; label single observations and legitimate cache conditions. Choose repetition and thresholds from the decision rather than a universal five-run minimum.",
+              "Preserve narrow as-deployed comparisons; adoption choices must resolve material configuration differences or justify them from actual user constraints.",
+              "No required Linux uptime/nproc commands, rank-sum test, single-number PR format, automatic profiling, tune-then-remeasure requirement, tool installation, production load, hillclimb loop, or publication.",
+              "Read principle-prove-it-works and poteto-mode perf-issue, hillclimb and opening-a-pr playbooks as context. Their orchestration and PR procedures are not adopted or new direct source feeds.",
+              "Matched supplied-context execution evidence and limits: reports/skill-atlas/performance-upstream-adoption-validation.json"
+            ]
+          }
+        ]
+      },
+      "pstack/principle-explain-the-number": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "verify"
+        ],
+        "note": "Selected criteria are adapted into the local owner with explicit deviations and bounded execution evidence. The full donor skill is not installed or copied.",
+        "evidence": [
+          {
+            "owner": "verify",
+            "path": "verify/origin.txt",
+            "line": 218,
+            "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
+            "sourceId": "pstack-performance-evidence",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Check completed correct work, meaningful measurement boundaries, comparable conditions, repeated observations and retained variation before accepting performance claims.",
+              "Separate successful work from errors, workload limits from driver limits, diagnostic profiling from scored timings, and local measurements from end-to-end gains.",
+              "Check resource and time budgets; causal bottleneck explanations need path-specific runtime evidence."
+            ],
+            "localChoices": [
+              "Shared evidence criteria live in a conditional verify reference. debug and prototype retain measurement execution, diagnosis or experiment ownership and receive the verdict without recursive handoff.",
+              "A supplied benchmark or packet can be assessed without a project recipe; retain functional checks and report missing application coverage separately.",
+              "A bounded observed effect does not require a proven limiter; label single observations and legitimate cache conditions. Choose repetition and thresholds from the decision rather than a universal five-run minimum.",
+              "Preserve narrow as-deployed comparisons; adoption choices must resolve material configuration differences or justify them from actual user constraints.",
+              "No required Linux uptime/nproc commands, rank-sum test, single-number PR format, automatic profiling, tune-then-remeasure requirement, tool installation, production load, hillclimb loop, or publication.",
+              "Read principle-prove-it-works and poteto-mode perf-issue, hillclimb and opening-a-pr playbooks as context. Their orchestration and PR procedures are not adopted or new direct source feeds.",
+              "Matched supplied-context execution evidence and limits: reports/skill-atlas/performance-upstream-adoption-validation.json"
+            ]
+          }
+        ]
       }
-    }
+    },
+    "validation": "upstream-adoption-validation.json"
   },
   "accessibilityReview": {
     "date": "2026-10-04",
@@ -16381,5 +16509,125 @@
       "migration": "Rename registered callers and catalog grouping; remove old repository humanize package. Installed copies require a separate migration."
     },
     "checks": "Both independent instruction profiles completed at Max and material findings were reconciled. Six matched supplied-context cases per arm passed: five multilingual prose tasks and one executed documentation fixture. A new reserved rewrite pair also passed against the final candidate. Both versions passed; no measured quality advantage or host activation is claimed."
+  },
+  "upstreamAdoptionReview": {
+    "date": "2026-10-04",
+    "baselineCommit": "d3924514d1ff641bc3bd9f15c20371e9b2eb8f54",
+    "mode": "Update",
+    "html": "upstream-adoption-2026-10-04.html",
+    "validation": "upstream-adoption-validation.json",
+    "consultations": "upstream-adoption-consultations.json",
+    "existingSourceRecords": 32,
+    "advancedRanges": 26,
+    "alreadyCurrent": 6,
+    "newSourceRecords": 2,
+    "localBehaviorOwners": [
+      "design-code-structure",
+      "workflow-to-skill",
+      "verify",
+      "debug",
+      "prototype"
+    ],
+    "skills": [
+      {
+        "id": "pstack-correct",
+        "key": "pstack/correct",
+        "name": "correct",
+        "declaredName": "correct",
+        "group": "pstack",
+        "author": "Lauren Tan",
+        "kind": "upstream",
+        "path": "pstack/skills/correct/SKILL.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/correct/SKILL.md",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "sha256": "bf482bacc972b3f124a4af8bf9364b4b3e280cb5845e44c326ea4f4565e5c904",
+        "lines": 32,
+        "category": "Instruction authoring",
+        "decision": "Blend",
+        "action": "Selected criteria adapted",
+        "owner": "workflow-to-skill",
+        "summary": "Turn a lesson into an enforceable project invariant or a scoped instruction with demonstrated failure and acceptance cases.",
+        "reason": "Use the existing quality owner and prove that the real failure is rejected while legitimate neighboring behavior remains accepted.",
+        "caution": "Extraction does not implement project enforcement. No recurrence quota, automatic global audit, mandatory rule table or new publication authority.",
+        "inspection": "Complete pinned entrypoint and relevant linked-context reads; independent Astra Max and Fable Max consultations; bounded matched supplied-context executions.",
+        "references": []
+      },
+      {
+        "id": "pstack-benchmark-checklist",
+        "key": "pstack/benchmark-checklist",
+        "name": "benchmark-checklist",
+        "declaredName": "benchmark-checklist",
+        "group": "pstack",
+        "author": "Lauren Tan",
+        "kind": "upstream",
+        "path": "pstack/skills/benchmark-checklist/SKILL.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/benchmark-checklist/SKILL.md",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "sha256": "6a767e788a60428fa14e645ee10fe2e49896e514ff654f668b1d824deb9038e8",
+        "lines": 39,
+        "category": "Verification",
+        "decision": "Blend",
+        "action": "Selected criteria adapted",
+        "owner": "verify",
+        "summary": "Audit whether a performance comparison measures completed correct work under conditions that support its claim.",
+        "reason": "Prevent scheduling-only, fast-error, configuration-handicap and saturated-driver results from becoming unsupported speed claims.",
+        "caution": "Use decision-specific repetition and local tools. Preserve bounded observations, valid cache workloads and current authority; no automatic tuning or PR procedure.",
+        "inspection": "Complete pinned entrypoint and relevant linked-context reads; independent Astra Max and Fable Max consultations; bounded matched supplied-context executions.",
+        "references": []
+      },
+      {
+        "id": "pstack-principle-explain-the-number",
+        "key": "pstack/principle-explain-the-number",
+        "name": "principle-explain-the-number",
+        "declaredName": "principle-explain-the-number",
+        "group": "pstack",
+        "author": "Lauren Tan",
+        "kind": "upstream",
+        "path": "pstack/skills/principle-explain-the-number/SKILL.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-explain-the-number/SKILL.md",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "sha256": "5aac99e7ce0bb1b37e2579acf4fe88c32a1456d9d46afd4a57cfe1df9092e89c",
+        "lines": 23,
+        "category": "Verification",
+        "decision": "Blend",
+        "action": "Selected criteria adapted",
+        "owner": "verify",
+        "summary": "Check a measurement against the workload, resource budget and the causal explanation being claimed.",
+        "reason": "Separate a measured effect from an established bottleneck, and a local micro result from an end-to-end application gain.",
+        "caution": "A bounded observation can leave its cause unknown. Runtime bottleneck evidence is required for the causal claim, not every measurement.",
+        "inspection": "Complete pinned entrypoint and relevant linked-context reads; independent Astra Max and Fable Max consultations; bounded matched supplied-context executions.",
+        "references": []
+      }
+    ],
+    "assessments": [
+      {
+        "id": "pstack-architect",
+        "key": "pstack/architect",
+        "name": "architect",
+        "declaredName": "architect",
+        "group": "pstack",
+        "author": "Lauren Tan",
+        "kind": "upstream",
+        "path": "pstack/skills/architect/SKILL.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/architect/SKILL.md",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "sha256": "741901140ee382ebf93263a7ed03c6ee3719e578416d81afcd195876fa16c496",
+        "lines": 83,
+        "category": "Arquitectura",
+        "decision": "Blend",
+        "action": "Selected criteria adapted",
+        "owner": "design-code-structure",
+        "summary": "Design from caller usage and compare invariant ownership, boundaries, registries and edits made with partial context.",
+        "reason": "Make intended boundaries enforceable through existing project mechanisms and derive or verify related registries without erasing their valid differences.",
+        "caution": "Preserve protocol surfaces, compatible migrations and real multi-writer invariants. Design-only work names enforcement without implementing it.",
+        "inspection": "Complete pinned entrypoint and relevant linked-context reads; independent Astra Max and Fable Max consultations; bounded matched supplied-context executions.",
+        "references": []
+      }
+    ],
+    "limits": "Supplied-context executions, not global installation or observed automatic host activation. Preserve passing baselines; no general reliability gain or production performance claim."
   }
 }

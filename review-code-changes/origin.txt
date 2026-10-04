@@ -72,13 +72,15 @@ repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
 baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
-reviewed_through = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "24fe0ef7737efae15c87225755e9f6f5965e4888"
 baseline_paths = ["skills/engineering/code-review/SKILL.md", "LICENSE"]
 paths = ["skills/engineering/code-review/SKILL.md", "LICENSE"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Review specification conformance separately from applicable documented standards.", "Treat structural smells as judgment calls, with documented project conventions taking precedence."]
 local_choices = ["Preserve both dimensions in Review basis and finding evidence, then prioritize the combined report by consequences.", "No mandatory issue-tracker setup, fresh subagent pair, missing-spec pause, or assumption that every fixed point is a branch merge-base."]
-reviews = []
+reviews = [
+  { from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60", to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+]
 
 [[sources]]
 id = "compound-review-coordination"

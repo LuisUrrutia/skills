@@ -25,13 +25,15 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
 baseline_paths = ["pstack/skills/no-comments/SKILL.md", "pstack/agents/comment-sicko.md", "pstack/LICENSE"]
 paths = ["pstack/skills/no-comments/SKILL.md", "pstack/agents/comment-sicko.md", "pstack/LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Inspect comments against surrounding code and trace consequential constraints.", "Distinguish narration from public contracts, external gotchas, legal notices and tooling directives; prefer a scoped code encoding where it preserves the constraint."]
 local_choices = ["Keep necessary internal invariants and uncertain constraints; do not delete because an exception is unproven.", "No mandatory Comment Sicko, architect call, deletion quota or approval ritual for routine authorized cleanup.", "Inspect suppression meaning; remove only when its underlying reason is resolved and checks still pass."]
-reviews = []
+reviews = [
+  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+]
 
 [[sources]]
 id = "addy-simplification"
