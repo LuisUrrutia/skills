@@ -1,134 +1,112 @@
 # Writing instructions
 
-Use this reference when writing or revising any instruction an agent consumes.
+Read this when writing or revising instructions an agent consumes.
 
-## Put decisions where they are needed
+## Put decisions where they apply
 
-An entrypoint or pointer determines when an agent reaches detailed guidance. Name
-the task and its distinct conditions. In a skill, the description does this work;
-in a persistent instruction file, a scoped rule or reference does. Use exclusions
-for likely collisions rather than making every instruction more insistent.
+A skill description or persistent-file pointer determines when detailed guidance
+is reached. Name the task and distinguishing conditions; add exclusions for likely
+collisions. Keep shared requirements in the entrypoint and substantial conditional
+detail in references with explicit loading conditions. A bare "see references"
+does not make that decision.
 
-Keep instructions needed on every path in the entrypoint. Move substantial guidance
-used only on one path into a reference. A useful pointer states both the condition
-and the file to read: "When changing workflow YAML, load the GitHub Actions skill."
-Writing "see references" leaves the selection decision unspecified.
+Fit new guidance into the existing structure: revise, combine or replace the
+relevant passages, and rewrite the section or document when needed for coherence
+within the authorized scope. Add separate text for a distinct decision that has
+no suitable existing home. Keep each rule, its reason and exceptions together in
+one authoritative home.
 
-Keep each rule, its reason, and its exceptions together. Give each behavior one
-authoritative home. Restating a specialist's procedure in an orchestrator creates
-two versions to maintain; name its input and completion evidence instead.
+Orchestrators name a specialist's inputs and completion evidence rather than
+copying its procedure. Create a separate skill only for a distinct task or an
+independent invocation; otherwise use the existing owner or a conditional reference.
 
-## Make command and file locations explicit
+Resolve other skills by name using [hosts.md](hosts.md). Locate bundled resources
+relative to this skill's resolved installation, without assuming its path or the
+caller's directory. State what to read or run, when, its invocation and working
+directory. Identify the target project root separately and give input/output
+paths under the requested layout and local conventions. Pass project paths
+explicitly when running from the skill folder.
 
-When a prompt references another skill, follow the name-based resolution rules
-in [hosts.md](hosts.md).
+## Preserve the intended meaning
 
-Identify the current skill's installed folder when a prompt uses its bundled
-scripts or references. Name the script to run, its invocation and working
-directory, and which reference files to read under which conditions. Locate these
-resources within that skill without assuming its installation path or the caller's
-working directory.
+Use familiar, precise words. Preserve actors, actions, scope, conditions,
+exceptions, authority, obligation, effort and certainty: "prefer" is not "require", and "create"
+does not imply "run". Explain non-obvious constraints once. Prefer the intended
+action over prohibition lists while retaining consequential boundaries.
 
-Identify the target project root separately. State where inputs are read and
-outputs are created relative to that root, following the user's requested layout
-and project conventions. When running from the skill folder, pass project paths
-explicitly so output locations do not depend on the shell's current directory.
+Make type, quantity, depth and completion evidence explicit where they distinguish
+plausible requests. For "create tests", establish the behavior or risk, test level,
+scope, whether to write or run them, and sufficient coverage or quantity. Resolve
+uncertainty from the user's objective and context, asking when intent remains
+unclear. Available tooling does not choose the objective. Preserve judgment within
+the confirmed scope rather than inventing specificity.
 
-## Choose words for their intended effect
+Separate reusable steps from unresolved domain decisions. Resolve schemas,
+rounding policies and rules for discarding records from an authoritative contract,
+not invented defaults. Tell the future agent where to find that contract and when
+to ask; labeling an invented default as an assumption in the completion report
+does not prevent its use.
 
-Use familiar terms and direct verbs. Check literal meaning and connotations:
-words can imply an obligation, breadth, effort, certainty, or permission that the
-user did not intend. "Prefer" and "require", "create" and "run", or "one" and
-"all" produce different behavior; they are not interchangeable in a rewrite.
-Explain a non-obvious constraint once. Prefer the desired action over a list of
-prohibitions; retain boundaries that protect authority, scope, or correctness.
-
-Make type, scope, quantity, depth, and completion evidence explicit where they
-distinguish plausible interpretations. For "create tests", establish what behavior
-or risk the tests must check, the relevant level (unit, integration, end-to-end,
-or smoke), whether to write or run them, and sufficient coverage or quantity.
-Use the user's objective and established context; an installed framework alone
-does not settle these choices. Ask the user about intent that remains unclear
-before encoding a test level, quota, or depth. Preserve room for judgment within
-the confirmed objective.
-
-## Choose the form from the observed failure
+## Diagnose before prescribing
 
 When correcting a failure, inspect the output and action trace before adding a
-rule. Check loading evidence before attributing the failure to an unread or
-unclear instruction. An unread rule needs a selection or placement fix. If
-loading is unobserved, report that limit while correcting defects visible in
-the text.
+rule. Check loading evidence: an unread instruction needs a selection or placement
+fix. When loading is unobserved, report that limit while correcting defects visible in the text.
 
 | Observed failure | Useful correction |
 | --- | --- |
-| The result has the wrong structure or order | Describe the required parts in the order the reader needs them. |
-| A required element is missing | Give it a named field or slot in the existing output structure. |
-| A rule is applied in the wrong circumstances | State an observable condition and the action for each relevant branch. |
-| An understood requirement is bypassed | State the boundary and address the observed shortcut; test it under the relevant pressure. |
+| Wrong structure or order | State the required parts in the order the reader needs them. |
+| Missing required element | Give it a field or slot in the existing output structure. |
+| Rule applied in the wrong circumstances | State the observable condition and action for each branch. |
+| Understood requirement bypassed | Address the observed shortcut and test it under relevant pressure. |
+| Authorized work left unfinished at a phase boundary | Trace the next actor and resumption path before changing continuation. |
 
-Preserve material exceptions when making conditions explicit. Add counters for
-observed workarounds only; a growing prohibition list is not a substitute for a
-clear output contract.
+At a handoff, distinguish a phase in the same conversation, a real child-agent
+return, a user decision and a host-supported pause with later resumption. State
+the next required action where the same agent continues; preserve genuine return
+boundaries, decisions and blockers. A pause is not itself a failure. Repair the
+observed transition without widening authorization or making required work optional.
+
+Preserve material exceptions and counter only observed workarounds.
 
 ## Make progress observable
 
-Describe actions with enough freedom for the task. Use fixed sequences where
-ordering protects an invariant, such as verifying an identity before a remote
-write. Give open-ended work a result and decision criteria instead of a ritual.
+Keep fixed sequences where order protects an invariant, such as identity checks
+before a remote write. Give open-ended work a result and decision criteria rather
+than a ritual. End phases with evidence that distinguishes completion from an
+attempt; loops need a progress signal, an end condition and a response to a
+recurring blocker.
 
-End meaningful phases with evidence that distinguishes completion from an
-attempt. "Understand the failure" is weak; "reproduce the failing behavior or
-identify the inaccessible prerequisite" lets the next phase start honestly.
-For loops, state what progress means, what ends the loop, and what happens when
-the same blocker persists.
+## Reconcile overlapping guidance
 
-Separate the reusable workflow from domain decisions that the sources do not
-establish. A missing schema, rounding policy, or rule for dropping records is a
-contract to resolve, not a default to invent. Tell the future agent where to find
-that contract and when an unresolved choice requires a question. Labeling an
-invented default as an assumption in the completion report does not prevent the
-generated skill from applying it later.
+Compare trigger, owner, action, completion evidence and authority. Similar prose
+can hide incompatible behavior, such as a read-only review and an automatic repair.
+Resolve conflicts from established authority, scope or an explicit user decision;
+ask when those do not settle the intended behavior. Then keep the governing rule
+or state distinct conditions.
 
-## Resolve conflicts before combining
-
-For each overlapping instruction, compare trigger, responsible owner, action,
-completion evidence, and authority. Similar wording can hide incompatible
-behavior: a read-only review and a repair workflow need different mutation scope.
-
-Resolve conflicts from established authority, scope, or an explicit user decision.
-If those do not establish the intended behavior, ask the user before combining the
-affected rules. Once intent is clear, keep the governing rule or state distinct
-conditions. Record intentional deviations from donors in the existing provenance
-record when maintaining a derived skill.
-For other documents, preserve their established attribution conventions rather
-than adding skill-specific files. Source popularity is not a reason to replace
-a local rule that serves the contract. Pay particular attention to changes in
-invocation, approvals, testing, tools, and external writes.
-
-Keep common procedures in the existing owner. Split a new skill only when it has
-a distinct task or needs independent invocation. Use a conditional reference for
-detail that belongs to the same task.
+Record intentional donor deviations in an existing skill's provenance record;
+other documents keep their established attribution conventions. Popularity does
+not justify replacing a local rule. Check changes to invocation, approvals,
+testing, tools and external writes especially carefully.
 
 ## Prune without weakening the contract
 
-Remove repeated meanings, generic encouragement, and instructions already
-supplied by an authoritative local owner. Read configuration and CLI help for
-facts the environment can supply; document the reason or gotcha it cannot.
+Remove duplicate meanings, generic encouragement and guidance already supplied
+by an authoritative local owner. Use configuration and CLI help for discoverable
+facts; retain the reason or gotcha they cannot supply.
 
-Distinguish general technique from project constraints, team preferences, and
-organizational policy. The latter can be valuable even when they are not the
-model's default. Code and tests establish behavior; they do not by themselves
-establish intended business policy. Keep a consequential rule's reason and source
-reachable, especially when implementation and approved intent differ.
+Distinguish general technique from project constraints, team preferences and
+organizational policy. They can be valuable even when they differ from a model's
+default. Code and tests show behavior without necessarily establishing intended
+policy; keep a consequential rule's reason and source reachable, especially when those disagree.
 
-Before removing a rule as enforced elsewhere, inspect the actual configuration,
-execution path, and coverage. A formatter does not enforce a business invariant.
-Preserve rare but consequential constraints and authorized preferences. A shorter
-file, a donor's score, or a claim that a model already knows something does not
-establish that a rule is redundant. Use behavioral evidence when the rule's value
-is uncertain; a small passing sample does not prove safe retirement.
+Before deleting a rule as enforced elsewhere, inspect the actual configuration,
+execution path and coverage. Preserve rare consequential constraints and authorized
+preferences. Brevity, a donor's score or a capable model's apparent knowledge cannot
+establish redundancy. Use behavioral evidence when value is uncertain; a small
+passing sample does not justify retirement.
 
-Check the revision against the original actors, actions, conditions, scope,
-exceptions, and evidence. Shortening must not turn a suggestion into a universal
-rule, a read into a write, or an attempted check into a successful one.
+Compare the revision with the original meaning and evidence. Compression must not
+turn a suggestion into a universal rule, a read into a write or an attempted check
+into a successful one.

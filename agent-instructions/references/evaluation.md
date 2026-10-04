@@ -3,102 +3,94 @@
 Read this when changing instruction behavior, creating or combining skills,
 changing routing, incorporating upstream changes, or correcting observed failures.
 
-## Choose evidence before tuning
+## Define the checks
 
-Derive cases from the instruction's contract and realistic artifacts. Cover ordinary
-work, ambiguous inputs, and relevant boundaries. For a router, include tasks that
-select different specialists and tasks that should select none. For a workflow
-with external effects, observe actions and resulting state, not just the final
-explanation.
+Derive cases and expected outcomes from the contract before tuning. Cover ordinary
+work, ambiguity, and relevant boundaries. Exercise techniques on changed inputs,
+retrieve and apply reference information, and test both sides of conditional
+rules. Routers need requests for different specialists and requests selecting none.
 
-Match the check to the behavior: exercise a technique on changed inputs, retrieve
-and apply reference information, and test both sides of a conditional rule.
-When a requirement competes with a deadline, prior effort, or pressure to skip a
-check, include that conflict in a realistic task. Keep authorization unchanged
-and ask the executor to act using isolated fixtures or fakes. Reciting the rule
-does not show whether the agent follows it under pressure.
+Observe artifacts, actions and resulting state. When a requirement competes with
+a deadline, prior effort or pressure to skip it, use a realistic task that requires
+the executor to act. Preserve authorization; use isolated fixtures or fakes for
+external effects unless the evaluation is authorized against the real service.
+Rule recitation cannot establish compliance.
 
-Retain the action trace, omitted checks, and the agent's stated justification.
-Use that evidence to distinguish an instruction it missed, misunderstood, or
-bypassed. Treat its explanation as a hypothesis to test against the trace.
+Keep expectations with the grader and reserve unseen cases. A reserved failure
+used to revise instructions becomes a regression case; use a new unseen case
+before making another generalization claim. Read [../evals/cases.json](../evals/cases.json)
+only when evaluating `agent-instructions` itself. Other targets need cases from
+their own contracts.
 
-Keep expected outcomes separate from executor inputs. Reserve some cases for a
-later check, without using their results to write the first revision. Once a
-reserved failure informs a fix, it is a regression case; use a new unseen case
-before making a further generalization claim.
+For persistent instructions, test effective scope: global, repository and nested
+rules can reach different work. Include imports or adapters that affect loading.
+A focused edit need not acquire a permanent evaluation suite.
 
-[../evals/cases.json](../evals/cases.json) contains reusable cases for
-`agent-instructions` itself. Read that corpus only when evaluating this skill,
-and keep its expectations with the grader. Other documents and skills need cases
-derived from their own contracts.
+## Compare the right instructions
 
-For persistent instruction files, test scope as well as meaning: a global rule,
-a repository rule, and a nested override reach different work. Include imports
-or adapters in the fixture when they determine the effective instruction. A
-focused edit need not acquire a permanent evaluation suite.
+The required Codex and Claude consultations assess instructions; they do not
+replace behavioral checks. Compare new instructions with the same task without
+them, and revisions with the previous snapshot. Keep model, effort, tools,
+fixtures, authorization and output format equal within each pair. Use independent
+clean contexts with no access to another arm's instructions or answers.
 
-## Run a matched comparison
+For host-run claims, verify from durable run evidence which revision was actually
+loaded; a requested path alone does not prove the runner used it. An unidentified
+revision cannot support attribution.
 
-The entrypoint's required Codex and Claude perspectives do not replace behavioral
-checks. In a baseline/candidate comparison, keep each pair on the same model and
-effort; changing the model at the same time cannot isolate the instruction's effect.
+To assess whether a rule earns its place, a no-instruction or rule-removal trial
+can supplement the previous-version comparison. Exercise its protected
+behavior, exceptions and any stated team preference; unrelated passes cannot
+justify deletion. Keep editorial recommendations distinct from measured gains.
 
-For new instructions, compare with the same task without those instructions. For
-an update, compare with the previous document or skill snapshot. Keep model, effort, tools, fixtures,
-authorization, and output format equal. Use independent clean contexts so a
-baseline cannot see the candidate or an earlier answer.
+When independent executors are available and authorized, give them the request,
+instructions and raw artifacts, withholding expectations, suspected defects and
+proposed fixes. Otherwise use an available runner or report missing behavioral evidence.
+Never substitute the author's simulated answer for an execution. Follow repository
+scratch rules; add a permanent helper only for a recurring evaluation need.
 
-When the question is whether guidance still earns its place, a no-instruction
-comparison or removal of the disputed rule can supplement the prior-version
-comparison. Test the behavior that rule protects, including relevant exceptions.
-Check whether a stated team preference is actually followed; passing unrelated
-cases cannot justify deleting it. Keep the distinction between an editorial
-recommendation and a measured behavioral improvement.
-
-If independent agents are available and authorized, give an executor the realistic
-request, relevant skill, and raw artifacts. Keep expected outcomes, suspected
-defects, and proposed fixes out of its prompt. Otherwise use the available runner
-or report the missing behavioral evidence. Do not simulate a successful run in
-the author's explanation.
-
-Run in isolated scratch storage under the repository's temporary-file rules.
-Use local fixtures or fakes for external effects unless the evaluation is already
-authorized against the real service. Introduce a permanent helper only when the
-recurring evaluation needs one.
-
-## Grade outcomes
-
-Separate these claims:
+## Judge the evidence
 
 | Claim | Required evidence |
 | --- | --- |
-| Valid structure | Resolved pointers/imports; metadata and host checks when packaging a skill |
+| Valid structure | Resolved pointers/imports; relevant metadata and host checks |
 | Correct selection | Positive and near-miss requests with observed host selection |
-| Useful task behavior | Actual output artifacts, actions, and postconditions |
-| Safe authority | Observed side effects stay within the supplied authorization |
+| Useful behavior | Output artifacts, actions and required postconditions |
+| Safe authority | Side effects remain within supplied authorization |
 | Improvement | Matched baseline results, including regressions and failures |
 
-A model asked which description it would choose provides a selection probe, not
-proof of a host's implicit invocation. A tool-free artifact exercise can check
-generated instructions and proposed decisions, but cannot prove tool execution,
-installation, or network behavior.
+Retain the case, revision, model, effort, supplied resources, output, action trace,
+verdict and its evidence. Record costs only when measured. A read or dispatch can
+prove phase entry without proving completion; check its required result. Use
+omitted checks and stated justifications to distinguish missed, misunderstood and
+bypassed instructions. Treat explanations as hypotheses, not established causes.
 
-Record case, skill revision, model, effort, supplied resources, output, verdict,
-and concrete evidence. Record tokens or duration only when measured. Mark
-unobservable outcomes as not tested; do not count them as passes. If both versions
-pass, report that result rather than claiming a demonstrated improvement.
-
-Use objective checks for file formats and postconditions. Read substantive output
-for scope, correct decisions, unnecessary questions, and unjustified claims.
-Keyword presence and confident self-reports are insufficient evidence.
+Use objective checks for formats and postconditions, and read substantive output
+for scope, decisions, unnecessary questions and unjustified claims. Keywords and
+confident self-reports are insufficient. A model choosing a description is a
+selection probe, not observed host invocation; tool-free exercises cannot prove
+tool execution, installation or network behavior. Mark unobservable outcomes as
+not tested. If both versions pass, report that result without claiming improvement.
 
 ## Iterate proportionately
 
-Fix an observed failure at its responsible instruction or reference. Re-run the
-affected case and a nearby case that could regress. Broaden testing when a change
-affects shared routing, authority, or termination.
+Fix failures at the responsible instruction or reference. Rerun the affected case
+and a nearby regression case; broaden checks when routing, authority or termination
+changes.
 
-For nondeterministic failures or performance claims, use repeated matched trials
-and report variation. A small passing sample supports only the tested cases.
-Stop once the contract is met and material failures are accounted for; report
-remaining limitations rather than adding speculative rules.
+When a claim needs repeated trials, such as a nondeterministic failure, a model
+migration or a performance comparison, define the metric, meaningful effect, run
+budget and stopping rule before tuning. Use matched trials and report their
+variation. Add identical-version controls when unexplained variation or runner
+integrity needs investigation, and account for the controls' variation when
+interpreting candidate differences. Interleave arms when changing conditions
+could bias a comparison. A short streak or observed range cannot by itself
+establish a gain.
+
+Retain failed attempts and exclusions. Classify infrastructure failures from
+cause evidence; a short answer, early stop or error exit alone does not justify
+discarding a behavioral failure. State which paths were exercised and which
+remain unmeasured. A small passing sample supports only its tested cases.
+
+Stop when the contract is met and material failures are accounted for, reporting
+remaining limits instead of adding speculative rules.

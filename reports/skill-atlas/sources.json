@@ -4238,7 +4238,28 @@
       "Exported-source trials do not prove live connector behavior.",
       "A selection probe does not prove automatic host invocation.",
       "Existing source baselines remain immutable; source review cursors are maintained separately."
-    ]
+    ],
+    "retune": {
+      "date": "2026-10-04",
+      "status": "Selected guidance incorporated",
+      "owner": "agent-instructions",
+      "source": "Compound Engineering/ce-retune",
+      "sourceCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "validation": "reports/skill-atlas/agent-instructions-retune-validation.json",
+      "changedReferences": [
+        "references/writing.md",
+        "references/evaluation.md"
+      ],
+      "words": {
+        "before": 1956,
+        "after": 1656
+      },
+      "userClarification": "Integrate changes into their existing home; recompose surrounding text when needed within the authorized scope.",
+      "limits": [
+        "Static reviews and artifact trials do not establish host invocation, reliability, latency or cost improvements.",
+        "The final integration paragraph received fidelity and independent model reviews, not a new behavioral trial."
+      ]
+    }
   },
   "prAttachmentsReview": {
     "date": "2026-10-03",
@@ -4580,10 +4601,10 @@
     "date": "2026-10-04",
     "repositoryCommit": "b4908e702867a3e9c3fb7e01ca4559b6fc173b34",
     "total": 95,
-    "remainingReviewed": 72,
-    "alreadyIncorporated": 23,
+    "remainingReviewed": 67,
+    "alreadyIncorporated": 28,
     "additionalCatalogCards": 87,
-    "scope": "All 95 distributed SKILL.md entrypoints under the four repositories' skills/ or plugins/ directories. The initial selection screened 77 unincorporated sources and mapped 18 existing sources to provenance; only listed supporting files were inspected. Subsequent derivations, including verify and accessibility, bring the current incorporated count to 23; 72 remain adoption assessments. A check records selected material, not completion of every proposed capability. Existing sources were not generally audited for upstream changes. Compound also has one internal contributor skill assessed separately and six excluded test fixtures.",
+    "scope": "All 95 distributed SKILL.md entrypoints under the four repositories' skills/ or plugins/ directories. The initial selection screened 77 unincorporated sources and mapped 18 existing sources to provenance; only listed supporting files were inspected. Subsequent derivations bring the current selected-incorporation count to 28; 67 remain adoption assessments. A check records selected material, not completion of every proposed capability. Existing sources were not generally audited for upstream changes. Compound also has one internal contributor skill assessed separately and six excluded test fixtures.",
     "limitations": [
       "Recommendations are a selection review, not installation or runtime certification of the collection.",
       "Only listed supporting files were inspected. Hundreds of other references, scripts and agent prompts were not exhaustively audited.",
@@ -7097,21 +7118,51 @@
         "kind": "upstream",
         "repository": "https://github.com/EveryInc/compound-engineering-plugin",
         "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-retune/SKILL.md",
-        "action": "Extend existing",
-        "priority": "Next",
+        "action": "Already incorporated",
+        "priority": "Ready",
         "category": "Skill evaluation",
         "owner": "agent-instructions",
         "summary": "Measures whether a skill corpus behaves better on a target model before and after revisions.",
-        "reason": "Borrow identical-build controls, durable source identity, predeclared outcomes and honest uncertainty for high-cost authoring evaluations.",
-        "caution": "Requires an actual repeatable harness and source selector. Do not claim improvement from a static audit or one passing run, and do not impose its campaign size or statistical recipes on every small edit.",
+        "reason": "Selected evaluation and continuation guidance is incorporated in agent-instructions: verify the loaded revision, retain failures, distinguish phase entry from completion, and trace the actor that must continue.",
+        "caution": "Use repeated matched trials and report variation when the claim needs that evidence. Controls address an actual investigation; no fixed campaign, hard range threshold or deletion based on missing history. Legitimate child returns, user decisions, blockers and asynchronous resumption remain intact.",
         "decision": "Blend",
-        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "inspection": "Entrypoint, all six references and the MIT license read at the pinned revision. Selected ideas are recorded in agent-instructions/origin.txt; the donor is not installed or required at runtime.",
         "references": [
           {
+            "path": "skills/ce-retune/references/baseline-mining.md",
+            "coverage": "Full reference read; selected ideas adapted with the recorded limits.",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-retune/references/baseline-mining.md",
+            "sha256": "f9918379de97f3c67d4f939ca2a22290351312769fe0f9aa376a7871f2fbe823"
+          },
+          {
+            "path": "skills/ce-retune/references/corpus-audit.md",
+            "coverage": "Full reference read; selected ideas adapted with the recorded limits.",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-retune/references/corpus-audit.md",
+            "sha256": "88d6f8cf9cb4e6753f6c00c1f5c540070c2c5b0e7a7f2affba4f9b8a075f35f2"
+          },
+          {
+            "path": "skills/ce-retune/references/cut-passes.md",
+            "coverage": "Full reference read; selected ideas adapted with the recorded limits.",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-retune/references/cut-passes.md",
+            "sha256": "a9b2318a341e668060de8ca5b9a1d3f9c19aa31e1de9993de97becd312881886"
+          },
+          {
+            "path": "skills/ce-retune/references/halt-taxonomy.md",
+            "coverage": "Full reference read; selected ideas adapted with the recorded limits.",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-retune/references/halt-taxonomy.md",
+            "sha256": "0b01c0cd251e433738899ce53c204d8b0aa53d0f3e40af1d5f9268016e327e86"
+          },
+          {
             "path": "skills/ce-retune/references/noise-floor.md",
-            "coverage": "Full reference; statistical recipes not independently validated",
+            "coverage": "Full reference read; selected ideas adapted with the recorded limits.",
             "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-retune/references/noise-floor.md",
             "sha256": "ea8ec536ddd4eb1037ba9ec3deff142f49488686054026ddf5d0a3ff4af4834d"
+          },
+          {
+            "path": "skills/ce-retune/references/workflow-shapes.md",
+            "coverage": "Full reference read; selected ideas adapted with the recorded limits.",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-retune/references/workflow-shapes.md",
+            "sha256": "a5fdbc2bba5c542ceba6a1c088d43bc2739f3788537d8fe8d99dac3a1fbba3ed"
           }
         ]
       },
@@ -7470,14 +7521,14 @@
         "boundary": "Complements error-handling and debug. Preserve the actual stack and budgets instead of requiring every kind of telemetry."
       },
       {
-        "title": "Strengthen skill evaluation when stakes justify it",
-        "route": "Improve existing authoring",
+        "title": "Evaluation and continuation guidance is incorporated",
+        "route": "Incorporated in agent-instructions",
         "owner": "agent-instructions",
         "keys": [
           "Compound Engineering/ce-retune"
         ],
-        "why": "Add identical-build controls and durable source identity when evaluating expensive workflow or model changes.",
-        "boundary": "A repeatable harness is required for measurement claims. A static review remains a static review, not a demonstrated improvement."
+        "why": "The existing writing and evaluation references now verify run attribution, preserve failures and diagnose unfinished work at actor boundaries.",
+        "boundary": "Scale repeated measurement to the claim. Preserve legitimate pauses and authorization. The artifact checks pass in their tested snapshots; no performance or reliability gain is established."
       },
       {
         "title": "CI/CD structure is created; public-contract work stays conditional",
@@ -7566,11 +7617,11 @@
   },
   "sourceProgress": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "5efcc1944c9f8ad06fa9805ab4d94c6b48683519",
+    "repositoryCommit": "6d2d7440a2ab940ce44770ab077d61f778a5e237",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 117,
-      "pending": 48,
+      "ready": 118,
+      "pending": 47,
       "optional": 48,
       "not-selected": 45
     },
@@ -7971,7 +8022,7 @@
             "owner": "agent-instructions",
             "path": "agent-instructions/origin.txt",
             "line": 7,
-            "sha256": "0c6fb00eb60c890fd9100ef4eb7f402ac68ea7c6a216a93fa0cd3b1578b4b999",
+            "sha256": "2e4a1e71fc80f08e8cf25f3199b47700810a271dd15b862ef1df0df0e2944a01",
             "sourceId": "mattpocock-writing-for-agents",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
             "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
@@ -9884,7 +9935,7 @@
             "owner": "agent-instructions",
             "path": "agent-instructions/origin.txt",
             "line": 110,
-            "sha256": "0c6fb00eb60c890fd9100ef4eb7f402ac68ea7c6a216a93fa0cd3b1578b4b999",
+            "sha256": "2e4a1e71fc80f08e8cf25f3199b47700810a271dd15b862ef1df0df0e2944a01",
             "sourceId": "humanlayer-improve-claude-md",
             "baselineCommit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
             "reviewedThrough": "ca7c8088db69e315a8b2deea43820270457f8f3c",
@@ -9927,7 +9978,7 @@
             "owner": "agent-instructions",
             "path": "agent-instructions/origin.txt",
             "line": 31,
-            "sha256": "0c6fb00eb60c890fd9100ef4eb7f402ac68ea7c6a216a93fa0cd3b1578b4b999",
+            "sha256": "2e4a1e71fc80f08e8cf25f3199b47700810a271dd15b862ef1df0df0e2944a01",
             "sourceId": "anthropic-skill-creator",
             "baselineCommit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
             "reviewedThrough": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
@@ -10490,7 +10541,7 @@
             "owner": "agent-instructions",
             "path": "agent-instructions/origin.txt",
             "line": 155,
-            "sha256": "0c6fb00eb60c890fd9100ef4eb7f402ac68ea7c6a216a93fa0cd3b1578b4b999",
+            "sha256": "2e4a1e71fc80f08e8cf25f3199b47700810a271dd15b862ef1df0df0e2944a01",
             "sourceId": "mblode-agent-skills-creator",
             "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
             "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
@@ -10537,7 +10588,7 @@
             "owner": "agent-instructions",
             "path": "agent-instructions/origin.txt",
             "line": 132,
-            "sha256": "0c6fb00eb60c890fd9100ef4eb7f402ac68ea7c6a216a93fa0cd3b1578b4b999",
+            "sha256": "2e4a1e71fc80f08e8cf25f3199b47700810a271dd15b862ef1df0df0e2944a01",
             "sourceId": "mblode-agents-md",
             "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
             "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
@@ -11483,11 +11534,34 @@
         ]
       },
       "Compound Engineering/ce-retune": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "agent-instructions"
+        ],
+        "note": "Selected material is incorporated at the recorded baseline. This check does not mean the whole donor is installed, executed, or synchronized.",
+        "evidence": [
+          {
+            "owner": "agent-instructions",
+            "path": "agent-instructions/origin.txt",
+            "line": 178,
+            "sha256": "2e4a1e71fc80f08e8cf25f3199b47700810a271dd15b862ef1df0df0e2944a01",
+            "sourceId": "compound-engineering-ce-retune",
+            "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "borrowed": [
+              "Verify the actually loaded revision, define criteria before tuning, and investigate variable results with proportionate controls and comparable run order.",
+              "Diagnose premature stopping from the actual next actor and continuation mechanism.",
+              "Distinguish phase entry from completion and retain failures and exclusions with their evidence."
+            ],
+            "localChoices": [
+              "Integrate the selected ideas into existing writing and evaluation references; ce-retune is inspiration, not a runtime dependency.",
+              "Preserve user decisions, real blockers, child returns and host-supported asynchronous resumption.",
+              "Use measured evidence to classify failures; do not import token-rate heuristics, fixed trial counts, statistical recipes or a corpus-wide retuning campaign.",
+              "Retain the existing independent consultation contract and authority rules; no added proposer/defender layer or deletion based only on missing historical provenance."
+            ]
+          }
+        ]
       },
       "Compound Engineering/ce-riffrec-feedback-analysis": {
         "status": "optional",

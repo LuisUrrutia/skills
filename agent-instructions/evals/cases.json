@@ -295,6 +295,134 @@
         "History extraction selects workflow-to-skill; a causal code question selects why rather than any authoring skill.",
         "A supplied research contract goes directly to writing without recursive discovery."
       ]
+    },
+    {
+      "id": "retune-measurement-review",
+      "kind": "artifact",
+      "prompt": "Review the supplied run bundle. State what it establishes about revision r42 versus r41, identify which observations can support a comparison, and recommend the smallest useful next check. Do not run new trials. Write measurement-review.md.",
+      "fixture": {
+        "contract": "The workflow must validate the requested revision before producing a release recommendation. A recommendation emitted without validation is a behavioral failure. The declared metric is the proportion of recommendations that meet this contract.",
+        "environment": {
+          "model": "model-k",
+          "effort": "high",
+          "task": "prepare recommendation for fixture release",
+          "tools": "same isolated fake",
+          "authorization": "read-only recommendations"
+        },
+        "summary_from_operator": "r42 passed every run. I excluded b2 because the final response was under 80 words. This shows r42 improved reliability.",
+        "runs": [
+          {
+            "id": "b1",
+            "requested_revision": "r41",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          },
+          {
+            "id": "b2",
+            "requested_revision": "r41",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "recommendation_written"
+            ],
+            "final": "Ready to release.",
+            "validation_revision": null,
+            "verdict": "fail"
+          },
+          {
+            "id": "b3",
+            "requested_revision": "r41",
+            "metadata": {
+              "loaded_revision": null
+            },
+            "events": [
+              "runner_launch_failed"
+            ],
+            "error": "spawn executor ENOENT",
+            "agent_started": false
+          },
+          {
+            "id": "c1",
+            "requested_revision": "r42",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          },
+          {
+            "id": "c2",
+            "requested_revision": "r42",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          },
+          {
+            "id": "c3",
+            "requested_revision": "r42",
+            "metadata": {
+              "loaded_revision": "r42"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          }
+        ]
+      },
+      "expectations": [
+        "No supported reliability gain. c1/c2 used r41 and cannot be r42 outcomes.",
+        "b2 remains a behavioral failure; b3 is an evidenced pre-execution infrastructure failure.",
+        "Only c3 is a valid r42 observation; sample limits are stated.",
+        "Next check verifies the actual loaded version and uses comparable cases; no arbitrary full benchmark campaign required."
+      ]
+    },
+    {
+      "id": "retune-continuation-rewrite",
+      "kind": "artifact",
+      "prompt": "Revise the supplied workflow to address the observed run while preserving its behavior and runtime contracts. Write the complete revised workflow to continuation-rewrite.md. You are authoring the workflow, not operating the deployment.",
+      "fixture": {
+        "workflow": "# Prepare a service change\n1. Read the supplied change and validation guide.\n2. Follow the validation guide in this conversation. Return only {\"verdict\": \"pass|fail\", \"reason\": \"text\"} to the caller.\n3. If validation passes, start a reviewer child through start_review. Its prompt says: Return only {\"verdict\": \"pass|fail\", \"reason\": \"text\"}; do not publish or perform the caller's remaining work.\n4. Collect the review, revise any supported issue, and prepare the deployment summary.\n5. Ask the user to approve the named production deployment. Publish only after explicit approval, then report the deployed revision.\nIf validation fails, report the failure and stop dependent deployment work.\n",
+        "runtime": "Reading the validation guide continues in the same conversation and does not create another actor. start_review creates an independent child and returns a task id. If its state is running, the parent must yield the current turn; the host resumes it automatically when the result arrives. Reuse that task id and read the result after resumption. The child returns its JSON to the parent. The parent must not poll, start a duplicate child, or treat dispatch as completed review. The user can answer the production approval question in a later message.",
+        "observed_trace": [
+          "parent read change",
+          "parent read validation guide",
+          "parent completed validation successfully",
+          "parent final: Validation passed. Let me know if you want me to arrange review."
+        ],
+        "observed_state": "No review child exists and no deployment summary was prepared. Production has not changed."
+      },
+      "expectations": [
+        "Same-conversation validation proceeds to required review rather than asking whether to continue.",
+        "Real child return schema and actor boundary remain intact.",
+        "Preserves host-required yield/resumption and result collection; no duplicate dispatch or invented polling.",
+        "Preserves explicit production approval and validation-failure blocker; no wider effects."
+      ]
     }
   ]
 }
