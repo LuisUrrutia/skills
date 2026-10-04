@@ -1,0 +1,44 @@
+{
+  "protocol": "Run each request in a clean isolated fixture. Compare no skill with the candidate using the same model, effort, tools, authorization, and files. Give executors only this file's request and artifacts, plus the assigned instruction condition. Keep expectations.json with the grader. These cases have not yet been run as independent agent trials.",
+  "cases": [
+    {
+      "id": "stored-duration",
+      "request": "Fix the stored timer loader. Existing records are JSON objects with a finite, nonnegative durationMs. Preserve zero as a valid duration and our RangeError failure contract. Use the existing parser; do not add a dependency. Implement and verify the repair.",
+      "files": {
+        "package.json": "{\"private\":true,\"type\":\"module\",\"scripts\":{\"check\":\"tsc -p tsconfig.json\"}}",
+        "tsconfig.json": "{\"compilerOptions\":{\"strict\":true,\"target\":\"ES2022\",\"module\":\"NodeNext\",\"noEmit\":true},\"include\":[\"*.ts\"]}",
+        "timer.ts": "export type Timer = { durationMs: number };\nexport function parseTimer(value: unknown): Timer {\n if (typeof value !== 'object' || value === null || !('durationMs' in value) || typeof value.durationMs !== 'number' || !Number.isFinite(value.durationMs) || value.durationMs < 0) throw new RangeError('Invalid timer');\n return { durationMs: value.durationMs };\n}\n",
+        "storage.ts": "import type { Timer } from './timer.js';\nexport function loadTimer(serialized: string): Timer {\n return JSON.parse(serialized) satisfies Timer;\n}\n"
+      }
+    },
+    {
+      "id": "released-preferences-review",
+      "request": "Review this proposed SDK type simplification without editing files. The released contract lets consumers set label and theme independently, and permits retaining old data while refreshing. Our current demo uses only the empty-preferences and ready cases. Report actionable compatibility findings, with evidence; avoid style-only changes.",
+      "files": {
+        "released.ts": "export type Preferences = { label?: string; theme?: 'light' | 'dark' };\nexport type Result<T> = { status: 'loading'; data?: T } | { status: 'ready'; data: T };\n",
+        "proposed.ts": "export type Preferences = { kind: 'default' } | { kind: 'custom'; label: string; theme: 'light' | 'dark' };\nexport type Result<T> = { status: 'loading' } | { status: 'ready'; data: T };\n",
+        "demo.ts": "import type { Preferences, Result } from './released.js';\nexport const preferences: Preferences = {};\nexport const result: Result<number> = { status: 'ready', data: 1 };\n"
+      }
+    },
+    {
+      "id": "save-handler",
+      "request": "The UI reports a completed save too early. Repair the event adapter using the existing save and error-reporting APIs. Keep the emitter synchronous and unchanged; it serves other listeners. Do not add a global rejection handler. Verify completion and rejection behavior, not only type compatibility.",
+      "files": {
+        "events.ts": "export function emitSave(listener: () => void): void { listener(); }\n",
+        "adapter.ts": "import { emitSave } from './events.js';\nexport function bindSave(save: () => Promise<void>, complete: () => void, report: (error: unknown) => void): void {\n emitSave(async () => { save(); complete(); });\n}\n"
+      }
+    },
+    {
+      "id": "release-check",
+      "request": "Prepare this small Node package for its existing ESM-only release today. The root check was green. Repair any release-blocking problem, preserve the package's public exports, and show the checks that actually cover the shipped code. Keep the scope to this package.",
+      "files": {
+        "package.json": "{\"private\":true,\"scripts\":{\"check\":\"tsc -p tsconfig.json\"}}",
+        "tsconfig.json": "{\"files\":[],\"references\":[{\"path\":\"./package\"}]}",
+        "package/package.json": "{\"name\":\"fixture-release\",\"version\":\"1.0.0\",\"type\":\"module\",\"exports\":{\".\":{\"types\":\"./dist/index.d.ts\",\"default\":\"./dist/index.js\"}}}",
+        "package/tsconfig.json": "{\"compilerOptions\":{\"strict\":true,\"composite\":true,\"target\":\"ES2022\",\"module\":\"NodeNext\",\"outDir\":\"dist\",\"paths\":{\"@internal/value\":[\"./value.ts\"]}},\"files\":[\"index.ts\",\"value.ts\"]}",
+        "package/index.ts": "export { value } from '@internal/value';\n",
+        "package/value.ts": "export const value: number = '42';\n"
+      }
+    }
+  ]
+}

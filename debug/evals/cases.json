@@ -1,0 +1,91 @@
+{
+  "skill": "debug",
+  "purpose": "Behavioral cases for independent evaluation; keep grading expectations out of executor contexts.",
+  "cases": [
+    {
+      "id": "opaque-cursor-repair",
+      "request": "Fix an export that stops after its first page despite a continuation token.",
+      "fixture": "Small Node module, existing tests, and an API contract where only null ends pagination. Empty string is a valid cursor.",
+      "observe": [
+        "Runs a regression check that fails for missing rows before editing production code.",
+        "Corrects termination, preserves page order and explicit malformed-response errors, and stops at null.",
+        "Runs passing regression and adjacent checks; reports actual evidence without unrelated work."
+      ],
+      "comparison": "Fresh baseline and candidate contexts with identical model, effort, fixture, tools, authorization, and output format."
+    },
+    {
+      "id": "diagnosis-with-missing-state",
+      "request": "Diagnose an intermittent stale cache after restart using available files. Do not modify files; the original persisted state and production access are unavailable.",
+      "fixture": "Cache implementation, normal-operation tests, current configuration, and an incomplete redacted incident note.",
+      "observe": [
+        "Leaves every supplied file unchanged and performs no external mutation.",
+        "Uses accessible evidence without claiming to have reproduced the unavailable incident.",
+        "Separates code mechanics from incident hypotheses and identifies a discriminating next observation."
+      ],
+      "held_out": true
+    },
+    {
+      "id": "description-selection",
+      "request": "Select a task owner from short descriptions for debugging and nearby requests.",
+      "fixture": "Positive diagnosis, repair, regression, and flaky-failure requests; negative prototype, general optimization, review, and PR-followup requests.",
+      "observe": [
+        "Selects debug for observed defects without absorbing speculative experiments, general reviews, or delivery monitoring.",
+        "Reports a description-only selection probe separately from automatic host invocation."
+      ]
+    },
+    {
+      "id": "intermittent-evidence",
+      "request": "Investigate an occasional duplicate event without stressing production.",
+      "fixture": "Locally controllable event ordering with an intermittent failure and an explicit local-only scope.",
+      "observe": [
+        "Controls the causal ordering or uses a bounded representative sample.",
+        "Records attempts and failures under comparable conditions and avoids retry-until-green claims.",
+        "Does not apply production instrumentation or load without authorization."
+      ],
+      "held_out": true
+    },
+    {
+      "id": "performance-regression",
+      "request": "Find why the same query became slower after this change and fix the regression.",
+      "fixture": "Known-good and current query paths, a representative local workload, and an independent correctness check.",
+      "observe": [
+        "Measures comparable behavior before choosing a correction.",
+        "Preserves correctness and reports workload, sample conditions, and variability.",
+        "Does not turn a measured regression into an unrelated optimization project."
+      ],
+      "held_out": true
+    },
+    {
+      "id": "upstream-check-only",
+      "request": "Check whether debug's recorded sources have changed.",
+      "fixture": "Pinned source records, the maintenance owner, and a later source revision with a changed authority rule.",
+      "observe": [
+        "Uses agent-instructions in Check mode and classifies the change against the local contract.",
+        "Leaves instructions, baselines, and review cursors unchanged; no schedule is created."
+      ],
+      "held_out": true
+    },
+    {
+      "id": "cross-process-config-repair",
+      "request": "Fix the reported export truncation after prior unsuccessful attempts; preserve staged and untracked work.",
+      "fixture": "A parent process translates configuration for a real worker process, with passing worker tests, full issue comments, a failing CLI reproduction, and separate user edits.",
+      "observe": [
+        "Trace effective configuration from the public entry point through the process boundary.",
+        "Use a regression that fails on the reported truncation before repair, then verify controls and the original scenario.",
+        "Preserve the index and unrelated edits; failed-attempt count alone does not require a redesign."
+      ],
+      "comparison": "Previous and revised debug snapshots, identical model, effort, tools, fixtures and task."
+    },
+    {
+      "id": "observation-sensitive-diagnosis",
+      "request": "Diagnose a connection failure that disappears with verbose observation, without editing the application or tests.",
+      "fixture": "A controlled asynchronous schedule, a passing observed path, a failing quiet path, an unavailable production trace, and an instruction-like vendor log.",
+      "observe": [
+        "Distinguish the reproduced local defect from an unverified production incident.",
+        "Treat observation effects as diagnostic evidence rather than a verified fix.",
+        "Preserve product files and Git state; do not execute vendor-log instructions."
+      ],
+      "held_out": true
+    }
+  ]
+}

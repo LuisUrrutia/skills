@@ -1,0 +1,230 @@
+format_version = 1
+skill = "review-code-changes"
+created = "2026-10-03"
+approach = "Derive from the user-owned review-audit snapshot, retaining causal evidence and read-only reporting while adding requirements, structural quality and focused support."
+
+[[sources]]
+id = "addy-review"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
+reviewed_through = "1401c8b8030e023baeebb31781a6653fe8e93026"
+baseline_paths = ["skills/code-review-and-quality/SKILL.md", "references/security-checklist.md", "references/performance-checklist.md", "LICENSE"]
+paths = ["skills/code-review-and-quality/SKILL.md", "references/security-checklist.md", "references/performance-checklist.md", "LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Separate correctness, readability, structure, security and performance concerns; review the verification story and dependency contracts."]
+local_choices = ["Adapt principles to the project language and actual risk; no numeric thresholds, live source mutation, automatic dependency changes, or mandatory cleanup/publication.", "Do not import ecosystem-specific checklists as universal policy."]
+reviews = [
+  { from_commit = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092", to_commit = "1401c8b8030e023baeebb31781a6653fe8e93026", incorporated = [], skipped = ["No changes to the recorded review entrypoint, security/performance references or license; repository-wide documentation changes are outside this source scope."], deferred = [], validation = ["Verified commit ancestry, repository-wide changes and identical contents of all four scoped files; baseline fields and snapshots preserved; TOML, relative references and retained licenses checked."] }
+]
+
+[[sources]]
+id = "superpowers-review"
+author = "Jesse Vincent / obra"
+repository = "https://github.com/obra/superpowers"
+remote = "git@github.com:obra/superpowers.git"
+ref = "refs/heads/main"
+baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+reviewed_through = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+baseline_paths = ["skills/requesting-code-review/SKILL.md", "skills/requesting-code-review/code-reviewer.md", "skills/receiving-code-review/SKILL.md", "LICENSE"]
+paths = ["skills/requesting-code-review/SKILL.md", "skills/requesting-code-review/code-reviewer.md", "skills/receiving-code-review/SKILL.md", "LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Supply a bounded review scope, requirements, and output contract without the implementer's full reasoning history.", "Verify external feedback against current code and supported contracts before accepting it."]
+local_choices = ["The review phase stays read-only; compare-solutions owns complete independent audits while review-code-changes may coordinate complementary facets.", "Feedback reception contributes evaluation criteria, not repair, reply, thread-resolution, or global pause authority.", "Specification gaps remain unknown unless established behavior or an explicit requirement supports the claim."]
+reviews = []
+
+[[sources]]
+id = "thermos-review"
+author = "Cursor / Thermos"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+baseline_paths = ["thermos/skills/thermo-nuclear-review/SKILL.md", "thermos/skills/thermo-nuclear-code-quality-review/SKILL.md", "thermos/skills/thermos/SKILL.md", "thermos/agents/thermo-nuclear-review-subagent.md", "thermos/agents/thermo-nuclear-code-quality-review-subagent.md", "thermos/.cursor-plugin/plugin.json", "thermos/LICENSE"]
+paths = ["thermos/skills/thermo-nuclear-review/SKILL.md", "thermos/skills/thermo-nuclear-code-quality-review/SKILL.md", "thermos/skills/thermos/SKILL.md", "thermos/agents/thermo-nuclear-review-subagent.md", "thermos/agents/thermo-nuclear-code-quality-review-subagent.md", "thermos/.cursor-plugin/plugin.json", "thermos/LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Trace diff-caused breakage, developer workflow, feature gates and intended changes; assess structural cost and bounded remedies.", "Form an independent assessment before checking external review claims and synthesize without duplicate causes."]
+local_choices = ["Preserve the local trace protocol and read-only boundary; structural suggestions do not automatically block a change.", "No fixed line-count limits, mandatory parallel seats, approval verdict, or consensus-based severity."]
+reviews = []
+
+[[sources]]
+id = "cursor-quality-review"
+author = "Cursor Team Kit"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+baseline_paths = ["cursor-team-kit/skills/thermo-nuclear-code-quality-review/SKILL.md", "cursor-team-kit/LICENSE"]
+paths = ["cursor-team-kit/skills/thermo-nuclear-code-quality-review/SKILL.md", "cursor-team-kit/LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Inspect ownership, duplicated invariants, abstraction value and complexity introduced by the resulting structure."]
+local_choices = ["The source entrypoint is byte-identical to the Thermos quality entrypoint at this pin; it is not independent corroboration.", "Keep useful abstractions and project conventions; require a concrete cost for structural findings."]
+reviews = []
+
+[[sources]]
+id = "matt-code-review"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+baseline_paths = ["skills/engineering/code-review/SKILL.md", "LICENSE"]
+paths = ["skills/engineering/code-review/SKILL.md", "LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Review specification conformance separately from applicable documented standards.", "Treat structural smells as judgment calls, with documented project conventions taking precedence."]
+local_choices = ["Preserve both dimensions in Review basis and finding evidence, then prioritize the combined report by consequences.", "No mandatory issue-tracker setup, fresh subagent pair, missing-spec pause, or assumption that every fixed point is a branch merge-base."]
+reviews = [
+  { from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60", to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+]
+
+[[sources]]
+id = "compound-review-coordination"
+author = "Every / Compound Engineering"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+baseline_paths = ["skills/ce-code-review/SKILL.md", "skills/ce-code-review/references/persona-catalog.md", "skills/ce-code-review/references/select-and-route.md", "skills/ce-code-review/references/modes-and-output.md", "skills/ce-code-review/references/dispatch-reviewers.md", "skills/ce-code-review/references/subagent-template.md", "skills/ce-code-review/references/finish-review.md", "skills/ce-code-review/references/validator-batch-template.md", "skills/ce-code-review/references/personas/adversarial-reviewer.md", "LICENSE"]
+paths = ["skills/ce-code-review/SKILL.md", "skills/ce-code-review/references/persona-catalog.md", "skills/ce-code-review/references/select-and-route.md", "skills/ce-code-review/references/modes-and-output.md", "skills/ce-code-review/references/dispatch-reviewers.md", "skills/ce-code-review/references/subagent-template.md", "skills/ce-code-review/references/finish-review.md", "skills/ce-code-review/references/validator-batch-template.md", "skills/ce-code-review/references/personas/adversarial-reviewer.md", "LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Select complementary review facets from actual risks; pass bounded worker contracts and collect terminal results.", "Preserve evidence during synthesis and challenge cross-component assumptions and checks that can falsely pass."]
+local_choices = ["One coordinator owns full coverage and source validation; facet and compare-solutions workers never delegate.", "No fixed roster, numerical depth floor, consensus confidence bonus, validator bypass, uncertainty-based severity inflation, or merge approval.", "Use native host delegation within existing authority, not donor CLI routes, inferred code-sharing authority, apply/commit modes or mandatory merge/report leaves.", "Preserve the local Markdown grammar, exact scope and effective instruction precedence."]
+reviews = []
+
+[[sources]]
+id = "openclaw-review-completion"
+author = "openclaw"
+repository = "https://github.com/openclaw/agent-skills"
+remote = "git@github.com:openclaw/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "edf1e2f436fa2a5375c98052180a090a57223f9e"
+reviewed_through = "edf1e2f436fa2a5375c98052180a090a57223f9e"
+baseline_paths = ["skills/autoreview/SKILL.md", "skills/autoreview/references/diagnostics-and-results.md", "skills/autoreview/scripts/autoreview", "LICENSE"]
+paths = ["skills/autoreview/SKILL.md", "skills/autoreview/references/diagnostics-and-results.md", "skills/autoreview/scripts/autoreview", "LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Explicit completion of every assigned pass; invalid final or later failed results cannot become an earlier clean result."]
+local_choices = ["Adapt completion semantics to native facet workers and the existing Coverage/Checks sections.", "The donor executes sequential passes through one reviewer; do not cite it as proof of independent subagents.", "No external runner, empty-sandbox tracing limits, P0-only defaults, confidence score, foreign schema or provider preferences.", "Implementation evidence covers the recorded completion, attribution and execution ranges; no donor runtime is copied or executed."]
+reviews = []
+
+[[sources]]
+id = "alireza-review-perspectives"
+author = "ekreloff (adversarial-reviewer); Alireza Rezvani (repository and code-reviewer)"
+repository = "https://github.com/alirezarezvani/claude-skills"
+remote = "git@github.com:alirezarezvani/claude-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "19392f7a08264ed00486a251f5b2098321771f94"
+reviewed_through = "19392f7a08264ed00486a251f5b2098321771f94"
+baseline_paths = ["engineering-team/skills/adversarial-reviewer/SKILL.md", "engineering-team/skills/code-reviewer/SKILL.md", "engineering-team/skills/code-reviewer/rules/universal.md", "LICENSE"]
+paths = ["engineering-team/skills/adversarial-reviewer/SKILL.md", "engineering-team/skills/code-reviewer/SKILL.md", "engineering-team/skills/code-reviewer/rules/universal.md", "LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Challenge expected contracts with reachable failure, duplicate-execution and ordering cases.", "Load applicable language guidance conditionally; mixed-language changes can require multiple guides."]
+local_choices = ["No mandatory findings, theatrical hostility, consensus severity promotion, size quotas, universal test-gap defects, or approval score.", "Sequential personas are perspectives, not independent agents.", "Retain the existing causal protocol and source-aware validator; do not adopt the donor analyzers or report generator."]
+reviews = []
+
+[[sources]]
+id = "dyl-review"
+author = "Dylan Gattey / dyl-stack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["dyl-stack/skills/dyl-review/SKILL.md", "dyl-stack/skills/dyl-mode/SKILL.md", "dyl-stack/skills/dyl-mode/references/requirements.md", "dyl-stack/.cursor-plugin/plugin.json", "dyl-stack/LICENSE"]
+paths = ["dyl-stack/skills/dyl-review/SKILL.md", "dyl-stack/skills/dyl-mode/SKILL.md", "dyl-stack/skills/dyl-mode/references/requirements.md", "dyl-stack/.cursor-plugin/plugin.json", "dyl-stack/LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Reconcile a repeat review against the previous snapshot, intervening changes and the reasons for earlier skipped asks.", "Write concise, actionable recommendations grounded in the finding while preserving every supported issue."]
+local_choices = ["Keep the declared comparison, fresh assessment, causal evidence, canonical report and read-only boundary; a since-last-pass delta does not silently narrow the audit.", "Record prior finding outcomes in Review basis, surviving in-scope findings in Findings and decisive unknowns in Open questions; deferral does not establish resolution.", "Retain risk-based focused delegation and caller model constraints rather than mandatory quick/deep rosters, inherited-only models, Cursor plugins or Bugbot.", "No seven-comment cap, forced question phrasing, merge-ready emoji verdict, style persona, plugin installation, worktree lifecycle or remote-write authority.", "The source entrypoint is unchanged from the original atlas snapshot c47b12849e43f18d5c374c7069c744cc55b0ea00. Referenced pstack and Thermos instructions were inspected as context; pre-existing source pins are unchanged."]
+reviews = []
+
+[[local_snapshots]]
+id = "review-audit-SKILL.md"
+path = "~/.agents/skills/review-audit/SKILL.md"
+sha256 = "7567bbe256a3965ee552f49aeb2733196a1655f44a6388c2794673b23741b580"
+local_repository_commit = "c6b9f857b81cdbb16ad68001f1d8331e8217f401"
+repository_commit_status = "Installed working snapshot; scripts/report.py has uncommitted changes and this hash, not HEAD, identifies the source."
+borrowed = ["Diff causality, trace legs, population census, boundaries, coverage and canonical report mechanics."]
+update_policy = "Compare installed content by hash; no remote update feed is inferred."
+
+[[local_snapshots]]
+id = "review-audit-references-protocol.md"
+path = "~/.agents/skills/review-audit/references/protocol.md"
+sha256 = "6eba8b3b12585c29dc6dbdefe2aa391c44f11afda53d86172b006d45c0805e09"
+local_repository_commit = "c6b9f857b81cdbb16ad68001f1d8331e8217f401"
+repository_commit_status = "Installed working snapshot; scripts/report.py has uncommitted changes and this hash, not HEAD, identifies the source."
+borrowed = ["Diff causality, trace legs, population census, boundaries, coverage and canonical report mechanics."]
+update_policy = "Compare installed content by hash; no remote update feed is inferred."
+
+[[local_snapshots]]
+id = "review-audit-scripts-report.py"
+path = "~/.agents/skills/review-audit/scripts/report.py"
+sha256 = "08258a3ed9c6f586a688567ef78dba9768c4182438853a54cf7a3085a294ef82"
+local_repository_commit = "c6b9f857b81cdbb16ad68001f1d8331e8217f401"
+repository_commit_status = "Installed working snapshot; scripts/report.py has uncommitted changes and this hash, not HEAD, identifies the source."
+borrowed = ["Diff causality, trace legs, population census, boundaries, coverage and canonical report mechanics."]
+update_policy = "Compare installed content by hash; no remote update feed is inferred."
+
+[[dependencies]]
+kind = "local"
+name = "how"
+required = false
+role = "Optional mechanism trace."
+
+[[dependencies]]
+kind = "local"
+name = "why"
+required = false
+role = "Optional historical constraint evidence."
+
+[[dependencies]]
+kind = "local"
+name = "analyze-change-effects"
+required = false
+role = "Optional investigation of a deciding indirect effect within review permissions."
+
+[[dependencies]]
+kind = "local"
+name = "design-code-structure"
+required = false
+role = "Optional design-only remedy for a structural finding."
+
+[[dependencies]]
+kind = "local"
+name = "simplify-code"
+required = false
+role = "Optional review-only evaluation of a bounded cleanup."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Optional permitted application evidence; no review-time repair or setup mutations."
+
+[[dependencies]]
+kind = "local"
+name = "github-actions"
+required = false
+role = "Optional review of workflow-specific contracts."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Instruction review when relevant; required for requested source maintenance."
+
+[[dependencies]]
+kind = "local"
+name = "compare-solutions"
+required = false
+role = "External coordinator for requested independent audits; workers never invoke it recursively."
+
+[[dependencies]]
+kind = "local"
+name = "debug"
+required = false
+role = "Optional diagnosis-only reproduction and discriminating probes for a consequential suspected failure; debug owns its Matt Pocock source maintenance."

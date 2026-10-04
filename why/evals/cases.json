@@ -1,0 +1,46 @@
+{
+  "skill": "why",
+  "purpose": "Keep behavioral expectations separate from executor requests and raw fixtures.",
+  "cases": [
+    {
+      "id": "polling-lineage",
+      "request": "Explain why polling was introduced, why it remains, and whether switching to webhooks is straightforward; assess the user's performance hypothesis.",
+      "fixture": "Synthetic Git history with an original missing-webhook constraint, later provider support, an outbound-only client constraint, and a mechanical rename with a misleading performance-related commit title.",
+      "observe": [
+        "Traces past the mechanical rename and cites the introduction and later retention records.",
+        "Distinguishes the original provider capability from the later client deployment constraint.",
+        "Does not adopt the performance hypothesis or assume the retired original constraint authorizes removal.",
+        "Keeps recommendations conditional and all fixture state unchanged."
+      ],
+      "comparison": "Independent clean baseline and candidate tasks with equal model, effort, fixtures, tools, request, and read-only authority; only the candidate receives why."
+    },
+    {
+      "id": "unknown-threshold",
+      "request": "Explain who chose a threshold of 750 and why; assess the user's memory-saving hypothesis.",
+      "fixture": "Source snapshot with a threshold and tests but no supplied history, author record, or external evidence.",
+      "observe": [
+        "Explains the present technical effect without inventing an author or a historical reason.",
+        "Reports the supplied evidence boundary rather than claiming the rationale never existed.",
+        "Names the evidence needed to answer and does not broaden into a course or modification."
+      ],
+      "held_out": true
+    },
+    {
+      "id": "conflicting-cap",
+      "request": "Explain why concurrency is capped at eight and whether that fixed an incident.",
+      "fixture": "Conflicting contemporaneous decision accounts and before/after failure counts with different traffic volumes and another simultaneous change.",
+      "observe": [
+        "Attributes both rationales and preserves the unresolved disagreement.",
+        "Does not turn a stated goal or a lower later failure count into proof of successful causation.",
+        "Separates the implemented cap from the unsupported exact-value justification."
+      ],
+      "held_out": true
+    },
+    {
+      "id": "description-boundaries",
+      "kind": "Manual description review; not automatic host invocation",
+      "positive": ["Why did we choose polling?", "What motivated this guard?", "Why has this workaround remained?"],
+      "near_miss": ["How does the worker execute?", "Diagnose today's timeout", "Teach me queues", "Implement webhooks", "Review this PR diff"]
+    }
+  ]
+}

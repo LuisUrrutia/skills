@@ -1,0 +1,561 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Matt and pstack upstream review · 4 October 2026</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip-link" href="#summary">Skip to review</a>
+<aside class="sidebar">
+<a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">S</span><span>Skill Atlas<small>Upstream review</small></span></a>
+<nav aria-label="Review sections">
+<a href="#summary">Recommendation</a>
+<a href="#ranges">Compared revisions</a>
+<a href="#changes">Changes and decisions</a>
+<a href="#skills">All 24 local skills</a>
+<a href="#extraction">Workflow lessons</a>
+<a href="#validation">Reviews and evidence</a>
+</nav>
+<div class="sidebar-note"><time datetime="2026-10-04">4 October 2026</time><p>Check mode. Proposals have not been applied and source cursors are unchanged.</p></div>
+</aside>
+<main>
+<section class="section hero" id="summary" tabindex="-1">
+<p class="kicker">Matt Pocock and Lauren Tan / pstack</p>
+<h1>A targeted architecture update to consider</h1>
+<p class="lead">Update design-code-structure first. Keep unchanged packages intact. Consider evidence for automatic checks as a separate, optional addition; defer shared performance measurement guidance until there is a concrete use case.</p>
+<dl class="scope-stats"><div><dt>Local skills covered</dt><dd>24</dd></div><div><dt>Direct source records</dt><dd>32</dd></div><div><dt>Behavior deltas</dt><dd>1</dd></div><div><dt>Metadata-only deltas</dt><dd>1</dd></div></dl>
+<div class="notice">Thirty direct records have identical scoped content. Six pstack records already point at the current candidate. A new release note is not necessarily a new source change.</div>
+<div class="hero-actions"><a class="button primary" href="#architecture">Read the architecture proposal</a><a class="button secondary" href="upstream-review-2026-10-04.json">Read the complete evidence record</a></div>
+<p>Recommended order: adapt design-code-structure; optionally strengthen the workflow extraction handoff; then decide on shared performance-evidence guidance. Keep all other instruction text as it is.</p>
+</section><section class="section" id="ranges"><h2>Compared revisions</h2>
+<p>Each source was compared from its own reviewed_through cursor. Baselines remain immutable. Both repositories were cloned through their recorded SSH remotes, and candidates were resolved once and held fixed.</p>
+<div class="repository-sources">
+<article class="surface">
+<h3>Matt Pocock</h3>
+<div class="evidence"><a href="https://github.com/mattpocock/skills">https://github.com/mattpocock/skills</a></div>
+<p>Candidate: <code>24fe0ef7737efae15c87225755e9f6f5965e4888</code></p>
+<p>SSH remote: <code>git@github.com:mattpocock/skills.git</code></p>
+</article>
+<article class="surface">
+<h3>Lauren Tan / pstack in Cursor plugins</h3>
+<div class="evidence"><a href="https://github.com/cursor/plugins">https://github.com/cursor/plugins</a></div>
+<p>Candidate: <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code></p>
+<p>SSH remote: <code>git@github.com:cursor/plugins.git</code></p>
+</article>
+</div>
+<div class="table-wrap" role="region" aria-label="Revision ranges" tabindex="0"><table><caption>Fixed comparison ranges</caption><thead><tr><th scope="col">Source family</th><th scope="col">Cursor → candidate</th><th scope="col">Records / repository changes</th></tr></thead><tbody>
+<tr><th scope="row">matt</th><td><code>d81f3a183412e71a5b1e84ca21bc1a35eea03a60</code><br>→ <code>24fe0ef7737efae15c87225755e9f6f5965e4888</code><div class="evidence"><a href="https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888">https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888</a></div></td><td>11 records<br>6 commits; 18 repository path changes</td></tr>
+<tr><th scope="row">pstack</th><td><code>23e4138daa01c42d4969f7a5465f82704e64f798</code><br>→ <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code><div class="evidence"><a href="https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div></td><td>12 records<br>3 commits; 8 repository path changes</td></tr>
+<tr><th scope="row">pstack</th><td><code>7022c81efb48d8b5eb15498ce6043a3bd74b694c</code><br>→ <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code><div class="evidence"><a href="https://github.com/cursor/plugins/compare/7022c81efb48d8b5eb15498ce6043a3bd74b694c...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/7022c81efb48d8b5eb15498ce6043a3bd74b694c...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div></td><td>2 records<br>4 commits; 21 repository path changes</td></tr>
+<tr><th scope="row">pstack</th><td><code>9511e60321f7e533a187d62854a3d53a53752874</code><br>→ <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code><div class="evidence"><a href="https://github.com/cursor/plugins/compare/9511e60321f7e533a187d62854a3d53a53752874...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/9511e60321f7e533a187d62854a3d53a53752874...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div></td><td>1 records<br>2 commits; 6 repository path changes</td></tr>
+<tr><th scope="row">pstack</th><td><code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code><br>→ <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code><div class="evidence"><a href="https://github.com/cursor/plugins/compare/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div></td><td>6 records<br>0 commits; 0 repository path changes</td></tr>
+</tbody></table></div>
+<p>All baseline/cursor objects, ancestry and recorded paths passed. No tracked source was renamed or deleted in these ranges. Both applicable MIT license texts are unchanged. Matt removes thirteen consumed changeset files, not thirteen source skills.</p>
+</section>
+<section class="section" id="changes"><h2>What changed and what to do</h2>
+<p>Adapt, skip and defer below are recommendations from this check. No proposal is marked incorporated. Optional source discoveries do not mean an existing tracked source is out of sync.</p>
+<div class="repository-sources">
+<article class="surface" id="architecture">
+<p class="kicker">recorded-source behavior delta</p><h3>Make module boundaries and duplicated registries enforceable</h3>
+<p>Adapt · first</p>
+<p>Architect now asks whether a plausible edit made from partial context remains correct across the repository. Its design screen adds split ownership, competing ways to do a task, importable internals and hand-synchronized lists.</p>
+<p><strong>Already covered.</strong> The local skill already models invariant ownership, change locality, private representations, derived state and compatible migrations. Those parts need no second rule set.</p>
+<p><strong>Proposed local action.</strong> Revise the existing Compare and choose screen to ask whether a plausible edit made with partial context remains correct repository-wide. Check parallel paths that keep gaining callers, intended-private imports that consumers can still reach, and manually synchronized registries. Prefer one maintained route where its contract allows; derive related projections or check their defined relationship. Use available module, type, lint, test or build mechanisms to enforce intended boundaries, without requiring a new toolchain.</p>
+<p><strong>Adaptation boundary.</strong> Keep legitimate distributed writers and independently owned state behind the real invariant. Retain compatibility layers, supported platform variants and staged migrations until their consumers can move. Do not require one physical writer, forbid intentional protocol exports, or delete every alternative in the same change.</p>
+<details class="evidence"><summary>Local ownership and source evidence</summary><ul>
+<li><code>design-code-structure/SKILL.md:94</code></li>
+<li><code>design-code-structure/SKILL.md:102</code></li>
+<li><code>design-code-structure/references/state-and-boundaries.md:23</code></li>
+<li><code>design-code-structure/references/state-and-boundaries.md:50</code></li>
+<li><a href="https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/architect/SKILL.md">https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/architect/SKILL.md</a></li>
+<li><a href="https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/architect/references/design-red-flags.md">https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/architect/references/design-red-flags.md</a></li>
+</ul></details>
+<details class="technical"><summary>Checks required before a future adoption</summary>
+<ul><li>Matched baseline/candidate design tasks with a reachable private import and two registries that can drift; inspect the proposed enforcing boundary, not a recited rule.</li><li>A migration case with two supported versions must retain both until a compatible transition is established.</li><li>A distributed-state case must preserve the cross-actor invariant, and a plain established design must not acquire a new framework or mandatory multi-agent contest.</li><li>Reuse the established-candidate and protocol-candidate designs documented in reports/design-code-structure-validation.json as regression cases; reconstruct fixtures from retained evidence if the old scratch is absent. An intentional protocol export must remain supported.</li><li>A nearby cleanup-only request should route to simplify-code rather than start a new architectural decision.</li></ul>
+<p>Planned matched baseline/candidate exercises, not tests run in this check. Keep model, effort, tools, fixtures, authority and output format equal; withhold expected answers. A pass by both versions does not establish improvement.</p>
+</details>
+</article>
+<article class="surface" id="error-metadata">
+<p class="kicker">recorded-source metadata delta</p><h3>pstack&#x27;s plugin version changed; error-handling behavior did not</h3>
+<p>Skip · no instruction edit</p>
+<p>The recorded plugin manifest advances from 0.15.7 to 0.15.9. The boundary, idempotency and behavioral-testing principles in this source record have identical blobs.</p>
+<p><strong>Proposed local action.</strong> No instruction change. An authorized Update run could record the metadata-only skip and advance this cursor after its scoped checks.</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/.cursor-plugin/plugin.json">https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/.cursor-plugin/plugin.json</a></div>
+</article>
+<article class="surface" id="matt-routing">
+<p class="kicker">context outside recorded paths</p><h3>Correct the post-bug route, without adding a mandatory retrospective</h3>
+<p>Skip · retain for future coordinator</p>
+<p>Matt removes a stale claim that diagnosis automatically hands off to an architecture improvement skill. The router and documentation now direct a requested post-fix reflection to retro and leave a missing-test-boundary redesign as a separate choice. diagnosing-bugs/SKILL.md itself is unchanged.</p>
+<p><strong>Already covered.</strong> Local debug already reports missing regression coverage and returns to the authorized caller. workflow-to-skill already extracts lessons when requested. Neither promises the stale handoff.</p>
+<p><strong>Proposed local action.</strong> Keep these contracts. When the future coordinator includes learning, route an authorized retrospective to workflow-to-skill; do not make every bug fix edit instructions or start an architecture audit.</p>
+<details class="evidence"><summary>Local ownership and source evidence</summary><ul>
+<li><code>debug/SKILL.md:80</code></li>
+<li><code>debug/SKILL.md:109</code></li>
+<li><code>workflow-to-skill/SKILL.md:13</code></li>
+<li><a href="https://github.com/mattpocock/skills/blob/24fe0ef7737efae15c87225755e9f6f5965e4888/skills/engineering/ask-matt/SKILL.md">https://github.com/mattpocock/skills/blob/24fe0ef7737efae15c87225755e9f6f5965e4888/skills/engineering/ask-matt/SKILL.md</a></li>
+<li><a href="https://github.com/mattpocock/skills/blob/24fe0ef7737efae15c87225755e9f6f5965e4888/docs/engineering/diagnosing-bugs.md">https://github.com/mattpocock/skills/blob/24fe0ef7737efae15c87225755e9f6f5965e4888/docs/engineering/diagnosing-bugs.md</a></li>
+</ul></details>
+</article>
+<article class="surface" id="release-notes">
+<p class="kicker">release metadata</p><h3>Do not re-adopt changes already present at the Matt baseline</h3>
+<p>Skip · no instruction edit</p>
+<p>The release version moves from 1.2.3 to 1.3.1. Most newly printed 1.3.0 notes describe commits already ancestral to d81f3a183412e71a5b1e84ca21bc1a35eea03a60: graduation of pr/retro, the glossary naming change, YAML quoting and invocation corrections.</p>
+<p><strong>Proposed local action.</strong> Classify by the actual Git range and file content, not the date the release notes appeared. All eleven recorded Matt source scopes have identical blobs.</p>
+<div class="evidence"><a href="https://github.com/mattpocock/skills/blob/24fe0ef7737efae15c87225755e9f6f5965e4888/CHANGELOG.md">https://github.com/mattpocock/skills/blob/24fe0ef7737efae15c87225755e9f6f5965e4888/CHANGELOG.md</a></div>
+</article>
+<article class="surface" id="correction-proof">
+<p class="kicker">optional new inspiration; not a recorded source update</p><h3>Make a proposed guardrail demonstrate the mistake it prevents</h3>
+<p>Adapt · optional second step</p>
+<p>The new correct skill groups repeated mistakes and prefers structural enforcement before instructions. It requires a new check to reject a real historical mistake.</p>
+<p><strong>Already covered.</strong> workflow-to-skill already separates deterministic operations from judgment, inspects existing enforcement, and routes to the current owner. agent-instructions already requires meaningful success/failure cases and matched evidence. A separate correct skill would duplicate those responsibilities.</p>
+<p><strong>Proposed local action.</strong> If adopted, add a narrow requirement to the automation evidence handoff: supply a minimized historical failure when available, the existing enforcement owner, and a valid nearby case the check must still allow. The writer then verifies the actual check. Reuse existing infrastructure before introducing a helper. When a violation already exists widely, a changed-code check may prevent new cases while leaving a separately scoped migration; do not require immediate repository-wide cleanup.</p>
+<p><strong>Adaptation boundary.</strong> No two-occurrence threshold, automatic broad history scan, mandatory rule table, one-commit-per-class rule, expiry bureaucracy, or authority to rewrite the project whenever the user corrects an answer. Delete a rule only after checking actual enforcement coverage and retaining its scope, reason and exceptions. Keep explanatory context for judgment and exceptions; docs are not universally removable once a check exists.</p>
+<details class="evidence"><summary>Local ownership and source evidence</summary><ul>
+<li><code>workflow-to-skill/SKILL.md:49</code></li>
+<li><code>workflow-to-skill/SKILL.md:90</code></li>
+<li><code>agent-instructions/references/evaluation.md:5</code></li>
+<li><a href="https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/correct/SKILL.md">https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/correct/SKILL.md</a></li>
+</ul></details>
+<details class="technical"><summary>Checks required before a future adoption</summary>
+<ul><li>Extract a portable check from an observed failed artifact, then reject that artifact and allow a valid near-miss.</li><li>A one-off product preference and a read-only retrospective must not become a repository-wide rule or an unauthorized code edit.</li><li>Reuse workflow-to-skill/evals/cases.json linked-decision-and-existing-check as a regression for finding the current owner before inventing a helper.</li></ul>
+<p>Planned matched baseline/candidate exercises, not tests run in this check. Keep model, effort, tools, fixtures, authority and output format equal; withhold expected answers. A pass by both versions does not establish improvement.</p>
+</details>
+</article>
+<article class="surface" id="measurement">
+<p class="kicker">optional linked/contextual inspiration; not a recorded source update</p><h3>Prove what a benchmark actually measured</h3>
+<p>Defer · optional future adoption</p>
+<p>The earliest pstack cursors predate benchmark-checklist and explain-the-number. Later perf guidance orders hypotheses from avoiding unnecessary work through cheaper execution; hillclimb borrows that order while retaining its own stopping condition. The principle was already inspected in the TypeScript and CI/CD research at e43c7ee, so it is not newly discovered for the whole collection.</p>
+<p><strong>Already covered.</strong> Local prototype and debug already require correct behavior, comparable conditions, meaningful workloads, repetitions and variability. agent-instructions already covers matched trials and variation. Their recorded prototype/debug sources did not change.</p>
+<p><strong>Proposed local action.</strong> If selected, place shared performance-evidence criteria in a conditional reference owned by verify: completed-work/error accounting, tracing outside scored timings, workload and configuration matching, load-generator limits and an end-to-end sanity bound. Add named, conditional routing from prototype&#x27;s timing experiment and debug&#x27;s performance branch. The callers retain experimentation and repair; verify judges the resulting claim. Do not duplicate this procedure across owners or introduce a mandatory framework. Defer adoption until there is a concrete measurement use case; the pending broader performance topic can own optimization strategy, while verify remains the proposed evidence owner.</p>
+<p><strong>Adaptation boundary.</strong> No universal five-run quota, Linux-only commands, automatic tuning or production load, forced statistical test, universal named-limiter gate, or one-number PR quota. Report an observed difference separately from an unestablished causal explanation; one requested ballpark run cannot decide between options.</p>
+<details class="evidence"><summary>Local ownership and source evidence</summary><ul>
+<li><code>verify/SKILL.md:13</code></li>
+<li><code>prototype/references/experiment.md:13</code></li>
+<li><code>debug/references/investigation.md:75</code></li>
+<li><code>agent-instructions/references/evaluation.md:79</code></li>
+<li><a href="https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/benchmark-checklist/SKILL.md">https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/benchmark-checklist/SKILL.md</a></li>
+<li><a href="https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-explain-the-number/SKILL.md">https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-explain-the-number/SKILL.md</a></li>
+<li><a href="https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/poteto-mode/playbooks/perf-issue.md">https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/poteto-mode/playbooks/perf-issue.md</a></li>
+<li><a href="https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/poteto-mode/playbooks/hillclimb.md">https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/poteto-mode/playbooks/hillclimb.md</a></li>
+</ul></details>
+<details class="technical"><summary>Checks required before a future adoption</summary>
+<ul><li>An unawaited task, cached no-op or faster error response must not count as a speedup.</li><li>A saturated load generator and differently tuned candidates must remain inconclusive for the proposed adoption decision.</li><li>A genuine bounded improvement must retain correctness and relevant end-to-end evidence; a non-performance prototype must remain lightweight.</li></ul>
+<p>Planned matched baseline/candidate exercises, not tests run in this check. Keep model, effort, tools, fixtures, authority and output format equal; withhold expected answers. A pass by both versions does not establish improvement.</p>
+</details>
+</article>
+<article class="surface" id="other-pstack-context">
+<p class="kicker">repository-wide context outside recorded source paths</p><h3>Keep host operations and existing adopted material with their owners</h3>
+<p>Skip · preserve existing owners</p>
+<p>The older 7022c81 range also includes fresh worker wording, an hourly autopilot loop, built-in PR-tool preference, removal of writing-source footnotes and a schema-first TypeScript example. These are not deltas after the cursors of the local writing or TypeScript packages, which already use e43c7ee.</p>
+<p><strong>Proposed local action.</strong> Do not copy cloud-agent, scheduler, model or publication defaults. Preserve host-supported delegation and PR registration, existing authorization and draft preferences. Keep the current generic prose and TypeScript contracts; do not create another coordination skill during source maintenance.</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/poteto-mode/playbooks/opening-a-pr.md">https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/poteto-mode/playbooks/opening-a-pr.md</a><a href="https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/poteto-mode/playbooks/autopilot-full.md">https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/poteto-mode/playbooks/autopilot-full.md</a><a href="https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/typescript-best-practices/references/patterns.md">https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/typescript-best-practices/references/patterns.md</a></div>
+</article>
+</div></section><section class="section" id="skills"><h2>Every local skill in scope</h2>
+<p>The table covers all 24 local packages identified from 26 origin.txt files. commit and accessibility have no direct Matt or pstack source record. The dyl-review and Matthew Blode mentions are contextual ancestry; their repositories were not treated as Matt/pstack update feeds.</p>
+<div class="table-wrap" role="region" aria-label="Skill coverage" tabindex="0"><table><caption>Recorded-source assessment, per local owner</caption><thead><tr><th scope="col">Local skill</th><th scope="col">Source result</th><th scope="col">Recommended action</th></tr></thead><tbody>
+<tr data-skill="agent-instructions"><th scope="row"><code>agent-instructions/SKILL.md</code></th><td>writing-for-agents directory and license unchanged.</td><td>Keep authoring and evaluation guidance; existing matched-trial safeguards already cover the main eval lesson.</td></tr>
+<tr data-skill="analyze-change-effects"><th scope="row"><code>analyze-change-effects/SKILL.md</code></th><td>All recorded Matt/pstack source content is unchanged.</td><td>Keep the local contract and its intentional adaptations. No source-driven instruction change.</td></tr>
+<tr data-skill="ci-cd-automation"><th scope="row"><code>ci-cd-automation/SKILL.md</code></th><td>All recorded Matt/pstack source content is unchanged.</td><td>Keep the local contract and its intentional adaptations. No source-driven instruction change.</td></tr>
+<tr data-skill="communicate-clearly"><th scope="row"><code>communicate-clearly/SKILL.md</code></th><td>All recorded Matt/pstack source content is unchanged.</td><td>Keep the local contract and its intentional adaptations. No source-driven instruction change.</td></tr>
+<tr data-skill="compare-solutions"><th scope="row"><code>compare-solutions/SKILL.md</code></th><td>All recorded Matt/pstack source content is unchanged.</td><td>Keep the local contract and its intentional adaptations. No source-driven instruction change.</td></tr>
+<tr data-skill="create-project-instructions"><th scope="row"><code>create-project-instructions/SKILL.md</code></th><td>All recorded Matt/pstack source content is unchanged.</td><td>Keep the local contract and its intentional adaptations. No source-driven instruction change.</td></tr>
+<tr data-skill="debug"><th scope="row"><code>debug/SKILL.md</code></th><td>Both recorded source scopes unchanged; Matt fixes adjacent routing documentation.</td><td>Keep diagnosis and repair ownership. Optional: shared measurement-evidence support.</td></tr>
+<tr data-skill="design-code-structure"><th scope="row"><code>design-code-structure/SKILL.md</code></th><td>Architect changes; Matt design scope unchanged.</td><td>Adapt the existing design screen. This is the first update to make.</td></tr>
+<tr data-skill="error-handling"><th scope="row"><code>error-handling/SKILL.md</code></th><td>Plugin version only; all recorded principles unchanged.</td><td>Keep instructions. Record a metadata skip only in a future Update run.</td></tr>
+<tr data-skill="handoff"><th scope="row"><code>handoff/SKILL.md</code></th><td>All recorded Matt/pstack source content is unchanged.</td><td>Keep the local contract and its intentional adaptations. No source-driven instruction change.</td></tr>
+<tr data-skill="how"><th scope="row"><code>how/SKILL.md</code></th><td>All recorded Matt/pstack source content is unchanged.</td><td>Keep the local contract and its intentional adaptations. No source-driven instruction change.</td></tr>
+<tr data-skill="pr"><th scope="row"><code>pr/SKILL.md</code></th><td>Matt pr and pstack show-me-your-work unchanged.</td><td>Keep human reviewability, attachments, local draft choice and host registration. No donor publication defaults.</td></tr>
+<tr data-skill="pr-followup"><th scope="row"><code>pr-followup/SKILL.md</code></th><td>babysit, bot triage and decision-evidence scopes unchanged.</td><td>Keep feedback evaluation, authorized repair and exact-revision evidence. No automatic scheduler or replies.</td></tr>
+<tr data-skill="prototype"><th scope="row"><code>prototype/SKILL.md</code></th><td>Both recorded source scopes unchanged.</td><td>Keep bounded experimentation. Optional: shared measurement-evidence support.</td></tr>
+<tr data-skill="report-work-activity"><th scope="row"><code>report-work-activity/SKILL.md</code></th><td>All recorded Matt/pstack source content is unchanged.</td><td>Keep the local contract and its intentional adaptations. No source-driven instruction change.</td></tr>
+<tr data-skill="review-code-changes"><th scope="row"><code>review-code-changes/SKILL.md</code></th><td>Matt code-review scope unchanged; dyl mention is contextual.</td><td>Keep read-only review, current delegation and repeat-review reconciliation. No new reviewer roster.</td></tr>
+<tr data-skill="simplify-code"><th scope="row"><code>simplify-code/SKILL.md</code></th><td>All recorded Matt/pstack source content is unchanged.</td><td>Keep the local contract and its intentional adaptations. No source-driven instruction change.</td></tr>
+<tr data-skill="tdd"><th scope="row"><code>tdd/SKILL.md</code></th><td>All recorded Matt/pstack source content is unchanged.</td><td>Keep the local contract and its intentional adaptations. No source-driven instruction change.</td></tr>
+<tr data-skill="typescript-best-practices"><th scope="row"><code>typescript-best-practices/SKILL.md</code></th><td>Recorded pstack scope already equals the candidate.</td><td>Keep the current schema, boundary and type-safety guidance. The older schema-example change is already inside its pin.</td></tr>
+<tr data-skill="verification-authoring"><th scope="row"><code>verification-authoring/SKILL.md</code></th><td>Recorded pstack creation, maintenance and feature-map examples unchanged.</td><td>Keep local recipe creation/maintenance and current evidence contract.</td></tr>
+<tr data-skill="verify"><th scope="row"><code>verify/SKILL.md</code></th><td>Recorded pstack creation and maintenance scopes unchanged.</td><td>Keep common verify and local recipes. Optional: own a conditional performance-evidence reference.</td></tr>
+<tr data-skill="why"><th scope="row"><code>why/SKILL.md</code></th><td>All recorded Matt/pstack source content is unchanged.</td><td>Keep the local contract and its intentional adaptations. No source-driven instruction change.</td></tr>
+<tr data-skill="workflow-to-skill"><th scope="row"><code>workflow-to-skill/SKILL.md</code></th><td>reflect and retro scopes unchanged.</td><td>Keep the current procedure. Optional: a historical failure plus a valid near-miss in enforcement handoffs.</td></tr>
+<tr data-skill="write-documentation"><th scope="row"><code>write-documentation/SKILL.md</code></th><td>All recorded Matt/pstack source content is unchanged.</td><td>Keep the local contract and its intentional adaptations. No source-driven instruction change.</td></tr>
+</tbody></table></div><details class="technical"><summary>Other Cursor plugin authors: nine explicit exclusions</summary>
+<p>The two repositories account for 41 local source records: 32 direct Matt/pstack records and nine records from other Cursor plugin authors. Their scoped paths also have no changes from their own cursors to the candidate. These nine records are outside this author-specific review. dyl-review additionally mentions pstack as inspected context; that mention does not turn it into a pstack source feed.</p>
+<ul>
+<li><code>commit/cursor-reviewable-pr</code>: <code>23e4138daa01c42d4969f7a5465f82704e64f798</code> → <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code>; scoped diff empty.</li>
+<li><code>pr/cursor-reviewable-pr</code>: <code>23e4138daa01c42d4969f7a5465f82704e64f798</code> → <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code>; scoped diff empty.</li>
+<li><code>pr-followup/cursor-ci-followup</code>: <code>23e4138daa01c42d4969f7a5465f82704e64f798</code> → <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code>; scoped diff empty.</li>
+<li><code>pr-followup/dyl-pr-readiness</code>: <code>23e4138daa01c42d4969f7a5465f82704e64f798</code> → <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code>; scoped diff empty.</li>
+<li><code>report-work-activity/cursor-period-summary</code>: <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code> → <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code>; scoped diff empty.</li>
+<li><code>review-code-changes/thermos-review</code>: <code>23e4138daa01c42d4969f7a5465f82704e64f798</code> → <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code>; scoped diff empty.</li>
+<li><code>review-code-changes/cursor-quality-review</code>: <code>23e4138daa01c42d4969f7a5465f82704e64f798</code> → <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code>; scoped diff empty.</li>
+<li><code>review-code-changes/dyl-review</code>: <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code> → <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code>; scoped diff empty.</li>
+<li><code>simplify-code/cursor-deslop</code>: <code>23e4138daa01c42d4969f7a5465f82704e64f798</code> → <code>e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</code>; scoped diff empty.</li>
+</ul></details><h3>Exact source records</h3>
+<p>Expand a record for its reviewed-through range, tracked files and unchanged or changed Git blobs. Full baseline paths, local choices and comparison data remain in the JSON record.</p>
+<details class="technical" data-source="agent-instructions/mattpocock-writing-for-agents"><summary>agent-instructions · mattpocock-writing-for-agents · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: d81f3a183412e71a5b1e84ca21bc1a35eea03a60</p>
+<p>Candidate: 24fe0ef7737efae15c87225755e9f6f5965e4888</p>
+<div class="evidence"><a href="https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888">https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888</a></div><ul>
+<li><code>skills/productivity/writing-for-agents/</code></li>
+<li><code>LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="analyze-change-effects/pstack-blast-radius"><summary>analyze-change-effects · pstack-blast-radius · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: 23e4138daa01c42d4969f7a5465f82704e64f798</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/blast-radius/SKILL.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="ci-cd-automation/pstack-idempotency-and-shared-state"><summary>ci-cd-automation · pstack-idempotency-and-shared-state · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/principle-make-operations-idempotent/SKILL.md</code></li>
+<li><code>pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="communicate-clearly/cursor"><summary>communicate-clearly · cursor · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/technical-writing/SKILL.md</code></li>
+<li><code>pstack/skills/teach/SKILL.md</code></li>
+<li><code>pstack/skills/unslop/SKILL.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="communicate-clearly/matt"><summary>communicate-clearly · matt · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: d81f3a183412e71a5b1e84ca21bc1a35eea03a60</p>
+<p>Candidate: 24fe0ef7737efae15c87225755e9f6f5965e4888</p>
+<div class="evidence"><a href="https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888">https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888</a></div><ul>
+<li><code>skills/in-progress/writing-shape/SKILL.md</code></li>
+<li><code>skills/in-progress/writing-beats/SKILL.md</code></li>
+<li><code>skills/productivity/wait-what/SKILL.md</code></li>
+<li><code>LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="compare-solutions/pstack-arena"><summary>compare-solutions · pstack-arena · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: 23e4138daa01c42d4969f7a5465f82704e64f798</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/arena/SKILL.md</code></li>
+<li><code>pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md</code></li>
+<li><code>pstack/skills/principle-redesign-from-first-principles/SKILL.md</code></li>
+<li><code>pstack/skills/principle-prove-it-works/SKILL.md</code></li>
+<li><code>pstack/skills/principle-laziness-protocol/SKILL.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="create-project-instructions/mattpocock-research"><summary>create-project-instructions · mattpocock-research · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: d81f3a183412e71a5b1e84ca21bc1a35eea03a60</p>
+<p>Candidate: 24fe0ef7737efae15c87225755e9f6f5965e4888</p>
+<div class="evidence"><a href="https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888">https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888</a></div><ul>
+<li><code>skills/engineering/research/SKILL.md</code></li>
+<li><code>LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="debug/mattpocock-debugging-and-tests"><summary>debug · mattpocock-debugging-and-tests · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: d81f3a183412e71a5b1e84ca21bc1a35eea03a60</p>
+<p>Candidate: 24fe0ef7737efae15c87225755e9f6f5965e4888</p>
+<div class="evidence"><a href="https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888">https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888</a></div><ul>
+<li><code>skills/engineering/diagnosing-bugs/SKILL.md</code></li>
+<li><code>skills/engineering/tdd/SKILL.md</code></li>
+<li><code>skills/engineering/tdd/tests.md</code></li>
+<li><code>skills/engineering/tdd/mocking.md</code></li>
+<li><code>LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="debug/pstack-debugging-principles"><summary>debug · pstack-debugging-principles · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: 7022c81efb48d8b5eb15498ce6043a3bd74b694c</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/7022c81efb48d8b5eb15498ce6043a3bd74b694c...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/7022c81efb48d8b5eb15498ce6043a3bd74b694c...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/tdd/SKILL.md</code></li>
+<li><code>pstack/skills/principle-fix-root-causes/SKILL.md</code></li>
+<li><code>pstack/skills/how/SKILL.md</code></li>
+<li><code>pstack/skills/how/references/explorer-prompt.md</code></li>
+<li><code>pstack/skills/why/SKILL.md</code></li>
+<li><code>pstack/skills/why/references/epistemics.md</code></li>
+<li><code>pstack/skills/why/references/sources/code-archaeology.md</code></li>
+<li><code>pstack/skills/why/references/sources/incident-postmortem.md</code></li>
+<li><code>pstack/skills/blast-radius/SKILL.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="design-code-structure/pstack-architect"><summary>design-code-structure · pstack-architect · adapt: architectural enforcement</summary>
+<p>Add explicit enforcement of private module boundaries and related registries to the existing design screen; retain compatible migrations and real state invariants.</p>
+<p>From: 23e4138daa01c42d4969f7a5465f82704e64f798</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/architect/SKILL.md</code></li>
+<li><code>pstack/skills/architect/references/runner-prompt.md</code></li>
+<li><code>pstack/skills/architect/references/rationale-template.md</code></li>
+<li><code>pstack/skills/architect/references/design-red-flags.md</code></li>
+<li><code>pstack/skills/principle-exhaust-the-design-space/SKILL.md</code></li>
+<li><code>pstack/skills/principle-foundational-thinking/SKILL.md</code></li>
+<li><code>pstack/skills/principle-model-the-domain/SKILL.md</code></li>
+<li><code>pstack/skills/principle-minimize-reader-load/SKILL.md</code></li>
+<li><code>pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md</code></li>
+<li><code>pstack/skills/principle-boundary-discipline/SKILL.md</code></li>
+<li><code>pstack/skills/principle-make-operations-idempotent/SKILL.md</code></li>
+<li><code>pstack/skills/principle-redesign-from-first-principles/SKILL.md</code></li>
+<li><code>pstack/skills/principle-subtract-before-you-add/SKILL.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+<li>Changed <code>pstack/skills/architect/SKILL.md</code>: <code>afa6eead878d2a7b8d22b8eb99e6cf0c6ee0ad69</code> → <code>2bd58a7d46f1899f107f3c502f6ddcfbd6717f99</code></li>
+<li>Changed <code>pstack/skills/architect/references/design-red-flags.md</code>: <code>32cb24083f308fd67ab4c431b44e1d7d3563435a</code> → <code>f8503c9595b289c607ff5088f82b21197edf94ec</code></li>
+</ul></details>
+<details class="technical" data-source="design-code-structure/matt-design"><summary>design-code-structure · matt-design · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: d81f3a183412e71a5b1e84ca21bc1a35eea03a60</p>
+<p>Candidate: 24fe0ef7737efae15c87225755e9f6f5965e4888</p>
+<div class="evidence"><a href="https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888">https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888</a></div><ul>
+<li><code>skills/engineering/codebase-design/SKILL.md</code></li>
+<li><code>skills/engineering/codebase-design/DEEPENING.md</code></li>
+<li><code>skills/engineering/codebase-design/DESIGN-IT-TWICE.md</code></li>
+<li><code>skills/engineering/domain-modeling/SKILL.md</code></li>
+<li><code>skills/engineering/domain-modeling/GLOSSARY-FORMAT.md</code></li>
+<li><code>skills/engineering/domain-modeling/ADR-FORMAT.md</code></li>
+<li><code>LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="error-handling/pstack-boundaries-and-recovery"><summary>error-handling · pstack-boundaries-and-recovery · skip: plugin version metadata only</summary>
+<p>Only pstack/.cursor-plugin/plugin.json changes, from version 0.15.7 to 0.15.9. The recorded principle and license contents are unchanged.</p>
+<p>From: 9511e60321f7e533a187d62854a3d53a53752874</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/9511e60321f7e533a187d62854a3d53a53752874...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/9511e60321f7e533a187d62854a3d53a53752874...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/principle-boundary-discipline/SKILL.md</code></li>
+<li><code>pstack/skills/principle-make-operations-idempotent/SKILL.md</code></li>
+<li><code>pstack/skills/principle-test-behavior-not-implementation/SKILL.md</code></li>
+<li><code>pstack/.cursor-plugin/plugin.json</code></li>
+<li><code>pstack/LICENSE</code></li>
+<li>Changed <code>pstack/.cursor-plugin/plugin.json</code>: <code>1d129c601921e951110f74081f3f517153bc8ffa</code> → <code>0ab7fa1b6a2bbcbb1a25e797e74be5ee63370bed</code></li>
+</ul></details>
+<details class="technical" data-source="handoff/matt-handoff"><summary>handoff · matt-handoff · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: d81f3a183412e71a5b1e84ca21bc1a35eea03a60</p>
+<p>Candidate: 24fe0ef7737efae15c87225755e9f6f5965e4888</p>
+<div class="evidence"><a href="https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888">https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888</a></div><ul>
+<li><code>skills/productivity/handoff/SKILL.md</code></li>
+<li><code>docs/productivity/handoff.md</code></li>
+<li><code>skills/productivity/handoff/agents/openai.yaml</code></li>
+<li><code>LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="handoff/cursor-handoff"><summary>handoff · cursor-handoff · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/poteto-mode/playbooks/pause-safely.md</code></li>
+<li><code>pstack/skills/poteto-mode/playbooks/session-pickup.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="how/pstack-how-and-teach"><summary>how · pstack-how-and-teach · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: 23e4138daa01c42d4969f7a5465f82704e64f798</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/how/SKILL.md</code></li>
+<li><code>pstack/skills/how/references/explorer-prompt.md</code></li>
+<li><code>pstack/skills/how/references/explainer-prompt.md</code></li>
+<li><code>pstack/skills/teach/SKILL.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="pr/matt-reviewable-pr"><summary>pr · matt-reviewable-pr · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: d81f3a183412e71a5b1e84ca21bc1a35eea03a60</p>
+<p>Candidate: 24fe0ef7737efae15c87225755e9f6f5965e4888</p>
+<div class="evidence"><a href="https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888">https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888</a></div><ul>
+<li><code>skills/engineering/pr/SKILL.md</code></li>
+<li><code>LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="pr/pstack-decision-evidence"><summary>pr · pstack-decision-evidence · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: 23e4138daa01c42d4969f7a5465f82704e64f798</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/show-me-your-work/SKILL.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="pr-followup/pstack-pr-followup"><summary>pr-followup · pstack-pr-followup · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: 23e4138daa01c42d4969f7a5465f82704e64f798</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/poteto-mode/playbooks/babysit.md</code></li>
+<li><code>pstack/skills/poteto-mode/references/bugbot-triage.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="pr-followup/pstack-decision-evidence"><summary>pr-followup · pstack-decision-evidence · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: 23e4138daa01c42d4969f7a5465f82704e64f798</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/show-me-your-work/SKILL.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="prototype/mattpocock-prototype"><summary>prototype · mattpocock-prototype · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: d81f3a183412e71a5b1e84ca21bc1a35eea03a60</p>
+<p>Candidate: 24fe0ef7737efae15c87225755e9f6f5965e4888</p>
+<div class="evidence"><a href="https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888">https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888</a></div><ul>
+<li><code>skills/engineering/prototype/SKILL.md</code></li>
+<li><code>skills/engineering/prototype/LOGIC.md</code></li>
+<li><code>skills/engineering/prototype/UI.md</code></li>
+<li><code>LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="prototype/pstack-prototype-playbook"><summary>prototype · pstack-prototype-playbook · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: 7022c81efb48d8b5eb15498ce6043a3bd74b694c</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/7022c81efb48d8b5eb15498ce6043a3bd74b694c...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/7022c81efb48d8b5eb15498ce6043a3bd74b694c...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/poteto-mode/playbooks/prototype.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="report-work-activity/pstack-source-context"><summary>report-work-activity · pstack-source-context · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/why/references/sources/slack.md</code></li>
+<li><code>pstack/skills/why/references/sources/linear.md</code></li>
+<li><code>pstack/skills/why/references/sources/notion.md</code></li>
+<li><code>pstack/skills/why/references/sources/incident-postmortem.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="review-code-changes/matt-code-review"><summary>review-code-changes · matt-code-review · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: d81f3a183412e71a5b1e84ca21bc1a35eea03a60</p>
+<p>Candidate: 24fe0ef7737efae15c87225755e9f6f5965e4888</p>
+<div class="evidence"><a href="https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888">https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888</a></div><ul>
+<li><code>skills/engineering/code-review/SKILL.md</code></li>
+<li><code>LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="simplify-code/pstack-comments"><summary>simplify-code · pstack-comments · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: 23e4138daa01c42d4969f7a5465f82704e64f798</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/no-comments/SKILL.md</code></li>
+<li><code>pstack/agents/comment-sicko.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="tdd/mattpocock-tdd"><summary>tdd · mattpocock-tdd · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: d81f3a183412e71a5b1e84ca21bc1a35eea03a60</p>
+<p>Candidate: 24fe0ef7737efae15c87225755e9f6f5965e4888</p>
+<div class="evidence"><a href="https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888">https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888</a></div><ul>
+<li><code>skills/engineering/tdd/SKILL.md</code></li>
+<li><code>skills/engineering/tdd/tests.md</code></li>
+<li><code>skills/engineering/tdd/mocking.md</code></li>
+<li><code>LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="typescript-best-practices/pstack-typescript-and-principles"><summary>typescript-best-practices · pstack-typescript-and-principles · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/typescript-best-practices/SKILL.md</code></li>
+<li><code>pstack/skills/typescript-best-practices/references/patterns.md</code></li>
+<li><code>pstack/skills/principle-type-system-discipline/SKILL.md</code></li>
+<li><code>pstack/skills/principle-boundary-discipline/SKILL.md</code></li>
+<li><code>pstack/skills/principle-model-the-domain/SKILL.md</code></li>
+<li><code>pstack/skills/principle-encode-lessons-in-structure/SKILL.md</code></li>
+<li><code>pstack/skills/principle-subtract-before-you-add/SKILL.md</code></li>
+<li><code>pstack/skills/principle-minimize-reader-load/SKILL.md</code></li>
+<li><code>pstack/skills/principle-prove-it-works/SKILL.md</code></li>
+<li><code>pstack/skills/principle-test-behavior-not-implementation/SKILL.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="verification-authoring/pstack-verification"><summary>verification-authoring · pstack-verification · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: 23e4138daa01c42d4969f7a5465f82704e64f798</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/create-verification-skill/SKILL.md</code></li>
+<li><code>pstack/skills/maintain-verification-skill/SKILL.md</code></li>
+<li><code>pstack/skills/create-verification-skill/references/feature-map-example/README.md</code></li>
+<li><code>pstack/skills/create-verification-skill/references/feature-map-example/create-note.md</code></li>
+<li><code>pstack/skills/create-verification-skill/references/feature-map-example/search.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="verify/pstack-verification"><summary>verify · pstack-verification · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: 23e4138daa01c42d4969f7a5465f82704e64f798</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/create-verification-skill/SKILL.md</code></li>
+<li><code>pstack/skills/maintain-verification-skill/SKILL.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="why/pstack-why"><summary>why · pstack-why · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: 23e4138daa01c42d4969f7a5465f82704e64f798</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/why/SKILL.md</code></li>
+<li><code>pstack/skills/why/references/epistemics.md</code></li>
+<li><code>pstack/skills/why/references/investigator-prompt.md</code></li>
+<li><code>pstack/skills/why/references/synthesizer-prompt.md</code></li>
+<li><code>pstack/skills/why/references/source-playbook.md</code></li>
+<li><code>pstack/skills/why/references/sources/code-archaeology.md</code></li>
+<li><code>pstack/skills/why/references/sources/incident-postmortem.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="workflow-to-skill/pstack-reflect"><summary>workflow-to-skill · pstack-reflect · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: 23e4138daa01c42d4969f7a5465f82704e64f798</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/23e4138daa01c42d4969f7a5465f82704e64f798...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/reflect/</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="workflow-to-skill/mattpocock-retro"><summary>workflow-to-skill · mattpocock-retro · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: d81f3a183412e71a5b1e84ca21bc1a35eea03a60</p>
+<p>Candidate: 24fe0ef7737efae15c87225755e9f6f5965e4888</p>
+<div class="evidence"><a href="https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888">https://github.com/mattpocock/skills/compare/d81f3a183412e71a5b1e84ca21bc1a35eea03a60...24fe0ef7737efae15c87225755e9f6f5965e4888</a></div><ul>
+<li><code>skills/engineering/retro/SKILL.md</code></li>
+<li><code>LICENSE</code></li>
+</ul></details>
+<details class="technical" data-source="write-documentation/cursor"><summary>write-documentation · cursor · skip: unchanged scoped content</summary>
+<p>Old and new recorded path inventories and Git blobs are identical. Preserve local refinements; no instruction edit is justified by this range.</p>
+<p>From: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<p>Candidate: e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</p>
+<div class="evidence"><a href="https://github.com/cursor/plugins/compare/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a">https://github.com/cursor/plugins/compare/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a...e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a</a></div><ul>
+<li><code>pstack/skills/technical-writing/SKILL.md</code></li>
+<li><code>pstack/skills/teach/SKILL.md</code></li>
+<li><code>pstack/skills/unslop/SKILL.md</code></li>
+<li><code>pstack/LICENSE</code></li>
+</ul></details>
+</section><section class="section" id="extraction"><h2>What the workflow should retain</h2>
+<p>The requested workflow-to-skill pass uses this project history and its confirmed decisions. It does not turn donor conventions into user authorization or create another maintenance skill.</p>
+<h3>Confirmed</h3>
+<ul><li>The user values pstack&#x27;s reasoning and wants deliberate adaptation with clear skill ownership.</li><li>Keep common verify plus project-local verify-&lt;app&gt; recipes, and keep review-code-changes separate from analyze-change-effects and feedback repair.</li><li>Keep host-neutral skills, human-reviewable commits and PRs, useful real screenshots, language-neutral simplify-code and lightweight explanatory prose.</li><li>Upstream review mechanics already belong to agent-instructions; workflow-to-skill owns deciding what lessons belong where.</li></ul>
+<h3>Inferred</h3>
+<ul><li>The architectural design screen is the clearest uncovered benefit in the recorded delta.</li><li>Historical-failure proof and measurement-integrity criteria can improve existing owners if separately selected and behaviorally validated.</li></ul>
+<h3>Unresolved</h3>
+<ul><li>No proposed instruction edits have been tested against a new frozen candidate; their benefit remains a hypothesis.</li><li>The future work-mode coordinator and any dedicated performance capability are separate design work.</li></ul>
+<p><strong>Deterministic work.</strong> Existing Git commands establish identity, ancestry, path changes and content equality. TOML parsing and hash checks establish coverage and preservation. No permanent updater or scheduler is needed for this check.</p>
+<p><strong>Agent decisions.</strong> Decide whether a source delta changes the local contract, whether it adds useful uncovered behavior, and how existing owners and exceptions constrain adoption.</p>
+<p>This report is one upstream-check run. It does not establish recurring local failures or prove proposed rules improve execution.</p>
+<details class="technical"><summary>Inputs that vary between runs</summary>
+<ul><li>Target skill and source record</li><li>Immutable reviewed-through and candidate commits</li><li>Changed paths and linked context</li><li>Project language, boundary mechanisms and runtime</li><li>Historical failure evidence or workload</li><li>Task authorization and available host tools</li></ul>
+</details>
+</section>
+<section class="section" id="validation"><h2>Reviews, checks and limits</h2>
+<p>Independent read-only consultations completed with Codex gpt-6-astra at Max and Claude claude-fable-5-1 at Max. Both confirmed the recorded deltas. All material findings are reconciled below; these consultations do not establish behavioral improvement.</p>
+<p><strong>Recorded-source coverage and other Cursor authors</strong> Accepted Fable&#x27;s reporting correction. All 41 records from the two repositories are now accounted for: 32 direct records plus nine other-author exclusions, eight of which were not listed in the initial selected inventory. The coordinator verified their own cursors, paths, ancestry and empty scoped diffs. The existing contextual dyl-review mention records an explicit pstack reference; dyl-pr-readiness has no equivalent direct-source status. The 24-skill scope remains correct.</p>
+<p><strong>Architectural enforcement and partial context</strong> Accepted both reviews. Propose one revision to the existing design screen covering partial-context edits, private import enforcement, parallel paths and related registries. Existing ownership and state rules remain. Apply remedies through available mechanisms; preserve protocol exports, staged migrations, legitimate platform variants and invariant-safe multiple writers. This is a proposed adoption, not a code or instruction change.</p>
+<p><strong>Architecture regressions</strong> Accepted Fable&#x27;s concrete case pointers and Astra&#x27;s boundary cases. The plan now includes existing established/protocol designs, an exposed-internal and drifting-registry task, a compatible migration, a distributed-state case and a simplify-code near-miss. No new trials were run in Check mode.</p>
+<p><strong>Optional correct material</strong> Accepted the narrow uncovered evidence requirement, not a duplicate skill. workflow-to-skill owns the extraction handoff; agent-instructions owns writing and validation. Include an observed failure, a valid near-miss and the current enforcement owner. A changed-code check can prevent new violations while existing debt has a separately scoped migration. Keep the existing role-based choice of code versus judgment; reject a mandatory fixed enforcement ladder, count threshold, broad automatic repair, forced rule tables, human-approval exceptions and deletion of useful rationale.</p>
+<p><strong>Performance guidance ownership</strong> Resolved the difference explicitly: Fable recommends deferral to the pending performance topic or a small debug addition; Astra recommends one conditional verify reference. Defer adoption in this maintenance pass. If selected later, verify should own shared criteria for judging measurements, with conditional prototype/debug callers, because both produce claims and duplicating the checks would drift. A future performance specialist can own optimization strategy. Name a limiter when claiming a causal explanation; do not require one before reporting a bounded observation. Reject fixed run quotas and statistical claims unsupported by the design.</p>
+<p><strong>Matt routing and release metadata</strong> Accepted the no-edit conclusions. Matt&#x27;s eleven direct source scopes are unchanged; adjacent routing docs correct an already-removed automatic handoff. Local debug already respects that boundary. Adding the adjacent docs page to a future provenance scope is defensible but unnecessary for this check and is deferred until used to change a contract. Newly printed release notes do not make baseline-covered changes new.</p>
+<p><strong>Host and PR conventions</strong> Skip donor schedulers, provider slugs, mandatory skill chains, never-draft defaults and publication authority. Astra&#x27;s possible native-PR-tool portability review is deferred: no demonstrated failure in this host, which permits gh with explicit PR registration. Existing host-aware entrypoints and local draft preferences remain authoritative.</p>
+<p><strong>Source cursors and finality</strong> No cursor advances in Check mode. A later authorized Update run can advance the architecture record after its edit and checks, record the metadata-only error-handling skip, and record the 24 remaining empty non-zero ranges. Six direct sources are already at the candidate. Optional new sources require their own explicit provenance and applicable checks.</p>
+<ul><li>TOML inventory: all 26 origin.txt files parsed; 32 direct records and two contextual mentions identified.</li><li>Git identity, ancestry, recorded path existence and scoped blob comparison passed for all direct sources.</li><li>Complete changed instruction files and relevant linked context inspected; applicable license files unchanged.</li><li>No behavioral trials were run: this check proposes changes rather than modifying instructions.</li><li>All 26 origin files parsed; 32 direct records across 24 packages match the report inventory.</li><li>Verified 294 old/new source-file instances against Git blobs, including all source identities, paths and ancestry.</li><li>HTML structure, unique IDs, all local links and anchors passed; atlas sources.json and catalog.js still match.</li><li>Every original tracked-file hash is preserved, including the pre-existing walkthrough deletion.</li><li>git diff --check and Node syntax checks for the unchanged atlas app.js and catalog.js passed.</li><li>Desktop preview at 1280×800 rendered without page overflow or console entries. Mobile layout was not verified: preview automation became unavailable and a corrected resize timed out.</li><li>No behavioral trials or runtime build were run: the deliverables are a static review report and its evidence; skill instructions are unchanged.</li><li>Final reconciled report passed JSON/HTML structure, links, 24-skill/32-record coverage, nine explicit exclusions and source-preservation checks. Final desktop DOM also passed at 1280×800; its screenshot attempt failed in the preview client.</li></ul>
+<p>No skills or origin.txt files were changed; no cursors were advanced. No behavioral improvement, installation, host activation or new workflow execution is claimed. Proposed edits still require a frozen candidate and the relevant behavioral checks in a future Update run.</p>
+<p>The fixed revisions and every source range are recorded. Unchanged source scopes were checked by exact Git path inventories and blob identity; complete changed instructions and relevant linked context were read. This is not a new exhaustive semantic audit of every unchanged donor dependency.</p>
+<div class="evidence"><a href="upstream-review-2026-10-04.json">Structured evidence, independent reviews and reconciliation</a></div>
+</section></main></body></html>

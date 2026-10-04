@@ -1,0 +1,158 @@
+format_version = 1
+skill = "pr-followup"
+created = "2026-10-03"
+approach = "Create a bounded current-head feedback and CI workflow composed with existing local owners."
+
+[[sources]]
+id = "pstack-pr-followup"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/poteto-mode/playbooks/babysit.md", "pstack/skills/poteto-mode/references/bugbot-triage.md", "pstack/LICENSE"]
+paths = ["pstack/skills/poteto-mode/playbooks/babysit.md", "pstack/skills/poteto-mode/references/bugbot-triage.md", "pstack/LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Separate check, feedback and drive scopes; evaluate bot claims through current invariants; batch repair waves and retain one mutation owner."]
+local_choices = ["No default merge commits, automatic replies or dismissals, fixed-round authority, or assumption that failures outside the diff are stale-base issues. Current policy and exact-head evidence decide readiness."]
+reviews = [
+  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+]
+
+[[sources]]
+id = "cursor-ci-followup"
+author = "Cursor Team Kit"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+baseline_paths = ["cursor-team-kit/skills/fix-ci/SKILL.md", "cursor-team-kit/skills/loop-on-ci/SKILL.md", "cursor-team-kit/skills/fix-merge-conflicts/SKILL.md", "cursor-team-kit/LICENSE"]
+paths = ["cursor-team-kit/skills/fix-ci/SKILL.md", "cursor-team-kit/skills/loop-on-ci/SKILL.md", "cursor-team-kit/skills/fix-merge-conflicts/SKILL.md", "cursor-team-kit/LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Inspect failed jobs before fixing causes, observe new revisions, and regenerate project-derived files when resolving conflicts."]
+local_choices = ["Rebase under local policy; compilation is insufficient to prove conflict intent. No endless reruns, blind base merges or disabling checks."]
+reviews = []
+
+[[sources]]
+id = "dyl-pr-readiness"
+author = "Dylan Gattey / dyl-stack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+baseline_paths = ["dyl-stack/skills/dyl-ready-pr/SKILL.md", "dyl-stack/LICENSE"]
+paths = ["dyl-stack/skills/dyl-ready-pr/SKILL.md", "dyl-stack/LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Recheck current CI, review feedback and integration state after repair."]
+local_choices = ["No mandatory skill roster, forced deep-review phase, automatic ready state, fixed bot wait or requirement to resolve every thread to silence a reviewer."]
+reviews = []
+
+[[sources]]
+id = "compound-followup"
+author = "Every"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+baseline_paths = ["skills/ce-babysit-pr/SKILL.md", "skills/ce-babysit-pr/references/settle.md", "skills/ce-resolve-pr-feedback/SKILL.md", "skills/ce-resolve-pr-feedback/references/evaluation-rubric.md", "LICENSE"]
+paths = ["skills/ce-babysit-pr/SKILL.md", "skills/ce-babysit-pr/references/settle.md", "skills/ce-resolve-pr-feedback/SKILL.md", "skills/ce-resolve-pr-feedback/references/evaluation-rubric.md", "LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Keep feedback and CI progressing independently, track per-item outcomes, reobserve after publication and distinguish settled checks from merge authorization."]
+local_choices = ["No watch engine, fixed hours-long loop, auto-merge, stale-head success, automatic posting or assumption that most feedback must be applied. Uncertainty needs investigation or a scoped decision."]
+reviews = []
+
+[[sources]]
+id = "mblode-followup"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+reviewed_through = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+baseline_paths = ["skills/pr-babysitter/SKILL.md", "skills/pr-babysitter/references/github-api.md", "LICENSE.md"]
+paths = ["skills/pr-babysitter/SKILL.md", "skills/pr-babysitter/references/github-api.md", "LICENSE.md"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Separate monitoring and repair, collect every feedback channel with pagination, revisit edited/resolved-thread content and distinguish reply permission from code repair."]
+local_choices = ["No blind update of every behind branch, pending-CI barrier to independent fixes, bot-authority heuristic or automatic cron. REST replies use a root comment ID as verified in GitHub documentation."]
+reviews = []
+
+[[sources]]
+id = "pstack-decision-evidence"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/show-me-your-work/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/show-me-your-work/SKILL.md", "pstack/LICENSE"]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Retain consequential decisions, reasons, evidence and outcomes for long tasks."]
+local_choices = ["Use concise local ignored evidence when useful; no mandatory TSV artifact, transcription archive, cross-model audit or extra source-skill invocation."]
+reviews = [
+  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+]
+
+[[dependencies]]
+kind = "local"
+name = "commit"
+required = false
+role = "Required for its routed operation when reached; ordinary use loads only relevant owners. Source maintenance uses agent-instructions."
+
+[[dependencies]]
+kind = "local"
+name = "pr"
+required = false
+role = "Required for its routed operation when reached; ordinary use loads only relevant owners. Source maintenance uses agent-instructions."
+
+[[dependencies]]
+kind = "local"
+name = "stacked-pr"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "debug"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "review-code-changes"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "analyze-change-effects"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "github-actions"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "worktrunk"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."

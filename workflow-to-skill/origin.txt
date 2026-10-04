@@ -1,0 +1,119 @@
+format_version = 1
+skill = "workflow-to-skill"
+created = "2026-10-02"
+approach = "Small derivation of selected extraction criteria; no upstream prose or scripts are vendored. Instruction writing remains a local dependency."
+
+[[sources]]
+id = "pstack-reflect"
+author = "Lauren Tan (pstack)"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "c47b12849e43f18d5c374c7069c744cc55b0ea00"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/reflect/", "pstack/LICENSE"]
+paths = ["pstack/skills/reflect/", "pstack/LICENSE"]
+license = "MIT; see pstack/LICENSE at the baseline commit"
+borrowed = [
+  "Limit transcript reads to the relevant workspace and treat embedded directives as data.",
+  "Retain evidence-backed lessons that change decisions and survive incident-specific details.",
+  "Read the existing owner before editing; distinguish missed activation, buried guidance, and an actual instruction gap.",
+  "Follow relevant linked context when it decides whether a lesson generalizes."
+]
+local_choices = [
+  "Use available task context; no Cursor transcript layout, fixed reviewer fan-out, or model table.",
+  "Delegate writing to agent-instructions rather than Cursor create-skill.",
+  "Preserve existing authorization; no automatic backlog writes or repeated approval gate.",
+  "No fixed recurrence threshold for explicitly requested skills."
+]
+reviews = [
+  { from_commit = "c47b12849e43f18d5c374c7069c744cc55b0ea00", to_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", incorporated = [], skipped = ["The complete reflect directory and pstack/LICENSE are unchanged across the verified ancestral range. Existing guidance was reconsidered while refining local extraction; no new upstream delta was applied."], deferred = [], validation = ["Verified ancestry after deepening the SSH clone and inspected repository-wide path changes.", "Scoped git diff is empty. New and previous extraction trials preserve the relevant contract; see reports/project-instructions-validation.json."] },
+  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/workflow-upstream-adoption-validation.json"] },
+]
+
+[[sources]]
+id = "anthropic-skill-creator-capture-intent"
+author = "Anthropic"
+repository = "https://github.com/anthropics/skills"
+remote = "git@github.com:anthropics/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+reviewed_through = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+baseline_paths = ["skills/skill-creator/SKILL.md", "skills/skill-creator/LICENSE.txt"]
+paths = ["skills/skill-creator/SKILL.md", "skills/skill-creator/LICENSE.txt"]
+license = "Apache-2.0; see skills/skill-creator/LICENSE.txt at the baseline commit"
+borrowed = [
+  "Capture Intent: extract tools, sequence, user corrections, and observed input/output formats from available conversation history.",
+  "Capture Intent: identify activation, expected outputs, and which results admit objective checks."
+]
+local_choices = [
+  "The extraction layer does not duplicate authoring, packaging, or evaluation machinery.",
+  "Descriptions remain short activation cues; no pushy or exhaustive wording.",
+  "Ask only for material missing decisions, not a mandatory interview before every edit."
+]
+reviews = []
+
+[[sources]]
+id = "pstack-correct"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/correct/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/correct/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Prefer eliminating an invalid path or enforcing its invariant through the existing project mechanism before adding reminders.", "Reproduce the rejected behavior and verify the intended enforcement rather than relying on a new prose reminder.", "Keep prevention of new violations separate from migration of accepted existing debt."]
+local_choices = ["Extraction names the existing executor and proposes proof without changing the repository. Project enforcement belongs to its authorized owner; agent-instructions owns instruction writing and skill-bundled helpers.", "Keep judgment, rationale and exceptions with their instruction owner; do not delete prose merely because a check is proposed.", "Add a valid nearby acceptance control to the failing-case proof; label reconstructed cases and execute both before claiming enforcement. This paired-case requirement is a local strengthening beyond the donor.", "No fixed two-occurrence threshold, automatic global audit, mandatory AGENTS rule table, exception-expiry policy, docs-last ordering, repository edits during extraction, or new approval gate.", "Missing meaningful cases or expected outcomes remain unresolved rather than invented. Adoption evidence: reports/skill-atlas/workflow-upstream-adoption-validation.json"]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = true
+role = "Owns reuse decisions, instruction writing, provenance maintenance, and validation."
+
+[[sources]]
+id = "mattpocock-retro"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+baseline_paths = ["skills/engineering/retro/SKILL.md", "LICENSE"]
+paths = ["skills/engineering/retro/SKILL.md", "LICENSE"]
+license = "MIT; see LICENSE at the baseline commit"
+borrowed = [
+  "Route a lesson to its existing context or enforcement owner and inspect the check pipeline before duplicating it.",
+  "Retain the reason a missed piece of information changed the outcome."
+]
+local_choices = [
+  "Extract only within the requested history and project; no automatic global audit or unrelated enforcement change.",
+  "Writing and validation remain in agent-instructions. A scoped lesson may belong in project documentation rather than a new skill."
+]
+reviews = [
+  { from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60", to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/workflow-upstream-adoption-validation.json"] },
+]
+
+[[sources]]
+id = "mblode-skill-capability"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+reviewed_through = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+baseline_paths = ["skills/agent-skills-creator/SKILL.md", "skills/agent-skills-creator/references/capability-delta.md", "skills/agent-skills-creator/references/improving-existing-skills.md", "LICENSE.md"]
+paths = ["skills/agent-skills-creator/SKILL.md", "skills/agent-skills-creator/references/capability-delta.md", "skills/agent-skills-creator/references/improving-existing-skills.md", "LICENSE.md"]
+license = "MIT; see LICENSE.md at the baseline commit"
+borrowed = [
+  "Classify procedure, technical knowledge, local preferences and policy before choosing what a reusable skill adds.",
+  "Read the existing owner and use the smallest useful correction."
+]
+local_choices = [
+  "Do not treat model capability claims or a single successful output as permission to remove a requirement.",
+  "No mandatory marketplace installation or fixed recurrence threshold; preserve the requested workflow and task-specific authority."
+]
+reviews = []

@@ -32,10 +32,10 @@
     {
       "id": 3,
       "prompt": "Audit, but do not edit, open PR https://github.com/acme/widget/pull/42. Treat this fixture as verified: target and push repository are both `acme/widget`; head is `feature/export`; base is `main`; the exact owner+branch match is OPEN. Its current body says `Exports are hidden for every user` and `No download endpoint exists yet`. The current diff shows the export action is visible to users with `reports:download`, wires `GET /reports/{id}/download`, and adds authorization tests. Return the mode, every stale claim, and replacement wording grounded only in the fixture.",
-      "expected_output": "Update mode with both obsolete body claims identified and corrected using the current permission gate, endpoint, and test evidence. The PR remains untouched pending approval.",
+      "expected_output": "A Draft-only inspection of an existing open PR, with both obsolete body claims corrected in proposed wording. No mutation is authorized by the audit request.",
       "files": [],
       "expectations": [
-        "The mode is Update because the exact PR match is open.",
+        "The operation is read-only inspection/Draft-only even though the exact PR match is open.",
         "The output identifies `Exports are hidden for every user` as stale and replaces it with the verified `reports:download` audience.",
         "The output identifies `No download endpoint exists yet` as stale and accounts for `GET /reports/{id}/download`.",
         "The proposed replacement mentions the authorization tests without inventing test results beyond the fixture.",
@@ -53,6 +53,41 @@
         "The output does not propose `gh pr edit` against either historical PR.",
         "The output does not reopen either PR or create a replacement without approval.",
         "Both exact PR URLs and states are reported, together with the decision whether the remaining commits should become a new PR."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "An authorized gh pr create with two attached UI captures exits nonzero but prints an exact new PR URL. The remote body has the first uploaded image URL and the second image still refers to its local path. The capture revision still equals the PR head. Complete the remaining attachment work using a recording fixture, then rewrite the body for a clarification without changing head.",
+      "expected_output": "Inspect the exact created PR, preserve the uploaded URL, upload only the missing capture through edit, verify rendered body and retain both URLs during the later rewrite.",
+      "files": [],
+      "expectations": [
+        "Exactly one PR creation.",
+        "A readback follows the nonzero write before recovery.",
+        "Successful captures are not uploaded twice.",
+        "Final body has no unresolved local image destination.",
+        "Rendering/access evidence and current revision are checked."
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "Prepare a draft-only PR body for a visible UI fix. There is one verified current screenshot but no baseline image. Publishing is not requested.",
+      "expected_output": "Prepare current-state evidence with the actual local file for later publication, label the missing baseline, and perform no upload or create dry-run.",
+      "files": [],
+      "expectations": [
+        "The available after capture is not discarded because before is unavailable.",
+        "No fabricated baseline or uploaded URL.",
+        "No GitHub mutation, upload or create dry-run."
+      ]
+    },
+    {
+      "id": 7,
+      "prompt": "Update an existing private GHES PR and attach its verified local screenshot. The installed gh pr edit help has no --attach option and there is no browser/host attachment control or established accessible asset location.",
+      "expected_output": "Complete supported description work if authorized and report the precise attachment gap; retain local evidence without installing tools or inventing a public host.",
+      "files": [],
+      "expectations": [
+        "Distinguishes unavailable attachment from authorized metadata work.",
+        "Does not invent --attach support or use gh skill to upload images.",
+        "No unauthorized upgrade, external upload service or false attachment claim."
       ]
     }
   ]

@@ -1,0 +1,233 @@
+{
+  "date": "2026-10-04",
+  "task": "Assess remaining HumanLayer, Matthew Blode, Addy Osmani and Compound Engineering skills; show actual source incorporation in the atlas.",
+  "baselineCommit": "b4908e702867a3e9c3fb7e01ca4559b6fc173b34",
+  "scope": "All 95 distributed SKILL.md entrypoints under the four repositories' skills/ or plugins/ directories. The 77 not already in local provenance received procedure/compatibility screening; selected candidates and the explicitly listed references received deeper inspection. The 18 existing sources were mapped to local provenance, not audited for upstream changes. Compound also has one internal contributor skill, assessed separately below, and six test fixtures excluded from adoption counts.",
+  "sourceCollections": [
+    {
+      "id": "humanlayer",
+      "name": "HumanLayer",
+      "author": "HumanLayer",
+      "repository": "https://github.com/humanlayer/skills",
+      "commit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+      "url": "https://github.com/humanlayer/skills/tree/ca7c8088db69e315a8b2deea43820270457f8f3c",
+      "count": 6,
+      "incorporated": 2,
+      "license": "MIT"
+    },
+    {
+      "id": "mblode",
+      "name": "Matthew Blode",
+      "author": "Matthew Blode",
+      "repository": "https://github.com/mblode/agent-skills",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "url": "https://github.com/mblode/agent-skills/tree/012e6e5208f512151bdea0e2965dafd01ff61340",
+      "count": 28,
+      "incorporated": 4,
+      "license": "MIT"
+    },
+    {
+      "id": "addy",
+      "name": "Addy Osmani",
+      "author": "Addy Osmani",
+      "repository": "https://github.com/addyosmani/agent-skills",
+      "commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+      "url": "https://github.com/addyosmani/agent-skills/tree/1401c8b8030e023baeebb31781a6653fe8e93026",
+      "count": 25,
+      "incorporated": 6,
+      "license": "MIT"
+    },
+    {
+      "id": "compound",
+      "name": "Compound Engineering",
+      "author": "Every / Compound Engineering",
+      "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/tree/9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "count": 36,
+      "incorporated": 6,
+      "license": "MIT"
+    }
+  ],
+  "dataValidation": {
+    "result": "passed",
+    "historicalCardsUnchanged": 122,
+    "catalogCards": 209,
+    "distributedEntrypoints": {
+      "HumanLayer": 6,
+      "Matthew Blode": 28,
+      "Addy Osmani": 25,
+      "Compound Engineering": 36
+    },
+    "internalReferences": 1,
+    "excludedTestFixtures": 6,
+    "repositoryPackages": 27,
+    "progress": {
+      "ready": 77,
+      "pending": 65,
+      "optional": 43,
+      "not-selected": 24
+    },
+    "checks": [
+      "Complete pinned Git tree coverage",
+      "Current source and inspected reference hashes",
+      "Repository package and provenance hashes",
+      "Ready evidence and source ID locations",
+      "Selected-material boundaries",
+      "Unique card IDs and keys",
+      "JSON and JavaScript parity",
+      "Historical source snapshots preserved",
+      "Cache-busting hashes"
+    ]
+  },
+  "browserValidation": {
+    "result": "passed",
+    "browser": "T3 Code collaborative preview",
+    "tab": "tab_1",
+    "checks": [
+      {
+        "check": "Ready filter restored from URL",
+        "result": "passed",
+        "visible": 77
+      },
+      {
+        "check": "Native search and expand visible",
+        "result": "passed",
+        "visible": 3
+      },
+      {
+        "check": "Collapse visible",
+        "result": "passed"
+      },
+      {
+        "check": "Combined source/status/search filters, collection counts, reset and empty state",
+        "result": "passed",
+        "savedUrl": "http://localhost:8765/?group=Matthew+Blode&progress=pending&q=ui-verification#catalog"
+      },
+      {
+        "check": "Deep link clears incompatible filter and opens source; 375px layout has no page overflow",
+        "result": "passed",
+        "width": 375
+      },
+      {
+        "brokenAnchors": 0,
+        "check": "Existing workflow scenario, internal links and desktop overflow",
+        "result": "passed",
+        "width": 1280
+      },
+      {
+        "check": "Existing theme switch",
+        "result": "passed",
+        "theme": "light"
+      }
+    ],
+    "visualInspection": {
+      "desktop": "1280 x 800: author review cards and catalog; dark and light themes",
+      "mobile": "375 x 812: source catalog and expanded ui-verification card",
+      "consoleErrors": []
+    },
+    "limits": [
+      "No full keyboard or screen-reader audit.",
+      "Initial navigation did not retain summary focus in the hidden preview. Explicit focus succeeded; the deep-link claim covers filter clearing and source expansion.",
+      "No installation or production operation of the upstream collections."
+    ]
+  },
+  "commands": [
+    {
+      "command": "python3 .tmp/author-skills-review/validate-atlas.py",
+      "result": "passed",
+      "exitCode": 0,
+      "note": "Temporary assertions covered full Git-tree inventory, source and provenance hashes, status boundaries, historical snapshot preservation, IDs and JSON/JavaScript parity."
+    },
+    {
+      "command": "node --check reports/skill-atlas/app.js",
+      "result": "passed",
+      "exitCode": 0
+    },
+    {
+      "command": "node --check reports/skill-atlas/catalog.js",
+      "result": "passed",
+      "exitCode": 0
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed",
+      "exitCode": 0
+    },
+    {
+      "command": "env PYTHONPATH=daily-meeting-update python3 -B -m unittest discover -s daily-meeting-update/tests -p test_opencode_digest.py -v",
+      "result": "3 tests passed",
+      "exitCode": 0,
+      "scope": "Existing repository smoke outside the changed report; run once during this task."
+    }
+  ],
+  "build": {
+    "applicable": false,
+    "reason": "The report is static HTML, CSS and JavaScript with no configured build step. Script syntax and served browser behavior were checked."
+  },
+  "chatHistorySmoke": {
+    "entrypoint": "skills/chat-history/scripts/history.py",
+    "fixture": "{\"type\": \"response_item\", \"payload\": {\"type\": \"message\", \"role\": \"user\", \"content\": [{\"text\": \"Check the atlas fixture decision.\"}]}}\n{\"type\": \"response_item\", \"payload\": {\"type\": \"message\", \"role\": \"assistant\", \"content\": [{\"text\": \"Initial decision: use a nightly fixture.\"}]}}\n{\"type\": \"response_item\", \"payload\": {\"type\": \"function_call_output\", \"output\": \"Actual check: nightly is unavailable.\"}}\n{\"type\": \"response_item\", \"payload\": {\"type\": \"message\", \"role\": \"assistant\", \"content\": [{\"text\": \"Correction: use the local fixture only.\"}]}}\n",
+    "scope": "Synthetic Codex fixture only. No discovery, installation or private-history reads.",
+    "sourceUnchanged": true,
+    "checks": [
+      {
+        "arguments": [
+          "search",
+          ".tmp/author-skills-review/chat-history-fixture.jsonl",
+          "-e",
+          "fixture decision",
+          "--role",
+          "user"
+        ],
+        "exitCode": 0,
+        "stdout": "{\"source\": \"codex\", \"path\": \"/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/author-skills-review/chat-history-fixture.jsonl\", \"line\": 1, \"role\": \"user\", \"text\": \"Check the atlas fixture decision.\", \"timestamp\": null, \"synthetic\": false, \"truncated\": false, \"preview_start\": 0}\n",
+        "stderr": ""
+      },
+      {
+        "arguments": [
+          "read",
+          ".tmp/author-skills-review/chat-history-fixture.jsonl",
+          "--line",
+          "1",
+          "--after",
+          "3"
+        ],
+        "exitCode": 0,
+        "stdout": "{\"source\": \"codex\", \"path\": \"/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/author-skills-review/chat-history-fixture.jsonl\", \"line\": 1, \"role\": \"user\", \"text\": \"Check the atlas fixture decision.\", \"timestamp\": null, \"synthetic\": false, \"truncated\": false}\n{\"source\": \"codex\", \"path\": \"/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/author-skills-review/chat-history-fixture.jsonl\", \"line\": 2, \"role\": \"assistant\", \"text\": \"Initial decision: use a nightly fixture.\", \"timestamp\": null, \"synthetic\": false, \"truncated\": false}\n{\"source\": \"codex\", \"path\": \"/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/author-skills-review/chat-history-fixture.jsonl\", \"line\": 3, \"role\": \"tool\", \"text\": \"Actual check: nightly is unavailable.\", \"timestamp\": null, \"synthetic\": false, \"truncated\": false}\n{\"source\": \"codex\", \"path\": \"/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/author-skills-review/chat-history-fixture.jsonl\", \"line\": 4, \"role\": \"assistant\", \"text\": \"Correction: use the local fixture only.\", \"timestamp\": null, \"synthetic\": false, \"truncated\": false}\n",
+        "stderr": ""
+      },
+      {
+        "arguments": [
+          "search",
+          ".tmp/author-skills-review/missing-fixture.jsonl",
+          "-e",
+          "fixture"
+        ],
+        "exitCode": 2,
+        "stdout": "",
+        "stderr": "{\"diagnostic\": \"a requested source is missing; run discover or check explicit paths\"}\n"
+      }
+    ]
+  },
+  "artifactHashes": {
+    "index.html": "d879370adc4eeec8bf1dbe6e6c09657b8a5ff7fbd095d40aecc2ce93ea098fc2",
+    "app.js": "9e2fe5342980e27d65e881db08d0e870e94f9a63f10f84ca402283e09c6b3b8c",
+    "styles.css": "d88dfcf094dc52c138dcfe651ce60990a8725f6651d9f2ffb3f7743a8a7abb7c",
+    "sources.json": "bc7c9d885b5816669643a3d636244fe35aa09c454f64f8d175f129c700bac3af",
+    "catalog.js": "7e475a35c4f46357d21d45092ef699b81038f2938c9a8a6cc7d3d0805b21e403"
+  },
+  "preservedWork": [
+    "Pre-existing deletion of walkthrough/SKILL.md remains outside this task and its commit."
+  ],
+  "limits": [
+    "Recommendations are a selection review, not installation or runtime certification of the collection.",
+    "Only listed supporting files were inspected. Hundreds of other references, scripts and agent prompts were not exhaustively audited.",
+    "No new skill was installed or authored, and no local origin baseline or update cursor was changed.",
+    "The only upstream execution was chat-history against a synthetic local fixture; no private transcript stores were read.",
+    "A ready check records selected incorporation or a present local package, not a fully synchronized upstream copy.",
+    "Completion checks are a dated snapshot. Later local changes require refreshing the provenance mapping.",
+    "The six excluded Compound test fixtures and one additional internal contributor procedure are recorded in sources.json.",
+    "Scratch clones, fixtures and one-off scripts are removed after the commit; pinned source URLs and this evidence record remain."
+  ]
+}

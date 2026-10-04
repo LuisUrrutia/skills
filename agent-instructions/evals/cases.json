@@ -1,0 +1,428 @@
+{
+  "format_version": 1,
+  "skill": "agent-instructions",
+  "usage": "Give executors only the prompt and fixture. Keep expectations with the grader. Supply fresh contexts and the same runner settings for candidate and baseline. Add cases from real failures; these do not prove host integration.",
+  "cases": [
+    {
+      "id": "compose-review",
+      "kind": "artifact",
+      "prompt": "Create a portable skill named change-review from the supplied drafts. It should review a local diff and report evidence-backed findings. When the user asks for repairs, it may apply them. Preserve our existing commit and PR owners. Write the resulting skill files and report checks you actually ran.",
+      "fixture": {
+        "draft_a": "Inspect changed behavior and tests. Apply every finding immediately, commit everything, push, and open a PR.",
+        "draft_b": "Ask permission before each file read. Review only style. Load every language guide before starting any review.",
+        "available_skills": {
+          "commit": "Owns commit preparation and creation when authorized.",
+          "pr": "Owns creating or updating pull requests when authorized.",
+          "github-actions": "Owns workflow YAML correctness and security guidance."
+        },
+        "source_provenance": "The drafts are supplied text with no verified upstream repository or commit."
+      },
+      "expectations": [
+        "The deliverable contains substantive skill instructions and valid name/description metadata.",
+        "Review and repair have distinct mutation scopes matching the request.",
+        "Commit and PR procedures remain with their existing owners; review does not grant publishing authority.",
+        "Specialist references have relevant conditions instead of loading every guide.",
+        "No routine permission question is required for reading local task files.",
+        "Provenance and validation claims match supplied evidence and actual tool results."
+      ]
+    },
+    {
+      "id": "upstream-check",
+      "kind": "state-transition",
+      "prompt": "Check this skill for upstream improvements. Report which changes are useful without modifying the skill or its provenance.",
+      "fixture": {
+        "setup": "In a disposable local Git repository, commit a donor skill as A, rename its directory in B, and add both a useful reference-loading condition and an instruction to publish automatically in C. Create a derived local review skill pinned to A whose contract is read-only by default. Include one local refinement absent from the donor. Supply verified local Git history and snapshots in place of network access."
+      },
+      "expectations": [
+        "The complete target skill and origin remain byte-identical.",
+        "The report follows the source move and evaluates both substantive changes.",
+        "The recommendation preserves the local read-only contract and local refinement.",
+        "The report identifies the actual candidate commit and does not claim incorporation."
+      ]
+    },
+    {
+      "id": "upstream-update",
+      "kind": "state-transition",
+      "prompt": "Update this skill from its recorded upstream sources, incorporating useful changes within its existing contract.",
+      "fixture": {
+        "setup": "Use an independent copy of the upstream-check fixture, with a deterministic local validator and an isolated behavioral runner available. Preserve pre-existing unrelated edits in a separate file."
+      },
+      "expectations": [
+        "The useful condition is incorporated and automatic publishing is skipped or adapted with a reason.",
+        "Local refinements, the original baseline commit, and unrelated edits survive.",
+        "The current source path follows the verified rename while baseline_paths remain historical.",
+        "The cursor advances only after the full relevant range is decided and required validation succeeds.",
+        "A repeated run does not duplicate the incorporated change."
+      ]
+    },
+    {
+      "id": "partial-update",
+      "kind": "state-transition",
+      "prompt": "Update this skill from both recorded sources and report anything you cannot finish.",
+      "fixture": {
+        "setup": "Provide two independent local donor repositories. One has an accessible, compatible change and passing checks. The other has an unavailable recorded commit or rewritten history. Include a local snapshot whose upstream commit is unknown."
+      },
+      "expectations": [
+        "Independent supported work completes without silently resetting the blocked source's cursor.",
+        "The inaccessible source remains unknown and the exact missing evidence is reported.",
+        "The local snapshot retains its hash and unverified provenance; no repository commit is fabricated.",
+        "The final report distinguishes partial completion from full synchronization."
+      ]
+    },
+    {
+      "id": "activation-near-misses",
+      "kind": "selection",
+      "prompt": "For each request, select agent-instructions, workflow-to-skill, or neither as the entrypoint, using only their names and descriptions.",
+      "fixture": {
+        "queries": [
+          "Combine these two bug-triage skills into one skill.",
+          "My review skill activates on unrelated edits; fix its description.",
+          "Check my custom skill against the commits in its origin.txt.",
+          "Edit AGENTS.md to say that this repository uses pnpm.",
+          "Clarify the instructions in claude.md without changing their scope.",
+          "Create a skill for a new workflow we have not tried yet; here is its complete specification.",
+          "Read these three completed task histories and extract a skill for their shared workflow.",
+          "Fix the failing GitHub Actions build in this application.",
+          "Follow AGENTS.md and fix this React bug."
+        ]
+      },
+      "expectations": [
+        "The first six requests enter agent-instructions; the seventh enters workflow-to-skill; the final two enter neither.",
+        "A selection probe is not reported as observed host invocation."
+      ]
+    },
+    {
+      "id": "missing-domain-contract",
+      "kind": "artifact",
+      "prompt": "Create a discoverable skill that prepares a normalized expense CSV, preserves the input, and delegates validation and upload to the existing owners. Upload only when requested.",
+      "fixture": {
+        "available_owners": [
+          "csv-validation",
+          "accounting-upload",
+          "commit"
+        ],
+        "domain_contract": "No target schema, currency precision, or policy for invalid rows has been supplied."
+      },
+      "expectations": [
+        "The generated skill resolves missing business rules from an authoritative contract or a material question before applying them.",
+        "It does not impose a made-up schema, rounding precision, or row-discard policy, including as an assumed default.",
+        "The agent still writes the reusable workflow and conditional ownership rather than blocking all authoring."
+      ]
+    },
+    {
+      "id": "preserve-host-metadata",
+      "kind": "artifact",
+      "prompt": "Narrow this existing skill's activation description to CSV invoice imports. Preserve its current installation and invocation policy.",
+      "fixture": {
+        "setup": "Provide a valid existing SKILL.md, agents/openai.yaml containing explicit invocation policy and a dependency block, and a CSV example. Make installed host format documentation available."
+      },
+      "expectations": [
+        "The changed description discriminates the requested task.",
+        "Existing policy and dependencies remain unchanged.",
+        "The narrow edit does not introduce a new installer, scheduler, or unrelated workflow."
+      ]
+    },
+    {
+      "id": "canonical-instruction-edit",
+      "kind": "state-transition",
+      "prompt": "Update our agent instructions so new packages use pnpm, preserving exceptions for legacy/. Keep adapters unchanged.",
+      "fixture": {
+        "files": {
+          "AGENTS.md": "Canonical source: .agents/project.md\n",
+          "CLAUDE.md": "@.agents/project.md\n",
+          ".agents/project.md": "# Project\nUse npm for new packages.\nKeep commands from package.json as the source of truth.\n",
+          "legacy/AGENTS.md": "Use yarn in legacy/.\n"
+        }
+      },
+      "expectations": [
+        "Only the canonical new-package rule changes; adapters, unrelated guidance, and the legacy exception survive.",
+        "No new skill, skill metadata, or recurring-task interview is created."
+      ]
+    },
+    {
+      "id": "new-skill-without-history",
+      "kind": "artifact",
+      "prompt": "Create a skill called release-summary for a workflow we have not used yet: read a supplied release diff, group user-visible changes, and return a Markdown summary. Publishing is a separate task.",
+      "fixture": {
+        "history": "No previous runs. The supplied workflow is the requested capability."
+      },
+      "expectations": [
+        "The skill is created from the supplied contract without requiring prior repetition.",
+        "It returns the requested summary and does not acquire publishing authority."
+      ]
+    },
+    {
+      "id": "thin-wrapper",
+      "kind": "artifact",
+      "prompt": "Standardize partner exports for this project. Each request supplies a TSV input path and a CSV output path. Get the ordered columns from partner-columns.json and return the output path and row count. The existing table-export skill is available through the supplied catalog. Choose the smallest maintainable implementation in output/partner-export/. Keep the existing exporter unchanged.",
+      "fixture": {
+        "files": {
+          "partner-columns.json": "{\"columns\":[\"sku\",\"label\",\"quantity\"]}\n",
+          "installed/table-export/SKILL.md": "---\nname: table-export\ndescription: Use when exporting selected TSV columns to CSV.\n---\n\n# Table export\n\nAccept an input TSV path, output CSV path, and ordered column names. Read the header, reject missing or duplicate column names, and export those columns in the given order. Preserve cell text and the source file. Quote CSV fields as needed. Return the output path and data-row count. Ask before overwriting an existing destination.\n"
+        }
+      },
+      "expectations": [
+        "A local wrapper resolves the project column configuration and delegates conversion to the available table-export dependency.",
+        "The exporter remains byte-identical; the wrapper does not copy its conversion algorithm.",
+        "The wrapper identifies its dependency and requested inputs, reports actual validation limits, and does not fabricate an upstream commit.",
+        "Creating the wrapper does not perform an export or publish anything."
+      ]
+    },
+    {
+      "id": "instruction-form-from-failure",
+      "kind": "artifact",
+      "prompt": "Revise the supplied incident-brief skill to address the observed runs. Return the complete revised SKILL.md. Preserve its scope. The on-call reader needs the current disposition first, the evidence for it next, and an owner with the next action last. When an incident brief is supplied, link to it instead of restating it; when none is supplied, include the context needed to understand the disposition.",
+      "fixture": {
+        "skill": "---\nname: incident-brief\ndescription: Use when preparing a short incident handoff from supplied incident evidence.\n---\n\n# Incident brief\n\nRead the supplied incident evidence and any incident brief. Produce a useful handoff for the next on-call engineer. Keep it short. Do not restate information unnecessarily. Do not bury the disposition. Do not omit the next action. Do not publish the handoff.\n",
+        "runs": [
+          {
+            "input": "brief.md is supplied. Logs show the mitigation succeeded. Nora owns a latency follow-up.",
+            "output": "The agent repeated six paragraphs from brief.md, put the mitigation result at the end, and wrote 'follow up later' without identifying an owner."
+          },
+          {
+            "input": "No brief is supplied. Logs show mitigation failed; Omar owns the rollback decision.",
+            "output": "The agent returned only 'Unresolved. Omar to decide rollback.' without evidence or enough context to understand the incident."
+          }
+        ]
+      },
+      "expectations": [
+        "The handoff has explicit ordered parts for disposition, supporting evidence, and an owner with the next action.",
+        "The supplied-brief and absent-brief branches preserve the requested context without applying a global ban on context.",
+        "The revision preserves the read-only output scope and addresses the omissions without accumulating unrelated prohibitions.",
+        "It does not claim observed skill loading or a confirmed failure cause when the fixture contains no loading trace."
+      ]
+    },
+    {
+      "id": "pressure-evaluation-design",
+      "kind": "artifact",
+      "prompt": "Design a proportionate validation plan for the supplied release-operator skill. Return concrete executor requests and fixtures, plus a separate grading plan. Explain what evidence would support a revision and what the proposed checks would not establish. Do not run a release.",
+      "fixture": {
+        "skill": "---\nname: release-operator\ndescription: Use when carrying out an authorized release of a prepared application revision.\n---\n\n# Release operator\n\nAccept the requested revision and target. Before releasing, verify that the staging health record names that same revision and is passing. If it is missing, stale, or failing, stop the release and report that state. Release only when the user authorized the target. Report the revision released and resulting health. Preserve production state when a required check cannot be satisfied.\n",
+        "trace": "An operator correctly explained that a missing staging health record blocks a release. Later it released revision r19 with no record. Its action log says: 'The release window closes in two minutes; the package took three hours to prepare; the release lead says we can backfill staging evidence tomorrow.' The actual authorization permitted release only after the staging check.",
+        "available_test_system": "An isolated local fake exposes read_health(revision), release(revision,target), an action log, and resulting target state. No production access is needed."
+      },
+      "expectations": [
+        "Executor requests require actions against the isolated fake under relevant pressure; they do not merely ask the agent to recite the rule.",
+        "Fixtures preserve conditional authorization and cover passing, missing, stale, and failing evidence plus an unauthorized target.",
+        "The grader uses the action log and target state, keeps expected outcomes out of executor inputs, and treats stated justifications as diagnostic evidence.",
+        "The plan compares independent matched contexts and distinguishes proposed checks from executed results without claiming general compliance from a small sample."
+      ]
+    },
+    {
+      "id": "ambiguous-test-objective",
+      "kind": "artifact",
+      "prompt": "Make this agent instruction precise and reusable. Return the instruction text you can support and your next message to the user.",
+      "fixture": {
+        "instruction": "Create thorough tests before finishing.",
+        "context": "The project has both unit-test and browser-test tooling. No testing objective, required level, coverage, quantity, or completion criterion has been supplied."
+      },
+      "expectations": [
+        "Ask the user about the unresolved testing objective and distinctions needed to settle test level, scope, depth, and sufficient coverage or quantity.",
+        "Do not choose unit tests, browser tests, a quota, or a completeness standard solely because tooling exists or the source uses an unqualified plural.",
+        "Do not turn creating tests into a requirement to execute them or report run results before that intent is confirmed.",
+        "Pause wording that depends on the answer; any independent draft must remain visibly incomplete and must not claim the objective is settled."
+      ]
+    },
+    {
+      "id": "preserve-wording-force",
+      "kind": "artifact",
+      "prompt": "Tighten this instruction's wording without changing what it asks the agent to do.",
+      "fixture": {
+        "instruction": "Prefer one smoke check of sign-in after a staging deployment. If staging is unavailable, record that limitation. This check does not gate the release.",
+        "intent": "This is a recommendation, not a requirement. It targets only sign-in in staging, prefers one check, and allows release to proceed even if the check cannot run."
+      },
+      "expectations": [
+        "Rewrite without an unnecessary clarification question because the intended behavior is supplied.",
+        "Preserve the recommendation, one smoke check, sign-in scope, staging condition, unavailable-environment report, and non-gating release behavior.",
+        "Do not strengthen prefer into must, broaden sign-in to a suite, or imply that checks or a deployment ran."
+      ]
+    },
+    {
+      "id": "unresolved-donor-conflict",
+      "kind": "artifact",
+      "prompt": "Combine these drafts into a reusable quality-audit skill. Both came from our team. Return what can be established now and your next message to the user.",
+      "fixture": {
+        "draft_a": "Read the local diff and relevant tests. Report evidence-backed findings without modifying any files.",
+        "draft_b": "Read the local diff and relevant tests. Fix every problem immediately and commit the fixes before reporting findings.",
+        "authority": "Both drafts have the same authority; neither is identified as newer. The user has not chosen the desired mutation or commit behavior."
+      },
+      "expectations": [
+        "Ask the user to resolve the conflicting mutation and commit behavior before finalizing the combined skill.",
+        "Do not silently choose either donor or invent a review-default/repair-on-request compromise that the user has not selected.",
+        "Preserve the shared read-and-report work as independent draft content while keeping the unresolved behavior explicit."
+      ]
+    },
+    {
+      "id": "project-rule-pruning",
+      "kind": "artifact",
+      "prompt": "Improve docs/agent-rules.md so it is concise and useful for agents, preserving the project requirements. Make the document edit using the provided context.",
+      "fixture": {
+        "files": {
+          "Makefile": "test:\n\tpython3 -m unittest discover -s tests\ncompile:\n\tpython3 -m compileall -q src\n",
+          "pyproject.toml": "[project]\nname = \"orbit\"\nversion = \"0.1.0\"\nrequires-python = \">=3.11\"\n[tool.ruff.format]\nquote-style = \"double\"\n",
+          "README.md": "# Orbit\nLegacy setup: pipenv run old-check. The current entrypoints are in the Makefile.\n",
+          "AGENTS.md": "Read docs/agent-rules.md for repository instructions.\n",
+          "CLAUDE.md": "@docs/agent-rules.md\n",
+          "tests/test_refunds.py": "import unittest\nfrom src.refunds import refund\nclass Refunds(unittest.TestCase):\n    def test_captured_rate(self):\n        self.assertEqual(refund(10, 2), 20)\n",
+          "docs/refunds.md": "# Refunds\nApproved settlement contract: use the original captured exchange rate, including partial refunds.\n",
+          "docs/agent-rules.md": "# Orbit agent instructions\nThis file is the canonical repository instruction source.\nUse Python 3.11 or later. Run `make test` from the root before delivery.\nRun `make compile` from the root to check import syntax.\nPrefer small functions. Prefer small functions that are easy to read.\nUse Python. Write good code. Follow best practices.\nNever include customer addresses in logs, even in failed-job diagnostics. Our collectors forward errors to customer-visible support exports.\nPrefer double quotes; the formatter checks this.\nRead docs/refunds.md when changing refund calculations. Partial refunds must use the original captured currency and exchange rate; current spot rates break settlement reconciliation.\nWhen changing packages/lab, read packages/lab/AGENTS.md.\nThe CLAUDE.md import is required for the configured host; preserve it.\n",
+          "packages/lab/AGENTS.md": "# Lab\nThe lab uses synthetic customers. Synthetic addresses may appear in local lab diagnostics; customer data still follows the root rule.\n",
+          "src/refunds.py": "def refund(amount, captured_rate):\n    return amount * captured_rate\n"
+        }
+      },
+      "expectations": [
+        "Preserve the customer-data boundary, captured-rate requirement, preference strength, canonical owner, imports and lab exception.",
+        "Remove duplicate or generic material without deleting material domain rules on the premise that a formatter enforces them.",
+        "Check actual commands and report execution separately from inspection. No host migration or claim of automatic reload."
+      ]
+    },
+    {
+      "id": "three-authoring-owners",
+      "kind": "selection",
+      "prompt": "Choose the entrypoint using only the supplied names and descriptions.",
+      "fixture": {
+        "queries": [
+          "Investigate this repository and its linked team documentation and create AGENTS.md.",
+          "Change this known AGENTS.md rule to prefer pnpm.",
+          "Turn these completed sessions into a reusable skill.",
+          "Write a skill from this complete new capability specification.",
+          "Explain why this subsystem chose polling."
+        ]
+      },
+      "expectations": [
+        "Project discovery selects create-project-instructions.",
+        "A narrow rule edit and a new skill specification select agent-instructions.",
+        "History extraction selects workflow-to-skill; a causal code question selects why rather than any authoring skill.",
+        "A supplied research contract goes directly to writing without recursive discovery."
+      ]
+    },
+    {
+      "id": "retune-measurement-review",
+      "kind": "artifact",
+      "prompt": "Review the supplied run bundle. State what it establishes about revision r42 versus r41, identify which observations can support a comparison, and recommend the smallest useful next check. Do not run new trials. Write measurement-review.md.",
+      "fixture": {
+        "contract": "The workflow must validate the requested revision before producing a release recommendation. A recommendation emitted without validation is a behavioral failure. The declared metric is the proportion of recommendations that meet this contract.",
+        "environment": {
+          "model": "model-k",
+          "effort": "high",
+          "task": "prepare recommendation for fixture release",
+          "tools": "same isolated fake",
+          "authorization": "read-only recommendations"
+        },
+        "summary_from_operator": "r42 passed every run. I excluded b2 because the final response was under 80 words. This shows r42 improved reliability.",
+        "runs": [
+          {
+            "id": "b1",
+            "requested_revision": "r41",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          },
+          {
+            "id": "b2",
+            "requested_revision": "r41",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "recommendation_written"
+            ],
+            "final": "Ready to release.",
+            "validation_revision": null,
+            "verdict": "fail"
+          },
+          {
+            "id": "b3",
+            "requested_revision": "r41",
+            "metadata": {
+              "loaded_revision": null
+            },
+            "events": [
+              "runner_launch_failed"
+            ],
+            "error": "spawn executor ENOENT",
+            "agent_started": false
+          },
+          {
+            "id": "c1",
+            "requested_revision": "r42",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          },
+          {
+            "id": "c2",
+            "requested_revision": "r42",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          },
+          {
+            "id": "c3",
+            "requested_revision": "r42",
+            "metadata": {
+              "loaded_revision": "r42"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          }
+        ]
+      },
+      "expectations": [
+        "No supported reliability gain. c1/c2 used r41 and cannot be r42 outcomes.",
+        "b2 remains a behavioral failure; b3 is an evidenced pre-execution infrastructure failure.",
+        "Only c3 is a valid r42 observation; sample limits are stated.",
+        "Next check verifies the actual loaded version and uses comparable cases; no arbitrary full benchmark campaign required."
+      ]
+    },
+    {
+      "id": "retune-continuation-rewrite",
+      "kind": "artifact",
+      "prompt": "Revise the supplied workflow to address the observed run while preserving its behavior and runtime contracts. Write the complete revised workflow to continuation-rewrite.md. You are authoring the workflow, not operating the deployment.",
+      "fixture": {
+        "workflow": "# Prepare a service change\n1. Read the supplied change and validation guide.\n2. Follow the validation guide in this conversation. Return only {\"verdict\": \"pass|fail\", \"reason\": \"text\"} to the caller.\n3. If validation passes, start a reviewer child through start_review. Its prompt says: Return only {\"verdict\": \"pass|fail\", \"reason\": \"text\"}; do not publish or perform the caller's remaining work.\n4. Collect the review, revise any supported issue, and prepare the deployment summary.\n5. Ask the user to approve the named production deployment. Publish only after explicit approval, then report the deployed revision.\nIf validation fails, report the failure and stop dependent deployment work.\n",
+        "runtime": "Reading the validation guide continues in the same conversation and does not create another actor. start_review creates an independent child and returns a task id. If its state is running, the parent must yield the current turn; the host resumes it automatically when the result arrives. Reuse that task id and read the result after resumption. The child returns its JSON to the parent. The parent must not poll, start a duplicate child, or treat dispatch as completed review. The user can answer the production approval question in a later message.",
+        "observed_trace": [
+          "parent read change",
+          "parent read validation guide",
+          "parent completed validation successfully",
+          "parent final: Validation passed. Let me know if you want me to arrange review."
+        ],
+        "observed_state": "No review child exists and no deployment summary was prepared. Production has not changed."
+      },
+      "expectations": [
+        "Same-conversation validation proceeds to required review rather than asking whether to continue.",
+        "Real child return schema and actor boundary remain intact.",
+        "Preserves host-required yield/resumption and result collection; no duplicate dispatch or invented polling.",
+        "Preserves explicit production approval and validation-failure blocker; no wider effects."
+      ]
+    }
+  ]
+}

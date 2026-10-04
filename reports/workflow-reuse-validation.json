@@ -1,0 +1,402 @@
+{
+  "format_version": 1,
+  "date": "2026-10-02",
+  "baseline_commit": "3feefc235f5c957ec04172cca2d289c51fc9f22a",
+  "decision": {
+    "workflow-to-skill": "Retain a small derivation of reflect filtering and skill-creator intent capture, with agent-instructions as the writing dependency.",
+    "standardization": "Choose unchanged installation, a thin wrapper, a derivation, or new instructions based on contract fit and local maintenance.",
+    "external_candidates_installed": false
+  },
+  "consultation": {
+    "model": "claude-fable-5-1",
+    "effort_argument": "--effort xhigh",
+    "result": "success",
+    "duration_ms": 102348,
+    "finding": "The supplied candidates would require replacing substantial procedures for general extraction; use selected criteria rather than a nominal wrapper."
+  },
+  "verified_source_commits": {
+    "cursor/plugins": "c47b12849e43f18d5c374c7069c744cc55b0ea00",
+    "mattpocock/skills": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+    "anthropics/skills": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+  },
+  "candidate_decisions": [
+    {
+      "candidate": "pstack/reflect",
+      "decision": "Adapt criteria",
+      "reason": "Useful durable-learning filters and missed-activation routing; Cursor-specific orchestration and automatic backlog writes do not fit."
+    },
+    {
+      "candidate": "Anthropic/skill-creator",
+      "decision": "Adapt Capture Intent",
+      "reason": "Useful extraction questions; complete authoring and evaluation remain with the existing writer."
+    },
+    {
+      "candidate": "pstack/automate-me",
+      "decision": "Keep as a future personal-mode candidate",
+      "reason": "Its declared scope excludes narrow task workflows."
+    },
+    {
+      "candidate": "Matt Pocock/retro",
+      "decision": "Do not use as the extraction implementation",
+      "reason": "Produces environment improvement findings rather than a task skill."
+    },
+    {
+      "candidate": "pstack/create-verification-skill and maintain-verification-skill",
+      "decision": "Keep as specialized verification candidates",
+      "reason": "Generate and maintain an app verification harness, not arbitrary workflows."
+    }
+  ],
+  "trials": [
+    {
+      "case": "missed-activation",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "result": "passed",
+      "duration_ms": 69228,
+      "observation": "Only the release-notes description changed. Its body and every other supplied file remained identical; no second skill or release artifact was created.",
+      "artifact_sha256": {
+        "skills/release-notes/SKILL.md": "c1bd2a38a509245a1b98789cba73516098b502bbc0c4ed1111b5f4bc4f87335a"
+      }
+    },
+    {
+      "case": "thin-wrapper",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "result": "passed",
+      "duration_ms": 212595,
+      "observation": "The executor created a partner-export wrapper that reads project columns and delegates conversion. The installed exporter remained byte-identical; provenance reports unknown upstream metadata rather than inventing a commit.",
+      "artifact_sha256": {
+        "output/partner-export/SKILL.md": "b5a5a2c0b3ace0e718aa6cbdcea2f34420c7bd063c655b0a6bba5723dc265265",
+        "output/partner-export/evals/cases.json": "c22755cdbc1877396a57d5a3902466e51459d6ed6c8d128aad3713f3332eb930",
+        "output/partner-export/origin.txt": "97fdf8b340b14666ddc6fb5162d8a4d356f49062752f8cf3d241e2e9cd7b6018"
+      }
+    }
+  ],
+  "checks": [
+    {
+      "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py agent-instructions",
+      "result": "passed"
+    },
+    {
+      "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py workflow-to-skill",
+      "result": "passed"
+    },
+    {
+      "command": "python3 .tmp/workflow-sources/check_structure.py",
+      "result": "passed"
+    },
+    {
+      "command": "uv run --no-project --with pyyaml python .tmp/workflow-sources/check_trials.py",
+      "result": "passed"
+    },
+    {
+      "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py .tmp/workflow-sources/runs/missed-activation/skills/release-notes",
+      "result": "passed"
+    },
+    {
+      "command": "uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py .tmp/workflow-sources/runs/thin-wrapper/output/partner-export",
+      "result": "passed"
+    },
+    {
+      "command": "node --check reports/skill-atlas/app.js",
+      "result": "passed"
+    },
+    {
+      "command": "node --check reports/skill-atlas/catalog.js",
+      "result": "passed"
+    },
+    {
+      "command": "env PYTHONPATH=daily-meeting-update python3 -B -m unittest tests.test_opencode_digest -v",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    }
+  ],
+  "browser": {
+    "method": "T3 preview navigation, snapshot, and DOM evaluation",
+    "result": "Spanish standardization table and candidate decision loaded; 121 catalog entries; no horizontal overflow at 1280px."
+  },
+  "limits": [
+    "Trials used actual skill files and raw fixtures with grader expectations withheld. Executors could Read, Write, and Edit; shell and network were unavailable.",
+    "The parent parsed and validated the generated files and checked exact state changes. No TSV export, host invocation, installation, or remote dependency update was performed.",
+    "These are scoped artifact and state-transition checks, not a matched performance comparison or a claim that every evaluation case passed.",
+    "No application build applies to these declarative skills. The report JavaScript passed syntax checks, and all three repository smoke tests passed.",
+    "Temporary source clones, model responses, fixtures, and one-off check scripts are removed after recording results."
+  ],
+  "skill_file_sha256": {
+    "workflow-to-skill/SKILL.md": "92472361c387e9edba7a0e83a6fcea3a0d8627cf0987ebfb193bcc6ae1c41566",
+    "workflow-to-skill/origin.txt": "02db327f7de20494d786cde806dc855f52ca63381eea87836f5a592cd931ac85",
+    "workflow-to-skill/evals/cases.json": "74188795fc3c3d22625ee7d48c4c0372e77941f6f96d702b06ad857a32568c1a",
+    "agent-instructions/references/reuse.md": "eaf5393ff47fbd0ba7b3ef79bc1ab015a9fd41e175e4b559d4eb676f830b3dc7",
+    "agent-instructions/references/skills.md": "05394cf7416a7edd3de9f30ba4fb22f82a14b266a044e7b4cfa96d2506636bc7",
+    "agent-instructions/references/upstream-updates.md": "6a6f2cb40417242e4b0fe7d13905edda96c3e632a28bb99d37b6259ffee164e7",
+    "agent-instructions/evals/cases.json": "1ff5e201c8c1da2ac7b0d702c720051283833268526824d51224eb3c09db8140"
+  },
+  "deterministic_steps_revision": {
+    "date": "2026-10-03",
+    "baseline_commit": "c0aada9c842ec1e8417b7ab41775ebc4f4b32f4b",
+    "request": "Prefer code for deterministic workflow operations while retaining reasoning and user-dependent decisions in the skill.",
+    "decision": "Make the code/agent division explicit in extraction and packaging. Reuse existing execution owners; bundle helpers for reusable composition or result handling and execute them during validation.",
+    "design": "Two isolated Fable Max authoring tasks received identical raw fixtures and separate before/after Markdown snapshots. Grader expectations were withheld. Each authored compose-start and ticket-brief; the parent inspected the code and ran the generated helpers against isolated CLI fakes.",
+    "cases": [
+      "workflow-to-skill/evals/cases.json:deterministic-preflight",
+      "workflow-to-skill/evals/cases.json:judgment-with-existing-tool"
+    ],
+    "trials": [
+      {
+        "variant": "baseline",
+        "task_id": "node:delegated-task:command%3Amcp%3A372da8db-bc4b-4c07-99ff-057f0c426e0a%3Adelegate-task%3Adeterministic-skills-baseline-20261003",
+        "thread_id": "thread:delegated-task:command%3Amcp%3A372da8db-bc4b-4c07-99ff-057f0c426e0a%3Adelegate-task%3Adeterministic-skills-baseline-20261003",
+        "model_selection": {
+          "instanceId": "claudeAgent",
+          "model": "claude-fable-5-1",
+          "options": [
+            {
+              "id": "effort",
+              "value": "max"
+            }
+          ]
+        },
+        "duration_ms": 525946,
+        "guidance_read_evidence": [
+          {
+            "path": "workflow-to-skill/SKILL.md",
+            "read_item_id": "turn-item:provider:claudeAgent:native-item:toolu_01UxvR4g6eAPZ45om14JQexN",
+            "evidence": "Completed read command returned the matching Markdown snapshot."
+          },
+          {
+            "path": "agent-instructions/references/skills.md",
+            "read_item_id": "turn-item:provider:claudeAgent:native-item:toolu_01Ba8kXDQqNsNGburx83kFUU",
+            "evidence": "Completed read command returned the matching Markdown snapshot."
+          }
+        ],
+        "guidance_sha256": {
+          "agent-instructions/SKILL.md": "ff3a7b1f9a29d74c6d1ce2cfb9847e19d4733d5aa1a3594a43db2781719442c0",
+          "agent-instructions/references/evaluation.md": "e22ec395e549fd59e179e83d573b570f475b4802b8beefa45527755b34c08dec",
+          "agent-instructions/references/hosts.md": "bdebaae1e39aa512646b4e64dde3f46ab0d8251311a3466356b3b61cdb4b4b71",
+          "agent-instructions/references/instruction-files.md": "45096367c0ff8795292e192241cea7d4233a23428fdd29fd750a7ebd9535a456",
+          "agent-instructions/references/reuse.md": "eaf5393ff47fbd0ba7b3ef79bc1ab015a9fd41e175e4b559d4eb676f830b3dc7",
+          "agent-instructions/references/skills.md": "05394cf7416a7edd3de9f30ba4fb22f82a14b266a044e7b4cfa96d2506636bc7",
+          "agent-instructions/references/upstream-updates.md": "6a6f2cb40417242e4b0fe7d13905edda96c3e632a28bb99d37b6259ffee164e7",
+          "agent-instructions/references/writing.md": "050f139df92a22390d509230dcfb2a12ef2a3e96c6c869762a37bd7d47ed101b",
+          "workflow-to-skill/SKILL.md": "92472361c387e9edba7a0e83a6fcea3a0d8627cf0987ebfb193bcc6ae1c41566"
+        },
+        "artifact_sha256": {
+          "compose-start/SKILL.md": "f5c166a87530121aa57bb856f179236d0a102958f97ab65590478da4fd424c66",
+          "compose-start/scripts/preflight.py": "cfc2b48c6540a6cfc4070ea3ecf8208733b0d3976d33a6df08f73cebd1b04e8e",
+          "ticket-brief/SKILL.md": "aadf0c3c26167084a0bca6768d270c8e7d2a679e12bff02afa297430aa93d095"
+        },
+        "target_behavior": {
+          "deterministic-preflight": "Produced a runnable standard-library Python helper, runtime executable discovery, bounded native command probes, diagnostic outcomes, and an invocation in SKILL.md. Profile choice and failure interpretation remain with the agent.",
+          "judgment-with-existing-tool": "Reused supplied ticket text or ticket-export; no helper was added for semantic interpretation. Material choices remain questions for the user."
+        },
+        "executed_helper_cases": [
+          {
+            "case": "ready",
+            "result": "passed",
+            "exit_code": 0
+          },
+          {
+            "case": "docker-missing",
+            "result": "passed",
+            "exit_code": 1
+          },
+          {
+            "case": "client-fails",
+            "result": "passed",
+            "exit_code": 1
+          },
+          {
+            "case": "compose-missing",
+            "result": "passed",
+            "exit_code": 1
+          },
+          {
+            "case": "engine-unreachable",
+            "result": "passed",
+            "exit_code": 1
+          },
+          {
+            "case": "path-with-spaces",
+            "result": "passed",
+            "exit_code": 0
+          },
+          {
+            "case": "explicit-docker-path",
+            "result": "passed",
+            "exit_code": 0
+          },
+          {
+            "case": "probe-timeout",
+            "result": "passed",
+            "exit_code": 1
+          },
+          {
+            "case": "compose-file-missing",
+            "result": "passed",
+            "exit_code": 1
+          }
+        ],
+        "observed_effects": "Only allowlisted read-only fake Docker queries ran. No real Docker executable, engine, context, or stack was used."
+      },
+      {
+        "variant": "candidate",
+        "task_id": "node:delegated-task:command%3Amcp%3A372da8db-bc4b-4c07-99ff-057f0c426e0a%3Adelegate-task%3Adeterministic-skills-candidate-20261003",
+        "thread_id": "thread:delegated-task:command%3Amcp%3A372da8db-bc4b-4c07-99ff-057f0c426e0a%3Adelegate-task%3Adeterministic-skills-candidate-20261003",
+        "model_selection": {
+          "instanceId": "claudeAgent",
+          "model": "claude-fable-5-1",
+          "options": [
+            {
+              "id": "effort",
+              "value": "max"
+            }
+          ]
+        },
+        "duration_ms": 466140,
+        "guidance_read_evidence": [
+          {
+            "path": "workflow-to-skill/SKILL.md",
+            "read_item_id": "turn-item:provider:claudeAgent:native-item:toolu_015wt9RMUzBDF5SQ2hwhV8jp",
+            "evidence": "Completed read command returned the matching Markdown snapshot."
+          },
+          {
+            "path": "agent-instructions/references/skills.md",
+            "read_item_id": "turn-item:provider:claudeAgent:native-item:toolu_01R1faojNnaPJFZ5r8VB3mJH",
+            "evidence": "Completed read command returned the matching Markdown snapshot."
+          }
+        ],
+        "guidance_sha256": {
+          "agent-instructions/SKILL.md": "ff3a7b1f9a29d74c6d1ce2cfb9847e19d4733d5aa1a3594a43db2781719442c0",
+          "agent-instructions/references/evaluation.md": "e22ec395e549fd59e179e83d573b570f475b4802b8beefa45527755b34c08dec",
+          "agent-instructions/references/hosts.md": "bdebaae1e39aa512646b4e64dde3f46ab0d8251311a3466356b3b61cdb4b4b71",
+          "agent-instructions/references/instruction-files.md": "45096367c0ff8795292e192241cea7d4233a23428fdd29fd750a7ebd9535a456",
+          "agent-instructions/references/reuse.md": "eaf5393ff47fbd0ba7b3ef79bc1ab015a9fd41e175e4b559d4eb676f830b3dc7",
+          "agent-instructions/references/skills.md": "d21e4dd81b8673cc283ff46e3de7d245af15b11ff22b98cbc502970a3be3baf6",
+          "agent-instructions/references/upstream-updates.md": "6a6f2cb40417242e4b0fe7d13905edda96c3e632a28bb99d37b6259ffee164e7",
+          "agent-instructions/references/writing.md": "050f139df92a22390d509230dcfb2a12ef2a3e96c6c869762a37bd7d47ed101b",
+          "workflow-to-skill/SKILL.md": "83220cbd4df83c387380a76a0e4283f0c93b0a0c09414cfc191a015ac38f775e"
+        },
+        "artifact_sha256": {
+          "compose-start/SKILL.md": "bd347b73b63c9cae126c5df10b748f3cae584c9625035f59f0cc4772634a77ca",
+          "compose-start/scripts/preflight.py": "3f3b467852167648f282197867b74c56efea005ace633271d1e8bd967f8086cc",
+          "ticket-brief/SKILL.md": "8a0670c082427cfcf794e469cc567698acb117c36298259dec170b2ee3d59be8",
+          "ticket-brief/templates/acceptance-summary.md": "8fed8c1b1688858fdae1a80d3837d10bbf826e82d22f27c6ee64b1e788bf0a11"
+        },
+        "target_behavior": {
+          "deterministic-preflight": "Produced a runnable standard-library Python helper, runtime executable discovery, bounded native command probes, diagnostic outcomes, and an invocation in SKILL.md. Profile choice and failure interpretation remain with the agent.",
+          "judgment-with-existing-tool": "Reused supplied ticket text or ticket-export; no helper was added for semantic interpretation. Material choices remain questions for the user."
+        },
+        "executed_helper_cases": [
+          {
+            "case": "ready",
+            "result": "passed",
+            "exit_code": 0
+          },
+          {
+            "case": "docker-missing",
+            "result": "passed",
+            "exit_code": 1
+          },
+          {
+            "case": "client-fails",
+            "result": "passed",
+            "exit_code": 1
+          },
+          {
+            "case": "compose-missing",
+            "result": "passed",
+            "exit_code": 1
+          },
+          {
+            "case": "engine-unreachable",
+            "result": "passed",
+            "exit_code": 1
+          },
+          {
+            "case": "path-with-spaces",
+            "result": "passed",
+            "exit_code": 0
+          },
+          {
+            "case": "explicit-docker-path",
+            "result": "passed",
+            "exit_code": 0
+          },
+          {
+            "case": "probe-timeout",
+            "result": "passed",
+            "exit_code": 1
+          },
+          {
+            "case": "compose-file-missing",
+            "result": "passed",
+            "exit_code": 1
+          }
+        ],
+        "observed_effects": "Only allowlisted read-only fake Docker queries ran. No real Docker executable, engine, context, or stack was used."
+      }
+    ],
+    "interpretation": "Both versions produced working preflight helpers and avoided unnecessary ticket scripts. This paired sample confirms the requested behavior is compatible with the revision; it does not establish a performance improvement. The revision is justified by the user's explicit preference and makes a formerly optional packaging criterion part of extraction and writing.",
+    "checks": [
+      {
+        "command": "/opt/homebrew/bin/fish -c 'python3 .tmp/deterministic-skill/check-generated-helpers.py'",
+        "result": "Passed 18 executions: nine scenarios per unchanged generated helper, including missing and failed prerequisites, engine failure, timeout, variable paths, explicit executable selection, and spaces in paths. Both helpers also compiled."
+      },
+      {
+        "command": "/opt/homebrew/bin/fish -c 'uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py agent-instructions; and uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py workflow-to-skill'",
+        "result": "Both maintained skills passed."
+      },
+      {
+        "command": "/opt/homebrew/bin/fish -c 'for variant in baseline candidate; for skill in compose-start ticket-brief; uv run --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py .tmp/deterministic-skill/runs/$variant/$skill; or exit 1; end; end'",
+        "result": "All four generated skill packages passed."
+      },
+      {
+        "command": "/opt/homebrew/bin/fish -c 'python3 .tmp/deterministic-skill/check-structure.py'",
+        "result": "Passed 17 local Markdown references, JSON corpora, unique case IDs, unchanged TOML provenance, matching before/after snapshots, and preservation of earlier report evidence."
+      },
+      {
+        "command": "/opt/homebrew/bin/fish -c 'env PYTHONPATH=daily-meeting-update python3 -B -m unittest tests.test_opencode_digest -v'",
+        "result": "All three repository smoke tests passed."
+      },
+      {
+        "command": "git diff --check",
+        "result": "Passed."
+      }
+    ],
+    "helper_fixture_contracts": [
+      {
+        "url": "https://docs.docker.com/reference/cli/docker/compose/version/",
+        "use": "Compose version query."
+      },
+      {
+        "url": "https://docs.docker.com/reference/cli/docker/system/info/",
+        "use": "Configured engine information query, distinct from client availability."
+      },
+      {
+        "url": "https://docs.docker.com/reference/cli/docker/compose/config/",
+        "use": "Candidate additionally composed native profile and service listing commands; their output contract was verified before faking them."
+      }
+    ],
+    "limits": [
+      "One paired sample with two authoring requests, not a broad benchmark or a claim that the entire evaluation corpus passed.",
+      "Read-tool output proves the supplied guidance was loaded. These explicit-loading probes do not test autonomous skill selection or native host invocation.",
+      "Children proposed checks but did not execute helpers. Execution results above come from the parent with fake command collaborators.",
+      "Only preflight execution was tested. Generated startup instructions were not exercised against a real stack. Both startup examples omit explicit propagation of a non-default Docker path; the disposable examples are not production Compose skills.",
+      "No application build applies to this declarative instruction change. No helpers were added to the maintained skills themselves: they now instruct future authors how to extract and package task-specific code.",
+      "Existing host skill symlinks still point at another checkout. No installation, publishing, or global symlink change was performed.",
+      "Temporary snapshots, generated packages, fixtures, and one-off check scripts are removed after recording evidence; durable delegated results remain identified by task and thread."
+    ],
+    "changed_file_sha256": {
+      "workflow-to-skill/SKILL.md": "83220cbd4df83c387380a76a0e4283f0c93b0a0c09414cfc191a015ac38f775e",
+      "workflow-to-skill/evals/cases.json": "c3647500f27c95c0714dc726882cae55b3b52a21e9099c353c8bd15f3a9b809c",
+      "agent-instructions/references/skills.md": "d21e4dd81b8673cc283ff46e3de7d245af15b11ff22b98cbc502970a3be3baf6"
+    },
+    "test_harness_sha256": {
+      "fake-docker.py": "958bb10d805ee186c85f1b4c60402c28ad91bb2173c303797962f94d9942ac71",
+      "check-generated-helpers.py": "d7f4f17835925fc819a3afa55b508deca1c97b8dfdec1ce3877c55a23cb05faa"
+    }
+  }
+}

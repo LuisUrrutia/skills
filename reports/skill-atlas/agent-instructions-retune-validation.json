@@ -1,0 +1,907 @@
+{
+  "date": "2026-10-04",
+  "status": "Completed: instruction rewrite and selected source incorporation are applied; independent reviews, scoped artifact checks, structural validation and atlas DOM checks are recorded below.",
+  "scope": "Integrate selected ce-retune ideas through a concise rewrite of agent-instructions writing and evaluation references.",
+  "authority": "The user asked to examine the concrete contributions and rewrite where needed, keeping skills concise. Claude Fable xhigh was explicitly requested; Astra Max follows the existing authoring contract.",
+  "baselineCommit": "e2c0d00ab34bebe47a8e0353ba01f5348c4874ec",
+  "source": {
+    "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+    "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+    "license": "MIT",
+    "files": [
+      {
+        "path": "skills/ce-retune/SKILL.md",
+        "sha256": "21f781e9ab8ac32d09cec0ac054dfd9392374907076b1335f95bb2591401dce2",
+        "coverage": "Full file read in the bounded source review; selected ideas are recorded in origin.txt."
+      },
+      {
+        "path": "skills/ce-retune/references/baseline-mining.md",
+        "sha256": "f9918379de97f3c67d4f939ca2a22290351312769fe0f9aa376a7871f2fbe823",
+        "coverage": "Full file read in the bounded source review; selected ideas are recorded in origin.txt."
+      },
+      {
+        "path": "skills/ce-retune/references/corpus-audit.md",
+        "sha256": "88d6f8cf9cb4e6753f6c00c1f5c540070c2c5b0e7a7f2affba4f9b8a075f35f2",
+        "coverage": "Full file read in the bounded source review; selected ideas are recorded in origin.txt."
+      },
+      {
+        "path": "skills/ce-retune/references/cut-passes.md",
+        "sha256": "a9b2318a341e668060de8ca5b9a1d3f9c19aa31e1de9993de97becd312881886",
+        "coverage": "Full file read in the bounded source review; selected ideas are recorded in origin.txt."
+      },
+      {
+        "path": "skills/ce-retune/references/halt-taxonomy.md",
+        "sha256": "0b01c0cd251e433738899ce53c204d8b0aa53d0f3e40af1d5f9268016e327e86",
+        "coverage": "Full file read in the bounded source review; selected ideas are recorded in origin.txt."
+      },
+      {
+        "path": "skills/ce-retune/references/noise-floor.md",
+        "sha256": "ea8ec536ddd4eb1037ba9ec3deff142f49488686054026ddf5d0a3ff4af4834d",
+        "coverage": "Full file read in the bounded source review; selected ideas are recorded in origin.txt."
+      },
+      {
+        "path": "skills/ce-retune/references/workflow-shapes.md",
+        "sha256": "a5fdbc2bba5c542ceba6a1c088d43bc2739f3788537d8fe8d99dac3a1fbba3ed",
+        "coverage": "Full file read in the bounded source review; selected ideas are recorded in origin.txt."
+      }
+    ]
+  },
+  "decisions": [
+    {
+      "topic": "Evaluation validity",
+      "adopted": "Identify the actually loaded revision, preserve failures and reasoned exclusions, and separate phase entry from required results. Repeated measurements use criteria defined before tuning and proportionate controls.",
+      "why": "These rules determine which observations can support a claim without turning every edit into a benchmark campaign."
+    },
+    {
+      "topic": "Premature stopping",
+      "adopted": "Diagnose the next actor and continuation path before changing workflow language. Preserve real child returns, user decisions, blockers and host-supported resumption.",
+      "why": "An inline phase ending does not end the authorized workflow, while a legitimate asynchronous or human pause must remain possible."
+    },
+    {
+      "topic": "Composition",
+      "adopted": "Rewrite the existing two references around their decisions; keep the entrypoint and all other behavioral references unchanged.",
+      "why": "The existing skill owns instruction writing and evaluation; a separate retuning skill or additional orchestration layer would duplicate that ownership."
+    },
+    {
+      "topic": "Integrate instruction updates",
+      "authority": "Direct user clarification; not a donor attribution.",
+      "adopted": "Replace the one-home paragraph with explicit placement, recomposition and scoped rewrite guidance; permit distinct new text when no suitable home exists.",
+      "why": "The previous text covered uniqueness and pruning but did not explicitly tell the agent to integrate each update instead of accumulating parallel rules."
+    }
+  ],
+  "excluded": [
+    "A mandatory corpus-wide retuning campaign, fixed run counts or streak formulas.",
+    "A hard observed-range cutoff for evidence or a claim that every significant identical-version difference must be an instrument bug.",
+    "Automatic deletion of rules from missing historical provenance, apparent model knowledge or file-size goals.",
+    "Token-rate and short-response heuristics for classifying failures.",
+    "The donor explicit-invocation policy, harness assumptions or runtime dependencies."
+  ],
+  "baselineFiles": {
+    "agent-instructions/SKILL.md": "fba84f1987bda16a1e43cd117bd37e9cf327bdb4322135ef1cb69ba5f6f222c4",
+    "agent-instructions/THIRD-PARTY-NOTICES.txt": "59f9b91d288a9e82c70ebe5a30bcfc4c5c1031be615678ffc2a7cf422806ff4e",
+    "agent-instructions/evals/cases.json": "c12a5ca9dc17235d49ea7e9b5d703334a4e7cef039659f2436141f59a9590dbd",
+    "agent-instructions/origin.txt": "0c6fb00eb60c890fd9100ef4eb7f402ac68ea7c6a216a93fa0cd3b1578b4b999",
+    "agent-instructions/references/evaluation.md": "2303c50ee3c7ecb013cdd7ad5ffdb4f6035eb993735666c17b3d3c7a260439d7",
+    "agent-instructions/references/hosts.md": "45b542e38fb8c6ec3f7e06e3b3c2316ee2cf021d2364ed6a79f7611ca2299462",
+    "agent-instructions/references/instruction-files.md": "36782aa664c7195cc5a8157357ce3e1c7cbdbdd9a0c9c1996c9d46dc97cf807f",
+    "agent-instructions/references/reuse.md": "019c8686c43f9cf926fd943e630b11890fb6e55862bf788ea20f5fa1545934ba",
+    "agent-instructions/references/skills.md": "0c672674af48f16b9c897135fca90c7b858deb55b099898172f8faba60baaaae",
+    "agent-instructions/references/upstream-updates.md": "6a6f2cb40417242e4b0fe7d13905edda96c3e632a28bb99d37b6259ffee164e7",
+    "agent-instructions/references/writing.md": "ab4159a471875ac758358cefef04e0640d0e350132008e62e7aa3ca45fb85d73"
+  },
+  "candidateFiles": {
+    "agent-instructions/SKILL.md": "fba84f1987bda16a1e43cd117bd37e9cf327bdb4322135ef1cb69ba5f6f222c4",
+    "agent-instructions/THIRD-PARTY-NOTICES.txt": "0595371f773596328d06f823dfe47e46a8e4e5734ce2eef346e3e1d08c233748",
+    "agent-instructions/evals/cases.json": "19c40a4d34c7756000e44f0c58e58a3e32b5ad0dbf97a54fd60c2dec37189462",
+    "agent-instructions/origin.txt": "b68b6617040e8c95eacf2afa13acf44d96479c395b30379b070a7447238e7ec4",
+    "agent-instructions/references/evaluation.md": "3858fac70f72e9c7d971e6fe71727bde32c721e271932fd2e8b26039694f3fa3",
+    "agent-instructions/references/hosts.md": "45b542e38fb8c6ec3f7e06e3b3c2316ee2cf021d2364ed6a79f7611ca2299462",
+    "agent-instructions/references/instruction-files.md": "36782aa664c7195cc5a8157357ce3e1c7cbdbdd9a0c9c1996c9d46dc97cf807f",
+    "agent-instructions/references/reuse.md": "019c8686c43f9cf926fd943e630b11890fb6e55862bf788ea20f5fa1545934ba",
+    "agent-instructions/references/skills.md": "0c672674af48f16b9c897135fca90c7b858deb55b099898172f8faba60baaaae",
+    "agent-instructions/references/upstream-updates.md": "6a6f2cb40417242e4b0fe7d13905edda96c3e632a28bb99d37b6259ffee164e7",
+    "agent-instructions/references/writing.md": "c2ba21a1ccbd9b06b41b0deda9093427a7eb11d9f0d64172ac3d320bae5a364b"
+  },
+  "structure": {
+    "status": "passed",
+    "resolvedLinks": 17,
+    "existingCasesPreserved": 17,
+    "addedCases": 2,
+    "sourceBaselinesUnchanged": true,
+    "unrelatedReferencesAndEntrypointUnchanged": true,
+    "exactFinalManifestMatches": true,
+    "mitNoticeMatches": true,
+    "words": {
+      "writing.md": {
+        "before": 1139,
+        "after": 907
+      },
+      "evaluation.md": {
+        "before": 817,
+        "after": 749
+      }
+    },
+    "build": "Not applicable: instruction package and static atlas have no configured application build."
+  },
+  "reviews": [
+    {
+      "round": "v1",
+      "provider": "Codex",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "agent": "/root/retune_rewrite_astra",
+      "status": "completed",
+      "findings": [
+        "Restore failure-only condition before requiring output/action traces.",
+        "Restore evaluation-specific authorization for real-service effects.",
+        "Complete source provenance before adoption."
+      ],
+      "evidence": "Explicit model/effort in native spawn; complete result retained in parent conversation."
+    },
+    {
+      "round": "v1",
+      "provider": "Claude",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "taskId": "node:delegated-task:command%3Amcp%3Aa4549d23-8c8c-4b6c-9269-1eab70d05d63%3Adelegate-task%3Aagent-instructions-retune-rewrite-fable-xhigh-20261004-r1",
+      "status": "completed",
+      "result": "Review complete. The candidate is sound on its contract-level invariants, and its new guidance is mostly well conditioned. I found no blockers, nine text corrections, one provenance correction, and a handful of optional restorations. Evidence is from the frozen v1 snapshot under the task root.\n\n## Corrections\n\n- **Unconditional diagnosis lead.** `candidate/agent-instructions/references/writing.md:45` says \"Inspect the output and action trace before adding a rule.\" The baseline at `writing.md:57` scoped this to \"When correcting a failure\". The candidate makes every rule addition look like it needs a trace, which is the ordinary-edit campaign risk the brief names. Restore the condition:\n  ```\n  When correcting an observed failure, inspect the output and action trace before adding a rule.\n  ```\n- **Lost workflow/domain separation.** `writing.md:38` opens \"Domain rules need an authoritative contract.\" The baseline at `writing.md:86-87` led with separating the reusable workflow from unestablished domain decisions. Without that, \"questions to resolve\" can read as block all authoring, which the `missing-domain-contract` case forbids in its third expectation. Replace the first sentence:\n  ```\n  Separate the reusable workflow from domain decisions the sources do not establish.\n  ```\n- **Installed-path invariant weakened.** `writing.md:18-19` says \"Locate this skill's own scripts and references within its installed folder\". The baseline at `writing.md:29-30` added \"without assuming its installation path or the caller's working directory\". The candidate wording permits a hard-coded install path. Restore the clause:\n  ```\n  Locate this skill's own scripts and references relative to its installed folder, without assuming an installation path or the caller's working directory;\n  ```\n- **Form rules misplaced under diagnosis.** `writing.md:63-67` holds universal writing rules on fixed sequences, open-ended work, phase evidence and loops, but sits under \"Diagnose before prescribing\". Once the lead is conditional, a reader writing a new skill can skip them. Keep the first sentence in that section and move the rest under a short heading such as \"Make completion observable\". Consider restoring \"evidence that distinguishes completion from an attempt\" from baseline `writing.md:80-81`, since it pairs with the new phase-entry rule in evaluation.md.\n- **Qualifier scope in the trials paragraph.** `evaluation.md:78-79` reads \"nondeterministic failures, model migrations or performance claims that need repeated trials\". The qualifier can attach only to performance claims, making any model migration a pre-registration event. Rewrite so the condition governs all three:\n  ```\n  When a claim needs repeated trials, such as a nondeterministic failure, a model migration or a performance comparison, define the metric, meaningful effect, run budget and stopping rule before tuning.\n  ```\n- **Control requested, use unstated.** `evaluation.md:80-83` asks for identical-version controls but never says what their result decides, and \"a difference in observed ranges\" is unclear and sits oddly against the donor's spread finding at `source/ce-retune/references/noise-floor.md:70`. Replace the two clauses:\n  ```\n  check identical-version controls when unexplained variation or runner integrity needs investigation; a difference within their spread is not evidence, and a larger one warrants investigation before attribution. Report uncertainty rather than treating a short streak as proof.\n  ```\n- **Duplicate sentence.** `evaluation.md:39-40` \"Supplied-text exercises remain useful but do not establish host loading or invocation\" restates `evaluation.md:71-73` and `hosts.md:40-42`. Delete it. Keep `evaluation.md:37-39`, which carries the new attribution consequence.\n- **Universal iterate rule buried.** `evaluation.md:90-93` is the always-applicable fix, rerun and stop rule, but it follows two paragraphs conditioned on repeated trials. Restore the baseline shape: heading \"Iterate proportionately\", that paragraph first, then the trials paragraphs.\n- **Ambiguous \"value\".** `writing.md:89` \"Their value need not match a model's default\" can read as the setting rather than the worth. Use: \"They can be valuable even when they differ from a model's default.\"\n- **Provenance not updated.** `origin.txt` and `THIRD-PARTY-NOTICES.txt` are byte-identical to baseline, yet the candidate adopts donor ideas. The skill's own rules require a record at `skills.md:22-25`, `writing.md:77` and `reuse.md:22-24`. Before commit, add a `[[sources]]` entry for EveryInc/compound-engineering-plugin pinned to the manifest commit, license MIT, with borrowed items for phase entry versus completion, loaded-revision evidence, identical-version controls and interleaving, pre-registration for repeated trials, cause-based infrastructure classification, and the continuation distinctions. Record local choices rejecting the harness gate, fixed run counts, streak bars, categorical instrument-bug and infrastructure claims, deletion on missing provenance, and word-count goals. Append the Every MIT notice from `source/LICENSE`. The donor's in-repository path is not visible in the snapshot, so the coordinator must resolve it.\n\n## Optional\n\n- `writing.md:27`: add the quantity example, \"and 'one' is not 'all'\". The `preserve-wording-force` case targets exactly this drift.\n- `writing.md:8`: restore the contrast \"rather than louder wording\" after \"exclusions for likely collisions\".\n- `writing.md:95`: restore \"A formatter does not enforce a business invariant.\" The `project-rule-pruning` case names that premise.\n- `writing.md:78`: restore \"that serves the contract\" after \"a local rule\".\n- `writing.md:57`: \"a next phase the same agent performs\" is clearer than \"a phase in the same conversation\".\n- `evaluation.md:33`: restore the reason \"changing the model within a pair cannot isolate the instruction's effect\", since model migration is the donor's whole premise.\n\nConfirmed unchanged and correct: required consultations at `evaluation.md:31-32`, optional ablation at `evaluation.md:42-43`, authorization at `evaluation.md:15` and `writing.md:60-61`, evidence limits at `evaluation.md:73-74` and `87-88`. The continuation paragraph at `writing.md:55-61` distinguishes same-conversation phases, real child returns, user decisions, blockers and host pauses, treats a pause as non-failure, and grants no new effects. The phase-entry rule at `evaluation.md:64-65` and the infrastructure rule at `evaluation.md:85-87` carry the qualifications the prior round demanded. No anchors or heading references break. Moving the separate-skill rule into the placement section is cohesive.\n\n## Checks and limitations\n\nRun these from `evals/cases.json` as baseline-versus-candidate pairs, same model and effort, fresh contexts: `preserve-wording-force`, `missing-domain-contract`, `project-rule-pruning`, `instruction-form-from-failure`, `canonical-instruction-edit`, `pressure-evaluation-design`, `compose-review`. New targeted fixtures for the added guidance:\n\n- **Continuation repair.** Four traces: an inline phase ending \"return to caller\" in one session, a real child dispatch returning, a stop to ask the user, a host pause later resumed. Expect continuation added only at the inline seam, nothing else altered, no new authority, no required step made optional.\n- **Phase entry grading.** A trace with a reference read and a dispatch but no required artifact. Expect the phase marked not completed or not tested.\n- **Loaded-revision attribution.** One arm's run artifacts lack a revision field. Expect attribution withheld and no improvement claim.\n- **Ordinary edit after a model change.** \"We moved to model X; tighten the description.\" Expect no metric, budget or stopping-rule registration. Pair with \"completion fell after moving to X; are the instructions the cause?\" and expect pre-registration with same-model pairs.\n- **Early-stop classification.** A run set with short early stops and one error exit. Expect no exclusion as infrastructure without cause evidence.\n\nLimitations: this is a static read with no runs executed, so no behavioral improvement is demonstrated. I read only the pinned donor snapshot. My runtime shows model `claude-fable-5-1`; the effort setting visible to me is numeric and does not map to a named \"Max\" label, so the coordinator should retain its invocation record."
+    },
+    {
+      "round": "v3",
+      "provider": "Codex",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "agent": "/root/retune_reconciled_astra",
+      "status": "completed",
+      "findings": [
+        "Restore explicit variation reporting; no further material issue.",
+        "Reject a universal observed-range detectability threshold."
+      ],
+      "evidence": "Fresh explicit Astra Max invocation; subsequent affected-point reviews preserve this profile."
+    },
+    {
+      "round": "v3",
+      "provider": "Claude",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "taskId": "node:delegated-task:command%3Amcp%3Aa4549d23-8c8c-4b6c-9269-1eab70d05d63%3Adelegate-task%3Aagent-instructions-retune-rewrite-fable-xhigh-20261004-r2",
+      "status": "completed",
+      "result": "**Verdict.** Frozen v3 preserves the original contract, and both adopted ideas are coherent and proportional. One material correction remains, and it is new in v3: the rewritten repeated-trials sentence conditions matched trials on an investigation need and drops the baseline obligation to report variation. The rejection of a range-based control threshold is sound on the merits. No blocker.\n\n## Material correction\n\n**Matched trials conditioned, reporting obligation lost.** `candidate-v3/agent-instructions/references/evaluation.md:84-86` reads \"Use matched trials and identical-version controls when unexplained variation or runner integrity needs investigation; account for their variation when interpreting candidate differences.\" The \"when\" clause now governs both nouns, so matched trials read as an investigative tool rather than the default design for a repeated-trial claim. Baseline `evaluation.md:101-102` said \"use repeated matched trials and report variation\", and v2 kept matched trials unconditional with only the controls conditioned. The reporting duty has no replacement: line 87 limits what a streak or range can establish, which is an inference limit, not an output obligation. The equal-settings rule at `evaluation.md:33-34` softens the practical loss but does not restore reporting. Disposition: correction. Proposed replacement for lines 84-86:\n\n```\nUse matched trials and report their variation. Add identical-version controls\nwhen unexplained variation or runner integrity needs investigation, and account\nfor the controls' variation when interpreting candidate differences.\n```\n\nThis restores baseline and v2 meaning, keeps the accepted purpose clause from finding 8, and imports no threshold. It restores text both profiles already reviewed, so I do not think it needs another round.\n\n## Control-threshold objection and confirmed items\n\nThe coordinator's rejection in finding 8 stands. The donor's \"floor\" rhetoric at `source/ce-retune/references/noise-floor.md:7` is superseded by its own statistics section at lines 59-70, which uses Wilson intervals, a risk difference with an interval and Fisher's exact test rather than the raw A/A range. A small-sample range understates the tails, so a difference outside it is not automatically evidence, and a paired design can detect a consistent shift whose single-pair differences sit inside it. v3 keeps the conservative direction, withholding a gain claim, without asserting a false detectability rule. With the correction above, `evaluation.md:85-87` is sufficient.\n\nReconciled items verified against the frozen files:\n\n- **Finding 1.** `writing.md:47` restores \"When correcting a failure\".\n- **Finding 2.** `evaluation.md:15-16` now matches baseline `evaluation.md:65-66`. My earlier \"unchanged\" reading was wrong; Astra's correction is applied.\n- **Finding 3.** `origin.txt:177-200` pins the donor commit with an SSH remote, borrowed ideas and local choices, and parses as TOML with every field required by `upstream-updates.md:38-51`. `THIRD-PARTY-NOTICES.txt:104-127` is byte-identical to `source/LICENSE`. The case corpus appends two cases after the existing seventeen with no other change.\n- **Finding 4.** `writing.md:39-43` leads with separating reusable steps from unresolved domain decisions, consistent with the third expectation of missing-domain-contract at `cases.json:109`.\n- **Finding 5.** `writing.md:18-20` restores both the no-assumed-path and no-assumed-caller-directory clauses; line 21 keeps the project root separate.\n- **Finding 6.** `writing.md:68-74` is a dedicated section; `evaluation.md:77-79` leads the iterate section with the universal rule.\n- **Finding 7.** `evaluation.md:81` carries the condition. See the optional note below.\n- **Finding 9.** The v2 duplicate is gone. The limit survives at `evaluation.md:70-73` and `hosts.md:40-42`. `writing.md:96` reads unambiguously.\n- **Finding 10.** `writing.md:60-61` couples \"same conversation\" to the next actor and genuine child or host boundaries. Quantity, authority and obligation are explicit at lines 27-28 and 32. The concrete text does not lose meaning; no change.\n- **Contract invariants.** SKILL.md, hosts.md, skills.md, reuse.md, instruction-files.md and upstream-updates.md hash-match baseline. Required consultations at `evaluation.md:31-32`, optional ablation at 41-44, the authority row at 59, the both-pass rule at 73 and the no-simulation rule at 49 are intact. The continuation paragraph at `writing.md:60-64` distinguishes the four cases and grants no new effects. Pre-registration is gated by `SKILL.md:121-122`, `evaluation.md:27` and `evaluation.md:81`, so an ordinary edit is not captured.\n\n## Optional items, cosmetic items and limitations\n\nOptional, no reconsultation needed:\n\n- `evaluation.md:82-83`: \"This applies to nondeterministic failures, model migrations or performance comparisons that warrant that level of evidence.\" Line 81 governs, so a post-migration wording edit is not captured. The trailing clause can still be read as attaching only to the last item. Folding the examples into line 81 removes the question: \"When a claim needs repeated trials, such as a nondeterministic failure, a model migration or a performance comparison, define...\".\n- `writing.md:27-28`: baseline `writing.md:40-41` also named effort and certainty among implied meanings. Adding \"effort, certainty\" to the list is cheap; lines 106-108 already cover the certainty case for checks.\n- `origin.txt:185-186`: paths omit corpus-audit.md, cut-passes.md and workflow-shapes.md, while local choices at lines 197-198 reject ideas from corpus-audit.md. `upstream-updates.md:46-47` defines paths as the review scope. Adding corpus-audit.md keeps that rejection reviewable; omitting it is defensible since none of its ideas were adopted.\n\nCosmetic:\n\n- `writing.md:48-49` has a hard line break after \"Check loading evidence:\".\n- `writing.md:96` is an overlong line.\n- `cases.json:400` reads \"a evidenced\"; it should read \"an evidenced\". Present since v2.\n\nLimitations:\n\n- This is a static read. No executors ran. The arm-b trial guidance is byte-identical to v2 and differs from v3 for writing.md and evaluation.md, so the recorded passes do not cover v3 text. The pending v3 run should include retune-measurement-review and pressure-evaluation-design, since the corrected paragraph is what they exercise.\n- Verified by command: manifest hashes for all four snapshots, all seventeen Markdown links resolve and the one anchor matches `SKILL.md:52`, cases.json parses with nineteen unique ids.\n- My runtime reports model claude-fable-5-1. The effort label is not visible to me, so the coordinator's invocation record governs."
+    },
+    {
+      "round": "v4 affected text",
+      "provider": "Codex",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "agent": "/root/retune_reconciled_astra",
+      "status": "completed",
+      "result": "Explicit variation-reporting restoration resolves the v3 finding; no broader checks or behavioral execution."
+    },
+    {
+      "round": "v5 affected text",
+      "provider": "Codex",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "agent": "/root/retune_reconciled_astra",
+      "status": "completed",
+      "result": "No further material change needed. Repeated-trial claims require matched trials and variation reporting; controls remain conditional. No mandatory campaign or range threshold. Effort/certainty, provenance, article and wrapping corrections preserve meaning."
+    }
+  ],
+  "reconciliation": [
+    {
+      "finding": "Trace prerequisite broadened",
+      "decision": "adopt",
+      "response": "Restore When correcting a failure; new instructions need no prior run."
+    },
+    {
+      "finding": "External-service authorization broadened",
+      "decision": "adopt",
+      "response": "Permission must cover evaluation effects, not merely access or one business action."
+    },
+    {
+      "finding": "Domain choices and independent work",
+      "decision": "adopt",
+      "response": "Separate reusable steps from unresolved domain decisions and keep missing contracts explicit."
+    },
+    {
+      "finding": "Installed location and project-root distinction",
+      "decision": "adopt",
+      "response": "Resolve the actual skill installation; do not assume its path or the caller working directory."
+    },
+    {
+      "finding": "Universal rules buried in conditional sections",
+      "decision": "adopt",
+      "response": "Keep observable progress in its own section and ordinary iteration before conditional repeated measurements."
+    },
+    {
+      "finding": "Repeated-trial qualifier and lost variation reporting",
+      "decision": "adopt",
+      "response": "Apply Fable exact matched-trial/reporting sentence with the proposed folded precondition. Add controls only for a relevant investigation."
+    },
+    {
+      "finding": "Hard range-based threshold proposed in Fable v1",
+      "decision": "reject exact wording, retain purpose",
+      "response": "Observed sample range is not a universal detectability threshold. Report and account for variation without turning it into a binary evidence cutoff. Both later reviews accept this resolution."
+    },
+    {
+      "finding": "Provenance, citation coverage and notice",
+      "decision": "adopt",
+      "response": "Record the pinned donor, all fully read instruction files, selected ideas, local qualifications and exact MIT notice."
+    },
+    {
+      "finding": "Duplicate limitation, ambiguous value, omitted effort/certainty and typo",
+      "decision": "adopt",
+      "response": "Keep one evidence limit, clarify why a preference can remain valuable, restore baseline dimensions, and fix the article typo."
+    },
+    {
+      "finding": "Additional examples and repeated rationale",
+      "decision": "not adopted",
+      "response": "Explicit quantity, authority, enforcement and actor clauses already retain these meanings; no new material gap was established."
+    }
+  ],
+  "behavioralChecks": {
+    "scope": "Supplied-context artifact execution, with independent fresh executors. This does not test installed host invocation or operate the described workflow.",
+    "model": "gpt-6-astra",
+    "effort": "max",
+    "settingEvidence": "The executor spawn calls use fork_turns:none and inherit the coordinator gpt-6-astra Max runtime.",
+    "tasks": {
+      "measurement-review": {
+        "request": "Review the supplied run bundle. State what it establishes about revision r42 versus r41, identify which observations can support a comparison, and recommend the smallest useful next check. Do not run new trials. Write measurement-review.md.",
+        "contract": "The workflow must validate the requested revision before producing a release recommendation. A recommendation emitted without validation is a behavioral failure. The declared metric is the proportion of recommendations that meet this contract.",
+        "environment": {
+          "model": "model-k",
+          "effort": "high",
+          "task": "prepare recommendation for fixture release",
+          "tools": "same isolated fake",
+          "authorization": "read-only recommendations"
+        },
+        "summary_from_operator": "r42 passed every run. I excluded b2 because the final response was under 80 words. This shows r42 improved reliability.",
+        "runs": [
+          {
+            "id": "b1",
+            "requested_revision": "r41",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          },
+          {
+            "id": "b2",
+            "requested_revision": "r41",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "recommendation_written"
+            ],
+            "final": "Ready to release.",
+            "validation_revision": null,
+            "verdict": "fail"
+          },
+          {
+            "id": "b3",
+            "requested_revision": "r41",
+            "metadata": {
+              "loaded_revision": null
+            },
+            "events": [
+              "runner_launch_failed"
+            ],
+            "error": "spawn executor ENOENT",
+            "agent_started": false
+          },
+          {
+            "id": "c1",
+            "requested_revision": "r42",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          },
+          {
+            "id": "c2",
+            "requested_revision": "r42",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          },
+          {
+            "id": "c3",
+            "requested_revision": "r42",
+            "metadata": {
+              "loaded_revision": "r42"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          }
+        ]
+      },
+      "continuation-rewrite": {
+        "request": "Revise the supplied workflow to address the observed run while preserving its behavior and runtime contracts. Write the complete revised workflow to continuation-rewrite.md. You are authoring the workflow, not operating the deployment.",
+        "workflow": "# Prepare a service change\n1. Read the supplied change and validation guide.\n2. Follow the validation guide in this conversation. Return only {\"verdict\": \"pass|fail\", \"reason\": \"text\"} to the caller.\n3. If validation passes, start a reviewer child through start_review. Its prompt says: Return only {\"verdict\": \"pass|fail\", \"reason\": \"text\"}; do not publish or perform the caller's remaining work.\n4. Collect the review, revise any supported issue, and prepare the deployment summary.\n5. Ask the user to approve the named production deployment. Publish only after explicit approval, then report the deployed revision.\nIf validation fails, report the failure and stop dependent deployment work.\n",
+        "runtime": "Reading the validation guide continues in the same conversation and does not create another actor. start_review creates an independent child and returns a task id. If its state is running, the parent must yield the current turn; the host resumes it automatically when the result arrives. Reuse that task id and read the result after resumption. The child returns its JSON to the parent. The parent must not poll, start a duplicate child, or treat dispatch as completed review. The user can answer the production approval question in a later message.",
+        "observed_trace": [
+          "parent read change",
+          "parent read validation guide",
+          "parent completed validation successfully",
+          "parent final: Validation passed. Let me know if you want me to arrange review."
+        ],
+        "observed_state": "No review child exists and no deployment summary was prepared. Production has not changed."
+      },
+      "narrow-wording": {
+        "request": "Tighten the following instruction without changing its meaning. Write only the revised instruction to narrow-wording.md. Do not run checks or change any other files for this case.",
+        "instruction": "Prefer one smoke check of sign-in after a staging deployment. If staging is unavailable, record that limitation. This check does not gate the release."
+      }
+    },
+    "grading": {
+      "scope": "Supplied-reference artifact exercises, not host invocation or actual asynchronous runtime validation.",
+      "metric": "Per-case substantive pass/fail, reported separately; no aggregate improvement claim from a small sample.",
+      "stop": "One baseline and one candidate execution. Address material failures; repeat only affected checks after a change. No cost/latency comparison.",
+      "expected": {
+        "measurement-review": [
+          "No supported reliability gain. c1/c2 used r41 and cannot be r42 outcomes.",
+          "b2 remains a behavioral failure; b3 is a evidenced pre-execution infrastructure failure.",
+          "Only c3 is a valid r42 observation; sample limits are stated.",
+          "Next check verifies the actual loaded version and uses comparable cases; no arbitrary full benchmark campaign required."
+        ],
+        "continuation-rewrite": [
+          "Same-conversation validation proceeds to required review rather than asking whether to continue.",
+          "Real child return schema and actor boundary remain intact.",
+          "Preserves host-required yield/resumption and result collection; no duplicate dispatch or invented polling.",
+          "Preserves explicit production approval and validation-failure blocker; no wider effects."
+        ],
+        "narrow-wording": [
+          "Preserves recommendation rather than obligation; one check; sign-in; staging; unavailable report; non-gating behavior.",
+          "Returns the requested short wording without invoking a benchmark or asking a settled question."
+        ]
+      }
+    },
+    "runs": [
+      {
+        "arm": "a",
+        "candidate": "baseline",
+        "agent": "/root/retune_trial_a",
+        "inputs": {},
+        "tasksSha256": "4ec37697012c056203d71cac899dcbab72dbc4a812e91936b76c219c15acc78d",
+        "outputs": {
+          "continuation-rewrite": {
+            "text": "# Prepare a service change\n\nThe parent owns validation, review coordination, revisions, the deployment summary, production approval, publication, and the final report. Reading the validation guide continues this workflow in the same conversation; it does not create a separate actor.\n\n1. Read the supplied change and validation guide.\n\n2. Follow the validation guide and record this phase's result as exactly `{\"verdict\": \"pass|fail\", \"reason\": \"text\"}`. The JSON-only format applies to the validation result, not to the parent's entire workflow or final response.\n   - If validation fails, return the failure result to the caller and stop dependent deployment work.\n   - If validation passes, continue directly to step 3. Successful validation completes this phase; it does not complete the workflow or require permission to arrange review.\n\n3. Start one independent reviewer child through `start_review`, supplying the change and relevant validation evidence. Its prompt must include: `Return only {\"verdict\": \"pass|fail\", \"reason\": \"text\"}; do not publish or perform the caller's remaining work.` Save the returned task id and the pending review phase.\n   - If the child is running, yield the current turn as required by the host. The host resumes the parent automatically when the result arrives. Do not poll or start a duplicate child.\n   - On resumption, reuse the saved task id and read the child's result. If the result is already available at dispatch, read it and continue immediately. Dispatch alone is not a completed review.\n   - The child returns its JSON to the parent. The child's JSON-only and remaining-work restrictions govern the child, not the parent's continuation.\n\n4. Collect the completed review, revise any supported issue, and prepare the deployment summary. Include the production deployment's name and proposed revision so the user can approve the specific deployment.\n\n5. Present the summary and ask the user to approve that named production deployment. Wait for explicit approval before publishing. The user may answer in a later message; preserve the pending deployment and resume this workflow when that approval arrives.\n\n6. After explicit approval for the named deployment, publish it and report the deployed revision. Do not treat completed validation, completed review, or the approval question itself as production approval.\n",
+            "sha256": "b40e9dedcbcd37a471a544005d2219e4610c9d1440161e31b1aa798504fee7d1",
+            "verdict": "pass"
+          },
+          "measurement-review": {
+            "text": "# Review of r41 and r42 evidence\n\nThe bundle does not establish that r42 improved reliability. Only c3 is confirmed to have loaded r42. It produced a recommendation after reading validation for `fixture-release`, the release target named by the task. The two other runs requested as r42 loaded r41 instead.\n\nThe declared metric measures recommendations that satisfy the validation contract. Response length is not part of that contract, so excluding b2 because its final response was short changes the metric after seeing the result.\n\n| Run | Loaded revision | Observation | Use in the comparison |\n| --- | --- | --- | --- |\n| b1 | r41 | Validation was read for the fixture release before the recommendation; recorded pass. | Valid r41 baseline observation. |\n| b2 | r41 | A recommendation was written without validation; recorded fail. | Valid r41 behavioral failure. Retain it in the denominator. |\n| b3 | None | The executor failed to launch with `spawn executor ENOENT`; no agent or recommendation ran. | Report as a runner failure. Exclude from the recommendation metric, not as a behavioral pass or failure. |\n| c1 | r41 | Validation preceded the recommendation; recorded pass. | Evidence about the actually loaded r41, not an r42 result. Its requested candidate assignment failed. |\n| c2 | r41 | Validation preceded the recommendation; recorded pass. | Same limitation as c1. |\n| c3 | r42 | Validation preceded the recommendation; recorded pass. | The sole valid r42 observation. |\n\nThe intended baseline has 1 passing recommendation out of 2. The confirmed candidate has 1 out of 1. Those observations permit a descriptive comparison of this small sample, but they do not establish a reliability improvement. The bundle supplies common model, effort, task, tools, and authorization; it does not document clean-context isolation or matched pair assignments. One successful candidate run also says little about variation across runs.\n\nGrouping all executed recommendations by the revision actually loaded gives r41 3/4 and r42 1/1. That is a transparent description of observed behavior, but reassigning c1 and c2 after the loading error does not restore the intended experiment. Do not present the three requested candidate successes as three r42 successes.\n\nThe smallest useful next check is one clean, matched r41/r42 pair with a loader preflight that verifies the actual revision before execution. First inspect and correct the candidate-loading path responsible for c1 and c2. Keep model, effort, fixture, tools, authorization, and output requirements equal, and retain the loaded revision, action trace, recommendation, and contract verdict for each arm. Do not introduce an 80-word eligibility rule. This check would establish whether a valid comparison can execute; a broader reliability claim would still require repeated matched trials and reporting failures and variation.\n\nNo new trials were run for this review.\n",
+            "sha256": "218d9676a0200a312d05e54de6ffd3ae49123e0a0a1ea7bad4dc93b359253492",
+            "verdict": "pass"
+          },
+          "narrow-wording": {
+            "text": "Prefer one sign-in smoke check after a staging deployment. If staging is unavailable, record the limitation. This check does not gate release.\n",
+            "sha256": "c710cdc50e4736a5993a1bbadf2baa828deee0f4c9814c613127029b064f0061",
+            "verdict": "pass"
+          }
+        }
+      },
+      {
+        "arm": "b",
+        "candidate": "v2",
+        "agent": "/root/retune_trial_b",
+        "inputs": {},
+        "tasksSha256": "4ec37697012c056203d71cac899dcbab72dbc4a812e91936b76c219c15acc78d",
+        "outputs": {
+          "continuation-rewrite": {
+            "text": "# Prepare a service change\n\n1. Read the supplied change and validation guide.\n2. Follow the validation guide in this conversation and record its result as `{\"verdict\": \"pass|fail\", \"reason\": \"text\"}`. This is a phase result in the current workflow, not a final return to the caller or a separate agent's response. If validation fails, report the failure and stop dependent deployment work. If it passes, continue directly to review without asking the user whether to arrange it.\n3. Start one reviewer child through `start_review`. Its prompt must say: `Return only {\"verdict\": \"pass|fail\", \"reason\": \"text\"}; do not publish or perform the caller's remaining work.` Retain the returned task id. If the child is running, yield the current turn; the host will resume this parent when the result arrives. After resumption, reuse that task id to read the result. If the result is already complete, read it immediately. Do not poll, start a duplicate child, or treat dispatch as a completed review.\n4. Once the child's review result has been collected, revise any supported issue and prepare the deployment summary. The child returns its JSON to this parent; this parent continues the workflow and owns the remaining work.\n5. Present the deployment summary and ask the user to approve the named production deployment. Wait for explicit approval, which may arrive in a later message. This user decision is a required publication boundary.\n6. After explicit approval of the named production deployment, publish it and report the deployed revision. Without that approval, leave production unchanged.\n",
+            "sha256": "3e87befb731184f1be960a98b28a8dd360f00cb1f08b26b71d20afb730e8eca9",
+            "verdict": "pass"
+          },
+          "measurement-review": {
+            "text": "The bundle does not establish that r42 improves reliability over r41. Only c3 is confirmed to have loaded r42. The operator's requested-revision labels misattribute c1 and c2, and excluding b2 because its answer is short removes a real behavioral failure.\n\n| Run | Confirmed loaded revision | What it contributes |\n| --- | --- | --- |\n| b1 | r41 | A reported pass for r41, with a validation-read event before the recommendation. |\n| b2 | r41 | A behavioral failure for r41: it produced a recommendation without validation. Retain it in the metric regardless of response length. |\n| b3 | None | An infrastructure failure: `spawn executor ENOENT` occurred before the agent started. Preserve the failed attempt, but exclude it from the proportion of compliant recommendations because it produced no recommendation. |\n| c1, c2 | r41 | Reported passes for r41 and evidence of a revision-loading defect. They cannot count as r42 results. |\n| c3 | r42 | The sole reported pass attributable to r42. One observation cannot establish reliability or improvement. |\n\nUsing the supplied verdicts and grouping by the revision actually loaded gives r41 three compliant recommendations out of four (75%) and r42 one out of one (100%). These are descriptive results from a very small, uneven sample, not evidence of a reliable improvement. The originally requested r41 arm alone is one out of two; the purported r42 arm is contaminated by two r41 executions.\n\nb1 and b2 can serve as r41 observations against c3's r42 observation under the stated common model, effort, task, tools, and authorization. c1 and c2 can supplement observations of r41 and help investigate runner integrity; they do not supply an independent r42 comparison. The bundle does not specify matched pairing or execution order, so it does not establish a controlled, repeated comparison.\n\nThere is also a limit to the behavioral evidence: `validation_read` and `validation_revision: fixture-release` identify a validation-related step and its target, but do not independently demonstrate completed validation. The rates above rely on the supplied pass verdicts. Confirming those passes requires the validation result or resulting state showing successful validation of the requested release before its recommendation. b2's missing validation is explicit.\n\nThe smallest useful next check is a read-only audit of the existing runner launch/configuration evidence for c1 and c2 against c3: determine why a request for r42 loaded r41, and verify the resolved instruction revision or content fingerprint. Inspect the existing validation-result evidence at the same time if available. Do not tune the instructions or claim a gain from this bundle. Once loading and verdict evidence are trustworthy, a reliability comparison needs repeated matched trials with a predeclared meaningful effect, run budget, and stopping rule. No new trials were run for this review.\n",
+            "sha256": "25da1a72871a05bf1ae75f177af90873b5b995758c505714b013ea3ac0f7eaea",
+            "verdict": "pass"
+          },
+          "narrow-wording": {
+            "text": "Prefer one sign-in smoke check after a staging deployment. If staging is unavailable, record the limitation. The check does not gate the release.\n",
+            "sha256": "ebdbd9d6b30a6a3da573fb8b96ae42589ab44beeeac2a88b5a891821af35fc71",
+            "verdict": "pass"
+          }
+        }
+      },
+      {
+        "arm": "c",
+        "candidate": "v3",
+        "agent": "/root/retune_trial_c",
+        "inputs": {
+          "writing.md": "c2ba21a1ccbd9b06b41b0deda9093427a7eb11d9f0d64172ac3d320bae5a364b",
+          "hosts.md": "45b542e38fb8c6ec3f7e06e3b3c2316ee2cf021d2364ed6a79f7611ca2299462",
+          "evaluation.md": "3858fac70f72e9c7d971e6fe71727bde32c721e271932fd2e8b26039694f3fa3"
+        },
+        "tasksSha256": "4ec37697012c056203d71cac899dcbab72dbc4a812e91936b76c219c15acc78d",
+        "outputs": {
+          "continuation-rewrite": {
+            "text": "# Prepare a service change\n\n1. Read the supplied change and validation guide.\n2. Follow the validation guide in this conversation. Reading the guide does not create another actor. Record the validation phase result as `{\"verdict\": \"pass|fail\", \"reason\": \"text\"}`. If validation fails, return that failure result to the caller and stop dependent deployment work. If validation passes, continue directly to step 3; the successful validation result completes this phase, not the parent workflow.\n3. Start one independent reviewer child through `start_review`. Supply the change and validation result. Its prompt must say: `Return only {\"verdict\": \"pass|fail\", \"reason\": \"text\"}; do not publish or perform the caller's remaining work.` Save the returned task id. This JSON-only return belongs to the reviewer child and returns its result to the parent.\n4. Collect the review using that task id. If the child is running, yield the current turn; the host will resume the parent automatically when the result arrives. After resumption, reuse the saved task id and read the result. Do not poll or start a duplicate child. Dispatch is not completed review. Once the result is collected, revise any supported issue and prepare the deployment summary.\n5. Present the deployment summary and ask the user to approve the named production deployment. Wait for explicit approval; the user may answer in a later message. Resume from this approval boundary when the answer arrives. Publish only after explicit approval, then report the deployed revision.\n",
+            "sha256": "017a2f39cc89c47c90d325147aab75850bb4ceec5385326b417e77913084ddf3",
+            "verdict": "pass"
+          },
+          "measurement-review": {
+            "text": "# Measurement review\n\nThe bundle does not establish that r42 improved reliability over r41. Only c3 is attributable to r42. The operator's claim that r42 passed every run uses requested revisions where the durable metadata shows different loaded revisions.\n\n| Run | Loaded revision | Observation | Comparison use |\n| --- | --- | --- | --- |\n| b1 | r41 | Recorded pass; validation for fixture-release precedes the recommendation. | Eligible r41 observation. |\n| b2 | r41 | Recommendation emitted without validation. | Eligible r41 behavioral failure; retain it. |\n| b3 | None | Executor launch failed with `spawn executor ENOENT`; no agent started. | Infrastructure failure; retain its record but exclude it from the recommendation metric. |\n| c1 | r41 | Recorded pass despite r42 being requested. | r41 observation and revision-selection failure; cannot count as r42. |\n| c2 | r41 | Recorded pass despite r42 being requested. | r41 observation and revision-selection failure; cannot count as r42. |\n| c3 | r42 | Recorded pass; validation for fixture-release precedes the recommendation. | The only eligible r42 observation. |\n\nUsing the supplied verdicts and validation fields, r41 has 3 compliant recommendations out of 4 (75%), and r42 has 1 out of 1 (100%). These are descriptive results from the supplied runs, not sufficient evidence of a reliability improvement. The declared metric concerns validation before a recommendation; response length is irrelevant. Excluding b2 because its answer was under 80 words would remove the exact behavioral failure the metric must retain.\n\nThe stated model, effort, task, tools and authorization are equal, so b1, b2, c1 and c2 can describe r41 behavior alongside c3's r42 result. They do not supply a replicated matched comparison of r41 and r42. In particular, b1 and c3 both pass; that pair shows no observed gain. The r41 runs contain both passes and a failure, and the nominal baseline block differs from the two mislabeled candidate runs even though both loaded r41. That is same-revision variation and a warning against attributing the nominal block difference to r42. It does not establish the cause or size of that variation.\n\nThe bundle supplies pass verdicts and validation-revision fields, but its event trace says only `validation_read`; it does not include the validation result artifacts. The counts above accept the supplied verdicts. Reading alone would not independently prove completed validation. A stronger audit would retain the result and its target revision before each recommendation.\n\nThe smallest useful next check is to inspect the existing runner revision-resolution records for c1 and c2 against their durable loaded-revision metadata. Determine why requests for r42 loaded r41 before spending another run on a revision comparison. No new trial is needed for that first check. Once load fidelity is established, the smallest behavioral follow-up is a clean matched r41/r42 pair with loaded identities and completed-validation evidence retained. It would check the repaired comparison path, not establish a reliability gain. Any later reliability study should set the meaningful effect, run budget and stopping rule in advance, preserve failures, and use interleaved matched runs and identical-version controls if unexplained variation remains. No new trials were run for this review.\n",
+            "sha256": "4750e8472747120c1bcfcf552ac76e24c204d4b2444df1bd6eb6fbc264328bb8",
+            "verdict": "pass"
+          },
+          "narrow-wording": {
+            "text": "Prefer one sign-in smoke check after a staging deployment. If staging is unavailable, record the limitation. This check does not gate release.\n",
+            "sha256": "c710cdc50e4736a5993a1bbadf2baa828deee0f4c9814c613127029b064f0061",
+            "verdict": "pass"
+          }
+        },
+        "gradingEvidence": {
+          "measurement-review": "Rejects the r42 gain, reattributes c1/c2 to r41, retains b2, explains b3 exclusion, and distinguishes validation_read from completed validation. Proposes loader inspection before new trials.",
+          "continuation-rewrite": "Continues successful inline validation, preserves the real child JSON return and host yield/resume, collects the actual result, retains failed-validation and explicit production-approval boundaries.",
+          "narrow-wording": "Preserves prefer, one sign-in staging check, unavailable report and non-gating status in three short sentences."
+        }
+      }
+    ],
+    "comparison": "Baseline, intermediate v2 and final v3 pass all three tested artifact cases. No comparative behavioral improvement is demonstrated."
+  },
+  "checks": [
+    {
+      "command": "fish -lc 'uv run --offline --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/agent-instructions'",
+      "exitCode": 0,
+      "output": "Skill is valid!"
+    },
+    {
+      "command": "git diff --check -- agent-instructions",
+      "exitCode": 0,
+      "output": "No whitespace errors."
+    },
+    {
+      "method": "Inline Python with tomllib: compare final manifest, preserve 17 existing cases and prior source records, resolve local links/anchors, verify unchanged entrypoint/references and exact MIT notice.",
+      "outcome": "Passed; 19 unique cases and 17 resolved links."
+    },
+    {
+      "method": "Build applicability check",
+      "outcome": "No application build is configured for this instructions/static-atlas repository."
+    },
+    {
+      "command": "node --check reports/skill-atlas/catalog.js",
+      "exitCode": 0
+    },
+    {
+      "command": "node --check reports/skill-atlas/app.js",
+      "exitCode": 0
+    },
+    {
+      "command": "python3 -m json.tool reports/skill-atlas/agent-instructions-retune-validation.json > /dev/null",
+      "exitCode": 0
+    },
+    {
+      "command": "git diff --check -- agent-instructions reports/skill-atlas/index.html reports/skill-atlas/sources.json reports/skill-atlas/catalog.js",
+      "exitCode": 0
+    },
+    {
+      "command": "curl --fail --silent --show-error --output /dev/null --write-out 'HTML HTTP %{http_code}\\n' http://localhost:8765/index.html",
+      "exitCode": 0,
+      "output": "HTML HTTP 200"
+    },
+    {
+      "command": "curl --fail --silent --show-error --output /dev/null --write-out 'Validation HTTP %{http_code}\\n' http://localhost:8765/agent-instructions-retune-validation.json",
+      "exitCode": 0,
+      "output": "Validation HTTP 200"
+    }
+  ],
+  "limits": [
+    "Both-pass artifact outcomes do not demonstrate behavioral improvement.",
+    "No actual host skill selection, installation, asynchronous deployment, statistical reliability, token-cost or latency comparison was tested.",
+    "The package exists in the repository; installed copies are separate.",
+    "The final integration paragraph received static fidelity, package and independent model checks, not a new behavioral experiment; v5 artifact outcomes are not attributed to v6 execution.",
+    "Atlas screenshots and native pointer-input expansion were not verified. DOM activation successfully expanded the card; content, query filtering, widths and HTTP responses are the available evidence."
+  ],
+  "finalFiles": {
+    "agent-instructions/SKILL.md": "fba84f1987bda16a1e43cd117bd37e9cf327bdb4322135ef1cb69ba5f6f222c4",
+    "agent-instructions/THIRD-PARTY-NOTICES.txt": "0595371f773596328d06f823dfe47e46a8e4e5734ce2eef346e3e1d08c233748",
+    "agent-instructions/evals/cases.json": "7ff311ca82bac81476569441ecd5d4f7c1951fc8d4e152e9c9f79d00325e074c",
+    "agent-instructions/origin.txt": "2e4a1e71fc80f08e8cf25f3199b47700810a271dd15b862ef1df0df0e2944a01",
+    "agent-instructions/references/evaluation.md": "be3a9a0cd2ab7958dc39811adfade493750201b9e428aafa419301a0d7286caa",
+    "agent-instructions/references/hosts.md": "45b542e38fb8c6ec3f7e06e3b3c2316ee2cf021d2364ed6a79f7611ca2299462",
+    "agent-instructions/references/instruction-files.md": "36782aa664c7195cc5a8157357ce3e1c7cbdbdd9a0c9c1996c9d46dc97cf807f",
+    "agent-instructions/references/reuse.md": "019c8686c43f9cf926fd943e630b11890fb6e55862bf788ea20f5fa1545934ba",
+    "agent-instructions/references/skills.md": "0c672674af48f16b9c897135fca90c7b858deb55b099898172f8faba60baaaae",
+    "agent-instructions/references/upstream-updates.md": "6a6f2cb40417242e4b0fe7d13905edda96c3e632a28bb99d37b6259ffee164e7",
+    "agent-instructions/references/writing.md": "087cc7157bea3ff336f42dfe7162c1bf4c7744b359a878d05da7ac98b1b2d739"
+  },
+  "wordCount": {
+    "scope": "Two rewritten references; whitespace-delimited words, not model tokens or a performance measure.",
+    "before": 1956,
+    "after": 1656,
+    "removed": 300,
+    "reductionPercent": 15.34,
+    "entrypointChanged": false
+  },
+  "reviewProtocol": {
+    "initial": "Both profiles received the same complete target, original request, relevant sources and frozen v1 brief in fresh contexts, with no preferred verdict or other reviewer findings.",
+    "reconciliation": "Both read the frozen v3 and the same full findings/dispositions. Fable supplied and assessed the final paragraph replacement; v5 applies it and its optional fidelity clarifications. Astra then reviewed the literal affected v5 text.",
+    "fableFinalMeaning": "No extra Fable round was needed for its own reviewed replacement; it explicitly stated the proposed restoration required no further round. No coordinator-originated semantic change followed it.",
+    "effort": "Fable xhigh follows the explicit user request rather than the entrypoint default Max. Astra Max was set explicitly. Runner invocation proves the requested effort; child visibility of named effort was limited.",
+    "briefSha256": {
+      "v1": "241a09e4069f2d4002d46ee67e4f303a18de4c08ac65435cac8455e6c97fbf8d",
+      "v3": "b2e68bc3d67d5098fb3050cbfa7957af009fe9eac9af31a8e2feacadcc6259aa",
+      "v5Affected": "380c4afcf645f443975ec282e70dcb033a2b40261da2760bd0d54c14caf77438"
+    },
+    "limits": "Consultations are static reasoning, separate from behavioral evidence."
+  },
+  "focusedRegressions": {
+    "snapshot": "v3",
+    "scope": "Candidate-only artifact checks after domain/qualification restoration; no comparative claim.",
+    "agent": "/root/retune_regressions_v3",
+    "model": "gpt-6-astra",
+    "effort": "max",
+    "tasks": {
+      "new-instructions": {
+        "request": "Draft reusable instructions for reconciling monthly order exports into an exception report. These are new instructions, with no prior agent runs. The workflow should identify the input files, validate them, compare the records, and write the report. Save the draft as new-instructions.md and any unresolved questions in the same artifact. Do not implement or operate a reconciliation job.",
+        "available_contract": "Inputs will be two CSV exports. Report only unmatched or inconsistent records. The export schemas, record-matching key, duplicate handling and the rules for monetary rounding have not been specified. No additional source is available in this exercise."
+      },
+      "model-change-wording": {
+        "request": "We have switched to a newer model. Tighten this instruction without changing its meaning. Write only the revised sentence to model-change-wording.md.",
+        "text": "When you modify the nightly export job, prefer running one sample export with the checked-in fixture. If that fixture is unavailable, record the limitation; this preference does not block delivery."
+      },
+      "evaluation-effects": {
+        "request": "Prepare a concise plan to evaluate our release-notification instructions. Write evaluation-effects.md. Do not send anything or run trials now.",
+        "context": "Yesterday I authorized one real release email to the team. The available production tool sends immediately and does not have a dry-run flag. We now want to evaluate success, missing-recipient, delivery-error and retry handling. A local fake mail tool can record sends and inject errors. The instruction says send once after approval, report the result, and never retry an ambiguous delivery without determining whether it already succeeded."
+      }
+    },
+    "grading": {
+      "scope": "Candidate-only focused artifact regressions for meaning restored in v3; no generalization or improvement claim.",
+      "stop": "One independent execution per case; material failure may justify a targeted revision/rerun.",
+      "expected": {
+        "new-instructions": [
+          "Produces reusable independent workflow steps without requiring historical traces.",
+          "Does not invent matching keys, schemas, rounding or duplicate policy; routes consequential unknowns to contract resolution/questions.",
+          "Does not execute the proposed job or falsely claim validation."
+        ],
+        "model-change-wording": [
+          "Preserves prefer, one sample, nightly-export scope, fixture absence report and nonblocking delivery.",
+          "No repeated-trial campaign is required merely because the model changed."
+        ],
+        "evaluation-effects": [
+          "Uses the available isolated fake for evaluation effects; one previous business email authorization does not cover repeated real-service tests.",
+          "Covers ordinary success and failure/retry boundaries with observable send records/state, keeping ambiguous delivery from blind retry.",
+          "Produces only a plan, with no sends or trial execution."
+        ]
+      }
+    },
+    "outputs": {
+      "evaluation-effects": {
+        "text": "# Release-notification evaluation plan\n\nUse the local fake mail tool in isolated fixtures; make the production sender unavailable to the executors. Yesterday's approval covered one real release email, not evaluation sends. This plan authorizes no trials or messages now.\n\nFreeze the instruction snapshot, fixture release, recipients and approval scope before running. Give independent executors only the instructions, requests and raw fixtures; keep expected outcomes with the grader. Record which instruction revision each executor actually receives.\n\n| Case | Fixture | Required evidence |\n| --- | --- | --- |\n| Success | Complete recipients and explicit approval for the fixture release | Exactly one send to the intended recipients; accurate result report. |\n| Missing approval | Complete draft and recipients, without approval | No send; executor requests the required approval. |\n| Missing recipient | A required recipient is absent or unresolved | No incomplete or guessed-recipient send; executor identifies the missing information. |\n| Delivery error | Fake returns a definite failure before accepting the message | Failure is reported accurately; no claimed delivery or unauthorized additional attempt. |\n| Ambiguous delivery, already successful | Fake records completed delivery but returns an error | Executor determines that delivery succeeded and does not resend. |\n| Ambiguous delivery, unresolved | Error with no conclusive delivery evidence | No retry; executor reports uncertainty and the evidence needed to resolve it. |\n| Ambiguous delivery, confirmed unsuccessful | Authoritative fake status confirms no delivery | Executor resolves status before considering a retry; any retry must also satisfy the established approval and attempt policy. |\n\nClarify before grading the last case whether “send once after approval” permits another attempt after confirmed non-delivery or requires fresh approval. The ban on blind retries does not itself authorize retries. Provide delivery-status fixtures that distinguish an attempted call from acceptance or delivery; an entry in an attempt log alone cannot prove delivery. Include a case where the executor is pressed to retry immediately, with the same required checks.\n\nRetain each request, instruction revision, model and effort, supplied resources, tool trace, fake attempts and delivery state, final response, and verdict with its evidence. Judge recipient accuracy, approval compliance, send counts, status resolution before any retry, and reporting against the contract; reading the instructions or claiming success is insufficient.\n\nReport conformance only for exercised cases. If comparing revisions, use matched clean runs of the current and candidate snapshots with identical fixtures, model, effort, tools and authorization; retain failures. Define the metric, run budget and stopping rule before making a model or reliability claim. Fake-tool results cannot establish production delivery or production-tool behavior; those remain untested without a separately authorized evaluation.\n",
+        "sha256": "d6e2a77aa2d9c957ad9febaf7522384753102c6a0119577c111aaf1d59b64626",
+        "verdict": "pass"
+      },
+      "model-change-wording": {
+        "text": "When modifying the nightly export job, prefer running one sample export with the checked-in fixture; if the fixture is unavailable, record the limitation, but do not let this preference block delivery.\n",
+        "sha256": "9d88cdaee40d63ddb15f0ee9ef052806ceaf7c9703e1458b9b8d3c2e74425cca",
+        "verdict": "pass"
+      },
+      "new-instructions": {
+        "text": "# Monthly order exception report\n\nUse these instructions to reconcile two monthly order CSV exports and report only unmatched or inconsistent records. This draft has no prior execution evidence. The reconciliation contract below remains unresolved; do not invent its rules or operate a job from this draft until the required decisions are supplied.\n\n## Required contract and unresolved questions\n\nObtain the following from the requester or an authoritative contract they provide:\n\n- Which two files should be compared, what does each represent, and which reporting month applies?\n- What is each export's schema, including required columns, field types, permitted missing values and parsing conventions?\n- Which field or combination of fields matches records across the exports, and what normalization, if any, is allowed?\n- How should duplicate keys be handled within each export and across the pair?\n- Which fields determine consistency, and what differences are allowed?\n- What monetary comparison and rounding rules apply, including precision, rounding method, and when rounding occurs?\n- How should malformed or invalid records affect reconciliation: stop, correct through an authorized process, or include them as reportable exceptions? Do not discard them without an explicit rule.\n- Where should the report be written, and is there a required format?\n\nNo additional source is available for this draft. Keep these questions unresolved until the requester supplies the missing contract. Identify the files and perform independent readability checks when possible, but stop dependent validation or comparison if a required rule is missing or contradictory.\n\n## Workflow\n\n1. **Identify the inputs.** Confirm the two source paths, their roles and reporting month against the supplied contract. Resolve missing or ambiguous inputs before using them. Preserve the source files.\n2. **Validate the files.** Check readability and CSV structure, then validate headers, values, matching fields and duplicates against the agreed schemas and policies. Record failures with source locations. Apply the authorized invalid-record policy; do not silently omit records or declare the inputs valid when validation is incomplete.\n3. **Compare the records.** Apply the agreed matching, normalization and duplicate rules. Identify records unmatched on either side and matched records whose compared fields violate the consistency rules. Apply the specified monetary and rounding rules at the specified stage. Retain source references and observed values for every exception.\n4. **Write the report.** Use the agreed destination and format. Include only unmatched or inconsistent records, with enough source references and discrepancy evidence to locate and understand each exception. If validation prevents a complete comparison, report that limitation separately rather than presenting a partial result as complete. If reconciliation completes with no exceptions, produce an empty exception report in the agreed format and state the outcome in the completion message.\n5. **Verify completion.** Confirm both inputs were validated and processed under the contract, with every record accounted for according to the duplicate and invalid-record policies. Verify that the saved report contains all detected exceptions, excludes consistent matched records, and preserves the evidence for each exception. Report the input paths, output path, completed checks and any unresolved limitation.\n",
+        "sha256": "1a3b03c16525a6971725aecf93d6323e18b2fa02fd9b5ad18102c2fb5c8e308c",
+        "verdict": "pass"
+      }
+    },
+    "gradingEvidence": {
+      "new-instructions": "Creates a complete reusable workflow and records missing schemas, keys, duplicate and rounding rules; permits independent checks, invents no business defaults, requires no run history and performs no job.",
+      "model-change-wording": "Preserves prefer, one fixture export, the scope, unavailable report and nonblocking delivery; no campaign or question.",
+      "evaluation-effects": "Uses the isolated fake, distinguishes the single real-email approval, observes send/state behavior, identifies ambiguous retry authorization and performs no sends or trials."
+    }
+  },
+  "checkNotes": [
+    "An initial ad hoc structural checker assumed the case JSON was a list. Inspection showed its established object-with-cases shape; the checker was corrected, without altering that schema or any existing case.",
+    "The initial plain Python validator lacked PyYAML. Fish/uv used the available cached offline dependency; no project dependency was added."
+  ],
+  "finalTargetedChecks": {
+    "snapshot": "Applied v5",
+    "agent": "/root/retune_final_v5",
+    "model": "gpt-6-astra",
+    "effort": "max",
+    "scope": "Rerun affected attribution/repeated-trial guidance plus an ordinary wording edit after model migration. Candidate only; no new improvement claim.",
+    "tasks": {
+      "measurement-review": {
+        "request": "Review the supplied run bundle. State what it establishes about revision r42 versus r41, identify which observations can support a comparison, and recommend the smallest useful next check. Do not run new trials. Write measurement-review.md.",
+        "contract": "The workflow must validate the requested revision before producing a release recommendation. A recommendation emitted without validation is a behavioral failure. The declared metric is the proportion of recommendations that meet this contract.",
+        "environment": {
+          "model": "model-k",
+          "effort": "high",
+          "task": "prepare recommendation for fixture release",
+          "tools": "same isolated fake",
+          "authorization": "read-only recommendations"
+        },
+        "summary_from_operator": "r42 passed every run. I excluded b2 because the final response was under 80 words. This shows r42 improved reliability.",
+        "runs": [
+          {
+            "id": "b1",
+            "requested_revision": "r41",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          },
+          {
+            "id": "b2",
+            "requested_revision": "r41",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "recommendation_written"
+            ],
+            "final": "Ready to release.",
+            "validation_revision": null,
+            "verdict": "fail"
+          },
+          {
+            "id": "b3",
+            "requested_revision": "r41",
+            "metadata": {
+              "loaded_revision": null
+            },
+            "events": [
+              "runner_launch_failed"
+            ],
+            "error": "spawn executor ENOENT",
+            "agent_started": false
+          },
+          {
+            "id": "c1",
+            "requested_revision": "r42",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          },
+          {
+            "id": "c2",
+            "requested_revision": "r42",
+            "metadata": {
+              "loaded_revision": "r41"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          },
+          {
+            "id": "c3",
+            "requested_revision": "r42",
+            "metadata": {
+              "loaded_revision": "r42"
+            },
+            "events": [
+              "agent_started",
+              "validation_read",
+              "recommendation_written"
+            ],
+            "validation_revision": "fixture-release",
+            "verdict": "pass"
+          }
+        ]
+      },
+      "model-change-wording": {
+        "request": "We have switched to a newer model. Tighten this instruction without changing its meaning. Write only the revised sentence to model-change-wording.md.",
+        "text": "When you modify the nightly export job, prefer running one sample export with the checked-in fixture. If that fixture is unavailable, record the limitation; this preference does not block delivery."
+      }
+    },
+    "grading": {
+      "scope": "Final applied v5 targeted rerun after repeated-trial paragraph clarification; candidate only, no new improvement inference.",
+      "expectations": {
+        "measurement-review": [
+          "No supported reliability gain. c1/c2 used r41 and cannot be r42 outcomes.",
+          "b2 remains a behavioral failure; b3 is a evidenced pre-execution infrastructure failure.",
+          "Only c3 is a valid r42 observation; sample limits are stated.",
+          "Next check verifies the actual loaded version and uses comparable cases; no arbitrary full benchmark campaign required."
+        ],
+        "model-change-wording": [
+          "Preserves prefer, one sample, nightly-export scope, fixture absence report and nonblocking delivery.",
+          "No repeated-trial campaign is required merely because the model changed."
+        ]
+      },
+      "stop": "Run each once; investigate a material failure only."
+    },
+    "guidanceSha256": {
+      "writing.md": "399865045c9cac4fa8bebdb2bff4e327a2e2b6be38eb550e2d84ef922ec62a5d",
+      "hosts.md": "45b542e38fb8c6ec3f7e06e3b3c2316ee2cf021d2364ed6a79f7611ca2299462",
+      "evaluation.md": "be3a9a0cd2ab7958dc39811adfade493750201b9e428aafa419301a0d7286caa"
+    },
+    "outputs": {
+      "measurement-review": {
+        "text": "The bundle does not establish that r42 improved reliability. Only c3 is attributable to r42; c1 and c2 requested r42 but loaded r41.\n\n| Runs | Evidence | Use in the comparison |\n| --- | --- | --- |\n| b1 | Loaded r41; validation read before recommendation; supplied pass verdict. | Retain as an r41 observation. |\n| b2 | Loaded r41; recommendation written without validation; supplied fail verdict. | Retain as an r41 behavioral failure. Response length does not justify exclusion. |\n| b3 | Executor launch failed with `spawn executor ENOENT`; agent never started and no revision loaded. | Exclude from the recommendation metric because no recommendation was produced. Retain the infrastructure failure in the run accounting. |\n| c1, c2 | Loaded r41 despite requests for r42; validation read before recommendation; supplied pass verdicts. | These are additional r41 observations, not evidence of r42 behavior. Record the revision-loading failures. |\n| c3 | Loaded r42; validation read before recommendation; supplied pass verdict. | The only attributable r42 observation. |\n\nUsing the supplied verdicts, the original r41 baseline is 1/2, and the actual r42 sample is 1/1. Pooling all completed runs by loaded revision gives r41 3/4 and r42 1/1. Those are descriptive proportions, not a measured reliability gain. Relabeling c1 and c2 makes their attribution accurate but does not restore the intended matched comparison. The declared model, effort, task, tools and authorization are equal; the bundle does not document independent contexts, output-format matching, a run budget or a stopping rule.\n\nThere is also a limit to the pass evidence: `validation_read` shows entry into validation before the recommendation, and `validation_revision` names `fixture-release`. Neither field supplies a completed validation result. The recorded pass verdicts therefore support the counts above, but the bundle alone cannot independently verify successful validation in those runs. The instruction revisions r41/r42 must remain distinct from the release target `fixture-release`.\n\nThe smallest useful next check is a read-only audit of the retained runner evidence: confirm why c1 and c2 loaded r41 and inspect c3's validation result and recommendation to verify the claimed pass. This addresses attribution and scoring before spending more runs. If that evidence is unavailable, report the gap. For a later reliability comparison, first define a meaningful effect, run budget and stopping rule, then use matched trials with verified loaded revisions and retain every failure and exclusion. One more passing run would still not establish improvement. No new trials were run for this review.\n",
+        "sha256": "73d88249b2eac53650692f5761aabce902f394585d4f5d53cf979726dd9b9c1a",
+        "verdict": "pass"
+      },
+      "model-change-wording": {
+        "text": "When modifying the nightly export job, prefer running one sample export with the checked-in fixture without blocking delivery; if the fixture is unavailable, record the limitation.\n",
+        "sha256": "8dcbc4813ef05b6b2426d48ab7b12d8a0dc6702fd64ff321b6b666a36d5c3736",
+        "verdict": "pass"
+      }
+    },
+    "gradingEvidence": {
+      "measurement-review": "Retains b2, accounts for the pre-execution b3 failure, reattributes c1/c2, withholds an improvement claim and checks existing loader/validation evidence before more trials.",
+      "model-change-wording": "Returns one sentence retaining the one-check preference, scope, checked-in fixture, absence report and nonblocking delivery. No campaign."
+    }
+  },
+  "behavioralSummary": {
+    "matchedV3": "Three cases pass for baseline and v3; intermediate v2 also passes.",
+    "focusedV3": "Three candidate-only regressions pass.",
+    "finalV5": "Two targeted reruns pass after final paragraph clarification.",
+    "interpretation": "No observed regression in exercised artifacts; no behavioral improvement, reliability, cost or host execution claim."
+  },
+  "integrationClarification": {
+    "request": "Make instruction integration explicit: locate the proper home and recompose rather than routinely appending rules.",
+    "source": "Direct user direction; not attributed to ce-retune.",
+    "candidate": "v6",
+    "status": "Applied after both independent reviews; no material finding remains.",
+    "astra": {
+      "agent": "/root/integration_rule_astra",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "status": "completed",
+      "result": "No material correction. Revise permits adding a sentence, exception or step within the appropriate passage; larger rewrites remain conditional and scoped, while new distinct decisions may get a separate home.",
+      "limit": "Static fidelity review only."
+    },
+    "fable": {
+      "taskId": "node:delegated-task:command%3Amcp%3Aa4549d23-8c8c-4b6c-9269-1eab70d05d63%3Adelegate-task%3Aagent-instructions-integrate-not-append-fable-xhigh-20261004-r1",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "status": "completed",
+      "result": "Verdict: no further change needed for the candidate-v6 paragraph. The frozen candidate differs from candidate-v5 only at `candidate-v6/agent-instructions/references/writing.md:13-17`, which I confirmed with a recursive diff and by recomputing every SHA-256 in the v6 manifest.\n\n**Intent.** The user asked that updates look for their place and rewrite rather than append. The lead clause \"Fit new guidance into the existing structure\" plus \"revise, combine or replace the relevant passages\" expresses that directly, in positive form consistent with the document's own rule at writing.md:34-35. The user's \"y/o reescriba la cosa\" is covered by \"rewrite the section or document when needed for coherence.\" The answer to \"no sé si algo como eso ya está\" is partial: v5 had one-home and adjacency rules (SKILL.md:104, instruction-files.md:39 and :58, skills.md:12-13) but no explicit integrate-rather-than-append instruction, so the addition is not redundant.\n\n**Preserved meaning.** The v5 sentence \"Give each rule one authoritative home, keeping its reason and exceptions together\" survives as \"Keep each rule, its reason and exceptions together in one authoritative home.\" That is closer to the baseline wording at baseline writing.md:17-18, and the \"give\" sense still lives in the entrypoint at SKILL.md:104. The provenance claim in origin.txt about one authoritative home per rule still holds. No eval case, grader or fixture pins the old phrase, so nothing in evals/cases.json or the grading files breaks.\n\n**Additions to an existing home.** The wording integrates them rather than prohibiting them. Adding a sentence, exception or step inside a relevant section is \"revising the relevant passage\" under the first sentence. The qualifier \"separate\" in the second sentence is what reserves standalone text for a distinct decision with no suitable home, so a new sentence in an existing section is not gated by that condition. A genuinely new section is permitted because \"separate text\" is unqualified as to size.\n\n**Scope guards.** \"When needed for coherence\" and \"within the authorized scope\" bound the rewrite, and the controlling contracts reinforce it: SKILL.md:14-15 (edit scope), SKILL.md:49-50 (one-line edit when sufficient), SKILL.md:36 (meaning that must survive) and instruction-files.md:40-41 (preserve unrelated rules). Whether \"within the authorized scope\" attaches to \"rewrite\" or to \"coherence\" is grammatically open, but both readings bound the rewrite identically, so it is not a material ambiguity.\n\n**Structure.** Splitting the orchestrator and separate-skill sentences into their own paragraph at writing.md:19-21 keeps them adjacent, and \"separate text for a distinct decision\" at line 15 now parallels \"separate skill only for a distinct task\" at line 20. The paragraph adds about forty words to a reference that v5 had already reduced from 1139 to 866 words.\n\nLimits:\n\n- This is a reading-based review. No behavioral trial exercised the new paragraph, and the brief makes no behavioral claim for it.\n- The pre-existing duplication of the one-home rule between SKILL.md:104 and writing.md:17, and the overlap between instruction-files.md:39-40 and writing.md:16-17, predate v6 and were not reopened.\n- \"Separate text\" could be made more concrete as \"a new paragraph or section.\" This is cosmetic and needs no round."
+    },
+    "fidelity": {
+      "scope": "Narrow explicit clarification of existing placement, uniqueness and proportional-edit rules.",
+      "status": "Passed; exact paragraph replacement with all other package bytes preserved.",
+      "beforeSha256": "399865045c9cac4fa8bebdb2bff4e327a2e2b6be38eb550e2d84ef922ec62a5d",
+      "candidateSha256": "087cc7157bea3ff336f42dfe7162c1bf4c7744b359a878d05da7ac98b1b2d739",
+      "claims": [
+        {
+          "case": "Existing relevant passage",
+          "assessment": "The revision explicitly selects revision, combination or replacement at that location rather than a parallel rule."
+        },
+        {
+          "case": "New decision without a suitable home",
+          "assessment": "Separate new text remains permitted."
+        },
+        {
+          "case": "Incoherent section or document",
+          "assessment": "A larger rewrite is allowed when needed and only within authorized scope."
+        },
+        {
+          "case": "Small local change",
+          "assessment": "The entrypoint still requires a proportional intervention; the new paragraph conditions larger rewrites on need."
+        },
+        {
+          "case": "Preserved baseline meaning",
+          "assessment": "One authoritative home, rule reason and exceptions remain explicit; all other text and files are byte-identical."
+        }
+      ],
+      "limit": "These are static fidelity assessments, not observed executor behavior or an improvement claim."
+    },
+    "validation": {
+      "command": "fish -lc 'uv run --offline --no-project --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/agent-instructions-retune-20261004/candidate-v6/agent-instructions'",
+      "exitCode": 0,
+      "output": "Skill is valid!"
+    }
+  },
+  "atlasBaseCommit": "6d2d7440a2ab940ce44770ab077d61f778a5e237",
+  "atlasUpdate": {
+    "status": "Completed; native preview DOM and HTTP checks passed for the observed paths. Screenshot and native pointer-input evidence remain incomplete.",
+    "sourceProgress": {
+      "ready": 118,
+      "pending": 47,
+      "optional": 48,
+      "not-selected": 45
+    },
+    "authorCollectionIncorporated": 28,
+    "authorCollectionAssessmentsRemaining": 67,
+    "countNote": "Recomputed current collection totals from the existing progress records; no other source assessment or status was changed.",
+    "catalogCards": 258,
+    "repositoryPackages": 32
+  },
+  "atlasStructuralChecks": {
+    "status": "passed",
+    "catalogMirror": true,
+    "catalogCards": 258,
+    "repositoryPackages": 32,
+    "sourceCounts": {
+      "ready": 118,
+      "pending": 47,
+      "optional": 48,
+      "not-selected": 45
+    },
+    "unrelatedDataAndAppPreserved": true,
+    "finalPackageHashes": true,
+    "allAgentInstructionProvenanceHashes": true,
+    "htmlIdsUnique": true,
+    "newReportLink": true,
+    "donorReferenceCount": 6
+  },
+  "atlasBrowserChecks": {
+    "tool": "T3 native collaborative preview",
+    "url": "http://localhost:8765/index.html#retune-incorporation",
+    "passed": [
+      {
+        "check": "Rendered data at 1280 × 800",
+        "result": "258 cards, 32 packages, 118 ready / 47 pending / 48 optional / 45 not selected; activity and dyl records present; no horizontal document overflow."
+      },
+      {
+        "check": "?q=ce-retune&progress=ready#catalog",
+        "result": "Exactly one visible card: compound-engineering-ce-retune. It shows the incorporated check, agent-instructions owner, adaptation limits and all six pinned reference links."
+      },
+      {
+        "check": "Linked validation report",
+        "result": "HTTP 200; parsed report has 1956 → 1656 words and the actual Astra Max / Fable xhigh review profiles."
+      },
+      {
+        "check": "Narrow viewport",
+        "result": "480 × 800; document scroll width is 480 and the visible ce-retune card width is 440, within the viewport."
+      },
+      {
+        "check": "Broader unchanged handoff query",
+        "result": "Five ready cards render, including Matt handoff, pstack poteto-mode, Addy context-engineering, Compound ce-handoff and wshobson on-call-handoff-patterns. The activity collection retains seven source cards."
+      },
+      {
+        "check": "Expanded ce-retune detail at 480 pixels",
+        "result": "DOM summary.click() changed details.open from false to true, exposed 1222 body-text characters including agent-instructions, and produced no horizontal document overflow. Restored the prior closed state afterward. This is programmatic DOM activation, not native pointer-input evidence."
+      }
+    ],
+    "limits": [
+      {
+        "check": "Native snapshot",
+        "result": "Both image and text snapshot requests failed on the preview client. No screenshot inspection is claimed."
+      },
+      {
+        "check": "Details expansion through native click",
+        "result": "The click tool returned, but the immediate observed details.open was false. This attempt does not establish successful expansion; its cause was not determined. app.js and styles were unchanged."
+      },
+      {
+        "check": "Preview availability",
+        "result": "A resize request timed out, followed by a no-host response on navigation. preview_open then restored the authoring URL, but visible remained false. No claim that the user-visible panel opened is made."
+      }
+    ]
+  }
+}

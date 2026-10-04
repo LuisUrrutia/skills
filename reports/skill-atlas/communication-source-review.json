@@ -1,0 +1,2330 @@
+{
+  "date": "2026-10-04",
+  "baselineCommit": "63dbdf9e43a54d4afe23d6f48473647a108be1a3",
+  "scope": "Repository-wide path and text discovery, followed by selected complete reads and bounded excerpts. This is not a full semantic audit of every file or every linked workflow.",
+  "method": {
+    "transport": "SSH Git fetch; pinned full commits; donor code was not executed.",
+    "textQuery": "eli5|ghostwrit|plain[- ]language|technical[- ]writ|(?:writ(?:e|ing)|documentation)[^\\n]{0,45}(?:clarity|clear|audience|readab)|(?:clarity|clear|audience|readab)[^\\n]{0,45}(?:writ(?:e|ing)|documentation)|STE[- ]?100|simpl(?:e|ify|ified)[^\\n]{0,30}(?:explan|communicat)|explain[^\\n]{0,30}(?:simply|beginner|non-technical)|progressive disclosure|diataxis",
+    "pathQuery": "eli5|ghostwrit|(?:^|/)(?:teach|how|writing|technical-writing|documentation|docs-writer|doc-writer|explain|communication|writing-style|humanize|humanizer|style-guide)(?:/|\\.|-)|STE.?100",
+    "extensions": [
+      "md",
+      "mdx",
+      "mdc",
+      "rst",
+      "txt",
+      "adoc"
+    ],
+    "supplementalDiscovery": "Manual path screening located doc-coauthoring, internal-comms, ce-explain and project documentation policies beyond initial regex hits."
+  },
+  "decision": {
+    "communication": "Replace humanize with communicate-clearly as the default prose owner, preserving fidelity, voice and pattern repair.",
+    "documentation": "Create write-documentation for structure, technical accuracy and reader-path verification.",
+    "installation": "Repository packages only; global installation, host implicit selection and universal multilingual quality are not established.",
+    "default": "Preserves the prior broad writing activation and adds answers/explanations explicitly, as requested.",
+    "migration": "Rename registered callers and catalog grouping; remove old repository humanize package. Installed copies require a separate migration."
+  },
+  "repositories": [
+    {
+      "id": "addy",
+      "repository": "https://github.com/addyosmani/agent-skills",
+      "remote": "git@github.com:addyosmani/agent-skills.git",
+      "ref": "main",
+      "commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+      "trackedPaths": 210,
+      "screenedTextFiles": 108,
+      "matchingFiles": 6,
+      "pathInventorySha256": "6e7cec53966fc7c7087b4f4da76d0d1af9b3be9bce9b5feb5e40a09d0ad0ae82",
+      "screeningRecordSha256": "c94b285ba54c1ae15d44e4caa5e678eca0748dcdfe3fb0fed0251700a8bd2245",
+      "disposition": "Selected candidate reading and decisions recorded below.",
+      "matchedPaths": [
+        "README.md",
+        "docs/codex-setup.md",
+        "docs/skill-anatomy.md",
+        "evals/fixtures/documentation-and-adrs/decision-context.md",
+        "skills/documentation-and-adrs/SKILL.md",
+        "skills/interview-me/SKILL.md"
+      ]
+    },
+    {
+      "id": "alleneubank",
+      "repository": "https://github.com/alleneubank/agent-profile",
+      "remote": "git@github.com:alleneubank/agent-profile.git",
+      "ref": "main",
+      "commit": "5165b1f1122a4fa888347c6046d10593033748e8",
+      "trackedPaths": 117,
+      "screenedTextFiles": 89,
+      "matchingFiles": 4,
+      "pathInventorySha256": "c1f5f2030d1034b1098106c14c563cfe2629688726817a53430e8d3d89e13eab",
+      "screeningRecordSha256": "1dfbafd142696dfad6ccc640671d45dfcdbe5d4fe4b0c34f421412707a7b329c",
+      "disposition": "Selected candidate reading and decisions recorded below.",
+      "matchedPaths": [
+        "AGENTS.md",
+        "plugins/agent-workflows/skills/tiltup/SKILL.md",
+        "plugins/agent-workflows/skills/writing-plans/SKILL.md",
+        "plugins/agent-workflows/skills/writing-skills/SKILL.md"
+      ]
+    },
+    {
+      "id": "anthropic",
+      "repository": "https://github.com/anthropics/skills",
+      "remote": "git@github.com:anthropics/skills.git",
+      "ref": "main",
+      "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "trackedPaths": 430,
+      "screenedTextFiles": 169,
+      "matchingFiles": 9,
+      "pathInventorySha256": "0201446c73e7947527ae7ba362995e6b07b4c39706cb97f967321d8641ecbedc",
+      "screeningRecordSha256": "dd27bdf9822717b8f0405b24e9b7776cbf118f1e82f9e481cbe9f11f70c9218f",
+      "disposition": "Selected candidate reading and decisions recorded below.",
+      "matchedPaths": [
+        "THIRD_PARTY_NOTICES.md",
+        "skills/claude-api/csharp/claude-api/README.md",
+        "skills/claude-api/shared/cost-optimization.md",
+        "skills/claude-api/shared/managed-agents-core.md",
+        "skills/claude-api/shared/model-migration.md",
+        "skills/claude-api/shared/models.md",
+        "skills/claude-api/shared/prompt-audit.md",
+        "skills/mcp-builder/reference/mcp_best_practices.md",
+        "skills/skill-creator/SKILL.md"
+      ]
+    },
+    {
+      "id": "compound",
+      "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+      "remote": "git@github.com:EveryInc/compound-engineering-plugin.git",
+      "ref": "main",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "trackedPaths": 1452,
+      "screenedTextFiles": 840,
+      "matchingFiles": 47,
+      "pathInventorySha256": "7bd304f193c08d2c5c501ca2b3121f9446ad2f8e1816f9cb1dd1948a1ff6dda6",
+      "screeningRecordSha256": "760d360f75191fd1b388b018be6452325647e01a963932f9970e3b269d0f1b12",
+      "disposition": "Selected candidate reading and decisions recorded below.",
+      "matchedPaths": [
+        "CONCEPTS.md",
+        "docs/brainstorms/2026-04-24-surface-scope-earlier-requirements.md",
+        "docs/guides/README.md",
+        "docs/guides/ce-brainstorm.md",
+        "docs/guides/ce-explain.md",
+        "docs/guides/ce-noslop.md",
+        "docs/guides/ce-optimize.md",
+        "docs/guides/ce-strategy.md",
+        "docs/guides/ce-work.md",
+        "docs/guides/wtf.md",
+        "docs/plans/2026-02-08-refactor-reduce-plugin-context-token-usage-plan.md",
+        "docs/plans/2026-02-12-feat-add-cursor-cli-target-provider-plan.md",
+        "docs/plans/2026-02-14-feat-add-gemini-cli-target-provider-plan.md",
+        "docs/plans/2026-02-25-feat-windsurf-global-scope-support-plan.md",
+        "docs/plans/2026-03-25-001-feat-onboarding-skill-plan.md",
+        "docs/plans/2026-03-29-001-feat-brainstorm-visual-aids-plan.md",
+        "docs/plans/2026-04-15-001-feat-ce-polish-skill-plan.md",
+        "docs/plans/2026-06-28-001-feat-ce-pov-skill-plan.md",
+        "docs/plans/2026-06-29-001-feat-shared-repo-grounding-cache-plan.md",
+        "docs/plans/2026-07-02-001-feat-ce-sweep-skill-plan.md",
+        "docs/plans/2026-07-14-002-feat-ce-pov-cross-model-panel-plan.md",
+        "docs/plans/2026-07-15-002-feat-ce-work-cross-model-execution-plan.md",
+        "docs/plans/2026-09-07-doc-review-remedy-ownership-eval-report.md",
+        "docs/plans/2026-09-07-feat-ce-noslop-writing-skill-plan.md",
+        "docs/plans/2026-09-15-1322-fix-review-spine-cost-and-ci-floor-plan.md",
+        "docs/solutions/skill-design/arguments-token-is-claude-only-in-skill-bodies.md",
+        "skills/ce-brainstorm/references/output-mode.md",
+        "skills/ce-brainstorm/references/phase-0.md",
+        "skills/ce-code-review/references/finish-review.md",
+        "skills/ce-compound/references/agents/best-practices-researcher.md",
+        "skills/ce-doc-review/references/bulk-preview.md",
+        "skills/ce-doc-review/references/personas/coherence-reviewer.md",
+        "skills/ce-doc-review/references/review-output-template.md",
+        "skills/ce-doc-review/references/walkthrough.md",
+        "skills/ce-explain/references/intake.md",
+        "skills/ce-ideate/references/output-mode.md",
+        "skills/ce-ideate/references/scope-gates.md",
+        "skills/ce-noslop/references/patterns.md",
+        "skills/ce-plan/references/agents/best-practices-researcher.md",
+        "skills/ce-plan/references/intake.md",
+        "skills/ce-plan/references/output-mode.md",
+        "skills/ce-prototype/references/write-back.md",
+        "skills/ce-resolve-pr-feedback/references/resume.md",
+        "skills/ce-retune/SKILL.md",
+        "skills/ce-retune/references/halt-taxonomy.md",
+        "skills/wtf/SKILL.md",
+        "tests/skill-eval-cell/fixtures/doc-review-ownership/PLAN.md"
+      ]
+    },
+    {
+      "id": "cursor",
+      "repository": "https://github.com/cursor/plugins",
+      "remote": "git@github.com:cursor/plugins.git",
+      "ref": "main",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "trackedPaths": 890,
+      "screenedTextFiles": 504,
+      "matchingFiles": 14,
+      "pathInventorySha256": "0d4b5a3cf30aee0eb2de4353eea35ef6052957b0ed762ddbf222f200de5d54cd",
+      "screeningRecordSha256": "2ef44d1abcc3b72fac10a2b6a97020f2b25794cf9700dc647fc80980c45f46d4",
+      "disposition": "Selected candidate reading and decisions recorded below.",
+      "matchedPaths": [
+        "pstack/README.md",
+        "pstack/docs/guide/09-make-it-yours.md",
+        "pstack/skills/how/SKILL.md",
+        "pstack/skills/how/references/explainer-prompt.md",
+        "pstack/skills/how/references/explorer-prompt.md",
+        "pstack/skills/interrogate/SKILL.md",
+        "pstack/skills/poteto-mode/SKILL.md",
+        "pstack/skills/poteto-mode/playbooks/multi-phase-plan.md",
+        "pstack/skills/poteto-mode/playbooks/opening-a-pr.md",
+        "pstack/skills/poteto-mode/playbooks/orchestrate.md",
+        "pstack/skills/teach/SKILL.md",
+        "pstack/skills/technical-writing/SKILL.md",
+        "third_party/google-sheets/README.md",
+        "third_party/google-sheets/skills/google-sheets/SKILL.md"
+      ]
+    },
+    {
+      "id": "ecc",
+      "repository": "https://github.com/affaan-m/ECC",
+      "remote": "git@github.com:affaan-m/ECC.git",
+      "ref": "main",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "trackedPaths": 4212,
+      "screenedTextFiles": 2827,
+      "matchingFiles": 26,
+      "pathInventorySha256": "517fd20bd54a626a22509fbe9338988ec8da708fcaf538a8a9469a771722d4bb",
+      "screeningRecordSha256": "a1f460f263db3509ce5e0e81cb6b9097f664c0705ec60ab748fbe8cf6bb3b47f",
+      "disposition": "Selected candidate reading and decisions recorded below.",
+      "matchedPaths": [
+        ".agents/skills/brand-discovery/references/30_audience-niche.md",
+        ".agents/skills/documentation-lookup/SKILL.md",
+        ".agents/skills/ecc-conventions/SKILL.md",
+        ".cursor/skills/documentation-lookup/SKILL.md",
+        ".kiro/skills/golang-testing/SKILL.md",
+        ".kiro/skills/rust-testing/SKILL.md",
+        "agents/marketing-agent.md",
+        "commands/marketing-campaign.md",
+        "contexts/research.md",
+        "docs/es/the-security-guide.md",
+        "docs/ja-JP/skills/documentation-lookup/SKILL.md",
+        "docs/zh-CN/skills/documentation-lookup/SKILL.md",
+        "pi/core/skills/angular-developer/references/angular-aria.md",
+        "pi/core/skills/golang-testing/SKILL.md",
+        "pi/core/skills/rust-testing/SKILL.md",
+        "pi/core/skills/tdd-workflow/SKILL.md",
+        "skills/angular-developer/references/angular-aria.md",
+        "skills/brand-discovery/references/30_audience-niche.md",
+        "skills/data-scraper-agent/SKILL.md",
+        "skills/documentation-lookup/SKILL.md",
+        "skills/golang-testing/SKILL.md",
+        "skills/i18n-sync/SKILL.md",
+        "skills/loop-design-check/SKILL.md",
+        "skills/rust-testing/SKILL.md",
+        "skills/tdd-workflow/SKILL.md",
+        "skills/team-agent-orchestration/SKILL.md"
+      ]
+    },
+    {
+      "id": "gh",
+      "repository": "https://github.com/cli/cli",
+      "remote": "git@github.com:cli/cli.git",
+      "ref": "trunk",
+      "commit": "6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+      "trackedPaths": 1493,
+      "screenedTextFiles": 90,
+      "matchingFiles": 7,
+      "pathInventorySha256": "0f5464458429e9f02cdc694ef1e5f964fa3f883af07e1051e65d8a270f750fca",
+      "screeningRecordSha256": "6291aae82bfa9a7b77ec0ffc1868057332df96c5b9069b9d7a5989612abab02d",
+      "disposition": "Contributor/developer guides and command procedures, not a reusable multilingual communication workflow.",
+      "matchedPaths": [
+        ".github/skills/cli-exercise/internal/cli-exercise-evidence/SKILL.md",
+        ".github/skills/cli-exercise/references/maintenance.md",
+        ".github/skills/cli-exercise/references/recording-sessions.md",
+        ".github/skills/cli-exercise/references/runtime-interface.md",
+        ".github/skills/code-review/SKILL.md",
+        ".github/skills/writing-acceptance-tests/SKILL.md",
+        ".github/workflows/issue-triage.md"
+      ]
+    },
+    {
+      "id": "gsd",
+      "repository": "https://github.com/gsd-build/gsd-2",
+      "remote": "git@github.com:gsd-build/gsd-2.git",
+      "ref": "main",
+      "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "trackedPaths": 3612,
+      "screenedTextFiles": 759,
+      "matchingFiles": 19,
+      "pathInventorySha256": "55a809b29c3d2c0d1c942acc427d9e5699a5a404630bcde348598ddab492e78b",
+      "screeningRecordSha256": "1bfab4779cab2f925da77a072283b171736691d0630b2d44d6d241ff0b8bcf86",
+      "disposition": "Selected candidate reading and decisions recorded below.",
+      "matchedPaths": [
+        "CHANGELOG.md",
+        "docs/dev/ADR-013-memory-store-consolidation.md",
+        "docs/dev/building-coding-agents/25-designing-for-non-technical-users-vibe-coders.md",
+        "docs/dev/building-coding-agents/26-cross-cutting-themes-where-all-4-models-converge.md",
+        "docs/dev/what-is-pi/16-why-pi-matters-what-makes-it-different.md",
+        "docs/user-docs/eval-review.md",
+        "src/resources/agents/doc-writer.md",
+        "src/resources/agents/git-ops.md",
+        "src/resources/extensions/gsd/prompts/complete-milestone.md",
+        "src/resources/extensions/gsd/templates/project.md",
+        "src/resources/extensions/gsd/templates/requirements.md",
+        "src/resources/skills/create-skill/SKILL.md",
+        "src/resources/skills/create-skill/references/core-principles.md",
+        "src/resources/skills/create-skill/references/executable-code.md",
+        "src/resources/skills/create-skill/references/iteration-and-testing.md",
+        "src/resources/skills/create-skill/references/skill-structure.md",
+        "src/resources/skills/create-skill/references/use-xml-tags.md",
+        "src/resources/skills/userinterface-wiki/rules/ux-hicks-minimize-choices.md",
+        "src/resources/skills/userinterface-wiki/rules/ux-progressive-disclosure.md"
+      ]
+    },
+    {
+      "id": "humanlayer",
+      "repository": "https://github.com/humanlayer/skills",
+      "remote": "git@github.com:humanlayer/skills.git",
+      "ref": "main",
+      "commit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+      "trackedPaths": 41,
+      "screenedTextFiles": 27,
+      "matchingFiles": 1,
+      "pathInventorySha256": "4269abf46e804f7ad23141918f72b2977e9541bf7dc001188dc4f6e8caa1e78b",
+      "screeningRecordSha256": "c3fd3659e2ae0346aee9bac73f706906ab31e57dfd5333231f346c62a97007fe",
+      "disposition": "The relevant screened material improves agent instruction files; agent-instructions remains its owner.",
+      "matchedPaths": [
+        "plugins/improve-claude-md/skills/improve-claude-md/SKILL.md"
+      ]
+    },
+    {
+      "id": "jeffallan",
+      "repository": "https://github.com/Jeffallan/claude-skills",
+      "remote": "git@github.com:Jeffallan/claude-skills.git",
+      "ref": "main",
+      "commit": "1be15d8064f88fc25216442406d40add8fd23b53",
+      "trackedPaths": 567,
+      "screenedTextFiles": 509,
+      "matchingFiles": 19,
+      "pathInventorySha256": "5d4c5c0d1592635e9473ebb2df67d802eea296694afd4d2a37d007366e4e1744",
+      "screeningRecordSha256": "9474c2f330332bceeeba686168a261bc96116b4e930e49cd5efdd45ff566e895",
+      "disposition": "Selected candidate reading and decisions recorded below.",
+      "matchedPaths": [
+        ".serena/memories/project_overview.md",
+        "CHANGELOG.md",
+        "CLAUDE.md",
+        "CONTRIBUTING.md",
+        "ROADMAP.md",
+        "commands/common-ground/COMMAND.md",
+        "docs/ideas/audit-primary-docs.md",
+        "docs/ideas/audit-skill-consistency.md",
+        "docs/ideas/documentation-site.md",
+        "research/superpowers.md",
+        "research/superpowers_research_findings.md",
+        "site/src/content/docs/index.mdx",
+        "skills/cli-developer/references/ux-patterns.md",
+        "skills/code-documenter/references/documentation-systems.md",
+        "skills/code-documenter/references/user-guides-tutorials.md",
+        "skills/embedded-systems/references/communication-protocols.md",
+        "skills/microservices-architect/references/communication.md",
+        "skills/prompt-engineer/SKILL.md",
+        "skills/prompt-engineer/references/prompt-optimization.md"
+      ]
+    },
+    {
+      "id": "lobe",
+      "repository": "https://github.com/lobehub/lobehub",
+      "remote": "git@github.com:lobehub/lobehub.git",
+      "ref": "canary",
+      "commit": "aaeb8fbc47dde8a43211c9abec8fde440ff14d1c",
+      "trackedPaths": 18099,
+      "screenedTextFiles": 858,
+      "matchingFiles": 16,
+      "pathInventorySha256": "0071912593fb2064cb80396a3879a53482d9cfa1abb23c532629fe1e03538de4",
+      "screeningRecordSha256": "a2d83cc9e41c5579f23ce8bfcd9cdd9250a80bbfcc9c9cb1bd845f696eac686c",
+      "disposition": "Selected candidate reading and decisions recorded below.",
+      "matchedPaths": [
+        ".agents/acceptance/probe-mock-patterns.md",
+        ".agents/skills/acceptance/references/acceptance-checker.md",
+        ".agents/skills/acceptance/references/common-mistakes.md",
+        ".agents/skills/acceptance/references/report.md",
+        ".agents/skills/add-model-provider/references/documentation.md",
+        ".agents/skills/ux-audit/references/example/tasks.md",
+        ".agents/skills/ux/SKILL.md",
+        ".agents/skills/ux/references/grow.md",
+        "docs/changelog/2024-08-02-lobe-chat-database-docker.mdx",
+        "docs/changelog/2024-11-06-share-text-json.mdx",
+        "docs/changelog/2026-01-27-v2.mdx",
+        "docs/development/basic/contributing-guidelines.mdx",
+        "docs/development/internationalization/glossary.md",
+        "docs/glossary.mdx",
+        "docs/usage/getting-started/agent.mdx",
+        "docs/usage/getting-started/page.mdx"
+      ]
+    },
+    {
+      "id": "matt",
+      "repository": "https://github.com/mattpocock/skills",
+      "remote": "git@github.com:mattpocock/skills.git",
+      "ref": "main",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "trackedPaths": 172,
+      "screenedTextFiles": 121,
+      "matchingFiles": 21,
+      "pathInventorySha256": "2fbb83c4964070d1f758dce64ea5ce5650b2e59269df4d00885eadfac358adce",
+      "screeningRecordSha256": "7fe3fd279841430e264a0902f7a9081a5fb81b6fd66e0e494e4232d3c25646f7",
+      "disposition": "Selected candidate reading and decisions recorded below.",
+      "matchedPaths": [
+        ".agents/writing-docs.md",
+        "CHANGELOG.md",
+        "docs/engineering/codebase-design.md",
+        "docs/engineering/triage.md",
+        "docs/engineering/wayfinder.md",
+        "docs/productivity/grilling.md",
+        "docs/productivity/teach.md",
+        "docs/productivity/wait-what.md",
+        "docs/productivity/writing-for-agents.md",
+        "skills/engineering/prototype/LOGIC.md",
+        "skills/in-progress/writing-beats/SKILL.md",
+        "skills/in-progress/writing-fragments/SKILL.md",
+        "skills/in-progress/writing-shape/SKILL.md",
+        "skills/productivity/teach/GLOSSARY-FORMAT.md",
+        "skills/productivity/teach/LEARNING-RECORD-FORMAT.md",
+        "skills/productivity/teach/MISSION-FORMAT.md",
+        "skills/productivity/teach/RESOURCES-FORMAT.md",
+        "skills/productivity/teach/SKILL.md",
+        "skills/productivity/wait-what/SKILL.md",
+        "skills/productivity/writing-for-agents/SKILL-MECHANICS.md",
+        "skills/productivity/writing-for-agents/SKILL.md"
+      ]
+    },
+    {
+      "id": "mblode",
+      "repository": "https://github.com/mblode/agent-skills",
+      "remote": "git@github.com:mblode/agent-skills.git",
+      "ref": "main",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "trackedPaths": 553,
+      "screenedTextFiles": 462,
+      "matchingFiles": 51,
+      "pathInventorySha256": "13ec68ce90977d7f28fc02b46b8cf2ce5dfb294fd702481923ccf769a724d8b2",
+      "screeningRecordSha256": "25595d6b095993387ccb52a870bdda4520311400e8e9b107e09cbb74cc0ab737",
+      "disposition": "Selected candidate reading and decisions recorded below.",
+      "matchedPaths": [
+        "README.md",
+        "maintenance/2026-09-05-skill-audit.md",
+        "maintenance/2026-09-21-writing-consolidation.md",
+        "maintenance/2026-10-02-ghostwriter-research.md",
+        "maintenance/2026-10-03-module-audit.md",
+        "skills/agent-ready/SKILL.md",
+        "skills/agent-skills-creator/SKILL.md",
+        "skills/agent-skills-creator/references/authoring-tips.md",
+        "skills/agent-skills-creator/references/capability-delta.md",
+        "skills/agent-skills-creator/references/improving-existing-skills.md",
+        "skills/agents-md/SKILL.md",
+        "skills/ax-audit/references/framework-signals.md",
+        "skills/ax-audit/rules-arch/_template.md",
+        "skills/ax-audit/rules-ax/_template.md",
+        "skills/dx-audit/SKILL.md",
+        "skills/dx-audit/evals/evaluation-scenarios.md",
+        "skills/dx-audit/rules/cli-pipes-tty-and-json.md",
+        "skills/eli5/SKILL.md",
+        "skills/eli5/references/formats.md",
+        "skills/ghostwriter/SKILL.md",
+        "skills/ghostwriter/evals/files/dashes/blog.md",
+        "skills/ghostwriter/evals/files/dashes/soul.md",
+        "skills/ghostwriter/evals/files/profile/donebear.md",
+        "skills/ghostwriter/evals/files/profile/email.md",
+        "skills/ghostwriter/evals/files/profile/slack.md",
+        "skills/ghostwriter/evals/files/profile/soul.md",
+        "skills/ghostwriter/references/copy.md",
+        "skills/ghostwriter/references/docs.md",
+        "skills/ghostwriter/references/readme.md",
+        "skills/ghostwriter/references/strategy.md",
+        "skills/ghostwriter/references/surfaces.md",
+        "skills/ghostwriter/references/tells.md",
+        "skills/ghostwriter/references/templates.md",
+        "skills/presentation-creator/SKILL.md",
+        "skills/presentation-creator/references/story-structure.md",
+        "skills/presentation-creator/references/writing-slides.md",
+        "skills/product-design/SKILL.md",
+        "skills/product-design/references/naming-and-copy.md",
+        "skills/product-design/references/rules.md",
+        "skills/scaffold-cli/SKILL.md",
+        "skills/seo/SKILL.md",
+        "skills/typography-audit/SKILL.md",
+        "skills/typography-audit/rules/punct-case-rules.md",
+        "skills/ui-design/SKILL.md",
+        "skills/ui-design/direction/cro.md",
+        "skills/ui-design/direction/marketing-ui.md",
+        "skills/ui-design/direction/modern.md",
+        "skills/ui-design/guidelines/copywriting.md",
+        "skills/ui-design/rules/_sections.md",
+        "skills/ui-design/rules/slop-slogan-headings.md",
+        "skills/ui-design/rules/states-no-empty-state.md"
+      ]
+    },
+    {
+      "id": "mkosir",
+      "repository": "https://github.com/mkosir/typescript-style-guide",
+      "remote": "git@github.com:mkosir/typescript-style-guide.git",
+      "ref": "main",
+      "commit": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+      "trackedPaths": 62,
+      "screenedTextFiles": 22,
+      "matchingFiles": 0,
+      "pathInventorySha256": "0a0484416d5bd36c30bf403bd42eea8ea3c43329afc6ae0adce3e74e265535b0",
+      "screeningRecordSha256": "10fe24ecc6df26222d3b213d6be932bf1cd6a0dcd4d6e7bcce661e86bd71e530",
+      "disposition": "TypeScript style and examples, with no matching reusable human-prose workflow in the text screening.",
+      "matchedPaths": []
+    },
+    {
+      "id": "sentimony",
+      "repository": "https://github.com/sentimony/skills",
+      "remote": "git@github.com:sentimony/skills.git",
+      "ref": "main",
+      "commit": "e7ee0fff668e9ebd74a279635f1d04e66446eeec",
+      "trackedPaths": 240,
+      "screenedTextFiles": 165,
+      "matchingFiles": 7,
+      "pathInventorySha256": "bae1ff18e0833ecc201b4f4951011ee815dd3707d6000ab985ad3ef7cdd0ac0a",
+      "screeningRecordSha256": "1dd30452de91ca25d8b47f6538c9c298e18f204a683351ce8e5ca2bc305bfa09",
+      "disposition": "Matches concern skill authoring or language-specific development, not a separate communication owner.",
+      "matchedPaths": [
+        "skills/frontend-crafting/references/attribution.md",
+        "skills/maintaining-agent-context/references/assessment-criteria.md",
+        "skills/maintaining-agent-context/references/attribution.md",
+        "skills/prose-crafting/references/attribution.md",
+        "skills/prose-crafting/references/english.md",
+        "skills/skill-crafting/SKILL.md",
+        "skills/skill-crafting/references/attribution.md"
+      ]
+    },
+    {
+      "id": "standard",
+      "repository": "https://github.com/HoangNguyen0403/agent-skills-standard",
+      "remote": "git@github.com:HoangNguyen0403/agent-skills-standard.git",
+      "ref": "develop",
+      "commit": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+      "trackedPaths": 9918,
+      "screenedTextFiles": 8874,
+      "matchingFiles": 66,
+      "pathInventorySha256": "dd74f7b884c02f182a7b537761076eaf557e931644f6e1a3b8e1122b05d7d2e1",
+      "screeningRecordSha256": "3c0a6d63ea6f07a2d3e074d537898275948f68f171f99f4860e5c0a5fd4be191",
+      "disposition": "The broad collection includes operator protocols and compression prompts; no selected source warrants replacing the existing fidelity-preserving prose owner. Not every match was read in full.",
+      "matchedPaths": [
+        ".agents/skills/caveman-compress/SKILL.md",
+        ".agents/skills/common/_INDEX.md",
+        ".agents/skills/common/common-debugging/SKILL.md",
+        ".agents/skills/common/common-family-ux/references/human-feel.md",
+        ".agents/skills/common/common-operator-profile/SKILL.md",
+        ".agents/skills/common/common-skill-creator/SKILL.md",
+        ".agents/skills/common/common-skill-creator/references/resource-organization.md",
+        ".agents/skills/common/common-skill-creator/references/tessl-best-practices.md",
+        ".agents/skills/system-design/system-design-communication/references/communication-selection.md",
+        ".agents/workflows/publish-notes.md",
+        ".agents/workflows/uat-signoff.md",
+        ".claude/commands/publish-notes.md",
+        ".claude/commands/uat-signoff.md",
+        ".claude/skills/common/_INDEX.md",
+        ".claude/skills/common/common-debugging/SKILL.md",
+        ".claude/skills/common/common-family-ux/references/human-feel.md",
+        ".claude/skills/common/common-operator-profile/SKILL.md",
+        ".claude/skills/common/common-skill-creator/SKILL.md",
+        ".claude/skills/common/common-skill-creator/references/resource-organization.md",
+        ".claude/skills/common/common-skill-creator/references/tessl-best-practices.md",
+        ".claude/skills/system-design/system-design-communication/references/communication-selection.md",
+        ".codex/skills/common/_INDEX.md",
+        ".codex/skills/common/common-debugging/SKILL.md",
+        ".codex/skills/common/common-family-ux/references/human-feel.md",
+        ".codex/skills/common/common-operator-profile/SKILL.md",
+        ".codex/skills/common/common-skill-creator/SKILL.md",
+        ".codex/skills/common/common-skill-creator/references/resource-organization.md",
+        ".codex/skills/common/common-skill-creator/references/tessl-best-practices.md",
+        ".codex/skills/publish-notes/SKILL.md",
+        ".codex/skills/system-design/system-design-communication/references/communication-selection.md",
+        ".codex/skills/uat-signoff/SKILL.md",
+        ".github/prompts/publish-notes.prompt.md",
+        ".github/prompts/uat-signoff.prompt.md",
+        ".github/skills/common/_INDEX.md",
+        ".github/skills/common/common-debugging/SKILL.md",
+        ".github/skills/common/common-family-ux/references/human-feel.md",
+        ".github/skills/common/common-operator-profile/SKILL.md",
+        ".github/skills/common/common-skill-creator/SKILL.md",
+        ".github/skills/common/common-skill-creator/references/resource-organization.md",
+        ".github/skills/common/common-skill-creator/references/tessl-best-practices.md",
+        ".github/skills/skill-creator/SKILL.md",
+        ".github/skills/skill-creator/references/resource-organization.md",
+        ".github/skills/system-design/system-design-communication/references/communication-selection.md",
+        "CHANGELOG.md",
+        "benchmarks/evals/runs/all-v2.6.0/answers/angular/angular-architecture/eval-3.with-skill.md",
+        "benchmarks/evals/runs/all-v2.6.0/answers/common/common-api-design/eval-1.baseline.md",
+        "benchmarks/evals/runs/all-v2.6.0/answers/common/common-architecture-diagramming/eval-1.baseline.md",
+        "benchmarks/evals/runs/all-v2.6.0/answers/common/common-architecture-diagramming/eval-2.with-skill.md",
+        "benchmarks/evals/runs/all-v2.6.0/answers/common/common-debugging/eval-1.with-skill.md",
+        "benchmarks/evals/runs/all-v2.6.0/answers/common/common-mobile-ux-core/eval-1.baseline.md",
+        "benchmarks/evals/runs/all-v2.6.0/answers/common/common-skill-creator/eval-2.with-skill.md",
+        "benchmarks/evals/runs/all-v2.6.0/answers/common/common-system-design/eval-1.baseline.md",
+        "benchmarks/evals/runs/all-v2.6.0/answers/common/common-tdd/eval-1.baseline.md",
+        "benchmarks/evals/runs/all-v2.6.0/answers/laravel/laravel-database-expert/eval-1.baseline.md",
+        "docs/getting-started-product-owner.md",
+        "skills/README.md",
+        "skills/common/_INDEX.md",
+        "skills/common/common-debugging/SKILL.md",
+        "skills/common/common-family-ux/references/human-feel.md",
+        "skills/common/common-operator-profile/SKILL.md",
+        "skills/common/common-skill-creator/SKILL.md",
+        "skills/common/common-skill-creator/references/resource-organization.md",
+        "skills/common/common-skill-creator/references/tessl-best-practices.md",
+        "skills/golang/golang-database/SKILL.md",
+        "skills/python/python-best-practices/SKILL.md",
+        "skills/system-design/system-design-communication/references/communication-selection.md"
+      ]
+    },
+    {
+      "id": "superpowers",
+      "repository": "https://github.com/obra/superpowers",
+      "remote": "git@github.com:obra/superpowers.git",
+      "ref": "main",
+      "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "trackedPaths": 229,
+      "screenedTextFiles": 127,
+      "matchingFiles": 11,
+      "pathInventorySha256": "38728038c19395ed41c860910ff5d8d9ae314ccb661cd245db920cd7f04bfb0d",
+      "screeningRecordSha256": "fdfb44e913969e24b5e7c712fbb278d95457bcf1121c91ddadfda4f76c6f71d9",
+      "disposition": "Writing skills/plans and review workflows are owned by agent-instructions, planning and review; no additional prose package selected.",
+      "matchedPaths": [
+        "RELEASE-NOTES.md",
+        "docs/superpowers/plans/2026-02-19-visual-brainstorming-refactor.md",
+        "docs/superpowers/specs/2026-07-15-sdd-fix-loop-redesign-design.md",
+        "skills/brainstorming/SKILL.md",
+        "skills/test-driven-development/writing-good-tests.md",
+        "skills/writing-plans/SKILL.md",
+        "skills/writing-skills/SKILL.md",
+        "skills/writing-skills/anthropic-best-practices.md",
+        "skills/writing-skills/examples/CLAUDE_MD_TESTING.md",
+        "skills/writing-skills/persuasion-principles.md",
+        "skills/writing-skills/testing-skills-with-subagents.md"
+      ]
+    },
+    {
+      "id": "vercel",
+      "repository": "https://github.com/vercel-labs/agent-skills",
+      "remote": "git@github.com:vercel-labs/agent-skills.git",
+      "ref": "main",
+      "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "trackedPaths": 447,
+      "screenedTextFiles": 212,
+      "matchingFiles": 2,
+      "pathInventorySha256": "13b91880a80ea1b05661798ea31802c4f0bb5728480597fa1f5fdd23b9151956",
+      "screeningRecordSha256": "643bbdebb21bd3aa0f0cd06fd0d31b0b951a9456b578832856d3608056421793",
+      "disposition": "Selected candidate reading and decisions recorded below.",
+      "matchedPaths": [
+        "AGENTS.md",
+        "skills/writing-guidelines/SKILL.md"
+      ]
+    },
+    {
+      "id": "wshobson",
+      "repository": "https://github.com/wshobson/agents",
+      "remote": "git@github.com:wshobson/agents.git",
+      "ref": "main",
+      "commit": "3b5d3085489966d028f6578ae163f5a35fd6e17a",
+      "trackedPaths": 1191,
+      "screenedTextFiles": 784,
+      "matchingFiles": 66,
+      "pathInventorySha256": "5af3a5b6afebb75a9c5952d33b599e0bca9f1cc6ae190018c87bc8744cf79661",
+      "screeningRecordSha256": "c3a729e8e1cc2d0e92d7ab9af80efc7ddcfdd4d25fe38995b0a99c218c18a976",
+      "disposition": "Selected candidate reading and decisions recorded below.",
+      "matchedPaths": [
+        "AGENTS.md",
+        "ARCHITECTURE.md",
+        "README.md",
+        "docs/agent-skills.md",
+        "docs/agents.md",
+        "docs/architecture.md",
+        "docs/authoring.md",
+        "docs/plugin-eval.md",
+        "docs/plugins.md",
+        "plugins/accessibility-compliance/agents/ui-visual-validator.md",
+        "plugins/agent-orchestration/commands/improve-agent.md",
+        "plugins/agent-teams/agents/team-reviewer.md",
+        "plugins/agent-teams/skills/task-coordination-strategies/SKILL.md",
+        "plugins/api-testing-observability/agents/api-documenter.md",
+        "plugins/arm-cortex-microcontrollers/agents/arm-cortex-expert.md",
+        "plugins/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md",
+        "plugins/avoid-ai-writing/skills/avoid-ai-writing/references/profiles.md",
+        "plugins/backend-development/commands/feature-development.md",
+        "plugins/backend-development/skills/temporal-python-testing/SKILL.md",
+        "plugins/c4-architecture/agents/c4-context.md",
+        "plugins/cicd-automation/agents/terraform-specialist.md",
+        "plugins/cloud-infrastructure/agents/terraform-specialist.md",
+        "plugins/code-documentation/agents/docs-architect.md",
+        "plugins/code-documentation/agents/tutorial-engineer.md",
+        "plugins/code-documentation/commands/code-explain.md",
+        "plugins/comprehensive-review/commands/pr-enhance.md",
+        "plugins/conductor/skills/context-driven-development/references/artifact-templates.md",
+        "plugins/conductor/templates/workflow.md",
+        "plugins/deployment-strategies/agents/terraform-specialist.md",
+        "plugins/documentation-generation/agents/api-documenter.md",
+        "plugins/documentation-generation/agents/docs-architect.md",
+        "plugins/documentation-generation/agents/mermaid-expert.md",
+        "plugins/documentation-generation/agents/reference-builder.md",
+        "plugins/documentation-generation/agents/tutorial-engineer.md",
+        "plugins/documentation-generation/commands/doc-generate.md",
+        "plugins/documentation-generation/skills/architecture-decision-records/SKILL.md",
+        "plugins/documentation-generation/skills/changelog-automation/SKILL.md",
+        "plugins/documentation-generation/skills/changelog-automation/references/details.md",
+        "plugins/documentation-generation/skills/openapi-spec-generation/SKILL.md",
+        "plugins/documentation-generation/skills/openapi-spec-generation/references/code-first-and-tooling.md",
+        "plugins/documentation-generation/skills/openapi-spec-generation/references/details.md",
+        "plugins/documentation-standards/skills/grounded-vault/SKILL.md",
+        "plugins/documentation-standards/skills/grounded-vault/references/details.md",
+        "plugins/documentation-standards/skills/hads/SKILL.md",
+        "plugins/dotnet-contribution/README.md",
+        "plugins/framework-migration/commands/legacy-modernize.md",
+        "plugins/full-stack-orchestration/commands/full-stack-feature.md",
+        "plugins/git-pr-workflows/commands/git-workflow.md",
+        "plugins/git-pr-workflows/commands/pr-enhance.md",
+        "plugins/incident-response/commands/smart-fix.md",
+        "plugins/javascript-typescript/skills/modern-javascript-patterns/SKILL.md",
+        "plugins/llm-application-dev/skills/prompt-engineering-patterns/references/details.md",
+        "plugins/llm-application-dev/skills/prompt-engineering-patterns/references/system-prompts.md",
+        "plugins/machine-learning-ops/skills/ml-pipeline-workflow/SKILL.md",
+        "plugins/multi-platform-apps/agents/ui-ux-designer.md",
+        "plugins/multi-platform-apps/commands/multi-platform.md",
+        "plugins/python-development/skills/python-code-style/SKILL.md",
+        "plugins/review-agent-governance/commands/approve-review.md",
+        "plugins/ship-mate/agents/architect.md",
+        "plugins/startup-business-analyst/agents/startup-analyst.md",
+        "plugins/systems-programming/agents/cpp-pro.md",
+        "plugins/tdd-workflows/commands/tdd-cycle.md",
+        "plugins/ui-design/agents/accessibility-expert.md",
+        "plugins/ui-design/agents/design-system-architect.md",
+        "plugins/ui-design/agents/ui-designer.md",
+        "plugins/ui-design/commands/design-review.md"
+      ]
+    }
+  ],
+  "linkedSources": [
+    {
+      "id": "vercel-writing",
+      "repository": "https://github.com/vercel-labs/writing-guidelines",
+      "remote": "git@github.com:vercel-labs/writing-guidelines.git",
+      "ref": "main",
+      "commit": "83e2316b034cf572400513538e4e4da01c4cc742",
+      "paths": [
+        "AGENTS.md",
+        "LICENSE",
+        "README.md",
+        "command.md"
+      ],
+      "materialized": [
+        "LICENSE",
+        "README.md",
+        "command.md"
+      ]
+    },
+    {
+      "id": "humanizerai",
+      "repository": "https://github.com/humanizerai/agent-skills",
+      "remote": "git@github.com:humanizerai/agent-skills.git",
+      "ref": "307912e3acdc24e61c3c945f6b28b3ed13aba6af",
+      "commit": "307912e3acdc24e61c3c945f6b28b3ed13aba6af",
+      "paths": [
+        ".agent/skills/detect-ai",
+        ".agents/skills/detect-ai/SKILL.md",
+        ".claude/skills/detect-ai",
+        ".codex/skills/detect-ai",
+        ".cursor/skills/detect-ai",
+        ".gemini/skills/detect-ai",
+        ".opencode/skills/detect-ai",
+        "LICENSE",
+        "README.md",
+        "skills/cold-email/SKILL.md",
+        "skills/detect-ai/SKILL.md",
+        "skills/follow-up/SKILL.md",
+        "skills/humanize/SKILL.md",
+        "skills/readability/SKILL.md",
+        "skills/word-stats/SKILL.md"
+      ],
+      "materialized": [
+        "LICENSE",
+        "README.md",
+        "skills/humanize/SKILL.md"
+      ]
+    },
+    {
+      "id": "blader",
+      "repository": "https://github.com/blader/humanizer",
+      "remote": "git@github.com:blader/humanizer.git",
+      "ref": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
+      "commit": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
+      "paths": [
+        ".claude-plugin/marketplace.json",
+        ".claude-plugin/plugin.json",
+        ".github/workflows/validate.yml",
+        "AGENTS.md",
+        "LICENSE",
+        "README.md",
+        "SKILL.md",
+        "agents/openai.yaml",
+        "scripts/validate-package.py"
+      ],
+      "materialized": [
+        "LICENSE",
+        "README.md",
+        "SKILL.md"
+      ]
+    }
+  ],
+  "readings": [
+    {
+      "repository": "mblode",
+      "path": "skills/eli5/SKILL.md",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "sha256": "b0e6127f2668c6633451a1899b02c58a8a9feae2e4ec8bf2df6dcb8ab5305ca2",
+      "lines": 42,
+      "coverage": "Complete file read",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/eli5/SKILL.md"
+    },
+    {
+      "repository": "mblode",
+      "path": "skills/eli5/references/formats.md",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "sha256": "b6123981f707f69e3401e373019581201255649da397c0001f3d74c7b6f6edd9",
+      "lines": 99,
+      "coverage": "Complete file read",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/eli5/references/formats.md"
+    },
+    {
+      "repository": "mblode",
+      "path": "skills/ghostwriter/SKILL.md",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "sha256": "287218e41b2fde42fc28943027795a1e3f29d1f7a75c1cc3623637a773c18553",
+      "lines": 77,
+      "coverage": "Complete file read",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/SKILL.md"
+    },
+    {
+      "repository": "mblode",
+      "path": "skills/ghostwriter/references/docs.md",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "sha256": "55a497e181260745bc4b6bf9e262959cf4f1b3717059de4581e44f04fd6d64e8",
+      "lines": 31,
+      "coverage": "Complete file read",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/docs.md"
+    },
+    {
+      "repository": "mblode",
+      "path": "skills/ghostwriter/references/readme.md",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "sha256": "a24f26386cd20eb086bf30afec683d6632b7d99de0aab0a1befafad79dec4e47",
+      "lines": 47,
+      "coverage": "Complete file read",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/readme.md"
+    },
+    {
+      "repository": "mblode",
+      "path": "skills/ghostwriter/references/strategy.md",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "sha256": "2c821fe1fb8c253a9d1458346586e940c5e66bb977f17c25abc8530884dcc88c",
+      "lines": 25,
+      "coverage": "Complete file read",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/strategy.md"
+    },
+    {
+      "repository": "mblode",
+      "path": "skills/ghostwriter/references/surfaces.md",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "sha256": "c8d8185625fe6229a070def4c3169716be853d21e465d1c4afdd6758ec5a33d7",
+      "lines": 21,
+      "coverage": "Complete file read",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/surfaces.md"
+    },
+    {
+      "repository": "mblode",
+      "path": "skills/ghostwriter/references/tells.md",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "sha256": "ab062cf649349c33f35441a8c940423988a670b2e56b212dd7ece00a73258c64",
+      "lines": 61,
+      "coverage": "Complete file read",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/tells.md"
+    },
+    {
+      "repository": "mblode",
+      "path": "skills/ghostwriter/references/templates.md",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "sha256": "8730b7a05e598c2d97463f3b49e374c143b7a0e45fbb22f5e57f961c85f87a29",
+      "lines": 44,
+      "coverage": "Complete file read",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/templates.md"
+    },
+    {
+      "repository": "mblode",
+      "path": "skills/ghostwriter/references/copy.md",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "sha256": "0a20dc1569f47606d837653cf649f9383d9e43e692bda7dfcf068813ea3eb4af",
+      "lines": 43,
+      "coverage": "Complete file read",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/copy.md"
+    },
+    {
+      "repository": "cursor",
+      "path": "pstack/skills/technical-writing/SKILL.md",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "sha256": "f5c512ffeec70bc4e0dee50f7bb4c26742e1be77967a6e8b15d1921e1c209ceb",
+      "lines": 106,
+      "coverage": "Complete file read",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/technical-writing/SKILL.md"
+    },
+    {
+      "repository": "cursor",
+      "path": "pstack/skills/teach/SKILL.md",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "sha256": "bd286e5a6290673be2cd28aef7af2ec7f1fb138e6bce156ea657368c7e7fc8a4",
+      "lines": 21,
+      "coverage": "Complete file read",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/teach/SKILL.md"
+    },
+    {
+      "repository": "cursor",
+      "path": "pstack/skills/unslop/SKILL.md",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "sha256": "195411d320b5b328f9f642baf59757ed19aaf0931c0838740e0aca273d538dc1",
+      "lines": 67,
+      "coverage": "Complete file read",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/unslop/SKILL.md"
+    },
+    {
+      "repository": "matt",
+      "path": "skills/productivity/teach/SKILL.md",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "sha256": "a32df9dcdfc0c4fdc1c98e1ed3940c5f56b84c1aa90ff60346f32b8b53915b43",
+      "lines": 140,
+      "coverage": "Complete file read",
+      "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/teach/SKILL.md"
+    },
+    {
+      "repository": "matt",
+      "path": "skills/productivity/wait-what/SKILL.md",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "sha256": "d961bb37defd975c539427edb8f450cdbccdcdd552e213c1ece46676a7970905",
+      "lines": 7,
+      "coverage": "Complete file read",
+      "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/wait-what/SKILL.md"
+    },
+    {
+      "repository": "matt",
+      "path": "skills/in-progress/writing-shape/SKILL.md",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "sha256": "f5e6c57bdd85178ace4a260c92f46da6b64ddee18215b461d875739c68976f72",
+      "lines": 79,
+      "coverage": "Complete file read",
+      "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-shape/SKILL.md"
+    },
+    {
+      "repository": "matt",
+      "path": "skills/in-progress/writing-beats/SKILL.md",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "sha256": "a96abafa2372eede8267d770138b322d6125da8adaa7ccf0a5e08e4ee13ee71e",
+      "lines": 67,
+      "coverage": "Complete file read",
+      "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-beats/SKILL.md"
+    },
+    {
+      "repository": "matt",
+      "path": "skills/in-progress/writing-fragments/SKILL.md",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "sha256": "298b0edd23df229183630de592ed8aa4289233560f2040691f6eb77caeaad4ea",
+      "lines": 79,
+      "coverage": "Complete file read",
+      "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-fragments/SKILL.md"
+    },
+    {
+      "repository": "anthropic",
+      "path": "skills/doc-coauthoring/SKILL.md",
+      "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "sha256": "2e47d78846faeea4a56e9809c52700087a15a2155a3f293a3efbaded81398ef4",
+      "lines": 375,
+      "coverage": "Complete file read",
+      "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/doc-coauthoring/SKILL.md"
+    },
+    {
+      "repository": "anthropic",
+      "path": "skills/internal-comms/SKILL.md",
+      "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "sha256": "067b7587a344a928fc6534ef66b1bcd591fc7c26d207ea7ca3334aeb678d6475",
+      "lines": 32,
+      "coverage": "Complete file read",
+      "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/internal-comms/SKILL.md"
+    },
+    {
+      "repository": "anthropic",
+      "path": "README.md",
+      "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "sha256": "2fb9c4cc026366ea6e21c60cb23c908a4d27c62071819cc06beffaac102d0694",
+      "lines": 96,
+      "coverage": "Complete file read",
+      "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/README.md"
+    },
+    {
+      "repository": "anthropic",
+      "path": "skills/internal-comms/examples/3p-updates.md",
+      "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "sha256": "087e4363c0f3513728a7e695eeb9ead5c3ecd12a4681b59340691180e65b68fc",
+      "lines": 47,
+      "coverage": "Complete file read",
+      "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/internal-comms/examples/3p-updates.md"
+    },
+    {
+      "repository": "anthropic",
+      "path": "skills/internal-comms/examples/company-newsletter.md",
+      "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "sha256": "30f81cfbdb03858a006169c72169024089c7c5d3d32611d337782da4f38c86b5",
+      "lines": 65,
+      "coverage": "Complete file read",
+      "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/internal-comms/examples/company-newsletter.md"
+    },
+    {
+      "repository": "anthropic",
+      "path": "skills/internal-comms/examples/faq-answers.md",
+      "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "sha256": "5ecd3356cd6666937f2ebefa753253edfdbdca15e368d07baf398bfcced72484",
+      "lines": 30,
+      "coverage": "Complete file read",
+      "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/internal-comms/examples/faq-answers.md"
+    },
+    {
+      "repository": "anthropic",
+      "path": "skills/internal-comms/examples/general-comms.md",
+      "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "sha256": "4d3a4bb198a77626bcf018e96b2b45a2dbabed172d4ade0fcd70d23ae8a47a47",
+      "lines": 16,
+      "coverage": "Complete file read",
+      "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/internal-comms/examples/general-comms.md"
+    },
+    {
+      "repository": "addy",
+      "path": "skills/documentation-and-adrs/SKILL.md",
+      "commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+      "sha256": "359b22460045583b0233ec3f80223459c4096b0fa513f5c29ade9c3985207d65",
+      "lines": 288,
+      "coverage": "Complete file read",
+      "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/documentation-and-adrs/SKILL.md"
+    },
+    {
+      "repository": "ecc",
+      "path": "skills/article-writing/SKILL.md",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "sha256": "4aa61709450a2148ef4036896d870da748e93ad68528bb7679b74f3597ffb021",
+      "lines": 80,
+      "coverage": "Complete file read",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/article-writing/SKILL.md"
+    },
+    {
+      "repository": "ecc",
+      "path": "agents/doc-updater.md",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "sha256": "5018d3a0bf740d2263fd4b7a92412d53a62d4be151a71221d6549cacba62d72c",
+      "lines": 116,
+      "coverage": "Complete file read",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/agents/doc-updater.md"
+    },
+    {
+      "repository": "ecc",
+      "path": "skills/i18n-sync/SKILL.md",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "sha256": "05fc3e2ae72c2f55cc44fa0e9531688c1112081037d628e1124fd5bf40825325",
+      "lines": 141,
+      "coverage": "Complete file read",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/i18n-sync/SKILL.md"
+    },
+    {
+      "repository": "ecc",
+      "path": "skills/living-docs-governance/SKILL.md",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "sha256": "e8c22a1f69743e256c6d6df138d99e49d22e29effbf008dfe2328b7fdc76247e",
+      "lines": 137,
+      "coverage": "Complete file read",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/living-docs-governance/SKILL.md"
+    },
+    {
+      "repository": "compound",
+      "path": "skills/ce-explain/SKILL.md",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "sha256": "fe1a05fa429338524374b2428bac9a0338a7e7c2f7ff4e1e510da123e834cafe",
+      "lines": 81,
+      "coverage": "Complete file read",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-explain/SKILL.md"
+    },
+    {
+      "repository": "compound",
+      "path": "skills/ce-doc-review/SKILL.md",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "sha256": "0a1f44d7bd0014cd0e5b895dd8d152e865532ebf5d47504596fad552ec282a2f",
+      "lines": 75,
+      "coverage": "Complete file read",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-doc-review/SKILL.md"
+    },
+    {
+      "repository": "gsd",
+      "path": "src/resources/agents/doc-writer.md",
+      "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "sha256": "aacc8d0f81715d355cf929149af58a7610fbff315bb58a53cc1a67cc9bcd9fd3",
+      "lines": 43,
+      "coverage": "Complete file read",
+      "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/agents/doc-writer.md"
+    },
+    {
+      "repository": "jeffallan",
+      "path": "skills/code-documenter/SKILL.md",
+      "commit": "1be15d8064f88fc25216442406d40add8fd23b53",
+      "sha256": "c317493f9b94df59ccb48a6783492bcb48e7f1c3d5299ed44718bd568eb8cdb0",
+      "lines": 156,
+      "coverage": "Complete file read",
+      "url": "https://github.com/Jeffallan/claude-skills/blob/1be15d8064f88fc25216442406d40add8fd23b53/skills/code-documenter/SKILL.md"
+    },
+    {
+      "repository": "lobe",
+      "path": ".agents/skills/write-landing-docs/SKILL.md",
+      "commit": "aaeb8fbc47dde8a43211c9abec8fde440ff14d1c",
+      "sha256": "853138365a4dc1113a7beda23eff65710f62dbb659ab10382f6e11b21921c37b",
+      "lines": 18,
+      "coverage": "Complete file read",
+      "url": "https://github.com/lobehub/lobehub/blob/aaeb8fbc47dde8a43211c9abec8fde440ff14d1c/.agents/skills/write-landing-docs/SKILL.md"
+    },
+    {
+      "repository": "lobe",
+      "path": ".agents/skills/write-landing-docs/references/self-hosting.md",
+      "commit": "aaeb8fbc47dde8a43211c9abec8fde440ff14d1c",
+      "sha256": "745e7d1e17844356af079861ea9384f9409a7cedf96e8b9ff0ea15246ef32f04",
+      "lines": 13,
+      "coverage": "Complete file read",
+      "url": "https://github.com/lobehub/lobehub/blob/aaeb8fbc47dde8a43211c9abec8fde440ff14d1c/.agents/skills/write-landing-docs/references/self-hosting.md"
+    },
+    {
+      "repository": "vercel",
+      "path": "skills/writing-guidelines/SKILL.md",
+      "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "sha256": "89a5f581193289b80af58b980090aeed535047c8df2b55ccbaae0de40283a99d",
+      "lines": 39,
+      "coverage": "Complete file read",
+      "url": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/skills/writing-guidelines/SKILL.md"
+    },
+    {
+      "repository": "vercel-writing",
+      "path": "command.md",
+      "commit": "83e2316b034cf572400513538e4e4da01c4cc742",
+      "sha256": "fb638d7821bb4472e4492aedcfb51f2636c7d31d34ff9f01cca5bcdce9b1841f",
+      "lines": 257,
+      "coverage": "Complete file read",
+      "url": "https://github.com/vercel-labs/writing-guidelines/blob/83e2316b034cf572400513538e4e4da01c4cc742/command.md"
+    },
+    {
+      "repository": "wshobson",
+      "path": "plugins/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md",
+      "commit": "3b5d3085489966d028f6578ae163f5a35fd6e17a",
+      "sha256": "3b0940b0014a64aaff405f367e44241095c96856cabcd0a01adf0ec33bbc1a66",
+      "lines": 64,
+      "coverage": "Complete file read",
+      "url": "https://github.com/wshobson/agents/blob/3b5d3085489966d028f6578ae163f5a35fd6e17a/plugins/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md"
+    },
+    {
+      "repository": "wshobson",
+      "path": "plugins/documentation-generation/agents/docs-architect.md",
+      "commit": "3b5d3085489966d028f6578ae163f5a35fd6e17a",
+      "sha256": "435520e293fa4b997a39b7455d7131351598f4cbaf4813135ab5182e6554005b",
+      "lines": 78,
+      "coverage": "Complete file read",
+      "url": "https://github.com/wshobson/agents/blob/3b5d3085489966d028f6578ae163f5a35fd6e17a/plugins/documentation-generation/agents/docs-architect.md"
+    },
+    {
+      "repository": "alleneubank",
+      "path": "plugins/agent-workflows/skills/dissolve-docs/SKILL.md",
+      "commit": "5165b1f1122a4fa888347c6046d10593033748e8",
+      "sha256": "8559db4130c6ea28318415d5f6d2e5eaeaafb5a9409b9f967a8034a873ffb64d",
+      "lines": 103,
+      "coverage": "Complete file read",
+      "url": "https://github.com/alleneubank/agent-profile/blob/5165b1f1122a4fa888347c6046d10593033748e8/plugins/agent-workflows/skills/dissolve-docs/SKILL.md"
+    },
+    {
+      "repository": "humanizerai",
+      "path": "skills/humanize/SKILL.md",
+      "commit": "307912e3acdc24e61c3c945f6b28b3ed13aba6af",
+      "sha256": "61115d7795d7395076998ebc78c5636802aff22c5895e4b6b099eaaee53c1245",
+      "lines": 91,
+      "coverage": "Complete file read",
+      "url": "https://github.com/humanizerai/agent-skills/blob/307912e3acdc24e61c3c945f6b28b3ed13aba6af/skills/humanize/SKILL.md"
+    },
+    {
+      "repository": "matt",
+      "path": ".agents/writing-docs.md",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "sha256": "5ab85d0351589f5d9bc3b05b3735d7cbe342b75cf2fb5dc6b489e6099566bfd0",
+      "coverage": "Scope and format excerpts; project-specific publication conventions, not adopted.",
+      "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/.agents/writing-docs.md"
+    },
+    {
+      "repository": "lobe",
+      "path": "DESIGN.md",
+      "commit": "aaeb8fbc47dde8a43211c9abec8fde440ff14d1c",
+      "sha256": "3db69f8034c440b5dbcc07289b5a6750fa8421864e46862d5280bd99bea37cc0",
+      "coverage": "Voice & Content section and adjacent style context only.",
+      "url": "https://github.com/lobehub/lobehub/blob/aaeb8fbc47dde8a43211c9abec8fde440ff14d1c/DESIGN.md"
+    },
+    {
+      "repository": "humanlayer",
+      "path": "plugins/improve-claude-md/skills/improve-claude-md/SKILL.md",
+      "commit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+      "sha256": "dbc3019c52f2409c031c4261664381c338d206b53ed700120743e374a87a9b8c",
+      "coverage": "Instruction-authoring scope and example excerpts; not a human-facing writing owner.",
+      "url": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/plugins/improve-claude-md/skills/improve-claude-md/SKILL.md"
+    },
+    {
+      "repository": "blader",
+      "path": "SKILL.md",
+      "commit": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
+      "sha256": "14fc8a965b6e0a8dc100ba4dffeab55cb94bbac112abbde7e014d5c15a35c202",
+      "coverage": "Existing source pin preserved from local humanize provenance; no fresh full upstream audit claimed.",
+      "url": "https://github.com/blader/humanizer/blob/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5/SKILL.md"
+    }
+  ],
+  "assessments": [
+    {
+      "id": "matthew-blode-eli5",
+      "key": "Matthew Blode/eli5",
+      "collection": "mblode",
+      "name": "eli5",
+      "declaredName": "eli5",
+      "group": "Matthew Blode",
+      "author": "Matthew Blode",
+      "kind": "upstream",
+      "path": "skills/eli5/SKILL.md",
+      "repository": "https://github.com/mblode/agent-skills",
+      "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/eli5/SKILL.md",
+      "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "sha256": "b0e6127f2668c6633451a1899b02c58a8a9feae2e4ec8bf2df6dcb8ab5305ca2",
+      "lines": 42,
+      "category": "Communication and documentation",
+      "decision": "Blend",
+      "action": "Adapted",
+      "owner": "communicate-clearly",
+      "summary": "Explain at the reader's level, preserve exact tokens, reframe a failed explanation, and choose useful media.",
+      "reason": "Explain at the reader's level, preserve exact tokens, reframe a failed explanation, and choose useful media.",
+      "caution": "Default guidance is the user's explicit choice. No childlike tone, mandatory video pipeline, or English-only controlled-language rules.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "skills/eli5/references/formats.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/eli5/references/formats.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/ghostwriter/SKILL.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/ghostwriter/references/docs.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/docs.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/ghostwriter/references/readme.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/readme.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/ghostwriter/references/strategy.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/strategy.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/ghostwriter/references/surfaces.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/surfaces.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/ghostwriter/references/tells.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/tells.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/ghostwriter/references/templates.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/templates.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/ghostwriter/references/copy.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/copy.md",
+          "coverage": "Complete file read"
+        }
+      ]
+    },
+    {
+      "id": "matthew-blode-ghostwriter",
+      "key": "Matthew Blode/ghostwriter",
+      "collection": "mblode",
+      "name": "ghostwriter",
+      "declaredName": "ghostwriter",
+      "group": "Matthew Blode",
+      "author": "Matthew Blode",
+      "kind": "upstream",
+      "path": "skills/ghostwriter/SKILL.md",
+      "repository": "https://github.com/mblode/agent-skills",
+      "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/SKILL.md",
+      "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "sha256": "287218e41b2fde42fc28943027795a1e3f29d1f7a75c1cc3623637a773c18553",
+      "lines": 77,
+      "category": "Communication and documentation",
+      "decision": "Blend",
+      "action": "Selected parts adapted",
+      "owner": "communicate-clearly; write-documentation",
+      "summary": "Audience, channel, supplied voice and document-specific needs add useful decisions to the existing prose owner.",
+      "reason": "Audience, channel, supplied voice and document-specific needs add useful decisions to the existing prose owner.",
+      "caution": "No new competing writer, mandatory private profiles, persistent author learning, fixed sentence budgets or publication authority.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "skills/eli5/SKILL.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/eli5/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/eli5/references/formats.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/eli5/references/formats.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/ghostwriter/references/docs.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/docs.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/ghostwriter/references/readme.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/readme.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/ghostwriter/references/strategy.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/strategy.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/ghostwriter/references/surfaces.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/surfaces.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/ghostwriter/references/tells.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/tells.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/ghostwriter/references/templates.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/templates.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/ghostwriter/references/copy.md",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/copy.md",
+          "coverage": "Complete file read"
+        }
+      ]
+    },
+    {
+      "id": "pstack-technical-writing",
+      "key": "pstack/technical-writing",
+      "collection": "cursor",
+      "name": "technical-writing",
+      "declaredName": "technical-writing",
+      "group": "pstack",
+      "author": "pstack",
+      "kind": "upstream",
+      "path": "pstack/skills/technical-writing/SKILL.md",
+      "repository": "https://github.com/cursor/plugins",
+      "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/technical-writing/SKILL.md",
+      "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "sha256": "f5c512ffeec70bc4e0dee50f7bb4c26742e1be77967a6e8b15d1921e1c209ceb",
+      "lines": 106,
+      "category": "Communication and documentation",
+      "decision": "Blend",
+      "action": "Adapted",
+      "owner": "communicate-clearly; write-documentation",
+      "summary": "Stable terminology, explicit relationships, conditions before action and reader-task organization.",
+      "reason": "Stable terminology, explicit relationships, conditions before action and reader-task organization.",
+      "caution": "Adapt English grammar and sentence limits; preserve useful mixed documents and existing conventions. Linked teach and unslop were read.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "pstack/skills/teach/SKILL.md",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/teach/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "pstack/skills/unslop/SKILL.md",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/unslop/SKILL.md",
+          "coverage": "Complete file read"
+        }
+      ]
+    },
+    {
+      "id": "pstack-teach",
+      "key": "pstack/teach",
+      "collection": "cursor",
+      "name": "teach",
+      "declaredName": "teach",
+      "group": "pstack",
+      "author": "pstack",
+      "kind": "upstream",
+      "path": "pstack/skills/teach/SKILL.md",
+      "repository": "https://github.com/cursor/plugins",
+      "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/teach/SKILL.md",
+      "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "sha256": "bd286e5a6290673be2cd28aef7af2ec7f1fb138e6bce156ea657368c7e7fc8a4",
+      "lines": 21,
+      "category": "Communication and documentation",
+      "decision": "Blend",
+      "action": "Selected parts adapted",
+      "owner": "communicate-clearly",
+      "summary": "Match prior knowledge, introduce necessary concepts and show concrete mechanisms.",
+      "reason": "Match prior knowledge, introduce necessary concepts and show concrete mechanisms.",
+      "caution": "Everyday communication does not become a lesson, quiz, forced diagram sequence or teaching workspace.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "pstack/skills/technical-writing/SKILL.md",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/technical-writing/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "pstack/skills/unslop/SKILL.md",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/unslop/SKILL.md",
+          "coverage": "Complete file read"
+        }
+      ]
+    },
+    {
+      "id": "pstack-unslop",
+      "key": "pstack/unslop",
+      "collection": "cursor",
+      "name": "unslop",
+      "declaredName": "unslop",
+      "group": "pstack",
+      "author": "pstack",
+      "kind": "upstream",
+      "path": "pstack/skills/unslop/SKILL.md",
+      "repository": "https://github.com/cursor/plugins",
+      "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/unslop/SKILL.md",
+      "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "sha256": "195411d320b5b328f9f642baf59757ed19aaf0931c0838740e0aca273d538dc1",
+      "lines": 67,
+      "category": "Communication and documentation",
+      "decision": "Blend",
+      "action": "Selected parts adapted",
+      "owner": "communicate-clearly",
+      "summary": "Remove vague filler and mechanical structures, preserve terminology and avoid over-compression.",
+      "reason": "Remove vague filler and mechanical structures, preserve terminology and avoid over-compression.",
+      "caution": "Existing local catalog and fidelity safeguards take precedence over blanket bans or deletion of unquantified claims.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "pstack/skills/technical-writing/SKILL.md",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/technical-writing/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "pstack/skills/teach/SKILL.md",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/teach/SKILL.md",
+          "coverage": "Complete file read"
+        }
+      ]
+    },
+    {
+      "id": "matt-pocock-writing-shape",
+      "key": "Matt Pocock/writing-shape",
+      "collection": "matt",
+      "name": "writing-shape",
+      "declaredName": "writing-shape",
+      "group": "Matt Pocock",
+      "author": "Matt Pocock",
+      "kind": "upstream",
+      "path": "skills/in-progress/writing-shape/SKILL.md",
+      "repository": "https://github.com/mattpocock/skills",
+      "source": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-shape/SKILL.md",
+      "sha": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "sha256": "f5e6c57bdd85178ace4a260c92f46da6b64ddee18215b461d875739c68976f72",
+      "lines": 79,
+      "category": "Communication and documentation",
+      "decision": "Blend",
+      "action": "Selected parts adapted",
+      "owner": "communicate-clearly",
+      "summary": "Ground a concept before a later passage relies on it; shape one coherent route through raw material.",
+      "reason": "Ground a concept before a later passage relies on it; shape one coherent route through raw material.",
+      "caution": "No forced interactive paragraph approval, raw-material file creation or interview.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "skills/productivity/teach/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/teach/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/productivity/wait-what/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/wait-what/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/in-progress/writing-beats/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-beats/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/in-progress/writing-fragments/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-fragments/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": ".agents/writing-docs.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/.agents/writing-docs.md",
+          "coverage": "Scope and format excerpts; project-specific publication conventions, not adopted."
+        }
+      ]
+    },
+    {
+      "id": "matt-pocock-writing-beats",
+      "key": "Matt Pocock/writing-beats",
+      "collection": "matt",
+      "name": "writing-beats",
+      "declaredName": "writing-beats",
+      "group": "Matt Pocock",
+      "author": "Matt Pocock",
+      "kind": "upstream",
+      "path": "skills/in-progress/writing-beats/SKILL.md",
+      "repository": "https://github.com/mattpocock/skills",
+      "source": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-beats/SKILL.md",
+      "sha": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "sha256": "a96abafa2372eede8267d770138b322d6125da8adaa7ccf0a5e08e4ee13ee71e",
+      "lines": 67,
+      "category": "Communication and documentation",
+      "decision": "Blend",
+      "action": "Selected parts adapted",
+      "owner": "communicate-clearly",
+      "summary": "Check conceptual prerequisites and build meaningful transitions.",
+      "reason": "Check conceptual prerequisites and build meaningful transitions.",
+      "caution": "No choose-your-own-adventure writing loop or mandatory per-beat approval.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "skills/productivity/teach/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/teach/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/productivity/wait-what/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/wait-what/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/in-progress/writing-shape/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-shape/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/in-progress/writing-fragments/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-fragments/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": ".agents/writing-docs.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/.agents/writing-docs.md",
+          "coverage": "Scope and format excerpts; project-specific publication conventions, not adopted."
+        }
+      ]
+    },
+    {
+      "id": "matt-pocock-wait-what",
+      "key": "Matt Pocock/wait-what",
+      "collection": "matt",
+      "name": "wait-what",
+      "declaredName": "wait-what",
+      "group": "Matt Pocock",
+      "author": "Matt Pocock",
+      "kind": "upstream",
+      "path": "skills/productivity/wait-what/SKILL.md",
+      "repository": "https://github.com/mattpocock/skills",
+      "source": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/wait-what/SKILL.md",
+      "sha": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "sha256": "d961bb37defd975c539427edb8f450cdbccdcdd552e213c1ece46676a7970905",
+      "lines": 7,
+      "category": "Communication and documentation",
+      "decision": "Blend",
+      "action": "Selected parts adapted",
+      "owner": "communicate-clearly",
+      "summary": "Re-explain using accessible wording and established domain terms.",
+      "reason": "Re-explain using accessible wording and established domain terms.",
+      "caution": "Use multilingual clarity instead of requiring full STE100 English.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "skills/productivity/teach/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/teach/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/in-progress/writing-shape/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-shape/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/in-progress/writing-beats/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-beats/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/in-progress/writing-fragments/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-fragments/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": ".agents/writing-docs.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/.agents/writing-docs.md",
+          "coverage": "Scope and format excerpts; project-specific publication conventions, not adopted."
+        }
+      ]
+    },
+    {
+      "id": "addy-osmani-documentation-and-adrs",
+      "key": "Addy Osmani/documentation-and-adrs",
+      "collection": "addy",
+      "name": "documentation-and-adrs",
+      "declaredName": "documentation-and-adrs",
+      "group": "Addy Osmani",
+      "author": "Addy Osmani",
+      "kind": "upstream",
+      "path": "skills/documentation-and-adrs/SKILL.md",
+      "repository": "https://github.com/addyosmani/agent-skills",
+      "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/documentation-and-adrs/SKILL.md",
+      "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+      "sha256": "359b22460045583b0233ec3f80223459c4096b0fa513f5c29ade9c3985207d65",
+      "lines": 288,
+      "category": "Communication and documentation",
+      "decision": "Blend",
+      "action": "Selected parts adapted",
+      "owner": "write-documentation",
+      "summary": "Verify documented behavior and preserve decision status, evidence and historical rationale.",
+      "reason": "Verify documented behavior and preserve decision status, evidence and historical rationale.",
+      "caution": "No default ADR for every change or copied framework-specific code.",
+      "inspection": "Complete file read",
+      "references": []
+    },
+    {
+      "id": "anthropic-doc-coauthoring",
+      "key": "Anthropic/doc-coauthoring",
+      "collection": "anthropic",
+      "name": "doc-coauthoring",
+      "declaredName": "doc-coauthoring",
+      "group": "Anthropic",
+      "author": "Anthropic",
+      "kind": "upstream",
+      "path": "skills/doc-coauthoring/SKILL.md",
+      "repository": "https://github.com/anthropics/skills",
+      "source": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/doc-coauthoring/SKILL.md",
+      "sha": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "sha256": "2e47d78846faeea4a56e9809c52700087a15a2155a3f293a3efbaded81398ef4",
+      "lines": 375,
+      "category": "Communication and documentation",
+      "decision": "Blend",
+      "action": "Idea adapted",
+      "owner": "write-documentation",
+      "summary": "A reader without author context can expose assumptions that local polish misses.",
+      "reason": "A reader without author context can expose assumptions that local polish misses.",
+      "caution": "Proportionate check, not mandatory multi-stage interviewing. No text copied; no skill-specific license declaration found.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "skills/internal-comms/SKILL.md",
+          "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/internal-comms/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "README.md",
+          "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/README.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/internal-comms/examples/3p-updates.md",
+          "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/internal-comms/examples/3p-updates.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/internal-comms/examples/company-newsletter.md",
+          "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/internal-comms/examples/company-newsletter.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/internal-comms/examples/faq-answers.md",
+          "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/internal-comms/examples/faq-answers.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/internal-comms/examples/general-comms.md",
+          "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/internal-comms/examples/general-comms.md",
+          "coverage": "Complete file read"
+        }
+      ]
+    },
+    {
+      "id": "siqi-chen-humanizer",
+      "key": "Siqi Chen/humanizer",
+      "collection": "blader",
+      "name": "humanizer",
+      "declaredName": "humanizer",
+      "group": "Siqi Chen",
+      "author": "Siqi Chen",
+      "kind": "upstream",
+      "path": "SKILL.md",
+      "repository": "https://github.com/blader/humanizer",
+      "source": "https://github.com/blader/humanizer/blob/e2e92e7b4b8229253ed5c8e81dc65463fdeddda5/SKILL.md",
+      "sha": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
+      "sha256": "14fc8a965b6e0a8dc100ba4dffeab55cb94bbac112abbde7e014d5c15a35c202",
+      "lines": 456,
+      "category": "Communication and documentation",
+      "decision": "Blend",
+      "action": "Existing contribution retained",
+      "owner": "communicate-clearly",
+      "summary": "Retain the local pattern catalog, voice calibration and false-positive protections inherited from humanize.",
+      "reason": "Retain the local pattern catalog, voice calibration and false-positive protections inherited from humanize.",
+      "caution": "Existing pinned baseline retained. Style is not authorship evidence; no detector-evasion promise.",
+      "inspection": "Existing source pin preserved from local humanize provenance; no fresh full upstream audit claimed.",
+      "references": []
+    },
+    {
+      "id": "matt-pocock-teach",
+      "key": "Matt Pocock/teach",
+      "collection": "matt",
+      "name": "teach",
+      "declaredName": "teach",
+      "group": "Matt Pocock",
+      "author": "Matt Pocock",
+      "kind": "upstream",
+      "path": "skills/productivity/teach/SKILL.md",
+      "repository": "https://github.com/mattpocock/skills",
+      "source": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/teach/SKILL.md",
+      "sha": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "sha256": "a32df9dcdfc0c4fdc1c98e1ed3940c5f56b84c1aa90ff60346f32b8b53915b43",
+      "lines": 140,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "Keep separate",
+      "owner": "Future teaching capability",
+      "summary": "Stateful lessons, learning records, practice and retention are a separate product.",
+      "reason": "Stateful lessons, learning records, practice and retention are a separate product.",
+      "caution": "Do not impose a course or persistent learning workspace on ordinary explanations.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "skills/productivity/wait-what/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/wait-what/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/in-progress/writing-shape/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-shape/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/in-progress/writing-beats/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-beats/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/in-progress/writing-fragments/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-fragments/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": ".agents/writing-docs.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/.agents/writing-docs.md",
+          "coverage": "Scope and format excerpts; project-specific publication conventions, not adopted."
+        }
+      ]
+    },
+    {
+      "id": "matt-pocock-writing-fragments",
+      "key": "Matt Pocock/writing-fragments",
+      "collection": "matt",
+      "name": "writing-fragments",
+      "declaredName": "writing-fragments",
+      "group": "Matt Pocock",
+      "author": "Matt Pocock",
+      "kind": "upstream",
+      "path": "skills/in-progress/writing-fragments/SKILL.md",
+      "repository": "https://github.com/mattpocock/skills",
+      "source": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-fragments/SKILL.md",
+      "sha": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "sha256": "298b0edd23df229183630de592ed8aa4289233560f2040691f6eb77caeaad4ea",
+      "lines": 79,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "Keep separate",
+      "owner": "Requested creative interview",
+      "summary": "Collects raw writing material through an interview.",
+      "reason": "Collects raw writing material through an interview.",
+      "caution": "Automatic writing guidance should not create or append to a persistent fragments file.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "skills/productivity/teach/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/teach/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/productivity/wait-what/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/wait-what/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/in-progress/writing-shape/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-shape/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/in-progress/writing-beats/SKILL.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/writing-beats/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": ".agents/writing-docs.md",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/.agents/writing-docs.md",
+          "coverage": "Scope and format excerpts; project-specific publication conventions, not adopted."
+        }
+      ]
+    },
+    {
+      "id": "anthropic-internal-comms",
+      "key": "Anthropic/internal-comms",
+      "collection": "anthropic",
+      "name": "internal-comms",
+      "declaredName": "internal-comms",
+      "group": "Anthropic",
+      "author": "Anthropic",
+      "kind": "upstream",
+      "path": "skills/internal-comms/SKILL.md",
+      "repository": "https://github.com/anthropics/skills",
+      "source": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/internal-comms/SKILL.md",
+      "sha": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "sha256": "067b7587a344a928fc6534ef66b1bcd591fc7c26d207ea7ca3334aeb678d6475",
+      "lines": 32,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "No separate adoption",
+      "owner": "communicate-clearly; report-work-activity",
+      "summary": "Company-style communication examples overlap the common writer and existing activity evidence workflow.",
+      "reason": "Company-style communication examples overlap the common writer and existing activity evidence workflow.",
+      "caution": "Do not force emojis, 3P format, executive popularity ranking or company-wide source gathering for every message.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "skills/doc-coauthoring/SKILL.md",
+          "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/doc-coauthoring/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "README.md",
+          "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/README.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/internal-comms/examples/3p-updates.md",
+          "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/internal-comms/examples/3p-updates.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/internal-comms/examples/company-newsletter.md",
+          "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/internal-comms/examples/company-newsletter.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/internal-comms/examples/faq-answers.md",
+          "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/internal-comms/examples/faq-answers.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/internal-comms/examples/general-comms.md",
+          "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/internal-comms/examples/general-comms.md",
+          "coverage": "Complete file read"
+        }
+      ]
+    },
+    {
+      "id": "compound-engineering-ce-explain",
+      "key": "Compound Engineering/ce-explain",
+      "collection": "compound",
+      "name": "ce-explain",
+      "declaredName": "ce-explain",
+      "group": "Compound Engineering",
+      "author": "Compound Engineering",
+      "kind": "upstream",
+      "path": "skills/ce-explain/SKILL.md",
+      "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+      "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-explain/SKILL.md",
+      "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "sha256": "fe1a05fa429338524374b2428bac9a0338a7e7c2f7ff4e1e510da123e834cafe",
+      "lines": 81,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "Keep current owners",
+      "owner": "how; why; report-work-activity",
+      "summary": "Evidence-backed explanations and recap modes already have local owners.",
+      "reason": "Evidence-backed explanations and recap modes already have local owners.",
+      "caution": "Do not import CE routing, model tiers or publication machinery into the prose layer.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "skills/ce-doc-review/SKILL.md",
+          "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-doc-review/SKILL.md",
+          "coverage": "Complete file read"
+        }
+      ]
+    },
+    {
+      "id": "compound-engineering-ce-doc-review",
+      "key": "Compound Engineering/ce-doc-review",
+      "collection": "compound",
+      "name": "ce-doc-review",
+      "declaredName": "ce-doc-review",
+      "group": "Compound Engineering",
+      "author": "Compound Engineering",
+      "kind": "upstream",
+      "path": "skills/ce-doc-review/SKILL.md",
+      "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+      "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-doc-review/SKILL.md",
+      "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "sha256": "0a1f44d7bd0014cd0e5b895dd8d152e865532ebf5d47504596fad552ec282a2f",
+      "lines": 75,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "Keep separate",
+      "owner": "Planning and specification review",
+      "summary": "Planning-document correctness is distinct from prose clarity.",
+      "reason": "Planning-document correctness is distinct from prose clarity.",
+      "caution": "Entrypoint read; supporting review workflow not audited or adopted.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "skills/ce-explain/SKILL.md",
+          "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-explain/SKILL.md",
+          "coverage": "Complete file read"
+        }
+      ]
+    },
+    {
+      "id": "ecc-i18n-sync",
+      "key": "ECC/i18n-sync",
+      "collection": "ecc",
+      "name": "i18n-sync",
+      "declaredName": "i18n-sync",
+      "group": "ECC",
+      "author": "ECC",
+      "kind": "upstream",
+      "path": "skills/i18n-sync/SKILL.md",
+      "repository": "https://github.com/affaan-m/ECC",
+      "source": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/i18n-sync/SKILL.md",
+      "sha": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "sha256": "05fc3e2ae72c2f55cc44fa0e9531688c1112081037d628e1124fd5bf40825325",
+      "lines": 141,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "Keep separate",
+      "owner": "Localization workflow",
+      "summary": "Context, terminology and protected placeholders matter; maintaining JSON locales is a separate operation.",
+      "reason": "Context, terminology and protected placeholders matter; maintaining JSON locales is a separate operation.",
+      "caution": "No Locakit dependency, hook, lockfile rewrite or localization certification.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "skills/article-writing/SKILL.md",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/article-writing/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "agents/doc-updater.md",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/agents/doc-updater.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/living-docs-governance/SKILL.md",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/living-docs-governance/SKILL.md",
+          "coverage": "Complete file read"
+        }
+      ]
+    },
+    {
+      "id": "ecc-living-docs-governance",
+      "key": "ECC/living-docs-governance",
+      "collection": "ecc",
+      "name": "living-docs-governance",
+      "declaredName": "living-docs-governance",
+      "group": "ECC",
+      "author": "ECC",
+      "kind": "upstream",
+      "path": "skills/living-docs-governance/SKILL.md",
+      "repository": "https://github.com/affaan-m/ECC",
+      "source": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/living-docs-governance/SKILL.md",
+      "sha": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "sha256": "e8c22a1f69743e256c6d6df138d99e49d22e29effbf008dfe2328b7fdc76247e",
+      "lines": 137,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "Keep separate",
+      "owner": "Repository documentation governance",
+      "summary": "Canonical ownership and current evidence are useful but a repository-wide governance system exceeds this task.",
+      "reason": "Canonical ownership and current evidence are useful but a repository-wide governance system exceeds this task.",
+      "caution": "Do not create constitution/map/status/history files or wire a host automatically.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "skills/article-writing/SKILL.md",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/article-writing/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "agents/doc-updater.md",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/agents/doc-updater.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/i18n-sync/SKILL.md",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/i18n-sync/SKILL.md",
+          "coverage": "Complete file read"
+        }
+      ]
+    },
+    {
+      "id": "ecc-article-writing",
+      "key": "ECC/article-writing",
+      "collection": "ecc",
+      "name": "article-writing",
+      "declaredName": "article-writing",
+      "group": "ECC",
+      "author": "ECC",
+      "kind": "upstream",
+      "path": "skills/article-writing/SKILL.md",
+      "repository": "https://github.com/affaan-m/ECC",
+      "source": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/article-writing/SKILL.md",
+      "sha": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "sha256": "4aa61709450a2148ef4036896d870da748e93ad68528bb7679b74f3597ffb021",
+      "lines": 80,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "Covered",
+      "owner": "communicate-clearly",
+      "summary": "Reader, supplied voice and evidence are covered by the selected common owner.",
+      "reason": "Reader, supplied voice and evidence are covered by the selected common owner.",
+      "caution": "No mandatory newsletter/operator voice or separate brand-profile system.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "agents/doc-updater.md",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/agents/doc-updater.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/i18n-sync/SKILL.md",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/i18n-sync/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/living-docs-governance/SKILL.md",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/living-docs-governance/SKILL.md",
+          "coverage": "Complete file read"
+        }
+      ]
+    },
+    {
+      "id": "ecc-doc-updater",
+      "key": "ECC/doc-updater",
+      "collection": "ecc",
+      "name": "doc-updater",
+      "declaredName": "doc-updater",
+      "group": "ECC",
+      "author": "ECC",
+      "kind": "upstream",
+      "path": "agents/doc-updater.md",
+      "repository": "https://github.com/affaan-m/ECC",
+      "source": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/agents/doc-updater.md",
+      "sha": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "sha256": "5018d3a0bf740d2263fd4b7a92412d53a62d4be151a71221d6549cacba62d72c",
+      "lines": 116,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "Covered",
+      "owner": "write-documentation",
+      "summary": "Checks examples, links and current code.",
+      "reason": "Checks examples, links and current code.",
+      "caution": "No proactive codemap system, model persona or framework-specific command assumptions.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "skills/article-writing/SKILL.md",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/article-writing/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/i18n-sync/SKILL.md",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/i18n-sync/SKILL.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "skills/living-docs-governance/SKILL.md",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/living-docs-governance/SKILL.md",
+          "coverage": "Complete file read"
+        }
+      ]
+    },
+    {
+      "id": "gsd-doc-writer",
+      "key": "GSD/doc-writer",
+      "collection": "gsd",
+      "name": "doc-writer",
+      "declaredName": "doc-writer",
+      "group": "GSD",
+      "author": "GSD",
+      "kind": "upstream",
+      "path": "src/resources/agents/doc-writer.md",
+      "repository": "https://github.com/gsd-build/gsd-2",
+      "source": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/agents/doc-writer.md",
+      "sha": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "sha256": "aacc8d0f81715d355cf929149af58a7610fbff315bb58a53cc1a67cc9bcd9fd3",
+      "lines": 43,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "Covered",
+      "owner": "write-documentation",
+      "summary": "Small source-aware documentation role validates examples and follows existing style.",
+      "reason": "Small source-aware documentation role validates examples and follows existing style.",
+      "caution": "No new agent persona or fixed final-response format required.",
+      "inspection": "Complete file read",
+      "references": []
+    },
+    {
+      "id": "jeff-allan-code-documenter",
+      "key": "Jeff Allan/code-documenter",
+      "collection": "jeffallan",
+      "name": "code-documenter",
+      "declaredName": "code-documenter",
+      "group": "Jeff Allan",
+      "author": "Jeff Allan",
+      "kind": "upstream",
+      "path": "skills/code-documenter/SKILL.md",
+      "repository": "https://github.com/Jeffallan/claude-skills",
+      "source": "https://github.com/Jeffallan/claude-skills/blob/1be15d8064f88fc25216442406d40add8fd23b53/skills/code-documenter/SKILL.md",
+      "sha": "1be15d8064f88fc25216442406d40add8fd23b53",
+      "sha256": "c317493f9b94df59ccb48a6783492bcb48e7f1c3d5299ed44718bd568eb8cdb0",
+      "lines": 156,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "Covered",
+      "owner": "write-documentation",
+      "summary": "API and guide documentation checks overlap the selected specialist.",
+      "reason": "API and guide documentation checks overlap the selected specialist.",
+      "caution": "Entrypoint read; framework references not adopted. No mandatory annotation of every public function.",
+      "inspection": "Complete file read",
+      "references": []
+    },
+    {
+      "id": "lobehub-write-landing-docs",
+      "key": "LobeHub/write-landing-docs",
+      "collection": "lobe",
+      "name": "write-landing-docs",
+      "declaredName": "write-landing-docs",
+      "group": "LobeHub",
+      "author": "LobeHub",
+      "kind": "upstream",
+      "path": ".agents/skills/write-landing-docs/SKILL.md",
+      "repository": "https://github.com/lobehub/lobehub",
+      "source": "https://github.com/lobehub/lobehub/blob/aaeb8fbc47dde8a43211c9abec8fde440ff14d1c/.agents/skills/write-landing-docs/SKILL.md",
+      "sha": "aaeb8fbc47dde8a43211c9abec8fde440ff14d1c",
+      "sha256": "853138365a4dc1113a7beda23eff65710f62dbb659ab10382f6e11b21921c37b",
+      "lines": 18,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "Covered; project-specific",
+      "owner": "write-documentation",
+      "summary": "Current facts, canonical pages, visible outcomes and locale/link maintenance are relevant.",
+      "reason": "Current facts, canonical pages, visible outcomes and locale/link maintenance are relevant.",
+      "caution": "Do not import LobeHub paths, exact glossary, brand voice ratios or bilingual defaults.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": ".agents/skills/write-landing-docs/references/self-hosting.md",
+          "url": "https://github.com/lobehub/lobehub/blob/aaeb8fbc47dde8a43211c9abec8fde440ff14d1c/.agents/skills/write-landing-docs/references/self-hosting.md",
+          "coverage": "Complete file read"
+        },
+        {
+          "path": "DESIGN.md",
+          "url": "https://github.com/lobehub/lobehub/blob/aaeb8fbc47dde8a43211c9abec8fde440ff14d1c/DESIGN.md",
+          "coverage": "Voice & Content section and adjacent style context only."
+        }
+      ]
+    },
+    {
+      "id": "vercel-writing-guidelines",
+      "key": "Vercel/writing-guidelines",
+      "collection": "vercel",
+      "name": "writing-guidelines",
+      "declaredName": "writing-guidelines",
+      "group": "Vercel",
+      "author": "Vercel",
+      "kind": "upstream",
+      "path": "skills/writing-guidelines/SKILL.md",
+      "repository": "https://github.com/vercel-labs/agent-skills",
+      "source": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/skills/writing-guidelines/SKILL.md",
+      "sha": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "sha256": "89a5f581193289b80af58b980090aeed535047c8df2b55ccbaae0de40283a99d",
+      "lines": 39,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "No direct adoption",
+      "owner": "communicate-clearly; write-documentation",
+      "summary": "Linked guide was inspected at a separate fixed SHA, including second-read and example-accuracy checks.",
+      "reason": "Linked guide was inspected at a separate fixed SHA, including second-read and example-accuracy checks.",
+      "caution": "Its Vercel metadata, English limits, curly quotes, TypeScript defaults and compulsory editorial workflow conflict with a portable default.",
+      "inspection": "Complete file read",
+      "references": []
+    },
+    {
+      "id": "wshobson-avoid-ai-writing",
+      "key": "wshobson/avoid-ai-writing",
+      "collection": "wshobson",
+      "name": "avoid-ai-writing",
+      "declaredName": "avoid-ai-writing",
+      "group": "wshobson",
+      "author": "wshobson",
+      "kind": "upstream",
+      "path": "plugins/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md",
+      "repository": "https://github.com/wshobson/agents",
+      "source": "https://github.com/wshobson/agents/blob/3b5d3085489966d028f6578ae163f5a35fd6e17a/plugins/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md",
+      "sha": "3b5d3085489966d028f6578ae163f5a35fd6e17a",
+      "sha256": "3b0940b0014a64aaff405f367e44241095c96856cabcd0a01adf0ec33bbc1a66",
+      "lines": 64,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "Covered",
+      "owner": "communicate-clearly",
+      "summary": "Pattern repair and false-positive cautions overlap the existing fuller local catalog.",
+      "reason": "Pattern repair and false-positive cautions overlap the existing fuller local catalog.",
+      "caution": "No keyword-count quotas, mandatory output audit or unsupported authorship conclusions.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "plugins/documentation-generation/agents/docs-architect.md",
+          "url": "https://github.com/wshobson/agents/blob/3b5d3085489966d028f6578ae163f5a35fd6e17a/plugins/documentation-generation/agents/docs-architect.md",
+          "coverage": "Complete file read"
+        }
+      ]
+    },
+    {
+      "id": "wshobson-docs-architect",
+      "key": "wshobson/docs-architect",
+      "collection": "wshobson",
+      "name": "docs-architect",
+      "declaredName": "docs-architect",
+      "group": "wshobson",
+      "author": "wshobson",
+      "kind": "upstream",
+      "path": "plugins/documentation-generation/agents/docs-architect.md",
+      "repository": "https://github.com/wshobson/agents",
+      "source": "https://github.com/wshobson/agents/blob/3b5d3085489966d028f6578ae163f5a35fd6e17a/plugins/documentation-generation/agents/docs-architect.md",
+      "sha": "3b5d3085489966d028f6578ae163f5a35fd6e17a",
+      "sha256": "435520e293fa4b997a39b7455d7131351598f4cbaf4813135ab5182e6554005b",
+      "lines": 78,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "Covered",
+      "owner": "write-documentation",
+      "summary": "Progressive explanation and current-source grounding are already selected.",
+      "reason": "Progressive explanation and current-source grounding are already selected.",
+      "caution": "No prescribed 10-100-page output or automatic documentation architecture.",
+      "inspection": "Complete file read",
+      "references": [
+        {
+          "path": "plugins/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md",
+          "url": "https://github.com/wshobson/agents/blob/3b5d3085489966d028f6578ae163f5a35fd6e17a/plugins/avoid-ai-writing/skills/avoid-ai-writing/SKILL.md",
+          "coverage": "Complete file read"
+        }
+      ]
+    },
+    {
+      "id": "allen-eubank-dissolve-docs",
+      "key": "Allen Eubank/dissolve-docs",
+      "collection": "alleneubank",
+      "name": "dissolve-docs",
+      "declaredName": "dissolve-docs",
+      "group": "Allen Eubank",
+      "author": "Allen Eubank",
+      "kind": "upstream",
+      "path": "plugins/agent-workflows/skills/dissolve-docs/SKILL.md",
+      "repository": "https://github.com/alleneubank/agent-profile",
+      "source": "https://github.com/alleneubank/agent-profile/blob/5165b1f1122a4fa888347c6046d10593033748e8/plugins/agent-workflows/skills/dissolve-docs/SKILL.md",
+      "sha": "5165b1f1122a4fa888347c6046d10593033748e8",
+      "sha256": "8559db4130c6ea28318415d5f6d2e5eaeaafb5a9409b9f967a8034a873ffb64d",
+      "lines": 103,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "Not adopted",
+      "owner": "Separate cleanup task",
+      "summary": "Canonical content can reduce drift, but deletion and consolidation are a distinct user-authorized change.",
+      "reason": "Canonical content can reduce drift, but deletion and consolidation are a distinct user-authorized change.",
+      "caution": "Do not delete historical decisions, promote code into policy, or require VISION/BRIEF/SPEC.",
+      "inspection": "Complete file read",
+      "references": []
+    },
+    {
+      "id": "humanizerai-humanize",
+      "key": "HumanizerAI/humanize",
+      "collection": "humanizerai",
+      "name": "humanize",
+      "declaredName": "humanize",
+      "group": "HumanizerAI",
+      "author": "HumanizerAI",
+      "kind": "upstream",
+      "path": "skills/humanize/SKILL.md",
+      "repository": "https://github.com/humanizerai/agent-skills",
+      "source": "https://github.com/humanizerai/agent-skills/blob/307912e3acdc24e61c3c945f6b28b3ed13aba6af/skills/humanize/SKILL.md",
+      "sha": "307912e3acdc24e61c3c945f6b28b3ed13aba6af",
+      "sha256": "61115d7795d7395076998ebc78c5636802aff22c5895e4b6b099eaaee53c1245",
+      "lines": 91,
+      "category": "Communication and documentation",
+      "decision": "Skip",
+      "action": "Retired source feed",
+      "owner": "No runtime owner",
+      "summary": "Historical local provenance referenced its API modes; the preserved local implementation does not depend on them.",
+      "reason": "Historical local provenance referenced its API modes; the preserved local implementation does not depend on them.",
+      "caution": "No paid API, credits, intensity workflow, scoring or promise to evade AI detectors.",
+      "inspection": "Complete file read",
+      "references": []
+    }
+  ],
+  "primaryGuidance": [
+    {
+      "url": "https://www.iso.org/standard/78907.html",
+      "coverage": "Public abstract only; full ISO 24495-1 standard not read.",
+      "use": "Plain-language principles applicable across written languages."
+    },
+    {
+      "url": "https://www.asd-ste100.org/about_STE.html",
+      "supportingUrl": "https://www.asd-ste100.org/STE_faq.html",
+      "coverage": "Official search-indexed descriptions; direct about-page access returned 403. Full Issue 9 standard not read.",
+      "use": "Transfer clarity principles, without English dictionary/grammar/word limits or compliance claims."
+    },
+    {
+      "url": "https://diataxis.fr/",
+      "coverage": "Public overview.",
+      "use": "Documentation structure by reader need, including section-level application."
+    },
+    {
+      "url": "https://developers.google.com/tech-writing/one/audience",
+      "coverage": "Opening guidance and audience variables.",
+      "use": "Explain the reader's knowledge gap."
+    }
+  ],
+  "validation": "communication-validation.json"
+}

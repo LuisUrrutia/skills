@@ -1,0 +1,49 @@
+format_version = 1
+skill = "why"
+created = "2026-10-03"
+approach = "Standalone derivation of historical investigation. Source skills supply ideas, not installed or invoked runtime dependencies."
+
+[[sources]]
+id = "pstack-why"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/why/SKILL.md", "pstack/skills/why/references/epistemics.md", "pstack/skills/why/references/investigator-prompt.md", "pstack/skills/why/references/synthesizer-prompt.md", "pstack/skills/why/references/source-playbook.md", "pstack/skills/why/references/sources/code-archaeology.md", "pstack/skills/why/references/sources/incident-postmortem.md", "pstack/LICENSE"]
+paths = ["pstack/skills/why/SKILL.md", "pstack/skills/why/references/epistemics.md", "pstack/skills/why/references/investigator-prompt.md", "pstack/skills/why/references/synthesizer-prompt.md", "pstack/skills/why/references/source-playbook.md", "pstack/skills/why/references/sources/code-archaeology.md", "pstack/skills/why/references/sources/incident-postmortem.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Anchor the question in actual code, then follow history and relevant linked records.",
+  "Distinguish documented motivation, indirect evidence, speculation, and unknowns; test the user's hypothesis independently.",
+  "Trace introduction through later edits and renames instead of treating the last-touch commit as the origin.",
+  "Preserve contradictions, precise citations, meaningful search coverage, and missing evidence.",
+  "Consider incident and measurement history when it bears on the decision.",
+  "Carry supported constraints into planning when the question prepares an authorized change."
+]
+local_choices = [
+  "Investigate directly with optional authorized delegation; no required agents, model table, Cursor Task API, or forced write-capable execution mode.",
+  "Keep a brief activation description and default discoverability; no Cursor-only invocation flag.",
+  "Select sources by the question and concrete leads; no seven-category sweep, vendor-specific connector dependency, or proof of irrelevance to skip a category.",
+  "Treat Git and remote access as capabilities to verify, not guaranteed prerequisites.",
+  "Use a recorded reason, supported inference, or unknown for each claim without requiring the donor's five tiers or fixed report sections.",
+  "An explicit statement establishes an attributed historical account, not present necessity, team consensus, or successful results.",
+  "Resolve conflicting sources when dates and scope establish a changed decision; retain unresolved contradictions rather than forcing either a winner or permanent ambiguity.",
+  "Do not treat tests, replicated statements, code shape, or a post-release metric change as independent proof of original intent or causation.",
+  "Keep historical rationale distinct from current validity; removing an old constraint does not establish that code is redundant.",
+  "Ground replacement advice in verified caller contracts, including asynchronous returns; an internal mechanism change need not change the public interface.",
+  "Keep ordinary use read-only, with no repairs, teaching records, author contact, or publication; requested explanatory artifacts retain their agreed scope.",
+  "Use conditional Git guidance for last-touch edits, renames, inline review coverage, explicit repository context, and incomplete history.",
+  "A supplied snapshot does not inherit access to an enclosing repository's index or history; honor the target's evidence boundary.",
+  "Stop when the question and material contrary evidence are resolved or remaining leads cannot be pursued within scope; report the actual limit."
+]
+reviews = [
+  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+]
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested source maintenance and skill authoring; ordinary investigation has no skill dependency."

@@ -1,0 +1,47 @@
+format_version = 1
+skill = "verification-authoring"
+created = "2026-10-03"
+approach = "Derive pstack creation and maintenance into one authoring owner, with agent-instructions composition and host-local packaging."
+
+[[sources]]
+id = "pstack-verification"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/create-verification-skill/SKILL.md", "pstack/skills/maintain-verification-skill/SKILL.md", "pstack/skills/create-verification-skill/references/feature-map-example/README.md", "pstack/skills/create-verification-skill/references/feature-map-example/create-note.md", "pstack/skills/create-verification-skill/references/feature-map-example/search.md", "pstack/LICENSE"]
+paths = ["pstack/skills/create-verification-skill/SKILL.md", "pstack/skills/maintain-verification-skill/SKILL.md", "pstack/skills/create-verification-skill/references/feature-map-example/README.md", "pstack/skills/create-verification-skill/references/feature-map-example/create-note.md", "pstack/skills/create-verification-skill/references/feature-map-example/search.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Discover Surface, Run, Drive, Observe and Isolate from the repository before writing commands.",
+  "Project-local verify-<app> with Launch, Doctor, Drive, Evidence, Cleanup and Helpers.",
+  "Feature map with source-grounded user entry points, real action and result proof, independently observed side effects, and evidence that survives cleanup.",
+  "Creation proves one mapped feature; maintenance covers every feature from source and live, with separate readers and one mutable driver.",
+  "Distinguish recipe drift, harness gaps and product defects; bounded doctor repair and ownership-aware cleanup on every attempt."
+]
+local_choices = [
+  "Common verify owns selection, scope and result claims; project-local verify-<app> owns executable application procedures. verification-authoring owns creation and maintenance.",
+  "Resolve the target host and local skill location; do not require Cursor, tmux, a fixed browser tool or a global installation.",
+  "Use agent-instructions by registered name for authoring. Keep general writing rules with that owner.",
+  "Product repair, dependency installation, commits, PRs and scheduling follow the active caller and repository rules; maintenance does not automatically publish.",
+  "Unreachable routes are blocked behavior coverage, with the attempted route and concrete missing prerequisite; they are not a behavioral pass.",
+  "Direct source review is an explicit disclosed fallback when independent workers cannot run and the caller permits it.",
+  "A bundled read-only map validator checks links and section structure; source and live proof still establish correctness."
+]
+reviews = [
+  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+]
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = true
+role = "General instruction writing, packaging and requested upstream maintenance."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Route to execution when only verification is requested."

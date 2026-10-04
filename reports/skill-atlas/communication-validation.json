@@ -1,0 +1,1745 @@
+{
+  "date": "2026-10-04",
+  "status": "passed",
+  "summary": "Both independent instruction profiles completed at Max and material findings were reconciled. Six matched supplied-context cases per arm passed: five multilingual prose tasks and one executed documentation fixture. A new reserved rewrite pair also passed against the final candidate. Both versions passed; no measured quality advantage or host activation is claimed.",
+  "baselineCommit": "63dbdf9e43a54d4afe23d6f48473647a108be1a3",
+  "consultation": {
+    "date": "2026-10-04",
+    "rounds": [
+      {
+        "round": 1,
+        "candidate": ".tmp/clear-communication/review-r1",
+        "reviews": [
+          {
+            "provider": "codex",
+            "model": "gpt-6-astra",
+            "effort": "max",
+            "task": "/root/communication_astra_review_r1",
+            "runtimeEvidence": "Native spawn explicitly selected gpt-6-astra/max/fork_turns none; worker distinguished parent launch metadata from unavailable self-verification.",
+            "coverage": "Complete context, manifest, ten candidate files and four baseline files; candidate hashes matched.",
+            "findings": [
+              {
+                "id": "A1",
+                "finding": "Review no longer explicitly reads complete target or routes semantic-drift comparisons through FIDELITY."
+              },
+              {
+                "id": "A2",
+                "finding": "Authorized additions conflict with default expansion and completion mapping."
+              },
+              {
+                "id": "A3",
+                "finding": "Inherited policy example adds an approval threshold absent from the source."
+              }
+            ],
+            "other": "No material write-documentation defect, dependency loop, authority expansion or additional editorial recommendation."
+          },
+          {
+            "provider": "claudeAgent",
+            "model": "claude-fable-5-1",
+            "effort": "max",
+            "taskId": "node:delegated-task:command%3Amcp%3Abfaa801b-7e17-430c-bf95-57ae4b3e3af0%3Adelegate-task%3Acommunication-fable-max-review-20261004-r1",
+            "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253Abfaa801b-7e17-430c-bf95-57ae4b3e3af0%253Adelegate-task%253Acommunication-fable-max-review-20261004-r1:ordinal:1",
+            "result": "Review complete. Verdict first: the conversion preserves the baseline's fidelity contract, catalog, and false-positive safeguards, and the new material is well bounded on authority. I found five items to fix before merge, none large, plus nine recommended one-sentence improvements and some optional ones. No dependency loop, no unsupported source claim, no scope grab.\n\n## Coverage and model\n\nModel: Claude Fable 5.1, ID `claude-fable-5-1`, reasoning effort max, as reported by this session's runtime metadata. I cannot verify the runner configuration beyond that. I ran as the review sub-agent in a fresh context. No files were edited, staged, committed, or installed, nothing was delegated, and no network or donor code was used. I did not open any other reviewer output.\n\nRead in full:\n- The context, the manifest, and all ten manifest files. All checksums match, the live candidate directories are byte-identical to the snapshot, and no unlisted files exist.\n- All four baseline files. The candidate catalog was verified as baseline plus a one-line diff at line 22 rather than read twice.\n- The caller diffs for the commit and pr skills, their origin files, and the publication index.\n- The repo's authoring rules in `agent-instructions`: the skill file, `references/skills.md`, `references/writing.md`, and the first sixty lines of `references/upstream-updates.md`. Schema samples from `how/origin.txt` and the reference-document block of `accessibility/origin.txt`.\n\nNot read: anything under `reports/` or `*/evals/` beyond grep hit names, since they may be fixtures; the live `humanize/` copy beyond confirming it exists; README beyond its heading list; donor repositories.\n\n## Material defects\n\n1. **Fidelity removal step weakened and ambiguous.** `communicate-clearly/FIDELITY.md:41`\n   - Consequence: the baseline's explicit list, fact, measurement, example, interpretation, or precision, became \"unsupported additions\". That drops the two drift modes hardest to notice, fabricated precision and added interpretation. \"source added facts\" also parses two ways, as the verb \"cite\" or as \"facts the source added\".\n   - Correction: \"Remove any new fact, measurement, example, interpretation, or precision that neither the source nor the user supplied. When the user has authorized new research or examples, cite each added fact and label illustrative examples as such.\" Optionally change \"supplied material\" at line 44 to \"supplied or authorized, cited material\".\n   - Reasoning: the context forbids weakening fidelity. The enumerated list is the operative test, and the authorization path fits beside it.\n\n2. **Quotation-mark rule undefined for Latin-script languages.** `communicate-clearly/SKILL.md:63-66`\n   - Consequence: \"Latin quotation marks\" can mean the curly English pair or any mark used in a Latin-script language. Under the second reading French, German, Spanish, and Polish prose lose `« »` and `„ “`, which contradicts line 59 and the mixed-punctuation artifact in catalog section 14. The rule also no longer says whether existing curly marks are converted during a file edit, which the baseline stated.\n   - Correction, recommended reading: \"In prose you write or edit, use straight ASCII quotation marks and apostrophes in place of the curly English pair. Keep the destination language's own marks, such as `« »`, `„ “`, or `「 」`, when they are its convention, and keep exact characters in protected text.\" The opposite decision is acceptable only if stated as explicitly.\n   - Reasoning: this is the one always-on rule touching every non-English document, under a headline of \"prose in any language\". Catalog section 6 already describes the tell as curly quotes in plain text, which supports the curly-pair reading.\n\n3. **Cross-file contract drift after removing modes and the completion gate.** `communicate-clearly/REFERENCE.md:3`, `:7`, `:342-350` against `communicate-clearly/SKILL.md:84-88`\n   - Consequence: the catalog still says the skill file owns \"output contracts, and completion gate\" and routes by backticked `review`, `rewrite`, `edit` modes that no longer exist. Its rubric still prescribes a Low, Medium, or High concern level while the skill file says only \"without an AI-authorship score\", so some runs will emit the level and others will not. The baseline's required disclaimer that the level describes prose rather than authorship now has no home in the deliverable.\n   - Correction: add to \"Check and deliver\": \"A writing-pattern review may state the catalog's overall concern level; when it does, say the level describes the prose, not its authorship.\" Change catalog line 3 to \"owns the workflow and delivery rules\" and line 7 to the skill file's vocabulary.\n   - Reasoning: dropping templates is permitted by the packaging rules, but the writing rules require one authoritative home per rule, and the disclaimer was false-positive protection.\n\n4. **Provenance files fork the repository's `origin.txt` format.** `communicate-clearly/origin.txt:1-4`, `:9`, `:24`, `:39`, `:54`, `:66-85` and `write-documentation/origin.txt:1-4`, `:9`, `:24`, `:39`, `:54`, `:66-92`\n   - Consequence: every other origin file opens with `format_version`, `created`, `approach`; these two use `schema_version`, `strategy`, `runtime`. The documented format defines `repository` as a human URL, yet all new source entries except the blader one use the `owner/repo` short form, so each file is also inconsistent with itself. `[[guidance]]` duplicates the `[[reference_documents]]` block already used by the accessibility skill with different keys. I found no script that parses these files, so this breaks maintenance expectations rather than tooling.\n   - Correction: header to `format_version = 1`, `skill`, `created = \"2026-10-04\"`, `approach` carrying the strategy and runtime sentences; full URLs in `repository`; rename `[[guidance]]` to `[[reference_documents]]` with `url`, `checked`, `role`, folding the honest coverage notes into `role` or keeping `coverage` as an extra key.\n   - Reasoning: `agent-instructions/references/upstream-updates.md:26` names the agent-instructions origin file as the concrete example and line 40 defines the URL field. These files are new, so alignment costs nothing now and avoids a third schema later.\n\n5. **Old entrypoint still present.** `humanize/SKILL.md` exists in the working tree and the status output shows no deletion.\n   - Consequence: until removed, two always-on skills with overlapping descriptions compete and now disagree, for example on quotation-mark scope and authorized examples. A grep hit at `reports/arena-validation.json:8` still names the old skill; I did not open that file.\n   - Correction: delete the old directory in the same change and decide whether the report entry is a historical record to keep or a live index to update.\n   - Reasoning: the context plans removal rather than two automatic entrypoints. This is a pending step, not a defect in the candidate text.\n\n## Recommended and optional\n\nRecommended, each a one-sentence change:\n\n- **STE sentence reads as an English-only exemption.** `communicate-clearly/SKILL.md:60-62` forbids imposing the dictionary, tense rules, or word limits \"on other languages\", which implies they apply to English, while the origin file promises no sentence caps for any language. If principles-only is the intent, write \"Do not impose its controlled dictionary, tense rules, or sentence-length limits in any language, and do not claim STE compliance\", and expand the first mention as \"ASD-STE100, Simplified Technical English\". Your global instructions use the English-exempt phrasing, so this may be intended; state it either way.\n- **Language of a rewrite is never fixed.** Add at `communicate-clearly/SKILL.md:14-17`: \"A rewrite keeps the source's language and regional variety unless translation is requested; findings and change notes use the conversation's language.\" The baseline lacked this too, but the candidate now leads with \"any language\".\n- **Punctuation-relationship rule lost from the always-on file.** The baseline kept colon and dash guidance in its workflow at line 56; the candidate keeps it only in catalog section 6, which loads on demand. Add to \"Make it natural\": \"Let punctuation show the relationship between ideas; do not use a colon or dash as an all-purpose connector.\"\n- **Documentation verification does not scale down.** `write-documentation/SKILL.md:58-61` requires following the documented path for every change, while lines 17-18 exempt small corrections from planning. Write \"Follow the documented path your change affects, in order\", matching the narrow-correction rule in the agent-instructions skill.\n- **Titles and proper names dropped from the protected list.** The baseline protected them at line 25; `communicate-clearly/SKILL.md:28` and catalog section 19 do not. Add \"titles, proper names,\".\n- **Reader pass lost \"without the source in view\".** Baseline line 63 against `communicate-clearly/SKILL.md:78`. The documentation skill keeps the equivalent at line 70; mirror it.\n- **Voice-sample guard lost \"without mechanical imitation\".** Baseline gate line 98 against `communicate-clearly/SKILL.md:16-17`, which now guards only against invented facts. Write \"Use supplied voice samples for rhythm, vocabulary, and register without copying their tics or inventing the author's experiences, opinions, or facts.\"\n- **English assumed as the documentation source.** `write-documentation/SKILL.md:82-83` says \"translating English syntax\"; use \"the source language's syntax\".\n- **Review loading condition for the fidelity file.** `communicate-clearly/FIDELITY.md:3` still offers drift comparison during review, but the review bullet at lines 24-25 never says when to load it; the baseline did at line 23. Add \"read FIDELITY.md when comparing versions for drift\".\n\nOptional editorial, owner's call:\n\n- The description no longer contains \"humanize\" as a trigger word. A \"humanize this\" request still matches rewriting prose with AI-sounding patterns, so the risk is low.\n- `write-documentation/origin.txt:16` copies the cursor `borrowed` text verbatim from the other file, including \"a final naturalness pass\" that this skill defers elsewhere; tighten it to what was borrowed.\n- The humanizerai provenance from the baseline sources file disappears without a note. One `local_choices` line recording its retirement keeps the trail where maintainers will look.\n- \"Retain this collection's straight ASCII preference\" has no referent once the skill is installed alone; state the rule directly.\n- `communicate-clearly/SKILL.md:92` tells an always-on skill to load specialists, which duplicates their own description-based activation. \"When a specialist is active, its procedure governs and this skill governs the prose\" avoids that; the current wording is harmless because of the \"if already active\" guard.\n- `write-documentation/SKILL.md:10` runs well past the file's wrap width, a sign of a late insertion; rewrap.\n- The package mixes root-level `REFERENCE.md` and `FIDELITY.md` with a new `references/` directory, while nearly every other skill uses `references/` only. Moving them is a pure rename, not required.\n\nChecked and sound:\n\n- **Dependency loops:** none. The two new skills reference each other optionally with guards on both sides, the commit and pr skills call the prose skill without a \"not already active\" guard but every dependency entry is `required = false`, and `how`, `why`, and `agent-instructions` exist without pointing back.\n- **Authority:** writing controls expression only, drafting never authorizes sending or publishing, no profile is persisted, confidentiality conflicts are reported, and a documentation request never authorizes production operations or new platforms.\n- **Source claims:** both origin files state the limited coverage of the ISO and ASD material honestly, Diataxis is named without copied text, the Anthropic idea credit states the missing license, and MIT notices for all five borrowed repositories are present. Copyright years were not verifiable offline.\n- **Fidelity and voice:** the catalog differs from baseline only by the planned supported-detail line, the rewrite-versus-summary rule is explicit in both the skill file and the fidelity file, and false-positive protection is retained or strengthened, including the new sentence that removing stock phrasing must not flatten personality into corporate prose.\n- **Caller renames:** consistent across both skill files, both origin files, and the publication index, with no behavior change beyond the name."
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "candidate": ".tmp/clear-communication/review-r2",
+        "reviews": [
+          {
+            "provider": "codex",
+            "model": "gpt-6-astra",
+            "effort": "max",
+            "task": "/root/communication_astra_review_r2",
+            "coverage": "Full frozen packages and r1/r2 diff; all hashes, source manifest format and local pointers checked. No fixtures, network or host installation checked.",
+            "result": "R1 resolved. Three inherited examples contradict fidelity: FIDELITY drops the known user actor; onboarding adds now without source timing; Spanish moderation drops internal scope. No other concrete unresolved defect in rules or documentation package."
+          },
+          {
+            "provider": "claudeAgent",
+            "model": "claude-fable-5-1",
+            "effort": "max",
+            "taskId": "node:delegated-task:command%3Amcp%3Abfaa801b-7e17-430c-bf95-57ae4b3e3af0%3Adelegate-task%3Acommunication-fable-max-review-20261004-r2",
+            "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253Abfaa801b-7e17-430c-bf95-57ae4b3e3af0%253Adelegate-task%253Acommunication-fable-max-review-20261004-r2:ordinal:1",
+            "runtimeEvidence": "Parent explicit target options effort=max; reviewer reports model from runtime but cannot independently verify effort.",
+            "result": "**Verdict:** revision 2 resolves every reconciled finding, and I found no unresolved concrete defect in the frozen candidate text. Nothing blocks merge. A few optional wording notes follow, none required.\n\n## Coverage and integrity\n\nI ran as Claude Fable 5.1, model ID `claude-fable-5-1`, per this session's runtime metadata. I cannot verify the launch settings beyond that. No files were edited, nothing was delegated, no network was used, and no donor code ran.\n\nRead in full: the r2 context, manifest, and reconciliation, all ten manifest files, the four baseline humanize files, the repository's provenance format reference and skill and writing rules, the live caller diffs, and sample origin files. All ten manifest hashes match, no unlisted files exist, and the live `communicate-clearly` and `write-documentation` directories are byte-identical to the r2 snapshot. The old `humanize` directory is deleted in the working tree. The r1 to r2 comparison was done at paragraph level, so rewrapping did not hide meaning changes. The reference and document-types files are unchanged from r1.\n\nNot inspected: trial fixtures, the other r2 review, anything under `reports/`, and the README beyond a name grep. The ISO, ASD, Diataxis, and Google reference pages were not fetched, and the research index covers repositories only, so those URLs are unverified here.\n\n## Resolution of reconciled findings\n\n- **A1 and F-R9.** `communicate-clearly/SKILL.md:26-27` reads the complete target for review and routes drift comparison to the fidelity file, matching `FIDELITY.md:3`.\n- **A2 and F1.** `FIDELITY.md:7` expands only by unpacking unless additions are authorized. Line 41 restores the fact, measurement, example, interpretation, and precision list and splits the authorized-addition sentence, so the old \"source added facts\" ambiguity is gone. Lines 44-47 complete the pass only when each claim maps to supplied material or an explicitly authorized addition. `SKILL.md:56` and `REFERENCE.md:22` agree.\n- **A3.** The chatbot-residue example at `REFERENCE.md:137` now supplies the approval threshold in the Before text.\n- **F2.** `SKILL.md:70-74` replaces English-style curly marks with straight ASCII in prose you write or edit, and preserves protected text and language-specific forms. The catalog's section 6 tactic still defers to that single home. The German pair is named explicitly, so its shared closing code point cannot be mistaken for an English mark.\n- **F3.** `REFERENCE.md:3` and `:7` use the skill file's vocabulary. The rubric at line 144 makes the concern level optional, and `SKILL.md:96-97` requires the prose-not-authorship statement whenever it is used.\n- **F4.** Both origin files use the shared header keys, full repository URLs that match their SSH remotes, and `reference_documents` with the accessibility file's keys plus `id` and `coverage`. Dependency keys match all other origin files. Both notices files use full URLs with pinned blob links.\n- **F5 and caller renames.** `commit` and `pr` skill files and origin files and `skills.sh.json` now name `communicate-clearly`, all with `required = false`. Remaining \"humanize\" strings in the live tree are the blader repository URL and one historical note. Reports keep old names by the recorded decision.\n- **F-R1 through F-R8, F-O2, F-O4, F-O6.** Confirmed at `SKILL.md:16-19`, `:32`, `:66-70`, `:87`, `write-documentation/SKILL.md:59` and `:84-85`, and `write-documentation/origin.txt:16`. The collection-relative phrasing is gone. The longest body line is now the quotation-example line, which is cosmetic.\n\n**Provenance verified against the pinned research clones.** For every source in both origin files, the baseline commit exists, every listed path exists at that commit, and the MIT license text and copyright holder and year match the notices files. For the Anthropic entry, the pinned doc-coauthoring directory contains only its skill file, the repository root has no license file, and sibling skills carry their own license files, so the \"ideas only, no skill-specific license\" statement is accurate.\n\nDependency loops: none. Every cross-reference is optional and guarded on both sides. Authority: drafting never authorizes sending, publishing, or production operations, and documentation requests never create platforms or policy.\n\n## Optional notes, not required\n\n- `write-documentation/SKILL.md:9-10` says to use the prose skill's guidance \"when available and not already active\". The literal reading excludes the active case. \"Load it when available and not already active\" would say what is meant.\n- `communicate-clearly/origin.txt:16` describes the blader entry as inherited from the local package. The maintenance reference says origin files are not a local changelog. The listed ideas still match the baseline source note, so update runs can judge against it.\n- The `license` fields name the notices file without naming MIT, unlike `how/origin.txt:16`.\n\nOutside the candidate: the README is unmodified and mentions neither new skill. The context lists a README description as a planned step, so that remains pending rather than being a defect in the frozen text."
+          }
+        ]
+      },
+      {
+        "round": 3,
+        "candidate": ".tmp/clear-communication/review-r3",
+        "reviews": [
+          {
+            "provider": "codex",
+            "model": "gpt-6-astra",
+            "effort": "max",
+            "task": "/root/communication_astra_review_r3",
+            "result": "Two affected-example defects remain: small command modules drops stay; servicios de emergencia changes the source canales de emergencia concept. Exact local corrections recommended. No other affected defect. Read complete diff and three affected files with rules; all ten hashes match."
+          },
+          {
+            "provider": "claudeAgent",
+            "model": "claude-fable-5-1",
+            "effort": "max",
+            "taskId": "node:delegated-task:command%3Amcp%3Abfaa801b-7e17-430c-bf95-57ae4b3e3af0%3Adelegate-task%3Acommunication-fable-max-review-20261004-r3",
+            "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253Abfaa801b-7e17-430c-bf95-57ae4b3e3af0%253Adelegate-task%253Acommunication-fable-max-review-20261004-r3:ordinal:1",
+            "result": "**Verdict:** no blocking meaning defect remains in the affected points. Every r3 edit does what the reconciliation says, and each is faithful to its Before text under the fidelity rules and the surrounding catalog section. I found one non-blocking fidelity nuance in the section 12 example and one optional tightening in the section 9 example. Neither needs another round.\n\n## Coverage and limits\n\nI ran as Claude Fable 5.1, model ID `claude-fable-5-1`, per runtime metadata, and cannot verify the effort setting. Nothing was edited, staged, committed, installed, delegated, or fetched. No trial, fixture, or other reviewer output was opened.\n\nChecked:\n- Every manifest hash matches the frozen r3 file, and no unlisted file exists in either package.\n- A directory diff of the r2 and r3 frozen packages differs in exactly the files listed in changes.diff, so the stated scope is exact.\n- The live `communicate-clearly` and `write-documentation` directories are byte-identical to the r3 snapshot.\n- Every catalog example and the fidelity row touched in r3 were identical in the baseline and in r2, so r3 is their first revision. Each change improves on the baseline rather than regressing it.\n- Each changed example was read with its full section: watch-for, false positives, tactic, and the fidelity rules it exercises. The unchanged package was not re-audited, per the brief.\n\n## Resolution of the r2 findings\n\n- C2-attribution, `communicate-clearly/REFERENCE.md:167-168`. Singular \"An industry report\" plus the named benchmark, both with \"after the migration\". The After merges a vague restatement into its named source. No plural attribution is discarded and no timing is lost.\n- C2-voice, `communicate-clearly/REFERENCE.md:182-183`. \"Thrilled\" and \"exciting milestone\" repeat the excitement that \"excited\" already carries. The After keeps the author's one honest reaction and drops only the formula. No distinct humility or gratitude is deleted.\n- A2-timing, `communicate-clearly/REFERENCE.md:197-198`. \"Now\" is gone. The employee-experience claim and its mechanism remain with the same generality and causal direction.\n- C2-cause, `communicate-clearly/REFERENCE.md:218-219`. \"Small\" is now a property, not an outcome of the separation. See the nuance below.\n- A2-scope, `communicate-clearly/REFERENCE.md:237-238`. \"Cola interna de moderación\" restores the internal scope. The word order makes \"interna\" modify the queue unambiguously, agreement is correct, and the 112 claim is intact.\n- C2-uncertainty, `communicate-clearly/REFERENCE.md:305-306`. \"Suggests\" carries the inference status and \"could\" carries the effect's possibility. These are two distinct limits, each stated once, which is what lines 299 and 301 require. It also matches the first row of the fidelity drift table.\n- C2-rationale, `communicate-clearly/REFERENCE.md:324-325`. The design rationale and \"Invalid files add no records\" are kept verbatim or recast exactly. Only the \"obvious approach\" framing is removed, so the example now demonstrates the tactic's second branch at line 316.\n- A2-actor, `communicate-clearly/FIDELITY.md:86`. Actor, action, object, and the intent condition are all kept. The passive that hid agency, which line 21 forbids, is gone.\n- F2-load, `write-documentation/SKILL.md:9-10`. \"Load it when available and not already active\" states the intended condition. It mirrors the reciprocal rule at `communicate-clearly/SKILL.md:103-105`, and neither side can trigger the other twice. The edit also added the trailing newline that r2 lacked.\n\n## Findings\n\nNon-blocking fidelity nuance:\n- `communicate-clearly/REFERENCE.md:219`. Consequence: \"separates small command modules\" can be read restrictively, as if only the small command modules are separated, and it drops the durative \"stay\". The source predicates smallness of all command modules. Correction: \"The code deliberately separates command modules, which stay small, from independently testable library modules that hold protocol details.\" Reasoning: the nonrestrictive clause keeps the source's scope and persistence without asserting that the separation causes the size, which was the r2 objection. The judgment stays folded into the relationship, as the tactic at line 210 asks. \"The code\" as the agent of \"deliberately\" is a conventional personification and does not change what a reader concludes.\n\nOptional editorial:\n- `communicate-clearly/REFERENCE.md:167`. The Before never states that \"an industry report\" and Acme's benchmark are the same source. A reader can take them as two sources, in which case the After drops one. Discourse convention favors the same-source reading, and the identical claim and timing support it, so this is not a defect. If the coordinator wants to close the alternative reading, \"The report, Acme's 2025 benchmark, found...\" in the Before does it with no change to the After.\n- Outside the diff scope: `communicate-clearly/SKILL.md` still lacks a trailing newline, unlike every other skill file in the repository. Cosmetic and unchanged since r2.\n\nChecked and sound: no touched example is quoted elsewhere in either package, so no stale duplicate exists. The section 14 routing cues for \"señal\" and \"canal\" still match the repaired Spanish example. No authority, scope, or source-claim text changed in this round."
+          }
+        ]
+      },
+      {
+        "round": 4,
+        "candidate": ".tmp/clear-communication/review-r4",
+        "scope": "Two exact inherited-example corrections only; unchanged packages covered in earlier rounds.",
+        "reviews": [
+          {
+            "provider": "codex",
+            "model": "gpt-6-astra",
+            "effort": "max",
+            "task": "/root/communication_astra_review_r4",
+            "runtimeEvidence": "Native fresh spawn explicitly selected gpt-6-astra/max. Worker cannot independently inspect runner settings.",
+            "result": "No remaining concrete defect. The command-module example preserves stay small, deliberate separation, protocol placement and independent testability without introducing causality. The Spanish example preserves emergency channels and internal moderation scope. Read brief, prior reconciliation, exact diff, manifest, frozen entrypoint/fidelity and affected sections. No behavior/host claim."
+          },
+          {
+            "provider": "claudeAgent",
+            "model": "claude-fable-5-1",
+            "effort": "max",
+            "taskId": "node:delegated-task:command%3Amcp%3Abfaa801b-7e17-430c-bf95-57ae4b3e3af0%3Adelegate-task%3Acommunication-fable-max-review-20261004-r4",
+            "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253Abfaa801b-7e17-430c-bf95-57ae4b3e3af0%253Adelegate-task%253Acommunication-fable-max-review-20261004-r4:ordinal:1",
+            "runtimeEvidence": "Parent explicitly selected claudeAgent/claude-fable-5-1/options effort=max in the live catalog. Worker reports model but cannot independently inspect effort setting.",
+            "result": "**Verdict:** no concrete defect remains in either r4 correction. Both do exactly what the reconciliation entries A3-persistence and A3-channel say, both are faithful to their unchanged Before sentences under the fidelity rules, and both demonstrate their section's tactic. Nothing blocks, and I recommend no further example rewrite.\n\n## Coverage and limits\n\nI ran as Claude Fable 5.1, model ID claude-fable-5-1, per runtime metadata. I cannot verify the effort setting. Nothing was edited, staged, committed, installed, delegated, fetched, or executed from donor code. No trial, fixture, held-out material, or other r4 reviewer output was opened.\n\nChecked:\n- All ten manifest SHA256 values match the frozen r4 files.\n- A directory diff of the frozen r3 and r4 packages differs only in the two After lines in the diff file. The write-documentation package is byte-identical between r3 and r4.\n- The live `communicate-clearly` and `write-documentation` directories are byte-identical to the r4 snapshot. The old humanize directory is absent.\n- Both Before sentences are identical to the baseline package at `.tmp/clear-communication/baseline/humanize/REFERENCE.md:218` and `:237`.\n- The retired r3 wordings survive only inside the two diff records and the reconciliation record. No stale copy exists in either package or in the live tree outside excluded fixture and report paths.\n- Each correction was read with its full section: watch-for, why suspicious, false positives, tactic, and the fidelity meaning contract and drift table. I did not re-audit the unchanged package.\n\n## Correction 1: detached-verdict example, `communicate-clearly/REFERENCE.md:219`\n\nClaim-by-claim against the Before:\n- \"Command modules stay small\" is now verbatim, so the durative claim applies to all command modules. This closes the Codex r3 finding and the r3 restrictive-reading nuance.\n- \"deliberately separate\" carries the source's intent claim as an adjective on the library modules. Separation is symmetric, so predicating it of one side states the same architecture.\n- \"independently testable\" and \"protocol details live in\" are retained exactly.\n- No actor is invented. The source nominalizes the separation and so does the After.\n- The coordinate \"and\" asserts no causal link between separation and size, which was the r2 objection, and no new fact appears.\n\nThe After folds the judgment into the concrete relationship, which is the tactic the section prescribes. Two notes, both checked and sound rather than defects: the source's contrastive \"while\" becomes \"and\", and a careful reader still concludes the same two-module division. The stacked premodifier \"deliberately separate, independently testable\" is heavy but parses cleanly after \"in\", with the comma separating the two properties.\n\n## Correction 2: Spanish cohesion example, `communicate-clearly/REFERENCE.md:238`\n\n- \"canales de emergencia como el 112\" is now verbatim from the Before. The r3 \"servicios de emergencia\" named the responding services rather than the contact line, so the restoration recovers the exact source concept.\n- The repair does not reintroduce the referent drift the example teaches. The Before uses \"canal\" for two different objects, an internal moderation queue and a public emergency line. The After uses it once, anchored by the named 112 line, and names the internal object as \"cola interna de moderación\". Distinct concepts now carry distinct terms, which is what the section 13 tactic asks and what the section 14 routing cue describes as a cue rather than a banned word.\n- \"interna\" from A2-scope is retained. Actors, media, future tense, the \"sin sustituir\" condition, and the protected \"112\" all have a home. No new fact appears.\n- Spanish grammar is natural: the bare generic plural after \"sin sustituir\" matches the source, and \"el 112\" is the conventional reference.\n\nBoth corrections also improve on the baseline, whose After for the first example asserted the causal \"keeps command modules small\" and whose After for the second already used \"servicios\" and lacked \"interna\".\n\nFindings: none blocking, none optional requiring change."
+          }
+        ]
+      }
+    ],
+    "reconciliation": [
+      {
+        "id": "A1",
+        "decision": "adopted",
+        "response": "Restore complete-target reading for review and load FIDELITY when comparing versions."
+      },
+      {
+        "id": "A2",
+        "decision": "adopted",
+        "response": "Align default expansion, authorized selection/additions, and the fidelity completion gate."
+      },
+      {
+        "id": "A3",
+        "decision": "adopted",
+        "response": "Fix inherited policy example by supplying its approval threshold in the Before text."
+      },
+      {
+        "id": "F1",
+        "decision": "adopted",
+        "response": "Restore explicit fact, measurement, example, interpretation and precision checks; clarify authorized, cited additions."
+      },
+      {
+        "id": "F2",
+        "decision": "adopted",
+        "response": "Define ASCII preference for English-style curly marks; preserve protected text and target-language quotation forms."
+      },
+      {
+        "id": "F3",
+        "decision": "adopted",
+        "response": "Align catalog terminology and make prose-concern levels optional, always distinguished from authorship."
+      },
+      {
+        "id": "F4",
+        "decision": "adopted",
+        "response": "Use format_version/created/approach, full repository URLs and reference_documents. Correct research/report URL construction too."
+      },
+      {
+        "id": "F5",
+        "decision": "completed",
+        "response": "Remove unchanged old package after preserving its baseline. Historical reports retain old names as dated evidence; live callers and atlas migrate."
+      },
+      {
+        "id": "F-R1",
+        "decision": "adopted",
+        "response": "STE clarity principles apply without mandatory controlled dictionary, tense or word limits in any language."
+      },
+      {
+        "id": "F-R2",
+        "decision": "adopted with scope",
+        "response": "Keep rewrite language/region unless the request or destination rules call for translation; destination rules preserve standing artifact language preferences."
+      },
+      {
+        "id": "F-R3",
+        "decision": "adopted",
+        "response": "Restore punctuation relationships in common guidance."
+      },
+      {
+        "id": "F-R4",
+        "decision": "adopted",
+        "response": "Documentation execution follows the path affected by the change, preserving applicable project checks."
+      },
+      {
+        "id": "F-R5",
+        "decision": "adopted",
+        "response": "Restore titles and proper names to protected material."
+      },
+      {
+        "id": "F-R6",
+        "decision": "adopted",
+        "response": "Reader pass occurs without source in view."
+      },
+      {
+        "id": "F-R7",
+        "decision": "adopted",
+        "response": "Preserve voice-sample calibration without mechanical imitation; avoid a blanket ban on legitimate author habits."
+      },
+      {
+        "id": "F-R8",
+        "decision": "adopted",
+        "response": "Documentation translation refers to the source language rather than assuming English."
+      },
+      {
+        "id": "F-R9",
+        "decision": "adopted",
+        "response": "Same correction as A1."
+      },
+      {
+        "id": "F-O1",
+        "decision": "not needed",
+        "response": "Existing rewrite and AI-sounding trigger covers requests using the old humanize verb; no second entrypoint."
+      },
+      {
+        "id": "F-O2",
+        "decision": "adopted",
+        "response": "Narrow documentation's pstack borrowed field to its actual responsibility."
+      },
+      {
+        "id": "F-O3",
+        "decision": "handled in research",
+        "response": "HumanizerAI API source is explicitly retired in the research report with verified pin; rejected feeds do not become active origin sources."
+      },
+      {
+        "id": "F-O4",
+        "decision": "adopted",
+        "response": "State punctuation rule directly rather than referring to an unspecified collection."
+      },
+      {
+        "id": "F-O5",
+        "decision": "retained",
+        "response": "Conditional named specialists provide useful task ownership; both reviewers found no loop and existing-active guidance is reused."
+      },
+      {
+        "id": "F-O6",
+        "decision": "adopted",
+        "response": "Rewrap paragraphs without meaning changes."
+      },
+      {
+        "id": "F-O7",
+        "decision": "not needed",
+        "response": "Keep existing FIDELITY.md and REFERENCE.md paths to preserve continuity; relative pointers resolve. Directory uniformity alone does not require another move."
+      },
+      {
+        "id": "A2-actor",
+        "decision": "adopted",
+        "response": "Retain the user as actor in the accidental deletion example."
+      },
+      {
+        "id": "A2-timing",
+        "decision": "adopted",
+        "response": "Remove invented now from onboarding; preserve the employee-experience claim."
+      },
+      {
+        "id": "A2-scope",
+        "decision": "adopted",
+        "response": "Restore internal scope in the Spanish moderation queue."
+      },
+      {
+        "id": "C2-attribution",
+        "decision": "adopted",
+        "response": "Make the example source singular and repeated, rather than silently discard a plural attribution; retain after-migration timing in both versions."
+      },
+      {
+        "id": "C2-voice",
+        "decision": "adopted",
+        "response": "Use a repetitive excitement formula in the social example rather than teach deletion of distinct humility or gratitude."
+      },
+      {
+        "id": "C2-cause",
+        "decision": "adopted",
+        "response": "Recast the deliberate-separation example without inferring that separation causes module size."
+      },
+      {
+        "id": "C2-uncertainty",
+        "decision": "adopted",
+        "response": "Keep could in the benchmark inference example."
+      },
+      {
+        "id": "C2-rationale",
+        "decision": "adopted",
+        "response": "Retain the import-design rationale and explicit no-records guarantee; remove only the rhetorical obvious-approach framing."
+      },
+      {
+        "id": "F2-load",
+        "decision": "adopted",
+        "response": "Clarify load when not already active rather than use guidance only when not active."
+      },
+      {
+        "id": "F2-origin",
+        "decision": "retained",
+        "response": "The inherited-source note identifies the provenance of preserved content rather than narrating local changes; source pin and borrowed ideas are explicit."
+      },
+      {
+        "id": "F2-license",
+        "decision": "retained",
+        "response": "License fields point to included verbatim MIT notices; both reviewers verified the notices. Adding another label does not change meaning or evidence."
+      },
+      {
+        "id": "A3-persistence",
+        "decision": "adopted",
+        "response": "Restore stay small and deliberate separation without claiming causal effect. Fable independently raised the same nuance."
+      },
+      {
+        "id": "A3-channel",
+        "decision": "adopted",
+        "response": "Keep the exact source concept canales de emergencia instead of services; internal queue scope remains explicit."
+      },
+      {
+        "id": "F3-attribution",
+        "decision": "retained",
+        "response": "The example presents the benchmark as the named instance of the preceding singular report and repeats the same result/time scope. Fable judged the alternate reading non-defective. Avoid another optional example rewrite."
+      },
+      {
+        "id": "F3-newline",
+        "decision": "retained",
+        "response": "An unchanged trailing-newline preference does not alter parsing, meaning, or applicable validation."
+      }
+    ],
+    "status": "complete",
+    "outcome": "All material findings reconciled. Both final bounded consultations found no remaining concrete defect; retained optional choices and evidence limits are recorded."
+  },
+  "candidateManifest": [
+    {
+      "path": "communicate-clearly/REFERENCE.md",
+      "sha256": "debb7d3737d3b05413e8544f85dc8e45b171cddfe675573b744e54530d5fc909"
+    },
+    {
+      "path": "communicate-clearly/FIDELITY.md",
+      "sha256": "5d2ad7a49700a00738e18ee28bed51381c660d3e07badd294114839abbba9d24"
+    },
+    {
+      "path": "communicate-clearly/origin.txt",
+      "sha256": "2e038f5a8f5e8fb670970ab9c213eb16e9912a14e7ed64423ffb402b9d06a700"
+    },
+    {
+      "path": "communicate-clearly/SKILL.md",
+      "sha256": "03d21011f131dc143c5800e3844234ab8d271d3f867c424da9aa13ae7f0bca52"
+    },
+    {
+      "path": "communicate-clearly/THIRD-PARTY-NOTICES.txt",
+      "sha256": "6745df8bf8f4e19d252e4b9dac25fdf41c4063076082759013e627265f914c63"
+    },
+    {
+      "path": "communicate-clearly/references/explanations-and-channels.md",
+      "sha256": "4b3169044c3d7fe399383a280f081c11274a63d0b67b3bd3db29dfd8766141d7"
+    },
+    {
+      "path": "write-documentation/origin.txt",
+      "sha256": "ea23bafab9227ff8aff4e66082867d63692b5cfbf8c1c07de5b27e6f69e4d245"
+    },
+    {
+      "path": "write-documentation/SKILL.md",
+      "sha256": "e5c9afaf077941592ecdfdff4d409efc9bc724d3e75aa846e1ea1f8d354c1f77"
+    },
+    {
+      "path": "write-documentation/THIRD-PARTY-NOTICES.txt",
+      "sha256": "81a0f1bdb4fc7b1ff53dfa202e980d8ac55cf26492de1a1e81d77f7a48fa7d81"
+    },
+    {
+      "path": "write-documentation/references/document-types.md",
+      "sha256": "de3b6a53651056647584019256627498d3f19bc403aace514db6752aae952663"
+    }
+  ],
+  "behavioralEvaluation": {
+    "design": "Same model, effort, prompts, raw fixtures, tool availability, authorization and output format. Independent fresh arm contexts. Criteria stayed with the coordinator. No candidate changes were made from baseline output; r2 changes came from instruction reviews.",
+    "cases": [
+      {
+        "id": "es-explanation",
+        "request": "No entiendo lo de idempotencia. Explícamelo en español para alguien de producto. Ya sé qué es una petición y un pago. Usa este caso, sin asumir más garantías: el cliente puede repetir POST /payments con Idempotency-Key durante 24 horas; si la clave y el cuerpo coinciden, el servidor devuelve el resultado guardado. Con la misma clave y un cuerpo distinto devuelve 409. Esto evita duplicar ese pago en esa ventana, pero no garantiza entrega ni protección después de 24 horas. No necesito una clase ni pasos para implementarlo."
+      },
+      {
+        "id": "en-rewrite",
+        "request": "Rewrite the note below for an engineering Slack thread in my direct, slightly dry voice. Preserve every substantive claim and the quoted phrase exactly. Do not send it.\n\nThe implications are profound: in the 120-request staging run, p95 fell from 840 ms to 610 ms after the cache change. This is not about speed for its own sake. It is about making requests faster. We have not established causality, and production has not been tested. Priya said, “could reduce latency for some tenants.” The fallback occasionally returns stale data when the replica is unavailable. The API is not thread-safe.\n\nMy take: promising, but I am not opening the champagne. I need reviewers to check the fallback before we decide on rollout. There is no rollout date yet."
+      },
+      {
+        "id": "fr-summary",
+        "request": "Résume ce message en deux phrases pour une collègue francophone qui connaît le projet. Garde le sens de la décision et son incertitude, sans nouvelle recommandation.\n\nLe pilote a porté sur 18 équipes du 3 au 17 septembre. Selon Nora, 11 équipes ont terminé la migration, quatre attendent une validation et trois ont arrêté après une erreur. Ces résultats ne démontrent pas que la nouvelle méthode soit plus fiable. Le comité propose de poursuivre uniquement avec les quatre équipes en attente si le correctif est validé. Aucune extension générale n’a été approuvée. Une réunion de 40 minutes a eu lieu le 18 septembre et le compte rendu comporte six pages."
+      },
+      {
+        "id": "ja-explanation",
+        "request": "次の仕様を、新しく入ったカスタマーサポート担当者に自然な日本語で説明してください。画面の「再送信」という名前と order_id はそのままにしてください。キューは注文を処理待ちにする場所で、データベースは注文結果を保存する場所です。「再送信」は同じ order_id の処理をもう一度キューに入れます。結果がまだ保存されていないときにだけ使います。処理中の場合もあるので、「結果がない＝処理が失敗した」とは断定できません。比喩は不要です。"
+      },
+      {
+        "id": "ar-chat",
+        "request": "اكتب مسودة قصيرة وطبيعية بالعربية لفريق الدعم في Slack. لا ترسلها. الحقائق: التحديث تجريبي ومتاح لخمس فرق فقط. الرسالة التي تظهر للمستخدم هي \"Remaining: %{count}\"؛ احتفظ بها كما هي. قد يتأخر العدد عشر دقائق عند انقطاع الاتصال. لم نتحقق من عمله دون اتصال. نحتاج إلى ملاحظات الفرق قبل اتخاذ قرار التعميم، ولم نحدد موعداً نهائياً. لا تفترض أن القارئ شاهد هذه المحادثة."
+      }
+    ],
+    "documentationRequest": "Update this mixed internal README so a new teammate can preview the sample catalog using the current code. Keep the architecture and contributor information. Use English and the repository's existing format. Only README.md may be edited. Inspect the project and verify the documented path with safe local commands. Do not change the implementation or create a documentation system. Report exactly what you checked and any limit. The project supports Python 3.9 and newer. You may create disposable local validation output in this fixture. There is no external publishing authorization.\n",
+    "rawProjectFixture": {
+      "check_docs.py": "from pathlib import Path\ntext = Path(\"README.md\").read_text()\nassert \"# Catalog preview\" in text\nassert \"## Architecture\" in text\nassert \"## Contributing\" in text\nassert not any(line.endswith(\" \") for line in text.splitlines())\nprint(\"README structure and trailing-space checks passed\")\n",
+      "import_catalog.py": "import argparse\nimport csv\nimport json\n\nparser = argparse.ArgumentParser()\nparser.add_argument(\"--version\", action=\"version\", version=\"catalog-preview 0.4\")\nparser.add_argument(\"--input\")\nparser.add_argument(\"--preview\", action=\"store_true\")\nargs = parser.parse_args()\nif not args.preview or not args.input:\n    parser.error(\"Use --input and --preview; publishing is not implemented\")\nwith open(args.input, newline=\"\", encoding=\"utf-8\") as source:\n    rows = list(csv.DictReader(source))\ntry:\n    prices = [int(row[\"price_cents\"]) for row in rows]\n    if any(price < 0 for price in prices):\n        raise ValueError(\"negative price\")\nexcept (ValueError, KeyError) as error:\n    parser.error(\"price_cents must be a non-negative integer\")\nprint(json.dumps({\"count\": len(rows), \"total_cents\": sum(prices), \"written\": False}))\n",
+      "examples/invalid.csv": "sku,name,price_cents\ninvalid,Invalid,-1\n",
+      "examples/items.csv": "sku,name,price_cents\ntea,Green tea,450\nmug,Ceramic mug,1200\n",
+      "README.md": "# Catalog preview\n\nThis internal tool previews a batch before a teammate imports it elsewhere.\n\n## Quickstart\n\nUse Python. Run `python import_catalog.py --dry-run items.csv`. This publishes the\ncatalog and guarantees delivery. A passing result means every item is stored.\n\n## Architecture\n\nThis repository contains a preview-only CLI. The separate publishing service is\nmaintained by the operations team and is outside this repository.\n\n## Contributing\n\nUse the standard library. Run `python3 check_docs.py` for the README checks,\n`python3 -m py_compile import_catalog.py check_docs.py` to compile, and\n`python3 import_catalog.py --version` as a smoke check.\n"
+    },
+    "criteria": {
+      "es-explanation": [
+        "Direct Spanish explanation for product, not a lesson.",
+        "Preserve same key AND body, 24 hours, 409, no delivery/post-window guarantee.",
+        "No fabricated implementation or guarantee."
+      ],
+      "en-rewrite": [
+        "Retain sample, staging context, p95 values, timing without invented causality.",
+        "Retain attribution and exact protected curly-quote phrase.",
+        "Retain occasional staleness condition, non-thread-safe constraint, uncertainty, voice and reviewer ask without invented deadline.",
+        "Remove gratuitous framing without removing unique claims; no send."
+      ],
+      "fr-summary": [
+        "Two natural French sentences may omit meeting bookkeeping.",
+        "Preserve proposed conditional continuation only for four pending teams; no general rollout approved.",
+        "No reliability proof or invented success."
+      ],
+      "ja-explanation": [
+        "Natural Japanese with Japanese punctuation and exact 再送信/order_id.",
+        "Queue/database distinction and resending same order.",
+        "Only when no result; absent result does not prove failed processing."
+      ],
+      "ar-chat": [
+        "Arabic team message; exact Remaining: %{count}.",
+        "Five teams, experimental, possible ten-minute disconnected lag and no offline verification.",
+        "Feedback before rollout decision, no invented deadline, no send."
+      ],
+      "docs-fixture": [
+        "Edits only README.md.",
+        "Preserves mixed README purpose and existing Architecture/Contributing meaning.",
+        "Documents Python 3.9+, correct --input/--preview and sample path, count=2/total_cents=1650/no write.",
+        "Removes claims of sending, guaranteed delivery, and --dry-run; does not invent approved policy from behavior.",
+        "Executes safe preview and invalid example; no publish call.",
+        "Runs configured docs check, compile and unrelated version smoke or reports exact blocker.",
+        "Reports static/compile/execute evidence honestly."
+      ]
+    },
+    "arms": {
+      "baseline": {
+        "executor": "/root/communication_trial_baseline",
+        "profile": {
+          "provider": "codex",
+          "model": "gpt-6-astra",
+          "effort": "max",
+          "evidence": "Fresh native child with fork_turns none, inheriting the coordinator runtime declared as gpt-6-astra/max. No model override; same runner for both arms."
+        },
+        "instructions": {
+          "instructions/humanize/REFERENCE.md": "c3074a69334dcd411064693cdf52ee1093e26b34cbb1e484bc15730b292316f9",
+          "instructions/humanize/FIDELITY.md": "75e548744693c022c7b2dbaf151cb1818f0d55ed2eb819ee47c3b34adf55577e",
+          "instructions/humanize/sources.txt": "a220758e2bbf93aea9a0a38180229d082e16fed13396b574446117ee3bfbb2c5",
+          "instructions/humanize/SKILL.md": "bea070915c4c9894ededaa3cc4b5c5ab255720a5b99cd1d018859c89fe0d6da3"
+        },
+        "inputManifest": {
+          "cases.json": "ca46ea989ac20ad31e533726be92fbbe4eb002406188bd9c993e25139cb202a6",
+          "docs-request.txt": "08c21dba9ad429e59fa1aff8ea048bcf512701e62d6a5f6c886ed270c2da8a74",
+          "instructions/humanize/REFERENCE.md": "c3074a69334dcd411064693cdf52ee1093e26b34cbb1e484bc15730b292316f9",
+          "instructions/humanize/FIDELITY.md": "75e548744693c022c7b2dbaf151cb1818f0d55ed2eb819ee47c3b34adf55577e",
+          "instructions/humanize/sources.txt": "a220758e2bbf93aea9a0a38180229d082e16fed13396b574446117ee3bfbb2c5",
+          "instructions/humanize/SKILL.md": "bea070915c4c9894ededaa3cc4b5c5ab255720a5b99cd1d018859c89fe0d6da3",
+          "project/check_docs.py": "a4a3e45fea979e8a9c58517786d065e33dcf3be077c89cec3a50982cc3fbdb4b",
+          "project/README.md": "f2beef12200f3ef130175cb95bf2dbce6ab7926136cdd70c382e96d53c5e29f2",
+          "project/import_catalog.py": "ae16877545e8e96c28ab692b445d41bb6a771ec5dea109802ba3c871d6941b9f",
+          "project/examples/invalid.csv": "d40862f07bf1c773527022f09503020426328965c0efb3e9217cc99dccb3d614",
+          "project/examples/items.csv": "c7afde49b907fb25805ee4ab04a3b62bd7ef7ea6fd9627a7792ef0d450c0f7c6"
+        },
+        "outputs": {
+          "es-explanation": "En este caso, idempotencia significa poder repetir la petición de un pago sin duplicarlo durante 24 horas. Si el cliente repite `POST /payments` con la misma `Idempotency-Key` y el mismo cuerpo, el servidor devuelve el resultado guardado. Si usa esa clave con un cuerpo distinto, devuelve `409`.\n\nEsta protección se limita a esa ventana de 24 horas: no garantiza la entrega ni protege frente a duplicados después.",
+          "en-rewrite": "In the 120-request staging run, p95 fell from 840 ms to 610 ms after the cache change. We haven't established causality, and production hasn't been tested. Priya said, “could reduce latency for some tenants.”\n\nThe fallback occasionally returns stale data when the replica is unavailable, and the API is not thread-safe.\n\nPromising, but I'm not opening the champagne. I need reviewers to check the fallback before we decide on rollout. There's no rollout date yet.",
+          "fr-summary": "Les résultats du pilote ne démontrent pas que la nouvelle méthode soit plus fiable. Le comité propose de poursuivre uniquement avec les quatre équipes en attente si le correctif est validé, et aucune extension générale n'a été approuvée.",
+          "ja-explanation": "キューは注文を処理待ちにする場所で、データベースは注文の処理結果を保存する場所です。画面の「再送信」は、同じ order_id の処理をもう一度キューに入れる操作です。\n\n結果がまだデータベースに保存されていないときにだけ使います。結果がない場合でも、処理中の可能性があるため、失敗したとは断定できません。",
+          "ar-chat": "التحديث تجريبي ومتاح لخمس فرق فقط. تظهر للمستخدم الرسالة \"Remaining: %{count}\"، وقد يتأخر تحديث العدد عشر دقائق عند انقطاع الاتصال. لم نتحقق من عمل التحديث دون اتصال.\n\nنحتاج إلى ملاحظات الفرق قبل اتخاذ قرار التعميم، ولم نحدد موعداً نهائياً."
+        },
+        "readme": "# Catalog preview\n\nThis internal tool previews a batch before a teammate imports it elsewhere.\n\n## Quickstart\n\nUse Python 3.9 or newer. From this directory, preview the sample catalog:\n\n```sh\npython3 import_catalog.py --input examples/items.csv --preview\n```\n\nThe command prints:\n\n```json\n{\"count\": 2, \"total_cents\": 1650, \"written\": false}\n```\n\nThe preview checks that each `price_cents` value is a non-negative integer and\nreports the item count and total in cents. It does not store or publish items.\n\n## Architecture\n\nThis repository contains a preview-only CLI. The separate publishing service is\nmaintained by the operations team and is outside this repository.\n\n## Contributing\n\nUse the standard library. Run `python3 check_docs.py` for the README checks,\n`python3 -m py_compile import_catalog.py check_docs.py` to compile, and\n`python3 import_catalog.py --version` as a smoke check.\n",
+        "actionTrace": {
+          "instructionFilesRead": [
+            {
+              "path": "instructions/humanize/SKILL.md",
+              "sha256": "bea070915c4c9894ededaa3cc4b5c5ab255720a5b99cd1d018859c89fe0d6da3",
+              "coverage": "Complete"
+            },
+            {
+              "path": "instructions/humanize/FIDELITY.md",
+              "sha256": "75e548744693c022c7b2dbaf151cb1818f0d55ed2eb819ee47c3b34adf55577e",
+              "coverage": "Complete",
+              "trigger": "Rewrite and file edit"
+            },
+            {
+              "path": "instructions/humanize/REFERENCE.md",
+              "sha256": "c3074a69334dcd411064693cdf52ee1093e26b34cbb1e484bc15730b292316f9",
+              "coverage": "Complete",
+              "trigger": "Rewrite and file edit pattern routing, including multilingual prose"
+            }
+          ],
+          "commands": [
+            {
+              "command": "pwd && cat input-manifest.json && cat instructions/humanize/SKILL.md",
+              "workingDirectory": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/trials/baseline",
+              "exitCode": 0,
+              "outcome": "Read input-manifest.json and the complete supplied instructions/humanize/SKILL.md successfully."
+            },
+            {
+              "command": "cat cases.json docs-request.txt instructions/humanize/FIDELITY.md instructions/humanize/REFERENCE.md && rg --files project && shasum -a 256 instructions/humanize/SKILL.md instructions/humanize/FIDELITY.md instructions/humanize/REFERENCE.md",
+              "workingDirectory": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/trials/baseline",
+              "exitCode": 0,
+              "outcome": "Read all five case requests, docs-request.txt and complete FIDELITY.md. REFERENCE.md output was truncated in the tool presentation, so it was read again separately. Listed all five project files and obtained the three instruction SHA256 values."
+            },
+            {
+              "command": "cat instructions/humanize/REFERENCE.md",
+              "workingDirectory": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/trials/baseline",
+              "exitCode": 0,
+              "outcome": "Read the complete REFERENCE.md without truncation."
+            },
+            {
+              "command": "cat project/README.md project/import_catalog.py project/check_docs.py project/examples/items.csv project/examples/invalid.csv",
+              "workingDirectory": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/trials/baseline",
+              "exitCode": 0,
+              "outcome": "Read the complete README, CLI implementation, README check, valid sample and invalid sample."
+            },
+            {
+              "command": "python3 --version && python3 import_catalog.py --help",
+              "workingDirectory": "project/",
+              "exitCode": 0,
+              "outcome": "Python 3.9.6\nusage: import_catalog.py [-h] [--version] [--input INPUT] [--preview]\n\noptional arguments:\n  -h, --help     show this help message and exit\n  --version      show program's version number and exit\n  --input INPUT\n  --preview\n"
+            },
+            {
+              "tool": "apply_patch",
+              "command": "Update project/README.md Quickstart and create output.json with five finished messages",
+              "outcome": "Files created/updated successfully; subsequent integrity and content checks confirmed the changes."
+            },
+            {
+              "command": "python3 import_catalog.py --input examples/items.csv --preview",
+              "expectedExitCode": 0,
+              "purpose": "Run the documented sample preview",
+              "workingDirectory": "project/",
+              "exitCode": 0,
+              "outcome": "{\"count\": 2, \"total_cents\": 1650, \"written\": false}\n",
+              "passed": true
+            },
+            {
+              "command": "python3 check_docs.py",
+              "expectedExitCode": 0,
+              "purpose": "Run the repository README checks",
+              "workingDirectory": "project/",
+              "exitCode": 0,
+              "outcome": "README structure and trailing-space checks passed\n",
+              "passed": true
+            },
+            {
+              "command": "PYTHONPYCACHEPREFIX=../validation/pycache python3 -m py_compile import_catalog.py check_docs.py",
+              "expectedExitCode": 0,
+              "purpose": "Compile both Python files with disposable bytecode inside the fixture",
+              "workingDirectory": "project/",
+              "exitCode": 0,
+              "outcome": "",
+              "passed": true
+            },
+            {
+              "command": "python3 import_catalog.py --version",
+              "expectedExitCode": 0,
+              "purpose": "Run the documented broader CLI smoke check",
+              "workingDirectory": "project/",
+              "exitCode": 0,
+              "outcome": "catalog-preview 0.4\n",
+              "passed": true
+            },
+            {
+              "command": "python3 import_catalog.py --input examples/invalid.csv --preview",
+              "expectedExitCode": 2,
+              "purpose": "Verify that the supplied negative-price sample is rejected",
+              "workingDirectory": "project/",
+              "exitCode": 2,
+              "outcome": "usage: import_catalog.py [-h] [--version] [--input INPUT] [--preview]\nimport_catalog.py: error: price_cents must be a non-negative integer\n",
+              "passed": true
+            },
+            {
+              "command": "python3 - <<'PY'\nimport hashlib\nimport json\nfrom pathlib import Path\n\nmanifest = json.loads(Path(\"input-manifest.json\").read_text())\nhashes = {\n    name: hashlib.sha256(Path(name).read_bytes()).hexdigest()\n    for name in manifest\n}\nchanged = [name for name in manifest if hashes[name] != manifest[name]]\nassert changed == [\"project/README.md\"], changed\n\ncases = json.loads(Path(\"cases.json\").read_text())\nmessages = json.loads(Path(\"output.json\").read_text())\nassert set(messages) == {case[\"id\"] for case in cases}\nassert all(isinstance(message, str) and message.strip() for message in messages.values())\nassert \"“could reduce latency for some tenants.”\" in messages[\"en-rewrite\"]\nassert '\"Remaining: %{count}\"' in messages[\"ar-chat\"]\nassert \"「再送信」\" in messages[\"ja-explanation\"]\nassert \"order_id\" in messages[\"ja-explanation\"]\nassert messages[\"fr-summary\"].count(\".\") == 2\n\nreadme = Path(\"project/README.md\").read_text()\npreserved = \"\"\"## Architecture\n\nThis repository contains a preview-only CLI. The separate publishing service is\nmaintained by the operations team and is outside this repository.\n\n## Contributing\n\nUse the standard library. Run `python3 check_docs.py` for the README checks,\n`python3 -m py_compile import_catalog.py check_docs.py` to compile, and\n`python3 import_catalog.py --version` as a smoke check.\n\"\"\"\nassert readme.split(\"## Architecture\", 1)[1] == preserved.split(\"## Architecture\", 1)[1]\nprint(json.dumps({\n    \"supplied_files_checked\": len(manifest),\n    \"supplied_files_changed\": changed,\n    \"five_message_keys_and_protected_strings\": \"passed\",\n    \"french_sentence_count\": 2,\n    \"architecture_and_contributor_sections\": \"unchanged\",\n    \"readme_sha256\": hashes[\"project/README.md\"],\n    \"output_sha256\": hashlib.sha256(Path(\"output.json\").read_bytes()).hexdigest()\n}, ensure_ascii=False))\nPY\ncat output.json project/README.md",
+              "workingDirectory": ".",
+              "exitCode": 0,
+              "outcome": "All 11 manifest entries checked: only project/README.md changed. Five output ids and protected strings passed. French output has exactly two sentences. Architecture and Contributing are unchanged. README SHA256 b3bc800a3f566b4815e0831bc5bd9f465e70bce34781b5d9f1ed2bd315213d72; output SHA256 e20f9898afaf62d4d748f599ba54dad43f8b4c1eac25b05a6311f5921ef923c7. Read output.json and README.md in full.",
+              "purpose": "Verify input-file integrity, output shape, protected strings, summary sentence count, and retained README sections; read the finished messages and README"
+            },
+            {
+              "command": "PYTHONDONTWRITEBYTECODE=1 python3 - <<'PY'\nfrom pathlib import Path\nimport shutil\n\ncache = Path('validation/pycache')\ncount = sum(1 for path in cache.rglob('*') if path.is_file())\nshutil.rmtree(cache)\nvalidation = Path('validation')\nif not any(validation.iterdir()):\n    validation.rmdir()\nprint('Removed {} disposable bytecode files; validation output cleaned.'.format(count))\nPY",
+              "workingDirectory": ".",
+              "exitCode": 0,
+              "outcome": "Removed 48 disposable bytecode files; validation output cleaned.\n",
+              "purpose": "Clean only the disposable compilation cache created for this task"
+            },
+            {
+              "tool": "apply_patch",
+              "command": "Create action-trace.json",
+              "outcome": "Trace written; confirmed by the final JSON parse and hash checks."
+            },
+            {
+              "command": "PYTHONDONTWRITEBYTECODE=1 python3 - <<'PY'\nimport hashlib\nimport json\nfrom pathlib import Path\n\ntrace = json.loads(Path('action-trace.json').read_text())\nassert len(trace['instructionFilesRead']) == 3\nfor entry in trace['instructionFilesRead']:\n    assert hashlib.sha256(Path(entry['path']).read_bytes()).hexdigest() == entry['sha256']\nassert hashlib.sha256(Path('project/README.md').read_bytes()).hexdigest() == trace['fileChanges'][0]['afterSha256']\nassert hashlib.sha256(Path('output.json').read_bytes()).hexdigest() == trace['fileChanges'][1]['sha256']\nassert len(json.loads(Path('output.json').read_text())) == 5\nassert not Path('validation').exists()\nprint('action-trace.json valid; 3 instruction hashes and 2 deliverable hashes verified; 5 messages present; disposable output removed.')\nPY",
+              "workingDirectory": ".",
+              "exitCode": 0,
+              "outcome": "action-trace.json valid; 3 instruction hashes and 2 deliverable hashes verified; 5 messages present; disposable output removed.\n",
+              "purpose": "Validate the trace and final artifacts"
+            }
+          ],
+          "fileChanges": [
+            {
+              "path": "project/README.md",
+              "change": "Replaced outdated quickstart with Python 3.9+ prerequisite, supported preview command, expected sample JSON, and accurate validation-only behavior; architecture and contributor information retained.",
+              "beforeSha256": "f2beef12200f3ef130175cb95bf2dbce6ab7926136cdd70c382e96d53c5e29f2",
+              "afterSha256": "b3bc800a3f566b4815e0831bc5bd9f465e70bce34781b5d9f1ed2bd315213d72"
+            },
+            {
+              "path": "output.json",
+              "change": "Created five completed messages keyed by supplied case ids.",
+              "sha256": "e20f9898afaf62d4d748f599ba54dad43f8b4c1eac25b05a6311f5921ef923c7"
+            },
+            {
+              "path": "action-trace.json",
+              "change": "Created the instruction read coverage, command and check outcomes, file changes, and limitations record."
+            }
+          ],
+          "limitations": [
+            "Executed locally on Python 3.9.6 only; newer Python versions were not exercised.",
+            "The fixture implements preview only. No publishing or delivery behavior was tested or claimed.",
+            "No network calls, external sends, installation, Git mutations, delegation, sibling-trial inspection or file edits outside this fixture were performed.",
+            "instructions/humanize/sources.txt was hashed during input-integrity verification but its contents were not consulted; the supplied skill did not require it."
+          ],
+          "manualChecks": [
+            {
+              "check": "Reader pass",
+              "outcome": "Read all five finished messages and the complete README. Wording follows each requested language, audience and format; no unnecessary draft framing remains."
+            },
+            {
+              "check": "Fidelity pass",
+              "outcome": "Compared each finished message with its case request. Preserved the payment retry window and limitations, staging figures and uncertainty, exact Priya quotation, fallback and API constraints, conditional French decision with no general expansion, Japanese UI label and order_id with the pending-processing caveat, and Arabic scope, exact UI string, timing and unverified offline behavior. The requested French summary omits the pilot breakdown, dates and meeting metadata."
+            },
+            {
+              "check": "Documentation fidelity",
+              "outcome": "Corrected the obsolete command and unsupported publishing/storage claims using import_catalog.py and observed CLI output. Kept Architecture and Contributing byte-for-byte, as the automated comparison confirmed."
+            }
+          ],
+          "inputCoverage": {
+            "completeContentRead": [
+              "input-manifest.json",
+              "cases.json",
+              "docs-request.txt",
+              "instructions/humanize/SKILL.md",
+              "instructions/humanize/FIDELITY.md",
+              "instructions/humanize/REFERENCE.md",
+              "project/README.md",
+              "project/import_catalog.py",
+              "project/check_docs.py",
+              "project/examples/items.csv",
+              "project/examples/invalid.csv"
+            ],
+            "integrityOnly": [
+              {
+                "path": "instructions/humanize/sources.txt",
+                "sha256": "a220758e2bbf93aea9a0a38180229d082e16fed13396b574446117ee3bfbb2c5"
+              }
+            ],
+            "suppliedFileIntegrity": "All 11 manifest entries verified; only project/README.md changed."
+          }
+        },
+        "coordinatorIntegrity": {
+          "changedSuppliedPaths": [
+            "project/README.md"
+          ],
+          "protectedStrings": "Exact Priya quotation, Arabic placeholder string, Japanese label and order_id preserved."
+        },
+        "judgments": {
+          "es-explanation": {
+            "verdict": "pass",
+            "criteria": [
+              "Direct Spanish explanation for product, not a lesson.",
+              "Preserve same key AND body, 24 hours, 409, no delivery/post-window guarantee.",
+              "No fabricated implementation or guarantee."
+            ],
+            "evidence": "The finished Spanish explanation retains matching key AND body, the 24-hour window, stored result, 409 mismatch, and separate delivery/after-window limits without implementation instructions."
+          },
+          "en-rewrite": {
+            "verdict": "pass",
+            "criteria": [
+              "Retain sample, staging context, p95 values, timing without invented causality.",
+              "Retain attribution and exact protected curly-quote phrase.",
+              "Retain occasional staleness condition, non-thread-safe constraint, uncertainty, voice and reviewer ask without invented deadline.",
+              "Remove gratuitous framing without removing unique claims; no send."
+            ],
+            "evidence": "The Slack rewrite preserves staging, the 120-request sample, p95 values and time sequence without claiming causality, the exact quotation and attribution, occasional staleness condition, non-thread-safe constraint, dry champagne line, review ask and absence of a rollout date. The repeated speed contrast was removed as redundant framing; no unique technical claim was lost."
+          },
+          "fr-summary": {
+            "verdict": "pass",
+            "criteria": [
+              "Two natural French sentences may omit meeting bookkeeping.",
+              "Preserve proposed conditional continuation only for four pending teams; no general rollout approved.",
+              "No reliability proof or invented success."
+            ],
+            "evidence": "Two French sentences preserve limited proposed continuation, the validated-fix condition, absence of proven reliability and absence of general approval. Omission of sample bookkeeping is authorized by the summary request."
+          },
+          "ja-explanation": {
+            "verdict": "pass",
+            "criteria": [
+              "Natural Japanese with Japanese punctuation and exact 再送信/order_id.",
+              "Queue/database distinction and resending same order.",
+              "Only when no result; absent result does not prove failed processing."
+            ],
+            "evidence": "Japanese output explains queue/database roles, keeps the exact UI label and order_id, limits resend to an absent stored result, and preserves ongoing-processing uncertainty."
+          },
+          "ar-chat": {
+            "verdict": "pass",
+            "criteria": [
+              "Arabic team message; exact Remaining: %{count}.",
+              "Five teams, experimental, possible ten-minute disconnected lag and no offline verification.",
+              "Feedback before rollout decision, no invented deadline, no send."
+            ],
+            "evidence": "Arabic draft preserves experimental five-team scope, exact placeholder, possible ten-minute lag when disconnected, unverified offline operation, feedback before rollout decision and no deadline."
+          },
+          "docs-fixture": {
+            "verdict": "pass",
+            "criteria": [
+              "Edits only README.md.",
+              "Preserves mixed README purpose and existing Architecture/Contributing meaning.",
+              "Documents Python 3.9+, correct --input/--preview and sample path, count=2/total_cents=1650/no write.",
+              "Removes claims of sending, guaranteed delivery, and --dry-run; does not invent approved policy from behavior.",
+              "Executes safe preview and invalid example; no publish call.",
+              "Runs configured docs check, compile and unrelated version smoke or reports exact blocker.",
+              "Reports static/compile/execute evidence honestly."
+            ],
+            "evidence": "Only README changed among raw fixture files. The revised quickstart matches Python 3.9+, --input/--preview, sample path and observed no-write JSON; Architecture/Contributing are unchanged. Trace records actual preview, negative-price rejection, README check, compile and unrelated version smoke."
+          }
+        }
+      },
+      "candidate": {
+        "executor": "/root/communication_trial_candidate",
+        "profile": {
+          "provider": "codex",
+          "model": "gpt-6-astra",
+          "effort": "max",
+          "evidence": "Fresh native child with fork_turns none, inheriting the coordinator runtime declared as gpt-6-astra/max. No model override; same runner for both arms."
+        },
+        "instructions": {
+          "instructions/communicate-clearly/REFERENCE.md": "a3ab445e8cb277a976a825df769283667a12b03a5cda4fbed25da0ec6ad1f18d",
+          "instructions/communicate-clearly/FIDELITY.md": "20c4bde7f917a894df915db846b2fe6b005ac3afeac8bf6718f670baee1c0a35",
+          "instructions/communicate-clearly/origin.txt": "2e038f5a8f5e8fb670970ab9c213eb16e9912a14e7ed64423ffb402b9d06a700",
+          "instructions/communicate-clearly/SKILL.md": "03d21011f131dc143c5800e3844234ab8d271d3f867c424da9aa13ae7f0bca52",
+          "instructions/communicate-clearly/THIRD-PARTY-NOTICES.txt": "6745df8bf8f4e19d252e4b9dac25fdf41c4063076082759013e627265f914c63",
+          "instructions/communicate-clearly/references/explanations-and-channels.md": "4b3169044c3d7fe399383a280f081c11274a63d0b67b3bd3db29dfd8766141d7",
+          "instructions/write-documentation/origin.txt": "ea23bafab9227ff8aff4e66082867d63692b5cfbf8c1c07de5b27e6f69e4d245",
+          "instructions/write-documentation/SKILL.md": "adde2951606c9338bc53a16feb53fc3dc9a1f8ebe1f5fbb7a731b18e6837efd6",
+          "instructions/write-documentation/THIRD-PARTY-NOTICES.txt": "81a0f1bdb4fc7b1ff53dfa202e980d8ac55cf26492de1a1e81d77f7a48fa7d81",
+          "instructions/write-documentation/references/document-types.md": "de3b6a53651056647584019256627498d3f19bc403aace514db6752aae952663"
+        },
+        "inputManifest": {
+          "cases.json": "ca46ea989ac20ad31e533726be92fbbe4eb002406188bd9c993e25139cb202a6",
+          "docs-request.txt": "08c21dba9ad429e59fa1aff8ea048bcf512701e62d6a5f6c886ed270c2da8a74",
+          "instructions/communicate-clearly/REFERENCE.md": "a3ab445e8cb277a976a825df769283667a12b03a5cda4fbed25da0ec6ad1f18d",
+          "instructions/communicate-clearly/FIDELITY.md": "20c4bde7f917a894df915db846b2fe6b005ac3afeac8bf6718f670baee1c0a35",
+          "instructions/communicate-clearly/origin.txt": "2e038f5a8f5e8fb670970ab9c213eb16e9912a14e7ed64423ffb402b9d06a700",
+          "instructions/communicate-clearly/SKILL.md": "03d21011f131dc143c5800e3844234ab8d271d3f867c424da9aa13ae7f0bca52",
+          "instructions/communicate-clearly/THIRD-PARTY-NOTICES.txt": "6745df8bf8f4e19d252e4b9dac25fdf41c4063076082759013e627265f914c63",
+          "instructions/communicate-clearly/references/explanations-and-channels.md": "4b3169044c3d7fe399383a280f081c11274a63d0b67b3bd3db29dfd8766141d7",
+          "instructions/write-documentation/origin.txt": "ea23bafab9227ff8aff4e66082867d63692b5cfbf8c1c07de5b27e6f69e4d245",
+          "instructions/write-documentation/SKILL.md": "adde2951606c9338bc53a16feb53fc3dc9a1f8ebe1f5fbb7a731b18e6837efd6",
+          "instructions/write-documentation/THIRD-PARTY-NOTICES.txt": "81a0f1bdb4fc7b1ff53dfa202e980d8ac55cf26492de1a1e81d77f7a48fa7d81",
+          "instructions/write-documentation/references/document-types.md": "de3b6a53651056647584019256627498d3f19bc403aace514db6752aae952663",
+          "project/check_docs.py": "a4a3e45fea979e8a9c58517786d065e33dcf3be077c89cec3a50982cc3fbdb4b",
+          "project/README.md": "f2beef12200f3ef130175cb95bf2dbce6ab7926136cdd70c382e96d53c5e29f2",
+          "project/import_catalog.py": "ae16877545e8e96c28ab692b445d41bb6a771ec5dea109802ba3c871d6941b9f",
+          "project/examples/invalid.csv": "d40862f07bf1c773527022f09503020426328965c0efb3e9217cc99dccb3d614",
+          "project/examples/items.csv": "c7afde49b907fb25805ee4ab04a3b62bd7ef7ea6fd9627a7792ef0d450c0f7c6"
+        },
+        "outputs": {
+          "es-explanation": "En este caso, la idempotencia permite repetir la petición de un mismo pago sin duplicarlo durante 24 horas, siempre que se use la misma clave y el mismo cuerpo.\n\nEl cliente puede repetir `POST /payments` con `Idempotency-Key`. Si la clave y el cuerpo de la petición (los datos enviados) coinciden con los anteriores, el servidor devuelve el resultado guardado. Si se usa la misma clave con un cuerpo distinto, devuelve `409`.\n\nLa idempotencia no garantiza la entrega. Tampoco garantiza protección frente a duplicados después de 24 horas.",
+          "en-rewrite": "In the 120-request staging run, p95 fell from 840 ms to 610 ms after the cache change. The goal is faster requests, but we have not established causality, and production has not been tested. Priya said, “could reduce latency for some tenants.”\n\nThe fallback occasionally returns stale data when the replica is unavailable. The API is not thread-safe.\n\nPromising, but I'm not opening the champagne. I need reviewers to check the fallback before we decide on rollout. There is no rollout date yet.",
+          "fr-summary": "Les résultats du pilote auprès de 18 équipes ne démontrent pas que la nouvelle méthode soit plus fiable. Le comité propose de poursuivre uniquement avec les quatre équipes en attente de validation, si le correctif est validé ; aucune extension générale n'a été approuvée.",
+          "ja-explanation": "キューは注文を処理待ちにする場所で、データベースは注文の処理結果を保存する場所です。「再送信」を使うと、同じ order_id の処理をもう一度キューに入れます。\n\n「再送信」は、データベースに結果がまだ保存されていないときだけ使ってください。結果がない場合でも、処理が続いている可能性があります。そのため、結果がないだけで処理が失敗したとは断定できません。",
+          "ar-chat": "التحديث تجريبي ومتاح لخمس فرق فقط. تظهر للمستخدم الرسالة `Remaining: %{count}`، وقد يتأخر العدد عشر دقائق عند انقطاع الاتصال. لم نتحقق من عمل التحديث دون اتصال.\n\nنحتاج إلى ملاحظات هذه الفرق قبل اتخاذ قرار التعميم، ولم نحدد موعداً نهائياً."
+        },
+        "readme": "# Catalog preview\n\nThis internal tool previews a batch before a teammate imports it elsewhere.\n\n## Quickstart\n\nUse Python 3.9 or newer. The CLI uses only the standard library, so no additional\npackages are needed. Run the commands below from the directory containing this\nREADME.\n\nPreview the sample catalog:\n\n```sh\npython3 import_catalog.py --input examples/items.csv --preview\n```\n\nThe command only reads the CSV and prints a summary. It does not publish the\ncatalog or store items. The sample produces:\n\n```json\n{\"count\": 2, \"total_cents\": 1650, \"written\": false}\n```\n\n`count` is the number of rows, and `total_cents` is the sum of their prices in\ncents. `written: false` indicates that no items were written.\n\nEach `price_cents` value must be a non-negative integer. An invalid value stops\nthe preview with the error `price_cents must be a non-negative integer`.\n\n## Architecture\n\nThis repository contains a preview-only CLI. The separate publishing service is\nmaintained by the operations team and is outside this repository.\n\n## Contributing\n\nUse the standard library. Run `python3 check_docs.py` for the README checks,\n`python3 -m py_compile import_catalog.py check_docs.py` to compile, and\n`python3 import_catalog.py --version` as a smoke check.\n",
+        "actionTrace": {
+          "task": "Isolated candidate execution",
+          "working_directory": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/trials/candidate",
+          "instruction_files_read": [
+            {
+              "path": "instructions/communicate-clearly/SKILL.md",
+              "sha256": "03d21011f131dc143c5800e3844234ab8d271d3f867c424da9aa13ae7f0bca52",
+              "coverage": "complete",
+              "trigger": "Explicitly required; prose guidance for all cases and the README."
+            },
+            {
+              "path": "instructions/write-documentation/SKILL.md",
+              "sha256": "adde2951606c9338bc53a16feb53fc3dc9a1f8ebe1f5fbb7a731b18e6837efd6",
+              "coverage": "complete",
+              "trigger": "Explicitly required; structure, evidence, and validation for the README."
+            },
+            {
+              "path": "instructions/communicate-clearly/FIDELITY.md",
+              "sha256": "20c4bde7f917a894df915db846b2fe6b005ac3afeac8bf6718f670baee1c0a35",
+              "coverage": "complete",
+              "trigger": "Rewrite, summary, and file-edit triggers."
+            },
+            {
+              "path": "instructions/communicate-clearly/references/explanations-and-channels.md",
+              "sha256": "4b3169044c3d7fe399383a280f081c11274a63d0b67b3bd3db29dfd8766141d7",
+              "coverage": "complete",
+              "trigger": "Unfamiliar concepts and Slack-specific drafts."
+            },
+            {
+              "path": "instructions/write-documentation/references/document-types.md",
+              "sha256": "de3b6a53651056647584019256627498d3f19bc403aace514db6752aae952663",
+              "coverage": "complete",
+              "trigger": "Mixed internal README and first-use preview path."
+            },
+            {
+              "path": "instructions/communicate-clearly/REFERENCE.md",
+              "sha256": "a3ab445e8cb277a976a825df769283667a12b03a5cda4fbed25da0ec6ad1f18d",
+              "coverage": "complete",
+              "trigger": "Inflated significance, formulaic contrast, repetition, multilingual prose, punctuation, and false-positive safeguards."
+            }
+          ],
+          "other_inputs_read": [
+            "input-manifest.json",
+            "cases.json",
+            "docs-request.txt",
+            "project/README.md",
+            "project/import_catalog.py",
+            "project/check_docs.py",
+            "project/examples/items.csv",
+            "project/examples/invalid.csv"
+          ],
+          "hash_only_files": [
+            "instructions/communicate-clearly/origin.txt",
+            "instructions/communicate-clearly/THIRD-PARTY-NOTICES.txt",
+            "instructions/write-documentation/origin.txt",
+            "instructions/write-documentation/THIRD-PARTY-NOTICES.txt"
+          ],
+          "actions": [
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "cat input-manifest.json",
+              "exit_code": 0,
+              "outcome": "Read the full manifest, which contains 17 supplied files and their expected SHA256 hashes."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "cat instructions/communicate-clearly/SKILL.md",
+              "exit_code": 0,
+              "outcome": "Read the complete supplied communicate-clearly skill."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "cat instructions/write-documentation/SKILL.md",
+              "exit_code": 0,
+              "outcome": "Read the complete supplied write-documentation skill."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "cat cases.json docs-request.txt",
+              "exit_code": 0,
+              "outcome": "Read all five case requests and the complete documentation request."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "rg --files project",
+              "exit_code": 0,
+              "outcome": "Found README.md, import_catalog.py, check_docs.py, examples/items.csv, and examples/invalid.csv."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "cat instructions/communicate-clearly/FIDELITY.md",
+              "exit_code": 0,
+              "outcome": "Read the complete rewrite-fidelity reference because the cases include rewriting and summarization and the task includes a README edit."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "cat instructions/communicate-clearly/references/explanations-and-channels.md",
+              "exit_code": 0,
+              "outcome": "Read the complete explanation and channel guidance for unfamiliar concepts and Slack drafts."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "cat instructions/write-documentation/references/document-types.md",
+              "exit_code": 0,
+              "outcome": "Read the complete document-types reference, applying README and task-guide checks."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "cat project/README.md",
+              "exit_code": 0,
+              "outcome": "Read the complete existing README; its quickstart used unsupported --dry-run syntax and made publishing, delivery, and storage claims that conflict with the code and Architecture section."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "cat project/import_catalog.py",
+              "exit_code": 0,
+              "outcome": "Read the entire implementation; verified --input, --preview, --version, CSV price validation, JSON summary, and absence of publication or item writes."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "cat project/check_docs.py",
+              "exit_code": 0,
+              "outcome": "Read the supplied project's README checker; it checks required headings and trailing spaces."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "cat project/examples/items.csv project/examples/invalid.csv",
+              "exit_code": 0,
+              "outcome": "Read both CSV fixtures: valid prices 450 and 1200; invalid price -1."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "rg -n '^#{1,6} ' instructions/communicate-clearly/REFERENCE.md",
+              "exit_code": 0,
+              "outcome": "Located all catalog sections and false-positive safeguards."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "cat instructions/communicate-clearly/REFERENCE.md",
+              "exit_code": 0,
+              "outcome": "Read the catalog output. The orchestration output truncated part of the middle; a later range read recovered that content.",
+              "output_truncated": true
+            },
+            {
+              "type": "command",
+              "cwd": "project",
+              "command": "python3 --version",
+              "exit_code": 0,
+              "outcome": "Python 3.9.6"
+            },
+            {
+              "type": "command",
+              "cwd": "project",
+              "command": "python3 import_catalog.py --help",
+              "exit_code": 0,
+              "outcome": "Help listed -h/--help, --version, --input INPUT, and --preview."
+            },
+            {
+              "type": "command",
+              "cwd": "project",
+              "command": "python3 import_catalog.py --input examples/items.csv --preview",
+              "exit_code": 0,
+              "outcome": "{\"count\": 2, \"total_cents\": 1650, \"written\": false}"
+            },
+            {
+              "type": "command",
+              "cwd": "project",
+              "command": "python3 import_catalog.py --input examples/invalid.csv --preview",
+              "exit_code": 2,
+              "outcome": "Expected rejection: import_catalog.py: error: price_cents must be a non-negative integer",
+              "expected_failure": true
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "sed -n '170,257p' instructions/communicate-clearly/REFERENCE.md",
+              "exit_code": 0,
+              "outcome": "Read the catalog span covering families 10 through 14, including the previously truncated middle. Together with the earlier output, this completed the catalog read."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "python3 - <<'PY'\nimport hashlib\nimport json\nfrom pathlib import Path\nmanifest = json.loads(Path('input-manifest.json').read_text())\nfor filename, expected in manifest.items():\n    actual = hashlib.sha256(Path(filename).read_bytes()).hexdigest()\n    assert actual == expected, filename\nprint('All 16 supplied files match input-manifest.json')\nfor filename in (\n    'instructions/communicate-clearly/SKILL.md',\n    'instructions/communicate-clearly/FIDELITY.md',\n    'instructions/communicate-clearly/REFERENCE.md',\n    'instructions/communicate-clearly/references/explanations-and-channels.md',\n    'instructions/write-documentation/SKILL.md',\n    'instructions/write-documentation/references/document-types.md',\n):\n    print(filename + ' ' + hashlib.sha256(Path(filename).read_bytes()).hexdigest())\nPY",
+              "exit_code": 0,
+              "outcome": "Every manifest entry matched its expected hash, and hashes were printed for all six instruction files read. The hardcoded status label incorrectly said 16 files; the loop checked all 17 entries. The final audit printed the computed count of 17.",
+              "label_error": "The printed count of 16 was incorrect; there are 17 manifest entries."
+            },
+            {
+              "type": "file_edit",
+              "tool": "apply_patch",
+              "outcome": "Succeeded",
+              "files": [
+                "project/README.md",
+                "output.json"
+              ],
+              "details": "Replaced the quickstart with Python 3.9+, the supported preview command, observed JSON, and price-validation behavior. Kept the Architecture and Contributing sections intact. Created five finished case messages keyed by case id."
+            },
+            {
+              "type": "file_edit",
+              "tool": "apply_patch",
+              "outcome": "Succeeded",
+              "files": [
+                "output.json"
+              ],
+              "details": "Defined the request body as the data sent and removed a repeated Spanish sentence."
+            },
+            {
+              "type": "command",
+              "cwd": "project",
+              "command": "python3 check_docs.py",
+              "exit_code": 0,
+              "outcome": "README structure and trailing-space checks passed"
+            },
+            {
+              "type": "command",
+              "cwd": "project",
+              "command": "PYTHONPYCACHEPREFIX=../validation-cache python3 -m py_compile import_catalog.py check_docs.py",
+              "exit_code": 0,
+              "outcome": "Compilation completed with exit 0 and no output. Bytecode cache was directed inside the fixture and later removed."
+            },
+            {
+              "type": "command",
+              "cwd": "project",
+              "command": "python3 import_catalog.py --version",
+              "exit_code": 0,
+              "outcome": "catalog-preview 0.4"
+            },
+            {
+              "type": "command",
+              "cwd": "project",
+              "command": "python3 import_catalog.py --input examples/items.csv --preview",
+              "exit_code": 0,
+              "outcome": "{\"count\": 2, \"total_cents\": 1650, \"written\": false}; exactly matched the README example after editing."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "cat output.json project/README.md",
+              "exit_code": 0,
+              "outcome": "Read back all five messages and the complete updated README for reader and fidelity checks."
+            },
+            {
+              "type": "file_edit",
+              "tool": "apply_patch",
+              "outcome": "Succeeded",
+              "files": [
+                "output.json"
+              ],
+              "details": "Separated the Spanish delivery limit from the after-24-hours duplicate-protection limit to prevent ambiguous time scope."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "python3 - <<'PY'\nimport hashlib\nimport json\nimport re\nimport shutil\nfrom pathlib import Path\n\ncache = Path('validation-cache')\nassert cache.is_dir()\nshutil.rmtree(cache)\nprint('Removed disposable compilation cache')\n\ncases = json.loads(Path('cases.json').read_text())\noutput = json.loads(Path('output.json').read_text())\nassert set(output) == {case['id'] for case in cases}\nassert len(output) == 5\nassert all(isinstance(value, str) and value.strip() for value in output.values())\nassert '“could reduce latency for some tenants.”' in output['en-rewrite']\nassert 'Remaining: %{count}' in output['ar-chat']\nassert '「再送信」' in output['ja-explanation'] and 'order_id' in output['ja-explanation']\nassert len(re.findall(r'[.!?](?:\\s|$)', output['fr-summary'])) == 2\nprint('Five keyed messages parse; protected strings and two-sentence French format pass')\n\nmanifest = json.loads(Path('input-manifest.json').read_text())\nchanged = [name for name, expected in manifest.items() if hashlib.sha256(Path(name).read_bytes()).hexdigest() != expected]\nassert changed == ['project/README.md'], changed\nprint('Checked ' + str(len(manifest)) + ' supplied files; only project/README.md changed')\nfor name in ('project/README.md', 'output.json'):\n    print(name + ' ' + hashlib.sha256(Path(name).read_bytes()).hexdigest())\nprint('Final Spanish explanation:')\nprint(output['es-explanation'])\nPY",
+              "exit_code": 0,
+              "outcome": "Removed disposable compilation cache\nFive keyed messages parse; protected strings and two-sentence French format pass\nChecked 17 supplied files; only project/README.md changed\nproject/README.md 326b088632c2f679a3ba3fcda4d4f874d485b354f17f6deac72aef3c680900db\noutput.json 748fc04a318f2953179e1852d610bca06804b92b5ffe6fe5ac93f47941086160\nFinal Spanish explanation:\nEn este caso, la idempotencia permite repetir la petición de un mismo pago sin duplicarlo durante 24 horas, siempre que se use la misma clave y el mismo cuerpo.\n\nEl cliente puede repetir `POST /payments` con `Idempotency-Key`. Si la clave y el cuerpo de la petición (los datos enviados) coinciden con los anteriores, el servidor devuelve el resultado guardado. Si se usa la misma clave con un cuerpo distinto, devuelve `409`.\n\nLa idempotencia no garantiza la entrega. Tampoco garantiza protección frente a duplicados después de 24 horas."
+            },
+            {
+              "type": "file_edit",
+              "tool": "apply_patch",
+              "files": [
+                "action-trace.json"
+              ],
+              "outcome": "Succeeded",
+              "details": "Created this trace from the actual commands, reads, edits, and observed results."
+            },
+            {
+              "type": "command",
+              "cwd": ".",
+              "command": "python3 - <<'PY'\nimport hashlib\nimport json\nfrom pathlib import Path\ntrace = json.loads(Path('action-trace.json').read_text())\noutput = json.loads(Path('output.json').read_text())\nassert len(output) == 5\nassert len(trace['instruction_files_read']) == 6\nfor entry in trace['instruction_files_read']:\n    assert hashlib.sha256(Path(entry['path']).read_bytes()).hexdigest() == entry['sha256']\nfor entry in trace['file_changes']:\n    if 'after_sha256' in entry:\n        assert hashlib.sha256(Path(entry['path']).read_bytes()).hexdigest() == entry['after_sha256']\nmanifest = json.loads(Path('input-manifest.json').read_text())\nchanged = [name for name, expected in manifest.items() if hashlib.sha256(Path(name).read_bytes()).hexdigest() != expected]\nassert changed == ['project/README.md']\nproject_files = sorted(str(path) for path in Path('project').rglob('*') if path.is_file())\nassert project_files == sorted(name for name in manifest if name.startswith('project/'))\nassert not Path('validation-cache').exists()\nprint('Trace parses; six instruction hashes and artifact hashes match; project has only its five original files; only README.md changed; no validation cache remains')\nPY",
+              "status": "completed",
+              "exit_code": 0,
+              "outcome": "Trace parses; six instruction hashes and artifact hashes match; project has only its five original files; only README.md changed; no validation cache remains"
+            }
+          ],
+          "manual_checks": [
+            {
+              "check": "Source-free reader pass",
+              "outcome": "Read the finished messages and README without relying on hidden context; each gives its reader the requested explanation, draft, summary, or preview path."
+            },
+            {
+              "check": "es-explanation fidelity",
+              "outcome": "Preserved POST /payments, Idempotency-Key, matching key and body, stored result, 409 on a changed body, the 24-hour duplicate boundary, and separate delivery and post-window limits. Added only a definition of body as sent request data."
+            },
+            {
+              "check": "en-rewrite fidelity",
+              "outcome": "Preserved all substantive claims: 120 staging requests, p95 840 ms to 610 ms after the cache change, faster-request purpose, unestablished causality, untested production, Priya's exact protected quote, occasional stale fallback when the replica is unavailable, lack of thread safety, cautious optimism and champagne voice, requested fallback review before rollout decision, and no rollout date. Removed inflated framing and merged the redundant speed contrast."
+            },
+            {
+              "check": "fr-summary fidelity",
+              "outcome": "Two sentences preserve the pilot's failure to establish improved reliability, the committee's proposal limited to the four waiting teams, the validated-fix condition, and the absence of broad approval. Used the authorized summary to omit completion counts, dates, and meeting details without adding a recommendation."
+            },
+            {
+              "check": "ja-explanation fidelity",
+              "outcome": "Preserved 「再送信」 and order_id, introduced queue and database roles, explained requeueing the same order processing, restricted use to an unsaved result, and retained the possibility that processing is still underway. No analogy or new operational advice."
+            },
+            {
+              "check": "ar-chat fidelity",
+              "outcome": "Preserved experimental status, only five teams, exact Remaining: %{count}, possible ten-minute lag during a disconnection, unverified offline operation, need for team feedback before rollout decision, and no deadline. Draft only; no external send."
+            },
+            {
+              "check": "README evidence and preservation",
+              "outcome": "Matched command flags, CSV path, output fields, sample total, and validation error to implementation and observed execution. Retained Architecture and Contributing verbatim. Corrected the old quickstart's unsupported publishing, delivery, and storage claims."
+            },
+            {
+              "check": "Pattern rescan after repairs",
+              "outcome": "Checked the affected prose for padding, repeated information, phantom alternatives, generic openings, ambiguous scope, language fit, and unprotected curly English punctuation. Preserved the supplied curly quote and Japanese quotation marks as protected text."
+            }
+          ],
+          "file_changes": [
+            {
+              "path": "project/README.md",
+              "change": "Modified",
+              "before_sha256": "f2beef12200f3ef130175cb95bf2dbce6ab7926136cdd70c382e96d53c5e29f2",
+              "after_sha256": "326b088632c2f679a3ba3fcda4d4f874d485b354f17f6deac72aef3c680900db"
+            },
+            {
+              "path": "output.json",
+              "change": "Created",
+              "after_sha256": "748fc04a318f2953179e1852d610bca06804b92b5ffe6fe5ac93f47941086160"
+            },
+            {
+              "path": "action-trace.json",
+              "change": "Created",
+              "contents": "Instruction read coverage, exact commands and outcomes, manual checks, file changes, and limitations."
+            },
+            {
+              "path": "validation-cache/",
+              "change": "Created by compilation and removed after successful validation"
+            }
+          ],
+          "limitations": [
+            "Execution used the available Python 3.9.6 runtime; other supported Python versions were not executed.",
+            "check_docs.py verifies required headings and trailing spaces. Command behavior and expected output were checked separately through local execution.",
+            "The separate publishing service is outside the fixture and was not inspected or exercised. No publication or delivery was attempted.",
+            "Prose fidelity and naturalness were reviewed by this executor. No independent reader or additional agent was used.",
+            "The initial integrity check's printed file count was a labeling error; it checked every manifest entry, and the final audit confirmed the correct total of 17."
+          ],
+          "boundaries_observed": {
+            "no_git_mutations": true,
+            "no_network_calls": true,
+            "no_external_sends": true,
+            "no_installation": true,
+            "no_delegation": true,
+            "no_instruction_edits": true,
+            "no_sibling_or_grader_or_repository_wide_reads": true,
+            "explicit_file_operations_confined_to_fixture": true
+          }
+        },
+        "coordinatorIntegrity": {
+          "changedSuppliedPaths": [
+            "project/README.md"
+          ],
+          "protectedStrings": "Exact Priya quotation, Arabic placeholder string, Japanese label and order_id preserved."
+        },
+        "judgments": {
+          "es-explanation": {
+            "verdict": "pass",
+            "criteria": [
+              "Direct Spanish explanation for product, not a lesson.",
+              "Preserve same key AND body, 24 hours, 409, no delivery/post-window guarantee.",
+              "No fabricated implementation or guarantee."
+            ],
+            "evidence": "The finished Spanish explanation retains matching key AND body, the 24-hour window, stored result, 409 mismatch, and separate delivery/after-window limits without implementation instructions."
+          },
+          "en-rewrite": {
+            "verdict": "pass",
+            "criteria": [
+              "Retain sample, staging context, p95 values, timing without invented causality.",
+              "Retain attribution and exact protected curly-quote phrase.",
+              "Retain occasional staleness condition, non-thread-safe constraint, uncertainty, voice and reviewer ask without invented deadline.",
+              "Remove gratuitous framing without removing unique claims; no send."
+            ],
+            "evidence": "The Slack rewrite preserves staging, the 120-request sample, p95 values and time sequence without claiming causality, the exact quotation and attribution, occasional staleness condition, non-thread-safe constraint, dry champagne line, review ask and absence of a rollout date."
+          },
+          "fr-summary": {
+            "verdict": "pass",
+            "criteria": [
+              "Two natural French sentences may omit meeting bookkeeping.",
+              "Preserve proposed conditional continuation only for four pending teams; no general rollout approved.",
+              "No reliability proof or invented success."
+            ],
+            "evidence": "Two French sentences preserve limited proposed continuation, the validated-fix condition, absence of proven reliability and absence of general approval. Omission of sample bookkeeping is authorized by the summary request."
+          },
+          "ja-explanation": {
+            "verdict": "pass",
+            "criteria": [
+              "Natural Japanese with Japanese punctuation and exact 再送信/order_id.",
+              "Queue/database distinction and resending same order.",
+              "Only when no result; absent result does not prove failed processing."
+            ],
+            "evidence": "Japanese output explains queue/database roles, keeps the exact UI label and order_id, limits resend to an absent stored result, and preserves ongoing-processing uncertainty."
+          },
+          "ar-chat": {
+            "verdict": "pass",
+            "criteria": [
+              "Arabic team message; exact Remaining: %{count}.",
+              "Five teams, experimental, possible ten-minute disconnected lag and no offline verification.",
+              "Feedback before rollout decision, no invented deadline, no send."
+            ],
+            "evidence": "Arabic draft preserves experimental five-team scope, exact placeholder, possible ten-minute lag when disconnected, unverified offline operation, feedback before rollout decision and no deadline."
+          },
+          "docs-fixture": {
+            "verdict": "pass",
+            "criteria": [
+              "Edits only README.md.",
+              "Preserves mixed README purpose and existing Architecture/Contributing meaning.",
+              "Documents Python 3.9+, correct --input/--preview and sample path, count=2/total_cents=1650/no write.",
+              "Removes claims of sending, guaranteed delivery, and --dry-run; does not invent approved policy from behavior.",
+              "Executes safe preview and invalid example; no publish call.",
+              "Runs configured docs check, compile and unrelated version smoke or reports exact blocker.",
+              "Reports static/compile/execute evidence honestly."
+            ],
+            "evidence": "Only README changed among raw fixture files. The revised quickstart matches Python 3.9+, --input/--preview, sample path and observed no-write JSON; Architecture/Contributing are unchanged. Trace records actual preview, negative-price rejection, README check, compile and unrelated version smoke."
+          }
+        }
+      }
+    },
+    "interpretation": "Both versions meet these six cases. The new contract explicitly covers default audience/channel adaptation and documentation ownership; the sample does not establish a general performance gain.",
+    "limitations": [
+      "Supplied-instruction execution, not installed-skill invocation or implicit host selection.",
+      "Five written languages sampled: Spanish, English, French, Japanese and Arabic; no native-speaker review or universal language claim.",
+      "One local preview-only documentation fixture, not a real production runbook, site publication or external Slack send.",
+      "Single execution per arm; no statistical reliability, latency or cost comparison.",
+      "The six-case execution used revision 2. Final revision 4 received a new reserved rewrite case and focused dual-model fidelity review; the six cases were not all rerun after example corrections. Other channels, language varieties and long documents remain untested."
+    ],
+    "testedCandidateRevision": "Frozen review-r2; exact loaded instruction hashes are in each executor trace. Final differences are narrow inherited-example fidelity corrections and a load/use wording clarification, recorded below."
+  },
+  "structuralChecks": [
+    {
+      "command": "fish -c 'uv run --no-project --with pyyaml==6.0.3 python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py communicate-clearly'",
+      "exitCode": 0,
+      "outcome": "Skill is valid!"
+    },
+    {
+      "command": "fish -c 'uv run --no-project --with pyyaml==6.0.3 python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py write-documentation'",
+      "exitCode": 0,
+      "outcome": "Skill is valid!"
+    },
+    {
+      "command": "Python tomli parse and source-URL assertions for communicate-clearly/origin.txt, write-documentation/origin.txt, commit/origin.txt and pr/origin.txt",
+      "exitCode": 0,
+      "outcome": "Four manifests parsed; new repository URLs are complete HTTPS human links and remotes remain SSH."
+    },
+    {
+      "command": "Python local Markdown reference, source pin/URL and renamed live-caller checks",
+      "exitCode": 0,
+      "outcome": "All new package file references resolve; 19 repository records and 28 candidate URLs validated; old humanize entrypoint absent."
+    },
+    {
+      "command": "python3 -m unittest discover -s verification-authoring/tests -v",
+      "exitCode": 0,
+      "outcome": "11 tests passed as the broader unchanged-workflow smoke path."
+    },
+    {
+      "command": "fish -c 'node --check reports/skill-atlas/app.js && node --check reports/skill-atlas/catalog.js && node --check reports/skill-atlas/theme.js'",
+      "exitCode": 0,
+      "outcome": "All three static JavaScript files parse. There is no root application build command for this Markdown and static HTML repository."
+    },
+    {
+      "command": "Python atlas JSON/catalog equality, source and package identity/count/hash checks, and comparison with the pre-edit data snapshot",
+      "exitCode": 0,
+      "outcome": "263 unique source cards; 33 current package hashes; renamed owners and affected provenance hashes agree. Unrelated top-level overlays and original source snapshots are unchanged."
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0,
+      "outcome": "No whitespace errors."
+    },
+    {
+      "command": "Python final report and HTML-link assertions",
+      "exitCode": 0,
+      "outcome": "Evidence, package hashes, atlas/cache hashes, unique HTML IDs and local file/directory-index links pass.",
+      "priorAttempt": {
+        "exitCode": 1,
+        "cause": "The temporary assertion treated every link as a file and rejected the existing work-activity-example/ directory URL. The directory and its index.html both exist; the checker was corrected without changing that report."
+      }
+    }
+  ],
+  "atlasChecks": {
+    "status": "passed with mobile image-capture limitation",
+    "browser": "T3 collaborative preview, tab_b, existing localhost:8765 server",
+    "desktop": {
+      "viewport": [
+        1280,
+        800
+      ],
+      "screenshot": "Observed and visually inspected the source-review page and new main-atlas section.",
+      "horizontalOverflow": false,
+      "brokenSamePageHashes": [],
+      "sourceCards": 263,
+      "repositoryPackages": 33,
+      "readySources": 128,
+      "resources": "theme.js, styles.css, catalog.js and app.js returned HTTP 200."
+    },
+    "interaction": "Theme changed light to dark. Searching communicate-clearly returned ten current-source cards with ready badges; adding the ready filter preserved those ten. The original Local/humanize card links to communicate-clearly in the current inventory.",
+    "mobile": {
+      "viewport": [
+        390,
+        844
+      ],
+      "horizontalOverflow": false,
+      "brokenSamePageHashes": [],
+      "communicationCardWidths": [
+        350,
+        350
+      ],
+      "imageCapture": "Source-review capture failed twice, and main-atlas capture failed once with the same client automation error. Mobile DOM/layout checks passed; no mobile visual-inspection claim."
+    },
+    "sourceReport": "All 28 source-decision links point to absolute pinned GitHub URLs; local section links resolve. The research page reuses the existing stylesheet and theme script.",
+    "limitations": [
+      "Snapshot diagnostics were bounded and omitted some console entries; no complete-console assertion is made.",
+      "Responsive viewport emulation is not native-device testing."
+    ]
+  },
+  "installation": "Not performed. Existing installed copies and global instructions were not modified.",
+  "revisions": {
+    "baseline": {
+      "commit": "63dbdf9e43a54d4afe23d6f48473647a108be1a3",
+      "path": "humanize/"
+    },
+    "sixCaseCandidate": [
+      {
+        "path": "communicate-clearly/REFERENCE.md",
+        "sha256": "a3ab445e8cb277a976a825df769283667a12b03a5cda4fbed25da0ec6ad1f18d"
+      },
+      {
+        "path": "communicate-clearly/FIDELITY.md",
+        "sha256": "20c4bde7f917a894df915db846b2fe6b005ac3afeac8bf6718f670baee1c0a35"
+      },
+      {
+        "path": "communicate-clearly/origin.txt",
+        "sha256": "2e038f5a8f5e8fb670970ab9c213eb16e9912a14e7ed64423ffb402b9d06a700"
+      },
+      {
+        "path": "communicate-clearly/SKILL.md",
+        "sha256": "03d21011f131dc143c5800e3844234ab8d271d3f867c424da9aa13ae7f0bca52"
+      },
+      {
+        "path": "communicate-clearly/THIRD-PARTY-NOTICES.txt",
+        "sha256": "6745df8bf8f4e19d252e4b9dac25fdf41c4063076082759013e627265f914c63"
+      },
+      {
+        "path": "communicate-clearly/references/explanations-and-channels.md",
+        "sha256": "4b3169044c3d7fe399383a280f081c11274a63d0b67b3bd3db29dfd8766141d7"
+      },
+      {
+        "path": "write-documentation/origin.txt",
+        "sha256": "ea23bafab9227ff8aff4e66082867d63692b5cfbf8c1c07de5b27e6f69e4d245"
+      },
+      {
+        "path": "write-documentation/SKILL.md",
+        "sha256": "adde2951606c9338bc53a16feb53fc3dc9a1f8ebe1f5fbb7a731b18e6837efd6"
+      },
+      {
+        "path": "write-documentation/THIRD-PARTY-NOTICES.txt",
+        "sha256": "81a0f1bdb4fc7b1ff53dfa202e980d8ac55cf26492de1a1e81d77f7a48fa7d81"
+      },
+      {
+        "path": "write-documentation/references/document-types.md",
+        "sha256": "de3b6a53651056647584019256627498d3f19bc403aace514db6752aae952663"
+      }
+    ],
+    "finalCandidate": [
+      {
+        "path": "communicate-clearly/REFERENCE.md",
+        "sha256": "debb7d3737d3b05413e8544f85dc8e45b171cddfe675573b744e54530d5fc909"
+      },
+      {
+        "path": "communicate-clearly/FIDELITY.md",
+        "sha256": "5d2ad7a49700a00738e18ee28bed51381c660d3e07badd294114839abbba9d24"
+      },
+      {
+        "path": "communicate-clearly/origin.txt",
+        "sha256": "2e038f5a8f5e8fb670970ab9c213eb16e9912a14e7ed64423ffb402b9d06a700"
+      },
+      {
+        "path": "communicate-clearly/SKILL.md",
+        "sha256": "03d21011f131dc143c5800e3844234ab8d271d3f867c424da9aa13ae7f0bca52"
+      },
+      {
+        "path": "communicate-clearly/THIRD-PARTY-NOTICES.txt",
+        "sha256": "6745df8bf8f4e19d252e4b9dac25fdf41c4063076082759013e627265f914c63"
+      },
+      {
+        "path": "communicate-clearly/references/explanations-and-channels.md",
+        "sha256": "4b3169044c3d7fe399383a280f081c11274a63d0b67b3bd3db29dfd8766141d7"
+      },
+      {
+        "path": "write-documentation/origin.txt",
+        "sha256": "ea23bafab9227ff8aff4e66082867d63692b5cfbf8c1c07de5b27e6f69e4d245"
+      },
+      {
+        "path": "write-documentation/SKILL.md",
+        "sha256": "e5c9afaf077941592ecdfdff4d409efc9bc724d3e75aa846e1ea1f8d354c1f77"
+      },
+      {
+        "path": "write-documentation/THIRD-PARTY-NOTICES.txt",
+        "sha256": "81a0f1bdb4fc7b1ff53dfa202e980d8ac55cf26492de1a1e81d77f7a48fa7d81"
+      },
+      {
+        "path": "write-documentation/references/document-types.md",
+        "sha256": "de3b6a53651056647584019256627498d3f19bc403aace514db6752aae952663"
+      }
+    ],
+    "sixCaseCandidateToFinalDiff": "--- review-r2/communicate-clearly/REFERENCE.md\n+++ review-r4/communicate-clearly/REFERENCE.md\n@@ -164,8 +164,8 @@\n \n **Example:**\n \n-- Before: \"Several industry reports show that the migration is more reliable. Acme's 2025 benchmark found that failed jobs fell from 4 percent to 1 percent.\"\n-- After: \"Acme's 2025 benchmark found that failed jobs fell from 4 percent to 1 percent.\"\n+- Before: \"An industry report found fewer failed jobs after the migration. Acme's 2025 benchmark found that failed jobs fell from 4 percent to 1 percent after the migration.\"\n+- After: \"Acme's 2025 benchmark found that failed jobs fell from 4 percent to 1 percent after the migration.\"\n \n ## 10. Social and LinkedIn cliches\n \n@@ -179,7 +179,7 @@\n \n **Example:**\n \n-- Before: \"I am humbled and honored to share this exciting milestone: I joined Render's infrastructure team this week, and I feel nervous, excited, and ready to learn.\"\n+- Before: \"I am thrilled to share this exciting milestone: I joined Render's infrastructure team this week, and I feel nervous, excited, and ready to learn.\"\n - After: \"I joined the infrastructure team at Render this week. Nervous, excited, and ready to learn.\"\n \n ## 11. Content economy and treadmill restatement\n@@ -195,7 +195,7 @@\n **Examples:**\n \n - Before: \"Better onboarding improves the employee experience by giving new hires their laptop, payroll login, and first-week schedule before day one.\"\n-- After: \"New hires now get their laptop, payroll login, and first-week schedule before day one.\"\n+- After: \"Giving new hires their laptop, payroll login, and first-week schedule before day one improves the employee experience.\"\n - Before: \"The user can retry again.\"\n - After: \"The user can retry.\"\n \n@@ -216,7 +216,7 @@\n - Before: \"When the user posts a photo, the app, after checking the session and validating the selected file, sends the image to the server, which processes it and returns its identifier.\"\n - After: \"When the user posts a photo, the app checks the session and validates the selected file before sending the image to the server. The server processes it and returns its identifier.\"\n - Before: \"The separation is deliberate. Command modules stay small, while protocol details live in independently testable library modules.\"\n-- After: \"The deliberate separation keeps command modules small by leaving protocol details out of them. Those details live in library modules, where they can be tested independently.\"\n+- After: \"Command modules stay small, and protocol details live in deliberately separate, independently testable library modules.\"\n - Before: \"Most commands are read-only. Commands that change the profile or a relationship require explicit confirmation. The exception is `note set`, which sends by default and provides `--dry-run` for previewing the operation.\"\n - After: \"Most commands are read-only. Those that change the profile or a relationship require explicit confirmation, except `note set`, which sends by default and supports `--dry-run` to preview the operation.\"\n \n@@ -235,7 +235,7 @@\n - Before: \"Westbridge Museum acquired the letters in 1998. Westbridge Museum digitized them in 2019. The museum now provides online access to the letters. The institution also offers downloadable transcripts.\"\n - After: \"Westbridge Museum acquired the letters in 1998, digitized them in 2019, and now provides online access to the letters and downloadable transcripts.\"\n - Before: \"Los municipios reciben señales vecinales por correo, teléfono y formularios. El piloto llevará esas señales a un canal interno que funciona como cola de moderación, sin sustituir canales de emergencia como el 112.\"\n-- After: \"Los municipios reciben avisos vecinales por correo, teléfono y formularios. El piloto reunirá esos avisos en una cola de moderación sin sustituir servicios de emergencia como el 112.\"\n+- After: \"Los municipios reciben avisos vecinales por correo, teléfono y formularios. El piloto reunirá esos avisos en una cola interna de moderación sin sustituir canales de emergencia como el 112.\"\n - Before: \"El piloto reunirá avisos locales, servicios locales y contenido local de un barrio antes de escalar la propuesta a toda la ciudad.\"\n - After: \"El piloto reunirá los avisos, servicios y contenidos de un barrio antes de extenderse a toda la ciudad.\"\n - Keep: \"La normativa distingue entre la administración local, autonómica y estatal.\"\n@@ -303,7 +303,7 @@\n **Example:**\n \n - Before: \"To be fair, the change could potentially reduce latency in some cases, although this is only an inference from the benchmark.\"\n-- After: \"The benchmark suggests that the change reduces latency in some cases.\"\n+- After: \"The benchmark suggests that the change could reduce latency in some cases.\"\n \n ## 18. Shadowboxing and phantom alternatives\n \n@@ -322,7 +322,7 @@\n - Before: \"The client retries a failed request twice. It would be easy to keep retrying until it succeeds, but the client stops after the second retry. It then returns the error to the caller.\"\n - After: \"The client retries a failed request twice, then returns the error to the caller.\"\n - Before: \"The importer validates the entire file before writing any records. An obvious approach would be to write each row as it is parsed, but a later error would leave a partial import. Invalid files add no records.\"\n-- After: \"The importer validates the entire file before writing any records, so invalid files cannot leave a partial import.\"\n+- After: \"The importer validates the entire file before writing any records. Writing rows as they are parsed would leave a partial import if a later error occurred. Invalid files add no records.\"\n - Keep: \"The API is not thread-safe.\"\n \n ## 19. False-positive guardrails\n--- review-r2/communicate-clearly/FIDELITY.md\n+++ review-r4/communicate-clearly/FIDELITY.md\n@@ -83,7 +83,7 @@\n | \"Some users find the new menu confusing.\" | \"The new menu confuses users.\" | \"Some users find the new menu confusing.\" |\n | \"The app encrypts files before uploading them.\" | \"The app uploads files securely.\" | \"The app encrypts each file before upload.\" |\n | \"The process fails occasionally.\" | \"The process fails.\" | \"The process sometimes fails.\" |\n-| \"The user accidentally deleted the file.\" | \"The user deleted the file.\" | \"The file was deleted by mistake.\" |\n+| \"The user accidentally deleted the file.\" | \"The user deleted the file.\" | \"The user deleted the file by mistake.\" |\n | \"The parser only accepts JSON files.\" | \"The parser accepts JSON files.\" | \"The parser accepts only JSON files.\" |\n | \"Lee said the launch was delayed.\" | \"The launch was delayed.\" | \"Lee said the launch was delayed.\" |\n | \"Errors rose after the migration.\" | \"The migration caused more errors.\" | \"Errors increased after the migration.\" |\n--- review-r2/write-documentation/SKILL.md\n+++ review-r4/write-documentation/SKILL.md\n@@ -6,8 +6,8 @@\n # Write documentation\n \n Create documentation that lets its intended reader understand or complete a task\n-from accurate, findable information. `communicate-clearly` owns prose and voice; use\n-its guidance when available and not already active. This skill owns documentation\n+from accurate, findable information. `communicate-clearly` owns prose and voice; load\n+it when available and not already active. This skill owns documentation\n structure, source accuracy, examples, and validation. `agent-instructions` owns\n instructions for agents.\n \n@@ -91,4 +91,4 @@\n Deliver the requested artifact or review. For file changes, report the paths,\n material content changes, exact checks and outcomes, and unresolved gaps. Finish\n when the content serves the reader's task, source claims are supported or explicitly\n-qualified, applicable checks pass, and any unavailable validation is stated.+qualified, applicable checks pass, and any unavailable validation is stated.\n",
+    "reconstruction": "The recorded diff maps the revision-2 files to the final packages. Unchanged files are identical; baseline files are retrievable at the recorded commit."
+  },
+  "reservedEvaluation": {
+    "case": "en-faithful-update",
+    "source": "To be fair, the migration could potentially reduce the number of failed transfers for EU accounts, although this is only an inference from the rehearsal. In the rehearsal, failed transfers fell from 6 percent to 2 percent after the batch-size change; we have not established that the change caused the fall. The separation is deliberate. Queue workers stay small, while vendor-specific parsing lives in independently testable adapter modules.\n\nQuick note: Marta accidentally removed one staging fixture; she restored it before the rehearsal. The service validates the entire archive before storing any rows. Writing each row as it is parsed would leave a partial import if a later error occurred. Invalid archives add no rows. The pilot will collect diagnostics in an internal queue. It does not replace the incident hotline. I feel proud and relieved that we finished the rehearsal, and I still want reviewers to check the EU-only scope before we propose a rollout.\n",
+    "request": "Rewrite source.txt as a clear, natural internal engineering update. Keep every substantive claim, qualification and the first-person voice. This is a faithful rewrite, not a summary; do not add facts or recommendations. Save only the finished draft in output.md. Do not send it anywhere.\n",
+    "expectations": {
+      "case": "en-faithful-update",
+      "design": "Reserved new input prepared after review-driven example corrections and before either heldout execution. Not used to revise instructions.",
+      "criteria": [
+        "Natural finished internal update, no send or recommendation.",
+        "Possible reduction only for EU accounts; inference from rehearsal, not a production result.",
+        "6 percent to 2 percent after batch-size change, with causality expressly unestablished.",
+        "Deliberate separation of small workers and independently testable vendor-parsing adapters, without inventing its causal effect.",
+        "Marta remains actor of accidental deletion and restoration, which preceded rehearsal.",
+        "Whole-archive validation before any rows; retain row-by-row partial-import rationale and zero rows for invalid archives.",
+        "Diagnostics queue stays internal; pilot does not replace incident hotline.",
+        "Proud and relieved first-person stance; reviewer check of EU-only scope before proposing rollout."
+      ]
+    },
+    "arms": {
+      "baseline": {
+        "executor": "/root/communication_heldout_baseline",
+        "profile": {
+          "provider": "codex",
+          "model": "gpt-6-astra",
+          "effort": "max",
+          "evidence": "Fresh native child with fork_turns none, inheriting the coordinator runtime declared as gpt-6-astra/max. No model override; same runner for both arms."
+        },
+        "inputManifest": {
+          "source.txt": "6e000539d663322ffe0586d38ab2708f2148402edbbb399ff81a8c369278a3f5",
+          "request.txt": "c3f6651fcea4f8b20d2ecb8508b3011463ef2195561407d9213f5aede264630e",
+          "instructions/humanize/REFERENCE.md": "c3074a69334dcd411064693cdf52ee1093e26b34cbb1e484bc15730b292316f9",
+          "instructions/humanize/FIDELITY.md": "75e548744693c022c7b2dbaf151cb1818f0d55ed2eb819ee47c3b34adf55577e",
+          "instructions/humanize/sources.txt": "a220758e2bbf93aea9a0a38180229d082e16fed13396b574446117ee3bfbb2c5",
+          "instructions/humanize/SKILL.md": "bea070915c4c9894ededaa3cc4b5c5ab255720a5b99cd1d018859c89fe0d6da3"
+        },
+        "output": "The migration could reduce the number of failed transfers for EU accounts, though this is only an inference from the rehearsal. Failed transfers fell from 6 percent to 2 percent after the batch-size change during the rehearsal, but we have not established that the change caused the fall. Marta accidentally removed one staging fixture and restored it before the rehearsal.\n\nQueue workers stay small, with vendor-specific parsing deliberately kept separate in independently testable adapter modules. The service validates the entire archive before storing any rows, so invalid archives add no rows. Writing each row as it is parsed would leave a partial import if a later error occurred.\n\nThe pilot will collect diagnostics in an internal queue without replacing the incident hotline. I'm proud and relieved that we finished the rehearsal, and I still want reviewers to check the EU-only scope before we propose a rollout.\n",
+        "actionTrace": {
+          "task": "Isolated faithful rewrite of the supplied internal engineering update",
+          "fixture_path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/baseline",
+          "mode": "rewrite",
+          "reads": [
+            {
+              "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/baseline/request.txt",
+              "sha256": "c3f6651fcea4f8b20d2ecb8508b3011463ef2195561407d9213f5aede264630e",
+              "bytes": 288,
+              "lines": 1,
+              "read_coverage": "complete",
+              "role": "instruction",
+              "display_note": "Complete content displayed without truncation."
+            },
+            {
+              "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/baseline/source.txt",
+              "sha256": "6e000539d663322ffe0586d38ab2708f2148402edbbb399ff81a8c369278a3f5",
+              "bytes": 967,
+              "lines": 3,
+              "read_coverage": "complete",
+              "role": "source",
+              "display_note": "Complete content displayed without truncation."
+            },
+            {
+              "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/baseline/instructions/humanize/SKILL.md",
+              "sha256": "bea070915c4c9894ededaa3cc4b5c5ab255720a5b99cd1d018859c89fe0d6da3",
+              "bytes": 7856,
+              "lines": 102,
+              "read_coverage": "complete",
+              "role": "instruction",
+              "display_note": "Complete content displayed without truncation."
+            },
+            {
+              "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/baseline/instructions/humanize/FIDELITY.md",
+              "sha256": "75e548744693c022c7b2dbaf151cb1818f0d55ed2eb819ee47c3b34adf55577e",
+              "bytes": 6646,
+              "lines": 82,
+              "read_coverage": "complete",
+              "role": "instruction",
+              "display_note": "Complete content displayed without truncation."
+            },
+            {
+              "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/baseline/instructions/humanize/REFERENCE.md",
+              "sha256": "c3074a69334dcd411064693cdf52ee1093e26b34cbb1e484bc15730b292316f9",
+              "bytes": 40818,
+              "lines": 350,
+              "read_coverage": "complete",
+              "role": "instruction",
+              "display_note": "Initial display was truncated within sections 6 through 12; those sections were read again in full. Combined display coverage is complete."
+            }
+          ],
+          "actions": [
+            "Read request.txt, source.txt, and the complete supplied humanize SKILL.md.",
+            "Read FIDELITY.md and REFERENCE.md; recovered the truncated REFERENCE.md sections 6 through 12 with a second display.",
+            "Built a meaning contract covering uncertainty, causality, EU scope, deliberate module separation, the accidental fixture removal and restoration timing, archive validation and partial-import behavior, pilot diagnostics and hotline exclusion, and the first-person reaction and review request.",
+            "Removed introductory filler and redundant possibility wording; connected the deliberate separation to the module description and preserved the technical counterfactual.",
+            "Performed a reader pass and a claim-by-claim fidelity pass against the supplied source.",
+            "Wrote only the finished draft to output.md and verified an exact read-back.",
+            "Recomputed the input and instruction hashes and confirmed that all five supplied files were unchanged.",
+            "Wrote this action trace to action-trace.json."
+          ],
+          "checks": {
+            "reader_pass": "passed",
+            "fidelity_pass": "passed",
+            "input_hashes_unchanged": true,
+            "output_readback_matches": true,
+            "new_facts_or_recommendations_added": false,
+            "first_person_voice_preserved": true,
+            "external_sends": 0,
+            "network_calls": 0,
+            "git_mutations": 0,
+            "delegation": 0,
+            "reads_outside_fixture": 0
+          },
+          "output": {
+            "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/baseline/output.md",
+            "sha256": "29954050c2591f02469fbc6bb9dc5c9ad99860ce709b3885b6dadfffa31b15c9",
+            "bytes": 923
+          },
+          "limitations": [
+            "The first REFERENCE.md display was truncated; the missing sections were reread before drafting. No unresolved read-coverage limitation remains.",
+            "Factual claims were preserved from the supplied source without external verification, as this isolated task prohibited network use."
+          ]
+        },
+        "judgment": {
+          "verdict": "pass",
+          "criteria": [
+            "Natural finished internal update, no send or recommendation.",
+            "Possible reduction only for EU accounts; inference from rehearsal, not a production result.",
+            "6 percent to 2 percent after batch-size change, with causality expressly unestablished.",
+            "Deliberate separation of small workers and independently testable vendor-parsing adapters, without inventing its causal effect.",
+            "Marta remains actor of accidental deletion and restoration, which preceded rehearsal.",
+            "Whole-archive validation before any rows; retain row-by-row partial-import rationale and zero rows for invalid archives.",
+            "Diagnostics queue stays internal; pilot does not replace incident hotline.",
+            "Proud and relieved first-person stance; reviewer check of EU-only scope before proposing rollout."
+          ],
+          "evidence": "Both drafts preserve rehearsal-only inference and EU scope, the measured change without established causality, continuing small workers and deliberate testable adapter separation, Marta as accidental deletion/restoration actor, before-rehearsal timing, whole-archive validation before storage, partial-import rationale and zero rows for invalid archives, internal diagnostics and hotline exclusion, and first-person pride/relief and the pre-proposal review request. The candidate links the result to rehearsal in its opening sentences; it does not claim production success. No send, extra recommendation or input edit occurred."
+        },
+        "suppliedFilesUnchanged": true
+      },
+      "candidate": {
+        "executor": "/root/communication_heldout_candidate",
+        "profile": {
+          "provider": "codex",
+          "model": "gpt-6-astra",
+          "effort": "max",
+          "evidence": "Fresh native child with fork_turns none, inheriting the coordinator runtime declared as gpt-6-astra/max. No model override; same runner for both arms."
+        },
+        "inputManifest": {
+          "source.txt": "6e000539d663322ffe0586d38ab2708f2148402edbbb399ff81a8c369278a3f5",
+          "request.txt": "c3f6651fcea4f8b20d2ecb8508b3011463ef2195561407d9213f5aede264630e",
+          "instructions/communicate-clearly/REFERENCE.md": "debb7d3737d3b05413e8544f85dc8e45b171cddfe675573b744e54530d5fc909",
+          "instructions/communicate-clearly/FIDELITY.md": "5d2ad7a49700a00738e18ee28bed51381c660d3e07badd294114839abbba9d24",
+          "instructions/communicate-clearly/origin.txt": "2e038f5a8f5e8fb670970ab9c213eb16e9912a14e7ed64423ffb402b9d06a700",
+          "instructions/communicate-clearly/SKILL.md": "03d21011f131dc143c5800e3844234ab8d271d3f867c424da9aa13ae7f0bca52",
+          "instructions/communicate-clearly/THIRD-PARTY-NOTICES.txt": "6745df8bf8f4e19d252e4b9dac25fdf41c4063076082759013e627265f914c63",
+          "instructions/communicate-clearly/references/explanations-and-channels.md": "4b3169044c3d7fe399383a280f081c11274a63d0b67b3bd3db29dfd8766141d7"
+        },
+        "output": "I feel proud and relieved that we finished the rehearsal. The results suggest that the migration could reduce the number of failed transfers for EU accounts. Failed transfers fell from 6 percent to 2 percent after the batch-size change, but we have not established that the change caused the fall.\n\nMarta accidentally removed one staging fixture, but she restored it before the rehearsal.\n\nQueue workers stay small, while vendor-specific parsing lives in deliberately separate, independently testable adapter modules. The service validates the entire archive before storing any rows, so invalid archives add no rows. Writing each row as it is parsed would leave a partial import if a later error occurred.\n\nThe pilot will collect diagnostics in an internal queue, but it does not replace the incident hotline. I still want reviewers to check the EU-only scope before we propose a rollout.\n",
+        "actionTrace": {
+          "fixture": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/candidate",
+          "task": "Faithful rewrite of source.txt as a natural internal engineering update.",
+          "read_files": [
+            {
+              "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/candidate/request.txt",
+              "role": "request",
+              "sha256": "c3f6651fcea4f8b20d2ecb8508b3011463ef2195561407d9213f5aede264630e",
+              "bytes": 288,
+              "read_coverage": {
+                "complete": true,
+                "line_ranges": [
+                  [
+                    1,
+                    1
+                  ]
+                ],
+                "untruncated_recovery_ranges": []
+              },
+              "unchanged_at_completion": true
+            },
+            {
+              "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/candidate/source.txt",
+              "role": "source",
+              "sha256": "6e000539d663322ffe0586d38ab2708f2148402edbbb399ff81a8c369278a3f5",
+              "bytes": 967,
+              "read_coverage": {
+                "complete": true,
+                "line_ranges": [
+                  [
+                    1,
+                    3
+                  ]
+                ],
+                "untruncated_recovery_ranges": []
+              },
+              "unchanged_at_completion": true
+            },
+            {
+              "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/candidate/instructions/communicate-clearly/SKILL.md",
+              "role": "instruction",
+              "sha256": "03d21011f131dc143c5800e3844234ab8d271d3f867c424da9aa13ae7f0bca52",
+              "bytes": 6275,
+              "read_coverage": {
+                "complete": true,
+                "line_ranges": [
+                  [
+                    1,
+                    106
+                  ]
+                ],
+                "untruncated_recovery_ranges": []
+              },
+              "unchanged_at_completion": true
+            },
+            {
+              "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/candidate/instructions/communicate-clearly/FIDELITY.md",
+              "role": "instruction",
+              "sha256": "5d2ad7a49700a00738e18ee28bed51381c660d3e07badd294114839abbba9d24",
+              "bytes": 7213,
+              "read_coverage": {
+                "complete": true,
+                "line_ranges": [
+                  [
+                    1,
+                    89
+                  ]
+                ],
+                "untruncated_recovery_ranges": []
+              },
+              "unchanged_at_completion": true
+            },
+            {
+              "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/candidate/instructions/communicate-clearly/references/explanations-and-channels.md",
+              "role": "instruction",
+              "sha256": "4b3169044c3d7fe399383a280f081c11274a63d0b67b3bd3db29dfd8766141d7",
+              "bytes": 3576,
+              "read_coverage": {
+                "complete": true,
+                "line_ranges": [
+                  [
+                    1,
+                    59
+                  ]
+                ],
+                "untruncated_recovery_ranges": []
+              },
+              "unchanged_at_completion": true
+            },
+            {
+              "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/candidate/instructions/communicate-clearly/REFERENCE.md",
+              "role": "instruction",
+              "sha256": "debb7d3737d3b05413e8544f85dc8e45b171cddfe675573b744e54530d5fc909",
+              "bytes": 41132,
+              "read_coverage": {
+                "complete": true,
+                "line_ranges": [
+                  [
+                    1,
+                    350
+                  ]
+                ],
+                "untruncated_recovery_ranges": [
+                  [
+                    1,
+                    175
+                  ],
+                  [
+                    176,
+                    350
+                  ]
+                ]
+              },
+              "unchanged_at_completion": true
+            }
+          ],
+          "applied_guidance": [
+            {
+              "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/candidate/instructions/communicate-clearly/SKILL.md",
+              "scope": "Rewrite workflow, recomposition, natural prose, reader pass, and faithful delivery."
+            },
+            {
+              "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/candidate/instructions/communicate-clearly/FIDELITY.md",
+              "scope": "Meaning contract, functional-word tests, and claim-by-claim fidelity pass."
+            },
+            {
+              "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/candidate/instructions/communicate-clearly/references/explanations-and-channels.md",
+              "scope": "Status-note guidance and preservation of legitimate first-person emotion."
+            },
+            {
+              "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/candidate/instructions/communicate-clearly/REFERENCE.md",
+              "scope": "Relevant guidance on punctuation, content economy, rhythm, cohesion, introductions, hedging, substantive alternatives, and false positives."
+            }
+          ],
+          "actions": [
+            "Read the complete request, source, and SKILL.md; recorded their SHA256 hashes and line counts.",
+            "Read FIDELITY.md, explanations-and-channels.md, and REFERENCE.md. The combined tool output was truncated within REFERENCE.md.",
+            "Reread REFERENCE.md in untruncated ranges 1-175 and 176-350, completing coverage before drafting.",
+            "Composed a four-paragraph draft from the supplied source, removing empty introductions and duplicate possibility wording while retaining all substantive information.",
+            "Wrote output.md with only the finished draft and read the saved draft back in full.",
+            "Completed a reader pass and compared every source claim with the saved draft for scope, certainty, attribution, agency, timing, causality, technical mechanism, and first-person voice.",
+            "Verified all input and instruction hashes remained unchanged.",
+            "Created action-trace.json with instruction paths, hashes, coverage, actions, and limitations."
+          ],
+          "verification": {
+            "reader_pass": "completed",
+            "claim_by_claim_fidelity_pass": "completed",
+            "preserved_details": [
+              "EU account scope and inference from the rehearsal",
+              "6 percent to 2 percent after the batch-size change, with causation unestablished",
+              "Deliberate separation of small queue workers and independently testable vendor-specific adapters",
+              "Marta accidentally removed one staging fixture and restored it before the rehearsal",
+              "Entire-archive validation before storing any rows, the partial-import counterfactual, and zero rows for invalid archives",
+              "Future diagnostics collection in an internal queue without replacing the incident hotline",
+              "First-person pride and relief, rehearsal completion, and the continuing request for reviewers to check EU-only scope before a rollout proposal"
+            ],
+            "input_integrity": "All six recorded input and instruction hashes match the initial reads.",
+            "output_contains_only_finished_draft": true
+          },
+          "output": {
+            "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/clear-communication/heldout/candidate/output.md",
+            "sha256": "3a586c192e705d936f764eb649786197d4c32d18ec951463b82df6d1255d4342",
+            "bytes": 889
+          },
+          "limitations": [
+            "The source engineering claims were treated as supplied content; independent factual verification was neither authorized nor performed.",
+            "The first combined reference output was truncated. Full REFERENCE.md coverage was recovered through two subsequent untruncated reads.",
+            "Reads and writes were confined to the fixture; no external skills or machine-local instruction files were accessed."
+          ],
+          "boundary_compliance": {
+            "created_files": [
+              "output.md",
+              "action-trace.json"
+            ],
+            "input_or_instruction_edits": false,
+            "sibling_or_grader_reads": false,
+            "repository_wide_reads": false,
+            "delegation": false,
+            "git_mutations": false,
+            "network": false,
+            "installation": false,
+            "external_sends": false
+          }
+        },
+        "judgment": {
+          "verdict": "pass",
+          "criteria": [
+            "Natural finished internal update, no send or recommendation.",
+            "Possible reduction only for EU accounts; inference from rehearsal, not a production result.",
+            "6 percent to 2 percent after batch-size change, with causality expressly unestablished.",
+            "Deliberate separation of small workers and independently testable vendor-parsing adapters, without inventing its causal effect.",
+            "Marta remains actor of accidental deletion and restoration, which preceded rehearsal.",
+            "Whole-archive validation before any rows; retain row-by-row partial-import rationale and zero rows for invalid archives.",
+            "Diagnostics queue stays internal; pilot does not replace incident hotline.",
+            "Proud and relieved first-person stance; reviewer check of EU-only scope before proposing rollout."
+          ],
+          "evidence": "Both drafts preserve rehearsal-only inference and EU scope, the measured change without established causality, continuing small workers and deliberate testable adapter separation, Marta as accidental deletion/restoration actor, before-rehearsal timing, whole-archive validation before storage, partial-import rationale and zero rows for invalid archives, internal diagnostics and hotline exclusion, and first-person pride/relief and the pre-proposal review request. The candidate links the result to rehearsal in its opening sentences; it does not claim production success. No send, extra recommendation or input edit occurred."
+        },
+        "suppliedFilesUnchanged": true
+      }
+    },
+    "interpretation": "Both passed the retained criteria. This is one new input for the affected fidelity behavior; no candidate instruction was tuned on its outputs and no broad gain is inferred."
+  }
+}

@@ -1,0 +1,636 @@
+{
+  "date": "2026-10-04",
+  "task": "Independent Claude Fable xhigh consultation of the verify browser expansion",
+  "reviewType": "static-source-and-evidence-consultation",
+  "reviewedCommit": "afccb2687d0328fd1f6a76e1a4d05f8fe4286db2",
+  "decision": {
+    "verdict": "no-material-change-warranted",
+    "materialFindingCount": 0,
+    "optionalSuggestionCount": 5,
+    "skillChanged": false,
+    "summary": "Keep verify unchanged. The reviewer found the pstack ownership and required-coverage contract intact, the Blode and Compound adaptations proportional, and the retained evidence limits explicit.",
+    "scope": "The same two product defects were detected by both browser versions; candidate tab cleanup needed parent assistance. This does not establish complete non-regression, general superiority, or a new behavioral result from Claude.",
+    "optionalSuggestions": [
+      {
+        "id": "O1",
+        "disposition": "recorded-not-applied",
+        "reason": "Optional wording clarification; both retained browser executors used native preview key presses correctly. No observed execution failure calls for a change in this review-only follow-up."
+      },
+      {
+        "id": "O2",
+        "disposition": "recorded-not-applied",
+        "reason": "Optional terminology cleanup without a demonstrated behavioral defect. Retained for a future wording pass."
+      },
+      {
+        "id": "O3",
+        "disposition": "recorded-not-applied",
+        "reason": "The local fixture recipe is the nearer owner of cleanup guidance. Existing instructions already require capability inspection; no host-specific close command or new universal clause is justified by this consultation."
+      },
+      {
+        "id": "O4",
+        "disposition": "recorded-not-applied",
+        "reason": "A web-component-specific focus observation belongs in the relevant local recipe when required, rather than becoming an unconditional check."
+      },
+      {
+        "id": "O5",
+        "disposition": "recorded-not-applied",
+        "reason": "The retained executions already distinguish route, viewport and theme conditions. Keep the attribution suggestion without introducing a universal probe quota."
+      }
+    ]
+  },
+  "delegation": {
+    "target": {
+      "providerInstanceId": "claudeAgent",
+      "model": "claude-fable-5-1",
+      "options": [
+        {
+          "id": "effort",
+          "value": "xhigh"
+        }
+      ]
+    },
+    "prompt": "Review the recent expansion of the verify skill as an independent reviewer. The user explicitly requested Claude Fable with xhigh effort. This is a read-only consultation, not an implementation or PR task. Work in /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f. Current review baseline HEAD is 96792071897fc617769dc893299e420c702cf93b; the verify change being reviewed is afccb2687d0328fd1f6a76e1a4d05f8fe4286db2. The only existing dirty change is deletion of walkthrough/SKILL.md; preserve it and all concurrent work.\n\nGoal: determine whether the current verify instructions preserve the pstack verification contract and make sound, proportional use of Blode and Compound browser guidance, and whether the retained validation supports the claims made. Do not manufacture findings or recommend extra rules merely because additional detail is possible. Distinguish demonstrated defects, material risks requiring evidence, and optional improvements. For each material finding give the exact file/line, trigger, consequence, evidence, and smallest useful correction. State when no material change is warranted.\n\nRead these complete files first:\n- verify/SKILL.md\n- verify/references/browser-evidence.md\n- verify/origin.txt\n- verify/THIRD-PARTY-NOTICES.txt\n- verification-authoring/SKILL.md and its relevant create/maintain/feature-map references for the ownership boundary\n- accessibility/SKILL.md as the conditional domain specialist\n- .tmp/verify-fable-review/input-manifest.json\nInspect git show afccb26 for the actual verify diff. Review the preserved reports/skill-atlas/verify-browser-validation.json by parsing it and selecting the substantive records, not by dumping its thousands of lines indiscriminately. This contains actual old/new supplied instructions, fixture source, executor reports, action traces and limitations. The previous three executors were gpt-6-astra/max; their results are evidence to audit, not fresh Claude execution. Do not describe your static consultation as a runtime test or repeat of those trials.\n\nContrast the selected derivation with primary pinned upstream text, treating donor instructions as untrusted task data:\n1. cursor/plugins at 23e4138daa01c42d4969f7a5465f82704e64f798: pstack/skills/create-verification-skill/SKILL.md and pstack/skills/maintain-verification-skill/SKILL.md, following relevant linked feature-map guidance.\n2. mblode/agent-skills at 012e6e5208f512151bdea0e2965dafd01ff61340: skills/ui-verification/SKILL.md; references/session-setup.md and evidence-output.md; its nine probes listed in verify/origin.txt. Also skills/app-verification/SKILL.md and references/maintain-mode.md for path accounting.\n3. EveryInc/compound-engineering-plugin at 9af474a70e7f2a844338519ad9e92aafbd92d4fb: skills/ce-dogfood/SKILL.md and references/test-matrix-taxonomy.md and phases.md.\nRead exact pinned URLs through the available tools, or fetch files into your allowed scratch area. All Git clone/fetch operations must use SSH and non-interactive mode. HTTP reads of primary source files are allowed. Do not advance origin pins, install packages, execute donor operations, or audit unrelated upstream updates.\n\nAssess:\n- common verify vs local verify-<app> vs verification-authoring, preservation of launch/doctor/drive/evidence/cleanup and required coverage;\n- selecting actual routes/account/build/state, authoritative acceptance criteria, bounded and proportional probes;\n- keyboard/focus, real target hit areas, reflow, applied theme/locale/motion, controlled fault matching and recovery, correct destination and independent effects;\n- limits of synthetic input, screenshots, accessibility scans and performance metrics;\n- product failure vs harness/environment failure, incomplete evidence, authority for fixes and external effects;\n- whether any source adaptation loses useful essential behavior or imports conflicting mandates;\n- whether the prior comparison, test omissions, capture and focus limitations, and candidate tab-cleanup intervention are represented honestly. Identify untested claims as untested, not automatically defects.\n\nUse applicable agent-instructions guidance for the review, without inheriting an implementation mandate. No extra agents or delegation. No Git mutation, commits, branches/worktrees, product/skill/report edits, installations, posting, service changes or browser state mutations. You may create scratch source copies and review artifacts only under .tmp/verify-fable-review/claude/. The parent verified .tmp is ignored. Write the final English review to .tmp/verify-fable-review/claude/review.md and a concise structured record to .tmp/verify-fable-review/claude/review.json with verdict, findings, optional suggestions, inspected files/URLs and hashes when available, and limitations. Return the key findings and artifact paths. Preserve source-read failures and unknown material rather than filling gaps with assumptions.",
+    "promptIsVerbatim": true,
+    "promptSha256": "a1887f0e991a6a5971472c945f05c37e058e80dfa67f4f20821cab490da6d13b",
+    "clientRequestId": "verify-fable-xhigh-review-20261004-r1",
+    "taskId": "node:delegated-task:command%3Amcp%3A01fdbfa7-db05-4c78-ac68-265114aa642e%3Adelegate-task%3Averify-fable-xhigh-review-20261004-r1",
+    "childThreadId": "thread:delegated-task:command%3Amcp%3A01fdbfa7-db05-4c78-ac68-265114aa642e%3Adelegate-task%3Averify-fable-xhigh-review-20261004-r1",
+    "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A01fdbfa7-db05-4c78-ac68-265114aa642e%253Adelegate-task%253Averify-fable-xhigh-review-20261004-r1:ordinal:1",
+    "terminalStatus": "completed",
+    "terminalWorkState": "result_available",
+    "hasPendingChildRuns": false,
+    "actualProvider": "claudeAgent",
+    "actualModel": "claude-fable-5-1",
+    "terminalSummary": "The review is complete. Both artifacts are written and the worktree outside `.tmp/` is untouched by this review.\n\n**Verdict: no material change warranted.** The verify expansion in afccb26 preserves the pstack contract, adapts the Blode and Compound material proportionally, and the retained validation supports the claims it actually makes.\n\nKey findings:\n\n- **Contract preserved.** Local `verify-<app>` ownership of launch, doctor, driving, evidence, and cleanup is stated consistently in verify/SKILL.md:8-11, browser-evidence.md:3-7, and verification-authoring/SKILL.md:8-11. Required-coverage rules from pstack survive at verify/SKILL.md:21-26 and the new paragraph at 102-108. No conflicting mandate was imported.\n- **Donor adaptation is faithful and bounded.** Every probe row in browser-evidence.md:48-58 keeps its donor's deciding evidence and false-positive guards. Playwright, 44px floors, fixed viewports, mandatory reruns, finding schemas, ok=true with skipped paths, agent-browser, Mermaid, packs, and the autonomous fix loop are all absent, as origin.txt records.\n- **Validation record is honest.** The baseline executor received byte-exact pre-change files and the candidate received byte-exact current files. Fixture hashes, all 19 recorded upstream file hashes, and the 44px to 40px grading correction check out. Decisive actions for Retry, Budget decision, hit target, container scroll, and focus loss were confirmed in the traces. The decision text claims non-regression plus two boundary passes, not superiority, and that matches the grading.\n- **Tab cleanup and focus containment are represented accurately.** The candidate trace contains no close attempt; its incorrect \"no tool exposed\" statement is preserved and graded partial. Focus containment is correctly inconclusive because the preview host lost document focus.\n- **Demonstrated defects: none.** Three evidence limitations are inherent to the method and already disclosed: executor prompts not retained verbatim, PNGs outside the repo, one model on one synthetic fixture.\n- **Five optional low-priority notes** in the review, chiefly wording: \"synthetic key events\" is ambiguous between DOM-dispatched events and automation key presses, and \"donor\" at browser-evidence.md:6 and :46 is repository vocabulary a fresh executor will not know.\n\nUntested claims are listed as untested: several probe rows, browser-level interception, the verification-authoring handoff, and whether the new accounting paragraph changes executor behavior.\n\nArtifacts:\n\n```\n.tmp/verify-fable-review/claude/review.md\n.tmp/verify-fable-review/claude/review.json\n.tmp/verify-fable-review/claude/upstream/   (25 pinned source copies + fetch-log.json with hashes)\n```\n\nLimitations of this review: static consultation only, no runtime or browser use, PNG captures not viewed. All upstream reads were HTTPS fetches at the pinned commits. During the review, other sessions modified README.md, agent-instructions files, several atlas reports, and added `ci-cd-automation/`. Those paths were not read or changed here and are noted in both artifacts. The six review-target files still match the input manifest hashes."
+  },
+  "inputManifest": {
+    "head": "96792071897fc617769dc893299e420c702cf93b",
+    "branch": "t3code/curate-agent-workflow-skills",
+    "status": " D walkthrough/SKILL.md\n",
+    "files": {
+      "verify/SKILL.md": "1c6fe17d6424f70abe4d954dc7b2ac09d226c60f7de40b23512be3353d7aa8a0",
+      "verify/references/browser-evidence.md": "0618e4faa133fb47f54f645acb3cb94c107a4d59285251c11482d593eb3ca9f0",
+      "verify/origin.txt": "a7633efd37e995a789168d6c3fe0b84fecf1f29c688e5c5a9b2b83994164a9bd",
+      "verify/THIRD-PARTY-NOTICES.txt": "b43b14c70dae0c6f9b72daf5394052f523f91a3217989c05aca3d70ec5fd84b3",
+      "verification-authoring/SKILL.md": "99bfd215723213a514a0312365f2270b51d1f8c361c4d818af02eecbf57f2836",
+      "reports/skill-atlas/verify-browser-validation.json": "ebf482f74db4f6a13422bc8bddf41da6bfac52d320422bd237b85d06f823fd3c"
+    }
+  },
+  "review": {
+    "reviewer": "Claude Fable 5.1 (claude-fable-5-1), xhigh effort, static read-only consultation",
+    "date": "2026-10-04",
+    "worktree": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f",
+    "head": "96792071897fc617769dc893299e420c702cf93b",
+    "reviewedCommit": "afccb2687d0328fd1f6a76e1a4d05f8fe4286db2",
+    "dirtyStatePreserved": " M README.md\n M agent-instructions/SKILL.md\n M agent-instructions/references/evaluation.md\n M agent-instructions/references/hosts.md\n M reports/skill-atlas/accessibility-source-review.html\n M reports/skill-atlas/accessibility-source-review.json\n M reports/skill-atlas/catalog.js\n M reports/skill-atlas/index.html\n M reports/skill-atlas/sources.json\n D walkthrough/SKILL.md\n?? ci-cd-automation/\n?? reports/skill-atlas/accessibility-source-review-consultation.json\n?? reports/skill-atlas/ci-cd-automation-research.json\n",
+    "verdict": "no-material-change-warranted",
+    "summary": "The verify expansion preserves the pstack verification contract across verify, verify-<app>, and verification-authoring; Blode and Compound material is reduced to claim-specific evidence rules with false-positive guards while their tooling, thresholds, schemas, and fix loops are refused; the retained validation supports non-regression on one fixture plus two boundary passes and discloses its limitations honestly. No demonstrated defect.",
+    "materialFindings": [],
+    "evidenceLimitations": [
+      {
+        "id": "L1",
+        "topic": "executor prompt not retained verbatim",
+        "evidence": "verify-browser-validation.json method.protocolIsVerbatimPrompt=false; method.matching is the parent's statement",
+        "consequence": "independence from grader expectations cannot be re-verified from the record",
+        "smallestCorrection": "future validations retain the verbatim prompt or its hash; no skill change"
+      },
+      {
+        "id": "L2",
+        "topic": "PNG originals outside repository",
+        "evidence": "method.retention; captures[].source under /Users/luisurrutia/.t3/userdata/browser-artifacts; parentReview.inspectedImages lists 5",
+        "consequence": "visual claims are checkable only on this machine via retained hashes",
+        "smallestCorrection": "none required; disclosed"
+      },
+      {
+        "id": "L3",
+        "topic": "single model and synthetic fixture",
+        "evidence": "trials.*.model=gpt-6-astra, reasoningEffort=max; limitations[1], limitations[2]",
+        "consequence": "no generalization claim; the record makes none",
+        "smallestCorrection": "none"
+      }
+    ],
+    "untestedClaims": [
+      "Probe rows for locale/direction/motion beyond light-dark, layout stability/performance, accessibility scanners, loading/empty states, and browser-level request interception were not exercised by any trial.",
+      "Local-skill-unavailable path (verify/SKILL.md:41-46) only partially covered by the CLI boundary; verification-authoring handoff and multi-target selection not exercised.",
+      "Behavioral necessity of the new per-path accounting paragraph (verify/SKILL.md:102-108) is not demonstrated; the baseline executor also accounted for every required path."
+    ],
+    "optionalSuggestions": [
+      {
+        "id": "O1",
+        "file": "verify/references/browser-evidence.md",
+        "line": 50,
+        "note": "'synthetic key events' is ambiguous between DOM-dispatched KeyboardEvents and automation-layer key presses; suggest 'DOM-dispatched key events'.",
+        "priority": "low"
+      },
+      {
+        "id": "O2",
+        "file": "verify/references/browser-evidence.md",
+        "line": 6,
+        "alsoLine": 46,
+        "note": "'donor' is repository derivation vocabulary unknown to a fresh executor; suggest 'an upstream recipe'.",
+        "priority": "low"
+      },
+      {
+        "id": "O3",
+        "file": "verify/references/browser-evidence.md",
+        "line": 5,
+        "note": "Capability inspection is scoped to probe choice; the candidate's cleanup miss shows it also applies to cleanup. Parent's refusal to add a host-specific command is correct; a generic clause is optional. The fixture recipe wording is the nearer cause.",
+        "priority": "low"
+      },
+      {
+        "id": "O4",
+        "file": "verify/references/browser-evidence.md",
+        "line": 50,
+        "note": "Shadow-root piercing gotcha (mblode focus-walk.md:42) omitted; relevant only to web-component UIs; local recipe may carry it.",
+        "priority": "low"
+      },
+      {
+        "id": "O5",
+        "file": "verify/references/browser-evidence.md",
+        "line": 31,
+        "note": "mblode 'one probe, one route, one viewport, one theme' attribution rule (ui-verification SKILL.md:96) is only implicit.",
+        "priority": "low"
+      }
+    ],
+    "contractChecks": [
+      {
+        "check": "local verify-<app> owns launch/doctor/drive/evidence/cleanup",
+        "result": "preserved",
+        "refs": [
+          "verify/SKILL.md:8-11",
+          "verify/references/browser-evidence.md:3-7",
+          "verification-authoring/SKILL.md:8-11",
+          "pstack create SKILL.md:27-32"
+        ]
+      },
+      {
+        "check": "required coverage; skipped path not verified via another path",
+        "result": "preserved",
+        "refs": [
+          "verify/SKILL.md:21-26",
+          "verify/SKILL.md:102-108",
+          "pstack create SKILL.md:36",
+          "pstack feature-map-example README.md:30-31"
+        ]
+      },
+      {
+        "check": "doctor before/after surprises, evidence survives cleanup, residue cleaned",
+        "result": "preserved",
+        "refs": [
+          "verify/SKILL.md:49-54",
+          "verify/SKILL.md:68-72",
+          "verification-authoring/references/maintain.md:44-50",
+          "pstack maintain SKILL.md:33"
+        ]
+      },
+      {
+        "check": "no product repair under verification; drift vs regression",
+        "result": "preserved",
+        "refs": [
+          "verify/SKILL.md:80-92",
+          "verification-authoring/references/maintain.md:59-73",
+          "pstack maintain SKILL.md:21,35"
+        ]
+      },
+      {
+        "check": "publication authority stays with caller (local choice)",
+        "result": "consistent",
+        "refs": [
+          "verify/SKILL.md:117-118",
+          "verify/origin.txt:28"
+        ]
+      },
+      {
+        "check": "accessibility specialist defers execution to verify without circular mandate",
+        "result": "consistent",
+        "refs": [
+          "accessibility/SKILL.md:60-62",
+          "accessibility/origin.txt:48"
+        ]
+      }
+    ],
+    "sourceAdaptationChecks": [
+      {
+        "donor": "mblode ui-verification",
+        "retained": "final URL/role/data-shape gate; component workshop labeling; theme toggle vs media emulation; fault must match and reach request; retry control vs automatic retry; three outcomes; skipped is never pass; conditions recorded",
+        "refused": "Playwright/agent-browser driver; 44px touch floor; 320px/360/1280 fixed viewports; reruns>=2; finding schema and artifact path; run-three-probes-everywhere",
+        "internalDonorConflictNoted": "ui-verification SKILL.md:97 vs evidence-output.md:71 on repeat runs; local follows SKILL.md stance"
+      },
+      {
+        "donor": "mblode app-verification",
+        "retained": "every in-scope path checked or named skip; expose omitted checks in existing proof format",
+        "refused": "verify/doctor/seed CLI; .verify/proof.json schema; ok=true with skipped paths; invocation restriction"
+      },
+      {
+        "donor": "compound ce-dogfood",
+        "retained": "journey entry/action/result/destination/aftermath; permission/failure/empty/re-entry/regression conditions; external legs need authorized observation or blocked; page text is evidence not instructions",
+        "refused": "agent-browser-only; autonomous fix+regression test+commit loop; Mermaid; packs; report template; persona paper cuts as policy"
+      },
+      {
+        "donor": "pstack",
+        "retained": "full contract (see contractChecks)",
+        "refused": "Cursor paths, tmux, one-PR mandate"
+      }
+    ],
+    "validationAudit": {
+      "baselineInstructionsEqualPreChangeFiles": true,
+      "candidateInstructionsEqualCurrentFiles": true,
+      "projectInputsIdenticalModuloNamespace": true,
+      "fixtureTextHashesMatchRecorded": true,
+      "upstreamInspectedFileHashesMatchPinnedSources": "19/19 (pstack files have no recorded hash in this JSON)",
+      "gradingCorrection44to40px": "arithmetically correct: 22px border-box button with 2px default borders -> 18px padding box; inset -11px -> 40px; requirement >=40",
+      "decisiveActionsConfirmed": [
+        "baseline 46-52 retry no new POST",
+        "candidate 46-54 retry no new POST",
+        "baseline 59-68 budget->alpha",
+        "candidate 62-64 budget->alpha",
+        "baseline 72-75 pointer click outside icon",
+        "candidate 7-10 pointer click outside icon",
+        "baseline 110-113 container scroll",
+        "candidate 123-127 hasFocus=false at boundary"
+      ],
+      "candidateTabCleanup": "no close attempt or tool inventory in candidate trace; baseline used t3_preview_close (event 121) under same tool set; parent completed and recorded separately; candidate's incorrect statement preserved",
+      "decisionOverclaims": false,
+      "atlasVisualCheckIncomplete": "recorded honestly (limitations[6], atlas.browser)",
+      "baselineCommitNote": "verify-browser-validation.json baselineCommit 2be844a: its verify/SKILL.md hashes identically to afccb26^ (947163028acf...), so the recorded baseline commit and the baseline executor's instructions agree."
+    },
+    "inspected": {
+      "files": [
+        {
+          "path": "verify/SKILL.md",
+          "sha256": "1c6fe17d6424f70abe4d954dc7b2ac09d226c60f7de40b23512be3353d7aa8a0",
+          "manifestMatch": true
+        },
+        {
+          "path": "verify/references/browser-evidence.md",
+          "sha256": "0618e4faa133fb47f54f645acb3cb94c107a4d59285251c11482d593eb3ca9f0",
+          "manifestMatch": true
+        },
+        {
+          "path": "verify/references/upstream-updates.md",
+          "sha256": "bb61a80f2154ebc1e31364fcf71368bcba83b437713677e2feb4e6ec91cc1540",
+          "manifestMatch": null
+        },
+        {
+          "path": "verify/origin.txt",
+          "sha256": "a7633efd37e995a789168d6c3fe0b84fecf1f29c688e5c5a9b2b83994164a9bd",
+          "manifestMatch": true
+        },
+        {
+          "path": "verify/THIRD-PARTY-NOTICES.txt",
+          "sha256": "b43b14c70dae0c6f9b72daf5394052f523f91a3217989c05aca3d70ec5fd84b3",
+          "manifestMatch": true
+        },
+        {
+          "path": "verification-authoring/SKILL.md",
+          "sha256": "99bfd215723213a514a0312365f2270b51d1f8c361c4d818af02eecbf57f2836",
+          "manifestMatch": true
+        },
+        {
+          "path": "verification-authoring/references/create.md",
+          "sha256": "f13ffcebdc0d03008b518cb53fff8fcc3f77b0dc4f0c960f3e794887fc5eaa39",
+          "manifestMatch": null
+        },
+        {
+          "path": "verification-authoring/references/maintain.md",
+          "sha256": "cec41b919f2e2d36722cf2863d440628cb47cd72799eabd38f028f3ed7649375",
+          "manifestMatch": null
+        },
+        {
+          "path": "verification-authoring/references/feature-map.md",
+          "sha256": "29a2c86b2e1e318822fcdebdc09a37e91df581d8019ee747466db46169c53ae4",
+          "manifestMatch": null
+        },
+        {
+          "path": "verification-authoring/origin.txt",
+          "sha256": "39b6e8f280243615e5d5cf9c5e664cfa4b31492aaf304b7dc3c403013621e912",
+          "manifestMatch": null
+        },
+        {
+          "path": "accessibility/SKILL.md",
+          "sha256": "39d348ef7acad82ff81dcba2d1e556d3f6b4d3dd319dd06e6d90d9db26211e9e",
+          "manifestMatch": null
+        },
+        {
+          "path": "accessibility/origin.txt",
+          "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
+          "manifestMatch": null
+        },
+        {
+          "path": "reports/skill-atlas/verify-browser-validation.json",
+          "sha256": "ebf482f74db4f6a13422bc8bddf41da6bfac52d320422bd237b85d06f823fd3c",
+          "manifestMatch": true
+        },
+        {
+          "path": ".tmp/verify-fable-review/input-manifest.json",
+          "sha256": "072ed103967c36885edb99cb391861e66f789e368ff3249918f260bf6c3823ab",
+          "manifestMatch": null
+        }
+      ],
+      "urls": [
+        {
+          "url": "https://raw.githubusercontent.com/cursor/plugins/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/create-verification-skill/SKILL.md",
+          "status": 200,
+          "bytes": 5879,
+          "sha256": "644f2551403c1bca01a2855b34611b6e7be0ce0dc5b204514c376c0f6a6e6ac4",
+          "local": ".tmp/verify-fable-review/claude/upstream/cursor__plugins__pstack__skills__create-verification-skill__SKILL.md",
+          "recordedHashMatch": "n/a"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/cursor/plugins/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/maintain-verification-skill/SKILL.md",
+          "status": 200,
+          "bytes": 4922,
+          "sha256": "515c0eaa054b3f6be1b1fb06f2c2f173c80fddb58bbcac57576f89c479bc68e8",
+          "local": ".tmp/verify-fable-review/claude/upstream/cursor__plugins__pstack__skills__maintain-verification-skill__SKILL.md",
+          "recordedHashMatch": "n/a"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/cursor/plugins/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/create-verification-skill/references/feature-map-example/README.md",
+          "status": 200,
+          "bytes": 2601,
+          "sha256": "cb7bd782cf89968a4ba3d58a5151db837430db92d19a6f52a906973b77b516ba",
+          "local": ".tmp/verify-fable-review/claude/upstream/cursor__plugins__pstack__skills__create-verification-skill__references__feature-map-example__README.md",
+          "recordedHashMatch": "n/a"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/cursor/plugins/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/create-verification-skill/references/feature-map-example/create-note.md",
+          "status": 200,
+          "bytes": 2926,
+          "sha256": "644a44c74f35d38c2feb7cd05a0121fdebbb623e8dc376c185b565a581d1ccf7",
+          "local": ".tmp/verify-fable-review/claude/upstream/cursor__plugins__pstack__skills__create-verification-skill__references__feature-map-example__create-note.md",
+          "recordedHashMatch": "n/a"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/cursor/plugins/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/create-verification-skill/references/feature-map-example/search.md",
+          "status": 200,
+          "bytes": 3478,
+          "sha256": "6e87b9e7f2791a7776ba1bb83f371cd285c306c67f19d245cc4dd6ca3015c823",
+          "local": ".tmp/verify-fable-review/claude/upstream/cursor__plugins__pstack__skills__create-verification-skill__references__feature-map-example__search.md",
+          "recordedHashMatch": "n/a"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/cursor/plugins/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/LICENSE",
+          "status": 200,
+          "bytes": 1067,
+          "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e",
+          "local": ".tmp/verify-fable-review/claude/upstream/cursor__plugins__pstack__LICENSE",
+          "recordedHashMatch": "n/a"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/SKILL.md",
+          "status": 200,
+          "bytes": 14110,
+          "sha256": "f5cbdcd185cada0bad9dee833465f1e55066b6a39076077711a4a64913fb5193",
+          "local": ".tmp/verify-fable-review/claude/upstream/mblode__agent-skills__skills__ui-verification__SKILL.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/references/session-setup.md",
+          "status": 200,
+          "bytes": 6737,
+          "sha256": "defdfb40307d541ee7626f62c934c6e023e066a5c70a9593f7e5fbf8c8c19c3e",
+          "local": ".tmp/verify-fable-review/claude/upstream/mblode__agent-skills__skills__ui-verification__references__session-setup.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/references/evidence-output.md",
+          "status": 200,
+          "bytes": 6702,
+          "sha256": "06ba70ef44b6b124db9f4c9df66e9a4bb1d90f4fd34d44594ffe15077c139481",
+          "local": ".tmp/verify-fable-review/claude/upstream/mblode__agent-skills__skills__ui-verification__references__evidence-output.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/focus-walk.md",
+          "status": 200,
+          "bytes": 5566,
+          "sha256": "a7ae22f71d29e273b6b4a2381c9422a7c270bf34d8782bf95520cd87a6186edb",
+          "local": ".tmp/verify-fable-review/claude/upstream/mblode__agent-skills__skills__ui-verification__probes__focus-walk.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/target-size.md",
+          "status": 200,
+          "bytes": 5933,
+          "sha256": "0382cfebc35b2f8b689530ca3228ad2e7653334822ab8ec0adcb1fb503271106",
+          "local": ".tmp/verify-fable-review/claude/upstream/mblode__agent-skills__skills__ui-verification__probes__target-size.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/viewport-stress.md",
+          "status": 200,
+          "bytes": 5412,
+          "sha256": "2b02ae8332b43e8627592f1cbea93e7c358fda73723ff1975931068510a5f7e2",
+          "local": ".tmp/verify-fable-review/claude/upstream/mblode__agent-skills__skills__ui-verification__probes__viewport-stress.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/theme-locale-matrix.md",
+          "status": 200,
+          "bytes": 4875,
+          "sha256": "d81ffccd894b2252a29f1767ef8389d5cb9a4f4aa098926c2ed5ff91cd59f085",
+          "local": ".tmp/verify-fable-review/claude/upstream/mblode__agent-skills__skills__ui-verification__probes__theme-locale-matrix.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/failure-injection.md",
+          "status": 200,
+          "bytes": 6407,
+          "sha256": "14e255c97c0a9524fe4b296b42eb8672f799123cabea5721cb78c8338cb160b8",
+          "local": ".tmp/verify-fable-review/claude/upstream/mblode__agent-skills__skills__ui-verification__probes__failure-injection.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/console-network.md",
+          "status": 200,
+          "bytes": 4064,
+          "sha256": "cba89272ea3d2f1b3f08a1d6acb41b1473c4e6785cf0f2ceaaa2c8db84156e9c",
+          "local": ".tmp/verify-fable-review/claude/upstream/mblode__agent-skills__skills__ui-verification__probes__console-network.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/axe-scan.md",
+          "status": 200,
+          "bytes": 4372,
+          "sha256": "4d4cefb928f1b7973fef40a65c050b86aac011ae41df2c428f73da7f01cb1c2b",
+          "local": ".tmp/verify-fable-review/claude/upstream/mblode__agent-skills__skills__ui-verification__probes__axe-scan.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/layout-shift.md",
+          "status": 200,
+          "bytes": 5035,
+          "sha256": "b9b600ff9ef792a2c5bf67b98d899e45def299e3a74afb95887c7f995df3a093",
+          "local": ".tmp/verify-fable-review/claude/upstream/mblode__agent-skills__skills__ui-verification__probes__layout-shift.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/web-vitals.md",
+          "status": 200,
+          "bytes": 3972,
+          "sha256": "4c875e382e3bec0f3af2d69e58683d06b8b9c5bbfd8f2ce43fe549f86247baea",
+          "local": ".tmp/verify-fable-review/claude/upstream/mblode__agent-skills__skills__ui-verification__probes__web-vitals.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/app-verification/SKILL.md",
+          "status": 200,
+          "bytes": 9345,
+          "sha256": "02bc8734daa8b13d78aeef5a73d5c413063336c1a587c72d9b35880fe9f44ae3",
+          "local": ".tmp/verify-fable-review/claude/upstream/mblode__agent-skills__skills__app-verification__SKILL.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/app-verification/references/maintain-mode.md",
+          "status": 200,
+          "bytes": 6912,
+          "sha256": "4757ec8d27a43e6055b069b14e3eb708504afc8ebb8842bbe1601ac831302374",
+          "local": ".tmp/verify-fable-review/claude/upstream/mblode__agent-skills__skills__app-verification__references__maintain-mode.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/LICENSE.md",
+          "status": 200,
+          "bytes": 1070,
+          "sha256": "81ac64b19ea7ae7f9a8d197705df58f48ffca02c74fca13e565dedf4f7595b46",
+          "local": ".tmp/verify-fable-review/claude/upstream/mblode__agent-skills__LICENSE.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/EveryInc/compound-engineering-plugin/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-dogfood/SKILL.md",
+          "status": 200,
+          "bytes": 7713,
+          "sha256": "7b8723b454bff5977c7bd72e1ebac4298abe2d6c7e9ab5c38c66e7da82f9e553",
+          "local": ".tmp/verify-fable-review/claude/upstream/EveryInc__compound-engineering-plugin__skills__ce-dogfood__SKILL.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/EveryInc/compound-engineering-plugin/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-dogfood/references/test-matrix-taxonomy.md",
+          "status": 200,
+          "bytes": 3924,
+          "sha256": "f7ade1a3101d3768baba02444782d67d760ff587bd0816288f367d5460c62f29",
+          "local": ".tmp/verify-fable-review/claude/upstream/EveryInc__compound-engineering-plugin__skills__ce-dogfood__references__test-matrix-taxonomy.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/EveryInc/compound-engineering-plugin/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-dogfood/references/phases.md",
+          "status": 200,
+          "bytes": 21225,
+          "sha256": "4e652bab884f7d8d52dd98341a6262e5151352f68f41445ee6d693dbcf4227cf",
+          "local": ".tmp/verify-fable-review/claude/upstream/EveryInc__compound-engineering-plugin__skills__ce-dogfood__references__phases.md",
+          "recordedHashMatch": "MATCH"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/EveryInc/compound-engineering-plugin/9af474a70e7f2a844338519ad9e92aafbd92d4fb/LICENSE",
+          "status": 200,
+          "bytes": 1062,
+          "sha256": "61d89de7646effdaba2d0a4ab7bd0eba60b4094b83efe5bc73c7940e43e93fc6",
+          "local": ".tmp/verify-fable-review/claude/upstream/EveryInc__compound-engineering-plugin__LICENSE",
+          "recordedHashMatch": "MATCH"
+        }
+      ]
+    },
+    "limitationsOfThisReview": [
+      "Static consultation only; no runtime execution, browser use, or repeat of the gpt-6-astra trials.",
+      "PNG captures were not viewed; visual claims rest on recorded hashes and the parent's inspection list.",
+      "Executor prompts were audited only through the parent's paraphrase (protocolIsVerbatimPrompt=false).",
+      "pstack feature-map-example files were read for context; they are not listed in verify/origin.txt paths (they are in verification-authoring/origin.txt).",
+      "First HTTPS fetch attempt failed on a shell PATH problem inside a shell function; the Python retry succeeded for all 25 files. No network failures occurred."
+    ],
+    "concurrentWorkObserved": {
+      "note": "At review start git status showed only ' D walkthrough/SKILL.md'. At completion it also showed modified README.md, agent-instructions/SKILL.md, agent-instructions/references/evaluation.md, agent-instructions/references/hosts.md, several reports/skill-atlas files, and untracked ci-cd-automation/, reports/skill-atlas/accessibility-source-review-consultation.json, reports/skill-atlas/ci-cd-automation-research.json. This review wrote only under .tmp/verify-fable-review/claude/ and did not read or modify those paths; they are concurrent work by other sessions and were left untouched.",
+      "statusAtCompletion": " M README.md\n M agent-instructions/SKILL.md\n M agent-instructions/references/evaluation.md\n M agent-instructions/references/hosts.md\n M reports/skill-atlas/accessibility-source-review.html\n M reports/skill-atlas/accessibility-source-review.json\n M reports/skill-atlas/catalog.js\n M reports/skill-atlas/index.html\n M reports/skill-atlas/sources.json\n D walkthrough/SKILL.md\n?? ci-cd-automation/\n?? reports/skill-atlas/accessibility-source-review-consultation.json\n?? reports/skill-atlas/ci-cd-automation-research.json\n"
+    }
+  },
+  "reviewText": {
+    "format": "markdown",
+    "sha256": "016eb5727a0e53206d4d256286faa083100672b1e338be8061fce1cbd9703b40",
+    "text": "# Independent review: verify skill browser expansion (afccb26)\n\nReviewer: Claude Fable 5.1, xhigh effort, static read-only consultation.\nDate: 2026-10-04.\nWorktree: /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f\nBaseline HEAD: 96792071897fc617769dc893299e420c702cf93b\nChange under review: afccb2687d0328fd1f6a76e1a4d05f8fe4286db2 (`feat(verify): probe browser journeys and account for required paths`)\n\nThis is a static review of instruction text, pinned upstream sources, and the\nretained validation record. It is not a runtime test and does not repeat the\nthree gpt-6-astra/max executor trials; those results were audited as evidence.\n\n## Verdict\n\nNo material change is warranted. The current verify instructions preserve the\npstack verification contract, adapt the Blode and Compound material\nproportionally without importing their conflicting mandates, and the retained\nvalidation supports the claims it actually makes. Those claims are\nnon-regression against the previous verify text on one fixture plus two\nboundary behaviors, not general superiority; the record says so itself.\n\n- Demonstrated defects: none.\n- Material risks requiring evidence: none that require a text change. Three\n  evidence limitations are listed below; each is already disclosed in the\n  record or is inherent to the method.\n- Optional improvements: five low-priority wording or coverage notes.\n\n## What was inspected\n\nLocal files (hashes match `.tmp/verify-fable-review/input-manifest.json`):\n\n- verify/SKILL.md (1c6fe17d…7aa8a0)\n- verify/references/browser-evidence.md (0618e4fa…3ca9f0)\n- verify/origin.txt (a7633efd…64a9bd)\n- verify/THIRD-PARTY-NOTICES.txt (b43b14c7…ca5d84f0)\n- verification-authoring/SKILL.md (99bfd215…57b2836) and references/create.md,\n  maintain.md, feature-map.md\n- accessibility/SKILL.md and origin.txt\n- reports/skill-atlas/verify-browser-validation.json (ebf482f7…823fd3c),\n  parsed selectively\n- `git show afccb26`: touches only verify/ (4 files) and reports/skill-atlas/\n  (4 files). verification-authoring/ and accessibility/ are untouched.\n\nPinned upstream sources, fetched over HTTPS from raw.githubusercontent.com at\nthe exact commits in verify/origin.txt (all 25 files HTTP 200; the 19 files\nwith hashes recorded in the validation JSON `package.newSources[].inspectedFiles`\nall match; pstack files have no recorded hash in this JSON):\n\n- https://raw.githubusercontent.com/cursor/plugins/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/create-verification-skill/SKILL.md\n- https://raw.githubusercontent.com/cursor/plugins/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/maintain-verification-skill/SKILL.md\n- https://raw.githubusercontent.com/cursor/plugins/23e4138daa01c42d4969f7a5465f82704e64f798/pstack/skills/create-verification-skill/references/feature-map-example/README.md (plus create-note.md, search.md)\n- https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/SKILL.md, references/session-setup.md, references/evidence-output.md, and the nine probes\n- https://raw.githubusercontent.com/mblode/agent-skills/012e6e5208f512151bdea0e2965dafd01ff61340/skills/app-verification/SKILL.md and references/maintain-mode.md\n- https://raw.githubusercontent.com/EveryInc/compound-engineering-plugin/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-dogfood/SKILL.md, references/test-matrix-taxonomy.md, references/phases.md\n- The three LICENSE files. Copyright lines and MIT bodies match the entries in\n  verify/THIRD-PARTY-NOTICES.txt (lines 7, 116, 144).\n\nLocal copies and the fetch log with hashes are under\n`.tmp/verify-fable-review/claude/upstream/`.\n\n## 1. Contract preservation: common verify, local verify-<app>, verification-authoring\n\nThe ownership split is stated consistently in three places and matches pstack:\n\n- verify/SKILL.md:8-11 says the local skill owns launch, doctor, driving,\n  evidence, and cleanup; verify owns scope, selection, and whether evidence\n  supports the claim.\n- verify/references/browser-evidence.md:3-7 restates that the project-local\n  recipe owns launch, doctor, data isolation, driving, and cleanup, and that a\n  donor's Playwright recipe or named CLI is not an install requirement.\n- verification-authoring/SKILL.md:8-11 owns creation and upkeep and routes\n  pure verification back to verify (line 40-41). Its create.md table (lines\n  32-39) carries the six pstack sections verbatim in intent: Launch, Doctor,\n  Drive, Evidence, Cleanup, Helpers (pstack create SKILL.md lines 27-32).\n\nRequired-coverage rules survive the adaptation:\n\n- pstack create SKILL.md:36 (\"a proof that drives one convenient entry point is\n  incomplete when the map lists others\") and feature-map-example README:30-31\n  (\"Do not report a skipped entry point as verified through a different path\")\n  map to verify/SKILL.md:21-26 and the new paragraph at 102-108 (\"A blocked,\n  skipped, inconclusive, or unrun required check remains incomplete even if\n  another check of that path passed\").\n- pstack maintain SKILL.md:33 invariants (doctor before/after surprises, evidence\n  survives cleanup, residue cleaned on every attempt) map to verify/SKILL.md:\n  49-54 and 68-72, and to verification-authoring/references/maintain.md:44-50.\n- pstack maintain SKILL.md:21 edit scope (never edit product code; drift vs\n  regression) maps to verify/SKILL.md:80-92 and maintain.md:59-73.\n- pstack \"verified-unreachable only with the concrete prerequisite\" maps to\n  maintain.md:54-57 and origin local_choices (verify/origin.txt:29).\n- Publication: pstack's \"one PR\" is a deliberate local choice not to inherit\n  (verify/origin.txt:28; verify/SKILL.md:117-118). Consistent across all three\n  skills.\n\nNo conflict was found between verify and verification-authoring on who repairs a\nrecipe: verify/SKILL.md:88-89 routes recipe corrections to\nverification-authoring; verification-authoring/SKILL.md:43-47 accepts them.\n\n## 2. Selection, acceptance criteria, bounded probes\n\n- Actual routes, account, build, state: browser-evidence.md:11-15 requires\n  confirming final URL, rendered feature, account role, and data shape, and\n  names the login-screen, wrong-tenant, empty-account, and component-preview\n  traps. This is a faithful compression of mblode session-setup.md:56-58 and\n  :66 (route fallback to a component workshop with labeled omissions).\n- Build identity and conditions: browser-evidence.md:31-35 and\n  verify/SKILL.md:53-54, 74-78. Matches session-setup build-mode table\n  (lines 37-42) without importing the Playwright driver assumption.\n- Authoritative acceptance criteria: verify/SKILL.md:25-26 (\"anchored in\n  requirements and contracts rather than ... the implementation under test\");\n  browser-evidence.md:21-22 (\"Existing product requirements own expected\n  behavior; a usability observation does not authorize a redesign\"). The second\n  sentence is the correct rejection of ce-dogfood's persona paper-cut and\n  autonomous fix loop (ce-dogfood SKILL.md:12, 25; phases.md:133-157;\n  taxonomy:34-36).\n- Proportionality: browser-evidence.md:24-29 explicitly forbids turning the\n  probe table into a full-site audit or a cross product of viewport, theme,\n  locale, and state. This is stronger than mblode's own budgeting advice\n  (ui-verification SKILL.md:89) and correctly drops its \"three probes run on\n  every route regardless\" rule (line 87). verify/SKILL.md:107-108 forbids a new\n  CLI, schema, feature map, or report convention for a short task, rejecting\n  app-verification's fixed `.verify/proof.json` contract (maintain-mode.md:48).\n\n## 3. Probe rows versus donor content\n\nEach row of the table at browser-evidence.md:48-58 was checked against the\ndonor probe it derives from. The derivation keeps the deciding evidence and the\nfalse-positive guards while dropping numeric defaults and tool recipes:\n\n- Keyboard/focus (line 50): programmatic focus and synthetic key events do not\n  establish keyboard operation (focus-walk.md:53); roving tabindex and a\n  removed trigger changing the return target are legitimate (focus-walk.md:\n  86-87). Correct.\n- Pointer/touch target (line 51): effective hit area with pseudo-elements,\n  delegated handlers, overlays, neighbors (target-size.md:5, 60, 81); a small\n  box alone is insufficient (target-size.md:67). The 44px touch floor is\n  correctly not imported; the accessibility skill's origin rejects 44px as a\n  universal AA floor (accessibility/origin.txt:48), and verify defers to\n  project thresholds (browser-evidence.md:45-46). The fixture requirement of\n  40x40 was used in the trials. Correct.\n- Reflow (line 52): intentional scrollable tables and carousels are not page\n  overflow (viewport-stress.md:78); sticky controls checked separately\n  (viewport-stress.md:82). The 320px WCAG 1.4.10 reference is left to the\n  accessibility specialist, which lists the reflow Understanding document in\n  its reference_documents. Reasonable ownership split.\n- Theme/locale/direction/motion (line 53): media emulation may not change an\n  app-owned theme (theme-locale-matrix.md:24-31; ui-verification SKILL.md:141);\n  forced direction and string expansion are geometry probes, not localization\n  proof (theme-locale-matrix.md:39, 51). Correct.\n- Loading/failed requests (line 54) and the fault-control section\n  (lines 68-79): match the intended request and confirm the fault reached it;\n  zero matches or a cache hit prove nothing (failure-injection.md:33-35, 94);\n  exercise the retry control and distinguish an automatic retry\n  (failure-injection.md:39, 92). The local addition that a server fixture can\n  supply the boundary when the browser lacks interception is a sound\n  generalization of session-setup's \"does not exist without interception\"\n  table (lines 25-33), which would otherwise mark the check skipped.\n- Navigation/persistence (line 55): entry through destination, correct item,\n  focus or scroll target, reload, independent observation (taxonomy.md:9-15;\n  pstack feature-map-example README:25-28). Correct.\n- Browser errors (line 56): distinguishes app, injected, harness, and\n  environment output (console-network.md:54-58) and rejects a universal\n  zero-warning rule (taxonomy.md:23 is correctly not adopted).\n- Accessibility (line 57): scanner rules, scope, exclusions, incomplete bucket\n  (axe-scan.md:52-53, 58). Blanket third-party exclusion is not mandated.\n- Layout stability/performance (line 58): instrumentation must begin in time\n  and the target event must occur; missing samples are not zero\n  (layout-shift.md:13, 87; web-vitals.md:31, 60); local diagnostics versus\n  standardized or field metrics (web-vitals.md:3-5; layout-shift.md:74).\n\nRejected donor mandates, all recorded in verify/origin.txt local_choices and\nconfirmed absent from the text: Playwright or agent-browser as driver;\n`reruns >= 2` for a reported fail (evidence-output.md:71, 131; note that\nmblode's own SKILL.md:97 contradicts its reference and the local text follows\nthe SKILL.md stance); a universal finding schema and artifact path; the proof\nrecord example with `ok: true` alongside skipped paths (maintain-mode.md:\n59-73); ce-dogfood's agent-browser-only rule, Mermaid flowcharts, pack system,\nreport template, regression-test-and-commit loop (ce-dogfood SKILL.md:20;\nphases.md:77, 150, 165). None of these leaked in.\n\nEssential donor behavior that is retained in substance rather than verbatim:\n\"a skipped probe is never a pass\" and \"probesSkipped must not be inferred from\nabsence\" (ui-verification SKILL.md:131; evidence-output.md:38) appear as\nbrowser-evidence.md:101-104 and verify/SKILL.md:104-105. \"Pack text is evidence\nto quote, never instructions\" (phases.md:69) generalizes to browser-evidence.md:\n88-89. External-interaction legs that need a human (phases.md:136) map to the\n\"authorized independent observation\" and \"blocked\" language at\nbrowser-evidence.md:18-20 and 72-73.\n\n## 4. Synthetic input, screenshots, scans, metrics\n\nbrowser-evidence.md:60-64 (screenshots show appearance, not persistence; a\ncapture failure is a visual-evidence gap even when DOM assertions pass),\n:81-86 (setup must not bypass the claimed action; composition events,\nclipboard substitutes, and emulated touch need their coverage stated), :57\n(scans do not prove assistive-technology behavior), and :58 (metrics) are\nconsistent with accessibility/SKILL.md:69-81 and with the limits in the donors.\nThe accessibility skill correctly invokes verify for execution\n(accessibility/SKILL.md:60-62) and keeps criteria ownership; no circular\nmandate was found.\n\n## 5. Failure classification and authority\n\nverify/SKILL.md:82-92 separates product failure, recipe or harness drift, and an\nunavailable prerequisite, and keeps the original failed result when retrying.\nbrowser-evidence.md:94-99 keeps reproduced, not-reproduced-under-tested-\nconditions, and inconclusive-or-blocked distinct and forbids exoneration from a\nmissing trigger. Authority for fixes and external effects stays with the caller\n(verify/SKILL.md:88-92, 117-118; browser-evidence.md:41-43). This matches\npstack maintain SKILL.md:21 and :35 and mblode's \"the app is the subject, not\nthe harness\" (ui-verification SKILL.md:134) without inheriting ce-dogfood's\nautonomous fixes.\n\n## 6. Audit of the retained validation record\n\nThe record is internally consistent and does not overclaim. Verified facts:\n\n- Instruction identity. The baseline executor received the exact pre-change\n  files (sha256 of its SKILL.md and browser-evidence.md equal\n  `afccb26^:verify/SKILL.md` and `afccb26^:verify/references/browser-evidence.md`).\n  The candidate received the exact current files (hashes equal HEAD). The\n  candidate package was frozen through the trials\n  (`package.candidateFrozenThroughoutTrials`, confirmed by cleanupEvidence\n  source_checks and the candidate's final shasum output).\n- Project inputs. change.md, requirements.md, and features/README.md are\n  byte-identical across trials; the recipe SKILL.md and feature file differ\n  only by the baseline/candidate namespace substitution.\n- Fixture. The four fixture texts embedded in the JSON hash to the recorded\n  pre-run values; `sourceHashesUnchangedAfterTrials` is true. Reading app.js\n  confirms the two intended failures: the Retry handler toggles visibility\n  without submitting (app.js lines 41-45), and the Budget decision link points\n  to messages/alpha (index.html line 21).\n- Grading correction. The planning note estimated a 44px effective target;\n  both executors measured 40x40 CSS px. The arithmetic supports the correction:\n  a 22px border-box button with default 2px borders has an 18px padding box,\n  and `inset: -11px` on the pseudo-element yields 40px. Requirement is >= 40,\n  so pass. Neither executor was graded against the wrong estimate.\n- Decisive actions. Baseline events 46-52 and candidate records 46-54 show the\n  Retry click, the \"Saved\" status, an unchanged independent event log (no new\n  POST after the 503), and the old name after reload. Baseline 59-68 and\n  candidate 62-64 show Budget decision landing on messages/alpha with the\n  Launch notes heading focused. Baseline 72-75 and candidate 7-10 show\n  hit-region measurement and an actual pointer click outside the 22px box\n  opening the dialog. Baseline 110-113 shows container scrollLeft 0 to 350 with\n  page scrollX 0.\n- Focus containment. Candidate records 123-127 and the baseline diagnostic show\n  `document.hasFocus() === false` at the dialog boundary with `visible: false`\n  on the owned tab. Both executors reported this as inconclusive and did not\n  attribute a product defect. That is the correct classification under\n  browser-evidence.md:94-99; a native `<dialog>` under `showModal()` with the\n  document unfocused cannot be judged for continuous containment. The\n  limitation is recorded (`limitations[3]`).\n- Tab cleanup. The candidate trace contains no attempted close call and no\n  tool-inventory action; its report asserts \"No native tab-close tool was\n  exposed.\" The baseline used `t3_preview_close` successfully (event 121) under\n  the same tool set (`method.matching`). The parent closed tab_7 and recorded\n  it separately (`grading[6]`, `parentReview.candidateTabCompletion`,\n  `limitations[4]`). The candidate's incorrect statement is preserved verbatim.\n  This is represented honestly as a partial, not retroactively as a pass.\n- Decision text. \"Both versions detected the two intended product failures;\n  this sample does not establish general superiority\" is accurate: every\n  compared criterion is pass/pass except `grading[6]`, where the candidate is\n  partial. The retained extension is therefore supported as a non-regression\n  plus two boundary passes (`grading[7]`, `grading[8]`), which is exactly what\n  the record claims.\n- Boundaries. The CLI case ran both required entry points (file and stdin) with\n  exit 0 and byte-identical parsed Unicode. The supplied-evidence case correctly\n  rejected `ok: true` with final URL /login, applied theme light, zero fault\n  matches, and a skipped required keyboard check, and named next observations\n  without claiming to run them. Both exercise verify/SKILL.md:41-46 and 102-108\n  and browser-evidence.md:11-15, 68-73.\n- Checks. The first validator run failed on a missing `yaml` module and is\n  retained; the second passed via an offline uv environment, scoped to package\n  format. Compile/build is marked not applicable with a reason. Atlas\n  screenshots failed at both widths and the preview host disconnected; the\n  record states DOM and data checks passed but the visual check did not\n  complete (`limitations[6]`, `atlas.browser.limit`).\n\n## 7. Evidence limitations (not defects)\n\n1. Executor prompts are not retained verbatim (`method.protocolIsVerbatimPrompt:\n   false`). Independence from grader expectations rests on the parent's\n   statement in `method.matching`. Smallest useful improvement for future\n   validations: retain the verbatim prompt or its hash alongside the\n   instruction hashes. No change to the skill.\n2. PNG originals live under host-managed paths outside the repository; the\n   record keeps hashes and the parent inspected five images. Visual claims are\n   therefore checkable only on this machine. Disclosed in `method.retention`.\n3. All three executors were gpt-6-astra at max effort on one synthetic fixture.\n   Generalization across models, hosts, and real applications is untested and\n   is stated in `limitations[1]` and `[2]`.\n\n## 8. Untested claims (listed as untested, not as defects)\n\n- Probe rows for theme/locale/direction/motion beyond light and dark, layout\n  stability and performance, accessibility scanners, loading and empty states,\n  and browser-level request interception were not exercised by any trial. The\n  fixture used a server-side fault control instead, which the text permits.\n- The \"local skill unavailable\" path (verify/SKILL.md:41-46) is covered only\n  partially by the CLI boundary; handoff to verification-authoring and\n  multi-target selection were not exercised.\n- Whether the new per-path accounting paragraph (verify/SKILL.md:102-108)\n  changes executor behavior is not demonstrated; the baseline executor also\n  accounted for every required path.\n\n## 9. Optional improvements\n\nNone of these is required. They are listed because each has a concrete trigger\nand a small correction; the owner may reasonably decline all of them.\n\n1. browser-evidence.md:50 \"synthetic key events\" is ambiguous between\n   DOM-dispatched `KeyboardEvent`s (which do not establish keyboard operation)\n   and automation-layer key presses (CDP or Playwright, which both donors treat\n   as acceptable keyboard driving). Both executors treated T3 `preview_press` as\n   real key actions, so no harm occurred. Smallest correction: \"programmatic\n   focus or DOM-dispatched key events\".\n2. browser-evidence.md:6 and :46 use \"donor\", a term from this repository's\n   derivation vocabulary that a fresh executor will not know. Smallest\n   correction: \"an upstream recipe\" or \"a third-party recipe\".\n3. browser-evidence.md:5-6 scopes capability inspection to \"before choosing a\n   probe\". The candidate's cleanup miss shows the same discipline applies to\n   cleanup. The parent's decision not to add a host-specific command is correct\n   and I agree with it. If anything, a generic clause such as \"or before\n   declaring a step unsupported\" would cover it without naming a host. The\n   fixture recipe's \"if the native tool supports it\" wording is the more direct\n   cause and belongs to that recipe, not to verify.\n4. focus-walk.md:42 (shadow-root piercing: `document.activeElement` reports the\n   host for web-component UIs) is omitted. It matters only for shadow-DOM apps;\n   the local recipe, which owns driving, can carry it when relevant.\n5. mblode's \"one probe, one route, one viewport, one theme\" attribution rule\n   (ui-verification SKILL.md:96) is only implicit in the conditions-recording\n   text at browser-evidence.md:31-33. Both executors separated conditions\n   naturally. A single clause would make attribution explicit.\n\n## 10. Conclusion\n\nThe change is sound and proportional. The pstack contract is intact across\nverify, verify-<app>, and verification-authoring. Blode and Compound material\nwas reduced to claim-specific evidence rules with their false-positive guards,\nand their tooling, thresholds, schemas, and fix loops were correctly refused.\nThe validation record is honest about what it shows: equal detection by old\nand new text on one fixture, two boundary passes for the new text, an\ninconclusive focus-containment check caused by the preview host, a cleanup step\nthe candidate missed and the parent completed, and a static atlas check whose\nvisual half did not finish. No material correction is required.\n\n## 11. Concurrent work observed\n\nAt review start the only dirty path was the deletion of walkthrough/SKILL.md.\nAt completion `git status` also listed modified README.md, agent-instructions/\nSKILL.md and two of its references, several reports/skill-atlas files, and\nuntracked ci-cd-automation/ plus two new report JSON files. This review wrote\nonly under `.tmp/verify-fable-review/claude/` and did not read or modify those\npaths. They are concurrent work by other sessions and were left untouched. The\nsix review-target files still hash to the values in input-manifest.json.\n\nNote on the record's `baselineCommit` (2be844a): its verify/SKILL.md hashes\nidentically to `afccb26^`, so the recorded baseline commit and the baseline\nexecutor's supplied instructions agree.\n"
+  },
+  "parentChecks": {
+    "reviewInputsUnchanged": 6,
+    "fetchedFilesHashChecked": 25,
+    "uniquePriorSourceHashesMatched": 19,
+    "instructionVersionsMatchGit": true,
+    "fixtureTextHashesMatch": true,
+    "materialFindings": 0
+  },
+  "limitations": [
+    "This consultation inspected source files and retained traces; it did not execute the app, use a browser, rerun the trials or inspect the PNG captures.",
+    "The behavioral trials remain the previously recorded independent gpt-6-astra/max executions in verify-browser-validation.json. This record does not convert them into Claude trials.",
+    "The prior executor prompts were not retained verbatim. This consultation retains its own exact prompt, but cannot retroactively establish the independence of the earlier executor inputs.",
+    "The prior captures remain host-managed machine-local files outside the repository. Their hashes are retained in the original validation record.",
+    "One synthetic browser fixture and two bounded cases leave several probe types, real services, installation, host activation and broader behavior untested."
+  ],
+  "retention": {
+    "reviewerArtifacts": "The full reviewer JSON and Markdown are embedded without rewriting their contents.",
+    "pinnedSources": "The reviewer JSON retains the 25 pinned URLs and SHA-256 hashes. Scratch source copies were checked before disposal; their local paths are historical execution locations.",
+    "runtimeEvidence": "verify-browser-validation.json remains byte-for-byte unchanged.",
+    "temporaryPaths": "The .tmp/verify-fable-review paths in the prompt and review are historical scratch locations, removed after the record is committed."
+  },
+  "reportPublicationChecks": {
+    "scope": "Parent checks of the consultation record and atlas presentation, separate from the reviewed app-verification trials.",
+    "mechanical": "Full reviewer report and prompt retained exactly; six input hashes unchanged; JSON and catalog parity; 122 original cards and all other metadata preserved; HTML differs only by the consultation paragraph and catalog cache hash.",
+    "javascriptSyntax": "node --check reports/skill-atlas/catalog.js: passed",
+    "diffWhitespace": "git diff --check: passed",
+    "browser": {
+      "firstInspection": {
+        "toolIcon": {
+          "_tag": "website",
+          "pageUrl": "http://localhost:8765/#verify-browser-expansion"
+        },
+        "value": {
+          "catalogSkillCount": 122,
+          "consultation": {
+            "date": "2026-10-04",
+            "materialFindingCount": 0,
+            "method": "Independent static source and retained-evidence review; no new runtime execution or PNG inspection.",
+            "model": "claude-fable-5-1",
+            "optionalSuggestionCount": 5,
+            "provider": "claudeAgent",
+            "reasoningEffort": "xhigh",
+            "report": "verify-fable-review.json",
+            "scope": "Prior runtime trials remain gpt-6-astra/max. Candidate cleanup required parent assistance; no general superiority or complete non-regression is claimed.",
+            "skillChanged": false,
+            "verdict": "no-material-change-warranted"
+          },
+          "link": "http://localhost:8765/verify-fable-review.json",
+          "materialFindingCount": 0,
+          "pageWidth": 375,
+          "paragraphCount": 1,
+          "renderedSkillCardCount": 0,
+          "reportEffort": [
+            {
+              "id": "effort",
+              "value": "xhigh"
+            }
+          ],
+          "reportModel": "claude-fable-5-1",
+          "reportStatus": 200,
+          "text": "Independent consultation · 4 October 2026: Claude Fable 5.1 at xhigh reviewed the instructions, 25 pinned source files and the retained traces. It found no material correction; the skill is unchanged. Five optional suggestions are recorded. This was a static review without new runtime trials or PNG inspection; the behavioral trials above remain those by gpt-6-astra at max. Read the full consultation and the response to each suggestion.",
+          "url": "http://localhost:8765/#verify-browser-expansion",
+          "viewportWidth": 390
+        }
+      },
+      "catalogSmoke": {
+        "toolIcon": {
+          "_tag": "website",
+          "pageUrl": "http://localhost:8765/#verify-browser-expansion"
+        },
+        "value": {
+          "consultationModel": "claude-fable-5-1",
+          "originalSourceCards": 122,
+          "paragraphPresent": true,
+          "renderedCatalogRows": 239,
+          "reportLink": "http://localhost:8765/verify-fable-review.json",
+          "resultCount": "239 de 239 fichas",
+          "scrollWidth": 375,
+          "url": "http://localhost:8765/#verify-browser-expansion",
+          "viewportWidth": 390
+        }
+      }
+    },
+    "browserInterpretation": "The consultation appears in the live atlas, its JSON link returns HTTP 200, and the existing catalog renders. The first read used a non-existent .skill-card selector; the subsequent check uses the observed .skill-row markup. No screenshot or visual quality claim is made.",
+    "build": "Not applicable: this boundary contains a retained review and a static atlas paragraph/data overlay; no skill behavior or application code changed."
+  }
+}

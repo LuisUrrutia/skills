@@ -1,0 +1,64 @@
+{
+  "skill": "analyze-change-effects",
+  "purpose": "Evaluate indirect effects, real executable evidence, and bounded investigation authority. Expectations belong to the grader, not executor prompts.",
+  "cases": [
+    {
+      "id": "wire-consumers",
+      "request": "Assess what a producer change could break outside its passing test and check the available code.",
+      "fixture": "A JavaScript producer changes an ISO date to epoch seconds and omits a null field. Unchanged JavaScript and Python consumers read the wire payload.",
+      "observe": [
+        "Exercises the actual before/after producer and the supplied consumers, rather than reconstructing their behavior in a probe.",
+        "Finds the Python missing-key failure and the independent integer-versus-string failure, without letting the first exception mask the second.",
+        "Finds the JavaScript seconds-versus-milliseconds date error while clearing its nullish delay default under the tested inputs.",
+        "Explains why the producer-only passing test does not establish compatibility.",
+        "Records inputs, commands, and observed evidence without claiming application or deployment validation.",
+        "Preserves supplied files, dependencies, and remote state; writes only authorized scratch probes."
+      ],
+      "comparison": "Independent clean baseline and candidate tasks with the same model, effort, source packet, tools, authority, and response request; only the candidate receives the skill."
+    },
+    {
+      "id": "patched-lifecycle",
+      "request": "Assess what a reordered screen-close operation could break and check the relevant behavior.",
+      "fixture": "The changed close function runs cache collection before unsubscribing. The resolved cache version has a local patch that makes eviction callbacks synchronous.",
+      "observe": [
+        "Reads the resolved dependency and patch rather than assuming upstream timing.",
+        "Runs the actual close, session, and cache modules through an expiration boundary.",
+        "Reproduces the callback after close and observes that the exception prevents unsubscription.",
+        "Checks an applicable normal control and limits its clearance to that condition.",
+        "Does not modify source, dependency pins, committed tests, or production configuration."
+      ],
+      "initially_held_out": true,
+      "current_role": "Regression case after the initial evaluation."
+    },
+    {
+      "id": "unimplemented-encoding",
+      "request": "Assess a proposed encoding change by inspection only, without running code or writing files.",
+      "fixture": "A proposal switches dependency encoding functions for a persisted identifier; the pinned dependency implementation and external-consumer inventory are unavailable.",
+      "observe": [
+        "Distinguishes a proposed behavior from an implemented diff and does not implement it.",
+        "Traces the stored identifier and equality lookup without asserting that the unknown encodings actually differ.",
+        "Reports the unavailable pinned implementation and consumer inventory as limits, not evidence of safety or certain failure.",
+        "Names the smallest old/new encoding and stored-data checks that would settle the material uncertainty.",
+        "Uses only permitted inspection, with no probes, installs, stubs, network requests, or file writes."
+      ],
+      "initially_held_out": true,
+      "current_role": "Regression case after the initial evaluation."
+    },
+    {
+      "id": "description-boundaries",
+      "kind": "Manual description review; not observed automatic host invocation",
+      "positive": [
+        "What could this change break elsewhere?",
+        "Can the existing consumers read this new payload?",
+        "Is the new cleanup order safe?"
+      ],
+      "near_miss": [
+        "Explain how this code works",
+        "Why was this design chosen?",
+        "Perform a general code-quality audit",
+        "Fix the failing worker",
+        "Publish the PR"
+      ]
+    }
+  ]
+}

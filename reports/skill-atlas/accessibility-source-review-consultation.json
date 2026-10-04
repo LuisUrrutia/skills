@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-04",
+  "taskId": "node:delegated-task:command%3Amcp%3Aa4549d23-8c8c-4b6c-9269-1eab70d05d63%3Adelegate-task%3Aaccessibility-six-sources-fable-xhigh-20261004-r1",
+  "providerInstanceId": "claudeAgent",
+  "model": "claude-fable-5-1",
+  "requestedEffort": "xhigh",
+  "status": "completed",
+  "reviewedCommit": "9679207",
+  "scope": "Independent source/design consultation requested by the user. Recommendations remain proposed; this follow-up changes the assessment only.",
+  "reviewerSummary": "Review complete. Nothing further is needed from tools. Here is the independent assessment.\n\n**Verdict.** The six-source review is sound in its decisions and reproducible: all 29 recorded upstream file hashes matched my own pinned SSH clones, the 5 local hashes match the working tree, and all 10 probes reproduced exactly. Two things are wrong or missing in framing, one proposal is overstated, and one proposal is cherry-picked. No direct installation or separate debugging skill is justified.\n\n## Findings, most material first\n\n- **Missed lineage: web-quality-skills is the upstream of a donor you already hold.** `accessibility/origin.txt:51-64` records \"web-quality-skills, distributed by GSD\" at gsd-2 commit 33c00aa. That GSD file is web-quality-skills version 1.0, targeting WCAG 2.1 with a 4.1.1 Parsing section at its line 381. The pinned afa8da9 file is version 2.0. The review JSON contains zero mentions of GSD and only distinguishes the addyosmani/agent-skills donor. Everything proposed from this source is the v1.0 to v2.0 delta of an existing feed. Disposition: record the direct repository as the feed and mark the GSD mirror superseded, instead of adding a parallel donor. The mirror will lag upstream on every future check.\n\n- **The DevTools contrast snippet fails the common case, not an edge case.** I ran the unmodified snippet in a live Chrome 152 page. Any text element without its own background reports a transparent computed background, which the snippet parses as black.\n\n| Element | Computed color | Snippet result | Displayed pair |\n| --- | --- | --- | --- |\n| #777 text on white body | rgb(119, 119, 119) | 4.69 | 4.48, fails AA |\n| white text, transparent | rgb(255, 255, 255) | 21.00 | 1.00 |\n| oklch text on white | oklch(0.62 0.17 250) | 21.00 | unmatched, defaults to white |\n| 30% black text on white | rgba(0, 0, 0, 0.3) | 1.00 | alpha ignored |\n\n  The first row is a false AA pass at the threshold. The oklch row matters because Chrome serializes modern color syntax as authored, so any Tailwind v4 palette misses the regex. The review's stub was fair but chose the least realistic case. Disposition: proposal 2 is justified for contrast only, and the wording should say computed backgrounds are usually transparent rather than \"approximate.\"\n\n- **Alireza: rejection supported, consequences understated.** The documented CI gate cannot fail: the scanner emits a findings key, the workflow reads violations, so the example prints PASSED with six critical findings present. The documented severity name major exits 0 with \"no accessibility issues found\" because the code uses critical, serious, moderate, minor. The pre-commit hook passes an undefined quiet flag and blocks every commit touching matched files. The package's own expected outputs use a JSON shape the script never produces, so it was never run end to end. I also confirmed role alert is flagged like status, a lone \"Remember me\" checkbox is flagged serious, and every component file gets three landmark findings. The W3C ARIA 1.2 text confirms status and alert carry implicit live values, so the review's false-positive reading is correct. Disposition: keep \"do not adopt as supplied,\" but name the silent pass as the headline defect. I would drop \"report structure is a useful example\"; it is generic.\n\n- **ECC incorporation claim verified.** `accessibility/origin.txt:12-15` pins frontend-a11y at ef648e0, and the file hash e00991a3 is identical in my clone and the research record. Supported.\n\n- **better-web-ui: supported, with a nuance.** Clause 2 of its license requires derived versions to be published under that same license, which conflicts with this collection's MIT file for any derivative text. The repository is also internally inconsistent: frontend-design's frontmatter claims Apache 2.0 while the root license is custom. Line 85 of its entrypoint asks for a Tab stop on every interactive element, which breaks roving-tabindex composites, and line 196 states 44 px as the floor. One idea is missed: vision-deficiency emulation as a check technique. Chrome's own Rendering documentation covers it, so it can be adopted from Google's primary documentation with no better-web-ui provenance. The pinned chrome-devtools-mcp exposes no such emulation tool, so it stays host-dependent.\n\n- **Mindrally and Chrome DevTools decisions supported.** Mindrally adds nothing beyond its 44 px and \"add keyboard handlers alongside click\" errors. The DevTools skill is bound to that server's tool names, recommends 48 px targets, treats skipped heading levels as failures, and by inspection its orphan-input snippet flags submit and hidden inputs and injects unescaped ids into a selector. A separate debugging skill would duplicate execution ownership that `verify/references/browser-evidence.md` already holds in host-neutral wording. A host that runs that MCP server can load the vendor's skill as recipe context.\n\n## The three proposed additions\n\n- **Proposal 1 is half covered.** Tracing a failing node to the responsible component is already in SKILL.md at lines 51 to 52 and 82 to 84. The audit-mode half is a real gap: web.md line 92 says to scan reachable states but not that a reload-based scan destroys them. I verified the claim behind it: the MCP tool at b2f522c offers navigation and snapshot modes with accessibility in both, and Lighthouse's own flow documentation lists \"find accessibility issues deep within SPAs or complex forms\" under snapshot. Keep mode names out of the skill and in a verify recipe.\n\n- **Proposal 2 shrinks to one clause.** Computed names, effective hit regions, and occlusion are already covered at web.md lines 12, 73 and verify rows 51, 57. Only the transparent-background clause is new.\n\n- **Proposal 3 is accurate but donor-driven.** The normative text is Level A, four mechanism types, \"unless a change is initiated by the user,\" and the Understanding document says navigating between pages is not such a change and absence on some pages is not a failure. It is the only WCAG 2.2 A/AA addition web.md omits. But Consistent Navigation, Consistent Identification, Orientation, Page Titled, and Multiple Ways are also absent, and the reference disclaims completeness. Adding one criterion because a donor named it is the wrong trigger. One cross-page consistency sentence is the coherent unit.\n\n## Recommendation and minimal wording\n\nKeep the skill. Edit only `accessibility/references/web.md`, which already loads for web work, so no new load condition and no entrypoint growth. Do not touch verify, install anything, or add a skill. Four sentences:\n\n1. Evidence limits paragraph, after its first sentence: \"A scan that reloads the page audits the loaded page, not the dialog, error, or signed-in state you reached; use a current-state scan for that state and confirm it was still present when the scan ran.\"\n2. Text contrast row, appended: \"An element's computed background is usually transparent; resolve the displayed background from composited ancestors, images, or gradients, and treat a snippet that cannot resolve it or the color syntax as inconclusive, not a pass.\"\n3. Semantics and content, after the landmarks paragraph: \"Across a set of pages, keep repeated navigation in the same relative order, identify the same function consistently, and keep any repeated help mechanism in the same relative order unless the user changes it, per 3.2.3, 3.2.4 and 3.2.6; 3.2.6 does not require adding help, and a page without the mechanism does not fail.\"\n4. Optional, Color row: \"Where hue separates states, check in grayscale or a vision-deficiency emulation the host supports; lightness, labels, icons, or patterns must carry the meaning.\"\n\n**Limits of this consultation.** No screen reader or native device session ran. I verified Lighthouse mode support from tool source and documentation, not by running an audit. The live browser was the T3 Electron preview on Chrome 152, not a user's Chrome, though color serialization is engine behavior. Two web-fetch summaries were wrong and were replaced by raw document reads. The review's recorded validator asserts against a scratch clone path that no longer exists, so it cannot be rerun as recorded; my independent hash check stands in for it.\n\n**What remains.** No tracked file was changed; the walkthrough deletion predates this session. Scratch at `.tmp/a11y-fable-consult-20261004/` holds fixtures, results.json with the live and rerun probe outputs, the GSD v1.0 file, and the Lighthouse flow document, totaling 84 KB. The clones and spec downloads were removed.",
+  "dispositions": [
+    {
+      "finding": "Existing GSD lineage",
+      "decision": "Accept with narrower provenance scope",
+      "reason": "The recorded GSD accessibility entrypoint is web-quality-skills v1.0; direct upstream is v2.0. Prefer direct upstream for the mirrored entrypoint/reference on a future update, preserving the immutable GSD baseline and its distinct audit workflow. Do not retire the entire GSD feed or predict that it will always lag."
+    },
+    {
+      "finding": "Contrast false pass",
+      "decision": "Accept",
+      "reason": "The retained live fixture and outputs show #777 on white reported as 4.69 by the snippet, while the displayed pair is 4.478. Parent recalculation confirms the threshold crossing. Modern color syntax and alpha also exceed the snippet's parser. Limit the new guidance to unresolved compositing/color measurements; names and hit regions are already covered."
+    },
+    {
+      "finding": "CI gate cannot fail",
+      "decision": "Correct the scope",
+      "reason": "The isolated JSON reader misses findings and reports a false pass. The supplied GitHub Actions workflow first runs the scanner as its own failing step, without continue-on-error; the scanner's nonzero exit can fail the job and skip the later normal step. This is not evidence that the complete workflow always passes."
+    },
+    {
+      "finding": "Severity filter and hook flags",
+      "decision": "Accept as additional observed package defects",
+      "reason": "The reviewer reports major selecting no implemented severity and returning exit 0, and --quiet being rejected. Preserve these as reviewer-observed results; the parent directly checked the retained sample JSON, not a second full scanner execution."
+    },
+    {
+      "finding": "Expected-output mismatch proves never tested",
+      "decision": "Reject the historical inference",
+      "reason": "The mismatch demonstrates inconsistency at the pinned revision. It does not establish the author's testing history."
+    },
+    {
+      "finding": "Custom license proves incompatibility for any derivative",
+      "decision": "Do not adopt that blanket legal conclusion",
+      "reason": "Record the custom license and attribution declarations, as before. No donor material is being incorporated in this consultation, and no legal compatibility determination is necessary for the recommendation."
+    },
+    {
+      "finding": "Reduce proposals and include page consistency",
+      "decision": "Accept",
+      "reason": "Keep current-state audit selection, composited contrast and coherent cross-page navigation/identification/help guidance in the existing web reference if adopted. No entrypoint growth or new skill. Phrase reload risks conditionally because sessions and some UI state can survive reloads."
+    },
+    {
+      "finding": "Vision-deficiency emulation",
+      "decision": "Keep optional",
+      "reason": "A useful host-dependent technique for an affected chart or state. Link to Chrome's primary documentation; do not require a new tool or present simulation as assistive-technology/user testing."
+    },
+    {
+      "finding": "Scratch-dependent reproduction",
+      "decision": "Clarify prerequisites",
+      "reason": "The original scripts are retained in the report, but reconstructing the pinned source directories is required after scratch cleanup. Add explicit reconstruction instructions rather than claiming the deleted path can be executed immediately."
+    }
+  ],
+  "limitations": [
+    "The review is not a behavioral evaluation of a revised skill.",
+    "No screen-reader or native-device session ran.",
+    "The parent verified decisive source/CI and arithmetic claims; remaining live observations are attributed to the independent reviewer.",
+    "No accessibility/verify files or source cursors changed."
+  ],
+  "reviewerEvidence": {
+    "consult": "a11y-fable-consult-20261004",
+    "date": "2026-10-04",
+    "localBaseline": "9679207",
+    "pinned": {
+      "ecc": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "chrome-devtools-mcp": "b2f522c8ba0fd2e00a679159b4aa5243de5f1b78",
+      "mindrally": "97184105b5daa3a6860a2aeb8e7e7fd1c42da40a",
+      "alireza": "19392f7a08264ed00486a251f5b2098321771f94",
+      "better-web-ui": "af21dcfa71d83104a9e0beb04ffedf79f800f53c",
+      "web-quality-skills": "afa8da942115f2961fdbfa80807ea0b232ff6c00"
+    },
+    "hashVerification": "29/29 inspectedFiles in reports/skill-atlas/accessibility-source-review.json matched independent SSH depth-1 clones; 5/5 localEvidence hashes matched the working tree.",
+    "alirezaScannerRerun": {
+      "unlabelled-input-with-id": {
+        "exit": 0,
+        "findings": []
+      },
+      "labelled-input-without-id": {
+        "exit": 1,
+        "findings": [
+          "form-input-no-label critical"
+        ]
+      },
+      "implicit-live-status": {
+        "exit": 1,
+        "findings": [
+          "aria-live-missing serious"
+        ]
+      },
+      "implicit-live-alert": {
+        "exit": 1,
+        "findings": [
+          "aria-live-missing serious"
+        ]
+      },
+      "mouse-only-role-button": {
+        "exit": 0,
+        "findings": []
+      },
+      "missing-image-alt": {
+        "exit": 1,
+        "findings": [
+          "img-alt-missing critical"
+        ]
+      },
+      "lone-checkbox": {
+        "exit": 1,
+        "findings": [
+          "form-missing-fieldset serious"
+        ]
+      },
+      "decorative-empty-alt": {
+        "exit": 1,
+        "findings": [
+          "img-alt-empty-informative serious"
+        ]
+      },
+      "assets/sample-component.tsx": {
+        "exit": 1,
+        "total": 12,
+        "note": "package expected_outputs claim 9 findings in a different JSON shape (violations-style fields); scanner emits summary.by_severity + findings[rule_id, wcag_criterion, snippet]"
+      },
+      "ci-example-on-real-output": "data.get('violations', []) is empty -> prints PASSED with 6 critical findings present",
+      "pre-commit-hook-flags": "--severity critical --quiet -> argparse exit 2 (unrecognized --quiet)",
+      "documented-severity-name": "--severity major -> exit 0, 'no accessibility issues found' (code uses critical/serious/moderate/minor)"
+    },
+    "devtoolsContrastSnippetLive": {
+      "browser": "Chrome/152.0.7977.130 (T3 Code Electron preview), http://127.0.0.1:8777/contrast-live.html",
+      "transparent": {
+        "color": "rgb(255, 255, 255)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "snippet": "21.00",
+        "actualDisplayedPair": "white on white = 1.00"
+      },
+      "solid": {
+        "color": "rgb(119, 119, 119)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "snippet": "4.69",
+        "actualDisplayedPair": "#777 on #fff = 4.48 (fails AA normal text)"
+      },
+      "oklch": {
+        "color": "oklch(0.62 0.17 250)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "snippet": "21.00",
+        "note": "unmatched color syntax defaults to white"
+      },
+      "srgb": {
+        "color": "color(srgb 0.45 0.45 0.45)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "snippet": "21.00"
+      },
+      "alpha": {
+        "color": "rgba(0, 0, 0, 0.3)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "snippet": "1.00",
+        "note": "alpha ignored; transparent bg parsed as black"
+      },
+      "oklchdark": {
+        "color": "oklch(0.62 0.17 250)",
+        "bg": "rgba(0, 0, 0, 0)",
+        "snippet": "21.00"
+      }
+    },
+    "primaryDocsChecked": [
+      "https://www.w3.org/TR/WCAG22/ (3.2.6 Level A normative text; 2.4.11 AA; 2.4.13 AAA; large scale = 18pt/14pt bold)",
+      "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html",
+      "https://www.w3.org/TR/wai-aria-1.2/ (status implicit polite/atomic; alert implicit assertive/atomic)",
+      "https://raw.githubusercontent.com/GoogleChrome/lighthouse/main/docs/user-flows.md (snapshot mode: accessibility in current state; timespan: no accessibility category)",
+      "https://developer.chrome.com/docs/devtools/rendering/apply-effects (Emulate vision deficiencies)",
+      "https://raw.githubusercontent.com/gsd-build/gsd-2/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/skills/accessibility/SKILL.md (web-quality-skills v1.0, WCAG 2.1)"
+    ]
+  },
+  "parentChecks": {
+    "criticalFindings": 6,
+    "incorrectGateFindings": 0,
+    "actual777OnWhite": 4.478089453577214,
+    "snippet777OnAssumedBlack": 4.68949989000882,
+    "gsdV1Sha256": "df14b3a23e79b4c213cf3bd0a14662fb084f226a7d5099b37582b3235c8c4b53"
+  },
+  "retainedFixture": {
+    "path": "fixtures/contrast-live.html",
+    "content": "<!doctype html><html lang=\"en\"><head><meta charset=\"utf-8\"><title>Contrast snippet live probe</title>\n<style>\n body{background:#fff;color:#000}\n #transparent{color:#fff;background:transparent}\n #oklch{color:oklch(0.62 0.17 250)}\n #srgb{color:color(srgb 0.45 0.45 0.45)}\n #alpha{color:rgba(0,0,0,0.3)}\n #solid{color:#777}\n .dark{background:#000;padding:4px}\n</style></head><body>\n<p id=\"transparent\">white text, transparent background over white body</p>\n<p id=\"oklch\">oklch blue text on white</p>\n<p id=\"srgb\">color(srgb) gray text on white</p>\n<p id=\"alpha\">30% black text on white</p>\n<p id=\"solid\">#777 on white</p>\n<div class=\"dark\"><p id=\"oklchdark\" style=\"color:oklch(0.62 0.17 250);background:transparent\">oklch blue text on black ancestor</p></div>\n</body></html>\n",
+    "sha256": "8c1990fb2ade648062c16ad5b4c7370d5eeb233f565ffff580ebd95ef582cbe1"
+  },
+  "sourceReferences": {
+    "ciExample": "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/skills/a11y-audit/references/ci-cd-integration.md",
+    "workflowFailureSemantics": "https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#jobsjob_idstepsshell",
+    "gsdV1": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/skills/accessibility/SKILL.md",
+    "navigation": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-navigation.html",
+    "identification": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-identification.html",
+    "help": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html",
+    "visionEmulation": "https://developer.chrome.com/docs/devtools/rendering/apply-effects"
+  },
+  "validation": {
+    "command": "python3 -B .tmp/a11y-fable-consult-20261004/check-reconciliation.py",
+    "status": "passed",
+    "validator": "import hashlib\nimport json\nfrom html.parser import HTMLParser\nfrom pathlib import Path\nfrom urllib.parse import unquote, urlsplit\n\nbase = Path('reports/skill-atlas')\nreport = json.loads((base / 'accessibility-source-review.json').read_text())\nconsult = json.loads((base / report['consultation']['record']).read_text())\nassert consult['status'] == 'completed'\nassert consult['model'] == 'claude-fable-5-1' and consult['requestedEffort'] == 'xhigh'\nassert len(report['sources']) == 6 and len(report['proposals']) == 3 and len(report['probes']) == 10\nassert len(consult['dispositions']) == 9\nassert consult['parentChecks']['criticalFindings'] == 6\nassert consult['parentChecks']['incorrectGateFindings'] == 0\nassert consult['parentChecks']['actual777OnWhite'] < 4.5 < consult['parentChecks']['snippet777OnAssumedBlack']\nfor file in report['localEvidence']:\n    assert hashlib.sha256(Path(file['path']).read_bytes()).hexdigest() == file['sha256'], file['path']\nassert hashlib.sha256(consult['retainedFixture']['content'].encode()).hexdigest() == consult['retainedFixture']['sha256']\n\nclass Page(HTMLParser):\n    def __init__(self):\n        super().__init__()\n        self.ids = []\n        self.links = []\n    def handle_starttag(self, tag, attrs):\n        attrs = dict(attrs)\n        if 'id' in attrs:\n            self.ids.append(attrs['id'])\n        if tag in ('a', 'link') and 'href' in attrs:\n            self.links.append(attrs['href'])\n\npath = base / 'accessibility-source-review.html'\npage = Page()\npage.feed(path.read_text())\nassert len(page.ids) == len(set(page.ids))\nassert 'second-opinion' in page.ids\nfor href in page.links:\n    parts = urlsplit(href)\n    if parts.scheme:\n        assert parts.scheme == 'https'\n        continue\n    target = base / unquote(parts.path) if parts.path else path\n    assert target.is_file(), href\n    if parts.fragment:\n        linked = Page()\n        linked.feed(target.read_text())\n        assert unquote(parts.fragment) in linked.ids, href\nprint('PASS: completed Fable xhigh result, nine dispositions, retained evidence, unchanged skill hashes, six sources, three proposals, ten original probes and all report links/fragments.')\n",
+    "outcome": "Completed Fable xhigh result, nine dispositions, retained evidence, unchanged skill hashes, six sources, three proposals, ten original probes and report links/fragments checked.",
+    "diffCheck": "git diff --check: passed",
+    "build": "Not applicable: static report-only changes.",
+    "browser": {
+      "tool": "T3 preview tools",
+      "desktop": [
+        1280,
+        800
+      ],
+      "desktopDocumentWidth": 1265,
+      "mobile": [
+        375,
+        812
+      ],
+      "mobileDocumentWidth": 360,
+      "observations": [
+        "New consultation section rendered and desktop capture inspected.",
+        "Native click opened the qualification details on the narrow viewport without page overflow.",
+        "Existing Observed problems navigation still reached all ten original probe rows.",
+        "No missing in-page fragments."
+      ],
+      "limits": "Narrow-viewport DOM/layout and native-click checks do not constitute screen-reader or physical-device testing."
+    }
+  }
+}

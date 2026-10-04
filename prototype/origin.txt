@@ -1,0 +1,70 @@
+format_version = 1
+skill = "prototype"
+created = "2026-10-02"
+approach = "Small standalone derivation: local wording and procedures adapted from the sources below. No upstream runtime skill is invoked."
+
+[[sources]]
+id = "mattpocock-prototype"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+baseline_paths = ["skills/engineering/prototype/SKILL.md", "skills/engineering/prototype/LOGIC.md", "skills/engineering/prototype/UI.md", "LICENSE"]
+paths = ["skills/engineering/prototype/SKILL.md", "skills/engineering/prototype/LOGIC.md", "skills/engineering/prototype/UI.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Choose the artifact from the question; separate logic and interface guidance.",
+  "Expose relevant state, allow free exploration, and reset guided model walkthroughs.",
+  "Compare structurally different interfaces in enough application context, with labeled variants and stubbed mutations."
+]
+local_choices = [
+  "Short activation description; empirical behavior is a third conditional branch.",
+  "Follow local scratch and deliverable conventions; plain HTML uses external CSS unless the user requests another format.",
+  "Frameworks, assertions, and project checks are conditional, not universally forbidden.",
+  "Report evidence and uncertainty; no automatic production promotion, archive branch, issue update, or delivery workflow.",
+  "Experimental UI must be isolated as a whole; hiding its selector is not sufficient."
+]
+reviews = [
+  { from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60", to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/performance-upstream-adoption-validation.json"] },
+]
+
+[[sources]]
+id = "pstack-prototype-playbook"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "7022c81efb48d8b5eb15498ce6043a3bd74b694c"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/poteto-mode/playbooks/prototype.md", "pstack/LICENSE"]
+paths = ["pstack/skills/poteto-mode/playbooks/prototype.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Use an isolated disposable experiment to resolve a concrete decision.",
+  "Allow small empirical behavior or timing experiments as well as visual alternatives.",
+  "Observe the matching surface and deliver evidence, tradeoffs, a recommendation, and the artifact."
+]
+local_choices = [
+  "The source is a playbook inside poteto-mode, not an independently installable skill.",
+  "No Cursor tool names, parent-mode dependency, or automatic handoff to Feature or architect.",
+  "Gather references and alternatives only when the question needs them.",
+  "Timing evidence uses verify for shared assessment, with local correctness, comparability and variability checks retained when that optional specialist is unavailable.",
+  "Preserve existing wider authorization without requiring a new permission gate."
+]
+reviews = [
+  { from_commit = "7022c81efb48d8b5eb15498ce6043a3bd74b694c", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/performance-upstream-adoption-validation.json"] },
+]
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested source maintenance and skill authoring."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Assess measurement evidence for a performance experiment; return the verdict to prototype for its bounded recommendation. If unavailable, retain the stated assessment gap."

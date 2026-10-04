@@ -1,0 +1,110 @@
+format_version = 1
+skill = "write-documentation"
+created = "2026-10-04"
+approach = "Derive portable prose instructions; no upstream runtime, scripts or network dependency."
+
+[[sources]]
+id = "cursor"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/technical-writing/SKILL.md", "pstack/skills/teach/SKILL.md", "pstack/skills/unslop/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/technical-writing/SKILL.md", "pstack/skills/teach/SKILL.md", "pstack/skills/unslop/SKILL.md", "pstack/LICENSE"]
+borrowed = ["Stable terminology, reader prerequisites, conditions before actions and reader-task documentation structure."]
+local_choices = ["Adapt English-specific grammar and punctuation to the target language; no sentence caps, word blacklist or STE compliance claim.", "No mandatory teaching, image generation, or unslop invocation. Existing local prose and investigation owners remain responsible."]
+license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
+reviews = []
+
+[[sources]]
+id = "mblode"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+baseline_paths = ["skills/ghostwriter/SKILL.md", "skills/ghostwriter/references/docs.md", "skills/ghostwriter/references/readme.md", "skills/ghostwriter/references/templates.md", "LICENSE.md"]
+paths = ["skills/ghostwriter/SKILL.md", "skills/ghostwriter/references/docs.md", "skills/ghostwriter/references/readme.md", "skills/ghostwriter/references/templates.md", "LICENSE.md"]
+borrowed = ["Reader-task structure, useful first-use paths, source accuracy, and documentation-specific checks."]
+local_choices = ["Keep existing documentation conventions and mixed pages where useful; no imposed US English, technology stack, directory or mandatory CI.", "Preserve legitimate internal/contributor README audiences. No profile or publishing workflow."]
+license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
+reviews = []
+
+[[sources]]
+id = "addy"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "1401c8b8030e023baeebb31781a6653fe8e93026"
+baseline_paths = ["skills/documentation-and-adrs/SKILL.md", "LICENSE"]
+paths = ["skills/documentation-and-adrs/SKILL.md", "LICENSE"]
+borrowed = ["Evidence-backed documentation, project conventions, decision status and preserved historical rationale."]
+local_choices = ["No copied technology-specific examples, mandatory public-API doc coverage or automatic ADR creation."]
+license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
+reviews = []
+
+[[sources]]
+id = "anthropic"
+author = "Anthropic"
+repository = "https://github.com/anthropics/skills"
+remote = "git@github.com:anthropics/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+reviewed_through = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+baseline_paths = ["skills/doc-coauthoring/SKILL.md", "README.md"]
+paths = ["skills/doc-coauthoring/SKILL.md", "README.md"]
+borrowed = ["Read a document without author context; use a proportionate independent reader check to expose missing assumptions."]
+local_choices = ["Ideas only, in original local wording. The repository README says many skills use Apache 2.0, but this skill has no license declaration or adjacent license file; do not infer its license from a sibling.", "No mandatory three-stage interview, section approval ritual, nested review panel, or Claude-specific runner."]
+license = "Ideas only, expressed in local wording. No source text copied; no skill-specific license was present at the reviewed path."
+reviews = []
+
+[[reference_documents]]
+id = "iso-plain-language"
+url = "https://www.iso.org/standard/78907.html"
+checked = "2026-10-04"
+coverage = "Public ISO 24495-1:2023 abstract only; full standard not read."
+role = "Audience-centered clarity applicable across written languages; no certification claim."
+
+[[reference_documents]]
+id = "asd-ste100"
+url = "https://www.asd-ste100.org/about_STE.html"
+checked = "2026-10-04"
+coverage = "Official search-indexed description and FAQ; direct about page returned 403; full Issue 9 standard not read."
+role = "Transfer clarity principles, not English-specific controlled vocabulary or grammatical constraints."
+
+[[reference_documents]]
+id = "diataxis"
+url = "https://diataxis.fr/"
+checked = "2026-10-04"
+coverage = "Public framework overview."
+role = "Organize documentation by reader need without imposing a file taxonomy."
+
+[[reference_documents]]
+id = "google-audience"
+url = "https://developers.google.com/tech-writing/one/audience"
+checked = "2026-10-04"
+coverage = "Audience article opening and audience variables."
+role = "Supply the knowledge gap for the intended reader; avoid explaining what they already know."
+
+[[dependencies]]
+kind = "local"
+name = "communicate-clearly"
+required = false
+role = "Shared prose, audience, multilingual and fidelity guidance."
+
+[[dependencies]]
+kind = "local"
+name = "why"
+required = false
+role = "Investigate missing decision rationale when required."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Own agent-consumed instructions and requested source maintenance."

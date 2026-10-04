@@ -1,0 +1,248 @@
+format_version = 1
+skill = "verify"
+created = "2026-10-03"
+approach = "Derive a common evidence and selection entrypoint over project-local pstack-style verification recipes."
+
+[[sources]]
+id = "pstack-verification"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/create-verification-skill/SKILL.md", "pstack/skills/maintain-verification-skill/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/create-verification-skill/SKILL.md", "pstack/skills/maintain-verification-skill/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Discover Surface, Run, Drive, Observe and Isolate from the repository before writing commands.",
+  "Project-local verify-<app> with Launch, Doctor, Drive, Evidence, Cleanup and Helpers.",
+  "Feature map with source-grounded user entry points, real action and result proof, independently observed side effects, and evidence that survives cleanup.",
+  "Creation proves one mapped feature; maintenance covers every feature from source and live, with separate readers and one mutable driver.",
+  "Distinguish recipe drift, harness gaps and product defects; bounded doctor repair and ownership-aware cleanup on every attempt."
+]
+local_choices = [
+  "Common verify owns selection, scope and result claims; project-local verify-<app> owns executable application procedures. verification-authoring owns creation and maintenance.",
+  "Resolve the target host and local skill location; do not require Cursor, tmux, a fixed browser tool or a global installation.",
+  "Use agent-instructions by registered name for authoring. Keep general writing rules with that owner.",
+  "Product repair, dependency installation, commits, PRs and scheduling follow the active caller and repository rules; maintenance does not automatically publish.",
+  "Unreachable routes are blocked behavior coverage, with the attempted route and concrete missing prerequisite; they are not a behavioral pass.",
+  "Direct source review is an explicit disclosed fallback when independent workers cannot run and the caller permits it.",
+  "A bundled read-only map validator checks links and section structure; source and live proof still establish correctness."
+]
+reviews = [
+  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/performance-upstream-adoption-validation.json"] },
+]
+
+[[sources]]
+id = "superpowers-verification"
+author = "Jesse Vincent / obra"
+repository = "https://github.com/obra/superpowers"
+remote = "git@github.com:obra/superpowers.git"
+ref = "refs/heads/main"
+baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+reviewed_through = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+baseline_paths = ["skills/verification-before-completion/SKILL.md", "LICENSE"]
+paths = ["skills/verification-before-completion/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Match completion claims to current execution output, exit statuses and the exact check that proves them.",
+  "Prior logs, delegated summaries, lint and confident reasoning do not replace current behavioral or build evidence."
+]
+local_choices = [
+  "Freshness depends on relevant inputs, code and environment, not on whether evidence appeared in the current chat message.",
+  "Retain useful partial passes while precisely reporting failures and blocked checks. Verification alone does not authorize repairs or new tests."
+]
+reviews = []
+
+[[sources]]
+id = "gsd-verification"
+author = "Lex Christopherson / gsd-build"
+repository = "https://github.com/gsd-build/gsd-2"
+remote = "git@github.com:gsd-build/gsd-2.git"
+ref = "refs/heads/main"
+baseline_commit = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+reviewed_through = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+baseline_paths = ["src/resources/skills/verify-before-complete/SKILL.md", "LICENSE"]
+paths = ["src/resources/skills/verify-before-complete/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Inventory requirements and checks before reporting completion; observe the original bug and real build.",
+  "Report incomplete checks and remaining blockers rather than inferring that passing adjacent checks prove the requested behavior."
+]
+local_choices = [
+  "Do not require the GSD slice framework, its fixed tools or an automatic fix-everything loop.",
+  "The original reproduction is required for a bug claim; do not invent historical red/green evidence or mandate a new test suite."
+]
+reviews = []
+
+[[sources]]
+id = "addy-browser-verification"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
+reviewed_through = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
+baseline_paths = ["skills/browser-testing-with-devtools/SKILL.md", "LICENSE"]
+paths = ["skills/browser-testing-with-devtools/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Exercise the actual browser UI and use rendering, DOM, console, network and persistence evidence appropriate to each claim.",
+  "Use browser tooling for concrete behavior, accessibility or performance questions, with relevant measurements and observed errors."
+]
+local_choices = [
+  "Use the host-supported browser and project harness. Do not install Chrome DevTools MCP as a universal prerequisite.",
+  "Preserve existing authority for UI interactions instead of adding a confirmation before every modifying click.",
+  "Apply accessibility, performance and error thresholds from the task or project contract; do not invent universal zero-warning or numeric budgets."
+]
+reviews = []
+
+
+[[sources]]
+id = "mblode-ui-verification"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+baseline_paths = [
+  "skills/ui-verification/SKILL.md",
+  "skills/ui-verification/references/session-setup.md",
+  "skills/ui-verification/references/evidence-output.md",
+  "skills/ui-verification/probes/focus-walk.md",
+  "skills/ui-verification/probes/target-size.md",
+  "skills/ui-verification/probes/viewport-stress.md",
+  "skills/ui-verification/probes/theme-locale-matrix.md",
+  "skills/ui-verification/probes/failure-injection.md",
+  "skills/ui-verification/probes/console-network.md",
+  "skills/ui-verification/probes/axe-scan.md",
+  "skills/ui-verification/probes/layout-shift.md",
+  "skills/ui-verification/probes/web-vitals.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/ui-verification/SKILL.md",
+  "skills/ui-verification/references/session-setup.md",
+  "skills/ui-verification/references/evidence-output.md",
+  "skills/ui-verification/probes/focus-walk.md",
+  "skills/ui-verification/probes/target-size.md",
+  "skills/ui-verification/probes/viewport-stress.md",
+  "skills/ui-verification/probes/theme-locale-matrix.md",
+  "skills/ui-verification/probes/failure-injection.md",
+  "skills/ui-verification/probes/console-network.md",
+  "skills/ui-verification/probes/axe-scan.md",
+  "skills/ui-verification/probes/layout-shift.md",
+  "skills/ui-verification/probes/web-vitals.md",
+  "LICENSE.md",
+]
+borrowed = [
+  "Select scoped runtime probes and record the actual session, conditions, observations and evidence.",
+  "Drive keyboard and focus behavior, measure effective hit areas, distinguish intentional scrolling, and confirm applied themes and supported locale or motion states.",
+  "Confirm injected faults reach the intended boundary, exercise recovery, and preserve honest missing-measurement and reproduction outcomes.",
+]
+local_choices = [
+  "The project-local verify-<app> retains launch, doctor, driving and cleanup; verify selects and interprets its evidence.",
+  "Use host-native capabilities and project requirements; no Playwright or agent-browser mandate, fixed viewport/target-size thresholds, mandatory scan matrix or universal UI finding schema.",
+  "Preserve required coverage, use bounded claim-specific probes and repeat only when uncertainty warrants it; reject the evidence-output reference's mandatory second failure run.",
+  "Do not infer native keyboard, touch, clipboard, composition, localization, accessibility or field performance from synthetic or narrower observations.",
+  "Safe server fixtures can exercise faults without browser interception. Setup must not bypass the user behavior being claimed; restore owned probe changes.",
+]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+reviews = []
+
+[[sources]]
+id = "mblode-app-verification"
+author = "Matthew Blode; derived from Lauren Tan / pstack"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+baseline_paths = [
+  "skills/app-verification/SKILL.md",
+  "skills/app-verification/references/maintain-mode.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/app-verification/SKILL.md",
+  "skills/app-verification/references/maintain-mode.md",
+  "LICENSE.md",
+]
+borrowed = [
+  "Account for each in-scope user path, alternate entry point, expected result, actual execution and evidence instead of inferring coverage from one passing check.",
+  "Expose omitted or unavailable checks in the project's existing proof record.",
+]
+local_choices = [
+  "This donor explicitly derives from pstack; the original pstack verification ownership and recipe contract remain authoritative locally.",
+  "Required skipped, blocked, inconclusive or unrun checks prevent overall completion even if another check passed. Do not adopt the donor proof example's ok=true with skipped paths.",
+  "No new verify/doctor/seed CLI, JSON schema, invocation restriction, fixed artifact path, source-file exemption or publication step is required.",
+]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+reviews = []
+
+[[sources]]
+id = "compound-dogfood"
+author = "Every / Compound Engineering"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+baseline_paths = [
+  "skills/ce-dogfood/SKILL.md",
+  "skills/ce-dogfood/references/test-matrix-taxonomy.md",
+  "skills/ce-dogfood/references/phases.md",
+  "LICENSE",
+]
+paths = [
+  "skills/ce-dogfood/SKILL.md",
+  "skills/ce-dogfood/references/test-matrix-taxonomy.md",
+  "skills/ce-dogfood/references/phases.md",
+  "LICENSE",
+]
+borrowed = [
+  "Trace user journeys through entry, action, destination and independently observed downstream effects.",
+  "Select relevant permission, failure, empty, re-entry and adjacent regression conditions from the affected behavior.",
+]
+local_choices = [
+  "Keep verify's active scope and caller authority. Verification alone does not authorize product fixes, tests, commits, PRs or learned-rule publication.",
+  "Use the host browser and local recipe; do not inherit an agent-browser-only runtime, CE worktree flow, mandatory Mermaid diagrams, pack system or report template.",
+  "Use established product requirements and personas where relevant; observations of friction do not create new product policy or a redesign task.",
+]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+reviews = []
+
+[[sources]]
+id = "pstack-performance-evidence"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/benchmark-checklist/SKILL.md", "pstack/skills/principle-explain-the-number/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/benchmark-checklist/SKILL.md", "pstack/skills/principle-explain-the-number/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Check completed correct work, meaningful measurement boundaries, comparable conditions, repeated observations and retained variation before accepting performance claims.", "Separate successful work from errors, workload limits from driver limits, diagnostic profiling from scored timings, and local measurements from end-to-end gains.", "Check resource and time budgets; causal bottleneck explanations need path-specific runtime evidence."]
+local_choices = ["Shared evidence criteria live in a conditional verify reference. debug and prototype retain measurement execution, diagnosis or experiment ownership and receive the verdict without recursive handoff.", "A supplied benchmark or packet can be assessed without a project recipe; retain functional checks and report missing application coverage separately.", "A bounded observed effect does not require a proven limiter; label single observations and legitimate cache conditions. Choose repetition and thresholds from the decision rather than a universal five-run minimum.", "Preserve narrow as-deployed comparisons; adoption choices must resolve material configuration differences or justify them from actual user constraints.", "No required Linux uptime/nproc commands, rank-sum test, single-number PR format, automatic profiling, tune-then-remeasure requirement, tool installation, production load, hillclimb loop, or publication.", "Read principle-prove-it-works and poteto-mode perf-issue, hillclimb and opening-a-pr playbooks as context. Their orchestration and PR procedures are not adopted or new direct source feeds.", "Matched supplied-context execution evidence and limits: reports/skill-atlas/performance-upstream-adoption-validation.json"]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "General instruction writing, packaging and requested upstream maintenance."
+
+[[dependencies]]
+kind = "local"
+name = "verification-authoring"
+required = false
+role = "Create or maintain a project recipe only when that work is authorized."
+
+[[dependencies]]
+kind = "local"
+name = "debug"
+required = false
+role = "Diagnose a failure only when the active task requests or authorizes diagnosis."

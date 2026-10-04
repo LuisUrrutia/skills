@@ -1,0 +1,837 @@
+{
+  "skill": "typescript-best-practices",
+  "reviewed_at": "2026-10-04",
+  "decision": "Derive a concise local skill; do not install a complete upstream specialist.",
+  "contract": "TypeScript judgments that keep compile-time claims consistent with domain contracts and runtime behavior.",
+  "method": {
+    "repository_count": 19,
+    "full_tracked_path_inventory": true,
+    "canonical_text_files_screened": 6796,
+    "search": "typescript|discriminated.union|type.assertion|type.predicate|noUncheckedIndexedAccess|exactOptionalPropertyTypes",
+    "scope": "Complete tracked-path inventories for every supplied repository, followed by text screening of canonical skills, agents, rules and relevant development guides. Selected relevant entrypoints and references were read as recorded below. This is not a line-by-line audit of every file or application in these repositories.",
+    "exclusions": "Translations and host mirrors were de-duplicated. Large application repositories were scoped to agent and development instruction sources; fixtures, application code and unrelated product documentation were not comprehensively read."
+  },
+  "primary_source": "cursor/plugins: pstack, authored by Lauren Tan",
+  "active_donor_count": 5,
+  "repositories": [
+    {
+      "id": "cursor",
+      "repository": "cursor/plugins",
+      "ref": "main",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "tracked_paths": 890,
+      "screened_text_files": 504,
+      "decision": "Adapt as the primary source",
+      "reason": "pstack supplies the central criterion: strengthen a type when an operation needs a guarantee, rather than pursuing precision for its own sake. Keep state modeling, meaningful brands, boundary parsing, honest predicates, exhaustiveness, and schema ownership.",
+      "review_depth": "Read the complete TypeScript entrypoint and linked patterns, all 24 pstack principles, and the Cursor Team exhaustiveness rule. Repository discovery also covered other teams rather than treating Cursor as one author.",
+      "intentionally_excluded": "Do not copy host-specific invocation metadata, mandatory object arguments, logger policy, universal branding, a fixed narrowing hierarchy, automatic scripts, or unconditional internal trust. A number duration still permits negative values; mutable tuples and readonly views do not establish lifetime invariants.",
+      "evidence": [
+        {
+          "path": "pstack/skills/typescript-best-practices/SKILL.md",
+          "sha256": "28f9e61710e205f6f3c5476f333483cff0e988f6a5b639e2faad536344b40c5e",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/typescript-best-practices/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/typescript-best-practices/references/patterns.md",
+          "sha256": "faa1362055374452efccac1b629677c61acfb0bcc6c4e3311836b5715638ee18",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/typescript-best-practices/references/patterns.md"
+        },
+        {
+          "path": "pstack/skills/principle-attack-the-premise/SKILL.md",
+          "sha256": "c87bd7536f772f8a403ad8155535ee17a1bbec9a353156693eb3bb1520c87ae3",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-attack-the-premise/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-boundary-discipline/SKILL.md",
+          "sha256": "62ac2862c2caa22dd14531f51c9c6bb445ceb198ca98a687e25b4d47c1f10a28",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-boundary-discipline/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-build-the-lever/SKILL.md",
+          "sha256": "458b269eab8e95a1573276955312f7d2a13ae8599879a9efc748248f6bc34b56",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-build-the-lever/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-encode-lessons-in-structure/SKILL.md",
+          "sha256": "77044c83a9ac6df78fc643887ea5f1f11f082adaf14b717c060cdaed03cce863",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-encode-lessons-in-structure/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-exhaust-the-design-space/SKILL.md",
+          "sha256": "8583310d7297b7823d75494faa57b003564d436807febecdecbd8321abe5cf6e",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-exhaust-the-design-space/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-experience-first/SKILL.md",
+          "sha256": "58903529d733b1c1a7c9ccf127d45ef3c7d0d9f0b81164a4dc6b80efe6f2912b",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-experience-first/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-explain-the-number/SKILL.md",
+          "sha256": "5aac99e7ce0bb1b37e2579acf4fe88c32a1456d9d46afd4a57cfe1df9092e89c",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-explain-the-number/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-fix-root-causes/SKILL.md",
+          "sha256": "ba4cd38da1dcc8fe5432feb64457cba95594736a9b21b2ebf8f8c52aee068707",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-fix-root-causes/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-foundational-thinking/SKILL.md",
+          "sha256": "864b827e8199d946ce58beca0f89c4ed4099ed6e426fb698a3aaa45de2a9eea2",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-foundational-thinking/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-guard-the-context-window/SKILL.md",
+          "sha256": "d2cef147862576e3d709b7afc149d85196245e8338b9c7eef337c95fba412b3e",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-guard-the-context-window/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-laziness-protocol/SKILL.md",
+          "sha256": "9006579e9e3f33955d17569733db688ae65f22577dc3b21803d219a5a8445aff",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-laziness-protocol/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-make-operations-idempotent/SKILL.md",
+          "sha256": "540738217c3da7bf513b9886924ad6a2bc77e58be867f5bd2e1831c74bf2ce70",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-make-operations-idempotent/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md",
+          "sha256": "09978915a4a11990cf0a9a02d9c08cc59e0b7a04c5c24b83aa560fbe4146f75b",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-minimize-reader-load/SKILL.md",
+          "sha256": "42551c5dc74cd578163c148da552db3ff67d29b78600ef216bfd311fb828fe69",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-minimize-reader-load/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-model-the-domain/SKILL.md",
+          "sha256": "bbadbb9a723fac3f76e782ae45665eb94058ec10993e4bae36d4dc6b0e4eac07",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-model-the-domain/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-never-block-on-the-human/SKILL.md",
+          "sha256": "f2764bb9338cbfc788c903cf4b9cd0a5f4042d3a04dd6d59cbd525d9beaadd0a",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-never-block-on-the-human/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-outcome-oriented-execution/SKILL.md",
+          "sha256": "10eb91633aa570355ba4bb37088fcade2b22e498df7a58edc749e65bc5a78e2d",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-outcome-oriented-execution/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-prove-it-works/SKILL.md",
+          "sha256": "ec79a15025bac8d33d62011c54f3b612733fd2a024e623b531b3637aa75070e2",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-prove-it-works/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-redesign-from-first-principles/SKILL.md",
+          "sha256": "a1c7fd0a96b40e12a74bceb0e6bb20a9666dd844dcabfb624acb27da23b929fe",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-redesign-from-first-principles/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md",
+          "sha256": "05294b40448e927c5da1c7b6f5c6b9fed3744637e3833d2d948b9154a9dd00bb",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+          "sha256": "2ccbbacc56ace5afdfb8670cef19d7bd009fb2a0033b9a741cbdf2b6baf72187",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-sequence-verifiable-units/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-subtract-before-you-add/SKILL.md",
+          "sha256": "a983a50e732c1ed315eba7aaf47a61329e31c4794eb1ab9d25d9945265b31e03",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-subtract-before-you-add/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+          "sha256": "87e40efe4e486f7ea639d2ed1fc0abe6c93b8fd0e89a81218086909d2470a52e",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-test-behavior-not-implementation/SKILL.md"
+        },
+        {
+          "path": "pstack/skills/principle-type-system-discipline/SKILL.md",
+          "sha256": "c83da8031ffb4c86410030d3e261f659598fca2b7d8158fd9dc269d70a3a025e",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-type-system-discipline/SKILL.md"
+        },
+        {
+          "path": "cursor-team-kit/rules/typescript-exhaustive-switch.mdc",
+          "sha256": "58214625757c38b73fc3e66a715ea4b2ae609f6b3e285edc4393c5144430a8f4",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/cursor-team-kit/rules/typescript-exhaustive-switch.mdc"
+        }
+      ]
+    },
+    {
+      "id": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "main",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "tracked_paths": 172,
+      "screened_text_files": 121,
+      "decision": "Keep with existing design and review owners",
+      "reason": "Domain modeling contributes terminology and contract investigation, already owned by design-code-structure. The repository contains no separate TypeScript specialist needed for this small skill.",
+      "review_depth": "Repository tree and canonical instruction-text screening; complete relevant domain-modeling entrypoint.",
+      "intentionally_excluded": "Do not add glossary/ADR workflows, code-review orchestration, or specification phases to routine TypeScript work.",
+      "evidence": [
+        {
+          "path": "skills/engineering/domain-modeling/SKILL.md",
+          "sha256": "7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/engineering/domain-modeling/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "humanlayer",
+      "repository": "humanlayer/skills",
+      "ref": "main",
+      "commit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+      "tracked_paths": 41,
+      "screened_text_files": 27,
+      "decision": "Considered; do not import the narrowing workflow",
+      "reason": "narrow-react-prop-types usefully investigates actual consumers and resists weakening production types for tests. However, observed call sites alone do not define every legitimate public state.",
+      "review_depth": "Repository discovery and complete relevant skill entrypoint; scheduled-workflow and memory templates were not adopted.",
+      "intentionally_excluded": "No blanket removal of optional props or states absent from today's callers, React-only workflow, fixed Bun commands, or scheduling. Existing contracts remain authoritative.",
+      "evidence": [
+        {
+          "path": "plugins/narrow-react-prop-types/skills/narrow-react-prop-types/SKILL.md",
+          "sha256": "bfcea79a20074a9178c6aa21c34629951d9646ea381e8be4c83a0a136e3aa288",
+          "url": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/plugins/narrow-react-prop-types/skills/narrow-react-prop-types/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "anthropic",
+      "repository": "anthropics/skills",
+      "ref": "main",
+      "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "tracked_paths": 430,
+      "screened_text_files": 164,
+      "decision": "Leave SDK-specific guidance with its owner",
+      "reason": "TypeScript appears primarily in MCP and Claude SDK implementation guides. The useful schema-validation advice duplicates pstack; its SDK conventions are not general TypeScript policy.",
+      "review_depth": "Repository discovery; targeted TypeScript/boundary sections, including lines 485–525. Not a complete audit of SDK documentation.",
+      "intentionally_excluded": "No mandatory Zod dependency, interfaces for every shape, SDK package templates, or catch blocks around every operation.",
+      "evidence": [
+        {
+          "path": "skills/mcp-builder/reference/node_mcp_server.md",
+          "sha256": "c3ba35a4f599dd53be9c6555ae72c19a7bf412cd5426576c2c08d42755482c66",
+          "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/mcp-builder/reference/node_mcp_server.md"
+        }
+      ]
+    },
+    {
+      "id": "addy",
+      "repository": "addyosmani/agent-skills",
+      "ref": "main",
+      "commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+      "tracked_paths": 210,
+      "screened_text_files": 76,
+      "decision": "Keep interface design with design-code-structure",
+      "reason": "api-and-interface-design covers stable public contracts and input/output separation. These overlap the existing design and error-handling skills rather than adding a missing TypeScript technique.",
+      "review_depth": "Repository discovery and substantive contract, boundary, TypeScript interface, and idempotency sections of the relevant entrypoint.",
+      "intentionally_excluded": "No REST naming rules, universal pagination/PATCH/versioning policy, or exemption from validation merely because data comes from a database.",
+      "evidence": [
+        {
+          "path": "skills/api-and-interface-design/SKILL.md",
+          "sha256": "e83d34f52ff12dd8a7c5134cd7e8140ea4541ec65e204f8a1e4cd366e30c4192",
+          "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/api-and-interface-design/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "vercel",
+      "repository": "vercel-labs/agent-skills",
+      "ref": "main",
+      "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "tracked_paths": 447,
+      "screened_text_files": 208,
+      "decision": "Keep React and performance guidance separate",
+      "reason": "The repository contains useful React composition and JavaScript performance rules. TypeScript examples do not make those rules a language-safety policy.",
+      "review_depth": "Repository discovery and complete focused async/immutability rules; not a new full audit of every React rule.",
+      "intentionally_excluded": "No unconditional parallelization, React lifecycle guidance, memoization policy, or fixed browser/runtime compatibility claims.",
+      "evidence": [
+        {
+          "path": "skills/react-best-practices/rules/async-parallel.md",
+          "sha256": "6d2f841896279e976dfcdc1ac89e70771ac188baadfd43c096b5706cb838b961",
+          "url": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/skills/react-best-practices/rules/async-parallel.md"
+        },
+        {
+          "path": "skills/react-best-practices/rules/js-tosorted-immutable.md",
+          "sha256": "d0a5e1b0fec48a0a81397957e2f068e224329f7c42cb5feeed8aae6fa64025e8",
+          "url": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/skills/react-best-practices/rules/js-tosorted-immutable.md"
+        }
+      ]
+    },
+    {
+      "id": "ecc",
+      "repository": "affaan-m/ECC",
+      "ref": "main",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "tracked_paths": 4212,
+      "screened_text_files": 724,
+      "decision": "Adapt a narrow part of the TypeScript reviewer",
+      "reason": "The agent, outside the skills directory, highlights floating promises, async callback mistakes, and preserving strictness. Retain completion ownership and the distinction between checks that ran and scripts that were absent.",
+      "review_depth": "Complete reviewer and three relevant rule files; targeted TypeScript section of coding-standards. Translated and host-mirrored copies excluded from duplicate review.",
+      "intentionally_excluded": "No review severity/template workflow, catch-and-log defaults, blanket API response envelope, coverage quota, or --if-present command as proof that a type check ran.",
+      "evidence": [
+        {
+          "path": "agents/typescript-reviewer.md",
+          "sha256": "6b012db1a9039870c4f040975144a0d4e3592510d6332e2d260f02859ec66da1",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/agents/typescript-reviewer.md"
+        },
+        {
+          "path": "rules/typescript/coding-style.md",
+          "sha256": "cb6fbe555d700a65d466fc27377fbb66d6da0e2bcf4411656918f6a45402af1a",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/rules/typescript/coding-style.md"
+        },
+        {
+          "path": "rules/typescript/patterns.md",
+          "sha256": "20870f78aa32429fe13f35b415e9f6f8f7809e39c460cf8146d181b7306159fd",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/rules/typescript/patterns.md"
+        },
+        {
+          "path": "rules/typescript/testing.md",
+          "sha256": "92e3d02b4fff30899bc1a2af043d74941adbf3b2c0e972d2fcd2c68c9c2ea70b",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/rules/typescript/testing.md"
+        },
+        {
+          "path": "skills/coding-standards/SKILL.md",
+          "sha256": "e80544c3d1eac5b14f22022146bd91a6b0ecc30e099cf5181894853aeb81dee1",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/coding-standards/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "superpowers",
+      "repository": "obra/superpowers",
+      "ref": "main",
+      "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "tracked_paths": 229,
+      "screened_text_files": 117,
+      "decision": "No additional TypeScript donor selected",
+      "reason": "The matching material concerns debugging, tests, and verification already covered by local skills; no TypeScript-specific procedure fills a remaining gap.",
+      "review_depth": "Repository discovery and targeted match screening; no claim to re-audit every generic workflow.",
+      "intentionally_excluded": "Do not duplicate the debugging or test-first workflow or add defense-in-depth checks at every internal call.",
+      "evidence": [
+        {
+          "path": "skills/systematic-debugging/SKILL.md",
+          "sha256": "808fc5717aa88ad65efff312b11c186294d3e6ee301afb584e2f86599b137787",
+          "url": "https://github.com/obra/superpowers/blob/8ca22dba9a94f28898bbce59f2537ff4d87c747d/skills/systematic-debugging/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "gsd",
+      "repository": "gsd-build/gsd-2",
+      "ref": "main",
+      "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "tracked_paths": 3613,
+      "screened_text_files": 565,
+      "decision": "Considered; do not install the broad specialist",
+      "reason": "Repository-wide discovery found src/resources/agents/typescript-pro.md outside the skills directory. It is a broad type-first agent rather than a concise set of easily missed decisions.",
+      "review_depth": "Repository discovery and complete TypeScript agent.",
+      "intentionally_excluded": "No fixed model, mandatory advanced-type patterns, universal strictness migration, type-coverage target, or assumption that root tsc checks the relevant project.",
+      "evidence": [
+        {
+          "path": "src/resources/agents/typescript-pro.md",
+          "sha256": "200ca79b08dd2f4c4e7363bfccbf3f09ec4371c5d6d8c08adc9c16dde31889f6",
+          "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/agents/typescript-pro.md"
+        }
+      ]
+    },
+    {
+      "id": "compound",
+      "repository": "EveryInc/compound-engineering-plugin",
+      "ref": "main",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "tracked_paths": 1452,
+      "screened_text_files": 662,
+      "decision": "Keep maintainability review with review-code-changes",
+      "reason": "The current repository exposes generic review personas and project-standard checks, not a separate TypeScript reviewer at the inspected revision. The relevant type-hole checks are already covered by pstack and the local review owner.",
+      "review_depth": "Repository discovery and targeted typed-language, modeling, confidence, and exclusion sections.",
+      "intentionally_excluded": "No review scoring, fixed line limits, reviewer JSON contract, or treating every explicit any as a mechanically certain defect.",
+      "evidence": [
+        {
+          "path": "skills/ce-code-review/references/personas/maintainability-reviewer.md",
+          "sha256": "54722c734c936d95f6eb04127bac32969e554f682ade0a64e4fab99a2c283f88",
+          "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-code-review/references/personas/maintainability-reviewer.md"
+        }
+      ]
+    },
+    {
+      "id": "mblode",
+      "repository": "mblode/agent-skills",
+      "ref": "main",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "tracked_paths": 553,
+      "screened_text_files": 453,
+      "decision": "Adapt consumer-side package verification only",
+      "reason": "dx-audit's exports rule checks the built package as its consumer sees it. This closes a gap left by source-level type checks and belongs in the conditional module reference.",
+      "review_depth": "Repository discovery and both complete focused rules.",
+      "intentionally_excluded": "No full DX audit, mandatory dual ESM/CommonJS support, generic root-export policy, or replacing repository module conventions.",
+      "evidence": [
+        {
+          "path": "skills/dx-audit/rules/types-discriminated-unions.md",
+          "sha256": "a70c5dee8e267c91cbf8bb6d0d7dd8538fed8587ffbefcd5e10a4ed120c84d72",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/dx-audit/rules/types-discriminated-unions.md"
+        },
+        {
+          "path": "skills/dx-audit/rules/onboard-exports-resolve-typed.md",
+          "sha256": "1571b9ae56e4ef9d718b467ab3c433dcbe5aeaf9d3e0bd8691f76372fb03fb24",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/dx-audit/rules/onboard-exports-resolve-typed.md"
+        }
+      ]
+    },
+    {
+      "id": "gh",
+      "repository": "cli/cli",
+      "ref": "trunk",
+      "commit": "6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+      "tracked_paths": 1493,
+      "screened_text_files": 73,
+      "decision": "No TypeScript source selected",
+      "reason": "Tree discovery and the scoped text search found no relevant TypeScript instruction source. The supplied GitHub CLI skills remain useful to pr and pr-followup, not to language safety.",
+      "review_depth": "Full tracked path inventory and screening of 73 canonical skills/docs/root instruction-text files; no relevant match for the TypeScript query.",
+      "intentionally_excluded": "Do not add GitHub CLI or PR procedures to a TypeScript specialist.",
+      "evidence": []
+    },
+    {
+      "id": "wshobson",
+      "repository": "wshobson/agents",
+      "ref": "main",
+      "commit": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+      "tracked_paths": 1191,
+      "screened_text_files": 779,
+      "decision": "Reference material considered; do not import the tutorials",
+      "reason": "The advanced-type material is useful for identifying failure cases, but mostly teaches syntax agents already know. Its equality alias examples do not necessarily fail when the equality is false, and advanced interfaces can hide unchecked implementations.",
+      "review_depth": "Complete named entrypoints, advanced-types details and Conductor TypeScript guide; targeted async sections of modern-JavaScript details. Additional reference headings screened.",
+      "intentionally_excluded": "No advanced-type catalog, mandatory utility library, fixed framework, generic builder pattern, type-as-validation claims, or retry/time-out recipes. A predicate checking only property existence does not prove field types.",
+      "evidence": [
+        {
+          "path": "plugins/javascript-typescript/agents/typescript-pro.md",
+          "sha256": "d7dd97fbc3fed73c8feb63ca5071b561660d150d94ecb2c1fa009c7cfba2d404",
+          "url": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/javascript-typescript/agents/typescript-pro.md"
+        },
+        {
+          "path": "plugins/javascript-typescript/skills/typescript-advanced-types/SKILL.md",
+          "sha256": "c32101c65134d94ef1a3305ef486020b57be6408f97ed952c9c560e3fe04188d",
+          "url": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/javascript-typescript/skills/typescript-advanced-types/SKILL.md"
+        },
+        {
+          "path": "plugins/javascript-typescript/skills/typescript-advanced-types/references/details.md",
+          "sha256": "036a1dd41283384f086ac0eeb4f63c899b042ad68815a8ce00afebf606b55c44",
+          "url": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/javascript-typescript/skills/typescript-advanced-types/references/details.md"
+        },
+        {
+          "path": "plugins/javascript-typescript/skills/modern-javascript-patterns/SKILL.md",
+          "sha256": "32e203b8d944115102986dcb3cf4c48918edc5dbf6942668875970121809c064",
+          "url": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/javascript-typescript/skills/modern-javascript-patterns/SKILL.md"
+        },
+        {
+          "path": "plugins/javascript-typescript/skills/modern-javascript-patterns/references/details.md",
+          "sha256": "c9ef5c72ef42ff58b87b5f7a506a8cadae195d2b38fe45e118c7ad05fcf905c5",
+          "url": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/javascript-typescript/skills/modern-javascript-patterns/references/details.md"
+        },
+        {
+          "path": "plugins/conductor/templates/code_styleguides/typescript.md",
+          "sha256": "415e6974e9cbdd0b34113866221be625d0e3369a9421e8ae7f9fc78172ad1a0e",
+          "url": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/conductor/templates/code_styleguides/typescript.md"
+        }
+      ]
+    },
+    {
+      "id": "mkosir",
+      "repository": "mkosir/typescript-style-guide",
+      "ref": "main",
+      "commit": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+      "tracked_paths": 62,
+      "screened_text_files": 22,
+      "decision": "Adapt contract and runtime distinctions",
+      "reason": "The guide explicitly distinguishes generated types from validation and readonly/as const from runtime immutability. Retain these cautions and avoid changing optionality or public interfaces merely to satisfy a style preference.",
+      "review_depth": "All nine complete skill entrypoints: discriminated-unions, functions, naming, react, source-organization, style-guide, tests, types, and variables. Duplicate reference text not counted as a separate full review.",
+      "intentionally_excluded": "No universal interface/type or enum preference, array syntax rule, generic naming convention, hook return shape, export style, folder layout, coverage target, or React architecture.",
+      "evidence": [
+        {
+          "path": "skills/typescript-discriminated-unions/SKILL.md",
+          "sha256": "7f019ca10e9694258673c743c66ca7b7078d02bf048b7985154c075874dbacd4",
+          "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-discriminated-unions/SKILL.md"
+        },
+        {
+          "path": "skills/typescript-functions/SKILL.md",
+          "sha256": "989c771a4fd7de844bb21ed80b2a00f05a0e28891fafe223847246f091a2309c",
+          "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-functions/SKILL.md"
+        },
+        {
+          "path": "skills/typescript-naming/SKILL.md",
+          "sha256": "d5fe6bb9f1ac682eef47ff7377527f1bebfb0f86e3bc96661544836cc8ea0c16",
+          "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-naming/SKILL.md"
+        },
+        {
+          "path": "skills/typescript-react/SKILL.md",
+          "sha256": "c90c3b65ffcfc76f331c077f39687a2f02fb36a0cf85919e28522bf713a54b61",
+          "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-react/SKILL.md"
+        },
+        {
+          "path": "skills/typescript-source-organization/SKILL.md",
+          "sha256": "5458f5a72fb8f7ea39f3fc6721d024b70747eba1af7188c8bc6e3dd1c9d9bf1d",
+          "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-source-organization/SKILL.md"
+        },
+        {
+          "path": "skills/typescript-style-guide/SKILL.md",
+          "sha256": "43bfb7f2ebbe2046774d674b9308fa6434c1d1eccbb0f37e7848b64d9f52e31a",
+          "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-style-guide/SKILL.md"
+        },
+        {
+          "path": "skills/typescript-tests/SKILL.md",
+          "sha256": "926ef4f85ad4d1de215ce8ca88dc08773786039a9d9f6320eb0e2b8bf9949902",
+          "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-tests/SKILL.md"
+        },
+        {
+          "path": "skills/typescript-types/SKILL.md",
+          "sha256": "cc3b62b958188e6be9c682a1468e3599bcc437e5fbe29ab63ebafbf3207655e9",
+          "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-types/SKILL.md"
+        },
+        {
+          "path": "skills/typescript-variables/SKILL.md",
+          "sha256": "01808ba4b3c7893d11580be06631448e4d94337c94c91f9c312aa366ef796cbd",
+          "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-variables/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "standard",
+      "repository": "HoangNguyen0403/agent-skills-standard",
+      "ref": "develop",
+      "commit": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+      "tracked_paths": 9918,
+      "screened_text_files": 1243,
+      "decision": "Considered; do not import broad mandatory policies",
+      "reason": "The four TypeScript entrypoints mostly duplicate pstack and official guidance while imposing tooling and style. Some details conflate compiler suppression with ESLint suppression.",
+      "review_depth": "Complete four canonical entrypoints and best-practice examples; reference headings screened. Host mirrors and unrelated application/framework guides excluded.",
+      "intentionally_excluded": "No mandatory Zod/JWT/Argon2, namespace or enum ban, forced LSP/ESLint fix command, coverage quota, or test-only double-cast exemption. @ts-expect-error does not suppress an ESLint rule.",
+      "evidence": [
+        {
+          "path": "skills/typescript/typescript-best-practices/SKILL.md",
+          "sha256": "ef35ad528a09395e0f439e0e2fc70e69f9b1da7732149e2d0e234be23d500b0a",
+          "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/typescript/typescript-best-practices/SKILL.md"
+        },
+        {
+          "path": "skills/typescript/typescript-language/SKILL.md",
+          "sha256": "5dbacb158389d8c88a1239324c10cf84cbb688f7ca88f3920671d25d71f91866",
+          "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/typescript/typescript-language/SKILL.md"
+        },
+        {
+          "path": "skills/typescript/typescript-security/SKILL.md",
+          "sha256": "48dc0167fcdc5099ebe6f3d971fdede79be8ee5f1cf1edad73b2babd5fe32be3",
+          "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/typescript/typescript-security/SKILL.md"
+        },
+        {
+          "path": "skills/typescript/typescript-tooling/SKILL.md",
+          "sha256": "f388172d1e7564bea69a69d51bc41897a23b6ae319856e87f128349467dae30e",
+          "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/typescript/typescript-tooling/SKILL.md"
+        },
+        {
+          "path": "skills/typescript/typescript-best-practices/references/examples.md",
+          "sha256": "e1b7fceee50c8f9edc77adc2f5638684c26d38ac03ff54f9c7f9b3523507258b",
+          "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/typescript/typescript-best-practices/references/examples.md"
+        }
+      ]
+    },
+    {
+      "id": "lobe",
+      "repository": "lobehub/lobehub",
+      "ref": "canary",
+      "commit": "5fca09855b45f0286576bde1fdaaf03242eb183b",
+      "tracked_paths": 18098,
+      "screened_text_files": 298,
+      "decision": "Keep as repository-specific guidance",
+      "reason": "LobeHub's TypeScript skill is optimized for its own packages, conventions, and tooling. Its transferable ideas duplicate selected sources.",
+      "review_depth": "Full tracked path discovery; scoped agent/development instruction corpus and complete TypeScript skill. Application code and translated product docs were not exhaustively reviewed.",
+      "intentionally_excluded": "No @lobechat imports, universal satisfies/Record replacement, interface preference, top-level-await mandate, logging policy, or fixed suppression hierarchy.",
+      "evidence": [
+        {
+          "path": ".agents/skills/typescript/SKILL.md",
+          "sha256": "ef2c51dbdb266f3c5741abee99f4c1c785013d40eabd9bd8ed66c3032e9b10a9",
+          "url": "https://github.com/lobehub/lobehub/blob/5fca09855b45f0286576bde1fdaaf03242eb183b/.agents/skills/typescript/SKILL.md"
+        }
+      ]
+    },
+    {
+      "id": "jeffallan",
+      "repository": "Jeffallan/claude-skills",
+      "ref": "main",
+      "commit": "1be15d8064f88fc25216442406d40add8fd23b53",
+      "tracked_paths": 567,
+      "screened_text_files": 509,
+      "decision": "Considered; do not import advanced patterns wholesale",
+      "reason": "The specialist offers broad configuration and type-pattern references. Some examples overclaim their runtime guarantees: the User assertion checks only a tag and a positive-number constructor accepts NaN.",
+      "review_depth": "Complete skill and both focused references; other advanced-pattern reference paths inventoried.",
+      "intentionally_excluded": "No mandatory brands everywhere, generated declarations for every app, global enum ban, fixed module/target config, ambient environment declarations as validation, or unchecked guard examples.",
+      "evidence": [
+        {
+          "path": "skills/typescript-pro/SKILL.md",
+          "sha256": "1647f8b6f7efc926b61ccfad4832317bf336a78b13265735229e25602afb0350",
+          "url": "https://github.com/Jeffallan/claude-skills/blob/1be15d8064f88fc25216442406d40add8fd23b53/skills/typescript-pro/SKILL.md"
+        },
+        {
+          "path": "skills/typescript-pro/references/type-guards.md",
+          "sha256": "4d6c898d2a7dc2d4d3e762969c9a01d158301147153a6692c84e76db37d714b3",
+          "url": "https://github.com/Jeffallan/claude-skills/blob/1be15d8064f88fc25216442406d40add8fd23b53/skills/typescript-pro/references/type-guards.md"
+        },
+        {
+          "path": "skills/typescript-pro/references/configuration.md",
+          "sha256": "4ba4a37687c20a4936b4db872fea1cbeac31ec6ee19c9b959c9d475d255f0b5b",
+          "url": "https://github.com/Jeffallan/claude-skills/blob/1be15d8064f88fc25216442406d40add8fd23b53/skills/typescript-pro/references/configuration.md"
+        }
+      ]
+    },
+    {
+      "id": "sentimony",
+      "repository": "sentimony/skills",
+      "ref": "main",
+      "commit": "e7ee0fff668e9ebd74a279635f1d04e66446eeec",
+      "tracked_paths": 240,
+      "screened_text_files": 165,
+      "decision": "Adapt configuration and host verification",
+      "reason": "The skill treats compiler configuration as an effective program and module resolution as a runtime-host contract. Retain owning-config checks and paths/emit distinctions in a conditional reference.",
+      "review_depth": "Complete skill and both focused references; no complete re-audit of every troubleshooting or framework recipe.",
+      "intentionally_excluded": "No general TypeScript-version migration, automatic flag escalation, fixed skipLibCheck policy, mandatory project references, unsafe test doubles, or outdated absolute require(ESM) claims.",
+      "evidence": [
+        {
+          "path": "skills/typescript/SKILL.md",
+          "sha256": "e50d9550a8705896b961f0bf1a8e876660cce48742b882a4d8fff35c70ab40a2",
+          "url": "https://github.com/sentimony/skills/blob/e7ee0fff668e9ebd74a279635f1d04e66446eeec/skills/typescript/SKILL.md"
+        },
+        {
+          "path": "skills/typescript/references/module-resolution.md",
+          "sha256": "4f4fc0c3a94a1fdc6aa8b065b274735277c8d9ddb186d935b9ce5336eebb615e",
+          "url": "https://github.com/sentimony/skills/blob/e7ee0fff668e9ebd74a279635f1d04e66446eeec/skills/typescript/references/module-resolution.md"
+        },
+        {
+          "path": "skills/typescript/references/monorepo.md",
+          "sha256": "76983df76df071c3442d41d8a294c441b19572dd5d444d8b794dc175193ff84e",
+          "url": "https://github.com/sentimony/skills/blob/e7ee0fff668e9ebd74a279635f1d04e66446eeec/skills/typescript/references/monorepo.md"
+        }
+      ]
+    },
+    {
+      "id": "alleneubank",
+      "repository": "alleneubank/agent-profile",
+      "ref": "main",
+      "commit": "5165b1f1122a4fa888347c6046d10593033748e8",
+      "tracked_paths": 117,
+      "screened_text_files": 86,
+      "decision": "Considered; pstack already supplies the useful core",
+      "reason": "The skill reinforces variants, brands, and schema inference. Its universal dependencies and framework routing do not fit a small host-independent language skill.",
+      "review_depth": "Repository discovery and complete TypeScript entrypoint; no downstream React skill invoked or adopted.",
+      "intentionally_excluded": "No mandatory Zod/type-fest dependency, automatic React loading for every TSX file, or assumption that a brand is an authorization boundary or date conversion validates a date.",
+      "evidence": [
+        {
+          "path": "plugins/engineering-practices/skills/typescript-best-practices/SKILL.md",
+          "sha256": "b320dfc04d6d468f6754a4d451fbe8b4eeb5ca9da3c521e0642a3e7616227ae8",
+          "url": "https://github.com/alleneubank/agent-profile/blob/5165b1f1122a4fa888347c6046d10593033748e8/plugins/engineering-practices/skills/typescript-best-practices/SKILL.md"
+        }
+      ]
+    }
+  ],
+  "principles": [
+    {
+      "name": "principle-attack-the-premise",
+      "path": "pstack/skills/principle-attack-the-premise/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-attack-the-premise/SKILL.md"
+    },
+    {
+      "name": "principle-boundary-discipline",
+      "path": "pstack/skills/principle-boundary-discipline/SKILL.md",
+      "status": "selected guidance incorporated",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-boundary-discipline/SKILL.md"
+    },
+    {
+      "name": "principle-build-the-lever",
+      "path": "pstack/skills/principle-build-the-lever/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-build-the-lever/SKILL.md"
+    },
+    {
+      "name": "principle-encode-lessons-in-structure",
+      "path": "pstack/skills/principle-encode-lessons-in-structure/SKILL.md",
+      "status": "selected guidance incorporated",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-encode-lessons-in-structure/SKILL.md"
+    },
+    {
+      "name": "principle-exhaust-the-design-space",
+      "path": "pstack/skills/principle-exhaust-the-design-space/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-exhaust-the-design-space/SKILL.md"
+    },
+    {
+      "name": "principle-experience-first",
+      "path": "pstack/skills/principle-experience-first/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-experience-first/SKILL.md"
+    },
+    {
+      "name": "principle-explain-the-number",
+      "path": "pstack/skills/principle-explain-the-number/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-explain-the-number/SKILL.md"
+    },
+    {
+      "name": "principle-fix-root-causes",
+      "path": "pstack/skills/principle-fix-root-causes/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-fix-root-causes/SKILL.md"
+    },
+    {
+      "name": "principle-foundational-thinking",
+      "path": "pstack/skills/principle-foundational-thinking/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-foundational-thinking/SKILL.md"
+    },
+    {
+      "name": "principle-guard-the-context-window",
+      "path": "pstack/skills/principle-guard-the-context-window/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-guard-the-context-window/SKILL.md"
+    },
+    {
+      "name": "principle-laziness-protocol",
+      "path": "pstack/skills/principle-laziness-protocol/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-laziness-protocol/SKILL.md"
+    },
+    {
+      "name": "principle-make-operations-idempotent",
+      "path": "pstack/skills/principle-make-operations-idempotent/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-make-operations-idempotent/SKILL.md"
+    },
+    {
+      "name": "principle-migrate-callers-then-delete-legacy-apis",
+      "path": "pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md"
+    },
+    {
+      "name": "principle-minimize-reader-load",
+      "path": "pstack/skills/principle-minimize-reader-load/SKILL.md",
+      "status": "selected guidance incorporated",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-minimize-reader-load/SKILL.md"
+    },
+    {
+      "name": "principle-model-the-domain",
+      "path": "pstack/skills/principle-model-the-domain/SKILL.md",
+      "status": "selected guidance incorporated",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-model-the-domain/SKILL.md"
+    },
+    {
+      "name": "principle-never-block-on-the-human",
+      "path": "pstack/skills/principle-never-block-on-the-human/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-never-block-on-the-human/SKILL.md"
+    },
+    {
+      "name": "principle-outcome-oriented-execution",
+      "path": "pstack/skills/principle-outcome-oriented-execution/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-outcome-oriented-execution/SKILL.md"
+    },
+    {
+      "name": "principle-prove-it-works",
+      "path": "pstack/skills/principle-prove-it-works/SKILL.md",
+      "status": "selected guidance incorporated",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-prove-it-works/SKILL.md"
+    },
+    {
+      "name": "principle-redesign-from-first-principles",
+      "path": "pstack/skills/principle-redesign-from-first-principles/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-redesign-from-first-principles/SKILL.md"
+    },
+    {
+      "name": "principle-separate-before-serializing-shared-state",
+      "path": "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md"
+    },
+    {
+      "name": "principle-sequence-verifiable-units",
+      "path": "pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+      "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-sequence-verifiable-units/SKILL.md"
+    },
+    {
+      "name": "principle-subtract-before-you-add",
+      "path": "pstack/skills/principle-subtract-before-you-add/SKILL.md",
+      "status": "selected guidance incorporated",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-subtract-before-you-add/SKILL.md"
+    },
+    {
+      "name": "principle-test-behavior-not-implementation",
+      "path": "pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+      "status": "selected guidance incorporated",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-test-behavior-not-implementation/SKILL.md"
+    },
+    {
+      "name": "principle-type-system-discipline",
+      "path": "pstack/skills/principle-type-system-discipline/SKILL.md",
+      "status": "selected guidance incorporated",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-type-system-discipline/SKILL.md"
+    }
+  ],
+  "design": {
+    "core_words": 534,
+    "conditional_module_words": 236,
+    "retain": [
+      "Strengthen only where the required operation needs a guarantee.",
+      "Model dependent variants and meaningful identity distinctions.",
+      "Parse untrusted input at its owner and keep predicates truthful in both branches.",
+      "Account for mutation, absence and ignored async callbacks.",
+      "Check the actual program, runtime host and package consumer."
+    ],
+    "omit": [
+      "Language syntax tutorials and catalogs of advanced utility types.",
+      "Project-specific naming, enum/interface preferences, formatting and folder layout.",
+      "Mandatory dependencies or strictness migrations unrelated to the task.",
+      "React architecture, general code review, error recovery and delivery orchestration."
+    ],
+    "selection_basis": "Editorial selection based on failure modes present in the reviewed sources and technical counterexamples. No measured claim about how frequently an AI agent forgets these rules or that this skill improves its behavior."
+  },
+  "official_sources": [
+    {
+      "url": "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-5-5.html",
+      "supports": "Predicates have if-and-only-if semantics; explicit predicates are not implementation proofs."
+    },
+    {
+      "url": "https://www.typescriptlang.org/docs/handbook/2/objects.html",
+      "supports": "Readonly properties and aliasing do not establish runtime immutability."
+    },
+    {
+      "url": "https://www.typescriptlang.org/docs/handbook/2/functions.html",
+      "supports": "A contextual void callback may return an ignored value; generics should express relationships."
+    },
+    {
+      "url": "https://www.typescriptlang.org/docs/handbook/release-notes/typescript-4-9.html",
+      "supports": "satisfies checks static type compatibility."
+    },
+    {
+      "url": "https://www.typescriptlang.org/tsconfig/noUncheckedIndexedAccess.html",
+      "supports": "Unchecked index access is a distinct compiler option."
+    },
+    {
+      "url": "https://www.typescriptlang.org/tsconfig/exactOptionalPropertyTypes.html",
+      "supports": "Optional-property exactness is a distinct compiler option."
+    },
+    {
+      "url": "https://www.typescriptlang.org/docs/handbook/modules/reference.html",
+      "supports": "paths does not rewrite emitted specifiers; type-only imports are erased."
+    },
+    {
+      "url": "https://typescript-eslint.io/rules/no-floating-promises/",
+      "supports": "void does not handle a promise rejection."
+    }
+  ],
+  "technical_validation": "typescript-best-practices-validation.json"
+}

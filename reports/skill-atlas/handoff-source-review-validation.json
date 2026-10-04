@@ -1,0 +1,59 @@
+{
+  "date": "2026-10-04",
+  "baselineCommit": "f469e701cb62f5c135ecb7fed3806849fdc62c5f",
+  "scope": "Research records and the static Skill Atlas only. No handoff skill created, installed or executed.",
+  "commands": [
+    {
+      "command": "node --check reports/skill-atlas/app.js",
+      "outcome": "pass"
+    },
+    {
+      "command": "node --check reports/skill-atlas/catalog.js",
+      "outcome": "pass"
+    },
+    {
+      "command": "python3 -m json.tool reports/skill-atlas/sources.json",
+      "outcome": "pass"
+    },
+    {
+      "command": "python3 -m json.tool reports/skill-atlas/handoff-source-review.json",
+      "outcome": "pass"
+    },
+    {
+      "command": "git diff --check",
+      "outcome": "pass"
+    }
+  ],
+  "structuralChecks": {
+    "catalogJsonParity": "pass",
+    "existingAtlasDataPreserved": "All existing top-level data equals HEAD; only handoffReview is added. Original source records and source-progress evidence remain unchanged.",
+    "sourceIntegrity": "All 59 recorded reads match acquired bytes, line counts and valid excerpt ranges. All 19 repository revisions are pinned.",
+    "cacheHashes": "pass",
+    "html": "Unique static IDs, external CSS and local target checks passed."
+  },
+  "browser": {
+    "runner": "T3 collaborative browser",
+    "desktopViewport": [
+      1280,
+      800
+    ],
+    "narrowViewport": [
+      390,
+      844
+    ],
+    "catalogCards": 251,
+    "localPackages": 30,
+    "handoffSearch": "Both revised cards render the current rationale; Matt remains Pending and Compound Optional.",
+    "readyFilter": "104 visible cards, matching stored count; both handoff candidates remain hidden.",
+    "broaderSmoke": "CI/CD and TypeScript tables each render 19 repository rows; the existing theme control toggles light and dark.",
+    "newReport": "Six candidate groups, 19 repository rows and 19 evidence groups. Section navigation and the atlas comparison link work. No missing same-page targets.",
+    "layout": "Desktop candidate cards and narrow repository table visually inspected. Narrow table scrolls within its container; no page-level horizontal overflow.",
+    "console": "No console errors in inspected snapshots."
+  },
+  "build": "Not applicable: plain static HTML/CSS/JavaScript and research JSON; no project build command or package manifest exists at the repository root.",
+  "limits": [
+    "Pinned source links were checked against acquired repository paths; this is not a live HTTP availability test of every GitHub URL.",
+    "Upstream contract tests and evaluation definitions were inspected, not run.",
+    "These checks validate the report and atlas integration, not future handoff behavior."
+  ]
+}

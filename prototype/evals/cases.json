@@ -1,0 +1,192 @@
+{
+  "format_version": 1,
+  "skill": "prototype",
+  "usage": "Supply only prompts and fixtures to independent executors. Keep expectations with the grader. Compare at least one task against a matched run without this skill; preserve reserved cases until the first candidate is written.",
+  "cases": [
+    {
+      "id": "lookup-experiment",
+      "kind": "artifact",
+      "prompt": "Before replacing array scans with an index, prototype whether a Map pays off for 1 versus 400 lookups per request on the supplied records. Each request starts without an index. Preserve first-match behavior for duplicate IDs. Recommend an approach for each workload using local evidence. Keep this a disposable experiment; leave app/ unchanged.",
+      "fixture": {
+        "records": "4000 records with id item-0 through item-3999, followed by 100 duplicate IDs item-0 through item-99 with different values.",
+        "queries": "One query for item-99; 400 queries alternating missing IDs and IDs among item-0 through item-199.",
+        "files": {
+          "app/lookup.cjs": "exports.lookup = (rows, id) => rows.find(row => row.id === id);\n"
+        }
+      },
+      "expectations": [
+        "A runnable experiment exists and its actual execution is observed.",
+        "Both approaches preserve first-match and missing-ID behavior.",
+        "The comparison includes index construction per request and repeated observations with units and variability.",
+        "The recommendation is bounded to observed workloads, and the original application file is unchanged.",
+        "The result identifies the question, artifact, rerun command, evidence, tradeoffs, and limits without starting delivery work."
+      ]
+    },
+    {
+      "id": "decision-rule-counterexample",
+      "kind": "decision",
+      "prompt": "Use these observed results to recommend which lookup approach to use per request. If the evidence supports one selection rule for mixed requests, give it; otherwise explain what can be decided. Do not run another experiment.",
+      "fixture": {
+        "unit": "microseconds per request, includes index build",
+        "results": [
+          {
+            "queries": 1,
+            "mix": "early hit",
+            "scan_medians": [
+              2.5,
+              1.7
+            ],
+            "map_medians": [
+              782,
+              562
+            ]
+          },
+          {
+            "queries": 1,
+            "mix": "miss",
+            "scan_medians": [
+              35.5,
+              34.9
+            ],
+            "map_medians": [
+              689,
+              582
+            ]
+          },
+          {
+            "queries": 400,
+            "mix": "200 early hits and 200 misses",
+            "scan_medians": [
+              5273,
+              3611
+            ],
+            "map_medians": [
+              548,
+              442
+            ]
+          },
+          {
+            "queries": 200,
+            "mix": "all early hits",
+            "scan_medians": [
+              134,
+              147
+            ],
+            "map_medians": [
+              564,
+              604
+            ]
+          }
+        ]
+      },
+      "expectations": [
+        "The recommendation agrees with all four observed conditions.",
+        "No rule such as use a Map whenever misses are expected or above a universal query-count threshold contradicts the observations.",
+        "The agent identifies any unsupported workload or threshold rather than inventing a universal policy."
+      ]
+    },
+    {
+      "id": "inconclusive-measurement",
+      "kind": "decision",
+      "reserved": true,
+      "prompt": "We need at least a 20 percent reduction in p95 latency before changing parsers. Correctness and implementation complexity are equal. Recommend whether to switch using only these observed timings; do not run another experiment.",
+      "fixture": {
+        "unit": "milliseconds",
+        "parser_a": [
+          5,
+          8,
+          11
+        ],
+        "parser_b": [
+          7,
+          9,
+          11
+        ],
+        "conditions": "Three measurements per parser on one shared development machine; no production workload captured."
+      },
+      "expectations": [
+        "The measurements do not establish the required p95 improvement.",
+        "The recommendation is to retain the current choice pending appropriate evidence, or explicitly leave the switch inconclusive; it does not invent a speedup guarantee."
+      ]
+    },
+    {
+      "id": "booking-model",
+      "kind": "artifact",
+      "prompt": "Prototype a booking model for a room with capacity one. A pending or confirmed booking occupies the room; cancellation releases it; a cancelled booking cannot be confirmed again. I want a small interactive demo for a nondeveloper to explore sequences and decide whether this model is understandable. Keep it local and disposable.",
+      "fixture": {},
+      "expectations": [
+        "A runnable interactive artifact shows the question, readable state, free exploration, and reset.",
+        "The model is separate from the display and guided scenarios exercise actual model actions from known state.",
+        "Normal booking, cancellation/rebooking, and attempted confirmation after cancellation are observable.",
+        "An invalid action is rejected by the model, not only prevented by a disabled UI control.",
+        "Unavailable browser observation is reported honestly; a grader separately drives the artifact if possible.",
+        "No claim turns the prototype into production-ready or validated user preference."
+      ]
+    },
+    {
+      "id": "triage-layout",
+      "kind": "artifact",
+      "reserved": true,
+      "prompt": "Compare a dense table with a queue grouped by urgency for a support triage screen. Operators need to spot urgent unassigned work, assign an owner, and open details. Use the supplied app shell and records as context. Explore the alternatives at 480px and 1200px and recommend a direction. Keep a disposable local preview and leave app/ unchanged.",
+      "fixture": {
+        "app": "A static shell with header, sidebar, and 12 support records spanning three priorities and assigned/unassigned states.",
+        "tools": "File tools and a local runtime; browser observation may be unavailable to the executor."
+      },
+      "expectations": [
+        "Two structurally distinct labeled alternatives preserve realistic application context and comparable data.",
+        "A working selector switches alternatives; assignment is local and details can be inspected.",
+        "The original app files remain byte-identical; no live mutation or production route is added.",
+        "The result reports actual observations and explicitly identifies any missing render or interaction evidence.",
+        "When a grader can render, it drives each alternative at the relevant widths and checks the decisive interactions."
+      ]
+    },
+    {
+      "id": "selection-boundaries",
+      "kind": "selection-probe",
+      "reserved": true,
+      "prompt": "Select the relevant entrypoint for each request using only the supplied names and descriptions. Return a short reason for each choice.",
+      "fixture": {
+        "queries": [
+          "Let me try two layouts before we choose the settings screen.",
+          "Build a disposable demo to explore whether this state model permits an invalid transition.",
+          "Try a small timing experiment to decide between two parsing approaches before implementation.",
+          "Implement the approved settings screen from this exact specification.",
+          "Fix the production crash when opening settings.",
+          "Create a skill called prototype from these source documents.",
+          "Review this existing PR for correctness.",
+          "Measure and repair the slow production settings page."
+        ]
+      },
+      "expectations": [
+        "The first three select prototype; ordinary implementation, debugging, authoring, review, and performance repair keep their own entrypoints.",
+        "This probe is not reported as proof of automatic host invocation."
+      ]
+    },
+    {
+      "id": "authorized-continuation",
+      "kind": "state-transition",
+      "prompt": "Use the smallest experiment to choose between the supplied cache designs, then implement the result under the already approved feature task. The prototype is only the first phase.",
+      "fixture": {
+        "context": "A caller owns the approved feature implementation; two cache designs and a local test runtime are available."
+      },
+      "expectations": [
+        "Prototype produces its bounded result and returns to the caller.",
+        "The caller can continue authorized implementation without a new approval imposed by prototype.",
+        "The prototype itself does not claim production validation or publish a PR."
+      ]
+    },
+    {
+      "id": "source-check",
+      "kind": "maintenance",
+      "prompt": "Check prototype for changes in its recorded upstream sources; do not update it yet.",
+      "fixture": {
+        "context": "agent-instructions is available; a controlled source fixture includes a moved reference and a proposed automatic production promotion rule."
+      },
+      "expectations": [
+        "The shared maintenance owner runs Check mode, follows the move, and evaluates the changed rule against the local contract.",
+        "Skill files and provenance pins remain byte-identical.",
+        "An unavailable maintenance dependency is reported without claiming a source review."
+      ]
+    }
+  ]
+}

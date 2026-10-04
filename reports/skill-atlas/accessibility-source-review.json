@@ -1,0 +1,685 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-04",
+  "mode": "source-review",
+  "localBaseline": "afccb2687d0328fd1f6a76e1a4d05f8fe4286db2",
+  "scope": "Six requested source packages, full entrypoints, selected supporting references and two inspected scripts. This is not an exhaustive audit of the six repositories or every linked framework recipe.",
+  "result": "Retain the existing accessibility skill. Recommend selective web refinements from Chrome DevTools and Addy web-quality-skills; do not install overlapping general skills.",
+  "applicationStatus": "Report only. No accessibility or verify skill edits, origin cursor advances or external installations in this review. ECC remains incorporated from the earlier creation task; every new adaptation is proposed.",
+  "access": "Pinned shallow SSH clones supplied the source contents after GitHub web opens were restricted. W3C primary documents were read with the web tool.",
+  "localEvidence": [
+    {
+      "path": "accessibility/SKILL.md",
+      "sha256": "39d348ef7acad82ff81dcba2d1e556d3f6b4d3dd319dd06e6d90d9db26211e9e"
+    },
+    {
+      "path": "accessibility/references/web.md",
+      "sha256": "d0e1728fa7b5370a59cfee4184d65b48e0e0e7152d4ffa3f6ed8109217800749"
+    },
+    {
+      "path": "accessibility/origin.txt",
+      "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278"
+    },
+    {
+      "path": "verify/SKILL.md",
+      "sha256": "1c6fe17d6424f70abe4d954dc7b2ac09d226c60f7de40b23512be3353d7aa8a0"
+    },
+    {
+      "path": "verify/references/browser-evidence.md",
+      "sha256": "0618e4faa133fb47f54f645acb3cb94c107a4d59285251c11482d593eb3ca9f0"
+    }
+  ],
+  "sources": [
+    {
+      "id": "ecc",
+      "name": "ECC · frontend-a11y",
+      "status": "already-incorporated",
+      "label": "✓ Already incorporated",
+      "purpose": "Frontend guidance for semantic controls, keyboard access, focus, forms and common widgets.",
+      "contribution": "Its relevant coverage is already part of our accessibility skill. The requested revision is exactly the revision recorded in origin.txt.",
+      "decision": "Keep the existing adaptation. This check found no new upstream revision to incorporate.",
+      "cautions": [
+        "The React examples and blanket error announcements should not replace our platform-neutral interaction contract."
+      ],
+      "evidence": [
+        "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/frontend-a11y/SKILL.md"
+      ],
+      "license": "MIT",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "remote": "git@github.com:affaan-m/ECC.git",
+      "packagePath": "skills/frontend-a11y",
+      "inspectedFiles": [
+        {
+          "path": "skills/frontend-a11y/SKILL.md",
+          "sha256": "e00991a3f4d47fcf1529dd74a080afcf46137dc5061e70dc6e3da7b27f2ae3f3",
+          "scope": "Previously read in the creation task; exact commit and file hash rechecked here.",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/frontend-a11y/SKILL.md"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "326146379f01bb137c0a5d3c54770c1aa31076705c8b88a7f6b26a460f6221b2",
+          "scope": "Previously read in the creation task; same pinned revision.",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/LICENSE"
+        }
+      ],
+      "packageManifest": [
+        "skills/frontend-a11y/SKILL.md"
+      ]
+    },
+    {
+      "id": "devtools",
+      "name": "Chrome DevTools · a11y-debugging",
+      "status": "proposed-adaptation",
+      "label": "Proposed adaptation",
+      "purpose": "Debug a rendered page using Lighthouse findings, browser issues, the accessibility tree, keyboard input and measurements.",
+      "contribution": "A useful operational checklist for connecting a failing rendered element with semantic, focus and visual evidence. Inspect specific failing nodes and browser issues before choosing a repair.",
+      "decision": "Keep only the useful gaps in the existing web reference: preserve the state being audited and recognize unresolved contrast measurements. Rendered-node inspection, computed names, hit regions and execution ownership are already covered locally.",
+      "cautions": [
+        "Its navigation-first audit reloads the page. Preserve the failing dialog, authenticated session or unsaved state when that is the target; Addy explicitly addresses this choice.",
+        "The supplied contrast snippet is explicitly approximate. Claude also exercised it in the live T3 browser: #777 text on a white body returned 4.69:1 because the transparent element background was parsed as black; the displayed pair is 4.478:1 and fails normal-text AA. Unresolved backgrounds, alpha or modern color syntax cannot establish a passing measurement.",
+        "Its 48 px target recommendation is not the WCAG AA minimum. Bounding-box size alone does not establish the effective hit region, overlap or criterion exceptions.",
+        "The orphan-input snippet checks attribute presence, not the computed accessible name. A present aria-labelledby value can still point to missing or empty content."
+      ],
+      "evidence": [
+        "https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/b2f522c8ba0fd2e00a679159b4aa5243de5f1b78/skills/a11y-debugging/SKILL.md",
+        "https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/b2f522c8ba0fd2e00a679159b4aa5243de5f1b78/skills/a11y-debugging/references/a11y-snippets.md#L37"
+      ],
+      "license": "Apache-2.0 (repository license header checked; no source text or snippets incorporated).",
+      "commit": "b2f522c8ba0fd2e00a679159b4aa5243de5f1b78",
+      "remote": "git@github.com:ChromeDevTools/chrome-devtools-mcp.git",
+      "packagePath": "skills/a11y-debugging",
+      "inspectedFiles": [
+        {
+          "path": "skills/a11y-debugging/SKILL.md",
+          "sha256": "159587fc580e6112528bedcd89d8c69a52d2fbb54602f10c71d7d5ec8fdbf299",
+          "scope": "Full read.",
+          "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/b2f522c8ba0fd2e00a679159b4aa5243de5f1b78/skills/a11y-debugging/SKILL.md"
+        },
+        {
+          "path": "skills/a11y-debugging/references/a11y-snippets.md",
+          "sha256": "93a02d8889738300461b63da77c1647d4d0156fd9b75107574fbed0a931c20ab",
+          "scope": "Full read; contrast snippet exercised with a controlled computed-style stub.",
+          "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/b2f522c8ba0fd2e00a679159b4aa5243de5f1b78/skills/a11y-debugging/references/a11y-snippets.md"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "58d1e17ffe5109a7ae296caafcadfdbe6a7d176f0bc4ab01e12a689b0499d8bd",
+          "scope": "License header checked.",
+          "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp/blob/b2f522c8ba0fd2e00a679159b4aa5243de5f1b78/LICENSE"
+        }
+      ],
+      "packageManifest": [
+        "skills/a11y-debugging/SKILL.md",
+        "skills/a11y-debugging/references/a11y-snippets.md"
+      ]
+    },
+    {
+      "id": "mindrally",
+      "name": "Mindrally · accessibility-a11y",
+      "status": "overlap-only",
+      "label": "Covered · no addition",
+      "purpose": "A general checklist for semantics, ARIA, keyboard support, contrast, forms, media and user preferences.",
+      "contribution": "Readable introductory coverage and a reminder to include people with disabilities in relevant usability testing.",
+      "decision": "Do not add a second general accessibility skill. The inspected checklist adds little to the current flow-based contract.",
+      "cautions": [
+        "It presents 44 by 44 pixels as a general minimum without distinguishing AA, AAA and criterion exceptions.",
+        "Its general instruction to add keyboard handlers alongside click handlers needs a native-control exception; otherwise a repair can duplicate an action.",
+        "BEM, mobile-first CSS and other implementation preferences should not become accessibility acceptance criteria."
+      ],
+      "evidence": [
+        "https://github.com/Mindrally/skills/blob/97184105b5daa3a6860a2aeb8e7e7fd1c42da40a/accessibility-a11y/SKILL.md"
+      ],
+      "license": "Apache-2.0",
+      "commit": "97184105b5daa3a6860a2aeb8e7e7fd1c42da40a",
+      "remote": "git@github.com:Mindrally/skills.git",
+      "packagePath": "accessibility-a11y",
+      "inspectedFiles": [
+        {
+          "path": "accessibility-a11y/SKILL.md",
+          "sha256": "790f2e77ff370c0402d0cc10a344a2d61d1d830e7f3474f6e2ffc81512e8c095",
+          "scope": "Full read.",
+          "url": "https://github.com/Mindrally/skills/blob/97184105b5daa3a6860a2aeb8e7e7fd1c42da40a/accessibility-a11y/SKILL.md"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4",
+          "scope": "Full read.",
+          "url": "https://github.com/Mindrally/skills/blob/97184105b5daa3a6860a2aeb8e7e7fd1c42da40a/LICENSE"
+        }
+      ],
+      "packageManifest": [
+        "accessibility-a11y/SKILL.md"
+      ]
+    },
+    {
+      "id": "alireza",
+      "name": "Alireza Rezvani · a11y-audit",
+      "status": "not-selected",
+      "label": "Do not adopt as supplied",
+      "purpose": "Scan frontend source files, calculate color-pair contrast, prioritize repairs and produce an audit report.",
+      "contribution": "The supported positional contrast command correctly rejects #777777 on white for AA normal text. This working calculation does not establish that the scanner, documented CLI or CI examples form a reliable audit workflow.",
+      "decision": "Do not install this package or import its scanner into our completion checks. Its documented contract and implemented checks need correction first; the current skill already owns evidence-based findings and manual coverage.",
+      "cautions": [
+        "The documented --format table, --report --output and --fg/--bg commands fail with exit code 2. The scanner actually accepts text/json formats; the contrast checker accepts positional colors.",
+        "Two isolated barriers pass the scanner: an unlabelled input with an id, and a click-only div with role=button. It also reports a wrapped, labelled input as critical and role=status without explicit aria-live as serious.",
+        "Its WCAG 2.2 reference calls Focus Appearance 2.4.11 AA. The published criterion is 2.4.13 AAA; 2.4.11 AA concerns focus not being entirely obscured.",
+        "The CI JSON reader expects violations and wcag, but the scanner emits findings and wcag_criterion. That reader misses six critical findings in the retained sample. The preceding scanner step can still fail the complete GitHub Actions job; the isolated reader result does not prove the whole workflow always passes. Static regex checks also cannot substantiate the promise of finding every A/AA violation."
+      ],
+      "evidence": [
+        "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/skills/a11y-audit/SKILL.md",
+        "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/skills/a11y-audit/scripts/a11y_scanner.py",
+        "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/skills/a11y-audit/scripts/contrast_checker.py",
+        "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/skills/a11y-audit/references/wcag-22-new-criteria.md",
+        "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/skills/a11y-audit/references/ci-cd-integration.md"
+      ],
+      "license": "MIT",
+      "commit": "19392f7a08264ed00486a251f5b2098321771f94",
+      "remote": "git@github.com:alirezarezvani/claude-skills.git",
+      "packagePath": "engineering-team/a11y-audit",
+      "inspectedFiles": [
+        {
+          "path": "engineering-team/a11y-audit/skills/a11y-audit/SKILL.md",
+          "sha256": "e1cbabce8168ea0cb18d44b49c754c7de2e2dc29f8560cb9c4631a89e8652e4e",
+          "scope": "Full read.",
+          "url": "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/skills/a11y-audit/SKILL.md"
+        },
+        {
+          "path": "engineering-team/a11y-audit/skills/a11y-audit/scripts/a11y_scanner.py",
+          "sha256": "a641c73d02c58b38c51c00bd6c8f89eac0f20cb6f98c1d97cb2c8f9b829f2217",
+          "scope": "Full read.",
+          "url": "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/skills/a11y-audit/scripts/a11y_scanner.py"
+        },
+        {
+          "path": "engineering-team/a11y-audit/skills/a11y-audit/scripts/contrast_checker.py",
+          "sha256": "7297629494559a6e07c7e6067b30f639df4290d9595faf5e261ecbf37d1a9030",
+          "scope": "Full read.",
+          "url": "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/skills/a11y-audit/scripts/contrast_checker.py"
+        },
+        {
+          "path": "engineering-team/a11y-audit/skills/a11y-audit/references/wcag-22-new-criteria.md",
+          "sha256": "4aa02091a952ed22c9e5baf7a97598632164f7cd5a37a3c588482ec3e187051f",
+          "scope": "Full read.",
+          "url": "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/skills/a11y-audit/references/wcag-22-new-criteria.md"
+        },
+        {
+          "path": "engineering-team/a11y-audit/skills/a11y-audit/references/color-contrast-guide.md",
+          "sha256": "5cae29f643f7e064a36b4b8e8ca2ca5d62db5c5d7861571e9e4e95d77b273cea",
+          "scope": "Full read.",
+          "url": "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/skills/a11y-audit/references/color-contrast-guide.md"
+        },
+        {
+          "path": "engineering-team/a11y-audit/skills/a11y-audit/references/testing-checklist.md",
+          "sha256": "5bf71ecc3ed2e080ec37e62460863539e886981cf864466000fa72d2acfbae47",
+          "scope": "Full read.",
+          "url": "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/skills/a11y-audit/references/testing-checklist.md"
+        },
+        {
+          "path": "engineering-team/a11y-audit/skills/a11y-audit/references/audit-report-template.md",
+          "sha256": "db9203c5119d3e020d40914b38dfaae5289ad955ef07e4d97a4c5dce5691c7c2",
+          "scope": "Full read.",
+          "url": "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/skills/a11y-audit/references/audit-report-template.md"
+        },
+        {
+          "path": "engineering-team/a11y-audit/skills/a11y-audit/references/ci-cd-integration.md",
+          "sha256": "b1c25d7792173520ed25d4da741f445d05c771f9772256b8cf77e910b762692c",
+          "scope": "Full read.",
+          "url": "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/skills/a11y-audit/references/ci-cd-integration.md"
+        },
+        {
+          "path": "engineering-team/a11y-audit/README.md",
+          "sha256": "88dcd075cf9ee08ef8656acee94f66ea4e8c8ac8f9b626f75a2e81566a018ca6",
+          "scope": "Full read.",
+          "url": "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/README.md"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "a20126646f93d32a8989c3cf4772d59194f405034f7babe7daebeac22b8ab151",
+          "scope": "Full read.",
+          "url": "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/LICENSE"
+        }
+      ],
+      "packageManifest": [
+        "engineering-team/a11y-audit/README.md",
+        "engineering-team/a11y-audit/settings.json",
+        "engineering-team/a11y-audit/.claude-plugin/plugin.json",
+        "engineering-team/a11y-audit/skills/a11y-audit/expected_outputs/sample-scan-report.md",
+        "engineering-team/a11y-audit/skills/a11y-audit/expected_outputs/sample-contrast-output.txt",
+        "engineering-team/a11y-audit/skills/a11y-audit/expected_outputs/sample-scan-output.json",
+        "engineering-team/a11y-audit/skills/a11y-audit/assets/sample-component.tsx",
+        "engineering-team/a11y-audit/skills/a11y-audit/SKILL.md",
+        "engineering-team/a11y-audit/skills/a11y-audit/scripts/a11y_scanner.py",
+        "engineering-team/a11y-audit/skills/a11y-audit/scripts/contrast_checker.py",
+        "engineering-team/a11y-audit/skills/a11y-audit/references/wcag-quick-ref.md",
+        "engineering-team/a11y-audit/skills/a11y-audit/references/examples-by-framework.md",
+        "engineering-team/a11y-audit/skills/a11y-audit/references/audit-report-template.md",
+        "engineering-team/a11y-audit/skills/a11y-audit/references/aria-patterns.md",
+        "engineering-team/a11y-audit/skills/a11y-audit/references/framework-a11y-patterns.md",
+        "engineering-team/a11y-audit/skills/a11y-audit/references/wcag-22-new-criteria.md",
+        "engineering-team/a11y-audit/skills/a11y-audit/references/ci-cd-integration.md",
+        "engineering-team/a11y-audit/skills/a11y-audit/references/color-contrast-guide.md",
+        "engineering-team/a11y-audit/skills/a11y-audit/references/testing-checklist.md"
+      ]
+    },
+    {
+      "id": "better",
+      "name": "Filip Aladic · better-web-ui / a11y",
+      "status": "reference-only",
+      "label": "Reference only",
+      "purpose": "Audit and repair UI accessibility within a broader design system, with component and color-vision references.",
+      "contribution": "Its component reference explains focus after add/remove actions, appropriate hiding techniques and third-party component verification. The color-vision reference usefully tests complete charts and semantic states, beyond palette swatches.",
+      "decision": "Keep it as a source of test scenarios. Our current guidance already covers these principles; do not import the full design workflow or add another skill.",
+      "cautions": [
+        "The entrypoint asks for every interactive element to be a Tab stop and for removing tabindex=-1 from focusable elements. Applied to a roving composite, this conflicts with its keyboard model. The linked component reference is more nuanced than the entrypoint.",
+        "The required frontend-design dependency can start setup and require brand/audience context before a narrow accessibility repair. That is unnecessary scope for our specialist.",
+        "The repository uses a custom license with redistribution conditions, not standard MIT; NOTICE.md records additional lineage and frontend-design declares Apache-2.0. Do not treat the whole package as one uncomplicated MIT donor."
+      ],
+      "evidence": [
+        "https://github.com/aladicf/better-web-ui/blob/af21dcfa71d83104a9e0beb04ffedf79f800f53c/skills/a11y/SKILL.md#L85",
+        "https://github.com/aladicf/better-web-ui/blob/af21dcfa71d83104a9e0beb04ffedf79f800f53c/skills/frontend-design/reference/component-accessibility.md",
+        "https://github.com/aladicf/better-web-ui/blob/af21dcfa71d83104a9e0beb04ffedf79f800f53c/skills/frontend-design/reference/colorblindness-ux.md",
+        "https://github.com/aladicf/better-web-ui/blob/af21dcfa71d83104a9e0beb04ffedf79f800f53c/skills/frontend-design/SKILL.md#L23",
+        "https://github.com/aladicf/better-web-ui/blob/af21dcfa71d83104a9e0beb04ffedf79f800f53c/LICENSE",
+        "https://github.com/aladicf/better-web-ui/blob/af21dcfa71d83104a9e0beb04ffedf79f800f53c/NOTICE.md"
+      ],
+      "license": "Custom repository license; Apache-2.0 declaration in frontend-design; additional attribution chain in NOTICE.md. No material incorporated.",
+      "commit": "af21dcfa71d83104a9e0beb04ffedf79f800f53c",
+      "remote": "git@github.com:aladicf/better-web-ui.git",
+      "packagePath": "skills/a11y",
+      "inspectedFiles": [
+        {
+          "path": "skills/a11y/SKILL.md",
+          "sha256": "7f62fbfd224391da67f76a4a5b3c5baea8093b0d06d71d3845dac3751f35d622",
+          "scope": "Full read.",
+          "url": "https://github.com/aladicf/better-web-ui/blob/af21dcfa71d83104a9e0beb04ffedf79f800f53c/skills/a11y/SKILL.md"
+        },
+        {
+          "path": "skills/frontend-design/reference/component-accessibility.md",
+          "sha256": "99483e38c402579f0750e47c613ef53894af66dc3b3761b0d32a57581c3c473e",
+          "scope": "Full read.",
+          "url": "https://github.com/aladicf/better-web-ui/blob/af21dcfa71d83104a9e0beb04ffedf79f800f53c/skills/frontend-design/reference/component-accessibility.md"
+        },
+        {
+          "path": "skills/frontend-design/reference/colorblindness-ux.md",
+          "sha256": "805d2a6aaacc5623df9dd346961c1f99db09dab07482e12e6903f884204f106c",
+          "scope": "Full read.",
+          "url": "https://github.com/aladicf/better-web-ui/blob/af21dcfa71d83104a9e0beb04ffedf79f800f53c/skills/frontend-design/reference/colorblindness-ux.md"
+        },
+        {
+          "path": "skills/frontend-design/reference/accessibility-testing.md",
+          "sha256": "e497ea9ce9da2c5896cd4e4edcf83442094554121f2f8b0c434e94b7111ab63e",
+          "scope": "Full read.",
+          "url": "https://github.com/aladicf/better-web-ui/blob/af21dcfa71d83104a9e0beb04ffedf79f800f53c/skills/frontend-design/reference/accessibility-testing.md"
+        },
+        {
+          "path": "skills/setup/SKILL.md",
+          "sha256": "20c9e5014230e3857c2bb804a2a3050a2999cf3732b74029b263caad08500aa2",
+          "scope": "Full read.",
+          "url": "https://github.com/aladicf/better-web-ui/blob/af21dcfa71d83104a9e0beb04ffedf79f800f53c/skills/setup/SKILL.md"
+        },
+        {
+          "path": "skills/frontend-design/SKILL.md",
+          "sha256": "70ded9c5004b5973020f840966093a81e54d29167392e075d29aaa356a45eed8",
+          "scope": "Context protocol and dependency sections inspected (lines 1-80); broader design guidance not fully audited.",
+          "url": "https://github.com/aladicf/better-web-ui/blob/af21dcfa71d83104a9e0beb04ffedf79f800f53c/skills/frontend-design/SKILL.md"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "0ca7c669098fcc1621cd3bd33e4a4b3c5bfe121ee9d9b05b9691f0d34d4d8c87",
+          "scope": "Full read.",
+          "url": "https://github.com/aladicf/better-web-ui/blob/af21dcfa71d83104a9e0beb04ffedf79f800f53c/LICENSE"
+        },
+        {
+          "path": "NOTICE.md",
+          "sha256": "3fda58289a37f61294b02997b115f55e9666ade2a393e9c7e1508d2b557feba0",
+          "scope": "Full read.",
+          "url": "https://github.com/aladicf/better-web-ui/blob/af21dcfa71d83104a9e0beb04ffedf79f800f53c/NOTICE.md"
+        }
+      ],
+      "packageManifest": [
+        "skills/a11y/SKILL.md"
+      ]
+    },
+    {
+      "id": "web-quality",
+      "name": "Addy Osmani · web-quality-skills / accessibility",
+      "status": "proposed-adaptation",
+      "label": "Proposed adaptation",
+      "purpose": "Audit and improve web accessibility against WCAG 2.2, combining live findings, manual interaction and linked patterns.",
+      "contribution": "This is version 2.0 of the web-quality-skills source family already recorded through GSD version 1.0. Its useful delta includes choosing an audit that preserves the target state. Node-to-component tracing and many updated WCAG checks are already covered locally; consistency across pages is a coherent remaining addition.",
+      "decision": "Use direct upstream for future updates to the mirrored accessibility entrypoint and reference, while preserving the GSD baseline and its separate audit workflow. Narrow any content adaptation to the existing web reference. Keep addyosmani/agent-skills as a distinct donor; do not count the GSD copy and this source as independent endorsements.",
+      "cautions": [
+        "Its contrast table still uses 18 px regular / 14 px bold for large text. WCAG uses 18 pt / 14 pt; our existing reference already has the correct units.",
+        "The linked modal example has a static focusable list and lacks complete return-focus handling. The form example calls focus on a field and then on the summary. Neither should become a universal implementation recipe.",
+        "A Lighthouse score is not conformance; the source itself says this. Keep manual keyboard and required assistive-technology evidence, and select available host tools rather than imposing its example stack."
+      ],
+      "evidence": [
+        "https://github.com/addyosmani/web-quality-skills/blob/afa8da942115f2961fdbfa80807ea0b232ff6c00/skills/accessibility/SKILL.md#L14",
+        "https://github.com/addyosmani/web-quality-skills/blob/afa8da942115f2961fdbfa80807ea0b232ff6c00/skills/accessibility/SKILL.md#L105",
+        "https://github.com/addyosmani/web-quality-skills/blob/afa8da942115f2961fdbfa80807ea0b232ff6c00/skills/accessibility/references/A11Y-PATTERNS.md",
+        "https://github.com/addyosmani/web-quality-skills/blob/afa8da942115f2961fdbfa80807ea0b232ff6c00/skills/accessibility/references/WCAG.md"
+      ],
+      "license": "MIT",
+      "commit": "afa8da942115f2961fdbfa80807ea0b232ff6c00",
+      "remote": "git@github.com:addyosmani/web-quality-skills.git",
+      "packagePath": "skills/accessibility",
+      "inspectedFiles": [
+        {
+          "path": "skills/accessibility/SKILL.md",
+          "sha256": "267fb2a0707d6142f2871f22688203a42ba21291a2aa200fb740936e41362b5d",
+          "scope": "Full read.",
+          "url": "https://github.com/addyosmani/web-quality-skills/blob/afa8da942115f2961fdbfa80807ea0b232ff6c00/skills/accessibility/SKILL.md"
+        },
+        {
+          "path": "skills/accessibility/references/A11Y-PATTERNS.md",
+          "sha256": "f10e238dd4dd3c4f51134c2056bc02d3dd4f8fb6ccc9145c2c1ba7aab4d58140",
+          "scope": "Full read.",
+          "url": "https://github.com/addyosmani/web-quality-skills/blob/afa8da942115f2961fdbfa80807ea0b232ff6c00/skills/accessibility/references/A11Y-PATTERNS.md"
+        },
+        {
+          "path": "skills/accessibility/references/WCAG.md",
+          "sha256": "16683e025e3833d931c9d880645d98a448827f97e10189b6c8f12c832e7a2361",
+          "scope": "Full read.",
+          "url": "https://github.com/addyosmani/web-quality-skills/blob/afa8da942115f2961fdbfa80807ea0b232ff6c00/skills/accessibility/references/WCAG.md"
+        },
+        {
+          "path": "LICENSE",
+          "sha256": "c122223ac43e86421958e18623979942c21b642951e2e3736dcb63eff13587c3",
+          "scope": "Full read.",
+          "url": "https://github.com/addyosmani/web-quality-skills/blob/afa8da942115f2961fdbfa80807ea0b232ff6c00/LICENSE"
+        }
+      ],
+      "packageManifest": [
+        "skills/accessibility/SKILL.md",
+        "skills/accessibility/references/A11Y-PATTERNS.md",
+        "skills/accessibility/references/WCAG.md"
+      ]
+    }
+  ],
+  "proposals": [
+    {
+      "title": "Preserve the state being audited",
+      "donors": [
+        "devtools",
+        "web-quality"
+      ],
+      "target": "accessibility/references/web.md",
+      "text": "A reload can erase a dialog, error or unsaved state. Choose a supported check that preserves or reconstructs the intended state, and confirm that state is still present when the check runs. Keep tool-specific audit mode names in the local verification recipe.",
+      "reason": "Tracing a defect to its responsible component and rerunning it are already in the skill. The new detail should prevent an audit from silently checking a different state."
+    },
+    {
+      "title": "Resolve the displayed contrast pair",
+      "donors": [
+        "devtools"
+      ],
+      "target": "accessibility/references/web.md",
+      "text": "An element without its own opaque background can report a transparent computed background. Account for the displayed background, compositing, alpha and supported color syntax. A snippet that cannot resolve the pair yields an inconclusive measurement, not a pass.",
+      "reason": "Computed names, effective hit regions and occlusion are already covered. Keep this addition specific to the demonstrated contrast failure."
+    },
+    {
+      "title": "Check consistency across pages",
+      "donors": [
+        "web-quality"
+      ],
+      "target": "accessibility/references/web.md",
+      "text": "When a flow spans a set of pages, check the relative order of repeated navigation and applicable help mechanisms, and consistent identification of the same function, under WCAG 3.2.3, 3.2.4 and 3.2.6. Respect their scope and user-initiated changes. Consistent Help does not require adding help or showing it on every page.",
+      "reason": "This checks a coherent part of the user flow. Adding only the criterion named by one donor would leave the purpose of the change unclear; the reference remains selective rather than a complete WCAG checklist."
+    }
+  ],
+  "primaryReferences": [
+    {
+      "title": "WCAG 2.2 criteria and levels",
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "checked": "2026-10-04"
+    },
+    {
+      "title": "Contrast units and thresholds",
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
+      "checked": "2026-10-04"
+    },
+    {
+      "title": "Consistent Help and its scope",
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/consistent-help.html",
+      "checked": "2026-10-04"
+    },
+    {
+      "title": "Implicit live-region semantics for status",
+      "url": "https://www.w3.org/TR/wai-aria-1.2/#status",
+      "checked": "2026-10-04"
+    },
+    {
+      "title": "Roving tabindex in composite widgets",
+      "url": "https://www.w3.org/WAI/ARIA/apg/practices/keyboard-interface/#kbd_roving_tabindex",
+      "checked": "2026-10-04"
+    }
+  ],
+  "probeMethod": "The two Python scripts and the JavaScript snippet were inspected before execution. Python checks read isolated synthetic files. The JavaScript test used a controlled style stub; no alternate browser system was used.",
+  "probeCommand": "python3 -B .tmp/accessibility-source-review/probe-sources.py",
+  "probeDriver": "import importlib.util\nimport json\nimport re\nimport subprocess\nimport sys\nfrom pathlib import Path\n\nroot = Path(__file__).resolve().parent\nupstream = root / 'upstream'\npackage = upstream / 'alireza/engineering-team/a11y-audit/skills/a11y-audit'\nfixtures = root / 'fixtures'\nfixtures.mkdir(exist_ok=True)\ntemplate = '''<!doctype html>\n<html lang=\"en\"><head><title>Source probe</title></head><body>\n<a href=\"#main\">Skip to main content</a><nav aria-label=\"Primary\"><a href=\"/\">Home</a></nav>\n<main id=\"main\"><h1>Example</h1>\nBODY\n</main></body></html>\n'''\ncases = {\n    'unlabelled-input-with-id': '<input id=\"email\" type=\"email\">',\n    'labelled-input-without-id': '<label>Email <input type=\"email\"></label>',\n    'implicit-live-status': '<p role=\"status\">Saved</p>',\n    'mouse-only-role-button': '<div role=\"button\" onclick=\"save()\">Save</div>',\n    'missing-image-alt': '<img src=\"instruction.png\">',\n}\nresults = []\nfor name, body in cases.items():\n    fixture = fixtures / f'{name}.html'\n    fixture.write_text(template.replace('BODY', body))\n    args = ['python3', '-B', str(package / 'scripts/a11y_scanner.py'), str(fixture), '--json']\n    result = subprocess.run(args, capture_output=True, text=True, timeout=15, stdin=subprocess.DEVNULL)\n    results.append({'id': name, 'fixture': fixture.read_text(), 'argv': args, 'exitCode': result.returncode, 'stdout': result.stdout, 'stderr': result.stderr})\n\nfor name, file, args in [\n    ('documented-table-format', 'a11y_scanner.py', [str(fixtures), '--format', 'table']),\n    ('documented-report-flags', 'a11y_scanner.py', [str(fixtures), '--report', '--output', str(root / 'unexpected-report.md')]),\n    ('documented-contrast-flags', 'contrast_checker.py', ['--fg', '#777777', '--bg', '#ffffff']),\n    ('supported-contrast-pair', 'contrast_checker.py', ['#777777', '#ffffff', '--json']),\n]:\n    argv = ['python3', '-B', str(package / 'scripts' / file), *args]\n    result = subprocess.run(argv, capture_output=True, text=True, timeout=15, stdin=subprocess.DEVNULL)\n    results.append({'id': name, 'argv': argv, 'exitCode': result.returncode, 'stdout': result.stdout, 'stderr': result.stderr})\n\nsnippet_path = upstream / 'devtools/skills/a11y-debugging/references/a11y-snippets.md'\ncontrast = re.findall(r'```js\\n(.*?)\\n```', snippet_path.read_text(), re.S)[2]\nscript = '''const vm = require('node:vm');\nconst snippet = JSON.parse(process.argv[1]);\nconst style = { color: 'rgb(255, 255, 255)', backgroundColor: 'rgba(0, 0, 0, 0)' };\nconst result = vm.runInNewContext('(' + snippet.replace(/;\\\\s*$/, '') + ')({})', {window: {getComputedStyle: () => style}}, {timeout: 1000});\nprocess.stdout.write(JSON.stringify(result));\n'''\nresult = subprocess.run(['node', '-e', script, json.dumps(contrast)], capture_output=True, text=True, timeout=15, stdin=subprocess.DEVNULL)\nresults.append({'id': 'devtools-transparent-background', 'method': 'Execute the inspected pure contrast snippet with a controlled computed-style stub; no browser or screen-reader run.', 'script': script, 'input': {'color': 'rgb(255, 255, 255)', 'backgroundColor': 'rgba(0, 0, 0, 0)', 'compositedAncestorBackground': 'rgb(255, 255, 255)'}, 'expectedContrast': 1, 'exitCode': result.returncode, 'stdout': result.stdout, 'stderr': result.stderr})\n\n(root / 'probe-results.json').write_text(json.dumps(results, indent=2) + '\\n')\nfor case in results:\n    print(case['id'], 'exit', case['exitCode'], (case['stdout'] or case['stderr'])[:420].replace('\\n', ' '))\n",
+  "probes": [
+    {
+      "id": "unlabelled-input-with-id",
+      "fixture": "<!doctype html>\n<html lang=\"en\"><head><title>Source probe</title></head><body>\n<a href=\"#main\">Skip to main content</a><nav aria-label=\"Primary\"><a href=\"/\">Home</a></nav>\n<main id=\"main\"><h1>Example</h1>\n<input id=\"email\" type=\"email\">\n</main></body></html>\n",
+      "argv": [
+        "python3",
+        "-B",
+        ".tmp/accessibility-source-review/upstream/alireza/engineering-team/a11y-audit/skills/a11y-audit/scripts/a11y_scanner.py",
+        ".tmp/accessibility-source-review/fixtures/unlabelled-input-with-id.html",
+        "--json"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"summary\": {\n    \"files_scanned\": 1,\n    \"total_issues\": 0,\n    \"by_severity\": {}\n  },\n  \"findings\": []\n}\n",
+      "stderr": "",
+      "interpretation": "False negative: zero findings, exit 0; an id alone does not supply the missing label."
+    },
+    {
+      "id": "labelled-input-without-id",
+      "fixture": "<!doctype html>\n<html lang=\"en\"><head><title>Source probe</title></head><body>\n<a href=\"#main\">Skip to main content</a><nav aria-label=\"Primary\"><a href=\"/\">Home</a></nav>\n<main id=\"main\"><h1>Example</h1>\n<label>Email <input type=\"email\"></label>\n</main></body></html>\n",
+      "argv": [
+        "python3",
+        "-B",
+        ".tmp/accessibility-source-review/upstream/alireza/engineering-team/a11y-audit/skills/a11y-audit/scripts/a11y_scanner.py",
+        ".tmp/accessibility-source-review/fixtures/labelled-input-without-id.html",
+        "--json"
+      ],
+      "exitCode": 1,
+      "stdout": "{\n  \"summary\": {\n    \"files_scanned\": 1,\n    \"total_issues\": 1,\n    \"by_severity\": {\n      \"critical\": 1\n    }\n  },\n  \"findings\": [\n    {\n      \"rule_id\": \"form-input-no-label\",\n      \"category\": \"forms\",\n      \"severity\": \"critical\",\n      \"message\": \"<input> has no id, aria-label, or aria-labelledby\",\n      \"file\": \".tmp/accessibility-source-review/fixtures/labelled-input-without-id.html\",\n      \"line\": 5,\n      \"snippet\": \"<label>Email <input type=\\\"email\\\"></label>\",\n      \"wcag_criterion\": \"1.3.1 Info and Relationships\",\n      \"fix\": \"Add id + <label for>, or aria-label attribute.\"\n    }\n  ]\n}\n",
+      "stderr": "",
+      "interpretation": "False positive: the wrapping label is valid, but the scanner reports a critical missing-label issue."
+    },
+    {
+      "id": "implicit-live-status",
+      "fixture": "<!doctype html>\n<html lang=\"en\"><head><title>Source probe</title></head><body>\n<a href=\"#main\">Skip to main content</a><nav aria-label=\"Primary\"><a href=\"/\">Home</a></nav>\n<main id=\"main\"><h1>Example</h1>\n<p role=\"status\">Saved</p>\n</main></body></html>\n",
+      "argv": [
+        "python3",
+        "-B",
+        ".tmp/accessibility-source-review/upstream/alireza/engineering-team/a11y-audit/skills/a11y-audit/scripts/a11y_scanner.py",
+        ".tmp/accessibility-source-review/fixtures/implicit-live-status.html",
+        "--json"
+      ],
+      "exitCode": 1,
+      "stdout": "{\n  \"summary\": {\n    \"files_scanned\": 1,\n    \"total_issues\": 1,\n    \"by_severity\": {\n      \"serious\": 1\n    }\n  },\n  \"findings\": [\n    {\n      \"rule_id\": \"aria-live-missing\",\n      \"category\": \"aria\",\n      \"severity\": \"serious\",\n      \"message\": \"role=alert/status without explicit aria-live\",\n      \"file\": \".tmp/accessibility-source-review/fixtures/implicit-live-status.html\",\n      \"line\": 5,\n      \"snippet\": \"<p role=\\\"status\\\">Saved</p>\",\n      \"wcag_criterion\": \"4.1.3 Status Messages\",\n      \"fix\": \"Add aria-live=\\\"assertive\\\" (alert) or aria-live=\\\"polite\\\" (status).\"\n    }\n  ]\n}\n",
+      "stderr": "",
+      "interpretation": "False positive: status has implicit polite live semantics; no explicit aria-live is required merely by this role."
+    },
+    {
+      "id": "mouse-only-role-button",
+      "fixture": "<!doctype html>\n<html lang=\"en\"><head><title>Source probe</title></head><body>\n<a href=\"#main\">Skip to main content</a><nav aria-label=\"Primary\"><a href=\"/\">Home</a></nav>\n<main id=\"main\"><h1>Example</h1>\n<div role=\"button\" onclick=\"save()\">Save</div>\n</main></body></html>\n",
+      "argv": [
+        "python3",
+        "-B",
+        ".tmp/accessibility-source-review/upstream/alireza/engineering-team/a11y-audit/skills/a11y-audit/scripts/a11y_scanner.py",
+        ".tmp/accessibility-source-review/fixtures/mouse-only-role-button.html",
+        "--json"
+      ],
+      "exitCode": 0,
+      "stdout": "{\n  \"summary\": {\n    \"files_scanned\": 1,\n    \"total_issues\": 0,\n    \"by_severity\": {}\n  },\n  \"findings\": []\n}\n",
+      "stderr": "",
+      "interpretation": "False negative: zero findings, exit 0; role alone does not implement keyboard access."
+    },
+    {
+      "id": "missing-image-alt",
+      "fixture": "<!doctype html>\n<html lang=\"en\"><head><title>Source probe</title></head><body>\n<a href=\"#main\">Skip to main content</a><nav aria-label=\"Primary\"><a href=\"/\">Home</a></nav>\n<main id=\"main\"><h1>Example</h1>\n<img src=\"instruction.png\">\n</main></body></html>\n",
+      "argv": [
+        "python3",
+        "-B",
+        ".tmp/accessibility-source-review/upstream/alireza/engineering-team/a11y-audit/skills/a11y-audit/scripts/a11y_scanner.py",
+        ".tmp/accessibility-source-review/fixtures/missing-image-alt.html",
+        "--json"
+      ],
+      "exitCode": 1,
+      "stdout": "{\n  \"summary\": {\n    \"files_scanned\": 1,\n    \"total_issues\": 1,\n    \"by_severity\": {\n      \"critical\": 1\n    }\n  },\n  \"findings\": [\n    {\n      \"rule_id\": \"img-alt-missing\",\n      \"category\": \"images\",\n      \"severity\": \"critical\",\n      \"message\": \"<img> missing alt attribute\",\n      \"file\": \".tmp/accessibility-source-review/fixtures/missing-image-alt.html\",\n      \"line\": 5,\n      \"snippet\": \"<img src=\\\"instruction.png\\\">\",\n      \"wcag_criterion\": \"1.1.1 Non-text Content\",\n      \"fix\": \"Add alt=\\\"description\\\" or alt=\\\"\\\" for decorative images.\"\n    }\n  ]\n}\n",
+      "stderr": "",
+      "interpretation": "Positive control: scanner reports the expected missing-alt issue, exit 1."
+    },
+    {
+      "id": "documented-table-format",
+      "argv": [
+        "python3",
+        "-B",
+        ".tmp/accessibility-source-review/upstream/alireza/engineering-team/a11y-audit/skills/a11y-audit/scripts/a11y_scanner.py",
+        ".tmp/accessibility-source-review/fixtures",
+        "--format",
+        "table"
+      ],
+      "exitCode": 2,
+      "stdout": "",
+      "stderr": "usage: a11y_scanner [-h] [--json] [--format {text,json}] [--severity SEVERITY]\n                    path\na11y_scanner: error: argument --format: invalid choice: 'table' (choose from 'text', 'json')\n",
+      "interpretation": "Interface mismatch: documented table format rejected, exit 2."
+    },
+    {
+      "id": "documented-report-flags",
+      "argv": [
+        "python3",
+        "-B",
+        ".tmp/accessibility-source-review/upstream/alireza/engineering-team/a11y-audit/skills/a11y-audit/scripts/a11y_scanner.py",
+        ".tmp/accessibility-source-review/fixtures",
+        "--report",
+        "--output",
+        ".tmp/accessibility-source-review/unexpected-report.md"
+      ],
+      "exitCode": 2,
+      "stdout": "",
+      "stderr": "usage: a11y_scanner [-h] [--json] [--format {text,json}] [--severity SEVERITY]\n                    path\na11y_scanner: error: unrecognized arguments: --report --output .tmp/accessibility-source-review/unexpected-report.md\n",
+      "interpretation": "Interface mismatch: documented report/output flags rejected, exit 2."
+    },
+    {
+      "id": "documented-contrast-flags",
+      "argv": [
+        "python3",
+        "-B",
+        ".tmp/accessibility-source-review/upstream/alireza/engineering-team/a11y-audit/skills/a11y-audit/scripts/contrast_checker.py",
+        "--fg",
+        "#777777",
+        "--bg",
+        "#ffffff"
+      ],
+      "exitCode": 2,
+      "stdout": "",
+      "stderr": "usage: contrast_checker.py [-h] [--suggest COLOR] [--batch CSS_FILE] [--json]\n                           [--demo] [--sample]\n                           [foreground] [background]\ncontrast_checker.py: error: unrecognized arguments: --fg --bg #ffffff\n",
+      "interpretation": "Interface mismatch: documented fg/bg flags rejected, exit 2."
+    },
+    {
+      "id": "supported-contrast-pair",
+      "argv": [
+        "python3",
+        "-B",
+        ".tmp/accessibility-source-review/upstream/alireza/engineering-team/a11y-audit/skills/a11y-audit/scripts/contrast_checker.py",
+        "#777777",
+        "#ffffff",
+        "--json"
+      ],
+      "exitCode": 1,
+      "stdout": "{\n  \"foreground\": \"#777777\",\n  \"background\": \"#ffffff\",\n  \"foreground_hex\": \"#777777\",\n  \"background_hex\": \"#ffffff\",\n  \"ratio\": 4.48,\n  \"results\": [\n    {\n      \"level\": \"AA Normal Text\",\n      \"required\": 4.5,\n      \"ratio\": 4.48,\n      \"pass\": false\n    },\n    {\n      \"level\": \"AA Large Text\",\n      \"required\": 3.0,\n      \"ratio\": 4.48,\n      \"pass\": true\n    },\n    {\n      \"level\": \"AA UI Components\",\n      \"required\": 3.0,\n      \"ratio\": 4.48,\n      \"pass\": true\n    },\n    {\n      \"level\": \"AAA Normal Text\",\n      \"required\": 7.0,\n      \"ratio\": 4.48,\n      \"pass\": false\n    },\n    {\n      \"level\": \"AAA Large Text\",\n      \"required\": 4.5,\n      \"ratio\": 4.48,\n      \"pass\": false\n    }\n  ]\n}\n",
+      "stderr": "",
+      "interpretation": "Positive control: supported positional colors return 4.48 and fail AA normal text, exit 1."
+    },
+    {
+      "id": "devtools-transparent-background",
+      "method": "Execute the inspected pure contrast snippet with a controlled computed-style stub; no browser or screen-reader run.",
+      "script": "const vm = require('node:vm');\nconst snippet = JSON.parse(process.argv[1]);\nconst style = { color: 'rgb(255, 255, 255)', backgroundColor: 'rgba(0, 0, 0, 0)' };\nconst result = vm.runInNewContext('(' + snippet.replace(/;\\s*$/, '') + ')({})', {window: {getComputedStyle: () => style}}, {timeout: 1000});\nprocess.stdout.write(JSON.stringify(result));\n",
+      "input": {
+        "color": "rgb(255, 255, 255)",
+        "backgroundColor": "rgba(0, 0, 0, 0)",
+        "compositedAncestorBackground": "rgb(255, 255, 255)"
+      },
+      "expectedContrast": 1,
+      "exitCode": 0,
+      "stdout": "{\"color\":\"rgb(255, 255, 255)\",\"bg\":\"rgba(0, 0, 0, 0)\",\"contrastRatio\":\"21.00\"}",
+      "stderr": "",
+      "interpretation": "Controlled calculation counterexample: snippet returns 21.00; the specified white text/white composited background pair is 1:1. This is not a live browser trial."
+    }
+  ],
+  "limits": [
+    "No new skills installed or behavioral adaptations tested.",
+    "No real screen-reader or native-device session ran in this review.",
+    "The focused counterexamples do not measure scanner recall or precision across real applications.",
+    "Upstream branch heads may move; conclusions apply to the recorded commits.",
+    "The package manifests include files not read; inspectedFiles records the exact read scope."
+  ],
+  "validation": {
+    "probeCommandExitCode": 0,
+    "probeCount": 10,
+    "build": "Not applicable: static HTML report with no compilation pipeline. Browser/report checks recorded separately after rendering.",
+    "reportCommand": "python3 -B .tmp/accessibility-source-review/validate-report.py",
+    "reportOutcome": "Passed: six pinned sources, inspected-file hashes, unchanged local skill hashes, ten probe interpretations, incorporation states, report links, fragments and stylesheet hash.",
+    "reportValidator": "import hashlib\nimport json\nimport re\nfrom html.parser import HTMLParser\nfrom pathlib import Path\nfrom urllib.parse import unquote, urlsplit\n\nroot = Path.cwd()\ndirectory = root / 'reports/skill-atlas'\nreport = json.loads((directory / 'accessibility-source-review.json').read_text())\nassert len(report['sources']) == 6\nassert len({s['id'] for s in report['sources']}) == 6\nassert [s['id'] for s in report['sources'] if s['status'] == 'already-incorporated'] == ['ecc']\nassert {s['id'] for s in report['sources'] if s['status'] == 'proposed-adaptation'} == {'devtools', 'web-quality'}\nfor source in report['sources']:\n    assert re.fullmatch(r'[0-9a-f]{40}', source['commit'])\n    for file in source['inspectedFiles']:\n        path = root / '.tmp/accessibility-source-review/upstream' / source['id'] / file['path']\n        assert hashlib.sha256(path.read_bytes()).hexdigest() == file['sha256'], path\nfor file in report['localEvidence']:\n    assert hashlib.sha256((root / file['path']).read_bytes()).hexdigest() == file['sha256'], file['path']\nassert report['sources'][0]['commit'] in (root / 'accessibility/origin.txt').read_text()\nassert report['sources'][0]['inspectedFiles'][0]['sha256'] == 'e00991a3f4d47fcf1529dd74a080afcf46137dc5061e70dc6e3da7b27f2ae3f3'\n\nprobes = {p['id']: p for p in report['probes']}\nassert len(probes) == 10\nfor name in ['unlabelled-input-with-id', 'mouse-only-role-button']:\n    assert probes[name]['exitCode'] == 0\n    assert json.loads(probes[name]['stdout'])['findings'] == []\nfor name, rule in [('labelled-input-without-id', 'form-input-no-label'), ('implicit-live-status', 'aria-live-missing'), ('missing-image-alt', 'img-alt-missing')]:\n    assert probes[name]['exitCode'] == 1\n    assert [f['rule_id'] for f in json.loads(probes[name]['stdout'])['findings']] == [rule]\nfor name in ['documented-table-format', 'documented-report-flags', 'documented-contrast-flags']:\n    assert probes[name]['exitCode'] == 2\n    assert 'error:' in probes[name]['stderr']\nassert probes['supported-contrast-pair']['exitCode'] == 1\nassert json.loads(probes['supported-contrast-pair']['stdout'])['results'][0]['pass'] is False\nassert json.loads(probes['devtools-transparent-background']['stdout'])['contrastRatio'] == '21.00'\n\nclass Page(HTMLParser):\n    def __init__(self):\n        super().__init__()\n        self.ids = []\n        self.links = []\n        self.inline_code = []\n    def handle_starttag(self, tag, attrs):\n        attrs = dict(attrs)\n        if 'id' in attrs:\n            self.ids.append(attrs['id'])\n        if tag in ('a', 'link') and 'href' in attrs:\n            self.links.append(attrs['href'])\n        if tag == 'style' or 'style' in attrs or (tag == 'script' and 'src' not in attrs):\n            self.inline_code.append(tag)\n\nhtml = (directory / 'accessibility-source-review.html').read_text()\npage = Page()\npage.feed(html)\nassert '<html lang=\"en\">' in html\nassert len(page.ids) == len(set(page.ids))\nassert not page.inline_code\nassert all('source-' + source['id'] in page.ids for source in report['sources'])\nfor source in report['sources']:\n    assert source['label'] in html\nfor href in page.links:\n    parts = urlsplit(href)\n    if parts.scheme:\n        assert parts.scheme == 'https'\n        continue\n    target = directory / unquote(parts.path) if parts.path else directory / 'accessibility-source-review.html'\n    assert target.is_file(), href\n    if parts.fragment:\n        linked = Page()\n        linked.feed(target.read_text())\n        assert unquote(parts.fragment) in linked.ids, href\ncss_hash = hashlib.sha256((directory / 'styles.css').read_bytes()).hexdigest()[:12]\nassert f'styles.css?v={css_hash}' in html\nassert 'href=\"accessibility-source-review.html\"' in (directory / 'index.html').read_text()\nprint('PASS: 6 pinned sources, inspected-file hashes, unchanged local skill hashes, 10 probe interpretations, incorporation states, report links, fragments and stylesheet hash.')\n",
+    "diffCheck": {
+      "command": "git diff --check",
+      "outcome": "Passed"
+    },
+    "browser": {
+      "tool": "T3 collaborative browser preview_*",
+      "url": "http://localhost:8765/accessibility-source-review.html",
+      "desktop": {
+        "viewport": [
+          1280,
+          800
+        ],
+        "documentWidth": 1265,
+        "sourceCards": 6,
+        "probeRows": 10,
+        "outcome": "Summary screenshot inspected; content, source count and link from the existing atlas checked."
+      },
+      "mobile": {
+        "viewport": [
+          375,
+          812
+        ],
+        "documentWidth": 360,
+        "openDetails": "source-devtools",
+        "detailsOpenedBy": "preview_click",
+        "missingInPageFragments": [],
+        "probeTableContainerWidth": 318,
+        "probeTableScrollWidth": 390,
+        "outcome": "Source-card screenshot inspected. The expanded source details did not cause page overflow. The two-column results table has its own horizontal scroll region."
+      },
+      "broaderSmoke": {
+        "path": "/#accessibility",
+        "repositoryCount": 29,
+        "catalogCount": 239,
+        "sourceProgress": "100 ready, 55 pending, 43 optional, 41 not selected",
+        "outcome": "Existing atlas rendered its current catalog and inventory; its added link navigated to the six-source report."
+      },
+      "captureRecovery": "Full semantic preview snapshots failed on later calls. preview_snapshot with includeImage=false and save=true captured a PNG, which was read through view_image. Browser evaluation and native clicks succeeded.",
+      "limits": "Viewport changes test layout, not browser zoom or a physical mobile device. No screen-reader trial or full accessibility audit of the report was performed. Captures were inspected but are not committed."
+    }
+  },
+  "consultation": {
+    "record": "accessibility-source-review-consultation.json",
+    "model": "claude-fable-5-1",
+    "effort": "xhigh",
+    "status": "completed",
+    "applicationStatus": "Assessment revised; no skill or provenance edits."
+  },
+  "reproduction": {
+    "prerequisites": "The original scratch was intentionally cleaned. Use the original review checkout at 9679207 for the recorded local hashes. Source retrieval needs working SSH access to GitHub and Python 3 plus Node.",
+    "steps": [
+      "Create the ignored .tmp/accessibility-source-review directory in that checkout.",
+      "For each sources entry, restore its SSH remote at the exact commit under .tmp/accessibility-source-review/upstream/<id>. The packageManifest and inspectedFiles fields identify the required paths; validate their recorded hashes before executing donor code.",
+      "Write probeDriver to .tmp/accessibility-source-review/probe-sources.py and validation.reportValidator to .tmp/accessibility-source-review/validate-report.py.",
+      "Run the recorded probeCommand and validation.reportCommand from the checkout root. The probe driver recreates its isolated fixtures.",
+      "The validator checks recorded outputs and source/local hashes; rerunning the probe driver creates a new probe-results.json to compare with the recorded probes."
+    ],
+    "followupExecution": "This consultation reproduced the ten original probes independently according to the reviewer. The parent did not rerun the full reconstruction procedure; it checked the retained sample gate, contrast arithmetic, local hashes and report integrity."
+  }
+}

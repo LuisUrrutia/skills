@@ -1,0 +1,159 @@
+{
+  "format_version": 1,
+  "skill": "workflow-to-skill",
+  "usage": "Give executors prompts and fixtures only; retain expectations with the grader. The writing dependency must be available.",
+  "cases": [
+    {
+      "id": "extract-and-write",
+      "kind": "artifact",
+      "prompt": "Turn these completed export tasks into a reusable skill.",
+      "fixture": {
+        "history": [
+          "First run: user selected source-a.csv and destination-a.csv, required preserving the input, and approved one upload after checking the result.",
+          "Second run: user selected source-b.csv and destination-b.csv, required preserving the input, and asked only for the local export."
+        ],
+        "installed_skills": [
+          "agent-instructions",
+          "csv-validation",
+          "accounting-upload"
+        ]
+      },
+      "expectations": [
+        "Varying paths are inputs rather than hardcoded rules.",
+        "A single approved upload does not become standing permission.",
+        "The process continues through creating a skill using agent-instructions, rather than stopping at an extraction plan."
+      ]
+    },
+    {
+      "id": "existing-owner",
+      "kind": "artifact",
+      "prompt": "Capture the recurring report-formatting corrections from this history in our existing report skill.",
+      "fixture": {
+        "history": [
+          "Use the existing report columns and preserve totals in each run."
+        ],
+        "installed_skills": [
+          "agent-instructions",
+          "report-formatting"
+        ]
+      },
+      "expectations": [
+        "The existing owner is improved rather than duplicated.",
+        "Only demonstrated reusable corrections are retained; unrelated policies are not added."
+      ]
+    },
+    {
+      "id": "routing-boundaries",
+      "kind": "selection",
+      "prompt": "Choose the entrypoint for each request.",
+      "fixture": {
+        "queries": [
+          "Extract a skill from this completed debugging session.",
+          "Write a new skill from this complete specification.",
+          "Update AGENTS.md to prefer pnpm.",
+          "We often hit this bug; fix it now."
+        ]
+      },
+      "expectations": [
+        "Only the first request starts workflow-to-skill; the next two start agent-instructions; the last is ordinary bug fixing."
+      ]
+    },
+    {
+      "id": "missed-activation",
+      "kind": "state-transition",
+      "prompt": "Capture the lesson from these release-note sessions in our existing skills. Use workflow-to-skill and make the useful correction.",
+      "fixture": {
+        "history": [
+          "Session A: the user requested release notes grouped into Features and Fixes with diff evidence. The agent wrote an ungrouped paragraph without consulting release-notes. After the user explicitly selected release-notes, it produced the correct result.",
+          "Session B: the agent again skipped release-notes for a release summary. The user explicitly selected it and the same existing instructions produced the requested groups and evidence. No change to the body was needed."
+        ],
+        "files": {
+          "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting launch-party invitations.\n---\n\n# Release notes\n\nRead the supplied release diff. Group user-visible changes under Features and Fixes. Link each item to diff evidence. Return the summary without publishing it.\n"
+        }
+      },
+      "expectations": [
+        "The existing release-notes description is corrected to match release-summary requests.",
+        "The working body is preserved; no second release-note skill or duplicate rule is introduced.",
+        "The history is evidence, not an instruction to generate or publish release notes now."
+      ]
+    },
+    {
+      "id": "deterministic-preflight",
+      "kind": "artifact",
+      "prompt": "Turn these completed local startup sessions into a reusable skill named compose-start. Future runs should prepare and start a user-requested local development stack. Return the complete skill package, including any supporting resources the workflow needs, as fenced file blocks labeled with their relative paths. Keep the host's Python 3 runtime; no third-party Python packages are available. Do not operate a real stack or install anything while authoring.",
+      "fixture": {
+        "history": [
+          "Session A: user requested the stack at /project-a/compose.yaml. The agent looked up docker on PATH, ran docker --version, docker compose version --short, and docker info, then read the compose configuration. The user chose the api profile from two valid profiles. With the prerequisites satisfied, the agent ran docker compose -f /project-a/compose.yaml --profile api up -d and checked the result.",
+          "Session B: user requested /project-b/dev/compose.yaml. The agent repeated the same executable, Compose, and engine checks. Docker and Compose were available but docker info failed with a connection error. The agent reported the failure, and the user started their engine. After rechecking, the agent read this project's configuration and started the user-selected web profile."
+        ],
+        "existing_automation": "No preflight script or project task exists. The installed Docker CLI owns its native commands. Python 3 and its standard library are available.",
+        "reference_commands": {
+          "docker --version": "Reports the Docker client version; exit 0 when usable.",
+          "docker compose version --short": "Reports the Compose command version; exit 0 when available.",
+          "docker info": "Queries the configured engine; exit 0 when reachable and usable, nonzero with diagnostic stderr otherwise. A connection failure does not establish whether the cause is a stopped engine, permissions, or a remote endpoint."
+        },
+        "variable_inputs": "Compose file, project location, requested services/profile, and executable paths can vary. The available Compose invocation is docker compose. No separate plugin filesystem path is supplied.",
+        "authority": "The future request authorizes starting its chosen stack after checks. Installing software, changing the Docker context, or starting/reconfiguring the engine is separate work. A preflight check must not perform those repairs."
+      },
+      "expectations": [
+        "Bundle runnable Python standard-library code that composes the deterministic executable, client, Compose, and engine checks; do not stop at describing a future script.",
+        "Discover executable paths at runtime and preserve meaningful check outcomes and diagnostics. A missing executable, failed command, or unreachable engine must not be reported as a passing preflight.",
+        "Parameterize varying inputs, invoke subprocesses without shell interpolation, and bound external probes. The helper performs diagnostics without installation, engine startup, context changes, or stack mutation.",
+        "The skill invokes the helper and uses its results before startup. Project interpretation, unresolved profile or service choices, and repair decisions remain with the agent.",
+        "Run the generated helper against isolated ready, Docker-missing, Compose-unavailable, engine-unreachable, and path-with-spaces fixtures. Record executed checks separately from proposed validation."
+      ]
+    },
+    {
+      "id": "judgment-with-existing-tool",
+      "kind": "artifact",
+      "prompt": "Capture this completed workflow in a reusable skill named ticket-brief. Return its complete package.",
+      "fixture": {
+        "history": "The user supplied a ticket with contradictory acceptance criteria. The agent read the ticket, identified the conflicting requirements, asked which behavior was intended, and returned the clarified acceptance summary. A second ticket used different wording and required the same kind of interpretation.",
+        "existing_automation": "An existing ticket-export command already supplies the ticket as text; no custom parsing, transformation, calculation, or environment probe was needed.",
+        "expected_future_output": "A clarified acceptance summary grounded in the supplied ticket, with material unresolved choices asked of the user."
+      },
+      "expectations": [
+        "Reuse the supplied ticket or existing ticket-export command as the input source.",
+        "Keep interpreting conflicts, asking material unresolved choices, and producing an evidence-grounded summary with the agent.",
+        "Do not add a script or wrapper without a concrete deterministic responsibility beyond the adequate existing command."
+      ]
+    },
+    {
+      "id": "unconfirmed-workflow-objective",
+      "kind": "artifact",
+      "prompt": "Turn these completed report-checking sessions into a reusable report-check skill.",
+      "fixture": {
+        "history": [
+          "The user asked 'check this report'. The agent checked whether the figures matched the spreadsheet and found no mismatches. The user accepted the report.",
+          "The user asked 'check this report'. The agent corrected wording and section order without checking figures. The user accepted the report."
+        ],
+        "future_intent": "No future definition of 'check' has been supplied, and no instruction says whether factual reconciliation, editorial review, or both are intended."
+      },
+      "expectations": [
+        "Ask what future report checking should establish: factual reconciliation, editorial review, or both.",
+        "Do not treat acceptance of two different past outputs as confirmation of a single future objective.",
+        "Keep dependent skill behavior unresolved until the user answers; distinguish confirmed history from the unconfirmed reusable objective."
+      ]
+    },
+    {
+      "id": "linked-decision-and-existing-check",
+      "kind": "artifact",
+      "prompt": "Turn the completed billing-import work in sessions.md into reusable instructions. Improve the existing owner if it fits. Use the available project artifacts and make the skill edit.",
+      "fixture": {
+        "files": {
+          "context-index.json": "{\"decisions\": [{\"id\": \"D-14\", \"file\": \"decisions/d14.md\"}], \"owner\": \"skills/import-records/SKILL.md\"}",
+          "sessions.md": "# Relevant completed work: billing-import\n2026-09-22: Imported the Aurora partner export. The task began without the existing import-records skill loaded. A new one-off check_rows.py was proposed. User pointed to `python3 tools/import_records.py --validate-only` already in the repository. The built-in check found three invalid rows. Final work used it and preserved the full rejection file.\nUser: \"For this test run only, do not send the partner email until I approve it. In the reusable workflow follow the actual notification policy.\"\nAssistant: \"We should reject padded identifiers because whitespace is always bad.\"\nUser: \"Read the approval in decision D-14 first; this vendor is a migration exception.\"\nThe successful artifact normalized padded external identifiers before validation and saved original identifiers in a local reconciliation ledger. It did not change prices or round amounts. The operator later ran the normal notification job.\n2026-09-28: Boreal export. The existing skill was loaded. It used the built-in validator and preserved rejects. No extra script was necessary. Fixed decimals were kept. No email approval was requested by this user.\n",
+          "tools/import_records.py": "import argparse\np = argparse.ArgumentParser()\np.add_argument('--validate-only', action='store_true')\np.add_argument('input')\nargs = p.parse_args()\nprint('Validator fixture: rows retain the supplied precision; no imports or notifications are executed.')\n",
+          "decisions/d14.md": "# D-14: external identifiers\nStatus: approved for Aurora migration imports only; owner: Billing platform.\n2026-09-20: Trim surrounding whitespace for Aurora imports and keep an original-to-normalized ledger. Other partners retain exact identifiers and reject malformed rows. Financial amounts are preserved as supplied; unresolved format or precision requires a contract decision.\nNotification policy: use the existing operator notification job; this document does not grant an agent permission to contact partners.\n",
+          "skills/import-records/SKILL.md": "---\nname: import-records\ndescription: Validate and import partner billing records from an export file.\n---\n# Import records\nRead the partner schema and the current approved migration decisions before changing records.\nUse the repository's `tools/import_records.py --validate-only` from the repository root before an authorized import. Keep the full rejection report.\nUse the notification job only within the active task's authorization. Do not embed paths, dates, or partner names from a past run as universal defaults.\n"
+        }
+      },
+      "expectations": [
+        "Read D-14 and preserve its partner-limited scope. A successful Aurora migration does not make normalization universal.",
+        "Use the existing validator; do not add a second script or copy project-specific policy into a portable skill default.",
+        "Preserve rejection reports, financial precision and the notification authority boundary.",
+        "Separate a missed invocation from missing guidance and actual business knowledge. Continue through the authorized edit."
+      ]
+    }
+  ]
+}

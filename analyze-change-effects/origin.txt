@@ -1,0 +1,46 @@
+format_version = 1
+skill = "analyze-change-effects"
+created = "2026-10-03"
+approach = "Standalone derivation focused on indirect breakage and executable evidence. It is not a wrapper or extension of another local skill."
+
+[[sources]]
+id = "pstack-blast-radius"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/blast-radius/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/blast-radius/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Find downstream breakage that a symbol search or the visible diff can miss.",
+  "Identify deciding safety assumptions and test them by executing actual code.",
+  "Inspect pinned dependencies, local patches, lifecycle timing, data formats, and indirect consumers when relevant.",
+  "Distinguish a source citation, a traced unreachable failure path, a local probe, and application reproduction.",
+  "Separate confirmed risks, cleared paths, unproven claims, and the next useful check."
+]
+local_choices = [
+  "Renamed locally from blast-radius to analyze-change-effects to describe the task. Source names and historical evaluation records retain their original identities.",
+  "Keep analyze-change-effects independent of review-audit; neither is a donor, wrapper, extension, or prerequisite for the other.",
+  "Use a short activation description and default discoverability; omit the Cursor-only invocation flag.",
+  "Support existing changes directly. Proposed-change analysis is a local extension and not the justification for this skill's independent existence.",
+  "Resolve the actual comparison and use history when it answers a concrete constraint, without a required why invocation.",
+  "Test all material independent assumptions; one proven fact does not clear unrelated hazards.",
+  "Use qualitative reachability and impact rather than inventing probabilities.",
+  "Keep focused execution central while respecting explicit read-only limits and unavailable runtime dependencies.",
+  "Use disposable probes under the caller's scratch rules; preserve product source, committed tests, dependency pins, configuration, and remote state.",
+  "Exercise the actual changed boundary; a reimplementation, dependency substitute, new-producer-only test, or unasserted exit code is not equivalent proof.",
+  "Do not require compare-solutions, unslop, fixed models, worktrees, public reports, or repair. Optional authorized delegation does not establish truth by consensus.",
+  "Keep a proposed scenario, inspected source path, and observed execution distinct, with precise scope and stopping conditions."
+]
+reviews = [
+  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+]
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested skill-source maintenance and authoring; ordinary investigation has no skill dependency."
