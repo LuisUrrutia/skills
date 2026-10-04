@@ -7,8 +7,8 @@ Use the returned evidence with its limits and reconcile it with the protocol.
 
 | Review question | Support and requested result |
 | --- | --- |
-| How does this path work, and who owns its state? | `how`: a bounded mechanism and ownership trace. |
-| Why does this consequential guard or constraint exist? | `why`: historical evidence, distinguished from inference and current necessity. |
+| How does this path work, and who owns its state? | `explain-code`: a bounded mechanism and ownership trace. |
+| Why does this consequential guard or constraint exist? | `explain-decisions`: historical evidence, distinguished from inference and current necessity. |
 | Which explanation accounts for a suspected failure? | `debug`: diagnosis-only tracing and a discriminating reproduction or explicit evidence gap; no repair or live-tree instrumentation. |
 | Could this changed contract break an indirect consumer? | `analyze-change-effects`: the deciding assumption, trace, and permitted probe. Preserve caller-owned seams and inspection-only limits. |
 | Is there a concretely better model or boundary? | `design-code-structure`: a design-only comparison grounded in current callers; no implementation or repository-wide redesign. |

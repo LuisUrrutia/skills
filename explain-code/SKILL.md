@@ -1,9 +1,9 @@
 ---
-name: how
+name: explain-code
 description: Use when explaining how existing code works or which component owns a behavior.
 ---
 
-# How
+# Explain code
 
 Explain an existing system from its source: what happens, which component owns
 each responsibility, and where the behavior lives.
@@ -18,8 +18,10 @@ request is broad; ask only when an unresolved ambiguity would materially change
 the answer.
 
 Keep neighboring tasks distinct. Investigating an observed failure belongs to
-debug; explaining a branch's changes belongs to walkthrough; reconstructing a
-historical decision belongs to a separate historical investigation. Explain the
+debug; reconstructing a historical decision belongs to `explain-decisions`.
+For a mechanism changed by a branch or commit, resolve the requested revision
+and explain the relevant before and after behavior from the diff and source.
+Do not turn that explanation into a review or a general activity report. Explain the
 requested mechanism without silently starting repairs, a diff audit, or a course.
 If the request combines tasks, preserve them and their existing owners.
 
@@ -64,7 +66,8 @@ explanation of their relationship.
 Use a diagram, small example, or excerpt when it clarifies that relationship.
 Keep it consistent with the real path and distinguish illustrative inputs from
 observed execution. Scale the format to the question; a narrow answer needs no
-fixed sections. Guided teaching, exercises, and learning plans are separate tasks.
+fixed sections. Guided teaching and exercises belong to `teach`; study plans belong to
+`learning-plan`. Use them when requested, not for every explanation.
 
 Put source locations beside the claims they support, with a short navigation map
 only when it helps the reader continue. Distinguish a component's present function

@@ -1,0 +1,110 @@
+format_version = 1
+skill = "teach"
+created = "2026-10-04"
+approach = "Standalone derivation of selected teaching and learning-design mechanisms; donor skills are not runtime dependencies."
+
+[[sources]]
+id = "teach-pstack"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/teach/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/teach/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Start from the learner purpose and prior knowledge; explain a concrete mechanism at appropriate depth.", "Preserve historical confidence and combine evidence into the explanation itself."]
+local_choices = ["Use local explain-code and explain-decisions conditionally, with direct evidence fallback.", "No fixed sentence stops, mandatory repeated diagrams, image generation, English-only conversation, or upstream runtime dependencies."]
+
+[[sources]]
+id = "teach-matt"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+reviewed_through = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+baseline_paths = ["skills/productivity/teach/SKILL.md", "skills/productivity/teach/MISSION-FORMAT.md", "skills/productivity/teach/RESOURCES-FORMAT.md", "skills/productivity/teach/LEARNING-RECORD-FORMAT.md", "skills/productivity/teach/GLOSSARY-FORMAT.md", "LICENSE"]
+paths = ["skills/productivity/teach/SKILL.md", "skills/productivity/teach/MISSION-FORMAT.md", "skills/productivity/teach/RESOURCES-FORMAT.md", "skills/productivity/teach/LEARNING-RECORD-FORMAT.md", "skills/productivity/teach/GLOSSARY-FORMAT.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Tie a bounded lesson to a meaningful goal; combine knowledge with appropriate practice and feedback.", "Distinguish presented material from evidence of understanding; adapt subsequent practice."]
+local_choices = ["One-session teaching is supported; no automatic course workspace, HTML, profile, glossary, or records.", "No fixed answer length in quizzes, mandatory communities, or claim that a record computes a psychological development zone."]
+
+[[sources]]
+id = "teach-humanlayer"
+author = "HumanLayer"
+repository = "https://github.com/humanlayer/skills"
+remote = "git@github.com:humanlayer/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "ca7c8088db69e315a8b2deea43820270457f8f3c"
+reviewed_through = "ca7c8088db69e315a8b2deea43820270457f8f3c"
+baseline_paths = ["plugins/show-me/skills/show-me/SKILL.md", "LICENSE"]
+paths = ["plugins/show-me/skills/show-me/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Choose the smallest visual that clarifies a mechanism and place explanation beside it."]
+local_choices = ["Use available host tooling; do not require Cursor invocation metadata or macOS open."]
+
+[[sources]]
+id = "teach-mblode"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+baseline_paths = ["skills/eli5/SKILL.md", "skills/eli5/references/formats.md", "LICENSE.md"]
+paths = ["skills/eli5/SKILL.md", "skills/eli5/references/formats.md", "LICENSE.md"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Choose the explanation medium by what the learner needs to see or manipulate.", "Check rendered diagrams and interactive controls; change framing when an explanation fails."]
+local_choices = ["Presentation mechanics stay with local specialists; do not require permission for every useful visual or impose a media stack."]
+
+[[sources]]
+id = "teach-ce"
+author = "Every / Compound Engineering"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+baseline_paths = ["skills/ce-explain/SKILL.md", "skills/ce-explain/references/intake.md", "skills/ce-explain/references/check-in.md", "skills/ce-explain/references/orchestration.md", "LICENSE"]
+paths = ["skills/ce-explain/SKILL.md", "skills/ce-explain/references/intake.md", "skills/ce-explain/references/check-in.md", "skills/ce-explain/references/orchestration.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Separate learner identity from workflow caller; return requested teaching content and material limits.", "Practice tests application and exposes a plausible misconception; standalone questions have answer guidance."]
+local_choices = ["Support live feedback and interactive artifacts as requested, not static-only check-ins.", "No CE configuration, artifact root, model tiers, or publishing service."]
+
+[[dependencies]]
+kind = "local"
+name = "explain-code"
+required = false
+role = "Evidence for existing code mechanisms."
+
+[[dependencies]]
+kind = "local"
+name = "explain-decisions"
+required = false
+role = "Evidence for historical rationale."
+
+[[dependencies]]
+kind = "local"
+name = "learning-plan"
+required = false
+role = "Multi-session learning progression."
+
+[[dependencies]]
+kind = "local"
+name = "communicate-clearly"
+required = false
+role = "Prose and audience adaptation."
+
+[[dependencies]]
+kind = "local"
+name = "write-documentation"
+required = false
+role = "Saved lesson structure and reader-path checks."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Requested source maintenance and instruction authoring only."

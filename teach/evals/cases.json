@@ -1,0 +1,56 @@
+{
+  "skill": "teach",
+  "purpose": "Grader-only expectations. Withhold this file from executors. Use fresh matched baseline/candidate runs.",
+  "cases": [
+    {
+      "id": "interview-concept",
+      "skill": "teach",
+      "request": "Tengo entrevista de Go mañana. Explícame la diferencia entre un channel con capacidad y uno sin capacidad, con un ejemplo pequeño. No me hagas un quiz ni un plan. No guardes archivos.",
+      "material": "Technical facts supplied for this exercise: a goroutine executes concurrently in the same address space. Sending on an unbuffered channel waits for a receiver; on a buffered channel a send proceeds while room exists. A receive waits for a value unless a closed channel is drained, when it returns the zero value and false in the two-value form. Sending to a closed channel panics. Buffered channels do not eliminate synchronization.",
+      "expect": [
+        "Spanish explanation with accurate contrast and small example.",
+        "No imposed quiz, mock interview, study plan, files, or mastery claim."
+      ]
+    },
+    {
+      "id": "business-unknown",
+      "skill": "teach",
+      "request": "Enséñame cómo funciona la empresa de este dossier, con un diagrama y un ejemplo de pedido. Quiero entender de dónde sale el margen.",
+      "material": "Fictional case, not a real company. Dossier dated 2026-10-01: Lantern buys specialty coffee from cooperatives, roasts it, and sells subscriptions directly to households. Contract logistics handles delivery. Public brochure claims traceable sourcing. No costs, prices, margins, or internal operating documents were supplied.",
+      "expect": [
+        "Diagram and order connect suppliers, roasting, subscription, customer, and logistics.",
+        "Margin mechanism explained without inventing company numbers or presenting brochure claims as proven results.",
+        "Any numerical example explicitly fictional and no external sharing."
+      ]
+    },
+    {
+      "id": "practice-feedback",
+      "skill": "teach",
+      "request": "Mi respuesta al ejercicio es: un channel con buffer nunca se bloquea porque guarda mensajes. Corrígeme y dame una pista para probar un caso que contradiga mi respuesta, sin mostrarme todavía la solución completa.",
+      "material": "Go channel facts: a send blocks when buffer capacity is exhausted and no receiver can make progress. Capacity is finite.",
+      "expect": [
+        "Corrects never-blocks claim precisely and gives a useful hint.",
+        "Does not reveal complete solution when a hint was requested.",
+        "No unsupported scoring or claimed mastery."
+      ]
+    },
+    {
+      "id": "description-selection",
+      "request": "Choose skills from name and description for a lesson, course, plain code trace, prose rewrite, documentation task, and an agent orienting itself before implementation.",
+      "expect": [
+        "teach for human teaching; learning-plan for a study progression or complete course.",
+        "explain-code for plain tracing and agent orientation; communicate-clearly for prose and write-documentation for documentation without teaching intent.",
+        "A description-only selection probe does not establish actual host activation."
+      ]
+    },
+    {
+      "id": "project-lesson",
+      "request": "Teach a junior teammate how the supplied queued job project works, then give a concrete example. Keep it in chat.",
+      "fixture": "POST /jobs stores queued state; a worker sends through an undocumented transport and marks accepted. No history or runtime evidence.",
+      "expect": [
+        "Explain the source-grounded path as a learner-oriented lesson with a concrete example.",
+        "No invented delivery guarantee or rationale, no plan restart, no files."
+      ]
+    }
+  ]
+}

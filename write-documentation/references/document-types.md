@@ -47,5 +47,5 @@ Follow the project's record format and status conventions. Separate context,
 considered alternatives, the actual decision, and consequences supported by its
 evidence. Preserve accepted history and identify a superseding decision or dated
 correction instead of making the past match today's code. Missing rationale stays
-unknown; use `why` for investigation when available, rather than inventing a reason.
+unknown; use `explain-decisions` for investigation when available, rather than inventing a reason.
 A documentation edit does not itself approve an architectural decision.

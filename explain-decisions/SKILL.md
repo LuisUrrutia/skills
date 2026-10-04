@@ -1,9 +1,9 @@
 ---
-name: why
+name: explain-decisions
 description: Use when reconstructing the reasons behind existing code or design decisions.
 ---
 
-# Why
+# Explain decisions
 
 Explain what evidence establishes about a decision's origin, constraints, and
 tradeoffs. Use this skill directly; no coordinator or upstream skill is required.
@@ -17,7 +17,7 @@ resolve a vague target; ask only if different interpretations change the inquiry
 
 Separate the original reason, later reasons for keeping the design, and its
 present technical effect. These may differ. Current behavior and ownership belong
-to how; diagnosing an observed failure belongs to debug. Preserve combined
+to explain-code; diagnosing an observed failure belongs to debug. Preserve combined
 requests without silently taking on repairs, a general audit, or guided teaching.
 
 ## Follow relevant evidence

@@ -7,12 +7,10 @@ the current state does not resolve the items below.
 
 ## Pending cleanup
 
-- [ ] Reconcile the removed `walkthrough` skill with current consumers.
-  [skills.sh.json](skills.sh.json) still lists it, and
-  [how/SKILL.md](how/SKILL.md) routes branch-change explanations to it.
-  Remove obsolete routing or select an explicit replacement. Review the same
-  claim in the [atlas](reports/skill-atlas/index.html). Preserve historical
-  source records as history rather than treating them as available skills.
+- [x] Reconcile the removed `walkthrough` skill with current consumers.
+  The registry no longer lists it. `explain-code` (formerly `how`) handles
+  requested before/after mechanism explanations; `teach` handles guided lessons.
+  Historical source records remain historical.
 - [ ] Refresh [HANDOFF.md](HANDOFF.md) before using it for another transfer.
   Its captured baseline, source-progress counts and uncommitted-deletion state
   predate this checkpoint. Include the upstream adoption commits and current

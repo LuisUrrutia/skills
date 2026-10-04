@@ -72,7 +72,7 @@ behavioral equivalence are supported:
   changes, and unrelated renames outside a focused cleanup.
 
 When the reason for a consequential workaround remains unclear, use relevant
-history or the available `why` skill by registered name. Check its present effect
+history or the available `explain-decisions` skill by registered name. Check its present effect
 as well as its original motivation. Missing evidence is a reason to retain the
 uncertain part and explain the gap, not evidence that it is redundant.
 
