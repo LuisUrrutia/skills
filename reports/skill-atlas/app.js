@@ -3,8 +3,13 @@
 const atlas = window.SKILL_ATLAS;
 const repositoryInventory = atlas.repositoryInventory;
 const repositorySkills = new Map(repositoryInventory.skills.map((skill) => [skill.name, skill]));
-const byKey = new Map(atlas.skills.map((skill) => [skill.key, skill]));
-const byId = new Map(atlas.skills.map((skill) => [skill.id, skill]));
+const sourceReviews = new Map(atlas.authorReview.skills.map((skill) => [skill.key, skill]));
+const originalKeys = new Set(atlas.skills.map((skill) => skill.key));
+const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key))];
+const byKey = new Map(catalogSkills.map((skill) => [skill.key, skill]));
+const byId = new Map(catalogSkills.map((skill) => [skill.id, skill]));
+const recommendationFor = (skill) => sourceReviews.get(skill.key) || skill;
+const progressFor = (skill) => atlas.sourceProgress.skills[skill.key];
 const supplements = new Map(atlas.supplementary.map((source) => [source.id, source]));
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[character]);
 const slug = (value) => value.toLowerCase().replace(/[^a-z0-9]+/g, "-");
@@ -640,6 +645,28 @@ function repositoryReference(skill) {
   return `<p class="notice" lang="en">${status} The description and source below record the original local snapshot.</p>`;
 }
 
+function progressMarkup(skill) {
+  const progress = progressFor(skill);
+  const owners = progress.owners.map((name) => `<a href="#repository-${escapeHtml(name)}"><code>${escapeHtml(name)}</code></a>`).join(", ");
+  const evidence = progress.evidence.map((record) => `<li><code>${escapeHtml(record.path)}:${record.line}</code>${record.baselineCommit ? ` · adopted baseline <code>${escapeHtml(record.baselineCommit.slice(0, 12))}</code>` : ""}${record.borrowed?.length ? `<p>${escapeHtml(record.borrowed.join(" "))}</p>` : ""}</li>`).join("");
+  return `<div class="source-progress" lang="en"><p><strong>${progress.status === "ready" ? "✓ " : ""}${escapeHtml(progress.label)}</strong>${owners ? ` in ${owners}` : ""}. ${escapeHtml(progress.note)}</p>${evidence ? `<details class="evidence"><summary>Completion evidence (${progress.evidence.length})</summary><ul>${evidence}</ul></details>` : ""}</div>`;
+}
+
+function reviewEvidenceMarkup(skill) {
+  const review = sourceReviews.get(skill.key);
+  if (!review) return evidenceMarkup([skill.key]);
+  const references = review.references.map((ref) => `<li><strong>${escapeHtml(ref.path)}</strong><span>${escapeHtml(ref.coverage)}</span><a href="${escapeHtml(ref.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(ref.url)}</a></li>`).join("");
+  const prior = originalKeys.has(skill.key) ? `<details class="evidence"><summary>Original review snapshot</summary><p>${escapeHtml(skill.summary)}</p><p>${escapeHtml(skill.reason)}</p><ul>${sourceMarkup(skill.key)}</ul></details>` : "";
+  return `<p class="skill-meta" lang="en">Review: ${escapeHtml(review.inspection)}</p><details class="evidence" lang="en"><summary>Current pinned source and inspected references (${review.references.length + 1})</summary><ul><li><strong>${escapeHtml(review.group)} / ${escapeHtml(review.name)}</strong><a href="${escapeHtml(review.source)}" target="_blank" rel="noopener noreferrer">${escapeHtml(review.source)}</a></li>${references}</ul></details>${prior}`;
+}
+
+document.querySelectorAll("[data-catalog-count]").forEach((element) => { element.textContent = catalogSkills.length; });
+document.querySelector("#author-collections").innerHTML = atlas.authorReview.collections.map((collection) => `<article class="surface"><h3>${escapeHtml(collection.name)}</h3><p><strong>${collection.count}</strong> skills · <strong>${collection.incorporated}</strong> sources already incorporated</p><a href="?group=${encodeURIComponent(collection.name)}#catalog">Browse this collection</a><details class="evidence"><summary>Pinned repository</summary><p><a href="${escapeHtml(collection.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(collection.url)}</a></p></details></article>`).join("");
+document.querySelector("#author-shortlist").innerHTML = atlas.authorReview.shortlist.map((item, index) => `<article class="surface"><p class="kicker">${index + 1}. ${escapeHtml(item.route)}</p><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.why)}</p><p><strong>Owner:</strong> ${escapeHtml(item.owner)}.</p><p class="skill-meta">${escapeHtml(item.boundary)}</p>${skillLinks(item.keys)}</article>`).join("");
+document.querySelector("#author-internal-references").innerHTML = atlas.authorReview.internalReferences.map((item) => `<article class="surface review-boundaries"><p class="kicker">Additional internal reference · ${escapeHtml(item.status)}</p><h3>${escapeHtml(item.collection)} / ${escapeHtml(item.name)}</h3><p>${escapeHtml(item.summary)}</p><p><strong>Proposed owner:</strong> <code>${escapeHtml(item.owner)}</code>. ${escapeHtml(item.reason)}</p><p>${escapeHtml(item.action)}. ${escapeHtml(item.caution)}</p><details class="evidence"><summary>Inspected internal procedure and supporting guidance</summary><ul>${item.files.map((file) => `<li><strong>${escapeHtml(file.path)}</strong><span>${escapeHtml(file.coverage)}</span><a href="${escapeHtml(file.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(file.url)}</a></li>`).join("")}</ul></details></article>`).join("");
+document.querySelector("#author-review-limits").innerHTML = `<p>${escapeHtml(atlas.authorReview.scope)}</p><ul>${atlas.authorReview.limitations.map((limit) => `<li>${escapeHtml(limit)}</li>`).join("")}</ul>`;
+document.querySelector("#source-progress-summary").innerHTML = `<strong>${atlas.sourceProgress.counts.ready} sources ready</strong> · ${atlas.sourceProgress.counts.pending} pending · ${atlas.sourceProgress.counts.optional} optional · ${atlas.sourceProgress.counts["not-selected"]} not selected. <a href="?progress=ready#catalog">Show ready sources</a>.`;
+
 document.querySelectorAll("[data-repository-count]").forEach((element) => { element.textContent = repositoryInventory.skills.length; });
 document.querySelectorAll("[data-pending-count]").forEach((element) => { element.textContent = repositoryInventory.pending.length; });
 document.querySelector("#repository-inventory").innerHTML = repositoryInventory.groups.map((group) => {
@@ -656,7 +683,13 @@ document.querySelector("#cluster-list").innerHTML = clusters.map((cluster) => `<
 
 document.querySelector("#conflict-list").innerHTML = conflicts.map((conflict, index) => `<details class="conflict" ${index < 3 ? "open" : ""}><summary><h3>${escapeHtml(conflict.title)}</h3><span class="badge ${slug(conflict.kind)}">${escapeHtml(kindLabels[conflict.kind])}</span></summary><div><p><strong>Qué pide la fuente.</strong> ${escapeHtml(conflict.before)}</p><p class="resolution"><strong>Resolución recomendada.</strong> ${escapeHtml(conflict.after)}</p>${evidenceMarkup(conflict.keys)}</div></details>`).join("");
 
-document.querySelector("#skill-list").innerHTML = atlas.skills.map((skill) => `<details class="skill-row" id="${skill.id}"><summary><span><span class="skill-title">${escapeHtml(skill.name)}</span><span class="skill-meta">${escapeHtml(skill.group === "Local" ? skill.kind === "system" ? "Incluida en Codex" : "Original local snapshot" : groupLabels[skill.group] || skill.group)} · ${escapeHtml(skill.category)}${skill.entryType === "playbook" ? " · Procedimiento de poteto-mode" : ""}</span></span><span class="badge ${slug(skill.decision)}">${escapeHtml(decisionLabels[skill.decision])}</span></summary><div class="skill-body">${repositoryReference(skill)}<p>${escapeHtml(skill.summary)}</p><p class="skill-owner">Responsable propuesto: <strong>${escapeHtml(skill.owner)}</strong></p><dl><div><dt>Por qué incluirla o elegirla</dt><dd>${escapeHtml(skill.reason)}</dd></div><div><dt>Qué adaptar o tener en cuenta</dt><dd>${escapeHtml(skill.caution)}</dd></div></dl><p class="skill-meta">${escapeHtml(skill.author)}. ${skill.entryType === "playbook" ? "Título del procedimiento" : "Nombre declarado"}: <code>${escapeHtml(skill.declaredName)}</code>. ${skill.lines} líneas en la fuente.</p>${evidenceMarkup([skill.key])}</div></details>`).join("");
+document.querySelector("#skill-list").innerHTML = catalogSkills.map((skill) => {
+  const review = recommendationFor(skill);
+  const progress = progressFor(skill);
+  const owner = progress.owners.length ? progress.owners.join(", ") : review.owner;
+  const historicalNote = sourceReviews.has(skill.key) ? "" : '<p class="skill-meta" lang="en">The rationale below is the original assessment. Current incorporation and its evidence are shown above.</p>';
+  return `<details class="skill-row" id="${skill.id}"><summary><span><span class="skill-title">${escapeHtml(skill.name)}</span><span class="skill-meta">${escapeHtml(skill.group === "Local" ? skill.kind === "system" ? "Included in Codex" : "Original local snapshot" : groupLabels[skill.group] || skill.group)} · ${escapeHtml(review.category)}${skill.entryType === "playbook" ? " · poteto-mode procedure" : ""}</span></span><span class="source-badges"><span class="badge progress-${progress.status}" lang="en">${progress.status === "ready" ? "✓ " : ""}${escapeHtml(progress.label)}</span><span class="badge ${slug(review.decision)}">${escapeHtml(review.action || decisionLabels[review.decision])}</span></span></summary><div class="skill-body">${progressMarkup(skill)}${repositoryReference(skill)}<p>${escapeHtml(review.summary)}</p><p class="skill-owner" lang="en">${progress.status === "ready" ? "Current recipient or source role" : "Proposed owner"}: <strong>${escapeHtml(owner)}</strong>${review.priority ? ` · ${escapeHtml(review.priority)}` : ""}</p>${historicalNote}<dl><div><dt lang="en">Why use it</dt><dd>${escapeHtml(review.reason)}</dd></div><div><dt lang="en">What to adapt or preserve</dt><dd>${escapeHtml(review.caution)}</dd></div></dl><p class="skill-meta">${escapeHtml(skill.author)}. <code>${escapeHtml(skill.declaredName)}</code> · ${review.lines} source lines.</p>${reviewEvidenceMarkup(skill)}</div></details>`;
+}).join("");
 
 document.querySelector("#repository-sources").innerHTML = atlas.repositories.map((repository) => `<article class="repo-source"><strong>${escapeHtml(repository.repo)}</strong><span>${repository.count} entradas revisadas</span><a href="${escapeHtml(repository.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(repository.url)}</a></article>`).join("");
 document.querySelector("#additional-sources").innerHTML = `<ul class="evidence">${atlas.supplementary.map((source) => sourceMarkup(source.id)).join("")}</ul><h3>Fuentes locales e incluidas</h3><ul class="evidence">${atlas.skills.filter((skill) => skill.kind !== "upstream" && !skill.source).map((skill) => sourceMarkup(skill.key)).join("")}</ul>`;
@@ -665,9 +698,14 @@ const search = document.querySelector("#search");
 const groupFilter = document.querySelector("#group-filter");
 const categoryFilter = document.querySelector("#category-filter");
 const decisionFilter = document.querySelector("#decision-filter");
+const progressFilter = document.querySelector("#progress-filter");
 const filters = document.querySelector("#filters");
-const skillRows = new Map(atlas.skills.map((skill) => [skill.id, document.getElementById(skill.id)]));
-const searchable = new Map(atlas.skills.map((skill) => [skill.id, normalizedSearch([skill.key, skill.declaredName, skill.author, skill.category, skill.owner, skill.summary, skill.reason, skill.caution].join(" "))]));
+const skillRows = new Map(catalogSkills.map((skill) => [skill.id, document.getElementById(skill.id)]));
+const searchable = new Map(catalogSkills.map((skill) => {
+  const review = recommendationFor(skill);
+  const progress = progressFor(skill);
+  return [skill.id, normalizedSearch([skill.key, skill.declaredName, skill.author, review.category, review.owner, review.summary, review.reason, review.caution, review.action || "", progress.label, ...progress.owners].join(" "))];
+}));
 
 function fillOptions(select, values) {
   [...new Set(values)].sort().forEach((value) => {
@@ -678,23 +716,24 @@ function fillOptions(select, values) {
   });
 }
 
-fillOptions(groupFilter, atlas.skills.map((skill) => skill.group));
-fillOptions(categoryFilter, atlas.skills.map((skill) => skill.category));
-fillOptions(decisionFilter, atlas.skills.map((skill) => skill.decision));
+fillOptions(groupFilter, catalogSkills.map((skill) => skill.group));
+fillOptions(categoryFilter, catalogSkills.map((skill) => recommendationFor(skill).category));
+fillOptions(decisionFilter, catalogSkills.map((skill) => recommendationFor(skill).decision));
 
 function applyFilters(updateUrl = true) {
   const words = normalizedSearch(search.value.trim()).split(/\s+/).filter(Boolean);
   let count = 0;
-  for (const skill of atlas.skills) {
-    const matches = (!groupFilter.value || skill.group === groupFilter.value) && (!categoryFilter.value || skill.category === categoryFilter.value) && (!decisionFilter.value || skill.decision === decisionFilter.value) && words.every((word) => searchable.get(skill.id).includes(word));
+  for (const skill of catalogSkills) {
+    const review = recommendationFor(skill);
+    const matches = (!groupFilter.value || skill.group === groupFilter.value) && (!categoryFilter.value || review.category === categoryFilter.value) && (!decisionFilter.value || review.decision === decisionFilter.value) && (!progressFilter.value || progressFor(skill).status === progressFilter.value) && words.every((word) => searchable.get(skill.id).includes(word));
     skillRows.get(skill.id).hidden = !matches;
     if (matches) count += 1;
   }
-  document.querySelector("#result-count").textContent = `${count} de ${atlas.skills.length} fichas`;
+  document.querySelector("#result-count").textContent = `${count} de ${catalogSkills.length} fichas`;
   document.querySelector("#empty-state").hidden = count !== 0;
   if (updateUrl) {
     const url = new URL(location.href);
-    for (const [key, value] of [["q", search.value], ["group", groupFilter.value], ["category", categoryFilter.value], ["decision", decisionFilter.value]]) {
+    for (const [key, value] of [["q", search.value], ["group", groupFilter.value], ["category", categoryFilter.value], ["decision", decisionFilter.value], ["progress", progressFilter.value]]) {
       if (value) url.searchParams.set(key, value);
       else url.searchParams.delete(key);
     }
@@ -707,6 +746,7 @@ function clearFilters() {
   groupFilter.value = "";
   categoryFilter.value = "";
   decisionFilter.value = "";
+  progressFilter.value = "";
   applyFilters();
 }
 
@@ -716,6 +756,7 @@ function readFiltersFromUrl() {
   groupFilter.value = parameters.get("group") || "";
   categoryFilter.value = parameters.get("category") || "";
   decisionFilter.value = parameters.get("decision") || "";
+  progressFilter.value = parameters.get("progress") || "";
   applyFilters(false);
 }
 

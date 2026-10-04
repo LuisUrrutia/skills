@@ -4018,7 +4018,7 @@ window.SKILL_ATLAS = {
   },
   "repositoryInventory": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "ce5e971ab4e9943eabf5b1dacde7c0983ae3c614",
+    "repositoryCommit": "b4908e702867a3e9c3fb7e01ca4559b6fc173b34",
     "scope": "Top-level skill packages present in this working tree. Presence does not prove installation, activation or production validation.",
     "groups": [
       "Instruction authoring",
@@ -4305,5 +4305,6346 @@ window.SKILL_ATLAS = {
       "Use debug for wider diagnosis and verify for application evidence only when relevant."
     ],
     "record": "reports/error-handling-validation.json"
+  },
+  "authorReview": {
+    "date": "2026-10-04",
+    "repositoryCommit": "b4908e702867a3e9c3fb7e01ca4559b6fc173b34",
+    "total": 95,
+    "remainingReviewed": 77,
+    "alreadyIncorporated": 18,
+    "additionalCatalogCards": 87,
+    "scope": "All 95 distributed SKILL.md entrypoints under the four repositories' skills/ or plugins/ directories. The 77 not already in local provenance received procedure/compatibility screening; selected candidates and the explicitly listed references received deeper inspection. The 18 existing sources were mapped to local provenance, not audited for upstream changes. Compound also has one internal contributor skill, assessed separately below, and six test fixtures excluded from adoption counts.",
+    "limitations": [
+      "Recommendations are a selection review, not installation or runtime certification of the collection.",
+      "Only listed supporting files were inspected. Hundreds of other references, scripts and agent prompts were not exhaustively audited.",
+      "No new skill was installed or authored, and no local origin baseline or update cursor was changed.",
+      "The only upstream execution was chat-history against a synthetic local fixture; no private transcript stores were read.",
+      "A ready check records selected incorporation or a present local package, not a fully synchronized upstream copy."
+    ],
+    "collections": [
+      {
+        "id": "humanlayer",
+        "name": "HumanLayer",
+        "author": "HumanLayer",
+        "repository": "https://github.com/humanlayer/skills",
+        "commit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+        "url": "https://github.com/humanlayer/skills/tree/ca7c8088db69e315a8b2deea43820270457f8f3c",
+        "count": 6,
+        "incorporated": 2,
+        "license": "MIT"
+      },
+      {
+        "id": "mblode",
+        "name": "Matthew Blode",
+        "author": "Matthew Blode",
+        "repository": "https://github.com/mblode/agent-skills",
+        "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "url": "https://github.com/mblode/agent-skills/tree/012e6e5208f512151bdea0e2965dafd01ff61340",
+        "count": 28,
+        "incorporated": 4,
+        "license": "MIT"
+      },
+      {
+        "id": "addy",
+        "name": "Addy Osmani",
+        "author": "Addy Osmani",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "url": "https://github.com/addyosmani/agent-skills/tree/1401c8b8030e023baeebb31781a6653fe8e93026",
+        "count": 25,
+        "incorporated": 6,
+        "license": "MIT"
+      },
+      {
+        "id": "compound",
+        "name": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "url": "https://github.com/EveryInc/compound-engineering-plugin/tree/9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "count": 36,
+        "incorporated": 6,
+        "license": "MIT"
+      }
+    ],
+    "skills": [
+      {
+        "collection": "humanlayer",
+        "path": "plugins/build-iterated-agentic-loop/skills/build-iterated-agentic-loop/SKILL.md",
+        "sha": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+        "sha256": "dea5c29e2cb6133896b0bb518775e18863df377ebe0198f8d867e28e52155671",
+        "lines": 214,
+        "chars": 13553,
+        "name": "build-iterated-agentic-loop",
+        "id": "humanlayer-build-iterated-agentic-loop",
+        "key": "HumanLayer/build-iterated-agentic-loop",
+        "declaredName": "build-iterated-agentic-loop",
+        "group": "HumanLayer",
+        "author": "HumanLayer",
+        "kind": "upstream",
+        "repository": "https://github.com/humanlayer/skills",
+        "source": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/plugins/build-iterated-agentic-loop/skills/build-iterated-agentic-loop/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Scheduled maintenance",
+        "owner": "Future scheduled maintenance workflow",
+        "summary": "Builds a recurring coding job with a local skill, bounded open PRs and persistent reviewer feedback.",
+        "reason": "Useful after a repeated maintenance task has a reliable check and a demonstrated manual run.",
+        "caution": "Delegate instruction writing to agent-instructions and Actions to github-actions; adapt SSH, actor verification, comment trust and publishing authority. Manual dispatch bypasses the scheduled PR limit.",
+        "decision": "Optional",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": [
+          {
+            "path": "plugins/build-iterated-agentic-loop/skills/build-iterated-agentic-loop/references/agent-iteration.ts",
+            "coverage": "Lines 1-160: prompt construction, GitHub reads and command dispatch",
+            "url": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/plugins/build-iterated-agentic-loop/skills/build-iterated-agentic-loop/references/agent-iteration.ts",
+            "sha256": "b7a4b53d388faef2a677b11d8b38e44ac53bc8a6734ef905b76afa2f4a0fc6ec"
+          }
+        ]
+      },
+      {
+        "collection": "humanlayer",
+        "path": "plugins/design-control-loop/skills/design-control-loop/SKILL.md",
+        "sha": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+        "sha256": "4e31d397362b23a88c7bd027cc5935fb3e5aa24eb0a5f934be0967f8974fc080",
+        "lines": 172,
+        "chars": 15403,
+        "name": "design-control-loop",
+        "id": "humanlayer-design-control-loop",
+        "key": "HumanLayer/design-control-loop",
+        "declaredName": "design-control-loop",
+        "group": "HumanLayer",
+        "author": "HumanLayer",
+        "kind": "upstream",
+        "repository": "https://github.com/humanlayer/skills",
+        "source": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/plugins/design-control-loop/skills/design-control-loop/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Scheduled maintenance",
+        "owner": "Future scheduled maintenance workflow",
+        "summary": "Designs a measurable improvement loop with a target, measurement, selection, execution and feedback.",
+        "reason": "Prefer this as the design method before using build-iterated-agentic-loop to package a recurring job.",
+        "caution": "Keep pstack as the work-mode foundation. A recurring control loop is a separate capability; adapt the CI templates and validate each component locally before scheduling.",
+        "decision": "Optional",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": [
+          {
+            "path": "plugins/design-control-loop/skills/design-control-loop/references/workflow-template.yml",
+            "coverage": "Lines 1-140: scheduling, comment gate, PR limit and checkout",
+            "url": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/plugins/design-control-loop/skills/design-control-loop/references/workflow-template.yml",
+            "sha256": "a80828159bd01f099d3e48725395359e8f20a1dc824dc21c742d2c669ddfe563"
+          }
+        ]
+      },
+      {
+        "collection": "humanlayer",
+        "path": "plugins/improve-claude-md/skills/improve-claude-md/SKILL.md",
+        "sha": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+        "sha256": "dbc3019c52f2409c031c4261664381c338d206b53ed700120743e374a87a9b8c",
+        "lines": 258,
+        "chars": 9404,
+        "name": "improve-claude-md",
+        "id": "humanlayer-improve-claude-md",
+        "key": "HumanLayer/improve-claude-md",
+        "declaredName": "improve-claude-md",
+        "group": "HumanLayer",
+        "author": "HumanLayer",
+        "kind": "upstream",
+        "repository": "https://github.com/humanlayer/skills",
+        "source": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/plugins/improve-claude-md/skills/improve-claude-md/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "agent-instructions",
+        "category": "Instruction authoring",
+        "summary": "Reorganizes agent instructions around explicit reading conditions and operational context.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "humanlayer",
+        "path": "plugins/narrow-react-prop-types/skills/narrow-react-prop-types/SKILL.md",
+        "sha": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+        "sha256": "bfcea79a20074a9178c6aa21c34629951d9646ea381e8be4c83a0a136e3aa288",
+        "lines": 180,
+        "chars": 7764,
+        "name": "narrow-react-prop-types",
+        "id": "humanlayer-narrow-react-prop-types",
+        "key": "HumanLayer/narrow-react-prop-types",
+        "declaredName": "narrow-react-prop-types",
+        "group": "HumanLayer",
+        "author": "HumanLayer",
+        "kind": "upstream",
+        "repository": "https://github.com/humanlayer/skills",
+        "source": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/plugins/narrow-react-prop-types/skills/narrow-react-prop-types/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Next",
+        "category": "Types and contracts",
+        "owner": "typescript-best-practices (pending); design-code-structure",
+        "summary": "Uses real callers to tighten React props, remove redundant options and expose valid states through types.",
+        "reason": "Useful evidence for narrowing internal component APIs while simplifying their callers.",
+        "caution": "Observed callers do not prove the full contract of a public component. Preserve external compatibility, legitimate nullable states and project conventions.",
+        "decision": "Blend",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "humanlayer",
+        "path": "plugins/show-me/skills/show-me/SKILL.md",
+        "sha": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+        "sha256": "434a2346cc95e313b0d367d477dda2e23ba642dd2181757415a09500664af100",
+        "lines": 128,
+        "chars": 3264,
+        "name": "show-me",
+        "id": "humanlayer-show-me",
+        "key": "HumanLayer/show-me",
+        "declaredName": "show-me",
+        "group": "HumanLayer",
+        "author": "HumanLayer",
+        "kind": "upstream",
+        "repository": "https://github.com/humanlayer/skills",
+        "source": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/plugins/show-me/skills/show-me/SKILL.md",
+        "action": "Do not add",
+        "priority": "Covered",
+        "category": "Explanation",
+        "owner": "Existing how; host visualization tools; future teach",
+        "summary": "Chooses a small visual form such as a call tree, diagram, diff or HTML to explain the current topic.",
+        "reason": "Keep the format-selection ideas available to how and teaching; existing visualization tools already produce these artifacts.",
+        "caution": "Do not add a competing global visualization entrypoint or copy its macOS open command. This source itself is not recorded as incorporated.",
+        "decision": "Skip",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "humanlayer",
+        "path": "plugins/visual-pr/skills/visual-pr/SKILL.md",
+        "sha": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+        "sha256": "89df56774d8ec522bd0d0f03cd553dae5d70bff9364749874b5a0c0ae390eec0",
+        "lines": 53,
+        "chars": 3377,
+        "name": "visual-pr",
+        "id": "humanlayer-visual-pr",
+        "key": "HumanLayer/visual-pr",
+        "declaredName": "visual-pr",
+        "group": "HumanLayer",
+        "author": "HumanLayer",
+        "kind": "upstream",
+        "repository": "https://github.com/humanlayer/skills",
+        "source": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/plugins/visual-pr/skills/visual-pr/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "pr",
+        "category": "Git, pull requests and CI",
+        "summary": "Explains a pull request through its purpose and useful visual representations of the change.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/agent-ready/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "9f6309f7c19e0ab1762a4e520ca34b78f9f8ed0773c86d23a99e911b717edf05",
+        "lines": 92,
+        "chars": 8321,
+        "name": "agent-ready",
+        "id": "matthew-blode-agent-ready",
+        "key": "Matthew Blode/agent-ready",
+        "declaredName": "agent-ready",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/agent-ready/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Public websites",
+        "owner": "Project-specific agent-readable docs",
+        "summary": "Implements machine-readable documentation and API discovery from scorecards and server evidence.",
+        "reason": "Useful for a public documentation site with demonstrated discovery or content-access failures.",
+        "caution": "This is website engineering, not AGENTS.md authoring. Validate scanner-specific requirements and preserve intentional access controls instead of maximizing a score.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/agent-skills-creator/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "336699e656848c5dc58dea875705e25adea533acddf595de0b024abf3bfcada8",
+        "lines": 127,
+        "chars": 11225,
+        "name": "agent-skills-creator",
+        "id": "matthew-blode-agent-skills-creator",
+        "key": "Matthew Blode/agent-skills-creator",
+        "declaredName": "agent-skills-creator",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/agent-skills-creator/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "agent-instructions; workflow-to-skill",
+        "category": "Instruction authoring",
+        "summary": "Chooses skill reuse or authoring, writes scoped procedures and evaluates their behavior.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/agents-md/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "2553c9e0e4b45bdd7d5cc36d26269ede812994d410ce177a5b894ad2eef39c3a",
+        "lines": 146,
+        "chars": 12573,
+        "name": "agents-md",
+        "id": "matthew-blode-agents-md",
+        "key": "Matthew Blode/agents-md",
+        "declaredName": "agents-md",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/agents-md/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "agent-instructions; create-project-instructions",
+        "category": "Instruction authoring",
+        "summary": "Builds and maintains project instruction files grounded in repository evidence.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/app-verification/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "02bc8734daa8b13d78aeef5a73d5c413063336c1a587c72d9b35880fe9f44ae3",
+        "lines": 102,
+        "chars": 9345,
+        "name": "app-verification",
+        "id": "matthew-blode-app-verification",
+        "key": "Matthew Blode/app-verification",
+        "declaredName": "app-verification",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/app-verification/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Next",
+        "category": "Verification",
+        "owner": "verification-authoring; verify",
+        "summary": "Builds and maintains a project verification harness with health checks, fixtures, feature coverage and machine-readable proof.",
+        "reason": "Consider a reusable proof-record format and coverage-to-source mapping where the local recipe needs automation. Launch, doctor, isolation and cleanup already exist in our pstack derivation.",
+        "caution": "It explicitly derives from pstack, so it is not independent corroboration. Avoid mandatory new CLIs, blanket config/lockfile exemptions and treating skipped required paths as a passing gate.",
+        "decision": "Blend",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": [
+          {
+            "path": "skills/app-verification/references/create-mode.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/app-verification/references/create-mode.md",
+            "sha256": "bc182db3ba40b21b27b2a470c02f40ca9dfd8e37ecafc82adf863c528a31fdfc"
+          },
+          {
+            "path": "skills/app-verification/references/maintain-mode.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/app-verification/references/maintain-mode.md",
+            "sha256": "4757ec8d27a43e6055b069b14e3eb708504afc8ebb8842bbe1601ac831302374"
+          },
+          {
+            "path": "skills/app-verification/references/verification-ladder.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/app-verification/references/verification-ladder.md",
+            "sha256": "a753bcf8476741a08098a99bfb9db8802ca14b5203ab6c42f4bc59ad96c4d7f1"
+          }
+        ]
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/autoship/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "15ebf5a1f046c63b6587e3cc00e1327cf99e87f54c03f559ec87bf329844dcb5",
+        "lines": 140,
+        "chars": 11911,
+        "name": "autoship",
+        "id": "matthew-blode-autoship",
+        "key": "Matthew Blode/autoship",
+        "declaredName": "autoship",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/autoship/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Release engineering",
+        "owner": "Future package release workflow",
+        "summary": "Runs a Changesets package release through the version PR, publishing workflow and registry confirmation.",
+        "reason": "Adds a release capability beyond preparing a feature PR, useful for repositories already using Changesets.",
+        "caution": "Adapt version selection to actual API compatibility, exact release scope and existing authority. Route Git and PR work to local owners and watches to T3; do not default every release to patch.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/ax-audit/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "3f0d80d9012807d405aeb08c91d262b1a67a05319c4443370e0f0e7a2b915117",
+        "lines": 126,
+        "chars": 11077,
+        "name": "ax-audit",
+        "id": "matthew-blode-ax-audit",
+        "key": "Matthew Blode/ax-audit",
+        "declaredName": "ax-audit",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ax-audit/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Agent product quality",
+        "owner": "Specialist lens for review-code-changes",
+        "summary": "Audits whether an agentic product exposes usable tools, correct authority, meaningful approvals and real cancellation.",
+        "reason": "Useful for agent interfaces: trace Stop to execution, inspect unattended paths and distinguish missing evidence from a passing check.",
+        "caution": "Use as a conditional product-specific lens. Adapt fixed verdict/count thresholds and do not flag a sound audit merely because all findings share one severity.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/chat-history/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "acbf609166dc37a2b8ea8260f47159550e56f3677a015f5cca83cf402d6abfce",
+        "lines": 49,
+        "chars": 5877,
+        "name": "chat-history",
+        "id": "matthew-blode-chat-history",
+        "key": "Matthew Blode/chat-history",
+        "declaredName": "chat-history",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/chat-history/SKILL.md",
+        "action": "Install unchanged",
+        "priority": "On demand",
+        "category": "Session history",
+        "owner": "Optional chat-history",
+        "summary": "Searches local agent transcripts and selected exports, then reads surrounding messages and later corrections.",
+        "reason": "The most plausible direct install: focused read-only adapters, explicit source bounds and no hosted service dependency. A synthetic Codex fixture passed in this review.",
+        "caution": "Use native T3 history first for T3 threads. Requires Python 3.9+ and rg; no T3 adapter, cloud history or compressed-log support. Installation and live private histories were not tested.",
+        "decision": "Adopt",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": [
+          {
+            "path": "skills/chat-history/references/sources.md",
+            "coverage": "Full file; adapter smoke-tested on a synthetic fixture",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/chat-history/references/sources.md",
+            "sha256": "a8554f6cef8733d301de4a843226ed556b279985c08b38b3ed1920b43b04aabb"
+          },
+          {
+            "path": "skills/chat-history/references/verification.md",
+            "coverage": "Full file; adapter smoke-tested on a synthetic fixture",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/chat-history/references/verification.md",
+            "sha256": "b7cc3e8abe8834741fbaa573a9a695738f3c9eae8bcc6981ad4b821910a252b3"
+          },
+          {
+            "path": "skills/chat-history/scripts/history.py",
+            "coverage": "Full file; adapter smoke-tested on a synthetic fixture",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/chat-history/scripts/history.py",
+            "sha256": "99f17965f4522e86c48eb71e8bf202867cc63a8a18e726b9e3cb17491b154d67"
+          }
+        ]
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/ci-speedup/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "373626a6a9b2cf411e3e0edfcb17e1506bdaf817fba9ea7c432dba46d1561621",
+        "lines": 94,
+        "chars": 9410,
+        "name": "ci-speedup",
+        "id": "matthew-blode-ci-speedup",
+        "key": "Matthew Blode/ci-speedup",
+        "declaredName": "ci-speedup",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ci-speedup/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Next",
+        "category": "CI performance",
+        "owner": "github-actions",
+        "summary": "Measures the critical path from push to green and evaluates setup, sharding, caching and test-runner changes.",
+        "reason": "Add a performance reference to the existing CI owner, with comparable before/after runs and separate wall-time versus runner-cost measurements.",
+        "caution": "Preserve security gates and test isolation. Route pushes and watches through current authorization and T3; do not make an instruction-file edit or persistent ledger mandatory for every small tuning task.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/codebase-architecture/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "ed86d31d2be5a43dd525f892ec2f0363e6484f28c2cbbab3e7c4f3fd33426733",
+        "lines": 187,
+        "chars": 20753,
+        "name": "codebase-architecture",
+        "id": "matthew-blode-codebase-architecture",
+        "key": "Matthew Blode/codebase-architecture",
+        "declaredName": "codebase-architecture",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/codebase-architecture/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Later",
+        "category": "Code structure",
+        "owner": "design-code-structure; create-project-instructions; github-actions",
+        "summary": "Designs module boundaries, improves frequently changed weak seams and makes chosen contracts executable.",
+        "reason": "Borrow change-hotspot prioritization and proving a new guard actually fails on a deliberate violation.",
+        "caution": "Do not import a fixed TypeScript layering, AsyncLocalStorage, toolchain or mandatory hooks into the language-neutral design owner. Repo-wide restructuring remains explicit scope.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/dx-audit/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "8555745e59976cdd976a6565471d8c47d739b07f0c8b45f93c5d3a4a3a40db8a",
+        "lines": 146,
+        "chars": 9687,
+        "name": "dx-audit",
+        "id": "matthew-blode-dx-audit",
+        "key": "Matthew Blode/dx-audit",
+        "declaredName": "dx-audit",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/dx-audit/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Developer interfaces",
+        "owner": "Specialist lens for review-code-changes and design-code-structure",
+        "summary": "Reviews public APIs, CLI behavior, exported types, installation and configuration ergonomics.",
+        "reason": "A useful specialist for tools humans and agents consume, including pipe behavior and testing the local build rather than the registry release.",
+        "caution": "Keep bounded read-only review and evidence. Adapt severity to actual consequence, and load only rules for the public surface in scope.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/eli5/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "b0e6127f2668c6633451a1899b02c58a8a9feae2e4ec8bf2df6dcb8ab5305ca2",
+        "lines": 42,
+        "chars": 3443,
+        "name": "eli5",
+        "id": "matthew-blode-eli5",
+        "key": "Matthew Blode/eli5",
+        "declaredName": "eli5",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/eli5/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Later",
+        "category": "Explanation",
+        "owner": "teach (pending)",
+        "summary": "Chooses prose, diagrams or richer media to explain a topic at the reader's level.",
+        "reason": "Borrow its choice of explanation medium when defining teach, without turning every how result into a lesson.",
+        "caution": "Keep exact identifiers and qualifications; adapt proactive visual permission rules to the host. Ghostwriter and video tooling are optional dependencies, not prerequisites for an explanation.",
+        "decision": "Blend",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/ghostwriter/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "287218e41b2fde42fc28943027795a1e3f29d1f7a75c1cc3623637a773c18553",
+        "lines": 77,
+        "chars": 8650,
+        "name": "ghostwriter",
+        "id": "matthew-blode-ghostwriter",
+        "key": "Matthew Blode/ghostwriter",
+        "declaredName": "ghostwriter",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/SKILL.md",
+        "action": "Do not add",
+        "priority": "Covered",
+        "category": "Writing",
+        "owner": "humanize",
+        "summary": "Writes and edits in a voice inferred from supplied samples and optional private profiles.",
+        "reason": "Our humanize already owns clarity and fidelity. Voice-profile storage is only useful if explicitly requested later.",
+        "caution": "Do not add another always-active prose owner, automatic personal-profile maintenance or unrelated restrictions on personal writing.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/multi-tenant-architecture/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "75ac9fa7ecb99071ef245ac28861c0b80160f77cd52a0aaea4d623678a6668b1",
+        "lines": 176,
+        "chars": 12392,
+        "name": "multi-tenant-architecture",
+        "id": "matthew-blode-multi-tenant-architecture",
+        "key": "Matthew Blode/multi-tenant-architecture",
+        "declaredName": "multi-tenant-architecture",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/multi-tenant-architecture/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Specialized architecture",
+        "owner": "Project-specific multi-tenant guidance",
+        "summary": "Designs tenant identification, domain routing and data isolation for hosted multi-tenant applications.",
+        "reason": "Useful when a real tenant boundary, custom domain or tenant code-execution requirement exists.",
+        "caution": "Its Next.js, PostgreSQL, Vercel and Cloudflare choices are project-specific. Verify platform behavior and choose the actual data stack before adopting recipes.",
+        "decision": "Optional",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/planning/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "c3c10312eb869f8ed0d8077d36aaacab5ce909ef0425abef7cbec80303255795",
+        "lines": 64,
+        "chars": 5375,
+        "name": "planning",
+        "id": "matthew-blode-planning",
+        "key": "Matthew Blode/planning",
+        "declaredName": "planning",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/planning/SKILL.md",
+        "action": "Derive",
+        "priority": "Next",
+        "category": "Planning",
+        "owner": "Future planning skill",
+        "summary": "Creates, reviews and splits grounded implementation plans with decisions, verifiable slices and recovery steps.",
+        "reason": "Best base among these collections for a lean planner: it scales the artifact and avoids mandatory scores or fixed interview rounds.",
+        "caution": "Route design and verification to existing owners. Retain project plan locations and authorization; replace weak evidence proxies such as counting test files to infer coverage.",
+        "decision": "Adapt first",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": [
+          {
+            "path": "skills/planning/references/decision-briefs.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/planning/references/decision-briefs.md",
+            "sha256": "874d28054449d4e8d848205a1422564ee12fc9d83afd9a7193e6ded705e24be1"
+          },
+          {
+            "path": "skills/planning/references/claim-verification.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/planning/references/claim-verification.md",
+            "sha256": "f4e0d906e53c7cceca5dcfb4ee8300c250038e696c84c4c7ec898d8be1aa9d72"
+          },
+          {
+            "path": "skills/planning/references/plan-quality-rubric.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/planning/references/plan-quality-rubric.md",
+            "sha256": "72ca890c132d73c439367f75c69e5dfea25bcaaf95597318a965bb50bc36e019"
+          }
+        ]
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/pr-babysitter/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "b221dac461e52ad62584842290d0a72df7d4379c56b8b82f4f878f1cc7a04da5",
+        "lines": 166,
+        "chars": 13606,
+        "name": "pr-babysitter",
+        "id": "matthew-blode-pr-babysitter",
+        "key": "Matthew Blode/pr-babysitter",
+        "declaredName": "pr-babysitter",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/pr-babysitter/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "pr-followup",
+        "category": "Git, pull requests and CI",
+        "summary": "Follows CI and review feedback on a pull request and resolves eligible work.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/pr-creator/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "296010427cf5717fd088f54eaeb5122d7274514ad62bc0ec360b7f283193b66f",
+        "lines": 139,
+        "chars": 9799,
+        "name": "pr-creator",
+        "id": "matthew-blode-pr-creator",
+        "key": "Matthew Blode/pr-creator",
+        "declaredName": "pr-creator",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/pr-creator/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "pr",
+        "category": "Git, pull requests and CI",
+        "summary": "Prepares a human-reviewable pull request from the actual change and its validation.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/presentation-creator/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "3cdbf656ec7ce7a604b7801896fc5b4ff34014a3ab56073d5428feb0f730f988",
+        "lines": 107,
+        "chars": 10156,
+        "name": "presentation-creator",
+        "id": "matthew-blode-presentation-creator",
+        "key": "Matthew Blode/presentation-creator",
+        "declaredName": "presentation-creator",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/presentation-creator/SKILL.md",
+        "action": "Do not add",
+        "priority": "Covered",
+        "category": "Presentations",
+        "owner": "Installed Presentations capability",
+        "summary": "Develops a slide narrative, visual system, notes and rendered QA, with Marp as its default format.",
+        "reason": "The environment already provides a presentation owner; storytelling guidance can be consulted for a specific deck.",
+        "caution": "Do not install a second general presentation router or impose its house visual system on a supplied template.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/product-design/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "1f5b964df7a7ff4ad9243a079f254fc670dda85fd70e931c514e3f40cd1ed302",
+        "lines": 104,
+        "chars": 11093,
+        "name": "product-design",
+        "id": "matthew-blode-product-design",
+        "key": "Matthew Blode/product-design",
+        "declaredName": "product-design",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/product-design/SKILL.md",
+        "action": "Derive",
+        "priority": "Next",
+        "category": "Interaction design",
+        "owner": "Future user-flow design skill",
+        "summary": "Defines what a user can do, the action's scope and consequence, recovery, states and accessible completion.",
+        "reason": "A real gap beside code architecture and visual styling: settle interaction behavior before choosing implementation details.",
+        "caution": "Adapt the broad rule library into conditional references. Treat control-count and naming defaults as context-sensitive; preserve existing product decisions and keep aesthetics and browser testing with their owners.",
+        "decision": "Adapt first",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": [
+          {
+            "path": "skills/product-design/references/interface-quality.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/product-design/references/interface-quality.md",
+            "sha256": "e92b535385469e20a25c95bf6952e5724f5739b9322d1e3f3d3092415f0c2e0f"
+          },
+          {
+            "path": "skills/product-design/references/product-judgment.md",
+            "coverage": "Lines 1-80: brief, facts, controls, gestures and surface choice",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/product-design/references/product-judgment.md",
+            "sha256": "78fd864b8d171160317536eed02c910b65c371992bbf18839177441fd3682dc5"
+          },
+          {
+            "path": "skills/product-design/references/rules.md",
+            "coverage": "Lines 1-110: rule ownership, scope and interaction rules",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/product-design/references/rules.md",
+            "sha256": "27a538b79822010d59162d9b86f6810be2b92e4bbd3da5cd91ebbf1c0cf8869b"
+          }
+        ]
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/save-md/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "d23c3ecd127d2b659deb28d073c74d4f5403f0eac3781a9016b42bb6643d7300",
+        "lines": 39,
+        "chars": 2148,
+        "name": "save-md",
+        "id": "matthew-blode-save-md",
+        "key": "Matthew Blode/save-md",
+        "declaredName": "save-md",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/save-md/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Source capture",
+        "owner": "Existing article-processing; optional source export",
+        "summary": "Saves one explicitly selected source as faithful Markdown with provenance.",
+        "reason": "Useful when a portable source copy is the deliverable, rather than a summary or full archive workflow.",
+        "caution": "Prefer approved connectors for connected documents and retain access and copyright boundaries. Do not add a second archive owner or automatically convert every URL in context.",
+        "decision": "Optional",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/scaffold-cli/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "98d7fad936fa8910d8dfdc33f2cefc3ba8d04b94d07b6b7c33033bd252d8f2d0",
+        "lines": 128,
+        "chars": 8788,
+        "name": "scaffold-cli",
+        "id": "matthew-blode-scaffold-cli",
+        "key": "Matthew Blode/scaffold-cli",
+        "declaredName": "scaffold-cli",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/scaffold-cli/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Scaffolding",
+        "owner": "Project-specific CLI template",
+        "summary": "Bootstraps a TypeScript CLI and npm package with release and CI templates.",
+        "reason": "Useful for repeated creation of the same kind of package after agreeing the toolchain.",
+        "caution": "Its pinned house stack is the product. Adapt stable versions, cooldown, package layout and publication scope; reusable CLI contract ideas fit dx-audit without importing the whole scaffold.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/scaffold-nextjs/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "ac94f2cc2ced564673257c031d7564a5ede6fe64fb048833e81795c43a0212db",
+        "lines": 135,
+        "chars": 11030,
+        "name": "scaffold-nextjs",
+        "id": "matthew-blode-scaffold-nextjs",
+        "key": "Matthew Blode/scaffold-nextjs",
+        "declaredName": "scaffold-nextjs",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/scaffold-nextjs/SKILL.md",
+        "action": "Do not add",
+        "priority": "Not selected",
+        "category": "Scaffolding",
+        "owner": "Project's existing scaffold",
+        "summary": "Creates an opinionated Next.js monorepo with Blode UI, Agentation, Ultracite and deployment setup.",
+        "reason": "Too many house choices for a general workflow that also covers existing apps and non-Next stacks.",
+        "caution": "Revisit only for an explicitly matching starter. Automatic monorepo conversion, experimental settings and deployment setup are not general defaults.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/seo/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "3101c946bb29a76b6a2ceafb27b5084d80b0ac45281002d94de1a755095d35af",
+        "lines": 79,
+        "chars": 8437,
+        "name": "seo",
+        "id": "matthew-blode-seo",
+        "key": "Matthew Blode/seo",
+        "declaredName": "seo",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/seo/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Public websites",
+        "owner": "Project-specific SEO workflow",
+        "summary": "Audits indexability, investigates search demand and checks production search evidence within a named property.",
+        "reason": "Useful for a public product or documentation site; distinguishes missing metrics from zero and avoids treating AI visibility scores as proof.",
+        "caution": "Keep it outside the core engineering flow. Inspect the needed research and platform references when adopting, and use only authorized property access and schedules.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/test-audit/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "b86bfae2cd78dfb2c26a1ee7100f46af5d134fb48df2db2047f39221605a00ea",
+        "lines": 115,
+        "chars": 8806,
+        "name": "test-audit",
+        "id": "matthew-blode-test-audit",
+        "key": "Matthew Blode/test-audit",
+        "declaredName": "test-audit",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/test-audit/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Later",
+        "category": "Test quality",
+        "owner": "tdd; review-code-changes",
+        "summary": "Evaluates whether existing tests protect real contracts and identifies redundant or misleading tests.",
+        "reason": "Borrow evidence requirements for deleting or rewriting low-value tests and checking that a fault would be detected.",
+        "caution": "Reject the default 20 percent deletion goal and coverage-loss allowance. Keep its retention safeguards, but let demonstrated value decide which tests change.",
+        "decision": "Blend",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/tidy/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "e9da74a02bd8659beb55a8dc409d0b34fa54dca3a59b74fb68c76f6a47d7eb6f",
+        "lines": 143,
+        "chars": 16727,
+        "name": "tidy",
+        "id": "matthew-blode-tidy",
+        "key": "Matthew Blode/tidy",
+        "declaredName": "tidy",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/tidy/SKILL.md",
+        "action": "Do not add",
+        "priority": "Covered",
+        "category": "Code review",
+        "owner": "review-code-changes; simplify-code",
+        "summary": "Combines diff review with an optional fix and simplification pass.",
+        "reason": "These responsibilities already have explicit local owners; another broad trigger would duplicate them.",
+        "caution": "Its test and context-error lenses may be consulted later, but do not replace evidence thresholds with plausible-by-default findings or merge review and simplification ownership.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/typography-audit/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "9b603c6abfaccf85422e7c0a767231fd9f44aaaf0d4ef065975296facae7dcbd",
+        "lines": 103,
+        "chars": 6377,
+        "name": "typography-audit",
+        "id": "matthew-blode-typography-audit",
+        "key": "Matthew Blode/typography-audit",
+        "declaredName": "typography-audit",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/typography-audit/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "UI craft",
+        "owner": "Future accessibility and visual review references",
+        "summary": "Audits rendered typography, spacing, punctuation, casing and font behavior.",
+        "reason": "Selected rendering and readability checks can improve visual review on text-heavy interfaces.",
+        "caution": "House typography is not a universal release blocker. Preserve product conventions and the user's ASCII prose rules; do not import blanket smart-quote or casing mandates.",
+        "decision": "Optional",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/ui-animation/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "25b09d6fb5eb57af8c1b91c6b74bc63280bc4f0fe143b80a2f8c18ed18f7cee8",
+        "lines": 225,
+        "chars": 22900,
+        "name": "ui-animation",
+        "id": "matthew-blode-ui-animation",
+        "key": "Matthew Blode/ui-animation",
+        "declaredName": "ui-animation",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-animation/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "UI motion",
+        "owner": "Future motion specialist",
+        "summary": "Designs and measures transitions, gestures and motion reconstructed from recordings.",
+        "reason": "Useful when motion quality is the actual task; measured open/close curves and interruption behavior add specialist depth.",
+        "caution": "Load only relevant techniques, honor reduced motion and existing components, and verify platform APIs. Python/video helpers and motion libraries are optional project dependencies.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/ui-design/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "8fe5eaba85dab18e22296fb99ca6629a9221338e83b1021bbf22e5de1249805a",
+        "lines": 224,
+        "chars": 21684,
+        "name": "ui-design",
+        "id": "matthew-blode-ui-design",
+        "key": "Matthew Blode/ui-design",
+        "declaredName": "ui-design",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-design/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Later",
+        "category": "UI design",
+        "owner": "Selected frontend-design; future accessibility",
+        "summary": "Separates visual direction, design-system extraction, implementation and UI audit into different modes.",
+        "reason": "Borrow token extraction and explicit state coverage to preserve the existing interface while improving it.",
+        "caution": "Avoid a second broad UI owner, taste-based release verdicts, fixed React/Next assumptions or automatic shared-component fixes outside the verified scope.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/ui-verification/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "f5cbdcd185cada0bad9dee833465f1e55066b6a39076077711a4a64913fb5193",
+        "lines": 153,
+        "chars": 14110,
+        "name": "ui-verification",
+        "id": "matthew-blode-ui-verification",
+        "key": "Matthew Blode/ui-verification",
+        "declaredName": "ui-verification",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Next",
+        "category": "Verification",
+        "owner": "verify; local verify-<app>; accessibility (pending)",
+        "summary": "Runs targeted browser probes for focus, layout, failure states, themes, locale, console errors and performance.",
+        "reason": "Strongest immediate verification addition: reusable probe recipes with exact session conditions and before/after evidence.",
+        "caution": "Adapt to native browser capabilities and the local recipe. Unsupported probes remain untested; remove conflicting mandatory repeat counts and do not require the donor's full UI audit schema.",
+        "decision": "Blend",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": [
+          {
+            "path": "skills/ui-verification/references/session-setup.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/references/session-setup.md",
+            "sha256": "defdfb40307d541ee7626f62c934c6e023e066a5c70a9593f7e5fbf8c8c19c3e"
+          },
+          {
+            "path": "skills/ui-verification/references/evidence-output.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/references/evidence-output.md",
+            "sha256": "06ba70ef44b6b124db9f4c9df66e9a4bb1d90f4fd34d44594ffe15077c139481"
+          }
+        ]
+      },
+      {
+        "collection": "addy",
+        "path": "skills/api-and-interface-design/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "e83d34f52ff12dd8a7c5134cd7e8140ea4541ec65e204f8a1e4cd366e30c4192",
+        "lines": 367,
+        "chars": 14808,
+        "name": "api-and-interface-design",
+        "id": "addy-osmani-api-and-interface-design",
+        "key": "Addy Osmani/api-and-interface-design",
+        "declaredName": "api-and-interface-design",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/api-and-interface-design/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Next",
+        "category": "Types and contracts",
+        "owner": "design-code-structure; error-handling",
+        "summary": "Designs stable interfaces, boundary validation, error contracts and idempotent operations.",
+        "reason": "Its unknown-outcome and duplicate-request reasoning can sharpen public-contract design and failure handling.",
+        "caution": "Keep wire compatibility and actual consumer requirements authoritative. Language examples and REST conventions are references, not rules for every interface.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/browser-testing-with-devtools/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "4e3aacd6a380cd25bc6c2d67fdd1c926a9b22535b8a62109ecd33cefd909e3d9",
+        "lines": 317,
+        "chars": 13935,
+        "name": "browser-testing-with-devtools",
+        "id": "addy-osmani-browser-testing-with-devtools",
+        "key": "Addy Osmani/browser-testing-with-devtools",
+        "declaredName": "browser-testing-with-devtools",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/browser-testing-with-devtools/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "verify",
+        "category": "Implementation, verification and review",
+        "summary": "Uses browser observations to support claims about interaction, rendering and runtime behavior.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/ci-cd-and-automation/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "a6ed8ed56456b01ff8314c44eefc69897d9905ae4e06bb2b7036286efb79b5f0",
+        "lines": 390,
+        "chars": 11008,
+        "name": "ci-cd-and-automation",
+        "id": "addy-osmani-ci-cd-and-automation",
+        "key": "Addy Osmani/ci-cd-and-automation",
+        "declaredName": "ci-cd-and-automation",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/ci-cd-and-automation/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Later",
+        "category": "CI engineering",
+        "owner": "github-actions",
+        "summary": "Organizes build, test and deployment gates with caching, preview and rollout guidance.",
+        "reason": "Consult useful pipeline ideas under the existing Actions owner, avoiding a second CI skill.",
+        "caution": "Adapt templates to project trust boundaries, SSH, pinned actions and real gates. No fixed sequence or deployment strategy fits every repository.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/code-review-and-quality/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "2db1e850379f255fd3091ef278cde24cd6c7d2ba23e360cc52ea522c40d4396e",
+        "lines": 398,
+        "chars": 20898,
+        "name": "code-review-and-quality",
+        "id": "addy-osmani-code-review-and-quality",
+        "key": "Addy Osmani/code-review-and-quality",
+        "declaredName": "code-review-and-quality",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/code-review-and-quality/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "review-code-changes",
+        "category": "Implementation, verification and review",
+        "summary": "Reviews changes for correctness and relevant quality risks with concrete evidence.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/code-simplification/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "f0c5ed754057eb0c1e027e2587f59de816651feb5e837242296c43ea21cf621d",
+        "lines": 331,
+        "chars": 13497,
+        "name": "code-simplification",
+        "id": "addy-osmani-code-simplification",
+        "key": "Addy Osmani/code-simplification",
+        "declaredName": "code-simplification",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/code-simplification/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "simplify-code",
+        "category": "Implementation, verification and review",
+        "summary": "Simplifies changed code while preserving its behavior and constraints.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/constraint-driven-development/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "06479d4305f286d23cfb99f5dc85695896785269664e1f6a8d800e3b71e70c10",
+        "lines": 311,
+        "chars": 20956,
+        "name": "constraint-driven-development",
+        "id": "addy-osmani-constraint-driven-development",
+        "key": "Addy Osmani/constraint-driven-development",
+        "declaredName": "constraint-driven-development",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/constraint-driven-development/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Later",
+        "category": "Quality standards",
+        "owner": "create-project-instructions; github-actions; verify",
+        "summary": "Makes chosen quality constraints explicit and checks whether a change silently weakens them.",
+        "reason": "Useful for projects repeatedly disabling checks to pass: record the agreed bar and inspect changes to the checks themselves.",
+        "caution": "Avoid a mandatory CONSTRAINTS.md, duplicated commands or invented numeric budgets. Select actual failure modes and affordable checks; adding gates needs implementation evidence.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/context-engineering/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "8b736cb9e55b82b265ab6ff78349c0e826e8a6df550deddf665b7fb3ff858b63",
+        "lines": 353,
+        "chars": 14936,
+        "name": "context-engineering",
+        "id": "addy-osmani-context-engineering",
+        "key": "Addy Osmani/context-engineering",
+        "declaredName": "context-engineering",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/context-engineering/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "create-project-instructions",
+        "category": "Instruction authoring",
+        "summary": "Selects relevant repository context and durable instructions for an agent task.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/debugging-and-error-recovery/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "21f3960f5d7ae2cc95c40896545004dbbcbbd752ea65fc2d53962554d4174220",
+        "lines": 300,
+        "chars": 10545,
+        "name": "debugging-and-error-recovery",
+        "id": "addy-osmani-debugging-and-error-recovery",
+        "key": "Addy Osmani/debugging-and-error-recovery",
+        "declaredName": "debugging-and-error-recovery",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/debugging-and-error-recovery/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "debug",
+        "category": "Implementation, verification and review",
+        "summary": "Reproduces a failure, tests causes and verifies a bounded repair.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/deprecation-and-migration/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "6a624f942e09c69863a4219b9bd5d56975026b67b0c70bc83385ffd2120b6142",
+        "lines": 247,
+        "chars": 12534,
+        "name": "deprecation-and-migration",
+        "id": "addy-osmani-deprecation-and-migration",
+        "key": "Addy Osmani/deprecation-and-migration",
+        "declaredName": "deprecation-and-migration",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/deprecation-and-migration/SKILL.md",
+        "action": "Derive",
+        "priority": "Later",
+        "category": "Migration",
+        "owner": "Future migration workflow",
+        "summary": "Plans compatibility transitions, consumer inventory, staged replacement and data migration.",
+        "reason": "Adds explicit rollout and recovery reasoning for changes larger than a normal refactor.",
+        "caution": "Remove universal claims that additive schema changes are safe or every migration is reversible. Use the actual database, locks, data recovery and consumer upgrade constraints.",
+        "decision": "Adapt first",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/documentation-and-adrs/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "359b22460045583b0233ec3f80223459c4096b0fa513f5c29ade9c3985207d65",
+        "lines": 288,
+        "chars": 9825,
+        "name": "documentation-and-adrs",
+        "id": "addy-osmani-documentation-and-adrs",
+        "key": "Addy Osmani/documentation-and-adrs",
+        "declaredName": "documentation-and-adrs",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/documentation-and-adrs/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Later",
+        "category": "Technical documentation",
+        "owner": "design-code-structure; why; humanize",
+        "summary": "Records consequential decisions and keeps public documentation aligned with behavior.",
+        "reason": "Use its ADR and documentation guidance when a decision needs durable rationale beyond the code.",
+        "caution": "Follow existing document conventions and avoid an ADR, changelog edit or API annotation for every small change.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/doubt-driven-development/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "6fa1fcd8420c28daf7e53c5b08b0f20b907911efd2a6d9bce0b9740da20a4008",
+        "lines": 243,
+        "chars": 16557,
+        "name": "doubt-driven-development",
+        "id": "addy-osmani-doubt-driven-development",
+        "key": "Addy Osmani/doubt-driven-development",
+        "declaredName": "doubt-driven-development",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/doubt-driven-development/SKILL.md",
+        "action": "Do not add",
+        "priority": "Not selected",
+        "category": "Decision review",
+        "owner": "compare-solutions; review-code-changes",
+        "summary": "Challenges nontrivial decisions through fresh-context adversarial review and optional cross-model checks.",
+        "reason": "Independent challenge is already available through scoped local workflows.",
+        "caution": "Its mandatory cross-model offer and invocation confirmation on every interactive cycle would interrupt the agreed autonomous flow. Reuse a question only where evidence warrants independent review.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/frontend-ui-engineering/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "549044e9bd8d7fe993ce8e5c0d2b0f5465650676dc15805329973f936179eb1e",
+        "lines": 340,
+        "chars": 11680,
+        "name": "frontend-ui-engineering",
+        "id": "addy-osmani-frontend-ui-engineering",
+        "key": "Addy Osmani/frontend-ui-engineering",
+        "declaredName": "frontend-ui-engineering",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/frontend-ui-engineering/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Later",
+        "category": "UI engineering",
+        "owner": "Selected React guidance; frontend-design; accessibility (pending)",
+        "summary": "Combines component architecture, state, responsive design and accessible interaction guidance.",
+        "reason": "Use selected state and integration checks alongside the narrower React and accessibility owners.",
+        "caution": "Avoid a competing all-purpose frontend entrypoint, fixed prop-depth limits or assuming one accessibility checklist proves conformance.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/git-workflow-and-versioning/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "b7465d187935c52546d39fdc7bd6ac36d94eda25a9500ef8c18b767d2eb116ea",
+        "lines": 355,
+        "chars": 13863,
+        "name": "git-workflow-and-versioning",
+        "id": "addy-osmani-git-workflow-and-versioning",
+        "key": "Addy Osmani/git-workflow-and-versioning",
+        "declaredName": "git-workflow-and-versioning",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/git-workflow-and-versioning/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "commit",
+        "category": "Git, pull requests and CI",
+        "summary": "Organizes changes into understandable commits and a reviewable Git workflow.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/idea-refine/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "79e773058963adc7646b0115b4f8a4afc974c5ff95843e4ef1cafff3cb51899e",
+        "lines": 178,
+        "chars": 8083,
+        "name": "idea-refine",
+        "id": "addy-osmani-idea-refine",
+        "key": "Addy Osmani/idea-refine",
+        "declaredName": "idea-refine",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/idea-refine/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Product discovery",
+        "owner": "Optional ideation within future planning",
+        "summary": "Expands a vague idea into alternatives, tests assumptions and converges on a focused concept.",
+        "reason": "Useful before requirements are settled; a lighter option than Compound's multi-agent ideation machinery.",
+        "caution": "Do not force three to five questions or fixed variant counts when the request already provides the answers. Preserve implementation authorization after the decision is settled.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/incremental-implementation/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "df66536610071727feae1ca95f3c391c248ad828041750ccd3699cce763aa00b",
+        "lines": 249,
+        "chars": 9329,
+        "name": "incremental-implementation",
+        "id": "addy-osmani-incremental-implementation",
+        "key": "Addy Osmani/incremental-implementation",
+        "declaredName": "incremental-implementation",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/incremental-implementation/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Next",
+        "category": "Workflow coordination",
+        "owner": "work-mode (pending)",
+        "summary": "Implements small complete slices with checks and atomic progress between them.",
+        "reason": "Borrow vertical slicing, risk-first ordering and reuse of still-valid checks for the future coordinator.",
+        "caution": "Route commits, tests and verification through local owners. Multi-file scope alone does not require feature flags or a large planning ceremony.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/interview-me/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "ace4b675999bb504593d572e0f73f3d7e803ad6fddf318445598c82c11939db2",
+        "lines": 235,
+        "chars": 15034,
+        "name": "interview-me",
+        "id": "addy-osmani-interview-me",
+        "key": "Addy Osmani/interview-me",
+        "declaredName": "interview-me",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/interview-me/SKILL.md",
+        "action": "Do not add",
+        "priority": "Not selected",
+        "category": "Requirements",
+        "owner": "Future planning; explicit interview when requested",
+        "summary": "Interviews one question at a time to establish intent before downstream planning.",
+        "reason": "Useful question prompts exist, but the full procedure is a poor default for this user's autonomous workflow.",
+        "caution": "Do not adopt subjective 95 percent confidence, required explicit yes or a forced end of turn when continuation was already authorized.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/observability-and-instrumentation/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "e7fcb0820306d46268de9594d676ad98e35040858926c412b7000faa52a61f87",
+        "lines": 238,
+        "chars": 13890,
+        "name": "observability-and-instrumentation",
+        "id": "addy-osmani-observability-and-instrumentation",
+        "key": "Addy Osmani/observability-and-instrumentation",
+        "declaredName": "observability-and-instrumentation",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/observability-and-instrumentation/SKILL.md",
+        "action": "Derive",
+        "priority": "Next",
+        "category": "Observability",
+        "owner": "Future observability specialist",
+        "summary": "Chooses operational questions, instruments useful signals and verifies logs, metrics, traces and alerts.",
+        "reason": "Complements error-handling: failure contracts say what happens; observability makes the behavior diagnosable in operation.",
+        "caution": "Keep existing telemetry tools, privacy and cardinality budgets. Do not require every signal, OpenTelemetry, new alerts or production notification tests for every feature.",
+        "decision": "Adapt first",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": [
+          {
+            "path": "references/observability-checklist.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/references/observability-checklist.md",
+            "sha256": "25fcd0e854596a5ab6f11b002050d245bf78f5ae0fcbd1df699b89451ae0e1e8"
+          }
+        ]
+      },
+      {
+        "collection": "addy",
+        "path": "skills/performance-optimization/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "665a83a7218d6aebd02ca329a7b2422cf28f7c55cb56f870c05e12047770245c",
+        "lines": 267,
+        "chars": 16497,
+        "name": "performance-optimization",
+        "id": "addy-osmani-performance-optimization",
+        "key": "Addy Osmani/performance-optimization",
+        "declaredName": "performance-optimization",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/performance-optimization/SKILL.md",
+        "action": "Derive",
+        "priority": "Next",
+        "category": "Performance",
+        "owner": "Future measured optimization skill",
+        "summary": "Measures a bottleneck, changes one cause, repeats the workload and retains only supported improvements.",
+        "reason": "Best broad performance base here; covers frontend, backend and queries beyond the React-specific guides.",
+        "caution": "Adapt platform recipes and scope field-data requirements to available access. Keep variance and correctness gates; do not require every Core Web Vital target for an unrelated backend fix.",
+        "decision": "Adapt first",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": [
+          {
+            "path": "skills/performance-optimization/references/optimization-patterns.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/performance-optimization/references/optimization-patterns.md",
+            "sha256": "fbf724076ffb8ac1a28e1a2773c0b550f5361090024b2dd32e5a682c69b7945f"
+          }
+        ]
+      },
+      {
+        "collection": "addy",
+        "path": "skills/planning-and-task-breakdown/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "ed0f90cc5951ddd4bcab7f871f64efec93a49af9279ef93bc470da77ad8da3f7",
+        "lines": 257,
+        "chars": 10480,
+        "name": "planning-and-task-breakdown",
+        "id": "addy-osmani-planning-and-task-breakdown",
+        "key": "Addy Osmani/planning-and-task-breakdown",
+        "declaredName": "planning-and-task-breakdown",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/planning-and-task-breakdown/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Next",
+        "category": "Planning",
+        "owner": "Future planning skill",
+        "summary": "Turns agreed requirements into dependent, verifiable vertical tasks.",
+        "reason": "Combine its dependency and acceptance-criteria guidance with Matthew Blode's leaner planning base.",
+        "caution": "Avoid fixed tasks/plan.md locations, mandatory extra task files and prescribed checkpoints. Existing plans and task tools remain authoritative.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/security-and-hardening/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "2e3fc60eed5aba97fe416f3f3c9317fdb014a682925ec70a733c3ff99e4b9858",
+        "lines": 216,
+        "chars": 17530,
+        "name": "security-and-hardening",
+        "id": "addy-osmani-security-and-hardening",
+        "key": "Addy Osmani/security-and-hardening",
+        "declaredName": "security-and-hardening",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/security-and-hardening/SKILL.md",
+        "action": "Derive",
+        "priority": "Later",
+        "category": "Security",
+        "owner": "Future security specialist; review-code-changes",
+        "summary": "Maps trust boundaries and abuse cases, then applies relevant controls and dependency checks.",
+        "reason": "Useful conditional specialist for auth, untrusted input, supply chains and agent tools.",
+        "caution": "Keep project-specific threat models and existing authorization. Remove blanket reapproval for already requested changes and treat policy or legal claims as items needing current authoritative review.",
+        "decision": "Adapt first",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/shipping-and-launch/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "1055d25dfe6cfeb6ae31eba3e2328fd0e7c66b285f0e44c40f67c77a59813281",
+        "lines": 330,
+        "chars": 11205,
+        "name": "shipping-and-launch",
+        "id": "addy-osmani-shipping-and-launch",
+        "key": "Addy Osmani/shipping-and-launch",
+        "declaredName": "shipping-and-launch",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/shipping-and-launch/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Release engineering",
+        "owner": "Future release workflow",
+        "summary": "Checks readiness, staged rollout, production signals and recovery after deployment.",
+        "reason": "Useful when the task actually includes release operation, beyond opening a reviewable PR.",
+        "caution": "Use the project's SLOs, deployment process and authority; do not copy generic rollout thresholds, mandatory flags or team notifications into every PR task.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/source-driven-development/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "c59faf851377f0eeda45306398d16eb96d77ab1c2fd3e1a7fb58e9a0af33c1e9",
+        "lines": 216,
+        "chars": 9964,
+        "name": "source-driven-development",
+        "id": "addy-osmani-source-driven-development",
+        "key": "Addy Osmani/source-driven-development",
+        "declaredName": "source-driven-development",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/source-driven-development/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Later",
+        "category": "Research",
+        "owner": "create-project-instructions; work-mode (pending)",
+        "summary": "Checks installed versions and official documentation before relying on framework behavior.",
+        "reason": "Borrow version-scoped source selection and treating retrieved documentation as data.",
+        "caution": "The global evidence rules already cover this. Do not add citations to every code pattern or comments that carry no non-obvious constraint.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/spec-driven-development/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "c4b97ce3d7f24be0e67fd612c7595f65504872e3a9f8d338d098b2363fdb66ef",
+        "lines": 259,
+        "chars": 12996,
+        "name": "spec-driven-development",
+        "id": "addy-osmani-spec-driven-development",
+        "key": "Addy Osmani/spec-driven-development",
+        "declaredName": "spec-driven-development",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/spec-driven-development/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Later",
+        "category": "Planning",
+        "owner": "Future planning skill",
+        "summary": "Writes requirements, capability boundaries and acceptance criteria before substantial implementation.",
+        "reason": "Use capability decomposition when one request contains several independently testable outcomes.",
+        "caution": "Avoid mandatory spec approval and a forced turn stop after every phase. A clear authorized task does not need a new specification ceremony.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/test-driven-development/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "7c0c6ac057c19d7f8be65d9f49c3a638703b868f4625c78b70da5439d5d74fca",
+        "lines": 398,
+        "chars": 16289,
+        "name": "test-driven-development",
+        "id": "addy-osmani-test-driven-development",
+        "key": "Addy Osmani/test-driven-development",
+        "declaredName": "test-driven-development",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/test-driven-development/SKILL.md",
+        "action": "Do not add",
+        "priority": "Covered",
+        "category": "Test quality",
+        "owner": "tdd; debug; verify",
+        "summary": "Applies red-green-refactor, behavioral assertions and runtime checks to changed behavior.",
+        "reason": "Our tdd already follows Matt's public-contract approach and debug owns regression reproduction.",
+        "caution": "Keep ecosystem examples as references only; do not add blanket tests, a second browser driver or mandatory agents for every bug.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "addy",
+        "path": "skills/using-agent-skills/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "30787ef2c77bf1a4729fffed0f6523ba6fcbe81bdc436b36371b78c21394d3c3",
+        "lines": 192,
+        "chars": 9782,
+        "name": "using-agent-skills",
+        "id": "addy-osmani-using-agent-skills",
+        "key": "Addy Osmani/using-agent-skills",
+        "declaredName": "using-agent-skills",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/using-agent-skills/SKILL.md",
+        "action": "Do not add",
+        "priority": "Not selected",
+        "category": "Workflow coordination",
+        "owner": "work-mode (pending)",
+        "summary": "Routes a task through the Addy collection's development phases.",
+        "reason": "Our intended coordinator should select among the accepted local owners, with pstack as its principal source.",
+        "caution": "Do not install a second global router with spec-first defaults and a long mandatory lifecycle.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-babysit-pr/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "7e5769d01dc4b451382a970c0fd5ba3cc1f1b3134521a4fd138ddc1788bf84e7",
+        "lines": 59,
+        "chars": 7839,
+        "name": "ce-babysit-pr",
+        "id": "compound-engineering-ce-babysit-pr",
+        "key": "Compound Engineering/ce-babysit-pr",
+        "declaredName": "ce-babysit-pr",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-babysit-pr/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "pr-followup",
+        "category": "Git, pull requests and CI",
+        "summary": "Monitors a PR through changing checks and feedback until its requested end state.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-bakeoff/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "d831556a4cfdb2ea2aabbc792062d319463e10b46311285a17ab388f39653bcc",
+        "lines": 48,
+        "chars": 7542,
+        "name": "ce-bakeoff",
+        "id": "compound-engineering-ce-bakeoff",
+        "key": "Compound Engineering/ce-bakeoff",
+        "declaredName": "ce-bakeoff",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-bakeoff/SKILL.md",
+        "action": "Do not add",
+        "priority": "Covered",
+        "category": "Solution comparison",
+        "owner": "compare-solutions",
+        "summary": "Builds independent proposed approaches, judges them against a shared contract and verifies the selected result.",
+        "reason": "The local comparison owner already provides this capability with explicit execution and evidence boundaries.",
+        "caution": "Do not create a second comparison entrypoint or equate this non-executable design workflow with a measured runtime experiment.",
+        "decision": "Skip",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-brainstorm/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "1820aa67cd39b4f220b6b1e638bd98841e6ba8e8a3c3f35448155a28b2822948",
+        "lines": 69,
+        "chars": 7770,
+        "name": "ce-brainstorm",
+        "id": "compound-engineering-ce-brainstorm",
+        "key": "Compound Engineering/ce-brainstorm",
+        "declaredName": "ce-brainstorm",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-brainstorm/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Later",
+        "category": "Planning",
+        "owner": "Future planning skill",
+        "summary": "Settles what to build through grounded requirements, alternatives and a ready-to-plan handoff.",
+        "reason": "Borrow lightweight requirements handling and preserving settled decisions when transitioning to implementation planning.",
+        "caution": "Adapt CE configuration, menus, artifacts and orchestration. Do not make brainstorming a prerequisite for a clear fix.",
+        "decision": "Blend",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-code-review/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "4dbdc4485af006035e1a8622735e58eb4298be69b404b1241e748b0057a7e9ac",
+        "lines": 40,
+        "chars": 7816,
+        "name": "ce-code-review",
+        "id": "compound-engineering-ce-code-review",
+        "key": "Compound Engineering/ce-code-review",
+        "declaredName": "ce-code-review",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-code-review/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "review-code-changes",
+        "category": "Implementation, verification and review",
+        "summary": "Selects review lenses, evaluates findings and reports evidence and coverage.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-commit/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "757c86b643a1cbe632729bf3efaaa00119968233eb80040678466efca4a3c647",
+        "lines": 60,
+        "chars": 4737,
+        "name": "ce-commit",
+        "id": "compound-engineering-ce-commit",
+        "key": "Compound Engineering/ce-commit",
+        "declaredName": "ce-commit",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-commit/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "commit",
+        "category": "Git, pull requests and CI",
+        "summary": "Builds atomic commits from the intended changes and checks the resulting artifact.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-commit-push-pr/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "deb35ce03204b9c4c372c9c82a8f68e34d00fa800e1fc92a3642811ab43d1591",
+        "lines": 69,
+        "chars": 7906,
+        "name": "ce-commit-push-pr",
+        "id": "compound-engineering-ce-commit-push-pr",
+        "key": "Compound Engineering/ce-commit-push-pr",
+        "declaredName": "ce-commit-push-pr",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-commit-push-pr/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "pr",
+        "category": "Git, pull requests and CI",
+        "summary": "Publishes a branch and composes a PR from its actual behavior and evidence.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-compound/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "951669e685c804a16138736c4bf132ee5f6ed9bbee3e3ccd5cbb096dd253b5d6",
+        "lines": 79,
+        "chars": 7885,
+        "name": "ce-compound",
+        "id": "compound-engineering-ce-compound",
+        "key": "Compound Engineering/ce-compound",
+        "declaredName": "ce-compound",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-compound/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Project knowledge",
+        "owner": "Future project-learning workflow",
+        "summary": "Captures a verified, non-obvious lesson that would otherwise be lost from a completed task.",
+        "reason": "Worth considering for a growing project knowledge base; it records a project lesson rather than creating a general skill.",
+        "caution": "Keep separate from workflow-to-skill. Avoid saving routine fixes already explained by code/tests or importing CE's full schema and agent pipeline by default.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-compound-refresh/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "2cdc83792aed2e2c1ea6c9fcaa6330ac549b955f9ce01b7868832b74c167b43e",
+        "lines": 88,
+        "chars": 7877,
+        "name": "ce-compound-refresh",
+        "id": "compound-engineering-ce-compound-refresh",
+        "key": "Compound Engineering/ce-compound-refresh",
+        "declaredName": "ce-compound-refresh",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-compound-refresh/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Project knowledge",
+        "owner": "Future project-learning workflow",
+        "summary": "Checks stored project lessons against current code and consolidates or updates stale guidance.",
+        "reason": "Complements lesson capture once a repository actually has a useful learning store.",
+        "caution": "Unknown is not obsolete. Preserve independently valid guidance when code violates it; adapt deletion authority, store layout and mandatory vocabulary capture.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-debug/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "82540da83cbe42ff462a75557752b5f4313e5fe0fa89d5bb047c29eec6de5a80",
+        "lines": 122,
+        "chars": 16815,
+        "name": "ce-debug",
+        "id": "compound-engineering-ce-debug",
+        "key": "Compound Engineering/ce-debug",
+        "declaredName": "ce-debug",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-debug/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "debug",
+        "category": "Implementation, verification and review",
+        "summary": "Investigates a reported failure with explicit hypotheses and verified corrections.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-doc-review/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "0a1f44d7bd0014cd0e5b895dd8d152e865532ebf5d47504596fad552ec282a2f",
+        "lines": 75,
+        "chars": 7775,
+        "name": "ce-doc-review",
+        "id": "compound-engineering-ce-doc-review",
+        "key": "Compound Engineering/ce-doc-review",
+        "declaredName": "ce-doc-review",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-doc-review/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Later",
+        "category": "Planning",
+        "owner": "Future planning skill; compare-solutions when justified",
+        "summary": "Reviews an existing plan, specification or requirements document through relevant lenses.",
+        "reason": "Borrow checking consequences and coverage of unresolved findings into a planner's review mode.",
+        "caution": "Do not make a multi-persona panel, cross-model infrastructure or per-finding approval walkthrough mandatory for ordinary plan review.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-dogfood/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "7b8723b454bff5977c7bd72e1ebac4298abe2d6c7e9ab5c38c66e7da82f9e553",
+        "lines": 66,
+        "chars": 7699,
+        "name": "ce-dogfood",
+        "id": "compound-engineering-ce-dogfood",
+        "key": "Compound Engineering/ce-dogfood",
+        "declaredName": "ce-dogfood",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-dogfood/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Next",
+        "category": "Verification",
+        "owner": "verify; local verify-<app>",
+        "summary": "Drives branch-affected user journeys and records functional defects and experience friction.",
+        "reason": "Borrow journey coverage through destination and downstream effects, including re-entry and permission states.",
+        "caution": "Its agent-browser-only rule conflicts with native T3 browsing. Keep verify read-only unless the parent task authorizes repair; do not inherit automatic fixes, commits or CE reports.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": [
+          {
+            "path": "skills/ce-dogfood/references/test-matrix-taxonomy.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-dogfood/references/test-matrix-taxonomy.md",
+            "sha256": "f7ade1a3101d3768baba02444782d67d760ff587bd0816288f367d5460c62f29"
+          }
+        ]
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-explain/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "fe1a05fa429338524374b2428bac9a0338a7e7c2f7ff4e1e510da123e834cafe",
+        "lines": 81,
+        "chars": 8592,
+        "name": "ce-explain",
+        "id": "compound-engineering-ce-explain",
+        "key": "Compound Engineering/ce-explain",
+        "declaredName": "ce-explain",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-explain/SKILL.md",
+        "action": "Do not add",
+        "priority": "Covered",
+        "category": "Explanation",
+        "owner": "how; why; daily-meeting-update",
+        "summary": "Explains mechanisms, historical reasons or recent work from evidence.",
+        "reason": "Those results already have focused local owners, with historical inference separated from current behavior.",
+        "caution": "Do not install a broad replacement or force recap agents and CE artifacts for a simple explanation.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-handoff/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "3fb19a18d8ee00594254d8b495da51c6847563ce23124e8639edc8953f1c62bb",
+        "lines": 54,
+        "chars": 6192,
+        "name": "ce-handoff",
+        "id": "compound-engineering-ce-handoff",
+        "key": "Compound Engineering/ce-handoff",
+        "declaredName": "ce-handoff",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-handoff/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Session continuity",
+        "owner": "Host handoff; optional portable handoff document",
+        "summary": "Creates a continuity document or discovers a previous one for another session.",
+        "reason": "Useful only when the next environment lacks the current thread's durable history and handoff mechanisms.",
+        "caution": "Use native T3 or Orca ownership rules first. Do not import a forced confirmation stop when the user already asked to resume named work.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-ideate/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "e84f654dd05181ce0e471945303bdc7e77907267dfae8b951a4add764a2ef178",
+        "lines": 73,
+        "chars": 7113,
+        "name": "ce-ideate",
+        "id": "compound-engineering-ce-ideate",
+        "key": "Compound Engineering/ce-ideate",
+        "declaredName": "ce-ideate",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-ideate/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Product discovery",
+        "owner": "Optional product ideation workflow",
+        "summary": "Generates, challenges and ranks repo-grounded product opportunities.",
+        "reason": "Useful for an explicit search for what to build; separate from implementing a selected task.",
+        "caution": "Keep agent cost and evidence visible. Do not default every vague prompt to several agents, an HTML artifact or a persistent CE ideation store.",
+        "decision": "Optional",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-noslop/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "5e6712cede3abf4fa295568246f0d93185376e746a11d489237704972fb36bb1",
+        "lines": 45,
+        "chars": 3988,
+        "name": "ce-noslop",
+        "id": "compound-engineering-ce-noslop",
+        "key": "Compound Engineering/ce-noslop",
+        "declaredName": "ce-noslop",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-noslop/SKILL.md",
+        "action": "Do not add",
+        "priority": "Covered",
+        "category": "Writing",
+        "owner": "humanize",
+        "summary": "Checks and edits prose for clarity while preserving supplied facts and the intended register.",
+        "reason": "Our humanize already owns this task and protects meaning and source text.",
+        "caution": "Keep useful examples as reference material rather than adding another broad writing trigger or rigid rewrite test.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-optimize/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "942ff8ce14c4f2b9a44891631ed2a418d26319df23beb077460bf040bbbe2a9b",
+        "lines": 62,
+        "chars": 7877,
+        "name": "ce-optimize",
+        "id": "compound-engineering-ce-optimize",
+        "key": "Compound Engineering/ce-optimize",
+        "declaredName": "ce-optimize",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-optimize/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Performance",
+        "owner": "Future measured optimization skill",
+        "summary": "Runs persisted experiments over a measurable workload or scored alternatives with stopping rules.",
+        "reason": "Useful for expensive optimization campaigns after the simpler Addy measure-change-remeasure loop is insufficient.",
+        "caution": "Adapt CE specs, worktrees, model routing and approval checkpoints. Set real budgets; its multi-stage experiment machinery should not accompany every slow query.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-plan/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "6c5842bfc91a9aad65fcdf83669f86ef499a9b40dc99f9340c5981d2bc6f1720",
+        "lines": 60,
+        "chars": 7769,
+        "name": "ce-plan",
+        "id": "compound-engineering-ce-plan",
+        "key": "Compound Engineering/ce-plan",
+        "declaredName": "ce-plan",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-plan/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Next",
+        "category": "Planning",
+        "owner": "Future planning skill",
+        "summary": "Builds implementation plans at different depths with evidence, settled decisions and downstream handoff contracts.",
+        "reason": "Use selected claim, handoff and scope checks to strengthen the leaner Matthew Blode planning base.",
+        "caution": "Do not import CE's configuration tree, repeated reference loads, model-elevation gates and mandatory completion menus wholesale.",
+        "decision": "Blend",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-polish/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "985888097d7e82a04a4b59856d53d7e6a30854094400b5be36c278261f0c92fa",
+        "lines": 22,
+        "chars": 3108,
+        "name": "ce-polish",
+        "id": "compound-engineering-ce-polish",
+        "key": "Compound Engineering/ce-polish",
+        "declaredName": "ce-polish",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-polish/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "UI feedback",
+        "owner": "Native collaborative browser; existing implementation flow",
+        "summary": "Turns a user's live observations on a working page into focused interface corrections.",
+        "reason": "The traditional feedback loop fits the shared browser; no extra dependency is needed to start using that method.",
+        "caution": "Voice mode introduces Riffrec, an API key and an app mount. Keep that optional and explicitly requested; do not install it as routine QA.",
+        "decision": "Optional",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-pov/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "c9ff88b00bcd953b07f93da2945e8f56f536b86260f4b6f8fe74d6bdb0835238",
+        "lines": 64,
+        "chars": 7763,
+        "name": "ce-pov",
+        "id": "compound-engineering-ce-pov",
+        "key": "Compound Engineering/ce-pov",
+        "declaredName": "ce-pov",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-pov/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Adoption decisions",
+        "owner": "Optional adoption-assessment capability",
+        "summary": "Assesses a proposed dependency, document or approach against project evidence and constraints.",
+        "reason": "Useful for recurring build-versus-buy and external-adoption questions; distinct from producing multiple complete solutions.",
+        "caution": "Start with one grounded assessment. Adapt blocked-context handling, CE artifact rules and model panels rather than making them universal.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-product-pulse/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "aa53c3994a2c682cdf07e44bfe952a4c3a192a1a39ba701a6f3d101246e10e85",
+        "lines": 81,
+        "chars": 7768,
+        "name": "ce-product-pulse",
+        "id": "compound-engineering-ce-product-pulse",
+        "key": "Compound Engineering/ce-product-pulse",
+        "declaredName": "ce-product-pulse",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-product-pulse/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Product operations",
+        "owner": "Future read-only product report",
+        "summary": "Summarizes a time window of configured usage, performance and error signals.",
+        "reason": "Useful once real product data and a recurring reporting need exist.",
+        "caution": "Preserve property and time-window evidence, read-only access and privacy. No automatic schedule; it is not a shipping log or an observability implementation skill.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-promote/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "6ad4cb9a205d4cdb11503295c8e63847210fa963e30a13664480b532050eb028",
+        "lines": 90,
+        "chars": 6695,
+        "name": "ce-promote",
+        "id": "compound-engineering-ce-promote",
+        "key": "Compound Engineering/ce-promote",
+        "declaredName": "ce-promote",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-promote/SKILL.md",
+        "action": "Do not add",
+        "priority": "Not selected",
+        "category": "Marketing",
+        "owner": "Existing writing capabilities",
+        "summary": "Drafts channel-specific launch copy for a shipped feature.",
+        "reason": "Outside the current engineering workflow; ordinary launch writing is already possible with existing prose tools.",
+        "caution": "Do not add a Spiral setup offer to routine development or imply an open PR has shipped.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-proof/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "80cc09158db0a55718ac169fdd38c161af43b0bf1a38ab39d6c24d693dabe7e2",
+        "lines": 65,
+        "chars": 7707,
+        "name": "ce-proof",
+        "id": "compound-engineering-ce-proof",
+        "key": "Compound Engineering/ce-proof",
+        "declaredName": "ce-proof",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-proof/SKILL.md",
+        "action": "Do not add",
+        "priority": "Not selected",
+        "category": "Document collaboration",
+        "owner": "Existing document connectors",
+        "summary": "Reads, publishes and edits documents in the Proof service.",
+        "reason": "This is a specific document-service integration, not evidence-based software verification.",
+        "caution": "Add only if Proof becomes an explicitly chosen service; keep credentials and sharing authority separate. It contributes nothing to verify by its name alone.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-prototype/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "de1b34ef13dffcf882021bc8e600abb64bd9265fb624b35dd9800ce6412c78fb",
+        "lines": 59,
+        "chars": 7758,
+        "name": "ce-prototype",
+        "id": "compound-engineering-ce-prototype",
+        "key": "Compound Engineering/ce-prototype",
+        "declaredName": "ce-prototype",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-prototype/SKILL.md",
+        "action": "Do not add",
+        "priority": "Covered",
+        "category": "Prototyping",
+        "owner": "prototype",
+        "summary": "Builds a throwaway experience at the fidelity needed for a human design decision.",
+        "reason": "The local prototype already owns bounded experiments and observed evidence.",
+        "caution": "Its attended-only interaction contract is narrower than our logic and runtime prototypes. Consult UX techniques without replacing the owner.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-resolve-pr-feedback/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "c1f7d4d14e932fd6b51d758bd7e25e3673fa380dd13546679af3a45debc5cffc",
+        "lines": 60,
+        "chars": 6672,
+        "name": "ce-resolve-pr-feedback",
+        "id": "compound-engineering-ce-resolve-pr-feedback",
+        "key": "Compound Engineering/ce-resolve-pr-feedback",
+        "declaredName": "ce-resolve-pr-feedback",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-resolve-pr-feedback/SKILL.md",
+        "action": "Already incorporated",
+        "priority": "Ready",
+        "owner": "pr-followup",
+        "category": "Git, pull requests and CI",
+        "summary": "Evaluates review feedback before applying supported corrections.",
+        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
+        "decision": "Keep",
+        "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-retune/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "21f781e9ab8ac32d09cec0ac054dfd9392374907076b1335f95bb2591401dce2",
+        "lines": 42,
+        "chars": 4664,
+        "name": "ce-retune",
+        "id": "compound-engineering-ce-retune",
+        "key": "Compound Engineering/ce-retune",
+        "declaredName": "ce-retune",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-retune/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Next",
+        "category": "Skill evaluation",
+        "owner": "agent-instructions",
+        "summary": "Measures whether a skill corpus behaves better on a target model before and after revisions.",
+        "reason": "Borrow identical-build controls, durable source identity, predeclared outcomes and honest uncertainty for high-cost authoring evaluations.",
+        "caution": "Requires an actual repeatable harness and source selector. Do not claim improvement from a static audit or one passing run, and do not impose its campaign size or statistical recipes on every small edit.",
+        "decision": "Blend",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": [
+          {
+            "path": "skills/ce-retune/references/noise-floor.md",
+            "coverage": "Full reference; statistical recipes not independently validated",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-retune/references/noise-floor.md",
+            "sha256": "ea8ec536ddd4eb1037ba9ec3deff142f49488686054026ddf5d0a3ff4af4834d"
+          }
+        ]
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-riffrec-feedback-analysis/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "bb26288e44949715b64ddd5fd14e792242f730a9ea5680d364b1a443c3926352",
+        "lines": 33,
+        "chars": 2779,
+        "name": "ce-riffrec-feedback-analysis",
+        "id": "compound-engineering-ce-riffrec-feedback-analysis",
+        "key": "Compound Engineering/ce-riffrec-feedback-analysis",
+        "declaredName": "ce-riffrec-feedback-analysis",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-riffrec-feedback-analysis/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Recorded feedback",
+        "owner": "debug intake; optional feedback analysis",
+        "summary": "Extracts bugs and requirements from synchronized screen, voice and event recordings.",
+        "reason": "Useful when users actually provide those recordings; evidence can feed debug or planning.",
+        "caution": "Inspect the analyzer and media handling before adoption. Keep recordings local and do not automatically expand extraction into brainstorming or install Riffrec.",
+        "decision": "Optional",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-setup/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "e0a785b8623a2cbf2714b1300ffb09111fd26d26adc11790df4bf2d8037be72d",
+        "lines": 103,
+        "chars": 7733,
+        "name": "ce-setup",
+        "id": "compound-engineering-ce-setup",
+        "key": "Compound Engineering/ce-setup",
+        "declaredName": "ce-setup",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-setup/SKILL.md",
+        "action": "Do not add",
+        "priority": "Not selected",
+        "category": "Plugin setup",
+        "owner": "Existing host and skill installation tools",
+        "summary": "Checks and configures a Compound Engineering installation and optional packs.",
+        "reason": "We are selecting sources, not adopting the full CE runtime and configuration contract.",
+        "caution": "Do not install setup just to use an idea from one source. Missing optional CE integrations are not blockers for our local collection.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-simplify-code/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "e32bc543042d8adb2999902c9922639f78df62ed0a0d8a3597a82970b67846d0",
+        "lines": 66,
+        "chars": 6682,
+        "name": "ce-simplify-code",
+        "id": "compound-engineering-ce-simplify-code",
+        "key": "Compound Engineering/ce-simplify-code",
+        "declaredName": "ce-simplify-code",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-simplify-code/SKILL.md",
+        "action": "Do not add",
+        "priority": "Covered",
+        "category": "Code simplification",
+        "owner": "simplify-code",
+        "summary": "Reviews recently changed code for reuse, clarity and efficiency, then applies behavior-preserving simplifications.",
+        "reason": "The local simplification skill already owns this boundary and can use specialists conditionally.",
+        "caution": "Do not add three mandatory review passes for every tiny cleanup or another competing simplification trigger.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-strategy/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "e29b625b46e068f0a0e7b1ead73ade7f26d52066a3959f0aa245b9c723060280",
+        "lines": 61,
+        "chars": 7653,
+        "name": "ce-strategy",
+        "id": "compound-engineering-ce-strategy",
+        "key": "Compound Engineering/ce-strategy",
+        "declaredName": "ce-strategy",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-strategy/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Product strategy",
+        "owner": "Optional product-strategy workflow",
+        "summary": "Maintains a concise account of the product, its users, success measures and investment direction.",
+        "reason": "Useful when the user explicitly wants a strategy document, before feature-level planning.",
+        "caution": "Preserve existing document shape and decisions. Do not infer a product strategy from code or make STRATEGY.md mandatory for engineering work.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-sweep/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "651376d791d760e172fa3fb60218c1ca7ca76dce302291973ede81c70e2c3588",
+        "lines": 93,
+        "chars": 6760,
+        "name": "ce-sweep",
+        "id": "compound-engineering-ce-sweep",
+        "key": "Compound Engineering/ce-sweep",
+        "declaredName": "ce-sweep",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-sweep/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Feedback intake",
+        "owner": "Future feedback-triage workflow",
+        "summary": "Collects configured feedback, checks claimed fixes and creates an actionable plan.",
+        "reason": "Potentially useful once feedback triage across issues or messages becomes a repeated workflow.",
+        "caution": "Separate collection from acknowledgments, comments and scheduling. Source-side writes need actual authorization; PR-specific feedback remains owned by pr-followup.",
+        "decision": "Optional",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-test-browser/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "68d2445e2cc3123e8b463de00399916df7fb094a5d6372654cde5aa609e4c21c",
+        "lines": 50,
+        "chars": 6457,
+        "name": "ce-test-browser",
+        "id": "compound-engineering-ce-test-browser",
+        "key": "Compound Engineering/ce-test-browser",
+        "declaredName": "ce-test-browser",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-test-browser/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Later",
+        "category": "Verification",
+        "owner": "verify; local verify-<app>",
+        "summary": "Maps changed surfaces to routes and reports browser results with explicit failed or skipped coverage.",
+        "reason": "Its native-browser-first policy and route accounting align with the existing verification design.",
+        "caution": "Borrow only missing routing details. Resolve actual PR bases and instance ownership instead of hardcoding main or port 3000.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-test-xcode/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "76c74d7b834468a5f41af63b72ae7b98a0fcd08d55fa57891004ea4fdfd2e03c",
+        "lines": 26,
+        "chars": 2074,
+        "name": "ce-test-xcode",
+        "id": "compound-engineering-ce-test-xcode",
+        "key": "Compound Engineering/ce-test-xcode",
+        "declaredName": "ce-test-xcode",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-test-xcode/SKILL.md",
+        "action": "Optional adaptation",
+        "priority": "On demand",
+        "category": "Mobile verification",
+        "owner": "Project-local verify-<app>",
+        "summary": "Builds and exercises an iOS app in a simulator with per-surface evidence and partial-result reporting.",
+        "reason": "Useful source for a future iOS verification recipe, not a new global verification owner.",
+        "caution": "T3 device tools take precedence over its XcodeBuildMCP requirement. Verify the actual app, simulator and log-capture capabilities when a mobile project needs it.",
+        "decision": "Optional",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-work/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "c9b392620e8ae856882cd5a493b1f0e5941aa06935a73578846e703e0f00ce00",
+        "lines": 62,
+        "chars": 7853,
+        "name": "ce-work",
+        "id": "compound-engineering-ce-work",
+        "key": "Compound Engineering/ce-work",
+        "declaredName": "ce-work",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-work/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Later",
+        "category": "Workflow coordination",
+        "owner": "work-mode (pending)",
+        "summary": "Executes an agreed plan and returns verified implementation or continues to a shipping workflow.",
+        "reason": "Borrow explicit return-to-caller contracts and preservation of the coordinator's verification responsibility.",
+        "caution": "Map to local owners and host checkout rules; omit CE engine selection and shipping tails unless the task needs them.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-worktree/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "832f90ee9bb7c5686617015d587cc2d4fd2482a40127da104fe3165bcb3121cb",
+        "lines": 54,
+        "chars": 6174,
+        "name": "ce-worktree",
+        "id": "compound-engineering-ce-worktree",
+        "key": "Compound Engineering/ce-worktree",
+        "declaredName": "ce-worktree",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-worktree/SKILL.md",
+        "action": "Do not add",
+        "priority": "Covered",
+        "category": "Workspace management",
+        "owner": "worktrunk; session ownership rules",
+        "summary": "Detects existing isolation and creates or selects a checkout for the requested work.",
+        "reason": "Our worktrunk skill already owns every worktree lifecycle operation and the session defines ownership.",
+        "caution": "Its native-tool/plain-git fallback and in-place checkout behavior must not override wt or an Orca handoff. Keep one workspace owner.",
+        "decision": "Skip",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/lfg/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "44d36ed38b8ad6ebe5c08a3c21e22ebb4fe35c83ffa0266674e619980e97409f",
+        "lines": 59,
+        "chars": 7911,
+        "name": "lfg",
+        "id": "compound-engineering-lfg",
+        "key": "Compound Engineering/lfg",
+        "declaredName": "lfg",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/lfg/SKILL.md",
+        "action": "Extend existing",
+        "priority": "Later",
+        "category": "Workflow coordination",
+        "owner": "work-mode (pending)",
+        "summary": "Routes an autonomous task through planning or diagnosis, implementation, review and PR delivery.",
+        "reason": "A comparison source for the future coordinator's continuation and explicit end-state handling.",
+        "caution": "Keep pstack central and use our existing skills. Match publication to the requested scope, preserve critical questions and use native T3 PR watching rather than a second orchestrator.",
+        "decision": "Blend",
+        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "references": []
+      },
+      {
+        "collection": "compound",
+        "path": "skills/wtf/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "b90a6a998ed3471f74aea3c786c12a46e5c10cb9d55c8278fb7fa7831093329e",
+        "lines": 33,
+        "chars": 2194,
+        "name": "wtf",
+        "id": "compound-engineering-wtf",
+        "key": "Compound Engineering/wtf",
+        "declaredName": "wtf",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/wtf/SKILL.md",
+        "action": "Do not add",
+        "priority": "Covered",
+        "category": "Explanation",
+        "owner": "humanize; how; teach (pending)",
+        "summary": "Explains a confusing message or selected passage in plain language while preserving material caveats.",
+        "reason": "The useful standard is already consistent with humanize and how; a separate global command adds little.",
+        "caution": "Do not turn it into a forced teaching mode or rename an existing owner just to import a short explanation prompt.",
+        "decision": "Skip",
+        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "references": []
+      }
+    ],
+    "shortlist": [
+      {
+        "title": "Extend interface verification",
+        "route": "Improve existing skills",
+        "owner": "verify and local verify-<app>",
+        "keys": [
+          "Matthew Blode/ui-verification",
+          "Matthew Blode/app-verification",
+          "Compound Engineering/ce-dogfood"
+        ],
+        "why": "Add reusable focus, viewport, failure-state and theme probes. Consider machine-readable coverage where a project needs it.",
+        "boundary": "Keep the pstack launch/doctor/drive/evidence contract already implemented. Adapt probes to native tools and preserve required coverage."
+      },
+      {
+        "title": "Create a lean planning capability",
+        "route": "Derive and combine",
+        "owner": "New capability; name not selected",
+        "keys": [
+          "Matthew Blode/planning",
+          "Addy Osmani/planning-and-task-breakdown",
+          "Compound Engineering/ce-plan"
+        ],
+        "why": "Use Blode as the base, adding dependency ordering and verified acceptance criteria from Addy and selected CE handoff checks.",
+        "boundary": "Scale to the decision. No mandatory interviews, new files or approval stops after a plan already authorizes continuation."
+      },
+      {
+        "title": "Design the user flow before the code",
+        "route": "Derive a specialist",
+        "owner": "New interaction-design capability",
+        "keys": [
+          "Matthew Blode/product-design"
+        ],
+        "why": "Define action scope, consequence, undo, permissions and reachable states. This complements visual design and code structure.",
+        "boundary": "Use the existing design system and product decisions. Accessibility means completing the task, not merely labeling the first control."
+      },
+      {
+        "title": "Optimize from measurements",
+        "route": "Derive; keep advanced campaigns optional",
+        "owner": "New performance capability",
+        "keys": [
+          "Addy Osmani/performance-optimization",
+          "Compound Engineering/ce-optimize"
+        ],
+        "why": "Start with Addy: profile, change one cause, remeasure under comparable conditions, retain only supported wins.",
+        "boundary": "Use CE experiment machinery only for a real campaign. A noisy local result is not a proven production improvement."
+      },
+      {
+        "title": "Make runtime behavior diagnosable",
+        "route": "Derive a specialist",
+        "owner": "New observability capability",
+        "keys": [
+          "Addy Osmani/observability-and-instrumentation"
+        ],
+        "why": "Start from operational questions and verify that useful, privacy-conscious logs, metrics or traces answer them.",
+        "boundary": "Complements error-handling and debug. Preserve the actual stack and budgets instead of requiring every kind of telemetry."
+      },
+      {
+        "title": "Strengthen skill evaluation when stakes justify it",
+        "route": "Improve existing authoring",
+        "owner": "agent-instructions",
+        "keys": [
+          "Compound Engineering/ce-retune"
+        ],
+        "why": "Add identical-build controls and durable source identity when evaluating expensive workflow or model changes.",
+        "boundary": "A repeatable harness is required for measurement claims. A static review remains a static review, not a demonstrated improvement."
+      },
+      {
+        "title": "Measure slow CI and improve public contracts",
+        "route": "Add conditional references",
+        "owner": "github-actions; design-code-structure; error-handling",
+        "keys": [
+          "Matthew Blode/ci-speedup",
+          "Addy Osmani/api-and-interface-design",
+          "HumanLayer/narrow-react-prop-types"
+        ],
+        "why": "Use real critical-path timings, explicit retry/idempotency contracts and caller evidence when narrowing internal interfaces.",
+        "boundary": "Keep existing owners. Public compatibility, failure semantics and security gates outrank local convenience."
+      },
+      {
+        "title": "Install unchanged only for a concrete need",
+        "route": "Optional direct install",
+        "owner": "chat-history",
+        "keys": [
+          "Matthew Blode/chat-history"
+        ],
+        "why": "A focused local-history reader with bounded source selection. Synthetic search, context and missing-source checks passed.",
+        "boundary": "Native T3 history remains first for this host. No installation or private-history validation was performed."
+      }
+    ],
+    "internalReferences": [
+      {
+        "name": "ce-skill-work",
+        "collection": "Compound Engineering",
+        "status": "Pending",
+        "owner": "agent-instructions",
+        "action": "Consider selected guidance; do not install the repository-maintenance package",
+        "summary": "Reviews and edits Compound's own skill instructions. Separate demonstrated defects, risks needing verification and optional improvements; preserve the reason behind an existing rule before removing it.",
+        "reason": "Useful additional review guidance for the authoring owner we already have. A proposed new rule should name the missing outcome, evidence and smallest suitable change.",
+        "caution": "Keep this as a candidate reference. Its model preference, description formula, universal inline-invocation claim, Bun checks and repository registration rules require local validation or exclusion.",
+        "files": [
+          {
+            "path": ".agents/skills/ce-skill-work/SKILL.md",
+            "coverage": "Full entrypoint",
+            "sha256": "c0644a9fb8366160c7000e5b43a208e211204dae1dd7a7275b60b189dacfac79",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/.agents/skills/ce-skill-work/SKILL.md"
+          },
+          {
+            "path": ".agents/skills/ce-skill-work/references/review-skill.md",
+            "coverage": "Full reference",
+            "sha256": "9772717f05a8d6cfc19ce23a372fc3654b6c28237fdad43ce3daea430075b4a4",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/.agents/skills/ce-skill-work/references/review-skill.md"
+          },
+          {
+            "path": "docs/solutions/skill-design/portable-agent-skill-authoring.md",
+            "coverage": "Lines 1-180 and sections on capabilities, authority, conditional loading, diagnosis and proportional evaluation; not a complete guide audit",
+            "sha256": "2efdd40e7f4919113a9d24b734ebd7535454e2de1822a707f23e2fef26eb6bbf",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/docs/solutions/skill-design/portable-agent-skill-authoring.md"
+          }
+        ]
+      }
+    ],
+    "excludedEntrypoints": {
+      "repository": "EveryInc/compound-engineering-plugin",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "reason": "Packaging and conversion test fixtures, not distributable skill recommendations",
+      "paths": [
+        "tests/fixtures/custom-paths/custom-skills/custom-skill/SKILL.md",
+        "tests/fixtures/custom-paths/skills/default-skill/SKILL.md",
+        "tests/fixtures/sample-plugin/skills/agent-only-skill/SKILL.md",
+        "tests/fixtures/sample-plugin/skills/claude-only-skill/SKILL.md",
+        "tests/fixtures/sample-plugin/skills/disabled-skill/SKILL.md",
+        "tests/fixtures/sample-plugin/skills/skill-one/SKILL.md"
+      ]
+    },
+    "chatHistorySmoke": {
+      "sourceCommit": "mblode/agent-skills@012e6e5208f512151bdea0e2965dafd01ff61340",
+      "scope": "Synthetic Codex JSONL only",
+      "checks": [
+        "Literal user-message search",
+        "Surrounding tool evidence and later correction",
+        "Missing source exits 2",
+        "Input fixture unchanged"
+      ],
+      "result": "passed"
+    }
+  },
+  "sourceProgress": {
+    "checkedAt": "2026-10-04",
+    "repositoryCommit": "b4908e702867a3e9c3fb7e01ca4559b6fc173b34",
+    "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
+    "counts": {
+      "ready": 77,
+      "pending": 65,
+      "optional": 43,
+      "not-selected": 24
+    },
+    "skills": {
+      "Matt Pocock/code-review": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "review-code-changes"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "review-code-changes",
+            "path": "review-code-changes/origin.txt",
+            "line": 69,
+            "sha256": "5a27501d6ddb5c7625f746a98e24d1a6175a9c044883b200a31645286bdc945f",
+            "sourceId": "matt-code-review",
+            "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "borrowed": [
+              "Review specification conformance separately from applicable documented standards.",
+              "Treat structural smells as judgment calls, with documented project conventions taking precedence."
+            ],
+            "localChoices": [
+              "Preserve both dimensions in Review basis and finding evidence, then prioritize the combined report by consequences.",
+              "No mandatory issue-tracker setup, fresh subagent pair, missing-spec pause, or assumption that every fixed point is a branch merge-base."
+            ]
+          }
+        ]
+      },
+      "Matt Pocock/codebase-design": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "design-code-structure"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "design-code-structure",
+            "path": "design-code-structure/origin.txt",
+            "line": 33,
+            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sourceId": "matt-design",
+            "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "borrowed": [
+              "A public interface includes the caller's required knowledge, not only signatures; prefer substantial behavior behind a simple surface.",
+              "Use deletion, locality, real usage and interface-level behavioral tests to evaluate a module boundary.",
+              "Resolve overloaded domain terms through concrete scenarios and code; record durable tradeoffs and glossary terms only when they warrant it."
+            ],
+            "localChoices": [
+              "Use the project's terminology rather than enforcing a fixed architecture vocabulary.",
+              "Meaningful alternatives need not start three agents with different requirements; compare-solutions owns requested independent attempts with matched constraints.",
+              "A real isolation or ownership boundary may be justified with one implementation; a test fake does not establish remote semantics.",
+              "Retain useful tests after refactoring and preserve legitimate effects and runtime validation.",
+              "Glossary and ADR edits follow the active documentation scope or project convention; neither is compulsory for every decision."
+            ]
+          }
+        ]
+      },
+      "Matt Pocock/diagnosing-bugs": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "debug"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "debug",
+            "path": "debug/origin.txt",
+            "line": 7,
+            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "sourceId": "mattpocock-debugging-and-tests",
+            "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "borrowed": [
+              "An observation must reach the reported symptom; improve the feedback loop, minimize the trigger, test predictions, and rerun the original scenario.",
+              "Distinguish a real regression boundary from a shallow test that misses the interacting behavior.",
+              "Use public behavior and independent expected values, with real collaborators or controlled system boundaries.",
+              "Measure performance regressions before changing them and clean up temporary instrumentation."
+            ],
+            "localChoices": [
+              "Diagnosis alone is read-only; repair follows existing task authorization, without a new routine confirmation gate.",
+              "Reading code and developing labeled hypotheses remain useful without a runnable reproduction; lack of evidence limits claims.",
+              "No fixed hypothesis count, exhaustive minimization gate, universal speed target, mandatory stress count, or interactive shell template.",
+              "Intermittent evidence uses a bounded sample and reports uncertainty; production load and instrumentation follow task authority.",
+              "No mandatory seam approval or blanket ban on a refactor needed for the authorized correction.",
+              "Repository and caller rules own commits, worktrees, PRs, and delivery; debug does not initiate those workflows."
+            ]
+          }
+        ]
+      },
+      "Matt Pocock/domain-modeling": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "design-code-structure"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "design-code-structure",
+            "path": "design-code-structure/origin.txt",
+            "line": 33,
+            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sourceId": "matt-design",
+            "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "borrowed": [
+              "A public interface includes the caller's required knowledge, not only signatures; prefer substantial behavior behind a simple surface.",
+              "Use deletion, locality, real usage and interface-level behavioral tests to evaluate a module boundary.",
+              "Resolve overloaded domain terms through concrete scenarios and code; record durable tradeoffs and glossary terms only when they warrant it."
+            ],
+            "localChoices": [
+              "Use the project's terminology rather than enforcing a fixed architecture vocabulary.",
+              "Meaningful alternatives need not start three agents with different requirements; compare-solutions owns requested independent attempts with matched constraints.",
+              "A real isolation or ownership boundary may be justified with one implementation; a test fake does not establish remote semantics.",
+              "Retain useful tests after refactoring and preserve legitimate effects and runtime validation.",
+              "Glossary and ADR edits follow the active documentation scope or project convention; neither is compulsory for every decision."
+            ]
+          }
+        ]
+      },
+      "Matt Pocock/grill-with-docs": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matt Pocock/implement": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matt Pocock/implement-spec": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matt Pocock/improve-codebase-architecture": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matt Pocock/prototype": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "prototype"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "prototype",
+            "path": "prototype/origin.txt",
+            "line": 7,
+            "sha256": "de75fc6af220c4e8574f8fe5e509de4ac48e472d2d42aee8c5c67daee86039d8",
+            "sourceId": "mattpocock-prototype",
+            "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "borrowed": [
+              "Choose the artifact from the question; separate logic and interface guidance.",
+              "Expose relevant state, allow free exploration, and reset guided model walkthroughs.",
+              "Compare structurally different interfaces in enough application context, with labeled variants and stubbed mutations."
+            ],
+            "localChoices": [
+              "Short activation description; empirical behavior is a third conditional branch.",
+              "Follow local scratch and deliverable conventions; plain HTML uses external CSS unless the user requests another format.",
+              "Frameworks, assertions, and project checks are conditional, not universally forbidden.",
+              "Report evidence and uncertainty; no automatic production promotion, archive branch, issue update, or delivery workflow.",
+              "Experimental UI must be isolated as a whole; hiding its selector is not sufficient."
+            ]
+          }
+        ]
+      },
+      "Matt Pocock/research": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "create-project-instructions"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "create-project-instructions",
+            "path": "create-project-instructions/origin.txt",
+            "line": 29,
+            "sha256": "ee568a65072da8240b2075cc13d18e7404fb23eef6ca6935f8ad7106fdab3f47",
+            "sourceId": "mattpocock-research",
+            "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "borrowed": [
+              "Find primary evidence for consequential claims and retain references that let a reader verify them."
+            ],
+            "localChoices": [
+              "Use repository and available project knowledge sources; code proves implementation rather than business authority.",
+              "Delegation and model choice follow the active environment and task, not a required donor fan-out."
+            ]
+          }
+        ]
+      },
+      "Matt Pocock/retro": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "workflow-to-skill"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "workflow-to-skill",
+            "path": "workflow-to-skill/origin.txt",
+            "line": 62,
+            "sha256": "79831a2cf2a8fde99f318a007f4e9ccacec4ba46a197b6e6674910ca8bec417f",
+            "sourceId": "mattpocock-retro",
+            "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "borrowed": [
+              "Route a lesson to its existing context or enforcement owner and inspect the check pipeline before duplicating it.",
+              "Retain the reason a missed piece of information changed the outcome."
+            ],
+            "localChoices": [
+              "Extract only within the requested history and project; no automatic global audit or unrelated enforcement change.",
+              "Writing and validation remain in agent-instructions. A scoped lesson may belong in project documentation rather than a new skill."
+            ]
+          }
+        ]
+      },
+      "Matt Pocock/tdd": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "debug",
+          "tdd"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "debug",
+            "path": "debug/origin.txt",
+            "line": 7,
+            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "sourceId": "mattpocock-debugging-and-tests",
+            "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "borrowed": [
+              "An observation must reach the reported symptom; improve the feedback loop, minimize the trigger, test predictions, and rerun the original scenario.",
+              "Distinguish a real regression boundary from a shallow test that misses the interacting behavior.",
+              "Use public behavior and independent expected values, with real collaborators or controlled system boundaries.",
+              "Measure performance regressions before changing them and clean up temporary instrumentation."
+            ],
+            "localChoices": [
+              "Diagnosis alone is read-only; repair follows existing task authorization, without a new routine confirmation gate.",
+              "Reading code and developing labeled hypotheses remain useful without a runnable reproduction; lack of evidence limits claims.",
+              "No fixed hypothesis count, exhaustive minimization gate, universal speed target, mandatory stress count, or interactive shell template.",
+              "Intermittent evidence uses a bounded sample and reports uncertainty; production load and instrumentation follow task authority.",
+              "No mandatory seam approval or blanket ban on a refactor needed for the authorized correction.",
+              "Repository and caller rules own commits, worktrees, PRs, and delivery; debug does not initiate those workflows."
+            ]
+          },
+          {
+            "owner": "tdd",
+            "path": "tdd/origin.txt",
+            "line": 7,
+            "sha256": "72bc7381dd93a0eea491631097b737bb12c4960ffa23cd2db97dcf6789a4f342",
+            "sourceId": "mattpocock-tdd",
+            "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "borrowed": [
+              "Implement one observable behavior at a time, with a failing test before the behavior change.",
+              "Test through caller-visible interfaces with independent expected results rather than duplicating the production algorithm.",
+              "Prefer real collaborators and control external boundaries when a reliable test needs it.",
+              "Use existing project vocabulary and contracts rather than speculative test structure."
+            ],
+            "localChoices": [
+              "TDD is selected for test-first work; integration tests alone, diagnosis, and running existing checks do not imply this workflow.",
+              "Infer established test boundaries without mandatory user confirmation; ask only about material unresolved contracts.",
+              "Pause dependent tests and implementation on an unresolved material contract; do not disguise that decision as a new parameter or callback.",
+              "Allow focused refactoring while tests are green; do not require a separate review skill for each cycle.",
+              "Distinguish behavioral red from setup failures, already implemented behavior, and tests written after production changes.",
+              "Keep optional mutation probes in disposable copies and separate their evidence from test-first ordering.",
+              "Stop affected cycles on inaccessible execution prerequisites instead of silently replacing requested TDD with unverified implementation.",
+              "Call counts, ordering, and persistence are valid test observations when the public contract makes them meaningful.",
+              "No codebase-design, code-review, Skill-tool, or host-specific model dependency; delivery follows repository and caller authority."
+            ]
+          }
+        ]
+      },
+      "Matt Pocock/to-spec": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matt Pocock/to-tickets": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matt Pocock/triage": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matt Pocock/wayfinder": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matt Pocock/wizard": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matt Pocock/grill-me": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matt Pocock/grilling": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matt Pocock/handoff": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matt Pocock/teach": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matt Pocock/to-questionnaire": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matt Pocock/writing-for-agents": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "agent-instructions"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "agent-instructions",
+            "path": "agent-instructions/origin.txt",
+            "line": 7,
+            "sha256": "0c6fb00eb60c890fd9100ef4eb7f402ac68ea7c6a216a93fa0cd3b1578b4b999",
+            "sourceId": "mattpocock-writing-for-agents",
+            "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "borrowed": [
+              "Context pointers with explicit loading conditions and branch-specific references.",
+              "Observable completion criteria and one authoritative home for each rule.",
+              "Prune repetition and consult the environment instead of caching discoverable facts."
+            ],
+            "localChoices": [
+              "Write agent-facing instruction files, prompts, and skills; prior repetition is not required.",
+              "Workflow extraction belongs to workflow-to-skill; this skill owns writing the result.",
+              "Keep new skills discoverable unless the user chooses another invocation mode.",
+              "Verify host invocation semantics instead of adopting SKILL-MECHANICS.md as universal.",
+              "Use familiar terms without requiring leading-word jargon or universal splitting rules."
+            ]
+          }
+        ]
+      },
+      "Cursor team/deslop": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "simplify-code"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "simplify-code",
+            "path": "simplify-code/origin.txt",
+            "line": 7,
+            "sha256": "f48f70fc1f8a42e6fd5bc3fc5304824e68fbd95c06e3f8d9033df2b28f10dce3",
+            "sourceId": "cursor-deslop",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Clean changed code through small edits to comments, defenses, type escapes, nesting and local style."
+            ],
+            "localChoices": [
+              "Resolve the actual caller scope and base, including only relevant uncommitted work.",
+              "Preserve behavior; bug fixes require existing task authority and distinct verification.",
+              "Require evidence for removing checks and catches, and preserve async and resource-lifetime contracts."
+            ]
+          }
+        ]
+      },
+      "Cursor team/fix-merge-conflicts": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "pr-followup"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "pr-followup",
+            "path": "pr-followup/origin.txt",
+            "line": 22,
+            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "sourceId": "cursor-ci-followup",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Inspect failed jobs before fixing causes, observe new revisions, and regenerate project-derived files when resolving conflicts."
+            ],
+            "localChoices": [
+              "Rebase under local policy; compilation is insufficient to prove conflict intent. No endless reruns, blind base merges or disabling checks."
+            ]
+          }
+        ]
+      },
+      "Cursor team/loop-on-ci": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "pr-followup"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "pr-followup",
+            "path": "pr-followup/origin.txt",
+            "line": 22,
+            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "sourceId": "cursor-ci-followup",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Inspect failed jobs before fixing causes, observe new revisions, and regenerate project-derived files when resolving conflicts."
+            ],
+            "localChoices": [
+              "Rebase under local policy; compilation is insufficient to prove conflict intent. No endless reruns, blind base merges or disabling checks."
+            ]
+          }
+        ]
+      },
+      "Cursor team/make-pr-easy-to-review": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "commit",
+          "pr"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "commit",
+            "path": "commit/origin.txt",
+            "line": 37,
+            "sha256": "b64a3ec39242967e09a598c6dc460b65aa39a41e86f4c5e8e79947fd4903fbda",
+            "sourceId": "cursor-reviewable-pr",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Keep a reviewable purpose, useful verification and reviewer entry points; assess history by reader effort."
+            ],
+            "localChoices": [
+              "Reuse checkout ownership and local publication owners. Keep behavior with required tests. No automatic rewrite, origin/main assumption or split by file type."
+            ]
+          },
+          {
+            "owner": "pr",
+            "path": "pr/origin.txt",
+            "line": 22,
+            "sha256": "07891be80ce63998b71148dd3b23b206dfcb23a4cb1143a1661af4356d0846c7",
+            "sourceId": "cursor-reviewable-pr",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Keep a reviewable purpose, useful verification and reviewer entry points; assess history by reader effort."
+            ],
+            "localChoices": [
+              "Reuse checkout ownership and local publication owners. Keep behavior with required tests. No automatic rewrite, origin/main assumption or split by file type."
+            ]
+          }
+        ]
+      },
+      "Cursor team/thermo-nuclear-code-quality-review": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "review-code-changes"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "review-code-changes",
+            "path": "review-code-changes/origin.txt",
+            "line": 54,
+            "sha256": "5a27501d6ddb5c7625f746a98e24d1a6175a9c044883b200a31645286bdc945f",
+            "sourceId": "cursor-quality-review",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Inspect ownership, duplicated invariants, abstraction value and complexity introduced by the resulting structure."
+            ],
+            "localChoices": [
+              "The source entrypoint is byte-identical to the Thermos quality entrypoint at this pin; it is not independent corroboration.",
+              "Keep useful abstractions and project conventions; require a concrete cost for structural findings."
+            ]
+          }
+        ]
+      },
+      "Cursor team/what-did-i-get-done": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Cursor team/fix-ci": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "pr-followup"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "pr-followup",
+            "path": "pr-followup/origin.txt",
+            "line": 22,
+            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "sourceId": "cursor-ci-followup",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Inspect failed jobs before fixing causes, observe new revisions, and regenerate project-derived files when resolving conflicts."
+            ],
+            "localChoices": [
+              "Rebase under local policy; compilation is insufficient to prove conflict intent. No endless reruns, blind base merges or disabling checks."
+            ]
+          }
+        ]
+      },
+      "pstack/architect": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "design-code-structure"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "design-code-structure",
+            "path": "design-code-structure/origin.txt",
+            "line": 7,
+            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sourceId": "pstack-architect",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Ground the existing mechanism and its consequential rationale before changing ownership.",
+              "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+            ],
+            "localChoices": [
+              "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
+              "Inventory source and local contracts within a bounded scope with ignored paths included before treating required evidence as unavailable.",
+              "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
+              "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
+              "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+            ]
+          }
+        ]
+      },
+      "pstack/arena": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "compare-solutions"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "compare-solutions",
+            "path": "compare-solutions/origin.txt",
+            "line": 7,
+            "sha256": "9e3da1e091f80a0318f89e08cca5b9d99bfa97533da71b3ef405a9c432bb88e7",
+            "sourceId": "pstack-arena",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Frame, fan out complete independent attempts, cross-judge, pick a base, graft useful parts, and verify.",
+              "Use a task-specific rubric, read every candidate, and record selection and graft provenance.",
+              "Separate mutable state before parallel work and use one integration writer.",
+              "Prefer a coherent, maintainable result and verify the actual integrated artifact."
+            ],
+            "localChoices": [
+              "Renamed locally from arena to compare-solutions to describe the task. Source names and historical evaluation records retain their original identities.",
+              "Derive rather than wrap because host delegation, runner selection, paths, evidence handling, and specialist contracts change across several phases.",
+              "Use available host models and supported delegation; omit Cursor-only metadata, fixed slugs, model-rule files, and forced task-manager calls.",
+              "Share every acceptance requirement while keeping the coordinator's comparison notes and emerging preferences out of candidate prompts.",
+              "Respect host workspace ownership and isolate actual mutable targets; worktrees are conditional rather than mandatory.",
+              "Record real task IDs and settle child work; reject authored multiple personas as proof of execution.",
+              "With fewer than two usable candidates, label a verified survivor as a single attempt; disclose an unavailable judge and any unmet explicit requirement.",
+              "Bound recoverable retries and reframing instead of requiring repeated full contests.",
+              "Judge agreement and candidate consensus do not establish correctness; retain supported minority findings and unresolved premises.",
+              "Trace hard constraints to caller requirements or applicable rules; keep preferences and out-of-domain robustness distinct from contract failures.",
+              "Preserve conditional specialist procedures and strict report grammars; each review-code-changes comparison candidate remains one complete reviewer without facet delegation.",
+              "Keep analyze-change-effects and review-code-changes distinct and prevent recursive comparisons.",
+              "Inline only the relevant principles; do not import the donors' full redesign, depth, artifact, or deletion rules.",
+              "Do not require show-me-your-work, an extra prose-cleanup skill, product repair, installation, or publication."
+            ]
+          }
+        ]
+      },
+      "pstack/automate-me": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/blast-radius": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "analyze-change-effects",
+          "debug"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "analyze-change-effects",
+            "path": "analyze-change-effects/origin.txt",
+            "line": 7,
+            "sha256": "91e707fe05777abcebc554edb4c1952d2a4284b6f529dbf6c31c3d6105cce191",
+            "sourceId": "pstack-blast-radius",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Find downstream breakage that a symbol search or the visible diff can miss.",
+              "Identify deciding safety assumptions and test them by executing actual code.",
+              "Inspect pinned dependencies, local patches, lifecycle timing, data formats, and indirect consumers when relevant.",
+              "Distinguish a source citation, a traced unreachable failure path, a local probe, and application reproduction.",
+              "Separate confirmed risks, cleared paths, unproven claims, and the next useful check."
+            ],
+            "localChoices": [
+              "Renamed locally from blast-radius to analyze-change-effects to describe the task. Source names and historical evaluation records retain their original identities.",
+              "Keep analyze-change-effects independent of review-audit; neither is a donor, wrapper, extension, or prerequisite for the other.",
+              "Use a short activation description and default discoverability; omit the Cursor-only invocation flag.",
+              "Support existing changes directly. Proposed-change analysis is a local extension and not the justification for this skill's independent existence.",
+              "Resolve the actual comparison and use history when it answers a concrete constraint, without a required why invocation.",
+              "Test all material independent assumptions; one proven fact does not clear unrelated hazards.",
+              "Use qualitative reachability and impact rather than inventing probabilities.",
+              "Keep focused execution central while respecting explicit read-only limits and unavailable runtime dependencies.",
+              "Use disposable probes under the caller's scratch rules; preserve product source, committed tests, dependency pins, configuration, and remote state.",
+              "Exercise the actual changed boundary; a reimplementation, dependency substitute, new-producer-only test, or unasserted exit code is not equivalent proof.",
+              "Do not require compare-solutions, unslop, fixed models, worktrees, public reports, or repair. Optional authorized delegation does not establish truth by consensus.",
+              "Keep a proposed scenario, inspected source path, and observed execution distinct, with precise scope and stopping conditions."
+            ]
+          },
+          {
+            "owner": "debug",
+            "path": "debug/origin.txt",
+            "line": 34,
+            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "sourceId": "pstack-debugging-principles",
+            "baselineCommit": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "reviewedThrough": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "borrowed": [
+              "Prefer a focused failing-before, passing-after regression test when a meaningful local test path exists; explain a practical fallback.",
+              "Repair the mechanism, investigate related patterns, and inspect persistent state when restart behavior suggests it.",
+              "Trace entrypoints, transformations, state ownership, and boundaries rather than guessing from names.",
+              "Separate mechanics from historical intent, qualify claims by evidence, and retain unknowns and contradictions.",
+              "Follow non-symbol consumers such as serialized formats and ordering, then exercise the assumptions that matter."
+            ],
+            "localChoices": [
+              "Keep legitimate guards and recovery behavior; do not fix every similar occurrence without evidence and scope.",
+              "A disproportionate new test does not waive explicit testing requests or required project checks.",
+              "Adapt how, why, and blast-radius criteria into one conditional reference; do not invoke their orchestration or take over their broader tasks.",
+              "Search sources relevant to the current uncertainty rather than every available MCP category.",
+              "No fixed agents, model slugs, Cursor tools, donor invocation flags, or unslop dependency.",
+              "One verified safety assumption does not dismiss independent risks."
+            ]
+          }
+        ]
+      },
+      "pstack/create-verification-skill": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "verification-authoring",
+          "verify"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "verification-authoring",
+            "path": "verification-authoring/origin.txt",
+            "line": 7,
+            "sha256": "39b6e8f280243615e5d5cf9c5e664cfa4b31492aaf304b7dc3c403013621e912",
+            "sourceId": "pstack-verification",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Discover Surface, Run, Drive, Observe and Isolate from the repository before writing commands.",
+              "Project-local verify-<app> with Launch, Doctor, Drive, Evidence, Cleanup and Helpers.",
+              "Feature map with source-grounded user entry points, real action and result proof, independently observed side effects, and evidence that survives cleanup.",
+              "Creation proves one mapped feature; maintenance covers every feature from source and live, with separate readers and one mutable driver.",
+              "Distinguish recipe drift, harness gaps and product defects; bounded doctor repair and ownership-aware cleanup on every attempt."
+            ],
+            "localChoices": [
+              "Common verify owns selection, scope and result claims; project-local verify-<app> owns executable application procedures. verification-authoring owns creation and maintenance.",
+              "Resolve the target host and local skill location; do not require Cursor, tmux, a fixed browser tool or a global installation.",
+              "Use agent-instructions by registered name for authoring. Keep general writing rules with that owner.",
+              "Product repair, dependency installation, commits, PRs and scheduling follow the active caller and repository rules; maintenance does not automatically publish.",
+              "Unreachable routes are blocked behavior coverage, with the attempted route and concrete missing prerequisite; they are not a behavioral pass.",
+              "Direct source review is an explicit disclosed fallback when independent workers cannot run and the caller permits it.",
+              "A bundled read-only map validator checks links and section structure; source and live proof still establish correctness."
+            ]
+          },
+          {
+            "owner": "verify",
+            "path": "verify/origin.txt",
+            "line": 7,
+            "sha256": "12ae1146b2e7a69824bb442fb5eac76bfacbcd7a512a7a9fad6c614947848f72",
+            "sourceId": "pstack-verification",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Discover Surface, Run, Drive, Observe and Isolate from the repository before writing commands.",
+              "Project-local verify-<app> with Launch, Doctor, Drive, Evidence, Cleanup and Helpers.",
+              "Feature map with source-grounded user entry points, real action and result proof, independently observed side effects, and evidence that survives cleanup.",
+              "Creation proves one mapped feature; maintenance covers every feature from source and live, with separate readers and one mutable driver.",
+              "Distinguish recipe drift, harness gaps and product defects; bounded doctor repair and ownership-aware cleanup on every attempt."
+            ],
+            "localChoices": [
+              "Common verify owns selection, scope and result claims; project-local verify-<app> owns executable application procedures. verification-authoring owns creation and maintenance.",
+              "Resolve the target host and local skill location; do not require Cursor, tmux, a fixed browser tool or a global installation.",
+              "Use agent-instructions by registered name for authoring. Keep general writing rules with that owner.",
+              "Product repair, dependency installation, commits, PRs and scheduling follow the active caller and repository rules; maintenance does not automatically publish.",
+              "Unreachable routes are blocked behavior coverage, with the attempted route and concrete missing prerequisite; they are not a behavioral pass.",
+              "Direct source review is an explicit disclosed fallback when independent workers cannot run and the caller permits it.",
+              "A bundled read-only map validator checks links and section structure; source and live proof still establish correctness."
+            ]
+          }
+        ]
+      },
+      "pstack/figure-it-out": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/how": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "debug",
+          "how"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "debug",
+            "path": "debug/origin.txt",
+            "line": 34,
+            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "sourceId": "pstack-debugging-principles",
+            "baselineCommit": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "reviewedThrough": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "borrowed": [
+              "Prefer a focused failing-before, passing-after regression test when a meaningful local test path exists; explain a practical fallback.",
+              "Repair the mechanism, investigate related patterns, and inspect persistent state when restart behavior suggests it.",
+              "Trace entrypoints, transformations, state ownership, and boundaries rather than guessing from names.",
+              "Separate mechanics from historical intent, qualify claims by evidence, and retain unknowns and contradictions.",
+              "Follow non-symbol consumers such as serialized formats and ordering, then exercise the assumptions that matter."
+            ],
+            "localChoices": [
+              "Keep legitimate guards and recovery behavior; do not fix every similar occurrence without evidence and scope.",
+              "A disproportionate new test does not waive explicit testing requests or required project checks.",
+              "Adapt how, why, and blast-radius criteria into one conditional reference; do not invoke their orchestration or take over their broader tasks.",
+              "Search sources relevant to the current uncertainty rather than every available MCP category.",
+              "No fixed agents, model slugs, Cursor tools, donor invocation flags, or unslop dependency.",
+              "One verified safety assumption does not dismiss independent risks."
+            ]
+          },
+          {
+            "owner": "how",
+            "path": "how/origin.txt",
+            "line": 7,
+            "sha256": "ca148245387333f413ef911d095060bb7ad0077ee690bc77e60dd8aec6679c3f",
+            "sourceId": "pstack-how-and-teach",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Trace entry points, concrete calls, data transformations, ownership, and boundaries from the actual implementation.",
+              "Scale exploration to the question, reconcile conflicting evidence, and name gaps instead of guessing.",
+              "Explain a working mental model with relevant source locations and useful visual relationships.",
+              "Use only selected presentation criteria from teach: appropriate technical depth, necessary definitions, and a concrete flow the reader can follow.",
+              "Preserve confidence and attribution when making an explanation easier to read."
+            ],
+            "localChoices": [
+              "Investigate directly; delegation requires host and task authorization and is never a prerequisite.",
+              "Use a short activation description and normal host discoverability; no Cursor-only invocation flag, Task API, or model table.",
+              "Keep how focused on current mechanics and ownership; guided teaching, exercises, and learning plans remain separate capabilities.",
+              "Match requested depth in the current response rather than forcing a two-sentence stop or a senior-engineer audience.",
+              "Keep read-only explanation separate from diagnosis, branch-diff walkthroughs, historical investigation, and implementation.",
+              "Allow relevant documented rationale with attribution without requiring why or an exhaustive historical sweep.",
+              "Choose visual aids by usefulness; no mandatory repeated diagrams, image generation, English-only output, or unslop dependency.",
+              "Distinguish source inspection from observed execution and unknown external guarantees; do not imply tests ran merely because they were read.",
+              "Do not promote internal status or an external acknowledgement into an unobserved delivery guarantee; name the condition for later work.",
+              "Write a requested explanatory artifact only within its scope; ordinary use creates no course or learning records."
+            ]
+          }
+        ]
+      },
+      "pstack/interrogate": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/maintain-verification-skill": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "verification-authoring",
+          "verify"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "verification-authoring",
+            "path": "verification-authoring/origin.txt",
+            "line": 7,
+            "sha256": "39b6e8f280243615e5d5cf9c5e664cfa4b31492aaf304b7dc3c403013621e912",
+            "sourceId": "pstack-verification",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Discover Surface, Run, Drive, Observe and Isolate from the repository before writing commands.",
+              "Project-local verify-<app> with Launch, Doctor, Drive, Evidence, Cleanup and Helpers.",
+              "Feature map with source-grounded user entry points, real action and result proof, independently observed side effects, and evidence that survives cleanup.",
+              "Creation proves one mapped feature; maintenance covers every feature from source and live, with separate readers and one mutable driver.",
+              "Distinguish recipe drift, harness gaps and product defects; bounded doctor repair and ownership-aware cleanup on every attempt."
+            ],
+            "localChoices": [
+              "Common verify owns selection, scope and result claims; project-local verify-<app> owns executable application procedures. verification-authoring owns creation and maintenance.",
+              "Resolve the target host and local skill location; do not require Cursor, tmux, a fixed browser tool or a global installation.",
+              "Use agent-instructions by registered name for authoring. Keep general writing rules with that owner.",
+              "Product repair, dependency installation, commits, PRs and scheduling follow the active caller and repository rules; maintenance does not automatically publish.",
+              "Unreachable routes are blocked behavior coverage, with the attempted route and concrete missing prerequisite; they are not a behavioral pass.",
+              "Direct source review is an explicit disclosed fallback when independent workers cannot run and the caller permits it.",
+              "A bundled read-only map validator checks links and section structure; source and live proof still establish correctness."
+            ]
+          },
+          {
+            "owner": "verify",
+            "path": "verify/origin.txt",
+            "line": 7,
+            "sha256": "12ae1146b2e7a69824bb442fb5eac76bfacbcd7a512a7a9fad6c614947848f72",
+            "sourceId": "pstack-verification",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Discover Surface, Run, Drive, Observe and Isolate from the repository before writing commands.",
+              "Project-local verify-<app> with Launch, Doctor, Drive, Evidence, Cleanup and Helpers.",
+              "Feature map with source-grounded user entry points, real action and result proof, independently observed side effects, and evidence that survives cleanup.",
+              "Creation proves one mapped feature; maintenance covers every feature from source and live, with separate readers and one mutable driver.",
+              "Distinguish recipe drift, harness gaps and product defects; bounded doctor repair and ownership-aware cleanup on every attempt."
+            ],
+            "localChoices": [
+              "Common verify owns selection, scope and result claims; project-local verify-<app> owns executable application procedures. verification-authoring owns creation and maintenance.",
+              "Resolve the target host and local skill location; do not require Cursor, tmux, a fixed browser tool or a global installation.",
+              "Use agent-instructions by registered name for authoring. Keep general writing rules with that owner.",
+              "Product repair, dependency installation, commits, PRs and scheduling follow the active caller and repository rules; maintenance does not automatically publish.",
+              "Unreachable routes are blocked behavior coverage, with the attempted route and concrete missing prerequisite; they are not a behavioral pass.",
+              "Direct source review is an explicit disclosed fallback when independent workers cannot run and the caller permits it.",
+              "A bundled read-only map validator checks links and section structure; source and live proof still establish correctness."
+            ]
+          }
+        ]
+      },
+      "pstack/no-comments": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "simplify-code"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "simplify-code",
+            "path": "simplify-code/origin.txt",
+            "line": 22,
+            "sha256": "f48f70fc1f8a42e6fd5bc3fc5304824e68fbd95c06e3f8d9033df2b28f10dce3",
+            "sourceId": "pstack-comments",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Inspect comments against surrounding code and trace consequential constraints.",
+              "Distinguish narration from public contracts, external gotchas, legal notices and tooling directives; prefer a scoped code encoding where it preserves the constraint."
+            ],
+            "localChoices": [
+              "Keep necessary internal invariants and uncertain constraints; do not delete because an exception is unproven.",
+              "No mandatory Comment Sicko, architect call, deletion quota or approval ritual for routine authorized cleanup.",
+              "Inspect suppression meaning; remove only when its underlying reason is resolved and checks still pass."
+            ]
+          }
+        ]
+      },
+      "pstack/poteto-mode": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/prototype": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "prototype"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "prototype",
+            "path": "prototype/origin.txt",
+            "line": 32,
+            "sha256": "de75fc6af220c4e8574f8fe5e509de4ac48e472d2d42aee8c5c67daee86039d8",
+            "sourceId": "pstack-prototype-playbook",
+            "baselineCommit": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "reviewedThrough": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "borrowed": [
+              "Use an isolated disposable experiment to resolve a concrete decision.",
+              "Allow small empirical behavior or timing experiments as well as visual alternatives.",
+              "Observe the matching surface and deliver evidence, tradeoffs, a recommendation, and the artifact."
+            ],
+            "localChoices": [
+              "The source is a playbook inside poteto-mode, not an independently installable skill.",
+              "No Cursor tool names, parent-mode dependency, or automatic handoff to Feature or architect.",
+              "Gather references and alternatives only when the question needs them.",
+              "Timing evidence compares correct behavior under comparable conditions and reports variability.",
+              "Preserve existing wider authorization without requiring a new permission gate."
+            ]
+          }
+        ]
+      },
+      "pstack/principle-attack-the-premise": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/principle-boundary-discipline": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "design-code-structure",
+          "error-handling"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "design-code-structure",
+            "path": "design-code-structure/origin.txt",
+            "line": 7,
+            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sourceId": "pstack-architect",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Ground the existing mechanism and its consequential rationale before changing ownership.",
+              "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+            ],
+            "localChoices": [
+              "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
+              "Inventory source and local contracts within a bounded scope with ignored paths included before treating required evidence as unavailable.",
+              "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
+              "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
+              "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+            ]
+          },
+          {
+            "owner": "error-handling",
+            "path": "error-handling/origin.txt",
+            "line": 22,
+            "sha256": "9a4e7ece968243cd826a24f19ae701c8a8c4aac413fe7685e446b79fedbe98f9",
+            "sourceId": "pstack-boundaries-and-recovery",
+            "baselineCommit": "9511e60321f7e533a187d62854a3d53a53752874",
+            "reviewedThrough": "9511e60321f7e533a187d62854a3d53a53752874",
+            "borrowed": [
+              "Assign validation and translation to their boundaries and preserve domain contracts.",
+              "Examine duplicate execution, interrupted work and reconciliation before replaying state changes.",
+              "Exercise caller-visible results and effects against independent expectations."
+            ],
+            "localChoices": [
+              "Internal trust depends on an invariant that still holds across persistence, concurrency and lifecycle changes.",
+              "An idempotency key requires verified server-side guarantees; local flags or read-before-write do not prove deduplication.",
+              "Do not import lifecycle-specific cleanup recipes or assume every operation can be replayed safely.",
+              "Keep meaningful absence, status and interaction assertions when they establish a failure contract; no universal test-deletion rule.",
+              "Preserve the caller's design, review or implementation scope, including unresolved business recovery policy."
+            ]
+          }
+        ]
+      },
+      "pstack/principle-build-the-lever": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/principle-encode-lessons-in-structure": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/principle-exhaust-the-design-space": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "design-code-structure"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "design-code-structure",
+            "path": "design-code-structure/origin.txt",
+            "line": 7,
+            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sourceId": "pstack-architect",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Ground the existing mechanism and its consequential rationale before changing ownership.",
+              "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+            ],
+            "localChoices": [
+              "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
+              "Inventory source and local contracts within a bounded scope with ignored paths included before treating required evidence as unavailable.",
+              "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
+              "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
+              "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+            ]
+          }
+        ]
+      },
+      "pstack/principle-experience-first": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/principle-fix-root-causes": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "debug"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "debug",
+            "path": "debug/origin.txt",
+            "line": 34,
+            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "sourceId": "pstack-debugging-principles",
+            "baselineCommit": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "reviewedThrough": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "borrowed": [
+              "Prefer a focused failing-before, passing-after regression test when a meaningful local test path exists; explain a practical fallback.",
+              "Repair the mechanism, investigate related patterns, and inspect persistent state when restart behavior suggests it.",
+              "Trace entrypoints, transformations, state ownership, and boundaries rather than guessing from names.",
+              "Separate mechanics from historical intent, qualify claims by evidence, and retain unknowns and contradictions.",
+              "Follow non-symbol consumers such as serialized formats and ordering, then exercise the assumptions that matter."
+            ],
+            "localChoices": [
+              "Keep legitimate guards and recovery behavior; do not fix every similar occurrence without evidence and scope.",
+              "A disproportionate new test does not waive explicit testing requests or required project checks.",
+              "Adapt how, why, and blast-radius criteria into one conditional reference; do not invoke their orchestration or take over their broader tasks.",
+              "Search sources relevant to the current uncertainty rather than every available MCP category.",
+              "No fixed agents, model slugs, Cursor tools, donor invocation flags, or unslop dependency.",
+              "One verified safety assumption does not dismiss independent risks."
+            ]
+          }
+        ]
+      },
+      "pstack/principle-foundational-thinking": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "design-code-structure"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "design-code-structure",
+            "path": "design-code-structure/origin.txt",
+            "line": 7,
+            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sourceId": "pstack-architect",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Ground the existing mechanism and its consequential rationale before changing ownership.",
+              "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+            ],
+            "localChoices": [
+              "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
+              "Inventory source and local contracts within a bounded scope with ignored paths included before treating required evidence as unavailable.",
+              "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
+              "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
+              "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+            ]
+          }
+        ]
+      },
+      "pstack/principle-guard-the-context-window": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/principle-laziness-protocol": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "compare-solutions"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "compare-solutions",
+            "path": "compare-solutions/origin.txt",
+            "line": 7,
+            "sha256": "9e3da1e091f80a0318f89e08cca5b9d99bfa97533da71b3ef405a9c432bb88e7",
+            "sourceId": "pstack-arena",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Frame, fan out complete independent attempts, cross-judge, pick a base, graft useful parts, and verify.",
+              "Use a task-specific rubric, read every candidate, and record selection and graft provenance.",
+              "Separate mutable state before parallel work and use one integration writer.",
+              "Prefer a coherent, maintainable result and verify the actual integrated artifact."
+            ],
+            "localChoices": [
+              "Renamed locally from arena to compare-solutions to describe the task. Source names and historical evaluation records retain their original identities.",
+              "Derive rather than wrap because host delegation, runner selection, paths, evidence handling, and specialist contracts change across several phases.",
+              "Use available host models and supported delegation; omit Cursor-only metadata, fixed slugs, model-rule files, and forced task-manager calls.",
+              "Share every acceptance requirement while keeping the coordinator's comparison notes and emerging preferences out of candidate prompts.",
+              "Respect host workspace ownership and isolate actual mutable targets; worktrees are conditional rather than mandatory.",
+              "Record real task IDs and settle child work; reject authored multiple personas as proof of execution.",
+              "With fewer than two usable candidates, label a verified survivor as a single attempt; disclose an unavailable judge and any unmet explicit requirement.",
+              "Bound recoverable retries and reframing instead of requiring repeated full contests.",
+              "Judge agreement and candidate consensus do not establish correctness; retain supported minority findings and unresolved premises.",
+              "Trace hard constraints to caller requirements or applicable rules; keep preferences and out-of-domain robustness distinct from contract failures.",
+              "Preserve conditional specialist procedures and strict report grammars; each review-code-changes comparison candidate remains one complete reviewer without facet delegation.",
+              "Keep analyze-change-effects and review-code-changes distinct and prevent recursive comparisons.",
+              "Inline only the relevant principles; do not import the donors' full redesign, depth, artifact, or deletion rules.",
+              "Do not require show-me-your-work, an extra prose-cleanup skill, product repair, installation, or publication."
+            ]
+          }
+        ]
+      },
+      "pstack/principle-make-operations-idempotent": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "design-code-structure",
+          "error-handling"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "design-code-structure",
+            "path": "design-code-structure/origin.txt",
+            "line": 7,
+            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sourceId": "pstack-architect",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Ground the existing mechanism and its consequential rationale before changing ownership.",
+              "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+            ],
+            "localChoices": [
+              "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
+              "Inventory source and local contracts within a bounded scope with ignored paths included before treating required evidence as unavailable.",
+              "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
+              "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
+              "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+            ]
+          },
+          {
+            "owner": "error-handling",
+            "path": "error-handling/origin.txt",
+            "line": 22,
+            "sha256": "9a4e7ece968243cd826a24f19ae701c8a8c4aac413fe7685e446b79fedbe98f9",
+            "sourceId": "pstack-boundaries-and-recovery",
+            "baselineCommit": "9511e60321f7e533a187d62854a3d53a53752874",
+            "reviewedThrough": "9511e60321f7e533a187d62854a3d53a53752874",
+            "borrowed": [
+              "Assign validation and translation to their boundaries and preserve domain contracts.",
+              "Examine duplicate execution, interrupted work and reconciliation before replaying state changes.",
+              "Exercise caller-visible results and effects against independent expectations."
+            ],
+            "localChoices": [
+              "Internal trust depends on an invariant that still holds across persistence, concurrency and lifecycle changes.",
+              "An idempotency key requires verified server-side guarantees; local flags or read-before-write do not prove deduplication.",
+              "Do not import lifecycle-specific cleanup recipes or assume every operation can be replayed safely.",
+              "Keep meaningful absence, status and interaction assertions when they establish a failure contract; no universal test-deletion rule.",
+              "Preserve the caller's design, review or implementation scope, including unresolved business recovery policy."
+            ]
+          }
+        ]
+      },
+      "pstack/principle-migrate-callers-then-delete-legacy-apis": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/principle-minimize-reader-load": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "design-code-structure"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "design-code-structure",
+            "path": "design-code-structure/origin.txt",
+            "line": 7,
+            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sourceId": "pstack-architect",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Ground the existing mechanism and its consequential rationale before changing ownership.",
+              "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+            ],
+            "localChoices": [
+              "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
+              "Inventory source and local contracts within a bounded scope with ignored paths included before treating required evidence as unavailable.",
+              "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
+              "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
+              "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+            ]
+          }
+        ]
+      },
+      "pstack/principle-model-the-domain": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "design-code-structure"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "design-code-structure",
+            "path": "design-code-structure/origin.txt",
+            "line": 7,
+            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sourceId": "pstack-architect",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Ground the existing mechanism and its consequential rationale before changing ownership.",
+              "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+            ],
+            "localChoices": [
+              "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
+              "Inventory source and local contracts within a bounded scope with ignored paths included before treating required evidence as unavailable.",
+              "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
+              "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
+              "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+            ]
+          }
+        ]
+      },
+      "pstack/principle-never-block-on-the-human": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/principle-outcome-oriented-execution": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/principle-prove-it-works": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "compare-solutions"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "compare-solutions",
+            "path": "compare-solutions/origin.txt",
+            "line": 7,
+            "sha256": "9e3da1e091f80a0318f89e08cca5b9d99bfa97533da71b3ef405a9c432bb88e7",
+            "sourceId": "pstack-arena",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Frame, fan out complete independent attempts, cross-judge, pick a base, graft useful parts, and verify.",
+              "Use a task-specific rubric, read every candidate, and record selection and graft provenance.",
+              "Separate mutable state before parallel work and use one integration writer.",
+              "Prefer a coherent, maintainable result and verify the actual integrated artifact."
+            ],
+            "localChoices": [
+              "Renamed locally from arena to compare-solutions to describe the task. Source names and historical evaluation records retain their original identities.",
+              "Derive rather than wrap because host delegation, runner selection, paths, evidence handling, and specialist contracts change across several phases.",
+              "Use available host models and supported delegation; omit Cursor-only metadata, fixed slugs, model-rule files, and forced task-manager calls.",
+              "Share every acceptance requirement while keeping the coordinator's comparison notes and emerging preferences out of candidate prompts.",
+              "Respect host workspace ownership and isolate actual mutable targets; worktrees are conditional rather than mandatory.",
+              "Record real task IDs and settle child work; reject authored multiple personas as proof of execution.",
+              "With fewer than two usable candidates, label a verified survivor as a single attempt; disclose an unavailable judge and any unmet explicit requirement.",
+              "Bound recoverable retries and reframing instead of requiring repeated full contests.",
+              "Judge agreement and candidate consensus do not establish correctness; retain supported minority findings and unresolved premises.",
+              "Trace hard constraints to caller requirements or applicable rules; keep preferences and out-of-domain robustness distinct from contract failures.",
+              "Preserve conditional specialist procedures and strict report grammars; each review-code-changes comparison candidate remains one complete reviewer without facet delegation.",
+              "Keep analyze-change-effects and review-code-changes distinct and prevent recursive comparisons.",
+              "Inline only the relevant principles; do not import the donors' full redesign, depth, artifact, or deletion rules.",
+              "Do not require show-me-your-work, an extra prose-cleanup skill, product repair, installation, or publication."
+            ]
+          }
+        ]
+      },
+      "pstack/principle-redesign-from-first-principles": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "compare-solutions",
+          "design-code-structure"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "compare-solutions",
+            "path": "compare-solutions/origin.txt",
+            "line": 7,
+            "sha256": "9e3da1e091f80a0318f89e08cca5b9d99bfa97533da71b3ef405a9c432bb88e7",
+            "sourceId": "pstack-arena",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Frame, fan out complete independent attempts, cross-judge, pick a base, graft useful parts, and verify.",
+              "Use a task-specific rubric, read every candidate, and record selection and graft provenance.",
+              "Separate mutable state before parallel work and use one integration writer.",
+              "Prefer a coherent, maintainable result and verify the actual integrated artifact."
+            ],
+            "localChoices": [
+              "Renamed locally from arena to compare-solutions to describe the task. Source names and historical evaluation records retain their original identities.",
+              "Derive rather than wrap because host delegation, runner selection, paths, evidence handling, and specialist contracts change across several phases.",
+              "Use available host models and supported delegation; omit Cursor-only metadata, fixed slugs, model-rule files, and forced task-manager calls.",
+              "Share every acceptance requirement while keeping the coordinator's comparison notes and emerging preferences out of candidate prompts.",
+              "Respect host workspace ownership and isolate actual mutable targets; worktrees are conditional rather than mandatory.",
+              "Record real task IDs and settle child work; reject authored multiple personas as proof of execution.",
+              "With fewer than two usable candidates, label a verified survivor as a single attempt; disclose an unavailable judge and any unmet explicit requirement.",
+              "Bound recoverable retries and reframing instead of requiring repeated full contests.",
+              "Judge agreement and candidate consensus do not establish correctness; retain supported minority findings and unresolved premises.",
+              "Trace hard constraints to caller requirements or applicable rules; keep preferences and out-of-domain robustness distinct from contract failures.",
+              "Preserve conditional specialist procedures and strict report grammars; each review-code-changes comparison candidate remains one complete reviewer without facet delegation.",
+              "Keep analyze-change-effects and review-code-changes distinct and prevent recursive comparisons.",
+              "Inline only the relevant principles; do not import the donors' full redesign, depth, artifact, or deletion rules.",
+              "Do not require show-me-your-work, an extra prose-cleanup skill, product repair, installation, or publication."
+            ]
+          },
+          {
+            "owner": "design-code-structure",
+            "path": "design-code-structure/origin.txt",
+            "line": 7,
+            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sourceId": "pstack-architect",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Ground the existing mechanism and its consequential rationale before changing ownership.",
+              "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+            ],
+            "localChoices": [
+              "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
+              "Inventory source and local contracts within a bounded scope with ignored paths included before treating required evidence as unavailable.",
+              "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
+              "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
+              "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+            ]
+          }
+        ]
+      },
+      "pstack/principle-separate-before-serializing-shared-state": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "compare-solutions",
+          "design-code-structure"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "compare-solutions",
+            "path": "compare-solutions/origin.txt",
+            "line": 7,
+            "sha256": "9e3da1e091f80a0318f89e08cca5b9d99bfa97533da71b3ef405a9c432bb88e7",
+            "sourceId": "pstack-arena",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Frame, fan out complete independent attempts, cross-judge, pick a base, graft useful parts, and verify.",
+              "Use a task-specific rubric, read every candidate, and record selection and graft provenance.",
+              "Separate mutable state before parallel work and use one integration writer.",
+              "Prefer a coherent, maintainable result and verify the actual integrated artifact."
+            ],
+            "localChoices": [
+              "Renamed locally from arena to compare-solutions to describe the task. Source names and historical evaluation records retain their original identities.",
+              "Derive rather than wrap because host delegation, runner selection, paths, evidence handling, and specialist contracts change across several phases.",
+              "Use available host models and supported delegation; omit Cursor-only metadata, fixed slugs, model-rule files, and forced task-manager calls.",
+              "Share every acceptance requirement while keeping the coordinator's comparison notes and emerging preferences out of candidate prompts.",
+              "Respect host workspace ownership and isolate actual mutable targets; worktrees are conditional rather than mandatory.",
+              "Record real task IDs and settle child work; reject authored multiple personas as proof of execution.",
+              "With fewer than two usable candidates, label a verified survivor as a single attempt; disclose an unavailable judge and any unmet explicit requirement.",
+              "Bound recoverable retries and reframing instead of requiring repeated full contests.",
+              "Judge agreement and candidate consensus do not establish correctness; retain supported minority findings and unresolved premises.",
+              "Trace hard constraints to caller requirements or applicable rules; keep preferences and out-of-domain robustness distinct from contract failures.",
+              "Preserve conditional specialist procedures and strict report grammars; each review-code-changes comparison candidate remains one complete reviewer without facet delegation.",
+              "Keep analyze-change-effects and review-code-changes distinct and prevent recursive comparisons.",
+              "Inline only the relevant principles; do not import the donors' full redesign, depth, artifact, or deletion rules.",
+              "Do not require show-me-your-work, an extra prose-cleanup skill, product repair, installation, or publication."
+            ]
+          },
+          {
+            "owner": "design-code-structure",
+            "path": "design-code-structure/origin.txt",
+            "line": 7,
+            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sourceId": "pstack-architect",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Ground the existing mechanism and its consequential rationale before changing ownership.",
+              "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+            ],
+            "localChoices": [
+              "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
+              "Inventory source and local contracts within a bounded scope with ignored paths included before treating required evidence as unavailable.",
+              "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
+              "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
+              "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+            ]
+          }
+        ]
+      },
+      "pstack/principle-sequence-verifiable-units": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/principle-subtract-before-you-add": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "design-code-structure"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "design-code-structure",
+            "path": "design-code-structure/origin.txt",
+            "line": 7,
+            "sha256": "e05b7d14b17822becd0982719966da79fafbdf8375a8bdb43d15496f2adf211b",
+            "sourceId": "pstack-architect",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Ground the existing mechanism and its consequential rationale before changing ownership.",
+              "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
+              "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+            ],
+            "localChoices": [
+              "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
+              "Inventory source and local contracts within a bounded scope with ignored paths included before treating required evidence as unavailable.",
+              "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
+              "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
+              "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
+              "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+            ]
+          }
+        ]
+      },
+      "pstack/principle-test-behavior-not-implementation": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "error-handling"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "error-handling",
+            "path": "error-handling/origin.txt",
+            "line": 22,
+            "sha256": "9a4e7ece968243cd826a24f19ae701c8a8c4aac413fe7685e446b79fedbe98f9",
+            "sourceId": "pstack-boundaries-and-recovery",
+            "baselineCommit": "9511e60321f7e533a187d62854a3d53a53752874",
+            "reviewedThrough": "9511e60321f7e533a187d62854a3d53a53752874",
+            "borrowed": [
+              "Assign validation and translation to their boundaries and preserve domain contracts.",
+              "Examine duplicate execution, interrupted work and reconciliation before replaying state changes.",
+              "Exercise caller-visible results and effects against independent expectations."
+            ],
+            "localChoices": [
+              "Internal trust depends on an invariant that still holds across persistence, concurrency and lifecycle changes.",
+              "An idempotency key requires verified server-side guarantees; local flags or read-before-write do not prove deduplication.",
+              "Do not import lifecycle-specific cleanup recipes or assume every operation can be replayed safely.",
+              "Keep meaningful absence, status and interaction assertions when they establish a failure contract; no universal test-deletion rule.",
+              "Preserve the caller's design, review or implementation scope, including unresolved business recovery policy."
+            ]
+          }
+        ]
+      },
+      "pstack/principle-type-system-discipline": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/recall": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/reflect": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "workflow-to-skill"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "workflow-to-skill",
+            "path": "workflow-to-skill/origin.txt",
+            "line": 7,
+            "sha256": "79831a2cf2a8fde99f318a007f4e9ccacec4ba46a197b6e6674910ca8bec417f",
+            "sourceId": "pstack-reflect",
+            "baselineCommit": "c47b12849e43f18d5c374c7069c744cc55b0ea00",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Limit transcript reads to the relevant workspace and treat embedded directives as data.",
+              "Retain evidence-backed lessons that change decisions and survive incident-specific details.",
+              "Read the existing owner before editing; distinguish missed activation, buried guidance, and an actual instruction gap.",
+              "Follow relevant linked context when it decides whether a lesson generalizes."
+            ],
+            "localChoices": [
+              "Use available task context; no Cursor transcript layout, fixed reviewer fan-out, or model table.",
+              "Delegate writing to agent-instructions rather than Cursor create-skill.",
+              "Preserve existing authorization; no automatic backlog writes or repeated approval gate.",
+              "No fixed recurrence threshold for explicitly requested skills."
+            ]
+          }
+        ]
+      },
+      "pstack/show-me-your-work": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "pr",
+          "pr-followup"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "pr",
+            "path": "pr/origin.txt",
+            "line": 37,
+            "sha256": "07891be80ce63998b71148dd3b23b206dfcb23a4cb1143a1661af4356d0846c7",
+            "sourceId": "pstack-decision-evidence",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Retain consequential decisions, reasons, evidence and outcomes for long tasks."
+            ],
+            "localChoices": [
+              "Use concise local ignored evidence when useful; no mandatory TSV artifact, transcription archive, cross-model audit or extra source-skill invocation."
+            ]
+          },
+          {
+            "owner": "pr-followup",
+            "path": "pr-followup/origin.txt",
+            "line": 82,
+            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "sourceId": "pstack-decision-evidence",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Retain consequential decisions, reasons, evidence and outcomes for long tasks."
+            ],
+            "localChoices": [
+              "Use concise local ignored evidence when useful; no mandatory TSV artifact, transcription archive, cross-model audit or extra source-skill invocation."
+            ]
+          }
+        ]
+      },
+      "pstack/swarm": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/tdd": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "debug"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "debug",
+            "path": "debug/origin.txt",
+            "line": 34,
+            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "sourceId": "pstack-debugging-principles",
+            "baselineCommit": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "reviewedThrough": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "borrowed": [
+              "Prefer a focused failing-before, passing-after regression test when a meaningful local test path exists; explain a practical fallback.",
+              "Repair the mechanism, investigate related patterns, and inspect persistent state when restart behavior suggests it.",
+              "Trace entrypoints, transformations, state ownership, and boundaries rather than guessing from names.",
+              "Separate mechanics from historical intent, qualify claims by evidence, and retain unknowns and contradictions.",
+              "Follow non-symbol consumers such as serialized formats and ordering, then exercise the assumptions that matter."
+            ],
+            "localChoices": [
+              "Keep legitimate guards and recovery behavior; do not fix every similar occurrence without evidence and scope.",
+              "A disproportionate new test does not waive explicit testing requests or required project checks.",
+              "Adapt how, why, and blast-radius criteria into one conditional reference; do not invoke their orchestration or take over their broader tasks.",
+              "Search sources relevant to the current uncertainty rather than every available MCP category.",
+              "No fixed agents, model slugs, Cursor tools, donor invocation flags, or unslop dependency.",
+              "One verified safety assumption does not dismiss independent risks."
+            ]
+          }
+        ]
+      },
+      "pstack/teach": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "how"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision. Only explanation guidance was used in how; the independent teach skill remains optional and uncreated.",
+        "evidence": [
+          {
+            "owner": "how",
+            "path": "how/origin.txt",
+            "line": 7,
+            "sha256": "ca148245387333f413ef911d095060bb7ad0077ee690bc77e60dd8aec6679c3f",
+            "sourceId": "pstack-how-and-teach",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Trace entry points, concrete calls, data transformations, ownership, and boundaries from the actual implementation.",
+              "Scale exploration to the question, reconcile conflicting evidence, and name gaps instead of guessing.",
+              "Explain a working mental model with relevant source locations and useful visual relationships.",
+              "Use only selected presentation criteria from teach: appropriate technical depth, necessary definitions, and a concrete flow the reader can follow.",
+              "Preserve confidence and attribution when making an explanation easier to read."
+            ],
+            "localChoices": [
+              "Investigate directly; delegation requires host and task authorization and is never a prerequisite.",
+              "Use a short activation description and normal host discoverability; no Cursor-only invocation flag, Task API, or model table.",
+              "Keep how focused on current mechanics and ownership; guided teaching, exercises, and learning plans remain separate capabilities.",
+              "Match requested depth in the current response rather than forcing a two-sentence stop or a senior-engineer audience.",
+              "Keep read-only explanation separate from diagnosis, branch-diff walkthroughs, historical investigation, and implementation.",
+              "Allow relevant documented rationale with attribution without requiring why or an exhaustive historical sweep.",
+              "Choose visual aids by usefulness; no mandatory repeated diagrams, image generation, English-only output, or unslop dependency.",
+              "Distinguish source inspection from observed execution and unknown external guarantees; do not imply tests ran merely because they were read.",
+              "Do not promote internal status or an external acknowledgement into an unobserved delivery guarantee; name the condition for later work.",
+              "Write a requested explanatory artifact only within its scope; ordinary use creates no course or learning records."
+            ]
+          }
+        ]
+      },
+      "pstack/technical-writing": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/typescript-best-practices": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/unslop": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "pstack/why": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "debug",
+          "why"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "debug",
+            "path": "debug/origin.txt",
+            "line": 34,
+            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "sourceId": "pstack-debugging-principles",
+            "baselineCommit": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "reviewedThrough": "7022c81efb48d8b5eb15498ce6043a3bd74b694c",
+            "borrowed": [
+              "Prefer a focused failing-before, passing-after regression test when a meaningful local test path exists; explain a practical fallback.",
+              "Repair the mechanism, investigate related patterns, and inspect persistent state when restart behavior suggests it.",
+              "Trace entrypoints, transformations, state ownership, and boundaries rather than guessing from names.",
+              "Separate mechanics from historical intent, qualify claims by evidence, and retain unknowns and contradictions.",
+              "Follow non-symbol consumers such as serialized formats and ordering, then exercise the assumptions that matter."
+            ],
+            "localChoices": [
+              "Keep legitimate guards and recovery behavior; do not fix every similar occurrence without evidence and scope.",
+              "A disproportionate new test does not waive explicit testing requests or required project checks.",
+              "Adapt how, why, and blast-radius criteria into one conditional reference; do not invoke their orchestration or take over their broader tasks.",
+              "Search sources relevant to the current uncertainty rather than every available MCP category.",
+              "No fixed agents, model slugs, Cursor tools, donor invocation flags, or unslop dependency.",
+              "One verified safety assumption does not dismiss independent risks."
+            ]
+          },
+          {
+            "owner": "why",
+            "path": "why/origin.txt",
+            "line": 7,
+            "sha256": "205299fc0f87eb984225df2428b4d86a60f22c5d738fccf1a9ff7292e420c24c",
+            "sourceId": "pstack-why",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Anchor the question in actual code, then follow history and relevant linked records.",
+              "Distinguish documented motivation, indirect evidence, speculation, and unknowns; test the user's hypothesis independently.",
+              "Trace introduction through later edits and renames instead of treating the last-touch commit as the origin.",
+              "Preserve contradictions, precise citations, meaningful search coverage, and missing evidence.",
+              "Consider incident and measurement history when it bears on the decision.",
+              "Carry supported constraints into planning when the question prepares an authorized change."
+            ],
+            "localChoices": [
+              "Investigate directly with optional authorized delegation; no required agents, model table, Cursor Task API, or forced write-capable execution mode.",
+              "Keep a brief activation description and default discoverability; no Cursor-only invocation flag.",
+              "Select sources by the question and concrete leads; no seven-category sweep, vendor-specific connector dependency, or proof of irrelevance to skip a category.",
+              "Treat Git and remote access as capabilities to verify, not guaranteed prerequisites.",
+              "Use a recorded reason, supported inference, or unknown for each claim without requiring the donor's five tiers or fixed report sections.",
+              "An explicit statement establishes an attributed historical account, not present necessity, team consensus, or successful results.",
+              "Resolve conflicting sources when dates and scope establish a changed decision; retain unresolved contradictions rather than forcing either a winner or permanent ambiguity.",
+              "Do not treat tests, replicated statements, code shape, or a post-release metric change as independent proof of original intent or causation.",
+              "Keep historical rationale distinct from current validity; removing an old constraint does not establish that code is redundant.",
+              "Ground replacement advice in verified caller contracts, including asynchronous returns; an internal mechanism change need not change the public interface.",
+              "Keep ordinary use read-only, with no repairs, teaching records, author contact, or publication; requested explanatory artifacts retain their agreed scope.",
+              "Use conditional Git guidance for last-touch edits, renames, inline review coverage, explicit repository context, and incomplete history.",
+              "A supplied snapshot does not inherit access to an enclosing repository's index or history; honor the target's evidence boundary.",
+              "Stop when the question and material contrary evidence are resolved or remaining leads cannot be pursued within scope; report the actual limit."
+            ]
+          }
+        ]
+      },
+      "orchestrate/orchestrate": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "thermos/thermo-nuclear-code-quality-review": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "review-code-changes"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "review-code-changes",
+            "path": "review-code-changes/origin.txt",
+            "line": 39,
+            "sha256": "5a27501d6ddb5c7625f746a98e24d1a6175a9c044883b200a31645286bdc945f",
+            "sourceId": "thermos-review",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Trace diff-caused breakage, developer workflow, feature gates and intended changes; assess structural cost and bounded remedies.",
+              "Form an independent assessment before checking external review claims and synthesize without duplicate causes."
+            ],
+            "localChoices": [
+              "Preserve the local trace protocol and read-only boundary; structural suggestions do not automatically block a change.",
+              "No fixed line-count limits, mandatory parallel seats, approval verdict, or consensus-based severity."
+            ]
+          }
+        ]
+      },
+      "thermos/thermo-nuclear-review": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "review-code-changes"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "review-code-changes",
+            "path": "review-code-changes/origin.txt",
+            "line": 39,
+            "sha256": "5a27501d6ddb5c7625f746a98e24d1a6175a9c044883b200a31645286bdc945f",
+            "sourceId": "thermos-review",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Trace diff-caused breakage, developer workflow, feature gates and intended changes; assess structural cost and bounded remedies.",
+              "Form an independent assessment before checking external review claims and synthesize without duplicate causes."
+            ],
+            "localChoices": [
+              "Preserve the local trace protocol and read-only boundary; structural suggestions do not automatically block a change.",
+              "No fixed line-count limits, mandatory parallel seats, approval verdict, or consensus-based severity."
+            ]
+          }
+        ]
+      },
+      "thermos/thermos": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "review-code-changes"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "review-code-changes",
+            "path": "review-code-changes/origin.txt",
+            "line": 39,
+            "sha256": "5a27501d6ddb5c7625f746a98e24d1a6175a9c044883b200a31645286bdc945f",
+            "sourceId": "thermos-review",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Trace diff-caused breakage, developer workflow, feature gates and intended changes; assess structural cost and bounded remedies.",
+              "Form an independent assessment before checking external review claims and synthesize without duplicate causes."
+            ],
+            "localChoices": [
+              "Preserve the local trace protocol and read-only boundary; structural suggestions do not automatically block a change.",
+              "No fixed line-count limits, mandatory parallel seats, approval verdict, or consensus-based severity."
+            ]
+          }
+        ]
+      },
+      "dyl-stack/dyl-review": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "dyl-stack/dyl-ready-pr": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "pr-followup"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "pr-followup",
+            "path": "pr-followup/origin.txt",
+            "line": 37,
+            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "sourceId": "dyl-pr-readiness",
+            "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
+            "borrowed": [
+              "Recheck current CI, review feedback and integration state after repair."
+            ],
+            "localChoices": [
+              "No mandatory skill roster, forced deep-review phase, automatic ready state, fixed bot wait or requirement to resolve every thread to silence a reviewer."
+            ]
+          }
+        ]
+      },
+      "HumanLayer/visual-pr": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "pr"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "pr",
+            "path": "pr/origin.txt",
+            "line": 82,
+            "sha256": "07891be80ce63998b71148dd3b23b206dfcb23a4cb1143a1661af4356d0846c7",
+            "sourceId": "humanlayer-visual-pr",
+            "baselineCommit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+            "reviewedThrough": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+            "borrowed": [
+              "Use focused flow, call, dependency or before/after views to make the change understandable."
+            ],
+            "localChoices": [
+              "Use the repository template and smallest useful view, not the donor fixed template, full file inventory or automatic artifact commits. Screenshots must be observed and accessible."
+            ]
+          }
+        ]
+      },
+      "HumanLayer/show-me": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "HumanLayer/improve-claude-md": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "agent-instructions"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "agent-instructions",
+            "path": "agent-instructions/origin.txt",
+            "line": 110,
+            "sha256": "0c6fb00eb60c890fd9100ef4eb7f402ac68ea7c6a216a93fa0cd3b1578b4b999",
+            "sourceId": "humanlayer-improve-claude-md",
+            "baselineCommit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+            "reviewedThrough": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+            "borrowed": [
+              "Make conditions of relevance explicit and keep operational context discoverable.",
+              "Remove duplicate material when the surviving owner actually enforces or supplies the rule."
+            ],
+            "localChoices": [
+              "Use ordinary host-compatible prose; XML attributes do not create loading behavior or authority.",
+              "Check command truth rather than preserving every existing command. Keep domain constraints that tools do not enforce.",
+              "No compulsory single-file layout, automatic CLAUDE.md migration, or universal instruction-length limit."
+            ]
+          }
+        ]
+      },
+      "HumanLayer/design-control-loop": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Anthropic/frontend-design": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Anthropic/skill-creator": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "agent-instructions",
+          "workflow-to-skill"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "agent-instructions",
+            "path": "agent-instructions/origin.txt",
+            "line": 31,
+            "sha256": "0c6fb00eb60c890fd9100ef4eb7f402ac68ea7c6a216a93fa0cd3b1578b4b999",
+            "sourceId": "anthropic-skill-creator",
+            "baselineCommit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+            "reviewedThrough": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+            "borrowed": [
+              "Matched skill versus baseline trials and inspection of actual artifacts.",
+              "Positive and near-miss activation cases, reserved cases, and regression checks.",
+              "Grade with observable evidence and report the limits of a small sample."
+            ],
+            "localChoices": [
+              "Precise discovery takes precedence over broad or pushy descriptions.",
+              "Use available evaluators; no dependency on Claude-only scripts, viewers, or workspace layouts.",
+              "Scale evaluations to the change and preserve existing authorization instead of mandatory interview or approval loops."
+            ]
+          },
+          {
+            "owner": "workflow-to-skill",
+            "path": "workflow-to-skill/origin.txt",
+            "line": 34,
+            "sha256": "79831a2cf2a8fde99f318a007f4e9ccacec4ba46a197b6e6674910ca8bec417f",
+            "sourceId": "anthropic-skill-creator-capture-intent",
+            "baselineCommit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+            "reviewedThrough": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+            "borrowed": [
+              "Capture Intent: extract tools, sequence, user corrections, and observed input/output formats from available conversation history.",
+              "Capture Intent: identify activation, expected outputs, and which results admit objective checks."
+            ],
+            "localChoices": [
+              "The extraction layer does not duplicate authoring, packaging, or evaluation machinery.",
+              "Descriptions remain short activation cues; no pushy or exhaustive wording.",
+              "Ask only for material missing decisions, not a mandatory interview before every edit."
+            ]
+          }
+        ]
+      },
+      "Addy Osmani/browser-testing-with-devtools": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "verify"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "verify",
+            "path": "verify/origin.txt",
+            "line": 78,
+            "sha256": "12ae1146b2e7a69824bb442fb5eac76bfacbcd7a512a7a9fad6c614947848f72",
+            "sourceId": "addy-browser-verification",
+            "baselineCommit": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
+            "reviewedThrough": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
+            "borrowed": [
+              "Exercise the actual browser UI and use rendering, DOM, console, network and persistence evidence appropriate to each claim.",
+              "Use browser tooling for concrete behavior, accessibility or performance questions, with relevant measurements and observed errors."
+            ],
+            "localChoices": [
+              "Use the host-supported browser and project harness. Do not install Chrome DevTools MCP as a universal prerequisite.",
+              "Preserve existing authority for UI interactions instead of adding a confirmation before every modifying click.",
+              "Apply accessibility, performance and error thresholds from the task or project contract; do not invent universal zero-warning or numeric budgets."
+            ]
+          }
+        ]
+      },
+      "Addy Osmani/code-review-and-quality": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "review-code-changes"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "review-code-changes",
+            "path": "review-code-changes/origin.txt",
+            "line": 7,
+            "sha256": "5a27501d6ddb5c7625f746a98e24d1a6175a9c044883b200a31645286bdc945f",
+            "sourceId": "addy-review",
+            "baselineCommit": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
+            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "borrowed": [
+              "Separate correctness, readability, structure, security and performance concerns; review the verification story and dependency contracts."
+            ],
+            "localChoices": [
+              "Adapt principles to the project language and actual risk; no numeric thresholds, live source mutation, automatic dependency changes, or mandatory cleanup/publication.",
+              "Do not import ecosystem-specific checklists as universal policy."
+            ]
+          }
+        ]
+      },
+      "Addy Osmani/performance-optimization": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/context-engineering": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "create-project-instructions"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "create-project-instructions",
+            "path": "create-project-instructions/origin.txt",
+            "line": 49,
+            "sha256": "ee568a65072da8240b2075cc13d18e7404fb23eef6ca6935f8ad7106fdab3f47",
+            "sourceId": "addy-context-engineering",
+            "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "borrowed": [
+              "Separate durable project guidance from task context and make relevant detail retrievable on demand.",
+              "Maintain evidence boundaries and surface conflicts instead of silently blending inconsistent context."
+            ],
+            "localChoices": [
+              "No universal context-budget percentage, code-as-policy ranking, framework template, or mandatory context file set.",
+              "Use current tools and preserve existing layout; authoring instructions does not authorize product or account changes."
+            ]
+          }
+        ]
+      },
+      "Vercel/react-best-practices": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Vercel/composition-patterns": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Vercel/react-view-transitions": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Vercel/react-native-skills": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Vercel/web-design-guidelines": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "ECC/frontend-a11y": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "ECC/accessibility": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "ECC/e2e-testing": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "ECC/error-handling": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "error-handling"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "error-handling",
+            "path": "error-handling/origin.txt",
+            "line": 7,
+            "sha256": "9a4e7ece968243cd826a24f19ae701c8a8c4aac413fe7685e446b79fedbe98f9",
+            "sourceId": "ecc-error-handling",
+            "baselineCommit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "reviewedThrough": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "borrowed": [
+              "Treat errors as a caller-visible contract with useful classification and propagation.",
+              "Separate user-facing failure messages from diagnostic context; inspect asynchronous boundaries and recovery policies."
+            ],
+            "localChoices": [
+              "Use the project's language and existing representations without prescribing AppError, Result, a JSON envelope or language-specific code examples.",
+              "Logging alone is not recovery; preserve causal evidence while filtering sensitive data before it is recorded.",
+              "Replace retry-all defaults and blanket status-range rules with operation-specific replay safety, transient classification, cancellation and budgets.",
+              "Circuit breakers are conditional design work, not a mandatory new dependency or a capability proved by the donor's examples."
+            ]
+          }
+        ]
+      },
+      "ECC/github-ops": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "ECC/git-workflow": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "ECC/react-performance": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "ECC/react-patterns": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "ECC/react-testing": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Local/commit": {
+        "status": "ready",
+        "label": "In repository",
+        "owners": [
+          "commit"
+        ],
+        "note": "The current repository package exists. Its installed copy and host activation are separate states.",
+        "evidence": [
+          {
+            "owner": "commit",
+            "path": "commit/SKILL.md",
+            "line": 1,
+            "sha256": "4e0567944edea88812ee115d9e88370aa2b1628d6352d35a93bdc517e745c993"
+          }
+        ]
+      },
+      "Local/walkthrough": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Local/worktrunk": {
+        "status": "ready",
+        "label": "In repository",
+        "owners": [
+          "worktrunk"
+        ],
+        "note": "The current repository package exists. Its installed copy and host activation are separate states.",
+        "evidence": [
+          {
+            "owner": "worktrunk",
+            "path": "worktrunk/SKILL.md",
+            "line": 1,
+            "sha256": "16b4dfc733b9dbed7600d6b4639ea1272ac09600dab8a89a093503aa07f52352"
+          }
+        ]
+      },
+      "Local/pr": {
+        "status": "ready",
+        "label": "In repository",
+        "owners": [
+          "pr"
+        ],
+        "note": "The current repository package exists. Its installed copy and host activation are separate states.",
+        "evidence": [
+          {
+            "owner": "pr",
+            "path": "pr/SKILL.md",
+            "line": 1,
+            "sha256": "2a878fa6eef55305b9c9efd18bd853ddeeb68f98b76091a64f071e20ddcf0cb1"
+          }
+        ]
+      },
+      "Local/humanize": {
+        "status": "ready",
+        "label": "In repository",
+        "owners": [
+          "humanize"
+        ],
+        "note": "The current repository package exists. Its installed copy and host activation are separate states.",
+        "evidence": [
+          {
+            "owner": "humanize",
+            "path": "humanize/SKILL.md",
+            "line": 1,
+            "sha256": "bea070915c4c9894ededaa3cc4b5c5ab255720a5b99cd1d018859c89fe0d6da3"
+          }
+        ]
+      },
+      "Local/people-memory": {
+        "status": "ready",
+        "label": "In repository",
+        "owners": [
+          "people-memory"
+        ],
+        "note": "The current repository package exists. Its installed copy and host activation are separate states.",
+        "evidence": [
+          {
+            "owner": "people-memory",
+            "path": "people-memory/SKILL.md",
+            "line": 1,
+            "sha256": "51f906ebfff5d89d17281b38b3e9509e75c76c9888bb221d859985d177632140"
+          }
+        ]
+      },
+      "Local/youtube-processing": {
+        "status": "ready",
+        "label": "In repository",
+        "owners": [
+          "youtube-processing"
+        ],
+        "note": "The current repository package exists. Its installed copy and host activation are separate states.",
+        "evidence": [
+          {
+            "owner": "youtube-processing",
+            "path": "youtube-processing/SKILL.md",
+            "line": 1,
+            "sha256": "b99e7475433a1d1e31036243e8e76a4b1b9d7a5180f08c13a233fac0a534008d"
+          }
+        ]
+      },
+      "Local/daily-meeting-update": {
+        "status": "ready",
+        "label": "In repository",
+        "owners": [
+          "daily-meeting-update"
+        ],
+        "note": "The current repository package exists. Its installed copy and host activation are separate states.",
+        "evidence": [
+          {
+            "owner": "daily-meeting-update",
+            "path": "daily-meeting-update/SKILL.md",
+            "line": 1,
+            "sha256": "b4fbb864912db81a9f30f84f28505c31bf22efbfb1a72681efcff284c7508cee"
+          }
+        ]
+      },
+      "Local/stacked-pr": {
+        "status": "ready",
+        "label": "In repository",
+        "owners": [
+          "stacked-pr"
+        ],
+        "note": "The current repository package exists. Its installed copy and host activation are separate states.",
+        "evidence": [
+          {
+            "owner": "stacked-pr",
+            "path": "stacked-pr/SKILL.md",
+            "line": 1,
+            "sha256": "97ee8e7f07423d8a861c7299451a45d5c32a754a9d43a2931b7aa7916989a78e"
+          }
+        ]
+      },
+      "Local/article-processing": {
+        "status": "ready",
+        "label": "In repository",
+        "owners": [
+          "article-processing"
+        ],
+        "note": "The current repository package exists. Its installed copy and host activation are separate states.",
+        "evidence": [
+          {
+            "owner": "article-processing",
+            "path": "article-processing/SKILL.md",
+            "line": 1,
+            "sha256": "3015f6ad295e3cbce9444dde269bd0fb705b288d2a280eda8384b916265883af"
+          }
+        ]
+      },
+      "Local/github-actions": {
+        "status": "ready",
+        "label": "In repository",
+        "owners": [
+          "github-actions"
+        ],
+        "note": "The current repository package exists. Its installed copy and host activation are separate states.",
+        "evidence": [
+          {
+            "owner": "github-actions",
+            "path": "github-actions/SKILL.md",
+            "line": 1,
+            "sha256": "fcc6afd5035786599f6cdb12e1e50e8998efdfd95fe249703b693a1cca038ff4"
+          }
+        ]
+      },
+      "Local/review-audit": {
+        "status": "ready",
+        "label": "In repository",
+        "owners": [
+          "review-code-changes"
+        ],
+        "note": "The current repository package exists. Its installed copy and host activation are separate states.",
+        "evidence": [
+          {
+            "owner": "review-code-changes",
+            "path": "review-code-changes/SKILL.md",
+            "line": 1,
+            "sha256": "916d9f0217b64b1a0de8c47e8bab5c7305afe70767a6a907eed00481fe728f4e"
+          }
+        ]
+      },
+      "Local/draft-review": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Local/visual-change-explainer": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Local/home-assistant": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Local/bird": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Local/skill-creator": {
+        "status": "ready",
+        "label": "Available in Codex",
+        "owners": [],
+        "note": "Bundled system skill found on this machine. It is not a repository package or proof of automatic activation.",
+        "evidence": [
+          {
+            "path": "/Users/luisurrutia/.codex/skills/.system/skill-creator/SKILL.md",
+            "line": 1,
+            "sha256": "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66"
+          }
+        ]
+      },
+      "HumanLayer/build-iterated-agentic-loop": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "HumanLayer/narrow-react-prop-types": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/agent-ready": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/agent-skills-creator": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "agent-instructions",
+          "workflow-to-skill"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "agent-instructions",
+            "path": "agent-instructions/origin.txt",
+            "line": 155,
+            "sha256": "0c6fb00eb60c890fd9100ef4eb7f402ac68ea7c6a216a93fa0cd3b1578b4b999",
+            "sourceId": "mblode-agent-skills-creator",
+            "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
+            "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
+            "borrowed": [
+              "Distinguish reusable procedure and general technique from team preference and organizational policy.",
+              "Assess the value of instructions through relevant behavior and inspect descriptions as a collection.",
+              "Use a no-instruction or targeted removal comparison when deciding whether guidance remains useful."
+            ],
+            "localChoices": [
+              "Retain matched prior-version trials for regressions; no compulsory rule ablation or retirement from a small passing sample.",
+              "No automatic skill deletion, fixed evaluation counts, perfect-score loop, or claims about a model not tested here.",
+              "Keep current authorization, writing ownership, provenance and host checks; avoid restating the whole creator workflow."
+            ]
+          },
+          {
+            "owner": "workflow-to-skill",
+            "path": "workflow-to-skill/origin.txt",
+            "line": 83,
+            "sha256": "79831a2cf2a8fde99f318a007f4e9ccacec4ba46a197b6e6674910ca8bec417f",
+            "sourceId": "mblode-skill-capability",
+            "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
+            "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
+            "borrowed": [
+              "Classify procedure, technical knowledge, local preferences and policy before choosing what a reusable skill adds.",
+              "Read the existing owner and use the smallest useful correction."
+            ],
+            "localChoices": [
+              "Do not treat model capability claims or a single successful output as permission to remove a requirement.",
+              "No mandatory marketplace installation or fixed recurrence threshold; preserve the requested workflow and task-specific authority."
+            ]
+          }
+        ]
+      },
+      "Matthew Blode/agents-md": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "agent-instructions",
+          "create-project-instructions"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "agent-instructions",
+            "path": "agent-instructions/origin.txt",
+            "line": 132,
+            "sha256": "0c6fb00eb60c890fd9100ef4eb7f402ac68ea7c6a216a93fa0cd3b1578b4b999",
+            "sourceId": "mblode-agents-md",
+            "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
+            "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
+            "borrowed": [
+              "Keep project instructions focused on commands, consequential constraints, gotchas, and conditional context.",
+              "Check command locations, imports, scope and rare constraints after pruning or moving text.",
+              "Distinguish a smaller file from reduced loaded context and verify host-specific loading."
+            ],
+            "localChoices": [
+              "Preserve working filenames, adapters and nested rules; no universal migration to AGENTS.md or assumed host version.",
+              "Verify actual enforcement before removing a rule, and preserve approved business policy and preferences.",
+              "No mandatory point score, line quota, percentage threshold, or audit of unrelated home directories."
+            ]
+          },
+          {
+            "owner": "create-project-instructions",
+            "path": "create-project-instructions/origin.txt",
+            "line": 7,
+            "sha256": "ee568a65072da8240b2075cc13d18e7404fb23eef6ca6935f8ad7106fdab3f47",
+            "sourceId": "mblode-agents-md",
+            "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
+            "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
+            "borrowed": [
+              "Inspect the project to establish actual commands, architecture boundaries, domain constraints and context locations.",
+              "Keep instruction entrypoints focused and verify moved rules, commands and host reachability."
+            ],
+            "localChoices": [
+              "Research relevant available organizational knowledge as well as code, without a mandatory connector or exhaustive account crawl.",
+              "Preserve canonical owners and working adapters; use agent-instructions for the writing phase.",
+              "No prescribed host migration, arbitrary scoring, or fixed root-file size."
+            ]
+          }
+        ]
+      },
+      "Matthew Blode/app-verification": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/autoship": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/ax-audit": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/chat-history": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/ci-speedup": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/codebase-architecture": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/dx-audit": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/eli5": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/ghostwriter": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/multi-tenant-architecture": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/planning": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/pr-babysitter": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "pr-followup"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "pr-followup",
+            "path": "pr-followup/origin.txt",
+            "line": 67,
+            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "sourceId": "mblode-followup",
+            "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
+            "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
+            "borrowed": [
+              "Separate monitoring and repair, collect every feedback channel with pagination, revisit edited/resolved-thread content and distinguish reply permission from code repair."
+            ],
+            "localChoices": [
+              "No blind update of every behind branch, pending-CI barrier to independent fixes, bot-authority heuristic or automatic cron. REST replies use a root comment ID as verified in GitHub documentation."
+            ]
+          }
+        ]
+      },
+      "Matthew Blode/pr-creator": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "pr"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "pr",
+            "path": "pr/origin.txt",
+            "line": 67,
+            "sha256": "07891be80ce63998b71148dd3b23b206dfcb23a4cb1143a1661af4356d0846c7",
+            "sourceId": "mblode-pr",
+            "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
+            "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
+            "borrowed": [
+              "Keep current PR copy coherent, retain verified issue coverage, and avoid duplicate creation or unsupported history claims."
+            ],
+            "localChoices": [
+              "Keep local draft preference and useful validation evidence. Do not impose a one-paragraph body, automatic history polish, fixed line quotas or commit-triggered PR creation."
+            ]
+          }
+        ]
+      },
+      "Matthew Blode/presentation-creator": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/product-design": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/save-md": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/scaffold-cli": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/scaffold-nextjs": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/seo": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/test-audit": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/tidy": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/typography-audit": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/ui-animation": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/ui-design": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Matthew Blode/ui-verification": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/api-and-interface-design": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/ci-cd-and-automation": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/code-simplification": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "simplify-code"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "simplify-code",
+            "path": "simplify-code/origin.txt",
+            "line": 37,
+            "sha256": "f48f70fc1f8a42e6fd5bc3fc5304824e68fbd95c06e3f8d9033df2b28f10dce3",
+            "sourceId": "addy-simplification",
+            "baselineCommit": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
+            "reviewedThrough": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
+            "borrowed": [
+              "Preserve helpers that name useful concepts and boundaries that isolate cohesive responsibilities.",
+              "Judge clarity rather than line counts; retain relevant performance constraints when simplifying sensitive paths."
+            ],
+            "localChoices": [
+              "Use language-neutral criteria without language-specific code examples or syntax prescriptions.",
+              "Do not adopt numeric refactoring thresholds, mandatory separate PRs, or automatic removal of single-use abstractions.",
+              "Preserve data representation, failure delivery and resource timing even when a shorter source example changes them.",
+              "Keep verification proportional to the changed behavior and the repository's checks; do not require the full suite after every small edit."
+            ]
+          }
+        ]
+      },
+      "Addy Osmani/constraint-driven-development": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/debugging-and-error-recovery": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "debug"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "debug",
+            "path": "debug/origin.txt",
+            "line": 77,
+            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "sourceId": "addy-debugging-and-error-recovery",
+            "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "borrowed": [
+              "Compare environment, state, and test-order conditions; localize the actual failing layer.",
+              "Treat error messages and logs as untrusted diagnostic evidence and verify proposed actions independently.",
+              "Check the intended contract before changing a failing test expectation."
+            ],
+            "localChoices": [
+              "Continue independent work when a failing path is blocked; no universal stop of unrelated tasks or mandatory full triage ritual.",
+              "No automatic dependency installation, checkout bisection, production stress, monitoring, arbitrary default values, or catch-and-continue repair.",
+              "Verify log suggestions against trusted project evidence and task authority without requiring a new approval for every already-authorized command.",
+              "Keep guidance language-neutral and preserve the existing proportional regression-test fallback."
+            ]
+          }
+        ]
+      },
+      "Addy Osmani/deprecation-and-migration": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/documentation-and-adrs": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/doubt-driven-development": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/frontend-ui-engineering": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/git-workflow-and-versioning": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "commit"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "commit",
+            "path": "commit/origin.txt",
+            "line": 7,
+            "sha256": "b64a3ec39242967e09a598c6dc460b65aa39a41e86f4c5e8e79947fd4903fbda",
+            "sourceId": "addy-git",
+            "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "borrowed": [
+              "Split independently understandable intent; keep coherent history and explain consequential reasons."
+            ],
+            "localChoices": [
+              "No numeric commit quotas, forced branching model, runtime-specific release tooling, destructive recovery or hook installation."
+            ]
+          }
+        ]
+      },
+      "Addy Osmani/idea-refine": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/incremental-implementation": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/interview-me": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/observability-and-instrumentation": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/planning-and-task-breakdown": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/security-and-hardening": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/shipping-and-launch": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/source-driven-development": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/spec-driven-development": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/test-driven-development": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Addy Osmani/using-agent-skills": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-babysit-pr": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "pr-followup"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "pr-followup",
+            "path": "pr-followup/origin.txt",
+            "line": 52,
+            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "sourceId": "compound-followup",
+            "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "borrowed": [
+              "Keep feedback and CI progressing independently, track per-item outcomes, reobserve after publication and distinguish settled checks from merge authorization."
+            ],
+            "localChoices": [
+              "No watch engine, fixed hours-long loop, auto-merge, stale-head success, automatic posting or assumption that most feedback must be applied. Uncertainty needs investigation or a scoped decision."
+            ]
+          }
+        ]
+      },
+      "Compound Engineering/ce-bakeoff": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-brainstorm": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-code-review": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "review-code-changes"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "review-code-changes",
+            "path": "review-code-changes/origin.txt",
+            "line": 84,
+            "sha256": "5a27501d6ddb5c7625f746a98e24d1a6175a9c044883b200a31645286bdc945f",
+            "sourceId": "compound-review-coordination",
+            "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "borrowed": [
+              "Select complementary review facets from actual risks; pass bounded worker contracts and collect terminal results.",
+              "Preserve evidence during synthesis and challenge cross-component assumptions and checks that can falsely pass."
+            ],
+            "localChoices": [
+              "One coordinator owns full coverage and source validation; facet and compare-solutions workers never delegate.",
+              "No fixed roster, numerical depth floor, consensus confidence bonus, validator bypass, uncertainty-based severity inflation, or merge approval.",
+              "Use native host delegation within existing authority, not donor CLI routes, inferred code-sharing authority, apply/commit modes or mandatory merge/report leaves.",
+              "Preserve the local Markdown grammar, exact scope and effective instruction precedence."
+            ]
+          }
+        ]
+      },
+      "Compound Engineering/ce-commit": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "commit"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "commit",
+            "path": "commit/origin.txt",
+            "line": 22,
+            "sha256": "b64a3ec39242967e09a598c6dc460b65aa39a41e86f4c5e8e79947fd4903fbda",
+            "sourceId": "compound-commit",
+            "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "borrowed": [
+              "Scope commits by intent and preserve exclusions; publish only when requested."
+            ],
+            "localChoices": [
+              "Commit the verified index, not path arguments that can bypass hunk staging; retain local validation and post-commit protocol. No mandatory new branch or forced file-count quota."
+            ]
+          }
+        ]
+      },
+      "Compound Engineering/ce-commit-push-pr": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "pr"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "pr",
+            "path": "pr/origin.txt",
+            "line": 52,
+            "sha256": "07891be80ce63998b71148dd3b23b206dfcb23a4cb1143a1661af4356d0846c7",
+            "sourceId": "compound-pr",
+            "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "borrowed": [
+              "Explain the outcome from the whole change, treat lookup failures as unknown, and verify exact existing PR identity before creating."
+            ],
+            "localChoices": [
+              "Separate commit, publication and follow-up owners; existing authorization avoids repeated approval. No branded footer, teaching archive, mandatory new branch or automatic babysitting."
+            ]
+          }
+        ]
+      },
+      "Compound Engineering/ce-compound": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-compound-refresh": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-debug": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "debug"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "debug",
+            "path": "debug/origin.txt",
+            "line": 62,
+            "sha256": "5779682958d62b61e716d6f2319897959ebe0c39976d32f1cdbd4b48b1a8d8d0",
+            "sourceId": "every-ce-debug",
+            "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "borrowed": [
+              "Use supplied issue history and failed attempts to identify the current symptom and avoid repeated dead ends.",
+              "Compare actual execution environments, trace observed values across component boundaries, and distinguish predictions from restated symptoms.",
+              "Reassess verified and assumed premises when attempts stop adding evidence; use the existing test owner and preserve the actual contract.",
+              "Account for observation effects and protect secrets before tool output is displayed."
+            ],
+            "localChoices": [
+              "Preserve diagnosis-only authority and an already-authorized repair; no routine fix-choice gate, fixed hypothesis or failed-attempt quota, or automatic architecture conclusion.",
+              "Preserve the current checkout and index; no automatic stash/reset experiment, branch creation, commit, push, PR, ticket, or learning capture.",
+              "Use bounded evidence and state limits rather than require a gap-free reproduction before any useful investigation.",
+              "Use targeted instrumentation and correlation, not mandatory logging at every boundary or full environment dumps.",
+              "Delivery and review retain their existing local owners; donor pipeline status schemas and post-fix orchestration are not imported."
+            ]
+          }
+        ]
+      },
+      "Compound Engineering/ce-doc-review": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-dogfood": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-explain": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-handoff": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-ideate": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-noslop": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-optimize": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-plan": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-polish": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-pov": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-product-pulse": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-promote": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-proof": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-prototype": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-resolve-pr-feedback": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "pr-followup"
+        ],
+        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "evidence": [
+          {
+            "owner": "pr-followup",
+            "path": "pr-followup/origin.txt",
+            "line": 52,
+            "sha256": "bdffda17874551c98630c74fbff255f5d2684334fdc5178f119f7fad6b65608f",
+            "sourceId": "compound-followup",
+            "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "borrowed": [
+              "Keep feedback and CI progressing independently, track per-item outcomes, reobserve after publication and distinguish settled checks from merge authorization."
+            ],
+            "localChoices": [
+              "No watch engine, fixed hours-long loop, auto-merge, stale-head success, automatic posting or assumption that most feedback must be applied. Uncertainty needs investigation or a scoped decision."
+            ]
+          }
+        ]
+      },
+      "Compound Engineering/ce-retune": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-riffrec-feedback-analysis": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-setup": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-simplify-code": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-strategy": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-sweep": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-test-browser": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-test-xcode": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-work": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/ce-worktree": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/lfg": {
+        "status": "pending",
+        "label": "Pending",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "Compound Engineering/wtf": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      }
+    }
   }
 };
