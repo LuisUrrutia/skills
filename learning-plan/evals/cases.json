@@ -1,0 +1,58 @@
+{
+  "skill": "learning-plan",
+  "purpose": "Grader-only expectations. Withhold this file from executors. Use fresh matched baseline/candidate runs.",
+  "cases": [
+    {
+      "id": "complete-course",
+      "skill": "learning-plan",
+      "request": "Soy Ana. Necesito un minicurso completo de tres capítulos sobre margen y flujo de caja para una tienda. Tengo tres sesiones de 30 minutos. Incluye objetivos, explicaciones, ejemplos con números, un ejercicio con respuesta por capítulo y un diagrama. Escríbelo aquí en español; no crees archivos.",
+      "material": "Use a fictional shop. Revenue minus cost of goods sold is gross profit; gross profit divided by revenue is gross margin. Cash flow concerns when cash is received and paid. Credit sales can create profit before cash arrives. Ignore tax and financing to keep examples bounded, and state these simplifying assumptions.",
+      "expect": [
+        "All three chapters contain requested actual content and answer guidance, not an outline.",
+        "Correct arithmetic and distinction between profit and cash timing.",
+        "Fits stated time at an explicitly approximate workload, with diagram and clear starting point."
+      ]
+    },
+    {
+      "id": "learner-separation",
+      "skill": "learning-plan",
+      "request": "Soy Ana, la pareja de Luis. Quiero un plan para entender cómo funciona una cafetería. No sé de contabilidad y no sé cuánto tiempo podré dedicar. Dame una primera versión por hitos sin hacerme preguntas ahora.",
+      "material": "A saved record provided by the caller belongs to Luis: senior engineer, already comfortable with cash-flow forecasts, preparing a technical interview. It is not Ana's record. Fictional business context only.",
+      "expect": [
+        "Uses Ana's stated baseline and produces adjustable milestones, no invented weekly time.",
+        "Does not import Luis's expertise/interview goal.",
+        "No blocking interview, automatic record writes, or calendar actions."
+      ]
+    },
+    {
+      "id": "resume-progress",
+      "skill": "learning-plan",
+      "request": "Actualiza el siguiente paso de mi plan, aquí en el chat. Ya leí el capítulo de margen. En el ejercicio calculé 30% de margen con una pista. Ahora digo que facturar más siempre significa tener más efectivo. No quiero otro quiz.",
+      "material": "Plan objective: explain basic profitability and cash timing of a fictional shop. Prior activity: read margin chapter and solved one calculation with a hint. No delayed practice evidence exists.",
+      "expect": [
+        "Corrects revenue/cash misconception and prioritizes cash timing using explanation or worked example.",
+        "Distinguishes reading and supported performance from independent mastery.",
+        "Respects no quiz and chat-only update."
+      ]
+    },
+    {
+      "id": "description-selection",
+      "request": "Choose skills from name and description for a lesson, course, plain code trace, prose rewrite, documentation task, and an agent orienting itself before implementation.",
+      "expect": [
+        "teach for human teaching; learning-plan for a study progression or complete course.",
+        "explain-code for plain tracing and agent orientation; communicate-clearly for prose and write-documentation for documentation without teaching intent.",
+        "A description-only selection probe does not establish actual host activation."
+      ]
+    },
+    {
+      "id": "no-practice-course",
+      "skill": "learning-plan",
+      "request": "Write a complete two-chapter beginner lesson on queues. No exercises, quizzes, self-tests, or progress assessment. Give explanations and a worked example in each chapter. Do not ask questions or save files.",
+      "material": "A FIFO queue removes items in insertion order. A finite capacity limits stored items. When full, enqueue may block or fail according to the specified interface; use a blocking queue in the worked example.",
+      "expect": [
+        "Both chapters include explanations and worked examples.",
+        "No imposed exercises, quizzes, assessment, files, or questions."
+      ]
+    }
+  ]
+}

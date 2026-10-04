@@ -4280,10 +4280,11 @@
   },
   "repositoryInventory": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "f02df9bdf94164a1d280beecaf825ec6c8b90a2e",
+    "repositoryCommit": "761cae1 (base; working-tree hashes below)",
     "scope": "Top-level skill packages present in this working tree. Presence does not prove installation, activation or production validation.",
     "groups": [
       "Instruction authoring",
+      "Learning",
       "Understanding and design",
       "Implementation, verification and review",
       "Git, pull requests and CI",
@@ -4315,19 +4316,19 @@
         "section": "authoring"
       },
       {
-        "name": "how",
+        "name": "explain-code",
         "category": "Understanding and design",
         "summary": "Explain how existing code works, who owns each behavior and where the evidence lives.",
-        "path": "how/SKILL.md",
-        "sha256": "9221ef2b4755675c2229806578e44544974f2962f07ab9a6edb3bd61e3120f8f",
+        "path": "explain-code/SKILL.md",
+        "sha256": "2d272b371368526794c01d0b9946ccde7c1a63628ce303ec6bd52aa6fa1cb1a4",
         "section": "how"
       },
       {
-        "name": "why",
+        "name": "explain-decisions",
         "category": "Understanding and design",
         "summary": "Reconstruct documented reasons for existing decisions, separating evidence from inference.",
-        "path": "why/SKILL.md",
-        "sha256": "95de7774a00885969506434c4794abdb3e92a1d5a0a8f21d5d1ca21c5f57917e",
+        "path": "explain-decisions/SKILL.md",
+        "sha256": "b46f0ecb4eb47901bd5334a10d2a8ac09a577f31ee676f556030e50eefc98657",
         "section": "why"
       },
       {
@@ -4359,7 +4360,7 @@
         "category": "Understanding and design",
         "summary": "Design caller-facing models and enforceable module boundaries; compare alternatives and changes made with partial context.",
         "path": "design-code-structure/SKILL.md",
-        "sha256": "3e8bcb4ba310977e2187c7748017a89adc17d1ea5a65c67ada8416b80de3d0ba",
+        "sha256": "88f4e1f886c1b0b6f7627aa3fb68091c2fd0fc47a74ad31dcf2dcc24c5c2004e",
         "section": "design-code-structure"
       },
       {
@@ -4415,7 +4416,7 @@
         "category": "Implementation, verification and review",
         "summary": "Remove unnecessary complexity from changed code while preserving behavior and necessary constraints.",
         "path": "simplify-code/SKILL.md",
-        "sha256": "1693dee4286449e71560f51a930e6a227324bf3b58c7e13fd09d98cc4d50d5d7",
+        "sha256": "6490f2810f88b2d12ab15a6302661c82e94fc570798f5b109ee0ce0aa6e4a01c",
         "section": "simplify-code"
       },
       {
@@ -4479,7 +4480,7 @@
         "category": "Writing and personal workflows",
         "summary": "Default prose guidance across languages: clear explanations, audience and channel adaptation, faithful rewrites and natural author voice.",
         "path": "communicate-clearly/SKILL.md",
-        "sha256": "03d21011f131dc143c5800e3844234ab8d271d3f867c424da9aa13ae7f0bca52",
+        "sha256": "fe58262c58101a4cd0f30031094bf845495ef24a66131e9aa6ea152d238c79bb",
         "section": "communication"
       },
       {
@@ -4553,15 +4554,25 @@
         "path": "write-documentation/SKILL.md",
         "section": "communication",
         "sha256": "e5c9afaf077941592ecdfdff4d409efc9bc724d3e75aa846e1ea1f8d354c1f77"
+      },
+      {
+        "name": "teach",
+        "category": "Learning",
+        "summary": "Teach a concept, codebase, system, or business with adapted examples and optional practice.",
+        "path": "teach/SKILL.md",
+        "sha256": "0d298e4f953c9f8550830853c16fafc95dccfe5441dee69af1421fa7e2c9076f",
+        "section": "teaching"
+      },
+      {
+        "name": "learning-plan",
+        "category": "Learning",
+        "summary": "Build or revise a learning progression or complete course with usable lessons and progress checkpoints.",
+        "path": "learning-plan/SKILL.md",
+        "sha256": "1cbb1f9415a3ef8ecc48ebc1b89d5401966af214df7e234df099921ce199901d",
+        "section": "teaching"
       }
     ],
     "pending": [
-      {
-        "name": "teach",
-        "status": "Optional future skill",
-        "summary": "Define teaching separately; how already explains mechanisms without becoming a course.",
-        "section": "independent-investigation"
-      },
       {
         "name": "work-mode",
         "status": "Coordinator not created",
@@ -4580,7 +4591,9 @@
     "replacements": {
       "review-audit": "review-code-changes",
       "daily-meeting-update": "report-work-activity",
-      "humanize": "communicate-clearly"
+      "humanize": "communicate-clearly",
+      "how": "explain-code",
+      "why": "explain-decisions"
     },
     "validationScope": "Package presence, declared names and entrypoint hashes checked. TypeScript has 22 technical compiler/runtime/configuration probes and package validation; independent agent behavior and host activation are not tested. Other skills retain their separate dated evidence. Presence is not installation. CI/CD has separate package, atlas, dual-review and three matched design-case records. Provider execution and implicit activation remain untested. Handoff has independent Astra/Fable Max static reviews, a matched document-creation pair, a non-repository trial and a cold-recipient diagnostic. Supplied context does not establish implicit activation or real cross-host transfer."
   },
@@ -7626,13 +7639,13 @@
   },
   "sourceProgress": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "f02df9bdf94164a1d280beecaf825ec6c8b90a2e",
+    "repositoryCommit": "761cae1 (base; working-tree hashes below)",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 131,
+      "ready": 136,
       "pending": 44,
-      "optional": 48,
-      "not-selected": 43
+      "optional": 47,
+      "not-selected": 41
     },
     "skills": {
       "Matt Pocock/code-review": {
@@ -7647,7 +7660,7 @@
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 69,
-            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
+            "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "matt-code-review",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
             "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
@@ -7674,7 +7687,7 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 38,
-            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
+            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
             "sourceId": "matt-design",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
             "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
@@ -7738,7 +7751,7 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 38,
-            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
+            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
             "sourceId": "matt-design",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
             "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
@@ -8006,11 +8019,49 @@
         "note": "Selected material is incorporated in the listed local packages. This check does not mean the full upstream workflow is installed, tested or synchronized."
       },
       "Matt Pocock/teach": {
-        "status": "optional",
-        "label": "Optional",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "teach",
+          "learning-plan"
+        ],
+        "evidence": [
+          {
+            "owner": "teach",
+            "path": "teach/origin.txt",
+            "line": 21,
+            "sha256": "f9d770c797c8e3549459e3ecb429a1ef2cf12fa9738da8c51751cdc08f6dfdde",
+            "sourceId": "teach-matt",
+            "baselineCommit": "24fe0ef7737efae15c87225755e9f6f5965e4888",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
+            "borrowed": [
+              "Tie a bounded lesson to a meaningful goal; combine knowledge with appropriate practice and feedback.",
+              "Distinguish presented material from evidence of understanding; adapt subsequent practice."
+            ],
+            "localChoices": [
+              "One-session teaching is supported; no automatic course workspace, HTML, profile, glossary, or records.",
+              "No fixed answer length in quizzes, mandatory communities, or claim that a record computes a psychological development zone."
+            ]
+          },
+          {
+            "owner": "learning-plan",
+            "path": "learning-plan/origin.txt",
+            "line": 21,
+            "sha256": "83de81cbf8fbaff152fd5d853d3ea4a41ea5c9ceb5df028ffbff91499c1f7c79",
+            "sourceId": "learning-plan-matt",
+            "baselineCommit": "24fe0ef7737efae15c87225755e9f6f5965e4888",
+            "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
+            "borrowed": [
+              "Ground learning in an observable goal, curate useful resources, and use progress to choose the next lesson.",
+              "Keep evidenced and reported knowledge distinct; revisit and correct records as understanding changes."
+            ],
+            "localChoices": [
+              "A lightweight plan works without a course workspace; save progress only when requested.",
+              "Separate learner records, avoid assumed mastery and fixed schemas, and use teach for requested lesson content."
+            ]
+          }
+        ],
+        "note": "Selected mechanisms are recorded in local provenance; no claim of installation, full upstream adoption, or learning gains."
       },
       "Matt Pocock/to-questionnaire": {
         "status": "optional",
@@ -8062,7 +8113,7 @@
             "owner": "simplify-code",
             "path": "simplify-code/origin.txt",
             "line": 7,
-            "sha256": "f5275d11eab03c2979656af8b604882ec66e1ff4be0496ae5a6aee6dc914e5ee",
+            "sha256": "83623fa1ab345b636d1f7c7463a852f6e7a44c8ebb7c35b53268357cdde6cde9",
             "sourceId": "cursor-deslop",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -8180,7 +8231,7 @@
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 54,
-            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
+            "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "cursor-quality-review",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -8256,7 +8307,7 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
+            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -8465,7 +8516,7 @@
         "label": "Incorporated",
         "owners": [
           "debug",
-          "how"
+          "explain-code"
         ],
         "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
@@ -8494,10 +8545,10 @@
             ]
           },
           {
-            "owner": "how",
-            "path": "how/origin.txt",
+            "owner": "explain-code",
+            "path": "explain-code/origin.txt",
             "line": 7,
-            "sha256": "2f7067b727b012acfcad4da0b98dd0be037b3e816b16a43c3c5412d2673001ab",
+            "sha256": "ff2e55f2eed1e029eb9118b46cde2012b7e9a63a8b07d89938642436ddf8704c",
             "sourceId": "pstack-how-and-teach",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -8511,10 +8562,10 @@
             "localChoices": [
               "Investigate directly; delegation requires host and task authorization and is never a prerequisite.",
               "Use a short activation description and normal host discoverability; no Cursor-only invocation flag, Task API, or model table.",
-              "Keep how focused on current mechanics and ownership; guided teaching, exercises, and learning plans remain separate capabilities.",
+              "Keep explain-code focused on current mechanics and ownership; guided teaching, exercises, and learning plans remain separate capabilities.",
               "Match requested depth in the current response rather than forcing a two-sentence stop or a senior-engineer audience.",
-              "Keep read-only explanation separate from diagnosis, branch-diff walkthroughs, historical investigation, and implementation.",
-              "Allow relevant documented rationale with attribution without requiring why or an exhaustive historical sweep.",
+              "Explain before/after mechanisms from resolved revisions when requested; keep diagnosis, diff audits, activity reports, historical investigation, and implementation with their owners.",
+              "Allow relevant documented rationale with attribution without requiring explain-decisions or an exhaustive historical sweep.",
               "Choose visual aids by usefulness; no mandatory repeated diagrams, image generation, English-only output, or unslop dependency.",
               "Distinguish source inspection from observed execution and unknown external guarantees; do not imply tests ran merely because they were read.",
               "Do not promote internal status or an external acknowledgement into an unobserved delivery guarantee; name the condition for later work.",
@@ -8603,7 +8654,7 @@
             "owner": "simplify-code",
             "path": "simplify-code/origin.txt",
             "line": 22,
-            "sha256": "f5275d11eab03c2979656af8b604882ec66e1ff4be0496ae5a6aee6dc914e5ee",
+            "sha256": "83623fa1ab345b636d1f7c7463a852f6e7a44c8ebb7c35b53268357cdde6cde9",
             "sourceId": "pstack-comments",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -8697,7 +8748,7 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
+            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -8808,7 +8859,7 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
+            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -8884,7 +8935,7 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
+            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -8969,7 +9020,7 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
+            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9051,7 +9102,7 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
+            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9106,7 +9157,7 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
+            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9267,7 +9318,7 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
+            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9335,7 +9386,7 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
+            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9396,7 +9447,7 @@
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "d8acc0d0c7ea9239111b4a444c429f30773dd266cf7373cd53dce960184365c3",
+            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9642,16 +9693,17 @@
         "status": "ready",
         "label": "Incorporated",
         "owners": [
-          "how",
-          "communicate-clearly"
+          "explain-code",
+          "communicate-clearly",
+          "teach"
         ],
-        "note": "Selected material is incorporated in the repository packages. This does not mean the full source is installed, executed or synchronized. Bounded checks are recorded in communication-validation.json.",
+        "note": "Selected mechanisms are recorded in local provenance; no claim of installation, full upstream adoption, or learning gains.",
         "evidence": [
           {
-            "owner": "how",
-            "path": "how/origin.txt",
+            "owner": "explain-code",
+            "path": "explain-code/origin.txt",
             "line": 7,
-            "sha256": "2f7067b727b012acfcad4da0b98dd0be037b3e816b16a43c3c5412d2673001ab",
+            "sha256": "ff2e55f2eed1e029eb9118b46cde2012b7e9a63a8b07d89938642436ddf8704c",
             "sourceId": "pstack-how-and-teach",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9665,10 +9717,10 @@
             "localChoices": [
               "Investigate directly; delegation requires host and task authorization and is never a prerequisite.",
               "Use a short activation description and normal host discoverability; no Cursor-only invocation flag, Task API, or model table.",
-              "Keep how focused on current mechanics and ownership; guided teaching, exercises, and learning plans remain separate capabilities.",
+              "Keep explain-code focused on current mechanics and ownership; guided teaching, exercises, and learning plans remain separate capabilities.",
               "Match requested depth in the current response rather than forcing a two-sentence stop or a senior-engineer audience.",
-              "Keep read-only explanation separate from diagnosis, branch-diff walkthroughs, historical investigation, and implementation.",
-              "Allow relevant documented rationale with attribution without requiring why or an exhaustive historical sweep.",
+              "Explain before/after mechanisms from resolved revisions when requested; keep diagnosis, diff audits, activity reports, historical investigation, and implementation with their owners.",
+              "Allow relevant documented rationale with attribution without requiring explain-decisions or an exhaustive historical sweep.",
               "Choose visual aids by usefulness; no mandatory repeated diagrams, image generation, English-only output, or unslop dependency.",
               "Distinguish source inspection from observed execution and unknown external guarantees; do not imply tests ran merely because they were read.",
               "Do not promote internal status or an external acknowledgement into an unobserved delivery guarantee; name the condition for later work.",
@@ -9679,7 +9731,7 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 22,
-            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
+            "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "cursor",
             "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9689,6 +9741,23 @@
             "localChoices": [
               "Adapt English-specific grammar and punctuation to the target language; no sentence caps, word blacklist or STE compliance claim.",
               "No mandatory teaching, image generation, or unslop invocation. Existing local prose and investigation owners remain responsible."
+            ]
+          },
+          {
+            "owner": "teach",
+            "path": "teach/origin.txt",
+            "line": 7,
+            "sha256": "f9d770c797c8e3549459e3ecb429a1ef2cf12fa9738da8c51751cdc08f6dfdde",
+            "sourceId": "teach-pstack",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Start from the learner purpose and prior knowledge; explain a concrete mechanism at appropriate depth.",
+              "Preserve historical confidence and combine evidence into the explanation itself."
+            ],
+            "localChoices": [
+              "Use local explain-code and explain-decisions conditionally, with direct evidence fallback.",
+              "No fixed sentence stops, mandatory repeated diagrams, image generation, English-only conversation, or upstream runtime dependencies."
             ]
           }
         ]
@@ -9706,7 +9775,7 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 22,
-            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
+            "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "cursor",
             "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9722,7 +9791,7 @@
             "owner": "write-documentation",
             "path": "write-documentation/origin.txt",
             "line": 7,
-            "sha256": "ea23bafab9227ff8aff4e66082867d63692b5cfbf8c1c07de5b27e6f69e4d245",
+            "sha256": "e4254a005605437c9988a0b1ed15145eb486c1e356fc372fd74ef85135377e66",
             "sourceId": "cursor",
             "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9777,7 +9846,7 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 22,
-            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
+            "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "cursor",
             "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9796,7 +9865,7 @@
         "label": "Incorporated",
         "owners": [
           "debug",
-          "why"
+          "explain-decisions"
         ],
         "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
@@ -9825,10 +9894,10 @@
             ]
           },
           {
-            "owner": "why",
-            "path": "why/origin.txt",
+            "owner": "explain-decisions",
+            "path": "explain-decisions/origin.txt",
             "line": 7,
-            "sha256": "6ed24be9975191f9d87e9a4bf9c9b4391e2ca36dada70c5070a363319672bff6",
+            "sha256": "b6ce3355595f03148e3504f0c28cbe2f9110bff7a6296f9500aba25970ec5f9b",
             "sourceId": "pstack-why",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9878,7 +9947,7 @@
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 39,
-            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
+            "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "thermos-review",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -9905,7 +9974,7 @@
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 39,
-            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
+            "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "thermos-review",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -9932,7 +10001,7 @@
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 39,
-            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
+            "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "thermos-review",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -9959,7 +10028,7 @@
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 131,
-            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
+            "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "dyl-review",
             "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -10028,11 +10097,29 @@
         ]
       },
       "HumanLayer/show-me": {
-        "status": "not-selected",
-        "label": "Not selected",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "teach"
+        ],
+        "evidence": [
+          {
+            "owner": "teach",
+            "path": "teach/origin.txt",
+            "line": 35,
+            "sha256": "f9d770c797c8e3549459e3ecb429a1ef2cf12fa9738da8c51751cdc08f6dfdde",
+            "sourceId": "teach-humanlayer",
+            "baselineCommit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+            "reviewedThrough": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+            "borrowed": [
+              "Choose the smallest visual that clarifies a mechanism and place explanation beside it."
+            ],
+            "localChoices": [
+              "Use available host tooling; do not require Cursor invocation metadata or macOS open."
+            ]
+          }
+        ],
+        "note": "Selected mechanisms are recorded in local provenance; no claim of installation, full upstream adoption, or learning gains."
       },
       "HumanLayer/improve-claude-md": {
         "status": "ready",
@@ -10164,7 +10251,7 @@
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 7,
-            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
+            "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "addy-review",
             "baselineCommit": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
             "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
@@ -10454,7 +10541,7 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/SKILL.md",
             "line": 1,
-            "sha256": "03d21011f131dc143c5800e3844234ab8d271d3f867c424da9aa13ae7f0bca52"
+            "sha256": "fe58262c58101a4cd0f30031094bf845495ef24a66131e9aa6ea152d238c79bb"
           }
         ]
       },
@@ -10848,15 +10935,16 @@
         "status": "ready",
         "label": "Incorporated",
         "owners": [
-          "communicate-clearly"
+          "communicate-clearly",
+          "teach"
         ],
-        "note": "Selected material is incorporated in the repository packages. This does not mean the full source is installed, executed or synchronized. Bounded checks are recorded in communication-validation.json.",
+        "note": "Selected mechanisms are recorded in local provenance; no claim of installation, full upstream adoption, or learning gains.",
         "evidence": [
           {
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 37,
-            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
+            "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "mblode",
             "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
             "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
@@ -10867,6 +10955,22 @@
               "User explicitly chose default communication guidance in any language.",
               "No mandatory author profiles, persistent style storage, paid APIs, fixed output lengths or video toolchain.",
               "Posting and sending follow the active request; clarity does not authorize external effects."
+            ]
+          },
+          {
+            "owner": "teach",
+            "path": "teach/origin.txt",
+            "line": 49,
+            "sha256": "f9d770c797c8e3549459e3ecb429a1ef2cf12fa9738da8c51751cdc08f6dfdde",
+            "sourceId": "teach-mblode",
+            "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "borrowed": [
+              "Choose the explanation medium by what the learner needs to see or manipulate.",
+              "Check rendered diagrams and interactive controls; change framing when an explanation fails."
+            ],
+            "localChoices": [
+              "Presentation mechanics stay with local specialists; do not require permission for every useful visual or impose a media stack."
             ]
           }
         ]
@@ -10884,7 +10988,7 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 37,
-            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
+            "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "mblode",
             "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
             "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
@@ -10901,7 +11005,7 @@
             "owner": "write-documentation",
             "path": "write-documentation/origin.txt",
             "line": 22,
-            "sha256": "ea23bafab9227ff8aff4e66082867d63692b5cfbf8c1c07de5b27e6f69e4d245",
+            "sha256": "e4254a005605437c9988a0b1ed15145eb486c1e356fc372fd74ef85135377e66",
             "sourceId": "mblode",
             "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
             "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
@@ -11169,7 +11273,7 @@
             "owner": "simplify-code",
             "path": "simplify-code/origin.txt",
             "line": 39,
-            "sha256": "f5275d11eab03c2979656af8b604882ec66e1ff4be0496ae5a6aee6dc914e5ee",
+            "sha256": "83623fa1ab345b636d1f7c7463a852f6e7a44c8ebb7c35b53268357cdde6cde9",
             "sourceId": "addy-simplification",
             "baselineCommit": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
             "reviewedThrough": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
@@ -11242,7 +11346,7 @@
             "owner": "write-documentation",
             "path": "write-documentation/origin.txt",
             "line": 37,
-            "sha256": "ea23bafab9227ff8aff4e66082867d63692b5cfbf8c1c07de5b27e6f69e4d245",
+            "sha256": "e4254a005605437c9988a0b1ed15145eb486c1e356fc372fd74ef85135377e66",
             "sourceId": "addy",
             "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
             "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
@@ -11441,7 +11545,7 @@
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 86,
-            "sha256": "6acc093a24d0854f57ef5cc724b57429b27b9bb1f2a1455dea6d990009374d6c",
+            "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "compound-review-coordination",
             "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
             "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
@@ -11590,11 +11694,31 @@
         ]
       },
       "Compound Engineering/ce-explain": {
-        "status": "not-selected",
-        "label": "Not selected",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "teach"
+        ],
+        "evidence": [
+          {
+            "owner": "teach",
+            "path": "teach/origin.txt",
+            "line": 63,
+            "sha256": "f9d770c797c8e3549459e3ecb429a1ef2cf12fa9738da8c51751cdc08f6dfdde",
+            "sourceId": "teach-ce",
+            "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "borrowed": [
+              "Separate learner identity from workflow caller; return requested teaching content and material limits.",
+              "Practice tests application and exposes a plausible misconception; standalone questions have answer guidance."
+            ],
+            "localChoices": [
+              "Support live feedback and interactive artifacts as requested, not static-only check-ins.",
+              "No CE configuration, artifact root, model tiers, or publishing service."
+            ]
+          }
+        ],
+        "note": "Selected mechanisms are recorded in local provenance; no claim of installation, full upstream adoption, or learning gains."
       },
       "Compound Engineering/ce-handoff": {
         "status": "ready",
@@ -12602,7 +12726,7 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 52,
-            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
+            "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "matt",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
             "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
@@ -12627,7 +12751,7 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 52,
-            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
+            "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "matt",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
             "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
@@ -12652,7 +12776,7 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 52,
-            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
+            "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "matt",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
             "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
@@ -12677,7 +12801,7 @@
             "owner": "write-documentation",
             "path": "write-documentation/origin.txt",
             "line": 52,
-            "sha256": "ea23bafab9227ff8aff4e66082867d63692b5cfbf8c1c07de5b27e6f69e4d245",
+            "sha256": "e4254a005605437c9988a0b1ed15145eb486c1e356fc372fd74ef85135377e66",
             "sourceId": "anthropic",
             "baselineCommit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
             "reviewedThrough": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
@@ -12703,7 +12827,7 @@
             "owner": "communicate-clearly",
             "path": "communicate-clearly/origin.txt",
             "line": 7,
-            "sha256": "8042d1a0549973faf46c8717f13bb8989a022a72043848cc70a965f4ccaa4295",
+            "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "blader",
             "baselineCommit": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
             "reviewedThrough": "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5",
@@ -12813,6 +12937,58 @@
             ]
           }
         ]
+      },
+      "Cursor teaching/create-learning-path": {
+        "owners": [
+          "learning-plan"
+        ],
+        "evidence": [
+          {
+            "owner": "learning-plan",
+            "path": "learning-plan/origin.txt",
+            "line": 7,
+            "sha256": "83de81cbf8fbaff152fd5d853d3ea4a41ea5c9ceb5df028ffbff91499c1f7c79",
+            "sourceId": "learning-plan-cursor",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Order objectives from foundations to application, with achievable milestones and feedback criteria.",
+              "Review actual progress, reinforce weak concepts, and adjust the next milestone."
+            ],
+            "localChoices": [
+              "No mandatory question tool, fixed week count, or automatic scheduling; respect known time constraints."
+            ]
+          }
+        ],
+        "status": "ready",
+        "label": "Incorporated",
+        "note": "Selected mechanisms are recorded in local provenance; no claim of installation, full upstream adoption, or learning gains."
+      },
+      "Cursor teaching/run-learning-retrospective": {
+        "owners": [
+          "learning-plan"
+        ],
+        "evidence": [
+          {
+            "owner": "learning-plan",
+            "path": "learning-plan/origin.txt",
+            "line": 7,
+            "sha256": "83de81cbf8fbaff152fd5d853d3ea4a41ea5c9ceb5df028ffbff91499c1f7c79",
+            "sourceId": "learning-plan-cursor",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Order objectives from foundations to application, with achievable milestones and feedback criteria.",
+              "Review actual progress, reinforce weak concepts, and adjust the next milestone."
+            ],
+            "localChoices": [
+              "No mandatory question tool, fixed week count, or automatic scheduling; respect known time constraints."
+            ]
+          }
+        ],
+        "status": "ready",
+        "label": "Incorporated",
+        "note": "Selected mechanisms are recorded in local provenance; no claim of installation, full upstream adoption, or learning gains."
       }
     },
     "validation": "upstream-adoption-validation.json"
@@ -16629,5 +16805,245 @@
       }
     ],
     "limits": "Supplied-context executions, not global installation or observed automatic host activation. Preserve passing baselines; no general reliability gain or production performance claim."
+  },
+  "teachingReview": {
+    "date": "2026-10-04",
+    "research": "teaching-source-review.json",
+    "html": "teaching-source-review.html",
+    "validation": "teaching-validation.json",
+    "skills": [
+      {
+        "id": "cursor-teaching-create-learning-path",
+        "key": "Cursor teaching/create-learning-path",
+        "name": "create-learning-path",
+        "declaredName": "create-learning-path",
+        "group": "Cursor teaching",
+        "author": "Cursor",
+        "collection": "teaching",
+        "kind": "upstream",
+        "path": "teaching/skills/create-learning-path/SKILL.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/teaching/skills/create-learning-path/SKILL.md",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "sha256": "3d247cc4d5baf6fb397a398f6957ab7427c7852d613a42bb057fa93ca20fcc63",
+        "lines": 34,
+        "category": "Learning and teaching",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "owner": "learning-plan",
+        "summary": "Order objectives from foundations to application, with achievable milestones and feedback criteria. Review actual progress, reinforce weak concepts, and adjust the next milestone.",
+        "reason": "Order objectives from foundations to application, with achievable milestones and feedback criteria. Review actual progress, reinforce weak concepts, and adjust the next milestone.",
+        "caution": "No mandatory question tool, fixed week count, or automatic scheduling; respect known time constraints.",
+        "inspection": "Complete entrypoint and listed instructional references read; selected adaptation only.",
+        "references": [
+          {
+            "path": "teaching/skills/run-learning-retrospective/SKILL.md",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/teaching/skills/run-learning-retrospective/SKILL.md",
+            "coverage": "Complete file read"
+          }
+        ]
+      },
+      {
+        "id": "cursor-teaching-run-learning-retrospective",
+        "key": "Cursor teaching/run-learning-retrospective",
+        "name": "run-learning-retrospective",
+        "declaredName": "run-learning-retrospective",
+        "group": "Cursor teaching",
+        "author": "Cursor",
+        "collection": "teaching",
+        "kind": "upstream",
+        "path": "teaching/skills/run-learning-retrospective/SKILL.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/teaching/skills/run-learning-retrospective/SKILL.md",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "sha256": "71b0159d0d4c19e94d873a11b1dc96d5fe0600e1e46a0eae3fab92e05bb0cc91",
+        "lines": 28,
+        "category": "Learning and teaching",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "owner": "learning-plan",
+        "summary": "Order objectives from foundations to application, with achievable milestones and feedback criteria. Review actual progress, reinforce weak concepts, and adjust the next milestone.",
+        "reason": "Order objectives from foundations to application, with achievable milestones and feedback criteria. Review actual progress, reinforce weak concepts, and adjust the next milestone.",
+        "caution": "No mandatory question tool, fixed week count, or automatic scheduling; respect known time constraints.",
+        "inspection": "Complete entrypoint and listed instructional references read; selected adaptation only.",
+        "references": [
+          {
+            "path": "teaching/skills/create-learning-path/SKILL.md",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/teaching/skills/create-learning-path/SKILL.md",
+            "coverage": "Complete file read"
+          }
+        ]
+      }
+    ],
+    "assessments": [
+      {
+        "id": "pstack-teach",
+        "key": "pstack/teach",
+        "name": "teach",
+        "declaredName": "teach",
+        "group": "pstack",
+        "author": "Lauren Tan / pstack",
+        "collection": "teaching",
+        "kind": "upstream",
+        "path": "pstack/skills/teach/SKILL.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/teach/SKILL.md",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "sha256": "bd286e5a6290673be2cd28aef7af2ec7f1fb138e6bce156ea657368c7e7fc8a4",
+        "lines": 21,
+        "category": "Learning and teaching",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "owner": "teach",
+        "summary": "Start from the learner purpose and prior knowledge; explain a concrete mechanism at appropriate depth. Preserve historical confidence and combine evidence into the explanation itself.",
+        "reason": "Start from the learner purpose and prior knowledge; explain a concrete mechanism at appropriate depth. Preserve historical confidence and combine evidence into the explanation itself.",
+        "caution": "Use local explain-code and explain-decisions conditionally, with direct evidence fallback. No fixed sentence stops, mandatory repeated diagrams, image generation, English-only conversation, or upstream runtime dependencies.",
+        "inspection": "Complete entrypoint and listed instructional references read; selected adaptation only.",
+        "references": []
+      },
+      {
+        "id": "matt-pocock-teach",
+        "key": "Matt Pocock/teach",
+        "name": "teach",
+        "declaredName": "teach",
+        "group": "Matt Pocock",
+        "author": "Matt Pocock",
+        "collection": "teaching",
+        "kind": "upstream",
+        "path": "skills/productivity/teach/SKILL.md",
+        "repository": "https://github.com/mattpocock/skills",
+        "source": "https://github.com/mattpocock/skills/blob/24fe0ef7737efae15c87225755e9f6f5965e4888/skills/productivity/teach/SKILL.md",
+        "sha": "24fe0ef7737efae15c87225755e9f6f5965e4888",
+        "sha256": "a32df9dcdfc0c4fdc1c98e1ed3940c5f56b84c1aa90ff60346f32b8b53915b43",
+        "lines": 140,
+        "category": "Learning and teaching",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "owner": "teach and learning-plan",
+        "summary": "Tie a bounded lesson to a meaningful goal; combine knowledge with appropriate practice and feedback. Distinguish presented material from evidence of understanding; adapt subsequent practice.",
+        "reason": "Tie a bounded lesson to a meaningful goal; combine knowledge with appropriate practice and feedback. Distinguish presented material from evidence of understanding; adapt subsequent practice.",
+        "caution": "One-session teaching is supported; no automatic course workspace, HTML, profile, glossary, or records. No fixed answer length in quizzes, mandatory communities, or claim that a record computes a psychological development zone.",
+        "inspection": "Complete entrypoint and listed instructional references read; selected adaptation only.",
+        "references": [
+          {
+            "path": "skills/productivity/teach/MISSION-FORMAT.md",
+            "url": "https://github.com/mattpocock/skills/blob/24fe0ef7737efae15c87225755e9f6f5965e4888/skills/productivity/teach/MISSION-FORMAT.md",
+            "coverage": "Complete file read"
+          },
+          {
+            "path": "skills/productivity/teach/RESOURCES-FORMAT.md",
+            "url": "https://github.com/mattpocock/skills/blob/24fe0ef7737efae15c87225755e9f6f5965e4888/skills/productivity/teach/RESOURCES-FORMAT.md",
+            "coverage": "Complete file read"
+          },
+          {
+            "path": "skills/productivity/teach/LEARNING-RECORD-FORMAT.md",
+            "url": "https://github.com/mattpocock/skills/blob/24fe0ef7737efae15c87225755e9f6f5965e4888/skills/productivity/teach/LEARNING-RECORD-FORMAT.md",
+            "coverage": "Complete file read"
+          },
+          {
+            "path": "skills/productivity/teach/GLOSSARY-FORMAT.md",
+            "url": "https://github.com/mattpocock/skills/blob/24fe0ef7737efae15c87225755e9f6f5965e4888/skills/productivity/teach/GLOSSARY-FORMAT.md",
+            "coverage": "Complete file read"
+          }
+        ]
+      },
+      {
+        "id": "humanlayer-show-me",
+        "key": "HumanLayer/show-me",
+        "name": "show-me",
+        "declaredName": "show-me",
+        "group": "HumanLayer",
+        "author": "HumanLayer",
+        "collection": "teaching",
+        "kind": "upstream",
+        "path": "plugins/show-me/skills/show-me/SKILL.md",
+        "repository": "https://github.com/humanlayer/skills",
+        "source": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/plugins/show-me/skills/show-me/SKILL.md",
+        "sha": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+        "sha256": "434a2346cc95e313b0d367d477dda2e23ba642dd2181757415a09500664af100",
+        "lines": 128,
+        "category": "Learning and teaching",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "owner": "teach",
+        "summary": "Choose the smallest visual that clarifies a mechanism and place explanation beside it.",
+        "reason": "Choose the smallest visual that clarifies a mechanism and place explanation beside it.",
+        "caution": "Use available host tooling; do not require Cursor invocation metadata or macOS open.",
+        "inspection": "Complete entrypoint and listed instructional references read; selected adaptation only.",
+        "references": []
+      },
+      {
+        "id": "matthew-blode-eli5",
+        "key": "Matthew Blode/eli5",
+        "name": "eli5",
+        "declaredName": "eli5",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "collection": "teaching",
+        "kind": "upstream",
+        "path": "skills/eli5/SKILL.md",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/eli5/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "b0e6127f2668c6633451a1899b02c58a8a9feae2e4ec8bf2df6dcb8ab5305ca2",
+        "lines": 42,
+        "category": "Learning and teaching",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "owner": "teach",
+        "summary": "Choose the explanation medium by what the learner needs to see or manipulate. Check rendered diagrams and interactive controls; change framing when an explanation fails.",
+        "reason": "Choose the explanation medium by what the learner needs to see or manipulate. Check rendered diagrams and interactive controls; change framing when an explanation fails.",
+        "caution": "Presentation mechanics stay with local specialists; do not require permission for every useful visual or impose a media stack.",
+        "inspection": "Complete entrypoint and listed instructional references read; selected adaptation only.",
+        "references": [
+          {
+            "path": "skills/eli5/references/formats.md",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/eli5/references/formats.md",
+            "coverage": "Complete file read"
+          }
+        ]
+      },
+      {
+        "id": "compound-engineering-ce-explain",
+        "key": "Compound Engineering/ce-explain",
+        "name": "ce-explain",
+        "declaredName": "ce-explain",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "collection": "teaching",
+        "kind": "upstream",
+        "path": "skills/ce-explain/SKILL.md",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-explain/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "fe1a05fa429338524374b2428bac9a0338a7e7c2f7ff4e1e510da123e834cafe",
+        "lines": 81,
+        "category": "Learning and teaching",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "owner": "teach",
+        "summary": "Separate learner identity from workflow caller; return requested teaching content and material limits. Practice tests application and exposes a plausible misconception; standalone questions have answer guidance.",
+        "reason": "Separate learner identity from workflow caller; return requested teaching content and material limits. Practice tests application and exposes a plausible misconception; standalone questions have answer guidance.",
+        "caution": "Support live feedback and interactive artifacts as requested, not static-only check-ins. No CE configuration, artifact root, model tiers, or publishing service.",
+        "inspection": "Complete entrypoint and listed instructional references read; selected adaptation only.",
+        "references": [
+          {
+            "path": "skills/ce-explain/references/intake.md",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-explain/references/intake.md",
+            "coverage": "Complete file read"
+          },
+          {
+            "path": "skills/ce-explain/references/check-in.md",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-explain/references/check-in.md",
+            "coverage": "Complete file read"
+          },
+          {
+            "path": "skills/ce-explain/references/orchestration.md",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-explain/references/orchestration.md",
+            "coverage": "Complete file read"
+          }
+        ]
+      }
+    ]
   }
 }

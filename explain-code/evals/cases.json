@@ -1,5 +1,5 @@
 {
-  "skill": "how",
+  "skill": "explain-code",
   "purpose": "Keep grading expectations separate from executor requests and fixtures.",
   "cases": [
     {
@@ -30,16 +30,16 @@
       "fixture": "Polling source without decision history or accessible external records.",
       "observe": [
         "Explains the available mechanism and marks the historical reason as unestablished.",
-        "Preserves the unanswered part of the request instead of inventing a reason, pretending to invoke why, or abandoning the answer."
+        "Preserves the unanswered part of the request instead of inventing a reason, pretending to invoke explain-decisions, or abandoning the answer."
       ],
       "held_out": true
     },
     {
       "id": "description-selection",
       "request": "Choose the relevant owner from short skill descriptions for explanation and nearby tasks.",
-      "fixture": "Explanation, ownership, a reported failure, a branch diff, a historical decision, general teaching, and skill authoring.",
+      "fixture": "Existing mechanism, ownership, before/after mechanism from a branch diff, defect audit of a diff, period activity report, reported failure, historical decision, general teaching, and skill authoring.",
       "observe": [
-        "Selects how for existing mechanisms and ownership without absorbing diagnosis, change reports, or unrelated teaching.",
+        "Selects explain-code for mechanisms, ownership, and requested before/after behavior; selects review-code-changes for a diff audit and report-work-activity for activity, without absorbing diagnosis or unrelated teaching.",
         "Labels a description-only probe separately from actual automatic host activation."
       ]
     }

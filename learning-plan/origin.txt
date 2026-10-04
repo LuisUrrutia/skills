@@ -1,0 +1,56 @@
+format_version = 1
+skill = "learning-plan"
+created = "2026-10-04"
+approach = "Standalone derivation of selected teaching and learning-design mechanisms; donor skills are not runtime dependencies."
+
+[[sources]]
+id = "learning-plan-cursor"
+author = "Cursor"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["teaching/skills/create-learning-path/SKILL.md", "teaching/skills/run-learning-retrospective/SKILL.md", "teaching/LICENSE"]
+paths = ["teaching/skills/create-learning-path/SKILL.md", "teaching/skills/run-learning-retrospective/SKILL.md", "teaching/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Order objectives from foundations to application, with achievable milestones and feedback criteria.", "Review actual progress, reinforce weak concepts, and adjust the next milestone."]
+local_choices = ["No mandatory question tool, fixed week count, or automatic scheduling; respect known time constraints."]
+
+[[sources]]
+id = "learning-plan-matt"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+reviewed_through = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+baseline_paths = ["skills/productivity/teach/SKILL.md", "skills/productivity/teach/MISSION-FORMAT.md", "skills/productivity/teach/RESOURCES-FORMAT.md", "skills/productivity/teach/LEARNING-RECORD-FORMAT.md", "skills/productivity/teach/GLOSSARY-FORMAT.md", "LICENSE"]
+paths = ["skills/productivity/teach/SKILL.md", "skills/productivity/teach/MISSION-FORMAT.md", "skills/productivity/teach/RESOURCES-FORMAT.md", "skills/productivity/teach/LEARNING-RECORD-FORMAT.md", "skills/productivity/teach/GLOSSARY-FORMAT.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Ground learning in an observable goal, curate useful resources, and use progress to choose the next lesson.", "Keep evidenced and reported knowledge distinct; revisit and correct records as understanding changes."]
+local_choices = ["A lightweight plan works without a course workspace; save progress only when requested.", "Separate learner records, avoid assumed mastery and fixed schemas, and use teach for requested lesson content."]
+
+[[dependencies]]
+kind = "local"
+name = "teach"
+required = false
+role = "Lesson content and practice feedback."
+
+[[dependencies]]
+kind = "local"
+name = "communicate-clearly"
+required = false
+role = "Prose and audience adaptation."
+
+[[dependencies]]
+kind = "local"
+name = "write-documentation"
+required = false
+role = "Saved course structure and reader-path checks."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Requested source maintenance and instruction authoring only."

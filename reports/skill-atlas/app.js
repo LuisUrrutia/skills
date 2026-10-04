@@ -3,9 +3,9 @@
 const atlas = window.SKILL_ATLAS;
 const repositoryInventory = atlas.repositoryInventory;
 const repositorySkills = new Map(repositoryInventory.skills.map((skill) => [skill.name, skill]));
-const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments, ...atlas.handoffReview.assessments, ...atlas.activityReview.skills, ...atlas.activityReview.assessments, ...atlas.reviewCodeChangesReview.dylReviewAdoption.assessments, ...atlas.communicationReview.assessments, ...atlas.upstreamAdoptionReview.skills, ...atlas.upstreamAdoptionReview.assessments].map((skill) => [skill.key, skill]));
+const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments, ...atlas.handoffReview.assessments, ...atlas.activityReview.skills, ...atlas.activityReview.assessments, ...atlas.reviewCodeChangesReview.dylReviewAdoption.assessments, ...atlas.communicationReview.assessments, ...atlas.upstreamAdoptionReview.skills, ...atlas.upstreamAdoptionReview.assessments, ...atlas.teachingReview.skills, ...atlas.teachingReview.assessments].map((skill) => [skill.key, skill]));
 const originalKeys = new Set(atlas.skills.map((skill) => skill.key));
-const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills, ...atlas.ciCdReview.skills, ...atlas.activityReview.skills, ...atlas.communicationReview.skills, ...atlas.upstreamAdoptionReview.skills];
+const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills, ...atlas.ciCdReview.skills, ...atlas.activityReview.skills, ...atlas.communicationReview.skills, ...atlas.upstreamAdoptionReview.skills, ...atlas.teachingReview.skills];
 const byKey = new Map(catalogSkills.map((skill) => [skill.key, skill]));
 const byId = new Map(catalogSkills.map((skill) => [skill.id, skill]));
 const recommendationFor = (skill) => sourceReviews.get(skill.key) || skill;
@@ -80,7 +80,7 @@ const clusters = [
   },
   {
     "title": "Entender y depurar",
-    "winner": "debug, how, why y analyze-change-effects con entradas propias",
+    "winner": "debug, explain-code, explain-decisions and analyze-change-effects",
     "keys": [
       "Matt Pocock/diagnosing-bugs",
       "pstack/how",
@@ -88,8 +88,8 @@ const clusters = [
       "pstack/blast-radius",
       "Matt Pocock/research"
     ],
-    "text": "El diagnóstico reproduce fallos y contrasta causas. how explica estructura y ejecución; why reconstruye motivos; analyze-change-effects comprueba efectos indirectos con código real; research consulta hechos externos. Son ramas complementarias, no cinco fases obligatorias.",
-    "why": "Las cuatro capacidades están creadas: debug investiga fallos; how explica mecanismos; why reconstruye decisiones; analyze-change-effects prueba los supuestos que determinan qué puede romper un cambio en otra parte."
+    "text": "El diagnóstico reproduce fallos y contrasta causas. explain-code explica estructura y ejecución; explain-decisions reconstruye motivos; analyze-change-effects comprueba efectos indirectos con código real; research consulta hechos externos. Son ramas complementarias, no cinco fases obligatorias.",
+    "why": "Las cuatro capacidades están creadas: debug investiga fallos; explain-code explica mecanismos; explain-decisions reconstruye decisiones; analyze-change-effects prueba los supuestos que determinan qué puede romper un cambio en otra parte."
   },
   {
     "title": "Entrevistas, especificaciones y tareas",
@@ -119,7 +119,7 @@ const clusters = [
       "pstack/principle-minimize-reader-load"
     ],
     "text": "Matt destaca interfaces pequeñas con comportamiento sustancial y límites públicos de prueba. pstack propone definir datos pronto y comparar diseños. domain-modeling aclara el lenguaje; la auditoría arquitectónica busca oportunidades de refactorización más amplias.",
-    "why": "design-code-structure parte del uso real, compara estructuras y recomienda una con sus invariantes y costes. Conserva how, why, compare-solutions y prototype como apoyos condicionales. La auditoría del repositorio completo sigue siendo otra tarea."
+    "why": "design-code-structure parte del uso real, compara estructuras y recomienda una con sus invariantes y costes. Conserva explain-code, explain-decisions, compare-solutions y prototype como apoyos condicionales. La auditoría del repositorio completo sigue siendo otra tarea."
   },
   {
     "title": "Regresiones y TDD",
@@ -254,7 +254,7 @@ const clusters = [
   },
   {
     "title": "Enseñanza, resúmenes y visualizaciones",
-    "winner": "how para mecanismos; teach se definirá por separado",
+    "winner": "teach for lessons; learning-plan for courses; explain-code for mechanisms",
     "keys": [
       "pstack/teach",
       "Matt Pocock/teach",
@@ -262,7 +262,7 @@ const clusters = [
       "HumanLayer/show-me"
     ],
     "text": "Las dos teach comparten nombre, pero una explica código y la otra mantiene un curso. Un resumen de actividad y un informe visual también atienden necesidades distintas.",
-    "why": "how uses limited presentation guidance from pstack/teach; a full teaching skill remains optional future work. report-work-activity owns activity reporting; daily-meeting-update is a deprecated alias. walkthrough is absent, and visual-change-explainer is recorded only in the original local inventory."
+    "why": "teach owns lessons and optional practice; learning-plan owns courses and learning progressions. explain-code and explain-decisions replace how and why. report-work-activity owns activity reporting; daily-meeting-update is a deprecated alias. walkthrough is absent, and visual-change-explainer is recorded only in the original local inventory."
   }
 ];
 
@@ -607,7 +607,7 @@ const scenarios = {
     "stages": [
       [
         "Acotar",
-        "Investigar con how para comportamiento y why para motivos históricos. Leer solo fuentes relacionadas con la pregunta."
+        "Investigate with explain-code for behavior and explain-decisions for historical reasons. Leer solo fuentes relacionadas con la pregunta."
       ],
       [
         "Contrastar",
@@ -615,7 +615,7 @@ const scenarios = {
       ],
       [
         "Explicar",
-        "Use how for a concrete mechanism and a diagram when it clarifies the relationship. Return the sources and remaining assumptions."
+        "Use explain-code for a concrete mechanism and a diagram when it clarifies the relationship. Return the sources and remaining assumptions."
       ]
     ],
     "note": "Una consulta de lectura no necesita cambiar de checkout, crear ramas, commits, incidencias, PR ni seguimiento."

@@ -4,6 +4,31 @@ A collection of skills for AI coding agents (Claude Code, OpenCode, and others) 
 
 ## Skills
 
+The code investigators have clearer names: `how` is now `explain-code`, and
+`why` is now `explain-decisions`. Update explicit invocations and installed copies
+to these names; the old names are not alias packages in this repository.
+
+### teach
+
+Teach a concept, codebase, system, or business at the learner's level, with
+concrete examples, useful diagrams, and optional practice and feedback.
+
+**Triggers:** `teach me Go channels`, `help me understand this business`, `practice this interview topic`
+
+Supports a direct explanation, a live lesson, or a requested teaching artifact.
+Preserves uncertainty and distinguishes demonstrated understanding from material
+merely presented. Shared installations do not share learner profiles.
+
+### learning-plan
+
+Create or revise a study roadmap or a complete course with ordered objectives,
+chapters, examples, exercises, diagrams, and usable progress checkpoints.
+
+**Triggers:** `create a study plan`, `write a complete beginner course`, `adjust my learning plan`
+
+Fits the learner's constraints and uses `teach` for requested lesson content.
+A complete course includes the lessons; a planning-only request ends with the plan.
+
 ### agent-instructions
 
 Write and improve instructions for agents in `AGENTS.md`, `CLAUDE.md`, skills,
@@ -168,7 +193,7 @@ directly when TDD is requested, without work-mode or an installed upstream skill
 - Distinguishes setup failures and already supported behavior from a valid red state
 - Preserves Matt Pocock's exact source revision and delegates requested maintenance to `agent-instructions`
 
-### how
+### explain-code
 
 Explain how existing code works and which component owns each responsibility.
 Use it directly for a mechanism, subsystem, or ownership question.
@@ -179,11 +204,11 @@ Use it directly for a mechanism, subsystem, or ownership question.
 - Traces entry points, data, state transitions, and boundaries from actual source
 - Answers at the requested depth with a concrete flow and relevant code locations
 - Distinguishes inspected behavior, observed execution, documented reasons, and unknowns
-- Keeps diagnosis, branch change reports, and guided teaching with their own owners
+- Explains requested before/after mechanisms; keeps diagnosis, diff audits, activity reports, and guided teaching with their owners
 - Derives from pstack/how with limited presentation guidance from pstack/teach
 - Records exact source commits and supports requested maintenance through `agent-instructions`
 
-### why
+### explain-decisions
 
 Reconstruct the reasons behind existing code or design decisions from historical
 evidence. Use it directly, without work-mode or an installed upstream skill.
@@ -240,7 +265,7 @@ concrete software change. Use it directly for a decision or during authorized im
 - Derives types and operations from real caller usage and established constraints
 - Compares meaningful alternatives by correctness, caller effort, locality, state, and cost
 - Checks whether edits from partial context preserve enforced boundaries and authoritative registry relationships
-- Uses how, why, analyze-change-effects, prototype, and compare-solutions when the decision needs them
+- Uses explain-code, explain-decisions, analyze-change-effects, prototype, and compare-solutions when the decision needs them
 - Handles shared invariants, retries, cancellation, external contracts, and migration when relevant
 - Revisits a design when repeated implementation friction exposes a wrong assumption
 - Records pstack and Matt Pocock sources with conditional upstream maintenance
@@ -309,7 +334,7 @@ adapt to the project's language and runtime without language-specific examples.
 - Preserves necessary guards, error handling, resource lifetime, contracts, and explanations
 - Retains useful abstractions and checks material cost changes on sensitive paths
 - Respects review-only requests and separates cleanup from behavior-changing bug fixes
-- Uses why and verify conditionally, with pinned Cursor, pstack, and Addy Osmani provenance
+- Uses explain-decisions and verify conditionally, with pinned Cursor, pstack, and Addy Osmani provenance
 
 ### review-code-changes
 

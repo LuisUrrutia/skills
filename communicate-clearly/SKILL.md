@@ -99,7 +99,7 @@ report actual paths and checks. Drafting does not authorize posting, sending, or
 publication; carry out those actions only when covered by the active request.
 
 For human-facing documentation, `write-documentation` owns structure and evidence.
-`how` and `why` own code-mechanism and rationale investigation; `commit` and `pr`
+`explain-code` and `explain-decisions` own code-mechanism and rationale investigation; `commit` and `pr`
 own their artifacts and Git operations. Load a relevant specialist when available;
 reuse its guidance if already active, while this skill continues to govern the
 prose. Agent instructions belong to `agent-instructions`. Do not turn everyday

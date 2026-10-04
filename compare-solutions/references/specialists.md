@@ -53,7 +53,7 @@ material assumption. A cleared path does not clear unrelated hazards.
 
 ## Other supporting skills
 
-`how` can explain a mechanism and `why` can investigate a historical constraint
+`explain-code` can explain a mechanism and `explain-decisions` can investigate a historical constraint
 inside one candidate's work. Neither requires a new agent. Writing guidance can
 improve the synthesis note without changing technical findings or a report grammar.
 These are conditional supports, not an instruction to load every skill for every

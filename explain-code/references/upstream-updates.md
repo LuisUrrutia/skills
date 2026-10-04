@@ -1,6 +1,6 @@
 # Requested upstream maintenance
 
-Read this only when checking or updating how from its recorded sources.
+Read this only when checking or updating explain-code from its recorded sources.
 Ordinary explanation does not fetch upstream or require another skill.
 
 Use `agent-instructions` by name from the installed skill catalog for requested
@@ -8,8 +8,8 @@ source maintenance, with this folder as the target.
 If this maintenance-only dependency is unavailable, report the blocker and
 preserve the source pins. Ordinary use remains available.
 
-"Check how for upstream changes" selects Check mode without changing files or
-pins. "Update how from upstream" authorizes compatible changes and validation
+"Check explain-code for upstream changes" selects Check mode without changing files or
+pins. "Update explain-code from upstream" authorizes compatible changes and validation
 in Update mode. Neither request creates a background schedule.
 
 Read `../origin.txt` for immutable baselines, review cursors, source paths,

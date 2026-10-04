@@ -41,8 +41,8 @@ relevant trace; a filename or proposed diagram alone is not grounding.
 
 Use available specialists by registered name when their work is needed:
 
-- `how`: establish a missing account of the existing mechanism and ownership.
-- `why`: recover a consequential design constraint before replacing the ownership
+- `explain-code`: establish a missing account of the existing mechanism and ownership.
+- `explain-decisions`: recover a consequential design constraint before replacing the ownership
   or layering it motivated. Distinguish recorded reasons from inference.
 - `analyze-change-effects`: test a compatibility or indirect-consumer assumption
   that decides whether a proposed structure is viable.
