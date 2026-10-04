@@ -3,9 +3,9 @@
 const atlas = window.SKILL_ATLAS;
 const repositoryInventory = atlas.repositoryInventory;
 const repositorySkills = new Map(repositoryInventory.skills.map((skill) => [skill.name, skill]));
-const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments].map((skill) => [skill.key, skill]));
+const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments].map((skill) => [skill.key, skill]));
 const originalKeys = new Set(atlas.skills.map((skill) => skill.key));
-const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills];
+const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills, ...atlas.ciCdReview.skills];
 const byKey = new Map(catalogSkills.map((skill) => [skill.key, skill]));
 const byId = new Map(catalogSkills.map((skill) => [skill.id, skill]));
 const recommendationFor = (skill) => sourceReviews.get(skill.key) || skill;
@@ -19,6 +19,13 @@ const groupLabels = { Local: "Original local snapshots", "Cursor team": "Equipo 
 const normalizedSearch = (value) => value.toLocaleLowerCase("es").normalize("NFD").replace(/\p{Diacritic}/gu, "");
 
 const clusters = [
+  {
+    title: "CI/CD pipeline structure",
+    winner: "ci-cd-automation, with provider specialists for implementation",
+    keys: ["Addy Osmani/ci-cd-and-automation", "wshobson/deployment-pipeline-design", "Matthew Blode/ci-speedup", "Compound Engineering/deployment-verification-agent", "pstack/principle-make-operations-idempotent", "pstack/principle-separate-before-serializing-shared-state"],
+    text: "The selected sources cover stage design, quality gates, measured efficiency, delivery evidence and partial effects. Their templates and fixed thresholds do not fit every product.",
+    why: "Use ci-cd-automation to decide what permits each transition. Keep GitHub syntax with github-actions, execution evidence with verify, and existing PR repair with pr-followup."
+  },
   {
     "title": "Escribir instrucciones y extraer flujos",
     "winner": "agent-instructions, create-project-instructions and workflow-to-skill",
@@ -500,6 +507,15 @@ const conflicts = [
 ];
 
 const scenarios = {
+  "cicd": {
+    title: "Design a CI/CD pipeline",
+    stages: [
+      ["Discover", "ci-cd-automation establishes release units, project commands, consumer boundaries and existing release policy."],
+      ["Design and implement", "Choose the stage graph, required evidence, trust boundaries, artifact identity and recovery contract. The platform specialist implements its mechanics within the authorized scope."],
+      ["Verify", "Exercise normal and relevant failure paths. Preserve unobserved provider or deployment behavior as an explicit gap; a parsed workflow is not a verified release."]
+    ],
+    note: "When only provider syntax or permissions change, use the platform specialist directly. A pipeline design request does not authorize publishing or deployment."
+  },
   "react": {
     "title": "Una funcionalidad de React",
     "stages": [
@@ -552,7 +568,7 @@ const scenarios = {
         "Ejecutar análisis configurado o actionlint, comprobaciones de seguridad y comandos subyacentes seguros. Revisar el grafo y observar CI del commit publicado."
       ]
     ],
-    "note": "fix-ci diagnostica una ejecución; no sustituye la especialidad de seguridad y corrección de workflows."
+    "note": "Use ci-cd-automation when the stage structure or delivery contract changes. github-actions owns provider mechanics; pr-followup owns an existing PR's failing checks and feedback."
   },
   "followup": {
     "title": "Preparar un PR existente",
@@ -661,6 +677,7 @@ function reviewEvidenceMarkup(skill) {
 }
 
 document.querySelectorAll("[data-catalog-count]").forEach((element) => { element.textContent = catalogSkills.length; });
+document.querySelector("#ci-cd-repositories").innerHTML = atlas.ciCdReview.repositories.map((repository) => `<tr><th><a href="${escapeHtml(repository.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(repository.repository)}</a><small>${escapeHtml(repository.commit.slice(0, 12))}</small></th><td>${escapeHtml(repository.decision)}</td><td>${escapeHtml(repository.reason)}<details class="evidence"><summary>Scope and exclusions</summary><p>${escapeHtml(repository.reviewDepth)}</p><p>${escapeHtml(repository.excluded)}</p></details></td></tr>`).join("");
 document.querySelector("#typescript-repositories").innerHTML = atlas.typescriptReview.repositories.map((repository) => `<tr><th><a href="${escapeHtml(repository.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(repository.repository)}</a><small>${escapeHtml(repository.commit.slice(0, 12))}</small></th><td>${escapeHtml(repository.decision)}</td><td>${escapeHtml(repository.reason)}<details class="evidence"><summary>Scope and exclusions</summary><p>${escapeHtml(repository.reviewDepth)}</p><p>${escapeHtml(repository.excluded)}</p></details></td></tr>`).join("");
 document.querySelector("#typescript-principles").innerHTML = atlas.typescriptReview.principles.map((principle) => `<li><a href="${escapeHtml(principle.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(principle.name)}</a> — ${escapeHtml(principle.status)}</li>`).join("");
 document.querySelector("#accessibility-repositories").innerHTML = atlas.accessibilityReview.repositories.map((repository) => `<tr><th><a href="${escapeHtml(repository.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(repository.repository)}</a></th><td>${escapeHtml(repository.decision)}</td><td>${escapeHtml(repository.reason)}</td></tr>`).join("");

@@ -4120,7 +4120,7 @@ window.SKILL_ATLAS = {
   },
   "repositoryInventory": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "afccb2687d0328fd1f6a76e1a4d05f8fe4286db2",
+    "repositoryCommit": "c5ea21bf95cdaaf28190c5f40f0cd33de304795e",
     "scope": "Top-level skill packages present in this working tree. Presence does not prove installation, activation or production validation.",
     "groups": [
       "Instruction authoring",
@@ -4361,6 +4361,14 @@ window.SKILL_ATLAS = {
         "path": "typescript-best-practices/SKILL.md",
         "sha256": "89625b5e09cfae30e809da5ba116aa551ce9daad3e94d52b03f611fc6f70e41c",
         "section": "typescript-best-practices"
+      },
+      {
+        "name": "ci-cd-automation",
+        "category": "Git, pull requests and CI",
+        "summary": "Design pipeline stages, checks, artifact promotion, delivery criteria, recovery and measured efficiency; use provider specialists for implementation.",
+        "path": "ci-cd-automation/SKILL.md",
+        "sha256": "ed54c6f80073908b543ffa35e548774d3543da6e60f1637fb49e4ce254e66a91",
+        "section": "ci-cd-automation"
       }
     ],
     "pending": [
@@ -4388,7 +4396,7 @@ window.SKILL_ATLAS = {
     "replacements": {
       "review-audit": "review-code-changes"
     },
-    "validationScope": "Package presence, declared names and entrypoint hashes checked. TypeScript has 22 technical compiler/runtime/configuration probes and package validation; independent agent behavior and host activation are not tested. Other skills retain their separate dated evidence. Presence is not installation."
+    "validationScope": "Package presence, declared names and entrypoint hashes checked. TypeScript has 22 technical compiler/runtime/configuration probes and package validation; independent agent behavior and host activation are not tested. Other skills retain their separate dated evidence. Presence is not installation. CI/CD has separate package, atlas, dual-review and three matched design-case records. Provider execution and implicit activation remain untested."
   },
   "errorHandlingReview": {
     "date": "2026-10-04",
@@ -4447,7 +4455,7 @@ window.SKILL_ATLAS = {
         "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
         "url": "https://github.com/mblode/agent-skills/tree/012e6e5208f512151bdea0e2965dafd01ff61340",
         "count": 28,
-        "incorporated": 7,
+        "incorporated": 8,
         "license": "MIT"
       },
       {
@@ -4458,7 +4466,7 @@ window.SKILL_ATLAS = {
         "commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
         "url": "https://github.com/addyosmani/agent-skills/tree/1401c8b8030e023baeebb31781a6653fe8e93026",
         "count": 25,
-        "incorporated": 7,
+        "incorporated": 8,
         "license": "MIT"
       },
       {
@@ -7316,16 +7324,16 @@ window.SKILL_ATLAS = {
         "boundary": "A repeatable harness is required for measurement claims. A static review remains a static review, not a demonstrated improvement."
       },
       {
-        "title": "Measure slow CI and improve public contracts",
-        "route": "Add conditional references",
-        "owner": "github-actions; design-code-structure; error-handling",
+        "title": "CI/CD structure is created; public-contract work stays conditional",
+        "route": "Partly incorporated",
+        "owner": "ci-cd-automation; design-code-structure; error-handling",
         "keys": [
           "Matthew Blode/ci-speedup",
           "Addy Osmani/api-and-interface-design",
           "HumanLayer/narrow-react-prop-types"
         ],
-        "why": "Use real critical-path timings, explicit retry/idempotency contracts and caller evidence when narrowing internal interfaces.",
-        "boundary": "Keep existing owners. Public compatibility, failure semantics and security gates outrank local convenience."
+        "why": "Measured CI efficiency is now part of ci-cd-automation, with GitHub mechanics delegated to github-actions. The separate API and prop-contract recommendations keep their earlier scope.",
+        "boundary": "Only the CI source is newly incorporated here. Public compatibility, failure semantics and security gates remain with their existing owners."
       },
       {
         "title": "Install unchanged only for a concrete need",
@@ -7402,13 +7410,13 @@ window.SKILL_ATLAS = {
   },
   "sourceProgress": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "afccb2687d0328fd1f6a76e1a4d05f8fe4286db2",
+    "repositoryCommit": "c5ea21bf95cdaaf28190c5f40f0cd33de304795e",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 100,
-      "pending": 55,
-      "optional": 43,
-      "not-selected": 41
+      "ready": 104,
+      "pending": 53,
+      "optional": 49,
+      "not-selected": 45
     },
     "skills": {
       "Matt Pocock/code-review": {
@@ -8667,9 +8675,10 @@ window.SKILL_ATLAS = {
         "label": "Incorporated",
         "owners": [
           "design-code-structure",
-          "error-handling"
+          "error-handling",
+          "ci-cd-automation"
         ],
-        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "note": "Selected material is recorded in present local packages. This does not mean the full source is installed, executed or synchronized.",
         "evidence": [
           {
             "owner": "design-code-structure",
@@ -8712,6 +8721,24 @@ window.SKILL_ATLAS = {
               "Do not import lifecycle-specific cleanup recipes or assume every operation can be replayed safely.",
               "Keep meaningful absence, status and interaction assertions when they establish a failure contract; no universal test-deletion rule.",
               "Preserve the caller's design, review or implementation scope, including unresolved business recovery policy."
+            ]
+          },
+          {
+            "owner": "ci-cd-automation",
+            "path": "ci-cd-automation/origin.txt",
+            "line": 67,
+            "sha256": "4ca6f9e3eae86f45da59cb07d43875d5c89ba1b0b11aa9f411721e6e56d84c57",
+            "sourceId": "pstack-idempotency-and-shared-state",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Reconcile partial prior effects before retries; define the outcome of repeated or interrupted operations.",
+              "Isolate independent mutable targets and enforce serialization structurally when one shared target is a real invariant."
+            ],
+            "localChoices": [
+              "Apply the principles to deployment targets, migrations and shared build resources; do not import PID-lock recipes or universal self-healing.",
+              "Reject obsolete candidates as well as overlapping writes. Existing authorization still governs deployment and recovery.",
+              "Keep pstack shipping, code verification and CI babysitting procedures with the corresponding local owners."
             ]
           }
         ]
@@ -8971,9 +8998,10 @@ window.SKILL_ATLAS = {
         "label": "Incorporated",
         "owners": [
           "compare-solutions",
-          "design-code-structure"
+          "design-code-structure",
+          "ci-cd-automation"
         ],
-        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "note": "Selected material is recorded in present local packages. This does not mean the full source is installed, executed or synchronized.",
         "evidence": [
           {
             "owner": "compare-solutions",
@@ -9026,6 +9054,24 @@ window.SKILL_ATLAS = {
               "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
               "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
               "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+            ]
+          },
+          {
+            "owner": "ci-cd-automation",
+            "path": "ci-cd-automation/origin.txt",
+            "line": 67,
+            "sha256": "4ca6f9e3eae86f45da59cb07d43875d5c89ba1b0b11aa9f411721e6e56d84c57",
+            "sourceId": "pstack-idempotency-and-shared-state",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Reconcile partial prior effects before retries; define the outcome of repeated or interrupted operations.",
+              "Isolate independent mutable targets and enforce serialization structurally when one shared target is a real invariant."
+            ],
+            "localChoices": [
+              "Apply the principles to deployment targets, migrations and shared build resources; do not import PID-lock recipes or universal self-healing.",
+              "Reject obsolete candidates as well as overlapping writes. Existing authorization still governs deployment and recovery.",
+              "Keep pstack shipping, code verification and CI babysitting procedures with the corresponding local owners."
             ]
           }
         ]
@@ -10316,11 +10362,33 @@ window.SKILL_ATLAS = {
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Matthew Blode/ci-speedup": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "ci-cd-automation"
+        ],
+        "evidence": [
+          {
+            "owner": "ci-cd-automation",
+            "path": "ci-cd-automation/origin.txt",
+            "line": 37,
+            "sha256": "4ca6f9e3eae86f45da59cb07d43875d5c89ba1b0b11aa9f411721e6e56d84c57",
+            "sourceId": "mblode-ci-efficiency",
+            "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "borrowed": [
+              "Measure the critical path using real run timing, including setup, queue time, variance and runner cost.",
+              "Preserve coverage when filtering, sharding or caching; cover unverified changes and detect silently missing workspace tasks.",
+              "Separate safely cancellable validation from deployment with shared mutable state."
+            ],
+            "localChoices": [
+              "Load efficiency guidance only for topology, filtering, caching or performance changes.",
+              "Do not import timing scripts, hosted-runner prices, published speedup numbers, fixed timing targets, test-runner flags, mandatory ledger or automatic pushes.",
+              "Check all relevant cache inputs and trust domains; no universal cache or cancellation recipe."
+            ]
+          }
+        ],
+        "note": "Selected material is recorded in present local packages. This does not mean the full source is installed, executed or synchronized."
       },
       "Matthew Blode/codebase-architecture": {
         "status": "pending",
@@ -10565,11 +10633,32 @@ window.SKILL_ATLAS = {
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Addy Osmani/ci-cd-and-automation": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "ci-cd-automation"
+        ],
+        "evidence": [
+          {
+            "owner": "ci-cd-automation",
+            "path": "ci-cd-automation/origin.txt",
+            "line": 7,
+            "sha256": "4ca6f9e3eae86f45da59cb07d43875d5c89ba1b0b11aa9f411721e6e56d84c57",
+            "sourceId": "addy-ci-cd-gates",
+            "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "borrowed": [
+              "Place automated checks before the decisions they protect and make failures actionable.",
+              "Separate deployment from feature exposure; keep delivery feedback short."
+            ],
+            "localChoices": [
+              "Choose applicable checks from the product contract instead of a universal JavaScript gate list, fixed environment chain, time target, review count or merge policy.",
+              "Keep GitHub YAML, dependency bots, PR repair and credentials mechanics with their existing owners.",
+              "Replace the claim that every deployment is reversible with explicit data and external-effect recovery."
+            ]
+          }
+        ],
+        "note": "Selected material is recorded in present local packages. This does not mean the full source is installed, executed or synchronized."
       },
       "Addy Osmani/code-simplification": {
         "status": "ready",
@@ -11639,6 +11728,133 @@ window.SKILL_ATLAS = {
         "status": "ready",
         "label": "Incorporated",
         "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized."
+      },
+      "wshobson/deployment-pipeline-design": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "ci-cd-automation"
+        ],
+        "evidence": [
+          {
+            "owner": "ci-cd-automation",
+            "path": "ci-cd-automation/origin.txt",
+            "line": 22,
+            "sha256": "4ca6f9e3eae86f45da59cb07d43875d5c89ba1b0b11aa9f411721e6e56d84c57",
+            "sourceId": "wshobson-pipeline-design",
+            "baselineCommit": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+            "reviewedThrough": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+            "borrowed": [
+              "Design stage dependencies, artifact promotion, rollout criteria and post-deployment verification together.",
+              "Account for old and new consumers during schema transitions and choose rollout patterns from product constraints."
+            ],
+            "localChoices": [
+              "Keep provider examples, Kubernetes commands and platform-specific troubleshooting outside the general skill.",
+              "Do not promise automatic rollback, instant recovery, zero downtime, mandatory staging or fixed DORA thresholds.",
+              "Treat inconclusive telemetry explicitly; an Argo inconclusive result pauses and is not equivalent to a failed analysis.",
+              "Verify any target-specific rebuild as its own artifact and bind promotion evidence to the actual candidate."
+            ]
+          }
+        ],
+        "note": "Selected material is recorded in present local packages. This does not mean the full source is installed, executed or synchronized."
+      },
+      "Compound Engineering/deployment-verification-agent": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "ci-cd-automation"
+        ],
+        "evidence": [
+          {
+            "owner": "ci-cd-automation",
+            "path": "ci-cd-automation/origin.txt",
+            "line": 52,
+            "sha256": "4ca6f9e3eae86f45da59cb07d43875d5c89ba1b0b11aa9f411721e6e56d84c57",
+            "sourceId": "compound-deployment-verification",
+            "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "borrowed": [
+              "Name data invariants, concrete pre/post-deployment observations, recovery limits and the operational owner.",
+              "Distinguish code rollback from data restoration and irreversible effects."
+            ],
+            "localChoices": [
+              "Use conditional delivery guidance rather than a second code-review persona or mandatory SQL checklist.",
+              "Choose observation windows and thresholds from service requirements, not the example five-minute/24-hour schedule.",
+              "Verify restore feasibility and allowed data loss; a backup alone does not prove recovery."
+            ]
+          }
+        ],
+        "note": "Selected material is recorded in present local packages. This does not mean the full source is installed, executed or synchronized."
+      },
+      "ECC/deployment-patterns": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "deployment-patterns combines useful health and compatibility concerns with web/container templates and broad readiness checklists. github-ops is operational GitHub work already owned locally."
+      },
+      "Jeffallan/devops-engineer": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "devops-engineer covers CI/CD, infrastructure, containers, incidents and developer platforms. Its selected references duplicate the narrower donors while imposing policies and platform examples."
+      },
+      "GSD/ci-cd-pipeline-guide": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "The CI/CD guide describes automatic Dev → Test → Prod promotion, but the pinned pipeline.yml only rebuilds the builder image and says publication moved to separate manually triggered workflows."
+      },
+      "GitHub CLI/release-process-deep-dive": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "The CLI release docs distinguish build/sign/package from publishing and explain dry runs. They are implementation evidence for one distributable, not a portable skill."
+      },
+      "Agent Skills Standard/flutter-cicd": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "Flutter, Android, iOS, React Native and NestJS entrypoints describe platform delivery concerns. They reinforce the need to distinguish releases with slow client adoption from server deployments."
+      },
+      "Agent Skills Standard/nestjs-deployment": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "Flutter, Android, iOS, React Native and NestJS entrypoints describe platform delivery concerns. They reinforce the need to distinguish releases with slow client adoption from server deployments."
+      },
+      "LobeHub/release-risk": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "Release-risk dimensions explicitly separate repository defects from live-state release checks. The platform-specific migration, queue and rollout rules are useful context but not another pipeline owner."
+      },
+      "Allen Eubank/live-ops": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "live-ops covers attended production operations and proven recovery access; atlas-best-practices owns Atlas schema workflows. Neither is a general delivery design skill."
+      },
+      "Sentimony/verification-gate": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "verification-gate checks evidence, identity and completion across tasks. Those responsibilities already have a local owner and do not supply CI/CD topology."
+      },
+      "Vercel/deploy-to-vercel": {
+        "status": "optional",
+        "label": "Optional",
+        "owners": [],
+        "evidence": [],
+        "note": "deploy-to-vercel performs a deployment and account/project setup. Its provider-specific lifecycle belongs in a separate specialist."
       }
     }
   },
@@ -13305,5 +13521,719 @@ window.SKILL_ATLAS = {
     "limits": [
       "Model consultations assess the instructions; they do not replace behavioral checks or prove automatic host selection."
     ]
+  },
+  "ciCdReview": {
+    "date": "2026-10-04",
+    "baselineCommit": "96792071897fc617769dc893299e420c702cf93b",
+    "scope": "All 19 user-supplied repositories from this conversation received current SSH acquisition and a complete tracked-path inventory. Text screening covered skill, agent, rule and development-doc sources beyond named entrypoints; selected files were read as recorded. This is not a line-by-line review of every repository file.",
+    "research": "ci-cd-automation-research.json",
+    "validation": "ci-cd-automation-validation.json",
+    "skills": [
+      {
+        "id": "wshobson-deployment-pipeline-design",
+        "key": "wshobson/deployment-pipeline-design",
+        "name": "deployment-pipeline-design",
+        "declaredName": "deployment-pipeline-design",
+        "group": "wshobson",
+        "author": "Seth Hobson / wshobson",
+        "kind": "upstream",
+        "path": "plugins/cicd-automation/skills/deployment-pipeline-design/SKILL.md",
+        "repository": "https://github.com/wshobson/agents",
+        "source": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/cicd-automation/skills/deployment-pipeline-design/SKILL.md",
+        "sha": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+        "sha256": "9a56bd9401c1dc8ef5a15758d7234f211193097ddb3895d46d1ddcd730687b18",
+        "lines": 106,
+        "category": "CI/CD",
+        "decision": "Blend",
+        "action": "Selected CI/CD material incorporated",
+        "owner": "ci-cd-automation",
+        "summary": "Design pipeline stages, artifact promotion, rollout acceptance and recovery together.",
+        "reason": "Design stage dependencies, artifact promotion, rollout criteria and post-deployment verification together. Account for old and new consumers during schema transitions and choose rollout patterns from product constraints.",
+        "caution": "Keep provider examples, Kubernetes commands and platform-specific troubleshooting outside the general skill. Do not promise automatic rollback, instant recovery, zero downtime, mandatory staging or fixed DORA thresholds. Treat inconclusive telemetry explicitly; an Argo inconclusive result pauses and is not equivalent to a failed analysis. Verify any target-specific rebuild as its own artifact and bind promotion evidence to the actual candidate.",
+        "inspection": "Complete file read; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": [
+          {
+            "path": "plugins/cicd-automation/skills/deployment-pipeline-design/references/details.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/cicd-automation/skills/deployment-pipeline-design/references/details.md"
+          },
+          {
+            "path": "plugins/cicd-automation/skills/deployment-pipeline-design/references/advanced-strategies.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/cicd-automation/skills/deployment-pipeline-design/references/advanced-strategies.md"
+          }
+        ]
+      },
+      {
+        "id": "compound-engineering-deployment-verification-agent",
+        "key": "Compound Engineering/deployment-verification-agent",
+        "name": "deployment-verification-agent",
+        "declaredName": "deployment-verification-agent",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "path": "skills/ce-code-review/references/personas/deployment-verification-agent.md",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-code-review/references/personas/deployment-verification-agent.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "cae04a513e0bb5314865722e03a4fe2308170ac08c969bfe7b2056ec3f4645c1",
+        "lines": 157,
+        "category": "CI/CD",
+        "decision": "Blend",
+        "action": "Selected CI/CD material incorporated",
+        "owner": "ci-cd-automation",
+        "summary": "A review persona that turns risky data deployments into concrete invariants, observations and recovery decisions.",
+        "reason": "Name data invariants, concrete pre/post-deployment observations, recovery limits and the operational owner. Distinguish code rollback from data restoration and irreversible effects.",
+        "caution": "Use conditional delivery guidance rather than a second code-review persona or mandatory SQL checklist. Choose observation windows and thresholds from service requirements, not the example five-minute/24-hour schedule. Verify restore feasibility and allowed data loss; a backup alone does not prove recovery.",
+        "inspection": "Complete file read; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": []
+      },
+      {
+        "id": "ecc-deployment-patterns",
+        "key": "ECC/deployment-patterns",
+        "name": "deployment-patterns",
+        "declaredName": "deployment-patterns",
+        "group": "ECC",
+        "author": "ECC",
+        "kind": "upstream",
+        "path": "skills/deployment-patterns/SKILL.md",
+        "repository": "https://github.com/affaan-m/ECC",
+        "source": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/deployment-patterns/SKILL.md",
+        "sha": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "sha256": "b864abd1954570c4a469b7e1deb897e57858d25db2fd98d035ff7bca4a15b9b6",
+        "lines": 428,
+        "category": "CI/CD",
+        "decision": "Skip",
+        "action": "Considered; prefer smaller selected donors",
+        "owner": "Existing local owner or no addition",
+        "summary": "Web deployment patterns, container examples, health checks and a broad production-readiness checklist.",
+        "reason": "deployment-patterns combines useful health and compatibility concerns with web/container templates and broad readiness checklists. github-ops is operational GitHub work already owned locally.",
+        "caution": "Do not copy template deploy placeholders, fixed stack, broad readiness quotas or mistake prisma migrate resolve --rolled-back for reversal of database changes.",
+        "inspection": "Complete file read; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": [
+          {
+            "path": "skills/github-ops/SKILL.md",
+            "coverage": "Purpose, activation and initial operational sections screened; not a donor",
+            "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/github-ops/SKILL.md"
+          }
+        ]
+      },
+      {
+        "id": "jeffallan-devops-engineer",
+        "key": "Jeffallan/devops-engineer",
+        "name": "devops-engineer",
+        "declaredName": "devops-engineer",
+        "group": "Jeffallan",
+        "author": "Jeffallan",
+        "kind": "upstream",
+        "path": "skills/devops-engineer/SKILL.md",
+        "repository": "https://github.com/Jeffallan/claude-skills",
+        "source": "https://github.com/Jeffallan/claude-skills/blob/1be15d8064f88fc25216442406d40add8fd23b53/skills/devops-engineer/SKILL.md",
+        "sha": "1be15d8064f88fc25216442406d40add8fd23b53",
+        "sha256": "552f6b0f31bc5d6cad3c692034407f22319424d2cdb94ade99ec108f760e4285",
+        "lines": 151,
+        "category": "CI/CD",
+        "decision": "Skip",
+        "action": "Considered; scope too broad for direct installation",
+        "owner": "Existing local owner or no addition",
+        "summary": "A broad DevOps specialist spanning pipelines, infrastructure, containers, releases and incidents.",
+        "reason": "devops-engineer covers CI/CD, infrastructure, containers, incidents and developer platforms. Its selected references duplicate the narrower donors while imposing policies and platform examples.",
+        "caution": "No mandatory GitOps/staging/manual approval, Friday rule, fixed metrics target, default rollback command or broad IaC rewrite.",
+        "inspection": "Complete file read; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": [
+          {
+            "path": "skills/devops-engineer/references/deployment-strategies.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/Jeffallan/claude-skills/blob/1be15d8064f88fc25216442406d40add8fd23b53/skills/devops-engineer/references/deployment-strategies.md"
+          },
+          {
+            "path": "skills/devops-engineer/references/release-automation.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/Jeffallan/claude-skills/blob/1be15d8064f88fc25216442406d40add8fd23b53/skills/devops-engineer/references/release-automation.md"
+          }
+        ]
+      },
+      {
+        "id": "gsd-ci-cd-pipeline-guide",
+        "key": "GSD/ci-cd-pipeline-guide",
+        "name": "ci-cd-pipeline-guide",
+        "declaredName": "ci-cd-pipeline-guide",
+        "group": "GSD",
+        "author": "GSD",
+        "kind": "upstream",
+        "path": "docs/dev/ci-cd-pipeline.md",
+        "repository": "https://github.com/gsd-build/gsd-2",
+        "source": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/docs/dev/ci-cd-pipeline.md",
+        "sha": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+        "sha256": "f4d9badeaafbafa51cc782ad6b0612f658d9f630cad776145723b1b4176e859d",
+        "lines": 202,
+        "category": "CI/CD",
+        "decision": "Skip",
+        "action": "Use as a caution about stale delivery documentation",
+        "owner": "Existing local owner or no addition",
+        "summary": "An application delivery guide whose promotion flow no longer matches the pinned workflow ownership.",
+        "reason": "The CI/CD guide describes automatic Dev → Test → Prod promotion, but the pinned pipeline.yml only rebuilds the builder image and says publication moved to separate manually triggered workflows.",
+        "caution": "Do not install an application-specific release process or copy stale workflow ownership. ADR-003 is an agent execution pipeline, not CI/CD.",
+        "inspection": "Complete file read; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": [
+          {
+            "path": ".github/workflows/pipeline.yml",
+            "coverage": "Complete file read",
+            "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/.github/workflows/pipeline.yml"
+          },
+          {
+            "path": "src/resources/extensions/gsd/workflow-templates/release.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/extensions/gsd/workflow-templates/release.md"
+          },
+          {
+            "path": "docs/dev/ADR-003-pipeline-simplification.md",
+            "coverage": "Title, motivation and agent-session scope screened; not a CI/CD source",
+            "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/docs/dev/ADR-003-pipeline-simplification.md"
+          }
+        ]
+      },
+      {
+        "id": "github-cli-release-process-deep-dive",
+        "key": "GitHub CLI/release-process-deep-dive",
+        "name": "release-process-deep-dive",
+        "declaredName": "release-process-deep-dive",
+        "group": "GitHub CLI",
+        "author": "GitHub CLI",
+        "kind": "upstream",
+        "path": "docs/release-process-deep-dive.md",
+        "repository": "https://github.com/cli/cli",
+        "source": "https://github.com/cli/cli/blob/6fc1c29d5477bfe71da7af290eb481c0df7811f1/docs/release-process-deep-dive.md",
+        "sha": "6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+        "sha256": "c228d632ae642d616fb31238bbdc81119c329b3761cc8a4793affacf08b763a0",
+        "lines": 750,
+        "category": "CI/CD",
+        "decision": "Optional",
+        "action": "Keep release implementation as a product example",
+        "owner": "Potential platform/operations specialist",
+        "summary": "A concrete multi-platform build, signing, packaging and publication process, with dry-run distinctions.",
+        "reason": "The CLI release docs distinguish build/sign/package from publishing and explain dry runs. They are implementation evidence for one distributable, not a portable skill.",
+        "caution": "No GH CLI signing infrastructure, release deletion/recreation recipe, maintainer policy or unverified implication that a dry run has zero effects.",
+        "inspection": "High-level overview, OS build/signing sections and dry-run discussion inspected; 750-line document not fully reviewed; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": [
+          {
+            "path": "docs/releasing.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/cli/cli/blob/6fc1c29d5477bfe71da7af290eb481c0df7811f1/docs/releasing.md"
+          },
+          {
+            "path": ".github/workflows/deployment.yml",
+            "coverage": "Relevant trigger, platform selection, release and dry-run conditions inspected",
+            "url": "https://github.com/cli/cli/blob/6fc1c29d5477bfe71da7af290eb481c0df7811f1/.github/workflows/deployment.yml"
+          }
+        ]
+      },
+      {
+        "id": "agent-skills-standard-flutter-cicd",
+        "key": "Agent Skills Standard/flutter-cicd",
+        "name": "flutter-cicd",
+        "declaredName": "flutter-cicd",
+        "group": "Agent Skills Standard",
+        "author": "Agent Skills Standard",
+        "kind": "upstream",
+        "path": "skills/flutter/flutter-cicd/SKILL.md",
+        "repository": "https://github.com/HoangNguyen0403/agent-skills-standard",
+        "source": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/flutter/flutter-cicd/SKILL.md",
+        "sha": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+        "sha256": "d24830b0bea252c8db3147fd302b4652229b81a4168e52f35fa8c376c9e89088",
+        "lines": 63,
+        "category": "CI/CD",
+        "decision": "Optional",
+        "action": "Reserve deployment guidance for stack specialists",
+        "owner": "Potential platform/operations specialist",
+        "summary": "Flutter CI and mobile signing/distribution guidance for a future platform specialist.",
+        "reason": "Flutter, Android, iOS, React Native and NestJS entrypoints describe platform delivery concerns. They reinforce the need to distinguish releases with slow client adoption from server deployments.",
+        "caution": "No Fastlane/EAS mandate, signing recipe, automatic version rule, Node memory percentage or Kubernetes migration-initializer default.",
+        "inspection": "Complete file read; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": [
+          {
+            "path": "skills/android/android-deployment/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/android/android-deployment/SKILL.md"
+          },
+          {
+            "path": "skills/ios/ios-deployment/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/ios/ios-deployment/SKILL.md"
+          },
+          {
+            "path": "skills/react-native/react-native-deployment/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/react-native/react-native-deployment/SKILL.md"
+          },
+          {
+            "path": "skills/nestjs/nestjs-deployment/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/nestjs/nestjs-deployment/SKILL.md"
+          }
+        ]
+      },
+      {
+        "id": "agent-skills-standard-nestjs-deployment",
+        "key": "Agent Skills Standard/nestjs-deployment",
+        "name": "nestjs-deployment",
+        "declaredName": "nestjs-deployment",
+        "group": "Agent Skills Standard",
+        "author": "Agent Skills Standard",
+        "kind": "upstream",
+        "path": "skills/nestjs/nestjs-deployment/SKILL.md",
+        "repository": "https://github.com/HoangNguyen0403/agent-skills-standard",
+        "source": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/nestjs/nestjs-deployment/SKILL.md",
+        "sha": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+        "sha256": "e919d7a00846fa02f917d13365465c3f0c64450522a5aaebc3deb37840d2607d",
+        "lines": 63,
+        "category": "CI/CD",
+        "decision": "Optional",
+        "action": "Reserve deployment guidance for stack specialists",
+        "owner": "Potential platform/operations specialist",
+        "summary": "NestJS container, configuration and lifecycle concerns rather than general pipeline architecture.",
+        "reason": "Flutter, Android, iOS, React Native and NestJS entrypoints describe platform delivery concerns. They reinforce the need to distinguish releases with slow client adoption from server deployments.",
+        "caution": "No Fastlane/EAS mandate, signing recipe, automatic version rule, Node memory percentage or Kubernetes migration-initializer default.",
+        "inspection": "Complete file read; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": [
+          {
+            "path": "skills/flutter/flutter-cicd/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/flutter/flutter-cicd/SKILL.md"
+          },
+          {
+            "path": "skills/android/android-deployment/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/android/android-deployment/SKILL.md"
+          },
+          {
+            "path": "skills/ios/ios-deployment/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/ios/ios-deployment/SKILL.md"
+          },
+          {
+            "path": "skills/react-native/react-native-deployment/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/react-native/react-native-deployment/SKILL.md"
+          }
+        ]
+      },
+      {
+        "id": "lobehub-release-risk",
+        "key": "LobeHub/release-risk",
+        "name": "release-risk",
+        "declaredName": "release-risk",
+        "group": "LobeHub",
+        "author": "LobeHub",
+        "kind": "upstream",
+        "path": ".agents/skills/deep-review/references/dimensions/release-risk.md",
+        "repository": "https://github.com/lobehub/lobehub",
+        "source": "https://github.com/lobehub/lobehub/blob/5fca09855b45f0286576bde1fdaaf03242eb183b/.agents/skills/deep-review/references/dimensions/release-risk.md",
+        "sha": "5fca09855b45f0286576bde1fdaaf03242eb183b",
+        "sha256": "f175009c9ec11e8e6ac739ea0e84cfc582b555aacb4552fa01ffad5c1cffe05d",
+        "lines": 89,
+        "category": "CI/CD",
+        "decision": "Optional",
+        "action": "Keep release-risk review with its owning workflow",
+        "owner": "Potential platform/operations specialist",
+        "summary": "Release-risk review that separates concrete defects from live-state prerequisites and recovery constraints.",
+        "reason": "Release-risk dimensions explicitly separate repository defects from live-state release checks. The platform-specific migration, queue and rollout rules are useful context but not another pipeline owner.",
+        "caution": "No LobeHub imports, severity scheme, universal flag requirement, PR split policy or application-specific release procedure.",
+        "inspection": "Complete file read; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": [
+          {
+            "path": ".agents/skills/deep-review/references/release-risk/persisted-state.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/lobehub/lobehub/blob/5fca09855b45f0286576bde1fdaaf03242eb183b/.agents/skills/deep-review/references/release-risk/persisted-state.md"
+          },
+          {
+            "path": ".agents/skills/deep-review/references/release-risk/rollout-surface.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/lobehub/lobehub/blob/5fca09855b45f0286576bde1fdaaf03242eb183b/.agents/skills/deep-review/references/release-risk/rollout-surface.md"
+          }
+        ]
+      },
+      {
+        "id": "allen-eubank-live-ops",
+        "key": "Allen Eubank/live-ops",
+        "name": "live-ops",
+        "declaredName": "live-ops",
+        "group": "Allen Eubank",
+        "author": "Allen Eubank",
+        "kind": "upstream",
+        "path": "plugins/agent-workflows/skills/live-ops/SKILL.md",
+        "repository": "https://github.com/alleneubank/agent-profile",
+        "source": "https://github.com/alleneubank/agent-profile/blob/5165b1f1122a4fa888347c6046d10593033748e8/plugins/agent-workflows/skills/live-ops/SKILL.md",
+        "sha": "5165b1f1122a4fa888347c6046d10593033748e8",
+        "sha256": "f500d583757ef2ba98e529c97728f8e1c7b0a7499c172919e08b81ae59460132",
+        "lines": 30,
+        "category": "CI/CD",
+        "decision": "Optional",
+        "action": "Keep operational and database specialists separate",
+        "owner": "Potential platform/operations specialist",
+        "summary": "Attended production operations, including observed triage and recovery access.",
+        "reason": "live-ops covers attended production operations and proven recovery access; atlas-best-practices owns Atlas schema workflows. Neither is a general delivery design skill.",
+        "caution": "No universal attended deployment policy, Atlas dependency or tool-specific migration workflow.",
+        "inspection": "Complete file read; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": [
+          {
+            "path": "plugins/engineering-practices/skills/atlas-best-practices/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/alleneubank/agent-profile/blob/5165b1f1122a4fa888347c6046d10593033748e8/plugins/engineering-practices/skills/atlas-best-practices/SKILL.md"
+          }
+        ]
+      },
+      {
+        "id": "sentimony-verification-gate",
+        "key": "Sentimony/verification-gate",
+        "name": "verification-gate",
+        "declaredName": "verification-gate",
+        "group": "Sentimony",
+        "author": "Sentimony",
+        "kind": "upstream",
+        "path": "skills/verification-gate/SKILL.md",
+        "repository": "https://github.com/sentimony/skills",
+        "source": "https://github.com/sentimony/skills/blob/e7ee0fff668e9ebd74a279635f1d04e66446eeec/skills/verification-gate/SKILL.md",
+        "sha": "e7ee0fff668e9ebd74a279635f1d04e66446eeec",
+        "sha256": "38ce427fdfc8db1fa34e30456f2d815a42c98114edb1f4526764ec121d353a83",
+        "lines": 347,
+        "category": "CI/CD",
+        "decision": "Skip",
+        "action": "Keep verification with verify",
+        "owner": "Existing local owner or no addition",
+        "summary": "A broad completion-evidence workflow already covered by the local verify owner.",
+        "reason": "verification-gate checks evidence, identity and completion across tasks. Those responsibilities already have a local owner and do not supply CI/CD topology.",
+        "caution": "No second completion protocol, mandatory output matrix, fixed retry count or imported dependency graph.",
+        "inspection": "Lines 1-110 and later evidence/verdict/routing sections inspected; not adopted; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": []
+      },
+      {
+        "id": "vercel-deploy-to-vercel",
+        "key": "Vercel/deploy-to-vercel",
+        "name": "deploy-to-vercel",
+        "declaredName": "deploy-to-vercel",
+        "group": "Vercel",
+        "author": "Vercel",
+        "kind": "upstream",
+        "path": "skills/deploy-to-vercel/SKILL.md",
+        "repository": "https://github.com/vercel-labs/agent-skills",
+        "source": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/skills/deploy-to-vercel/SKILL.md",
+        "sha": "063bee94c3f4df8453406c830b0a7df0f2860278",
+        "sha256": "cfcc3dd479ab2e0ae721ddf39b8af84d977321487672f1487c8d6855f576927b",
+        "lines": 296,
+        "category": "CI/CD",
+        "decision": "Optional",
+        "action": "Provider specialist candidate; do not import",
+        "owner": "Potential platform/operations specialist",
+        "summary": "Provider-specific project linking and deployment; requires adaptation before local adoption.",
+        "reason": "deploy-to-vercel performs a deployment and account/project setup. Its provider-specific lifecycle belongs in a separate specialist.",
+        "caution": "No global CLI install, account linking, publication fallback, broad git add, latest-deployment selection or restriction against verifying the deployed result.",
+        "inspection": "Complete file read; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": []
+      }
+    ],
+    "assessments": [
+      {
+        "id": "addy-osmani-ci-cd-and-automation",
+        "key": "Addy Osmani/ci-cd-and-automation",
+        "name": "ci-cd-and-automation",
+        "declaredName": "ci-cd-and-automation",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "path": "skills/ci-cd-and-automation/SKILL.md",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/ci-cd-and-automation/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "a6ed8ed56456b01ff8314c44eefc69897d9905ae4e06bb2b7036286efb79b5f0",
+        "lines": 390,
+        "category": "CI/CD",
+        "decision": "Blend",
+        "action": "Selected CI/CD material incorporated",
+        "owner": "ci-cd-automation",
+        "summary": "Automated checks, early feedback and deployment versus feature exposure.",
+        "reason": "Place automated checks before the decisions they protect and make failures actionable. Separate deployment from feature exposure; keep delivery feedback short.",
+        "caution": "Choose applicable checks from the product contract instead of a universal JavaScript gate list, fixed environment chain, time target, review count or merge policy. Keep GitHub YAML, dependency bots, PR repair and credentials mechanics with their existing owners. Replace the claim that every deployment is reversible with explicit data and external-effect recovery.",
+        "inspection": "Complete file read; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": []
+      },
+      {
+        "id": "matthew-blode-ci-speedup",
+        "key": "Matthew Blode/ci-speedup",
+        "name": "ci-speedup",
+        "declaredName": "ci-speedup",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "path": "skills/ci-speedup/SKILL.md",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ci-speedup/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "373626a6a9b2cf411e3e0edfcb17e1506bdaf817fba9ea7c432dba46d1561621",
+        "lines": 94,
+        "category": "CI/CD",
+        "decision": "Blend",
+        "action": "Selected CI/CD material incorporated",
+        "owner": "ci-cd-automation",
+        "summary": "Measure the critical path and keep required coverage intact while changing topology, caches or shards.",
+        "reason": "Measure the critical path using real run timing, including setup, queue time, variance and runner cost. Preserve coverage when filtering, sharding or caching; cover unverified changes and detect silently missing workspace tasks. Separate safely cancellable validation from deployment with shared mutable state.",
+        "caution": "Load efficiency guidance only for topology, filtering, caching or performance changes. Do not import timing scripts, hosted-runner prices, published speedup numbers, fixed timing targets, test-runner flags, mandatory ledger or automatic pushes. Check all relevant cache inputs and trust domains; no universal cache or cancellation recipe.",
+        "inspection": "Complete file read; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": [
+          {
+            "path": "skills/ci-speedup/references/measuring.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ci-speedup/references/measuring.md"
+          },
+          {
+            "path": "skills/ci-speedup/references/levers.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ci-speedup/references/levers.md"
+          },
+          {
+            "path": "skills/ci-speedup/references/ledger.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ci-speedup/references/ledger.md"
+          }
+        ]
+      },
+      {
+        "id": "pstack-principle-make-operations-idempotent",
+        "key": "pstack/principle-make-operations-idempotent",
+        "name": "principle-make-operations-idempotent",
+        "declaredName": "principle-make-operations-idempotent",
+        "group": "pstack",
+        "author": "Lauren Tan / pstack",
+        "kind": "upstream",
+        "path": "pstack/skills/principle-make-operations-idempotent/SKILL.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-make-operations-idempotent/SKILL.md",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "sha256": "540738217c3da7bf513b9886924ad6a2bc77e58be867f5bd2e1831c74bf2ce70",
+        "lines": 24,
+        "category": "CI/CD",
+        "decision": "Blend",
+        "action": "Selected CI/CD material incorporated",
+        "owner": "ci-cd-automation",
+        "summary": "Reconcile partial effects before repeating an interrupted operation.",
+        "reason": "Reconcile partial prior effects before retries; define the outcome of repeated or interrupted operations. Isolate independent mutable targets and enforce serialization structurally when one shared target is a real invariant.",
+        "caution": "Apply the principles to deployment targets, migrations and shared build resources; do not import PID-lock recipes or universal self-healing. Reject obsolete candidates as well as overlapping writes. Existing authorization still governs deployment and recovery. Keep pstack shipping, code verification and CI babysitting procedures with the corresponding local owners.",
+        "inspection": "Complete file read; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": [
+          {
+            "path": "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md"
+          }
+        ]
+      },
+      {
+        "id": "pstack-principle-separate-before-serializing-shared-state",
+        "key": "pstack/principle-separate-before-serializing-shared-state",
+        "name": "principle-separate-before-serializing-shared-state",
+        "declaredName": "principle-separate-before-serializing-shared-state",
+        "group": "pstack",
+        "author": "Lauren Tan / pstack",
+        "kind": "upstream",
+        "path": "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "sha256": "05294b40448e927c5da1c7b6f5c6b9fed3744637e3833d2d948b9154a9dd00bb",
+        "lines": 16,
+        "category": "CI/CD",
+        "decision": "Blend",
+        "action": "Selected CI/CD material incorporated",
+        "owner": "ci-cd-automation",
+        "summary": "Isolate independent mutable targets and serialize the genuinely shared ones.",
+        "reason": "Reconcile partial prior effects before retries; define the outcome of repeated or interrupted operations. Isolate independent mutable targets and enforce serialization structurally when one shared target is a real invariant.",
+        "caution": "Apply the principles to deployment targets, migrations and shared build resources; do not import PID-lock recipes or universal self-healing. Reject obsolete candidates as well as overlapping writes. Existing authorization still governs deployment and recovery. Keep pstack shipping, code verification and CI babysitting procedures with the corresponding local owners.",
+        "inspection": "Complete file read; Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "references": [
+          {
+            "path": "pstack/skills/principle-make-operations-idempotent/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-make-operations-idempotent/SKILL.md"
+          }
+        ]
+      }
+    ],
+    "repositories": [
+      {
+        "repository": "cursor/plugins",
+        "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "url": "https://github.com/cursor/plugins/tree/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "decision": "Adapt two pstack principles; retain separate CI repair owners",
+        "reason": "Interrupted deployments and shared targets need explicit state reconciliation and structural serialization. Cursor Team fix-ci and loop-on-ci already belong to pr-followup.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No shipping/merge loop, autonomous publication, mandatory cloud agents, or blanket PID-lock recipe."
+      },
+      {
+        "repository": "mattpocock/skills",
+        "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+        "url": "https://github.com/mattpocock/skills/tree/d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+        "decision": "No general CI/CD source selected",
+        "reason": "Repository path and content searches found planning, review and productivity guidance but no distinct pipeline-design procedure. Existing local owners already retain the relevant engineering practices.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "Do not turn PR creation, Git guardrails or task planning into a pipeline architecture skill."
+      },
+      {
+        "repository": "humanlayer/skills",
+        "commit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+        "url": "https://github.com/humanlayer/skills/tree/ca7c8088db69e315a8b2deea43820270457f8f3c",
+        "decision": "Keep control loops separate",
+        "reason": "design-control-loop drives a recurring codebase improvement through sensor/controller/actuator components. That is different from deciding release eligibility and deployment structure.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No mandatory interview, scheduled coding agent, PR-writing actuator, or recurring maintenance loop."
+      },
+      {
+        "repository": "anthropics/skills",
+        "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+        "url": "https://github.com/anthropics/skills/tree/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+        "decision": "No general CI/CD donor",
+        "reason": "The apparent deployment material configures scheduled managed-agent sessions; frontend, document and creator skills do not define product delivery pipelines.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No managed-agent scheduling or host-specific SDK flow."
+      },
+      {
+        "repository": "addyosmani/agent-skills",
+        "commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "url": "https://github.com/addyosmani/agent-skills/tree/1401c8b8030e023baeebb31781a6653fe8e93026",
+        "decision": "Adapt gate purpose and feedback",
+        "reason": "ci-cd-and-automation is a direct match but combines architecture with fixed JavaScript checks, GitHub YAML, staging, review policy and deployment examples.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No universal gate list, production topology, 10-minute target, mandatory preview, hardcoded runtime or blanket rollback claim."
+      },
+      {
+        "repository": "vercel-labs/agent-skills",
+        "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+        "url": "https://github.com/vercel-labs/agent-skills/tree/063bee94c3f4df8453406c830b0a7df0f2860278",
+        "decision": "Provider specialist candidate; do not import",
+        "reason": "deploy-to-vercel performs a deployment and account/project setup. Its provider-specific lifecycle belongs in a separate specialist.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No global CLI install, account linking, publication fallback, broad git add, latest-deployment selection or restriction against verifying the deployed result."
+      },
+      {
+        "repository": "affaan-m/ECC",
+        "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "url": "https://github.com/affaan-m/ECC/tree/ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "decision": "Considered; prefer smaller selected donors",
+        "reason": "deployment-patterns combines useful health and compatibility concerns with web/container templates and broad readiness checklists. github-ops is operational GitHub work already owned locally.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "Do not copy template deploy placeholders, fixed stack, broad readiness quotas or mistake prisma migrate resolve --rolled-back for reversal of database changes."
+      },
+      {
+        "repository": "obra/superpowers",
+        "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+        "url": "https://github.com/obra/superpowers/tree/8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+        "decision": "Keep completion verification with verify",
+        "reason": "verification-before-completion supports evidence-backed completion, but it does not decide the pipeline graph or release topology. The local verify skill already incorporates this lineage.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No duplicate completion gate, literal same-message evidence rule or universal full-suite mandate."
+      },
+      {
+        "repository": "gsd-build/gsd-2",
+        "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+        "url": "https://github.com/gsd-build/gsd-2/tree/33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+        "decision": "Use as a caution about stale delivery documentation",
+        "reason": "The CI/CD guide describes automatic Dev → Test → Prod promotion, but the pinned pipeline.yml only rebuilds the builder image and says publication moved to separate manually triggered workflows.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "Do not install an application-specific release process or copy stale workflow ownership. ADR-003 is an agent execution pipeline, not CI/CD."
+      },
+      {
+        "repository": "EveryInc/compound-engineering-plugin",
+        "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "url": "https://github.com/EveryInc/compound-engineering-plugin/tree/9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "decision": "Adapt conditional deployment verification",
+        "reason": "The deployment-verification persona makes data invariants and recovery constraints executable. Keep that contribution behind a stateful-delivery reference.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No second review coordinator, Rails/SQL template, arbitrary five-minute or 24-hour schedule, or automatic backup restoration."
+      },
+      {
+        "repository": "mblode/agent-skills",
+        "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "url": "https://github.com/mblode/agent-skills/tree/012e6e5208f512151bdea0e2965dafd01ff61340",
+        "decision": "Adapt measured efficiency and coverage safeguards",
+        "reason": "ci-speedup reasons from actual run timestamps and the critical path, distinguishes cost from latency, and exposes selection/cancellation mistakes.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No timing helper copy, runner pricing claims, test-runner flags, fixed five-minute goal, mandatory performance ledger, automatic pushes or cancellation recipe for every platform."
+      },
+      {
+        "repository": "cli/cli",
+        "commit": "6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+        "url": "https://github.com/cli/cli/tree/6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+        "decision": "Keep release implementation as a product example",
+        "reason": "The CLI release docs distinguish build/sign/package from publishing and explain dry runs. They are implementation evidence for one distributable, not a portable skill.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No GH CLI signing infrastructure, release deletion/recreation recipe, maintainer policy or unverified implication that a dry run has zero effects."
+      },
+      {
+        "repository": "wshobson/agents",
+        "commit": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+        "url": "https://github.com/wshobson/agents/tree/156b7a5e7a8b93642628a339ee4039c925b34c7f",
+        "decision": "Adapt the pipeline-design skill; exclude platform recipes",
+        "reason": "The architecture entrypoint and two references provide stage, promotion, rollout and migration decisions. The deployment agent broadens into cloud and platform operations.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No stock YAML, Kubernetes dependency, forced progressive delivery, automatic rollback, fixed thresholds, deployment windows, or model metadata. Linked platform skills are separate candidates."
+      },
+      {
+        "repository": "mkosir/typescript-style-guide",
+        "commit": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+        "url": "https://github.com/mkosir/typescript-style-guide/tree/170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+        "decision": "No general CI/CD source selected",
+        "reason": "The canonical skill set is TypeScript style, types, tests and organization. Repository discovery found a project workflow, not reusable pipeline architecture guidance.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No language-style policy or repository-specific workflow imported."
+      },
+      {
+        "repository": "HoangNguyen0403/agent-skills-standard",
+        "commit": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+        "url": "https://github.com/HoangNguyen0403/agent-skills-standard/tree/1fb0537c339c1e135167f4c15ba603b8849da5bc",
+        "decision": "Reserve deployment guidance for stack specialists",
+        "reason": "Flutter, Android, iOS, React Native and NestJS entrypoints describe platform delivery concerns. They reinforce the need to distinguish releases with slow client adoption from server deployments.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No Fastlane/EAS mandate, signing recipe, automatic version rule, Node memory percentage or Kubernetes migration-initializer default."
+      },
+      {
+        "repository": "lobehub/lobehub",
+        "commit": "5fca09855b45f0286576bde1fdaaf03242eb183b",
+        "url": "https://github.com/lobehub/lobehub/tree/5fca09855b45f0286576bde1fdaaf03242eb183b",
+        "decision": "Keep release-risk review with its owning workflow",
+        "reason": "Release-risk dimensions explicitly separate repository defects from live-state release checks. The platform-specific migration, queue and rollout rules are useful context but not another pipeline owner.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No LobeHub imports, severity scheme, universal flag requirement, PR split policy or application-specific release procedure."
+      },
+      {
+        "repository": "Jeffallan/claude-skills",
+        "commit": "1be15d8064f88fc25216442406d40add8fd23b53",
+        "url": "https://github.com/Jeffallan/claude-skills/tree/1be15d8064f88fc25216442406d40add8fd23b53",
+        "decision": "Considered; scope too broad for direct installation",
+        "reason": "devops-engineer covers CI/CD, infrastructure, containers, incidents and developer platforms. Its selected references duplicate the narrower donors while imposing policies and platform examples.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No mandatory GitOps/staging/manual approval, Friday rule, fixed metrics target, default rollback command or broad IaC rewrite."
+      },
+      {
+        "repository": "sentimony/skills",
+        "commit": "e7ee0fff668e9ebd74a279635f1d04e66446eeec",
+        "url": "https://github.com/sentimony/skills/tree/e7ee0fff668e9ebd74a279635f1d04e66446eeec",
+        "decision": "Keep verification with verify",
+        "reason": "verification-gate checks evidence, identity and completion across tasks. Those responsibilities already have a local owner and do not supply CI/CD topology.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No second completion protocol, mandatory output matrix, fixed retry count or imported dependency graph."
+      },
+      {
+        "repository": "alleneubank/agent-profile",
+        "commit": "5165b1f1122a4fa888347c6046d10593033748e8",
+        "url": "https://github.com/alleneubank/agent-profile/tree/5165b1f1122a4fa888347c6046d10593033748e8",
+        "decision": "Keep operational and database specialists separate",
+        "reason": "live-ops covers attended production operations and proven recovery access; atlas-best-practices owns Atlas schema workflows. Neither is a general delivery design skill.",
+        "reviewDepth": "Complete tracked-path inventory; scoped instruction-text screening with rg; focused reading depth recorded per file. Translations and host mirrors are not independent sources.",
+        "excluded": "No universal attended deployment policy, Atlas dependency or tool-specific migration workflow."
+      }
+    ],
+    "contract": "Provider-independent stage structure, evidence and trust boundaries, artifact promotion, delivery criteria, recovery and measured efficiency.",
+    "coreWords": 810,
+    "activeDonors": 5,
+    "independentAgentTrials": "Three matched tool-free design cases on Codex Astra Max. Both baseline and candidate meet their principal criteria; no general improvement, execution or host-activation claim."
   }
 };

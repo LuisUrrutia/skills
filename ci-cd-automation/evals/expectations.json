@@ -1,0 +1,67 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Grader-only outcomes. No model execution or host-selection pass is asserted by the presence of these expectations.",
+  "cases": {
+    "artifact-promotion": [
+      "Bind checks to integrated-18 and the exact artifact, not the earlier PR.",
+      "Promote digest-A or verify a necessary target-specific build separately; resolve mutable references before approval/consumption.",
+      "Require consumer verification of provenance against trusted origin and candidate, not just generation.",
+      "Preserve existing manual release policy and read-only scope."
+    ],
+    "monorepo-selection": [
+      "Cover changes since revision-40, including cancelled revision-41.",
+      "Include shared dependents, lockfile and build inputs; fall back to broad coverage if discovery is uncertain.",
+      "Identify worker's missing check and independently define required workspace/shard coverage.",
+      "Do not turn skipped or missing required work into a green summary; exercise unchanged and changed paths."
+    ],
+    "partial-deployment": [
+      "Reconcile deploy A's remote state before retrying or cancelling; serialize all competing effects on the target and reject obsolete candidates.",
+      "Address old/new schema compatibility and external notifications; code rollback cannot restore either automatically.",
+      "Treat missing telemetry as inconclusive and specify a bounded observation/escalation path.",
+      "Require a feasible recovery choice and verified restoration assumptions without inventing a data-loss policy."
+    ],
+    "package-release": [
+      "Choose checks and packaging from the supported OS/consumer contract.",
+      "Install and smoke-test actual distributions; preserve signing/publication requirements where established.",
+      "Keep manual release eligibility and distinguish upload/publication from consumer installation.",
+      "Avoid mandatory service staging, canary traffic, runtime flags or recall guarantees."
+    ],
+    "pipeline-trust": [
+      "Prevent untrusted code, cache writers and build hooks from crossing into release authority without a verified trust boundary.",
+      "Bind artifact selection and approvals to the exact candidate; a job name or latest label is insufficient.",
+      "Keep skipped required tests unverified and prevent promotion.",
+      "Keep the review provider-independent and read-only."
+    ],
+    "measured-efficiency": [
+      "Reject a speedup claim based on reduced test coverage and one unmatched sample.",
+      "Separate queue, setup, execution, critical-path latency and aggregate runner cost.",
+      "Recognize extra shard setup and the slower cache restore; preserve database isolation.",
+      "Give measurements and a hypothesis without claiming measured improvement or purchasing runners."
+    ],
+    "provider-handoff": [
+      "Discover commands and define the stage, artifact, trust, target and acceptance contract.",
+      "Use github-actions for actual workflow/event/permission mechanics and verify for relevant execution evidence.",
+      "Use verification-authoring only for missing repeatable recipes.",
+      "Honor local-write authorization and leave actual remote settings/deployment explicitly unverified."
+    ],
+    "missing-platform-specialist": [
+      "Keep the pipeline contract general and use current primary Buildkite documentation for mechanics.",
+      "Continue authorized local implementation without inventing a specialist-installation blocker.",
+      "Keep remote settings, publication and real deployment outside the request; identify unobserved behavior."
+    ]
+  },
+  "selectionProbes": {
+    "design": "ci-cd-automation",
+    "provider-only": "github-actions",
+    "pr-repair": "pr-followup",
+    "verify-result": "verify",
+    "author-checks": "verification-authoring",
+    "efficiency": "ci-cd-automation; load a provider specialist when implementation requires its mechanics"
+  },
+  "evaluationRequirements": [
+    "Use independent clean contexts for baseline and candidate with identical model, effort, tools, resources and authority.",
+    "Keep this file out of executor inputs.",
+    "Retain actual output/actions and grade against postconditions, not keyword presence.",
+    "Tool-free design results cannot prove provider execution, deployment, implicit activation or authorization enforcement."
+  ]
+}

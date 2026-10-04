@@ -1,0 +1,194 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Executor inputs for matched, isolated behavior trials. Supply expectations separately to the grader.",
+  "cases": [
+    {
+      "id": "artifact-promotion",
+      "request": "Review this proposed pipeline and give a corrected stage graph. Keep deployment manual as currently agreed. Do not change files or deploy.",
+      "fixture": {
+        "prCheck": {
+          "revision": "proposal-17",
+          "result": "passed"
+        },
+        "mergedRevision": "integrated-18",
+        "staging": {
+          "builtRevision": "integrated-18",
+          "artifact": "digest-A",
+          "smoke": "passed"
+        },
+        "production": {
+          "action": "rebuild current main after approval",
+          "reference": "latest"
+        },
+        "attestation": {
+          "generated": true,
+          "consumerVerification": false
+        }
+      }
+    },
+    {
+      "id": "monorepo-selection",
+      "request": "Make this CI design cheaper without losing the checks it promises. Propose the selection and final-result contract; do not edit the provider configuration yet.",
+      "fixture": {
+        "units": {
+          "web": [
+            "shared"
+          ],
+          "worker": [
+            "shared"
+          ],
+          "shared": []
+        },
+        "lastVerified": "revision-40",
+        "cancelled": {
+          "revision": "revision-41",
+          "changed": [
+            "shared/schema",
+            "lockfile"
+          ]
+        },
+        "current": {
+          "revision": "revision-42",
+          "changedFromPrevious": [
+            "docs/readme"
+          ]
+        },
+        "selection": "diff against previous commit; only changed unit directories",
+        "rootCheck": "runs check scripts if present; worker has no check script",
+        "requiredSummary": "success if no selected job failed"
+      }
+    },
+    {
+      "id": "partial-deployment",
+      "request": "Design the recovery and concurrency parts of this delivery pipeline. The team wants unattended recovery where it is justified. Work only with this fixture.",
+      "fixture": {
+        "target": "production",
+        "oldVersion": "reads old address field",
+        "newVersion": "writes replacement field and emits external notifications",
+        "migration": "drops old field",
+        "deployA": "client timed out after request accepted; remote result unknown",
+        "deployB": "newer run queued",
+        "recoveryProposal": "cancel A, retry its entire sequence, then revert application if health fails",
+        "telemetry": "no candidate samples yet",
+        "backup": "exists; restoration and acceptable data loss not established"
+      }
+    },
+    {
+      "id": "package-release",
+      "request": "Design a small CI/CD flow for this CLI. Keep its current on-demand release policy. Give the required stages and verification boundaries.",
+      "fixture": {
+        "product": "downloadable CLI for three supported operating systems",
+        "sourceTests": "pass locally",
+        "distribution": "archives built separately from the tested source tree",
+        "consumers": "may keep old installed versions indefinitely",
+        "currentPolicy": "maintainer releases a selected version on demand",
+        "infrastructure": "no server, staging cluster, traffic router or feature flags"
+      }
+    },
+    {
+      "id": "pipeline-trust",
+      "request": "Review the architecture of our contributor validation and release stages. Keep the answer provider-independent and do not perform any external action.",
+      "fixture": {
+        "validation": "runs submitted fork code",
+        "cache": "fork validation writes a shared build-output key used by release",
+        "publish": "privileged runner executes the downloaded build hook with production credentials",
+        "artifact": "selected by latest successful job name",
+        "checks": "report generated; selected integration tests were skipped",
+        "approval": "applies to source revision only; artifact can change afterwards"
+      }
+    },
+    {
+      "id": "measured-efficiency",
+      "request": "CI takes too long. Compare these designs and tell us what to measure before selecting one. Editing and paid runner changes are outside this request.",
+      "fixture": {
+        "baselineSeconds": {
+          "queue": 90,
+          "setup": 100,
+          "staticChecks": 20,
+          "tests": 400,
+          "artifactUpload": 30
+        },
+        "proposal": "four shards; each pays 100 seconds setup and 30 seconds upload",
+        "proposedRun": {
+          "wallClockSeconds": 180,
+          "selectedTests": 240,
+          "baselineTests": 320
+        },
+        "cacheExperiment": {
+          "restoreSeconds": 65,
+          "freshInstallSeconds": 35
+        },
+        "samples": 1,
+        "constraints": "same behavioral coverage and no shared test database races"
+      }
+    },
+    {
+      "id": "provider-handoff",
+      "request": "Set up our CI/CD using GitHub Actions. First decide the stage graph, then implement it with the specialist. Local file changes are authorized; remote settings, pushes and deployment are not.",
+      "fixture": {
+        "projectCommands": [
+          "format-check",
+          "typecheck",
+          "test-unit",
+          "test-contract",
+          "package",
+          "smoke-package"
+        ],
+        "product": "HTTP service with a required data store",
+        "releasePolicy": "selected integrated revisions may deploy after existing approval",
+        "availableSkills": [
+          "ci-cd-automation",
+          "github-actions",
+          "verify",
+          "verification-authoring",
+          "pr-followup"
+        ]
+      }
+    },
+    {
+      "id": "missing-platform-specialist",
+      "request": "Set up a Buildkite pipeline for this service. Local implementation is authorized; publishing, remote settings and deployment are not. State how you will obtain platform details and the next concrete steps.",
+      "fixture": {
+        "projectCommands": [
+          "check",
+          "test",
+          "package",
+          "smoke-package"
+        ],
+        "releasePolicy": "maintainer selects a verified integrated revision",
+        "availableSkills": [
+          "ci-cd-automation",
+          "verify",
+          "verification-authoring"
+        ],
+        "platformDocs": "Current primary provider documentation is accessible; no Buildkite specialist is installed."
+      }
+    }
+  ],
+  "selectionProbes": [
+    {
+      "id": "design",
+      "request": "Decide what CI and CD should contain for our new service."
+    },
+    {
+      "id": "provider-only",
+      "request": "Pin this GitHub Action and correct the workflow token permissions; keep the pipeline structure."
+    },
+    {
+      "id": "pr-repair",
+      "request": "Fix the failing checks and bot review comments on this existing PR."
+    },
+    {
+      "id": "verify-result",
+      "request": "Confirm whether the deployed candidate passes the existing acceptance checks."
+    },
+    {
+      "id": "author-checks",
+      "request": "Create a local verify-app skill with repeatable health and smoke checks."
+    },
+    {
+      "id": "efficiency",
+      "request": "Our Buildkite pipeline is slow and expensive. Reconsider its job dependencies and cache strategy without reducing required checks."
+    }
+  ]
+}

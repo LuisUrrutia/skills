@@ -1,0 +1,424 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-04",
+  "skill": "ci-cd-automation",
+  "status": "Completed within the recorded evidence limits.",
+  "scope": "A general pipeline-design skill and a documented source comparison. No provider configuration or production system was changed.",
+  "localBaseline": "96792071897fc617769dc893299e420c702cf93b",
+  "integrationBaseline": "c5ea21bf95cdaaf28190c5f40f0cd33de304795e",
+  "candidateV1": {
+    "origin.txt": "0f7c4a7b8758e0f3a82e1687c147e0240a39773cfe297ac39c1a3ba87a18f833",
+    "SKILL.md": "92a65efb9607e7729b6401ec443c07718b8f92be62082304537118c29c9d4ba4",
+    "THIRD-PARTY-NOTICES.txt": "0ea9da4f9f8924975a89e9a6ae423b42e21968edb3f4e16df30920356aa84437",
+    "evals/expectations.json": "21cf1b1f79c0bfc6bda9379efea0f31969ac3c7058bf042f66f9230327194407",
+    "evals/cases.json": "bbd80e20ed5edd6dead0ae8e9603a57ce5af78c762398f6348284f9876528532",
+    "references/delivery-boundaries.md": "b9a1eb8af5cf176c91e693380b6ac315f992438782ea3c09a6bc6d0a7bacbeab",
+    "references/pipeline-efficiency.md": "5a65f4b3f6376b98eb2978363b68ede2cfe8b95733ebc26cf75b15ab374c99bc",
+    "references/upstream-updates.md": "ec2e8c9255eae9d3c18bf41bfe940b8ae1c2927bb07af2ac079a36f391f10c2b"
+  },
+  "candidateV2": {
+    "origin.txt": "0f7c4a7b8758e0f3a82e1687c147e0240a39773cfe297ac39c1a3ba87a18f833",
+    "SKILL.md": "ed54c6f80073908b543ffa35e548774d3543da6e60f1637fb49e4ce254e66a91",
+    "THIRD-PARTY-NOTICES.txt": "0ea9da4f9f8924975a89e9a6ae423b42e21968edb3f4e16df30920356aa84437",
+    "evals/expectations.json": "e3338fb8eba669af64970afea15f8ea7ae5362b313742ce14cd3fc6ebb072c27",
+    "evals/cases.json": "c1edc614f29cae73741d9f0829f4531c0e669b139d3b534dc852ce265196d1b6",
+    "references/delivery-boundaries.md": "2ffb588558ac6b25f166baf2096c307430c40a46339f2482effb9e833b73b325",
+    "references/pipeline-efficiency.md": "5a65f4b3f6376b98eb2978363b68ede2cfe8b95733ebc26cf75b15ab374c99bc",
+    "references/upstream-updates.md": "ec2e8c9255eae9d3c18bf41bfe940b8ae1c2927bb07af2ac079a36f391f10c2b"
+  },
+  "reviews": {
+    "contract": "Independent initial Astra and Fable consultations used the same frozen candidate and brief without the other verdict. Both were reconsulted after changed meaning; second-round inputs included both prior findings and coordinator responses.",
+    "profiles": [
+      {
+        "provider": "Codex",
+        "model": "gpt-6-astra",
+        "reasoningEffort": "max",
+        "transport": "native collaboration",
+        "taskName": "/root/ci_cd_astra_consult",
+        "evidence": "Explicit model and effort in the accepted initial spawn_agent call; followup_task retained the same profile."
+      },
+      {
+        "provider": "Claude",
+        "providerInstanceId": "claudeAgent",
+        "model": "claude-fable-5-1",
+        "reasoningEffort": "max",
+        "transport": "T3 delegate_task",
+        "evidence": "Explicit model and effort in both accepted delegation calls; task_status confirms provider, model and terminal status."
+      }
+    ],
+    "astraV1": "One necessary correction:\n\nMedium — narrow the verification-authoring handoff. Candidate SKILL.md:81 routes missing “repeatable project checks” to verification-authoring. That includes missing CI tests or task commands, but the owner creates verify-<app> skills, feature maps, and their helpers (consultation-context/verification-authoring.md:8, :43). This can trigger unnecessary recipe authoring while leaving the actual missing check unresolved. Replace with: “Use verify for execution evidence and verification-authoring for authorized creation or maintenance of project-local verification recipes.” This matches the existing ownership and grader expectations without adding an approval requirement.\n\nNo other material findings. The general/provider boundary, distributable coverage, candidate identity, skipped-work handling, and recovery guidance are coherent. Avoid further scope expansion.\n\nEvidence: read the complete candidate and relevant owner/source context; all 49 recorded source-file hashes matched, all five donor baselines matched the research record, and all five license texts were retained.\n\nLimits: read-only instruction review; no behavioral trials, provider execution, or host activation tested. The checks confirm consistency with supplied snapshots, not independent completeness or freshness of the 19-repository survey.\n",
+    "fableV1": {
+      "taskId": "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aci-cd-consult-fable-max-v1-20261004",
+      "runId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A28f99e23-9f6e-4b6c-9782-e561b550536a%253Adelegate-task%253Aci-cd-consult-fable-max-v1-20261004:ordinal:1",
+      "status": "completed",
+      "summary": "Review complete. The candidate is sound on provenance, ownership and authority, and its guidance is technically correct. I found three small wording defects worth fixing, one recommended one-sentence addition, and a few optional items.\n\n## Necessary fixes\n\n- **Missing specialist reads as a blocker.** `ci-cd-automation/SKILL.md:77-79` says to \"report a missing specialist and keep its mechanics out of this skill\". For a setup request on GitLab, Buildkite or any non-GitHub provider, an agent can read this as \"do not implement\", which contradicts line 10-11 and the platform-independence goal. The user's statement about creating provider skills is a collection plan, not a precondition for doing authorized work. No eval case or probe covers a non-GitHub setup. Smallest fix: \"Without an installed specialist, implement from the provider's primary documentation within the authorized scope, state that no specialist reviewed the mechanics, and keep provider rules out of this skill.\" The same reading applies to `references/delivery-boundaries.md:28`.\n\n- **Unconditional write to project docs.** `SKILL.md:89-90` instructs the agent to put durable decisions in the project's CI/CD documentation. For a design or review request the skill promises recommendations only, and the artifact-promotion case forbids file changes. Smallest fix: \"When file changes are authorized, record durable decisions in the project's existing CI/CD documentation; otherwise include them in the response.\"\n\n- **Misrouted authoring handoff.** `SKILL.md:81-82` sends \"missing repeatable project checks\" to `verification-authoring`. That skill owns `verify-<app>` application recipes and feature maps, per its snapshot lines 3 and 8-11. A missing typecheck or smoke-package command is ordinary implementation inside the setup request. The candidate's own `origin.txt:97` and `evals/expectations.json:11` already say \"recipes\". Smallest fix: \"and `verification-authoring` when a repeatable application verification recipe is missing; add missing project commands as part of implementation.\"\n\n## Recommended addition\n\n- **State the immutable-identity rule once.** `SKILL.md:47-50` implies it through \"digest\", \"exact candidate\" and \"without rebuilding\", but never binds approval to it. The grader expects exactly that in `evals/expectations.json:5` and `:9`, and three fixture fields target it: production reference \"latest\", artifact \"selected by latest successful job name\", and approval that \"applies to source revision only\". Add one sentence after line 47: \"Bind approvals and promotion to the recorded digest; a mutable reference such as latest, a branch, or a job name does not identify the candidate, and approving a source revision does not approve an artifact built later.\"\n\n## Optional scope and activation items\n\n- **Efficiency is unreachable by description.** `SKILL.md:3` never mentions speed, cost or topology, yet `references/pipeline-efficiency.md` and the measured-efficiency case depend on selection. For GitHub projects the github-actions description already claims \"cost, or performance\", so the dual home is tolerable, but nothing selects the candidate for a slow non-GitHub pipeline. Either add \"or pipeline speed and cost tradeoffs\" to the description or drop the case from activation claims. A probe for \"speed up our GitHub Actions CI\" would make the boundary explicit.\n- **Eval coverage.** Add a non-GitHub setup case or probe to exercise the first fix.\n- **Imperative without condition.** `SKILL.md:82-83` tells the agent to exercise failure and interrupted-run paths in an isolated environment with no \"when implementing\" qualifier.\n- **Retry policy for required checks** has no home in the general skill. One sentence under \"Preserve evidence\" would cover the donor idea from Addy Osmani that a pass after unexplained re-runs is not clean evidence. Low priority.\n\n## Verified with no finding\n\n- Hashes match `candidate-v1-hashes.json`; the untracked working-tree `ci-cd-automation/` is byte-identical to the frozen candidate; all five owner snapshots match the live skills.\n- All five upstream checkouts sit at the commits recorded in `origin.txt`. Every borrowed idea and local choice is present in the donor text, including the Addy \"every deployment should be reversible\" claim, the compound five-minute and 24-hour schedule, the pstack PID-lock recipe, and the wshobson DORA table and automatic-rollback practice. Copyright lines in `THIRD-PARTY-NOTICES.txt` match the five license files.\n- The Argo claim in `origin.txt:33` is confirmed by the primary documentation: an inconclusive run pauses the rollout for manual intervention and is not a failure. The gsd stale-documentation and ECC migrate-resolve cautions in the research are confirmed in the pinned sources.\n- Ownership against github-actions, pr-followup, verify and verification-authoring is consistent. The README trigger change removes the earlier \"CI/CD\" overlap with github-actions. The trust bullets at `SKILL.md:51-56` stay provider-neutral and do not restate the github-actions security sections.\n- Guidance accuracy holds for liveness versus readiness, canary exposure, inconclusive telemetry, the critical path, cache cost, and cancelled deployments leaving partial remote state. `origin.txt` follows the sibling format, and `evals/cases.json` matches the repository's dominant naming. Size is concise at about 1,800 words across all files.\n\n## Evidence limits\n\n- Prose review only. No execution trials, no observed host selection, and the cases remain unexecuted as their files state.\n- The atlas data files `sources.json`, `catalog.js` and `index.html` do not yet contain a ci-cd-automation entry. Only the README and the research report do. This is pending coordinator work, not a candidate defect.\n- I spot-checked the research decisions for gsd and ECC only; I did not re-screen the other twelve non-donor repositories.\n- My profile is Claude Fable 5.1, model id claude-fable-5-1, at the caller's configured maximum effort. The coordinator holds the run evidence for the reconciliation record."
+    },
+    "reconciliation": [
+      {
+        "id": "recipe-owner",
+        "source": [
+          "Astra",
+          "Fable"
+        ],
+        "decision": "adopt",
+        "reason": "verification-authoring owns local verification recipes, not every missing CI test or task command. Scope the handoff to authorized recipe creation or maintenance."
+      },
+      {
+        "id": "missing-specialist",
+        "source": [
+          "Fable"
+        ],
+        "decision": "adopt",
+        "reason": "A missing optional specialist must not block otherwise authorized work. Primary provider documentation supplies the implementation fallback; no provider rules are copied into this general skill."
+      },
+      {
+        "id": "review-write-authority",
+        "source": [
+          "Fable"
+        ],
+        "decision": "adopt",
+        "reason": "Writing project documentation requires file-change authorization. Read-only design or review returns decisions in the response."
+      },
+      {
+        "id": "immutable-approval",
+        "source": [
+          "Fable"
+        ],
+        "decision": "adopt",
+        "reason": "Bind required approval and promotion to the verified artifact identity, closing the mutable-reference ambiguity in the existing contract."
+      },
+      {
+        "id": "efficiency-description",
+        "source": [
+          "Fable"
+        ],
+        "decision": "adopt",
+        "reason": "The existing efficiency reference is part of the requested pipeline design responsibility. Speed/cost wording makes the intended activation discoverable."
+      },
+      {
+        "id": "non-github-case",
+        "source": [
+          "Fable"
+        ],
+        "decision": "adopt",
+        "reason": "Add a missing-platform-specialist fixture and a provider-independent efficiency selection probe; prepared coverage is not an execution claim."
+      },
+      {
+        "id": "execution-scope",
+        "source": [
+          "Fable"
+        ],
+        "decision": "adopt",
+        "reason": "Exercise execution paths only when implementing or executing authorized checks, preserving read-only design scope."
+      },
+      {
+        "id": "extra-retry-policy",
+        "source": [
+          "Fable"
+        ],
+        "decision": "defer",
+        "reason": "The existing contract already blocks required failures and bounds retries; the review supplied no observed case requiring a separate flaky-check policy. Avoid expanding the concise core with another policy before a concrete need."
+      }
+    ],
+    "astraV2": {
+      "status": "completed",
+      "summary": "No remaining material findings in the reviewed scope.\n\ncandidate-v2/SKILL.md:84 correctly limits verification-authoring to authorized verification-recipe work. Lines 78–90 provide a provider-documentation fallback and preserve execution authority. Lines 93–95 protect read-only requests from documentation writes. Lines 51–52 make artifact identity explicit; the added efficiency description and non-GitHub case fit the existing scope. references/delivery-boundaries.md:28 applies the same specialist fallback consistently.\n\nAll eight frozen-file hashes match. The unchanged provenance, notices, and references retain the earlier review result.\n\nLimits: prose and snapshot review only. The reviewer did not assess the separate matched exercises, provider execution, host selection, or atlas completion.\n"
+    },
+    "fableV2": {
+      "taskId": "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aci-cd-consult-fable-max-v2-20261004",
+      "runId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A28f99e23-9f6e-4b6c-9782-e561b550536a%253Adelegate-task%253Aci-cd-consult-fable-max-v2-20261004:ordinal:1",
+      "status": "completed",
+      "summary": "Review of the frozen v2 candidate is complete. The seven adopted corrections are implemented exactly as decided, the instruction text has no remaining material defect, and every identity check passes. One item needs action before commit: the candidate and the atlas now cite a validation record that does not exist in the repository.\n\nVerified: all v2 hashes match, the working-tree package is byte-identical to v2, the v1 to v2 diff contains only the adopted changes, the owner snapshots equal the live skills, the donor checkouts sit at their pinned commits over SSH remotes, the research record agrees with the candidate's boundaries, and no round-one wording survives in the README, atlas page, or atlas data. Reconsulted with no finding: the specialist fallback at `ci-cd-automation/SKILL.md:79-81` and `references/delivery-boundaries.md:28-29` no longer reads as a blocker, the recipe routing at SKILL.md:84-85 matches the verification-authoring charter and the grader text, the identity bullet at SKILL.md:51-52 covers the three fixture traps, the conditional documentation write and conditional path exercising preserve read-only scope, and the Buildkite case and efficiency probe leak nothing into executor inputs. Platform independence, services and distributables, revision identity, false green and skipped work, side effects, recovery, and provider handoffs hold as in round one.\n\n## Necessary before commit\n\n- **The cited validation record is absent.** `ci-cd-automation/evals/cases.json:3` says runs and limits are recorded in the atlas validation report, and the atlas data and `reports/skill-atlas/index.html:85` link `ci-cd-automation-validation.json` while asserting that three Astra Max design cases met their criteria. No such file exists in the atlas directory.\n- **The only run record is scratch.** The trial evidence lives in `.tmp/ci-cd-automation/behavior-results.json`, which the temporary-file rules delete at task end. Committing the pointers without the record leaves those claims unsupported.\n- **Smallest correction.** Write the validation file in the same commit with the package check and v2 hashes, both consultation rounds with provider, model, effort, run identity and disposition, the three design-case records, and the unrun cases and probes marked not tested. If the record will not be produced, revert the three claims to \"prepared, not run\".\n- **Record the candidate hash the executors received.** The trial record states the candidate got the frozen v2 skill but gives no hash. The SKILL.md hash from `candidate-v2-hashes.json` is the evidence that settles which revision ran, because the timeline is tight:\n\n| Event | Time |\n| --- | --- |\n| Trial inputs prepared | 10:56:09 |\n| v2 frozen | 10:58:43 |\n| Trial record written | 11:03:46 |\n\n- **Guard against regression.** The update script at `.tmp/ci-cd-automation/update-atlas.py:75` still writes \"Not run\" with the round-one counts, so a re-run overwrites the current trial statement. The atlas validator does not assert that the validation file exists, and one assertion covers both.\n\n## Optional, small\n\n- **Portable cases file.** Sibling cases files keep run status out of the shipped file, and an installed copy has no atlas. Dropping the third sentence of the purpose field removes a repository-relative claim.\n- **Dependency role wording.** `ci-cd-automation/origin.txt:85` calls github-actions \"Required when implementing or auditing GitHub Actions mechanics\" while the field says not required and SKILL.md:79-81 now allows authorized implementation from primary documentation. \"Preferred owner\" matches v2.\n- **GitHub speed probe.** The v2 description adds speed and cost, which github-actions also claims. Dual activation is intended per the efficiency reference, so a probe such as \"speed up our GitHub Actions CI without dropping checks\" naming both owners would record that boundary.\n- **README entry.** The README blurb and triggers predate v2 and omit efficiency, while the atlas row at index.html:195 includes it. One trigger phrase keeps them aligned.\n- **Retry policy deferral.** I concur with the deferral. Nothing new supports adding it.\n\n## Evidence limits\n\n- Prose review only. No execution, host activation, or provider behavior was observed.\n- The trial record holds excerpts. The full agent outputs are in the coordinator's thread and were not reproduced.\n- The working tree changed during this review. Atlas statements reflect the files as of the 11:04 and 11:05 writes.\n- The deletion of `walkthrough/SKILL.md` is pre-existing and outside this task, as the author-collections validation already records.\n- Non-donor repositories were not re-screened.\n- Profile: Claude Fable 5.1, model id claude-fable-5-1, at the caller's configured effort."
+    },
+    "limitations": "Instruction and source-snapshot consultations do not establish runtime execution or host activation.",
+    "secondRoundReconciliation": [
+      {
+        "finding": "Durable validation report and trial evidence absent at reviewer read time",
+        "decision": "resolved",
+        "evidence": "ci-cd-automation-validation.json was created after that read and is included in the same boundary. It holds package hashes, both review rounds, dispositions, paired outputs with grades and unrun cases. Browser fetch returned HTTP 200."
+      },
+      {
+        "finding": "Bind behavior runs to an exact candidate hash",
+        "decision": "adopt",
+        "evidence": "behavior.candidateInstructionHashes records the frozen v2 SKILL.md and two reference digests supplied to the executor."
+      },
+      {
+        "finding": "Guard against stale temporary generation",
+        "decision": "resolved",
+        "evidence": "Atlas validation now requires the completed permanent validation report. The one-shot update script rejects any atlas unequal to its integration baseline and will be removed after the verified commit."
+      },
+      {
+        "finding": "Cases should not depend on a repository-local run report",
+        "decision": "adopt",
+        "evidence": "Removed only the run-report sentence from the cases purpose field. Fixture inputs and grader expectations are unchanged."
+      },
+      {
+        "finding": "Align dependency role with the reviewed provider fallback",
+        "decision": "adopt",
+        "evidence": "Changed github-actions provenance role from Required to Preferred owner and referenced the existing fallback. The reviewed entrypoint remains unchanged."
+      },
+      {
+        "finding": "README efficiency discoverability",
+        "decision": "adopt",
+        "evidence": "Added a speed/cost trigger matching the already-reviewed description."
+      },
+      {
+        "finding": "Additional GitHub speed selection probe",
+        "decision": "defer",
+        "reason": "The six prepared probes are not host-selection evidence. Keep cross-skill activation testing as an explicit untested boundary rather than adding another unexecuted probe."
+      }
+    ]
+  },
+  "behavior": {
+    "type": "matched tool-free design exercises",
+    "threadId": "06aa25d5-3088-4b29-980a-c83154ed6a07",
+    "provider": "Codex",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "max",
+    "profileEvidence": "Both fresh native agents inherited the same coordinator model and effort; no overrides were passed.",
+    "tasks": {
+      "baseline": "/root/ci_cd_behavior_baseline",
+      "candidate": "/root/ci_cd_behavior_candidate"
+    },
+    "inputs": "Same three fixtures, authorization, requested format and tools; only the candidate received the frozen v2 skill and conditional references. Grader expectations were not supplied.",
+    "outputRetention": "The parent conversation retains both complete agent final answers under these task names. The case evidence below contains excerpts, with inline Markdown formatting removed; it is not a replacement execution log.",
+    "baselineExcerpts": {
+      "monorepo-selection": "Proposed graph: pin revision → establish baseline and change set → select checks → run selected checks → required summary → record verified revision.\nCompare revision-42 with the last successfully verified revision, revision-40. Revision-41’s cancellation leaves its changes unverified; revision-42’s docs-only change does not erase that obligation.\nSelect directly affected units and their transitive dependents. shared/schema selects shared, web, and worker. Treat the lockfile as affecting all units unless its dependency scope can be established reliably.\nDefine each unit’s required checks in an explicit manifest. A missing worker check script is a configuration failure until an equivalent validation command or a justified exemption is defined. “Run if present” cannot establish coverage.\nThe required summary must run even after failures or cancellations. It succeeds only when selection succeeded and every planned mandatory check completed successfully for revision-42. Missing, unexpectedly skipped, cancelled, and failed checks prevent success. An empty selection requires positive evidence that no mandatory unit checks apply.",
+      "partial-deployment": "Proposed graph: acquire production lock → reconcile accepted operation → establish actual production state → validate recovery eligibility → execute justified next action → collect candidate evidence → complete or hold for intervention.\nA must retain ownership of production until its remote operation and resulting state are known. A client timeout is not proof of deployment failure, and cancelling its client does not establish that the remote operation stopped. Keep B queued; after A is resolved, B must plan against the actual production state.\nDo not replay A’s entire sequence: that could repeat external notifications or destructive migration work.\nThe proposed application revert is unsafe once the old field has been dropped: the old version requires that field.\nNo candidate samples means health is unproven. Collect candidate-attributed observations with defined minimum samples, observation duration, and failure thresholds. If evidence remains insufficient at the deadline, hold the deployment as unresolved rather than declaring it healthy or automatically reverting.\nAutomatic restore is not justified by backup existence alone. Restoration must have been tested, acceptable data loss established, and interactions with already-emitted notifications addressed.",
+      "package-release": "Proposed graph: maintainer selects version and revision → CI source checks → build three OS archives → test each exact archive → assemble release manifest → publish → verify public downloads.\nKeep release initiation on demand. Ordinary CI can validate changes, but passing CI must not automatically publish a version.\nTest the actual archives on each supported operating system in a clean environment. Exercise extraction or installation, executable permissions where applicable, reported version, and at least one representative CLI operation. Check that required runtime files are included.\nRecord the revision, version, build environment, platform, and digest for each archive. Publish these same tested bytes without rebuilding.\nAny source, build, or archive-test failure blocks publication of the whole release. An interrupted publication requires reconciliation of visible assets against the manifest before resuming. Do not silently replace already-published versioned bytes with a different build.\nWithdrawing downloads cannot repair copies already installed."
+    },
+    "candidateExcerpts": {
+      "monorepo-selection": "Select shared, web, and worker for revision-42. Compare against revision-40, the last verified revision; revision-41’s cancellation did not verify its schema or lockfile changes.\nGraph: resolve candidate and comparison range → compute expected coverage → run global checks, shared checks, and builds → run dependent web/worker checks as their build prerequisites complete → required aggregate.\nThe aggregate succeeds only when every expected check passed and every exclusion has an explicit, valid reason. Failed, missing, cancelled, or unexpectedly skipped checks block success. “No selected job failed” is insufficient.\nWorker’s missing check script is a coverage failure. A successful root command cannot satisfy its requirement. Establish the worker’s required command before accepting the candidate.\nA future docs-only change may exclude unit checks only when the entire range since the verified baseline is demonstrably docs-only under the agreed mapping. Verify selection with cancelled-run, dependent-unit, lockfile, genuine docs-only, missing-script, and missing-result cases.\nNo timing or cost baseline is supplied, so savings remain a hypothesis to measure across comparable runs.",
+      "partial-deployment": "Hold deployB and reconcile deployA before another production mutation. The proposed cancellation, full retry, and application revert are unsafe with the supplied evidence.\nGraph: production serialization gate → reconcile A’s remote operation and completed effects → choose verified recovery/resumption → verify resulting state → reassess B’s freshness and compatibility → deploy B → candidate observation → accept or recover → release gate.\nThe serialization gate covers deployment, migration, retries, manual reruns, and recovery. Cancelling the client or expiring a lock must not allow B to overlap an operation still running remotely. Use fencing where supported; otherwise retain the mutation hold until termination or completion is established. Reject obsolete candidates before mutation.\nA timeout means unknown, not failed. Resume only known unfinished steps whose repetition is proven safe. Do not retry notifications without established deduplication or idempotency.\nIf A already dropped the field, inspect actual data before choosing repair, roll-forward, or restoration. A backup’s existence does not authorize unattended restoration: restore access, successful restore evidence, and acceptable data loss remain unestablished. External notifications need their own reconciliation or compensation decision.\nNo candidate samples means inconclusive health. Define bounded observation with candidate-specific functional signals and an incident owner; on insufficient evidence, stop advancement and retain diagnostics.",
+      "package-release": "Preserve the maintainer’s on-demand release request as the publication trigger. Verify the downloadable archives themselves on all three supported operating systems.\nGraph: maintainer selects immutable revision and version → required source checks → three platform builds in parallel → clean-environment archive installation and functional checks on each platform → complete candidate gate → publish verified archives → verify published downloads → release complete.\nThe candidate gate requires successful evidence for all three platforms. Missing, cancelled, stale, or failed results block publication. Keep validation/build authority separate from publication credentials.\nPublish the same verified bytes without rebuilding. Verify remote availability, downloaded integrity and origin, version identity, and installation behavior at the consumer boundary. An upload response alone is insufficient.\nIf publication is partial or times out, inspect remote state before retrying. Retry only safely repeatable missing operations using the same verified artifacts. Do not silently overwrite a released version. Any channel-pointer change, if one exists, is a separate effect.\nNo server, staging cluster, traffic rollout, or feature-flag stages are needed."
+    },
+    "grades": [
+      {
+        "case": "monorepo-selection",
+        "baseline": "Meets the main design contract; does not explicitly propose tests for changed and unchanged selection paths.",
+        "candidate": "Meets the design contract, including explicit changed, unchanged, cancelled-run and missing-result selection cases.",
+        "evidence": "Both cover revision-40..42, shared dependents, the lockfile, missing worker checks and missing/cancelled results. Neither claims measured savings.",
+        "limit": "One paired output; differences do not establish a general improvement."
+      },
+      {
+        "case": "partial-deployment",
+        "baseline": "Meets the design contract.",
+        "candidate": "Meets the design contract.",
+        "evidence": "Both hold B, reconcile A, reject blind retry and incompatible application rollback, distinguish absent telemetry from healthy state, and require feasible restoration evidence. Candidate explicitly rechecks obsolete candidates and extends serialization across recovery.",
+        "limit": "No remote execution, recovery outcome or authority enforcement was exercised."
+      },
+      {
+        "case": "package-release",
+        "baseline": "Meets the design contract.",
+        "candidate": "Meets the design contract.",
+        "evidence": "Both preserve manual publication, check the actual archives for all platforms, publish the same bytes, reconcile partial publication and avoid service-only infrastructure.",
+        "limit": "No build, installation, signing or registry operation was run."
+      }
+    ],
+    "unrunBehaviorCases": [
+      "artifact-promotion",
+      "pipeline-trust",
+      "measured-efficiency",
+      "provider-handoff",
+      "missing-platform-specialist"
+    ],
+    "selectionProbes": "Six prepared; not run. Implicit host activation is untested.",
+    "conclusion": "Three matched design cases met their principal criteria in both conditions. No general superiority, runtime success, provider compatibility, installation or implicit activation is claimed.",
+    "candidateInstructionHashes": {
+      "SKILL.md": "ed54c6f80073908b543ffa35e548774d3543da6e60f1637fb49e4ce254e66a91",
+      "references/delivery-boundaries.md": "2ffb588558ac6b25f166baf2096c307430c40a46339f2482effb9e833b73b325",
+      "references/pipeline-efficiency.md": "5a65f4b3f6376b98eb2978363b68ede2cfe8b95733ebc26cf75b15ab374c99bc"
+    },
+    "fixtureInputsSha256": "33542c18084372f90dc3ea6532f371028a84e7d6aa368b4f8d0619a685e31608"
+  },
+  "package": {
+    "status": "passed",
+    "sourceFeeds": 5,
+    "verifiedSourceFiles": 16,
+    "resolvedReferences": 3,
+    "localDependencies": 5,
+    "researchRepositories": 19,
+    "researchFiles": 49,
+    "preparedBehaviorCases": 8,
+    "preparedSelectionProbes": 6,
+    "packageHashes": {
+      "ci-cd-automation/origin.txt": "4ca6f9e3eae86f45da59cb07d43875d5c89ba1b0b11aa9f411721e6e56d84c57",
+      "ci-cd-automation/SKILL.md": "ed54c6f80073908b543ffa35e548774d3543da6e60f1637fb49e4ce254e66a91",
+      "ci-cd-automation/THIRD-PARTY-NOTICES.txt": "0ea9da4f9f8924975a89e9a6ae423b42e21968edb3f4e16df30920356aa84437",
+      "ci-cd-automation/evals/expectations.json": "e3338fb8eba669af64970afea15f8ea7ae5362b313742ce14cd3fc6ebb072c27",
+      "ci-cd-automation/evals/cases.json": "1933f09705030f611d7269e65a9345a913bd21f51a69db95814c674957423223",
+      "ci-cd-automation/references/delivery-boundaries.md": "2ffb588558ac6b25f166baf2096c307430c40a46339f2482effb9e833b73b325",
+      "ci-cd-automation/references/pipeline-efficiency.md": "5a65f4b3f6376b98eb2978363b68ede2cfe8b95733ebc26cf75b15ab374c99bc",
+      "ci-cd-automation/references/upstream-updates.md": "ec2e8c9255eae9d3c18bf41bfe940b8ae1c2927bb07af2ac079a36f391f10c2b"
+    }
+  },
+  "atlas": {
+    "status": "passed",
+    "catalogCards": 251,
+    "repositoryPackages": 30,
+    "ciCdCards": 16,
+    "ciCdSelectedCards": 6,
+    "repositories": 19,
+    "sourceProgress": {
+      "ready": 104,
+      "pending": 53,
+      "optional": 49,
+      "not-selected": 45
+    },
+    "preservedSections": [
+      "verify-browser-expansion",
+      "typescript-best-practices",
+      "accessibility",
+      "authoring"
+    ],
+    "preservedMetadata": "Every unrelated top-level subtree; authorReview changes limited to the CI shortlist and current incorporation counts.",
+    "uniqueIds": true,
+    "packageHashesMatch": true,
+    "catalogJsonMirror": true,
+    "newSectionAnchorsResolve": true,
+    "cacheBustersMatch": true
+  },
+  "browser": {
+    "desktop": {
+      "viewport": {
+        "width": 1280,
+        "height": 800
+      },
+      "visual": "CI/CD heading, two explanatory cards and stage table inspected in a native preview screenshot; no clipping observed.",
+      "cards": 251,
+      "packages": 30,
+      "repositories": 19,
+      "noHorizontalOverflow": true,
+      "preservedVerifyConsultation": true
+    },
+    "filter": {
+      "category": "CI/CD",
+      "ciReady": 6,
+      "reset": [
+        {
+          "text": "Limpiar filtros",
+          "type": "reset"
+        }
+      ],
+      "result": "16 de 251 fichas",
+      "url": "http://localhost:8765/?category=CI%2FCD#catalog",
+      "visibleRows": 16
+    },
+    "search": {
+      "names": [
+        "principle-make-operations-idempotent",
+        "principle-separate-before-serializing-shared-state"
+      ],
+      "search": "pstack",
+      "visibleRows": 2
+    },
+    "resetAndScenario": {
+      "category": "",
+      "query": "",
+      "scenario": "Discover\n\nci-cd-automation establishes release units, project commands, consumer boundaries and existing release policy.\n\nDesign and implement\n\nChoose the stage graph, required evidence, trust boundaries, artifact identity and recovery contract. The platform specialist implements its mechanics within the authorized scope.\n\nVerify\n\nExercise normal and relevant failure paths. Preserve unobserved provider or deployment behavior as an explicit gap; a parsed workflow is not a verified release.\n\nWhen only provider syntax or permissions change, use the platform specialist directly. A pipeline design request does not authorize publishing or deployment.",
+      "visibleRows": 251
+    },
+    "mobile": {
+      "ciRepoRows": 19,
+      "clientWidth": 375,
+      "heading": "CI/CD: decide what permits the next step",
+      "height": 844,
+      "overflow": false,
+      "scrollWidth": 375,
+      "tableContainers": [
+        {
+          "client": 333,
+          "overflowX": "auto",
+          "scroll": 620
+        },
+        {
+          "client": 333,
+          "overflowX": "auto",
+          "scroll": 620
+        },
+        {
+          "client": 297,
+          "overflowX": "auto",
+          "scroll": 620
+        }
+      ],
+      "width": 390,
+      "visual": "Native preview screenshot inspected at 390 × 844 CSS pixels. Content stacks in one column; tables scroll within their containers."
+    },
+    "localReportLinks": [
+      {
+        "file": "ci-cd-automation-research.json",
+        "status": 200
+      },
+      {
+        "file": "ci-cd-automation-validation.json",
+        "status": 200
+      },
+      {
+        "file": "verify-fable-review.json",
+        "status": 200
+      },
+      {
+        "file": "accessibility-source-review.html",
+        "status": 200
+      },
+      {
+        "file": "accessibility-source-review.json",
+        "status": 200
+      },
+      {
+        "file": "accessibility-source-review-consultation.json",
+        "status": 200
+      },
+      {
+        "file": "agent-instructions-dual-review-validation.json",
+        "status": 200
+      }
+    ]
+  },
+  "commands": [
+    {
+      "command": "/opt/homebrew/bin/fish -lc 'env UV_CACHE_DIR=.tmp/ci-cd-automation/uv-cache uv run --no-project --python 3.14 --exclude-newer 2026-10-01 --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py ci-cd-automation'",
+      "exitCode": 0,
+      "result": "Skill is valid!"
+    },
+    {
+      "command": "/opt/homebrew/bin/fish -lc 'python .tmp/ci-cd-automation/check-package.py'",
+      "exitCode": 0,
+      "result": "Five donor baselines, 16 source/license files, three references, five local owners and all 49 research-file hashes checked; eight behavior fixtures and six probes are structurally consistent."
+    },
+    {
+      "command": "/opt/homebrew/bin/fish -lc 'node --check reports/skill-atlas/app.js'",
+      "exitCode": 0,
+      "result": "JavaScript syntax valid."
+    },
+    {
+      "command": "/opt/homebrew/bin/fish -lc 'node --check reports/skill-atlas/catalog.js'",
+      "exitCode": 0,
+      "result": "Generated catalog JavaScript syntax valid."
+    },
+    {
+      "command": "python3 .tmp/ci-cd-automation/validate-atlas.py",
+      "exitCode": 0,
+      "result": "JSON mirror, 251 cards, 30 package hashes, 16 CI/CD cards, six incorporation records, 19 source repositories, new anchors and unrelated shared overlays checked."
+    },
+    {
+      "command": "env PYTHONPATH=daily-meeting-update python3 -B -m unittest discover -s daily-meeting-update/tests -p test_opencode_digest.py -v",
+      "exitCode": 0,
+      "result": "Three repository smoke tests passed."
+    }
+  ],
+  "validationNotes": [
+    "The repository has no root application build; JavaScript syntax and live static-atlas rendering cover the changed runnable report.",
+    "Check-package and validate-atlas are disposable task checks under the ignored .tmp directory, not installed skill helpers.",
+    "An initial atlas check used section-only matching for the accessibility article; the checker was corrected and passed. No product defect was concealed."
+  ],
+  "limits": [
+    "Five additional behavior fixtures and all six selection probes remain unexecuted.",
+    "The three matched trials assessed proposed design artifacts, not tool execution, side effects or provider behavior.",
+    "Both conditions met their principal design criteria; no general superiority is established.",
+    "The new skill is saved in this repository. Installation, implicit invocation and host interoperability were not tested.",
+    "No real CI run, build artifact, registry publication, infrastructure change or deployment was performed."
+  ],
+  "postReviewEditing": "The shipped entrypoint and all three references remain byte-identical to frozen v2. Later edits align provenance, remove a run-status sentence from evaluation metadata, add the matching README trigger, and finish atlas evidence. They add no instruction behavior."
+}

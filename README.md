@@ -334,11 +334,26 @@ All three record pinned sources and local decisions in `origin.txt`, with reques
 source maintenance through `agent-instructions`. Repository files are distinct from
 installed copies.
 
+### ci-cd-automation
+
+Design or improve CI/CD stages, required checks, artifact promotion, and release
+or deployment criteria. Keep provider mechanics in their specialist skills.
+
+**Triggers:** `design our CI/CD`, `what should our pipeline contain`, `review artifact promotion`, `improve pipeline structure`, `reduce pipeline wait and cost`
+
+**Features:**
+- Selects checks from product risks and existing project commands
+- Connects stages through exact candidate identity, evidence and trust boundaries
+- Defines rollout acceptance, interrupted-run recovery and shared-target ownership
+- Loads stateful delivery and measured efficiency guidance only when relevant
+- Uses `github-actions` for GitHub implementation, `verify` for execution evidence, and `pr-followup` for existing PR checks
+- Records five selected source feeds after research across 19 repositories
+
 ### github-actions
 
 Guidelines for writing secure and maintainable GitHub Actions workflows.
 
-**Triggers:** `workflow`, `github actions`, `CI/CD`, `actions yaml`
+**Triggers:** `GitHub workflow`, `github actions`, `Dependabot`, `actions yaml`
 
 **Features:**
 - Security best practices (pinned actions, least-privilege permissions)

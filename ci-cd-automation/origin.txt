@@ -1,0 +1,109 @@
+format_version = 1
+skill = "ci-cd-automation"
+created = "2026-10-04"
+approach = "Derive: selected pipeline, delivery, efficiency and state-management decisions require changes throughout the donors; keep provider implementation in specialist skills."
+
+[[sources]]
+id = "addy-ci-cd-gates"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "1401c8b8030e023baeebb31781a6653fe8e93026"
+baseline_paths = ["skills/ci-cd-and-automation/SKILL.md", "LICENSE"]
+paths = ["skills/ci-cd-and-automation/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Place automated checks before the decisions they protect and make failures actionable.", "Separate deployment from feature exposure; keep delivery feedback short."]
+local_choices = ["Choose applicable checks from the product contract instead of a universal JavaScript gate list, fixed environment chain, time target, review count or merge policy.", "Keep GitHub YAML, dependency bots, PR repair and credentials mechanics with their existing owners.", "Replace the claim that every deployment is reversible with explicit data and external-effect recovery."]
+reviews = []
+
+[[sources]]
+id = "wshobson-pipeline-design"
+author = "Seth Hobson / wshobson"
+repository = "https://github.com/wshobson/agents"
+remote = "git@github.com:wshobson/agents.git"
+ref = "refs/heads/main"
+baseline_commit = "156b7a5e7a8b93642628a339ee4039c925b34c7f"
+reviewed_through = "156b7a5e7a8b93642628a339ee4039c925b34c7f"
+baseline_paths = ["plugins/cicd-automation/skills/deployment-pipeline-design/SKILL.md", "plugins/cicd-automation/skills/deployment-pipeline-design/references/details.md", "plugins/cicd-automation/skills/deployment-pipeline-design/references/advanced-strategies.md", "LICENSE"]
+paths = ["plugins/cicd-automation/skills/deployment-pipeline-design/SKILL.md", "plugins/cicd-automation/skills/deployment-pipeline-design/references/details.md", "plugins/cicd-automation/skills/deployment-pipeline-design/references/advanced-strategies.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Design stage dependencies, artifact promotion, rollout criteria and post-deployment verification together.", "Account for old and new consumers during schema transitions and choose rollout patterns from product constraints."]
+local_choices = ["Keep provider examples, Kubernetes commands and platform-specific troubleshooting outside the general skill.", "Do not promise automatic rollback, instant recovery, zero downtime, mandatory staging or fixed DORA thresholds.", "Treat inconclusive telemetry explicitly; an Argo inconclusive result pauses and is not equivalent to a failed analysis.", "Verify any target-specific rebuild as its own artifact and bind promotion evidence to the actual candidate."]
+reviews = []
+
+[[sources]]
+id = "mblode-ci-efficiency"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+baseline_paths = ["skills/ci-speedup/SKILL.md", "skills/ci-speedup/references/measuring.md", "skills/ci-speedup/references/levers.md", "skills/ci-speedup/references/ledger.md", "LICENSE.md"]
+paths = ["skills/ci-speedup/SKILL.md", "skills/ci-speedup/references/measuring.md", "skills/ci-speedup/references/levers.md", "skills/ci-speedup/references/ledger.md", "LICENSE.md"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Measure the critical path using real run timing, including setup, queue time, variance and runner cost.", "Preserve coverage when filtering, sharding or caching; cover unverified changes and detect silently missing workspace tasks.", "Separate safely cancellable validation from deployment with shared mutable state."]
+local_choices = ["Load efficiency guidance only for topology, filtering, caching or performance changes.", "Do not import timing scripts, hosted-runner prices, published speedup numbers, fixed timing targets, test-runner flags, mandatory ledger or automatic pushes.", "Check all relevant cache inputs and trust domains; no universal cache or cancellation recipe."]
+reviews = []
+
+[[sources]]
+id = "compound-deployment-verification"
+author = "Every / Compound Engineering"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+baseline_paths = ["skills/ce-code-review/references/personas/deployment-verification-agent.md", "LICENSE"]
+paths = ["skills/ce-code-review/references/personas/deployment-verification-agent.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Name data invariants, concrete pre/post-deployment observations, recovery limits and the operational owner.", "Distinguish code rollback from data restoration and irreversible effects."]
+local_choices = ["Use conditional delivery guidance rather than a second code-review persona or mandatory SQL checklist.", "Choose observation windows and thresholds from service requirements, not the example five-minute/24-hour schedule.", "Verify restore feasibility and allowed data loss; a backup alone does not prove recovery."]
+reviews = []
+
+[[sources]]
+id = "pstack-idempotency-and-shared-state"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Reconcile partial prior effects before retries; define the outcome of repeated or interrupted operations.", "Isolate independent mutable targets and enforce serialization structurally when one shared target is a real invariant."]
+local_choices = ["Apply the principles to deployment targets, migrations and shared build resources; do not import PID-lock recipes or universal self-healing.", "Reject obsolete candidates as well as overlapping writes. Existing authorization still governs deployment and recovery.", "Keep pstack shipping, code verification and CI babysitting procedures with the corresponding local owners."]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "github-actions"
+required = false
+role = "Preferred owner for GitHub Actions mechanics; receives the stage, trust, artifact and acceptance contract. Use the entrypoint's primary-documentation fallback when unavailable."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Conditional execution verification at the relevant artifact or consumer boundary."
+
+[[dependencies]]
+kind = "local"
+name = "verification-authoring"
+required = false
+role = "Conditional creation or maintenance of repeatable project verification recipes."
+
+[[dependencies]]
+kind = "local"
+name = "pr-followup"
+required = false
+role = "Existing PR check failures and review feedback stay with this owner."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested skill authoring or upstream maintenance."
