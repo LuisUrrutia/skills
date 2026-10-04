@@ -1,0 +1,320 @@
+{
+  "date": "2026-10-04",
+  "status": "Implemented; bounded findings reconciled and applicable checks passed",
+  "skill": "report-work-activity",
+  "worktree": "/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f",
+  "branch": "t3code/curate-agent-workflow-skills",
+  "worktree_base_before_commit": "ea8ccb3f1c3bb21a779a71bebf01c1abf947ea12",
+  "scope": "Create the requested reusable skill and synthetic HTML example, deprecate the old name and retire its helper, update the registry and atlas. No live personal activity report, installation, publication or scheduling.",
+  "runtime": {
+    "helper_requirement": "Python 3.10+ with IANA timezone data",
+    "main_checks": "Python 3.14.8 through the configured Fish environment",
+    "dependency": "No helper runtime package; PyYAML supplied only to the external skill metadata validator through uv."
+  },
+  "consultation": {
+    "method": "Initial design reviews used separate contexts. Later reviews received the original brief, prior findings/responses and frozen candidate manifests. Actual reviewer outputs below are consultation evidence, not substitutes for behavioral tests.",
+    "astra": {
+      "provider": "codex",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "task": "/root/activity_design_astra",
+      "rounds": [
+        {
+          "phase": "design",
+          "outcome": "One skill with historical and current-obligation contracts; explicit identity, coverage and retained-evidence semantics."
+        },
+        {
+          "phase": "candidate-v1",
+          "outcome": "Found unknown attribution discarded before uncertainty, allowing exact zero. Verified 17 hashes and 12 period/ledger tests."
+        },
+        {
+          "phase": "isolated-v2",
+          "outcome": "Found order-dependent coverage when deduplication dropped a contributing partial source. Fourteen ledger tests passed; additional reproduction failed."
+        },
+        {
+          "phase": "candidate-v3",
+          "outcome": "No new material finding on corrected points; 18 hashes, 19 period/ledger tests and distinct-evidence order/reload reproduction passed."
+        },
+        {
+          "phase": "candidate-v4",
+          "outcome": "Parent permissions and wording reconciliation resolved. Found excluded-source events could still count; 19 ledger tests passed but the additional case exposed the gap."
+        },
+        {
+          "phase": "candidate-v5",
+          "outcome": "Affected defect resolved, no regression found. Two targeted exclusion tests and normalized sources-array rejection probe passed; 18 hashes matched.",
+          "limits": "Read-only affected-branch review; no private integrations, installation or browser checks."
+        }
+      ]
+    },
+    "fable": {
+      "provider": "claudeAgent",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "effort_reason": "Explicit user request overrides the generic authoring Fable Max default.",
+      "runs": [
+        {
+          "taskId": "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-design-fable-xhigh-20261004-r1",
+          "childThreadId": "thread:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-design-fable-xhigh-20261004-r1",
+          "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A28f99e23-9f6e-4b6c-9782-e561b550536a%253Adelegate-task%253Aactivity-design-fable-xhigh-20261004-r1:ordinal:1",
+          "status": "completed",
+          "providerInstanceId": "claudeAgent",
+          "model": "claude-fable-5-1",
+          "summary": "**Recommendation:** build one skill, proposed name `report-work-activity`, and delete `daily-meeting-update`. Split the work by tool access rather than taste. Shell-reachable sources go to deterministic helpers. MCP-only sources go to one Codex Luna extractor each. The primary agent owns identity confirmation, cross-linking, narrative, the open-items section, and the bundle. Nothing in the nineteen repositories implements this shape. Four of them supply reusable pieces, listed at the end.\n\n## Architecture and boundary\n\n**One skill, not two.** Completed work and open obligations come from the same sources, window, and identities, so a second skill would duplicate collection. Follow-up questions need no skill because the bundle is self-describing and the agent reads it. Drop the interview-first standup flow entirely. It is the part the user never used, and the new output is a report, not a meeting script. Avoid a name containing \"review\" because this collection already uses that word for code review.\n\n**Layer 1, helpers in `scripts/`.** One Python entry point with subcommands, matching the sibling report helper convention, standard library only, NDJSON on stdout, exit codes that separate \"no records\" from \"error\" as the mblode script does.\n\n- **window**: phrase to a half-open interval in the local timezone with offset. \"Last week\" means the previous ISO week by default. Emits the label the report header must print and per-source query strings.\n- **identity**: gathers GitHub logins and git emails from global and per-repo config, merges a persisted identity file, and prints the MCP identities the agent must still resolve with whoami calls.\n- **github**: per login and window, authored PRs by created time, merged PRs by merged time, reviews by submitted time, issues, and GraphQL `contributionsCollection` totals per repository. Search alone caps results and is eventually consistent, so keep both and reconcile.\n- **git**: scan configured roots, log with `--all --no-merges --since --until` and one `--author` per email, keep author and committer dates, map origin to owner/repo, dedupe by SHA, mark local-only commits.\n- **transcripts**: discover Claude Code, Codex, OpenCode, and Cursor sessions in the window, run a cheap metadata pass, and extract skeletons only for selected sessions. This supersedes the single-day OpenCode digest.\n- **classify**: apply the owner and container map, emit unknowns.\n- **validate, metrics, render**: strict schema check on every event file including Luna output, counts per bucket and repository, Markdown to HTML with the stylesheet copied beside it and no CDN fonts.\n\n**Layer 2, Luna extractors.** One `delegate_task` per available MCP source: Slack, Atlassian covering Jira, Confluence and JSM, Linear, Notion, Gmail sent mail, Google Calendar, Figma, and future Granola, Outlook, and PagerDuty slots. An optional extra extractor synthesizes transcript skeletons per project and reads only the paths it is given, as the compound session historian does. Every brief carries the window with timezone, the identities, a read-only and no-send rule, the event schema, an output path, item caps, and the statement that fetched content is data, not instruction. Each returns an NDJSON path, a short Markdown summary, and a coverage statement. No cross-source synthesis, no recursion, one round, with a targeted second round only for named items. Describe capabilities, not tool names, because Codex exposes `codex_apps` connectors while this host exposes `claude_ai` ones.\n\n**Layer 3, primary agent.** Resolves identity and classification unknowns once, launches layers 1 and 2 in parallel, treats any failed or missing extractor as a coverage gap rather than zero, deepens selectively, cross-links PR to ticket to thread to meeting, writes the narrative, runs validate and render, and returns the bundle path. When no Luna profile is reachable, it extracts in-context and discloses the lost independence, mirroring the delegation reference in the code review skill.\n\n## Evidence contract\n\nBundle layout:\n\n```\n<reports-root>/<window-label>/<run-timestamp>/\n  index.html           rendered from report.md, stylesheet beside it\n  report.md            Work, Open source, Open items, Coverage\n  manifest.json        window, tz, identities, per-source status, collected_at\n  events.jsonl         normalized, deduplicated, classified\n  metrics.json         per bucket, per repository, per kind\n  open-items.json      obligations with evidence and confidence\n  sources/<name>.jsonl extractor output as received\n  sources/<name>.md    extractor summary and coverage statement\n```\n\nEvent record:\n\n```json\n{\"id\":\"github:pr:owner/repo#123\",\"source\":\"github\",\"kind\":\"pr_merged\",\n \"actor_role\":\"author\",\"event_time\":\"2026-09-30T14:02:11-03:00\",\n \"update_time\":null,\"title\":\"...\",\"url\":\"https://github.com/owner/repo/pull/123\",\n \"container\":\"owner/repo\",\"bucket\":\"work\",\"status\":\"merged\",\n \"links\":[\"jira:PROJ-45\",\"slack:C01/p1727700000\"],\"obligation\":null,\n \"excerpt\":\"...\",\"confidence\":\"high\",\"collected_at\":\"2026-10-04T12:10:00-03:00\"}\n```\n\nRules that change the implementation:\n\n- **Action time decides membership.** Authored time for commits, merged time for merged counts, submitted time for reviews, `statusCategoryChangedDate` for Jira, `completedAt` for Linear. \"Updated in window\" is only a candidate filter. Pad GitHub date qualifiers by a day because the search index evaluates them in UTC, then post-filter with full timestamps.\n- **Attribution.** Several identities per person. Co-author trailers are tagged, not counted as authored. Merging another person's PR is a merge action, not an authored PR. The `--involves` qualifier is discovery only. Exclude bot authors. For a second GitHub account, obtain its token with `gh auth token --user` into `GH_TOKEN` per call instead of switching the default account.\n- **Deduplication.** Keys in order: commit SHA, then PR membership or patch-id across rebases and squash merges, PR URL across author, reviewer, and commenter searches, issue key, message permalink, calendar event ID shared with meeting notes. Store cross-links; never double count.\n- **Buckets.** A persisted map of owners and containers to `work`, `open-source`, and `personal`. Public employer repositories are work by ownership, not visibility. Unknown owners stop in the agent once and persist. Slack workspace, Jira site, and the work mailbox default to work.\n- **Coverage.** Per-source status is one of collected, partial, unavailable, unauthorized, skipped, failed. Tool presence is not authentication, so probe with a whoami call first. Label every number as from collected sources.\n- **Open items.** Three classes with evidence: assigned and not done, requested of me and unanswered, committed by me in my own words. The third is a quoted extraction with a confidence level, never a fact.\n- **Transcripts.** Summarize, never reproduce. Skip the current session and this skill's own runs. The recorded cwd gives the repository and therefore the bucket.\n- **Freshness.** Every run writes a new directory. The open-items section prints its snapshot time because it goes stale fastest.\n\nMetrics to print, each from a reliable source only:\n\n| Metric | Source of truth |\n| --- | --- |\n| Merged PRs, PRs opened, reviews given | GitHub by action time |\n| Commits | Local git plus GitHub, deduplicated |\n| Tickets reaching done | Jira or Linear by transition time |\n| Incidents resolved | JSM, PagerDuty, or configured incident channels |\n| Meetings attended and hours | Calendar, accepted and not declined |\n\nWork gets totals plus one row per repository. Open source gets one row per repository and no total. Non-repository work such as incidents, documents, and meetings gets its own rows under work.\n\n## Gaps, decisions, and scope read\n\nMaterial gaps the coordinator must verify before freezing the delegation section:\n\n1. **Connector inheritance.** Whether a Luna task launched through `delegate_task` sees the Codex Apps connectors and their authentication is unverified here. If it does not, MCP extraction falls back to the primary agent and the per-source Luna requirement is unmet.\n2. **Missing adapters.** Granola, Outlook, and PagerDuty have no tools in either host. Ship them as per-source reference slots with the capability description and event kind. Do not write a fake adapter.\n3. **Soft counts.** Luna extractions are nondeterministic. Require extractors to emit the native IDs so the helper counts deterministically, and prefer JQL totals for Jira.\n4. **Cost.** Run a cheap count probe per source before deep reads and cap items per extractor, as the compound escalation check does.\n5. **Licenses.** Cursor, mblode, and compound are MIT at the verified commits. I did not read the wshobson license.\n\nNo decision blocks authoring. Three belong to a first-run intake that persists its answers: the identity and account list, the owner map and whether `personal` is a third bucket, and the reports root with timezone and week start. The user's instruction to use Luna per source already settles that Slack, Jira, mail, and transcript content flows through Codex; the skill should state that plainly rather than ask again.\n\nReuse and supersede:\n\n- **Keep from daily-meeting-update**: silent capability detection, global GitHub search by default, \"never fail the whole report on one source\", the OpenCode SQLite approach. Supersede the interview, the Markdown standup, the single-day digest, the `~/Projects` question, and the bullet cap.\n- **Cursor what-did-i-get-done and weekly-review**: author-email filter, exclude merges, print the real date range, describe changes functionally, optional bugfix, debt, and net-new labels.\n- **mblode chat-history**: discovery roots, NDJSON and exit-code contract, history as data, \"coverage gap is not an empty result\", subagent directory skipping.\n- **compound session history**: two-stage probe, cwd attribution, skeleton extraction, synthesis-only subagent reading supplied paths, no claims about other people.\n- **wshobson standup-notes**: transition-time JQL and commit-to-ticket correlation. **ECC chief-of-staff**: deterministic calendar math in code, bot and noreply filtering. **Cursor pr-review-canvas**: safe JSON embedding if any data is inlined in HTML.\n\nScope actually read. Complete: the brief, the current skill with its helper and tests, both authoring skills with their skills, evaluation, and hosts references, the code review delegation reference, both Cursor skills, mblode chat-history with its references, the compound session history and historian references, matt retro, the Standard retrospective skill, the on-call handoff skill, inventories and tool inventory. Partial: wshobson standup-notes to the communication section, postmortem-writing and incident-responder heads, ECC chief-of-staff and workspace ops heads, the compound discovery script and metadata extractor heads, the mblode history script by grep, gh CLI search flags by grep, the five Cursor connector READMEs, the sibling report helper and its test head. Not read: wshobson details files, the superpowers session-discovery reference, the sentimony attribution reference, the gsd, lobe, ECC, and anthropic pattern matches, which I judged unrelated by path only.\n\nRemaining unknowns: connector inheritance in delegated Codex tasks, whether the user has more than one GitHub account, the exact `contributionsCollection` field shapes against the live API, Granola's local or MCP surface, and whether the user wants a `personal` bucket.\n\nValidation the coordinator should plan: a synthetic git repository with commits across the window boundary and a rebased duplicate, recorded GitHub JSON fixtures, a fake OpenCode database and Claude and Codex JSONL, a sample extractor NDJSON with a schema violation, and one unavailable source. Expected results: correct bucket split, correct window label, no double counting, a coverage statement for the unavailable source, and nothing invented. Near-miss requests that must not activate: review this PR, what did we decide about X, write the team standup from this doc.",
+          "effort": "xhigh"
+        },
+        {
+          "taskId": "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r2",
+          "childThreadId": "thread:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r2",
+          "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A28f99e23-9f6e-4b6c-9782-e561b550536a%253Adelegate-task%253Aactivity-candidate-fable-xhigh-20261004-r2:ordinal:1",
+          "status": "completed",
+          "providerInstanceId": "claudeAgent",
+          "model": "claude-fable-5-1",
+          "summary": "**Conclusion: no blocking defect in the frozen candidate.** All 17 manifest hashes match, every helper test passes, the demo is byte-identical to a fresh build from the fixture, and every origin.txt commit and path resolves in the upstream checkouts. I did find five material issues worth fixing before acceptance, plus smaller ones.\n\n**Material findings**\n\n1. **Identity mismatch produces a silent exact zero.** Counting filters on exact string equality at `report-work-activity/scripts/ledger.py:149`. With identities set to `github:Example-User` against events tagged `github:example-user`, or with the author field simply absent, the work total renders as a complete \"0\". Nothing in validation or metrics.json distinguishes \"no activity\" from \"no event matched any identity\". Add an unattributed count per metric and fail validation when a selected metric has in-window confirmed events of its kind but none attributed to any identity.\n\n2. **Out-of-window provisional candidates degrade completeness.** The uncertainty check at `ledger.py:154` scans all selected events, not only in-window ones. A provisional August candidate turns an exact September \"20\" into \"20 observed\". Restrict the check to unknown-time events and in-window unconfirmed events.\n\n3. **No defined private location for the bundle, worker outputs, or persisted mappings.** The skill asks the agent to pick a private output directory and to persist classification maps locally, but neither SKILL.md:16-33 nor bundle.md:26-28 names a root or file. Worker outputs cannot go in the run directory because build refuses an existing path at `render_report.py:67`. In practice they land in the current repository's scratch, so personal activity sits inside whatever project checkout the user runs from. Define a default root under the user's home with sibling worker and bundle directories and a mappings file.\n\n4. **The retired OpenCode helper is dead code.** The deprecated SKILL.md states the helper is no longer invoked, so nothing reaches the 342-line script and its 226-line tests. The stated reason for keeping the alias justifies the SKILL.md stub, not the script. Either delete it or repair it as an optional enumerator under the new skill, selecting by message time instead of session creation time at `daily-meeting-update/scripts/opencode_digest.py:212`. As it stands, no concrete OpenCode path survives for the agent-conversation requirement.\n\n5. **skills.sh.json still advertises the deprecated name.** Line 28 groups `daily-meeting-update` under Experimental while the replacement is ungrouped. Swap the entry.\n\n**Minor**\n\n- bundle.md:80 requires host-qualified repository names, but the fixture and demo use owner/repo. Rows split on any mismatch, as my probe confirmed.\n- Duplicate sightings merge evidence but silently drop a differing `current_state` at `ledger.py:113-116`.\n- Stories carry typed numbers written before metrics are computed. Run the metrics command before writing summaries.\n- Detail pages end the meta line with a dangling separator when current_state is empty at `render_report.py:103`.\n\n**Verified**\n\n| Check | Result |\n| --- | --- |\n| Helper tests on Python 3.14 | 14 passed |\n| Legacy helper tests | 3 passed |\n| Demo versus fresh build | identical |\n| Headless Chrome, file URL, CSP meta | stylesheet loaded, pages styled |\n| Narrow breakpoint | clean at 500 px |\n\n**Limits.** Chrome clamps headless windows to 500 px, so widths below that were not rendered. Firefox and Safari handling of the CSP self source on file URLs is untested. No live source, Luna delegation, or real account was exercised. Other sessions modified unrelated files in this worktree during the review; the candidate files were unchanged throughout.",
+          "effort": "xhigh"
+        },
+        {
+          "taskId": "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r3",
+          "childThreadId": "thread:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r3",
+          "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A28f99e23-9f6e-4b6c-9782-e561b550536a%253Adelegate-task%253Aactivity-candidate-fable-xhigh-20261004-r3:ordinal:1",
+          "status": "completed",
+          "providerInstanceId": "claudeAgent",
+          "model": "claude-fable-5-1",
+          "summary": "**Verdict: every accepted correction resolves its finding, and I found no blocking regression in the frozen package.** All 18 hashes in candidate-v3-sha256.json match the working tree. The 21 tests pass on Python 3.14.8. Three minor, verified issues and one required follow-up remain.\n\n## Resolution of each affected point\n\n| Finding | Resolved | Evidence |\n| --- | --- | --- |\n| Astra V1 missing role → exact zero | Yes | `ledger.py:160-173`; probe with one null author gave \"7 observed\", unattributed 1, and the other rows stayed exact |\n| Fable V1 alias mismatch | Accepted as contract | `evidence.md:14-19`; `github:Example-User` vs `github:example-user` still yields exact \"0\" by design |\n| Out-of-window provisional | Yes | `ledger.py:160-162`; August unknown-actor review left the September total exact |\n| Source union, order, reload | Yes | `ledger.py:101-103,121-123`; metrics identical forward, reversed, and after JSON round trip |\n| Conflicting current_state | Yes | `ledger.py:124-127`; empty string merges with known state, two known states fail |\n| Private root, mappings, workers | Yes | `bundle.md:26-43`; `.tmp` is excluded via info/exclude |\n| Retired OpenCode helper | Yes | Files deleted; no references outside historical reports/*-validation.json; root `.gitignore:7` still covers pycache |\n| Registry entry | Yes | `skills.sh.json:28` |\n| Canonical repository | Yes | `ledger.py:48-50`; rejects owner/repo, URLs, trailing slash; accepts GitLab subgroups |\n| Numbers after metrics | Yes | `SKILL.md:73-74`; fixture story numbers reconcile with metrics.json |\n| Dangling separator | Yes | `render_report.py:102-103`; rendered meta lines are clean |\n\n## Findings\n\n- **Builder leaves implicitly created parents world-readable.** `render_report.py:67` calls mkdir with parents=True, and Python ignores the mode for parents. Building straight to a fresh `~/.local/share/work-activity/runs/<id>/bundle` produced root, runs, and run directories at 0755 while the bundle itself was 0700. Content stays protected, but run names leak. bundle.md:27-28 tells the agent to create those directories first, so the helper offers no backstop. Create parents explicitly at 0700 or require an existing parent.\n- **Duplicate-sighting merge silently keeps the first sighting's wording.** `ledger.py:118-120` compares identity, time, role, and classification fields only. Two connectors describing the same PR differently produce different detail pages depending on input order. Metrics are order-independent as required. Either include the text fields in the conflict check or document that the first sighting's wording wins.\n- **Excluded sources degrade totals like unavailable ones.** `ledger.py:166-167` treats an excluded source that declares a metric as incomplete coverage, so deliberately excluding a personal account turns the work total into \"20 observed\". evidence.md:62-63 defines completeness within declared scope, which an excluded source is outside. Document that excluded sources declare an empty metrics list, or treat excluded as out of scope.\n- **The shipped demo is now invalid.** The frozen validator rejects reports/skill-atlas/work-activity-example/report.json with exit 2 on unqualified repositories, and the bundle differs from a fresh build. The brief says regeneration is in progress. It must land before acceptance or the atlas example contradicts the package contract.\n- **Trivial:** `story.events` is validated at `ledger.py:135-136` but never rendered or counted. The test module runs only as a script; unittest discovery fails because tests/ has no package marker. Neither is a behavior defect.\n\nThe alias-casing limit is real but belongs to the accepted collection contract. A non-fatal validate warning for actor IDs that differ from an identity only by case or whitespace would add a mechanical backstop without guessing equivalence. That is optional.\n\n## What I tested and limits\n\nChecks run: hash verification, 21 tests, CLI build from the fixture into a temp directory with permission inspection, window resolver edge cases (naive now, Sunday week start, Monday boundary, February, Pacific/Auckland date shift), ten ledger probes on roles, scopes, offsets, duplicates, and regex edge cases, repo-wide search for stale references, licence notices against the seven origin sources, and a structural read of the trials file.\n\nNot tested: no Python 3.10 interpreter is installed, so the \"3.10+\" claim rests on a static scan that found no newer features. No browser rendering this round. No live source, Luna delegation, or account access. The atlas overlay and regenerated example were not reviewed. Unrelated changes by other sessions in this worktree were ignored.",
+          "effort": "xhigh"
+        },
+        {
+          "taskId": "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r4",
+          "childThreadId": "thread:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r4",
+          "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A28f99e23-9f6e-4b6c-9782-e561b550536a%253Adelegate-task%253Aactivity-candidate-fable-xhigh-20261004-r4:ordinal:1",
+          "status": "completed",
+          "providerInstanceId": "claudeAgent",
+          "model": "claude-fable-5-1",
+          "summary": "**Verdict: all three corrected behaviors are resolved in the frozen v4 package, with no material regression.** All 18 hashes in candidate-v4-sha256.json match the working tree. The 23 tests pass on Python 3.14.8, discovered both from the checkout root and from an unrelated directory. The regenerated demo validates and is byte-identical to a fresh build.\n\n## Resolution of each affected point\n\n| Point | Resolved | Evidence |\n| --- | --- | --- |\n| 1. Missing ancestors created at 0700, existing preserved | Yes | `render_report.py:67-69`; probe built under a pre-existing 0755 directory: it stayed 0755, the three new ancestors, bundle, details and evidence were all 0700, every file 0600. Result unchanged under umask 077 and 000. Regression test at `test_activity_report.py:217-229` checks each new directory. |\n| 2. Divergent duplicate wording fails | Yes | `ledger.py:120-122` adds title, detail and classification_reason to the conflict tuple. Probe: each of the three fields differing fails in both input orders with \"Conflicting duplicate event\". Identical wording from a second source still merges, with evidence and sources unioned and a missing current_state filled from the other sighting. Known current_state conflict still fails. `bundle.md:105-109` states the rule. |\n| 3. Excluded sources outside counting scope | Yes | `ledger.py:81-82` rejects an excluded source with any declared metric. Probe: excluded with empty metrics leaves the work total at exact \"20\" and the source is absent from the metric's relevant list. Unavailable, failed and blocked sources that declare the metric still yield \"20 observed\". `bundle.md:69-72` matches. Both retained trial ledgers still validate under the stricter rule. |\n| Demo regenerated | Yes | The frozen validator accepts the shipped report with 40 events and 10 sources. All four repositories are host-qualified. The shipped report equals the validated fixture, metrics.json equals a recomputation, and the five index tiles and all story numbers reconcile with the per-repository rows. |\n\n## Non-blocking observations\n\n- **The reference does not document the new backstop.** `bundle.md:26-28` still tells the agent to create the root and run directory at 0700, and `bundle.md:40-41` describes only the bundle and its subdirectories. Nothing mentions that the helper now creates missing ancestors at 0700. Not a contradiction, since following the reference still produces correct permissions. A short clause would make the guarantee visible.\n- **An event that cites an excluded source turns its metric into an observed lower bound.** The excluded source joins the observed set at `ledger.py:167-169` and is never complete. This is conservative and only lowers certainty, so it is a limit, not a defect. The validator does not reject that self-inconsistent input.\n- **The wording-conflict error does not name the differing field.** The primary reconciling many sightings must diff the records by hand. A usability preference, not a correctness issue.\n- **Trivial:** a `..` component in the output path creates the spurious intermediate directory, because Path does not normalize. An ancestor that is a regular file exits 2 cleanly. Symlinked ancestors work.\n\n## Checks run and limits\n\nHash verification of all 18 files, the 23-test suite from two working directories, nine duplicate-wording probes, seven source-status probes, nine build probes covering permissions, umask, relative paths, file and symlink ancestors and existing-bundle rejection, demo validation plus recursive diff against a fresh build, reference searches for conflicting guidance, and validation of the two embedded trial ledgers.\n\nNot done: no v3 copy of the four changed files exists outside the hash manifest, so the review reads the full current files rather than a textual diff. No browser render, no live source, no account access. The atlas narrative and unrelated worktree changes were not reviewed.",
+          "effort": "xhigh"
+        },
+        {
+          "taskId": "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r5",
+          "childThreadId": "thread:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r5",
+          "childRunId": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A28f99e23-9f6e-4b6c-9782-e561b550536a%253Adelegate-task%253Aactivity-candidate-fable-xhigh-20261004-r5:ordinal:1",
+          "status": "completed",
+          "providerInstanceId": "claudeAgent",
+          "model": "claude-fable-5-1",
+          "summary": "**Resolution: the affected branch is sound. No material regression.**\n\nThe two new require lines in `ledger.py` run per sighting, before the duplicate merge, so an excluded source cannot reach the ledger through the primary source field, the contributing sources list, or sighting order. The included sighting of the same event still counts exactly.\n\nChecks performed:\n\n- **Suite and freeze.** All 24 tests pass. The v5 checksum file matches all 18 files on disk. Only `ledger.py`, the test module, and `bundle.md` changed versus the v4 freeze.\n- **Mutation test.** Deleting the two require lines in a temp copy makes the new regression fail with \"ValueError not raised\". The test genuinely depends on the change.\n- **Order independence.** An excluded duplicate placed before the included sighting is rejected. An excluded ID appearing only in the contributing sources list is also rejected.\n- **Included sighting survives.** After the excluded sighting is removed, the work total renders exactly as 20. The leftover excluded source has no metrics and is never observed, so it does not enter the relevant-source set and completeness is unaffected.\n- **Regex discrimination.** The pattern \"excluded source\" is case sensitive and does not match the older \"Excluded sources\" metric-coverage error, so the test asserts the new branch, not the earlier one.\n- **Reference wording.** The clause at `bundle.md:71-74` states omit excluded sightings and the event may still count through an included source. That matches the code. The ancestor clause at lines 40 to 42 matches the renderer, which creates missing parents with mode 0700 and exist_ok, which never changes an existing directory's mode. The existing test asserts 0700 on the three new ancestors.\n- **Demo.** The regenerated demo report validates under the new rule with 40 events and 10 sources, none excluded.\n\nResiduals outside the counting branch, not blocking:\n\n- **Evidence provenance.** An included event may cite an evidence item whose own source is excluded. It validates and counts. The helper contract at `bundle.md:24` leaves evidence truth to the primary, and tightening this would add a new invariant that may be too strict for cross-source supporting evidence.\n- **Obligations.** An obligation may name an excluded source. The exclusion rule in bundle.md is scoped to counting, so this is consistent with the documented contract.\n\nLimit: \"without changing existing ones\" in the ancestor clause is verified from mkdir semantics and code reading, not by a test that pre-creates a differently-moded ancestor.",
+          "effort": "xhigh"
+        }
+      ]
+    },
+    "reconciliation": [
+      {
+        "finding": "Unknown role and alias mismatch can look like exact zero.",
+        "decision": "Unknown roles never count and prevent exact totals, with unattributed units retained. Normalize verified provider identities before acceptance; unresolved aliases stay unknown. Known other actors may legitimately produce exact zero.",
+        "rejected_part": "Do not fail merely because every known actor is someone else, or guess identity equivalence through blanket casing rules."
+      },
+      {
+        "finding": "Out-of-period candidates and hidden contributing sources distort certainty.",
+        "decision": "Only unknown-time or in-window candidates affect uncertainty. Preserve the union of all contributing source IDs through deduplication/reload and check their declared metric coverage; regression reverses input order."
+      },
+      {
+        "finding": "Duplicate state or description was silently discarded.",
+        "decision": "Reconcile known current-state conflicts and differing accepted wording before counting; retain source evidence and provenance."
+      },
+      {
+        "finding": "Private root, mapping and worker paths were underspecified; implicit ancestors could be 0755.",
+        "decision": "Define configured/default durable root, mappings.json and a new bundle child; host scratch rules govern isolated workers. Newly missing ancestors and bundle directories are 0700, files 0600, existing ancestors unchanged."
+      },
+      {
+        "finding": "Excluded sources and retained events could disagree on count scope.",
+        "decision": "Excluded sources declare metrics:[] and their event sightings are rejected. An included sighting of the same event remains countable after the excluded one is removed."
+      },
+      {
+        "finding": "Legacy helper, registry and canonical fixture lagged the replacement.",
+        "decision": "Keep the old-name alias, remove the unused creation-time OpenCode helper/tests, group the new name in skills.sh.json and use host-qualified repository names. Rebuild the demo and validate it."
+      },
+      {
+        "finding": "Numeric prose could precede computed metrics.",
+        "decision": "Compute accepted counts before numeric summaries, then recompute/reconcile after ledger changes."
+      },
+      {
+        "finding": "Early suggestions inferred attendance or allowed CLI sources to bypass Luna.",
+        "decision": "Reject those suggestions: invitation status does not establish attendance, and the user explicitly required Luna extraction per source, including CLI sources."
+      },
+      {
+        "finding": "Optional case-only identity warning and more detailed wording error.",
+        "decision": "Not added: verified identity normalization owns provider semantics; errors already identify the conflicting event. These are optional backstops, not unresolved behavioral requirements."
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": "env PYTHONDONTWRITEBYTECODE=1 TMPDIR=\"$PWD/.tmp/review-work-activity\" python3 -m unittest discover -s report-work-activity/tests -v",
+      "result": "passed",
+      "tests": 24,
+      "scope": "Period/DST, action timestamps, attribution, counting groups, duplicates/provenance/reload, excluded sources, contradictions, private escaped HTML and CLI invalid input."
+    },
+    {
+      "command": "env PYTHONPYCACHEPREFIX=\"$PWD/.tmp/review-work-activity/pycache\" python3 -m compileall -q report-work-activity/scripts",
+      "result": "passed"
+    },
+    {
+      "command": "env PYTHONDONTWRITEBYTECODE=1 TMPDIR=\"$PWD/.tmp/review-work-activity\" python3 -m unittest discover -s verification-authoring/tests -v",
+      "result": "passed",
+      "tests": 11,
+      "scope": "Unchanged feature-map helper as broader smoke outside this feature."
+    },
+    {
+      "command": "uv run --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py report-work-activity",
+      "result": "passed"
+    },
+    {
+      "command": "uv run --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py daily-meeting-update",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -B report-work-activity/scripts/activity_report.py build .tmp/review-work-activity/demo-input.json --output reports/skill-atlas/work-activity-example",
+      "result": "passed",
+      "input": "Synthetic fixture emitted by report-work-activity/tests/fixtures.py."
+    },
+    {
+      "command": "python3 -B report-work-activity/scripts/activity_report.py validate reports/skill-atlas/work-activity-example/report.json",
+      "result": "passed",
+      "events": 40,
+      "sources": 10
+    },
+    {
+      "command": "python3 -B report-work-activity/scripts/activity_report.py build .tmp/review-work-activity/trial-integrated.json --output .tmp/review-work-activity/trial-integrated-html",
+      "result": "passed",
+      "expected": {
+        "prs_reviewed": 1,
+        "reviews_submitted": 2,
+        "pending": [
+          "follow-up",
+          "dashboard"
+        ],
+        "cancelled_retained": "migration"
+      }
+    },
+    {
+      "command": "node --check reports/skill-atlas/app.js",
+      "result": "passed"
+    },
+    {
+      "command": "node --check reports/skill-atlas/catalog.js",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check -- README.md daily-meeting-update reports/skill-atlas/app.js reports/skill-atlas/catalog.js reports/skill-atlas/index.html reports/skill-atlas/sources.json skills.sh.json",
+      "result": "passed"
+    },
+    {
+      "command": "python3 -B report-work-activity/scripts/activity_report.py build .tmp/review-work-activity/demo-input.json --output .tmp/review-work-activity/final-build && diff -rq reports/skill-atlas/work-activity-example .tmp/review-work-activity/final-build",
+      "result": "passed",
+      "scope": "Final v5 builder produces byte-identical shipped example."
+    },
+    {
+      "command": "git diff --cached --check",
+      "result": "passed after removing copied license whitespace"
+    }
+  ],
+  "structural_checks": {
+    "package_metadata": "Both skill entrypoints validate; all Markdown references resolve.",
+    "origin": "Seven exact commit pins and original notices checked by source readers/reviewers.",
+    "atlas": "258 distinct card keys/IDs with progress records; 32 repository packages; sources.json equals catalog.js. All earlier top-level review sections are unchanged. Only the activity overlay, repository inventory, source progress and collection incorporation counts changed.",
+    "html": "105 local HTML targets and applicable fragments across eight report/research pages resolve, including final validation links."
+  },
+  "luna_trials": {
+    "record": "report-work-activity-trials.json",
+    "profile": {
+      "provider": "codex",
+      "model": "gpt-6-luna",
+      "effort": "medium"
+    },
+    "tasks": [
+      "/root/activity_trial_luna_chats",
+      "/root/activity_trial_luna_reviews",
+      "/root/activity_trial_luna_slack"
+    ],
+    "result": "Separate fresh synthetic extractions preserved the resumed chat correction, two submitted reviews on one PR, a cancelled commitment, an older open promise and an unaccepted request. Primary reconciled the results and built a valid report.",
+    "limits": "Not a live connector test or a comparative benchmark. No claim of automatic host activation or general model-performance improvement."
+  },
+  "browser": {
+    "provider": "T3 collaborative preview",
+    "tab": "tab_8",
+    "urls": [
+      "http://localhost:8765/#report-work-activity",
+      "http://localhost:8765/report-work-activity-research.html",
+      "http://localhost:8765/work-activity-example/"
+    ],
+    "observed": [
+      "Desktop 1280×800 and narrow 390×844 render without document overflow.",
+      "Metrics: 20 authored work PRs, repository rows 12+8; open-source rows 3+2; reviews 3, ticket closures 3, incidents responded 2 and resolved 1.",
+      "Detail and evidence destinations load; reopening, pending assignment and no-deployment correction remain visible.",
+      "Static report has no scripts and only a local stylesheet.",
+      "Atlas filters show 10 activity-owned ready cards among 258, with check badges for incorporated guidance and the deprecated alias.",
+      "Research page shows 19 repository rows and seven donor sections."
+    ],
+    "navigation_method": "Native preview navigation to hrefs read from the rendered DOM; final click/snapshot calls failed on the client.",
+    "earlier_screenshots": [
+      "/Users/luisurrutia/.t3/userdata/browser-artifacts/browser-screenshot-localhost-mutojvr4-8c58c7a8.png",
+      "/Users/luisurrutia/.t3/userdata/browser-artifacts/browser-screenshot-localhost-mutolz1p-20c6e9fb.png"
+    ],
+    "limits": "Earlier candidate screenshots were saved. Final snapshot/click calls returned PreviewAutomationExecutionError on the attached client; DOM, computed style, layout, navigation and filter checks still worked. Final screenshots are not claimed. Preview reported available=true and visible=false."
+  },
+  "coverage_limits": [
+    "No private source records fetched; all examples and behavior trials use synthetic data.",
+    "Tool discovery does not prove authenticated access or full history. Outlook, Granola and PagerDuty were not exposed in this catalog.",
+    "No bundled universal provider client or transcript parser. Real runs use available supported MCP/CLI/host retrieval.",
+    "No host installation, reload, automatic activation, recurring schedule, external sharing or PR publication.",
+    "Python 3.10 minimum compatibility was statically assessed; executable checks used the available newer interpreter."
+  ],
+  "resolved_setup_issues": [
+    "Plain Python metadata validation lacked PyYAML; the external validator passed using uv --with pyyaml.",
+    "The system python3 differs from the Fish-configured interpreter; tomllib-dependent authoring scripts used the configured Python 3.14.8. The shipped helper does not import tomllib."
+  ],
+  "preserved_work": [
+    "handoff package and prior atlas/review overlays",
+    "review-code-changes and dyl-review evidence",
+    "agent-instructions retune files and report",
+    "pre-existing walkthrough/SKILL.md deletion"
+  ],
+  "reviewed_candidate_hashes": {
+    "report-work-activity/SKILL.md": "abb075e96b739a74237bb7286b7f08bb4ef74cd87df1b31f875d81701bb5c96c",
+    "report-work-activity/THIRD-PARTY-NOTICES.txt": "d1eb04ae9408075c2b67e1496d11fb419288dce412ddbdd36d2df47d4b570a0c",
+    "report-work-activity/assets/report.css": "601fb4116693f2e7de5c21dd29bfea400994d3c45fdea26e8cfeda4f02ead205",
+    "report-work-activity/origin.txt": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
+    "report-work-activity/references/agent-history.md": "29a54c57cf77b7eec8a4e51308fa0692fbcf525e0075d5b1a776ccba858e87ac",
+    "report-work-activity/references/bundle.md": "4faf03b889508d5aaf19392a0550eb117b811f12dbe3e7cef3750dcd0eb93695",
+    "report-work-activity/references/collaboration-sources.md": "63078588e48d7f1be145afc676d05b4efd10f23a9880a75bba1b87a9ab56c2d7",
+    "report-work-activity/references/engineering-sources.md": "f9ff1a49ccdc433ea7bb87d90b072960a8ea4567b6dc2b57561aaf4505c8acc3",
+    "report-work-activity/references/evidence.md": "2d86ac9d21c06ce38e267f509c8a0637cb3bdce86a51858daf220b6e87444761",
+    "report-work-activity/references/extraction.md": "5d316f671957063bc02f8036f64a023d42615bb15109fe8543fc8a2a424de41d",
+    "report-work-activity/scripts/activity_report.py": "9364af23f05762d755b898ba99ab463a8825c690f812f7abbe64bbed6f60dc2d",
+    "report-work-activity/scripts/ledger.py": "1bc2a4b70e0b969eef4993e306170b80dbcfe872a90ff7813742194db78a6ea7",
+    "report-work-activity/scripts/period.py": "6ea92b8c767d89b0999a6a4f61b62ae637d25bc560ca17953b125ee986523915",
+    "report-work-activity/scripts/render_report.py": "977586b08846f6275f2432afffc2568021a06139c9bbfcf72300099a8c06543b",
+    "report-work-activity/tests/fixtures.py": "9011eba24b37daa2861a3f23ce2a8a439b9675fef5a571408a2f156266a562a8",
+    "report-work-activity/tests/test_activity_report.py": "6be546a9b5f28a92ddf9293a04993e50cd3d9392ba36598a4699da4d042872fe",
+    "daily-meeting-update/SKILL.md": "620ab5890a49f535a478ec491accf5987207bdb543004f4e6b2eac96a793f5d8",
+    "skills.sh.json": "e72940597604de8d1d16ba77219f393259963dccea843fa4c94206c2dbb8ea71"
+  },
+  "final_hashes": {
+    "report-work-activity/SKILL.md": "abb075e96b739a74237bb7286b7f08bb4ef74cd87df1b31f875d81701bb5c96c",
+    "report-work-activity/THIRD-PARTY-NOTICES.txt": "36e3122a7179442b1ab5def8f2e0bd22252643040ef2361d63286b4121c83cab",
+    "report-work-activity/assets/report.css": "601fb4116693f2e7de5c21dd29bfea400994d3c45fdea26e8cfeda4f02ead205",
+    "report-work-activity/origin.txt": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
+    "report-work-activity/references/agent-history.md": "29a54c57cf77b7eec8a4e51308fa0692fbcf525e0075d5b1a776ccba858e87ac",
+    "report-work-activity/references/bundle.md": "4faf03b889508d5aaf19392a0550eb117b811f12dbe3e7cef3750dcd0eb93695",
+    "report-work-activity/references/collaboration-sources.md": "63078588e48d7f1be145afc676d05b4efd10f23a9880a75bba1b87a9ab56c2d7",
+    "report-work-activity/references/engineering-sources.md": "f9ff1a49ccdc433ea7bb87d90b072960a8ea4567b6dc2b57561aaf4505c8acc3",
+    "report-work-activity/references/evidence.md": "2d86ac9d21c06ce38e267f509c8a0637cb3bdce86a51858daf220b6e87444761",
+    "report-work-activity/references/extraction.md": "5d316f671957063bc02f8036f64a023d42615bb15109fe8543fc8a2a424de41d",
+    "report-work-activity/scripts/activity_report.py": "9364af23f05762d755b898ba99ab463a8825c690f812f7abbe64bbed6f60dc2d",
+    "report-work-activity/scripts/ledger.py": "1bc2a4b70e0b969eef4993e306170b80dbcfe872a90ff7813742194db78a6ea7",
+    "report-work-activity/scripts/period.py": "6ea92b8c767d89b0999a6a4f61b62ae637d25bc560ca17953b125ee986523915",
+    "report-work-activity/scripts/render_report.py": "977586b08846f6275f2432afffc2568021a06139c9bbfcf72300099a8c06543b",
+    "report-work-activity/tests/fixtures.py": "9011eba24b37daa2861a3f23ce2a8a439b9675fef5a571408a2f156266a562a8",
+    "report-work-activity/tests/test_activity_report.py": "6be546a9b5f28a92ddf9293a04993e50cd3d9392ba36598a4699da4d042872fe",
+    "daily-meeting-update/SKILL.md": "620ab5890a49f535a478ec491accf5987207bdb543004f4e6b2eac96a793f5d8",
+    "skills.sh.json": "e72940597604de8d1d16ba77219f393259963dccea843fa4c94206c2dbb8ea71"
+  },
+  "post_review_formatting": "Removed trailing whitespace and the extra final blank line from copied license notices after staged diff --check flagged them. License words and attribution are unchanged; no executable or instruction meaning changed."
+}

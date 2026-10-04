@@ -4120,7 +4120,7 @@
   },
   "repositoryInventory": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "e2c0d00ab34bebe47a8e0353ba01f5348c4874ec",
+    "repositoryCommit": "ea8ccb3f1c3bb21a779a71bebf01c1abf947ea12",
     "scope": "Top-level skill packages present in this working tree. Presence does not prove installation, activation or production validation.",
     "groups": [
       "Instruction authoring",
@@ -4325,10 +4325,10 @@
       {
         "name": "daily-meeting-update",
         "category": "Writing and personal workflows",
-        "summary": "Summarize recent development activity from available project and session evidence.",
+        "summary": "Deprecated explicit old-name alias for report-work-activity; legacy interview and OpenCode digest retired.",
         "path": "daily-meeting-update/SKILL.md",
-        "sha256": "b4fbb864912db81a9f30f84f28505c31bf22efbfb1a72681efcff284c7508cee",
-        "section": "personal"
+        "sha256": "620ab5890a49f535a478ec491accf5987207bdb543004f4e6b2eac96a793f5d8",
+        "section": "report-work-activity"
       },
       {
         "name": "article-processing",
@@ -4377,6 +4377,14 @@
         "path": "handoff/SKILL.md",
         "sha256": "6ffcea0aad01d82e1493543e41c319eccf656d9291de47c4217f115ebd0628b2",
         "section": "handoff"
+      },
+      {
+        "name": "report-work-activity",
+        "category": "Writing and personal workflows",
+        "summary": "Explain activity and current obligations with work/open-source metrics, one Luna extraction per source, and a private HTML evidence bundle.",
+        "path": "report-work-activity/SKILL.md",
+        "sha256": "abb075e96b739a74237bb7286b7f08bb4ef74cd87df1b31f875d81701bb5c96c",
+        "section": "report-work-activity"
       }
     ],
     "pending": [
@@ -4402,7 +4410,8 @@
       "bird"
     ],
     "replacements": {
-      "review-audit": "review-code-changes"
+      "review-audit": "review-code-changes",
+      "daily-meeting-update": "report-work-activity"
     },
     "validationScope": "Package presence, declared names and entrypoint hashes checked. TypeScript has 22 technical compiler/runtime/configuration probes and package validation; independent agent behavior and host activation are not tested. Other skills retain their separate dated evidence. Presence is not installation. CI/CD has separate package, atlas, dual-review and three matched design-case records. Provider execution and implicit activation remain untested. Handoff has independent Astra/Fable Max static reviews, a matched document-creation pair, a non-repository trial and a cold-recipient diagnostic. Supplied context does not establish implicit activation or real cross-host transfer."
   },
@@ -4463,7 +4472,7 @@
         "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
         "url": "https://github.com/mblode/agent-skills/tree/012e6e5208f512151bdea0e2965dafd01ff61340",
         "count": 28,
-        "incorporated": 8,
+        "incorporated": 9,
         "license": "MIT"
       },
       {
@@ -4485,7 +4494,7 @@
         "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
         "url": "https://github.com/EveryInc/compound-engineering-plugin/tree/9af474a70e7f2a844338519ad9e92aafbd92d4fb",
         "count": 36,
-        "incorporated": 7,
+        "incorporated": 8,
         "license": "MIT"
       }
     ],
@@ -7418,11 +7427,11 @@
   },
   "sourceProgress": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "e2c0d00ab34bebe47a8e0353ba01f5348c4874ec",
+    "repositoryCommit": "ea8ccb3f1c3bb21a779a71bebf01c1abf947ea12",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 107,
-      "pending": 51,
+      "ready": 116,
+      "pending": 49,
       "optional": 48,
       "not-selected": 45
     },
@@ -7987,11 +7996,29 @@
         ]
       },
       "Cursor team/what-did-i-get-done": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "report-work-activity"
+        ],
+        "evidence": [
+          {
+            "owner": "report-work-activity",
+            "path": "report-work-activity/origin.txt",
+            "line": 7,
+            "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
+            "sourceId": "cursor-period-summary",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Explicit periods, concise functional summaries and no invented motivations."
+            ],
+            "localChoices": [
+              "Replace commit-only scope and rolling 7–10-day windows with multi-source calendar intervals. A commit does not prove shipment."
+            ]
+          }
+        ],
+        "note": "Selected guidance is incorporated. The upstream skill is not installed or claimed fully adopted."
       },
       "Cursor team/fix-ci": {
         "status": "ready",
@@ -10141,17 +10168,24 @@
       },
       "Local/daily-meeting-update": {
         "status": "ready",
-        "label": "In repository",
+        "label": "In repository · deprecated alias",
         "owners": [
+          "report-work-activity",
           "daily-meeting-update"
         ],
-        "note": "The current repository package exists. Its installed copy and host activation are separate states.",
+        "note": "The replacement and old-name alias are saved here; installation and host activation were not tested.",
         "evidence": [
+          {
+            "owner": "report-work-activity",
+            "path": "report-work-activity/SKILL.md",
+            "line": 1,
+            "sha256": "abb075e96b739a74237bb7286b7f08bb4ef74cd87df1b31f875d81701bb5c96c"
+          },
           {
             "owner": "daily-meeting-update",
             "path": "daily-meeting-update/SKILL.md",
             "line": 1,
-            "sha256": "b4fbb864912db81a9f30f84f28505c31bf22efbfb1a72681efcff284c7508cee"
+            "sha256": "620ab5890a49f535a478ec491accf5987207bdb543004f4e6b2eac96a793f5d8"
           }
         ]
       },
@@ -10419,11 +10453,29 @@
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Matthew Blode/chat-history": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "report-work-activity"
+        ],
+        "evidence": [
+          {
+            "owner": "report-work-activity",
+            "path": "report-work-activity/origin.txt",
+            "line": 37,
+            "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
+            "sourceId": "mblode-chat-history",
+            "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "borrowed": [
+              "Bounded history reads, stable locators, canonical record distinctions, later corrections and explicit partial coverage."
+            ],
+            "localChoices": [
+              "No history adapter is vendored. Host retrieval or an optional installed chat-history skill owns access. Select messages by event time, not only session creation."
+            ]
+          }
+        ],
+        "note": "Selected guidance is incorporated. The upstream skill is not installed or claimed fully adopted."
       },
       "Matthew Blode/ci-speedup": {
         "status": "ready",
@@ -11940,6 +11992,181 @@
         "owners": [],
         "evidence": [],
         "note": "deploy-to-vercel performs a deployment and account/project setup. Its provider-specific lifecycle belongs in a separate specialist."
+      },
+      "Cursor team/weekly-review": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "report-work-activity"
+        ],
+        "evidence": [
+          {
+            "owner": "report-work-activity",
+            "path": "report-work-activity/origin.txt",
+            "line": 7,
+            "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
+            "sourceId": "cursor-period-summary",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Explicit periods, concise functional summaries and no invented motivations."
+            ],
+            "localChoices": [
+              "Replace commit-only scope and rolling 7–10-day windows with multi-source calendar intervals. A commit does not prove shipment."
+            ]
+          }
+        ],
+        "note": "Selected guidance is incorporated. The upstream skill is not installed or claimed fully adopted."
+      },
+      "pstack/why-source-guides": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "report-work-activity"
+        ],
+        "evidence": [
+          {
+            "owner": "report-work-activity",
+            "path": "report-work-activity/origin.txt",
+            "line": 22,
+            "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
+            "sourceId": "pstack-source-context",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Read deciding thread/ticket context and expose retention, private-access and stale-state gaps."
+            ],
+            "localChoices": [
+              "Use sources to establish personal work and current obligations, not to infer code motivation. Retain minimal excerpts rather than universal full-thread quotations."
+            ]
+          }
+        ],
+        "note": "Selected guidance is incorporated. The upstream skill is not installed or claimed fully adopted."
+      },
+      "Compound Engineering/session-history": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "report-work-activity"
+        ],
+        "evidence": [
+          {
+            "owner": "report-work-activity",
+            "path": "report-work-activity/origin.txt",
+            "line": 52,
+            "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
+            "sourceId": "compound-extraction",
+            "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "borrowed": [
+              "Separate cheap metadata collection from bounded child synthesis; retain native IDs, source links, thread context and truncation."
+            ],
+            "localChoices": [
+              "No five-session cap for a complete month; no branch-only scope. All selected sources receive Luna extraction. Primary owns shared output; worker paths are isolated. Remove sweep acknowledgments, writes and received-mail cursor semantics."
+            ]
+          }
+        ],
+        "note": "Selected guidance is incorporated. The upstream skill is not installed or claimed fully adopted."
+      },
+      "Compound Engineering/ce-sweep-source-extraction": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "report-work-activity"
+        ],
+        "evidence": [
+          {
+            "owner": "report-work-activity",
+            "path": "report-work-activity/origin.txt",
+            "line": 52,
+            "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
+            "sourceId": "compound-extraction",
+            "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "borrowed": [
+              "Separate cheap metadata collection from bounded child synthesis; retain native IDs, source links, thread context and truncation."
+            ],
+            "localChoices": [
+              "No five-session cap for a complete month; no branch-only scope. All selected sources receive Luna extraction. Primary owns shared output; worker paths are isolated. Remove sweep acknowledgments, writes and received-mail cursor semantics."
+            ]
+          }
+        ],
+        "note": "Selected guidance is incorporated. The upstream skill is not installed or claimed fully adopted."
+      },
+      "ECC/email-ops": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "report-work-activity"
+        ],
+        "evidence": [
+          {
+            "owner": "report-work-activity",
+            "path": "report-work-activity/origin.txt",
+            "line": 67,
+            "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
+            "sourceId": "ecc-sent-mail",
+            "baselineCommit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "reviewedThrough": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "borrowed": [
+              "Verify sent-copy evidence and read thread context for commitments and deadlines."
+            ],
+            "localChoices": [
+              "Reporting reads sent mail and outstanding requests; no draft/send/triage mutations or brand-voice dependency."
+            ]
+          }
+        ],
+        "note": "Selected guidance is incorporated. The upstream skill is not installed or claimed fully adopted."
+      },
+      "wshobson/on-call-handoff-patterns": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "report-work-activity"
+        ],
+        "evidence": [
+          {
+            "owner": "report-work-activity",
+            "path": "report-work-activity/origin.txt",
+            "line": 82,
+            "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
+            "sourceId": "wshobson-incidents",
+            "baselineCommit": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+            "reviewedThrough": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+            "borrowed": [
+              "Separate active work, resolved incidents, investigations and follow-up actions with source links."
+            ],
+            "localChoices": [
+              "Count personal response/resolution only with actor evidence; no handoff timing ritual, alert test or operational mutation. Details reference inspected at lines 1–115, not claimed fully reviewed."
+            ]
+          }
+        ],
+        "note": "Selected guidance is incorporated. The upstream skill is not installed or claimed fully adopted."
+      },
+      "Superpowers/session-discovery": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "report-work-activity"
+        ],
+        "evidence": [
+          {
+            "owner": "report-work-activity",
+            "path": "report-work-activity/origin.txt",
+            "line": 97,
+            "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
+            "sourceId": "superpowers-session-evidence",
+            "baselineCommit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+            "reviewedThrough": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+            "borrowed": [
+              "Verify session identity, record meanings and source locators; distinguish human messages, injected context and tool outcomes."
+            ],
+            "localChoices": [
+              "Use a period work-report scope, not a harness-diagnosis workflow. Do not require user selection for already identified records."
+            ]
+          }
+        ],
+        "note": "Selected guidance is incorporated. The upstream skill is not installed or claimed fully adopted."
       }
     }
   },
@@ -14458,5 +14685,380 @@
       "historicalResearch": "handoff-source-review.json retains the original pre-implementation recommendation and reading record."
     },
     "validation": "handoff-source-review-validation.json"
+  },
+  "activityReview": {
+    "date": "2026-10-04",
+    "baselineCommit": "f469e701cb62f5c135ecb7fed3806849fdc62c5f",
+    "scope": "This is a repository-wide discovery pass followed by scoped reading, not a claim to have read every repository file or found every possible relevant idea.",
+    "research": "report-work-activity-research.json",
+    "html": "report-work-activity-research.html",
+    "validation": "report-work-activity-validation.json",
+    "example": "work-activity-example/index.html",
+    "skills": [
+      {
+        "id": "cursor-team-weekly-review",
+        "key": "Cursor team/weekly-review",
+        "name": "weekly-review",
+        "declaredName": "weekly-review",
+        "group": "Cursor team",
+        "author": "Cursor team",
+        "kind": "upstream",
+        "path": "cursor-team-kit/skills/weekly-review/SKILL.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/cursor-team-kit/skills/weekly-review/SKILL.md",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "sha256": "b56a2c283916b4551aeb322398ab99a19b4b5d7678ffd7f9c9f3df9fa05f4712",
+        "lines": 32,
+        "category": "Activity reporting",
+        "decision": "Blend",
+        "action": "Selected guidance incorporated",
+        "owner": "report-work-activity",
+        "summary": "Summarize recent engineering work from commits.",
+        "reason": "Retain concise outcome-oriented summaries and explicit dates.",
+        "caution": "Use true calendar weeks when requested, verified aliases and additional sources; commit volume is not delivered impact.",
+        "inspection": "Selected file read; scope and reading depth across all 19 repositories are recorded in the research report.",
+        "references": [
+          {
+            "path": "cursor-team-kit/skills/what-did-i-get-done/SKILL.md",
+            "coverage": "Complete selected reference read",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/cursor-team-kit/skills/what-did-i-get-done/SKILL.md",
+            "sha256": "479813c9abaacb5b6b0531f1de7dc5eb2f3bd9673707a992d1073335836e82f8"
+          }
+        ]
+      },
+      {
+        "id": "pstack-why-source-guides",
+        "key": "pstack/why-source-guides",
+        "name": "why-source-guides",
+        "declaredName": "why-source-guides",
+        "group": "pstack",
+        "author": "Lauren Tan / pstack",
+        "kind": "upstream",
+        "path": "pstack/skills/why/references/sources/slack.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/why/references/sources/slack.md",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "sha256": "58fee61d024b3700b407e7acbed367944720ff05adfddb6954d36c88368f3ba7",
+        "lines": 54,
+        "category": "Activity reporting",
+        "decision": "Blend",
+        "action": "Selected guidance incorporated",
+        "owner": "report-work-activity",
+        "summary": "Read deciding Slack, Linear, Notion and incident context with explicit access gaps.",
+        "reason": "Selected source-navigation guidance supports evidence-backed activity and obligations.",
+        "caution": "This card concerns the source references, not adoption of the whole why workflow or inference of intent.",
+        "inspection": "Selected file read; scope and reading depth across all 19 repositories are recorded in the research report.",
+        "references": [
+          {
+            "path": "pstack/skills/why/references/sources/linear.md",
+            "coverage": "Complete selected reference read",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/why/references/sources/linear.md",
+            "sha256": "01304e7f1badfcfb78babbb0edcadeb3cc8dd3f713793420cdff24ba190f907c"
+          },
+          {
+            "path": "pstack/skills/why/references/sources/notion.md",
+            "coverage": "Complete selected reference read",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/why/references/sources/notion.md",
+            "sha256": "3bcfa695c49dfad4ac036d5d7181c12585f55ac04f1936198d16ab75a2788997"
+          },
+          {
+            "path": "pstack/skills/why/references/sources/incident-postmortem.md",
+            "coverage": "Complete selected reference read",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/why/references/sources/incident-postmortem.md",
+            "sha256": "a899470f05f86029630a13a2696491cc708ca7b56a6e822a69ff6e954d6ff8cf"
+          }
+        ]
+      },
+      {
+        "id": "compound-engineering-session-history",
+        "key": "Compound Engineering/session-history",
+        "name": "session-history",
+        "declaredName": "session-history",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "path": "skills/ce-compound/references/session-history.md",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-compound/references/session-history.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "29789657615387f34221dae6bd3744b74eb727281102db5c4f624c6299d68847",
+        "lines": 70,
+        "category": "Activity reporting",
+        "decision": "Blend",
+        "action": "Selected guidance incorporated",
+        "owner": "report-work-activity",
+        "summary": "Collect cheap session metadata before bounded agent extraction.",
+        "reason": "Keep native locators, concise findings, contradictions and source limits.",
+        "caution": "No five-session or current-branch cap when claiming complete period coverage; no transcript parser is bundled.",
+        "inspection": "Selected file read; scope and reading depth across all 19 repositories are recorded in the research report.",
+        "references": [
+          {
+            "path": "skills/ce-compound/references/agents/session-historian.md",
+            "coverage": "Complete selected reference read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-compound/references/agents/session-historian.md",
+            "sha256": "4b2adbc12d7bd61936c06df0f3867d1065118c3a0ba7080f6a14f24af87fda94"
+          },
+          {
+            "path": "skills/ce-sweep/references/sources/email.md",
+            "coverage": "Complete selected reference read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-sweep/references/sources/email.md",
+            "sha256": "66a85da6be91c3f966270cf163cc1e9fbf6c152235475fbf305db041482b4bf9"
+          },
+          {
+            "path": "skills/ce-sweep/references/sources/slack.md",
+            "coverage": "Complete selected reference read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-sweep/references/sources/slack.md",
+            "sha256": "13d39810247531601b618f69e36062f03f356244089ff252571d8b7fba9df705"
+          }
+        ]
+      },
+      {
+        "id": "compound-engineering-ce-sweep-source-extraction",
+        "key": "Compound Engineering/ce-sweep-source-extraction",
+        "name": "ce-sweep-source-extraction",
+        "declaredName": "ce-sweep-source-extraction",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "path": "skills/ce-sweep/references/sources/email.md",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-sweep/references/sources/email.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "66a85da6be91c3f966270cf163cc1e9fbf6c152235475fbf305db041482b4bf9",
+        "lines": 57,
+        "category": "Activity reporting",
+        "decision": "Blend",
+        "action": "Selected guidance incorporated",
+        "owner": "report-work-activity",
+        "summary": "Extract relevant email and Slack context using source identities and threads.",
+        "reason": "Reuse selected read and evidence decisions for sent mail and outstanding requests.",
+        "caution": "Exclude sweep acknowledgments, source mutations and received-mail cursor assumptions.",
+        "inspection": "Selected file read; scope and reading depth across all 19 repositories are recorded in the research report.",
+        "references": [
+          {
+            "path": "skills/ce-compound/references/session-history.md",
+            "coverage": "Complete selected reference read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-compound/references/session-history.md",
+            "sha256": "29789657615387f34221dae6bd3744b74eb727281102db5c4f624c6299d68847"
+          },
+          {
+            "path": "skills/ce-compound/references/agents/session-historian.md",
+            "coverage": "Complete selected reference read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-compound/references/agents/session-historian.md",
+            "sha256": "4b2adbc12d7bd61936c06df0f3867d1065118c3a0ba7080f6a14f24af87fda94"
+          },
+          {
+            "path": "skills/ce-sweep/references/sources/slack.md",
+            "coverage": "Complete selected reference read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-sweep/references/sources/slack.md",
+            "sha256": "13d39810247531601b618f69e36062f03f356244089ff252571d8b7fba9df705"
+          }
+        ]
+      },
+      {
+        "id": "ecc-email-ops",
+        "key": "ECC/email-ops",
+        "name": "email-ops",
+        "declaredName": "email-ops",
+        "group": "ECC",
+        "author": "affaan-m / ECC",
+        "kind": "upstream",
+        "path": "skills/email-ops/SKILL.md",
+        "repository": "https://github.com/affaan-m/ECC",
+        "source": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/email-ops/SKILL.md",
+        "sha": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "sha256": "188b226ec0dfd4304d6c9b60498b5f0dc2b3c97b14e159e5bde5db323ad45721",
+        "lines": 133,
+        "category": "Activity reporting",
+        "decision": "Blend",
+        "action": "Selected guidance incorporated",
+        "owner": "report-work-activity",
+        "summary": "Inspect sent-copy evidence and thread context for commitments.",
+        "reason": "Distinguish sent messages, drafts, incoming quotations and unresolved promises.",
+        "caution": "Reporting does not send, draft, label or triage messages.",
+        "inspection": "Selected file read; scope and reading depth across all 19 repositories are recorded in the research report.",
+        "references": []
+      },
+      {
+        "id": "wshobson-on-call-handoff-patterns",
+        "key": "wshobson/on-call-handoff-patterns",
+        "name": "on-call-handoff-patterns",
+        "declaredName": "on-call-handoff-patterns",
+        "group": "wshobson",
+        "author": "Seth Hobson / wshobson",
+        "kind": "upstream",
+        "path": "plugins/incident-response/skills/on-call-handoff-patterns/SKILL.md",
+        "repository": "https://github.com/wshobson/agents",
+        "source": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/incident-response/skills/on-call-handoff-patterns/SKILL.md",
+        "sha": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+        "sha256": "46d03bf3a2922e77d0393dc6c0f0342056a25af15bee7c7523b0adc6d1e5d49e",
+        "lines": 70,
+        "category": "Activity reporting",
+        "decision": "Blend",
+        "action": "Selected guidance incorporated",
+        "owner": "report-work-activity",
+        "summary": "Separate active incidents, completed response and follow-up actions.",
+        "reason": "Use incident timelines and linked action items to explain personal response.",
+        "caution": "Being on call or assigned does not prove response or resolution; detailed reference read only through line 115.",
+        "inspection": "Selected file read; scope and reading depth across all 19 repositories are recorded in the research report.",
+        "references": [
+          {
+            "path": "plugins/incident-response/skills/on-call-handoff-patterns/references/details.md",
+            "coverage": "Bounded read: lines 1–115 only",
+            "url": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/incident-response/skills/on-call-handoff-patterns/references/details.md",
+            "sha256": "7270323f269f96af621686db8ac558315b5c5ff42cd719866070d8aabc9827ff"
+          }
+        ]
+      },
+      {
+        "id": "superpowers-session-discovery",
+        "key": "Superpowers/session-discovery",
+        "name": "session-discovery",
+        "declaredName": "session-discovery",
+        "group": "Superpowers",
+        "author": "Jesse Vincent / obra",
+        "kind": "upstream",
+        "path": "skills/diagnosing-superpowers/references/session-discovery.md",
+        "repository": "https://github.com/obra/superpowers",
+        "source": "https://github.com/obra/superpowers/blob/8ca22dba9a94f28898bbce59f2537ff4d87c747d/skills/diagnosing-superpowers/references/session-discovery.md",
+        "sha": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+        "sha256": "6d1dced083e5d978448a78df298cf515531b0eb39b2854a4a2afbffeb69a7435",
+        "lines": 31,
+        "category": "Activity reporting",
+        "decision": "Blend",
+        "action": "Selected guidance incorporated",
+        "owner": "report-work-activity",
+        "summary": "Confirm session identities, record types and source locators.",
+        "reason": "Distinguish human work, injected context and actual tool outcomes.",
+        "caution": "Select messages by action time; a recent session or assistant completion claim is not proof of finished work.",
+        "inspection": "Selected file read; scope and reading depth across all 19 repositories are recorded in the research report.",
+        "references": []
+      }
+    ],
+    "assessments": [
+      {
+        "id": "cursor-team-what-did-i-get-done",
+        "key": "Cursor team/what-did-i-get-done",
+        "name": "what-did-i-get-done",
+        "declaredName": "what-did-i-get-done",
+        "group": "Cursor team",
+        "author": "Cursor team",
+        "kind": "upstream",
+        "path": "cursor-team-kit/skills/what-did-i-get-done/SKILL.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/cursor-team-kit/skills/what-did-i-get-done/SKILL.md",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "sha256": "479813c9abaacb5b6b0531f1de7dc5eb2f3bd9673707a992d1073335836e82f8",
+        "lines": 31,
+        "category": "Activity reporting",
+        "decision": "Blend",
+        "action": "Selected guidance incorporated",
+        "owner": "report-work-activity",
+        "summary": "Explain a defined period of work concisely from observed evidence.",
+        "reason": "Its concise functional summary becomes one part of report-work-activity, extended with source workers, metrics and retained HTML evidence.",
+        "caution": "The original current-repository/current-email commit scope cannot establish multi-source activity or deployment.",
+        "inspection": "Selected file read; scope and reading depth across all 19 repositories are recorded in the research report.",
+        "references": [
+          {
+            "path": "cursor-team-kit/skills/weekly-review/SKILL.md",
+            "coverage": "Complete selected reference read",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/cursor-team-kit/skills/weekly-review/SKILL.md",
+            "sha256": "b56a2c283916b4551aeb322398ab99a19b4b5d7678ffd7f9c9f3df9fa05f4712"
+          }
+        ]
+      },
+      {
+        "id": "matthew-blode-chat-history",
+        "key": "Matthew Blode/chat-history",
+        "name": "chat-history",
+        "declaredName": "chat-history",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "path": "skills/chat-history/SKILL.md",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/chat-history/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "acbf609166dc37a2b8ea8260f47159550e56f3677a015f5cca83cf402d6abfce",
+        "lines": 49,
+        "category": "Activity reporting",
+        "decision": "Blend",
+        "action": "Selected guidance incorporated",
+        "owner": "report-work-activity",
+        "summary": "Retrieve bounded local agent history with stable locators and later corrections.",
+        "reason": "Selected evidence and retrieval guidance is incorporated; the original skill remains an optional retrieval specialist when installed.",
+        "caution": "No adapter is vendored or installed here. Prefer native host history and verify actual local schemas and message times.",
+        "inspection": "Selected file read; scope and reading depth across all 19 repositories are recorded in the research report.",
+        "references": [
+          {
+            "path": "skills/chat-history/references/sources.md",
+            "coverage": "Complete selected reference read",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/chat-history/references/sources.md",
+            "sha256": "a8554f6cef8733d301de4a843226ed556b279985c08b38b3ed1920b43b04aabb"
+          },
+          {
+            "path": "skills/chat-history/references/verification.md",
+            "coverage": "Complete selected reference read",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/chat-history/references/verification.md",
+            "sha256": "b7cc3e8abe8834741fbaa573a9a695738f3c9eae8bcc6981ad4b821910a252b3"
+          }
+        ]
+      },
+      {
+        "id": "local-daily-meeting-update",
+        "key": "Local/daily-meeting-update",
+        "name": "daily-meeting-update",
+        "declaredName": "daily-meeting-update",
+        "group": "Local",
+        "author": "Luis Urrutia",
+        "kind": "personal",
+        "path": "daily-meeting-update/SKILL.md",
+        "source": "report-work-activity-research.html#deprecation",
+        "sha": null,
+        "sha256": "620ab5890a49f535a478ec491accf5987207bdb543004f4e6b2eac96a793f5d8",
+        "lines": 15,
+        "category": "Activity reporting",
+        "decision": "Keep",
+        "owner": "report-work-activity",
+        "summary": "Deprecated old name routes explicitly to report-work-activity.",
+        "reason": "One replacement covers period activity, metrics, retained evidence and current obligations without the old standup interview.",
+        "caution": "The legacy OpenCode digest is retired. Missing replacement is reported explicitly; repository presence does not prove installation.",
+        "action": "Deprecated alias retained",
+        "inspection": "Current alias read and validated; historical snapshot retained below.",
+        "references": []
+      }
+    ],
+    "donorFeeds": 7,
+    "contract": "One Luna worker per available source/workstream; primary verification and synthesis; deterministic periods, counting, deduplication and private offline HTML.",
+    "consultation": {
+      "astra": {
+        "provider": "codex",
+        "model": "gpt-6-astra",
+        "effort": "max",
+        "design_task": "/root/activity_design_astra"
+      },
+      "fable": {
+        "provider": "claudeAgent",
+        "model": "claude-fable-5-1",
+        "effort": "xhigh",
+        "effort_reason": "Explicit user request overrides the general Fable Max authoring default.",
+        "design_task_id": "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-design-fable-xhigh-20261004-r1",
+        "candidate_task_ids": [
+          "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r2",
+          "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r3",
+          "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r4",
+          "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r5"
+        ]
+      },
+      "status": "Design and affected candidate findings reconciled; both final consultation profiles completed.",
+      "validation_record": "report-work-activity-validation.json"
+    },
+    "validationSummary": {
+      "helperTests": 24,
+      "broaderSmokeTests": 11,
+      "lunaTrials": 3,
+      "privateDataQueried": false,
+      "hostInstalled": false
+    }
   }
 }

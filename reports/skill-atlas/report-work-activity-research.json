@@ -1,0 +1,1020 @@
+{
+  "date": "2026-10-04",
+  "skill": "report-work-activity",
+  "baseline_commit": "f469e701cb62f5c135ecb7fed3806849fdc62c5f",
+  "user_contract": "One HTML report of activity during a requested period, with work/open-source narratives, work totals and per-repository metrics, incidents, collaboration, sent mail, meetings, agent conversations and current obligations. Use Codex Luna per available source/workstream and retain detailed evidence for follow-up.",
+  "decision": {
+    "approach": "Derived orchestrator with deterministic reporting helpers; existing MCP/CLI tools own retrieval.",
+    "one_skill_reason": "Historical activity and current obligations reuse identities, source collection and retained evidence; separate their time contracts, not their entrypoints.",
+    "deprecated": "daily-meeting-update remains a short explicit name-based migration alias. Its unused creation-time OpenCode helper and tests are retired.",
+    "not_a_live_report": "No private accounts, messages, tickets, calendars or histories were queried for this authoring task. HTML examples and behavioral trials use synthetic data."
+  },
+  "method": {
+    "acquisition": "All 19 repositories shallow-cloned over SSH at the recorded refs; full tracked-path inventories verified.",
+    "screening": "Full tracked-path screen plus rg over instruction/docs text, then focused reads across source skills, commands, agents, references, connector docs and selected history implementation. Mirrored/translations/benchmarks are not independent sources.",
+    "limitation": "This is a repository-wide discovery pass followed by scoped reading, not a claim to have read every repository file or found every possible relevant idea.",
+    "focused_records": 64,
+    "raw_extraction_note": "The assessments field retains progressive worker findings, including early caveats superseded by later reads. current_assessments below is the final repository-level synthesis."
+  },
+  "repositories": [
+    {
+      "id": "cursor",
+      "repository": "cursor/plugins",
+      "ref": "main",
+      "remote": "git@github.com:cursor/plugins.git",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "trackedFiles": 890,
+      "textFiles": 408,
+      "matchingFiles": 21
+    },
+    {
+      "id": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "main",
+      "remote": "git@github.com:mattpocock/skills.git",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "trackedFiles": 172,
+      "textFiles": 120,
+      "matchingFiles": 4
+    },
+    {
+      "id": "humanlayer",
+      "repository": "humanlayer/skills",
+      "ref": "main",
+      "remote": "git@github.com:humanlayer/skills.git",
+      "commit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+      "trackedFiles": 41,
+      "textFiles": 26,
+      "matchingFiles": 0
+    },
+    {
+      "id": "anthropic",
+      "repository": "anthropics/skills",
+      "ref": "main",
+      "remote": "git@github.com:anthropics/skills.git",
+      "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "trackedFiles": 430,
+      "textFiles": 169,
+      "matchingFiles": 9
+    },
+    {
+      "id": "addy",
+      "repository": "addyosmani/agent-skills",
+      "ref": "main",
+      "remote": "git@github.com:addyosmani/agent-skills.git",
+      "commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+      "trackedFiles": 210,
+      "textFiles": 107,
+      "matchingFiles": 5
+    },
+    {
+      "id": "vercel",
+      "repository": "vercel-labs/agent-skills",
+      "ref": "main",
+      "remote": "git@github.com:vercel-labs/agent-skills.git",
+      "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "trackedFiles": 447,
+      "textFiles": 212,
+      "matchingFiles": 2
+    },
+    {
+      "id": "ecc",
+      "repository": "affaan-m/ECC",
+      "ref": "main",
+      "remote": "git@github.com:affaan-m/ECC.git",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "trackedFiles": 4212,
+      "textFiles": 2824,
+      "matchingFiles": 71
+    },
+    {
+      "id": "superpowers",
+      "repository": "obra/superpowers",
+      "ref": "main",
+      "remote": "git@github.com:obra/superpowers.git",
+      "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "trackedFiles": 229,
+      "textFiles": 126,
+      "matchingFiles": 10
+    },
+    {
+      "id": "gsd",
+      "repository": "gsd-build/gsd-2",
+      "ref": "main",
+      "remote": "git@github.com:gsd-build/gsd-2.git",
+      "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "trackedFiles": 3613,
+      "textFiles": 757,
+      "matchingFiles": 33
+    },
+    {
+      "id": "compound",
+      "repository": "EveryInc/compound-engineering-plugin",
+      "ref": "main",
+      "remote": "git@github.com:EveryInc/compound-engineering-plugin.git",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "trackedFiles": 1452,
+      "textFiles": 839,
+      "matchingFiles": 98
+    },
+    {
+      "id": "mblode",
+      "repository": "mblode/agent-skills",
+      "ref": "main",
+      "remote": "git@github.com:mblode/agent-skills.git",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "trackedFiles": 553,
+      "textFiles": 462,
+      "matchingFiles": 17
+    },
+    {
+      "id": "gh",
+      "repository": "cli/cli",
+      "ref": "trunk",
+      "remote": "git@github.com:cli/cli.git",
+      "commit": "6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+      "trackedFiles": 1493,
+      "textFiles": 83,
+      "matchingFiles": 7
+    },
+    {
+      "id": "wshobson",
+      "repository": "wshobson/agents",
+      "ref": "main",
+      "remote": "git@github.com:wshobson/agents.git",
+      "commit": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+      "trackedFiles": 1191,
+      "textFiles": 783,
+      "matchingFiles": 68
+    },
+    {
+      "id": "mkosir",
+      "repository": "mkosir/typescript-style-guide",
+      "ref": "main",
+      "remote": "git@github.com:mkosir/typescript-style-guide.git",
+      "commit": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+      "trackedFiles": 62,
+      "textFiles": 21,
+      "matchingFiles": 2
+    },
+    {
+      "id": "standard",
+      "repository": "HoangNguyen0403/agent-skills-standard",
+      "ref": "develop",
+      "remote": "git@github.com:HoangNguyen0403/agent-skills-standard.git",
+      "commit": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+      "trackedFiles": 9918,
+      "textFiles": 8524,
+      "matchingFiles": 223
+    },
+    {
+      "id": "lobe",
+      "repository": "lobehub/lobehub",
+      "ref": "canary",
+      "remote": "git@github.com:lobehub/lobehub.git",
+      "commit": "5fca09855b45f0286576bde1fdaaf03242eb183b",
+      "trackedFiles": 18098,
+      "textFiles": 856,
+      "matchingFiles": 41
+    },
+    {
+      "id": "jeffallan",
+      "repository": "Jeffallan/claude-skills",
+      "ref": "main",
+      "remote": "git@github.com:Jeffallan/claude-skills.git",
+      "commit": "1be15d8064f88fc25216442406d40add8fd23b53",
+      "trackedFiles": 567,
+      "textFiles": 508,
+      "matchingFiles": 50
+    },
+    {
+      "id": "sentimony",
+      "repository": "sentimony/skills",
+      "ref": "main",
+      "remote": "git@github.com:sentimony/skills.git",
+      "commit": "e7ee0fff668e9ebd74a279635f1d04e66446eeec",
+      "trackedFiles": 240,
+      "textFiles": 137,
+      "matchingFiles": 10
+    },
+    {
+      "id": "alleneubank",
+      "repository": "alleneubank/agent-profile",
+      "ref": "main",
+      "remote": "git@github.com:alleneubank/agent-profile.git",
+      "commit": "5165b1f1122a4fa888347c6046d10593033748e8",
+      "trackedFiles": 117,
+      "textFiles": 89,
+      "matchingFiles": 5
+    }
+  ],
+  "assessments": {
+    "scope": "Bounded first-pass source extraction. Read design-brief.md and inspected all 19 repository inventory files (tracked paths plus keyword matches). The inventory hits below are discovery signals, not proof of document contents. Fully read the explicitly listed files where stated; otherwise only path/surface screening or targeted heading/keyword scans are claimed. No upstream scripts or private activity were run/read.",
+    "repositories": [
+      {
+        "id": "cursor",
+        "decision": "High value for broad activity inputs and evidence discipline, with important coverage/identity limits.",
+        "read": [
+          {
+            "path": "cursor-team-kit/skills/what-did-i-get-done/SKILL.md",
+            "depth": "full (31 lines)",
+            "evidence": "14-18 resolves date window and reads commits by current git email; 20-25 requires concise functional claims without inferred intent."
+          },
+          {
+            "path": "cursor-team-kit/skills/weekly-review/SKILL.md",
+            "depth": "full (32 lines)",
+            "evidence": "14-21 reads last 7-10 days of authored commits and labels work as likely bugfix/tech-debt/new work; 26-27 hard-gates missing git email."
+          },
+          {
+            "path": "pstack/skills/why/references/sources/notion.md",
+            "depth": "full (55 lines)",
+            "evidence": "16-29 searches and fetches full Notion docs, backlinks and databases; 39-46 warns of draft/reality drift and inaccessible pages."
+          },
+          {
+            "path": "pstack/skills/why/references/sources/incident-postmortem.md",
+            "depth": "full (15 lines)",
+            "evidence": "3-15 treats incidents as cross-source context, linking incident tickets, chat, git, Datadog, Sentry and postmortem action items."
+          },
+          {
+            "path": "pstack/skills/why/references/epistemics.md",
+            "depth": "full (144 lines)",
+            "evidence": "7-59 calibrated evidence tiers; 112-144 contradictions and explicit gaps."
+          }
+        ],
+        "borrow": "Date resolution, high-signal filtering, full-page retrieval, source contradiction/gap reporting and calibrated claims.",
+        "exclude_or_caveat": "Commit-only model misses PRs/reviews, docs, chat, assignments, incidents and obligations. The weekly 7-10 day rolling period conflicts with true previous calendar week. Current git email alone is a weak cross-system identity resolver. Incident-postmortem doc is designed to infer code motivation, so adapt it for work-event inclusion rather than adopting causal inference.",
+        "additional_read": [
+          {
+            "path": "third_party/gmail/README.md",
+            "depth": "full (40 lines)",
+            "evidence": "3-5 describes Gmail search/read/labels/drafts; 15-28 MCP endpoint and OAuth setup.",
+            "borrow": "Confirms plugin connector surface exists, not that a particular user has it connected or mail access."
+          },
+          {
+            "path": "third_party/outlook/README.md",
+            "depth": "full (40 lines)",
+            "evidence": "3-5 describes Outlook folder search/read/send/contact lookup; 15-28 MCP endpoint and OAuth.",
+            "borrow": "Provider presence is not authenticated availability; read-only reporting should avoid the listed send action."
+          },
+          {
+            "path": "third_party/google-calendar/README.md",
+            "depth": "full (40 lines)",
+            "evidence": "3-5 supports list/search/inspect events; 15-28 MCP endpoint and OAuth.",
+            "borrow": "Calendar events are not proof of work attended or completed."
+          },
+          {
+            "path": "third_party/outlook-calendar/README.md",
+            "depth": "full (39 lines)",
+            "evidence": "3-5 lists upcoming events/schedules and meeting changes; 15-28 MCP endpoint and OAuth.",
+            "borrow": "Same availability/attendance caveat."
+          },
+          {
+            "path": "pstack/skills/why/references/sources/slack.md",
+            "depth": "full (54 lines)",
+            "evidence": "14-28 recommends bounded author/topic/PR searches and full-thread reads; 38-54 calls out retention/DM/auth gaps and keeps permalink, participants, dates.",
+            "borrow": "Use links and thread context; do not copy exact quotes unless needed. This is code-motivation research, so author-bounded search should not be the sole activity collector."
+          },
+          {
+            "path": "pstack/skills/why/references/sources/linear.md",
+            "depth": "full (48 lines)",
+            "evidence": "15-23 follows linked issues, parent tree, docs, labels and milestones; 33-48 warns about scope drift, stale/duplicate/private tickets and records lifecycle dates.",
+            "borrow": "Useful source navigation and caveats; not a contribution attribution algorithm."
+          }
+        ]
+      },
+      {
+        "id": "compound",
+        "decision": "Strong session-extraction mechanics, not a period activity architecture.",
+        "read": [
+          {
+            "path": "skills/ce-compound/references/session-history.md",
+            "depth": "full (70 lines)",
+            "evidence": "10-34 bounded discovery/extraction and output contract; 36-48 cheap metadata pass and relevance threshold; 50-70 extracted scratch artifacts and fallback."
+          },
+          {
+            "path": "skills/ce-compound/references/agents/session-historian.md",
+            "depth": "full (83 lines)",
+            "evidence": "7-26 explicit input contract and empty-input behavior; 31-56 source-data restrictions, summarize rather than reproduce tool IO, evidence/staleness/cross-tool checks; 58-77 provenance header and structured synthesis."
+          },
+          {
+            "path": "skills/ce-compound/references/report.md",
+            "depth": "targeted lines 1-115",
+            "evidence": "structured terminal reporting and path-based outputs; unrelated completion-report workflow."
+          }
+        ],
+        "borrow": "Separate deterministic discovery/metadata from bounded model synthesis; cap sessions; pass extracted evidence rather than raw transcripts; preserve artifact path and inline fallback; summarize chats instead of quoting tool traffic; state provenance and staleness.",
+        "exclude_or_caveat": "Topic relevance/branch filter and five-session cap are wrong for comprehensive arbitrary-period work reporting. The skill-history workflow only searches coding agents and emphasizes technical problem journey, not all work or obligations.",
+        "additional_read": [
+          {
+            "path": "skills/ce-sweep/references/sources/email.md",
+            "depth": "full (57 lines)",
+            "evidence": "1-26 defines read-only fact extraction, stable RFC 822 Message-ID, provider permalink, author class and over-inclusive source item mapping; 40-57 specifies received-time cursor, dedup and untrusted content.",
+            "borrow": "Borrow source-specific IDs, origin links, availability gap, truncation flag, and read-only posture.",
+            "ruled_out_or_caveat": "Feedback-sweep schema and acknowledgements are unrelated product logic; source instructs running MCP discovery, which is not permission to do so here."
+          },
+          {
+            "path": "skills/ce-sweep/references/sources/slack.md",
+            "depth": "full (61 lines)",
+            "evidence": "1-25 maps Slack ts/permalink, thread parent context and reactions; 27-47 separates read vs write capability, fetch cursor and truncation; 49-61 treats content as data and bars message/post actions.",
+            "borrow": "Borrow stable IDs, permalink, thread context, capability gaps and fetch caps.",
+            "ruled_out_or_caveat": "Acknowledgment reaction/write dependency belongs to sweep; reporting should use read-only path."
+          },
+          {
+            "path": "skills/ce-brainstorm/references/agents/slack-researcher.md",
+            "depth": "targeted lines 1-100 of 127",
+            "evidence": "15-19 interprets decision arc/thread context; 23-61 availability/search conditions; 67-75 thread reads; 92-100 thread as semantic unit and digest shape.",
+            "borrow": "Thread-level grouping is useful for meeting/chat contribution summaries.",
+            "ruled_out_or_caveat": "Author stresses decisions and organizational knowledge rather than user activity; heuristics such as silence-as-consent are too speculative for commitments attribution."
+          },
+          {
+            "path": "skills/ce-plan/references/agents/slack-researcher.md",
+            "depth": "targeted lines 1-19; remainder not reviewed",
+            "evidence": "1-19 duplicates commitment-arc/thread rules from brainstorm variant.",
+            "borrow": "No independent additional borrowing.",
+            "ruled_out_or_caveat": "Not fully read; near-duplicate agent file and plan-specific purpose."
+          },
+          {
+            "path": "skills/ce-handoff/SKILL.md",
+            "depth": "targeted lines 1-54 of 60",
+            "evidence": "9-28 pointer-first handoff and references, redaction; 38-54 metadata-only candidate discovery, source attribution, untrusted body and required user choice.",
+            "borrow": "Handoff record demonstrates summary-as-secondary-source risk and attribution guardrail.",
+            "ruled_out_or_caveat": "A resumed handoff requires user selection and is not a general historical source collector."
+          }
+        ]
+      },
+      {
+        "id": "mblode",
+        "decision": "Best direct guidance for safe, verifiable agent chat-history extraction.",
+        "read": [
+          {
+            "path": "skills/chat-history/SKILL.md",
+            "depth": "inventory match; contents not read in this pass",
+            "evidence": "Path itself is a source-specific chat-history skill; no content claims made.",
+            "coordinator_read": "Complete file read after the initial Luna screen"
+          },
+          {
+            "path": "skills/chat-history/references/verification.md",
+            "depth": "inventory match; contents not read in this pass",
+            "evidence": "Named verification reference; no content claims made.",
+            "coordinator_read": "Complete file read after the initial Luna screen"
+          },
+          {
+            "path": "skills/chat-history/references/sources.md",
+            "depth": "inventory match; contents not read in this pass",
+            "evidence": "Named source reference; no content claims made.",
+            "coordinator_read": "Complete file read after the initial Luna screen"
+          },
+          {
+            "path": "maintenance/sources/chat-history.md",
+            "depth": "inventory match; contents not read in this pass",
+            "evidence": "Maintenance/source entry; no content claims made."
+          }
+        ],
+        "borrow": "Prioritize these for a subsequent focused read; likely source inventory and validation are directly relevant, but this is an unverified relevance judgment from path names only.",
+        "exclude_or_caveat": "No semantic recommendation beyond candidate prioritization; do not conflate file-path matches with reviewed guidance.",
+        "coordinator_read_note": "Coordinator reports full reads of skills/chat-history/SKILL.md and references/verification.md and sources.md. This agent did not independently re-read them; initial report correctly marked them path-only."
+      },
+      {
+        "id": "wshobson",
+        "decision": "Useful incident shift handoff structure and standup candidate; incident material is adjacent, not an activity aggregator.",
+        "read": [
+          {
+            "path": "plugins/team-collaboration/commands/standup-notes.md",
+            "depth": "inventory match; contents not read in this pass",
+            "evidence": "Path is a standup-note command; no content claims made."
+          },
+          {
+            "path": "plugins/incident-response/skills/on-call-handoff-patterns/SKILL.md",
+            "depth": "targeted heading and keyword scan",
+            "evidence": "6-16 covers shift handoffs; 21-31 handoff components; 52-70 omissions, storage and related incident documentation."
+          },
+          {
+            "path": "plugins/incident-response/skills/on-call-handoff-patterns/references/details.md",
+            "depth": "targeted heading and keyword scan",
+            "evidence": "16-82 active/ongoing/resolved incident sections and follow-up tickets; 86-124 recent changes, issues and upcoming events; 174-195 checklists and quick template; 221+ mid-incident template."
+          },
+          {
+            "path": "plugins/incident-response/skills/postmortem-writing/SKILL.md",
+            "depth": "inventory match; contents not read in this pass",
+            "evidence": "Candidate path only."
+          }
+        ],
+        "borrow": "Separate active, resolved-this-period, ongoing and follow-up work; link incidents to tickets; carry owner, state, recent changes and upcoming commitments in handoff details.",
+        "exclude_or_caveat": "On-call handoff intentionally transfers operational state across shifts; its timestamps and sections should not be treated as proof of the user's personal contribution without actor-linked evidence.",
+        "additional_read": [
+          {
+            "path": "plugins/incident-response/skills/on-call-handoff-patterns/references/details.md",
+            "depth": "targeted headings/keyword scan",
+            "evidence": "16-82 separates active, ongoing, resolved this shift; 86-124 recent changes and upcoming events; 174-195 handoff checklist.",
+            "borrow": "Already captured in primary read; confirms source sections.",
+            "ruled_out_or_caveat": "Only headings/snippets, not complete document read."
+          }
+        ]
+      },
+      {
+        "id": "standard",
+        "decision": "Strong generic evidence-log and gap hygiene, but retrospective domain is agent-skill maintenance.",
+        "read": [
+          {
+            "path": "skills/common/common-session-retrospective/SKILL.md",
+            "depth": "targeted lines 1-72",
+            "evidence": "38-44 calls for evidence-linked proposals, evaluation and independent review; 52-55 cite specifics, minimize/redact data, task scope."
+          },
+          {
+            "path": "skills/common/common-session-retrospective/references/methodology.md",
+            "depth": "targeted lines 1-46",
+            "evidence": "17-28 records evidence refs and source revisions, labels missing proof rather than inferring, uses append-only state; 44-46 reports gaps and next action."
+          }
+        ],
+        "borrow": "Keep source references and source revision/freshness, represent missing proof explicitly, and distinguish proposed work from completed work.",
+        "exclude_or_caveat": "Do not port skill promotion/evaluation ceremony or assume every work report needs approval. Inventories contain hundreds of benchmark/eval artifacts; these are not independent activity guidance.",
+        "additional_read": [
+          {
+            "path": ".codex/skills/session-report/SKILL.md",
+            "depth": "full (84 lines)",
+            "evidence": "29-45 captures goal, changed files, commands, MCP calls, evidence, follow-up owners; 47-54 has session evidence precondition; 56-84 detailed output/evidence fields.",
+            "borrow": "Good per-session completion record: evidence, missing evidence, owners, risk and follow-up.",
+            "ruled_out_or_caveat": "Only current-session completion, not a historical multi-source period collector; cost/model metadata is optional and not a work metric."
+          },
+          {
+            "path": ".agents/workflows/session-report.md",
+            "depth": "full (66 lines)",
+            "evidence": "11-27 collects session facts and evidence, follow-up owners and persists JSON artifact; 29-36 explicit session evidence requirement and payload.",
+            "borrow": "Supports compact structured artifacts and follow-up ownership.",
+            "ruled_out_or_caveat": "Duplicates same session-report pattern, not separate independent evidence."
+          },
+          {
+            "path": ".codex/skills/incident-hotfix/SKILL.md",
+            "depth": "full (81 lines)",
+            "evidence": "29-44 mitigation/stabilization timestamp, owner and evidence; post-fix route; 46-51 signal and mitigation evidence.",
+            "borrow": "Incident summary can distinguish mitigation, stabilization, permanent remediation and ownership/time.",
+            "ruled_out_or_caveat": "Live incident operation instructions are outside retrospective reporting scope."
+          }
+        ]
+      },
+      {
+        "id": "matt",
+        "decision": "Useful caution on session narratives, weak fit to work reporting.",
+        "read": [
+          {
+            "path": "skills/engineering/retro/SKILL.md",
+            "depth": "targeted lines 1-40",
+            "evidence": "18-27 classifies fixes into deterministic guardrails vs judgment rules."
+          },
+          {
+            "path": "docs/engineering/retro.md",
+            "depth": "targeted lines 1-68",
+            "evidence": "1-4 describes session-only coding environment retro; 43 warns summaries may forget mid-session struggles and invent generic advice, requiring each claim to trace to a session moment."
+          }
+        ],
+        "borrow": "For agent conversations, ensure summaries point to specific captured moments and resist generic filler.",
+        "exclude_or_caveat": "Engineering environment retrospective analyzes agent mistakes to improve future runs; it does not report the user's multi-source work.",
+        "additional_read": [
+          {
+            "path": "skills/productivity/handoff/SKILL.md",
+            "depth": "full (16 lines)",
+            "evidence": "8-14 summarizes current conversation, links existing artifacts, redacts PII.",
+            "borrow": "Summary should link rather than duplicate authoritative source artifacts.",
+            "ruled_out_or_caveat": "Handoff does not attempt period coverage or independent fact-checking."
+          },
+          {
+            "path": "docs/productivity/handoff.md",
+            "depth": "full (76 lines)",
+            "evidence": "30-48 distinguishes live thread from durable artifacts, calls summary secondary to primary conversation and warns about ephemeral temp links; 59-60 flags assumed facts becoming false premises.",
+            "borrow": "Keep primary-source references and verify claims before promoting summaries; output package must not rely on expiring scratch paths.",
+            "ruled_out_or_caveat": "Only handoff design, not historical reporting."
+          }
+        ]
+      },
+      {
+        "id": "jeffallan",
+        "decision": "Useful incident timeline and action-item structures; Atlassian examples include an actionable assignment shape.",
+        "read": [
+          {
+            "path": "skills/devops-engineer/references/incident-response.md",
+            "depth": "targeted headings and lines 1-123",
+            "evidence": "84-123 postmortem template with UTC timeline, impact, action items, lessons; incident-response and evidence collection context."
+          },
+          {
+            "path": "skills/atlassian-mcp/references/common-workflows.md",
+            "depth": "targeted headings/keyword scan",
+            "evidence": "262-364 meeting-note sync parses checkbox action items, can create Jira tasks with source-page links and assignees."
+          },
+          {
+            "path": "commands/project/retrospectives/complete-sprint.md",
+            "depth": "targeted headings/keyword scan",
+            "evidence": "31-56 context retrieval; 83-109 completion reports, planned/completed points and follow-up tickets; 242+ incidents and report structure."
+          }
+        ],
+        "borrow": "Incidents need timeline, impact, outcome and linked action items; meeting notes can yield commitments only when a recognizable assigned action exists and source link survives.",
+        "exclude_or_caveat": "Jira task creation in the source is an operational mutation; the report should read evidence only. Sprint-specific points/ceremony need not apply to arbitrary periods."
+      },
+      {
+        "id": "lobe",
+        "decision": "Minimal directly relevant precedent for personalized daily brief and retained agent documents.",
+        "read": [
+          {
+            "path": "docs/changelog/2026-04-20-daily-brief.mdx",
+            "depth": "targeted lines 1-33",
+            "evidence": "15-24 describes homepage personalized summary across agents and task filters."
+          },
+          {
+            "path": "docs/usage/agent/agent-documents.mdx",
+            "depth": "targeted headings/lines 1-54",
+            "evidence": "10-18 agent-created notes/reports can be agent-level or topic-linked; 24+ describes find/create/update."
+          },
+          {
+            "path": "docs/usage/agent/agent-team.mdx",
+            "depth": "targeted headings/keyword scan",
+            "evidence": "28-45 collaboration modes and orchestrator summarization; 105+ handoff points."
+          }
+        ],
+        "borrow": "A personalized brief with a durable follow-up document is a familiar interaction shape.",
+        "exclude_or_caveat": "Lobe docs describe product features, not a retrieval/evidence method; the word 'Daily Brief' is not evidence of detailed activity coverage.",
+        "additional_read": [
+          {
+            "path": "docs/usage/agent/agent-documents.mdx",
+            "depth": "targeted lines 1-54 of 58",
+            "evidence": "10-18 defines persistent agent-authored notes/reports and scope; paths/agent boundary, not data collection.",
+            "borrow": "Durable follow-up files should identify source scope and retention.",
+            "ruled_out_or_caveat": "No personal reporting algorithm."
+          }
+        ]
+      },
+      {
+        "id": "ecc",
+        "decision": "Potential session and sent-mail operational references; direct content inspected only partially.",
+        "read": [
+          {
+            "path": "commands/sessions.md",
+            "depth": "targeted lines 1-100 of 339",
+            "evidence": "7-27 session metadata/date/search command surface; 60-100 load/session statistics. Could help enumerate chats but not prove activity attribution."
+          },
+          {
+            "path": "skills/email-ops/SKILL.md",
+            "depth": "targeted lines 1-100 of 133",
+            "evidence": "24-29 includes proving sent mail; 31-48 treats inbound content as untrusted; 61-68 identifies commitments, deadlines and unanswered questions.",
+            "coordinator_read": "Complete file read"
+          },
+          {
+            "path": "docs/architecture/discussion-response-playbook.md",
+            "depth": "full (90 lines)",
+            "evidence": "7-39 distinguishes response debt from informational threads; 79-90 records explicit outcome categories and counts."
+          }
+        ],
+        "borrow": "For sent messages require Sent-folder confirmation; extract commitments/deadlines from thread context; treat email contents as data; distinguish follow-up obligation from completed response; count reviewed outcomes with links.",
+        "exclude_or_caveat": "Session command is Claude-only and list metadata uses modified time; it cannot establish event time or a personal contribution by itself. The email skill is about mailbox operations, not historical period reporting.",
+        "additional_read": [
+          {
+            "path": "skills/jira-integration/SKILL.md",
+            "depth": "targeted lines 1-96 of 300+",
+            "evidence": "12-19 includes retrieving issues, linking MRs/branches/commits and status search; 78-94 lists query/get issue/development info and mutating tools.",
+            "borrow": "Linked PR/branch/commit and ticket state are useful cross-reference fields.",
+            "ruled_out_or_caveat": "Only first 96 lines read; source includes write actions and secret setup; exclude all mutation/auth setup guidance from report flow."
+          },
+          {
+            "path": "commands/jira.md",
+            "depth": "full (106 lines)",
+            "evidence": "12-23 fetch/search/comment/transition; 27-32 full ticket fields and comments; 61-76 progress posting and status mutation.",
+            "borrow": "Shows issue detail and linked records as potential source evidence.",
+            "ruled_out_or_caveat": "Operational comment/transition paths ruled out after full read."
+          },
+          {
+            "path": "scripts/hooks/session-activity-tracker.js",
+            "depth": "targeted lines 1-60 of 639",
+            "evidence": "3-7 says it logs sanitized tool-use metrics; 31-56 redaction/truncation for selected patterns.",
+            "borrow": "Privacy-first redaction and bounded summaries are worth noting.",
+            "ruled_out_or_caveat": "Not a canonical work-history source: it records tool usage metrics and can still preserve sanitized params. Only first 60 lines read; do not treat it as safe or complete evidence."
+          }
+        ]
+      },
+      {
+        "id": "gsd",
+        "decision": "Useful report schema for shipped outcome, decisions, verification and completion timestamp; no broad activity collection design.",
+        "read": [
+          {
+            "path": "src/resources/extensions/gsd/templates/task-summary.md",
+            "depth": "full (66 lines)",
+            "evidence": "1-21 has completed_at, key decisions, duration and verification result; 26-47 requires what actually shipped plus verification evidence; 59-65 known issues and files."
+          },
+          {
+            "path": "src/resources/extensions/gsd/prompts/system.md",
+            "depth": "targeted lines 25-40, 58-76, 138-156",
+            "evidence": "asks for concrete reversible inference; task summaries compress prior work; do not confuse planned work with completed work."
+          }
+        ],
+        "borrow": "Preserve shipped outcome, decision, verification, completion time and known issues as detail fields.",
+        "exclude_or_caveat": "Task/milestone artifacts are scoped to a planned software delivery workflow. Duration is not an appropriate activity metric unless source-backed.",
+        "additional_read": [
+          {
+            "path": "src/resources/extensions/gsd/activity-log.ts",
+            "depth": "targeted lines 1-100 of 184",
+            "evidence": "1-8 preserves full session JSONL before context wipes and reserves it for diagnosis when summaries are insufficient; 61-75 lightweight fingerprint to avoid duplicate snapshots.",
+            "borrow": "Retain a concise digest plus pointers to detailed evidence; dedup fingerprints may be useful for snapshots.",
+            "ruled_out_or_caveat": "Raw activity logs are debug artifacts with privacy/cost implications, not report output. Only first 100 lines read."
+          },
+          {
+            "path": "src/resources/extensions/gsd/commands-session-report.ts",
+            "depth": "full (101 lines)",
+            "evidence": "2-6 says current session report covers units, cost, tokens, duration; 18-55 labels completed units via finishedAt; 64-100 JSON/save/display paths.",
+            "borrow": "Demonstrates count and per-unit detail with an explicit finished state and save option.",
+            "ruled_out_or_caveat": "Unit/cost/token metrics describe agent execution, not the user’s work; do not equate session duration with labor."
+          }
+        ]
+      },
+      {
+        "id": "addy",
+        "decision": "No activity-report source identified from inventory hits.",
+        "screened": "All 5 inventory matches were paths about onboarding, API/interface design, idea refinement and interviewing; no relevant body read.",
+        "borrow": "None identified.",
+        "exclude_or_caveat": "Keyword matches alone are weak evidence; deeper full-path search could still find unindexed material.",
+        "additional_read": [
+          {
+            "path": "README.md",
+            "depth": "targeted lines 1-65 of 408",
+            "evidence": "1-40 describes engineering lifecycle skills; 44-65 installation/catalog portability.",
+            "borrow": "None.",
+            "ruled_out_or_caveat": "Five candidates and catalog are engineering lifecycle, not historical reporting."
+          }
+        ]
+      },
+      {
+        "id": "alleneubank",
+        "decision": "No clearly relevant source in the five inventory hits.",
+        "screened": "SPEC.md, platform-tooling capture, eval and coordinator skill paths; path-level screen only.",
+        "borrow": "Coordinator skill candidates may inform orchestration if separately inspected; not established here.",
+        "exclude_or_caveat": "No full documents read; no claim that repository has no relevant material.",
+        "additional_read": [
+          {
+            "path": "plugins/agent-workflows/skills/handoff/SKILL.md",
+            "depth": "full (70 lines)",
+            "evidence": "21-29 collects current task/repo/branch/commits/decisions/terminal state; 30-57 compact done/next/evidence/decision-state shape.",
+            "borrow": "Use concise pointers and distinguish ratified from provisional decisions.",
+            "ruled_out_or_caveat": "This is continuation handoff for incomplete work, not period reporting."
+          }
+        ]
+      },
+      {
+        "id": "anthropic",
+        "decision": "No activity-report candidate apparent in inventory hits.",
+        "screened": "Nine hits concern model/API skills, evals, migration, notices; path-level screen only.",
+        "borrow": "None identified.",
+        "exclude_or_caveat": "Not a claim of exhaustive repository review.",
+        "additional_read": [
+          {
+            "path": "README.md",
+            "depth": "full (96 lines)",
+            "evidence": "1-18 catalog framing and file structure; 14-18 lists creative/technical/enterprise skills; no relevant activity report.",
+            "borrow": "None.",
+            "ruled_out_or_caveat": "Slack GIF creator filename was a false positive; no Slack data source."
+          }
+        ]
+      },
+      {
+        "id": "gh",
+        "decision": "No period activity report candidate apparent in inventory hits.",
+        "screened": "Seven hits concern release docs, security triage workflow, agent workflow docs and test logs; path-level screen only.",
+        "borrow": "CLI may be a source adapter if available, but not a source-method recommendation from these docs.",
+        "exclude_or_caveat": "No claim that GitHub CLI material was semantically reviewed.",
+        "additional_read": [
+          {
+            "path": "README.md",
+            "depth": "targeted lines 1-45 of 300+",
+            "evidence": "1-26 identifies GitHub CLI and points to general manual/agent skill; no work-reporting source surfaced.",
+            "borrow": "CLI can serve as a provider/tool only if present; not a source methodology.",
+            "ruled_out_or_caveat": "README/catalog itself is product intro; inventory paths are CLI internals/evidence tests rather than report instructions."
+          }
+        ]
+      },
+      {
+        "id": "humanlayer",
+        "decision": "show-me is useful for focused visual explanation, but does not supply activity collection, attribution, metric or retained-ledger behavior.",
+        "screened": "No matching paths in inventory; no repository content read.",
+        "borrow": "None identified.",
+        "exclude_or_caveat": "Zero keyword matches do not prove absence.",
+        "additional_read": [
+          {
+            "path": "README.md",
+            "depth": "targeted lines 1-45 of 70+",
+            "evidence": "11-45 catalog lists show-me, visual-pr and improve-claude-md, no history/source collector in displayed catalog.",
+            "borrow": "None.",
+            "ruled_out_or_caveat": "Catalog screening supports no evident relevant candidate; README remainder not read."
+          },
+          {
+            "path": "plugins/show-me/skills/show-me/SKILL.md",
+            "depth": "Complete file read by coordinator (129 lines)",
+            "evidence": "118–129 describe a focused HTML artifact, desktop/mobile support and opening it for the user.",
+            "decision": "No new dependency: the requested multi-file evidence report needs deterministic domain rendering; generic visual explanation stays with show-me."
+          }
+        ]
+      },
+      {
+        "id": "mkosir",
+        "decision": "No relevant candidate apparent.",
+        "screened": "Two function/type style guide matches; path-level screen only.",
+        "borrow": "None identified.",
+        "exclude_or_caveat": "No semantic document review.",
+        "additional_read": [
+          {
+            "path": "README.md",
+            "depth": "full (38 lines)",
+            "evidence": "1-27 says repo is TypeScript conventions/style guide and lists skill catalogue; 29-38 gives quality rationale/contribution routes.",
+            "borrow": "None.",
+            "ruled_out_or_caveat": "Screened out as code-style content."
+          }
+        ]
+      },
+      {
+        "id": "sentimony",
+        "decision": "Potential authorship/attribution reference, but not read.",
+        "screened": "skills/parallel-agents/references/attribution.md is an inventory hit; other hits concern prose/UI/skill crafting.",
+        "borrow": "Prioritize attribution reference to help avoid assigning agent work to the user; no substantive claims yet.",
+        "exclude_or_caveat": "Path match only; content unverified.",
+        "additional_read": [
+          {
+            "path": "README.md",
+            "depth": "targeted lines 1-65 of 179",
+            "evidence": "1-65 describes coding-agent skill collection/catalog, not work sources.",
+            "borrow": "None.",
+            "ruled_out_or_caveat": "Coordinator read attribution.md and reports it is license/orchestration attribution rather than personal-contribution evidence; no tracked paths matched broader terms."
+          }
+        ],
+        "coordinator_read_note": "Coordinator reports full read of skills/parallel-agents/references/attribution.md; it concerns license/orchestration attribution, not personal contribution. This agent did not independently re-read it."
+      },
+      {
+        "id": "superpowers",
+        "decision": "No direct activity-source candidate identified; one session-discovery reference is adjacent.",
+        "screened": "skills/diagnosing-superpowers/references/session-discovery.md and retrospective/eval paths identified by inventory; path-level screen only.",
+        "borrow": "Session discovery could inform local agent-chat connector design after a focused read.",
+        "exclude_or_caveat": "No substantive guidance claimed; other matches are skill authoring/evaluation and unrelated specs.",
+        "additional_read": [
+          {
+            "path": "skills/diagnosing-superpowers/references/session-discovery.md",
+            "depth": "full (31 lines)",
+            "evidence": "7-15 requires observed session identity, workspace, timestamps and content; recency alone insufficient; 21-31 distinguishes human messages from tool outputs and records unresolved sources.",
+            "borrow": "Useful criteria for agent-chat identity and event types; rejected candidates and field semantics should remain auditable.",
+            "ruled_out_or_caveat": "Incident/diagnosis session discovery, not all-source reporting."
+          }
+        ]
+      },
+      {
+        "id": "vercel",
+        "decision": "No direct period reporting material identified.",
+        "screened": "Two hits: optimization data collection reference and CLI fixture README; path-level screen only.",
+        "borrow": "None identified.",
+        "exclude_or_caveat": "Optimization telemetry is not personal activity evidence.",
+        "additional_read": [
+          {
+            "path": "README.md",
+            "depth": "targeted lines 1-65 of 239",
+            "evidence": "9-22 describes Vercel project metrics and ranked optimization report; 23-65 React/UI engineering rules.",
+            "borrow": "None for personal activity reporting.",
+            "ruled_out_or_caveat": "Path hit rendering-activity.md is UI render performance guidance, not activity history."
+          }
+        ]
+      }
+    ],
+    "cross_source_observations": [
+      "Inventories identify relevance by keyword and path; several high-value items are merely candidates and were not read. In particular, mblode's chat-history skill/references, wshobson's standup command, sentimony attribution guidance, Superpowers session discovery, Anthropic/ECC session and email material need follow-up before design claims.",
+      "The named commit-only skill assumes current git email identifies the author. That does not establish identity across GitHub, Jira, Slack, or agent accounts and cannot include non-commit work.",
+      "The reviewed sources often use modification/update time, rolling recent windows, or current status. Reports need to define event time per artifact type (merge/close/review/send/incident-resolution/message timestamp) and retain update/fetch timestamps separately; this recommendation is a synthesis, not a source rule.",
+      "A handoff or incident record can include activity by an on-call role/team. Require explicit user/actor participation before attributing it personally; keep observed incident status separate from the user's action.",
+      "No reviewed source demonstrates a complete source connector contract, robust cross-source deduplication, work vs open-source classification, or calendar-month/week boundaries. These remain design requirements from the brief, not borrowed precedents.",
+      "The user requires report plus detail subfiles; sources support durable artifacts and citations but none reviewed define an HTML package with useful self-contained follow-up evidence.",
+      "Expanded screening adds concrete provider and source semantics: Cursor README files describe Gmail/Outlook and Google/Outlook Calendar plugin transports but setup alone is not proof of current connection; Slack and email have stable source IDs and explicit read/write capability behavior in Compound source contracts; Cursor Notion/Slack/Linear references emphasize full thread/page/ticket context and retention/access gaps.",
+      "Event reports should keep original event timestamp and source update/fetch time apart. Compound email uses received-time cursor and RFC Message-ID; Slack uses message ts and per-reply IDs; Jira/Linear fields can have later updates, and GSD tracks completed_at. These are different event semantics, not interchangeable timestamps.",
+      "Agent session discovery needs identity confirmation beyond recency and must separate human messages, injected content, tool outputs, and dispatch prompts (Superpowers session-discovery lines 12-25). Detailed raw logs can be retained only as a private, optional evidence layer; GSD activity-log explicitly calls raw dumps debug artifacts.",
+      "Commitments can be represented as pending obligations only when source evidence names an owner/action or clear user commitment. Jira/meeting action extraction and email thread commitment checks supply candidate signals; assigning a third-party task or team incident to the user from mere attendance/assignment context remains unsupported."
+    ],
+    "expanded_path_screen": {
+      "method": "Screened every tracked path in all 19 inventory JSON files for provider, collaboration, history, activity, reporting, incident, handoff, meeting and obligation terms. Then filtered obvious tests/fixtures/evals/generated clutter and inspected plausible docs/code or README/catalog sections. This is filename/path screening, not full content review of every match.",
+      "repos_with_no_direct_path_candidate_after_screen": [
+        "addy",
+        "anthropic",
+        "gh",
+        "humanlayer",
+        "mkosir",
+        "sentimony",
+        "vercel"
+      ],
+      "false_positives_ruled_out_after_read": [
+        "Anthropic skills/slack-gif-creator is image-generation for Slack, not Slack access.",
+        "Vercel skills/react-best-practices/rules/rendering-activity.md concerns UI rendering behavior, not event logs.",
+        "ECC session-activity-tracker.js logs sanitized per-tool usage metrics; not verified as a complete or canonical work record.",
+        "Lobe daily-brief changelog describes a personalized product feature only; not a data collection contract.",
+        "Wshobson on-call handoff describes team shift state; needs actor attribution before counting as personal contribution.",
+        "Cursor Gmail/Outlook/calendar plugin README files document connector setup/capability only; they do not prove the active user has connected accounts or grants broad access."
+      ],
+      "notable_candidates_read_or_ruled_out": [
+        "Cursor pstack Slack and Linear references; Cursor Gmail/Outlook and Google/Outlook Calendar plugin READMEs.",
+        "Compound sweep email/Slack source contracts, plus Slack researcher and handoff references.",
+        "ECC Jira integration and Jira command, alongside email/session paths.",
+        "Standard session-report and incident-hotfix workflows.",
+        "GSD activity-log and session-report implementation.",
+        "Alleneubank, Matt and Superpowers handoff/session discovery references."
+      ],
+      "remaining_scope_limit": "Very large tracked inventories (notably standard, lobe, ECC, GSD and Compound) contain extensive code, translated copies and test/eval fixtures. The scan deliberately did not read every keyword hit or inspect private user data. The full path screen makes omission less likely but cannot establish that no source exists under an unrecognized filename or unindexed content."
+    }
+  },
+  "runtime_capabilities": {
+    "scope": "Tool/CLI availability metadata only; authentication and actual period coverage untested.",
+    "exposed_connectors": [
+      "Gmail",
+      "Google Calendar",
+      "Slack",
+      "Linear",
+      "Notion",
+      "Atlassian Jira/Confluence",
+      "Figma (design access does not establish activity-history access)"
+    ],
+    "not_exposed_here": [
+      "Outlook",
+      "Granola",
+      "PagerDuty"
+    ],
+    "available_clis": [
+      "git",
+      "gh",
+      "rg",
+      "fd",
+      "opencode",
+      "codex",
+      "claude"
+    ],
+    "luna_metadata_trial": "A fresh gpt-6-luna child saw Slack, Gmail and Linear tool names; no connector call or authentication check was made."
+  },
+  "adopted_design": [
+    "Codex Luna extraction for every available source/workstream, including CLI-collected sources.",
+    "Complete metric metadata separated from relevance summaries; primary verifies material claims.",
+    "Action-time half-open windows, verified actor roles and canonical identities.",
+    "Public employer repositories belong to work; unknown classification remains visible.",
+    "Distinct historical activity and current obligations with older unresolved backlog.",
+    "Retained minimal excerpts and exact locators, not full transcripts or raw mailboxes.",
+    "Deterministic validation, deduplication, counts, date resolution and static HTML rendering."
+  ],
+  "rejected_or_changed": [
+    "No calendar attendance/hours from an accepted invite.",
+    "No primary-only or other-model fallback when the user required Luna.",
+    "No Jira/Linear current-status field or aggregate query count as proof of historical personal closures.",
+    "Do not collapse different review/merge events merely because they share a PR URL.",
+    "Do not adopt Compound five-session/branch relevance caps as complete month coverage.",
+    "No mandatory standup interview, Slack posting, email sending, scheduling or automatic installation.",
+    "Do not infer work ownership from repository visibility or any arbitrary connected workspace.",
+    "No broad new SDK client framework or vendored transcript parser."
+  ],
+  "primary_documentation": [
+    {
+      "url": "https://docs.github.com/en/rest/pulls/reviews",
+      "supports": "Submitted reviews expose author, submitted_at and state; pending reviews have no submitted_at."
+    },
+    {
+      "url": "https://developers.google.com/workspace/gmail/api/guides/filtering",
+      "supports": "Gmail date strings use PST; epoch seconds support precise boundaries; API alias expansion differs from the UI."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/graph/api/user-list-messages?view=graph-rest-1.0",
+      "supports": "Use the returned complete nextLink for message pagination."
+    },
+    {
+      "url": "https://learn.microsoft.com/en-us/graph/api/resources/message?view=graph-rest-1.0",
+      "supports": "Message resources distinguish sent time, drafts, sender and from."
+    },
+    {
+      "url": "https://developers.notion.com/reference/page",
+      "supports": "Page metadata exposes last-edited fields; not an exhaustive personal edit ledger."
+    },
+    {
+      "url": "https://developers.figma.com/docs/rest-api/version-history-endpoints/",
+      "supports": "Version-history access is a distinct endpoint/capability from node/design reads."
+    },
+    {
+      "url": "https://help.granola.ai/article/granola-mcp",
+      "supports": "Meeting metadata/notes/transcript tools and access constraints; docs differ from newer integration scope, so runtime capability is authoritative."
+    },
+    {
+      "url": "https://www.granola.ai/integrations/chatgpt",
+      "supports": "Granola integration access varies by account/workspace policy; do not encode a universal own-notes-only rule."
+    }
+  ],
+  "consultation": {
+    "astra": {
+      "provider": "codex",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "design_task": "/root/activity_design_astra"
+    },
+    "fable": {
+      "provider": "claudeAgent",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "effort_reason": "Explicit user request overrides the general Fable Max authoring default.",
+      "design_task_id": "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-design-fable-xhigh-20261004-r1",
+      "candidate_task_ids": [
+        "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r2",
+        "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r3",
+        "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r4",
+        "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-candidate-fable-xhigh-20261004-r5"
+      ]
+    },
+    "status": "Design and affected candidate findings reconciled; both final consultation profiles completed.",
+    "validation_record": "report-work-activity-validation.json"
+  },
+  "validation": "report-work-activity-validation.json",
+  "current_assessments": [
+    {
+      "id": "cursor",
+      "decision": "Incorporate selected guidance",
+      "reason": "Concise Cursor period summaries and four pstack source guides; replace commit-only scope, rolling weeks and current-email assumptions."
+    },
+    {
+      "id": "matt",
+      "decision": "Do not add a dependency",
+      "reason": "Session-retrospective and memory guidance concern agent improvement; the report needs personal event evidence."
+    },
+    {
+      "id": "humanlayer",
+      "decision": "Do not add a dependency",
+      "reason": "show-me offers visual explanation, but no activity collection or counting contract; the local renderer supplies the requested HTML."
+    },
+    {
+      "id": "anthropic",
+      "decision": "Use authoring guidance separately",
+      "reason": "Skill creation and unrelated Slack media material do not supply personal activity evidence."
+    },
+    {
+      "id": "addy",
+      "decision": "No activity donor selected",
+      "reason": "The inventory and bounded README/source screen found coding and workflow guidance, without a deciding period-report contribution."
+    },
+    {
+      "id": "vercel",
+      "decision": "No activity donor selected",
+      "reason": "Rendering activity and optimization data concern application behavior, not user work history."
+    },
+    {
+      "id": "ecc",
+      "decision": "Incorporate sent-mail evidence",
+      "reason": "email-ops contributes sent-copy and commitment checks; session metrics and Jira operations remain conditional retrieval ideas, not completed-work proof."
+    },
+    {
+      "id": "superpowers",
+      "decision": "Incorporate session evidence checks",
+      "reason": "Session discovery distinguishes identities, human context, tool results and unresolved records; diagnosis scope is not imported."
+    },
+    {
+      "id": "gsd",
+      "decision": "No runtime dependency",
+      "reason": "Completion/report records can be source evidence if present; milestone workflow and raw debug dumps are not required by this report."
+    },
+    {
+      "id": "compound",
+      "decision": "Incorporate selected extraction procedures",
+      "reason": "Bounded session and Slack/email extraction; remove five-session/current-branch caps, acknowledgments and mutations."
+    },
+    {
+      "id": "mblode",
+      "decision": "Incorporate guidance; optional retrieval specialist",
+      "reason": "chat-history provides bounded reads, canonical records and later corrections; no parser is bundled and no installation was performed."
+    },
+    {
+      "id": "gh",
+      "decision": "Use available CLI for retrieval",
+      "reason": "CLI access is a tool capability, not an activity-report method. Inspect review submission and merge event fields rather than updated time."
+    },
+    {
+      "id": "wshobson",
+      "decision": "Incorporate incident structure",
+      "reason": "Keep active/resolved/follow-up distinctions; require personal actor evidence. Detailed incident reference read only through line 115."
+    },
+    {
+      "id": "mkosir",
+      "decision": "No activity donor selected",
+      "reason": "TypeScript style material does not contribute to this report contract; bounded catalog review only."
+    },
+    {
+      "id": "standard",
+      "decision": "Do not import the workflow",
+      "reason": "Session reports and incident notes inform evidence hygiene; skill-promotion rituals and operational mutations are outside this capability."
+    },
+    {
+      "id": "lobe",
+      "decision": "Product precedent only",
+      "reason": "Daily brief and retained agent documents demonstrate a product shape, without a reusable personal-attribution or collection contract."
+    },
+    {
+      "id": "jeffallan",
+      "decision": "No additional donor needed",
+      "reason": "Incident timeline and Atlassian action-item shapes overlap selected evidence guidance; do not import task creation or sprint ceremony."
+    },
+    {
+      "id": "sentimony",
+      "decision": "No activity donor selected",
+      "reason": "The attribution reference concerns licensing/orchestration attribution, not personal contribution counting."
+    },
+    {
+      "id": "alleneubank",
+      "decision": "Keep handoff separate",
+      "reason": "The inspected handoff skill concerns continuation state, not arbitrary-period activity reporting."
+    }
+  ]
+}

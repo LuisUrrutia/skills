@@ -1,0 +1,121 @@
+format_version = 1
+skill = "report-work-activity"
+created = "2026-10-04"
+approach = "Derive: combine selected retrieval and evidence decisions with the user-defined multi-source reporting contract. No donor covers the full capability; use existing connectors rather than a universal client."
+
+[[sources]]
+id = "cursor-period-summary"
+author = "Cursor team"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["cursor-team-kit/skills/what-did-i-get-done/SKILL.md", "cursor-team-kit/skills/weekly-review/SKILL.md", "cursor-team-kit/LICENSE"]
+paths = ["cursor-team-kit/skills/what-did-i-get-done/SKILL.md", "cursor-team-kit/skills/weekly-review/SKILL.md", "cursor-team-kit/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Explicit periods, concise functional summaries and no invented motivations."]
+local_choices = ["Replace commit-only scope and rolling 7–10-day windows with multi-source calendar intervals. A commit does not prove shipment."]
+reviews = []
+
+[[sources]]
+id = "pstack-source-context"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/why/references/sources/slack.md", "pstack/skills/why/references/sources/linear.md", "pstack/skills/why/references/sources/notion.md", "pstack/skills/why/references/sources/incident-postmortem.md", "pstack/LICENSE"]
+paths = ["pstack/skills/why/references/sources/slack.md", "pstack/skills/why/references/sources/linear.md", "pstack/skills/why/references/sources/notion.md", "pstack/skills/why/references/sources/incident-postmortem.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Read deciding thread/ticket context and expose retention, private-access and stale-state gaps."]
+local_choices = ["Use sources to establish personal work and current obligations, not to infer code motivation. Retain minimal excerpts rather than universal full-thread quotations."]
+reviews = []
+
+[[sources]]
+id = "mblode-chat-history"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+baseline_paths = ["skills/chat-history/SKILL.md", "skills/chat-history/references/sources.md", "skills/chat-history/references/verification.md", "LICENSE.md"]
+paths = ["skills/chat-history/SKILL.md", "skills/chat-history/references/sources.md", "skills/chat-history/references/verification.md", "LICENSE.md"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Bounded history reads, stable locators, canonical record distinctions, later corrections and explicit partial coverage."]
+local_choices = ["No history adapter is vendored. Host retrieval or an optional installed chat-history skill owns access. Select messages by event time, not only session creation."]
+reviews = []
+
+[[sources]]
+id = "compound-extraction"
+author = "Every / Compound Engineering"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+baseline_paths = ["skills/ce-compound/references/session-history.md", "skills/ce-compound/references/agents/session-historian.md", "skills/ce-sweep/references/sources/email.md", "skills/ce-sweep/references/sources/slack.md", "LICENSE"]
+paths = ["skills/ce-compound/references/session-history.md", "skills/ce-compound/references/agents/session-historian.md", "skills/ce-sweep/references/sources/email.md", "skills/ce-sweep/references/sources/slack.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Separate cheap metadata collection from bounded child synthesis; retain native IDs, source links, thread context and truncation."]
+local_choices = ["No five-session cap for a complete month; no branch-only scope. All selected sources receive Luna extraction. Primary owns shared output; worker paths are isolated. Remove sweep acknowledgments, writes and received-mail cursor semantics."]
+reviews = []
+
+[[sources]]
+id = "ecc-sent-mail"
+author = "affaan-m / ECC"
+repository = "https://github.com/affaan-m/ECC"
+remote = "git@github.com:affaan-m/ECC.git"
+ref = "refs/heads/main"
+baseline_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+reviewed_through = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+baseline_paths = ["skills/email-ops/SKILL.md", "LICENSE"]
+paths = ["skills/email-ops/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Verify sent-copy evidence and read thread context for commitments and deadlines."]
+local_choices = ["Reporting reads sent mail and outstanding requests; no draft/send/triage mutations or brand-voice dependency."]
+reviews = []
+
+[[sources]]
+id = "wshobson-incidents"
+author = "Seth Hobson / wshobson"
+repository = "https://github.com/wshobson/agents"
+remote = "git@github.com:wshobson/agents.git"
+ref = "refs/heads/main"
+baseline_commit = "156b7a5e7a8b93642628a339ee4039c925b34c7f"
+reviewed_through = "156b7a5e7a8b93642628a339ee4039c925b34c7f"
+baseline_paths = ["plugins/incident-response/skills/on-call-handoff-patterns/SKILL.md", "plugins/incident-response/skills/on-call-handoff-patterns/references/details.md", "LICENSE"]
+paths = ["plugins/incident-response/skills/on-call-handoff-patterns/SKILL.md", "plugins/incident-response/skills/on-call-handoff-patterns/references/details.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Separate active work, resolved incidents, investigations and follow-up actions with source links."]
+local_choices = ["Count personal response/resolution only with actor evidence; no handoff timing ritual, alert test or operational mutation. Details reference inspected at lines 1–115, not claimed fully reviewed."]
+reviews = []
+
+[[sources]]
+id = "superpowers-session-evidence"
+author = "Jesse Vincent / obra"
+repository = "https://github.com/obra/superpowers"
+remote = "git@github.com:obra/superpowers.git"
+ref = "refs/heads/main"
+baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+reviewed_through = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+baseline_paths = ["skills/diagnosing-superpowers/references/session-discovery.md", "LICENSE"]
+paths = ["skills/diagnosing-superpowers/references/session-discovery.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Verify session identity, record meanings and source locators; distinguish human messages, injected context and tool outcomes."]
+local_choices = ["Use a period work-report scope, not a harness-diagnosis workflow. Do not require user selection for already identified records."]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "chat-history"
+required = false
+role = "Optional source retrieval specialist when already installed. Host history tools or supported local/export reads are alternatives."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested authoring or upstream maintenance."

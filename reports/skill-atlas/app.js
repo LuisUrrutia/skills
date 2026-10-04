@@ -3,9 +3,9 @@
 const atlas = window.SKILL_ATLAS;
 const repositoryInventory = atlas.repositoryInventory;
 const repositorySkills = new Map(repositoryInventory.skills.map((skill) => [skill.name, skill]));
-const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments, ...atlas.handoffReview.assessments].map((skill) => [skill.key, skill]));
+const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments, ...atlas.handoffReview.assessments, ...atlas.activityReview.skills, ...atlas.activityReview.assessments].map((skill) => [skill.key, skill]));
 const originalKeys = new Set(atlas.skills.map((skill) => skill.key));
-const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills, ...atlas.ciCdReview.skills];
+const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills, ...atlas.ciCdReview.skills, ...atlas.activityReview.skills];
 const byKey = new Map(catalogSkills.map((skill) => [skill.key, skill]));
 const byId = new Map(catalogSkills.map((skill) => [skill.id, skill]));
 const recommendationFor = (skill) => sourceReviews.get(skill.key) || skill;
@@ -19,6 +19,13 @@ const groupLabels = { Local: "Original local snapshots", "Cursor team": "Equipo 
 const normalizedSearch = (value) => value.toLocaleLowerCase("es").normalize("NFD").replace(/\p{Diacritic}/gu, "");
 
 const clusters = [
+  {
+    title: "Activity, contribution and outstanding work",
+    winner: "report-work-activity, replacing daily-meeting-update",
+    keys: ["Cursor team/what-did-i-get-done", "Cursor team/weekly-review", "Matthew Blode/chat-history", "Compound Engineering/session-history", "pstack/why-source-guides", "Local/daily-meeting-update"],
+    text: "Cursor supplies concise period summaries; chat-history and Compound contribute bounded extraction; pstack supplies source context and gaps. None covers the complete requested report alone.",
+    why: "Share one collection and retained evidence bundle. Keep historical activity separate from current commitments, use Luna per source, and let deterministic helpers count verified events."
+  },
   {
     title: "CI/CD pipeline structure",
     winner: "ci-cd-automation, with provider specialists for implementation",
@@ -251,13 +258,11 @@ const clusters = [
     "keys": [
       "pstack/teach",
       "Matt Pocock/teach",
-      "Cursor team/what-did-i-get-done",
-      "Local/daily-meeting-update",
       "Local/visual-change-explainer",
       "HumanLayer/show-me"
     ],
     "text": "Las dos teach comparten nombre, pero una explica código y la otra mantiene un curso. Un resumen de actividad y un informe visual también atienden necesidades distintas.",
-    "why": "how uses limited presentation guidance from pstack/teach; a full teaching skill remains optional future work. daily-meeting-update is present in the repository. walkthrough is absent, and visual-change-explainer is recorded only in the original local inventory."
+    "why": "how uses limited presentation guidance from pstack/teach; a full teaching skill remains optional future work. report-work-activity owns activity reporting; daily-meeting-update is a deprecated alias. walkthrough is absent, and visual-change-explainer is recorded only in the original local inventory."
   }
 ];
 

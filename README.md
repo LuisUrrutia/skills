@@ -50,6 +50,24 @@ using this extraction workflow.
 - Separates missed activation from missing instructions, using traceable upstream extraction criteria
 - Follows deciding context and routes lessons to skills, project instructions, personal preferences, or existing checks
 
+### report-work-activity
+
+Explain activity over a chosen period and current outstanding work in a private
+HTML report with retained evidence. Replaces the deprecated `daily-meeting-update`;
+the old name remains an explicit migration alias, and its legacy digest is retired.
+
+**Triggers:** `what did I do yesterday`, `summarize last month's work`, `what commitments are still open`
+
+**Features:**
+
+- Uses one Codex Luna extractor per available source/workstream and primary verification
+- Covers engineering, collaboration, sent email, calendars, meeting notes, incidents and agent history when connected
+- Separates work and open source, with work totals and per-repository counts
+- Distinguishes historical events from current commitments, assignments and unanswered requests
+- Resolves calendar periods and renders escaped offline HTML with deterministic Python helpers
+- Retains detail pages, excerpts, source locators and ledgers for follow-up without recollection
+- Records seven selected donor feeds and the 19-repository source review
+
 ### handoff
 
 Create a focused Markdown document so another agent or session can continue a

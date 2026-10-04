@@ -8,8 +8,8 @@
   <title>Atlas de skills | Tu flujo de desarrollo</title>
   <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css?v=3dd1dd1fabc1">
-  <script src="catalog.js?v=9852ab680cd2" defer></script>
-  <script src="app.js?v=003c47b3cdfb" defer></script>
+  <script src="catalog.js?v=69fad8bfb2ad" defer></script>
+  <script src="app.js?v=bba366a7e9b9" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al informe</a>
@@ -17,7 +17,8 @@
     <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">s</span><span>Atlas de skills<small>El flujo de desarrollo de Luis</small></span></a>
     <button id="theme-toggle" class="quiet-button theme-toggle" type="button" hidden>Modo claro</button>
     <nav>
-      <a href="#inventory" lang="en">Repository skills <span class="nav-tag" data-repository-count>31</span></a>
+      <a href="#inventory" lang="en">Repository skills <span class="nav-tag" data-repository-count>32</span></a>
+      <a href="#report-work-activity" lang="en">Activity reports <span class="nav-tag">New</span></a>
       <a href="#ci-cd-automation" lang="en">CI/CD <span class="nav-tag">New</span></a>
       <a href="#typescript-best-practices" lang="en">TypeScript <span class="nav-tag">New</span></a>
       <a href="#accessibility" lang="en">Accessibility <span class="nav-tag">New</span></a>
@@ -31,11 +32,11 @@
       <a href="#personal">Tus skills actuales</a>
       <a href="#similarities">Skills similares</a>
       <a href="#conflicts">Conflictos y correcciones</a>
-      <a href="#catalog" lang="en">Source catalog <span class="nav-tag" data-catalog-count>251</span></a>
+      <a href="#catalog" lang="en">Source catalog <span class="nav-tag" data-catalog-count>258</span></a>
       <a href="#evidence">Fuentes y cobertura</a>
       <a href="#workflow">Work-mode, al final <span class="nav-tag">4</span></a>
     </nav>
-    <div class="sidebar-note" lang="en"><span class="status-dot" aria-hidden="true"></span>Inventory checked<time datetime="2026-10-04">4 October 2026</time><p><span data-repository-count>31</span> skills present in this checkout. PR attachments and focused review delegation are included. Work-mode remains a proposal.</p><button id="print-report" class="quiet-button" type="button">Print / save PDF</button></div>
+    <div class="sidebar-note" lang="en"><span class="status-dot" aria-hidden="true"></span>Inventory checked<time datetime="2026-10-04">4 October 2026</time><p><span data-repository-count>32</span> skills present in this checkout. PR attachments and focused review delegation are included. Work-mode remains a proposal.</p><button id="print-report" class="quiet-button" type="button">Print / save PDF</button></div>
   </aside>
   <main id="main">
     <header id="overview" class="hero section" lang="en">
@@ -43,13 +44,13 @@
       <h1>Skills already in place.<br><span>What remains to build.</span></h1>
       <p class="lead">The repository contains 30 skill packages. The new CI/CD skill draws on 19 reviewed repositories and five selected source feeds. It defines pipeline stages, checks, artifact promotion and recovery, with provider mechanics handled separately. TypeScript, accessibility and verification retain their own responsibilities. Checks in the source catalog identify material already incorporated.</p>
       <ol class="reading-order" aria-label="Reading order"><li><a href="#inventory"><span>1</span>Current skills</a></li><li><a href="#remaining"><span>2</span>Remaining choices</a></li><li><a href="#catalog"><span>3</span>Source comparison</a></li><li><a href="#workflow"><span>4</span>Future work-mode</a></li></ol>
-      <div class="hero-actions"><a class="button primary" href="#ci-cd-automation">See the CI/CD decisions</a><a class="button secondary" href="?progress=ready#catalog">See incorporated sources</a></div>
-      <dl class="scope-stats"><div><dt>Repository skills</dt><dd data-repository-count>31</dd></div><div><dt>Local proposals</dt><dd data-pending-count>2</dd></div><div><dt>Original external entries</dt><dd>105</dd></div><div><dt>Original source cards</dt><dd>122</dd></div></dl>
-      <div class="notice"><strong>What the counts establish.</strong> Repository presence, source incorporation and a recommendation to install are different states. The catalog now has <span data-catalog-count>251</span> cards. Original snapshots remain available; the four named collections also have a dated current assessment. A check does not claim the full upstream skill is installed or synchronized.</div>
+      <div class="hero-actions"><a class="button primary" href="#report-work-activity">See the activity reporting design</a><a class="button secondary" href="?progress=ready#catalog">See incorporated sources</a></div>
+      <dl class="scope-stats"><div><dt>Repository skills</dt><dd data-repository-count>32</dd></div><div><dt>Local proposals</dt><dd data-pending-count>2</dd></div><div><dt>Original external entries</dt><dd>105</dd></div><div><dt>Original source cards</dt><dd>122</dd></div></dl>
+      <div class="notice"><strong>What the counts establish.</strong> Repository presence, source incorporation and a recommendation to install are different states. The catalog now has <span data-catalog-count>258</span> cards. Original snapshots remain available; the four named collections also have a dated current assessment. A check does not claim the full upstream skill is installed or synchronized.</div>
     </header>
 
     <section id="inventory" class="section" aria-labelledby="inventory-heading" lang="en">
-      <div class="section-heading"><p class="kicker">Checked against the repository</p><h2 id="inventory-heading">The skills we already have</h2><p><span data-repository-count>31</span> packages are present, grouped by the task they own. Each entry identifies its current file and links to the analysis where available. These are repository packages; installed copies keep their own state.</p></div>
+      <div class="section-heading"><p class="kicker">Checked against the repository</p><h2 id="inventory-heading">The skills we already have</h2><p><span data-repository-count>32</span> packages are present, grouped by the task they own. Each entry identifies its current file and links to the analysis where available. These are repository packages; installed copies keep their own state.</p></div>
       <div id="repository-inventory" class="two-columns"></div>
       <noscript><p>The complete repository inventory and file hashes are available in <a href="sources.json">sources.json</a>, under repositoryInventory.</p></noscript>
       <div class="notice"><strong>Names and historical copies.</strong> <code>review-code-changes</code> is the current repository implementation derived from <code>review-audit</code>. <code>walkthrough</code> is absent from this checkout. Other installed-only entries in the original analysis are not counted as repository packages; this update does not check their installation.</div>
@@ -58,6 +59,15 @@
         <div id="pending-skills"></div>
         <p>The <a href="#install">installation selections</a> remain separate from repository packages. The new review changes performance optimization from direct installation to a proposed derivation.</p>
       </article>
+    </section>
+
+    <section id="report-work-activity" class="section" aria-labelledby="activity-heading" lang="en">
+      <div class="section-heading"><p class="kicker">Created · 4 October 2026</p><h2 id="activity-heading">What you did, and what still needs you</h2><p><code>report-work-activity</code> explains a chosen period in a concise HTML report. It separates work from open source, keeps useful counts by repository, and retains the evidence needed for follow-up questions.</p></div>
+      <div class="grid two"><article class="surface"><h3>One report, two time contracts</h3><p>Historical activity uses the actual action time in your timezone. Current assignments and commitments use a separately dated status check, including older open items and later cancellations. Both reuse the same identities, source collection and evidence.</p></article><article class="surface"><h3>Numbers with a meaning</h3><p>Work has a total and repository rows; open source has a row for every repository. A public employer repository remains work. PRs authored and merged, reviews submitted, tickets closed, incident response and incident resolution have distinct attribution rules. Incomplete access is visible.</p></article></div>
+      <article class="surface"><h3>How collection works</h3><p>One Codex Luna child extracts each available source or workstream, including CLI sources. Existing connectors retrieve the records. The primary verifies deciding evidence and writes the summary; Python helpers resolve periods, deduplicate events, calculate metrics and render private static HTML.</p><p>Git and GitHub, Slack, Notion, Linear, Jira/Confluence, Figma, agent history, sent Gmail/Outlook, calendars, Granola and incident tools are conditional on actual access. No live personal report was collected during authoring.</p></article>
+      <article class="surface"><h3>Why adapt these sources</h3><p>Cursor's period summaries are a useful starting point but cannot cover all work. Selected pstack source guides, Matthew Blode's chat-history guidance, Compound extraction procedures, ECC sent-mail evidence, wshobson incident structure and Superpowers session identity checks supply specific parts. The local skill adds the requested classification, counting and retained-evidence contract.</p><p><strong>✓ Incorporated:</strong> selected material from seven pinned donor feeds. This is not installation of their complete workflows. <code>daily-meeting-update</code> is now a deprecated alias; its old interview and OpenCode digest are retired.</p></article>
+      <div class="hero-actions"><a class="button primary" href="work-activity-example/">Open the synthetic report</a><a class="button secondary" href="report-work-activity-research.html">Sources and design decisions</a></div>
+      <p><a href="report-work-activity-validation.json">Review reconciliation and exact validation evidence</a> · <a href="report-work-activity-trials.json">Three actual Luna extraction trials</a>. The example uses fictional records: 20 work PRs (12 + 8), and 3 + 2 open-source PRs in separate repositories.</p>
     </section>
 
     <section id="ci-cd-automation" class="section" aria-labelledby="ci-cd-heading" lang="en">
@@ -691,7 +701,7 @@
         <tr><th>github-actions</th><td>Confianza, grafo de ejecución, llamadores, dependencias inmutables y evidencia real.</td><td>Conservarla como especialidad. Invocarla desde pr-followup si el fallo afecta al código de un workflow.</td></tr>
         <tr><th>humanize</th><td>Conservación de significado, coherencia, texto protegido y revisión de lector y fidelidad.</td><td>Usar el propósito documental de technical-writing como referencia condicional.</td></tr>
         <tr lang="en"><th>walkthrough / visual-change-explainer<br><span class="badge duplicate">Historical entries</span></th><td>The original sources explain change flows and visual comparisons.</td><td>Neither is present in this repository inventory. walkthrough is locally deleted; the installed-only visual-change-explainer snapshot is retained for reference. These entries are not counted as available repository skills.</td></tr>
-        <tr><th>daily-meeting-update</th><td>Resumen diario de intención y evidencia de varias fuentes.</td><td>Añadir un modo breve de Git, sin entrevista, para resúmenes sencillos de actividad.</td></tr>
+        <tr lang="en"><th>daily-meeting-update</th><td>Deprecated alias for <a href="#report-work-activity">report-work-activity</a>.</td><td>The replacement adds arbitrary periods, source workers, work/open-source metrics, retained HTML evidence and current obligations.</td></tr>
         <tr lang="en"><th>Other original personal skills</th><td>article-processing, youtube-processing and people-memory are present in this repository.</td><td>draft-review, home-assistant and bird are recorded only in the original local inventory. Their installed state was not rechecked; all keep separate task scopes.</td></tr>
       </tbody></table></div>
       <div data-evidence="Local/pr;Local/commit;Local/worktrunk;Local/stacked-pr;Local/review-audit;Local/github-actions;Local/humanize;Local/walkthrough;Local/visual-change-explainer;Local/daily-meeting-update;Local/draft-review"></div>
@@ -708,7 +718,7 @@
     </section>
 
     <section id="catalog" class="section" aria-labelledby="catalog-heading">
-      <div class="section-heading" lang="en"><p class="kicker">Source selection and actual progress</p><h2 id="catalog-heading">Source skills and procedures</h2><p><span data-catalog-count>251</span> cards: the original 122, 87 additional sources from the four collections, six accessibility procedures and references, 24 TypeScript sources, and 12 CI/CD sources. Current assessments and incorporation evidence appear on existing cards where they overlap. Historical source revisions remain available.</p><p><strong>✓ Incorporated</strong> means selected material is recorded in a current local skill's provenance. <strong>✓ In repository</strong> identifies a retained or replacement local package. Open the card to see the owner and evidence. A recommendation to combine or install is not a completion check.</p></div>
+      <div class="section-heading" lang="en"><p class="kicker">Source selection and actual progress</p><h2 id="catalog-heading">Source skills and procedures</h2><p><span data-catalog-count>258</span> cards: the original 122, 87 additional sources from the four collections, six accessibility procedures and references, 24 TypeScript sources, 12 CI/CD sources, and seven activity-reporting procedures. Current assessments and incorporation evidence appear on existing cards where they overlap. Historical source revisions remain available.</p><p><strong>✓ Incorporated</strong> means selected material is recorded in a current local skill's provenance. <strong>✓ In repository</strong> identifies a retained or replacement local package. Open the card to see the owner and evidence. A recommendation to combine or install is not a completion check.</p></div>
       <p id="source-progress-summary" class="notice" lang="en"></p>
       <form class="filters" id="filters" role="search">
         <div class="search-field"><label for="search">Buscar por skill, comportamiento o responsable</label><input id="search" name="q" type="search" placeholder="Por ejemplo: React, comentarios, rebase" autocomplete="off"></div>
