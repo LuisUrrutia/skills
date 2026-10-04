@@ -184,6 +184,23 @@ boundaries. Adapt to the project's language and existing public interfaces.
 - Tests observable results and effects, including recovery and effects that must not repeat
 - Uses debug and verify conditionally, with pinned ECC and pstack provenance
 
+### accessibility
+
+Design, implement, or audit accessible user interfaces across complete tasks,
+including errors, recovery, and the resulting state. Use it directly or as a
+specialist within an implementation or code review.
+
+**Triggers:** `audit this dialog's accessibility`, `fix keyboard navigation`, `check this flow with a screen reader`, `review WCAG requirements`
+
+**Features:**
+
+- Selects platform criteria and preserves audit-only or implementation authority
+- Uses conditional web, native, and terminal guidance without language-specific code recipes
+- Checks semantics, keyboard and focus, visual conditions, content alternatives, and recovery
+- Distinguishes automated findings, observed interaction, and missing assistive-technology evidence
+- Uses verify and local recipes for execution; keeps required third-party steps in coverage
+- Records six selected source feeds, primary references, corrections, and maintenance rules
+
 ### simplify-code
 
 Simplify changed code through focused edits that preserve behavior. Use it

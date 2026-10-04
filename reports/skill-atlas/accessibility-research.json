@@ -1,0 +1,1183 @@
+{
+  "date": "2026-10-04",
+  "task": "Discover accessibility material across all previously supplied repositories, then derive the local accessibility skill.",
+  "scope": "Inventory and keyword search across all tracked text in 12 supplied repositories, including agents, rules, procedures and references. Selected procedures received the inspection recorded below; this is not a complete audit of every file. ECC mirrors/translations and evaluation fixtures are not independent skills.",
+  "query": "accessib|a11y|WCAG|WAI-ARIA|screen.reader|VoiceOver|TalkBack|keyboard.nav|focus.trap|reduced.motion",
+  "repositories": [
+    {
+      "id": "addy",
+      "remote": "git@github.com:addyosmani/agent-skills.git",
+      "commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+      "ref": "refs/remotes/origin/main",
+      "trackedFiles": 210,
+      "skillEntrypoints": 25,
+      "matches": [
+        ".claude/commands/constraints.md",
+        ".claude/commands/ship.md",
+        ".gemini/commands/constraints.toml",
+        ".gemini/commands/ship.toml",
+        "CLAUDE.md",
+        "README.md",
+        "commands/constraints.toml",
+        "commands/ship.toml",
+        "docs/getting-started.md",
+        "docs/skill-anatomy.md",
+        "evals/cases/constraint-driven-development.json",
+        "evals/cases/frontend-ui-engineering.json",
+        "evals/cases/using-agent-skills.json",
+        "evals/fixtures/frontend-ui-engineering/design-system.md",
+        "references/accessibility-checklist.md",
+        "references/testing-patterns.md",
+        "skills/browser-testing-with-devtools/SKILL.md",
+        "skills/constraint-driven-development/SKILL.md",
+        "skills/frontend-ui-engineering/SKILL.md",
+        "skills/security-and-hardening/SKILL.md",
+        "skills/security-and-hardening/references/hardening-patterns.md",
+        "skills/shipping-and-launch/SKILL.md",
+        "skills/test-driven-development/SKILL.md",
+        "skills/using-agent-skills/SKILL.md"
+      ],
+      "searchScope": "All tracked text files, including hidden and normally ignored paths; binary files excluded by ripgrep.",
+      "repository": "https://github.com/addyosmani/agent-skills",
+      "url": "https://github.com/addyosmani/agent-skills/tree/1401c8b8030e023baeebb31781a6653fe8e93026",
+      "decision": "Adapt the accessibility checklist",
+      "reason": "Use keyboard, visual, screen-reader and form coverage. Correct units and exceptions; exclude broad UI architecture, aesthetic rules and incomplete dialog examples.",
+      "inspection": [
+        {
+          "path": "references/accessibility-checklist.md",
+          "coverage": "Full",
+          "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/references/accessibility-checklist.md",
+          "sha256": "61c759d94d52296231f5f310b92b401f56c44e4430dc3cc95ebac5d7b1d5ffac"
+        },
+        {
+          "path": "skills/frontend-ui-engineering/SKILL.md",
+          "coverage": "Accessibility, states, design-system integration and scope",
+          "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/frontend-ui-engineering/SKILL.md",
+          "sha256": "549044e9bd8d7fe993ce8e5c0d2b0f5465650676dc15805329973f936179eb1e"
+        }
+      ],
+      "keywordMatches": 24
+    },
+    {
+      "id": "anthropic",
+      "remote": "git@github.com:anthropics/skills.git",
+      "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "ref": "refs/remotes/origin/main",
+      "trackedFiles": 430,
+      "skillEntrypoints": 20,
+      "matches": [
+        "THIRD_PARTY_NOTICES.md",
+        "skills/frontend-design/SKILL.md",
+        "skills/mcp-builder/reference/evaluation.md",
+        "skills/skill-creator/eval-viewer/viewer.html"
+      ],
+      "searchScope": "All tracked text files, including hidden and normally ignored paths; binary files excluded by ripgrep.",
+      "repository": "https://github.com/anthropics/skills",
+      "url": "https://github.com/anthropics/skills/tree/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "decision": "Keep visual design separate",
+      "reason": "frontend-design mentions visible focus, reduced motion and accessible visuals. It is an aesthetic direction skill, not an accessibility testing method.",
+      "inspection": [
+        {
+          "path": "skills/frontend-design/SKILL.md",
+          "coverage": "Full",
+          "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/frontend-design/SKILL.md",
+          "sha256": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3"
+        }
+      ],
+      "keywordMatches": 4
+    },
+    {
+      "id": "compound",
+      "remote": "git@github.com:EveryInc/compound-engineering-plugin.git",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "ref": "refs/remotes/origin/main",
+      "trackedFiles": 1452,
+      "skillEntrypoints": 43,
+      "matches": [
+        "assets/explainer/ce-explainer.js",
+        "docs/brainstorms/2026-03-22-frontend-design-skill-improvement.md",
+        "docs/brainstorms/2026-04-02-slack-analyst-agent-requirements.md",
+        "docs/brainstorms/2026-04-17-ce-release-notes-skill-requirements.md",
+        "docs/brainstorms/2026-06-19-agentless-plugin-surface-reduction-requirements.md",
+        "docs/guides/ce-ideate.md",
+        "docs/guides/ce-simplify-code.md",
+        "docs/plans/2026-03-22-001-feat-frontend-design-skill-rewrite-beta-plan.md",
+        "docs/plans/2026-03-23-001-feat-plan-review-personas-beta-plan.md",
+        "docs/plans/2026-08-13-2253-feat-prototype-craft-floor-and-durable-storage-plan.md",
+        "docs/solutions/skill-design/ce-doc-review-calibration-patterns.md",
+        "docs/specs/product-anchor-docs-proposal.md",
+        "skills/ce-bakeoff/SKILL.md",
+        "skills/ce-brainstorm/references/html-rendering.md",
+        "skills/ce-brainstorm/references/markdown-rendering.md",
+        "skills/ce-code-review/references/persona-catalog.md",
+        "skills/ce-code-review/references/personas/agent-native-reviewer.md",
+        "skills/ce-code-review/references/personas/swift-ios-reviewer.md",
+        "skills/ce-code-review/references/select-and-route.md",
+        "skills/ce-doc-review/references/persona-selection.md",
+        "skills/ce-doc-review/references/personas/design-lens-reviewer.md",
+        "skills/ce-dogfood/references/phases.md",
+        "skills/ce-dogfood/references/test-matrix-taxonomy.md",
+        "skills/ce-ideate/references/html-rendering.md",
+        "skills/ce-ideate/references/markdown-rendering.md",
+        "skills/ce-plan/references/agents/agent-native-planning-strategist.md",
+        "skills/ce-plan/references/agents/spec-flow-analyzer.md",
+        "skills/ce-plan/references/deepening-workflow.md",
+        "skills/ce-plan/references/html-rendering.md",
+        "skills/ce-plan/references/intake.md",
+        "skills/ce-plan/references/markdown-rendering.md",
+        "skills/ce-plan/references/research.md",
+        "skills/ce-polish/references/live-stream-contract.md",
+        "skills/ce-pov/references/cross-model-panel.md",
+        "skills/ce-riffrec-feedback-analysis/references/install-riffrec.md",
+        "skills/ce-simplify-code/SKILL.md",
+        "skills/ce-test-xcode/references/test-and-report.md",
+        "src/dev/codex-dev.ts",
+        "src/utils/legacy-cleanup.ts",
+        "tests/fixtures/ce-doc-review/seeded-feature-plan.expectations.md",
+        "tests/fixtures/ce-doc-review/seeded-feature-plan.md",
+        "tests/pov-skill-contract.test.ts",
+        "tests/skill-eval-cell/judged/rubrics/brainstorm.md"
+      ],
+      "searchScope": "All tracked text files, including hidden and normally ignored paths; binary files excluded by ripgrep.",
+      "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/tree/9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "decision": "Compose with existing review and verification",
+      "reason": "ce-dogfood has useful journey coverage; design-lens and Swift review personas contain narrower checks. These belong with existing verify/review owners; a test identifier does not prove an accessible name.",
+      "inspection": [
+        {
+          "path": "skills/ce-dogfood/references/test-matrix-taxonomy.md",
+          "coverage": "Full",
+          "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-dogfood/references/test-matrix-taxonomy.md",
+          "sha256": "f7ade1a3101d3768baba02444782d67d760ff587bd0816288f367d5460c62f29"
+        },
+        {
+          "path": "skills/ce-doc-review/references/personas/design-lens-reviewer.md",
+          "coverage": "Full",
+          "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-doc-review/references/personas/design-lens-reviewer.md",
+          "sha256": "4660788e617e0432c78383af34c8fb23f08c43ec06d87d3645a9a2605e6f14f0"
+        },
+        {
+          "path": "skills/ce-code-review/references/personas/swift-ios-reviewer.md",
+          "coverage": "Accessibility review section",
+          "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-code-review/references/personas/swift-ios-reviewer.md",
+          "sha256": "f4c69a5fd5648eea140ae5a6507a8271014e4be58a39bd7ef1d1b2a71e5e3d9a"
+        }
+      ],
+      "keywordMatches": 43
+    },
+    {
+      "id": "cursor",
+      "remote": "git@github.com:cursor/plugins.git",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "ref": "refs/remotes/origin/main",
+      "trackedFiles": 890,
+      "skillEntrypoints": 104,
+      "matches": [
+        "cursor-team-kit/skills/control-ui/SKILL.md",
+        "cursor-team-kit/skills/verify-this/SKILL.md",
+        "grok-voice/skills/add-voice/SKILL.md",
+        "pstack/automations/benny/skills/reproduce-and-fix-issues/references/control-adapter.md",
+        "pstack/automations/benny/skills/reproduce-and-fix-issues/references/feature-map.example.md",
+        "pstack/automations/benny/skills/triage-issue-reports/SKILL.md",
+        "pstack/skills/create-verification-skill/references/feature-map-example/README.md",
+        "pstack/skills/poteto-mode/references/bugbot-triage.md",
+        "third_party/google-slides/skills/google-slides/SKILL.md",
+        "third_party/playwright/README.md"
+      ],
+      "searchScope": "All tracked text files, including hidden and normally ignored paths; binary files excluded by ripgrep.",
+      "repository": "https://github.com/cursor/plugins",
+      "url": "https://github.com/cursor/plugins/tree/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "decision": "Compose with existing verification",
+      "reason": "pstack runtime control and final user-flow evidence already belong to verify. No dedicated accessibility owner was found in the scan. Do not import another orchestration or verification harness.",
+      "inspection": [
+        {
+          "path": "pstack/automations/benny/skills/reproduce-and-fix-issues/references/control-adapter.md",
+          "coverage": "Full",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/automations/benny/skills/reproduce-and-fix-issues/references/control-adapter.md",
+          "sha256": "58b0615d2fca895f9a20df83266e280042b0d585b5f2fd324e2094a682fd846b"
+        },
+        {
+          "path": "pstack/skills/poteto-mode/references/bugbot-triage.md",
+          "coverage": "Accessibility regression and intentional-design clauses",
+          "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/poteto-mode/references/bugbot-triage.md",
+          "sha256": "b2d146c770d8d3593e1ef3d77b668039b8e1f78093ea1a86f1d45d7f99614309"
+        }
+      ],
+      "keywordMatches": 10
+    },
+    {
+      "id": "ecc",
+      "remote": "git@github.com:affaan-m/ECC.git",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "ref": "refs/remotes/origin/main",
+      "trackedFiles": 4212,
+      "skillEntrypoints": 1027,
+      "matches": [
+        ".agents/skills/agent-sort/SKILL.md",
+        ".agents/skills/eval-harness/SKILL.md",
+        ".agents/skills/frontend-patterns/SKILL.md",
+        ".agents/skills/frontend-slides/SKILL.md",
+        ".agents/skills/frontend-slides/STYLE_PRESETS.md",
+        ".agents/skills/mle-workflow/SKILL.md",
+        ".agents/skills/video-editing/SKILL.md",
+        ".cursor/skills/frontend-slides/SKILL.md",
+        ".cursor/skills/frontend-slides/STYLE_PRESETS.md",
+        ".kiro/README.md",
+        ".kiro/agents/code-reviewer.json",
+        ".kiro/agents/code-reviewer.md",
+        ".kiro/agents/e2e-runner.json",
+        ".kiro/agents/e2e-runner.md",
+        ".kiro/agents/react-reviewer.json",
+        ".kiro/agents/react-reviewer.md",
+        ".kiro/skills/docker-patterns/SKILL.md",
+        ".kiro/skills/frontend-patterns/SKILL.md",
+        ".kiro/skills/mle-workflow/SKILL.md",
+        ".kiro/skills/react-patterns/SKILL.md",
+        ".kiro/skills/react-testing/SKILL.md",
+        ".opencode/commands/code-review.md",
+        ".opencode/prompts/agents/code-reviewer.txt",
+        ".opencode/prompts/agents/e2e-runner.txt",
+        "AGENTS.md",
+        "COMMANDS-QUICK-REF.md",
+        "agents/a11y-architect.md",
+        "agents/code-reviewer.md",
+        "agents/e2e-runner.md",
+        "agents/flutter-reviewer.md",
+        "agents/gan-evaluator.md",
+        "agents/mle-reviewer.md",
+        "agents/react-reviewer.md",
+        "agents/typescript-reviewer.md",
+        "agents/vue-reviewer.md",
+        "assets/hero.svg",
+        "commands/code-review.md",
+        "commands/flutter-review.md",
+        "commands/multi-execute.md",
+        "commands/multi-frontend.md",
+        "commands/multi-plan.md",
+        "commands/multi-workflow.md",
+        "commands/react-review.md",
+        "commands/react-test.md",
+        "commands/vue-review.md",
+        "config/project-stack-mappings.json",
+        "docs/COMMAND-REGISTRY.json",
+        "docs/MCP-CONNECTOR-POLICY.md",
+        "docs/architecture/eval-harness-frameworks.md",
+        "docs/es/commands/code-review.md",
+        "docs/ja-JP/agents/a11y-architect.md",
+        "docs/ja-JP/agents/mle-reviewer.md",
+        "docs/ja-JP/commands/code-review.md",
+        "docs/ja-JP/skills/accessibility/SKILL.md",
+        "docs/ja-JP/skills/browser-qa/SKILL.md",
+        "docs/ja-JP/skills/flutter-dart-code-review/SKILL.md",
+        "docs/ja-JP/skills/frontend-design-direction/SKILL.md",
+        "docs/ja-JP/skills/frontend-slides/SKILL.md",
+        "docs/ja-JP/skills/frontend-slides/STYLE_PRESETS.md",
+        "docs/ja-JP/skills/healthcare-emr-patterns/SKILL.md",
+        "docs/ja-JP/skills/security-review/cloud-infrastructure-security.md",
+        "docs/ja-JP/skills/video-editing/SKILL.md",
+        "docs/ja-JP/skills/windows-desktop-e2e/SKILL.md",
+        "docs/ko-KR/commands/code-review.md",
+        "docs/ko-KR/skills/eval-harness/SKILL.md",
+        "docs/ko-KR/skills/security-review/cloud-infrastructure-security.md",
+        "docs/pt-BR/commands/code-review.md",
+        "docs/releases/2.0.0-rc.1/demo-prompts.md",
+        "docs/releases/2.0.0-rc.1/publication-evidence-2026-05-13-post-hardening.md",
+        "docs/tr/agents/flutter-reviewer.md",
+        "docs/tr/commands/code-review.md",
+        "docs/tr/commands/multi-frontend.md",
+        "docs/tr/commands/multi-plan.md",
+        "docs/tr/commands/multi-workflow.md",
+        "docs/zh-CN/commands/code-review.md",
+        "docs/zh-CN/skills/accessibility/SKILL.md",
+        "docs/zh-CN/skills/browser-qa/SKILL.md",
+        "docs/zh-CN/skills/docker-patterns/SKILL.md",
+        "docs/zh-CN/skills/flutter-dart-code-review/SKILL.md",
+        "docs/zh-CN/skills/frontend-slides/SKILL.md",
+        "docs/zh-CN/skills/frontend-slides/STYLE_PRESETS.md",
+        "docs/zh-CN/skills/healthcare-emr-patterns/SKILL.md",
+        "docs/zh-CN/skills/security-review/cloud-infrastructure-security.md",
+        "docs/zh-CN/skills/video-editing/SKILL.md",
+        "docs/zh-TW/commands/code-review.md",
+        "docs/zh-TW/skills/security-review/cloud-infrastructure-security.md",
+        "examples/coordination-inventory/README.md",
+        "manifests/context-packs/skill-triggers@1.json",
+        "manifests/install-modules.json",
+        "manifests/pi-core.json",
+        "package.json",
+        "pi/core/commands/code-review.md",
+        "pi/core/commands/react-test.md",
+        "pi/core/skills/accessibility/SKILL.md",
+        "pi/core/skills/angular-developer/SKILL.md",
+        "pi/core/skills/angular-developer/references/angular-aria.md",
+        "pi/core/skills/angular-developer/references/define-routes.md",
+        "pi/core/skills/angular-developer/references/e2e-testing.md",
+        "pi/core/skills/design-system/SKILL.md",
+        "pi/core/skills/django-verification/SKILL.md",
+        "pi/core/skills/docker-patterns/SKILL.md",
+        "pi/core/skills/flutter-dart-code-review/SKILL.md",
+        "pi/core/skills/frontend-a11y/SKILL.md",
+        "pi/core/skills/frontend-patterns/SKILL.md",
+        "pi/core/skills/intent-driven-development/SKILL.md",
+        "pi/core/skills/liquid-glass-design/SKILL.md",
+        "pi/core/skills/ml-adoption-playbook/SKILL.md",
+        "pi/core/skills/mle-workflow/SKILL.md",
+        "pi/core/skills/motion-advanced/SKILL.md",
+        "pi/core/skills/motion-foundations/SKILL.md",
+        "pi/core/skills/motion-patterns/SKILL.md",
+        "pi/core/skills/react-native-patterns/SKILL.md",
+        "pi/core/skills/react-patterns/SKILL.md",
+        "pi/core/skills/react-performance/SKILL.md",
+        "pi/core/skills/react-testing/SKILL.md",
+        "pi/core/skills/security-review/cloud-infrastructure-security.md",
+        "pi/core/skills/vue-patterns/SKILL.md",
+        "rules/angular/patterns.md",
+        "rules/dart/security.md",
+        "rules/react-native/accessibility.md",
+        "rules/react-native/testing.md",
+        "rules/react/patterns.md",
+        "rules/react/security.md",
+        "rules/react/testing.md",
+        "rules/web/testing.md",
+        "scripts/hooks/desktop-notify.js",
+        "scripts/lib/plan-canvas/ui.js",
+        "skills/accessibility/SKILL.md",
+        "skills/agent-sort/SKILL.md",
+        "skills/angular-developer/SKILL.md",
+        "skills/angular-developer/references/angular-aria.md",
+        "skills/angular-developer/references/define-routes.md",
+        "skills/angular-developer/references/e2e-testing.md",
+        "skills/browser-qa/SKILL.md",
+        "skills/delivery-gate/hooks/quality-gate.py",
+        "skills/design-system/SKILL.md",
+        "skills/django-verification/SKILL.md",
+        "skills/docker-patterns/SKILL.md",
+        "skills/eval-harness/SKILL.md",
+        "skills/flutter-dart-code-review/SKILL.md",
+        "skills/frontend-a11y/SKILL.md",
+        "skills/frontend-design-direction/SKILL.md",
+        "skills/frontend-patterns/SKILL.md",
+        "skills/frontend-slides/SKILL.md",
+        "skills/frontend-slides/STYLE_PRESETS.md",
+        "skills/frontend-slides/html-template.md",
+        "skills/frontend-slides/viewport-base.css",
+        "skills/healthcare-emr-patterns/SKILL.md",
+        "skills/intent-driven-development/SKILL.md",
+        "skills/ios-icon-gen/scripts/generate_icons.swift",
+        "skills/liquid-glass-design/SKILL.md",
+        "skills/ml-adoption-playbook/SKILL.md",
+        "skills/mle-workflow/SKILL.md",
+        "skills/motion-advanced/SKILL.md",
+        "skills/motion-foundations/SKILL.md",
+        "skills/motion-patterns/SKILL.md",
+        "skills/prompt-optimizer/SKILL.md",
+        "skills/react-native-patterns/SKILL.md",
+        "skills/react-patterns/SKILL.md",
+        "skills/react-performance/SKILL.md",
+        "skills/react-testing/SKILL.md",
+        "skills/security-review/cloud-infrastructure-security.md",
+        "skills/ui-to-vue/SKILL.md",
+        "skills/video-editing/SKILL.md",
+        "skills/videodb/SKILL.md",
+        "skills/videodb/reference/editor.md",
+        "skills/vue-patterns/SKILL.md",
+        "skills/windows-desktop-e2e/SKILL.md",
+        "tests/lib/context-retrieval.test.js",
+        "tests/lib/context-selection.test.js",
+        "tests/lib/control-plane-view-ui-a11y.test.js",
+        "tests/lib/eval-harness/capsule.test.js",
+        "tests/lib/session-aliases.test.js"
+      ],
+      "searchScope": "All tracked text files, including hidden and normally ignored paths; binary files excluded by ripgrep.",
+      "repository": "https://github.com/affaan-m/ECC",
+      "url": "https://github.com/affaan-m/ECC/tree/ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "decision": "Adapt selected accessibility coverage",
+      "reason": "Combine the broad accessibility skill, frontend-a11y, a11y-architect and native rules. Correct standards classifications and keep framework recipes out of the portable entrypoint.",
+      "inspection": [
+        {
+          "path": "skills/accessibility/SKILL.md",
+          "coverage": "Full",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/accessibility/SKILL.md",
+          "sha256": "2762f21d09d199009ed4f95b28c911436b367c30963dc5ddb48b8e1ad7fc1585"
+        },
+        {
+          "path": "skills/frontend-a11y/SKILL.md",
+          "coverage": "Full",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/frontend-a11y/SKILL.md",
+          "sha256": "e00991a3f4d47fcf1529dd74a080afcf46137dc5061e70dc6e3da7b27f2ae3f3"
+        },
+        {
+          "path": "agents/a11y-architect.md",
+          "coverage": "Full",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/agents/a11y-architect.md",
+          "sha256": "88e684476cbc449a2444a1218a79034d275465f375ce45b6d86ab99958bf45e7"
+        },
+        {
+          "path": "rules/react-native/accessibility.md",
+          "coverage": "Full",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/rules/react-native/accessibility.md",
+          "sha256": "7cd8adb29406c0f07e6628334bf417e8df3d71a2781c2f830b5b74177b2b8222"
+        },
+        {
+          "path": "skills/angular-developer/references/angular-aria.md",
+          "coverage": "Lines 1-130: native/headless components and focus",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/angular-developer/references/angular-aria.md",
+          "sha256": "96daed398824f2947c5f4221065cdeabf82ac020874f99cb4338e5e84cd96aa1"
+        },
+        {
+          "path": "skills/motion-foundations/SKILL.md",
+          "coverage": "Relevant reduced-motion and framework constraints screened",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/motion-foundations/SKILL.md",
+          "sha256": "ac0dd6de088e8cf2bff57230b365469e893c5f3a9578815a7f113689d0401972"
+        },
+        {
+          "path": "skills/design-system/SKILL.md",
+          "coverage": "Relevant accessibility scope screened",
+          "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/design-system/SKILL.md",
+          "sha256": "1969e4cb6cd13cdafff5f84353047d6e55cebc24e1a595ec48e6e2c666f3d8b1"
+        }
+      ],
+      "keywordMatches": 173
+    },
+    {
+      "id": "gh",
+      "remote": "git@github.com:cli/cli.git",
+      "commit": "6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+      "ref": "refs/remotes/origin/trunk",
+      "trackedFiles": 1493,
+      "skillEntrypoints": 14,
+      "matches": [
+        ".github/workflows/scripts/spam-detection/eval-prompts.yml",
+        "acceptance/testdata/telemetry/accessibility-dimensions-disabled.txtar",
+        "acceptance/testdata/telemetry/accessibility-dimensions.txtar",
+        "api/queries_projects_v2.go",
+        "api/queries_projects_v2_test.go",
+        "docs/primer/foundations/README.md",
+        "docs/primer/getting-started/README.md",
+        "internal/barista/observability/telemetry.twirp.go",
+        "internal/codespaces/portforwarder/port_forwarder.go",
+        "internal/config/config.go",
+        "internal/config/test.go",
+        "internal/gh/gh.go",
+        "internal/gh/mock/config.go",
+        "internal/ghcmd/cmd.go",
+        "internal/ghcmd/cmd_test.go",
+        "internal/prompter/accessible_prompter_test.go",
+        "internal/prompter/multi_select_with_search.go",
+        "internal/prompter/prompter.go",
+        "pkg/cmd/accessibility/accessibility.go",
+        "pkg/cmd/config/list/list_test.go",
+        "pkg/cmd/root/help.go",
+        "pkg/cmd/root/help_topic.go",
+        "pkg/cmd/root/root.go",
+        "pkg/iostreams/color.go",
+        "pkg/iostreams/color_test.go",
+        "pkg/iostreams/iostreams.go"
+      ],
+      "searchScope": "All tracked text files, including hidden and normally ignored paths; binary files excluded by ripgrep.",
+      "repository": "https://github.com/cli/cli",
+      "url": "https://github.com/cli/cli/tree/6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+      "decision": "Retain a conditional terminal reference",
+      "reason": "The actual CLI accessibility implementation addresses stable prompts, progress and configurable colors. This is interface guidance, not another GitHub operations skill.",
+      "inspection": [
+        {
+          "path": "pkg/cmd/accessibility/accessibility.go",
+          "coverage": "Full",
+          "url": "https://github.com/cli/cli/blob/6fc1c29d5477bfe71da7af290eb481c0df7811f1/pkg/cmd/accessibility/accessibility.go",
+          "sha256": "c0bbd796f33ad9da6bcba1c18eb0c57f59b9ffd9e340aa5fb7bf10c75a37bcaa"
+        }
+      ],
+      "keywordMatches": 26
+    },
+    {
+      "id": "gsd",
+      "remote": "git@github.com:gsd-build/gsd-2.git",
+      "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "ref": "refs/remotes/origin/main",
+      "trackedFiles": 3613,
+      "skillEntrypoints": 38,
+      "matches": [
+        ".plans/onboarding-detection-wizard.md",
+        "docs/dev/FILE-SYSTEM-MAP.md",
+        "docs/dev/PRD-pi-clean-seam-refactor.md",
+        "docs/dev/architecture.md",
+        "docs/dev/building-coding-agents/11-god-tier-context-engineering.md",
+        "docs/dev/building-coding-agents/16-encoding-taste-aesthetics.md",
+        "docs/dev/pi-ui-tui/05-persistent-ui-elements.md",
+        "docs/dev/proposals/698-browser-tools-feature-additions.md",
+        "docs/user-docs/commands.md",
+        "docs/user-docs/skills.md",
+        "gitbook/features/skills.md",
+        "native/crates/engine/src/ps.rs",
+        "packages/daemon/src/project-scanner.test.ts",
+        "packages/pi-ai/src/models.generated.test.ts",
+        "packages/pi-coding-agent/src/core/artifact-manager.ts",
+        "packages/pi-coding-agent/src/core/export-html/vendor/highlight.min.js",
+        "packages/pi-coding-agent/src/core/extensions/types.ts",
+        "packages/pi-coding-agent/src/core/footer-data-provider.ts",
+        "packages/pi-coding-agent/src/core/model-registry-auth-mode.test.ts",
+        "packages/pi-coding-agent/src/modes/interactive/components/extension-selector.ts",
+        "packages/pi-tui/src/autocomplete.ts",
+        "pkg/dist/core/export-html/vendor/highlight.min.js",
+        "scripts/recover-gsd-1364.ps1",
+        "scripts/recover-gsd-1364.sh",
+        "src/resources/extensions/browser-tools/BROWSER-TOOLS-V2-PROPOSAL.md",
+        "src/resources/extensions/browser-tools/evaluate-helpers.ts",
+        "src/resources/extensions/browser-tools/extension-manifest.json",
+        "src/resources/extensions/browser-tools/index.ts",
+        "src/resources/extensions/browser-tools/refs.ts",
+        "src/resources/extensions/browser-tools/state.ts",
+        "src/resources/extensions/browser-tools/tests/browser-tools-integration.test.mjs",
+        "src/resources/extensions/browser-tools/tests/browser-tools-unit.test.cjs",
+        "src/resources/extensions/browser-tools/tools/inspection.ts",
+        "src/resources/extensions/browser-tools/tools/intent.ts",
+        "src/resources/extensions/browser-tools/tools/interaction.ts",
+        "src/resources/extensions/browser-tools/tools/session.ts",
+        "src/resources/extensions/browser-tools/utils.ts",
+        "src/resources/extensions/gsd/auto-dispatch.ts",
+        "src/resources/extensions/gsd/auto-prompts.ts",
+        "src/resources/extensions/gsd/bootstrap/system-context.ts",
+        "src/resources/extensions/gsd/gate-registry.ts",
+        "src/resources/extensions/gsd/knowledge-projection.ts",
+        "src/resources/extensions/gsd/memory-consolidation-scanner.ts",
+        "src/resources/extensions/gsd/migrate-external.ts",
+        "src/resources/extensions/gsd/skill-catalog.ts",
+        "src/resources/extensions/gsd/skill-manifest.ts",
+        "src/resources/extensions/gsd/templates/plan.md",
+        "src/resources/extensions/gsd/tests/auto-migrating-recovery.test.ts",
+        "src/resources/extensions/gsd/tests/bundled-skill-triggers.test.ts",
+        "src/resources/extensions/gsd/tests/gsd-tools.test.ts",
+        "src/resources/extensions/gsd/tests/namespaced-registry.test.ts",
+        "src/resources/extensions/gsd/tests/plan-slice-prompt.test.ts",
+        "src/resources/extensions/gsd/tests/skill-activation.test.ts",
+        "src/resources/extensions/gsd/tests/worktree-db.test.ts",
+        "src/resources/extensions/gsd/workflow-templates/accessibility-audit.md",
+        "src/resources/extensions/gsd/workflow-templates/registry.json",
+        "src/resources/extensions/mac-tools/extension-manifest.json",
+        "src/resources/extensions/mac-tools/index.ts",
+        "src/resources/extensions/mac-tools/swift-cli/Sources/main.swift",
+        "src/resources/extensions/visual-brief/page-contract.ts",
+        "src/resources/extensions/visual-brief/tests/visual-brief.test.ts",
+        "src/resources/skills/accessibility/SKILL.md",
+        "src/resources/skills/accessibility/references/WCAG.md",
+        "src/resources/skills/agent-browser/SKILL.md",
+        "src/resources/skills/agent-browser/references/commands.md",
+        "src/resources/skills/create-skill/references/api-security.md",
+        "src/resources/skills/frontend-design/SKILL.md",
+        "src/resources/skills/make-interfaces-feel-better/surfaces.md",
+        "src/resources/skills/userinterface-wiki/SKILL.md",
+        "src/resources/skills/userinterface-wiki/rules/_sections.md",
+        "src/resources/skills/userinterface-wiki/rules/a11y-reduced-motion-check.md",
+        "src/resources/skills/userinterface-wiki/rules/a11y-toggle-setting.md",
+        "src/resources/skills/userinterface-wiki/rules/a11y-visual-equivalent.md",
+        "src/resources/skills/userinterface-wiki/rules/a11y-volume-control.md",
+        "src/resources/skills/userinterface-wiki/rules/appropriate-no-high-frequency.md",
+        "src/resources/skills/userinterface-wiki/rules/morphing-aria-hidden.md",
+        "src/resources/skills/userinterface-wiki/rules/morphing-reduced-motion.md",
+        "src/resources/skills/userinterface-wiki/rules/none-keyboard-navigation.md",
+        "src/resources/skills/userinterface-wiki/rules/prefetch-keyboard-tab.md",
+        "src/resources/skills/userinterface-wiki/rules/pseudo-hit-target-expansion.md",
+        "src/resources/skills/userinterface-wiki/rules/ux-pareto-prioritize-features.md",
+        "src/resources/skills/web-design-guidelines/SKILL.md",
+        "src/resources/skills/web-quality-audit/SKILL.md",
+        "web/components/gsd/command-surface.tsx",
+        "web/lib/auth.ts",
+        "web/package-lock.json"
+      ],
+      "searchScope": "All tracked text files, including hidden and normally ignored paths; binary files excluded by ripgrep.",
+      "repository": "https://github.com/gsd-build/gsd-2",
+      "url": "https://github.com/gsd-build/gsd-2/tree/33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "decision": "Adapt selected accessibility coverage",
+      "reason": "Use content, forms, media, timing and audit-only coverage. Correct large-text units, outdated Parsing guidance and the distinction between automated checks and conformance.",
+      "inspection": [
+        {
+          "path": "src/resources/skills/accessibility/SKILL.md",
+          "coverage": "Full",
+          "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/skills/accessibility/SKILL.md",
+          "sha256": "df14b3a23e79b4c213cf3bd0a14662fb084f226a7d5099b37582b3235c8c4b53"
+        },
+        {
+          "path": "src/resources/skills/accessibility/references/WCAG.md",
+          "coverage": "Full",
+          "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/skills/accessibility/references/WCAG.md",
+          "sha256": "ee42f07104230ee5ea185f326b01fc13f9cf05ceacf0a72beccce9c6ee7f61a7"
+        },
+        {
+          "path": "src/resources/extensions/gsd/workflow-templates/accessibility-audit.md",
+          "coverage": "Full",
+          "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/extensions/gsd/workflow-templates/accessibility-audit.md",
+          "sha256": "3ea58bc0948c0204d714fb3a2dd11321ecd8d6958d9860bd7638868068d4c534"
+        },
+        {
+          "path": "src/resources/skills/web-quality-audit/SKILL.md",
+          "coverage": "Accessibility scope and linked specialist screened",
+          "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/skills/web-quality-audit/SKILL.md",
+          "sha256": "0bde08085c8701f29406955d0db1f0edb55fcc0af4cf91715c7ba7d3134b804e"
+        }
+      ],
+      "keywordMatches": 86
+    },
+    {
+      "id": "humanlayer",
+      "remote": "git@github.com:humanlayer/skills.git",
+      "commit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+      "ref": "refs/remotes/origin/main",
+      "trackedFiles": 41,
+      "skillEntrypoints": 6,
+      "matches": [
+        "plugins/design-control-loop/skills/design-control-loop/references/example-control-loop.md"
+      ],
+      "searchScope": "All tracked text files, including hidden and normally ignored paths; binary files excluded by ripgrep.",
+      "repository": "https://github.com/humanlayer/skills",
+      "url": "https://github.com/humanlayer/skills/tree/ca7c8088db69e315a8b2deea43820270457f8f3c",
+      "decision": "Keep adjacent; no new donor",
+      "reason": "The relevant hit is a React Doctor control-loop example. It illustrates scheduled quality maintenance, not a complete accessibility method.",
+      "inspection": [
+        {
+          "path": "plugins/design-control-loop/skills/design-control-loop/references/example-control-loop.md",
+          "coverage": "Full",
+          "url": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/plugins/design-control-loop/skills/design-control-loop/references/example-control-loop.md",
+          "sha256": "faee7f1f7ffb0f98edbd2c985da75e5c2c8b8e5d0bbc427db3ac98b9a64a2219"
+        }
+      ],
+      "keywordMatches": 1
+    },
+    {
+      "id": "matt",
+      "remote": "git@github.com:mattpocock/skills.git",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "ref": "refs/remotes/origin/main",
+      "trackedFiles": 172,
+      "skillEntrypoints": 37,
+      "matches": [
+        "skills/engineering/implement-spec/SKILL.md",
+        "skills/engineering/triage/OUT-OF-SCOPE.md"
+      ],
+      "searchScope": "All tracked text files, including hidden and normally ignored paths; binary files excluded by ripgrep.",
+      "repository": "https://github.com/mattpocock/skills",
+      "url": "https://github.com/mattpocock/skills/tree/d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "decision": "Keep adjacent; no new donor",
+      "reason": "No focused accessibility procedure found. Prototype keyboard guidance is local to its variant switcher; generic research and diagnosis already have owners.",
+      "inspection": [
+        {
+          "path": "skills/engineering/prototype/UI.md",
+          "coverage": "Keyboard variant switching excerpt",
+          "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/engineering/prototype/UI.md",
+          "sha256": "723211e878acbc7b6ff09755263f3295cde724ba902ff0064da41eed51d45ad3"
+        }
+      ],
+      "keywordMatches": 2
+    },
+    {
+      "id": "mblode",
+      "remote": "git@github.com:mblode/agent-skills.git",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "ref": "refs/remotes/origin/main",
+      "trackedFiles": 553,
+      "skillEntrypoints": 28,
+      "matches": [
+        "maintenance/2026-09-05-skill-audit.md",
+        "maintenance/2026-10-03-module-audit.md",
+        "maintenance/sources/ui-design.md",
+        "skills/agent-skills-creator/references/adopt-adapt-author.md",
+        "skills/agent-skills-creator/references/capability-delta.md",
+        "skills/agent-skills-creator/references/improving-existing-skills.md",
+        "skills/app-verification/evals/evals.json",
+        "skills/app-verification/references/feature-map-format.md",
+        "skills/app-verification/references/verification-ladder.md",
+        "skills/ax-audit/references/feature-playbooks.md",
+        "skills/chat-history/references/sources.md",
+        "skills/codebase-architecture/SKILL.md",
+        "skills/codebase-architecture/references/contagion-markers.md",
+        "skills/dx-audit/SKILL.md",
+        "skills/eli5/references/formats.md",
+        "skills/presentation-creator/references/pitch-decks.md",
+        "skills/presentation-creator/references/visual-design.md",
+        "skills/presentation-creator/references/web-deck.md",
+        "skills/product-design/SKILL.md",
+        "skills/product-design/references/interface-quality.md",
+        "skills/product-design/references/rules.md",
+        "skills/save-md/evals/evals.json",
+        "skills/scaffold-nextjs/references/deploy-and-launch.md",
+        "skills/seo/SKILL.md",
+        "skills/seo/references/audit.md",
+        "skills/tidy/SKILL.md",
+        "skills/tidy/evals/evals.json",
+        "skills/tidy/references/security-checklist.md",
+        "skills/typography-audit/SKILL.md",
+        "skills/typography-audit/rules/_sections.md",
+        "skills/typography-audit/rules/brand-color.md",
+        "skills/typography-audit/rules/brand-licensing.md",
+        "skills/typography-audit/rules/hierarchy-heading-color.md",
+        "skills/ui-animation/SKILL.md",
+        "skills/ui-animation/evals/evals.json",
+        "skills/ui-animation/references/debugging-symptoms.md",
+        "skills/ui-animation/references/interface-sfx.md",
+        "skills/ui-animation/references/review-format.md",
+        "skills/ui-design/SKILL.md",
+        "skills/ui-design/direction/brand-kit-prompt.md",
+        "skills/ui-design/direction/marketing-ui.md",
+        "skills/ui-design/direction/modern.md",
+        "skills/ui-design/direction/product-ui.md",
+        "skills/ui-design/evals/evals.json",
+        "skills/ui-design/evals/merge-routing.json",
+        "skills/ui-design/guidelines/buttons.md",
+        "skills/ui-design/markup-from-image.md",
+        "skills/ui-design/references/craft-checklist.md",
+        "skills/ui-design/references/defer-to-other-tools.md",
+        "skills/ui-design/references/feature-playbooks.md",
+        "skills/ui-design/references/output-adapters.md",
+        "skills/ui-design/references/ship-readiness.md",
+        "skills/ui-design/references/states-coverage.md",
+        "skills/ui-design/rules/_sections.md",
+        "skills/ui-design/rules/_template.md",
+        "skills/ui-design/rules/a11y-color-only-meaning.md",
+        "skills/ui-design/rules/a11y-data-table-semantics.md",
+        "skills/ui-design/rules/a11y-disabled-control-tooltip.md",
+        "skills/ui-design/rules/a11y-icon-controls-labeled.md",
+        "skills/ui-design/rules/a11y-image-alt-text.md",
+        "skills/ui-design/rules/a11y-media-captions.md",
+        "skills/ui-design/rules/a11y-semantic-html-first.md",
+        "skills/ui-design/rules/a11y-skip-link-heading-order.md",
+        "skills/ui-design/rules/a11y-tooltip-no-interactive.md",
+        "skills/ui-design/rules/dark-i18n-untested.md",
+        "skills/ui-design/rules/focus-broken-focus-trap.md",
+        "skills/ui-design/rules/focus-not-restored.md",
+        "skills/ui-design/rules/focus-on-dynamic-content.md",
+        "skills/ui-design/rules/forms-error-association.md",
+        "skills/ui-design/rules/forms-lost-data-on-error.md",
+        "skills/ui-design/rules/forms-mobile-input-font-size.md",
+        "skills/ui-design/rules/interaction-keyboard-operable.md",
+        "skills/ui-design/rules/interaction-target-size.md",
+        "skills/ui-design/rules/microcopy-vague-error.md",
+        "skills/ui-design/rules/mobile-hover-only-affordance.md",
+        "skills/ui-design/rules/nav-semantic-links.md",
+        "skills/ui-design/rules/slop-decoration-no-role.md",
+        "skills/ui-verification/SKILL.md",
+        "skills/ui-verification/probes/axe-scan.md",
+        "skills/ui-verification/probes/console-network.md",
+        "skills/ui-verification/probes/focus-walk.md",
+        "skills/ui-verification/probes/viewport-stress.md",
+        "skills/ui-verification/references/rule-coverage.md",
+        "skills/ui-verification/references/session-setup.md"
+      ],
+      "searchScope": "All tracked text files, including hidden and normally ignored paths; binary files excluded by ripgrep.",
+      "repository": "https://github.com/mblode/agent-skills",
+      "url": "https://github.com/mblode/agent-skills/tree/012e6e5208f512151bdea0e2965dafd01ff61340",
+      "decision": "Adapt completion and evidence criteria",
+      "reason": "Use complete-task accessibility from product-design and scoped focus, target, reflow and scan interpretation from ui-verification. Keep runtime ownership in verify.",
+      "inspection": [
+        {
+          "path": "skills/product-design/references/interface-quality.md",
+          "coverage": "Full",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/product-design/references/interface-quality.md",
+          "sha256": "e92b535385469e20a25c95bf6952e5724f5739b9322d1e3f3d3092415f0c2e0f"
+        },
+        {
+          "path": "skills/ui-verification/SKILL.md",
+          "coverage": "Full",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/SKILL.md",
+          "sha256": "f5cbdcd185cada0bad9dee833465f1e55066b6a39076077711a4a64913fb5193"
+        },
+        {
+          "path": "skills/ui-verification/probes/focus-walk.md",
+          "coverage": "Full",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/focus-walk.md",
+          "sha256": "a7ae22f71d29e273b6b4a2381c9422a7c270bf34d8782bf95520cd87a6186edb"
+        },
+        {
+          "path": "skills/ui-verification/probes/target-size.md",
+          "coverage": "Full",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/target-size.md",
+          "sha256": "0382cfebc35b2f8b689530ca3228ad2e7653334822ab8ec0adcb1fb503271106"
+        },
+        {
+          "path": "skills/ui-verification/probes/viewport-stress.md",
+          "coverage": "Full",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/viewport-stress.md",
+          "sha256": "2b02ae8332b43e8627592f1cbea93e7c358fda73723ff1975931068510a5f7e2"
+        },
+        {
+          "path": "skills/ui-verification/probes/axe-scan.md",
+          "coverage": "Full",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/axe-scan.md",
+          "sha256": "4d4cefb928f1b7973fef40a65c050b86aac011ae41df2c428f73da7f01cb1c2b"
+        },
+        {
+          "path": "skills/ui-design/rules/a11y-image-alt-text.md",
+          "coverage": "Full",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-design/rules/a11y-image-alt-text.md",
+          "sha256": "57df1ec02acd718d0f406eeaada6a9e1dbaecb360b389d35bf143aa4ddc06d9c"
+        },
+        {
+          "path": "skills/ui-design/rules/a11y-media-captions.md",
+          "coverage": "Full",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-design/rules/a11y-media-captions.md",
+          "sha256": "e644ef7f5fecf25a6ecd18494a9c158a4a60a6e6887fa35fae8eb43aebf9645f"
+        },
+        {
+          "path": "skills/ui-design/rules/a11y-data-table-semantics.md",
+          "coverage": "Full",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-design/rules/a11y-data-table-semantics.md",
+          "sha256": "0db48967cd4251a7cdd56324405a30923cd27bfcb4a6a688bcb3ec5e8ac1fdc6"
+        },
+        {
+          "path": "skills/ui-design/rules/a11y-tooltip-no-interactive.md",
+          "coverage": "Full",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-design/rules/a11y-tooltip-no-interactive.md",
+          "sha256": "2767c22f7d256217e842ed75b4c843b69f7679d5733048bf85cf40d3df039af2"
+        },
+        {
+          "path": "skills/ui-design/rules/a11y-skip-link-heading-order.md",
+          "coverage": "Full",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-design/rules/a11y-skip-link-heading-order.md",
+          "sha256": "91ea4f1f65ae2e3e6f4b9da05ae5ff1d8416adc1a3b8a7dd2bbfba8a8f43dadf"
+        },
+        {
+          "path": "skills/product-design/SKILL.md",
+          "coverage": "Scope, routing and relevant task-completion guidance",
+          "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/product-design/SKILL.md",
+          "sha256": "1f5b964df7a7ff4ad9243a079f254fc670dda85fd70e931c514e3f40cd1ed302"
+        }
+      ],
+      "keywordMatches": 84
+    },
+    {
+      "id": "superpowers",
+      "remote": "git@github.com:obra/superpowers.git",
+      "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "ref": "refs/remotes/origin/main",
+      "trackedFiles": 229,
+      "skillEntrypoints": 15,
+      "matches": [
+        "RELEASE-NOTES.md",
+        "docs/plans/2025-11-22-opencode-support-design.md",
+        "docs/plans/2025-11-22-opencode-support-implementation.md",
+        "docs/superpowers/plans/2026-03-11-zero-dep-brainstorm-server.md",
+        "docs/superpowers/specs/2026-06-09-sdd-task-scoped-review-dispatch-design.md",
+        "skills/diagnosing-superpowers/references/session-discovery.md",
+        "skills/diagnosing-superpowers/templates/case.md",
+        "tests/claude-code/README.md"
+      ],
+      "searchScope": "All tracked text files, including hidden and normally ignored paths; binary files excluded by ripgrep.",
+      "repository": "https://github.com/obra/superpowers",
+      "url": "https://github.com/obra/superpowers/tree/8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "decision": "Keep general verification separate",
+      "reason": "No focused accessibility procedure found. Verification-before-completion is already incorporated into the verification owner; incidental text matches are not accessibility sources.",
+      "inspection": [],
+      "keywordMatches": 8
+    },
+    {
+      "id": "vercel",
+      "remote": "git@github.com:vercel-labs/agent-skills.git",
+      "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "ref": "refs/remotes/origin/main",
+      "trackedFiles": 447,
+      "skillEntrypoints": 9,
+      "matches": [
+        "README.md",
+        "skills.sh.json",
+        "skills/react-native-skills/AGENTS.md",
+        "skills/react-native-skills/rules/navigation-native-navigators.md",
+        "skills/react-native-skills/rules/ui-menus.md",
+        "skills/react-native-skills/rules/ui-native-modals.md",
+        "skills/react-view-transitions/AGENTS.md",
+        "skills/react-view-transitions/README.md",
+        "skills/react-view-transitions/SKILL.md",
+        "skills/react-view-transitions/references/css-recipes.md",
+        "skills/react-view-transitions/references/implementation.md",
+        "skills/vercel-optimize/lib/verify-claim.mjs",
+        "skills/vercel-optimize/references/support-topics/next-heavy-ui-lazy-load-boundaries.md",
+        "skills/web-design-guidelines/SKILL.md"
+      ],
+      "searchScope": "All tracked text files, including hidden and normally ignored paths; binary files excluded by ripgrep.",
+      "repository": "https://github.com/vercel-labs/agent-skills",
+      "url": "https://github.com/vercel-labs/agent-skills/tree/063bee94c3f4df8453406c830b0a7df0f2860278",
+      "decision": "Review without installing another auditor",
+      "reason": "Followed web-design-guidelines to its external guide. Useful interaction advice overlaps selected sources; typography and house style are not accessibility requirements. React Native rules remain conditional framework guidance.",
+      "inspection": [
+        {
+          "path": "skills/web-design-guidelines/SKILL.md",
+          "coverage": "Full; followed linked source",
+          "url": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/skills/web-design-guidelines/SKILL.md",
+          "sha256": "f4647ca866a3accf763777f83e7682954f0187cd6bea7eea0399796652414e8f"
+        },
+        {
+          "path": "skills/react-native-skills/SKILL.md",
+          "coverage": "Entrypoint scope and rule routing",
+          "url": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/skills/react-native-skills/SKILL.md",
+          "sha256": "4012750a5ccbe064ca04af3835d5d1b011979d2d09d9b6df1c8128fac58e0a66"
+        }
+      ],
+      "keywordMatches": 14
+    }
+  ],
+  "linkedRepositories": [
+    {
+      "repository": "https://github.com/vercel-labs/web-interface-guidelines",
+      "commit": "e3d624baaf29dc1fc645aff3e38f03e564d2d6b1",
+      "path": "command.md",
+      "url": "https://github.com/vercel-labs/web-interface-guidelines/blob/e3d624baaf29dc1fc645aff3e38f03e564d2d6b1/command.md",
+      "sha256": "5a775e6411f790f518dbc9c1fa7c50a89e6873502d9a3530a6eb223a590bcfe8",
+      "coverage": "Full linked guide",
+      "decision": "Reviewed; not a new source feed",
+      "reason": "Its useful interaction criteria overlap the selected sources and primary standards. House style and broad automatic rules are not adopted."
+    }
+  ],
+  "selectedSources": [
+    {
+      "id": "ecc-accessibility",
+      "author": "Affaan Mustafa / ECC",
+      "repository": "https://github.com/affaan-m/ECC",
+      "remote": "git@github.com:affaan-m/ECC.git",
+      "ref": "refs/heads/main",
+      "baseline_commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "reviewed_through": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "baseline_paths": [
+        "skills/accessibility/SKILL.md",
+        "skills/frontend-a11y/SKILL.md",
+        "agents/a11y-architect.md",
+        "rules/react-native/accessibility.md",
+        "LICENSE"
+      ],
+      "paths": [
+        "skills/accessibility/SKILL.md",
+        "skills/frontend-a11y/SKILL.md",
+        "agents/a11y-architect.md",
+        "rules/react-native/accessibility.md",
+        "LICENSE"
+      ],
+      "license": "MIT; original notice retained in THIRD-PARTY-NOTICES.txt",
+      "borrowed": [
+        "Cross-platform semantics, keyboard and assistive-technology coverage; connect fields and errors and check real native settings."
+      ],
+      "local_choices": [
+        "Use platform-specific references and existing components, with no React-only examples or fixed accessibility API mapping.",
+        "Correct AA/AAA focus classification and target-size scope against primary standards; do not turn every error into an alert."
+      ],
+      "reviews": []
+    },
+    {
+      "id": "mblode-product-design",
+      "author": "Matthew Blode",
+      "repository": "https://github.com/mblode/agent-skills",
+      "remote": "git@github.com:mblode/agent-skills.git",
+      "ref": "refs/heads/main",
+      "baseline_commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "reviewed_through": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "baseline_paths": [
+        "skills/product-design/SKILL.md",
+        "skills/product-design/references/interface-quality.md",
+        "LICENSE.md"
+      ],
+      "paths": [
+        "skills/product-design/SKILL.md",
+        "skills/product-design/references/interface-quality.md",
+        "LICENSE.md"
+      ],
+      "license": "MIT; original notice retained in THIRD-PARTY-NOTICES.txt",
+      "borrowed": [
+        "Treat accessibility as completing the task, including reachable states, consequences, errors and recovery."
+      ],
+      "local_choices": [
+        "Keep an accessibility specialist rather than the donor product-design router, rule registry, severity rubric or aesthetics scope."
+      ],
+      "reviews": []
+    },
+    {
+      "id": "mblode-ui-verification",
+      "author": "Matthew Blode",
+      "repository": "https://github.com/mblode/agent-skills",
+      "remote": "git@github.com:mblode/agent-skills.git",
+      "ref": "refs/heads/main",
+      "baseline_commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "reviewed_through": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "baseline_paths": [
+        "skills/ui-verification/SKILL.md",
+        "skills/ui-verification/probes/focus-walk.md",
+        "skills/ui-verification/probes/axe-scan.md",
+        "skills/ui-verification/probes/target-size.md",
+        "skills/ui-verification/probes/viewport-stress.md",
+        "LICENSE.md"
+      ],
+      "paths": [
+        "skills/ui-verification/SKILL.md",
+        "skills/ui-verification/probes/focus-walk.md",
+        "skills/ui-verification/probes/axe-scan.md",
+        "skills/ui-verification/probes/target-size.md",
+        "skills/ui-verification/probes/viewport-stress.md",
+        "LICENSE.md"
+      ],
+      "license": "MIT; original notice retained in THIRD-PARTY-NOTICES.txt",
+      "borrowed": [
+        "Use observed keyboard and focus paths, real hit regions, scoped automated scans and explicit missing evidence."
+      ],
+      "local_choices": [
+        "verify and the local recipe retain environment and execution ownership. No fixed browser CLI or mandatory probe matrix.",
+        "Reject blanket third-party exclusion, pixel-difference focus verdicts, 44px as a universal AA floor, and viewport-only zoom claims."
+      ],
+      "reviews": []
+    },
+    {
+      "id": "gsd-accessibility",
+      "author": "web-quality-skills, distributed by GSD (Lex Christopherson)",
+      "repository": "https://github.com/gsd-build/gsd-2",
+      "remote": "git@github.com:gsd-build/gsd-2.git",
+      "ref": "refs/heads/main",
+      "baseline_commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "reviewed_through": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "baseline_paths": [
+        "src/resources/skills/accessibility/SKILL.md",
+        "src/resources/skills/accessibility/references/WCAG.md",
+        "src/resources/extensions/gsd/workflow-templates/accessibility-audit.md",
+        "LICENSE"
+      ],
+      "paths": [
+        "src/resources/skills/accessibility/SKILL.md",
+        "src/resources/skills/accessibility/references/WCAG.md",
+        "src/resources/extensions/gsd/workflow-templates/accessibility-audit.md",
+        "LICENSE"
+      ],
+      "license": "MIT; original notice retained in THIRD-PARTY-NOTICES.txt",
+      "borrowed": [
+        "Cover content alternatives, input, timing, understandable forms, and the limits of automated and source-only audits."
+      ],
+      "local_choices": [
+        "Use WCAG 2.2 with precise exceptions, not the donor abbreviated 2.1 checklist or its obsolete Parsing criterion.",
+        "Correct pt versus px large-text thresholds; omit language-specific snippets, global package installation, fixed severity and zero-score certification."
+      ],
+      "reviews": []
+    },
+    {
+      "id": "addy-accessibility",
+      "author": "Addy Osmani",
+      "repository": "https://github.com/addyosmani/agent-skills",
+      "remote": "git@github.com:addyosmani/agent-skills.git",
+      "ref": "refs/heads/main",
+      "baseline_commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+      "reviewed_through": "1401c8b8030e023baeebb31781a6653fe8e93026",
+      "baseline_paths": [
+        "skills/frontend-ui-engineering/SKILL.md",
+        "references/accessibility-checklist.md",
+        "LICENSE"
+      ],
+      "paths": [
+        "skills/frontend-ui-engineering/SKILL.md",
+        "references/accessibility-checklist.md",
+        "LICENSE"
+      ],
+      "license": "MIT; original notice retained in THIRD-PARTY-NOTICES.txt",
+      "borrowed": [
+        "Select keyboard, screen reader, visual and form checks; preserve design-system context and meaningful error and loading states."
+      ],
+      "local_choices": [
+        "Reuse selected accessibility coverage only, not the UI-building workflow, aesthetic rules or component-size limits.",
+        "Correct large-text units and keyboard/target-size exceptions; avoid the incomplete dialog snippet, mandatory focus movement on any content change and automatic legal claims."
+      ],
+      "reviews": []
+    },
+    {
+      "id": "github-cli-accessibility",
+      "author": "GitHub CLI maintainers",
+      "repository": "https://github.com/cli/cli",
+      "remote": "git@github.com:cli/cli.git",
+      "ref": "refs/heads/trunk",
+      "baseline_commit": "6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+      "reviewed_through": "6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+      "baseline_paths": [
+        "pkg/cmd/accessibility/accessibility.go",
+        "LICENSE"
+      ],
+      "paths": [
+        "pkg/cmd/accessibility/accessibility.go",
+        "LICENSE"
+      ],
+      "license": "MIT; original notice retained in THIRD-PARTY-NOTICES.txt",
+      "borrowed": [
+        "Terminal accessibility can require stable prompts, readable progress and configurable color rather than cursor redraws and animation."
+      ],
+      "local_choices": [
+        "Use as a conditional design reference for terminal work; do not prescribe GitHub CLI settings or mutate user configuration."
+      ],
+      "reviews": []
+    }
+  ],
+  "primaryReferences": [
+    {
+      "url": "https://www.w3.org/TR/WCAG22/",
+      "checked": "2026-10-04",
+      "role": "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+    },
+    {
+      "url": "https://www.w3.org/WAI/ARIA/apg/patterns/",
+      "checked": "2026-10-04",
+      "role": "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+    },
+    {
+      "url": "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/",
+      "checked": "2026-10-04",
+      "role": "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+    },
+    {
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html",
+      "checked": "2026-10-04",
+      "role": "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+    },
+    {
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html",
+      "checked": "2026-10-04",
+      "role": "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+    },
+    {
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html",
+      "checked": "2026-10-04",
+      "role": "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+    },
+    {
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html",
+      "checked": "2026-10-04",
+      "role": "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+    },
+    {
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html",
+      "checked": "2026-10-04",
+      "role": "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+    },
+    {
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html",
+      "checked": "2026-10-04",
+      "role": "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+    },
+    {
+      "url": "https://www.w3.org/WAI/WCAG22/Understanding/accessible-authentication-minimum.html",
+      "checked": "2026-10-04",
+      "role": "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+    },
+    {
+      "url": "https://developer.apple.com/design/human-interface-guidelines/accessibility",
+      "checked": "2026-10-04",
+      "role": "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+    },
+    {
+      "url": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/accessibility.json",
+      "checked": "2026-10-04",
+      "role": "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+    },
+    {
+      "url": "https://developer.android.com/guide/topics/ui/accessibility/apps",
+      "checked": "2026-10-04",
+      "role": "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+    },
+    {
+      "url": "https://developer.android.com/guide/topics/ui/accessibility/testing",
+      "checked": "2026-10-04",
+      "role": "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+    }
+  ],
+  "decision": "Derive rather than install competing generic auditors. Five repository donors supply six selected source feeds. W3C and platform documentation resolve technical requirements; verify retains environment ownership.",
+  "limitations": [
+    "A keyword hit is not a relevant or fully inspected source; inaccessible/inapplicable matches were screened out.",
+    "Source adoption does not install the entire upstream skill or validate all of its examples.",
+    "Some sources contain incorrect units, levels or absolute rules; these are corrected rather than inherited.",
+    "Implicit host activation, installation and broad real-world assistive-technology compatibility require separate evidence."
+  ]
+}

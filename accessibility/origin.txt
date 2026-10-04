@@ -1,0 +1,200 @@
+format_version = 1
+skill = "accessibility"
+created = "2026-10-04"
+approach = "Derive: combine task completion and platform coverage with primary standards; retain verify as execution owner."
+
+[[sources]]
+id = "ecc-accessibility"
+author = "Affaan Mustafa / ECC"
+repository = "https://github.com/affaan-m/ECC"
+remote = "git@github.com:affaan-m/ECC.git"
+ref = "refs/heads/main"
+baseline_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+reviewed_through = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+baseline_paths = ["skills/accessibility/SKILL.md", "skills/frontend-a11y/SKILL.md", "agents/a11y-architect.md", "rules/react-native/accessibility.md", "LICENSE"]
+paths = ["skills/accessibility/SKILL.md", "skills/frontend-a11y/SKILL.md", "agents/a11y-architect.md", "rules/react-native/accessibility.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Cross-platform semantics, keyboard and assistive-technology coverage; connect fields and errors and check real native settings."]
+local_choices = ["Use platform-specific references and existing components, with no React-only examples or fixed accessibility API mapping.", "Correct AA/AAA focus classification and target-size scope against primary standards; do not turn every error into an alert."]
+reviews = []
+
+[[sources]]
+id = "mblode-product-design"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+baseline_paths = ["skills/product-design/SKILL.md", "skills/product-design/references/interface-quality.md", "LICENSE.md"]
+paths = ["skills/product-design/SKILL.md", "skills/product-design/references/interface-quality.md", "LICENSE.md"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Treat accessibility as completing the task, including reachable states, consequences, errors and recovery."]
+local_choices = ["Keep an accessibility specialist rather than the donor product-design router, rule registry, severity rubric or aesthetics scope."]
+reviews = []
+
+[[sources]]
+id = "mblode-ui-verification"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+baseline_paths = ["skills/ui-verification/SKILL.md", "skills/ui-verification/probes/focus-walk.md", "skills/ui-verification/probes/axe-scan.md", "skills/ui-verification/probes/target-size.md", "skills/ui-verification/probes/viewport-stress.md", "LICENSE.md"]
+paths = ["skills/ui-verification/SKILL.md", "skills/ui-verification/probes/focus-walk.md", "skills/ui-verification/probes/axe-scan.md", "skills/ui-verification/probes/target-size.md", "skills/ui-verification/probes/viewport-stress.md", "LICENSE.md"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Use observed keyboard and focus paths, real hit regions, scoped automated scans and explicit missing evidence."]
+local_choices = ["verify and the local recipe retain environment and execution ownership. No fixed browser CLI or mandatory probe matrix.", "Reject blanket third-party exclusion, pixel-difference focus verdicts, 44px as a universal AA floor, and viewport-only zoom claims."]
+reviews = []
+
+[[sources]]
+id = "gsd-accessibility"
+author = "web-quality-skills, distributed by GSD (Lex Christopherson)"
+repository = "https://github.com/gsd-build/gsd-2"
+remote = "git@github.com:gsd-build/gsd-2.git"
+ref = "refs/heads/main"
+baseline_commit = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+reviewed_through = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+baseline_paths = ["src/resources/skills/accessibility/SKILL.md", "src/resources/skills/accessibility/references/WCAG.md", "src/resources/extensions/gsd/workflow-templates/accessibility-audit.md", "LICENSE"]
+paths = ["src/resources/skills/accessibility/SKILL.md", "src/resources/skills/accessibility/references/WCAG.md", "src/resources/extensions/gsd/workflow-templates/accessibility-audit.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Cover content alternatives, input, timing, understandable forms, and the limits of automated and source-only audits."]
+local_choices = ["Use WCAG 2.2 with precise exceptions, not the donor abbreviated 2.1 checklist or its obsolete Parsing criterion.", "Correct pt versus px large-text thresholds; omit language-specific snippets, global package installation, fixed severity and zero-score certification."]
+reviews = []
+
+[[sources]]
+id = "addy-accessibility"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "1401c8b8030e023baeebb31781a6653fe8e93026"
+baseline_paths = ["skills/frontend-ui-engineering/SKILL.md", "references/accessibility-checklist.md", "LICENSE"]
+paths = ["skills/frontend-ui-engineering/SKILL.md", "references/accessibility-checklist.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Select keyboard, screen reader, visual and form checks; preserve design-system context and meaningful error and loading states."]
+local_choices = ["Reuse selected accessibility coverage only, not the UI-building workflow, aesthetic rules or component-size limits.", "Correct large-text units and keyboard/target-size exceptions; avoid the incomplete dialog snippet, mandatory focus movement on any content change and automatic legal claims."]
+reviews = []
+
+[[sources]]
+id = "github-cli-accessibility"
+author = "GitHub CLI maintainers"
+repository = "https://github.com/cli/cli"
+remote = "git@github.com:cli/cli.git"
+ref = "refs/heads/trunk"
+baseline_commit = "6fc1c29d5477bfe71da7af290eb481c0df7811f1"
+reviewed_through = "6fc1c29d5477bfe71da7af290eb481c0df7811f1"
+baseline_paths = ["pkg/cmd/accessibility/accessibility.go", "LICENSE"]
+paths = ["pkg/cmd/accessibility/accessibility.go", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Terminal accessibility can require stable prompts, readable progress and configurable color rather than cursor redraws and animation."]
+local_choices = ["Use as a conditional design reference for terminal work; do not prescribe GitHub CLI settings or mutate user configuration."]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Requested authoring or source maintenance."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Select and execute current checks through the local recipe."
+
+[[dependencies]]
+kind = "local"
+name = "verification-authoring"
+required = false
+role = "Maintain durable local verification instructions when requested."
+
+[[dependencies]]
+kind = "local"
+name = "review-code-changes"
+required = false
+role = "Own the active change review and final findings."
+
+[[dependencies]]
+kind = "local"
+name = "error-handling"
+required = false
+role = "Own failure and recovery semantics."
+
+[[dependencies]]
+kind = "local"
+name = "design-code-structure"
+required = false
+role = "Resolve structural boundaries when required for a repair."
+
+[[reference_documents]]
+url = "https://www.w3.org/TR/WCAG22/"
+checked = "2026-10-04"
+role = "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+
+[[reference_documents]]
+url = "https://www.w3.org/WAI/ARIA/apg/patterns/"
+checked = "2026-10-04"
+role = "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+
+[[reference_documents]]
+url = "https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/"
+checked = "2026-10-04"
+role = "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+
+[[reference_documents]]
+url = "https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html"
+checked = "2026-10-04"
+role = "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+
+[[reference_documents]]
+url = "https://www.w3.org/WAI/WCAG22/Understanding/target-size-minimum.html"
+checked = "2026-10-04"
+role = "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+
+[[reference_documents]]
+url = "https://www.w3.org/WAI/WCAG22/Understanding/focus-not-obscured-minimum.html"
+checked = "2026-10-04"
+role = "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+
+[[reference_documents]]
+url = "https://www.w3.org/WAI/WCAG22/Understanding/reflow.html"
+checked = "2026-10-04"
+role = "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+
+[[reference_documents]]
+url = "https://www.w3.org/WAI/WCAG22/Understanding/text-spacing.html"
+checked = "2026-10-04"
+role = "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+
+[[reference_documents]]
+url = "https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html"
+checked = "2026-10-04"
+role = "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+
+[[reference_documents]]
+url = "https://www.w3.org/WAI/WCAG22/Understanding/accessible-authentication-minimum.html"
+checked = "2026-10-04"
+role = "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+
+[[reference_documents]]
+url = "https://developer.apple.com/design/human-interface-guidelines/accessibility"
+checked = "2026-10-04"
+role = "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+
+[[reference_documents]]
+url = "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/accessibility.json"
+checked = "2026-10-04"
+role = "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+
+[[reference_documents]]
+url = "https://developer.android.com/guide/topics/ui/accessibility/apps"
+checked = "2026-10-04"
+role = "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+
+[[reference_documents]]
+url = "https://developer.android.com/guide/topics/ui/accessibility/testing"
+checked = "2026-10-04"
+role = "Primary standards or platform guidance; consult current content for exact requirements and exceptions."

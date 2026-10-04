@@ -3,9 +3,9 @@
 const atlas = window.SKILL_ATLAS;
 const repositoryInventory = atlas.repositoryInventory;
 const repositorySkills = new Map(repositoryInventory.skills.map((skill) => [skill.name, skill]));
-const sourceReviews = new Map(atlas.authorReview.skills.map((skill) => [skill.key, skill]));
+const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments].map((skill) => [skill.key, skill]));
 const originalKeys = new Set(atlas.skills.map((skill) => skill.key));
-const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key))];
+const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills];
 const byKey = new Map(catalogSkills.map((skill) => [skill.key, skill]));
 const byId = new Map(catalogSkills.map((skill) => [skill.id, skill]));
 const recommendationFor = (skill) => sourceReviews.get(skill.key) || skill;
@@ -201,15 +201,15 @@ const clusters = [
   },
   {
     "title": "Accesibilidad y diseño visual",
-    "winner": "Accesibilidad unificada y diseño separado",
+    "winner": "accessibility: created, with platform guidance",
     "keys": [
       "ECC/accessibility",
       "ECC/frontend-a11y",
       "Vercel/web-design-guidelines",
       "Anthropic/frontend-design"
     ],
-    "text": "accessibility cubre la auditoría amplia; frontend-a11y ofrece recetas React; la guía web revisa interacción y acabado; frontend-design define dirección visual. Diseño y accesibilidad necesitan evidencia distinta.",
-    "why": "Combinar las dos fuentes ECC como cobertura y recetas. Filtrar la guía web y activar frontend-design cuando haya trabajo real de diseño."
+    "text": "The new accessibility skill combines selected ECC, GSD, Blode and Addy coverage with primary standards. Native and terminal guidance loads only for those surfaces. Visual design keeps its own scope.",
+    "why": "Check whether the user can complete the flow, including errors and recovery. verify owns execution; accessibility supplies the criteria and interprets the evidence. A scan, screenshot or semantic tree cannot certify the whole experience."
   },
   {
     "title": "Verificación en ejecución",
@@ -661,6 +661,7 @@ function reviewEvidenceMarkup(skill) {
 }
 
 document.querySelectorAll("[data-catalog-count]").forEach((element) => { element.textContent = catalogSkills.length; });
+document.querySelector("#accessibility-repositories").innerHTML = atlas.accessibilityReview.repositories.map((repository) => `<tr><th><a href="${escapeHtml(repository.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(repository.repository)}</a></th><td>${escapeHtml(repository.decision)}</td><td>${escapeHtml(repository.reason)}</td></tr>`).join("");
 document.querySelector("#author-collections").innerHTML = atlas.authorReview.collections.map((collection) => `<article class="surface"><h3>${escapeHtml(collection.name)}</h3><p><strong>${collection.count}</strong> skills · <strong>${collection.incorporated}</strong> sources already incorporated</p><a href="?group=${encodeURIComponent(collection.name)}#catalog">Browse this collection</a><details class="evidence"><summary>Pinned repository</summary><p><a href="${escapeHtml(collection.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(collection.url)}</a></p></details></article>`).join("");
 document.querySelector("#author-shortlist").innerHTML = atlas.authorReview.shortlist.map((item, index) => `<article class="surface"><p class="kicker">${index + 1}. ${escapeHtml(item.route)}</p><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.why)}</p><p><strong>Owner:</strong> ${escapeHtml(item.owner)}.</p><p class="skill-meta">${escapeHtml(item.boundary)}</p>${skillLinks(item.keys)}</article>`).join("");
 document.querySelector("#author-internal-references").innerHTML = atlas.authorReview.internalReferences.map((item) => `<article class="surface review-boundaries"><p class="kicker">Additional internal reference · ${escapeHtml(item.status)}</p><h3>${escapeHtml(item.collection)} / ${escapeHtml(item.name)}</h3><p>${escapeHtml(item.summary)}</p><p><strong>Proposed owner:</strong> <code>${escapeHtml(item.owner)}</code>. ${escapeHtml(item.reason)}</p><p>${escapeHtml(item.action)}. ${escapeHtml(item.caution)}</p><details class="evidence"><summary>Inspected internal procedure and supporting guidance</summary><ul>${item.files.map((file) => `<li><strong>${escapeHtml(file.path)}</strong><span>${escapeHtml(file.coverage)}</span><a href="${escapeHtml(file.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(file.url)}</a></li>`).join("")}</ul></details></article>`).join("");

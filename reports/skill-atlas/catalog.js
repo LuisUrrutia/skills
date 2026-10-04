@@ -1340,6 +1340,108 @@ window.SKILL_ATLAS = {
       "label": "Lauren Tan / pstack / pstack/LICENSE",
       "url": "https://github.com/cursor/plugins/blob/9511e60321f7e533a187d62854a3d53a53752874/pstack/LICENSE",
       "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
+    },
+    {
+      "id": "accessibility-ecc-accessibility-1",
+      "label": "Affaan Mustafa / ECC / skills/accessibility/SKILL.md",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/accessibility/SKILL.md",
+      "sha256": "2762f21d09d199009ed4f95b28c911436b367c30963dc5ddb48b8e1ad7fc1585"
+    },
+    {
+      "id": "accessibility-ecc-accessibility-2",
+      "label": "Affaan Mustafa / ECC / skills/frontend-a11y/SKILL.md",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/frontend-a11y/SKILL.md",
+      "sha256": "e00991a3f4d47fcf1529dd74a080afcf46137dc5061e70dc6e3da7b27f2ae3f3"
+    },
+    {
+      "id": "accessibility-ecc-accessibility-3",
+      "label": "Affaan Mustafa / ECC / agents/a11y-architect.md",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/agents/a11y-architect.md",
+      "sha256": "88e684476cbc449a2444a1218a79034d275465f375ce45b6d86ab99958bf45e7"
+    },
+    {
+      "id": "accessibility-ecc-accessibility-4",
+      "label": "Affaan Mustafa / ECC / rules/react-native/accessibility.md",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/rules/react-native/accessibility.md",
+      "sha256": "7cd8adb29406c0f07e6628334bf417e8df3d71a2781c2f830b5b74177b2b8222"
+    },
+    {
+      "id": "accessibility-mblode-product-design-1",
+      "label": "Matthew Blode / skills/product-design/SKILL.md",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/product-design/SKILL.md",
+      "sha256": "1f5b964df7a7ff4ad9243a079f254fc670dda85fd70e931c514e3f40cd1ed302"
+    },
+    {
+      "id": "accessibility-mblode-product-design-2",
+      "label": "Matthew Blode / skills/product-design/references/interface-quality.md",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/product-design/references/interface-quality.md",
+      "sha256": "e92b535385469e20a25c95bf6952e5724f5739b9322d1e3f3d3092415f0c2e0f"
+    },
+    {
+      "id": "accessibility-mblode-ui-verification-1",
+      "label": "Matthew Blode / skills/ui-verification/SKILL.md",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/SKILL.md",
+      "sha256": "f5cbdcd185cada0bad9dee833465f1e55066b6a39076077711a4a64913fb5193"
+    },
+    {
+      "id": "accessibility-mblode-ui-verification-2",
+      "label": "Matthew Blode / skills/ui-verification/probes/focus-walk.md",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/focus-walk.md",
+      "sha256": "a7ae22f71d29e273b6b4a2381c9422a7c270bf34d8782bf95520cd87a6186edb"
+    },
+    {
+      "id": "accessibility-mblode-ui-verification-3",
+      "label": "Matthew Blode / skills/ui-verification/probes/axe-scan.md",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/axe-scan.md",
+      "sha256": "4d4cefb928f1b7973fef40a65c050b86aac011ae41df2c428f73da7f01cb1c2b"
+    },
+    {
+      "id": "accessibility-mblode-ui-verification-4",
+      "label": "Matthew Blode / skills/ui-verification/probes/target-size.md",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/target-size.md",
+      "sha256": "0382cfebc35b2f8b689530ca3228ad2e7653334822ab8ec0adcb1fb503271106"
+    },
+    {
+      "id": "accessibility-mblode-ui-verification-5",
+      "label": "Matthew Blode / skills/ui-verification/probes/viewport-stress.md",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/viewport-stress.md",
+      "sha256": "2b02ae8332b43e8627592f1cbea93e7c358fda73723ff1975931068510a5f7e2"
+    },
+    {
+      "id": "accessibility-gsd-accessibility-1",
+      "label": "web-quality-skills, distributed by GSD (Lex Christopherson) / src/resources/skills/accessibility/SKILL.md",
+      "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/skills/accessibility/SKILL.md",
+      "sha256": "df14b3a23e79b4c213cf3bd0a14662fb084f226a7d5099b37582b3235c8c4b53"
+    },
+    {
+      "id": "accessibility-gsd-accessibility-2",
+      "label": "web-quality-skills, distributed by GSD (Lex Christopherson) / src/resources/skills/accessibility/references/WCAG.md",
+      "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/skills/accessibility/references/WCAG.md",
+      "sha256": "ee42f07104230ee5ea185f326b01fc13f9cf05ceacf0a72beccce9c6ee7f61a7"
+    },
+    {
+      "id": "accessibility-gsd-accessibility-3",
+      "label": "web-quality-skills, distributed by GSD (Lex Christopherson) / src/resources/extensions/gsd/workflow-templates/accessibility-audit.md",
+      "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/extensions/gsd/workflow-templates/accessibility-audit.md",
+      "sha256": "3ea58bc0948c0204d714fb3a2dd11321ecd8d6958d9860bd7638868068d4c534"
+    },
+    {
+      "id": "accessibility-addy-accessibility-1",
+      "label": "Addy Osmani / skills/frontend-ui-engineering/SKILL.md",
+      "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/frontend-ui-engineering/SKILL.md",
+      "sha256": "549044e9bd8d7fe993ce8e5c0d2b0f5465650676dc15805329973f936179eb1e"
+    },
+    {
+      "id": "accessibility-addy-accessibility-2",
+      "label": "Addy Osmani / references/accessibility-checklist.md",
+      "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/references/accessibility-checklist.md",
+      "sha256": "61c759d94d52296231f5f310b92b401f56c44e4430dc3cc95ebac5d7b1d5ffac"
+    },
+    {
+      "id": "accessibility-github-cli-accessibility-1",
+      "label": "GitHub CLI maintainers / pkg/cmd/accessibility/accessibility.go",
+      "url": "https://github.com/cli/cli/blob/6fc1c29d5477bfe71da7af290eb481c0df7811f1/pkg/cmd/accessibility/accessibility.go",
+      "sha256": "c0bbd796f33ad9da6bcba1c18eb0c57f59b9ffd9e340aa5fb7bf10c75a37bcaa"
     }
   ],
   "skills": [
@@ -4018,7 +4120,7 @@ window.SKILL_ATLAS = {
   },
   "repositoryInventory": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "b4908e702867a3e9c3fb7e01ca4559b6fc173b34",
+    "repositoryCommit": "2be844a1a8982ef319103628d5592dcf9be903fb",
     "scope": "Top-level skill packages present in this working tree. Presence does not prove installation, activation or production validation.",
     "groups": [
       "Instruction authoring",
@@ -4125,6 +4227,14 @@ window.SKILL_ATLAS = {
         "section": "error-handling"
       },
       {
+        "name": "accessibility",
+        "category": "Implementation, verification and review",
+        "summary": "Design, implement or audit accessible user flows, with platform criteria and observed evidence.",
+        "path": "accessibility/SKILL.md",
+        "sha256": "39d348ef7acad82ff81dcba2d1e556d3f6b4d3dd319dd06e6d90d9db26211e9e",
+        "section": "accessibility"
+      },
+      {
         "name": "verification-authoring",
         "category": "Implementation, verification and review",
         "summary": "Create and maintain project-local verify-<app> recipes and feature maps.",
@@ -4137,7 +4247,7 @@ window.SKILL_ATLAS = {
         "category": "Implementation, verification and review",
         "summary": "Select the relevant local recipe and check completion claims against current execution evidence.",
         "path": "verify/SKILL.md",
-        "sha256": "947163028acf022c4454f2a2aa8b149a5edc249e4fd5060ca303297e10c20ca6",
+        "sha256": "1c6fe17d6424f70abe4d954dc7b2ac09d226c60f7de40b23512be3353d7aa8a0",
         "section": "verification"
       },
       {
@@ -4243,21 +4353,17 @@ window.SKILL_ATLAS = {
         "path": "people-memory/SKILL.md",
         "sha256": "51f906ebfff5d89d17281b38b3e9509e75c76c9888bb221d859985d177632140",
         "section": null
-      }
-    ],
-    "pending": [
-      {
-        "name": "accessibility",
-        "status": "Proposed derivation",
-        "summary": "Combine the reviewed accessibility sources into one scoped workflow.",
-        "section": "create"
       },
       {
         "name": "typescript-best-practices",
-        "status": "Proposed adaptation",
-        "summary": "Adapt the reviewed type guidance to project conventions and justified exceptions.",
+        "category": "Implementation, verification and review",
+        "summary": "TypeScript implementation and review guidance. Package appeared during concurrent authoring; validation and source incorporation are outside this accessibility task.",
+        "path": "typescript-best-practices/SKILL.md",
+        "sha256": "360324e7f0b995e6cec4d2766b3851ebac401c8271dee52ef34934ed0e6dfc35",
         "section": "create"
-      },
+      }
+    ],
+    "pending": [
       {
         "name": "teach",
         "status": "Optional future skill",
@@ -4282,7 +4388,7 @@ window.SKILL_ATLAS = {
     "replacements": {
       "review-audit": "review-code-changes"
     },
-    "validationScope": "Package presence, declared names and entrypoint hashes checked. error-handling has its own bounded behavioral evaluation; existing evidence for other skills remains unchanged. Repository presence does not establish installation or host activation."
+    "validationScope": "Package presence, declared names and entrypoint hashes checked. accessibility and error-handling have bounded behavioral evaluations; other skills retain their separate evidence. typescript-best-practices appeared during concurrent authoring and is counted for presence only. Repository presence does not establish installation or host activation."
   },
   "errorHandlingReview": {
     "date": "2026-10-04",
@@ -4341,7 +4447,7 @@ window.SKILL_ATLAS = {
         "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
         "url": "https://github.com/mblode/agent-skills/tree/012e6e5208f512151bdea0e2965dafd01ff61340",
         "count": 28,
-        "incorporated": 4,
+        "incorporated": 7,
         "license": "MIT"
       },
       {
@@ -4352,7 +4458,7 @@ window.SKILL_ATLAS = {
         "commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
         "url": "https://github.com/addyosmani/agent-skills/tree/1401c8b8030e023baeebb31781a6653fe8e93026",
         "count": 25,
-        "incorporated": 6,
+        "incorporated": 7,
         "license": "MIT"
       },
       {
@@ -4363,7 +4469,7 @@ window.SKILL_ATLAS = {
         "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
         "url": "https://github.com/EveryInc/compound-engineering-plugin/tree/9af474a70e7f2a844338519ad9e92aafbd92d4fb",
         "count": 36,
-        "incorporated": 6,
+        "incorporated": 7,
         "license": "MIT"
       }
     ],
@@ -7213,11 +7319,11 @@ window.SKILL_ATLAS = {
   },
   "sourceProgress": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "b4908e702867a3e9c3fb7e01ca4559b6fc173b34",
+    "repositoryCommit": "2be844a1a8982ef319103628d5592dcf9be903fb",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 77,
-      "pending": 65,
+      "ready": 90,
+      "pending": 58,
       "optional": 43,
       "not-selected": 24
     },
@@ -7228,7 +7334,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "review-code-changes"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "review-code-changes",
@@ -7255,7 +7361,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "design-code-structure"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "design-code-structure",
@@ -7286,7 +7392,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "debug"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "debug",
@@ -7319,7 +7425,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "design-code-structure"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "design-code-structure",
@@ -7378,7 +7484,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "prototype"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "prototype",
@@ -7409,7 +7515,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "create-project-instructions"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "create-project-instructions",
@@ -7435,7 +7541,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "workflow-to-skill"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "workflow-to-skill",
@@ -7463,7 +7569,7 @@ window.SKILL_ATLAS = {
           "debug",
           "tdd"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "debug",
@@ -7592,7 +7698,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "agent-instructions"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "agent-instructions",
@@ -7623,7 +7729,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "simplify-code"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "simplify-code",
@@ -7650,7 +7756,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "pr-followup"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "pr-followup",
@@ -7675,7 +7781,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "pr-followup"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "pr-followup",
@@ -7701,7 +7807,7 @@ window.SKILL_ATLAS = {
           "commit",
           "pr"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "commit",
@@ -7741,7 +7847,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "review-code-changes"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "review-code-changes",
@@ -7774,7 +7880,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "pr-followup"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "pr-followup",
@@ -7799,7 +7905,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "design-code-structure"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "design-code-structure",
@@ -7831,7 +7937,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "compare-solutions"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "compare-solutions",
@@ -7880,7 +7986,7 @@ window.SKILL_ATLAS = {
           "analyze-change-effects",
           "debug"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "analyze-change-effects",
@@ -7945,7 +8051,7 @@ window.SKILL_ATLAS = {
           "verification-authoring",
           "verify"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "verification-authoring",
@@ -7976,7 +8082,7 @@ window.SKILL_ATLAS = {
             "owner": "verify",
             "path": "verify/origin.txt",
             "line": 7,
-            "sha256": "12ae1146b2e7a69824bb442fb5eac76bfacbcd7a512a7a9fad6c614947848f72",
+            "sha256": "a7633efd37e995a789168d6c3fe0b84fecf1f29c688e5c5a9b2b83994164a9bd",
             "sourceId": "pstack-verification",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -8013,7 +8119,7 @@ window.SKILL_ATLAS = {
           "debug",
           "how"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "debug",
@@ -8083,7 +8189,7 @@ window.SKILL_ATLAS = {
           "verification-authoring",
           "verify"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "verification-authoring",
@@ -8114,7 +8220,7 @@ window.SKILL_ATLAS = {
             "owner": "verify",
             "path": "verify/origin.txt",
             "line": 7,
-            "sha256": "12ae1146b2e7a69824bb442fb5eac76bfacbcd7a512a7a9fad6c614947848f72",
+            "sha256": "a7633efd37e995a789168d6c3fe0b84fecf1f29c688e5c5a9b2b83994164a9bd",
             "sourceId": "pstack-verification",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -8143,7 +8249,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "simplify-code"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "simplify-code",
@@ -8178,7 +8284,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "prototype"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "prototype",
@@ -8217,7 +8323,7 @@ window.SKILL_ATLAS = {
           "design-code-structure",
           "error-handling"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "design-code-structure",
@@ -8284,7 +8390,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "design-code-structure"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "design-code-structure",
@@ -8323,7 +8429,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "debug"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "debug",
@@ -8357,7 +8463,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "design-code-structure"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "design-code-structure",
@@ -8396,7 +8502,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "compare-solutions"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "compare-solutions",
@@ -8438,7 +8544,7 @@ window.SKILL_ATLAS = {
           "design-code-structure",
           "error-handling"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "design-code-structure",
@@ -8498,7 +8604,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "design-code-structure"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "design-code-structure",
@@ -8530,7 +8636,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "design-code-structure"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "design-code-structure",
@@ -8576,7 +8682,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "compare-solutions"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "compare-solutions",
@@ -8618,7 +8724,7 @@ window.SKILL_ATLAS = {
           "compare-solutions",
           "design-code-structure"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "compare-solutions",
@@ -8682,7 +8788,7 @@ window.SKILL_ATLAS = {
           "compare-solutions",
           "design-code-structure"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "compare-solutions",
@@ -8752,7 +8858,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "design-code-structure"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "design-code-structure",
@@ -8784,7 +8890,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "error-handling"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "error-handling",
@@ -8829,7 +8935,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "workflow-to-skill"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "workflow-to-skill",
@@ -8861,7 +8967,7 @@ window.SKILL_ATLAS = {
           "pr",
           "pr-followup"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "pr",
@@ -8908,7 +9014,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "debug"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "debug",
@@ -8942,7 +9048,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "how"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision. Only explanation guidance was used in how; the independent teach skill remains optional and uncreated.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "how",
@@ -9002,7 +9108,7 @@ window.SKILL_ATLAS = {
           "debug",
           "why"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "debug",
@@ -9076,7 +9182,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "review-code-changes"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "review-code-changes",
@@ -9103,7 +9209,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "review-code-changes"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "review-code-changes",
@@ -9130,7 +9236,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "review-code-changes"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "review-code-changes",
@@ -9164,7 +9270,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "pr-followup"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "pr-followup",
@@ -9189,7 +9295,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "pr"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "pr",
@@ -9221,7 +9327,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "agent-instructions"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "agent-instructions",
@@ -9264,7 +9370,7 @@ window.SKILL_ATLAS = {
           "agent-instructions",
           "workflow-to-skill"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "agent-instructions",
@@ -9311,13 +9417,13 @@ window.SKILL_ATLAS = {
         "owners": [
           "verify"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "verify",
             "path": "verify/origin.txt",
             "line": 78,
-            "sha256": "12ae1146b2e7a69824bb442fb5eac76bfacbcd7a512a7a9fad6c614947848f72",
+            "sha256": "a7633efd37e995a789168d6c3fe0b84fecf1f29c688e5c5a9b2b83994164a9bd",
             "sourceId": "addy-browser-verification",
             "baselineCommit": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
             "reviewedThrough": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
@@ -9339,7 +9445,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "review-code-changes"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "review-code-changes",
@@ -9372,7 +9478,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "create-project-instructions"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "create-project-instructions",
@@ -9429,18 +9535,56 @@ window.SKILL_ATLAS = {
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "ECC/frontend-a11y": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "accessibility"
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "evidence": [
+          {
+            "owner": "accessibility",
+            "path": "accessibility/origin.txt",
+            "line": 7,
+            "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
+            "sourceId": "ecc-accessibility",
+            "baselineCommit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "reviewedThrough": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "borrowed": [
+              "Cross-platform semantics, keyboard and assistive-technology coverage; connect fields and errors and check real native settings."
+            ],
+            "localChoices": [
+              "Use platform-specific references and existing components, with no React-only examples or fixed accessibility API mapping.",
+              "Correct AA/AAA focus classification and target-size scope against primary standards; do not turn every error into an alert."
+            ]
+          }
+        ]
       },
       "ECC/accessibility": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "accessibility"
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "evidence": [
+          {
+            "owner": "accessibility",
+            "path": "accessibility/origin.txt",
+            "line": 7,
+            "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
+            "sourceId": "ecc-accessibility",
+            "baselineCommit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "reviewedThrough": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "borrowed": [
+              "Cross-platform semantics, keyboard and assistive-technology coverage; connect fields and errors and check real native settings."
+            ],
+            "localChoices": [
+              "Use platform-specific references and existing components, with no React-only examples or fixed accessibility API mapping.",
+              "Correct AA/AAA focus classification and target-size scope against primary standards; do not turn every error into an alert."
+            ]
+          }
+        ]
       },
       "ECC/e2e-testing": {
         "status": "pending",
@@ -9455,7 +9599,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "error-handling"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "error-handling",
@@ -9765,7 +9909,7 @@ window.SKILL_ATLAS = {
           "agent-instructions",
           "workflow-to-skill"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "agent-instructions",
@@ -9812,7 +9956,7 @@ window.SKILL_ATLAS = {
           "agent-instructions",
           "create-project-instructions"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "agent-instructions",
@@ -9854,11 +9998,32 @@ window.SKILL_ATLAS = {
         ]
       },
       "Matthew Blode/app-verification": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "verify"
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "evidence": [
+          {
+            "owner": "verify",
+            "path": "verify/origin.txt",
+            "line": 154,
+            "sha256": "a7633efd37e995a789168d6c3fe0b84fecf1f29c688e5c5a9b2b83994164a9bd",
+            "sourceId": "mblode-app-verification",
+            "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "borrowed": [
+              "Account for each in-scope user path, alternate entry point, expected result, actual execution and evidence instead of inferring coverage from one passing check.",
+              "Expose omitted or unavailable checks in the project's existing proof record."
+            ],
+            "localChoices": [
+              "This donor explicitly derives from pstack; the original pstack verification ownership and recipe contract remain authoritative locally.",
+              "Required skipped, blocked, inconclusive or unrun checks prevent overall completion even if another check passed. Do not adopt the donor proof example's ok=true with skipped paths.",
+              "No new verify/doctor/seed CLI, JSON schema, invocation restriction, fixed artifact path, source-file exemption or publication step is required."
+            ]
+          }
+        ]
       },
       "Matthew Blode/autoship": {
         "status": "optional",
@@ -9936,7 +10101,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "pr-followup"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "pr-followup",
@@ -9961,7 +10126,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "pr"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "pr",
@@ -9988,11 +10153,29 @@ window.SKILL_ATLAS = {
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Matthew Blode/product-design": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "accessibility"
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "evidence": [
+          {
+            "owner": "accessibility",
+            "path": "accessibility/origin.txt",
+            "line": 22,
+            "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
+            "sourceId": "mblode-product-design",
+            "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "borrowed": [
+              "Treat accessibility as completing the task, including reachable states, consequences, errors and recovery."
+            ],
+            "localChoices": [
+              "Keep an accessibility specialist rather than the donor product-design router, rule registry, severity rubric or aesthetics scope."
+            ]
+          }
+        ]
       },
       "Matthew Blode/save-md": {
         "status": "optional",
@@ -10058,11 +10241,52 @@ window.SKILL_ATLAS = {
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Matthew Blode/ui-verification": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "accessibility",
+          "verify"
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "evidence": [
+          {
+            "owner": "accessibility",
+            "path": "accessibility/origin.txt",
+            "line": 37,
+            "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
+            "sourceId": "mblode-ui-verification",
+            "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "borrowed": [
+              "Use observed keyboard and focus paths, real hit regions, scoped automated scans and explicit missing evidence."
+            ],
+            "localChoices": [
+              "verify and the local recipe retain environment and execution ownership. No fixed browser CLI or mandatory probe matrix.",
+              "Reject blanket third-party exclusion, pixel-difference focus verdicts, 44px as a universal AA floor, and viewport-only zoom claims."
+            ]
+          },
+          {
+            "owner": "verify",
+            "path": "verify/origin.txt",
+            "line": 101,
+            "sha256": "a7633efd37e995a789168d6c3fe0b84fecf1f29c688e5c5a9b2b83994164a9bd",
+            "sourceId": "mblode-ui-verification",
+            "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "borrowed": [
+              "Select scoped runtime probes and record the actual session, conditions, observations and evidence.",
+              "Drive keyboard and focus behavior, measure effective hit areas, distinguish intentional scrolling, and confirm applied themes and supported locale or motion states.",
+              "Confirm injected faults reach the intended boundary, exercise recovery, and preserve honest missing-measurement and reproduction outcomes."
+            ],
+            "localChoices": [
+              "The project-local verify-<app> retains launch, doctor, driving and cleanup; verify selects and interprets its evidence.",
+              "Use host-native capabilities and project requirements; no Playwright or agent-browser mandate, fixed viewport/target-size thresholds, mandatory scan matrix or universal UI finding schema.",
+              "Preserve required coverage, use bounded claim-specific probes and repeat only when uncertainty warrants it; reject the evidence-output reference's mandatory second failure run.",
+              "Do not infer native keyboard, touch, clipboard, composition, localization, accessibility or field performance from synthetic or narrower observations.",
+              "Safe server fixtures can exercise faults without browser interception. Setup must not bypass the user behavior being claimed; restore owned probe changes."
+            ]
+          }
+        ]
       },
       "Addy Osmani/api-and-interface-design": {
         "status": "pending",
@@ -10084,7 +10308,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "simplify-code"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "simplify-code",
@@ -10120,7 +10344,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "debug"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "debug",
@@ -10166,11 +10390,30 @@ window.SKILL_ATLAS = {
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Addy Osmani/frontend-ui-engineering": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "accessibility"
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "evidence": [
+          {
+            "owner": "accessibility",
+            "path": "accessibility/origin.txt",
+            "line": 67,
+            "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
+            "sourceId": "addy-accessibility",
+            "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "borrowed": [
+              "Select keyboard, screen reader, visual and form checks; preserve design-system context and meaningful error and loading states."
+            ],
+            "localChoices": [
+              "Reuse selected accessibility coverage only, not the UI-building workflow, aesthetic rules or component-size limits.",
+              "Correct large-text units and keyboard/target-size exceptions; avoid the incomplete dialog snippet, mandatory focus movement on any content change and automatic legal claims."
+            ]
+          }
+        ]
       },
       "Addy Osmani/git-workflow-and-versioning": {
         "status": "ready",
@@ -10178,7 +10421,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "commit"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "commit",
@@ -10280,7 +10523,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "pr-followup"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "pr-followup",
@@ -10319,7 +10562,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "review-code-changes"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "review-code-changes",
@@ -10348,7 +10591,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "commit"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "commit",
@@ -10373,7 +10616,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "pr"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "pr",
@@ -10412,7 +10655,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "debug"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "debug",
@@ -10446,11 +10689,32 @@ window.SKILL_ATLAS = {
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Compound Engineering/ce-dogfood": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "verify"
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "evidence": [
+          {
+            "owner": "verify",
+            "path": "verify/origin.txt",
+            "line": 184,
+            "sha256": "a7633efd37e995a789168d6c3fe0b84fecf1f29c688e5c5a9b2b83994164a9bd",
+            "sourceId": "compound-dogfood",
+            "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "borrowed": [
+              "Trace user journeys through entry, action, destination and independently observed downstream effects.",
+              "Select relevant permission, failure, empty, re-entry and adjacent regression conditions from the affected behavior."
+            ],
+            "localChoices": [
+              "Keep verify's active scope and caller authority. Verification alone does not authorize product fixes, tests, commits, PRs or learned-rule publication.",
+              "Use the host browser and local recipe; do not inherit an agent-browser-only runtime, CE worktree flow, mandatory Mermaid diagrams, pack system or report template.",
+              "Use established product requirements and personas where relevant; observations of friction do not create new product policy or a redesign task."
+            ]
+          }
+        ]
       },
       "Compound Engineering/ce-explain": {
         "status": "not-selected",
@@ -10542,7 +10806,7 @@ window.SKILL_ATLAS = {
         "owners": [
           "pr-followup"
         ],
-        "note": "Selected material incorporated at the baselines below. This does not mean the whole source was installed or synchronized to its latest revision.",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "pr-followup",
@@ -10644,7 +10908,595 @@ window.SKILL_ATLAS = {
         "owners": [],
         "evidence": [],
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+      },
+      "ECC/a11y-architect": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "accessibility"
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "evidence": [
+          {
+            "owner": "accessibility",
+            "path": "accessibility/origin.txt",
+            "line": 7,
+            "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
+            "sourceId": "ecc-accessibility",
+            "baselineCommit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "reviewedThrough": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "borrowed": [
+              "Cross-platform semantics, keyboard and assistive-technology coverage; connect fields and errors and check real native settings."
+            ],
+            "localChoices": [
+              "Use platform-specific references and existing components, with no React-only examples or fixed accessibility API mapping.",
+              "Correct AA/AAA focus classification and target-size scope against primary standards; do not turn every error into an alert."
+            ]
+          }
+        ]
+      },
+      "ECC/react-native-accessibility": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "accessibility"
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "evidence": [
+          {
+            "owner": "accessibility",
+            "path": "accessibility/origin.txt",
+            "line": 7,
+            "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
+            "sourceId": "ecc-accessibility",
+            "baselineCommit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "reviewedThrough": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "borrowed": [
+              "Cross-platform semantics, keyboard and assistive-technology coverage; connect fields and errors and check real native settings."
+            ],
+            "localChoices": [
+              "Use platform-specific references and existing components, with no React-only examples or fixed accessibility API mapping.",
+              "Correct AA/AAA focus classification and target-size scope against primary standards; do not turn every error into an alert."
+            ]
+          }
+        ]
+      },
+      "GSD/accessibility": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "accessibility"
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "evidence": [
+          {
+            "owner": "accessibility",
+            "path": "accessibility/origin.txt",
+            "line": 52,
+            "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
+            "sourceId": "gsd-accessibility",
+            "baselineCommit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+            "reviewedThrough": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+            "borrowed": [
+              "Cover content alternatives, input, timing, understandable forms, and the limits of automated and source-only audits."
+            ],
+            "localChoices": [
+              "Use WCAG 2.2 with precise exceptions, not the donor abbreviated 2.1 checklist or its obsolete Parsing criterion.",
+              "Correct pt versus px large-text thresholds; omit language-specific snippets, global package installation, fixed severity and zero-score certification."
+            ]
+          }
+        ]
+      },
+      "GSD/accessibility-audit": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "accessibility"
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "evidence": [
+          {
+            "owner": "accessibility",
+            "path": "accessibility/origin.txt",
+            "line": 52,
+            "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
+            "sourceId": "gsd-accessibility",
+            "baselineCommit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+            "reviewedThrough": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+            "borrowed": [
+              "Cover content alternatives, input, timing, understandable forms, and the limits of automated and source-only audits."
+            ],
+            "localChoices": [
+              "Use WCAG 2.2 with precise exceptions, not the donor abbreviated 2.1 checklist or its obsolete Parsing criterion.",
+              "Correct pt versus px large-text thresholds; omit language-specific snippets, global package installation, fixed severity and zero-score certification."
+            ]
+          }
+        ]
+      },
+      "Addy Osmani/accessibility-checklist": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "accessibility"
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "evidence": [
+          {
+            "owner": "accessibility",
+            "path": "accessibility/origin.txt",
+            "line": 67,
+            "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
+            "sourceId": "addy-accessibility",
+            "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "borrowed": [
+              "Select keyboard, screen reader, visual and form checks; preserve design-system context and meaningful error and loading states."
+            ],
+            "localChoices": [
+              "Reuse selected accessibility coverage only, not the UI-building workflow, aesthetic rules or component-size limits.",
+              "Correct large-text units and keyboard/target-size exceptions; avoid the incomplete dialog snippet, mandatory focus movement on any content change and automatic legal claims."
+            ]
+          }
+        ]
+      },
+      "GitHub CLI/accessibility": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "accessibility"
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "evidence": [
+          {
+            "owner": "accessibility",
+            "path": "accessibility/origin.txt",
+            "line": 82,
+            "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
+            "sourceId": "github-cli-accessibility",
+            "baselineCommit": "6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+            "reviewedThrough": "6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+            "borrowed": [
+              "Terminal accessibility can require stable prompts, readable progress and configurable color rather than cursor redraws and animation."
+            ],
+            "localChoices": [
+              "Use as a conditional design reference for terminal work; do not prescribe GitHub CLI settings or mutate user configuration."
+            ]
+          }
+        ]
       }
     }
+  },
+  "accessibilityReview": {
+    "date": "2026-10-04",
+    "repositories": [
+      {
+        "id": "addy",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "url": "https://github.com/addyosmani/agent-skills/tree/1401c8b8030e023baeebb31781a6653fe8e93026",
+        "keywordMatches": 24,
+        "decision": "Adapt the accessibility checklist",
+        "reason": "Use keyboard, visual, screen-reader and form coverage. Correct units and exceptions; exclude broad UI architecture, aesthetic rules and incomplete dialog examples."
+      },
+      {
+        "id": "anthropic",
+        "repository": "https://github.com/anthropics/skills",
+        "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+        "url": "https://github.com/anthropics/skills/tree/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+        "keywordMatches": 4,
+        "decision": "Keep visual design separate",
+        "reason": "frontend-design mentions visible focus, reduced motion and accessible visuals. It is an aesthetic direction skill, not an accessibility testing method."
+      },
+      {
+        "id": "compound",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "url": "https://github.com/EveryInc/compound-engineering-plugin/tree/9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "keywordMatches": 43,
+        "decision": "Compose with existing review and verification",
+        "reason": "ce-dogfood has useful journey coverage; design-lens and Swift review personas contain narrower checks. These belong with existing verify/review owners; a test identifier does not prove an accessible name."
+      },
+      {
+        "id": "cursor",
+        "repository": "https://github.com/cursor/plugins",
+        "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "url": "https://github.com/cursor/plugins/tree/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "keywordMatches": 10,
+        "decision": "Compose with existing verification",
+        "reason": "pstack runtime control and final user-flow evidence already belong to verify. No dedicated accessibility owner was found in the scan. Do not import another orchestration or verification harness."
+      },
+      {
+        "id": "ecc",
+        "repository": "https://github.com/affaan-m/ECC",
+        "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "url": "https://github.com/affaan-m/ECC/tree/ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "keywordMatches": 173,
+        "decision": "Adapt selected accessibility coverage",
+        "reason": "Combine the broad accessibility skill, frontend-a11y, a11y-architect and native rules. Correct standards classifications and keep framework recipes out of the portable entrypoint."
+      },
+      {
+        "id": "gh",
+        "repository": "https://github.com/cli/cli",
+        "commit": "6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+        "url": "https://github.com/cli/cli/tree/6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+        "keywordMatches": 26,
+        "decision": "Retain a conditional terminal reference",
+        "reason": "The actual CLI accessibility implementation addresses stable prompts, progress and configurable colors. This is interface guidance, not another GitHub operations skill."
+      },
+      {
+        "id": "gsd",
+        "repository": "https://github.com/gsd-build/gsd-2",
+        "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+        "url": "https://github.com/gsd-build/gsd-2/tree/33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+        "keywordMatches": 86,
+        "decision": "Adapt selected accessibility coverage",
+        "reason": "Use content, forms, media, timing and audit-only coverage. Correct large-text units, outdated Parsing guidance and the distinction between automated checks and conformance."
+      },
+      {
+        "id": "humanlayer",
+        "repository": "https://github.com/humanlayer/skills",
+        "commit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+        "url": "https://github.com/humanlayer/skills/tree/ca7c8088db69e315a8b2deea43820270457f8f3c",
+        "keywordMatches": 1,
+        "decision": "Keep adjacent; no new donor",
+        "reason": "The relevant hit is a React Doctor control-loop example. It illustrates scheduled quality maintenance, not a complete accessibility method."
+      },
+      {
+        "id": "matt",
+        "repository": "https://github.com/mattpocock/skills",
+        "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+        "url": "https://github.com/mattpocock/skills/tree/d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+        "keywordMatches": 2,
+        "decision": "Keep adjacent; no new donor",
+        "reason": "No focused accessibility procedure found. Prototype keyboard guidance is local to its variant switcher; generic research and diagnosis already have owners."
+      },
+      {
+        "id": "mblode",
+        "repository": "https://github.com/mblode/agent-skills",
+        "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "url": "https://github.com/mblode/agent-skills/tree/012e6e5208f512151bdea0e2965dafd01ff61340",
+        "keywordMatches": 84,
+        "decision": "Adapt completion and evidence criteria",
+        "reason": "Use complete-task accessibility from product-design and scoped focus, target, reflow and scan interpretation from ui-verification. Keep runtime ownership in verify."
+      },
+      {
+        "id": "superpowers",
+        "repository": "https://github.com/obra/superpowers",
+        "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+        "url": "https://github.com/obra/superpowers/tree/8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+        "keywordMatches": 8,
+        "decision": "Keep general verification separate",
+        "reason": "No focused accessibility procedure found. Verification-before-completion is already incorporated into the verification owner; incidental text matches are not accessibility sources."
+      },
+      {
+        "id": "vercel",
+        "repository": "https://github.com/vercel-labs/agent-skills",
+        "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+        "url": "https://github.com/vercel-labs/agent-skills/tree/063bee94c3f4df8453406c830b0a7df0f2860278",
+        "keywordMatches": 14,
+        "decision": "Review without installing another auditor",
+        "reason": "Followed web-design-guidelines to its external guide. Useful interaction advice overlaps selected sources; typography and house style are not accessibility requirements. React Native rules remain conditional framework guidance."
+      }
+    ],
+    "linkedRepository": {
+      "repository": "https://github.com/vercel-labs/web-interface-guidelines",
+      "commit": "e3d624baaf29dc1fc645aff3e38f03e564d2d6b1",
+      "path": "command.md",
+      "url": "https://github.com/vercel-labs/web-interface-guidelines/blob/e3d624baaf29dc1fc645aff3e38f03e564d2d6b1/command.md",
+      "sha256": "5a775e6411f790f518dbc9c1fa7c50a89e6873502d9a3530a6eb223a590bcfe8",
+      "coverage": "Full linked guide",
+      "decision": "Reviewed; not a new source feed",
+      "reason": "Its useful interaction criteria overlap the selected sources and primary standards. House style and broad automatic rules are not adopted."
+    },
+    "skills": [
+      {
+        "id": "ecc-a11y-architect",
+        "key": "ECC/a11y-architect",
+        "name": "a11y-architect",
+        "declaredName": "a11y-architect",
+        "group": "ECC",
+        "author": "Affaan Mustafa / ECC",
+        "kind": "upstream",
+        "path": "agents/a11y-architect.md",
+        "repository": "https://github.com/affaan-m/ECC",
+        "source": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/agents/a11y-architect.md",
+        "sha": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "sha256": "88e684476cbc449a2444a1218a79034d275465f375ce45b6d86ab99958bf45e7",
+        "lines": 149,
+        "category": "Accessibility",
+        "decision": "Blend",
+        "action": "Selected material incorporated",
+        "owner": "accessibility",
+        "summary": "Map accessibility at the component and flow boundary, including native surfaces.",
+        "reason": "Adds focused coverage to the common accessibility workflow; source-specific assumptions are adapted.",
+        "caution": "Use coverage and boundary thinking; remove fixed model/output rules and correct AA/AAA focus distinctions.",
+        "inspection": "Full",
+        "references": []
+      },
+      {
+        "id": "ecc-react-native-accessibility",
+        "key": "ECC/react-native-accessibility",
+        "name": "react-native-accessibility",
+        "declaredName": "react-native-accessibility",
+        "group": "ECC",
+        "author": "Affaan Mustafa / ECC",
+        "kind": "upstream",
+        "path": "rules/react-native/accessibility.md",
+        "repository": "https://github.com/affaan-m/ECC",
+        "source": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/rules/react-native/accessibility.md",
+        "sha": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "sha256": "7cd8adb29406c0f07e6628334bf417e8df3d71a2781c2f830b5b74177b2b8222",
+        "lines": 55,
+        "category": "Accessibility",
+        "decision": "Blend",
+        "action": "Selected material incorporated",
+        "owner": "accessibility",
+        "summary": "Check native semantics, text scaling, input alternatives and platform settings.",
+        "reason": "Adds focused coverage to the common accessibility workflow; source-specific assumptions are adapted.",
+        "caution": "Resolve actual SDK APIs and platform units; verify VoiceOver/TalkBack separately from source inspection.",
+        "inspection": "Full",
+        "references": []
+      },
+      {
+        "id": "gsd-accessibility",
+        "key": "GSD/accessibility",
+        "name": "accessibility",
+        "declaredName": "accessibility",
+        "group": "GSD",
+        "author": "web-quality-skills, distributed by GSD (Lex Christopherson)",
+        "kind": "upstream",
+        "path": "src/resources/skills/accessibility/SKILL.md",
+        "repository": "https://github.com/gsd-build/gsd-2",
+        "source": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/skills/accessibility/SKILL.md",
+        "sha": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+        "sha256": "df14b3a23e79b4c213cf3bd0a14662fb084f226a7d5099b37582b3235c8c4b53",
+        "lines": 522,
+        "category": "Accessibility",
+        "decision": "Blend",
+        "action": "Selected material incorporated",
+        "owner": "accessibility",
+        "summary": "Cover perceivable content, keyboard operation, forms, media and timing.",
+        "reason": "Adds focused coverage to the common accessibility workflow; source-specific assumptions are adapted.",
+        "caution": "Correct pt/px thresholds and outdated 2.1 details; no generic code recipes or automated conformance claim.",
+        "inspection": "Full",
+        "references": []
+      },
+      {
+        "id": "gsd-accessibility-audit",
+        "key": "GSD/accessibility-audit",
+        "name": "accessibility-audit",
+        "declaredName": "accessibility-audit",
+        "group": "GSD",
+        "author": "web-quality-skills, distributed by GSD (Lex Christopherson)",
+        "kind": "upstream",
+        "path": "src/resources/extensions/gsd/workflow-templates/accessibility-audit.md",
+        "repository": "https://github.com/gsd-build/gsd-2",
+        "source": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/extensions/gsd/workflow-templates/accessibility-audit.md",
+        "sha": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+        "sha256": "3ea58bc0948c0204d714fb3a2dd11321ecd8d6958d9860bd7638868068d4c534",
+        "lines": 88,
+        "category": "Accessibility",
+        "decision": "Blend",
+        "action": "Selected material incorporated",
+        "owner": "accessibility",
+        "summary": "Conduct an audit within its authorized scope and report unexercised runtime checks.",
+        "reason": "Adds focused coverage to the common accessibility workflow; source-specific assumptions are adapted.",
+        "caution": "Keep caller authority and platform scope; do not import fixed severity quotas or another harness.",
+        "inspection": "Full",
+        "references": []
+      },
+      {
+        "id": "addy-osmani-accessibility-checklist",
+        "key": "Addy Osmani/accessibility-checklist",
+        "name": "accessibility-checklist",
+        "declaredName": "accessibility-checklist",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "path": "references/accessibility-checklist.md",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/references/accessibility-checklist.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "61c759d94d52296231f5f310b92b401f56c44e4430dc3cc95ebac5d7b1d5ffac",
+        "lines": 160,
+        "category": "Accessibility",
+        "decision": "Blend",
+        "action": "Selected material incorporated",
+        "owner": "accessibility",
+        "summary": "Select keyboard, assistive-technology, visual and form checks.",
+        "reason": "Adds focused coverage to the common accessibility workflow; source-specific assumptions are adapted.",
+        "caution": "Correct numerical thresholds and exceptions; actual task completion matters more than checklist completion.",
+        "inspection": "Full",
+        "references": []
+      },
+      {
+        "id": "github-cli-accessibility",
+        "key": "GitHub CLI/accessibility",
+        "name": "accessibility",
+        "declaredName": "accessibility",
+        "group": "GitHub CLI",
+        "author": "GitHub CLI maintainers",
+        "kind": "upstream",
+        "path": "pkg/cmd/accessibility/accessibility.go",
+        "repository": "https://github.com/cli/cli",
+        "source": "https://github.com/cli/cli/blob/6fc1c29d5477bfe71da7af290eb481c0df7811f1/pkg/cmd/accessibility/accessibility.go",
+        "sha": "6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+        "sha256": "c0bbd796f33ad9da6bcba1c18eb0c57f59b9ffd9e340aa5fb7bf10c75a37bcaa",
+        "lines": 143,
+        "category": "Accessibility",
+        "decision": "Blend",
+        "action": "Selected material incorporated",
+        "owner": "accessibility",
+        "summary": "Demonstrate stable terminal prompts, readable progress and configurable color.",
+        "reason": "Adds focused coverage to the common accessibility workflow; source-specific assumptions are adapted.",
+        "caution": "A conditional implementation reference, not an installable skill or a mandate to change gh settings.",
+        "inspection": "Full",
+        "references": []
+      }
+    ],
+    "assessments": [
+      {
+        "id": "ecc-accessibility",
+        "key": "ECC/accessibility",
+        "name": "accessibility",
+        "declaredName": "accessibility",
+        "group": "ECC",
+        "author": "Affaan Mustafa y colaboradores",
+        "kind": "upstream",
+        "path": "skills/accessibility/SKILL.md",
+        "source": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/accessibility/SKILL.md",
+        "sha": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "sha256": "2762f21d09d199009ed4f95b28c911436b367c30963dc5ddb48b8e1ad7fc1585",
+        "lines": 146,
+        "category": "Accessibility",
+        "decision": "Blend",
+        "owner": "accessibility",
+        "summary": "Organiza accesibilidad web y nativa según semántica, percepción, operación y verificación.",
+        "reason": "Combine platform coverage with corrected WCAG 2.2 criteria and complete-task evidence.",
+        "caution": "Only selected material is incorporated. Comprobar requisitos y excepciones en fuentes normativas. Una lista o escaneo automático no prueba conformidad completa.",
+        "action": "Selected accessibility material incorporated",
+        "priority": "Created",
+        "references": [],
+        "inspection": "Accessibility-specific assessment on 2026-10-04; exact inspected material is in accessibility-research.json."
+      },
+      {
+        "id": "ecc-frontend-a11y",
+        "key": "ECC/frontend-a11y",
+        "name": "frontend-a11y",
+        "declaredName": "frontend-a11y",
+        "group": "ECC",
+        "author": "Affaan Mustafa y colaboradores",
+        "kind": "upstream",
+        "path": "skills/frontend-a11y/SKILL.md",
+        "source": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/frontend-a11y/SKILL.md",
+        "sha": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "sha256": "e00991a3f4d47fcf1529dd74a080afcf46137dc5061e70dc6e3da7b27f2ae3f3",
+        "lines": 443,
+        "category": "Accessibility",
+        "decision": "Blend",
+        "owner": "accessibility",
+        "summary": "Aporta recetas de React y Next para etiquetas, teclado, foco, ARIA y movimiento reducido.",
+        "reason": "Keep useful semantic and form checks in a language-independent workflow.",
+        "caution": "Only selected material is incorporated. Los ejemplos no certifican conformidad. Verificar contención y restauración de foco y uso real del teclado.",
+        "action": "Selected accessibility material incorporated",
+        "priority": "Created",
+        "references": [],
+        "inspection": "Accessibility-specific assessment on 2026-10-04; exact inspected material is in accessibility-research.json."
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/product-design/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "1f5b964df7a7ff4ad9243a079f254fc670dda85fd70e931c514e3f40cd1ed302",
+        "lines": 104,
+        "chars": 11093,
+        "name": "product-design",
+        "id": "matthew-blode-product-design",
+        "key": "Matthew Blode/product-design",
+        "declaredName": "product-design",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/product-design/SKILL.md",
+        "action": "Selected accessibility material incorporated",
+        "priority": "Created",
+        "category": "Accessibility",
+        "owner": "accessibility",
+        "summary": "Defines what a user can do, the action's scope and consequence, recovery, states and accessible completion.",
+        "reason": "Retain accessible completion and recovery of the user task. A general interaction-design skill remains a separate proposal.",
+        "caution": "Only selected material is incorporated. Adapt the broad rule library into conditional references. Treat control-count and naming defaults as context-sensitive; preserve existing product decisions and keep aesthetics and browser testing with their owners.",
+        "decision": "Blend",
+        "inspection": "Accessibility-specific assessment on 2026-10-04; exact inspected material is in accessibility-research.json.",
+        "references": [
+          {
+            "path": "skills/product-design/references/interface-quality.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/product-design/references/interface-quality.md",
+            "sha256": "e92b535385469e20a25c95bf6952e5724f5739b9322d1e3f3d3092415f0c2e0f"
+          },
+          {
+            "path": "skills/product-design/references/product-judgment.md",
+            "coverage": "Lines 1-80: brief, facts, controls, gestures and surface choice",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/product-design/references/product-judgment.md",
+            "sha256": "78fd864b8d171160317536eed02c910b65c371992bbf18839177441fd3682dc5"
+          },
+          {
+            "path": "skills/product-design/references/rules.md",
+            "coverage": "Lines 1-110: rule ownership, scope and interaction rules",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/product-design/references/rules.md",
+            "sha256": "27a538b79822010d59162d9b86f6810be2b92e4bbd3da5cd91ebbf1c0cf8869b"
+          }
+        ]
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/ui-verification/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "f5cbdcd185cada0bad9dee833465f1e55066b6a39076077711a4a64913fb5193",
+        "lines": 153,
+        "chars": 14110,
+        "name": "ui-verification",
+        "id": "matthew-blode-ui-verification",
+        "key": "Matthew Blode/ui-verification",
+        "declaredName": "ui-verification",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/SKILL.md",
+        "action": "Selected accessibility material incorporated",
+        "priority": "Created",
+        "category": "Accessibility",
+        "owner": "accessibility",
+        "summary": "Runs targeted browser probes for focus, layout, failure states, themes, locale, console errors and performance.",
+        "reason": "Retain accessibility probe interpretation while verify and the local recipe own execution.",
+        "caution": "Only selected material is incorporated. Adapt to native browser capabilities and the local recipe. Unsupported probes remain untested; remove conflicting mandatory repeat counts and do not require the donor's full UI audit schema.",
+        "decision": "Blend",
+        "inspection": "Accessibility-specific assessment on 2026-10-04; exact inspected material is in accessibility-research.json.",
+        "references": [
+          {
+            "path": "skills/ui-verification/references/session-setup.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/references/session-setup.md",
+            "sha256": "defdfb40307d541ee7626f62c934c6e023e066a5c70a9593f7e5fbf8c8c19c3e"
+          },
+          {
+            "path": "skills/ui-verification/references/evidence-output.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/references/evidence-output.md",
+            "sha256": "06ba70ef44b6b124db9f4c9df66e9a4bb1d90f4fd34d44594ffe15077c139481"
+          }
+        ]
+      },
+      {
+        "collection": "addy",
+        "path": "skills/frontend-ui-engineering/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "549044e9bd8d7fe993ce8e5c0d2b0f5465650676dc15805329973f936179eb1e",
+        "lines": 340,
+        "chars": 11680,
+        "name": "frontend-ui-engineering",
+        "id": "addy-osmani-frontend-ui-engineering",
+        "key": "Addy Osmani/frontend-ui-engineering",
+        "declaredName": "frontend-ui-engineering",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/frontend-ui-engineering/SKILL.md",
+        "action": "Selected accessibility material incorporated",
+        "priority": "Created",
+        "category": "Accessibility",
+        "owner": "accessibility",
+        "summary": "Combines component architecture, state, responsive design and accessible interaction guidance.",
+        "reason": "Retain selected accessibility and meaningful-state coverage; the broader UI-building workflow is not installed.",
+        "caution": "Only selected material is incorporated. Avoid a competing all-purpose frontend entrypoint, fixed prop-depth limits or assuming one accessibility checklist proves conformance.",
+        "decision": "Blend",
+        "inspection": "Accessibility-specific assessment on 2026-10-04; exact inspected material is in accessibility-research.json.",
+        "references": []
+      }
+    ],
+    "research": "accessibility-research.json"
   }
 };
