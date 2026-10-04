@@ -96,12 +96,24 @@ Compare each viable option on:
 - Correctness: which invariants it enforces and which assumptions remain open.
 - Caller effort: what complexity is hidden and what callers must still know.
 - Change locality: where a likely requirement change would propagate.
+- Partial context: whether a plausible edit made from one caller or example
+  stays correct across the relevant subsystem.
 - State and reading effort: what a maintainer must trace or hold in mind.
 - Cost: implementation, migration, verification, and relevant runtime costs.
 
-Screen for pass-through layers, private representations exposed to callers,
-repeated policy, and callers coordinating internal stages. Try removing a
-suspect layer: does complexity disappear, or merely spread into consumers?
+Screen for pass-through layers, exposed representations or reachable internals
+that should stay private, repeated policy, parallel ways to satisfy the same
+contract, hand-maintained copies of a registry, and callers coordinating internal
+stages. Name the project's available module, type, lint, test, or build mechanism
+that will enforce each intended boundary; implement it within authorized
+implementation. Derive related registries from an authority or check their defined
+relationship; independently meaningful lists need not be identical.
+
+Prefer one maintained route for the same contract. Preserve supported protocol
+surfaces, platform variants, and compatibility paths while their consumers need
+them; plan retirement within the authorized migration rather than deleting them
+to satisfy the screen. Try removing a suspect layer: does complexity disappear,
+or merely spread into consumers?
 A useful boundary can enforce access, isolation, adaptation, or ownership even
 with one implementation. Do not collapse it to satisfy a file count or a quota
 for adapters.

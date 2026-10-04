@@ -10,14 +10,15 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
 baseline_paths = ["pstack/skills/architect/SKILL.md", "pstack/skills/architect/references/runner-prompt.md", "pstack/skills/architect/references/rationale-template.md", "pstack/skills/architect/references/design-red-flags.md", "pstack/skills/principle-exhaust-the-design-space/SKILL.md", "pstack/skills/principle-foundational-thinking/SKILL.md", "pstack/skills/principle-model-the-domain/SKILL.md", "pstack/skills/principle-minimize-reader-load/SKILL.md", "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md", "pstack/skills/principle-boundary-discipline/SKILL.md", "pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-redesign-from-first-principles/SKILL.md", "pstack/skills/principle-subtract-before-you-add/SKILL.md", "pstack/LICENSE"]
 paths = ["pstack/skills/architect/SKILL.md", "pstack/skills/architect/references/runner-prompt.md", "pstack/skills/architect/references/rationale-template.md", "pstack/skills/architect/references/design-red-flags.md", "pstack/skills/principle-exhaust-the-design-space/SKILL.md", "pstack/skills/principle-foundational-thinking/SKILL.md", "pstack/skills/principle-model-the-domain/SKILL.md", "pstack/skills/principle-minimize-reader-load/SKILL.md", "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md", "pstack/skills/principle-boundary-discipline/SKILL.md", "pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-redesign-from-first-principles/SKILL.md", "pstack/skills/principle-subtract-before-you-add/SKILL.md", "pstack/LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = [
   "Ground the existing mechanism and its consequential rationale before changing ownership.",
   "Write caller usage before types, compare structural alternatives, screen shallow layers and revisit a design when implementation exposes recurring friction.",
-  "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion."
+  "Model valid states and data access, concentrate invariants, account for shared writes, retries and partial completion.",
+  "Evaluate edits made from partial context; make intended boundaries enforceable and derive related registries from an authority or check their relationship.",
 ]
 local_choices = [
   "Bound the skill to a concrete design decision; implementation follows the active request, without automatic stubs or an approval checkpoint.",
@@ -25,9 +26,13 @@ local_choices = [
   "Use local how, why, analyze-change-effects, prototype and compare-solutions conditionally by registered name; no Cursor tools or fixed model slugs.",
   "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
   "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
-  "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+  "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite.",
+  "Name existing enforcement mechanisms during design and implement only within authorized implementation; independently meaningful lists may differ.",
+  "Retain supported protocol, platform and compatibility routes until the authorized migration permits retirement; choose writer ownership from the actual invariant.",
 ]
-reviews = []
+reviews = [
+  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = ["Adapted the agent-contributor design screen: enforceable boundaries, authoritative registries, maintained routes, and correctness under partial context."], skipped = ["No single-writer mandate, identical-list mandate, delete-in-the-same-change requirement, universal build-must-fail rule, or enforcement implementation during a design-only request. Existing invariant, migration and authority rules remain."], deferred = [], validation = ["Complete changed architect and linked design-context reads; matched design executions preserve registry, import, state, protocol and scope behavior.", "reports/skill-atlas/design-upstream-adoption-validation.json"] },
+]
 
 [[sources]]
 id = "matt-design"
@@ -36,7 +41,7 @@ repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
 baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
-reviewed_through = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "24fe0ef7737efae15c87225755e9f6f5965e4888"
 baseline_paths = ["skills/engineering/codebase-design/SKILL.md", "skills/engineering/codebase-design/DEEPENING.md", "skills/engineering/codebase-design/DESIGN-IT-TWICE.md", "skills/engineering/domain-modeling/SKILL.md", "skills/engineering/domain-modeling/GLOSSARY-FORMAT.md", "skills/engineering/domain-modeling/ADR-FORMAT.md", "LICENSE"]
 paths = ["skills/engineering/codebase-design/SKILL.md", "skills/engineering/codebase-design/DEEPENING.md", "skills/engineering/codebase-design/DESIGN-IT-TWICE.md", "skills/engineering/domain-modeling/SKILL.md", "skills/engineering/domain-modeling/GLOSSARY-FORMAT.md", "skills/engineering/domain-modeling/ADR-FORMAT.md", "LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
@@ -52,7 +57,9 @@ local_choices = [
   "Retain useful tests after refactoring and preserve legitimate effects and runtime validation.",
   "Glossary and ADR edits follow the active documentation scope or project convention; neither is compulsory for every decision."
 ]
-reviews = []
+reviews = [
+  { from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60", to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/design-upstream-adoption-validation.json"] },
+]
 
 [[dependencies]]
 kind = "local"
