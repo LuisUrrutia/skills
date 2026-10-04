@@ -104,7 +104,7 @@ Respect already-staged files as likely intent, but inspect them. Commit them onl
    - Include one for breaking changes, migrations, non-obvious fixes, tradeoffs, or multi-file behavior whose relationship the subject cannot preserve.
    - Put the reason first, then the change. If no clearer pattern exists, use short `Why` and `Changes` sections.
    - Keep only details that help a future reader understand the decision. Leave validation and risk reporting in the assistant's output, not the commit message.
-   - Keep the message natural and direct. Run it through the `humanize` skill when available without weakening technical precision.
+   - Keep the message natural and direct. Run it through the `communicate-clearly` skill when available without weakening technical precision.
    - Never add `Co-authored-by`, co-author trailers, or authorship footers.
    - This step is complete when every promise in the subject and body is supported, the subject identifies this boundary rather than a generic kind of work, and the body carries any context the subject cannot safely compress.
 

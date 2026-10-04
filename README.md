@@ -50,6 +50,44 @@ using this extraction workflow.
 - Separates missed activation from missing instructions, using traceable upstream extraction criteria
 - Follows deciding context and routes lessons to skills, project instructions, personal preferences, or existing checks
 
+### communicate-clearly
+
+Write clear, natural prose for the reader, language and channel. Replaces
+`humanize`, preserving its claim-by-claim fidelity, author voice and pattern catalog.
+
+**Triggers:** applies by default to prose, including answers, explanations, drafts, rewrites and reviews
+
+**Features:**
+
+- Explains necessary concepts at the reader's level without turning each answer into a lesson
+- Adapts clarity principles to the target language while preserving exact tokens and qualifications
+- Removes generic wording and mechanical structures without inferring authorship
+- Keeps summaries, faithful rewrites and authorized additions distinct
+- Prepares channel-appropriate content; external sending remains a separate authorized action
+- Records selected pinned sources, independent Astra/Fable Max reviews and bounded multilingual trials
+
+### write-documentation
+
+Create, update or review human-facing documentation using current evidence and a
+path the intended reader can follow. Uses `communicate-clearly` when available;
+`agent-instructions` retains agent-consumed instruction authoring.
+
+**Triggers:** `write a guide`, `update this README`, `review the API reference`, `document this runbook`
+
+**Features:**
+
+- Organizes content by reader need while preserving useful existing structure
+- Verifies commands, examples, prerequisites, expected results and version-specific claims
+- Distinguishes current behavior, approved decisions, proposals and unknown rationale
+- Checks the document without relying on private author context
+- Maintains relevant links and requested language versions within scope
+- Reports actual validation and its limits without authorizing production operations or publication
+
+These are repository packages, not a global installation. Replace installed
+`humanize` references with `communicate-clearly` when migrating a host; do not keep
+both as competing automatic prose owners. Host selection still depends on the
+installation and supported activation mechanism.
+
 ### report-work-activity
 
 Explain activity over a chosen period and current outstanding work in a private

@@ -1,10 +1,10 @@
 # AI-associated writing pattern catalog
 
-Use this reference to diagnose prose that feels generated, generic, or unnatural. It describes observable writing patterns, not a method for identifying who or what wrote the text. `SKILL.md` owns the workflow, output contracts, and completion gate.
+Use this reference to diagnose prose that feels generated, generic, or unnatural. It describes observable writing patterns, not a method for identifying who or what wrote the text. `SKILL.md` owns the workflow and delivery rules.
 
 ## Route map
 
-For a full `review`, inspect every family and apply the false-positive guardrails. For a targeted `rewrite` or `edit`, load the families that match the initial scan, then rescan the result against those same families.
+For a writing-pattern review, inspect every family and apply the false-positive guardrails. For drafting or targeted rewriting and file edits, load the families that match the initial scan, then rescan the result against those same families.
 
 - **Generic wording and syntax:** [1. Lexical tells](#1-language-and-lexical-tells), [2. Significance padding](#2-significance-and-notability-padding), [3. Promotional and positioning fog](#3-promotional-tone-and-product-positioning-fog), [4. Formulaic syntax and stock metaphors](#4-formulaic-syntax-and-stock-metaphors), [11. Content economy](#11-content-economy-and-treadmill-restatement), [17. Hedging and filler](#17-hedging-filler-and-sycophancy)
 - **Organization and surface style:** [5. Outline artifacts](#5-structure-and-outline-artifacts), [6. Formatting and punctuation](#6-formatting-and-punctuation-tells), [12. Rhythm](#12-rhythm-and-sentence-boundary-tells), [13. Whole-text cohesion](#13-whole-text-cohesion-and-referential-continuity), [16. Openings and closings](#16-openings-closings-and-transition-residue)
@@ -19,7 +19,7 @@ For a full `review`, inspect every family and apply the false-positive guardrail
 - Separate observation from provenance. A pattern means "review this passage," not "infer authorship."
 - Prefer concrete repairs. Replace puffery with facts, vague authority with named sources, and chatbot framing with content.
 - Apply the catalog by pattern family. Pattern-specific false positives matter more than a keyword match.
-- Use only details present in the source. Examples below include every fact used in their rewrites; they are demonstrations, not facts to borrow.
+- Repairs use source-supported details; new research or examples follow the authorization rules in `SKILL.md`. Examples below include every fact used in their rewrites; they are demonstrations, not facts to borrow.
 
 ## 1. Language and lexical tells
 
@@ -134,7 +134,7 @@ For a full `review`, inspect every family and apply the false-positive guardrail
 
 **Example:**
 
-- Before: "Certainly. Here is an overview of the policy. I hope this helps."
+- Before: "Certainly. Here is an overview of the policy. The policy requires manager approval for expenses over $500. I hope this helps."
 - After: "The policy requires manager approval for expenses over $500."
 
 ## 8. Context contamination and prompt leakage
@@ -164,8 +164,8 @@ For a full `review`, inspect every family and apply the false-positive guardrail
 
 **Example:**
 
-- Before: "Several industry reports show that the migration is more reliable. Acme's 2025 benchmark found that failed jobs fell from 4 percent to 1 percent."
-- After: "Acme's 2025 benchmark found that failed jobs fell from 4 percent to 1 percent."
+- Before: "An industry report found fewer failed jobs after the migration. Acme's 2025 benchmark found that failed jobs fell from 4 percent to 1 percent after the migration."
+- After: "Acme's 2025 benchmark found that failed jobs fell from 4 percent to 1 percent after the migration."
 
 ## 10. Social and LinkedIn cliches
 
@@ -179,7 +179,7 @@ For a full `review`, inspect every family and apply the false-positive guardrail
 
 **Example:**
 
-- Before: "I am humbled and honored to share this exciting milestone: I joined Render's infrastructure team this week, and I feel nervous, excited, and ready to learn."
+- Before: "I am thrilled to share this exciting milestone: I joined Render's infrastructure team this week, and I feel nervous, excited, and ready to learn."
 - After: "I joined the infrastructure team at Render this week. Nervous, excited, and ready to learn."
 
 ## 11. Content economy and treadmill restatement
@@ -195,7 +195,7 @@ For a full `review`, inspect every family and apply the false-positive guardrail
 **Examples:**
 
 - Before: "Better onboarding improves the employee experience by giving new hires their laptop, payroll login, and first-week schedule before day one."
-- After: "New hires now get their laptop, payroll login, and first-week schedule before day one."
+- After: "Giving new hires their laptop, payroll login, and first-week schedule before day one improves the employee experience."
 - Before: "The user can retry again."
 - After: "The user can retry."
 
@@ -216,7 +216,7 @@ For a full `review`, inspect every family and apply the false-positive guardrail
 - Before: "When the user posts a photo, the app, after checking the session and validating the selected file, sends the image to the server, which processes it and returns its identifier."
 - After: "When the user posts a photo, the app checks the session and validates the selected file before sending the image to the server. The server processes it and returns its identifier."
 - Before: "The separation is deliberate. Command modules stay small, while protocol details live in independently testable library modules."
-- After: "The deliberate separation keeps command modules small by leaving protocol details out of them. Those details live in library modules, where they can be tested independently."
+- After: "Command modules stay small, and protocol details live in deliberately separate, independently testable library modules."
 - Before: "Most commands are read-only. Commands that change the profile or a relationship require explicit confirmation. The exception is `note set`, which sends by default and provides `--dry-run` for previewing the operation."
 - After: "Most commands are read-only. Those that change the profile or a relationship require explicit confirmation, except `note set`, which sends by default and supports `--dry-run` to preview the operation."
 
@@ -235,7 +235,7 @@ For a full `review`, inspect every family and apply the false-positive guardrail
 - Before: "Westbridge Museum acquired the letters in 1998. Westbridge Museum digitized them in 2019. The museum now provides online access to the letters. The institution also offers downloadable transcripts."
 - After: "Westbridge Museum acquired the letters in 1998, digitized them in 2019, and now provides online access to the letters and downloadable transcripts."
 - Before: "Los municipios reciben señales vecinales por correo, teléfono y formularios. El piloto llevará esas señales a un canal interno que funciona como cola de moderación, sin sustituir canales de emergencia como el 112."
-- After: "Los municipios reciben avisos vecinales por correo, teléfono y formularios. El piloto reunirá esos avisos en una cola de moderación sin sustituir servicios de emergencia como el 112."
+- After: "Los municipios reciben avisos vecinales por correo, teléfono y formularios. El piloto reunirá esos avisos en una cola interna de moderación sin sustituir canales de emergencia como el 112."
 - Before: "El piloto reunirá avisos locales, servicios locales y contenido local de un barrio antes de escalar la propuesta a toda la ciudad."
 - After: "El piloto reunirá los avisos, servicios y contenidos de un barrio antes de extenderse a toda la ciudad."
 - Keep: "La normativa distingue entre la administración local, autonómica y estatal."
@@ -303,7 +303,7 @@ For a full `review`, inspect every family and apply the false-positive guardrail
 **Example:**
 
 - Before: "To be fair, the change could potentially reduce latency in some cases, although this is only an inference from the benchmark."
-- After: "The benchmark suggests that the change reduces latency in some cases."
+- After: "The benchmark suggests that the change could reduce latency in some cases."
 
 ## 18. Shadowboxing and phantom alternatives
 
@@ -322,7 +322,7 @@ For a full `review`, inspect every family and apply the false-positive guardrail
 - Before: "The client retries a failed request twice. It would be easy to keep retrying until it succeeds, but the client stops after the second retry. It then returns the error to the caller."
 - After: "The client retries a failed request twice, then returns the error to the caller."
 - Before: "The importer validates the entire file before writing any records. An obvious approach would be to write each row as it is parsed, but a later error would leave a partial import. Invalid files add no records."
-- After: "The importer validates the entire file before writing any records, so invalid files cannot leave a partial import."
+- After: "The importer validates the entire file before writing any records. Writing rows as they are parsed would leave a partial import if a later error occurred. Invalid files add no records."
 - Keep: "The API is not thread-safe."
 
 ## 19. False-positive guardrails
@@ -341,7 +341,7 @@ If the answer is yes, soften the finding. Recommend a targeted edit, not a full 
 
 ## Review rubric
 
-Rate the prose by cluster strength, not presumed authorship. Weigh density, repetition across the piece, severity, and interaction between families. Concrete detail, distinctive voice, functional formatting, and genre conventions count as counterevidence.
+Assess cluster strength, not presumed authorship. Weigh density, repetition across the piece, severity, and interaction between families. Concrete detail, distinctive voice, functional formatting, and genre conventions count as counterevidence. When an overall concern level helps the reader, use the levels below; it is not a mandatory output field.
 
 - **Low concern:** A few isolated markers appear, while the prose remains specific, coherent, and suited to its genre.
 - **Medium concern:** Multiple families recur or combine in ways that flatten voice, obscure claims, or make the structure feel generated.

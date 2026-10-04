@@ -3,9 +3,9 @@
 const atlas = window.SKILL_ATLAS;
 const repositoryInventory = atlas.repositoryInventory;
 const repositorySkills = new Map(repositoryInventory.skills.map((skill) => [skill.name, skill]));
-const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments, ...atlas.handoffReview.assessments, ...atlas.activityReview.skills, ...atlas.activityReview.assessments, ...atlas.reviewCodeChangesReview.dylReviewAdoption.assessments].map((skill) => [skill.key, skill]));
+const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments, ...atlas.handoffReview.assessments, ...atlas.activityReview.skills, ...atlas.activityReview.assessments, ...atlas.reviewCodeChangesReview.dylReviewAdoption.assessments, ...atlas.communicationReview.assessments].map((skill) => [skill.key, skill]));
 const originalKeys = new Set(atlas.skills.map((skill) => skill.key));
-const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills, ...atlas.ciCdReview.skills, ...atlas.activityReview.skills];
+const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills, ...atlas.ciCdReview.skills, ...atlas.activityReview.skills, ...atlas.communicationReview.skills];
 const byKey = new Map(catalogSkills.map((skill) => [skill.key, skill]));
 const byId = new Map(catalogSkills.map((skill) => [skill.id, skill]));
 const recommendationFor = (skill) => sourceReviews.get(skill.key) || skill;
@@ -161,16 +161,16 @@ const clusters = [
     "why": "simplify-code aplica criterios independientes del lenguaje al diff real. Conserva motivos, invariantes, errores, datos y recursos; una petición de limpieza no autoriza cambiar el contrato."
   },
   {
-    "title": "Calidad de la prosa",
-    "winner": "Conservar humanize",
+    "title": "Clear communication and documentation",
+    "winner": "communicate-clearly + write-documentation",
     "keys": [
       "Local/humanize",
       "pstack/unslop",
       "pstack/technical-writing",
       "Matt Pocock/writing-for-agents"
     ],
-    "text": "humanize y unslop se solapan directamente. technical-writing aporta estructura documental y claridad técnica. writing-for-agents se centra en ejecución y descubrimiento de instrucciones.",
-    "why": "humanize para lectores humanos y agent-instructions para instrucciones de agentes. Cargar criterios específicos del documento solo cuando hagan falta."
+    "text": "communicate-clearly preserves the local prose safeguards and adds selected eli5, ghostwriter and pstack guidance. write-documentation owns document structure and source accuracy.",
+    "why": "Use one default prose owner across languages, load documentation checks when relevant, and keep agent-consumed instructions with agent-instructions."
   },
   {
     "title": "Descripción del PR y orientación del revisor",
@@ -468,7 +468,7 @@ const conflicts = [
   {
     "title": "Estilo de interfaz y estilo de prosa",
     "kind": "Policy",
-    "before": "La guía web de Vercel pide comillas tipográficas y títulos con palabras en mayúscula. humanize conserva comillas rectas y unslop de pstack pide títulos con estilo de oración.",
+    "before": "Vercel's web guide requests typographic quotation marks and title case. communicate-clearly uses straight ASCII in place of English-style curly marks while preserving protected text and each language's own forms. pstack unslop prefers sentence case.",
     "after": "Tratar estas preferencias como estilo del repositorio, no como requisitos de accesibilidad. Respetar idioma y texto protegido, conservando comprobaciones semánticas y de interacción pertinentes.",
     "keys": [
       "web-guidelines",
@@ -629,7 +629,7 @@ const scenarios = {
       ],
       [
         "Editar",
-        "Usar la revisión de fidelidad de humanize. Añadir estructura técnica solo si ayuda y preservar texto protegido y citas."
+        "Use communicate-clearly for prose fidelity and write-documentation for the relevant document checks. Preserve protected text, citations and useful existing structure."
       ],
       [
         "Verificar",
@@ -695,7 +695,7 @@ document.querySelector("#ci-cd-repositories").innerHTML = atlas.ciCdReview.repos
 document.querySelector("#typescript-repositories").innerHTML = atlas.typescriptReview.repositories.map((repository) => `<tr><th><a href="${escapeHtml(repository.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(repository.repository)}</a><small>${escapeHtml(repository.commit.slice(0, 12))}</small></th><td>${escapeHtml(repository.decision)}</td><td>${escapeHtml(repository.reason)}<details class="evidence"><summary>Scope and exclusions</summary><p>${escapeHtml(repository.reviewDepth)}</p><p>${escapeHtml(repository.excluded)}</p></details></td></tr>`).join("");
 document.querySelector("#typescript-principles").innerHTML = atlas.typescriptReview.principles.map((principle) => `<li><a href="${escapeHtml(principle.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(principle.name)}</a> — ${escapeHtml(principle.status)}</li>`).join("");
 document.querySelector("#accessibility-repositories").innerHTML = atlas.accessibilityReview.repositories.map((repository) => `<tr><th><a href="${escapeHtml(repository.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(repository.repository)}</a></th><td>${escapeHtml(repository.decision)}</td><td>${escapeHtml(repository.reason)}</td></tr>`).join("");
-document.querySelector("#author-collections").innerHTML = atlas.authorReview.collections.map((collection) => `<article class="surface"><h3>${escapeHtml(collection.name)}</h3><p><strong>${collection.count}</strong> skills · <strong>${collection.incorporated}</strong> sources already incorporated</p><a href="?group=${encodeURIComponent(collection.name)}#catalog">Browse this collection</a><details class="evidence"><summary>Pinned repository</summary><p><a href="${escapeHtml(collection.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(collection.url)}</a></p></details></article>`).join("");
+document.querySelector("#author-collections").innerHTML = atlas.authorReview.collections.map((collection) => `<article class="surface"><h3>${escapeHtml(collection.name)}</h3><p><strong>${collection.count}</strong> skills · <strong>${atlas.authorReview.skills.filter((skill) => skill.group === collection.name && progressFor(skill).status === "ready").length}</strong> sources already incorporated</p><a href="?group=${encodeURIComponent(collection.name)}#catalog">Browse this collection</a><details class="evidence"><summary>Pinned repository</summary><p><a href="${escapeHtml(collection.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(collection.url)}</a></p></details></article>`).join("");
 document.querySelector("#author-shortlist").innerHTML = atlas.authorReview.shortlist.map((item, index) => `<article class="surface"><p class="kicker">${index + 1}. ${escapeHtml(item.route)}</p><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.why)}</p><p><strong>Owner:</strong> ${escapeHtml(item.owner)}.</p><p class="skill-meta">${escapeHtml(item.boundary)}</p>${skillLinks(item.keys)}</article>`).join("");
 document.querySelector("#author-internal-references").innerHTML = atlas.authorReview.internalReferences.map((item) => `<article class="surface review-boundaries"><p class="kicker">Additional internal reference · ${escapeHtml(item.status)}</p><h3>${escapeHtml(item.collection)} / ${escapeHtml(item.name)}</h3><p>${escapeHtml(item.summary)}</p><p><strong>Proposed owner:</strong> <code>${escapeHtml(item.owner)}</code>. ${escapeHtml(item.reason)}</p><p>${escapeHtml(item.action)}. ${escapeHtml(item.caution)}</p><details class="evidence"><summary>Inspected internal procedure and supporting guidance</summary><ul>${item.files.map((file) => `<li><strong>${escapeHtml(file.path)}</strong><span>${escapeHtml(file.coverage)}</span><a href="${escapeHtml(file.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(file.url)}</a></li>`).join("")}</ul></details></article>`).join("");
 document.querySelector("#author-review-limits").innerHTML = `<p>${escapeHtml(atlas.authorReview.scope)}</p><ul>${atlas.authorReview.limitations.map((limit) => `<li>${escapeHtml(limit)}</li>`).join("")}</ul>`;

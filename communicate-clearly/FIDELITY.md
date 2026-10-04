@@ -4,11 +4,15 @@
 
 ## Operating rule
 
-Humanization is recomposition, not summarization. Preserve the information, not the source's shape: keep every unique substantive claim and qualification unless the user authorizes cuts, but merge, split, or reorder material when the original structure carries no meaning of its own. Let the piece's purpose determine emphasis: compress repetition and routine connective material, and expand only by unpacking information already present. You may replace unsupported promotional wrappers when the resulting passage retains the author's material point, stance, context, and support. When it is unclear whether evaluative language carries a real claim, preserve or recast it rather than silently deleting it.
+Rewriting is recomposition, not summarization. Preserve the information, not the source's shape: keep every unique substantive claim and qualification unless the user authorizes cuts, but merge, split, or reorder material when the original structure carries no meaning of its own. Let the piece's purpose determine emphasis: compress repetition and routine connective material, and expand by unpacking information already present unless the user also authorizes additions. You may replace unsupported promotional wrappers when the resulting passage retains the author's material point, stance, context, and support. When it is unclear whether evaluative language carries a real claim, preserve or recast it rather than silently deleting it.
 
 If the source is visibly truncated, rewrite only the complete material and ask for the missing passage when it affects the result. Treat the continuation as unavailable rather than completing it from context.
 
 Surface polish fails when it changes what a careful reader would conclude.
+
+For an authorized summary or cut, first identify the requested selection. Apply
+the mapping below to retained claims and the qualifications needed to keep them
+accurate. Do not treat permission to shorten as permission to change their meaning.
 
 ## Meaning contract
 
@@ -34,10 +38,13 @@ After the reader pass, compare source and rewrite in this order:
 2. Locate its home in the rewrite. Several repeated source sentences may map to one rewritten sentence, but no unique claim may disappear by accident.
 3. Confirm that the rewrite makes the same assertion with the same certainty, scope, polarity, conditions, causality, sequence, attribution, and intent.
 4. Confirm that quotations remain exact, citations remain attached to the claims they support, and examples have not become general evidence.
-5. Remove any new fact, measurement, example, interpretation, or precision that the source or user did not supply.
+5. Remove any new fact, measurement, example, interpretation, or precision that neither the source nor the user supplied. When the user authorizes new research or examples, cite added factual claims and label illustrative examples as such.
 6. Preserve genuine ambiguity when the source is ambiguous. Ask the user only when resolving it would materially change the text.
 
-The pass is complete when every unique source claim maps to a faithful rewritten claim and every rewritten claim maps back to supplied material.
+The pass is complete when every claim within the authorized preservation or
+selection scope has a faithful home, with the qualifications needed to keep it
+accurate. Each resulting claim maps to supplied material or an explicitly
+authorized addition whose factual source or illustrative status is clear.
 
 ## Functional-word tests
 
@@ -76,7 +83,7 @@ Use plain wording as a tie-breaker between expressions that make the same claim:
 | "Some users find the new menu confusing." | "The new menu confuses users." | "Some users find the new menu confusing." |
 | "The app encrypts files before uploading them." | "The app uploads files securely." | "The app encrypts each file before upload." |
 | "The process fails occasionally." | "The process fails." | "The process sometimes fails." |
-| "The user accidentally deleted the file." | "The user deleted the file." | "The file was deleted by mistake." |
+| "The user accidentally deleted the file." | "The user deleted the file." | "The user deleted the file by mistake." |
 | "The parser only accepts JSON files." | "The parser accepts JSON files." | "The parser accepts only JSON files." |
 | "Lee said the launch was delayed." | "The launch was delayed." | "Lee said the launch was delayed." |
 | "Errors rose after the migration." | "The migration caused more errors." | "Errors increased after the migration." |

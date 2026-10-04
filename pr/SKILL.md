@@ -105,7 +105,7 @@ user explicitly overrides it. Keep the body proportional to the review decision.
 For Update, draft from the complete published change and replace obsolete claims,
 rather than appending a history of successive fixes. Revalidate useful links,
 screenshots and completed checklist claims before carrying them forward. Use
-`humanize` when available for clear prose without weakening technical meaning.
+`communicate-clearly` when available for clear prose without weakening technical meaning.
 
 ## Publish and verify
 
