@@ -1,7 +1,8 @@
 # Requested upstream maintenance
 
 Read this only when checking or updating debug from its recorded sources.
-Ordinary debugging does not fetch upstream or require another skill.
+Debugging does not fetch upstream. Performance evidence uses the conditional
+`verify` dependency; source maintenance has a separate authoring dependency.
 
 Use `agent-instructions` by name from the installed skill catalog for requested
 source maintenance, with this folder as the target.

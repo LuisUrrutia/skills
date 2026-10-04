@@ -10,7 +10,7 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
 baseline_paths = ["pstack/skills/create-verification-skill/SKILL.md", "pstack/skills/maintain-verification-skill/SKILL.md", "pstack/LICENSE"]
 paths = ["pstack/skills/create-verification-skill/SKILL.md", "pstack/skills/maintain-verification-skill/SKILL.md", "pstack/LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
@@ -30,7 +30,9 @@ local_choices = [
   "Direct source review is an explicit disclosed fallback when independent workers cannot run and the caller permits it.",
   "A bundled read-only map validator checks links and section structure; source and live proof still establish correctness."
 ]
-reviews = []
+reviews = [
+  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/performance-upstream-adoption-validation.json"] },
+]
 
 [[sources]]
 id = "superpowers-verification"
@@ -210,6 +212,21 @@ local_choices = [
   "Use established product requirements and personas where relevant; observations of friction do not create new product policy or a redesign task.",
 ]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+reviews = []
+
+[[sources]]
+id = "pstack-performance-evidence"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/benchmark-checklist/SKILL.md", "pstack/skills/principle-explain-the-number/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/benchmark-checklist/SKILL.md", "pstack/skills/principle-explain-the-number/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Check completed correct work, meaningful measurement boundaries, comparable conditions, repeated observations and retained variation before accepting performance claims.", "Separate successful work from errors, workload limits from driver limits, diagnostic profiling from scored timings, and local measurements from end-to-end gains.", "Check resource and time budgets; causal bottleneck explanations need path-specific runtime evidence."]
+local_choices = ["Shared evidence criteria live in a conditional verify reference. debug and prototype retain measurement execution, diagnosis or experiment ownership and receive the verdict without recursive handoff.", "A supplied benchmark or packet can be assessed without a project recipe; retain functional checks and report missing application coverage separately.", "A bounded observed effect does not require a proven limiter; label single observations and legitimate cache conditions. Choose repetition and thresholds from the decision rather than a universal five-run minimum.", "Preserve narrow as-deployed comparisons; adoption choices must resolve material configuration differences or justify them from actual user constraints.", "No required Linux uptime/nproc commands, rank-sum test, single-number PR format, automatic profiling, tune-then-remeasure requirement, tool installation, production load, hillclimb loop, or publication.", "Read principle-prove-it-works and poteto-mode perf-issue, hillclimb and opening-a-pr playbooks as context. Their orchestration and PR procedures are not adopted or new direct source feeds.", "Matched supplied-context execution evidence and limits: reports/skill-atlas/performance-upstream-adoption-validation.json"]
 reviews = []
 
 [[dependencies]]

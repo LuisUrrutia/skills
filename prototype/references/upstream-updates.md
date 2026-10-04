@@ -1,7 +1,8 @@
 # Requested upstream maintenance
 
 Read this only when checking or updating this skill from its recorded sources.
-Ordinary prototype work neither fetches upstream nor requires another skill.
+Prototyping does not fetch upstream. Performance evidence uses the conditional
+`verify` dependency; source maintenance has a separate authoring dependency.
 
 Use `agent-instructions` by name from the installed skill catalog for requested
 source maintenance, with this folder as the target.

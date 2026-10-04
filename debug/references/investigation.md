@@ -74,16 +74,22 @@ than retrying until green or describing it as proof of absence.
 
 ## Performance regressions
 
-Define the affected operation, workload, and metric. Measure the current behavior
-and an available known-good version or target under comparable conditions before
-choosing a fix. Use a profiler, query plan, timing harness, or resource measurements
-that can identify the relevant cost; debug logging can itself distort timings.
+Define the affected operation, workload, and metric. Use `verify` by registered
+name to assess the baseline and resulting performance claims; pass the revisions,
+workload, harness, relevant conditions, execution authority and retained results.
+It owns the measurement-evidence criteria and verdict; this skill still measures,
+investigates causes, and repairs within its authority. If the specialist is
+unavailable, continue independently useful diagnosis and report the missing
+assessment; do not claim it ran. With or without that assessment, compare correct
+behavior under comparable conditions, including warm-up and cache state, and
+report workload, sample counts, units, and variation.
 
-Keep correctness checks alongside measurements. Report sample counts, warmup or
-cache conditions, and variability that affects the conclusion. Use version or
-configuration bisection only with a meaningful signal and a checkout strategy
-allowed by the project. General optimization without an observed problem is a
-separate task.
+Measure the current behavior and an available known-good version or target before
+choosing a fix. Use a profiler, query plan, or resource observations to distinguish
+causes, keeping intrusive diagnostics separate from scored timings. Use version
+or configuration bisection only with a meaningful signal and an authorized
+checkout strategy. General optimization without an observed problem is a separate
+task. After assessment, continue the active diagnosis or repair within its scope.
 
 ## Behavior, history, and affected consumers
 

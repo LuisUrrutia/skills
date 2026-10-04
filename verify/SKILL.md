@@ -27,6 +27,10 @@ contracts rather than deriving them solely from the implementation under test.
 For browser behavior, read
 [references/browser-evidence.md](references/browser-evidence.md) before choosing
 routes, conditions, and probes. Other surfaces keep their applicable harness.
+For latency, throughput, resource-use, speedup, or performance-regression claims, read
+[references/performance-evidence.md](references/performance-evidence.md) before
+selecting measurements or interpreting supplied results. Ordinary functional
+verification does not require a benchmark.
 
 Resolve the matching project-local `verify-<app>` by registered name from the
 installed catalog or named skills supplied by the caller. Load and apply its

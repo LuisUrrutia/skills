@@ -39,9 +39,9 @@ Reduce inputs or steps while retaining the same failure. Stop reducing when the
 remaining scenario is useful for distinguishing causes; exhaustive minimization
 is not a prerequisite. Keep the original scenario for final verification.
 
-When reproduction is unavailable, the failure is intermittent or slow, attempts
-have stalled, or the uncertainty spans history, environments, components, or
-affected consumers, read
+When reproduction is unavailable, the failure is intermittent, slow, or
+performance-related, attempts have stalled, or the uncertainty spans history,
+environments, components, or affected consumers, read
 [references/investigation.md](references/investigation.md). A missing reproduction
 allows bounded investigation; it does not establish a verified cause or fix.
 
