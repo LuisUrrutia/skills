@@ -4133,9 +4133,9 @@ window.SKILL_ATLAS = {
       {
         "name": "agent-instructions",
         "category": "Instruction authoring",
-        "summary": "Write and evaluate agent instructions and skills, with scoped references and source maintenance.",
+        "summary": "Write and evaluate agent instructions and skills, reconciling independent Codex Astra and Claude Fable reviews at Max.",
         "path": "agent-instructions/SKILL.md",
-        "sha256": "8038fd59b89e7a1ea7da55331de19b8e9b0a1fa1edc1e1adfd17793da15fc5d7",
+        "sha256": "fba84f1987bda16a1e43cd117bd37e9cf327bdb4322135ef1cb69ba5f6f222c4",
         "section": "authoring"
       },
       {
@@ -13271,5 +13271,26 @@ window.SKILL_ATLAS = {
     "activeDonors": 5,
     "technicalProbes": 22,
     "independentAgentTrials": "not run; no measured improvement or host activation claim"
+  },
+  "agentInstructionsConsultationReview": {
+    "date": "2026-10-04",
+    "skill": "agent-instructions",
+    "authority": "Explicit user policy for every instruction creation, edit, and review.",
+    "requiredProfiles": [
+      {
+        "provider": "Codex",
+        "modelFamily": "Astra",
+        "effort": "Max"
+      },
+      {
+        "provider": "Claude",
+        "modelFamily": "Fable",
+        "effort": "Max"
+      }
+    ],
+    "validation": "reports/skill-atlas/agent-instructions-dual-review-validation.json",
+    "limits": [
+      "Model consultations assess the instructions; they do not replace behavioral checks or prove automatic host selection."
+    ]
   }
 };

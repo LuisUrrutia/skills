@@ -1,0 +1,277 @@
+{
+  "date": "2026-10-04",
+  "status": "Completed: both profiles reviewed the reconciled instructions; no material issue remains.",
+  "scope": "Require independent Codex Astra and Claude Fable instruction reviews at Max, then reconcile material findings before completion.",
+  "authority": "Explicit user policy. This does not change or reattribute pinned donor sources.",
+  "baselineCommit": "96792071897fc617769dc893299e420c702cf93b",
+  "baselineFiles": {
+    "agent-instructions/SKILL.md": "8038fd59b89e7a1ea7da55331de19b8e9b0a1fa1edc1e1adfd17793da15fc5d7",
+    "agent-instructions/references/hosts.md": "c6c6c97addd10e7568b043aa332bc1eafe043292776af2f6bd148d9601597a15",
+    "agent-instructions/references/evaluation.md": "41d3cd856319f62c9d18ec14059cfae3b691b312020f0e4721d1fac059a8ba36"
+  },
+  "reviewedFiles": {
+    "agent-instructions/SKILL.md": "f725003ac1bb3e7058c576ef8b15524a38f4800a6323d1a70a11d2f3af037bb4",
+    "agent-instructions/references/hosts.md": "45b542e38fb8c6ec3f7e06e3b3c2316ee2cf021d2364ed6a79f7611ca2299462",
+    "agent-instructions/references/evaluation.md": "2303c50ee3c7ecb013cdd7ad5ffdb4f6035eb993735666c17b3d3c7a260439d7"
+  },
+  "finalFiles": {
+    "agent-instructions/SKILL.md": "fba84f1987bda16a1e43cd117bd37e9cf327bdb4322135ef1cb69ba5f6f222c4",
+    "agent-instructions/references/hosts.md": "45b542e38fb8c6ec3f7e06e3b3c2316ee2cf021d2364ed6a79f7611ca2299462",
+    "agent-instructions/references/evaluation.md": "2303c50ee3c7ecb013cdd7ad5ffdb4f6035eb993735666c17b3d3c7a260439d7"
+  },
+  "postReviewEditing": "One line-wrap-only adjustment in SKILL.md; whitespace-normalized content matches the second-round snapshot.",
+  "profiles": [
+    {
+      "provider": "Codex",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "transport": "native collaboration",
+      "option": "reasoning_effort",
+      "taskName": "/root/agent_instructions_astra_review",
+      "evidence": "Explicit model and effort in the accepted spawn_agent call; followup_task retained the same agent."
+    },
+    {
+      "provider": "Claude",
+      "providerInstanceId": "claudeAgent",
+      "model": "claude-fable-5-1",
+      "effort": "max",
+      "transport": "T3 delegate_task",
+      "option": "effort",
+      "evidence": "Explicit model and effort in each accepted delegation; task_status confirms the provider and model."
+    }
+  ],
+  "reviewInputs": {
+    "initial": "Same original user request, complete baseline and candidate SKILL.md, hosts.md and evaluation.md, with relevant package references available. Separate initial contexts, no preferred verdict, and an explicit bounded read-only role.",
+    "revised": "Same original brief plus both first-round findings, coordinator dispositions and remaining questions. Both read the same frozen revised snapshot.",
+    "firstCandidateHashes": {
+      "agent-instructions/SKILL.md": "4e677f6eadcee5af4a5ba452d7f0b385a0d39dc3f1d2535ddd54bff17b993d12",
+      "agent-instructions/references/evaluation.md": "2303c50ee3c7ecb013cdd7ad5ffdb4f6035eb993735666c17b3d3c7a260439d7",
+      "agent-instructions/references/hosts.md": "45b542e38fb8c6ec3f7e06e3b3c2316ee2cf021d2364ed6a79f7611ca2299462"
+    },
+    "secondRoundBriefSha256": "c2c78c240dcd554d522afbcc5d18d568432020d3a1190203b99eec32ec69010b"
+  },
+  "reviews": {
+    "astraFirst": {
+      "result": "Adopt with clarifications",
+      "findings": [
+        {
+          "id": "astra-discovery",
+          "finding": "A host live catalog is not the only valid way to resolve the requested profiles; missing catalog access does not establish model unavailability.",
+          "correction": "Use each available runner with current catalog, configuration, or authoritative documentation; set Max and retain model, effort, and run evidence."
+        },
+        {
+          "id": "astra-independence",
+          "finding": "Independent initial responses can still be led by a shared intended verdict.",
+          "correction": "Do not provide the coordinator preferred verdict or the other reviewer conclusions before initial responses."
+        },
+        {
+          "id": "astra-review-only",
+          "finding": "Apply supported corrections could be misread as authorization to edit during review-only work.",
+          "correction": "Qualify corrections with within the requested scope."
+        }
+      ]
+    },
+    "fableFirst": {
+      "taskId": "node:delegated-task:command%3Amcp%3Abfaa801b-7e17-430c-bf95-57ae4b3e3af0%3Adelegate-task%3Aagent-instructions-fable-max-review-20261004-r1",
+      "status": "completed",
+      "result": "Approve the direction with corrections before applying."
+    },
+    "astraSecond": {
+      "taskName": "/root/agent_instructions_astra_review",
+      "provider": "Codex",
+      "model": "gpt-6-astra",
+      "reasoningEffort": "max",
+      "status": "completed",
+      "recommendation": "Adopt; no material issue remains.",
+      "findings": [],
+      "assessment": [
+        "Runner-based discovery, explicit Max and run evidence, fresh initial contexts, withholding the preferred verdict, and requested edit scope resolve the first-round concerns.",
+        "A single retry for transient failures is sufficient; unresolved consultations remain provisional and prohibit unilateral substitution or finalization.",
+        "The existing stopping rule is sufficient: account for findings with reasons, pass applicable checks, and reconsult after changed meaning. A round with no new finding is not required.",
+        "No nearby regression found: review-only work stays read-only, small edits retain proportionate checks, and consultation remains distinct from behavioral evidence."
+      ],
+      "limits": [
+        "Textual review only; automatic selection, failure handling, and comparative effectiveness are not empirically validated."
+      ]
+    },
+    "fableSecond": {
+      "taskId": "node:delegated-task:command%3Amcp%3Abfaa801b-7e17-430c-bf95-57ae4b3e3af0%3Adelegate-task%3Aagent-instructions-fable-max-review-20261004-r2",
+      "status": "completed",
+      "providerInstanceId": "claudeAgent",
+      "model": "claude-fable-5-1",
+      "requestedOptions": {
+        "effort": "max"
+      },
+      "recommendation": "Adopt the revised snapshot; no material issue remains.",
+      "findings": [],
+      "assessment": [
+        "The retained stopping rule and transient-only retry are adequate.",
+        "No scope, authority, recursion, model-resolution, completion, corpus or sibling-skill conflict found.",
+        "Working-tree instructions match the reviewed snapshot after whitespace normalization.",
+        "Mixed README changes belong to another task and must remain outside this commit."
+      ],
+      "disclosure": "The reviewer read the existing Astra second-round verdict in the validation record after forming its assessment; only the initial round was independent of both prior reviews."
+    }
+  },
+  "reconciliation": [
+    {
+      "finding": "Runner portability",
+      "source": [
+        "Astra",
+        "Fable"
+      ],
+      "decision": "adopt",
+      "reason": "A catalog is useful evidence, not a required host interface. The available runner plus current configuration or authoritative documentation can resolve the exact profile."
+    },
+    {
+      "finding": "Withhold the preferred verdict",
+      "source": [
+        "Astra",
+        "Fable"
+      ],
+      "decision": "adopt",
+      "reason": "Independent reviewers need independent initial reasoning, without the coordinator verdict or each other conclusions."
+    },
+    {
+      "finding": "Preserve review-only scope",
+      "source": [
+        "Astra"
+      ],
+      "decision": "adopt",
+      "reason": "Supported corrections are applied only within the requested scope; the existing review-only paragraph still leaves the source unchanged."
+    },
+    {
+      "finding": "Choose a version within the named model family",
+      "source": [
+        "Fable"
+      ],
+      "decision": "adopt",
+      "reason": "Use the newest available family version unless the user specifies one, and record the actual ID."
+    },
+    {
+      "finding": "Make the delegated role explicit in every brief",
+      "source": [
+        "Fable"
+      ],
+      "decision": "adopt",
+      "reason": "The coordinator must supply the bounded read-only role; reviewers do not recursively launch consultations."
+    },
+    {
+      "finding": "Define the result when a profile cannot complete",
+      "source": [
+        "Fable"
+      ],
+      "decision": "adopt with narrower retry rule",
+      "reason": "Drafts and findings remain provisional; no finalization or substitute without user direction. Retry only a transient failure once, rather than retrying a known missing capability."
+    },
+    {
+      "finding": "Separate the reviewers from the drafting coordinator",
+      "source": [
+        "Fable"
+      ],
+      "decision": "adopt",
+      "reason": "Both initial reviews run in fresh contexts, even when the coordinator is already Astra or Fable at Max."
+    },
+    {
+      "finding": "Use a frozen candidate and a request-scoped brief",
+      "source": [
+        "Fable"
+      ],
+      "decision": "adopt",
+      "reason": "Both reviewers assess the same artifact; supplying complete context does not expand a one-line request into a full rewrite."
+    },
+    {
+      "finding": "Require a round with no new material finding",
+      "source": [
+        "Fable"
+      ],
+      "decision": "retain the existing stopping rule",
+      "reason": "The existing rule terminates when material findings are accounted for and applicable checks pass; it allows evidence-backed rejection and does not require agreement. Another round is required only if later edits change reviewed meaning."
+    },
+    {
+      "finding": "Add behavioral cases or record missing evidence",
+      "source": [
+        "Fable"
+      ],
+      "decision": "record missing evidence",
+      "reason": "This bounded policy edit uses actual dual-model consultations and format/fidelity checks. Automatic invocation, unavailable-profile behavior, and comparative effectiveness are not empirically tested or claimed."
+    },
+    {
+      "finding": "Keep README aligned",
+      "source": [
+        "Fable"
+      ],
+      "decision": "adopt",
+      "reason": "A single feature bullet and a matching atlas paragraph document the new user policy."
+    },
+    {
+      "finding": "Define finalize more operationally",
+      "source": [
+        "Fable second round"
+      ],
+      "decision": "retain reviewed wording",
+      "reason": "The current contract already requires an exact blocker report, provisional drafts or findings, and no finalization; the suggested wording does not change the intended behavior."
+    },
+    {
+      "finding": "Repeated equal-model condition in evaluation guidance",
+      "source": [
+        "Fable second round"
+      ],
+      "decision": "retain the contextual clarification",
+      "reason": "The first paragraph distinguishes the mandatory two-family consultations from matched same-model trials; the following paragraph defines all controlled variables for those trials."
+    },
+    {
+      "finding": "Behavioral evidence limit",
+      "source": [
+        "Fable second round"
+      ],
+      "decision": "retain explicit limitation",
+      "reason": "Neither model review is counted as a behavioral experiment; automatic selection, unavailable-profile behavior and comparative effectiveness remain untested."
+    }
+  ],
+  "checks": [
+    {
+      "check": "package",
+      "command": "/opt/homebrew/bin/fish -c 'uv run --offline --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py agent-instructions'",
+      "status": "passed",
+      "output": "Skill is valid!\n"
+    },
+    {
+      "check": "catalogSyntax",
+      "command": "/opt/homebrew/bin/fish -c 'node --check reports/skill-atlas/catalog.js'",
+      "status": "passed",
+      "output": ""
+    },
+    {
+      "check": "diffWhitespace",
+      "command": "git diff --check",
+      "status": "passed",
+      "output": ""
+    },
+    {
+      "check": "broaderSmoke",
+      "command": "env PYTHONPATH=daily-meeting-update python3 -B -m unittest discover -s daily-meeting-update/tests -p test_opencode_digest.py -v",
+      "status": "passed",
+      "output": "3 existing tests passed; unrelated repository smoke, not an instruction behavior test."
+    },
+    {
+      "check": "atlasIntegrity",
+      "command": "python3 -c 'import json,hashlib; from pathlib import Path; s=Path(\"reports/skill-atlas/sources.json\").read_text(); c=Path(\"reports/skill-atlas/catalog.js\").read_text(); assert c==\"window.SKILL_ATLAS = \"+s.rstrip()+\";\\n\"; i=Path(\"reports/skill-atlas/index.html\").read_text(); assert \"catalog.js?v=\"+hashlib.sha256(c.encode()).hexdigest()[:12] in i; assert \"agent-instructions-dual-review-validation.json\" in i; json.loads(Path(\"reports/skill-atlas/agent-instructions-dual-review-validation.json\").read_text()); print(\"PASS: atlas data parity, catalog cache hash, and consultation record link/JSON\")'",
+      "status": "passed",
+      "output": "PASS: atlas data parity, catalog cache hash, and consultation record link/JSON"
+    }
+  ],
+  "fidelityChecks": [
+    "Eight local skill links and anchors resolve.",
+    "Entrypoint frontmatter is unchanged.",
+    "Final instruction tokens match the second-round snapshot.",
+    "All 122 original catalog records, unrelated inventory rows, and prior review metadata are preserved."
+  ],
+  "build": "Not applicable: the changed Markdown/static atlas package has no configured root compile or build command.",
+  "limits": [
+    "These are real provider consultations about instruction text, not matched behavioral experiments.",
+    "Automatic host selection, unavailable-profile behavior, and comparative effectiveness were not empirically tested.",
+    "Local symlink resolution establishes where this package is stored, not that a running host reloaded or selected it.",
+    "No installation, publication, or push was performed."
+  ]
+}

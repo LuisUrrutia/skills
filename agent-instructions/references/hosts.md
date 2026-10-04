@@ -33,10 +33,9 @@ validators. This skill owns composition and evaluation; the host creator supplie
 mechanics. Reconcile applicable instructions explicitly rather than nesting two
 complete authoring workflows or installing a second same-named creator.
 
-When a second-model consultation is requested, verify the requested model and
-effort with the available runner, capture what actually ran, and give it the task
-and raw artifacts without the intended verdict. Report unavailable capabilities;
-do not silently substitute a model or describe a prose review as execution.
+Follow the required consultation and reconciliation contract in
+[the entrypoint](../SKILL.md#get-both-model-perspectives) on every host. Model
+reviews assess instructions; they do not establish runtime execution.
 
 Validate on each supported host before claiming compatibility. If only structural
 checks or supplied-context trials are available, state that limit. File presence

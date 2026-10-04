@@ -39,6 +39,10 @@ focused edit need not acquire a permanent evaluation suite.
 
 ## Run a matched comparison
 
+The entrypoint's required Codex and Claude perspectives do not replace behavioral
+checks. In a baseline/candidate comparison, keep each pair on the same model and
+effort; changing the model at the same time cannot isolate the instruction's effect.
+
 For new instructions, compare with the same task without those instructions. For
 an update, compare with the previous document or skill snapshot. Keep model, effort, tools, fixtures,
 authorization, and output format equal. Use independent clean contexts so a

@@ -49,6 +49,43 @@ precise. Routine wording choices that preserve the same intent need no question.
 Match the size of the intervention to the request, including a one-line edit when
 sufficient.
 
+## Get both model perspectives
+
+For every creation, edit, or review handled by this skill, obtain independent
+input from both profiles before finalizing the instructions or review findings:
+
+| Provider | Model | Reasoning effort |
+| --- | --- | --- |
+| Codex | Astra | Max |
+| Claude | Fable | Max |
+
+Resolve each profile through its available runner, using current catalog,
+configuration, or authoritative documentation. Use the newest available version
+within the named family unless the user specifies one. Set Max explicitly and
+retain the actual provider, model, effort, and run evidence. Retry a transient
+failure once. If either profile cannot complete, report the exact blocker and
+keep the draft or findings provisional. Continue independent work, but do not
+finalize the result or substitute a model or effort without the user's direction.
+
+Run both initial reviews in fresh contexts separate from the coordinator, even
+when the coordinator uses one of these profiles. Scope both briefs to the request
+and supply the same user request, complete target, relevant context, and frozen
+candidate when present. Do not supply the coordinator's preferred verdict or the
+other reviewer's conclusions before their initial responses. Ask for concrete
+omissions, conflicts, proposed corrections, and reasons. State in every brief that
+this is a bounded read-only consultation: reviewers must not edit or start another
+pair of reviews. The coordinator owns editing within the requested scope.
+
+Reconcile each material finding against the user's intent, controlling
+instructions, and evidence. Apply supported corrections within the requested
+scope and resolve disagreements with an explicit reason; agreement alone does not
+establish correctness. Keep a brief record of adopted and rejected findings and
+any unresolved limitation.
+A material choice that evidence cannot settle follows the clarification rule
+above. Reconsult both profiles on affected points if later edits change the
+reviewed meaning. Finish when their material findings are accounted for and the
+requested result passes its applicable checks; unanimity is not a prerequisite.
+
 ## Choose the document and write
 
 Read [references/writing.md](references/writing.md) when drafting or revising text.
@@ -86,5 +123,6 @@ require a new skill package, evaluation suite, or an interview about repeated wo
 Use host validators only for formats they actually validate.
 
 Report the changed instructions, their scope, actual checks and results, and any
-unresolved limitation. Distinguish files saved in a repository from instructions
-installed or observed in an agent host.
+unresolved limitation. Include the actual review profiles and how material
+findings were reconciled. Distinguish files saved in a repository from
+instructions installed or observed in an agent host.

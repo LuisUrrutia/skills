@@ -12,6 +12,7 @@ referenced guides, and agent prompts. New skills do not require prior use or rep
 **Triggers:** `update AGENTS.md`, `improve these agent instructions`, `create a skill`, `revise a skill`
 
 **Features:**
+- Requires Codex Astra and Claude Fable at Max, then reconciles their independent instruction reviews
 - Edits the canonical instruction source at the intended scope
 - Writes clear rules, conditional references, and completion criteria
 - Chooses between reusing, wrapping, deriving, or creating a skill before adding an implementation
