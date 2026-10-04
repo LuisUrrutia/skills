@@ -10,7 +10,7 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "c47b12849e43f18d5c374c7069c744cc55b0ea00"
-reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
 baseline_paths = ["pstack/skills/reflect/", "pstack/LICENSE"]
 paths = ["pstack/skills/reflect/", "pstack/LICENSE"]
 license = "MIT; see pstack/LICENSE at the baseline commit"
@@ -27,7 +27,8 @@ local_choices = [
   "No fixed recurrence threshold for explicitly requested skills."
 ]
 reviews = [
-  { from_commit = "c47b12849e43f18d5c374c7069c744cc55b0ea00", to_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", incorporated = [], skipped = ["The complete reflect directory and pstack/LICENSE are unchanged across the verified ancestral range. Existing guidance was reconsidered while refining local extraction; no new upstream delta was applied."], deferred = [], validation = ["Verified ancestry after deepening the SSH clone and inspected repository-wide path changes.", "Scoped git diff is empty. New and previous extraction trials preserve the relevant contract; see reports/project-instructions-validation.json."] }
+  { from_commit = "c47b12849e43f18d5c374c7069c744cc55b0ea00", to_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", incorporated = [], skipped = ["The complete reflect directory and pstack/LICENSE are unchanged across the verified ancestral range. Existing guidance was reconsidered while refining local extraction; no new upstream delta was applied."], deferred = [], validation = ["Verified ancestry after deepening the SSH clone and inspected repository-wide path changes.", "Scoped git diff is empty. New and previous extraction trials preserve the relevant contract; see reports/project-instructions-validation.json."] },
+  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/workflow-upstream-adoption-validation.json"] },
 ]
 
 [[sources]]
@@ -52,6 +53,21 @@ local_choices = [
 ]
 reviews = []
 
+[[sources]]
+id = "pstack-correct"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/correct/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/correct/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Prefer eliminating an invalid path or enforcing its invariant through the existing project mechanism before adding reminders.", "Reproduce the rejected behavior and verify the intended enforcement rather than relying on a new prose reminder.", "Keep prevention of new violations separate from migration of accepted existing debt."]
+local_choices = ["Extraction names the existing executor and proposes proof without changing the repository. Project enforcement belongs to its authorized owner; agent-instructions owns instruction writing and skill-bundled helpers.", "Keep judgment, rationale and exceptions with their instruction owner; do not delete prose merely because a check is proposed.", "Add a valid nearby acceptance control to the failing-case proof; label reconstructed cases and execute both before claiming enforcement. This paired-case requirement is a local strengthening beyond the donor.", "No fixed two-occurrence threshold, automatic global audit, mandatory AGENTS rule table, exception-expiry policy, docs-last ordering, repository edits during extraction, or new approval gate.", "Missing meaningful cases or expected outcomes remain unresolved rather than invented. Adoption evidence: reports/skill-atlas/workflow-upstream-adoption-validation.json"]
+reviews = []
+
 [[dependencies]]
 kind = "local"
 name = "agent-instructions"
@@ -65,7 +81,7 @@ repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
 baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
-reviewed_through = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "24fe0ef7737efae15c87225755e9f6f5965e4888"
 baseline_paths = ["skills/engineering/retro/SKILL.md", "LICENSE"]
 paths = ["skills/engineering/retro/SKILL.md", "LICENSE"]
 license = "MIT; see LICENSE at the baseline commit"
@@ -77,7 +93,9 @@ local_choices = [
   "Extract only within the requested history and project; no automatic global audit or unrelated enforcement change.",
   "Writing and validation remain in agent-instructions. A scoped lesson may belong in project documentation rather than a new skill."
 ]
-reviews = []
+reviews = [
+  { from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60", to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/workflow-upstream-adoption-validation.json"] },
+]
 
 [[sources]]
 id = "mblode-skill-capability"

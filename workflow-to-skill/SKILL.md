@@ -52,9 +52,16 @@ Choose the destination by the lesson's role:
 - A durable project fact or business rule belongs with its project documentation
   or instruction owner; a pointer can supply it to the skill when needed.
 - A personal preference stays at the user's intended personal scope.
-- A deterministic check belongs in the existing tool or check pipeline when it
-  can enforce the requirement; inspect that path before proposing a new helper.
+- A deterministic requirement belongs with its existing enforcement owner;
+  inspect that tool or check pipeline before proposing a new helper.
 - A transient workaround or an already-covered lesson may need no new instruction.
+
+Route the lesson toward removing an invalid path or enforcing its invariant with
+existing types, constraints, lint, or behavioral checks when the project supports
+it. Name that enforcement's existing owner. Keep the judgment, reason, and
+exceptions with their instruction owner. Before removing a
+rule as redundant, verify the actual enforcement and its coverage. If violations
+already exist, distinguish preventing new ones from a separately scoped migration.
 
 Do not turn a partner-specific exception into policy for every input or a local
 business rule into a portable workflow default. If the request instead needs a
@@ -92,7 +99,16 @@ stable rules, confirmed user decisions, unresolved questions, varying inputs, ex
 existing owners, suitable upstream candidates, and meaningful success/failure
 cases. Identify which outputs can be checked objectively.
 For proposed automation, include existing execution owners, inputs, outputs,
-failure states, and effects; the writer owns helper implementation and packaging.
+failure states, and effects. Supply a minimized failing case and its expected
+rejection reason, plus a valid nearby case and its expected acceptance. Use an
+observed failure when available; otherwise reconstruct from the confirmed contract
+and label it as such. Do not invent incident evidence. Name the executor: the
+project's existing check owner implements project enforcement under its own
+authorization; the writer implements a skill-bundled helper. Either must run the
+check on both cases before claiming enforcement.
+If a meaningful case or its expected outcome cannot be established, keep that
+proof unresolved. An extraction-only result proposes the proof without making
+unrequested repository changes.
 The writer chooses reuse or derivation before drafting another implementation.
 Resolve `agent-instructions` by name in the installed skill catalog. It is a required
 writing dependency: if unavailable, preserve the extracted contract and report
