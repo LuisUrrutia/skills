@@ -24,6 +24,9 @@ lint, type, or smoke checks. A full-application request covers the full map.
 Do not replace required coverage with a convenient passing sample or introduce
 an arbitrary test quota. Keep expected results anchored in requirements and
 contracts rather than deriving them solely from the implementation under test.
+For browser behavior, read
+[references/browser-evidence.md](references/browser-evidence.md) before choosing
+routes, conditions, and probes. Other surfaces keep their applicable harness.
 
 Resolve the matching project-local `verify-<app>` by registered name from the
 installed catalog or named skills supplied by the caller. Load and apply its
@@ -60,9 +63,7 @@ from a test that only ran after the fix.
 Drive the real user entry points, observe the action and resulting state, and
 check relevant side effects independently. Internal setters, test-only endpoints,
 or mocks of the behavior being claimed cannot substitute for that path. Respect
-the local skill's safe fixtures and check what a dry-run actually does. For a
-browser surface, also read
-[references/browser-evidence.md](references/browser-evidence.md).
+the local skill's safe fixtures and check what a dry-run actually does.
 
 Doctor again after failures or unexpected behavior, and reset or relaunch when
 process health cannot show that application state is usable. Do not reuse a
@@ -97,6 +98,14 @@ and feature entry points checked, commands or actions, outcomes, retained eviden
 paths, failures, skipped or blocked coverage, and the next missing check. Separate
 observed failures from inaccessible checks and pre-existing failures from new
 regressions only when there is evidence for that distinction.
+
+Account for each required user path and criterion, including alternate entry
+points that are in scope. Keep expected and observed results separate and attach
+the supporting action or artifact. A blocked, skipped, inconclusive, or unrun
+required check remains incomplete even if another check of that path passed.
+Use the project's existing proof format when a tool consumes the results; its
+overall success must agree with this coverage. A short task needs a short record,
+not a new CLI, schema, feature map, or permanent report convention.
 
 Claim completion only when the required checks and acceptance criteria have
 supporting current evidence. Partial success is useful, but name the passing

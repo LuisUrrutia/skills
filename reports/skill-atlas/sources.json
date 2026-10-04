@@ -4120,7 +4120,7 @@
   },
   "repositoryInventory": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "2be844a1a8982ef319103628d5592dcf9be903fb",
+    "repositoryCommit": "dc94bb6d574866223c815af8fa09c4d7d09e7928",
     "scope": "Top-level skill packages present in this working tree. Presence does not prove installation, activation or production validation.",
     "groups": [
       "Instruction authoring",
@@ -4245,7 +4245,7 @@
       {
         "name": "verify",
         "category": "Implementation, verification and review",
-        "summary": "Select the relevant local recipe and check completion claims against current execution evidence.",
+        "summary": "Select the local recipe, exercise relevant browser probes and user journeys, and check completion claims against current evidence.",
         "path": "verify/SKILL.md",
         "sha256": "1c6fe17d6424f70abe4d954dc7b2ac09d226c60f7de40b23512be3353d7aa8a0",
         "section": "verification"
@@ -4416,16 +4416,16 @@
     "date": "2026-10-04",
     "repositoryCommit": "b4908e702867a3e9c3fb7e01ca4559b6fc173b34",
     "total": 95,
-    "remainingReviewed": 77,
-    "alreadyIncorporated": 18,
+    "remainingReviewed": 72,
+    "alreadyIncorporated": 23,
     "additionalCatalogCards": 87,
-    "scope": "All 95 distributed SKILL.md entrypoints under the four repositories' skills/ or plugins/ directories. The 77 not already in local provenance received procedure/compatibility screening; selected candidates and the explicitly listed references received deeper inspection. The 18 existing sources were mapped to local provenance, not audited for upstream changes. Compound also has one internal contributor skill, assessed separately below, and six test fixtures excluded from adoption counts.",
+    "scope": "All 95 distributed SKILL.md entrypoints under the four repositories' skills/ or plugins/ directories. The initial selection screened 77 unincorporated sources and mapped 18 existing sources to provenance; only listed supporting files were inspected. Subsequent derivations, including verify and accessibility, bring the current incorporated count to 23; 72 remain adoption assessments. A check records selected material, not completion of every proposed capability. Existing sources were not generally audited for upstream changes. Compound also has one internal contributor skill assessed separately and six excluded test fixtures.",
     "limitations": [
       "Recommendations are a selection review, not installation or runtime certification of the collection.",
       "Only listed supporting files were inspected. Hundreds of other references, scripts and agent prompts were not exhaustively audited.",
-      "No new skill was installed or authored, and no local origin baseline or update cursor was changed.",
-      "The only upstream execution was chat-history against a synthetic local fixture; no private transcript stores were read.",
-      "A ready check records selected incorporation or a present local package, not a fully synchronized upstream copy."
+      "A ready check records selected incorporation or a present local package, not a fully synchronized upstream copy.",
+      "The original selection installed or authored no skills. Later derivations record their own evidence; the verify expansion preserves its existing source baselines.",
+      "The selection pass executed only chat-history on a synthetic fixture. The verify expansion used independent supplied-context trials against local fixtures; those are not installations or executions of the donor packages."
     ],
     "collections": [
       {
@@ -4747,15 +4747,15 @@
         "kind": "upstream",
         "repository": "https://github.com/mblode/agent-skills",
         "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/app-verification/SKILL.md",
-        "action": "Extend existing",
-        "priority": "Next",
+        "action": "Already incorporated",
+        "priority": "Ready",
         "category": "Verification",
-        "owner": "verification-authoring; verify",
+        "owner": "verify",
         "summary": "Builds and maintains a project verification harness with health checks, fixtures, feature coverage and machine-readable proof.",
-        "reason": "Consider a reusable proof-record format and coverage-to-source mapping where the local recipe needs automation. Launch, doctor, isolation and cleanup already exist in our pstack derivation.",
-        "caution": "It explicitly derives from pstack, so it is not independent corroboration. Avoid mandatory new CLIs, blanket config/lockfile exemptions and treating skipped required paths as a passing gate.",
-        "decision": "Blend",
-        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "reason": "Path-level evidence accounting is incorporated in verify. The durable recipe authoring contract remains with verification-authoring; its harness machinery was not imported.",
+        "caution": "This donor explicitly derives from pstack; the original pstack verification ownership and recipe contract remain authoritative locally. Required skipped, blocked, inconclusive or unrun checks prevent overall completion even if another check passed. Do not adopt the donor proof example's ok=true with skipped paths. No new verify/doctor/seed CLI, JSON schema, invocation restriction, fixed artifact path, source-file exemption or publication step is required.",
+        "decision": "Keep",
+        "inspection": "Selected procedure and supporting files read for this derivation. Supplied-context trials and their limits are recorded in verify-browser-validation.json.",
         "references": [
           {
             "path": "skills/app-verification/references/create-mode.md",
@@ -4774,6 +4774,12 @@
             "coverage": "Full reference",
             "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/app-verification/references/verification-ladder.md",
             "sha256": "a753bcf8476741a08098a99bfb9db8802ca14b5203ab6c42f4bc59ad96c4d7f1"
+          },
+          {
+            "path": "LICENSE.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/LICENSE.md",
+            "sha256": "81ac64b19ea7ae7f9a8d197705df58f48ffca02c74fca13e565dedf4f7595b46"
           }
         ]
       },
@@ -5471,15 +5477,15 @@
         "kind": "upstream",
         "repository": "https://github.com/mblode/agent-skills",
         "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/SKILL.md",
-        "action": "Extend existing",
-        "priority": "Next",
+        "action": "Already incorporated",
+        "priority": "Ready",
         "category": "Verification",
-        "owner": "verify; local verify-<app>; accessibility (pending)",
+        "owner": "accessibility and verify",
         "summary": "Runs targeted browser probes for focus, layout, failure states, themes, locale, console errors and performance.",
-        "reason": "Strongest immediate verification addition: reusable probe recipes with exact session conditions and before/after evidence.",
-        "caution": "Adapt to native browser capabilities and the local recipe. Unsupported probes remain untested; remove conflicting mandatory repeat counts and do not require the donor's full UI audit schema.",
-        "decision": "Blend",
-        "inspection": "Entrypoint or main procedure inspected in depth; only the listed supporting files were inspected.",
+        "reason": "Selected browser probes and evidence decisions are incorporated in verify. This does not install the donor or adopt its full UI audit schema.",
+        "caution": "The project-local verify-<app> retains launch, doctor, driving and cleanup; verify selects and interprets its evidence. Use host-native capabilities and project requirements; no Playwright or agent-browser mandate, fixed viewport/target-size thresholds, mandatory scan matrix or universal UI finding schema. Preserve required coverage, use bounded claim-specific probes and repeat only when uncertainty warrants it; reject the evidence-output reference's mandatory second failure run. Do not infer native keyboard, touch, clipboard, composition, localization, accessibility or field performance from synthetic or narrower observations. Safe server fixtures can exercise faults without browser interception. Setup must not bypass the user behavior being claimed; restore owned probe changes.",
+        "decision": "Keep",
+        "inspection": "Selected procedure and supporting files read for this derivation. Supplied-context trials and their limits are recorded in verify-browser-validation.json.",
         "references": [
           {
             "path": "skills/ui-verification/references/session-setup.md",
@@ -5492,6 +5498,66 @@
             "coverage": "Full reference",
             "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/references/evidence-output.md",
             "sha256": "06ba70ef44b6b124db9f4c9df66e9a4bb1d90f4fd34d44594ffe15077c139481"
+          },
+          {
+            "path": "skills/ui-verification/probes/focus-walk.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/focus-walk.md",
+            "sha256": "a7ae22f71d29e273b6b4a2381c9422a7c270bf34d8782bf95520cd87a6186edb"
+          },
+          {
+            "path": "skills/ui-verification/probes/target-size.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/target-size.md",
+            "sha256": "0382cfebc35b2f8b689530ca3228ad2e7653334822ab8ec0adcb1fb503271106"
+          },
+          {
+            "path": "skills/ui-verification/probes/viewport-stress.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/viewport-stress.md",
+            "sha256": "2b02ae8332b43e8627592f1cbea93e7c358fda73723ff1975931068510a5f7e2"
+          },
+          {
+            "path": "skills/ui-verification/probes/theme-locale-matrix.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/theme-locale-matrix.md",
+            "sha256": "d81ffccd894b2252a29f1767ef8389d5cb9a4f4aa098926c2ed5ff91cd59f085"
+          },
+          {
+            "path": "skills/ui-verification/probes/failure-injection.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/failure-injection.md",
+            "sha256": "14e255c97c0a9524fe4b296b42eb8672f799123cabea5721cb78c8338cb160b8"
+          },
+          {
+            "path": "skills/ui-verification/probes/console-network.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/console-network.md",
+            "sha256": "cba89272ea3d2f1b3f08a1d6acb41b1473c4e6785cf0f2ceaaa2c8db84156e9c"
+          },
+          {
+            "path": "skills/ui-verification/probes/axe-scan.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/axe-scan.md",
+            "sha256": "4d4cefb928f1b7973fef40a65c050b86aac011ae41df2c428f73da7f01cb1c2b"
+          },
+          {
+            "path": "skills/ui-verification/probes/layout-shift.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/layout-shift.md",
+            "sha256": "b9b600ff9ef792a2c5bf67b98d899e45def299e3a74afb95887c7f995df3a093"
+          },
+          {
+            "path": "skills/ui-verification/probes/web-vitals.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/web-vitals.md",
+            "sha256": "4c875e382e3bec0f3af2d69e58683d06b8b9c5bbfd8f2ce43fe549f86247baea"
+          },
+          {
+            "path": "LICENSE.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/LICENSE.md",
+            "sha256": "81ac64b19ea7ae7f9a8d197705df58f48ffca02c74fca13e565dedf4f7595b46"
           }
         ]
       },
@@ -6470,21 +6536,33 @@
         "kind": "upstream",
         "repository": "https://github.com/EveryInc/compound-engineering-plugin",
         "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-dogfood/SKILL.md",
-        "action": "Extend existing",
-        "priority": "Next",
+        "action": "Already incorporated",
+        "priority": "Ready",
         "category": "Verification",
-        "owner": "verify; local verify-<app>",
+        "owner": "verify",
         "summary": "Drives branch-affected user journeys and records functional defects and experience friction.",
-        "reason": "Borrow journey coverage through destination and downstream effects, including re-entry and permission states.",
-        "caution": "Its agent-browser-only rule conflicts with native T3 browsing. Keep verify read-only unless the parent task authorizes repair; do not inherit automatic fixes, commits or CE reports.",
-        "decision": "Blend",
-        "inspection": "Entrypoint scope, workflow and constraint excerpts screened. Supporting scripts and rule libraries were not audited.",
+        "reason": "Journey destinations, downstream effects and relevant branch coverage are incorporated in verify. Automatic repairs, commits and the donor runtime were not imported.",
+        "caution": "Keep verify's active scope and caller authority. Verification alone does not authorize product fixes, tests, commits, PRs or learned-rule publication. Use the host browser and local recipe; do not inherit an agent-browser-only runtime, CE worktree flow, mandatory Mermaid diagrams, pack system or report template. Use established product requirements and personas where relevant; observations of friction do not create new product policy or a redesign task.",
+        "decision": "Keep",
+        "inspection": "Selected procedure and supporting files read for this derivation. Supplied-context trials and their limits are recorded in verify-browser-validation.json.",
         "references": [
           {
             "path": "skills/ce-dogfood/references/test-matrix-taxonomy.md",
             "coverage": "Full reference",
             "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-dogfood/references/test-matrix-taxonomy.md",
             "sha256": "f7ade1a3101d3768baba02444782d67d760ff587bd0816288f367d5460c62f29"
+          },
+          {
+            "path": "skills/ce-dogfood/references/phases.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-dogfood/references/phases.md",
+            "sha256": "4e652bab884f7d8d52dd98341a6262e5151352f68f41445ee6d693dbcf4227cf"
+          },
+          {
+            "path": "LICENSE",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/LICENSE",
+            "sha256": "61d89de7646effdaba2d0a4ab7bd0eba60b4094b83efe5bc73c7940e43e93fc6"
           }
         ]
       },
@@ -7173,16 +7251,16 @@
     ],
     "shortlist": [
       {
-        "title": "Extend interface verification",
-        "route": "Improve existing skills",
+        "title": "Interface verification is expanded",
+        "route": "Incorporated in verify",
         "owner": "verify and local verify-<app>",
         "keys": [
           "Matthew Blode/ui-verification",
           "Matthew Blode/app-verification",
           "Compound Engineering/ce-dogfood"
         ],
-        "why": "Add reusable focus, viewport, failure-state and theme probes. Consider machine-readable coverage where a project needs it.",
-        "boundary": "Keep the pstack launch/doctor/drive/evidence contract already implemented. Adapt probes to native tools and preserve required coverage."
+        "why": "Claim-specific browser probes now cover keyboard focus, effective hit targets, applied themes, controlled failures, recovery and complete journey destinations.",
+        "boundary": "The pstack launch/doctor/drive/evidence contract remains with local recipes. Probes use native tools, preserve required coverage and report unavailable observations."
       },
       {
         "title": "Create a lean planning capability",
@@ -7315,11 +7393,16 @@
         "Input fixture unchanged"
       ],
       "result": "passed"
-    }
+    },
+    "initialSelectionCounts": {
+      "alreadyIncorporated": 18,
+      "remainingReviewed": 77
+    },
+    "incorporationUpdatedAt": "2026-10-04"
   },
   "sourceProgress": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "2be844a1a8982ef319103628d5592dcf9be903fb",
+    "repositoryCommit": "dc94bb6d574866223c815af8fa09c4d7d09e7928",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
       "ready": 90,
@@ -10003,7 +10086,7 @@
         "owners": [
           "verify"
         ],
-        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "note": "Path-level evidence accounting is incorporated in verify. The durable recipe authoring contract remains with verification-authoring; its harness machinery was not imported.",
         "evidence": [
           {
             "owner": "verify",
@@ -10247,7 +10330,7 @@
           "accessibility",
           "verify"
         ],
-        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "note": "Selected browser probes and evidence decisions are incorporated in verify. This does not install the donor or adopt its full UI audit schema. Other selected contributions remain with their recorded owners.",
         "evidence": [
           {
             "owner": "accessibility",
@@ -10694,7 +10777,7 @@
         "owners": [
           "verify"
         ],
-        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "note": "Journey destinations, downstream effects and relevant branch coverage are incorporated in verify. Automatic repairs, commits and the donor runtime were not imported.",
         "evidence": [
           {
             "owner": "verify",
@@ -11445,15 +11528,15 @@
         "kind": "upstream",
         "repository": "https://github.com/mblode/agent-skills",
         "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/SKILL.md",
-        "action": "Selected accessibility material incorporated",
+        "action": "Selected material incorporated in accessibility and verify",
         "priority": "Created",
         "category": "Accessibility",
-        "owner": "accessibility",
+        "owner": "accessibility and verify",
         "summary": "Runs targeted browser probes for focus, layout, failure states, themes, locale, console errors and performance.",
-        "reason": "Retain accessibility probe interpretation while verify and the local recipe own execution.",
+        "reason": "Retain accessibility probe interpretation in accessibility, and claim-specific browser probes and evidence decisions in verify. The project-local recipe owns the application environment and driving.",
         "caution": "Only selected material is incorporated. Adapt to native browser capabilities and the local recipe. Unsupported probes remain untested; remove conflicting mandatory repeat counts and do not require the donor's full UI audit schema.",
         "decision": "Blend",
-        "inspection": "Accessibility-specific assessment on 2026-10-04; exact inspected material is in accessibility-research.json.",
+        "inspection": "Accessibility-specific assessment on 2026-10-04; exact inspected material is in accessibility-research.json. The verify expansion also read the listed probes and recorded supplied-context trials in verify-browser-validation.json.",
         "references": [
           {
             "path": "skills/ui-verification/references/session-setup.md",
@@ -11466,6 +11549,66 @@
             "coverage": "Full reference",
             "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/references/evidence-output.md",
             "sha256": "06ba70ef44b6b124db9f4c9df66e9a4bb1d90f4fd34d44594ffe15077c139481"
+          },
+          {
+            "path": "skills/ui-verification/probes/focus-walk.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/focus-walk.md",
+            "sha256": "a7ae22f71d29e273b6b4a2381c9422a7c270bf34d8782bf95520cd87a6186edb"
+          },
+          {
+            "path": "skills/ui-verification/probes/target-size.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/target-size.md",
+            "sha256": "0382cfebc35b2f8b689530ca3228ad2e7653334822ab8ec0adcb1fb503271106"
+          },
+          {
+            "path": "skills/ui-verification/probes/viewport-stress.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/viewport-stress.md",
+            "sha256": "2b02ae8332b43e8627592f1cbea93e7c358fda73723ff1975931068510a5f7e2"
+          },
+          {
+            "path": "skills/ui-verification/probes/theme-locale-matrix.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/theme-locale-matrix.md",
+            "sha256": "d81ffccd894b2252a29f1767ef8389d5cb9a4f4aa098926c2ed5ff91cd59f085"
+          },
+          {
+            "path": "skills/ui-verification/probes/failure-injection.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/failure-injection.md",
+            "sha256": "14e255c97c0a9524fe4b296b42eb8672f799123cabea5721cb78c8338cb160b8"
+          },
+          {
+            "path": "skills/ui-verification/probes/console-network.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/console-network.md",
+            "sha256": "cba89272ea3d2f1b3f08a1d6acb41b1473c4e6785cf0f2ceaaa2c8db84156e9c"
+          },
+          {
+            "path": "skills/ui-verification/probes/axe-scan.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/axe-scan.md",
+            "sha256": "4d4cefb928f1b7973fef40a65c050b86aac011ae41df2c428f73da7f01cb1c2b"
+          },
+          {
+            "path": "skills/ui-verification/probes/layout-shift.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/layout-shift.md",
+            "sha256": "b9b600ff9ef792a2c5bf67b98d899e45def299e3a74afb95887c7f995df3a093"
+          },
+          {
+            "path": "skills/ui-verification/probes/web-vitals.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ui-verification/probes/web-vitals.md",
+            "sha256": "4c875e382e3bec0f3af2d69e58683d06b8b9c5bbfd8f2ce43fe549f86247baea"
+          },
+          {
+            "path": "LICENSE.md",
+            "coverage": "Full file read for the selected adaptation",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/LICENSE.md",
+            "sha256": "81ac64b19ea7ae7f9a8d197705df58f48ffca02c74fca13e565dedf4f7595b46"
           }
         ]
       },
@@ -11498,5 +11641,16 @@
       }
     ],
     "research": "accessibility-research.json"
+  },
+  "verifyBrowserReview": {
+    "date": "2026-10-04",
+    "baselineCommit": "2be844a1a8982ef319103628d5592dcf9be903fb",
+    "sources": [
+      "Matthew Blode/ui-verification",
+      "Matthew Blode/app-verification",
+      "Compound Engineering/ce-dogfood"
+    ],
+    "validation": "verify-browser-validation.json",
+    "contract": "Common verify with project-local verify-<app>; conditional browser probes and per-path evidence. No new package or installed copy."
   }
 }
