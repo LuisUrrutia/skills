@@ -4541,9 +4541,9 @@
       {
         "name": "report-work-activity",
         "category": "Writing and personal workflows",
-        "summary": "Explain activity and current obligations with work/open-source metrics, one Luna extraction per source, and a private HTML evidence bundle.",
+        "summary": "Explain activity and current obligations with work/open-source metrics, all configured GitHub CLI profiles, Luna extraction and a private HTML evidence bundle.",
         "path": "report-work-activity/SKILL.md",
-        "sha256": "abb075e96b739a74237bb7286b7f08bb4ef74cd87df1b31f875d81701bb5c96c",
+        "sha256": "f428fd3c2149eef348f73d0c8808a92255f9002710a359f2414e029477bdcca1",
         "section": "report-work-activity"
       }
     ],
@@ -15295,6 +15295,22 @@
       "lunaTrials": 3,
       "privateDataQueried": false,
       "hostInstalled": false
+    },
+    "githubProfiles": {
+      "date": "2026-10-04",
+      "validation": "report-work-activity-gh-profiles-validation.json",
+      "scope": "All configured active and inactive gh accounts across known hosts/configuration contexts; verified isolated credentials, per-profile coverage and cross-profile deduplication.",
+      "privateAccountsQueried": false,
+      "runtimeClientAdded": false,
+      "validationSummary": {
+        "helperTests": 24,
+        "broaderSmokeTests": 11,
+        "lunaExecutions": 4,
+        "countsAndProvenance": "passed in the final synthetic execution",
+        "activeAccountsPreserved": true,
+        "defaultHostSearch": "not validated; executor probe deviation retained",
+        "liveAuthentication": "not tested"
+      }
     }
   }
 }

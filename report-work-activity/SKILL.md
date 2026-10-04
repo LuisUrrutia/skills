@@ -26,8 +26,11 @@ start unless configured), previous month, or an explicit interval. Retain the
 inclusive start, exclusive end, timezone and snapshot time. Historical events
 belong by action time; current assignments can predate the period.
 
-Confirm provider identities and aliases, and map repositories, organizations and
-other containers to `work`, `open-source`, `personal` or `unclassified`. Public
+Confirm provider identities and aliases. For GitHub, discover all configured `gh`
+accounts and hosts, including inactive profiles, using
+[references/engineering-sources.md](references/engineering-sources.md).
+Map repositories, organizations and other containers to `work`, `open-source`,
+`personal` or `unclassified`. Public
 employer repositories are work. Unknown classification stays visible; repository
 visibility, a display name, or the current checkout cannot settle ownership.
 Preserve confirmed mappings locally for later reports, without credentials. Read

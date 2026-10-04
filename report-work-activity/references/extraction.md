@@ -11,6 +11,11 @@ can queue batches through the same worker. Batch boundaries must cover the whole
 declared interval; a relevance cap only limits deep reads. A retrieval cap leaves
 coverage partial. Avoid one worker per message or PR.
 
+For GitHub CLI, a connection is the configuration context, hostname and verified
+account from the engineering guide. Give each profile/workstream an isolated
+output path and account-bound reads or scoped input files, never a credential in
+the brief. A different profile is not covered by the active account's worker.
+
 Before dispatch, check the child's available tools without reading private data.
 Do not assume it inherits connectors or authentication. When necessary, the
 primary retrieves only that worker's scoped data and passes local files; Luna

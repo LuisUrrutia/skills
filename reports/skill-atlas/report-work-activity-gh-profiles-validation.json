@@ -1,0 +1,1733 @@
+{
+  "date": "2026-10-04",
+  "skill": "report-work-activity",
+  "status": "complete-with-documented-limits",
+  "request": "Support every configured GitHub CLI profile.",
+  "baseline_commit": "7f7a83714d43112b00b781ef50f721776cd95135",
+  "boundary": "Instructions in the existing skill and engineering/extraction references, current atlas metadata and this validation report. No runtime client, installation, authentication change or private report collection.",
+  "primary_sources": [
+    {
+      "url": "https://cli.github.com/manual/gh_auth_status",
+      "checked": "Account/host inventory, active filtering, JSON error semantics and hidden tokens."
+    },
+    {
+      "url": "https://cli.github.com/manual/gh_auth_token",
+      "checked": "Host/user selection and credential output requiring process-local capture."
+    },
+    {
+      "url": "https://cli.github.com/manual/gh_help_environment",
+      "checked": "Token precedence, host families, GH_HOST, GH_REPO, GH_CONFIG_DIR, prompts and debug."
+    },
+    {
+      "url": "https://cli.github.com/manual/gh_search_prs",
+      "checked": "No hostname flag; search --repo filters use OWNER/REPO."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/cli/cli/v2.102.0/pkg/cmd/auth/status/status.go",
+      "checked": "Complete relevant implementation branches: configured versus environment accounts, user iteration and JSON token removal."
+    },
+    {
+      "url": "https://raw.githubusercontent.com/cli/cli/v2.102.0/pkg/cmd/auth/token/token.go",
+      "checked": "Explicit --user selects TokenForUser, not the environment credential."
+    }
+  ],
+  "local_cli": "gh version 2.102.0; help inspected only, no live auth status or private API requests.",
+  "instruction_revisions": {
+    "baseline": {
+      "SKILL.md": "abb075e96b739a74237bb7286b7f08bb4ef74cd87df1b31f875d81701bb5c96c",
+      "references/agent-history.md": "29a54c57cf77b7eec8a4e51308fa0692fbcf525e0075d5b1a776ccba858e87ac",
+      "references/bundle.md": "4faf03b889508d5aaf19392a0550eb117b811f12dbe3e7cef3750dcd0eb93695",
+      "references/collaboration-sources.md": "63078588e48d7f1be145afc676d05b4efd10f23a9880a75bba1b87a9ab56c2d7",
+      "references/engineering-sources.md": "f9ff1a49ccdc433ea7bb87d90b072960a8ea4567b6dc2b57561aaf4505c8acc3",
+      "references/evidence.md": "2d86ac9d21c06ce38e267f509c8a0637cb3bdce86a51858daf220b6e87444761",
+      "references/extraction.md": "5d316f671957063bc02f8036f64a023d42615bb15109fe8543fc8a2a424de41d"
+    },
+    "candidate": {
+      "SKILL.md": "f428fd3c2149eef348f73d0c8808a92255f9002710a359f2414e029477bdcca1",
+      "references/agent-history.md": "29a54c57cf77b7eec8a4e51308fa0692fbcf525e0075d5b1a776ccba858e87ac",
+      "references/bundle.md": "4faf03b889508d5aaf19392a0550eb117b811f12dbe3e7cef3750dcd0eb93695",
+      "references/collaboration-sources.md": "63078588e48d7f1be145afc676d05b4efd10f23a9880a75bba1b87a9ab56c2d7",
+      "references/engineering-sources.md": "7fea5c7348cbd1f1a38ea74dfd908a16f856fa4370e4036f376a38844fb80f88",
+      "references/evidence.md": "2d86ac9d21c06ce38e267f509c8a0637cb3bdce86a51858daf220b6e87444761",
+      "references/extraction.md": "4389a5d03c53fe233be6f5eabf4f9bf1004970a8b56699fda444816d9a6c0b43"
+    },
+    "candidate-r2": {
+      "SKILL.md": "f428fd3c2149eef348f73d0c8808a92255f9002710a359f2414e029477bdcca1",
+      "references/agent-history.md": "29a54c57cf77b7eec8a4e51308fa0692fbcf525e0075d5b1a776ccba858e87ac",
+      "references/bundle.md": "4faf03b889508d5aaf19392a0550eb117b811f12dbe3e7cef3750dcd0eb93695",
+      "references/collaboration-sources.md": "63078588e48d7f1be145afc676d05b4efd10f23a9880a75bba1b87a9ab56c2d7",
+      "references/engineering-sources.md": "41e616de7b30af7c990a648b78450bf562fdfb9aa47995ffb231cc6eca8dbc3f",
+      "references/evidence.md": "2d86ac9d21c06ce38e267f509c8a0637cb3bdce86a51858daf220b6e87444761",
+      "references/extraction.md": "4389a5d03c53fe233be6f5eabf4f9bf1004970a8b56699fda444816d9a6c0b43"
+    },
+    "candidate-r3": {
+      "SKILL.md": "f428fd3c2149eef348f73d0c8808a92255f9002710a359f2414e029477bdcca1",
+      "references/agent-history.md": "29a54c57cf77b7eec8a4e51308fa0692fbcf525e0075d5b1a776ccba858e87ac",
+      "references/bundle.md": "4faf03b889508d5aaf19392a0550eb117b811f12dbe3e7cef3750dcd0eb93695",
+      "references/collaboration-sources.md": "63078588e48d7f1be145afc676d05b4efd10f23a9880a75bba1b87a9ab56c2d7",
+      "references/engineering-sources.md": "d0800177022cf93b87e3c99286ac96fdd405f4684ce4f121baa547a14e4e688d",
+      "references/evidence.md": "2d86ac9d21c06ce38e267f509c8a0637cb3bdce86a51858daf220b6e87444761",
+      "references/extraction.md": "4389a5d03c53fe233be6f5eabf4f9bf1004970a8b56699fda444816d9a6c0b43"
+    },
+    "candidate-r4": {
+      "SKILL.md": "f428fd3c2149eef348f73d0c8808a92255f9002710a359f2414e029477bdcca1",
+      "references/agent-history.md": "29a54c57cf77b7eec8a4e51308fa0692fbcf525e0075d5b1a776ccba858e87ac",
+      "references/bundle.md": "4faf03b889508d5aaf19392a0550eb117b811f12dbe3e7cef3750dcd0eb93695",
+      "references/collaboration-sources.md": "63078588e48d7f1be145afc676d05b4efd10f23a9880a75bba1b87a9ab56c2d7",
+      "references/engineering-sources.md": "87211b2debe117a72e8237a760e4bd7a9f6eb83286c13c601e5f0f6dd2b4b323",
+      "references/evidence.md": "2d86ac9d21c06ce38e267f509c8a0637cb3bdce86a51858daf220b6e87444761",
+      "references/extraction.md": "4389a5d03c53fe233be6f5eabf4f9bf1004970a8b56699fda444816d9a6c0b43"
+    }
+  },
+  "consultations": {
+    "scope": "Bounded read-only consultations; initial contexts independent. Astra Max required by agent-instructions; Fable xHigh follows the user override for this activity skill.",
+    "initial_brief": "Bounded read-only consultation for report-work-activity. Do not edit any file or start other reviews/subagents. Read the frozen candidate at /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/activity-gh-profiles/candidate/SKILL.md and its references/engineering-sources.md, references/extraction.md, references/evidence.md (complete files). Other candidate references are available if necessary. Original files at sibling baseline/ preserve the prior contract.\nUser request: \"otra cosa, debe soportar los multiples perfiles de gh que esten configurados\" (it must support all configured GitHub CLI profiles). This extends an already completed activity reporting skill that gathers multiple sources with Codex Luna workers, produces private HTML plus evidence, distinguishes confirmed work repos (including employer public repos) from open source, computes per-repo metrics, and preserves commitments separately.\nAssess concrete omissions, conflicts and corrections with reasons, proportionate to this narrow change. Review all configured active/inactive accounts/hosts, credential/account selection, concurrent workers, identity attribution, dedupe and coverage. No live private-account access, credentials, network mutations, edits, implementation or recursive consultation. If needing technical facts, use public official documentation only.\nOfficial evidence checked by author, not a preferred verdict: gh auth status --json hosts lists known accounts/hosts, --active narrows, JSON exit0 can include per-account errors, --show-token exposes credentials. gh auth token --hostname H --user U selects stored per-user token. Environment GH_TOKEN/GITHUB_TOKEN override for github.com and *.ghe.com; GH_ENTERPRISE_TOKEN/GITHUB_ENTERPRISE_TOKEN for other enterprise hosts. GH_CONFIG_DIR changes configuration. Primary docs https://cli.github.com/manual/gh_auth_status , https://cli.github.com/manual/gh_auth_token , https://cli.github.com/manual/gh_help_environment ; installed version 2.102.0 source https://raw.githubusercontent.com/cli/cli/v2.102.0/pkg/cmd/auth/status/status.go and .../auth/token/token.go confirms selection. No new runtime client is proposed. Return material findings first with exact file/line, optional suggestions separately, and clear untested limits. Instructions remain drafts until coordinator reconciles reviews.",
+    "astra": {
+      "provider": "codex",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "task": "/root/activity_gh_profiles_astra",
+      "rounds": [
+        {
+          "revision": "candidate",
+          "finding": "Stored --user lookup does not cover credentials present only in the environment.",
+          "resolution": "Adopted: distinct in-memory environment credential branch with identity and host binding."
+        },
+        {
+          "revision": "candidate-r2",
+          "result": "No new material findings in the affected-point static reconsultation. Engineering hash verified."
+        },
+        {
+          "revision": "candidate-r3",
+          "result": "No new material findings after the host, inventory and multiple-identity corrections. Complete engineering read/diff and SHA256 verified; no live authentication or concurrency execution."
+        }
+      ]
+    },
+    "fable": {
+      "provider": "claudeAgent",
+      "model": "claude-fable-5-1",
+      "effort": "xhigh",
+      "rounds": [
+        {
+          "revision": "candidate",
+          "task_id": "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-gh-profiles-fable-xhigh-20261004-r1",
+          "run_id": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A28f99e23-9f6e-4b6c-9782-e561b550536a%253Adelegate-task%253Aactivity-gh-profiles-fable-xhigh-20261004-r1:ordinal:1",
+          "status": "completed",
+          "result": "Review complete. Findings below, verified against the cli/cli v2.102.0 source and the go-gh auth package rather than the manual alone.\n\n## Material findings\n\n**1. Host binding leaks into other profiles.** `.tmp/activity-gh-profiles/candidate/references/engineering-sources.md:47-54` and `references/extraction.md:14-17`. The instruction \"Pass the hostname explicitly\" cannot be followed for search commands. `gh search prs` has no hostname flag and takes its host from the default-host rule: `GH_HOST`, else the single configured host, else github.com. The token variables are per host family, and for any other host gh falls back to the stored credential. Failure scenario: a worker bound to a GitHub Enterprise Server profile sets the enterprise token, runs a search for the user's PRs, the host resolves to github.com, gh silently uses the stored active github.com account, and the results are filed under the enterprise profile's source record. The identity check on line 53 passes because `--hostname` bypasses the default-host path. Correction: set `GH_HOST=HOST` in the same bound environment, use the host-prefixed repository form for repository-scoped commands, run the identity check without a hostname flag so it exercises the same resolution as the retrieval commands, and record the effective host in each query's provenance. Evidence: pkg/cmd/search/shared/shared.go `Searcher` uses `DefaultHost()`; go-gh `TokenFromEnvOrConfig` falls back to config per host family.\n\n**2. Multiple logins on one host are not modeled as a set, and the identity namespace never names the host.** `references/evidence.md:14-17`, `engineering-sources.md:63-66` and `:74-75`, `bundle.md:58`. The evidence contract says to normalize aliases to \"the same verified provider ID\". A user with a personal and a work login on github.com has two provider IDs. The helper treats identities as a membership list, and any event whose actor is a login not in that list is dropped as a known other actor with no validation error (report-work-activity/scripts/ledger.py:63, 165-168). Line 74-75 requires same logins on different hosts to stay distinct, but nothing says the namespace includes the hostname. Correction: each confirmed login is its own identity entry qualified by hostname plus stable user ID, logins are never merged into one ID, every confirmed login on a host goes into the identity list, and each bound profile queries every confirmed identity on its host rather than only its own login or `@me`.\n\n**3. Inventory subprocess: no way to identify env-only connections, and GH_HOST contaminates it.** `engineering-sources.md:35-45`. The host list comes from go-gh `KnownHosts()`, which includes `GH_HOST` and env-token hosts. Stripping only the four token variables leaves an inherited `GH_HOST` producing a login-less error entry, which line 39 then tells the reader to treat as an account error. Lines 44-45 ask to preserve env-only connections but give no discovery step. Correction: also unset `GH_HOST` in the inventory subprocess, or ignore entries without a login. Identify env connections with a second status call in the inherited environment, where the entry's `tokenSource` is the variable name and `login` is resolved from the API. Record only login and token source. Evidence: status.go `buildEntry` calls `api.CurrentLoginName` when the source ends in `_TOKEN`.\n\nThe remaining gh claims in the candidate hold: JSON mode lists the active entry plus every stored user and always exits 0; `--active` skips stored users; `gh auth token --user` reads keyring then config and never the environment; GH_TOKEN covers github.com and ghe.com tenants, the enterprise variables cover Enterprise Server; and an env token present during the inventory makes the configured active account appear inactive, so the strip on lines 42-44 is correct.\n\n## Optional suggestions\n\n- **Per-account rate limits.** SKILL.md:53-54 speaks of host concurrency only. Workers bound to the same account share that account's primary and search secondary limits. Treat 403/429 as partial coverage, not empty results, and stagger searches per account.\n- **Carry GH_CONFIG_DIR through all three steps.** engineering-sources.md:36-37 and :47-49. The inventory, the token capture and the retrieval subprocess must share one configuration directory, since the default-host rule reads the config's host list.\n- **Terminology.** SKILL.md:30 and engineering-sources.md:40, :67. gh's `active` flag is the switch position. Expired or revoked accounts appear with `state: \"error\"`. Use \"non-active\" and \"error-state\" so each lands in coverage with the right status.\n- **Fail-loud guard.** For a bound worker, set the non-applicable token family to a deliberately invalid placeholder so an accidental cross-host call returns 401 instead of silently using a stored profile. Finding 1's fix already covers the common path.\n- **Name the variables.** Lines 56-57: `GH_PROMPT_DISABLED=1` for prompts, plus `GH_NO_UPDATE_NOTIFIER=1` for clean stderr.\n- **Candidate identities.** Lines 63-66 could state that each inventoried login is a candidate to confirm with the user or the mappings file as own account versus bot or service account.\n- **Version guard.** The installed 2.102.0 supports the JSON flag. Older versions reject it. Fail the inventory loudly instead of parsing text.\n- **Pre-existing, outside this change.** evidence.md:42 counts a commit once per canonical repository and SHA. A fork and its upstream seen through two profiles count the same commit twice.\n\n## Untested limits\n\n- No live gh execution, no private account access, no edits.\n- Sources: cli/cli v2.102.0 status.go, token.go, internal/config/config.go, pkg/cmd/search/shared/shared.go. The go-gh auth package was read from trunk, not the version vendored in 2.102.0.\n- Code quotes passed through a fetch summarizer. The env-login branch and `authTokenWriteable` were quoted verbatim. Token masking in JSON output was only described.\n- The helper was reviewed by grep and excerpts of ledger.py. Tests were not run.\n- Unchanged references were not re-reviewed beyond cross-checks cited above."
+        },
+        {
+          "revision": "candidate-r3",
+          "task_id": "node:delegated-task:command%3Amcp%3A28f99e23-9f6e-4b6c-9782-e561b550536a%3Adelegate-task%3Aactivity-gh-profiles-fable-xhigh-20261004-r2",
+          "run_id": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A28f99e23-9f6e-4b6c-9782-e561b550536a%253Adelegate-task%253Aactivity-gh-profiles-fable-xhigh-20261004-r2:ordinal:1",
+          "status": "completed",
+          "result": "Review complete. The three material findings are closed in candidate-r3, and the revision introduces no material conflict with the unchanged references or the helper. Details below, verified against cli/cli v2.102.0 and the go-gh version it pins.\n\n## Closure of the material findings\n\n**Finding 1, host binding leaks.** Closed. `.tmp/activity-gh-profiles/candidate-r3/references/engineering-sources.md:58-67` now sets `GH_HOST` in the bound environment, clears `GH_REPO`, uses the host-prefixed repository form for `gh pr` commands, and runs the identity check with `gh api user` so it exercises default-host resolution. Source confirms the design: `gh api` without the flag calls `DefaultHost()` and `GH_HOST` wins there, and `ghrepo.FromFullName` also falls back to `ghauth.DefaultHost()`, so the host prefix is stricter than needed but correct. The split between `[HOST/]OWNER/REPO` for `gh pr` and `OWNER/REPO` for `gh search prs` matches the installed help.\n\n**Finding 2, multiple logins per host.** Closed. Lines 76-81 make each confirmed login a separate host-qualified ID, forbid merging distinct logins, and require each bound profile to query every confirmed identity on its host instead of its own login or `@me`. This stays consistent with the alias rule in `references/evidence.md:14-16`, which concerns aliases of one account.\n\n**Finding 3, inventory contamination and env-only discovery.** Closed. Lines 42-48 strip `GH_HOST` with the four token variables, add a second status run in the inherited environment, keep entries whose `tokenSource` names a variable, and treat login-less failures as unresolved connections. Source confirms `tokenSource` is the JSON key, that an env entry resolves `login` through the API, and that an API failure yields an error-state entry with no login.\n\nThe env-only credential branch at lines 51-55 is also sound: `gh auth token --user` never reads the environment, so reusing the inherited variable in memory is the only correct path for those connections.\n\n## Optional precision items\n\nNone of these block completion.\n\n- **Env-only identity check has no expected value.** Line 65-66 requires the login match only for stored profiles. The inherited status run already resolved the env connection's login, so require the retrieval check to equal that login too. Otherwise a worker that copied the wrong variable proceeds under a mislabeled connection.\n- **Discovery claim slightly overreaches.** Line 46-47 says the inherited run discovers environment-only connections. In go-gh v2.16.1, `knownHosts` adds `GH_HOST`, github.com when a token resolves, and configured hosts. An enterprise env token for a host that is neither in `GH_HOST` nor configured produces no entry. State that limit or require `GH_HOST` for env-only enterprise connections.\n- **Wording order at line 62-64.** \"Pass the same hostname explicitly when supported\" sits right before the `gh api user` check. Add \"without `--hostname`\" to the check so a reader does not defeat the default-host test.\n- **Duplicate connections.** An env token for a login that is also stored yields two connections with one identity. Retrieval dedupes by native ID, so it is only wasted work. Collapsing connections by host plus user ID after verification would avoid it.\n- **Identity string format.** `references/bundle.md:58` says namespace-qualified, the guide says host-qualified, and the helper matches exact strings at `report-work-activity/scripts/ledger.py:165,168`, silently excluding a mismatched author. Naming one convention would remove that hazard. This predates the multi-profile change.\n\n## Untested limits\n\n- No live `gh` execution, private account access, network mutation, or edits.\n- The synthetic trial under `trial-candidate/` exercised the first candidate, not r3. It used `--hostname` on the identity check and had no env-only or `GH_HOST` path, so r3's specific corrections have no execution evidence.\n- Quoted sources: cli/cli v2.102.0 `status.go`, `api.go`, `internal/ghrepo/repo.go`, and `go.mod`; go-gh v2.16.1 `knownHosts` and `defaultHost`. `tokenForHost` was quoted from go-gh trunk only. All passed through a fetch summarizer.\n- `ledger.py` was read directly. Tests were not run.\n- Unchanged references were cross-checked only at the lines cited above."
+        }
+      ],
+      "reconsultation_brief": "Bounded read-only consultation for report-work-activity. Do not edit any file or start other reviews/subagents. Read the frozen candidate at /Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f/.tmp/activity-gh-profiles/candidate/SKILL.md and its references/engineering-sources.md, references/extraction.md, references/evidence.md (complete files). Other candidate references are available if necessary. Original files at sibling baseline/ preserve the prior contract.\nUser request: \"otra cosa, debe soportar los multiples perfiles de gh que esten configurados\" (it must support all configured GitHub CLI profiles). This extends an already completed activity reporting skill that gathers multiple sources with Codex Luna workers, produces private HTML plus evidence, distinguishes confirmed work repos (including employer public repos) from open source, computes per-repo metrics, and preserves commitments separately.\nAssess concrete omissions, conflicts and corrections with reasons, proportionate to this narrow change. Review all configured active/inactive accounts/hosts, credential/account selection, concurrent workers, identity attribution, dedupe and coverage. No live private-account access, credentials, network mutations, edits, implementation or recursive consultation. If needing technical facts, use public official documentation only.\nOfficial evidence checked by author, not a preferred verdict: gh auth status --json hosts lists known accounts/hosts, --active narrows, JSON exit0 can include per-account errors, --show-token exposes credentials. gh auth token --hostname H --user U selects stored per-user token. Environment GH_TOKEN/GITHUB_TOKEN override for github.com and *.ghe.com; GH_ENTERPRISE_TOKEN/GITHUB_ENTERPRISE_TOKEN for other enterprise hosts. GH_CONFIG_DIR changes configuration. Primary docs https://cli.github.com/manual/gh_auth_status , https://cli.github.com/manual/gh_auth_token , https://cli.github.com/manual/gh_help_environment ; installed version 2.102.0 source https://raw.githubusercontent.com/cli/cli/v2.102.0/pkg/cmd/auth/status/status.go and .../auth/token/token.go confirms selection. No new runtime client is proposed. Return material findings first with exact file/line, optional suggestions separately, and clear untested limits. Instructions remain drafts until coordinator reconciles reviews.\n\nReconsultation round 2: inspect frozen candidate-r3 instead of candidate/. All context and original request above still apply; read the complete revised engineering guide and compare the initial candidate when needed. The first Fable response is below for continuity:\nReview complete. Findings below, verified against the cli/cli v2.102.0 source and the go-gh auth package rather than the manual alone.\n\n## Material findings\n\n**1. Host binding leaks into other profiles.** `.tmp/activity-gh-profiles/candidate/references/engineering-sources.md:47-54` and `references/extraction.md:14-17`. The instruction \"Pass the hostname explicitly\" cannot be followed for search commands. `gh search prs` has no hostname flag and takes its host from the default-host rule: `GH_HOST`, else the single configured host, else github.com. The token variables are per host family, and for any other host gh falls back to the stored credential. Failure scenario: a worker bound to a GitHub Enterprise Server profile sets the enterprise token, runs a search for the user's PRs, the host resolves to github.com, gh silently uses the stored active github.com account, and the results are filed under the enterprise profile's source record. The identity check on line 53 passes because `--hostname` bypasses the default-host path. Correction: set `GH_HOST=HOST` in the same bound environment, use the host-prefixed repository form for repository-scoped commands, run the identity check without a hostname flag so it exercises the same resolution as the retrieval commands, and record the effective host in each query's provenance. Evidence: pkg/cmd/search/shared/shared.go `Searcher` uses `DefaultHost()`; go-gh `TokenFromEnvOrConfig` falls back to config per host family.\n\n**2. Multiple logins on one host are not modeled as a set, and the identity namespace never names the host.** `references/evidence.md:14-17`, `engineering-sources.md:63-66` and `:74-75`, `bundle.md:58`. The evidence contract says to normalize aliases to \"the same verified provider ID\". A user with a personal and a work login on github.com has two provider IDs. The helper treats identities as a membership list, and any event whose actor is a login not in that list is dropped as a known other actor with no validation error (report-work-activity/scripts/ledger.py:63, 165-168). Line 74-75 requires same logins on different hosts to stay distinct, but nothing says the namespace includes the hostname. Correction: each confirmed login is its own identity entry qualified by hostname plus stable user ID, logins are never merged into one ID, every confirmed login on a host goes into the identity list, and each bound profile queries every confirmed identity on its host rather than only its own login or `@me`.\n\n**3. Inventory subprocess: no way to identify env-only connections, and GH_HOST contaminates it.** `engineering-sources.md:35-45`. The host list comes from go-gh `KnownHosts()`, which includes `GH_HOST` and env-token hosts. Stripping only the four token variables leaves an inherited `GH_HOST` producing a login-less error entry, which line 39 then tells the reader to treat as an account error. Lines 44-45 ask to preserve env-only connections but give no discovery step. Correction: also unset `GH_HOST` in the inventory subprocess, or ignore entries without a login. Identify env connections with a second status call in the inherited environment, where the entry's `tokenSource` is the variable name and `login` is resolved from the API. Record only login and token source. Evidence: status.go `buildEntry` calls `api.CurrentLoginName` when the source ends in `_TOKEN`.\n\nThe remaining gh claims in the candidate hold: JSON mode lists the active entry plus every stored user and always exits 0; `--active` skips stored users; `gh auth token --user` reads keyring then config and never the environment; GH_TOKEN covers github.com and ghe.com tenants, the enterprise variables cover Enterprise Server; and an env token present during the inventory makes the configured active account appear inactive, so the strip on lines 42-44 is correct.\n\n## Optional suggestions\n\n- **Per-account rate limits.** SKILL.md:53-54 speaks of host concurrency only. Workers bound to the same account share that account's primary and search secondary limits. Treat 403/429 as partial coverage, not empty results, and stagger searches per account.\n- **Carry GH_CONFIG_DIR through all three steps.** engineering-sources.md:36-37 and :47-49. The inventory, the token capture and the retrieval subprocess must share one configuration directory, since the default-host rule reads the config's host list.\n- **Terminology.** SKILL.md:30 and engineering-sources.md:40, :67. gh's `active` flag is the switch position. Expired or revoked accounts appear with `state: \"error\"`. Use \"non-active\" and \"error-state\" so each lands in coverage with the right status.\n- **Fail-loud guard.** For a bound worker, set the non-applicable token family to a deliberately invalid placeholder so an accidental cross-host call returns 401 instead of silently using a stored profile. Finding 1's fix already covers the common path.\n- **Name the variables.** Lines 56-57: `GH_PROMPT_DISABLED=1` for prompts, plus `GH_NO_UPDATE_NOTIFIER=1` for clean stderr.\n- **Candidate identities.** Lines 63-66 could state that each inventoried login is a candidate to confirm with the user or the mappings file as own account versus bot or service account.\n- **Version guard.** The installed 2.102.0 supports the JSON flag. Older versions reject it. Fail the inventory loudly instead of parsing text.\n- **Pre-existing, outside this change.** evidence.md:42 counts a commit once per canonical repository and SHA. A fork and its upstream seen through two profiles count the same commit twice.\n\n## Untested limits\n\n- No live gh execution, no private account access, no edits.\n- Sources: cli/cli v2.102.0 status.go, token.go, internal/config/config.go, pkg/cmd/search/shared/shared.go. The go-gh auth package was read from trunk, not the version vendored in 2.102.0.\n- Code quotes passed through a fetch summarizer. The env-login branch and `authTokenWriteable` were quoted verbatim. Token masking in JSON output was only described.\n- The helper was reviewed by grep and excerpts of ledger.py. Tests were not run.\n- Unchanged references were not re-reviewed beyond cross-checks cited above.\n\nCoordinator reconciliation: adopted your three material points. Inventory strips GH_HOST as well as token overrides, separately inventories inherited environment tokenSource entries, and retains login-less failures as unresolved connections. Bound retrieval carries one config directory, sets GH_HOST, clears GH_REPO, uses gh api user to test default-host identity, and distinguishes gh pr host-qualified --repo from gh search OWNER/REPO filtering per current installed help. Every confirmed login becomes a separate host-qualified stable actor ID and each profile queries all confirmed IDs on its host, not only @me. Independently Astra found the original missing environment-only credential selection branch; revised text separates stored --user lookup from in-memory environment reuse. Added exact noninteractive variable and rate-limit coverage; kept inactive vs error-state meaning through the separate state fields. Did not add invalid opposite-host placeholder tokens: bound GH_HOST, explicit repository selection and identity verification handle this scoped collection without inventing credentials. No live account use; no fork/commit counting redesign (pre-existing, unrelated to multi-profile PR access).\nAstra has reviewed the environment-only branch but has not yet reviewed the later host/identity changes. Ask no new reviews; no edits. Assess whether these corrections close the material findings and introduce any material conflict; optional improvements need not delay completion. Report untested limits."
+    },
+    "reconciliation": [
+      {
+        "finding": "Environment-only credential has no stored --user entry.",
+        "decision": "adopted",
+        "change": "Separate credential acquisition paths; both resolve identity before retrieval."
+      },
+      {
+        "finding": "Search commands do not accept --hostname and can silently use another host.",
+        "decision": "adopted",
+        "change": "Bind GH_HOST and configuration directory for the whole query environment, clear inherited GH_REPO, use command-correct explicit repository scope and test default-host resolution with gh api user."
+      },
+      {
+        "finding": "Multiple owned logins must remain distinct host-qualified identities.",
+        "decision": "adopted",
+        "change": "List each confirmed account separately and query all confirmed identities on that host through each profile."
+      },
+      {
+        "finding": "Inherited GH_HOST contaminates stored inventory and environment-only connections need discovery.",
+        "decision": "adopted",
+        "change": "Strip it only for stored inventory; separately inspect inherited-environment status tokenSource entries and retain unresolved connections."
+      },
+      {
+        "finding": "Configuration propagation, prompt variable and rate-limit gaps.",
+        "decision": "adopted",
+        "change": "State same config across phases, GH_PROMPT_DISABLED=1 and per-profile incomplete coverage for rate limits."
+      },
+      {
+        "finding": "Set a deliberately invalid credential for the unused host family.",
+        "decision": "not-selected",
+        "reason": "Bound GH_HOST, explicit repository scope and identity verification address the scoped read path without introducing a fabricated credential."
+      },
+      {
+        "finding": "Rename inactive, add notification suppression and a CLI-version guard.",
+        "decision": "not-selected",
+        "reason": "Active selection and auth state are already separate; installed help/capabilities and visible source failures own unsupported commands. Cosmetic notification policy adds no required behavior."
+      },
+      {
+        "finding": "Revisit commit counting across fork/upstream repositories.",
+        "decision": "outside-scope",
+        "reason": "Pre-existing counting contract; this follow-up concerns configured GitHub access profiles and preserves per-repository metrics."
+      },
+      {
+        "finding": "Explicit hostname wording could defeat the intended default-host identity check.",
+        "decision": "adopted",
+        "change": "State without --hostname and limit explicit-host guidance to retrieval; this clarifies the already-reviewed check."
+      },
+      {
+        "finding": "Environment-only enterprise credentials cannot identify an otherwise unknown host.",
+        "decision": "adopted",
+        "change": "Qualify discovery as covering known hosts; the credential branch already requires its known host."
+      },
+      {
+        "finding": "Match environment-only login to inventory, collapse duplicate env/stored connections, and standardize one identity string spelling.",
+        "decision": "not-selected",
+        "reason": "No material defect was found in the reviewed core. The scoped contract already binds verified account/host, requires namespace-qualified IDs, and deduplicates sightings. Further connection optimization and canonical string policy are outside this narrow update; live environment-only behavior remains untested."
+      }
+    ],
+    "editorial_changes_after_last_consultation": {
+      "revision": "candidate-r4",
+      "changes": [
+        "Make the already-required default-host identity check explicit with without --hostname; restrict the preceding explicit-host direction to retrieval commands.",
+        "Qualify environment-only discovery as covering known hosts, matching the existing inventory scope.",
+        "Reflow Markdown lines."
+      ],
+      "reason": "Clarifies the same reviewed meaning rather than adding a new workflow. The preceding regression used explicit hosts for identity despite the stated default-host check, so that execution limit is retained and the clarified wording gets a fresh regression."
+    }
+  },
+  "behavioral_evaluation": {
+    "provider": "codex",
+    "model": "gpt-6-luna",
+    "effort": "medium",
+    "method": "Independent clean contexts using an identical fake CLI, raw context, read permissions, extraction request and result contract. Instructions differ by revision. Final revision receives a fresh regression execution of the same case. Grader expectations were not supplied to executors.",
+    "task_template": "You are the first-pass extraction worker for a synthetic activity report. Use only the specified frozen skill/reference files and the fixture CLI, never real gh, connectors, network access or real configuration. Do not edit product files, inspect the fixture CLI implementation, inspect other trials, or delegate. This is an execution task, not a review of the instructions.\nRequest: \"Extract my GitHub activity last week using the configured gh profiles, including the counts of my authored PRs merged by repository. Keep the report's work/open-source split.\"\nRead FROZEN/SKILL.md and complete references/engineering-sources.md, references/extraction.md and references/evidence.md. The report primary assigned you the whole fixture GitHub batch. You are already its Luna extractor; return extraction artifacts, not final HTML or a new delegation. Read TRIAL/context.json for resolved period, verified user identities and confirmed repo mappings.\nThe executable TRIAL/gh is an isolated fake CLI implementing gh auth status/token/switch and gh api user. You can call --help; fixture/activity is the fixture-only read endpoint returning actual PR metadata for the authenticated profile, with one exhausted page and --paginate supported. Each invocation must use this exact absolute executable path, not a real gh binary. No real tokens or source services exist in this fixture; treat fixture credentials with the same visibility discipline. You may create task-local scripts inside TRIAL if needed. The fake owns its synthetic active-account state. Do not open its active.json or trace.jsonl files.\nWrite TRIAL/result.json with profiles queried or unavailable, accepted merged PR records with canonical IDs and retrieval provenance, per-repository work/open-source counts, and coverage gaps. Include a short extraction summary. In your final message state which frozen instruction files you loaded with their SHA256 (compute them), output path, and any execution limit. Use English. Stop once artifacts are complete.",
+    "fixture": {
+      "cli_source": "#!/usr/bin/env python3\nimport json, os, sys\nfrom pathlib import Path\nroot=Path(__file__).resolve().parent\nargs=sys.argv[1:]\nprofiles=[('github.com','riley',101,True),('github.com','riley-work',202,False),('github.com','old-work',303,False),('git.example.test','riley',101,True)]\ndef opt(name,default=None):\n    return args[args.index(name)+1] if name in args else default\ndef emit(value):\n    print(json.dumps(value))\n    sys.exit(0)\nhost=opt('--hostname',os.environ.get('GH_HOST','github.com'))\nstatefile=root/'active.json'\nstate=json.loads(statefile.read_text())\nvar='GH_TOKEN' if host=='github.com' or host.endswith('.ghe.com') else 'GH_ENTERPRISE_TOKEN'\ntoken=os.environ.get(var) or os.environ.get('GITHUB_TOKEN' if var=='GH_TOKEN' else 'GITHUB_ENTERPRISE_TOKEN')\nlogin=token.split('|')[-1] if token and token.startswith('fixture-only|'+host+'|') else state.get(host)\nwith (root/'trace.jsonl').open('a') as trace:\n    trace.write(json.dumps({'argv':args,'host':host,'selected_account':login,'token_override':bool(token)})+'\\n')\nif '--help' in args or args[:1]==['help']:\n    emit({'commands':['auth status --json hosts','auth token --hostname HOST --user LOGIN','api --hostname HOST user','api --hostname HOST fixture/activity --paginate','auth switch --hostname HOST --user LOGIN'], 'environment':'GH_TOKEN/GITHUB_TOKEN for github.com and *.ghe.com; GH_ENTERPRISE_TOKEN/GITHUB_ENTERPRISE_TOKEN for other hosts; GH_CONFIG_DIR selects config. auth token prints a credential. JSON auth status exits 0 even with account errors. All data is synthetic. fixture/activity is a fixture-only read endpoint with one exhausted page per profile.'})\nif args[:2]==['auth','status']:\n    hosts={}\n    for h,u,i,a in profiles:\n        if '--hostname' in args and h!=host: continue\n        if '--active' in args and u!=state[h]: continue\n        hosts.setdefault(h,[]).append({'host':h,'login':u,'state':'error' if u=='old-work' else 'success','active':u==state[h],'error':'expired token' if u=='old-work' else '', 'tokenSource':'fixture credential store'})\n    emit({'hosts':hosts})\nif args[:2]==['auth','token']:\n    user=opt('--user',state.get(host))\n    if user=='old-work':\n        print('credential unavailable',file=sys.stderr); sys.exit(1)\n    if not any(h==host and u==user for h,u,_,_ in profiles): sys.exit(1)\n    print('fixture-only|'+host+'|'+user); sys.exit(0)\nif args[:2]==['auth','switch']:\n    state[host]=opt('--user'); statefile.write_text(json.dumps(state)); emit({'switched':True})\nif args[:1]==['api']:\n    endpoint=next((a.strip('/') for a in args if a.strip('/') in ('user','fixture/activity')),None)\n    if endpoint=='user':\n        ident=next((i for h,u,i,a in profiles if h==host and u==login),None)\n        if not ident: sys.exit(1)\n        emit({'login':login,'id':ident})\n    if endpoint=='fixture/activity':\n        def pr(repo,number,native_id,author,title):\n            return {'host':host,'repository':repo,'number':number,'id':native_id,'author_id':author,'author_login':next(u for h,u,i,a in profiles if h==host and i==author),'merged_at':'2026-09-23T12:00:00Z','title':title,'url':'https://'+host+'/'+repo+'/pull/'+str(number)}\n        if host=='github.com' and login=='riley':\n            rows=[pr('acme/public',7,70,202,'Fix public SDK'),pr('community/tool',7,71,101,'Add parser test')]\n        elif host=='github.com' and login=='riley-work':\n            rows=[pr('acme/public',7,70,202,'Fix public SDK'),pr('acme/private',7,72,202,'Fix account settings')]\n        elif host=='git.example.test' and login=='riley':\n            rows=[pr('acme/public',7,70,101,'Fix internal SDK')]\n        else:\n            print('profile unavailable',file=sys.stderr);sys.exit(1)\n        emit({'records':rows,'pages_exhausted':True})\nprint('Unsupported fixture command; use --help',file=sys.stderr);sys.exit(2)\n",
+      "cli_sha256": "9427f04cac5af899349c7b72975163e87efd0c460787eafeb12d944965e7a668",
+      "context": {
+        "period": {
+          "start": "2026-09-21T00:00:00Z",
+          "end": "2026-09-28T00:00:00Z",
+          "timezone": "UTC"
+        },
+        "confirmed_user_identities": [
+          {
+            "host": "github.com",
+            "login": "riley",
+            "id": 101
+          },
+          {
+            "host": "github.com",
+            "login": "riley-work",
+            "id": 202
+          },
+          {
+            "host": "git.example.test",
+            "login": "riley",
+            "id": 101
+          }
+        ],
+        "confirmed_classification": {
+          "github.com/acme/public": "work",
+          "github.com/acme/private": "work",
+          "github.com/community/tool": "open-source",
+          "git.example.test/acme/public": "work"
+        }
+      },
+      "initial_active_accounts": {
+        "github.com": "riley",
+        "git.example.test": "riley"
+      }
+    },
+    "runs": [
+      {
+        "arm": "baseline",
+        "revision": "baseline",
+        "task": "/root/activity_gh_profiles_baseline",
+        "loaded_sha256": {
+          "SKILL.md": "abb075e96b739a74237bb7286b7f08bb4ef74cd87df1b31f875d81701bb5c96c",
+          "references/engineering-sources.md": "f9ff1a49ccdc433ea7bb87d90b072960a8ea4567b6dc2b57561aaf4505c8acc3",
+          "references/evidence.md": "2d86ac9d21c06ce38e267f509c8a0637cb3bdce86a51858daf220b6e87444761",
+          "references/extraction.md": "5d316f671957063bc02f8036f64a023d42615bb15109fe8543fc8a2a424de41d"
+        },
+        "output": {
+          "source": "GitHub authored pull requests merged",
+          "period": {
+            "start_inclusive": "2026-09-21T00:00:00Z",
+            "end_exclusive": "2026-09-28T00:00:00Z",
+            "timezone": "UTC"
+          },
+          "retrieved_at": "2026-10-04T11:49:50Z",
+          "identities": [
+            {
+              "host": "github.com",
+              "login": "riley",
+              "id": 101
+            },
+            {
+              "host": "github.com",
+              "login": "riley-work",
+              "id": 202
+            },
+            {
+              "host": "git.example.test",
+              "login": "riley",
+              "id": 101
+            }
+          ],
+          "profiles_queried": [
+            {
+              "host": "github.com",
+              "login": "riley",
+              "verified_id": 101,
+              "identity_check": "gh api --hostname github.com user returned login riley, id 101",
+              "query": "gh api --hostname github.com fixture/activity --paginate",
+              "pagination": "pages_exhausted=true",
+              "retrieved_at": "2026-10-04T11:49:50Z"
+            },
+            {
+              "host": "github.com",
+              "login": "riley-work",
+              "verified_id": 202,
+              "identity_check": "gh api --hostname github.com user returned login riley-work, id 202",
+              "query": "gh api --hostname github.com fixture/activity --paginate",
+              "pagination": "pages_exhausted=true",
+              "retrieved_at": "2026-10-04T11:49:50Z"
+            },
+            {
+              "host": "git.example.test",
+              "login": "riley",
+              "verified_id": 101,
+              "identity_check": "gh api --hostname git.example.test user returned login riley, id 101",
+              "query": "gh api --hostname git.example.test fixture/activity --paginate",
+              "pagination": "pages_exhausted=true",
+              "retrieved_at": "2026-10-04T11:49:50Z"
+            }
+          ],
+          "profiles_unavailable": [
+            {
+              "host": "github.com",
+              "login": "old-work",
+              "reason": "Configured profile reported an expired token by gh auth status; no verified user identity was supplied for this profile, so it was not queried or attributed."
+            }
+          ],
+          "accepted_merged_prs": [
+            {
+              "canonical_id": "github.com:70",
+              "host": "github.com",
+              "repository": "acme/public",
+              "number": 7,
+              "url": "https://github.com/acme/public/pull/7",
+              "title": "Fix public SDK",
+              "author": {
+                "id": 202,
+                "login": "riley-work"
+              },
+              "merged_at": "2026-09-23T12:00:00Z",
+              "classification": "work",
+              "evidence": {
+                "source": "fixture/activity",
+                "retrieved_via_profile": "github.com/riley-work",
+                "retrieved_at": "2026-10-04T11:49:50Z",
+                "pagination": "pages_exhausted=true"
+              }
+            },
+            {
+              "canonical_id": "github.com:72",
+              "host": "github.com",
+              "repository": "acme/private",
+              "number": 7,
+              "url": "https://github.com/acme/private/pull/7",
+              "title": "Fix account settings",
+              "author": {
+                "id": 202,
+                "login": "riley-work"
+              },
+              "merged_at": "2026-09-23T12:00:00Z",
+              "classification": "work",
+              "evidence": {
+                "source": "fixture/activity",
+                "retrieved_via_profile": "github.com/riley-work",
+                "retrieved_at": "2026-10-04T11:49:50Z",
+                "pagination": "pages_exhausted=true"
+              }
+            },
+            {
+              "canonical_id": "github.com:71",
+              "host": "github.com",
+              "repository": "community/tool",
+              "number": 7,
+              "url": "https://github.com/community/tool/pull/7",
+              "title": "Add parser test",
+              "author": {
+                "id": 101,
+                "login": "riley"
+              },
+              "merged_at": "2026-09-23T12:00:00Z",
+              "classification": "open-source",
+              "evidence": {
+                "source": "fixture/activity",
+                "retrieved_via_profile": "github.com/riley",
+                "retrieved_at": "2026-10-04T11:49:50Z",
+                "pagination": "pages_exhausted=true"
+              }
+            },
+            {
+              "canonical_id": "git.example.test:70",
+              "host": "git.example.test",
+              "repository": "acme/public",
+              "number": 7,
+              "url": "https://git.example.test/acme/public/pull/7",
+              "title": "Fix internal SDK",
+              "author": {
+                "id": 101,
+                "login": "riley"
+              },
+              "merged_at": "2026-09-23T12:00:00Z",
+              "classification": "work",
+              "evidence": {
+                "source": "fixture/activity",
+                "retrieved_via_profile": "git.example.test/riley",
+                "retrieved_at": "2026-10-04T11:49:50Z",
+                "pagination": "pages_exhausted=true"
+              }
+            }
+          ],
+          "counts": {
+            "metric": "authored_prs_merged",
+            "counting_rule": "Unique PRs authored by either confirmed GitHub identity and merged during [start, end); deduplicate by host plus native PR ID.",
+            "work": {
+              "total": 3,
+              "by_repository": [
+                {
+                  "repository": "github.com/acme/public",
+                  "count": 1
+                },
+                {
+                  "repository": "github.com/acme/private",
+                  "count": 1
+                },
+                {
+                  "repository": "git.example.test/acme/public",
+                  "count": 1
+                }
+              ]
+            },
+            "open_source": {
+              "total": 1,
+              "by_repository": [
+                {
+                  "repository": "github.com/community/tool",
+                  "count": 1
+                }
+              ]
+            }
+          },
+          "coverage_gaps": [
+            {
+              "scope": "github.com profile old-work",
+              "detail": "The configured profile is inaccessible because its token is expired and its identity is not among the supplied verified identities. Activity attributable to it is unknown."
+            }
+          ],
+          "summary": "Accepted four unique authored PRs merged during the resolved UTC week: three in confirmed work repositories and one in open source. Pagination was exhausted for all three verified profiles. The configured github.com/old-work profile could not be queried and remains an attribution and coverage gap."
+        },
+        "actions": [
+          {
+            "argv": [
+              "--help"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "auth",
+              "status",
+              "--json",
+              "hosts"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "auth",
+              "switch",
+              "--hostname",
+              "github.com",
+              "--user",
+              "riley"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "user"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "fixture/activity",
+              "--paginate"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "auth",
+              "switch",
+              "--hostname",
+              "github.com",
+              "--user",
+              "riley-work"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "user"
+            ],
+            "host": "github.com",
+            "selected_account": "riley-work",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "fixture/activity",
+              "--paginate"
+            ],
+            "host": "github.com",
+            "selected_account": "riley-work",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "auth",
+              "switch",
+              "--hostname",
+              "git.example.test",
+              "--user",
+              "riley"
+            ],
+            "host": "git.example.test",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "git.example.test",
+              "user"
+            ],
+            "host": "git.example.test",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "git.example.test",
+              "fixture/activity",
+              "--paginate"
+            ],
+            "host": "git.example.test",
+            "selected_account": "riley",
+            "token_override": false
+          }
+        ],
+        "final_active_accounts": {
+          "github.com": "riley-work",
+          "git.example.test": "riley"
+        }
+      },
+      {
+        "arm": "candidate",
+        "revision": "candidate-r2",
+        "task": "/root/activity_gh_profiles_candidate",
+        "loaded_sha256": {
+          "SKILL.md": "f428fd3c2149eef348f73d0c8808a92255f9002710a359f2414e029477bdcca1",
+          "references/engineering-sources.md": "41e616de7b30af7c990a648b78450bf562fdfb9aa47995ffb231cc6eca8dbc3f",
+          "references/evidence.md": "2d86ac9d21c06ce38e267f509c8a0637cb3bdce86a51858daf220b6e87444761",
+          "references/extraction.md": "4389a5d03c53fe233be6f5eabf4f9bf1004970a8b56699fda444816d9a6c0b43"
+        },
+        "output": {
+          "period": {
+            "start_inclusive": "2026-09-21T00:00:00Z",
+            "end_exclusive": "2026-09-28T00:00:00Z",
+            "timezone": "UTC"
+          },
+          "metric": "authored_prs_merged",
+          "profiles": [
+            {
+              "host": "github.com",
+              "login": "riley",
+              "verified_user_id": 101,
+              "status": "queried",
+              "identity_check": "gh api --hostname github.com user returned login riley, id 101",
+              "retrieval": "fixture/activity --paginate; pages_exhausted=true"
+            },
+            {
+              "host": "github.com",
+              "login": "riley-work",
+              "verified_user_id": 202,
+              "status": "queried",
+              "identity_check": "gh api --hostname github.com user returned login riley-work, id 202",
+              "retrieval": "fixture/activity --paginate; pages_exhausted=true"
+            },
+            {
+              "host": "git.example.test",
+              "login": "riley",
+              "verified_user_id": 101,
+              "status": "queried",
+              "identity_check": "gh api --hostname git.example.test user returned login riley, id 101",
+              "retrieval": "fixture/activity --paginate; pages_exhausted=true"
+            },
+            {
+              "host": "github.com",
+              "login": "old-work",
+              "status": "unavailable",
+              "reason": "gh auth status reported expired token; no activity query performed"
+            }
+          ],
+          "accepted_records": [
+            {
+              "canonical_id": "github.com:pull/70",
+              "host": "github.com",
+              "repository": "acme/public",
+              "number": 7,
+              "url": "https://github.com/acme/public/pull/7",
+              "title": "Fix public SDK",
+              "author_id": 202,
+              "author_login": "riley-work",
+              "merged_at": "2026-09-23T12:00:00Z",
+              "classification": "work",
+              "metric_count": 1,
+              "retrieval_provenance": [
+                {
+                  "profile": "github.com/riley",
+                  "verified_id": 101
+                },
+                {
+                  "profile": "github.com/riley-work",
+                  "verified_id": 202
+                }
+              ],
+              "deduplication": "Same host and native PR ID 70 returned by two profiles; counted once. Author ID 202 is a confirmed user identity."
+            },
+            {
+              "canonical_id": "github.com:pull/71",
+              "host": "github.com",
+              "repository": "community/tool",
+              "number": 7,
+              "url": "https://github.com/community/tool/pull/7",
+              "title": "Add parser test",
+              "author_id": 101,
+              "author_login": "riley",
+              "merged_at": "2026-09-23T12:00:00Z",
+              "classification": "open-source",
+              "metric_count": 1,
+              "retrieval_provenance": [
+                {
+                  "profile": "github.com/riley",
+                  "verified_id": 101
+                }
+              ]
+            },
+            {
+              "canonical_id": "github.com:pull/72",
+              "host": "github.com",
+              "repository": "acme/private",
+              "number": 7,
+              "url": "https://github.com/acme/private/pull/7",
+              "title": "Fix account settings",
+              "author_id": 202,
+              "author_login": "riley-work",
+              "merged_at": "2026-09-23T12:00:00Z",
+              "classification": "work",
+              "metric_count": 1,
+              "retrieval_provenance": [
+                {
+                  "profile": "github.com/riley-work",
+                  "verified_id": 202
+                }
+              ]
+            },
+            {
+              "canonical_id": "git.example.test:pull/70",
+              "host": "git.example.test",
+              "repository": "acme/public",
+              "number": 7,
+              "url": "https://git.example.test/acme/public/pull/7",
+              "title": "Fix internal SDK",
+              "author_id": 101,
+              "author_login": "riley",
+              "merged_at": "2026-09-23T12:00:00Z",
+              "classification": "work",
+              "metric_count": 1,
+              "retrieval_provenance": [
+                {
+                  "profile": "git.example.test/riley",
+                  "verified_id": 101
+                }
+              ]
+            }
+          ],
+          "repository_counts": [
+            {
+              "host": "github.com",
+              "repository": "acme/public",
+              "classification": "work",
+              "authored_prs_merged": 1
+            },
+            {
+              "host": "github.com",
+              "repository": "acme/private",
+              "classification": "work",
+              "authored_prs_merged": 1
+            },
+            {
+              "host": "git.example.test",
+              "repository": "acme/public",
+              "classification": "work",
+              "authored_prs_merged": 1
+            },
+            {
+              "host": "github.com",
+              "repository": "community/tool",
+              "classification": "open-source",
+              "authored_prs_merged": 1
+            }
+          ],
+          "totals": {
+            "work_authored_prs_merged_observed": 3,
+            "open_source_authored_prs_merged_observed": 1,
+            "all_observed": 4
+          },
+          "coverage_gaps": [
+            {
+              "scope": "github.com profile old-work",
+              "gap": "Expired credential prevented identity verification and fixture activity retrieval; this profile's activity is unknown, not zero."
+            }
+          ],
+          "extraction_summary": "Four distinct authored PRs were merged within the requested UTC week across successfully queried configured profiles: three classified as work and one as open source. Queries used the fixture CLI with pagination enabled and each returned pages_exhausted=true. The github.com old-work profile was unavailable because its credential was expired, so overall GitHub-profile coverage is partial."
+        },
+        "actions": [
+          {
+            "argv": [
+              "--help"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "auth",
+              "status",
+              "--json",
+              "hosts"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "github.com",
+              "--user",
+              "riley"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "user"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "fixture/activity",
+              "--paginate"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "github.com",
+              "--user",
+              "riley-work"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "user"
+            ],
+            "host": "github.com",
+            "selected_account": "riley-work",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "fixture/activity",
+              "--paginate"
+            ],
+            "host": "github.com",
+            "selected_account": "riley-work",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "git.example.test",
+              "--user",
+              "riley"
+            ],
+            "host": "git.example.test",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "git.example.test",
+              "user"
+            ],
+            "host": "git.example.test",
+            "selected_account": "riley",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "git.example.test",
+              "fixture/activity",
+              "--paginate"
+            ],
+            "host": "git.example.test",
+            "selected_account": "riley",
+            "token_override": true
+          }
+        ],
+        "final_active_accounts": {
+          "github.com": "riley",
+          "git.example.test": "riley"
+        }
+      },
+      {
+        "arm": "candidate-regression",
+        "revision": "candidate-r3",
+        "task": "/root/activity_gh_profiles_final",
+        "loaded_sha256": {
+          "SKILL.md": "f428fd3c2149eef348f73d0c8808a92255f9002710a359f2414e029477bdcca1",
+          "references/engineering-sources.md": "d0800177022cf93b87e3c99286ac96fdd405f4684ce4f121baa547a14e4e688d",
+          "references/evidence.md": "2d86ac9d21c06ce38e267f509c8a0637cb3bdce86a51858daf220b6e87444761",
+          "references/extraction.md": "4389a5d03c53fe233be6f5eabf4f9bf1004970a8b56699fda444816d9a6c0b43"
+        },
+        "output": {
+          "period": {
+            "start": "2026-09-21T00:00:00Z",
+            "end": "2026-09-28T00:00:00Z",
+            "timezone": "UTC"
+          },
+          "metric": "authored_prs_merged",
+          "profiles": [
+            {
+              "host": "github.com",
+              "login": "riley",
+              "verified_user_id": 101,
+              "status": "queried",
+              "identity_check": "matched",
+              "pagination": "exhausted",
+              "query": "gh api --hostname github.com fixture/activity --paginate",
+              "retrieval_provenance": "fixture profile riley"
+            },
+            {
+              "host": "github.com",
+              "login": "riley-work",
+              "verified_user_id": 202,
+              "status": "queried",
+              "identity_check": "matched",
+              "pagination": "exhausted",
+              "query": "gh api --hostname github.com fixture/activity --paginate",
+              "retrieval_provenance": "fixture profile riley-work"
+            },
+            {
+              "host": "git.example.test",
+              "login": "riley",
+              "verified_user_id": 101,
+              "status": "queried",
+              "identity_check": "matched",
+              "pagination": "exhausted",
+              "query": "gh api --hostname git.example.test fixture/activity --paginate",
+              "retrieval_provenance": "fixture profile riley"
+            },
+            {
+              "host": "github.com",
+              "login": "old-work",
+              "verified_user_id": null,
+              "status": "unavailable",
+              "reason": "profile inventory reports expired token; no confirmed identity ID was available for identity verification or retrieval"
+            }
+          ],
+          "accepted_merged_prs": [
+            {
+              "canonical_id": "github.com:pull/70",
+              "host": "github.com",
+              "repository": "acme/public",
+              "number": 7,
+              "author_id": 202,
+              "author_login": "riley-work",
+              "merged_at": "2026-09-23T12:00:00Z",
+              "url": "https://github.com/acme/public/pull/7",
+              "classification": "work",
+              "retrieval_provenance": [
+                {
+                  "profile": "github.com/riley",
+                  "native_id": 70
+                },
+                {
+                  "profile": "github.com/riley-work",
+                  "native_id": 70
+                }
+              ]
+            },
+            {
+              "canonical_id": "github.com:pull/72",
+              "host": "github.com",
+              "repository": "acme/private",
+              "number": 7,
+              "author_id": 202,
+              "author_login": "riley-work",
+              "merged_at": "2026-09-23T12:00:00Z",
+              "url": "https://github.com/acme/private/pull/7",
+              "classification": "work",
+              "retrieval_provenance": [
+                {
+                  "profile": "github.com/riley-work",
+                  "native_id": 72
+                }
+              ]
+            },
+            {
+              "canonical_id": "github.com:pull/71",
+              "host": "github.com",
+              "repository": "community/tool",
+              "number": 7,
+              "author_id": 101,
+              "author_login": "riley",
+              "merged_at": "2026-09-23T12:00:00Z",
+              "url": "https://github.com/community/tool/pull/7",
+              "classification": "open-source",
+              "retrieval_provenance": [
+                {
+                  "profile": "github.com/riley",
+                  "native_id": 71
+                }
+              ]
+            },
+            {
+              "canonical_id": "git.example.test:pull/70",
+              "host": "git.example.test",
+              "repository": "acme/public",
+              "number": 7,
+              "author_id": 101,
+              "author_login": "riley",
+              "merged_at": "2026-09-23T12:00:00Z",
+              "url": "https://git.example.test/acme/public/pull/7",
+              "classification": "work",
+              "retrieval_provenance": [
+                {
+                  "profile": "git.example.test/riley",
+                  "native_id": 70
+                }
+              ]
+            }
+          ],
+          "counts_by_repository": [
+            {
+              "host": "github.com",
+              "repository": "acme/public",
+              "classification": "work",
+              "authored_prs_merged": 1
+            },
+            {
+              "host": "github.com",
+              "repository": "acme/private",
+              "classification": "work",
+              "authored_prs_merged": 1
+            },
+            {
+              "host": "git.example.test",
+              "repository": "acme/public",
+              "classification": "work",
+              "authored_prs_merged": 1
+            },
+            {
+              "host": "github.com",
+              "repository": "community/tool",
+              "classification": "open-source",
+              "authored_prs_merged": 1
+            }
+          ],
+          "totals": {
+            "work": 3,
+            "open_source": 1,
+            "overall": 4
+          },
+          "coverage_gaps": [
+            "The configured github.com profile old-work was unavailable because its token is expired; its identity and activity could not be verified."
+          ],
+          "extraction_summary": "Found four unique authored PRs merged during the requested UTC week: three in confirmed work repositories and one in open source. Deduplication used hostname plus native PR ID; the github.com/acme/public PR appeared through two profiles and is counted once. Usable profile queries exhausted their fixture pages."
+        },
+        "actions": [
+          {
+            "argv": [
+              "--help"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "auth",
+              "status",
+              "--json",
+              "hosts"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "github.com",
+              "--user",
+              "riley"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "user"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "fixture/activity",
+              "--paginate"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "github.com",
+              "--user",
+              "riley-work"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "user"
+            ],
+            "host": "github.com",
+            "selected_account": "riley-work",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "fixture/activity",
+              "--paginate"
+            ],
+            "host": "github.com",
+            "selected_account": "riley-work",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "git.example.test",
+              "--user",
+              "riley"
+            ],
+            "host": "git.example.test",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "git.example.test",
+              "user"
+            ],
+            "host": "git.example.test",
+            "selected_account": "riley",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "git.example.test",
+              "fixture/activity",
+              "--paginate"
+            ],
+            "host": "git.example.test",
+            "selected_account": "riley",
+            "token_override": true
+          }
+        ],
+        "final_active_accounts": {
+          "github.com": "riley",
+          "git.example.test": "riley"
+        },
+        "verdict": {
+          "counts": "pass",
+          "host_separation": "pass",
+          "inactive_profile_retrieval": "pass",
+          "expired_profile_gap": "pass",
+          "active_accounts_preserved": true,
+          "shared_pr_sightings_retained": 2,
+          "default_host_identity_check": "not-followed: all three identity calls passed --hostname. No wrong-host retrieval occurred, but default-host resolution was not established."
+        }
+      },
+      {
+        "arm": "final-wording-regression",
+        "revision": "candidate-r4",
+        "task": "/root/activity_gh_profiles_final_wording",
+        "loaded_sha256": {
+          "SKILL.md": "f428fd3c2149eef348f73d0c8808a92255f9002710a359f2414e029477bdcca1",
+          "references/engineering-sources.md": "87211b2debe117a72e8237a760e4bd7a9f6eb83286c13c601e5f0f6dd2b4b323",
+          "references/evidence.md": "2d86ac9d21c06ce38e267f509c8a0637cb3bdce86a51858daf220b6e87444761",
+          "references/extraction.md": "4389a5d03c53fe233be6f5eabf4f9bf1004970a8b56699fda444816d9a6c0b43"
+        },
+        "output": {
+          "request": "Extract GitHub activity for last week, including authored PRs merged by repository, preserving the work/open-source split.",
+          "period": {
+            "start_inclusive": "2026-09-21T00:00:00Z",
+            "end_exclusive": "2026-09-28T00:00:00Z",
+            "timezone": "UTC"
+          },
+          "identities": [
+            {
+              "host": "github.com",
+              "login": "riley",
+              "user_id": 101
+            },
+            {
+              "host": "github.com",
+              "login": "riley-work",
+              "user_id": 202
+            },
+            {
+              "host": "git.example.test",
+              "login": "riley",
+              "user_id": 101
+            }
+          ],
+          "profiles": [
+            {
+              "host": "github.com",
+              "login": "riley",
+              "status": "queried",
+              "authentication": "success",
+              "identity_check": "api user returned login riley and id 101",
+              "query": "fixture/activity via api --hostname github.com --paginate",
+              "pagination": "pages_exhausted=true",
+              "retrieval_time": "2026-10-04 (task execution date; exact time not exposed)"
+            },
+            {
+              "host": "github.com",
+              "login": "riley-work",
+              "status": "queried",
+              "authentication": "success",
+              "identity_check": "api user returned login riley-work and id 202",
+              "query": "fixture/activity via api --hostname github.com --paginate",
+              "pagination": "pages_exhausted=true",
+              "retrieval_time": "2026-10-04 (task execution date; exact time not exposed)"
+            },
+            {
+              "host": "git.example.test",
+              "login": "riley",
+              "status": "queried",
+              "authentication": "success",
+              "identity_check": "api user returned login riley and id 101",
+              "query": "fixture/activity via api --hostname git.example.test --paginate",
+              "pagination": "pages_exhausted=true",
+              "retrieval_time": "2026-10-04 (task execution date; exact time not exposed)"
+            },
+            {
+              "host": "github.com",
+              "login": "old-work",
+              "status": "unavailable",
+              "authentication": "error: expired token",
+              "identity_check": "not performed",
+              "query": null,
+              "pagination": "not retrieved",
+              "retrieval_time": "2026-10-04 (inventory date; exact time not exposed)"
+            }
+          ],
+          "accepted_merged_prs": [
+            {
+              "canonical_id": "github.com:pr:70",
+              "host": "github.com",
+              "repository": "acme/public",
+              "number": 7,
+              "author_id": 202,
+              "author_login": "riley-work",
+              "merged_at": "2026-09-23T12:00:00Z",
+              "title": "Fix public SDK",
+              "url": "https://github.com/acme/public/pull/7",
+              "classification": "work",
+              "retrieval_provenance": [
+                {
+                  "profile": "github.com/riley",
+                  "query": "fixture/activity --paginate",
+                  "pages_exhausted": true
+                },
+                {
+                  "profile": "github.com/riley-work",
+                  "query": "fixture/activity --paginate",
+                  "pages_exhausted": true
+                }
+              ]
+            },
+            {
+              "canonical_id": "github.com:pr:71",
+              "host": "github.com",
+              "repository": "community/tool",
+              "number": 7,
+              "author_id": 101,
+              "author_login": "riley",
+              "merged_at": "2026-09-23T12:00:00Z",
+              "title": "Add parser test",
+              "url": "https://github.com/community/tool/pull/7",
+              "classification": "open-source",
+              "retrieval_provenance": [
+                {
+                  "profile": "github.com/riley",
+                  "query": "fixture/activity --paginate",
+                  "pages_exhausted": true
+                }
+              ]
+            },
+            {
+              "canonical_id": "github.com:pr:72",
+              "host": "github.com",
+              "repository": "acme/private",
+              "number": 7,
+              "author_id": 202,
+              "author_login": "riley-work",
+              "merged_at": "2026-09-23T12:00:00Z",
+              "title": "Fix account settings",
+              "url": "https://github.com/acme/private/pull/7",
+              "classification": "work",
+              "retrieval_provenance": [
+                {
+                  "profile": "github.com/riley-work",
+                  "query": "fixture/activity --paginate",
+                  "pages_exhausted": true
+                }
+              ]
+            },
+            {
+              "canonical_id": "git.example.test:pr:70",
+              "host": "git.example.test",
+              "repository": "acme/public",
+              "number": 7,
+              "author_id": 101,
+              "author_login": "riley",
+              "merged_at": "2026-09-23T12:00:00Z",
+              "title": "Fix internal SDK",
+              "url": "https://git.example.test/acme/public/pull/7",
+              "classification": "work",
+              "retrieval_provenance": [
+                {
+                  "profile": "git.example.test/riley",
+                  "query": "fixture/activity --paginate",
+                  "pages_exhausted": true
+                }
+              ]
+            }
+          ],
+          "counts_by_repository": [
+            {
+              "host": "github.com",
+              "repository": "acme/public",
+              "classification": "work",
+              "authored_prs_merged": 1
+            },
+            {
+              "host": "github.com",
+              "repository": "acme/private",
+              "classification": "work",
+              "authored_prs_merged": 1
+            },
+            {
+              "host": "git.example.test",
+              "repository": "acme/public",
+              "classification": "work",
+              "authored_prs_merged": 1
+            },
+            {
+              "host": "github.com",
+              "repository": "community/tool",
+              "classification": "open-source",
+              "authored_prs_merged": 1
+            }
+          ],
+          "totals": {
+            "authored_prs_merged": 4,
+            "work": 3,
+            "open_source": 1
+          },
+          "coverage_gaps": [
+            {
+              "scope": "github.com profile old-work",
+              "reason": "Expired token prevented identity verification and activity retrieval.",
+              "impact": "Unresolved profile coverage; no actions from this profile are included. The login was not among confirmed user identities, so its records cannot be attributed to the user from the available evidence."
+            }
+          ],
+          "extraction_summary": "Four unique authored PRs were merged in the period: three in confirmed work repositories and one in open source. All retrieved fixture pages were exhausted. The github.com/acme/public PR was returned by two profiles and counted once; the same native PR ID on git.example.test is a separate host-qualified record. One expired, unverified profile remains an attribution and coverage gap."
+        },
+        "actions": [
+          {
+            "argv": [
+              "--help"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "auth",
+              "status",
+              "--json",
+              "hosts"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "github.com riley",
+              "--user",
+              ""
+            ],
+            "host": "github.com riley",
+            "selected_account": null,
+            "token_override": false
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "github.com riley-work",
+              "--user",
+              ""
+            ],
+            "host": "github.com riley-work",
+            "selected_account": null,
+            "token_override": false
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "git.example.test riley",
+              "--user",
+              ""
+            ],
+            "host": "git.example.test riley",
+            "selected_account": null,
+            "token_override": false
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "github.com",
+              "--user",
+              "riley"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "github.com",
+              "--user",
+              "riley"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "user"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "github.com",
+              "--user",
+              "riley-work"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "user"
+            ],
+            "host": "github.com",
+            "selected_account": "riley-work",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "git.example.test",
+              "--user",
+              "riley"
+            ],
+            "host": "git.example.test",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "git.example.test",
+              "user"
+            ],
+            "host": "git.example.test",
+            "selected_account": "riley",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "github.com",
+              "--user",
+              "riley"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "fixture/activity",
+              "--paginate"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "github.com",
+              "--user",
+              "riley-work"
+            ],
+            "host": "github.com",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "github.com",
+              "fixture/activity",
+              "--paginate"
+            ],
+            "host": "github.com",
+            "selected_account": "riley-work",
+            "token_override": true
+          },
+          {
+            "argv": [
+              "auth",
+              "token",
+              "--hostname",
+              "git.example.test",
+              "--user",
+              "riley"
+            ],
+            "host": "git.example.test",
+            "selected_account": "riley",
+            "token_override": false
+          },
+          {
+            "argv": [
+              "api",
+              "--hostname",
+              "git.example.test",
+              "fixture/activity",
+              "--paginate"
+            ],
+            "host": "git.example.test",
+            "selected_account": "riley",
+            "token_override": true
+          }
+        ],
+        "final_active_accounts": {
+          "github.com": "riley",
+          "git.example.test": "riley"
+        },
+        "verdict": {
+          "counts": "pass",
+          "host_separation": "pass",
+          "inactive_profile_retrieval": "pass",
+          "expired_profile_gap": "pass",
+          "active_accounts_preserved": true,
+          "shared_pr_sightings_retained": 2,
+          "default_host_identity_check": "not-followed: the executor still used --hostname on identity calls. All actual fixture retrievals named the correct host, so no misattribution occurred; this does not validate default-host search routing.",
+          "recovered_execution_errors": "Three malformed token-command argument pairs failed before valid selections were used. Kept in the trace, not discarded as infrastructure failures."
+        }
+      }
+    ],
+    "intermediate_comparison": {
+      "case": "active/inactive profiles on github.com, expired account, separate enterprise host with same login and native PR ID, cross-profile shared PR and employer public repo",
+      "expected": {
+        "unique_merged_prs": 4,
+        "work_prs": 3,
+        "open_source_prs": 1,
+        "known_healthy_profiles_queried": 3,
+        "expired_profile_reported": true,
+        "global_active_accounts_preserved": true,
+        "shared_pr_sightings_retained": 2
+      },
+      "baseline": {
+        "counts": "pass",
+        "host_separation": "pass",
+        "expired_profile_gap": "pass",
+        "active_accounts_preserved": false,
+        "switch_calls": 3,
+        "shared_pr_sightings_retained": 1
+      },
+      "candidate": {
+        "counts": "pass",
+        "host_separation": "pass",
+        "expired_profile_gap": "pass",
+        "active_accounts_preserved": true,
+        "switch_calls": 0,
+        "shared_pr_sightings_retained": 2
+      },
+      "interpretation": "One matched synthetic execution pair. Both counted correctly; only the candidate retained the original active accounts and both retrieval sightings. No general success-rate or live-authentication claim."
+    },
+    "conclusion": "The baseline and all three candidate executions found the same four PRs and preserved host separation. Candidate executions retained both shared-PR sightings and preserved active-account state; the baseline did neither. Two later executions omitted the prescribed default-host identity probe, so search/default-host behavior remains unvalidated. This bounded sample supports the tested account, provenance and counting decisions only."
+  },
+  "checks": [
+    {
+      "command": "/opt/homebrew/bin/fish -lc 'env PYTHONDONTWRITEBYTECODE=1 TMPDIR=$PWD/.tmp/activity-gh-profiles python3 -m unittest discover -s report-work-activity/tests'",
+      "result": "passed",
+      "exit_code": 0,
+      "output": "........................\n----------------------------------------------------------------------\nRan 24 tests in 0.069s\n\nOK\n"
+    },
+    {
+      "command": "/opt/homebrew/bin/fish -lc 'env PYTHONPYCACHEPREFIX=$PWD/.tmp/activity-gh-profiles/pycache python3 -m compileall -q report-work-activity/scripts'",
+      "result": "passed",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "command": "/opt/homebrew/bin/fish -lc 'env PYTHONDONTWRITEBYTECODE=1 TMPDIR=$PWD/.tmp/activity-gh-profiles python3 -m unittest discover -s verification-authoring/tests'",
+      "result": "passed",
+      "exit_code": 0,
+      "output": "...........\n----------------------------------------------------------------------\nRan 11 tests in 0.559s\n\nOK\n"
+    },
+    {
+      "command": "/opt/homebrew/bin/fish -lc 'uv run --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py report-work-activity'",
+      "result": "passed",
+      "exit_code": 0,
+      "output": "Skill is valid!\n"
+    },
+    {
+      "command": "python3 -B report-work-activity/scripts/activity_report.py build .tmp/activity-preview/input.json --output .tmp/activity-gh-profiles/build && diff -rq reports/skill-atlas/work-activity-example .tmp/activity-gh-profiles/build",
+      "result": "passed",
+      "scope": "Synthetic example build is byte-identical to the shipped example."
+    },
+    {
+      "command": "node --check reports/skill-atlas/catalog.js && node --check reports/skill-atlas/app.js",
+      "result": "passed"
+    },
+    {
+      "command": "git diff --check -- report-work-activity reports/skill-atlas",
+      "result": "passed"
+    },
+    {
+      "kind": "Python assertions",
+      "result": "passed",
+      "scope": "All package Markdown links, catalog/source equality, activity inventory hash and exact preservation of every non-activity atlas section, 32-package inventory and source-progress data."
+    },
+    {
+      "kind": "Final fixture assertions",
+      "result": "passed for the named outcomes",
+      "scope": "Four unique PRs, three work plus one open-source, three queried healthy profiles, one expired gap, two retained shared-PR sightings, no auth switch and unchanged synthetic active accounts. Default-host identity procedure did not pass and is recorded separately."
+    }
+  ],
+  "browser": {
+    "method": "T3 native preview navigation and DOM evaluation",
+    "url": "http://localhost:8765/#report-work-activity",
+    "observation": {
+      "inventory": 32,
+      "profileData": {
+        "date": "2026-10-04",
+        "privateAccountsQueried": false,
+        "runtimeClientAdded": false,
+        "scope": "All configured active and inactive gh accounts across known hosts/configuration contexts; verified isolated credentials, per-profile coverage and cross-profile deduplication.",
+        "validation": "report-work-activity-gh-profiles-validation.json"
+      },
+      "progress": {
+        "not-selected": 45,
+        "optional": 48,
+        "pending": 47,
+        "ready": 118
+      },
+      "section": "Created · 4 October 2026\n\nWhat you did, and what still needs you\n\nreport-work-activity explains a chosen period in a concise HTML report. It separates work from open source, keeps useful counts by repository, and retains the evidence needed for follow-up questions.\n\nOne report, two time contracts\n\nHistorical activity uses the actual action time in your timezone. Current assignments and commitments use a separately dated status check, including older open items and later cancellations. Both reuse the same identities, source collection and evidence.\n\nNumbers with a meaning\n\nWork has a total and repository rows; open source has a row for every repository. A public employer repository remains work. PRs authored and merged, reviews submitted, tickets closed, incident response and incident resolution have distinct attribution rules. Incomplete access is visible.\n\nHow collection works\n\nOne Codex Luna child extracts each available source or workstream, including CLI sources. Existing connectors retrieve the records. The primary verifies deciding evidence and writes the summary; Python helpers resolve periods, deduplicate events, calculate metrics and render private static HTML.\n\nGit and GitHub, Slack, Notion, Linear, Jira/Confluence, Figma, agent history, sent Gmail/Outlook, calendars, Granola and incident tools are conditional on actual access. No live personal report was collected during authoring.\n\nAll configured GitHub profiles\n\nThe collection contract covers active and inactive gh accounts across GitHub hosts, including Enterprise and known alternate configuration directories. Each profile uses an isolated account binding, preserving the global active account. Shared PRs count once, their source accounts remain traceable, and access failures stay visible. Repository ownership determines work versus open source, independently of the account used to retrieve it.\n\nProfile support: review and validation evidence.\n\nWhy adapt these sources\n\nCursor's period summaries are a useful starting point but cannot cover all work. Selected pstack source guides, Matthew Blode's chat-history guidance, Compound extraction procedures, ECC sent-mail evidence, wshobson incident structure and Superpowers session identity checks supply specific parts. The local skill adds the requested classification, counting and retained-evidence contract.\n\n✓ Incorporated: selected material from seven pinned donor feeds. This is not installation of their complete workflows. daily-meeting-update is now a deprecated alias; its old interview and OpenCode digest are retired.\n\nOpen the synthetic report\nSources and design decisions\n\nReview reconciliation and exact validation evidence · Three actual Luna extraction trials. The example uses fictional records: 20 work PRs (12 + 8), and 3 + 2 open-source PRs in separate repositories.",
+      "viewport": {
+        "overflow": false,
+        "width": 1280
+      }
+    },
+    "screenshot": "not taken for this text-only overlay"
+  },
+  "limits": [
+    "No private GitHub accounts, tokens, enterprise server or SSO were queried.",
+    "The fake CLI establishes tested decisions and state changes, not real keychain, API search semantics, environment-only credential access, alternate configuration stores, rate limits or concurrent execution.",
+    "Luna was assigned one bounded fixture GitHub batch; full per-profile orchestration is not claimed from this extraction probe.",
+    "One matched synthetic case does not establish a general success rate.",
+    "The skill is saved in the repository; no host installation was performed.",
+    "Observed executor deviation remains: r3 and final r4 identity calls supplied --hostname despite the prescribed default-host probe. The wording was clarified once; no claim of validated gh search/default-host execution is made. Real retrieval still requires the specified host binding and primary verification."
+  ],
+  "final_instruction_sha256": {
+    "report-work-activity/SKILL.md": "f428fd3c2149eef348f73d0c8808a92255f9002710a359f2414e029477bdcca1",
+    "report-work-activity/references/engineering-sources.md": "87211b2debe117a72e8237a760e4bd7a9f6eb83286c13c601e5f0f6dd2b4b323",
+    "report-work-activity/references/extraction.md": "4389a5d03c53fe233be6f5eabf4f9bf1004970a8b56699fda444816d9a6c0b43"
+  }
+}
