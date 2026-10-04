@@ -3,7 +3,7 @@
 const atlas = window.SKILL_ATLAS;
 const repositoryInventory = atlas.repositoryInventory;
 const repositorySkills = new Map(repositoryInventory.skills.map((skill) => [skill.name, skill]));
-const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments].map((skill) => [skill.key, skill]));
+const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments, ...atlas.handoffReview.assessments].map((skill) => [skill.key, skill]));
 const originalKeys = new Set(atlas.skills.map((skill) => skill.key));
 const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills, ...atlas.ciCdReview.skills];
 const byKey = new Map(catalogSkills.map((skill) => [skill.key, skill]));
@@ -472,12 +472,21 @@ const conflicts = [
     ]
   },
   {
-    "title": "Temporales, scripts y documentos de transferencia",
-    "kind": "Policy",
-    "before": "handoff de Matt escribe en el temporal del sistema. pstack puede usar .audit o decisions.tsv y su principio del script reutilizable pide un resultado ejecutable para casi todo trabajo no trivial. Tus reglas usan .tmp/<tarea>/ e instrucciones específicas para scripts permanentes.",
-    "after": "Guardar trabajo desechable según la convención del checkout y entregables en su ubicación establecida. No convertir cada operación puntual en un script versionado ni sustituir el protocolo de transferencia.",
+    "title": "Temporary storage is not a handoff conflict",
+    "kind": "Correction",
+    "before": "The earlier atlas treated Matt's OS temporary destination and local transfer machinery as reasons to adapt its handoff skill. The user accepts /tmp and wants a tool-agnostic document capability.",
+    "after": "Keep temporary storage as a valid choice. The concrete portability edit is the literal Skill tool reference. Useful content improvements concern continuation evidence and receiver access; execution transfer belongs to its own owner.",
     "keys": [
-      "Matt Pocock/handoff#L8-L14",
+      "Matt Pocock/handoff#L8-L16",
+      "Compound Engineering/ce-handoff"
+    ]
+  },
+  {
+    "title": "Scratch files and reusable scripts",
+    "kind": "Policy",
+    "before": "pstack may use .audit or decisions.tsv, and its reusable-script principle asks for an executable result for almost every nontrivial task. Local rules distinguish temporary work from scripts that serve a recurring workflow.",
+    "after": "Place disposable task work according to the checkout convention and deliverables in their established location. Do not turn every one-off operation into a versioned script. A requested handoff artifact can use the user-accepted temporary destination.",
+    "keys": [
       "pstack/show-me-your-work#L44-L53",
       "pstack/principle-build-the-lever"
     ]

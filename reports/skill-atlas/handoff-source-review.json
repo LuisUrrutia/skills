@@ -1,0 +1,1439 @@
+{
+  "date": "2026-10-04",
+  "status": "Research complete; small adaptation proposed, no skill created or installed",
+  "baseline": {
+    "head": "f469e701cb62f5c135ecb7fed3806849fdc62c5f",
+    "status": " D walkthrough/SKILL.md\n"
+  },
+  "request": "Review handoff sources across all 19 repositories carried forward from the user-supplied corpus, beyond named skills; reassess direct adoption versus adaptation with a tool-agnostic design and OS temporary storage accepted.",
+  "scope": {
+    "repositories": 19,
+    "trackedPaths": 43935,
+    "materializedInstructionFiles": 17570,
+    "matchingFiles": 1375,
+    "method": "SSH acquisition at the recorded branch tips; complete tracked-path inventories; repository-wide text screening of md, mdx, mdc, rst, txt and license files including hidden directories; selected full reads and explicitly bounded excerpts, plus targeted source-code cross-checks.",
+    "queries": [
+      "handoff|hand-off|hand over|session (continuity|resume|recovery)|resum(e|ing) (a |the )?(previous |prior |existing |interrupted )?(session|work)|next (agent|session)|context (compaction|transfer)|continue-here|continuation (prompt|file)|session-end|session-start|context-manager|pause-work|resume-work",
+      "session-pickup|context (save|restore)|checkpoint|session[- ]report|continuity|working memory|resume state"
+    ],
+    "limits": [
+      "This is not a line-by-line audit of all 43,935 paths or all 1,375 matched files.",
+      "Translations, host mirrors and fixtures contribute to counts and are not independent sources.",
+      "No donor workflow, lifecycle hook or handoff skill was executed, installed or behaviorally evaluated."
+    ]
+  },
+  "correction": {
+    "previous": "The atlas treated OS temporary storage versus .tmp and the local Orca transfer protocol as reasons to adapt Matt handoff.",
+    "finding": "That rationale conflates artifact content with execution transfer. The user accepts OS temporary storage, and generic instructions should not depend on a named host.",
+    "storage": "OS temporary storage and checkout .tmp are both valid when the intended recipient can access the file and its dependencies for the needed lifetime. For another filesystem or longer retention, choose an appropriate accessible destination without inventing transport authorization."
+  },
+  "recommendation": {
+    "decision": "Small adaptation proposed",
+    "base": "Matt Pocock/handoff",
+    "rationale": "Matt is adequate as a manually invoked summary exporter. Strict tool independence requires only replacing the literal Skill tool reference with portable wording. A few additional continuation and evidence decisions would improve usefulness; they are proposed quality improvements, not compatibility requirements. Several already appear in its companion guide. No combined handoff system is justified.",
+    "essentialContent": [
+      "Current objective and relevant scope or authorization, with user decisions distinguished from agent inference.",
+      "Actual done, partial and pending state; relevant repository/revision and dirty state only when useful.",
+      "Next useful action and why; blockers, failed approaches and traps only when they affect continuation.",
+      "Applicable verification evidence and remaining acceptance checks; an unrun check is not a pass.",
+      "Pointers to existing artifacts with what matters there, whether the receiver can access them, and any material lifetime limitation."
+    ],
+    "boundary": "Produce a usable artifact and its location. Creation, receipt and transfer of execution are distinct outcomes. The core does not launch sessions, move worktrees, commit, push, cancel agents or impose a host-specific protocol.",
+    "proportionality": "Use the smallest task-appropriate structure. No obligatory Git section for non-code work, no fixed context threshold, no managed history database, and no fresh session required for an ordinary phase transition.",
+    "alternatives": [
+      "Direct adoption is reasonable if the need is only a short manually requested export and the caller supplies the missing continuation details.",
+      "Compound is the fuller option only if indexed discovery and an explicit orientation-before-action workflow become a real requirement.",
+      "No new skill is needed when the receiving agent already has adequate durable context through the host."
+    ]
+  },
+  "repositories": [
+    {
+      "id": "addy",
+      "repository": "addyosmani/agent-skills",
+      "ref": "main",
+      "remote": "git@github.com:addyosmani/agent-skills.git",
+      "commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+      "trackedPaths": 210,
+      "materializedInstructionFiles": 108,
+      "status": "acquired",
+      "textMatchingFiles": 13,
+      "supplementalMatchingFiles": 5,
+      "inventorySha256": "6e7cec53966fc7c7087b4f4da76d0d1af9b3be9bce9b5feb5e40a09d0ad0ae82",
+      "decision": "Selected supporting concepts",
+      "finding": "Restartable boundaries and explicit separation of continuity content from harness supervision support a tool-agnostic contract.",
+      "readingIds": [
+        "addy:skills/context-engineering/SKILL.md"
+      ]
+    },
+    {
+      "id": "alleneubank",
+      "repository": "alleneubank/agent-profile",
+      "ref": "main",
+      "remote": "git@github.com:alleneubank/agent-profile.git",
+      "commit": "5165b1f1122a4fa888347c6046d10593033748e8",
+      "trackedPaths": 117,
+      "materializedInstructionFiles": 89,
+      "status": "acquired",
+      "textMatchingFiles": 11,
+      "supplementalMatchingFiles": 3,
+      "inventorySha256": "c1f5f2030d1034b1098106c14c563cfe2629688726817a53430e8d3d89e13eab",
+      "decision": "Selected supporting concepts",
+      "finding": "Next action first, verification criteria and ratified versus provisional decisions. Omit coordinator and hunk dependencies and fixed home storage.",
+      "readingIds": [
+        "alleneubank:plugins/agent-workflows/skills/handoff/SKILL.md",
+        "alleneubank:plugins/agent-workflows/skills/hunk-notes/SKILL.md",
+        "alleneubank:plugins/agent-workflows/skills/coordinator/references/files.md",
+        "alleneubank:plugins/agent-workflows/.claude-plugin/plugin.json"
+      ]
+    },
+    {
+      "id": "anthropic",
+      "repository": "anthropics/skills",
+      "ref": "main",
+      "remote": "git@github.com:anthropics/skills.git",
+      "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "trackedPaths": 430,
+      "materializedInstructionFiles": 169,
+      "status": "acquired",
+      "textMatchingFiles": 9,
+      "supplementalMatchingFiles": 1,
+      "inventorySha256": "0201446c73e7947527ae7ba362995e6b07b4c39706cb97f967321d8641ecbedc",
+      "decision": "Service API guidance",
+      "finding": "Managed-agent session lifecycle is API-specific; no dedicated portable handoff donor was identified in the screened corpus.",
+      "readingIds": [
+        "anthropic:skills/claude-api/shared/managed-agents-core.md"
+      ]
+    },
+    {
+      "id": "compound",
+      "repository": "EveryInc/compound-engineering-plugin",
+      "ref": "main",
+      "remote": "git@github.com:EveryInc/compound-engineering-plugin.git",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "trackedPaths": 1452,
+      "materializedInstructionFiles": 840,
+      "status": "acquired",
+      "textMatchingFiles": 218,
+      "supplementalMatchingFiles": 34,
+      "inventorySha256": "7bd304f193c08d2c5c501ca2b3121f9446ad2f8e1816f9cb1dd1948a1ff6dda6",
+      "decision": "Selected supporting concepts",
+      "finding": "Best creation/resume detail: evidence, decision provenance, annotated references and storage access. Do not import its managed discovery system or unconditional resume stop.",
+      "readingIds": [
+        "compound:skills/ce-handoff/SKILL.md",
+        "compound:skills/ce-handoff/references/create.md",
+        "compound:skills/ce-handoff/references/resume.md",
+        "compound:docs/guides/ce-handoff.md",
+        "compound:docs/solutions/skill-design/context-absent-skill-handoff-needs-pinned-invocation.md",
+        "compound:tests/skill-eval-cell/catalog.ts",
+        "compound:tests/skills/ce-handoff-contract.test.ts"
+      ]
+    },
+    {
+      "id": "cursor",
+      "repository": "cursor/plugins",
+      "ref": "main",
+      "remote": "git@github.com:cursor/plugins.git",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "trackedPaths": 890,
+      "materializedInstructionFiles": 504,
+      "status": "acquired",
+      "textMatchingFiles": 29,
+      "supplementalMatchingFiles": 21,
+      "inventorySha256": "0d4b5a3cf30aee0eb2de4353eea35ef6052957b0ed762ddbf222f200de5d54cd",
+      "decision": "Supporting procedures; separate authors",
+      "finding": "pstack pause/pickup, orchestrate worker reports and advisor briefs have distinct owners. Reuse the resume-point and evidence ideas without importing their runtime or automatic WIP behavior.",
+      "readingIds": [
+        "cursor:pstack/skills/poteto-mode/playbooks/session-pickup.md",
+        "cursor:pstack/skills/poteto-mode/playbooks/pause-safely.md",
+        "cursor:pstack/skills/recall/SKILL.md",
+        "cursor:pstack/skills/principle-guard-the-context-window/SKILL.md",
+        "cursor:pstack/skills/poteto-mode/playbooks/orchestrate.md",
+        "cursor:orchestrate/skills/orchestrate/references/handoffs.md",
+        "cursor:orchestrate/skills/orchestrate/prompts/worker.md",
+        "cursor:advisor/skills/advisor/references/briefing-template.md"
+      ]
+    },
+    {
+      "id": "ecc",
+      "repository": "affaan-m/ECC",
+      "ref": "main",
+      "remote": "git@github.com:affaan-m/ECC.git",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "trackedPaths": 4212,
+      "materializedInstructionFiles": 2827,
+      "status": "acquired",
+      "textMatchingFiles": 135,
+      "supplementalMatchingFiles": 82,
+      "inventorySha256": "517fd20bd54a626a22509fbe9338988ec8da708fcaf538a8a9469a771722d4bb",
+      "decision": "Supporting evidence; no separate package",
+      "finding": "Save/resume commands add failure history and verification. Lifecycle hooks and Claude-specific persistence require separate integration.",
+      "readingIds": [
+        "ecc:commands/save-session.md",
+        "ecc:commands/resume-session.md",
+        "ecc:hooks/memory-persistence/README.md",
+        "ecc:skills/strategic-compact/SKILL.md",
+        "ecc:scripts/hooks/session-end.js",
+        "ecc:scripts/hooks/session-start.js"
+      ]
+    },
+    {
+      "id": "gh",
+      "repository": "cli/cli",
+      "ref": "trunk",
+      "remote": "git@github.com:cli/cli.git",
+      "commit": "6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+      "trackedPaths": 1493,
+      "materializedInstructionFiles": 113,
+      "status": "acquired",
+      "textMatchingFiles": 5,
+      "supplementalMatchingFiles": 0,
+      "inventorySha256": "0f5464458429e9f02cdc694ef1e5f964fa3f883af07e1051e65d8a270f750fca",
+      "decision": "CLI operation and recording evidence",
+      "finding": "Hits concern contribution completion and terminal exercise/recording handovers, not a portable conversation exporter. No direct package selected.",
+      "readingIds": []
+    },
+    {
+      "id": "gsd",
+      "repository": "gsd-build/gsd-2",
+      "ref": "main",
+      "remote": "git@github.com:gsd-build/gsd-2.git",
+      "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "trackedPaths": 3613,
+      "materializedInstructionFiles": 759,
+      "status": "acquired",
+      "textMatchingFiles": 53,
+      "supplementalMatchingFiles": 32,
+      "inventorySha256": "5cc859c150029da898b95b9e30d64e3c2cb9ecdc8c8ebed29dd27cfa50cf29f2",
+      "decision": "Selected supporting concepts",
+      "finding": "Preserve the next action and why, recovery artifacts and cold-read checks. Leave milestone paths, task tools and background-job control with its framework.",
+      "readingIds": [
+        "gsd:src/resources/skills/handoff/SKILL.md",
+        "gsd:src/resources/extensions/gsd/prompts/guided-resume-task.md",
+        "gsd:docs/dev/building-coding-agents/18-the-handoff-problem-agent-human-maintainability.md",
+        "gsd:src/resources/extensions/gsd/auto-prompts.ts",
+        "gsd:src/resources/GSD-WORKFLOW.md"
+      ]
+    },
+    {
+      "id": "humanlayer",
+      "repository": "humanlayer/skills",
+      "ref": "main",
+      "remote": "git@github.com:humanlayer/skills.git",
+      "commit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+      "trackedPaths": 41,
+      "materializedInstructionFiles": 27,
+      "status": "acquired",
+      "textMatchingFiles": 0,
+      "supplementalMatchingFiles": 0,
+      "inventorySha256": "4269abf46e804f7ad23141918f72b2977e9541bf7dc001188dc4f6e8caa1e78b",
+      "decision": "Durable feedback; no handoff donor",
+      "finding": "Both text queries found no continuity candidate. Additional path-based inspection found memory templates for standing feedback, explicitly distinct from single-run logs. Control-loop memory retains its own owner.",
+      "readingIds": [
+        "humanlayer:plugins/design-control-loop/skills/design-control-loop/references/memory-template.md",
+        "humanlayer:plugins/build-iterated-agentic-loop/skills/build-iterated-agentic-loop/references/memory-template.md"
+      ]
+    },
+    {
+      "id": "jeffallan",
+      "repository": "Jeffallan/claude-skills",
+      "ref": "main",
+      "remote": "git@github.com:Jeffallan/claude-skills.git",
+      "commit": "1be15d8064f88fc25216442406d40add8fd23b53",
+      "trackedPaths": 567,
+      "materializedInstructionFiles": 509,
+      "status": "acquired",
+      "textMatchingFiles": 3,
+      "supplementalMatchingFiles": 50,
+      "inventorySha256": "5d4c5c0d1592635e9473ebb2df67d802eea296694afd4d2a37d007366e4e1744",
+      "decision": "Context theory and ticket checkpoints",
+      "finding": "Context-management guidance and ticket execution were screened; no direct portable donor adds a material uncovered capability.",
+      "readingIds": [
+        "jeffallan:skills/prompt-engineer/references/context-management.md",
+        "jeffallan:commands/project/execution/execute-ticket.md"
+      ]
+    },
+    {
+      "id": "lobe",
+      "repository": "lobehub/lobehub",
+      "ref": "canary",
+      "remote": "git@github.com:lobehub/lobehub.git",
+      "commit": "5fca09855b45f0286576bde1fdaaf03242eb183b",
+      "trackedPaths": 18098,
+      "materializedInstructionFiles": 858,
+      "status": "acquired",
+      "textMatchingFiles": 22,
+      "supplementalMatchingFiles": 21,
+      "inventorySha256": "cb6778d82293a6323f4266d52aa983a710a546a6c68e95a136717e272a319bcd",
+      "decision": "Product runtime integration",
+      "finding": "External-agent documentation distinguishes history from runtime and filesystem state. Application handoff code is not a local skill package.",
+      "readingIds": [
+        "lobe:docs/usage/agent/connect-external-agents.mdx",
+        "lobe:packages/prompts/src/chains/taskTopicHandoff.ts"
+      ]
+    },
+    {
+      "id": "matt",
+      "repository": "mattpocock/skills",
+      "ref": "main",
+      "remote": "git@github.com:mattpocock/skills.git",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "trackedPaths": 172,
+      "materializedInstructionFiles": 121,
+      "status": "acquired",
+      "textMatchingFiles": 19,
+      "supplementalMatchingFiles": 4,
+      "inventorySha256": "2fbb83c4964070d1f758dce64ea5ce5650b2e59269df4d00885eadfac358adce",
+      "decision": "Base candidate",
+      "finding": "Smallest useful document exporter. Its companion guide already covers portability, forks and fragile references; move the essential continuation decisions into the loaded contract.",
+      "readingIds": [
+        "matt:skills/productivity/handoff/SKILL.md",
+        "matt:docs/productivity/handoff.md",
+        "matt:skills/in-progress/claude-handoff/SKILL.md",
+        "matt:skills/productivity/handoff/agents/openai.yaml"
+      ]
+    },
+    {
+      "id": "mblode",
+      "repository": "mblode/agent-skills",
+      "ref": "main",
+      "remote": "git@github.com:mblode/agent-skills.git",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "trackedPaths": 553,
+      "materializedInstructionFiles": 462,
+      "status": "acquired",
+      "textMatchingFiles": 36,
+      "supplementalMatchingFiles": 13,
+      "inventorySha256": "13ec68ce90977d7f28fc02b46b8cf2ce5dfb294fd702481923ccf769a724d8b2",
+      "decision": "Related task packets",
+      "finding": "Plan handoffs and bug handoffs retain their own owners. No second generic continuity skill is needed from this collection.",
+      "readingIds": [
+        "mblode:skills/planning/references/handoff-plans.md",
+        "mblode:skills/app-verification/references/bug-handoff.md",
+        "mblode:skills/ax-audit/rules-arch/context-no-checkpoint-resume.md"
+      ]
+    },
+    {
+      "id": "mkosir",
+      "repository": "mkosir/typescript-style-guide",
+      "ref": "main",
+      "remote": "git@github.com:mkosir/typescript-style-guide.git",
+      "commit": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+      "trackedPaths": 62,
+      "materializedInstructionFiles": 22,
+      "status": "acquired",
+      "textMatchingFiles": 0,
+      "supplementalMatchingFiles": 0,
+      "inventorySha256": "0a0484416d5bd36c30bf403bd42eea8ea3c43329afc6ae0adce3e74e265535b0",
+      "decision": "No relevant donor identified",
+      "finding": "No matches in the materialized instruction corpus; the repository owns TypeScript style.",
+      "readingIds": []
+    },
+    {
+      "id": "sentimony",
+      "repository": "sentimony/skills",
+      "ref": "main",
+      "remote": "git@github.com:sentimony/skills.git",
+      "commit": "e7ee0fff668e9ebd74a279635f1d04e66446eeec",
+      "trackedPaths": 240,
+      "materializedInstructionFiles": 165,
+      "status": "acquired",
+      "textMatchingFiles": 35,
+      "supplementalMatchingFiles": 2,
+      "inventorySha256": "bae1ff18e0833ecc201b4f4951011ee815dd3707d6000ab985ad3ef7cdd0ac0a",
+      "decision": "Supporting boundary guidance",
+      "finding": "Branch-finish harness guidance separates ownership from capabilities; plan execution choices remain outside the artifact skill.",
+      "readingIds": [
+        "sentimony:skills/branch-finish/references/harness-handling.md",
+        "sentimony:skills/plan-crafting/SKILL.md",
+        "sentimony:skills/branch-finish/references/finish-options.md"
+      ]
+    },
+    {
+      "id": "standard",
+      "repository": "HoangNguyen0403/agent-skills-standard",
+      "ref": "develop",
+      "remote": "git@github.com:HoangNguyen0403/agent-skills-standard.git",
+      "commit": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+      "trackedPaths": 9918,
+      "materializedInstructionFiles": 8874,
+      "status": "acquired",
+      "textMatchingFiles": 340,
+      "supplementalMatchingFiles": 19,
+      "inventorySha256": "dd74f7b884c02f182a7b537761076eaf557e931644f6e1a3b8e1122b05d7d2e1",
+      "decision": "Related systems; no package selected",
+      "finding": "Context optimization and session reports add fixed budgets, workflow routing and mirrored material rather than a smaller handoff contract.",
+      "readingIds": [
+        "standard:skills/common/common-context-optimization/SKILL.md",
+        "standard:skills/common/common-context-optimization/references/compaction.md",
+        "standard:.agents/workflows/session-report.md"
+      ]
+    },
+    {
+      "id": "superpowers",
+      "repository": "obra/superpowers",
+      "ref": "main",
+      "remote": "git@github.com:obra/superpowers.git",
+      "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "trackedPaths": 229,
+      "materializedInstructionFiles": 127,
+      "status": "acquired",
+      "textMatchingFiles": 19,
+      "supplementalMatchingFiles": 3,
+      "inventorySha256": "38728038c19395ed41c860910ff5d8d9ae314ccb661cd245db920cd7f04bfb0d",
+      "decision": "Plan execution boundary",
+      "finding": "Plan-writing and plan-execution handoffs describe another phase of an approved plan, not a portable session exporter.",
+      "readingIds": [
+        "superpowers:skills/writing-plans/SKILL.md",
+        "superpowers:skills/executing-plans/SKILL.md"
+      ]
+    },
+    {
+      "id": "vercel",
+      "repository": "vercel-labs/agent-skills",
+      "ref": "main",
+      "remote": "git@github.com:vercel-labs/agent-skills.git",
+      "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "trackedPaths": 447,
+      "materializedInstructionFiles": 212,
+      "status": "acquired",
+      "textMatchingFiles": 0,
+      "supplementalMatchingFiles": 3,
+      "inventorySha256": "13b91880a80ea1b05661798ea31802c4f0bb5728480597fa1f5fdd23b9151956",
+      "decision": "No relevant donor identified",
+      "finding": "Supplemental hits concern UI transition continuity rather than agent task continuity.",
+      "readingIds": []
+    },
+    {
+      "id": "wshobson",
+      "repository": "wshobson/agents",
+      "ref": "main",
+      "remote": "git@github.com:wshobson/agents.git",
+      "commit": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+      "trackedPaths": 1191,
+      "materializedInstructionFiles": 784,
+      "status": "acquired",
+      "textMatchingFiles": 34,
+      "supplementalMatchingFiles": 101,
+      "inventorySha256": "5af3a5b6afebb75a9c5952d33b599e0bca9f1cc6ae190018c87bc8744cf79661",
+      "decision": "Related systems; no package selected",
+      "finding": "Context save/restore, operating agents, session guards and on-call handovers overlap in vocabulary but differ in responsibility or add excessive machinery.",
+      "readingIds": [
+        "wshobson:plugins/context-management/commands/context-save.md",
+        "wshobson:plugins/context-management/commands/context-restore.md",
+        "wshobson:plugins/operating-kit/agents/session-start.md",
+        "wshobson:plugins/operating-kit/agents/session-end.md",
+        "wshobson:plugins/skill-forge-essentials/skills/session-guard/SKILL.md",
+        "wshobson:plugins/incident-response/skills/on-call-handoff-patterns/SKILL.md"
+      ]
+    }
+  ],
+  "readings": [
+    {
+      "id": "matt:skills/productivity/handoff/SKILL.md",
+      "repositoryId": "matt",
+      "path": "skills/productivity/handoff/SKILL.md",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "sha256": "7c62de979fdc7ac32fb5ddb2146156c917f80ee070d30fadc9d40343c4b6ed25",
+      "lines": 16,
+      "coverage": "Complete file read",
+      "finding": "Small portable conversation artifact; references existing documents and redacts sensitive data. The Skill tool wording is host-specific; the directory choice alone is not an adaptation reason.",
+      "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/handoff/SKILL.md"
+    },
+    {
+      "id": "matt:docs/productivity/handoff.md",
+      "repositoryId": "matt",
+      "path": "docs/productivity/handoff.md",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "sha256": "a8020faa68d0077e8a5701e817817c8858a5f1a70d5b3f16dc8034e7d8df0b44",
+      "lines": 76,
+      "coverage": "Complete file read",
+      "finding": "Explains context crossing and parallel forks, referenced-artifact lifetime, file-path delivery, and the risk of losing why or promoting assumptions to facts.",
+      "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/docs/productivity/handoff.md"
+    },
+    {
+      "id": "matt:skills/in-progress/claude-handoff/SKILL.md",
+      "repositoryId": "matt",
+      "path": "skills/in-progress/claude-handoff/SKILL.md",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "sha256": "6738e8b7c7899ea0038fb7a5c859ca1b90c7b1eb40123dcdbe94c51b5b119f12",
+      "lines": 18,
+      "coverage": "Complete file read",
+      "finding": "A separate background-Claude launcher, not the portable document capability.",
+      "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/in-progress/claude-handoff/SKILL.md"
+    },
+    {
+      "id": "matt:skills/productivity/handoff/agents/openai.yaml",
+      "repositoryId": "matt",
+      "path": "skills/productivity/handoff/agents/openai.yaml",
+      "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+      "sha256": "5c479fd562c691851690e8b18c8501045bef0943c10743d636b2fae26add1d28",
+      "lines": 5,
+      "coverage": "Complete file read",
+      "finding": "Codex metadata exists and disables implicit invocation. Do not describe this source as lacking Codex packaging.",
+      "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/handoff/agents/openai.yaml"
+    },
+    {
+      "id": "compound:skills/ce-handoff/SKILL.md",
+      "repositoryId": "compound",
+      "path": "skills/ce-handoff/SKILL.md",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "sha256": "3fb19a18d8ee00594254d8b495da51c6847563ce23124e8639edc8953f1c62bb",
+      "lines": 54,
+      "coverage": "Complete file read",
+      "finding": "Routes creation and resume, including explicit sources outside its managed store.",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-handoff/SKILL.md"
+    },
+    {
+      "id": "compound:skills/ce-handoff/references/create.md",
+      "repositoryId": "compound",
+      "path": "skills/ce-handoff/references/create.md",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "sha256": "2aecd5b7eab2b738f3102b0f040302daa0550d35339ee0f377c78ef80420075b",
+      "lines": 88,
+      "coverage": "Complete file read",
+      "finding": "Useful current-state distinctions, decision provenance, annotated artifact pointers, exclusive file creation and access checks; managed discovery schema is optional complexity.",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-handoff/references/create.md"
+    },
+    {
+      "id": "compound:skills/ce-handoff/references/resume.md",
+      "repositoryId": "compound",
+      "path": "skills/ce-handoff/references/resume.md",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "sha256": "aa9a27826ccb48656e832e080a4c8afbce52115cd4fe18cfdd540b63c3153337",
+      "lines": 46,
+      "coverage": "Complete file read",
+      "finding": "Explicit source selection, current-state checks and present authority; unconditional confirmation after orientation is not suitable for work already authorized to continue.",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-handoff/references/resume.md"
+    },
+    {
+      "id": "compound:docs/guides/ce-handoff.md",
+      "repositoryId": "compound",
+      "path": "docs/guides/ce-handoff.md",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "sha256": "9846f31216473a3110f0fcd8943d5887e1eabdb7c8bfbe24cb8ad2c3eb38c463",
+      "lines": 170,
+      "coverage": "Selected guide sections read; opening excerpt was truncated",
+      "finding": "Explains flexible storage, same-filesystem discovery, arbitrary readable resume sources and two deliberate confirmation stops.",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/docs/guides/ce-handoff.md"
+    },
+    {
+      "id": "compound:docs/solutions/skill-design/context-absent-skill-handoff-needs-pinned-invocation.md",
+      "repositoryId": "compound",
+      "path": "docs/solutions/skill-design/context-absent-skill-handoff-needs-pinned-invocation.md",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "sha256": "a0d3fadcb89ae0b75960aa4d75a2890e265ba2c63c76bb984023eafd4f082617",
+      "lines": 62,
+      "coverage": "Complete file read",
+      "finding": "A distinct execution-ownership transfer problem at a PR watcher seam; useful separation from simply writing a document.",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/docs/solutions/skill-design/context-absent-skill-handoff-needs-pinned-invocation.md"
+    },
+    {
+      "id": "gsd:src/resources/skills/handoff/SKILL.md",
+      "repositoryId": "gsd",
+      "path": "src/resources/skills/handoff/SKILL.md",
+      "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "sha256": "e01dd69efbbc964d06d702a4289f8552114f468b352a14b7204101a67352f9eb",
+      "lines": 121,
+      "coverage": "Complete file read",
+      "finding": "Next concrete action, rationale, traps and a cold-read test are useful. Milestone/task state paths and gsd task tools are framework-specific.",
+      "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/skills/handoff/SKILL.md"
+    },
+    {
+      "id": "gsd:src/resources/extensions/gsd/prompts/guided-resume-task.md",
+      "repositoryId": "gsd",
+      "path": "src/resources/extensions/gsd/prompts/guided-resume-task.md",
+      "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "sha256": "5b7c521c013ff0de7f631ffa68b9d1fd0a7ab5794cca4220e761b902343c3971",
+      "lines": 1,
+      "coverage": "Complete file read",
+      "finding": "Inspect existing outputs before replacing them and retain the recovery artifact until completion or a newer superseding record.",
+      "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/extensions/gsd/prompts/guided-resume-task.md"
+    },
+    {
+      "id": "gsd:docs/dev/building-coding-agents/18-the-handoff-problem-agent-human-maintainability.md",
+      "repositoryId": "gsd",
+      "path": "docs/dev/building-coding-agents/18-the-handoff-problem-agent-human-maintainability.md",
+      "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "sha256": "5b67f2c4cd16f5a3bc3167b927f1d1c54af9e39b989e40eee9c544439de46eac",
+      "lines": 31,
+      "coverage": "Complete file read",
+      "finding": "Agent-to-human maintainability of code, a different task from session continuity.",
+      "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/docs/dev/building-coding-agents/18-the-handoff-problem-agent-human-maintainability.md"
+    },
+    {
+      "id": "gsd:src/resources/extensions/gsd/auto-prompts.ts",
+      "repositoryId": "gsd",
+      "path": "src/resources/extensions/gsd/auto-prompts.ts",
+      "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "sha256": "a704d3f17405f4bd6799f107bac6827d7bf59c930932a3f5abbb1b6fc701a17f",
+      "lines": 4108,
+      "coverage": "Matched implementation excerpts",
+      "finding": "Targeted implementation cross-check: loads current and legacy continuation artifacts into a resume prompt.",
+      "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/extensions/gsd/auto-prompts.ts",
+      "lineRanges": [
+        [
+          2663,
+          2675
+        ]
+      ]
+    },
+    {
+      "id": "alleneubank:plugins/agent-workflows/skills/handoff/SKILL.md",
+      "repositoryId": "alleneubank",
+      "path": "plugins/agent-workflows/skills/handoff/SKILL.md",
+      "commit": "5165b1f1122a4fa888347c6046d10593033748e8",
+      "sha256": "1f3e4d60312f29e6aab8410a59f3ce1e356bd0c63a952c0683800612b6b88af6",
+      "lines": 73,
+      "coverage": "Complete file read",
+      "finding": "Next action first, acceptance evidence, decision ratification and task boundaries; fixed home storage, coordinator and hunk integrations need not travel into a generic skill.",
+      "url": "https://github.com/alleneubank/agent-profile/blob/5165b1f1122a4fa888347c6046d10593033748e8/plugins/agent-workflows/skills/handoff/SKILL.md"
+    },
+    {
+      "id": "alleneubank:plugins/agent-workflows/skills/hunk-notes/SKILL.md",
+      "repositoryId": "alleneubank",
+      "path": "plugins/agent-workflows/skills/hunk-notes/SKILL.md",
+      "commit": "5165b1f1122a4fa888347c6046d10593033748e8",
+      "sha256": "6bb1cd01ab0c00ddcc38ed33d5db9784cc8d6902952429996b58e434e875510b",
+      "lines": 114,
+      "coverage": "Complete file read",
+      "finding": "Diff-viewer sidecar ownership is separate; do not require this integration for handoff.",
+      "url": "https://github.com/alleneubank/agent-profile/blob/5165b1f1122a4fa888347c6046d10593033748e8/plugins/agent-workflows/skills/hunk-notes/SKILL.md"
+    },
+    {
+      "id": "alleneubank:plugins/agent-workflows/skills/coordinator/references/files.md",
+      "repositoryId": "alleneubank",
+      "path": "plugins/agent-workflows/skills/coordinator/references/files.md",
+      "commit": "5165b1f1122a4fa888347c6046d10593033748e8",
+      "sha256": "f54e98fbeb1cca324f5261a40bc1ccfc6677c0fbda8eb6fa02178aefe6cbb9a1",
+      "lines": 153,
+      "coverage": "Complete file read",
+      "finding": "Campaign charter, grants, lanes and control-loop storage are a separate coordinator system.",
+      "url": "https://github.com/alleneubank/agent-profile/blob/5165b1f1122a4fa888347c6046d10593033748e8/plugins/agent-workflows/skills/coordinator/references/files.md"
+    },
+    {
+      "id": "addy:skills/context-engineering/SKILL.md",
+      "repositoryId": "addy",
+      "path": "skills/context-engineering/SKILL.md",
+      "commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+      "sha256": "8b736cb9e55b82b265ab6ff78349c0e826e8a6df550deddf665b7fb3ff858b63",
+      "lines": 353,
+      "coverage": "Complete file read",
+      "finding": "Restartable session boundaries connect state, evidence and remaining work while explicitly separating the contract from harness supervision.",
+      "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/context-engineering/SKILL.md"
+    },
+    {
+      "id": "ecc:commands/save-session.md",
+      "repositoryId": "ecc",
+      "path": "commands/save-session.md",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "sha256": "a9488a8819d6c65fe4777f07ea72de6b0c4ee94f90c6bb33b3b8841916222db4",
+      "lines": 275,
+      "coverage": "Complete file read",
+      "finding": "Useful failed attempts, verification and first next step; fixed Claude storage, full template and confirmation would make a generic artifact unnecessarily rigid.",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/commands/save-session.md"
+    },
+    {
+      "id": "ecc:commands/resume-session.md",
+      "repositoryId": "ecc",
+      "path": "commands/resume-session.md",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "sha256": "b09bcb22feb10adbba50accd5dd97d09b60897aa94d05c6c12b6e579cb69cbac",
+      "lines": 181,
+      "coverage": "Complete file read",
+      "finding": "Session discovery and fixed orientation/confirmation are a separate resume workflow, not needed to write an export.",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/commands/resume-session.md"
+    },
+    {
+      "id": "ecc:hooks/memory-persistence/README.md",
+      "repositoryId": "ecc",
+      "path": "hooks/memory-persistence/README.md",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "sha256": "020dc83bf19a4d0a887ee0683c087ebf14fc77f01d178e271277d6912a31bdf5",
+      "lines": 44,
+      "coverage": "Complete file read",
+      "finding": "Lifecycle hooks implement automatic memory persistence; automation requires host integration beyond a text skill.",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/hooks/memory-persistence/README.md"
+    },
+    {
+      "id": "ecc:skills/strategic-compact/SKILL.md",
+      "repositoryId": "ecc",
+      "path": "skills/strategic-compact/SKILL.md",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "sha256": "44a71c6dcc3fdde8061b8a78296c5d37233e4accc8cf3c794e29ac5b9f2eee28",
+      "lines": 156,
+      "coverage": "Opening and configuration excerpts",
+      "finding": "Adjacent Claude compaction hooks and fixed thresholds; no direct donor selected.",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/strategic-compact/SKILL.md"
+    },
+    {
+      "id": "ecc:scripts/hooks/session-end.js",
+      "repositoryId": "ecc",
+      "path": "scripts/hooks/session-end.js",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "sha256": "dad58b43af2ea3ed46ec802334d65c5cf327998b6ce818b5a3e6c482088e2730",
+      "lines": 360,
+      "coverage": "Selected implementation excerpts",
+      "finding": "Selected implementation excerpts show transcript summarization and re-entry protection; no hook execution was performed.",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/scripts/hooks/session-end.js",
+      "lineRanges": [
+        [
+          1,
+          30
+        ],
+        [
+          194,
+          215
+        ],
+        [
+          227,
+          254
+        ]
+      ]
+    },
+    {
+      "id": "cursor:pstack/skills/poteto-mode/playbooks/session-pickup.md",
+      "repositoryId": "cursor",
+      "path": "pstack/skills/poteto-mode/playbooks/session-pickup.md",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "sha256": "1604fb463f7c7410d43fa024ca76c1c1824c166a01fd69d61f073d06fdca2a47",
+      "lines": 11,
+      "coverage": "Complete file read",
+      "finding": "Recover the actual resume point from scoped history and current artifacts, avoid repeating completed work, and verify inherited claims. Transcript locations and runtime routing remain host concerns.",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/poteto-mode/playbooks/session-pickup.md"
+    },
+    {
+      "id": "cursor:pstack/skills/poteto-mode/playbooks/pause-safely.md",
+      "repositoryId": "cursor",
+      "path": "pstack/skills/poteto-mode/playbooks/pause-safely.md",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "sha256": "77968cfe5f4a71a8cd33e0ae8ffcdbd88dd693a212c240457773e6c40c96c21d",
+      "lines": 10,
+      "coverage": "Complete file read",
+      "finding": "Explicit safe pause can write /tmp resume notes. Automatic WIP commits and nested-agent cancellation belong to a pause workflow, not a generic document export.",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/poteto-mode/playbooks/pause-safely.md"
+    },
+    {
+      "id": "cursor:pstack/skills/recall/SKILL.md",
+      "repositoryId": "cursor",
+      "path": "pstack/skills/recall/SKILL.md",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "sha256": "d265b0e5b6dc5b89c0407f3387d24462c988e1990a37d5359735137908128c5a",
+      "lines": 35,
+      "coverage": "Complete file read",
+      "finding": "Memory retrieval is complementary to authoring a handoff; it should not become mandatory transcript mining.",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/recall/SKILL.md"
+    },
+    {
+      "id": "cursor:pstack/skills/principle-guard-the-context-window/SKILL.md",
+      "repositoryId": "cursor",
+      "path": "pstack/skills/principle-guard-the-context-window/SKILL.md",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "sha256": "d2cef147862576e3d709b7afc149d85196245e8338b9c7eef337c95fba412b3e",
+      "lines": 16,
+      "coverage": "Complete file read",
+      "finding": "Keep large payloads out of the main context; broad context management is not a separate handoff system.",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-guard-the-context-window/SKILL.md"
+    },
+    {
+      "id": "cursor:pstack/skills/poteto-mode/playbooks/orchestrate.md",
+      "repositoryId": "cursor",
+      "path": "pstack/skills/poteto-mode/playbooks/orchestrate.md",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "sha256": "d42b4375f1bd4ce23da0b575a198571a2117df7eea10c3c9fc6d92ae1053f7be",
+      "lines": 111,
+      "coverage": "Selected orchestration excerpts",
+      "finding": "Runtime frontier and work-ledger machinery is outside the portable artifact scope.",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/poteto-mode/playbooks/orchestrate.md"
+    },
+    {
+      "id": "cursor:orchestrate/skills/orchestrate/references/handoffs.md",
+      "repositoryId": "cursor",
+      "path": "orchestrate/skills/orchestrate/references/handoffs.md",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "sha256": "6e7a7da17a8a3fdb250e865335717085657e1e41642afd4415104d3640391999",
+      "lines": 194,
+      "coverage": "Complete file read",
+      "finding": "Structured worker outcomes, deliverables and evidence are useful; cloud-agent and merge ownership semantics are a different workflow.",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/orchestrate/skills/orchestrate/references/handoffs.md"
+    },
+    {
+      "id": "cursor:orchestrate/skills/orchestrate/prompts/worker.md",
+      "repositoryId": "cursor",
+      "path": "orchestrate/skills/orchestrate/prompts/worker.md",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "sha256": "55dca9c9cb2b61e7d3a16c4bbccb5a6cb04808c60adee96726598e943eac4192",
+      "lines": 70,
+      "coverage": "Complete file read",
+      "finding": "Final worker messages are a constrained transport in this orchestrator, not a general continuation document.",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/orchestrate/skills/orchestrate/prompts/worker.md"
+    },
+    {
+      "id": "cursor:advisor/skills/advisor/references/briefing-template.md",
+      "repositoryId": "cursor",
+      "path": "advisor/skills/advisor/references/briefing-template.md",
+      "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "sha256": "16d5140b8cecb6b9a75dc10ca0fff4b162e632107690b6eb29656b41c9468066",
+      "lines": 44,
+      "coverage": "Complete file read",
+      "finding": "A question-focused consultation packet, useful as a scope distinction rather than a universal template.",
+      "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/advisor/skills/advisor/references/briefing-template.md"
+    },
+    {
+      "id": "mblode:skills/planning/references/handoff-plans.md",
+      "repositoryId": "mblode",
+      "path": "skills/planning/references/handoff-plans.md",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "sha256": "9e4b0ae268d5f3ba119a2b2b8d1e812dfe96119e3488eab1be5dc10991db2db3",
+      "lines": 60,
+      "coverage": "Complete file read",
+      "finding": "Plan clarity, open decisions and verification are useful; copying contractual excerpts belongs to an implementation plan rather than every session snapshot.",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/planning/references/handoff-plans.md"
+    },
+    {
+      "id": "mblode:skills/app-verification/references/bug-handoff.md",
+      "repositoryId": "mblode",
+      "path": "skills/app-verification/references/bug-handoff.md",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "sha256": "05aa4bd76aa06daa6bc866c42c5ad7b8b965ae86d1bb4f3d4d2c4941725b1e21",
+      "lines": 64,
+      "coverage": "Complete file read",
+      "finding": "Bug triage and reproduction deliverable with its own verdict format; retain verification ownership.",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/app-verification/references/bug-handoff.md"
+    },
+    {
+      "id": "mblode:skills/ax-audit/rules-arch/context-no-checkpoint-resume.md",
+      "repositoryId": "mblode",
+      "path": "skills/ax-audit/rules-arch/context-no-checkpoint-resume.md",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "sha256": "a29872f96c5f85aacc47693dd45192206d77e952f7de675793312599ecb27a37",
+      "lines": 91,
+      "coverage": "Complete file read",
+      "finding": "Persistent runtime recovery is an implementation concern, not satisfied by a prose handoff alone.",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ax-audit/rules-arch/context-no-checkpoint-resume.md"
+    },
+    {
+      "id": "wshobson:plugins/context-management/commands/context-save.md",
+      "repositoryId": "wshobson",
+      "path": "plugins/context-management/commands/context-save.md",
+      "commit": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+      "sha256": "882d900c18e086894e5a014b56de4156d5cb2a7e3dd902f98bf8aaf49f6f00cc",
+      "lines": 181,
+      "coverage": "Complete file read",
+      "finding": "Context databases, embeddings and graph reconstruction are excessive for the requested portable artifact.",
+      "url": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/context-management/commands/context-save.md"
+    },
+    {
+      "id": "wshobson:plugins/context-management/commands/context-restore.md",
+      "repositoryId": "wshobson",
+      "path": "plugins/context-management/commands/context-restore.md",
+      "commit": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+      "sha256": "184a7f9d2601ac066e2acd3b92c5b9638ba85d92b913a928a44e41fcad90afeb",
+      "lines": 175,
+      "coverage": "Complete file read",
+      "finding": "Broad restoration infrastructure; no separate package selected.",
+      "url": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/context-management/commands/context-restore.md"
+    },
+    {
+      "id": "wshobson:plugins/operating-kit/agents/session-start.md",
+      "repositoryId": "wshobson",
+      "path": "plugins/operating-kit/agents/session-start.md",
+      "commit": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+      "sha256": "bab1f20236a73a7c915d9beb747a3691b8ea7b2873664a2b255e3e4e09ec03f2",
+      "lines": 75,
+      "coverage": "Complete file read",
+      "finding": "Useful state-versus-memory reconciliation, but supplied as a configured operating agent.",
+      "url": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/operating-kit/agents/session-start.md"
+    },
+    {
+      "id": "wshobson:plugins/operating-kit/agents/session-end.md",
+      "repositoryId": "wshobson",
+      "path": "plugins/operating-kit/agents/session-end.md",
+      "commit": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+      "sha256": "9899aa7264b1d8c8c42f8d38f632800d1584198c5ac88e24b531a775ce308163",
+      "lines": 62,
+      "coverage": "Complete file read",
+      "finding": "State updates and crash recovery overlap useful concepts; agent tools and documentation mutations are not part of export.",
+      "url": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/operating-kit/agents/session-end.md"
+    },
+    {
+      "id": "wshobson:plugins/skill-forge-essentials/skills/session-guard/SKILL.md",
+      "repositoryId": "wshobson",
+      "path": "plugins/skill-forge-essentials/skills/session-guard/SKILL.md",
+      "commit": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+      "sha256": "2bdc028582d5a6b818155153ec27e23c0fa088a65b8fbe09278927dfdbce72ce",
+      "lines": 85,
+      "coverage": "Complete file read",
+      "finding": "Fixed tool-count limits and recitation rules have no established fit for this task.",
+      "url": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/skill-forge-essentials/skills/session-guard/SKILL.md"
+    },
+    {
+      "id": "wshobson:plugins/incident-response/skills/on-call-handoff-patterns/SKILL.md",
+      "repositoryId": "wshobson",
+      "path": "plugins/incident-response/skills/on-call-handoff-patterns/SKILL.md",
+      "commit": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+      "sha256": "46d03bf3a2922e77d0393dc6c0f0342056a25af15bee7c7523b0adc6d1e5d49e",
+      "lines": 70,
+      "coverage": "Complete file read",
+      "finding": "Human shift handover and incident operations are a different capability; linked procedures were not audited.",
+      "url": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/incident-response/skills/on-call-handoff-patterns/SKILL.md"
+    },
+    {
+      "id": "standard:skills/common/common-context-optimization/SKILL.md",
+      "repositoryId": "standard",
+      "path": "skills/common/common-context-optimization/SKILL.md",
+      "commit": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+      "sha256": "0c292b0274a1068e2c92de1cd55ac2eeaf424d0cf27e0a1cb0e2ccd15483709b",
+      "lines": 60,
+      "coverage": "Complete file read",
+      "finding": "State-oriented compression is relevant but adds no decisive gap over the selected sources.",
+      "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/common/common-context-optimization/SKILL.md"
+    },
+    {
+      "id": "standard:skills/common/common-context-optimization/references/compaction.md",
+      "repositoryId": "standard",
+      "path": "skills/common/common-context-optimization/references/compaction.md",
+      "commit": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+      "sha256": "598da410fffca4ad008ba537e24790136a313290776f17739644e111f6ef49eb",
+      "lines": 28,
+      "coverage": "Complete file read",
+      "finding": "Fixed turn/token thresholds and prescribed memory handling are not needed in a portable document contract.",
+      "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/common/common-context-optimization/references/compaction.md"
+    },
+    {
+      "id": "standard:.agents/workflows/session-report.md",
+      "repositoryId": "standard",
+      "path": ".agents/workflows/session-report.md",
+      "commit": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+      "sha256": "aee4efb586f9969e968e56cf7365b2a397a4f2dec2547cc5aeb04c326b617d2e",
+      "lines": 66,
+      "coverage": "Complete file read",
+      "finding": "Evidence reporting plus repository-specific workflow and telemetry requirements; not selected as a handoff package.",
+      "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/.agents/workflows/session-report.md"
+    },
+    {
+      "id": "sentimony:skills/branch-finish/references/harness-handling.md",
+      "repositoryId": "sentimony",
+      "path": "skills/branch-finish/references/harness-handling.md",
+      "commit": "e7ee0fff668e9ebd74a279635f1d04e66446eeec",
+      "sha256": "d79815af88ec5b54323ad6512ea005621c38fdf5c47095cdc20bcb8e17e5f7c8",
+      "lines": 79,
+      "coverage": "Complete file read",
+      "finding": "Capability and ownership boundaries are portable ideas; branch completion remains a separate workflow.",
+      "url": "https://github.com/sentimony/skills/blob/e7ee0fff668e9ebd74a279635f1d04e66446eeec/skills/branch-finish/references/harness-handling.md"
+    },
+    {
+      "id": "sentimony:skills/plan-crafting/SKILL.md",
+      "repositoryId": "sentimony",
+      "path": "skills/plan-crafting/SKILL.md",
+      "commit": "e7ee0fff668e9ebd74a279635f1d04e66446eeec",
+      "sha256": "f0a38e6db6316ab1b896c3c0d98523d7f4d8e93eab21ab8ee8c91863c4e66db0",
+      "lines": 218,
+      "coverage": "Scope excerpts",
+      "finding": "Execution routing for a plan is adjacent, rather than a session continuity artifact.",
+      "url": "https://github.com/sentimony/skills/blob/e7ee0fff668e9ebd74a279635f1d04e66446eeec/skills/plan-crafting/SKILL.md",
+      "lineRanges": [
+        [
+          183,
+          206
+        ]
+      ]
+    },
+    {
+      "id": "jeffallan:skills/prompt-engineer/references/context-management.md",
+      "repositoryId": "jeffallan",
+      "path": "skills/prompt-engineer/references/context-management.md",
+      "commit": "1be15d8064f88fc25216442406d40add8fd23b53",
+      "sha256": "7baceb0abd3cbac9e911fa48bfbc97965f122fe53b93e9967c002bfbdcd1b66b",
+      "lines": 198,
+      "coverage": "Complete file read",
+      "finding": "General context packing, caching and retrieval guidance; no stronger direct handoff source identified.",
+      "url": "https://github.com/Jeffallan/claude-skills/blob/1be15d8064f88fc25216442406d40add8fd23b53/skills/prompt-engineer/references/context-management.md"
+    },
+    {
+      "id": "jeffallan:commands/project/execution/execute-ticket.md",
+      "repositoryId": "jeffallan",
+      "path": "commands/project/execution/execute-ticket.md",
+      "commit": "1be15d8064f88fc25216442406d40add8fd23b53",
+      "sha256": "3c0bc8132d790b6f5458debf172f6cfa7556093f1a35fb45defe937dafa73e5f",
+      "lines": 297,
+      "coverage": "Scope excerpts",
+      "finding": "Ticket checkpoints depend on the issue workflow; no portable package selected.",
+      "url": "https://github.com/Jeffallan/claude-skills/blob/1be15d8064f88fc25216442406d40add8fd23b53/commands/project/execution/execute-ticket.md",
+      "lineRanges": [
+        [
+          42,
+          44
+        ],
+        [
+          96,
+          99
+        ],
+        [
+          113,
+          130
+        ]
+      ]
+    },
+    {
+      "id": "lobe:docs/usage/agent/connect-external-agents.mdx",
+      "repositoryId": "lobe",
+      "path": "docs/usage/agent/connect-external-agents.mdx",
+      "commit": "5fca09855b45f0286576bde1fdaaf03242eb183b",
+      "sha256": "e8c91b020ec84719b5586635f9226375dcb02f6658522c1f95408b90ac0d0152",
+      "lines": 211,
+      "coverage": "Scope excerpts",
+      "finding": "Useful distinction between saved conversation and machine-local runtime/files, but this is product integration documentation.",
+      "url": "https://github.com/lobehub/lobehub/blob/5fca09855b45f0286576bde1fdaaf03242eb183b/docs/usage/agent/connect-external-agents.mdx",
+      "lineRanges": [
+        [
+          112,
+          125
+        ],
+        [
+          149,
+          156
+        ]
+      ]
+    },
+    {
+      "id": "anthropic:skills/claude-api/shared/managed-agents-core.md",
+      "repositoryId": "anthropic",
+      "path": "skills/claude-api/shared/managed-agents-core.md",
+      "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+      "sha256": "1d2e548fcdbf5291d20dde57a5463cbfbf7db22ce9ac1bb307af98c5d302451b",
+      "lines": 359,
+      "coverage": "Scope excerpts",
+      "finding": "Service-specific session lifecycle and compaction, not a portable local handoff contract.",
+      "url": "https://github.com/anthropics/skills/blob/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4/skills/claude-api/shared/managed-agents-core.md",
+      "lineRanges": [
+        [
+          52,
+          57
+        ],
+        [
+          173,
+          204
+        ],
+        [
+          343,
+          348
+        ]
+      ]
+    },
+    {
+      "id": "superpowers:skills/writing-plans/SKILL.md",
+      "repositoryId": "superpowers",
+      "path": "skills/writing-plans/SKILL.md",
+      "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "sha256": "a6c67c1900064347c2a329990dd3c555657c51c3ec53b259a08aa01a2c26139a",
+      "lines": 204,
+      "coverage": "Scope excerpts",
+      "finding": "Execution handoff of an implementation plan, not an independent snapshot capability.",
+      "url": "https://github.com/obra/superpowers/blob/8ca22dba9a94f28898bbce59f2537ff4d87c747d/skills/writing-plans/SKILL.md",
+      "lineRanges": [
+        [
+          179,
+          200
+        ]
+      ]
+    },
+    {
+      "id": "superpowers:skills/executing-plans/SKILL.md",
+      "repositoryId": "superpowers",
+      "path": "skills/executing-plans/SKILL.md",
+      "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "sha256": "f38e8f2ddcf079f65493adc713c1fed78421dfaf5f4dbf6b3a6b2b1d95466e71",
+      "lines": 373,
+      "coverage": "Scope excerpts",
+      "finding": "Execution ledger continuity belongs to plan execution; selected scope excerpts only.",
+      "url": "https://github.com/obra/superpowers/blob/8ca22dba9a94f28898bbce59f2537ff4d87c747d/skills/executing-plans/SKILL.md",
+      "lineRanges": [
+        [
+          112,
+          144
+        ],
+        [
+          219,
+          232
+        ]
+      ]
+    },
+    {
+      "id": "humanlayer:plugins/design-control-loop/skills/design-control-loop/references/memory-template.md",
+      "repositoryId": "humanlayer",
+      "path": "plugins/design-control-loop/skills/design-control-loop/references/memory-template.md",
+      "commit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+      "sha256": "df37b1f52cdfdb804f71f5e5e8fccd1174e9a217d6fbf603951beb1039ce06e1",
+      "lines": 7,
+      "coverage": "Complete file read",
+      "finding": "Standing feedback is durable guidance for future runs, explicitly excluding single-run logs; a different owner from a handoff snapshot.",
+      "url": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/plugins/design-control-loop/skills/design-control-loop/references/memory-template.md"
+    },
+    {
+      "id": "humanlayer:plugins/build-iterated-agentic-loop/skills/build-iterated-agentic-loop/references/memory-template.md",
+      "repositoryId": "humanlayer",
+      "path": "plugins/build-iterated-agentic-loop/skills/build-iterated-agentic-loop/references/memory-template.md",
+      "commit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+      "sha256": "0e819e4a6b950ce3f000f1ce29eaf8822038b1cc7ef74e620d415250e2876167",
+      "lines": 7,
+      "coverage": "Complete file read",
+      "finding": "A short durable-guidance template, not a conversation export.",
+      "url": "https://github.com/humanlayer/skills/blob/ca7c8088db69e315a8b2deea43820270457f8f3c/plugins/build-iterated-agentic-loop/skills/build-iterated-agentic-loop/references/memory-template.md"
+    },
+    {
+      "id": "sentimony:skills/branch-finish/references/finish-options.md",
+      "repositoryId": "sentimony",
+      "path": "skills/branch-finish/references/finish-options.md",
+      "commit": "e7ee0fff668e9ebd74a279635f1d04e66446eeec",
+      "sha256": "59e0edff263e6476923c48356bf358ddef4867e8882ab79a913bc3f5450cc70d",
+      "lines": 192,
+      "coverage": "Scope excerpts",
+      "finding": "Preserved workspace, HEAD, verification and commits at risk are useful conditional state; branch completion owns the operational handoff.",
+      "url": "https://github.com/sentimony/skills/blob/e7ee0fff668e9ebd74a279635f1d04e66446eeec/skills/branch-finish/references/finish-options.md",
+      "lineRanges": [
+        [
+          138,
+          176
+        ]
+      ]
+    },
+    {
+      "id": "ecc:scripts/hooks/session-start.js",
+      "repositoryId": "ecc",
+      "path": "scripts/hooks/session-start.js",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "sha256": "7e26a5f0812a3717d053367d9b4db2f70e9d40434b7a05c849051266e8c1e75c",
+      "lines": 840,
+      "coverage": "Documented selection contract excerpt",
+      "finding": "The startup hook documents repository-affinity selection, unlike the separate resume command. This contract excerpt is not an audit of the implementation.",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/scripts/hooks/session-start.js",
+      "lineRanges": [
+        [
+          253,
+          285
+        ]
+      ]
+    },
+    {
+      "id": "lobe:packages/prompts/src/chains/taskTopicHandoff.ts",
+      "repositoryId": "lobe",
+      "path": "packages/prompts/src/chains/taskTopicHandoff.ts",
+      "commit": "5fca09855b45f0286576bde1fdaaf03242eb183b",
+      "sha256": "a3eace94a8b485cbfad8ca6d9dc91e68b2d78b09e673a3531eb7ee2cb2a54f50",
+      "lines": 74,
+      "coverage": "Prompt and interface excerpt",
+      "finding": "The product summarizes a completed topic from its final assistant response. It does not export all in-flight session state.",
+      "url": "https://github.com/lobehub/lobehub/blob/5fca09855b45f0286576bde1fdaaf03242eb183b/packages/prompts/src/chains/taskTopicHandoff.ts",
+      "lineRanges": [
+        [
+          1,
+          50
+        ]
+      ]
+    },
+    {
+      "id": "gsd:src/resources/GSD-WORKFLOW.md",
+      "repositoryId": "gsd",
+      "path": "src/resources/GSD-WORKFLOW.md",
+      "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "sha256": "5bb971cf990c0e050c4773a9a1df7c62be7f0d56dd42199d89e491157291b8c2",
+      "lines": 664,
+      "coverage": "Resume procedure excerpt",
+      "finding": "The workflow says to delete continue.md immediately after reading it, unlike guided-resume-task.md. Do not import this lifecycle without resolving that discrepancy.",
+      "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/GSD-WORKFLOW.md",
+      "lineRanges": [
+        [
+          505,
+          526
+        ]
+      ]
+    },
+    {
+      "id": "compound:tests/skill-eval-cell/catalog.ts",
+      "repositoryId": "compound",
+      "path": "tests/skill-eval-cell/catalog.ts",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "sha256": "c70424f91a89fe33077513ed8c93dbb78f4a30c1e28d84baa0e64a31861af24e",
+      "lines": 3550,
+      "coverage": "Handoff evaluation definition excerpt",
+      "finding": "Defines an evaluation that requires no action after an explicit request to resume and continue. Scenario presence is not an observed passing run, and the expected stop does not match the desired continuation policy.",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/tests/skill-eval-cell/catalog.ts",
+      "lineRanges": [
+        [
+          1806,
+          1824
+        ]
+      ]
+    },
+    {
+      "id": "compound:tests/skills/ce-handoff-contract.test.ts",
+      "repositoryId": "compound",
+      "path": "tests/skills/ce-handoff-contract.test.ts",
+      "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+      "sha256": "c14d30b8d0c05573be6665d95986150b717b34899b26f3e44bdf4e53752ce9c2",
+      "lines": 193,
+      "coverage": "Contract-test excerpt",
+      "finding": "Inspected tests assert instruction text and metadata. These checks are not evidence of successful creation or continuation.",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/tests/skills/ce-handoff-contract.test.ts",
+      "lineRanges": [
+        [
+          33,
+          82
+        ]
+      ]
+    },
+    {
+      "id": "alleneubank:plugins/agent-workflows/.claude-plugin/plugin.json",
+      "repositoryId": "alleneubank",
+      "path": "plugins/agent-workflows/.claude-plugin/plugin.json",
+      "commit": "5165b1f1122a4fa888347c6046d10593033748e8",
+      "sha256": "e629c4517b3e9ebbaa460c733bd8a3f03fd8adb9fc05aa9f63e4c7beb50a20c3",
+      "lines": 13,
+      "coverage": "Complete file read",
+      "finding": "Plugin metadata declares MIT; no LICENSE or COPYING path was found in the complete pinned inventory. This review uses ideas and references, not copied source text.",
+      "url": "https://github.com/alleneubank/agent-profile/blob/5165b1f1122a4fa888347c6046d10593033748e8/plugins/agent-workflows/.claude-plugin/plugin.json"
+    }
+  ],
+  "candidates": [
+    {
+      "id": "matt",
+      "title": "Matt Pocock · handoff",
+      "role": "Recommended base",
+      "does": "Writes a short, focused conversation export with artifact references and suggested skills.",
+      "keep": "Keep its small scope, references instead of copied plans, sensitive-data redaction and ability to hand off a side task while the original conversation continues.",
+      "change": "Use portable skill-loading language and make continuation state, evidence, decision provenance and accessible references explicit in the loaded instructions. Codex metadata already exists.",
+      "sources": [
+        "matt:skills/productivity/handoff/SKILL.md",
+        "matt:docs/productivity/handoff.md"
+      ]
+    },
+    {
+      "id": "compound",
+      "title": "Compound Engineering · ce-handoff",
+      "role": "Source of selected creation and resume safeguards",
+      "does": "Creates a continuity document, discovers saved handoffs and orients a new session from an explicitly selected source.",
+      "keep": "Annotate pointers with what matters, distinguish completed and pending work, preserve user intent versus agent inference, check current state and avoid overwriting another artifact.",
+      "change": "A managed store, indexed discovery and compulsory confirmation after every resume exceed the requested export capability. Respect a present request to continue; an old document alone does not authorize new work.",
+      "sources": [
+        "compound:skills/ce-handoff/SKILL.md",
+        "compound:skills/ce-handoff/references/create.md",
+        "compound:skills/ce-handoff/references/resume.md",
+        "compound:tests/skill-eval-cell/catalog.ts",
+        "compound:tests/skills/ce-handoff-contract.test.ts"
+      ]
+    },
+    {
+      "id": "alleneubank",
+      "title": "Allen Eubank · agent-profile handoff",
+      "role": "Source of concise continuation content",
+      "does": "Captures task state for another agent, with the next action first and explicit acceptance and decisions.",
+      "keep": "Put the useful next step up front; preserve acceptance evidence and whether decisions were confirmed or still provisional.",
+      "change": "Do not require ~/.handoffs, a coordinator charter, a hunk sidecar or a fresh session after every ship/pivot/wait event. Git details are conditional on the task.",
+      "sources": [
+        "alleneubank:plugins/agent-workflows/skills/handoff/SKILL.md"
+      ]
+    },
+    {
+      "id": "gsd",
+      "title": "GSD · handoff and guided resume",
+      "role": "Source of recovery discipline",
+      "does": "Checkpoints active work inside its milestone/task system and recovers it through continuation artifacts.",
+      "keep": "Record the next action and its reason, partial outputs, useful failed attempts and traps. A cold reader should know how to continue. Keep needed recovery material until superseded or complete.",
+      "change": "Leave .gsd paths, GSD task tools, state regeneration and background-job control with their existing owners. Its workflow and guided-resume prompt disagree about deleting the recovery document, another reason not to import that lifecycle wholesale.",
+      "sources": [
+        "gsd:src/resources/skills/handoff/SKILL.md",
+        "gsd:src/resources/extensions/gsd/prompts/guided-resume-task.md",
+        "gsd:src/resources/GSD-WORKFLOW.md"
+      ]
+    },
+    {
+      "id": "pstack",
+      "title": "Lauren Tan · pstack pause and pickup",
+      "role": "Supporting procedures",
+      "does": "Stops explicitly requested work at a resumable boundary and reconstructs a resume point from the prior trail and current artifacts.",
+      "keep": "Carry the actual resume point, known verification and links to existing evidence; avoid repeating completed investigation.",
+      "change": "Writing a handoff does not imply a pause, automatic WIP commit or nested-agent cancellation. Reconcile inherited claims with relevant current artifacts rather than trusting a self-report or restarting everything.",
+      "sources": [
+        "cursor:pstack/skills/poteto-mode/playbooks/pause-safely.md",
+        "cursor:pstack/skills/poteto-mode/playbooks/session-pickup.md"
+      ]
+    },
+    {
+      "id": "addy-ecc",
+      "title": "Addy Osmani and ECC",
+      "role": "Supporting continuity guidance",
+      "does": "Addy describes restartable boundaries; ECC supplies save/resume commands and lifecycle persistence.",
+      "keep": "Record relevant checks with outcomes, fragile local state, failed attempts that constrain the next step, and remaining work. Keep content separate from harness supervision.",
+      "change": "Do not add fixed context thresholds, automatic hooks, Claude directories or a long mandatory template to a small portable artifact skill.",
+      "sources": [
+        "addy:skills/context-engineering/SKILL.md",
+        "ecc:commands/save-session.md",
+        "ecc:hooks/memory-persistence/README.md"
+      ]
+    }
+  ],
+  "consultation": {
+    "status": "completed",
+    "method": "Two independent initial source reviews in fresh contexts, with the same complete common brief and frozen repository corpus. Neither received the coordinator verdict or the other review before responding. The coordinator checked disputed claims against primary source files.",
+    "briefSha256": "056b131de8ca07ad92e200a731342eac7a233e037eb512bad5cba2958c0a012f",
+    "reviews": [
+      {
+        "provider": "Codex",
+        "model": "gpt-6-astra",
+        "effort": "max",
+        "runner": "native collaboration.spawn_agent",
+        "run": "/root/handoff_astra_review",
+        "status": "completed",
+        "verdict": "Use Matt create-only handoff with a minimal portability edit. Content and evidence additions are optional improvements; storage and host orchestration are not reasons to blend a system.",
+        "materialFindings": [
+          "The literal Skill tool reference is a real portability detail.",
+          "Matt documentation already explains forks, fragile artifacts and loss of rationale.",
+          "Compound is prose-based but adds store/discovery/confirmation policy.",
+          "Keep creation, receipt and execution ownership separate."
+        ]
+      },
+      {
+        "provider": "Claude",
+        "providerInstanceId": "claudeAgent",
+        "model": "claude-fable-5-1",
+        "effort": "max",
+        "runner": "T3 delegate_task",
+        "run": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253Abfaa801b-7e17-430c-bf95-57ae4b3e3af0%253Adelegate-task%253Ahandoff-source-review-fable-max-20261004-r1:ordinal:1",
+        "taskId": "node:delegated-task:command%3Amcp%3Abfaa801b-7e17-430c-bf95-57ae4b3e3af0%3Adelegate-task%3Ahandoff-source-review-fable-max-20261004-r1",
+        "threadId": "thread:delegated-task:command%3Amcp%3Abfaa801b-7e17-430c-bf95-57ae4b3e3af0%3Adelegate-task%3Ahandoff-source-review-fable-max-20261004-r1",
+        "resultContextTransferId": "context-transfer:type:subagent_result:source-thread:thread%3Adelegated-task%3Acommand%253Amcp%253Abfaa801b-7e17-430c-bf95-57ae4b3e3af0%253Adelegate-task%253Ahandoff-source-review-fable-max-20261004-r1:target-thread:cbd3283a-f957-47cb-8897-275c0ef4d810:d9610858-b03d-4c7c-b1a7-5327384acd93",
+        "status": "completed",
+        "verdict": "Use a small Matt-based derivation with current state, decisions, evidence and an exact output path; remove the atlas storage/Orca rationale.",
+        "materialFindings": [
+          "GSD workflow and resume prompt disagree about recovery-file deletion.",
+          "Compound contains an evaluation definition, not only text-contract tests.",
+          "agent-profile metadata says MIT but no license file appears in its tracked inventory.",
+          "Some assertions about total tool independence, storage isolation, corpus coverage and tested behavior require correction."
+        ]
+      }
+    ],
+    "reconciliation": [
+      {
+        "finding": "The original storage and Orca rationale",
+        "reviewers": [
+          "Codex",
+          "Claude"
+        ],
+        "decision": "adopt",
+        "resolution": "Both reviewers support removing the /tmp objection and keeping named host orchestration outside the document capability. The user explicitly accepts OS temporary storage."
+      },
+      {
+        "finding": "Whether Matt is already completely tool-independent",
+        "reviewers": [
+          "Codex",
+          "Claude"
+        ],
+        "decision": "resolve against the exact source",
+        "resolution": "Matt SKILL.md line 10 explicitly says Skill tool, contrary to Fable's no-tool-names claim. Adopt Astra's minimal wording correction; keep useful existing Codex metadata.",
+        "evidence": [
+          "matt:skills/productivity/handoff/SKILL.md",
+          "matt:skills/productivity/handoff/agents/openai.yaml"
+        ]
+      },
+      {
+        "finding": "Minimal edit versus broader derivation",
+        "reviewers": [
+          "Codex",
+          "Claude"
+        ],
+        "decision": "adopt a small scope with qualified additions",
+        "resolution": "Use Matt as the base. Decision provenance, relevant state, evidence and the next action are useful refinements, not prerequisites for portability. Git details are conditional. The old atlas recommendation does not itself establish a mandatory user contract."
+      },
+      {
+        "finding": "Compound creation and resume machinery",
+        "reviewers": [
+          "Codex",
+          "Claude"
+        ],
+        "decision": "adopt selected concepts",
+        "resolution": "Keep exact output location, useful artifact pointers, current-state distinctions and decision attribution. Do not import managed discovery or an unconditional resume stop. Compound is prose-based; no separate transport script is required."
+      },
+      {
+        "finding": "Artifact completion versus execution transfer",
+        "reviewers": [
+          "Codex",
+          "Claude"
+        ],
+        "decision": "adopt",
+        "resolution": "A created document is a separate outcome from receipt or execution ownership. A generic skill can serve host consumers without naming them. Local protocol changes and Fable's reported missing integration target remain outside this review scope."
+      },
+      {
+        "finding": "GSD recovery-file lifecycle",
+        "reviewers": [
+          "Claude"
+        ],
+        "decision": "adopt discrepancy and retain the safer recovery principle",
+        "resolution": "GSD workflow says delete on read; its guided resume prompt says retain until completion or supersession. Record the conflict and avoid copying its lifecycle. Needed recovery context should remain available to the task that still depends on it.",
+        "evidence": [
+          "gsd:src/resources/GSD-WORKFLOW.md",
+          "gsd:src/resources/extensions/gsd/prompts/guided-resume-task.md"
+        ]
+      },
+      {
+        "finding": "Storage visibility and retention generalizations",
+        "reviewers": [
+          "Claude"
+        ],
+        "decision": "qualify",
+        "resolution": "Do not claim .tmp is inherently invisible from another worktree, /tmp is shared across all sandboxes, or every Codex session clears temp. Access and retention depend on the receiving environment. The user's handoff-specific preference needs no global instruction edit."
+      },
+      {
+        "finding": "Which repositories the atlas had already covered",
+        "reviewers": [
+          "Claude"
+        ],
+        "decision": "correct",
+        "resolution": "The original repository list is only one snapshot. Existing TypeScript and CI/CD overlays already cover the 19-repository corpus. This review adds handoff-specific depth; it does not claim those repositories were never previously covered."
+      },
+      {
+        "finding": "Behavioral evidence and runtime probes",
+        "reviewers": [
+          "Codex",
+          "Claude"
+        ],
+        "decision": "qualify",
+        "resolution": "Compound contains a scenario definition for stopping on resume and text-contract tests. No run result was inspected or reproduced, so neither is claimed as observed behavior. Binary string probes do not establish supported host commands and are not used in the recommendation."
+      },
+      {
+        "finding": "Source reuse limits",
+        "reviewers": [
+          "Claude"
+        ],
+        "decision": "record factual limitation",
+        "resolution": "agent-profile plugin metadata declares MIT, but no license file appears in the pinned inventory. The recommendation borrows ideas; this task does not copy or redistribute its instruction text."
+      },
+      {
+        "finding": "Scope and trigger proportionality",
+        "reviewers": [
+          "Codex",
+          "Claude"
+        ],
+        "decision": "keep the smaller contract",
+        "resolution": "Preserve explicit invocation and the focus on context that must travel. Do not enforce a fixed line count, exact four-case taxonomy, mandatory Git template, new memory system or required session shutdown. Related pause, plan and recall workflows keep their own owners."
+      }
+    ],
+    "limitations": [
+      "Static consultations are not behavioral validation.",
+      "No donor workflow or local handoff skill was executed. Compound evaluation files were read, not run.",
+      "No unsupported claim about a built-in host handoff command is adopted."
+    ]
+  },
+  "implementation": {
+    "skillCreated": false,
+    "skillInstalled": false,
+    "sourcesIncorporated": false
+  },
+  "sourceReuseNotes": [
+    {
+      "repositoryId": "alleneubank",
+      "metadataLicense": "MIT",
+      "trackedLicenseFileFound": false,
+      "sourceTextCopied": false
+    }
+  ]
+}

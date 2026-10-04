@@ -14235,5 +14235,133 @@
     "coreWords": 810,
     "activeDonors": 5,
     "independentAgentTrials": "Three matched tool-free design cases on Codex Astra Max. Both baseline and candidate meet their principal criteria; no general improvement, execution or host-activation claim."
+  },
+  "handoffReview": {
+    "date": "2026-10-04",
+    "baselineCommit": "f469e701cb62f5c135ecb7fed3806849fdc62c5f",
+    "research": "handoff-source-review.json",
+    "html": "handoff-source-review.html",
+    "scope": "SSH acquisition at the recorded branch tips; complete tracked-path inventories; repository-wide text screening of md, mdx, mdc, rst, txt and license files including hidden directories; selected full reads and explicitly bounded excerpts, plus targeted source-code cross-checks.",
+    "recommendation": {
+      "decision": "Small adaptation proposed",
+      "base": "Matt Pocock/handoff",
+      "rationale": "Matt is adequate as a manually invoked summary exporter. Strict tool independence requires only replacing the literal Skill tool reference with portable wording. A few additional continuation and evidence decisions would improve usefulness; they are proposed quality improvements, not compatibility requirements. Several already appear in its companion guide. No combined handoff system is justified.",
+      "essentialContent": [
+        "Current objective and relevant scope or authorization, with user decisions distinguished from agent inference.",
+        "Actual done, partial and pending state; relevant repository/revision and dirty state only when useful.",
+        "Next useful action and why; blockers, failed approaches and traps only when they affect continuation.",
+        "Applicable verification evidence and remaining acceptance checks; an unrun check is not a pass.",
+        "Pointers to existing artifacts with what matters there, whether the receiver can access them, and any material lifetime limitation."
+      ],
+      "boundary": "Produce a usable artifact and its location. Creation, receipt and transfer of execution are distinct outcomes. The core does not launch sessions, move worktrees, commit, push, cancel agents or impose a host-specific protocol.",
+      "proportionality": "Use the smallest task-appropriate structure. No obligatory Git section for non-code work, no fixed context threshold, no managed history database, and no fresh session required for an ordinary phase transition.",
+      "alternatives": [
+        "Direct adoption is reasonable if the need is only a short manually requested export and the caller supplies the missing continuation details.",
+        "Compound is the fuller option only if indexed discovery and an explicit orientation-before-action workflow become a real requirement.",
+        "No new skill is needed when the receiving agent already has adequate durable context through the host."
+      ]
+    },
+    "assessments": [
+      {
+        "id": "matt-pocock-handoff",
+        "key": "Matt Pocock/handoff",
+        "name": "handoff",
+        "declaredName": "handoff",
+        "group": "Matt Pocock",
+        "author": "Matt Pocock",
+        "kind": "upstream",
+        "path": "skills/productivity/handoff/SKILL.md",
+        "source": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/handoff/SKILL.md",
+        "sha": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+        "sha256": "7c62de979fdc7ac32fb5ddb2146156c917f80ee070d30fadc9d40343c4b6ed25",
+        "lines": 16,
+        "category": "Session continuity",
+        "decision": "Adapt first",
+        "owner": "Portable handoff document",
+        "summary": "Exports focused conversation context into one document for another agent, environment or side task.",
+        "reason": "The smallest suitable base. Replace the literal Skill tool reference for strict tool independence. Clear next action, decision provenance, observed state and evidence would be useful improvements; they are not compatibility requirements.",
+        "caution": "OS temporary storage is acceptable. Choose a destination and references the receiver can access for the required lifetime. Keep execution transfer outside this create-only capability; writing a file does not establish receipt or ownership transfer.",
+        "action": "Small adaptation proposed",
+        "inspection": "Complete entrypoint, Codex metadata and companion guide read at the recorded revision. Broader comparison covers 19 repositories with per-file reading depth in handoff-source-review.json. No handoff behavior was executed.",
+        "references": [
+          {
+            "path": "docs/productivity/handoff.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/docs/productivity/handoff.md"
+          },
+          {
+            "path": "skills/productivity/handoff/agents/openai.yaml",
+            "coverage": "Complete file read",
+            "url": "https://github.com/mattpocock/skills/blob/d81f3a183412e71a5b1e84ca21bc1a35eea03a60/skills/productivity/handoff/agents/openai.yaml"
+          }
+        ]
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-handoff/SKILL.md",
+        "sha": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "sha256": "3fb19a18d8ee00594254d8b495da51c6847563ce23124e8639edc8953f1c62bb",
+        "lines": 54,
+        "chars": 6192,
+        "name": "ce-handoff",
+        "id": "compound-engineering-ce-handoff",
+        "key": "Compound Engineering/ce-handoff",
+        "declaredName": "ce-handoff",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-handoff/SKILL.md",
+        "action": "Selected concepts proposed",
+        "priority": "On demand",
+        "category": "Session continuity",
+        "owner": "Portable handoff document; optional discovery and resume workflow",
+        "summary": "Creates a continuity document, discovers saved handoffs and orients from an explicitly selected source.",
+        "reason": "Useful for artifact annotations, current-state distinctions, decision provenance and receiver access. A portable export still helps cross-host transfer or a focused side task even when the current host retains conversation history.",
+        "caution": "Its managed temporary store is a default, not a restriction, and it adds no required transport runtime. Indexed discovery and mandatory resume confirmation are extra policy. Do not import an unconditional stop when the user already authorized continuation.",
+        "decision": "Optional",
+        "inspection": "Complete entrypoint and both create/resume references read at the recorded revision; companion documentation inspected. Per-file coverage and the 19-repository comparison are recorded in handoff-source-review.json. No workflow was executed.",
+        "references": [
+          {
+            "path": "skills/ce-handoff/references/create.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-handoff/references/create.md"
+          },
+          {
+            "path": "skills/ce-handoff/references/resume.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-handoff/references/resume.md"
+          },
+          {
+            "path": "docs/guides/ce-handoff.md",
+            "coverage": "Selected guide sections read; opening excerpt was truncated",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/docs/guides/ce-handoff.md"
+          }
+        ]
+      }
+    ],
+    "consultation": {
+      "status": "completed",
+      "profiles": [
+        {
+          "provider": "Codex",
+          "model": "gpt-6-astra",
+          "effort": "max",
+          "run": "/root/handoff_astra_review"
+        },
+        {
+          "provider": "Claude",
+          "model": "claude-fable-5-1",
+          "effort": "max",
+          "run": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253Abfaa801b-7e17-430c-bf95-57ae4b3e3af0%253Adelegate-task%253Ahandoff-source-review-fable-max-20261004-r1:ordinal:1"
+        }
+      ]
+    },
+    "implementation": {
+      "skillCreated": false,
+      "skillInstalled": false,
+      "sourcesIncorporated": false
+    },
+    "validation": "handoff-source-review-validation.json"
   }
 }
