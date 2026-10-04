@@ -73,10 +73,10 @@
       "label": "Proposed adaptation",
       "purpose": "Debug a rendered page using Lighthouse findings, browser issues, the accessibility tree, keyboard input and measurements.",
       "contribution": "A useful operational checklist for connecting a failing rendered element with semantic, focus and visual evidence. Inspect specific failing nodes and browser issues before choosing a repair.",
-      "decision": "Use selected debugging steps in a conditional web reference. Keep the host browser and verification recipe as the execution owners; do not require Chrome DevTools MCP everywhere.",
+      "decision": "Keep only the useful gaps in the existing web reference: preserve the state being audited and recognize unresolved contrast measurements. Rendered-node inspection, computed names, hit regions and execution ownership are already covered locally.",
       "cautions": [
         "Its navigation-first audit reloads the page. Preserve the failing dialog, authenticated session or unsaved state when that is the target; Addy explicitly addresses this choice.",
-        "The supplied contrast snippet is explicitly approximate. In our controlled probe, white text over a transparent background returned 21:1 although a white ancestor makes the displayed pair 1:1. It cannot establish a passing result for that case.",
+        "The supplied contrast snippet is explicitly approximate. Claude also exercised it in the live T3 browser: #777 text on a white body returned 4.69:1 because the transparent element background was parsed as black; the displayed pair is 4.478:1 and fails normal-text AA. Unresolved backgrounds, alpha or modern color syntax cannot establish a passing measurement.",
         "Its 48 px target recommendation is not the WCAG AA minimum. Bounding-box size alone does not establish the effective hit region, overlap or criterion exceptions.",
         "The orphan-input snippet checks attribute presence, not the computed accessible name. A present aria-labelledby value can still point to missing or empty content."
       ],
@@ -157,13 +157,13 @@
       "status": "not-selected",
       "label": "Do not adopt as supplied",
       "purpose": "Scan frontend source files, calculate color-pair contrast, prioritize repairs and produce an audit report.",
-      "contribution": "The report structure and simple color-pair calculation are useful examples. The supported positional contrast command correctly rejects #777777 on white for AA normal text.",
+      "contribution": "The supported positional contrast command correctly rejects #777777 on white for AA normal text. This working calculation does not establish that the scanner, documented CLI or CI examples form a reliable audit workflow.",
       "decision": "Do not install this package or import its scanner into our completion checks. Its documented contract and implemented checks need correction first; the current skill already owns evidence-based findings and manual coverage.",
       "cautions": [
         "The documented --format table, --report --output and --fg/--bg commands fail with exit code 2. The scanner actually accepts text/json formats; the contrast checker accepts positional colors.",
         "Two isolated barriers pass the scanner: an unlabelled input with an id, and a click-only div with role=button. It also reports a wrapped, labelled input as critical and role=status without explicit aria-live as serious.",
         "Its WCAG 2.2 reference calls Focus Appearance 2.4.11 AA. The published criterion is 2.4.13 AAA; 2.4.11 AA concerns focus not being entirely obscured.",
-        "The CI example reads violations and wcag, but the scanner emits findings and wcag_criterion. Its static regex checks cannot substantiate the entrypoint claim of finding every A/AA violation."
+        "The CI JSON reader expects violations and wcag, but the scanner emits findings and wcag_criterion. That reader misses six critical findings in the retained sample. The preceding scanner step can still fail the complete GitHub Actions job; the isolated reader result does not prove the whole workflow always passes. Static regex checks also cannot substantiate the promise of finding every A/AA violation."
       ],
       "evidence": [
         "https://github.com/alirezarezvani/claude-skills/blob/19392f7a08264ed00486a251f5b2098321771f94/engineering-team/a11y-audit/skills/a11y-audit/SKILL.md",
@@ -345,8 +345,8 @@
       "status": "proposed-adaptation",
       "label": "Proposed adaptation",
       "purpose": "Audit and improve web accessibility against WCAG 2.2, combining live findings, manual interaction and linked patterns.",
-      "contribution": "The strongest fit for the next small refinement: use rendered failing nodes, trace them to the owning component, preserve important state when choosing an audit mode, and rerun the same case. It also explicitly covers Consistent Help (3.2.6), which our current web checklist does not name.",
-      "decision": "Adapt those specific ideas into accessibility/references/web.md while preserving our existing criteria and evidence limits. This is a different repository from the already recorded addyosmani/agent-skills donor; keep that provenance distinct.",
+      "contribution": "This is version 2.0 of the web-quality-skills source family already recorded through GSD version 1.0. Its useful delta includes choosing an audit that preserves the target state. Node-to-component tracing and many updated WCAG checks are already covered locally; consistency across pages is a coherent remaining addition.",
+      "decision": "Use direct upstream for future updates to the mirrored accessibility entrypoint and reference, while preserving the GSD baseline and its separate audit workflow. Narrow any content adaptation to the existing web reference. Keep addyosmani/agent-skills as a distinct donor; do not count the GSD copy and this source as independent endorsements.",
       "cautions": [
         "Its contrast table still uses 18 px regular / 14 px bold for large text. WCAG uses 18 pt / 14 pt; our existing reference already has the correct units.",
         "The linked modal example has a static focusable list and lacks complete return-focus handling. The form example calls focus on a field and then on the summary. Neither should become a universal implementation recipe.",
@@ -397,32 +397,32 @@
   ],
   "proposals": [
     {
-      "title": "Trace the failing state to its component",
+      "title": "Preserve the state being audited",
       "donors": [
         "devtools",
         "web-quality"
       ],
       "target": "accessibility/references/web.md",
-      "text": "Record the route, interaction and state; inspect failing rendered nodes, computed semantics and relevant browser issues; locate the responsible component or shared primitive. Use navigation audits for load behavior and a supported snapshot/current-state check when reloading would erase the target state. Rerun that same state after an authorized repair.",
-      "reason": "The current skill already requires composed evidence and reruns. This makes the browser-to-source diagnosis and audit-mode choice explicit without adding a new workflow owner."
+      "text": "A reload can erase a dialog, error or unsaved state. Choose a supported check that preserves or reconstructs the intended state, and confirm that state is still present when the check runs. Keep tool-specific audit mode names in the local verification recipe.",
+      "reason": "Tracing a defect to its responsible component and rerunning it are already in the skill. The new detail should prevent an audit from silently checking a different state."
     },
     {
-      "title": "Make measurement limits concrete",
+      "title": "Resolve the displayed contrast pair",
       "donors": [
         "devtools"
       ],
       "target": "accessibility/references/web.md",
-      "text": "Treat selector, attribute and rectangle snippets as candidate-finding tools. Confirm accessible names, effective hit regions and the actual composited contrast pair with suitable browser evidence; keep unsupported color formats or missing background information inconclusive.",
-      "reason": "This prevents a plausible-looking number or attribute from becoming a false pass. Our broad evidence rule already says this; the proposed web detail gives a concrete stopping condition."
+      "text": "An element without its own opaque background can report a transparent computed background. Account for the displayed background, compositing, alpha and supported color syntax. A snippet that cannot resolve the pair yields an inconclusive measurement, not a pass.",
+      "reason": "Computed names, effective hit regions and occlusion are already covered. Keep this addition specific to the demonstrated contrast failure."
     },
     {
-      "title": "Check repeated help across the flow",
+      "title": "Check consistency across pages",
       "donors": [
         "web-quality"
       ],
       "target": "accessibility/references/web.md",
-      "text": "Where the help mechanisms covered by WCAG 3.2.6 repeat across a set of pages, check their relative order under the same page variation and the user-initiated-change exception. The criterion does not require adding a new help mechanism.",
-      "reason": "This is a useful coverage addition for multi-page tasks. Use the W3C criterion as authority, rather than inheriting a shorthand summary."
+      "text": "When a flow spans a set of pages, check the relative order of repeated navigation and applicable help mechanisms, and consistent identification of the same function, under WCAG 3.2.3, 3.2.4 and 3.2.6. Respect their scope and user-initiated changes. Consistent Help does not require adding help or showing it on every page.",
+      "reason": "This checks a coherent part of the user flow. Adding only the criterion named by one donor would leave the purpose of the change unclear; the reference remains selective rather than a complete WCAG checklist."
     }
   ],
   "primaryReferences": [
@@ -663,5 +663,23 @@
       "captureRecovery": "Full semantic preview snapshots failed on later calls. preview_snapshot with includeImage=false and save=true captured a PNG, which was read through view_image. Browser evaluation and native clicks succeeded.",
       "limits": "Viewport changes test layout, not browser zoom or a physical mobile device. No screen-reader trial or full accessibility audit of the report was performed. Captures were inspected but are not committed."
     }
+  },
+  "consultation": {
+    "record": "accessibility-source-review-consultation.json",
+    "model": "claude-fable-5-1",
+    "effort": "xhigh",
+    "status": "completed",
+    "applicationStatus": "Assessment revised; no skill or provenance edits."
+  },
+  "reproduction": {
+    "prerequisites": "The original scratch was intentionally cleaned. Use the original review checkout at 9679207 for the recorded local hashes. Source retrieval needs working SSH access to GitHub and Python 3 plus Node.",
+    "steps": [
+      "Create the ignored .tmp/accessibility-source-review directory in that checkout.",
+      "For each sources entry, restore its SSH remote at the exact commit under .tmp/accessibility-source-review/upstream/<id>. The packageManifest and inspectedFiles fields identify the required paths; validate their recorded hashes before executing donor code.",
+      "Write probeDriver to .tmp/accessibility-source-review/probe-sources.py and validation.reportValidator to .tmp/accessibility-source-review/validate-report.py.",
+      "Run the recorded probeCommand and validation.reportCommand from the checkout root. The probe driver recreates its isolated fixtures.",
+      "The validator checks recorded outputs and source/local hashes; rerunning the probe driver creates a new probe-results.json to compare with the recorded probes."
+    ],
+    "followupExecution": "This consultation reproduced the ten original probes independently according to the reviewer. The parent did not rerun the full reconstruction procedure; it checked the retained sample gate, contrast arithmetic, local hashes and report integrity."
   }
 }
