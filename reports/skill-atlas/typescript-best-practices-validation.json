@@ -1,0 +1,803 @@
+{
+  "skill": "typescript-best-practices",
+  "date": "2026-10-04",
+  "status": "technical_claims_and_package_validated; independent_agent_behavior_not_tested",
+  "authoring": [
+    "agent-instructions",
+    "Codex skill-creator packaging validator",
+    "humanize"
+  ],
+  "source_review": "typescript-best-practices-research.json",
+  "skill_revision": {
+    "SKILL.md": "89625b5e09cfae30e809da5ba116aa551ce9daad3e94d52b03f611fc6f70e41c",
+    "THIRD-PARTY-NOTICES.txt": "a656ac07a7685818722100c2b25e54f3f4fe31100da137f16e1be20139c122a2",
+    "evals/expectations.json": "e484b8e10b06c55798e3179023f945837a0917859be2bd61897144ee5a0040e3",
+    "evals/requests.json": "b16535d2c214093cc5c5878f9728a35f3d9ba6a7d22c230c7069e3a2a8bdc8a1",
+    "origin.txt": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+    "references/compiler-and-modules.md": "5a2864ad15f0f15cba17797bd0d8cf4c00a78e4b6ce7536f13ec007a4153053d",
+    "references/upstream-updates.md": "57de79a8059e0a4c203a404e0464fab00073bd1c8b6882cf66f47fd2f153f4f0"
+  },
+  "instruction_size": {
+    "core_words": 534,
+    "compiler_module_reference_words": 236,
+    "normal_use": "SKILL.md only; the module reference and upstream procedure have explicit conditional triggers. Evaluation and research records are not normal-use instructions."
+  },
+  "environment": {
+    "compiler": {
+      "version": "7.0.2",
+      "published": "2026-07-08T15:55:18.431Z",
+      "engine": {
+        "node": ">=16.20.0"
+      },
+      "registry": "https://registry.npmjs.org/typescript",
+      "retrieved": "2026-10-04T07:43:38.497795+00:00"
+    },
+    "node": "v26.10.0"
+  },
+  "checks": [
+    {
+      "command": "node .tmp/typescript-best-practices/probes.mjs",
+      "outcome": "20 compiler/runtime probes passed",
+      "kind": "technical semantics"
+    },
+    {
+      "command": "node .tmp/typescript-best-practices/module-probes.mjs",
+      "outcome": "2 paired configuration/runtime probes passed",
+      "kind": "technical semantics"
+    },
+    {
+      "command": "/opt/homebrew/bin/fish -lc 'env UV_CACHE_DIR=.tmp/typescript-best-practices/uv-cache uv run --no-project --python 3.14 --exclude-newer 2026-10-01 --with pyyaml python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py typescript-best-practices'",
+      "outcome": "Skill is valid!",
+      "kind": "host package structure"
+    },
+    {
+      "command": "Python JSON/TOML parsers, Markdown reference resolution, and source/dependency assertions",
+      "outcome": "5 source pins, both optional local dependency owners, local links and JSON fixtures passed",
+      "kind": "package integrity"
+    },
+    {
+      "command": "env PYTHONPATH=daily-meeting-update python3 -B -m unittest discover -s daily-meeting-update/tests -p test_opencode_digest.py -v",
+      "outcome": "3 tests passed",
+      "kind": "broader repository smoke"
+    },
+    {
+      "command": "node --check reports/skill-atlas/app.js && node --check reports/skill-atlas/catalog.js",
+      "outcome": "Both JavaScript syntax checks passed",
+      "kind": "static report"
+    },
+    {
+      "command": "git diff --check",
+      "outcome": "Passed",
+      "kind": "patch whitespace"
+    }
+  ],
+  "initial_check_failures": [
+    {
+      "check": "System Python quick_validate.py",
+      "reason": "PyYAML was absent. Reran successfully with a scratch-scoped uv environment; no repository or system dependency changed."
+    },
+    {
+      "check": "Default Python TOML parser",
+      "reason": "The default Python lacked tomllib. Reran successfully through the configured Fish Python 3.14.8."
+    }
+  ],
+  "compile_or_build": "The deliverable is an instruction package and static report, with no root application build manifest. TypeScript fixtures were actually compiled with the recorded compiler. Both atlas JavaScript files passed node --check; data and browser checks are recorded below.",
+  "semantic_probes": [
+    {
+      "id": "duration-is-still-a-number",
+      "code": "type Range = { start: Date; durationMs: number };\nconst range: Range = { start: new Date(0), durationMs: -1 };\nconsole.log(range.durationMs < 0);\nexport {};",
+      "runtime": "true",
+      "proves": "A start-plus-duration shape alone still admits negative duration.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/duration-is-still-a-number/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 0,
+      "compilerOutput": "",
+      "runtimeExit": 0,
+      "runtimeOutput": "true",
+      "verdict": "pass"
+    },
+    {
+      "id": "duration-boundary-check",
+      "code": "function duration(value: unknown): number {\n if (typeof value !== \"number\" || !Number.isFinite(value) || value < 0) throw new Error(\"Invalid duration\");\n return value;\n}\nconst outcomes = [0, 1, -1, NaN, Infinity, \"1\"].map(value => { try { duration(value); return \"accepted\"; } catch { return \"rejected\"; } });\nconsole.log(JSON.stringify(outcomes));\nexport {};",
+      "runtime": "[\"accepted\",\"accepted\",\"rejected\",\"rejected\",\"rejected\",\"rejected\"]",
+      "proves": "The stated finite nonnegative runtime contract accepts and rejects the relevant values.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/duration-boundary-check/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 0,
+      "compilerOutput": "",
+      "runtimeExit": 0,
+      "runtimeOutput": "[\"accepted\",\"accepted\",\"rejected\",\"rejected\",\"rejected\",\"rejected\"]",
+      "verdict": "pass"
+    },
+    {
+      "id": "nonempty-mutation",
+      "code": "const values: [number, ...number[]] = [1];\nvalues.pop();\nconst first: number = values[0];\nconsole.log(first === undefined);\nexport {};",
+      "runtime": "true",
+      "proves": "A mutable non-empty tuple can become empty while its static first-element type remains number.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/nonempty-mutation/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 0,
+      "compilerOutput": "",
+      "runtimeExit": 0,
+      "runtimeOutput": "true",
+      "verdict": "pass"
+    },
+    {
+      "id": "nonempty-arbitrary-index",
+      "code": "function at(values: readonly [number, ...number[]], index: number): number { return values[index]; }\nexport {};",
+      "options": {
+        "noUncheckedIndexedAccess": true
+      },
+      "diagnostic": "TS2322",
+      "proves": "Non-empty proves an initial element, not every numeric index.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": [],
+        "noUncheckedIndexedAccess": true
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/nonempty-arbitrary-index/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 1,
+      "compilerOutput": ".tmp/typescript-best-practices/probes/nonempty-arbitrary-index/case.ts(1,78): error TS2322: Type 'number | undefined' is not assignable to type 'number'.\n  Type 'undefined' is not assignable to type 'number'.\n",
+      "verdict": "pass"
+    },
+    {
+      "id": "readonly-alias",
+      "code": "const source: { label: string | undefined } = { label: \"ready\" };\nconst view: Readonly<typeof source> = source;\nif (view.label !== undefined) { source.label = undefined; const label: string = view.label; console.log(label === undefined); }\nexport {};",
+      "runtime": "true",
+      "proves": "Readonly access and prior narrowing do not protect a value from mutation through another alias.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/readonly-alias/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 0,
+      "compilerOutput": "",
+      "runtimeExit": 0,
+      "runtimeOutput": "true",
+      "verdict": "pass"
+    },
+    {
+      "id": "static-satisfies-untrusted-json",
+      "code": "type Message = { count: number };\nconst message = JSON.parse(\"{\\\"count\\\":\\\"wrong\\\"}\") satisfies Message;\nconst count: number = message.count;\nconsole.log(typeof count);\nexport {};",
+      "runtime": "string",
+      "proves": "satisfies on an any-typed JSON value performs no runtime validation.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/static-satisfies-untrusted-json/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 0,
+      "compilerOutput": "",
+      "runtimeExit": 0,
+      "runtimeOutput": "string",
+      "verdict": "pass"
+    },
+    {
+      "id": "static-satisfies-checks-real-mismatch",
+      "code": "const message = { count: \"wrong\" } satisfies { count: number };\nexport {};",
+      "diagnostic": "TS2322",
+      "proves": "satisfies usefully checks static compatibility when the input has meaningful types.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/static-satisfies-checks-real-mismatch/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 1,
+      "compilerOutput": ".tmp/typescript-best-practices/probes/static-satisfies-checks-real-mismatch/case.ts(1,19): error TS2322: Type 'string' is not assignable to type 'number'.\n",
+      "verdict": "pass"
+    },
+    {
+      "id": "predicate-false-branch",
+      "code": "function isSmallNumber(value: string | number): value is number { return typeof value === \"number\" && Math.abs(value) < 10; }\nfunction format(value: string | number): string { return isSmallNumber(value) ? value.toFixed() : value.toUpperCase(); }\nconsole.log(format(100));\nexport {};",
+      "runtimeFailure": "TypeError",
+      "proves": "A predicate that rejects some numbers wrongly excludes number in the false branch.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/predicate-false-branch/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 0,
+      "compilerOutput": "",
+      "runtimeExit": 1,
+      "runtimeOutput": "",
+      "runtimeError": "TypeError: value.toUpperCase is not a function",
+      "verdict": "pass"
+    },
+    {
+      "id": "predicate-boolean-preserves-both-cases",
+      "code": "function isSmallNumber(value: string | number): boolean { return typeof value === \"number\" && Math.abs(value) < 10; }\nfunction format(value: string | number): string { if (isSmallNumber(value)) return String(value); return typeof value === \"string\" ? value.toUpperCase() : value.toFixed(); }\nconsole.log(JSON.stringify([format(100), format(2), format(\"ready\")]));\nexport {};",
+      "runtime": "[\"100\",\"2\",\"READY\"]",
+      "proves": "A boolean refinement test does not falsely promise an exhaustive type predicate.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/predicate-boolean-preserves-both-cases/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 0,
+      "compilerOutput": "",
+      "runtimeExit": 0,
+      "runtimeOutput": "[\"100\",\"2\",\"READY\"]",
+      "verdict": "pass"
+    },
+    {
+      "id": "strict-dictionary-hole",
+      "code": "const values: Record<string, number> = {};\nconst value: number = values.missing;\nconsole.log(value === undefined);\nexport {};",
+      "runtime": "true",
+      "proves": "strict alone allows unchecked dictionary reads with a non-optional result.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/strict-dictionary-hole/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 0,
+      "compilerOutput": "",
+      "runtimeExit": 0,
+      "runtimeOutput": "true",
+      "verdict": "pass"
+    },
+    {
+      "id": "checked-dictionary-hole",
+      "code": "const values: Record<string, number> = {};\nconst value: number = values.missing;\nexport {};",
+      "options": {
+        "noUncheckedIndexedAccess": true
+      },
+      "diagnostic": "TS2322",
+      "proves": "noUncheckedIndexedAccess exposes possible absence for arbitrary dictionary keys.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": [],
+        "noUncheckedIndexedAccess": true
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/checked-dictionary-hole/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 1,
+      "compilerOutput": ".tmp/typescript-best-practices/probes/checked-dictionary-hole/case.ts(2,7): error TS2322: Type 'number | undefined' is not assignable to type 'number'.\n  Type 'undefined' is not assignable to type 'number'.\n",
+      "verdict": "pass"
+    },
+    {
+      "id": "strict-optional-property",
+      "code": "const value: { label?: string } = { label: undefined };\nconsole.log(Object.hasOwn(value, \"label\"));\nexport {};",
+      "runtime": "true",
+      "proves": "strict alone does not distinguish omitted optional properties from present undefined values.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/strict-optional-property/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 0,
+      "compilerOutput": "",
+      "runtimeExit": 0,
+      "runtimeOutput": "true",
+      "verdict": "pass"
+    },
+    {
+      "id": "exact-optional-property",
+      "code": "const value: { label?: string } = { label: undefined };\nexport {};",
+      "options": {
+        "exactOptionalPropertyTypes": true
+      },
+      "diagnostic": "TS2375",
+      "proves": "exactOptionalPropertyTypes rejects explicit undefined when the declared optional property does not include it.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": [],
+        "exactOptionalPropertyTypes": true
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/exact-optional-property/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 1,
+      "compilerOutput": ".tmp/typescript-best-practices/probes/exact-optional-property/case.ts(1,7): error TS2375: Type '{ label: undefined; }' is not assignable to type '{ label?: string; }' with 'exactOptionalPropertyTypes: true'. Consider adding 'undefined' to the types of the target's properties.\n  Types of property 'label' are incompatible.\n    Type 'undefined' is not assignable to type 'string'.\n",
+      "verdict": "pass"
+    },
+    {
+      "id": "ignored-async-void-callback",
+      "code": "const events: string[] = [];\nfunction notify(callback: () => void): void { callback(); events.push(\"returned\"); }\nnotify(async () => { await Promise.resolve(); events.push(\"completed\"); });\nqueueMicrotask(() => console.log(JSON.stringify(events)));\nexport {};",
+      "runtime": "[\"returned\",\"completed\"]",
+      "proves": "An async callback is assignable to void even when the caller returns before completion.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/ignored-async-void-callback/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 0,
+      "compilerOutput": "",
+      "runtimeExit": 0,
+      "runtimeOutput": "[\"returned\",\"completed\"]",
+      "verdict": "pass"
+    },
+    {
+      "id": "owned-async-callback",
+      "code": "const events: string[] = [];\nasync function notify(callback: () => Promise<void>): Promise<void> { await callback(); events.push(\"returned\"); }\nasync function run(): Promise<void> { await notify(async () => { await Promise.resolve(); events.push(\"completed\"); }); console.log(JSON.stringify(events)); }\nrun().catch(error => { throw error; });\nexport {};",
+      "runtime": "[\"completed\",\"returned\"]",
+      "proves": "An owned promise contract lets the caller wait for completion.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/owned-async-callback/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 0,
+      "compilerOutput": "",
+      "runtimeExit": 0,
+      "runtimeOutput": "[\"completed\",\"returned\"]",
+      "verdict": "pass"
+    },
+    {
+      "id": "false-type-alias-does-not-fail",
+      "code": "type Equal<A, B> = [A] extends [B] ? ([B] extends [A] ? true : false) : false;\ntype Test = Equal<string, number>;\nexport {};",
+      "proves": "Naming a false type-level result is not a failing type test.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/false-type-alias-does-not-fail/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 0,
+      "compilerOutput": "",
+      "verdict": "pass"
+    },
+    {
+      "id": "asserted-type-result-fails",
+      "code": "type Equal<A, B> = [A] extends [B] ? ([B] extends [A] ? true : false) : false;\ntype Expect<T extends true> = T;\ntype Test = Expect<Equal<string, number>>;\nexport {};",
+      "diagnostic": "TS2344",
+      "proves": "An enforced constraint makes the mismatched type comparison fail.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/asserted-type-result-fails/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 1,
+      "compilerOutput": ".tmp/typescript-best-practices/probes/asserted-type-result-fails/case.ts(3,20): error TS2344: Type 'false' does not satisfy the constraint 'true'.\n",
+      "verdict": "pass"
+    },
+    {
+      "id": "expected-error-detects-contract-weakening",
+      "code": "type Model = { label?: string };\n// @ts-expect-error Missing label should be rejected.\nconst model: Model = {};\nexport {};",
+      "diagnostic": "TS2578",
+      "proves": "An expected-error fixture fails when a required-property contract is accidentally weakened.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/expected-error-detects-contract-weakening/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 1,
+      "compilerOutput": ".tmp/typescript-best-practices/probes/expected-error-detects-contract-weakening/case.ts(2,1): error TS2578: Unused '@ts-expect-error' directive.\n",
+      "verdict": "pass"
+    },
+    {
+      "id": "new-variant-breaks-exhaustive-consumer",
+      "code": "type State = { kind: \"open\" } | { kind: \"done\"; at: Date } | { kind: \"cancelled\" };\nfunction describe(state: State): string { switch (state.kind) { case \"open\": return \"open\"; case \"done\": return state.at.toISOString(); default: { const remaining: never = state; return remaining; } } }\nexport {};",
+      "diagnostic": "TS2322",
+      "proves": "Adding a union member breaks a consumer that enforces exhaustiveness.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/new-variant-breaks-exhaustive-consumer/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 1,
+      "compilerOutput": ".tmp/typescript-best-practices/probes/new-variant-breaks-exhaustive-consumer/case.ts(2,154): error TS2322: Type '{ kind: \"cancelled\"; }' is not assignable to type 'never'.\n",
+      "verdict": "pass"
+    },
+    {
+      "id": "independent-optionals-remain-valid",
+      "code": "type Preferences = { label?: string; theme?: \"light\" | \"dark\" };\nconst states: Preferences[] = [{}, { label: \"Home\" }, { theme: \"dark\" }, { label: \"Home\", theme: \"dark\" }];\nconsole.log(states.length);\nexport {};",
+      "runtime": "4",
+      "proves": "Independent optional fields legitimately admit all combinations; a discriminated union is not mandatory.",
+      "compilerOptions": {
+        "strict": true,
+        "target": "ES2022",
+        "module": "NodeNext",
+        "outDir": "./dist",
+        "noEmitOnError": true,
+        "types": []
+      },
+      "command": [
+        "node",
+        "compiler/node_modules/typescript/bin/tsc",
+        "--project",
+        "probes/independent-optionals-remain-valid/tsconfig.json",
+        "--pretty",
+        "false"
+      ],
+      "compileExit": 0,
+      "compilerOutput": "",
+      "runtimeExit": 0,
+      "runtimeOutput": "4",
+      "verdict": "pass"
+    }
+  ],
+  "configuration_probes": [
+    {
+      "id": "solution-root-checks-no-leaf",
+      "files": {
+        "tsconfig.json": {
+          "files": [],
+          "references": [
+            {
+              "path": "./leaf"
+            }
+          ]
+        },
+        "leaf/tsconfig.json": {
+          "compilerOptions": {
+            "strict": true,
+            "composite": true,
+            "noEmit": true,
+            "types": []
+          },
+          "files": [
+            "source.ts"
+          ]
+        },
+        "leaf/source.ts": "export const count: number = \"not a number\";\n"
+      },
+      "checks": [
+        {
+          "command": [
+            "node",
+            "compiler/node_modules/typescript/bin/tsc",
+            "--project",
+            "module-probes/solution/tsconfig.json",
+            "--pretty",
+            "false"
+          ],
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "command": [
+            "node",
+            "compiler/node_modules/typescript/bin/tsc",
+            "--project",
+            "module-probes/solution/leaf/tsconfig.json",
+            "--pretty",
+            "false"
+          ],
+          "exit": 1,
+          "output": ".tmp/typescript-best-practices/module-probes/solution/leaf/source.ts(1,14): error TS2322: Type 'string' is not assignable to type 'number'.\n"
+        }
+      ],
+      "verdict": "pass",
+      "proves": "A passing tsc -p at a files:[] solution root does not prove referenced source type-checks."
+    },
+    {
+      "id": "paths-do-not-rewrite-runtime-imports",
+      "files": {
+        "tsconfig.json": {
+          "compilerOptions": {
+            "strict": true,
+            "module": "NodeNext",
+            "target": "ES2022",
+            "noEmitOnError": true,
+            "outDir": "./dist",
+            "types": [],
+            "paths": {
+              "@fixture/value": [
+                "./value.ts"
+              ]
+            }
+          },
+          "files": [
+            "main.ts",
+            "value.ts"
+          ]
+        },
+        "package.json": {
+          "type": "module"
+        },
+        "value.ts": "export const value = 42;\n",
+        "main.ts": "import { value } from \"@fixture/value\";\nconsole.log(value);\n"
+      },
+      "replacement": "import { value } from \"./value.js\";\nconsole.log(value);\n",
+      "checks": [
+        {
+          "command": [
+            "node",
+            "compiler/node_modules/typescript/bin/tsc",
+            "--project",
+            "module-probes/alias/tsconfig.json",
+            "--pretty",
+            "false"
+          ],
+          "exit": 0,
+          "output": ""
+        },
+        {
+          "command": [
+            "node",
+            "compiler/node_modules/typescript/bin/tsc",
+            "--project",
+            "module-probes/alias/tsconfig.json",
+            "--pretty",
+            "false"
+          ],
+          "exit": 0,
+          "output": ""
+        }
+      ],
+      "originalRuntime": {
+        "exit": 1,
+        "error": "ERR_MODULE_NOT_FOUND",
+        "emitted": "import { value } from \"@fixture/value\";\nconsole.log(value);\n"
+      },
+      "correctedRuntime": {
+        "exit": 0,
+        "output": "42"
+      },
+      "verdict": "pass",
+      "proves": "Compiler path resolution can pass while the emitted import fails in the actual host; using a host-resolvable specifier repairs this fixture."
+    }
+  ],
+  "agent_evaluation": {
+    "status": "not_run",
+    "cases": "../../typescript-best-practices/evals/requests.json",
+    "grader": "../../typescript-best-practices/evals/expectations.json",
+    "reason": "The active session prohibits unrequested delegation; no independent executor was launched for this task. Compiler/runtime probes establish technical semantics, not the usefulness of the instructions to an agent.",
+    "claims_not_established": [
+      "Measured improvement over no skill",
+      "Implicit host selection or installed-skill activation",
+      "Actions and authority observed in an independent agent trial"
+    ]
+  },
+  "selection_review": {
+    "method": "Author inspection of the description beside design-code-structure, review-code-changes, error-handling and verify; not a live host-selection test.",
+    "positive": "TypeScript implementation, review and compiler/module diagnosis.",
+    "near_misses": "Python design work remains with design-code-structure; copy-only TSX edits do not trigger a type model or config migration; review coordination and error recovery keep their existing owners."
+  },
+  "scope": "New local TypeScript package, README entry and coordinated atlas overlay with research/evidence. No installation, GitHub write, repository dependency, verify change, or walkthrough deletion belongs to this boundary.",
+  "atlas": {
+    "baseline_commit": "afccb2687d0328fd1f6a76e1a4d05f8fe4286db2",
+    "source_cards": 239,
+    "additional_typescript_cards": 24,
+    "typescript_category_cards": 26,
+    "ready_source_cards": 100,
+    "repository_rows": 19,
+    "principle_rows": 24,
+    "repository_packages": 29,
+    "data_checks": [
+      "catalog.js equals sources.json payload",
+      "239 unique source progress records and reconciled counts",
+      "29 current entrypoint hashes",
+      "Original source snapshots, authorReview, accessibilityReview and verifyBrowserReview unchanged",
+      "verify-browser-expansion HTML unchanged",
+      "All skill revision hashes match validation record"
+    ],
+    "syntax_checks": [
+      "node --check reports/skill-atlas/app.js",
+      "node --check reports/skill-atlas/catalog.js"
+    ],
+    "browser": {
+      "tool": "T3 collaborative browser",
+      "tab": "tab_8",
+      "url": "http://localhost:8765/#typescript-best-practices",
+      "observed": [
+        "Desktop screenshot inspected at 1280x800",
+        "Mobile screenshot inspected at 390x844; page width and scroll width both 375 CSS pixels after scrollbar",
+        "26 TypeScript cards appear under the category filter; 9 show incorporation within that category",
+        "Search with no matching term shows the empty state; reset restores 239 cards",
+        "All internal anchors resolve; no duplicate IDs",
+        "19 repository rows and 24 principle rows render",
+        "Both research and validation JSON links return HTTP 200",
+        "Shared accessibility/verify source assessment remains present"
+      ],
+      "limitations": [
+        "No installation or implicit skill activation tested",
+        "Browser UI checks do not establish independent agent behavior"
+      ]
+    }
+  }
+}

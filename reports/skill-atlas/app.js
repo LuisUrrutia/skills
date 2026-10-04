@@ -3,9 +3,9 @@
 const atlas = window.SKILL_ATLAS;
 const repositoryInventory = atlas.repositoryInventory;
 const repositorySkills = new Map(repositoryInventory.skills.map((skill) => [skill.name, skill]));
-const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments].map((skill) => [skill.key, skill]));
+const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments].map((skill) => [skill.key, skill]));
 const originalKeys = new Set(atlas.skills.map((skill) => skill.key));
-const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills];
+const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills];
 const byKey = new Map(catalogSkills.map((skill) => [skill.key, skill]));
 const byId = new Map(catalogSkills.map((skill) => [skill.id, skill]));
 const recommendationFor = (skill) => sourceReviews.get(skill.key) || skill;
@@ -661,6 +661,8 @@ function reviewEvidenceMarkup(skill) {
 }
 
 document.querySelectorAll("[data-catalog-count]").forEach((element) => { element.textContent = catalogSkills.length; });
+document.querySelector("#typescript-repositories").innerHTML = atlas.typescriptReview.repositories.map((repository) => `<tr><th><a href="${escapeHtml(repository.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(repository.repository)}</a><small>${escapeHtml(repository.commit.slice(0, 12))}</small></th><td>${escapeHtml(repository.decision)}</td><td>${escapeHtml(repository.reason)}<details class="evidence"><summary>Scope and exclusions</summary><p>${escapeHtml(repository.reviewDepth)}</p><p>${escapeHtml(repository.excluded)}</p></details></td></tr>`).join("");
+document.querySelector("#typescript-principles").innerHTML = atlas.typescriptReview.principles.map((principle) => `<li><a href="${escapeHtml(principle.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(principle.name)}</a> — ${escapeHtml(principle.status)}</li>`).join("");
 document.querySelector("#accessibility-repositories").innerHTML = atlas.accessibilityReview.repositories.map((repository) => `<tr><th><a href="${escapeHtml(repository.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(repository.repository)}</a></th><td>${escapeHtml(repository.decision)}</td><td>${escapeHtml(repository.reason)}</td></tr>`).join("");
 document.querySelector("#author-collections").innerHTML = atlas.authorReview.collections.map((collection) => `<article class="surface"><h3>${escapeHtml(collection.name)}</h3><p><strong>${collection.count}</strong> skills · <strong>${collection.incorporated}</strong> sources already incorporated</p><a href="?group=${encodeURIComponent(collection.name)}#catalog">Browse this collection</a><details class="evidence"><summary>Pinned repository</summary><p><a href="${escapeHtml(collection.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(collection.url)}</a></p></details></article>`).join("");
 document.querySelector("#author-shortlist").innerHTML = atlas.authorReview.shortlist.map((item, index) => `<article class="surface"><p class="kicker">${index + 1}. ${escapeHtml(item.route)}</p><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.why)}</p><p><strong>Owner:</strong> ${escapeHtml(item.owner)}.</p><p class="skill-meta">${escapeHtml(item.boundary)}</p>${skillLinks(item.keys)}</article>`).join("");

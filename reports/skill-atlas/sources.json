@@ -4120,7 +4120,7 @@
   },
   "repositoryInventory": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "dc94bb6d574866223c815af8fa09c4d7d09e7928",
+    "repositoryCommit": "afccb2687d0328fd1f6a76e1a4d05f8fe4286db2",
     "scope": "Top-level skill packages present in this working tree. Presence does not prove installation, activation or production validation.",
     "groups": [
       "Instruction authoring",
@@ -4357,10 +4357,10 @@
       {
         "name": "typescript-best-practices",
         "category": "Implementation, verification and review",
-        "summary": "TypeScript implementation and review guidance. Package appeared during concurrent authoring; validation and source incorporation are outside this accessibility task.",
+        "summary": "Keep TypeScript contracts honest across domain states, runtime boundaries, mutation, async callbacks and module consumers.",
         "path": "typescript-best-practices/SKILL.md",
-        "sha256": "360324e7f0b995e6cec4d2766b3851ebac401c8271dee52ef34934ed0e6dfc35",
-        "section": "create"
+        "sha256": "89625b5e09cfae30e809da5ba116aa551ce9daad3e94d52b03f611fc6f70e41c",
+        "section": "typescript-best-practices"
       }
     ],
     "pending": [
@@ -4388,7 +4388,7 @@
     "replacements": {
       "review-audit": "review-code-changes"
     },
-    "validationScope": "Package presence, declared names and entrypoint hashes checked. accessibility and error-handling have bounded behavioral evaluations; other skills retain their separate evidence. typescript-best-practices appeared during concurrent authoring and is counted for presence only. Repository presence does not establish installation or host activation."
+    "validationScope": "Package presence, declared names and entrypoint hashes checked. TypeScript has 22 technical compiler/runtime/configuration probes and package validation; independent agent behavior and host activation are not tested. Other skills retain their separate dated evidence. Presence is not installation."
   },
   "errorHandlingReview": {
     "date": "2026-10-04",
@@ -7402,13 +7402,13 @@
   },
   "sourceProgress": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "dc94bb6d574866223c815af8fa09c4d7d09e7928",
+    "repositoryCommit": "afccb2687d0328fd1f6a76e1a4d05f8fe4286db2",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 90,
-      "pending": 58,
+      "ready": 100,
+      "pending": 55,
       "optional": 43,
-      "not-selected": 24
+      "not-selected": 41
     },
     "skills": {
       "Matt Pocock/code-review": {
@@ -8404,7 +8404,8 @@
         "label": "Incorporated",
         "owners": [
           "design-code-structure",
-          "error-handling"
+          "error-handling",
+          "typescript-best-practices"
         ],
         "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
@@ -8450,6 +8451,25 @@
               "Keep meaningful absence, status and interaction assertions when they establish a failure contract; no universal test-deletion rule.",
               "Preserve the caller's design, review or implementation scope, including unresolved business recovery policy."
             ]
+          },
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 7,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "pstack-typescript-and-principles",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Use the simplest type that makes a required operation total; model related states, meaningful identities and exhaustive variants.",
+              "Validate at the owning boundary and derive types from the authoritative contract.",
+              "Require evidence for claimed guarantees and keep instructions focused on decisions not mechanical style."
+            ],
+            "localChoices": [
+              "Keep meaningful absence and independently optional fields; do not force NonEmpty or brands into every signature.",
+              "Correct number-duration, mutable-tuple, readonly, satisfies and unconditional-internal-trust overclaims. A stronger annotation does not create a runtime invariant.",
+              "Review all 24 principle skills, but retain only TypeScript-relevant decisions. Do not import broad autonomy, mandatory scripts, repository rewrites, fixed argument style, logger policy or host metadata."
+            ]
           }
         ]
       },
@@ -8461,11 +8481,33 @@
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "pstack/principle-encode-lessons-in-structure": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "typescript-best-practices"
+        ],
+        "evidence": [
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 7,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "pstack-typescript-and-principles",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Use the simplest type that makes a required operation total; model related states, meaningful identities and exhaustive variants.",
+              "Validate at the owning boundary and derive types from the authoritative contract.",
+              "Require evidence for claimed guarantees and keep instructions focused on decisions not mechanical style."
+            ],
+            "localChoices": [
+              "Keep meaningful absence and independently optional fields; do not force NonEmpty or brands into every signature.",
+              "Correct number-duration, mutable-tuple, readonly, satisfies and unconditional-internal-trust overclaims. A stronger annotation does not create a runtime invariant.",
+              "Review all 24 principle skills, but retain only TypeScript-relevant decisions. Do not import broad autonomy, mandatory scripts, repository rewrites, fixed argument style, logger policy or host metadata."
+            ]
+          }
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized."
       },
       "pstack/principle-exhaust-the-design-space": {
         "status": "ready",
@@ -8685,7 +8727,8 @@
         "status": "ready",
         "label": "Incorporated",
         "owners": [
-          "design-code-structure"
+          "design-code-structure",
+          "typescript-best-practices"
         ],
         "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
@@ -8710,6 +8753,25 @@
               "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
               "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
             ]
+          },
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 7,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "pstack-typescript-and-principles",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Use the simplest type that makes a required operation total; model related states, meaningful identities and exhaustive variants.",
+              "Validate at the owning boundary and derive types from the authoritative contract.",
+              "Require evidence for claimed guarantees and keep instructions focused on decisions not mechanical style."
+            ],
+            "localChoices": [
+              "Keep meaningful absence and independently optional fields; do not force NonEmpty or brands into every signature.",
+              "Correct number-duration, mutable-tuple, readonly, satisfies and unconditional-internal-trust overclaims. A stronger annotation does not create a runtime invariant.",
+              "Review all 24 principle skills, but retain only TypeScript-relevant decisions. Do not import broad autonomy, mandatory scripts, repository rewrites, fixed argument style, logger policy or host metadata."
+            ]
           }
         ]
       },
@@ -8717,7 +8779,8 @@
         "status": "ready",
         "label": "Incorporated",
         "owners": [
-          "design-code-structure"
+          "design-code-structure",
+          "typescript-best-practices"
         ],
         "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
@@ -8741,6 +8804,25 @@
               "Preserve the principle's exception for established or forced designs instead of architect's unconditional design-twice rule.",
               "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
               "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
+            ]
+          },
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 7,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "pstack-typescript-and-principles",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Use the simplest type that makes a required operation total; model related states, meaningful identities and exhaustive variants.",
+              "Validate at the owning boundary and derive types from the authoritative contract.",
+              "Require evidence for claimed guarantees and keep instructions focused on decisions not mechanical style."
+            ],
+            "localChoices": [
+              "Keep meaningful absence and independently optional fields; do not force NonEmpty or brands into every signature.",
+              "Correct number-duration, mutable-tuple, readonly, satisfies and unconditional-internal-trust overclaims. A stronger annotation does not create a runtime invariant.",
+              "Review all 24 principle skills, but retain only TypeScript-relevant decisions. Do not import broad autonomy, mandatory scripts, repository rewrites, fixed argument style, logger policy or host metadata."
             ]
           }
         ]
@@ -8763,7 +8845,8 @@
         "status": "ready",
         "label": "Incorporated",
         "owners": [
-          "compare-solutions"
+          "compare-solutions",
+          "typescript-best-practices"
         ],
         "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
@@ -8796,6 +8879,25 @@
               "Keep analyze-change-effects and review-code-changes distinct and prevent recursive comparisons.",
               "Inline only the relevant principles; do not import the donors' full redesign, depth, artifact, or deletion rules.",
               "Do not require show-me-your-work, an extra prose-cleanup skill, product repair, installation, or publication."
+            ]
+          },
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 7,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "pstack-typescript-and-principles",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Use the simplest type that makes a required operation total; model related states, meaningful identities and exhaustive variants.",
+              "Validate at the owning boundary and derive types from the authoritative contract.",
+              "Require evidence for claimed guarantees and keep instructions focused on decisions not mechanical style."
+            ],
+            "localChoices": [
+              "Keep meaningful absence and independently optional fields; do not force NonEmpty or brands into every signature.",
+              "Correct number-duration, mutable-tuple, readonly, satisfies and unconditional-internal-trust overclaims. A stronger annotation does not create a runtime invariant.",
+              "Review all 24 principle skills, but retain only TypeScript-relevant decisions. Do not import broad autonomy, mandatory scripts, repository rewrites, fixed argument style, logger policy or host metadata."
             ]
           }
         ]
@@ -8939,7 +9041,8 @@
         "status": "ready",
         "label": "Incorporated",
         "owners": [
-          "design-code-structure"
+          "design-code-structure",
+          "typescript-best-practices"
         ],
         "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
@@ -8964,6 +9067,25 @@
               "Treat layer counts and adapter counts as prompts for judgment; preserve authorization, mutable-state checks, protocol contracts and real shared invariants.",
               "No mandatory adversarial multi-model review, scaffold-only commit, planned product breakage or whole-repository rewrite."
             ]
+          },
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 7,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "pstack-typescript-and-principles",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Use the simplest type that makes a required operation total; model related states, meaningful identities and exhaustive variants.",
+              "Validate at the owning boundary and derive types from the authoritative contract.",
+              "Require evidence for claimed guarantees and keep instructions focused on decisions not mechanical style."
+            ],
+            "localChoices": [
+              "Keep meaningful absence and independently optional fields; do not force NonEmpty or brands into every signature.",
+              "Correct number-duration, mutable-tuple, readonly, satisfies and unconditional-internal-trust overclaims. A stronger annotation does not create a runtime invariant.",
+              "Review all 24 principle skills, but retain only TypeScript-relevant decisions. Do not import broad autonomy, mandatory scripts, repository rewrites, fixed argument style, logger policy or host metadata."
+            ]
           }
         ]
       },
@@ -8971,7 +9093,8 @@
         "status": "ready",
         "label": "Incorporated",
         "owners": [
-          "error-handling"
+          "error-handling",
+          "typescript-best-practices"
         ],
         "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
@@ -8995,15 +9118,56 @@
               "Keep meaningful absence, status and interaction assertions when they establish a failure contract; no universal test-deletion rule.",
               "Preserve the caller's design, review or implementation scope, including unresolved business recovery policy."
             ]
+          },
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 7,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "pstack-typescript-and-principles",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Use the simplest type that makes a required operation total; model related states, meaningful identities and exhaustive variants.",
+              "Validate at the owning boundary and derive types from the authoritative contract.",
+              "Require evidence for claimed guarantees and keep instructions focused on decisions not mechanical style."
+            ],
+            "localChoices": [
+              "Keep meaningful absence and independently optional fields; do not force NonEmpty or brands into every signature.",
+              "Correct number-duration, mutable-tuple, readonly, satisfies and unconditional-internal-trust overclaims. A stronger annotation does not create a runtime invariant.",
+              "Review all 24 principle skills, but retain only TypeScript-relevant decisions. Do not import broad autonomy, mandatory scripts, repository rewrites, fixed argument style, logger policy or host metadata."
+            ]
           }
         ]
       },
       "pstack/principle-type-system-discipline": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "typescript-best-practices"
+        ],
+        "evidence": [
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 7,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "pstack-typescript-and-principles",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Use the simplest type that makes a required operation total; model related states, meaningful identities and exhaustive variants.",
+              "Validate at the owning boundary and derive types from the authoritative contract.",
+              "Require evidence for claimed guarantees and keep instructions focused on decisions not mechanical style."
+            ],
+            "localChoices": [
+              "Keep meaningful absence and independently optional fields; do not force NonEmpty or brands into every signature.",
+              "Correct number-duration, mutable-tuple, readonly, satisfies and unconditional-internal-trust overclaims. A stronger annotation does not create a runtime invariant.",
+              "Review all 24 principle skills, but retain only TypeScript-relevant decisions. Do not import broad autonomy, mandatory scripts, repository rewrites, fixed argument style, logger policy or host metadata."
+            ]
+          }
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized."
       },
       "pstack/recall": {
         "status": "optional",
@@ -9171,11 +9335,33 @@
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "pstack/typescript-best-practices": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "typescript-best-practices"
+        ],
+        "evidence": [
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 7,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "pstack-typescript-and-principles",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Use the simplest type that makes a required operation total; model related states, meaningful identities and exhaustive variants.",
+              "Validate at the owning boundary and derive types from the authoritative contract.",
+              "Require evidence for claimed guarantees and keep instructions focused on decisions not mechanical style."
+            ],
+            "localChoices": [
+              "Keep meaningful absence and independently optional fields; do not force NonEmpty or brands into every signature.",
+              "Correct number-duration, mutable-tuple, readonly, satisfies and unconditional-internal-trust overclaims. A stronger annotation does not create a runtime invariant.",
+              "Review all 24 principle skills, but retain only TypeScript-relevant decisions. Do not import broad autonomy, mandatory scripts, repository rewrites, fixed argument style, logger policy or host metadata."
+            ]
+          }
+        ],
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized."
       },
       "pstack/unslop": {
         "status": "not-selected",
@@ -11146,6 +11332,313 @@
             ]
           }
         ]
+      },
+      "Cursor team/typescript-exhaustive-switch": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "wshobson/typescript-pro": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "wshobson/modern-javascript-patterns": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "wshobson/typescript-advanced-types": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "mkosir/typescript-discriminated-unions": {
+        "owners": [
+          "typescript-best-practices"
+        ],
+        "evidence": [
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 22,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "mkosir-types-and-contracts",
+            "baselineCommit": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+            "reviewedThrough": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+            "borrowed": [
+              "Separate generated or asserted types from runtime validation and readonly views from runtime immutability.",
+              "Keep inference useful, public contracts intentional, and independent optional fields distinct from dependent state variants."
+            ],
+            "localChoices": [
+              "Select judgment rules from the nine reviewed skills, without copying their tutorials.",
+              "Leave enum/interface preferences, naming, exports, folder layout, React architecture, coverage and formatting to the project or existing specialist."
+            ]
+          }
+        ],
+        "status": "ready",
+        "label": "Incorporated",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized."
+      },
+      "mkosir/typescript-functions": {
+        "owners": [
+          "typescript-best-practices"
+        ],
+        "evidence": [
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 22,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "mkosir-types-and-contracts",
+            "baselineCommit": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+            "reviewedThrough": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+            "borrowed": [
+              "Separate generated or asserted types from runtime validation and readonly views from runtime immutability.",
+              "Keep inference useful, public contracts intentional, and independent optional fields distinct from dependent state variants."
+            ],
+            "localChoices": [
+              "Select judgment rules from the nine reviewed skills, without copying their tutorials.",
+              "Leave enum/interface preferences, naming, exports, folder layout, React architecture, coverage and formatting to the project or existing specialist."
+            ]
+          }
+        ],
+        "status": "ready",
+        "label": "Incorporated",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized."
+      },
+      "mkosir/typescript-naming": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "mkosir/typescript-react": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "mkosir/typescript-source-organization": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "mkosir/typescript-style-guide": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "mkosir/typescript-tests": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "mkosir/typescript-types": {
+        "owners": [
+          "typescript-best-practices"
+        ],
+        "evidence": [
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 22,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "mkosir-types-and-contracts",
+            "baselineCommit": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+            "reviewedThrough": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+            "borrowed": [
+              "Separate generated or asserted types from runtime validation and readonly views from runtime immutability.",
+              "Keep inference useful, public contracts intentional, and independent optional fields distinct from dependent state variants."
+            ],
+            "localChoices": [
+              "Select judgment rules from the nine reviewed skills, without copying their tutorials.",
+              "Leave enum/interface preferences, naming, exports, folder layout, React architecture, coverage and formatting to the project or existing specialist."
+            ]
+          }
+        ],
+        "status": "ready",
+        "label": "Incorporated",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized."
+      },
+      "mkosir/typescript-variables": {
+        "owners": [
+          "typescript-best-practices"
+        ],
+        "evidence": [
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 22,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "mkosir-types-and-contracts",
+            "baselineCommit": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+            "reviewedThrough": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+            "borrowed": [
+              "Separate generated or asserted types from runtime validation and readonly views from runtime immutability.",
+              "Keep inference useful, public contracts intentional, and independent optional fields distinct from dependent state variants."
+            ],
+            "localChoices": [
+              "Select judgment rules from the nine reviewed skills, without copying their tutorials.",
+              "Leave enum/interface preferences, naming, exports, folder layout, React architecture, coverage and formatting to the project or existing specialist."
+            ]
+          }
+        ],
+        "status": "ready",
+        "label": "Incorporated",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized."
+      },
+      "Hoang Nguyen/typescript-best-practices": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "Hoang Nguyen/typescript-language": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "Hoang Nguyen/typescript-security": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "Hoang Nguyen/typescript-tooling": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "LobeHub/typescript": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "Jeff Allan/typescript-pro": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "Sentimony/typescript": {
+        "owners": [
+          "typescript-best-practices"
+        ],
+        "evidence": [
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 52,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "sentimony-compiler-and-modules",
+            "baselineCommit": "e7ee0fff668e9ebd74a279635f1d04e66446eeec",
+            "reviewedThrough": "e7ee0fff668e9ebd74a279635f1d04e66446eeec",
+            "borrowed": [
+              "Use the installed compiler and effective owning configuration; a solution root can check no implementation files.",
+              "Match module resolution to the host and distinguish compiler paths from runtime import resolution."
+            ],
+            "localChoices": [
+              "Load configuration detail only for compiler, import/export or package changes.",
+              "Do not import version migration, framework commands, default compiler-flag bundles, unsafe mock casts or dated blanket ESM interoperability claims."
+            ]
+          }
+        ],
+        "status": "ready",
+        "label": "Incorporated",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized."
+      },
+      "Allen Eubank/typescript-best-practices": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "ECC/typescript-reviewer": {
+        "owners": [
+          "typescript-best-practices"
+        ],
+        "evidence": [
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 37,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "ecc-typescript-reviewer",
+            "baselineCommit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "reviewedThrough": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "borrowed": [
+              "Inspect floating promises and asynchronous callback ownership even when code type-checks.",
+              "Preserve strictness and distinguish checks actually executed from a script that was skipped."
+            ],
+            "localChoices": [
+              "Keep review coordination with review-code-changes; do not import its severity scheme or output template.",
+              "Do not prescribe catch-and-log, wrap every error, or treat void as rejection handling. Existing error-handling owns recovery policy."
+            ]
+          }
+        ],
+        "status": "ready",
+        "label": "Incorporated",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized."
+      },
+      "GSD/typescript-pro": {
+        "status": "not-selected",
+        "label": "Not selected",
+        "owners": [],
+        "evidence": [],
+        "note": "Reviewed for this TypeScript scope. Relevant advice is already covered, project-specific, or outside the concise language contract; no incorporation is claimed."
+      },
+      "Matthew Blode/onboard-exports-resolve-typed": {
+        "owners": [
+          "typescript-best-practices"
+        ],
+        "evidence": [
+          {
+            "owner": "typescript-best-practices",
+            "path": "typescript-best-practices/origin.txt",
+            "line": 67,
+            "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
+            "sourceId": "mblode-package-consumer-checks",
+            "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "borrowed": [
+              "Verify public entrypoints and declaration resolution from a consumer of the built or packed artifact under the module formats actually supported."
+            ],
+            "localChoices": [
+              "Do not prescribe dual ESM/CommonJS publishing, a root export for every package, a CLI bin, or additional audit dependencies.",
+              "Keep broader DX auditing outside this language skill."
+            ]
+          }
+        ],
+        "status": "ready",
+        "label": "Incorporated",
+        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized."
       }
     }
   },
@@ -11652,5 +12145,1131 @@
     ],
     "validation": "verify-browser-validation.json",
     "contract": "Common verify with project-local verify-<app>; conditional browser probes and per-path evidence. No new package or installed copy."
+  },
+  "typescriptReview": {
+    "date": "2026-10-04",
+    "baselineCommit": "afccb2687d0328fd1f6a76e1a4d05f8fe4286db2",
+    "scope": "Complete tracked-path inventories for every supplied repository, followed by text screening of canonical skills, agents, rules and relevant development guides. Selected relevant entrypoints and references were read as recorded below. This is not a line-by-line audit of every file or application in these repositories.",
+    "research": "typescript-best-practices-research.json",
+    "validation": "typescript-best-practices-validation.json",
+    "skills": [
+      {
+        "id": "cursor-team-typescript-exhaustive-switch",
+        "key": "Cursor team/typescript-exhaustive-switch",
+        "name": "typescript-exhaustive-switch",
+        "declaredName": "typescript-exhaustive-switch",
+        "group": "Cursor team",
+        "author": "Cursor Team",
+        "kind": "upstream",
+        "path": "cursor-team-kit/rules/typescript-exhaustive-switch.mdc",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/cursor-team-kit/rules/typescript-exhaustive-switch.mdc",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "sha256": "58214625757c38b73fc3e66a715ea4b2ae609f6b3e285edc4393c5144430a8f4",
+        "lines": 6,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "Require a never check when switching over a closed union or enum.",
+        "reason": "Corroborates the exhaustiveness rule already supplied by pstack; it does not need a second local owner.",
+        "caution": "Keep the compiler check without importing alwaysApply metadata or treating exhaustiveness as boundary validation.",
+        "inspection": "Complete entrypoint; broader research scope: Read the complete TypeScript entrypoint and linked patterns, all 24 pstack principles, and the Cursor Team exhaustiveness rule. Repository discovery also covered other teams rather than treating Cursor as one author.",
+        "references": []
+      },
+      {
+        "id": "wshobson-typescript-pro",
+        "key": "wshobson/typescript-pro",
+        "name": "typescript-pro",
+        "declaredName": "typescript-pro",
+        "group": "wshobson",
+        "author": "wshobson and contributors",
+        "kind": "upstream",
+        "path": "plugins/javascript-typescript/agents/typescript-pro.md",
+        "repository": "https://github.com/wshobson/agents",
+        "source": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/javascript-typescript/agents/typescript-pro.md",
+        "sha": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+        "sha256": "d7dd97fbc3fed73c8feb63ca5071b561660d150d94ecb2c1fa009c7cfba2d404",
+        "lines": 36,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "A broad specialist for advanced types, generics, declarations and strict TypeScript.",
+        "reason": "The advanced-type material is useful for identifying failure cases, but mostly teaches syntax agents already know. Its equality alias examples do not necessarily fail when the equality is false, and advanced interfaces can hide unchecked implementations.",
+        "caution": "No advanced-type catalog, mandatory utility library, fixed framework, generic builder pattern, type-as-validation claims, or retry/time-out recipes. A predicate checking only property existence does not prove field types.",
+        "inspection": "Complete entrypoint; broader research scope: Complete named entrypoints, advanced-types details and Conductor TypeScript guide; targeted async sections of modern-JavaScript details. Additional reference headings screened.",
+        "references": []
+      },
+      {
+        "id": "wshobson-modern-javascript-patterns",
+        "key": "wshobson/modern-javascript-patterns",
+        "name": "modern-javascript-patterns",
+        "declaredName": "modern-javascript-patterns",
+        "group": "wshobson",
+        "author": "wshobson and contributors",
+        "kind": "upstream",
+        "path": "plugins/javascript-typescript/skills/modern-javascript-patterns/SKILL.md",
+        "repository": "https://github.com/wshobson/agents",
+        "source": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/javascript-typescript/skills/modern-javascript-patterns/SKILL.md",
+        "sha": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+        "sha256": "32e203b8d944115102986dcb3cf4c48918edc5dbf6942668875970121809c064",
+        "lines": 43,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "A tutorial-style collection of JavaScript syntax, async patterns, iteration and functional techniques.",
+        "reason": "The advanced-type material is useful for identifying failure cases, but mostly teaches syntax agents already know. Its equality alias examples do not necessarily fail when the equality is false, and advanced interfaces can hide unchecked implementations.",
+        "caution": "No advanced-type catalog, mandatory utility library, fixed framework, generic builder pattern, type-as-validation claims, or retry/time-out recipes. A predicate checking only property existence does not prove field types.",
+        "inspection": "Complete entrypoint; broader research scope: Complete named entrypoints, advanced-types details and Conductor TypeScript guide; targeted async sections of modern-JavaScript details. Additional reference headings screened.",
+        "references": []
+      },
+      {
+        "id": "wshobson-typescript-advanced-types",
+        "key": "wshobson/typescript-advanced-types",
+        "name": "typescript-advanced-types",
+        "declaredName": "typescript-advanced-types",
+        "group": "wshobson",
+        "author": "wshobson and contributors",
+        "kind": "upstream",
+        "path": "plugins/javascript-typescript/skills/typescript-advanced-types/SKILL.md",
+        "repository": "https://github.com/wshobson/agents",
+        "source": "https://github.com/wshobson/agents/blob/156b7a5e7a8b93642628a339ee4039c925b34c7f/plugins/javascript-typescript/skills/typescript-advanced-types/SKILL.md",
+        "sha": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+        "sha256": "c32101c65134d94ef1a3305ef486020b57be6408f97ed952c9c560e3fe04188d",
+        "lines": 318,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "Worked examples of generics, conditional types, mapped types and type-safe API patterns.",
+        "reason": "The advanced-type material is useful for identifying failure cases, but mostly teaches syntax agents already know. Its equality alias examples do not necessarily fail when the equality is false, and advanced interfaces can hide unchecked implementations.",
+        "caution": "No advanced-type catalog, mandatory utility library, fixed framework, generic builder pattern, type-as-validation claims, or retry/time-out recipes. A predicate checking only property existence does not prove field types.",
+        "inspection": "Complete entrypoint; broader research scope: Complete named entrypoints, advanced-types details and Conductor TypeScript guide; targeted async sections of modern-JavaScript details. Additional reference headings screened.",
+        "references": []
+      },
+      {
+        "id": "mkosir-typescript-discriminated-unions",
+        "key": "mkosir/typescript-discriminated-unions",
+        "name": "typescript-discriminated-unions",
+        "declaredName": "typescript-discriminated-unions",
+        "group": "mkosir",
+        "author": "mkosir and contributors",
+        "kind": "upstream",
+        "path": "skills/typescript-discriminated-unions/SKILL.md",
+        "repository": "https://github.com/mkosir/typescript-style-guide",
+        "source": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-discriminated-unions/SKILL.md",
+        "sha": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+        "sha256": "7f019ca10e9694258673c743c66ca7b7078d02bf048b7985154c075874dbacd4",
+        "lines": 241,
+        "category": "TypeScript",
+        "decision": "Blend",
+        "action": "Selected TypeScript material incorporated",
+        "owner": "typescript-best-practices",
+        "summary": "Model mutually dependent fields and mutually exclusive states with discriminated unions.",
+        "reason": "Separate generated or asserted types from runtime validation and readonly views from runtime immutability. Keep inference useful, public contracts intentional, and independent optional fields distinct from dependent state variants.",
+        "caution": "Select judgment rules from the nine reviewed skills, without copying their tutorials. Leave enum/interface preferences, naming, exports, folder layout, React architecture, coverage and formatting to the project or existing specialist.",
+        "inspection": "Complete entrypoint; broader research scope: All nine complete skill entrypoints: discriminated-unions, functions, naming, react, source-organization, style-guide, tests, types, and variables. Duplicate reference text not counted as a separate full review.",
+        "references": [
+          {
+            "path": "skills/typescript-types/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-types/SKILL.md"
+          },
+          {
+            "path": "skills/typescript-functions/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-functions/SKILL.md"
+          },
+          {
+            "path": "skills/typescript-variables/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-variables/SKILL.md"
+          }
+        ]
+      },
+      {
+        "id": "mkosir-typescript-functions",
+        "key": "mkosir/typescript-functions",
+        "name": "typescript-functions",
+        "declaredName": "typescript-functions",
+        "group": "mkosir",
+        "author": "mkosir and contributors",
+        "kind": "upstream",
+        "path": "skills/typescript-functions/SKILL.md",
+        "repository": "https://github.com/mkosir/typescript-style-guide",
+        "source": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-functions/SKILL.md",
+        "sha": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+        "sha256": "989c771a4fd7de844bb21ed80b2a00f05a0e28891fafe223847246f091a2309c",
+        "lines": 99,
+        "category": "TypeScript",
+        "decision": "Blend",
+        "action": "Selected TypeScript material incorporated",
+        "owner": "typescript-best-practices",
+        "summary": "Guidance on function contracts, responsibility, inference, parameters and public return types.",
+        "reason": "Separate generated or asserted types from runtime validation and readonly views from runtime immutability. Keep inference useful, public contracts intentional, and independent optional fields distinct from dependent state variants.",
+        "caution": "Select judgment rules from the nine reviewed skills, without copying their tutorials. Leave enum/interface preferences, naming, exports, folder layout, React architecture, coverage and formatting to the project or existing specialist.",
+        "inspection": "Complete entrypoint; broader research scope: All nine complete skill entrypoints: discriminated-unions, functions, naming, react, source-organization, style-guide, tests, types, and variables. Duplicate reference text not counted as a separate full review.",
+        "references": [
+          {
+            "path": "skills/typescript-types/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-types/SKILL.md"
+          },
+          {
+            "path": "skills/typescript-discriminated-unions/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-discriminated-unions/SKILL.md"
+          },
+          {
+            "path": "skills/typescript-variables/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-variables/SKILL.md"
+          }
+        ]
+      },
+      {
+        "id": "mkosir-typescript-naming",
+        "key": "mkosir/typescript-naming",
+        "name": "typescript-naming",
+        "declaredName": "typescript-naming",
+        "group": "mkosir",
+        "author": "mkosir and contributors",
+        "kind": "upstream",
+        "path": "skills/typescript-naming/SKILL.md",
+        "repository": "https://github.com/mkosir/typescript-style-guide",
+        "source": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-naming/SKILL.md",
+        "sha": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+        "sha256": "d5fe6bb9f1ac682eef47ff7377527f1bebfb0f86e3bc96661544836cc8ea0c16",
+        "lines": 345,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "An opinionated naming guide for identifiers, generic parameters, files and exported APIs.",
+        "reason": "The guide explicitly distinguishes generated types from validation and readonly/as const from runtime immutability. Retain these cautions and avoid changing optionality or public interfaces merely to satisfy a style preference.",
+        "caution": "No universal interface/type or enum preference, array syntax rule, generic naming convention, hook return shape, export style, folder layout, coverage target, or React architecture.",
+        "inspection": "Complete entrypoint; broader research scope: All nine complete skill entrypoints: discriminated-unions, functions, naming, react, source-organization, style-guide, tests, types, and variables. Duplicate reference text not counted as a separate full review.",
+        "references": []
+      },
+      {
+        "id": "mkosir-typescript-react",
+        "key": "mkosir/typescript-react",
+        "name": "typescript-react",
+        "declaredName": "typescript-react",
+        "group": "mkosir",
+        "author": "mkosir and contributors",
+        "kind": "upstream",
+        "path": "skills/typescript-react/SKILL.md",
+        "repository": "https://github.com/mkosir/typescript-style-guide",
+        "source": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-react/SKILL.md",
+        "sha": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+        "sha256": "c90c3b65ffcfc76f331c077f39687a2f02fb36a0cf85919e28522bf713a54b61",
+        "lines": 173,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "React-specific conventions for props, components, hooks, state and data ownership.",
+        "reason": "The guide explicitly distinguishes generated types from validation and readonly/as const from runtime immutability. Retain these cautions and avoid changing optionality or public interfaces merely to satisfy a style preference.",
+        "caution": "No universal interface/type or enum preference, array syntax rule, generic naming convention, hook return shape, export style, folder layout, coverage target, or React architecture.",
+        "inspection": "Complete entrypoint; broader research scope: All nine complete skill entrypoints: discriminated-unions, functions, naming, react, source-organization, style-guide, tests, types, and variables. Duplicate reference text not counted as a separate full review.",
+        "references": []
+      },
+      {
+        "id": "mkosir-typescript-source-organization",
+        "key": "mkosir/typescript-source-organization",
+        "name": "typescript-source-organization",
+        "declaredName": "typescript-source-organization",
+        "group": "mkosir",
+        "author": "mkosir and contributors",
+        "kind": "upstream",
+        "path": "skills/typescript-source-organization/SKILL.md",
+        "repository": "https://github.com/mkosir/typescript-style-guide",
+        "source": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-source-organization/SKILL.md",
+        "sha": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+        "sha256": "5458f5a72fb8f7ea39f3fc6721d024b70747eba1af7188c8bc6e3dd1c9d9bf1d",
+        "lines": 154,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "An opinionated guide to module layout, file responsibilities, exports and type placement.",
+        "reason": "The guide explicitly distinguishes generated types from validation and readonly/as const from runtime immutability. Retain these cautions and avoid changing optionality or public interfaces merely to satisfy a style preference.",
+        "caution": "No universal interface/type or enum preference, array syntax rule, generic naming convention, hook return shape, export style, folder layout, coverage target, or React architecture.",
+        "inspection": "Complete entrypoint; broader research scope: All nine complete skill entrypoints: discriminated-unions, functions, naming, react, source-organization, style-guide, tests, types, and variables. Duplicate reference text not counted as a separate full review.",
+        "references": []
+      },
+      {
+        "id": "mkosir-typescript-style-guide",
+        "key": "mkosir/typescript-style-guide",
+        "name": "typescript-style-guide",
+        "declaredName": "typescript-style-guide",
+        "group": "mkosir",
+        "author": "mkosir and contributors",
+        "kind": "upstream",
+        "path": "skills/typescript-style-guide/SKILL.md",
+        "repository": "https://github.com/mkosir/typescript-style-guide",
+        "source": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-style-guide/SKILL.md",
+        "sha": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+        "sha256": "43bfb7f2ebbe2046774d674b9308fa6434c1d1eccbb0f37e7848b64d9f52e31a",
+        "lines": 34,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "Routes to the eight detailed style-guide modules for TypeScript and React.",
+        "reason": "The guide explicitly distinguishes generated types from validation and readonly/as const from runtime immutability. Retain these cautions and avoid changing optionality or public interfaces merely to satisfy a style preference.",
+        "caution": "No universal interface/type or enum preference, array syntax rule, generic naming convention, hook return shape, export style, folder layout, coverage target, or React architecture.",
+        "inspection": "Complete entrypoint; broader research scope: All nine complete skill entrypoints: discriminated-unions, functions, naming, react, source-organization, style-guide, tests, types, and variables. Duplicate reference text not counted as a separate full review.",
+        "references": []
+      },
+      {
+        "id": "mkosir-typescript-tests",
+        "key": "mkosir/typescript-tests",
+        "name": "typescript-tests",
+        "declaredName": "typescript-tests",
+        "group": "mkosir",
+        "author": "mkosir and contributors",
+        "kind": "upstream",
+        "path": "skills/typescript-tests/SKILL.md",
+        "repository": "https://github.com/mkosir/typescript-style-guide",
+        "source": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-tests/SKILL.md",
+        "sha": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+        "sha256": "926ef4f85ad4d1de215ce8ca88dc08773786039a9d9f6320eb0e2b8bf9949902",
+        "lines": 93,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "Testing conventions covering behavior, fixtures, names and assertion style.",
+        "reason": "The guide explicitly distinguishes generated types from validation and readonly/as const from runtime immutability. Retain these cautions and avoid changing optionality or public interfaces merely to satisfy a style preference.",
+        "caution": "No universal interface/type or enum preference, array syntax rule, generic naming convention, hook return shape, export style, folder layout, coverage target, or React architecture.",
+        "inspection": "Complete entrypoint; broader research scope: All nine complete skill entrypoints: discriminated-unions, functions, naming, react, source-organization, style-guide, tests, types, and variables. Duplicate reference text not counted as a separate full review.",
+        "references": []
+      },
+      {
+        "id": "mkosir-typescript-types",
+        "key": "mkosir/typescript-types",
+        "name": "typescript-types",
+        "declaredName": "typescript-types",
+        "group": "mkosir",
+        "author": "mkosir and contributors",
+        "kind": "upstream",
+        "path": "skills/typescript-types/SKILL.md",
+        "repository": "https://github.com/mkosir/typescript-style-guide",
+        "source": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-types/SKILL.md",
+        "sha": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+        "sha256": "cc3b62b958188e6be9c682a1468e3599bcc437e5fbe29ab63ebafbf3207655e9",
+        "lines": 410,
+        "category": "TypeScript",
+        "decision": "Blend",
+        "action": "Selected TypeScript material incorporated",
+        "owner": "typescript-best-practices",
+        "summary": "Guidance on inference, readonly data, schema-derived types, assertions and public type contracts.",
+        "reason": "Separate generated or asserted types from runtime validation and readonly views from runtime immutability. Keep inference useful, public contracts intentional, and independent optional fields distinct from dependent state variants.",
+        "caution": "Select judgment rules from the nine reviewed skills, without copying their tutorials. Leave enum/interface preferences, naming, exports, folder layout, React architecture, coverage and formatting to the project or existing specialist.",
+        "inspection": "Complete entrypoint; broader research scope: All nine complete skill entrypoints: discriminated-unions, functions, naming, react, source-organization, style-guide, tests, types, and variables. Duplicate reference text not counted as a separate full review.",
+        "references": [
+          {
+            "path": "skills/typescript-discriminated-unions/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-discriminated-unions/SKILL.md"
+          },
+          {
+            "path": "skills/typescript-functions/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-functions/SKILL.md"
+          },
+          {
+            "path": "skills/typescript-variables/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-variables/SKILL.md"
+          }
+        ]
+      },
+      {
+        "id": "mkosir-typescript-variables",
+        "key": "mkosir/typescript-variables",
+        "name": "typescript-variables",
+        "declaredName": "typescript-variables",
+        "group": "mkosir",
+        "author": "mkosir and contributors",
+        "kind": "upstream",
+        "path": "skills/typescript-variables/SKILL.md",
+        "repository": "https://github.com/mkosir/typescript-style-guide",
+        "source": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-variables/SKILL.md",
+        "sha": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+        "sha256": "01808ba4b3c7893d11580be06631448e4d94337c94c91f9c312aa366ef796cbd",
+        "lines": 210,
+        "category": "TypeScript",
+        "decision": "Blend",
+        "action": "Selected TypeScript material incorporated",
+        "owner": "typescript-best-practices",
+        "summary": "Guidance on declarations, const assertions, immutable views and value inference.",
+        "reason": "Separate generated or asserted types from runtime validation and readonly views from runtime immutability. Keep inference useful, public contracts intentional, and independent optional fields distinct from dependent state variants.",
+        "caution": "Select judgment rules from the nine reviewed skills, without copying their tutorials. Leave enum/interface preferences, naming, exports, folder layout, React architecture, coverage and formatting to the project or existing specialist.",
+        "inspection": "Complete entrypoint; broader research scope: All nine complete skill entrypoints: discriminated-unions, functions, naming, react, source-organization, style-guide, tests, types, and variables. Duplicate reference text not counted as a separate full review.",
+        "references": [
+          {
+            "path": "skills/typescript-types/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-types/SKILL.md"
+          },
+          {
+            "path": "skills/typescript-discriminated-unions/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-discriminated-unions/SKILL.md"
+          },
+          {
+            "path": "skills/typescript-functions/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/mkosir/typescript-style-guide/blob/170074a0df9b07f4a4a78e3596ec1edf06a14da7/skills/typescript-functions/SKILL.md"
+          }
+        ]
+      },
+      {
+        "id": "hoang-nguyen-typescript-best-practices",
+        "key": "Hoang Nguyen/typescript-best-practices",
+        "name": "typescript-best-practices",
+        "declaredName": "typescript-best-practices",
+        "group": "Hoang Nguyen",
+        "author": "Hoang Nguyen and contributors",
+        "kind": "upstream",
+        "path": "skills/typescript/typescript-best-practices/SKILL.md",
+        "repository": "https://github.com/HoangNguyen0403/agent-skills-standard",
+        "source": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/typescript/typescript-best-practices/SKILL.md",
+        "sha": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+        "sha256": "ef35ad528a09395e0f439e0e2fc70e69f9b1da7732149e2d0e234be23d500b0a",
+        "lines": 53,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "Broad TypeScript conventions for functions, classes, modules and common implementation patterns.",
+        "reason": "The four TypeScript entrypoints mostly duplicate pstack and official guidance while imposing tooling and style. Some details conflate compiler suppression with ESLint suppression.",
+        "caution": "No mandatory Zod/JWT/Argon2, namespace or enum ban, forced LSP/ESLint fix command, coverage quota, or test-only double-cast exemption. @ts-expect-error does not suppress an ESLint rule.",
+        "inspection": "Complete entrypoint; broader research scope: Complete four canonical entrypoints and best-practice examples; reference headings screened. Host mirrors and unrelated application/framework guides excluded.",
+        "references": []
+      },
+      {
+        "id": "hoang-nguyen-typescript-language",
+        "key": "Hoang Nguyen/typescript-language",
+        "name": "typescript-language",
+        "declaredName": "typescript-language",
+        "group": "Hoang Nguyen",
+        "author": "Hoang Nguyen and contributors",
+        "kind": "upstream",
+        "path": "skills/typescript/typescript-language/SKILL.md",
+        "repository": "https://github.com/HoangNguyen0403/agent-skills-standard",
+        "source": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/typescript/typescript-language/SKILL.md",
+        "sha": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+        "sha256": "5dbacb158389d8c88a1239324c10cf84cbb688f7ca88f3920671d25d71f91866",
+        "lines": 81,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "Language guidance covering types, interfaces, generics, enums, unions and narrowing.",
+        "reason": "The four TypeScript entrypoints mostly duplicate pstack and official guidance while imposing tooling and style. Some details conflate compiler suppression with ESLint suppression.",
+        "caution": "No mandatory Zod/JWT/Argon2, namespace or enum ban, forced LSP/ESLint fix command, coverage quota, or test-only double-cast exemption. @ts-expect-error does not suppress an ESLint rule.",
+        "inspection": "Complete entrypoint; broader research scope: Complete four canonical entrypoints and best-practice examples; reference headings screened. Host mirrors and unrelated application/framework guides excluded.",
+        "references": []
+      },
+      {
+        "id": "hoang-nguyen-typescript-security",
+        "key": "Hoang Nguyen/typescript-security",
+        "name": "typescript-security",
+        "declaredName": "typescript-security",
+        "group": "Hoang Nguyen",
+        "author": "Hoang Nguyen and contributors",
+        "kind": "upstream",
+        "path": "skills/typescript/typescript-security/SKILL.md",
+        "repository": "https://github.com/HoangNguyen0403/agent-skills-standard",
+        "source": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/typescript/typescript-security/SKILL.md",
+        "sha": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+        "sha256": "48dc0167fcdc5099ebe6f3d971fdede79be8ee5f1cf1edad73b2babd5fe32be3",
+        "lines": 61,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "Server-side validation, authentication and injection guidance with framework-specific recipes.",
+        "reason": "The four TypeScript entrypoints mostly duplicate pstack and official guidance while imposing tooling and style. Some details conflate compiler suppression with ESLint suppression.",
+        "caution": "No mandatory Zod/JWT/Argon2, namespace or enum ban, forced LSP/ESLint fix command, coverage quota, or test-only double-cast exemption. @ts-expect-error does not suppress an ESLint rule.",
+        "inspection": "Complete entrypoint; broader research scope: Complete four canonical entrypoints and best-practice examples; reference headings screened. Host mirrors and unrelated application/framework guides excluded.",
+        "references": []
+      },
+      {
+        "id": "hoang-nguyen-typescript-tooling",
+        "key": "Hoang Nguyen/typescript-tooling",
+        "name": "typescript-tooling",
+        "declaredName": "typescript-tooling",
+        "group": "Hoang Nguyen",
+        "author": "Hoang Nguyen and contributors",
+        "kind": "upstream",
+        "path": "skills/typescript/typescript-tooling/SKILL.md",
+        "repository": "https://github.com/HoangNguyen0403/agent-skills-standard",
+        "source": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/typescript/typescript-tooling/SKILL.md",
+        "sha": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+        "sha256": "f388172d1e7564bea69a69d51bc41897a23b6ae319856e87f128349467dae30e",
+        "lines": 62,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "Configuration recipes for TypeScript, linting, formatting, test runners and CI.",
+        "reason": "The four TypeScript entrypoints mostly duplicate pstack and official guidance while imposing tooling and style. Some details conflate compiler suppression with ESLint suppression.",
+        "caution": "No mandatory Zod/JWT/Argon2, namespace or enum ban, forced LSP/ESLint fix command, coverage quota, or test-only double-cast exemption. @ts-expect-error does not suppress an ESLint rule.",
+        "inspection": "Complete entrypoint; broader research scope: Complete four canonical entrypoints and best-practice examples; reference headings screened. Host mirrors and unrelated application/framework guides excluded.",
+        "references": []
+      },
+      {
+        "id": "lobehub-typescript",
+        "key": "LobeHub/typescript",
+        "name": "typescript",
+        "declaredName": "typescript",
+        "group": "LobeHub",
+        "author": "LobeHub contributors",
+        "kind": "upstream",
+        "path": ".agents/skills/typescript/SKILL.md",
+        "repository": "https://github.com/lobehub/lobehub",
+        "source": "https://github.com/lobehub/lobehub/blob/5fca09855b45f0286576bde1fdaaf03242eb183b/.agents/skills/typescript/SKILL.md",
+        "sha": "5fca09855b45f0286576bde1fdaaf03242eb183b",
+        "sha256": "ef2c51dbdb266f3c5741abee99f4c1c785013d40eabd9bd8ed66c3032e9b10a9",
+        "lines": 46,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "TypeScript style and safety conventions tailored to LobeHub imports, async code and tooling.",
+        "reason": "LobeHub's TypeScript skill is optimized for its own packages, conventions, and tooling. Its transferable ideas duplicate selected sources.",
+        "caution": "No @lobechat imports, universal satisfies/Record replacement, interface preference, top-level-await mandate, logging policy, or fixed suppression hierarchy.",
+        "inspection": "Complete entrypoint; broader research scope: Full tracked path discovery; scoped agent/development instruction corpus and complete TypeScript skill. Application code and translated product docs were not exhaustively reviewed.",
+        "references": []
+      },
+      {
+        "id": "jeff-allan-typescript-pro",
+        "key": "Jeff Allan/typescript-pro",
+        "name": "typescript-pro",
+        "declaredName": "typescript-pro",
+        "group": "Jeff Allan",
+        "author": "Jeff Allan and contributors",
+        "kind": "upstream",
+        "path": "skills/typescript-pro/SKILL.md",
+        "repository": "https://github.com/Jeffallan/claude-skills",
+        "source": "https://github.com/Jeffallan/claude-skills/blob/1be15d8064f88fc25216442406d40add8fd23b53/skills/typescript-pro/SKILL.md",
+        "sha": "1be15d8064f88fc25216442406d40add8fd23b53",
+        "sha256": "1647f8b6f7efc926b61ccfad4832317bf336a78b13265735229e25602afb0350",
+        "lines": 150,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "An advanced specialist covering type patterns, guards, utility types, branded types and full-stack contracts.",
+        "reason": "The specialist offers broad configuration and type-pattern references. Some examples overclaim their runtime guarantees: the User assertion checks only a tag and a positive-number constructor accepts NaN.",
+        "caution": "No mandatory brands everywhere, generated declarations for every app, global enum ban, fixed module/target config, ambient environment declarations as validation, or unchecked guard examples.",
+        "inspection": "Complete entrypoint; broader research scope: Complete skill and both focused references; other advanced-pattern reference paths inventoried.",
+        "references": []
+      },
+      {
+        "id": "sentimony-typescript",
+        "key": "Sentimony/typescript",
+        "name": "typescript",
+        "declaredName": "typescript",
+        "group": "Sentimony",
+        "author": "Ihor Orlovskyi",
+        "kind": "upstream",
+        "path": "skills/typescript/SKILL.md",
+        "repository": "https://github.com/sentimony/skills",
+        "source": "https://github.com/sentimony/skills/blob/e7ee0fff668e9ebd74a279635f1d04e66446eeec/skills/typescript/SKILL.md",
+        "sha": "e7ee0fff668e9ebd74a279635f1d04e66446eeec",
+        "sha256": "e50d9550a8705896b961f0bf1a8e876660cce48742b882a4d8fff35c70ab40a2",
+        "lines": 171,
+        "category": "TypeScript",
+        "decision": "Blend",
+        "action": "Selected TypeScript material incorporated",
+        "owner": "typescript-best-practices",
+        "summary": "Diagnose compiler, module and build-configuration problems against the installed TypeScript toolchain.",
+        "reason": "Use the installed compiler and effective owning configuration; a solution root can check no implementation files. Match module resolution to the host and distinguish compiler paths from runtime import resolution.",
+        "caution": "Load configuration detail only for compiler, import/export or package changes. Do not import version migration, framework commands, default compiler-flag bundles, unsafe mock casts or dated blanket ESM interoperability claims.",
+        "inspection": "Complete entrypoint; broader research scope: Complete skill and both focused references; no complete re-audit of every troubleshooting or framework recipe.",
+        "references": [
+          {
+            "path": "skills/typescript/references/module-resolution.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/sentimony/skills/blob/e7ee0fff668e9ebd74a279635f1d04e66446eeec/skills/typescript/references/module-resolution.md"
+          },
+          {
+            "path": "skills/typescript/references/monorepo.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/sentimony/skills/blob/e7ee0fff668e9ebd74a279635f1d04e66446eeec/skills/typescript/references/monorepo.md"
+          }
+        ]
+      },
+      {
+        "id": "allen-eubank-typescript-best-practices",
+        "key": "Allen Eubank/typescript-best-practices",
+        "name": "typescript-best-practices",
+        "declaredName": "typescript-best-practices",
+        "group": "Allen Eubank",
+        "author": "Allen Eubank",
+        "kind": "upstream",
+        "path": "plugins/engineering-practices/skills/typescript-best-practices/SKILL.md",
+        "repository": "https://github.com/alleneubank/agent-profile",
+        "source": "https://github.com/alleneubank/agent-profile/blob/5165b1f1122a4fa888347c6046d10593033748e8/plugins/engineering-practices/skills/typescript-best-practices/SKILL.md",
+        "sha": "5165b1f1122a4fa888347c6046d10593033748e8",
+        "sha256": "b320dfc04d6d468f6754a4d451fbe8b4eeb5ca9da3c521e0642a3e7616227ae8",
+        "lines": 130,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "State modeling, brands, schema validation and language-specific conventions, with additional framework routing.",
+        "reason": "The skill reinforces variants, brands, and schema inference. Its universal dependencies and framework routing do not fit a small host-independent language skill.",
+        "caution": "No mandatory Zod/type-fest dependency, automatic React loading for every TSX file, or assumption that a brand is an authorization boundary or date conversion validates a date.",
+        "inspection": "Complete entrypoint; broader research scope: Repository discovery and complete TypeScript entrypoint; no downstream React skill invoked or adopted.",
+        "references": []
+      },
+      {
+        "id": "ecc-typescript-reviewer",
+        "key": "ECC/typescript-reviewer",
+        "name": "typescript-reviewer",
+        "declaredName": "typescript-reviewer",
+        "group": "ECC",
+        "author": "Affaan Mustafa and contributors",
+        "kind": "upstream",
+        "path": "agents/typescript-reviewer.md",
+        "repository": "https://github.com/affaan-m/ECC",
+        "source": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/agents/typescript-reviewer.md",
+        "sha": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "sha256": "6b012db1a9039870c4f040975144a0d4e3592510d6332e2d260f02859ec66da1",
+        "lines": 124,
+        "category": "TypeScript",
+        "decision": "Blend",
+        "action": "Selected TypeScript material incorporated",
+        "owner": "typescript-best-practices",
+        "summary": "Inspect TypeScript correctness, including async callbacks, floating promises and configured checks.",
+        "reason": "Inspect floating promises and asynchronous callback ownership even when code type-checks. Preserve strictness and distinguish checks actually executed from a script that was skipped.",
+        "caution": "Keep review coordination with review-code-changes; do not import its severity scheme or output template. Do not prescribe catch-and-log, wrap every error, or treat void as rejection handling. Existing error-handling owns recovery policy.",
+        "inspection": "Complete entrypoint; broader research scope: Complete reviewer and three relevant rule files; targeted TypeScript section of coding-standards. Translated and host-mirrored copies excluded from duplicate review.",
+        "references": []
+      },
+      {
+        "id": "gsd-typescript-pro",
+        "key": "GSD/typescript-pro",
+        "name": "typescript-pro",
+        "declaredName": "typescript-pro",
+        "group": "GSD",
+        "author": "GSD contributors",
+        "kind": "upstream",
+        "path": "src/resources/agents/typescript-pro.md",
+        "repository": "https://github.com/gsd-build/gsd-2",
+        "source": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/agents/typescript-pro.md",
+        "sha": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+        "sha256": "200ca79b08dd2f4c4e7363bfccbf3f09ec4371c5d6d8c08adc9c16dde31889f6",
+        "lines": 61,
+        "category": "TypeScript",
+        "decision": "Skip",
+        "action": "Not selected for this TypeScript skill",
+        "owner": "Existing project or specialist guidance",
+        "summary": "A broad TypeScript agent covering advanced types, API contracts, build configuration and tests.",
+        "reason": "Repository-wide discovery found src/resources/agents/typescript-pro.md outside the skills directory. It is a broad type-first agent rather than a concise set of easily missed decisions.",
+        "caution": "No fixed model, mandatory advanced-type patterns, universal strictness migration, type-coverage target, or assumption that root tsc checks the relevant project.",
+        "inspection": "Complete entrypoint; broader research scope: Repository discovery and complete TypeScript agent.",
+        "references": []
+      },
+      {
+        "id": "matthew-blode-onboard-exports-resolve-typed",
+        "key": "Matthew Blode/onboard-exports-resolve-typed",
+        "name": "onboard-exports-resolve-typed",
+        "declaredName": "onboard-exports-resolve-typed",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "path": "skills/dx-audit/rules/onboard-exports-resolve-typed.md",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/dx-audit/rules/onboard-exports-resolve-typed.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "1571b9ae56e4ef9d718b467ab3c433dcbe5aeaf9d3e0bd8691f76372fb03fb24",
+        "lines": 41,
+        "category": "TypeScript",
+        "decision": "Blend",
+        "action": "Selected TypeScript material incorporated",
+        "owner": "typescript-best-practices",
+        "summary": "Check advertised exports and declaration resolution from a consumer of the built or packed package.",
+        "reason": "Verify public entrypoints and declaration resolution from a consumer of the built or packed artifact under the module formats actually supported.",
+        "caution": "Do not prescribe dual ESM/CommonJS publishing, a root export for every package, a CLI bin, or additional audit dependencies. Keep broader DX auditing outside this language skill.",
+        "inspection": "Complete entrypoint; broader research scope: Repository discovery and both complete focused rules.",
+        "references": []
+      }
+    ],
+    "assessments": [
+      {
+        "id": "pstack-typescript-best-practices",
+        "key": "pstack/typescript-best-practices",
+        "name": "typescript-best-practices",
+        "declaredName": "typescript-best-practices",
+        "group": "pstack",
+        "author": "Lauren Tan",
+        "kind": "upstream",
+        "path": "pstack/skills/typescript-best-practices/SKILL.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/typescript-best-practices/SKILL.md",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "sha256": "28f9e61710e205f6f3c5476f333483cff0e988f6a5b639e2faad536344b40c5e",
+        "lines": 31,
+        "category": "TypeScript",
+        "decision": "Blend",
+        "action": "Selected TypeScript material incorporated",
+        "owner": "typescript-best-practices",
+        "summary": "TypeScript best practices. Use when reading or editing any .ts or .tsx file.",
+        "reason": "Use the simplest type that makes a required operation total; model related states, meaningful identities and exhaustive variants. Validate at the owning boundary and derive types from the authoritative contract. Require evidence for claimed guarantees and keep instructions focused on decisions not mechanical style.",
+        "caution": "Keep meaningful absence and independently optional fields; do not force NonEmpty or brands into every signature. Correct number-duration, mutable-tuple, readonly, satisfies and unconditional-internal-trust overclaims. A stronger annotation does not create a runtime invariant. Review all 24 principle skills, but retain only TypeScript-relevant decisions. Do not import broad autonomy, mandatory scripts, repository rewrites, fixed argument style, logger policy or host metadata.",
+        "inspection": "Complete entrypoint; broader research scope: Read the complete TypeScript entrypoint and linked patterns, all 24 pstack principles, and the Cursor Team exhaustiveness rule. Repository discovery also covered other teams rather than treating Cursor as one author.",
+        "references": [
+          {
+            "path": "pstack/skills/typescript-best-practices/references/patterns.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/typescript-best-practices/references/patterns.md"
+          },
+          {
+            "path": "pstack/skills/principle-type-system-discipline/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-type-system-discipline/SKILL.md"
+          },
+          {
+            "path": "pstack/skills/principle-boundary-discipline/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-boundary-discipline/SKILL.md"
+          },
+          {
+            "path": "pstack/skills/principle-model-the-domain/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-model-the-domain/SKILL.md"
+          },
+          {
+            "path": "pstack/skills/principle-encode-lessons-in-structure/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-encode-lessons-in-structure/SKILL.md"
+          },
+          {
+            "path": "pstack/skills/principle-subtract-before-you-add/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-subtract-before-you-add/SKILL.md"
+          },
+          {
+            "path": "pstack/skills/principle-minimize-reader-load/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-minimize-reader-load/SKILL.md"
+          },
+          {
+            "path": "pstack/skills/principle-prove-it-works/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-prove-it-works/SKILL.md"
+          },
+          {
+            "path": "pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-test-behavior-not-implementation/SKILL.md"
+          }
+        ]
+      },
+      {
+        "id": "pstack-principle-type-system-discipline",
+        "key": "pstack/principle-type-system-discipline",
+        "name": "principle-type-system-discipline",
+        "declaredName": "principle-type-system-discipline",
+        "group": "pstack",
+        "author": "Lauren Tan",
+        "kind": "upstream",
+        "path": "pstack/skills/principle-type-system-discipline/SKILL.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-type-system-discipline/SKILL.md",
+        "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "sha256": "c83da8031ffb4c86410030d3e261f659598fca2b7d8158fd9dc269d70a3a025e",
+        "lines": 31,
+        "category": "TypeScript",
+        "decision": "Blend",
+        "action": "Selected TypeScript material incorporated",
+        "owner": "typescript-best-practices",
+        "summary": "Apply when designing types, reviewing a function signature, or writing code in any statically-typed language. Make illegal states unrepresentable, brand semantic primitives, parse external data at boundaries, refuse to lie to the compiler, exhaust variants, derive from authoritative schemas.",
+        "reason": "Use the simplest type that makes a required operation total; model related states, meaningful identities and exhaustive variants. Validate at the owning boundary and derive types from the authoritative contract. Require evidence for claimed guarantees and keep instructions focused on decisions not mechanical style.",
+        "caution": "Keep meaningful absence and independently optional fields; do not force NonEmpty or brands into every signature. Correct number-duration, mutable-tuple, readonly, satisfies and unconditional-internal-trust overclaims. A stronger annotation does not create a runtime invariant. Review all 24 principle skills, but retain only TypeScript-relevant decisions. Do not import broad autonomy, mandatory scripts, repository rewrites, fixed argument style, logger policy or host metadata.",
+        "inspection": "Complete entrypoint; broader research scope: Read the complete TypeScript entrypoint and linked patterns, all 24 pstack principles, and the Cursor Team exhaustiveness rule. Repository discovery also covered other teams rather than treating Cursor as one author.",
+        "references": [
+          {
+            "path": "pstack/skills/typescript-best-practices/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/typescript-best-practices/SKILL.md"
+          },
+          {
+            "path": "pstack/skills/typescript-best-practices/references/patterns.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/typescript-best-practices/references/patterns.md"
+          },
+          {
+            "path": "pstack/skills/principle-boundary-discipline/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-boundary-discipline/SKILL.md"
+          },
+          {
+            "path": "pstack/skills/principle-model-the-domain/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-model-the-domain/SKILL.md"
+          },
+          {
+            "path": "pstack/skills/principle-encode-lessons-in-structure/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-encode-lessons-in-structure/SKILL.md"
+          },
+          {
+            "path": "pstack/skills/principle-subtract-before-you-add/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-subtract-before-you-add/SKILL.md"
+          },
+          {
+            "path": "pstack/skills/principle-minimize-reader-load/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-minimize-reader-load/SKILL.md"
+          },
+          {
+            "path": "pstack/skills/principle-prove-it-works/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-prove-it-works/SKILL.md"
+          },
+          {
+            "path": "pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+            "coverage": "Selected supporting source, read at the pinned revision.",
+            "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-test-behavior-not-implementation/SKILL.md"
+          }
+        ]
+      }
+    ],
+    "repositories": [
+      {
+        "repository": "cursor/plugins",
+        "commit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "url": "https://github.com/cursor/plugins/tree/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+        "decision": "Adapt as the primary source",
+        "reason": "pstack supplies the central criterion: strengthen a type when an operation needs a guarantee, rather than pursuing precision for its own sake. Keep state modeling, meaningful brands, boundary parsing, honest predicates, exhaustiveness, and schema ownership.",
+        "reviewDepth": "Read the complete TypeScript entrypoint and linked patterns, all 24 pstack principles, and the Cursor Team exhaustiveness rule. Repository discovery also covered other teams rather than treating Cursor as one author.",
+        "excluded": "Do not copy host-specific invocation metadata, mandatory object arguments, logger policy, universal branding, a fixed narrowing hierarchy, automatic scripts, or unconditional internal trust. A number duration still permits negative values; mutable tuples and readonly views do not establish lifetime invariants."
+      },
+      {
+        "repository": "mattpocock/skills",
+        "commit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+        "url": "https://github.com/mattpocock/skills/tree/d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+        "decision": "Keep with existing design and review owners",
+        "reason": "Domain modeling contributes terminology and contract investigation, already owned by design-code-structure. The repository contains no separate TypeScript specialist needed for this small skill.",
+        "reviewDepth": "Repository tree and canonical instruction-text screening; complete relevant domain-modeling entrypoint.",
+        "excluded": "Do not add glossary/ADR workflows, code-review orchestration, or specification phases to routine TypeScript work."
+      },
+      {
+        "repository": "humanlayer/skills",
+        "commit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+        "url": "https://github.com/humanlayer/skills/tree/ca7c8088db69e315a8b2deea43820270457f8f3c",
+        "decision": "Considered; do not import the narrowing workflow",
+        "reason": "narrow-react-prop-types usefully investigates actual consumers and resists weakening production types for tests. However, observed call sites alone do not define every legitimate public state.",
+        "reviewDepth": "Repository discovery and complete relevant skill entrypoint; scheduled-workflow and memory templates were not adopted.",
+        "excluded": "No blanket removal of optional props or states absent from today's callers, React-only workflow, fixed Bun commands, or scheduling. Existing contracts remain authoritative."
+      },
+      {
+        "repository": "anthropics/skills",
+        "commit": "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+        "url": "https://github.com/anthropics/skills/tree/8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4",
+        "decision": "Leave SDK-specific guidance with its owner",
+        "reason": "TypeScript appears primarily in MCP and Claude SDK implementation guides. The useful schema-validation advice duplicates pstack; its SDK conventions are not general TypeScript policy.",
+        "reviewDepth": "Repository discovery; targeted TypeScript/boundary sections, including lines 485–525. Not a complete audit of SDK documentation.",
+        "excluded": "No mandatory Zod dependency, interfaces for every shape, SDK package templates, or catch blocks around every operation."
+      },
+      {
+        "repository": "addyosmani/agent-skills",
+        "commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "url": "https://github.com/addyosmani/agent-skills/tree/1401c8b8030e023baeebb31781a6653fe8e93026",
+        "decision": "Keep interface design with design-code-structure",
+        "reason": "api-and-interface-design covers stable public contracts and input/output separation. These overlap the existing design and error-handling skills rather than adding a missing TypeScript technique.",
+        "reviewDepth": "Repository discovery and substantive contract, boundary, TypeScript interface, and idempotency sections of the relevant entrypoint.",
+        "excluded": "No REST naming rules, universal pagination/PATCH/versioning policy, or exemption from validation merely because data comes from a database."
+      },
+      {
+        "repository": "vercel-labs/agent-skills",
+        "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+        "url": "https://github.com/vercel-labs/agent-skills/tree/063bee94c3f4df8453406c830b0a7df0f2860278",
+        "decision": "Keep React and performance guidance separate",
+        "reason": "The repository contains useful React composition and JavaScript performance rules. TypeScript examples do not make those rules a language-safety policy.",
+        "reviewDepth": "Repository discovery and complete focused async/immutability rules; not a new full audit of every React rule.",
+        "excluded": "No unconditional parallelization, React lifecycle guidance, memoization policy, or fixed browser/runtime compatibility claims."
+      },
+      {
+        "repository": "affaan-m/ECC",
+        "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "url": "https://github.com/affaan-m/ECC/tree/ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "decision": "Adapt a narrow part of the TypeScript reviewer",
+        "reason": "The agent, outside the skills directory, highlights floating promises, async callback mistakes, and preserving strictness. Retain completion ownership and the distinction between checks that ran and scripts that were absent.",
+        "reviewDepth": "Complete reviewer and three relevant rule files; targeted TypeScript section of coding-standards. Translated and host-mirrored copies excluded from duplicate review.",
+        "excluded": "No review severity/template workflow, catch-and-log defaults, blanket API response envelope, coverage quota, or --if-present command as proof that a type check ran."
+      },
+      {
+        "repository": "obra/superpowers",
+        "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+        "url": "https://github.com/obra/superpowers/tree/8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+        "decision": "No additional TypeScript donor selected",
+        "reason": "The matching material concerns debugging, tests, and verification already covered by local skills; no TypeScript-specific procedure fills a remaining gap.",
+        "reviewDepth": "Repository discovery and targeted match screening; no claim to re-audit every generic workflow.",
+        "excluded": "Do not duplicate the debugging or test-first workflow or add defense-in-depth checks at every internal call."
+      },
+      {
+        "repository": "gsd-build/gsd-2",
+        "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+        "url": "https://github.com/gsd-build/gsd-2/tree/33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+        "decision": "Considered; do not install the broad specialist",
+        "reason": "Repository-wide discovery found src/resources/agents/typescript-pro.md outside the skills directory. It is a broad type-first agent rather than a concise set of easily missed decisions.",
+        "reviewDepth": "Repository discovery and complete TypeScript agent.",
+        "excluded": "No fixed model, mandatory advanced-type patterns, universal strictness migration, type-coverage target, or assumption that root tsc checks the relevant project."
+      },
+      {
+        "repository": "EveryInc/compound-engineering-plugin",
+        "commit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "url": "https://github.com/EveryInc/compound-engineering-plugin/tree/9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+        "decision": "Keep maintainability review with review-code-changes",
+        "reason": "The current repository exposes generic review personas and project-standard checks, not a separate TypeScript reviewer at the inspected revision. The relevant type-hole checks are already covered by pstack and the local review owner.",
+        "reviewDepth": "Repository discovery and targeted typed-language, modeling, confidence, and exclusion sections.",
+        "excluded": "No review scoring, fixed line limits, reviewer JSON contract, or treating every explicit any as a mechanically certain defect."
+      },
+      {
+        "repository": "mblode/agent-skills",
+        "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "url": "https://github.com/mblode/agent-skills/tree/012e6e5208f512151bdea0e2965dafd01ff61340",
+        "decision": "Adapt consumer-side package verification only",
+        "reason": "dx-audit's exports rule checks the built package as its consumer sees it. This closes a gap left by source-level type checks and belongs in the conditional module reference.",
+        "reviewDepth": "Repository discovery and both complete focused rules.",
+        "excluded": "No full DX audit, mandatory dual ESM/CommonJS support, generic root-export policy, or replacing repository module conventions."
+      },
+      {
+        "repository": "cli/cli",
+        "commit": "6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+        "url": "https://github.com/cli/cli/tree/6fc1c29d5477bfe71da7af290eb481c0df7811f1",
+        "decision": "No TypeScript source selected",
+        "reason": "Tree discovery and the scoped text search found no relevant TypeScript instruction source. The supplied GitHub CLI skills remain useful to pr and pr-followup, not to language safety.",
+        "reviewDepth": "Full tracked path inventory and screening of 73 canonical skills/docs/root instruction-text files; no relevant match for the TypeScript query.",
+        "excluded": "Do not add GitHub CLI or PR procedures to a TypeScript specialist."
+      },
+      {
+        "repository": "wshobson/agents",
+        "commit": "156b7a5e7a8b93642628a339ee4039c925b34c7f",
+        "url": "https://github.com/wshobson/agents/tree/156b7a5e7a8b93642628a339ee4039c925b34c7f",
+        "decision": "Reference material considered; do not import the tutorials",
+        "reason": "The advanced-type material is useful for identifying failure cases, but mostly teaches syntax agents already know. Its equality alias examples do not necessarily fail when the equality is false, and advanced interfaces can hide unchecked implementations.",
+        "reviewDepth": "Complete named entrypoints, advanced-types details and Conductor TypeScript guide; targeted async sections of modern-JavaScript details. Additional reference headings screened.",
+        "excluded": "No advanced-type catalog, mandatory utility library, fixed framework, generic builder pattern, type-as-validation claims, or retry/time-out recipes. A predicate checking only property existence does not prove field types."
+      },
+      {
+        "repository": "mkosir/typescript-style-guide",
+        "commit": "170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+        "url": "https://github.com/mkosir/typescript-style-guide/tree/170074a0df9b07f4a4a78e3596ec1edf06a14da7",
+        "decision": "Adapt contract and runtime distinctions",
+        "reason": "The guide explicitly distinguishes generated types from validation and readonly/as const from runtime immutability. Retain these cautions and avoid changing optionality or public interfaces merely to satisfy a style preference.",
+        "reviewDepth": "All nine complete skill entrypoints: discriminated-unions, functions, naming, react, source-organization, style-guide, tests, types, and variables. Duplicate reference text not counted as a separate full review.",
+        "excluded": "No universal interface/type or enum preference, array syntax rule, generic naming convention, hook return shape, export style, folder layout, coverage target, or React architecture."
+      },
+      {
+        "repository": "HoangNguyen0403/agent-skills-standard",
+        "commit": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+        "url": "https://github.com/HoangNguyen0403/agent-skills-standard/tree/1fb0537c339c1e135167f4c15ba603b8849da5bc",
+        "decision": "Considered; do not import broad mandatory policies",
+        "reason": "The four TypeScript entrypoints mostly duplicate pstack and official guidance while imposing tooling and style. Some details conflate compiler suppression with ESLint suppression.",
+        "reviewDepth": "Complete four canonical entrypoints and best-practice examples; reference headings screened. Host mirrors and unrelated application/framework guides excluded.",
+        "excluded": "No mandatory Zod/JWT/Argon2, namespace or enum ban, forced LSP/ESLint fix command, coverage quota, or test-only double-cast exemption. @ts-expect-error does not suppress an ESLint rule."
+      },
+      {
+        "repository": "lobehub/lobehub",
+        "commit": "5fca09855b45f0286576bde1fdaaf03242eb183b",
+        "url": "https://github.com/lobehub/lobehub/tree/5fca09855b45f0286576bde1fdaaf03242eb183b",
+        "decision": "Keep as repository-specific guidance",
+        "reason": "LobeHub's TypeScript skill is optimized for its own packages, conventions, and tooling. Its transferable ideas duplicate selected sources.",
+        "reviewDepth": "Full tracked path discovery; scoped agent/development instruction corpus and complete TypeScript skill. Application code and translated product docs were not exhaustively reviewed.",
+        "excluded": "No @lobechat imports, universal satisfies/Record replacement, interface preference, top-level-await mandate, logging policy, or fixed suppression hierarchy."
+      },
+      {
+        "repository": "Jeffallan/claude-skills",
+        "commit": "1be15d8064f88fc25216442406d40add8fd23b53",
+        "url": "https://github.com/Jeffallan/claude-skills/tree/1be15d8064f88fc25216442406d40add8fd23b53",
+        "decision": "Considered; do not import advanced patterns wholesale",
+        "reason": "The specialist offers broad configuration and type-pattern references. Some examples overclaim their runtime guarantees: the User assertion checks only a tag and a positive-number constructor accepts NaN.",
+        "reviewDepth": "Complete skill and both focused references; other advanced-pattern reference paths inventoried.",
+        "excluded": "No mandatory brands everywhere, generated declarations for every app, global enum ban, fixed module/target config, ambient environment declarations as validation, or unchecked guard examples."
+      },
+      {
+        "repository": "sentimony/skills",
+        "commit": "e7ee0fff668e9ebd74a279635f1d04e66446eeec",
+        "url": "https://github.com/sentimony/skills/tree/e7ee0fff668e9ebd74a279635f1d04e66446eeec",
+        "decision": "Adapt configuration and host verification",
+        "reason": "The skill treats compiler configuration as an effective program and module resolution as a runtime-host contract. Retain owning-config checks and paths/emit distinctions in a conditional reference.",
+        "reviewDepth": "Complete skill and both focused references; no complete re-audit of every troubleshooting or framework recipe.",
+        "excluded": "No general TypeScript-version migration, automatic flag escalation, fixed skipLibCheck policy, mandatory project references, unsafe test doubles, or outdated absolute require(ESM) claims."
+      },
+      {
+        "repository": "alleneubank/agent-profile",
+        "commit": "5165b1f1122a4fa888347c6046d10593033748e8",
+        "url": "https://github.com/alleneubank/agent-profile/tree/5165b1f1122a4fa888347c6046d10593033748e8",
+        "decision": "Considered; pstack already supplies the useful core",
+        "reason": "The skill reinforces variants, brands, and schema inference. Its universal dependencies and framework routing do not fit a small host-independent language skill.",
+        "reviewDepth": "Repository discovery and complete TypeScript entrypoint; no downstream React skill invoked or adopted.",
+        "excluded": "No mandatory Zod/type-fest dependency, automatic React loading for every TSX file, or assumption that a brand is an authorization boundary or date conversion validates a date."
+      }
+    ],
+    "principles": [
+      {
+        "name": "principle-attack-the-premise",
+        "path": "pstack/skills/principle-attack-the-premise/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-attack-the-premise/SKILL.md"
+      },
+      {
+        "name": "principle-boundary-discipline",
+        "path": "pstack/skills/principle-boundary-discipline/SKILL.md",
+        "status": "selected guidance incorporated",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-boundary-discipline/SKILL.md"
+      },
+      {
+        "name": "principle-build-the-lever",
+        "path": "pstack/skills/principle-build-the-lever/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-build-the-lever/SKILL.md"
+      },
+      {
+        "name": "principle-encode-lessons-in-structure",
+        "path": "pstack/skills/principle-encode-lessons-in-structure/SKILL.md",
+        "status": "selected guidance incorporated",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-encode-lessons-in-structure/SKILL.md"
+      },
+      {
+        "name": "principle-exhaust-the-design-space",
+        "path": "pstack/skills/principle-exhaust-the-design-space/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-exhaust-the-design-space/SKILL.md"
+      },
+      {
+        "name": "principle-experience-first",
+        "path": "pstack/skills/principle-experience-first/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-experience-first/SKILL.md"
+      },
+      {
+        "name": "principle-explain-the-number",
+        "path": "pstack/skills/principle-explain-the-number/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-explain-the-number/SKILL.md"
+      },
+      {
+        "name": "principle-fix-root-causes",
+        "path": "pstack/skills/principle-fix-root-causes/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-fix-root-causes/SKILL.md"
+      },
+      {
+        "name": "principle-foundational-thinking",
+        "path": "pstack/skills/principle-foundational-thinking/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-foundational-thinking/SKILL.md"
+      },
+      {
+        "name": "principle-guard-the-context-window",
+        "path": "pstack/skills/principle-guard-the-context-window/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-guard-the-context-window/SKILL.md"
+      },
+      {
+        "name": "principle-laziness-protocol",
+        "path": "pstack/skills/principle-laziness-protocol/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-laziness-protocol/SKILL.md"
+      },
+      {
+        "name": "principle-make-operations-idempotent",
+        "path": "pstack/skills/principle-make-operations-idempotent/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-make-operations-idempotent/SKILL.md"
+      },
+      {
+        "name": "principle-migrate-callers-then-delete-legacy-apis",
+        "path": "pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md"
+      },
+      {
+        "name": "principle-minimize-reader-load",
+        "path": "pstack/skills/principle-minimize-reader-load/SKILL.md",
+        "status": "selected guidance incorporated",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-minimize-reader-load/SKILL.md"
+      },
+      {
+        "name": "principle-model-the-domain",
+        "path": "pstack/skills/principle-model-the-domain/SKILL.md",
+        "status": "selected guidance incorporated",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-model-the-domain/SKILL.md"
+      },
+      {
+        "name": "principle-never-block-on-the-human",
+        "path": "pstack/skills/principle-never-block-on-the-human/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-never-block-on-the-human/SKILL.md"
+      },
+      {
+        "name": "principle-outcome-oriented-execution",
+        "path": "pstack/skills/principle-outcome-oriented-execution/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-outcome-oriented-execution/SKILL.md"
+      },
+      {
+        "name": "principle-prove-it-works",
+        "path": "pstack/skills/principle-prove-it-works/SKILL.md",
+        "status": "selected guidance incorporated",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-prove-it-works/SKILL.md"
+      },
+      {
+        "name": "principle-redesign-from-first-principles",
+        "path": "pstack/skills/principle-redesign-from-first-principles/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-redesign-from-first-principles/SKILL.md"
+      },
+      {
+        "name": "principle-separate-before-serializing-shared-state",
+        "path": "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md"
+      },
+      {
+        "name": "principle-sequence-verifiable-units",
+        "path": "pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+        "status": "reviewed; retained by broader workflow owners or not needed for this TypeScript scope",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-sequence-verifiable-units/SKILL.md"
+      },
+      {
+        "name": "principle-subtract-before-you-add",
+        "path": "pstack/skills/principle-subtract-before-you-add/SKILL.md",
+        "status": "selected guidance incorporated",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-subtract-before-you-add/SKILL.md"
+      },
+      {
+        "name": "principle-test-behavior-not-implementation",
+        "path": "pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+        "status": "selected guidance incorporated",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-test-behavior-not-implementation/SKILL.md"
+      },
+      {
+        "name": "principle-type-system-discipline",
+        "path": "pstack/skills/principle-type-system-discipline/SKILL.md",
+        "status": "selected guidance incorporated",
+        "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-type-system-discipline/SKILL.md"
+      }
+    ],
+    "contract": "TypeScript judgments that keep compile-time claims consistent with domain contracts and runtime behavior.",
+    "coreWords": 534,
+    "activeDonors": 5,
+    "technicalProbes": 22,
+    "independentAgentTrials": "not run; no measured improvement or host activation claim"
   }
 }

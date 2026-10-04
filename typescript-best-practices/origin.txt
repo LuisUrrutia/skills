@@ -1,0 +1,91 @@
+format_version = 1
+skill = "typescript-best-practices"
+created = "2026-10-04"
+approach = "Derive: keep pstack as the primary source, add selected contract and module checks, and replace universal recipes with concise TypeScript judgment rules."
+
+[[sources]]
+id = "pstack-typescript-and-principles"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/typescript-best-practices/SKILL.md", "pstack/skills/typescript-best-practices/references/patterns.md", "pstack/skills/principle-type-system-discipline/SKILL.md", "pstack/skills/principle-boundary-discipline/SKILL.md", "pstack/skills/principle-model-the-domain/SKILL.md", "pstack/skills/principle-encode-lessons-in-structure/SKILL.md", "pstack/skills/principle-subtract-before-you-add/SKILL.md", "pstack/skills/principle-minimize-reader-load/SKILL.md", "pstack/skills/principle-prove-it-works/SKILL.md", "pstack/skills/principle-test-behavior-not-implementation/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/typescript-best-practices/SKILL.md", "pstack/skills/typescript-best-practices/references/patterns.md", "pstack/skills/principle-type-system-discipline/SKILL.md", "pstack/skills/principle-boundary-discipline/SKILL.md", "pstack/skills/principle-model-the-domain/SKILL.md", "pstack/skills/principle-encode-lessons-in-structure/SKILL.md", "pstack/skills/principle-subtract-before-you-add/SKILL.md", "pstack/skills/principle-minimize-reader-load/SKILL.md", "pstack/skills/principle-prove-it-works/SKILL.md", "pstack/skills/principle-test-behavior-not-implementation/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Use the simplest type that makes a required operation total; model related states, meaningful identities and exhaustive variants.", "Validate at the owning boundary and derive types from the authoritative contract.", "Require evidence for claimed guarantees and keep instructions focused on decisions not mechanical style."]
+local_choices = ["Keep meaningful absence and independently optional fields; do not force NonEmpty or brands into every signature.", "Correct number-duration, mutable-tuple, readonly, satisfies and unconditional-internal-trust overclaims. A stronger annotation does not create a runtime invariant.", "Review all 24 principle skills, but retain only TypeScript-relevant decisions. Do not import broad autonomy, mandatory scripts, repository rewrites, fixed argument style, logger policy or host metadata."]
+reviews = []
+
+[[sources]]
+id = "mkosir-types-and-contracts"
+author = "mkosir and contributors"
+repository = "https://github.com/mkosir/typescript-style-guide"
+remote = "git@github.com:mkosir/typescript-style-guide.git"
+ref = "refs/heads/main"
+baseline_commit = "170074a0df9b07f4a4a78e3596ec1edf06a14da7"
+reviewed_through = "170074a0df9b07f4a4a78e3596ec1edf06a14da7"
+baseline_paths = ["skills/typescript-types/SKILL.md", "skills/typescript-discriminated-unions/SKILL.md", "skills/typescript-functions/SKILL.md", "skills/typescript-variables/SKILL.md", "LICENSE"]
+paths = ["skills/typescript-types/SKILL.md", "skills/typescript-discriminated-unions/SKILL.md", "skills/typescript-functions/SKILL.md", "skills/typescript-variables/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Separate generated or asserted types from runtime validation and readonly views from runtime immutability.", "Keep inference useful, public contracts intentional, and independent optional fields distinct from dependent state variants."]
+local_choices = ["Select judgment rules from the nine reviewed skills, without copying their tutorials.", "Leave enum/interface preferences, naming, exports, folder layout, React architecture, coverage and formatting to the project or existing specialist."]
+reviews = []
+
+[[sources]]
+id = "ecc-typescript-reviewer"
+author = "Affaan Mustafa and ECC contributors"
+repository = "https://github.com/affaan-m/ECC"
+remote = "git@github.com:affaan-m/ECC.git"
+ref = "refs/heads/main"
+baseline_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+reviewed_through = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+baseline_paths = ["agents/typescript-reviewer.md", "LICENSE"]
+paths = ["agents/typescript-reviewer.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Inspect floating promises and asynchronous callback ownership even when code type-checks.", "Preserve strictness and distinguish checks actually executed from a script that was skipped."]
+local_choices = ["Keep review coordination with review-code-changes; do not import its severity scheme or output template.", "Do not prescribe catch-and-log, wrap every error, or treat void as rejection handling. Existing error-handling owns recovery policy."]
+reviews = []
+
+[[sources]]
+id = "sentimony-compiler-and-modules"
+author = "Ihor Orlovskyi / Sentimony"
+repository = "https://github.com/sentimony/skills"
+remote = "git@github.com:sentimony/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "e7ee0fff668e9ebd74a279635f1d04e66446eeec"
+reviewed_through = "e7ee0fff668e9ebd74a279635f1d04e66446eeec"
+baseline_paths = ["skills/typescript/SKILL.md", "skills/typescript/references/module-resolution.md", "skills/typescript/references/monorepo.md", "skills/typescript/LICENSE"]
+paths = ["skills/typescript/SKILL.md", "skills/typescript/references/module-resolution.md", "skills/typescript/references/monorepo.md", "skills/typescript/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Use the installed compiler and effective owning configuration; a solution root can check no implementation files.", "Match module resolution to the host and distinguish compiler paths from runtime import resolution."]
+local_choices = ["Load configuration detail only for compiler, import/export or package changes.", "Do not import version migration, framework commands, default compiler-flag bundles, unsafe mock casts or dated blanket ESM interoperability claims."]
+reviews = []
+
+[[sources]]
+id = "mblode-package-consumer-checks"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+baseline_paths = ["skills/dx-audit/rules/onboard-exports-resolve-typed.md", "LICENSE.md"]
+paths = ["skills/dx-audit/rules/onboard-exports-resolve-typed.md", "LICENSE.md"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Verify public entrypoints and declaration resolution from a consumer of the built or packed artifact under the module formats actually supported."]
+local_choices = ["Do not prescribe dual ESM/CommonJS publishing, a root export for every package, a CLI bin, or additional audit dependencies.", "Keep broader DX auditing outside this language skill."]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "error-handling"
+required = false
+role = "Conditional recovery-policy design; ordinary TypeScript checks do not require it."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested skill authoring or upstream maintenance."

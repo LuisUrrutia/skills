@@ -201,6 +201,22 @@ specialist within an implementation or code review.
 - Uses verify and local recipes for execution; keeps required third-party steps in coverage
 - Records six selected source feeds, primary references, corrections, and maintenance rules
 
+### typescript-best-practices
+
+Implement or review TypeScript contracts without confusing static compatibility
+with runtime guarantees. Use it directly or as a language specialist during a change.
+
+**Triggers:** `implement this TypeScript contract`, `review these types`, `diagnose this TypeScript module configuration`
+
+**Features:**
+
+- Strengthens types where an operation needs a guarantee, preserving legitimate states and callers
+- Checks boundary parsing, predicate claims, mutable aliases, missing values, and async callback ownership
+- Loads compiler and package-consumer guidance only for relevant configuration or module work
+- Keeps style in existing tooling and broader design, review, and recovery with their owners
+- Records five selected source feeds after reviewing nineteen repositories and all twenty-four pstack principles
+- Includes technical compiler/runtime evidence; independent agent improvement and host activation remain untested
+
 ### simplify-code
 
 Simplify changed code through focused edits that preserve behavior. Use it
