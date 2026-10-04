@@ -65,6 +65,17 @@ revision, deduplicate shared causes, and attribute retained external findings.
 Stale comments, agreement among reviewers, and author confidence are not proof.
 Reading feedback does not authorize replies, resolution, repairs, or publication.
 
+When reviewing a later revision of the same change, resolve the previous reviewed
+snapshot and compare it with the current one. Keep the caller's declared scope;
+the since-last-pass delta is context, not a replacement for that scope. After the
+fresh assessment, reconcile earlier findings and skipped asks with current
+evidence. Check factual skip reasons against the current snapshot. Record a
+declined optional suggestion in Review basis rather than repeat it as a finding,
+unless new evidence changes its basis. Deferring a supported defect does not
+resolve it. Use the protocol's report placement for prior dispositions, surviving
+in-scope findings and decisive unknowns. When the previous snapshot, report, or
+rationale is unavailable, state that limit rather than infer closure.
+
 ## Use focused support
 
 Resolve supporting skills by registered name only when a concrete review question

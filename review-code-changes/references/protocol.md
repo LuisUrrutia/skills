@@ -158,6 +158,11 @@ without losing distinct failure paths. Prioritize consequential correctness and
 security, then requirements and structural regressions; omit cosmetic noise.
 Provide the smallest useful remedy or decision, not a speculative rewrite.
 
+Phrase each recommendation as one concise request or decision that names the
+behavior to preserve. Compress repetition without removing substantiation or
+imposing a numerical finding limit. Required remedies and optional suggestions
+must remain distinguishable when their recommendation lines are copied alone.
+
 ## Report grammar
 
 Markdown is canonical. Write these sections exactly once and in this order:
@@ -171,6 +176,9 @@ Scope: `<resolved comparison, snapshot, and commands>`
 
 State intent, requirement coverage, applicable standards, and unavailable sources.
 Keep requirements and standards distinguishable; cite their sources and outcomes.
+For a repeat review, record prior finding IDs, dispositions and supporting evidence
+here. Link surviving in-scope findings to their current IDs in Findings and
+decisive unknowns to Open questions.
 
 ## Findings
 
@@ -184,7 +192,7 @@ Impact: The trigger and its consequence.
 Evidence:
 - producer | `path/to/file:42` | What the inspected source establishes.
 - consumer | `path/to/consumer:18` | How the consequence follows.
-Recommendation: Smallest useful remedy and behavior to preserve.
+Recommendation: Required: smallest useful remedy and behavior to preserve.
 Unresolved premise: None.
 
 ## Open questions

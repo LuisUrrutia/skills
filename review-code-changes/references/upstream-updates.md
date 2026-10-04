@@ -20,6 +20,9 @@ The review coordinator owns complementary facets; compare-solutions owns complet
 independent attempts. Neither worker role may delegate recursively. Debug remains
 a conditional local diagnosis dependency, with its own source maintenance.
 
+Dyl review informs repeat-review reconciliation and concise recommendations;
+retain complete evidence and findings without importing its comment cap.
+
 Local snapshots are preserved by hash, including uncommitted installed changes.
 Compare a future installed snapshot directly; its recorded repository commit is
 context, not proof that the working files match that commit. The shared procedure

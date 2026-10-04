@@ -45,6 +45,11 @@ Keep first-pass workers independent of the implementer's reasoning and emerging
 review conclusions. A later validation assignment may receive a candidate finding
 with a request to test its decisive premise and strongest counterevidence.
 
+On a repeat review, give workers prior findings and skipped-ask reasons only
+during reconciliation after the independent pass. A later validation assignment
+may include the prior snapshot and intervening changes to recheck current
+evidence under the entrypoint's rules; an old verdict is not current proof.
+
 Workers must not spawn agents, invoke `compare-solutions`, repair the product,
 or publish feedback. They may use compatible specialist instructions directly.
 Read-only workers can share a stable source snapshot; checks that mutate caches,

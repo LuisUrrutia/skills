@@ -3976,6 +3976,145 @@ window.SKILL_ATLAS = {
       "simpleCase": "No subagents, no findings; existing test and eleven equivalence cases passed.",
       "validationReport": "reports/review-code-changes-delegation-validation.json",
       "untested": "Worker failure recovery, compare-solutions composition runtime, host activation, installation, optional skill invocation and real GitHub."
+    },
+    "dylReviewAdoption": {
+      "date": "2026-10-04",
+      "status": "Selected repeat-review and recommendation guidance incorporated",
+      "sourceCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+      "sourceFiles": 42,
+      "inspectedContextFiles": 21,
+      "mitNotices": 8,
+      "validationReport": "reports/skill-atlas/dyl-review-adoption.json",
+      "consultations": "Two fresh rounds each: Codex gpt-6-astra Max and Claude claude-fable-5-1 Max; material findings reconciled.",
+      "matchedComparison": "Baseline and candidate r1 found the same two defects. No detection superiority established; severity calibration differed.",
+      "finalBoundary": "Candidate r2 retained eight findings, recorded missing history, and kept a declined optional suggestion in Review basis. All eight isolated recommendations retained required status.",
+      "limits": "Supplied-file trials only; no installation, automatic host activation, real GitHub operation or comprehensive model/language coverage.",
+      "assessments": [
+        {
+          "id": "dyl-stack-dyl-review",
+          "key": "dyl-stack/dyl-review",
+          "name": "dyl-review",
+          "declaredName": "dyl-review",
+          "group": "dyl-stack",
+          "author": "Dylan Gattey",
+          "kind": "upstream",
+          "path": "dyl-stack/skills/dyl-review/SKILL.md",
+          "source": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/dyl-stack/skills/dyl-review/SKILL.md",
+          "sha": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+          "sha256": "d87ccc179f3b3ed644abcf4a5ba82fec7b54b3fb90566547761527beb2741aa4",
+          "lines": 124,
+          "category": "Code review",
+          "decision": "Blend",
+          "owner": "review-code-changes",
+          "summary": "Reconciles repeat reviews with the previous snapshot, intervening changes and skipped asks. Recommendations remain concise and actionable, with complete supporting evidence.",
+          "reason": "Make follow-up reviews account for earlier decisions without narrowing the declared comparison or repeating declined optional suggestions. Risk-based depth and skeptical validation were already covered locally.",
+          "caution": "Keep every supported finding and distinguish required remedies from optional suggestions. Do not import seven-item caps, fixed reviewer rosters, plugin dependencies, a merge verdict, worktrees or repair authority.",
+          "action": "Adapted into review-code-changes",
+          "inspection": "Read the complete dyl-review entrypoint and linked context at the pinned revision. The entrypoint matches the original atlas snapshot byte for byte. The evidence report records all 21 inspected files and their reading depth, independent Astra Max and Fable 5.1 Max consultations, bounded executor trials and limitations.",
+          "references": [
+            {
+              "path": "dyl-stack/skills/dyl-mode/SKILL.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/dyl-stack/skills/dyl-mode/SKILL.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "dyl-stack/skills/dyl-mode/references/requirements.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/dyl-stack/skills/dyl-mode/references/requirements.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "dyl-stack/.cursor-plugin/plugin.json",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/dyl-stack/.cursor-plugin/plugin.json",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "dyl-stack/LICENSE",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/dyl-stack/LICENSE",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "pstack/skills/poteto-mode/SKILL.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/poteto-mode/SKILL.md",
+              "coverage": "Lines 1-121: preamble, triggers, complete Principles index and surrounding authority/delegation guidance; playbooks are outside the adaptation scope."
+            },
+            {
+              "path": "thermos/skills/thermos/SKILL.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/thermos/skills/thermos/SKILL.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "thermos/skills/thermo-nuclear-review/SKILL.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/thermos/skills/thermo-nuclear-review/SKILL.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "thermos/skills/thermo-nuclear-code-quality-review/SKILL.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/thermos/skills/thermo-nuclear-code-quality-review/SKILL.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "thermos/agents/thermo-nuclear-review-subagent.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/thermos/agents/thermo-nuclear-review-subagent.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "thermos/agents/thermo-nuclear-code-quality-review-subagent.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/thermos/agents/thermo-nuclear-code-quality-review-subagent.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "dyl-stack/skills/principle-the-algorithm/SKILL.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/dyl-stack/skills/principle-the-algorithm/SKILL.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "pstack/skills/principle-laziness-protocol/SKILL.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-laziness-protocol/SKILL.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "pstack/skills/principle-minimize-reader-load/SKILL.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-minimize-reader-load/SKILL.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "pstack/skills/principle-model-the-domain/SKILL.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-model-the-domain/SKILL.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "pstack/skills/principle-prove-it-works/SKILL.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-prove-it-works/SKILL.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "pstack/skills/principle-fix-root-causes/SKILL.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-fix-root-causes/SKILL.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-sequence-verifiable-units/SKILL.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "pstack/skills/principle-subtract-before-you-add/SKILL.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-subtract-before-you-add/SKILL.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "pstack/skills/principle-build-the-lever/SKILL.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-build-the-lever/SKILL.md",
+              "coverage": "Full file read for source comparison or linked context."
+            },
+            {
+              "path": "pstack/skills/principle-guard-the-context-window/SKILL.md",
+              "url": "https://github.com/cursor/plugins/blob/e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a/pstack/skills/principle-guard-the-context-window/SKILL.md",
+              "coverage": "Full file read for source comparison or linked context."
+            }
+          ]
+        }
+      ]
     }
   },
   "debugSourcesReview": {
@@ -4120,7 +4259,7 @@ window.SKILL_ATLAS = {
   },
   "repositoryInventory": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "ea8ccb3f1c3bb21a779a71bebf01c1abf947ea12",
+    "repositoryCommit": "5efcc1944c9f8ad06fa9805ab4d94c6b48683519",
     "scope": "Top-level skill packages present in this working tree. Presence does not prove installation, activation or production validation.",
     "groups": [
       "Instruction authoring",
@@ -4263,7 +4402,7 @@ window.SKILL_ATLAS = {
         "category": "Implementation, verification and review",
         "summary": "Review a declared change with evidence, delegating independent risk questions when useful and authorized.",
         "path": "review-code-changes/SKILL.md",
-        "sha256": "916d9f0217b64b1a0de8c47e8bab5c7305afe70767a6a907eed00481fe728f4e",
+        "sha256": "731b7c5cc7b9cbb723cc6df016d23d8a5caa946610a94cde2651010d09d99627",
         "section": "review-code-changes"
       },
       {
@@ -7427,11 +7566,11 @@ window.SKILL_ATLAS = {
   },
   "sourceProgress": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "ea8ccb3f1c3bb21a779a71bebf01c1abf947ea12",
+    "repositoryCommit": "5efcc1944c9f8ad06fa9805ab4d94c6b48683519",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 116,
-      "pending": 49,
+      "ready": 117,
+      "pending": 48,
       "optional": 48,
       "not-selected": 45
     },
@@ -7448,7 +7587,7 @@ window.SKILL_ATLAS = {
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 69,
-            "sha256": "5a27501d6ddb5c7625f746a98e24d1a6175a9c044883b200a31645286bdc945f",
+            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
             "sourceId": "matt-code-review",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
             "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
@@ -7981,7 +8120,7 @@ window.SKILL_ATLAS = {
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 54,
-            "sha256": "5a27501d6ddb5c7625f746a98e24d1a6175a9c044883b200a31645286bdc945f",
+            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
             "sourceId": "cursor-quality-review",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -9577,7 +9716,7 @@ window.SKILL_ATLAS = {
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 39,
-            "sha256": "5a27501d6ddb5c7625f746a98e24d1a6175a9c044883b200a31645286bdc945f",
+            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
             "sourceId": "thermos-review",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -9604,7 +9743,7 @@ window.SKILL_ATLAS = {
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 39,
-            "sha256": "5a27501d6ddb5c7625f746a98e24d1a6175a9c044883b200a31645286bdc945f",
+            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
             "sourceId": "thermos-review",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -9631,7 +9770,7 @@ window.SKILL_ATLAS = {
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 39,
-            "sha256": "5a27501d6ddb5c7625f746a98e24d1a6175a9c044883b200a31645286bdc945f",
+            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
             "sourceId": "thermos-review",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -9647,11 +9786,34 @@ window.SKILL_ATLAS = {
         ]
       },
       "dyl-stack/dyl-review": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "review-code-changes"
+        ],
+        "note": "Selected repeat-review and recommendation guidance is incorporated with provenance, retained license and bounded validation. This does not install the donor or import its plugin, comment cap or publishing workflow.",
+        "evidence": [
+          {
+            "owner": "review-code-changes",
+            "path": "review-code-changes/origin.txt",
+            "line": 129,
+            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
+            "sourceId": "dyl-review",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Reconcile a repeat review against the previous snapshot, intervening changes and the reasons for earlier skipped asks.",
+              "Write concise, actionable recommendations grounded in the finding while preserving every supported issue."
+            ],
+            "localChoices": [
+              "Keep the declared comparison, fresh assessment, causal evidence, canonical report and read-only boundary; a since-last-pass delta does not silently narrow the audit.",
+              "Record prior finding outcomes in Review basis, surviving in-scope findings in Findings and decisive unknowns in Open questions; deferral does not establish resolution.",
+              "Retain risk-based focused delegation and caller model constraints rather than mandatory quick/deep rosters, inherited-only models, Cursor plugins or Bugbot.",
+              "No seven-comment cap, forced question phrasing, merge-ready emoji verdict, style persona, plugin installation, worktree lifecycle or remote-write authority.",
+              "The source entrypoint is unchanged from the original atlas snapshot c47b12849e43f18d5c374c7069c744cc55b0ea00. Referenced pstack and Thermos instructions were inspected as context; pre-existing source pins are unchanged."
+            ]
+          }
+        ]
       },
       "dyl-stack/dyl-ready-pr": {
         "status": "ready",
@@ -9840,7 +10002,7 @@ window.SKILL_ATLAS = {
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 7,
-            "sha256": "5a27501d6ddb5c7625f746a98e24d1a6175a9c044883b200a31645286bdc945f",
+            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
             "sourceId": "addy-review",
             "baselineCommit": "a06bc63b3f8b829c14b0bbf53d99fefc39d58092",
             "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
@@ -11042,7 +11204,7 @@ window.SKILL_ATLAS = {
             "owner": "review-code-changes",
             "path": "review-code-changes/origin.txt",
             "line": 84,
-            "sha256": "5a27501d6ddb5c7625f746a98e24d1a6175a9c044883b200a31645286bdc945f",
+            "sha256": "5f4422ec54cdc468d8277112591af26c57fd7a84c27faa0a140bcc92c13be8ed",
             "sourceId": "compound-review-coordination",
             "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
             "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",

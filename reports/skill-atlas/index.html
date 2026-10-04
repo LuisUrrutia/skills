@@ -8,8 +8,8 @@
   <title>Atlas de skills | Tu flujo de desarrollo</title>
   <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css?v=3dd1dd1fabc1">
-  <script src="catalog.js?v=69fad8bfb2ad" defer></script>
-  <script src="app.js?v=bba366a7e9b9" defer></script>
+  <script src="catalog.js?v=ae8ff9a59100" defer></script>
+  <script src="app.js?v=9218b5e24645" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al informe</a>
@@ -517,7 +517,20 @@
         </tbody></table></div>
         </div>
         <p><strong>Diferencia con analyze-change-effects:</strong> esta revisión determina qué problemas y mejoras soporta un diff frente a sus contratos y requisitos. El análisis de efectos investiga qué puede romperse en otros consumidores y comprueba las condiciones que lo deciden. Puede aportar una investigación a un hallazgo sin convertirse en la revisión completa.</p>
-        <p lang="en"><strong>Sources and maintenance:</strong> 37 external file entries at immutable commits, three original installed-skill snapshots and seven retained MIT notices. <code>origin.txt</code> distinguishes adapted sources from optional dependencies; <code>debug</code> owns maintenance of the diagnosis source. The research record identifies complete and partial reads and uninspected dependencies. Donor scripts were inspected, not executed.</p>
+        <section id="dyl-review-adoption" lang="en">
+          <h4>Dyl review: repeat reviews and actionable recommendations</h4>
+          <p><strong>Incorporated into review-code-changes.</strong> A later review compares the previous and current snapshots, then accounts for earlier findings and skipped asks after assessing the complete declared scope. A deferred defect stays open when current evidence supports it. A declined optional suggestion is recorded without repeating it unless new evidence changes its basis.</p>
+          <p><strong>Why adapt it:</strong> make the next review explain what changed and what remains, with concise recommendations a human can act on. The local report retains each finding's cause, consequence and evidence, and keeps required remedies distinguishable from optional suggestions when copied. Existing risk-based depth remains the review strategy.</p>
+          <p><strong>Source decisions:</strong> read the complete dyl-review entrypoint and its relevant dyl-mode, Thermos and pstack context. The entrypoint is unchanged from the original atlas snapshot. Its seven-item limits, fixed reviewer roster, Cursor plugin dependencies, merge verdict and worktree operations are excluded.</p>
+          <details class="technical"><summary>Validation and limits</summary><div class="details-body">
+            <p>Two fresh consultation rounds used Codex Astra Max and Claude Fable 5.1 Max. The revision clarifies when prior findings reach workers, where their dispositions belong, and how to handle declined optional suggestions.</p>
+            <p>The matched baseline/r1 executions found the same two defects; no detection improvement was established, and severity ratings varied between runs. A separate r1 boundary run retained eight findings but omitted explicit required status in isolated recommendations. The final r2 boundary run retained all eight findings, disclosed unavailable history, recorded a declined optional suggestion in Review basis and marked all eight recommendations as required.</p>
+            <p>All four canonical reports validated. The 12 report-helper tests, Python compilation, skill format validation and 11 unchanged verification-authoring tests passed. These are bounded supplied-file trials, not proof of installation, automatic activation, real GitHub operation or every language.</p>
+            <p><a href="dyl-review-adoption.json">Read source decisions, exact inputs, consultation records, execution evidence and limitations.</a></p>
+          </div></details>
+          <div data-evidence="dyl-stack/dyl-review"></div>
+        </section>
+        <p lang="en"><strong>Sources and maintenance:</strong> 42 external file entries at immutable commits, three original installed-skill snapshots and eight retained MIT notices. <code>origin.txt</code> distinguishes adapted sources from optional dependencies; <code>debug</code> owns maintenance of the diagnosis source. The research record identifies complete and partial reads and uninspected dependencies. Donor scripts were inspected, not executed.</p>
         <div data-evidence="Local/review-audit;addy-review-1;addy-review-2;addy-review-3;superpowers-review-1;superpowers-review-2;superpowers-review-3;thermos-review-1;thermos-review-2;thermos-review-3;thermos-review-4;thermos-review-5;cursor-quality-review-1;matt-code-review-1"></div>
         <div data-evidence="review-v2-compound-entry;review-v2-compound-dispatch;review-v2-compound-finish;review-v2-openclaw-entry;review-v2-openclaw-results;review-v2-matt-diagnosis;review-v2-addy-current;review-v2-alireza-adversarial;review-v2-alireza-reviewer;review-v2-alireza-checker;review-v2-alireza-reporter"></div>
         <details class="technical" lang="en"><summary>Delegation validation and limits</summary><div class="details-body" id="review-code-changes-delegation-validation"><ul>
