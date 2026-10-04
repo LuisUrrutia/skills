@@ -50,6 +50,22 @@ using this extraction workflow.
 - Separates missed activation from missing instructions, using traceable upstream extraction criteria
 - Follows deciding context and routes lessons to skills, project instructions, personal preferences, or existing checks
 
+### handoff
+
+Create a focused Markdown document so another agent or session can continue a
+task, including a parallel side task while the original session continues.
+
+**Triggers:** `prepare a handoff`, `save context for another agent`, `export this task for a new session`
+
+**Features:**
+
+- Front-loads the next action and preserves relevant decisions, partial work, evidence, and blockers
+- Distinguishes confirmed choices from proposals and checks that passed from checks not run
+- Uses the requested destination or suitable OS temporary storage, including `/tmp`, within environment constraints
+- Checks saved content and local references, and reports access or retention limits
+- Keeps document creation separate from receipt, session launch, and execution ownership
+- Records seven source feeds at exact revisions; ordinary use has no skill dependency
+
 ### prototype
 
 Resolve a design, state-model, or behavior question with a disposable experiment.

@@ -8,7 +8,7 @@
   <title>Atlas de skills | Tu flujo de desarrollo</title>
   <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css?v=3dd1dd1fabc1">
-  <script src="catalog.js?v=f41d5d6c89ef" defer></script>
+  <script src="catalog.js?v=9852ab680cd2" defer></script>
   <script src="app.js?v=003c47b3cdfb" defer></script>
 </head>
 <body>
@@ -17,12 +17,12 @@
     <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">s</span><span>Atlas de skills<small>El flujo de desarrollo de Luis</small></span></a>
     <button id="theme-toggle" class="quiet-button theme-toggle" type="button" hidden>Modo claro</button>
     <nav>
-      <a href="#inventory" lang="en">Repository skills <span class="nav-tag" data-repository-count>30</span></a>
+      <a href="#inventory" lang="en">Repository skills <span class="nav-tag" data-repository-count>31</span></a>
       <a href="#ci-cd-automation" lang="en">CI/CD <span class="nav-tag">New</span></a>
       <a href="#typescript-best-practices" lang="en">TypeScript <span class="nav-tag">New</span></a>
       <a href="#accessibility" lang="en">Accessibility <span class="nav-tag">New</span></a>
       <a href="#author-review" lang="en">Four collections reviewed <span class="nav-tag">95</span></a>
-      <a href="#handoff" lang="en">Handoff <span class="nav-tag">Reviewed</span></a>
+      <a href="#handoff" lang="en">Handoff <span class="nav-tag">Created</span></a>
       <a href="#authoring">Escribir instrucciones <span class="nav-tag">1</span></a>
       <a href="#install">Qué instalar ahora <span class="nav-tag">2</span></a>
       <a href="#create">Qué crear o adaptar <span class="nav-tag">3</span></a>
@@ -35,7 +35,7 @@
       <a href="#evidence">Fuentes y cobertura</a>
       <a href="#workflow">Work-mode, al final <span class="nav-tag">4</span></a>
     </nav>
-    <div class="sidebar-note" lang="en"><span class="status-dot" aria-hidden="true"></span>Inventory checked<time datetime="2026-10-04">4 October 2026</time><p><span data-repository-count>30</span> skills present in this checkout. PR attachments and focused review delegation are included. Work-mode remains a proposal.</p><button id="print-report" class="quiet-button" type="button">Print / save PDF</button></div>
+    <div class="sidebar-note" lang="en"><span class="status-dot" aria-hidden="true"></span>Inventory checked<time datetime="2026-10-04">4 October 2026</time><p><span data-repository-count>31</span> skills present in this checkout. PR attachments and focused review delegation are included. Work-mode remains a proposal.</p><button id="print-report" class="quiet-button" type="button">Print / save PDF</button></div>
   </aside>
   <main id="main">
     <header id="overview" class="hero section" lang="en">
@@ -44,12 +44,12 @@
       <p class="lead">The repository contains 30 skill packages. The new CI/CD skill draws on 19 reviewed repositories and five selected source feeds. It defines pipeline stages, checks, artifact promotion and recovery, with provider mechanics handled separately. TypeScript, accessibility and verification retain their own responsibilities. Checks in the source catalog identify material already incorporated.</p>
       <ol class="reading-order" aria-label="Reading order"><li><a href="#inventory"><span>1</span>Current skills</a></li><li><a href="#remaining"><span>2</span>Remaining choices</a></li><li><a href="#catalog"><span>3</span>Source comparison</a></li><li><a href="#workflow"><span>4</span>Future work-mode</a></li></ol>
       <div class="hero-actions"><a class="button primary" href="#ci-cd-automation">See the CI/CD decisions</a><a class="button secondary" href="?progress=ready#catalog">See incorporated sources</a></div>
-      <dl class="scope-stats"><div><dt>Repository skills</dt><dd data-repository-count>30</dd></div><div><dt>Local proposals</dt><dd data-pending-count>2</dd></div><div><dt>Original external entries</dt><dd>105</dd></div><div><dt>Original source cards</dt><dd>122</dd></div></dl>
+      <dl class="scope-stats"><div><dt>Repository skills</dt><dd data-repository-count>31</dd></div><div><dt>Local proposals</dt><dd data-pending-count>2</dd></div><div><dt>Original external entries</dt><dd>105</dd></div><div><dt>Original source cards</dt><dd>122</dd></div></dl>
       <div class="notice"><strong>What the counts establish.</strong> Repository presence, source incorporation and a recommendation to install are different states. The catalog now has <span data-catalog-count>251</span> cards. Original snapshots remain available; the four named collections also have a dated current assessment. A check does not claim the full upstream skill is installed or synchronized.</div>
     </header>
 
     <section id="inventory" class="section" aria-labelledby="inventory-heading" lang="en">
-      <div class="section-heading"><p class="kicker">Checked against the repository</p><h2 id="inventory-heading">The skills we already have</h2><p><span data-repository-count>30</span> packages are present, grouped by the task they own. Each entry identifies its current file and links to the analysis where available. These are repository packages; installed copies keep their own state.</p></div>
+      <div class="section-heading"><p class="kicker">Checked against the repository</p><h2 id="inventory-heading">The skills we already have</h2><p><span data-repository-count>31</span> packages are present, grouped by the task they own. Each entry identifies its current file and links to the analysis where available. These are repository packages; installed copies keep their own state.</p></div>
       <div id="repository-inventory" class="two-columns"></div>
       <noscript><p>The complete repository inventory and file hashes are available in <a href="sources.json">sources.json</a>, under repositoryInventory.</p></noscript>
       <div class="notice"><strong>Names and historical copies.</strong> <code>review-code-changes</code> is the current repository implementation derived from <code>review-audit</code>. <code>walkthrough</code> is absent from this checkout. Other installed-only entries in the original analysis are not counted as repository packages; this update does not check their installation.</div>
@@ -119,12 +119,15 @@
     </section>
 
     <section id="handoff" class="section" aria-labelledby="handoff-heading" lang="en">
-      <div class="section-heading"><p class="kicker">Adoption review · 4 October 2026</p><h2 id="handoff-heading">A portable handoff, with a small scope</h2><p>Keep Matt Pocock's document exporter as the base. Strict tool independence needs one concrete edit: replace its literal <code>Skill tool</code> reference. Clear continuation state, decision provenance and evidence are useful improvements, not compatibility requirements.</p></div>
-      <div class="notice"><strong>Correction.</strong> The user accepts <code>/tmp</code>; its difference from <code>.tmp</code> does not justify adaptation. A generic document skill should not know Orca or another named host. Creation, receipt and transfer of execution are separate outcomes.</div>
-      <p>The review covers all 19 supplied repositories, including commands, prompts, playbooks, templates and selected lifecycle code. Compound, agent-profile, GSD, pstack, Addy and ECC contribute useful ideas; their larger discovery, pause, memory and orchestration workflows remain separate.</p>
-      <p><strong>Recommendation:</strong> a small adaptation, with storage chosen for recipient access and lifetime. Direct adoption is also reasonable for a manually requested summary. No local <code>handoff</code> package has been created or installed. Neither Matt's handoff nor <code>ce-handoff</code> is marked as incorporated.</p>
-      <div class="hero-actions"><a class="button primary" href="handoff-source-review.html">Read the full comparison</a><a class="button secondary" href="?q=handoff#catalog">See the source cards</a></div>
-      <p>Independent consultations: Codex Astra Max and Claude Fable Max. The <a href="handoff-source-review.json">research record</a> identifies exact revisions, reading depth, reconciled findings and limitations. These reviews do not establish tested handoff behavior. <a href="handoff-source-review-validation.json">Atlas validation results</a>.</p>
+      <div class="section-heading"><p class="kicker">Created · 4 October 2026</p><h2 id="handoff-heading">Enough context for the next agent</h2><p><code>handoff</code> creates one focused Markdown document. It puts the next action first, preserves confirmed decisions and partial work, and distinguishes observed evidence from remaining checks. Repository details are included when the task needs them.</p></div>
+      <div class="two-columns">
+        <article class="surface"><h3>What the local skill adds</h3><p>Matt Pocock supplies the small document-export scope. Selected ideas from Compound, agent-profile, GSD, pstack, Addy and ECC make continuation state, decision provenance, evidence and access limitations explicit. The 480-word entrypoint has no named host or runtime donor dependency.</p><p>A side-task handoff can leave the original session running. Requested storage takes precedence; OS temporary storage, including <code>/tmp</code>, is valid within the environment's write constraints.</p></article>
+        <article class="surface"><h3>What completion means</h3><p>The document exists, has been read back, and its location and material dependencies are clear. Creating it does not establish receipt or transfer execution ownership.</p><p>Publication, commits, worktrees and session launch retain their existing owners. The package is created in this repository; global installation and automatic host selection have not been tested.</p></article>
+      </div>
+      <p><strong>Source progress:</strong> the Matt and Compound cards now show incorporation. pstack's check covers only the two selected continuity playbooks; <code>work-mode</code> remains pending. Addy's existing incorporation record now also includes <code>handoff</code>.</p>
+      <details class="technical"><summary>Reviews, behavioral checks and limits</summary><p>Independent Codex Astra Max and Claude Fable Max consultations were reconciled against the approved scope and generated documents. A matched no-skill/candidate task preserved confirmed constraints, partial state, dirty-work boundaries and evidence limits in both conditions. The candidate was more concise in this sample; no general improvement is established.</p><p>A separate non-repository task preserved the parallel-session boundary without adding Git fields. A cold recipient read checked continuation from the document and selected copies; its first response incorrectly called an existing plan missing, which is recorded with the diagnostic follow-up. This is a supplied-context exercise, not a real cross-host transfer.</p><p><a href="handoff-implementation-validation.json">Implementation, review reconciliation and actual validation evidence</a>.</p></details>
+      <div class="hero-actions"><a class="button primary" href="handoff-source-review.html">Read the source comparison</a><a class="button secondary" href="?q=handoff&amp;progress=ready#catalog">See incorporated source cards</a></div>
+      <p>The <a href="handoff-source-review.json">19-repository research record</a> preserves its original pre-implementation status, exact revisions and reading depth. <a href="handoff-source-review-validation.json">Earlier atlas validation</a>.</p>
     </section>
 
     <section id="authoring" class="section" aria-labelledby="authoring-heading" lang="en">

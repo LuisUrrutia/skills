@@ -1,0 +1,115 @@
+format_version = 1
+skill = "handoff"
+created = "2026-10-04"
+approach = "Small standalone derivation of portable handoff document creation. Sources supply selected ideas, not installed or invoked runtime dependencies."
+
+[[sources]]
+id = "matt-handoff"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+baseline_paths = ["skills/productivity/handoff/SKILL.md", "docs/productivity/handoff.md", "skills/productivity/handoff/agents/openai.yaml", "LICENSE"]
+paths = ["skills/productivity/handoff/SKILL.md", "docs/productivity/handoff.md", "skills/productivity/handoff/agents/openai.yaml", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Focused conversation export, references instead of copied plans, redaction, and a separate side-task continuation."]
+local_choices = ["Replace the literal Skill tool call with skill names resolved by the recipient.", "Use the normal discoverability of a new local skill; the description selects requested document creation, not an automatic phase-boundary export. No donor-specific invocation flags are imported.", "Honor the requested destination; otherwise OS temporary storage is valid subject to actual access, retention and write constraints."]
+reviews = []
+
+[[sources]]
+id = "compound-handoff"
+author = "Every / Compound Engineering"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+baseline_paths = ["skills/ce-handoff/SKILL.md", "skills/ce-handoff/references/create.md", "skills/ce-handoff/references/resume.md", "LICENSE"]
+paths = ["skills/ce-handoff/SKILL.md", "skills/ce-handoff/references/create.md", "skills/ce-handoff/references/resume.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Separate completed, partial and pending work; annotate artifact pointers and attribute decisions.", "Confirm the written artifact and report its actual location, access and retention limits.", "Treat the document as context rather than authority for new actions."]
+local_choices = ["Keep only document creation, without managed-store schemas, indexed discovery, resume-command rendering or mandatory confirmation stops.", "Use existing writing tools; no transport helper or host runtime is required."]
+reviews = []
+
+[[sources]]
+id = "alleneubank-handoff"
+author = "Allen Eubank"
+repository = "https://github.com/alleneubank/agent-profile"
+remote = "git@github.com:alleneubank/agent-profile.git"
+ref = "refs/heads/main"
+baseline_commit = "5165b1f1122a4fa888347c6046d10593033748e8"
+reviewed_through = "5165b1f1122a4fa888347c6046d10593033748e8"
+baseline_paths = ["plugins/agent-workflows/skills/handoff/SKILL.md", "plugins/agent-workflows/.claude-plugin/plugin.json"]
+paths = ["plugins/agent-workflows/skills/handoff/SKILL.md", "plugins/agent-workflows/.claude-plugin/plugin.json"]
+license = "Plugin metadata declares MIT; no tracked license file found. Ideas only; no source text copied."
+borrowed = ["Front-load the next action and distinguish settled decisions from proposals.", "Carry relevant repository state and verification evidence."]
+local_choices = ["Ideas only, expressed in local wording; no instruction text is copied. Plugin metadata declares MIT but no license file was present in the pinned tracked tree.", "Do not require a home-directory store, coordinator, hunk integration or Git fields for non-repository tasks."]
+reviews = []
+
+[[sources]]
+id = "gsd-handoff"
+author = "GSD / Lex Christopherson"
+repository = "https://github.com/gsd-build/gsd-2"
+remote = "git@github.com:gsd-build/gsd-2.git"
+ref = "refs/heads/main"
+baseline_commit = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+reviewed_through = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+baseline_paths = ["src/resources/skills/handoff/SKILL.md", "src/resources/extensions/gsd/prompts/guided-resume-task.md", "LICENSE"]
+paths = ["src/resources/skills/handoff/SKILL.md", "src/resources/extensions/gsd/prompts/guided-resume-task.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Preserve the next concrete action and why; read the saved document as a cold recipient."]
+local_choices = ["Do not import milestone paths, task identifiers, background-job control, durable knowledge updates or recovery-file deletion.", "The local skill produces an artifact; creation does not pause work or start a receiving session."]
+reviews = []
+
+[[sources]]
+id = "cursor-handoff"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+baseline_paths = ["pstack/skills/poteto-mode/playbooks/pause-safely.md", "pstack/skills/poteto-mode/playbooks/session-pickup.md", "pstack/LICENSE"]
+paths = ["pstack/skills/poteto-mode/playbooks/pause-safely.md", "pstack/skills/poteto-mode/playbooks/session-pickup.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Carry the real resume point, relevant verification and pointers to existing work; avoid repeating completed investigation."]
+local_choices = ["Keep artifact creation distinct from an explicit pause and from reconstructing history.", "No automatic WIP commit, nested-agent cancellation, Cursor transcript discovery or routing machinery."]
+reviews = []
+
+[[sources]]
+id = "addy-handoff"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "1401c8b8030e023baeebb31781a6653fe8e93026"
+baseline_paths = ["skills/context-engineering/SKILL.md", "LICENSE"]
+paths = ["skills/context-engineering/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Preserve task state, dirty-state boundaries, verification outcomes and remaining work across a restartable boundary.", "Separate continuity content from process supervision and model selection."]
+local_choices = ["No fixed context threshold, agent restart loop or mandatory rule-file rewrite."]
+reviews = []
+
+[[sources]]
+id = "ecc-handoff"
+author = "Affaan Mustafa / ECC"
+repository = "https://github.com/affaan-m/ECC"
+remote = "git@github.com:affaan-m/ECC.git"
+ref = "refs/heads/main"
+baseline_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+reviewed_through = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+baseline_paths = ["commands/save-session.md", "LICENSE"]
+paths = ["commands/save-session.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Preserve failed approaches that affect continuation, observed evidence and the exact next useful step."]
+local_choices = ["No Claude directory layout, lifecycle hooks, fixed long template, stale-age threshold or compulsory confirmation."]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Only requested source maintenance and skill authoring; ordinary handoff creation has no skill dependency."

@@ -4120,7 +4120,7 @@
   },
   "repositoryInventory": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "c5ea21bf95cdaaf28190c5f40f0cd33de304795e",
+    "repositoryCommit": "e2c0d00ab34bebe47a8e0353ba01f5348c4874ec",
     "scope": "Top-level skill packages present in this working tree. Presence does not prove installation, activation or production validation.",
     "groups": [
       "Instruction authoring",
@@ -4369,6 +4369,14 @@
         "path": "ci-cd-automation/SKILL.md",
         "sha256": "ed54c6f80073908b543ffa35e548774d3543da6e60f1637fb49e4ce254e66a91",
         "section": "ci-cd-automation"
+      },
+      {
+        "name": "handoff",
+        "category": "Writing and personal workflows",
+        "summary": "Write portable continuation context with the next action, decisions, evidence and access limits; creating the document does not transfer execution.",
+        "path": "handoff/SKILL.md",
+        "sha256": "6ffcea0aad01d82e1493543e41c319eccf656d9291de47c4217f115ebd0628b2",
+        "section": "handoff"
       }
     ],
     "pending": [
@@ -4396,7 +4404,7 @@
     "replacements": {
       "review-audit": "review-code-changes"
     },
-    "validationScope": "Package presence, declared names and entrypoint hashes checked. TypeScript has 22 technical compiler/runtime/configuration probes and package validation; independent agent behavior and host activation are not tested. Other skills retain their separate dated evidence. Presence is not installation. CI/CD has separate package, atlas, dual-review and three matched design-case records. Provider execution and implicit activation remain untested."
+    "validationScope": "Package presence, declared names and entrypoint hashes checked. TypeScript has 22 technical compiler/runtime/configuration probes and package validation; independent agent behavior and host activation are not tested. Other skills retain their separate dated evidence. Presence is not installation. CI/CD has separate package, atlas, dual-review and three matched design-case records. Provider execution and implicit activation remain untested. Handoff has independent Astra/Fable Max static reviews, a matched document-creation pair, a non-repository trial and a cold-recipient diagnostic. Supplied context does not establish implicit activation or real cross-host transfer."
   },
   "errorHandlingReview": {
     "date": "2026-10-04",
@@ -7410,12 +7418,12 @@
   },
   "sourceProgress": {
     "checkedAt": "2026-10-04",
-    "repositoryCommit": "c5ea21bf95cdaaf28190c5f40f0cd33de304795e",
+    "repositoryCommit": "e2c0d00ab34bebe47a8e0353ba01f5348c4874ec",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 104,
-      "pending": 53,
-      "optional": 49,
+      "ready": 107,
+      "pending": 51,
+      "optional": 48,
       "not-selected": 45
     },
     "skills": {
@@ -7763,11 +7771,31 @@
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Matt Pocock/handoff": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "handoff"
+        ],
+        "evidence": [
+          {
+            "owner": "handoff",
+            "path": "handoff/origin.txt",
+            "line": 7,
+            "sha256": "7d67b2ce5bab8880e9f6bcbe5e9de29b97def7886c6ae9ba8701c59e4037eefa",
+            "sourceId": "matt-handoff",
+            "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "reviewedThrough": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
+            "borrowed": [
+              "Focused conversation export, references instead of copied plans, redaction, and a separate side-task continuation."
+            ],
+            "localChoices": [
+              "Replace the literal Skill tool call with skill names resolved by the recipient.",
+              "Use the normal discoverability of a new local skill; the description selects requested document creation, not an automatic phase-boundary export. No donor-specific invocation flags are imported.",
+              "Honor the requested destination; otherwise OS temporary storage is valid subject to actual access, retention and write constraints."
+            ]
+          }
+        ],
+        "note": "Selected material is incorporated in the listed local packages. This check does not mean the full upstream workflow is installed, tested or synchronized."
       },
       "Matt Pocock/teach": {
         "status": "optional",
@@ -8363,11 +8391,30 @@
         ]
       },
       "pstack/poteto-mode": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "handoff"
+        ],
+        "evidence": [
+          {
+            "owner": "handoff",
+            "path": "handoff/origin.txt",
+            "line": 67,
+            "sha256": "7d67b2ce5bab8880e9f6bcbe5e9de29b97def7886c6ae9ba8701c59e4037eefa",
+            "sourceId": "cursor-handoff",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Carry the real resume point, relevant verification and pointers to existing work; avoid repeating completed investigation."
+            ],
+            "localChoices": [
+              "Keep artifact creation distinct from an explicit pause and from reconstructing history.",
+              "No automatic WIP commit, nested-agent cancellation, Cursor transcript discovery or routing machinery."
+            ]
+          }
+        ],
+        "note": "Only resume-point and evidence ideas from pause-safely and session-pickup are incorporated in handoff. The work-mode coordinator, automatic WIP commits, cancellation and transcript machinery are not implemented by this check."
       },
       "pstack/prototype": {
         "status": "ready",
@@ -9791,9 +9838,10 @@
         "status": "ready",
         "label": "Incorporated",
         "owners": [
-          "create-project-instructions"
+          "create-project-instructions",
+          "handoff"
         ],
-        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
+        "note": "Selected material is incorporated in the listed local packages. This check does not mean the full upstream workflow is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "create-project-instructions",
@@ -9810,6 +9858,22 @@
             "localChoices": [
               "No universal context-budget percentage, code-as-policy ranking, framework template, or mandatory context file set.",
               "Use current tools and preserve existing layout; authoring instructions does not authorize product or account changes."
+            ]
+          },
+          {
+            "owner": "handoff",
+            "path": "handoff/origin.txt",
+            "line": 82,
+            "sha256": "7d67b2ce5bab8880e9f6bcbe5e9de29b97def7886c6ae9ba8701c59e4037eefa",
+            "sourceId": "addy-handoff",
+            "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "borrowed": [
+              "Preserve task state, dirty-state boundaries, verification outcomes and remaining work across a restartable boundary.",
+              "Separate continuity content from process supervision and model selection."
+            ],
+            "localChoices": [
+              "No fixed context threshold, agent restart loop or mandatory rule-file rewrite."
             ]
           }
         ]
@@ -11082,11 +11146,32 @@
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Compound Engineering/ce-handoff": {
-        "status": "optional",
-        "label": "Optional",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "handoff"
+        ],
+        "evidence": [
+          {
+            "owner": "handoff",
+            "path": "handoff/origin.txt",
+            "line": 22,
+            "sha256": "7d67b2ce5bab8880e9f6bcbe5e9de29b97def7886c6ae9ba8701c59e4037eefa",
+            "sourceId": "compound-handoff",
+            "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
+            "borrowed": [
+              "Separate completed, partial and pending work; annotate artifact pointers and attribute decisions.",
+              "Confirm the written artifact and report its actual location, access and retention limits.",
+              "Treat the document as context rather than authority for new actions."
+            ],
+            "localChoices": [
+              "Keep only document creation, without managed-store schemas, indexed discovery, resume-command rendering or mandatory confirmation stops.",
+              "Use existing writing tools; no transport helper or host runtime is required."
+            ]
+          }
+        ],
+        "note": "Selected material is incorporated in the listed local packages. This check does not mean the full upstream workflow is installed, tested or synchronized."
       },
       "Compound Engineering/ce-ideate": {
         "status": "optional",
@@ -14243,9 +14328,9 @@
     "html": "handoff-source-review.html",
     "scope": "SSH acquisition at the recorded branch tips; complete tracked-path inventories; repository-wide text screening of md, mdx, mdc, rst, txt and license files including hidden directories; selected full reads and explicitly bounded excerpts, plus targeted source-code cross-checks.",
     "recommendation": {
-      "decision": "Small adaptation proposed",
+      "decision": "Small adaptation implemented",
       "base": "Matt Pocock/handoff",
-      "rationale": "Matt is adequate as a manually invoked summary exporter. Strict tool independence requires only replacing the literal Skill tool reference with portable wording. A few additional continuation and evidence decisions would improve usefulness; they are proposed quality improvements, not compatibility requirements. Several already appear in its companion guide. No combined handoff system is justified.",
+      "rationale": "The local handoff package uses Matt as its base and selected continuation, evidence and access ideas from six other feeds. The generic instructions have no named host, runtime donor dependency or managed discovery workflow. Normal discoverability follows the local authoring rule; a matching request still owns document creation.",
       "essentialContent": [
         "Current objective and relevant scope or authorization, with user decisions distinguished from agent inference.",
         "Actual done, partial and pending state; relevant repository/revision and dirty state only when useful.",
@@ -14277,12 +14362,12 @@
         "lines": 16,
         "category": "Session continuity",
         "decision": "Adapt first",
-        "owner": "Portable handoff document",
+        "owner": "handoff",
         "summary": "Exports focused conversation context into one document for another agent, environment or side task.",
-        "reason": "The smallest suitable base. Replace the literal Skill tool reference for strict tool independence. Clear next action, decision provenance, observed state and evidence would be useful improvements; they are not compatibility requirements.",
+        "reason": "Base for the created portable document skill: focused context, artifact references, redaction and independent side-task continuation. The local package makes next action, decision provenance, observed evidence and access limits explicit.",
         "caution": "OS temporary storage is acceptable. Choose a destination and references the receiver can access for the required lifetime. Keep execution transfer outside this create-only capability; writing a file does not establish receipt or ownership transfer.",
-        "action": "Small adaptation proposed",
-        "inspection": "Complete entrypoint, Codex metadata and companion guide read at the recorded revision. Broader comparison covers 19 repositories with per-file reading depth in handoff-source-review.json. No handoff behavior was executed.",
+        "action": "Adapted into handoff",
+        "inspection": "Complete entrypoint, Codex metadata and companion guide read at the recorded revision. Broader comparison covers 19 repositories with per-file reading depth in handoff-source-review.json. The source review did not execute an upstream workflow. Local adaptation and supplied-context trials are recorded separately in handoff-implementation-validation.json.",
         "references": [
           {
             "path": "docs/productivity/handoff.md",
@@ -14312,15 +14397,15 @@
         "kind": "upstream",
         "repository": "https://github.com/EveryInc/compound-engineering-plugin",
         "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/9af474a70e7f2a844338519ad9e92aafbd92d4fb/skills/ce-handoff/SKILL.md",
-        "action": "Selected concepts proposed",
+        "action": "Selected concepts incorporated",
         "priority": "On demand",
         "category": "Session continuity",
-        "owner": "Portable handoff document; optional discovery and resume workflow",
+        "owner": "handoff",
         "summary": "Creates a continuity document, discovers saved handoffs and orients from an explicitly selected source.",
-        "reason": "Useful for artifact annotations, current-state distinctions, decision provenance and receiver access. A portable export still helps cross-host transfer or a focused side task even when the current host retains conversation history.",
+        "reason": "The local handoff retains completed/partial/pending state, decision attribution, annotated references and current-authority boundaries. Indexed discovery and the managed resume workflow remain optional and were not imported.",
         "caution": "Its managed temporary store is a default, not a restriction, and it adds no required transport runtime. Indexed discovery and mandatory resume confirmation are extra policy. Do not import an unconditional stop when the user already authorized continuation.",
         "decision": "Optional",
-        "inspection": "Complete entrypoint and both create/resume references read at the recorded revision; companion documentation inspected. Per-file coverage and the 19-repository comparison are recorded in handoff-source-review.json. No workflow was executed.",
+        "inspection": "Complete entrypoint and both create/resume references read at the recorded revision; companion documentation inspected. Per-file coverage and the 19-repository comparison are recorded in handoff-source-review.json. The source review did not execute an upstream workflow. Local adaptation and supplied-context trials are recorded separately in handoff-implementation-validation.json.",
         "references": [
           {
             "path": "skills/ce-handoff/references/create.md",
@@ -14358,9 +14443,19 @@
       ]
     },
     "implementation": {
-      "skillCreated": false,
+      "date": "2026-10-04",
+      "skillCreated": true,
       "skillInstalled": false,
-      "sourcesIncorporated": false
+      "sourcesIncorporated": true,
+      "path": "handoff/SKILL.md",
+      "sha256": "6ffcea0aad01d82e1493543e41c319eccf656d9291de47c4217f115ebd0628b2",
+      "coreWords": 480,
+      "sourceFeeds": 7,
+      "provenance": "handoff/origin.txt",
+      "validation": "handoff-implementation-validation.json",
+      "scope": "One portable continuation document. No global installation, host activation, transport integration or execution transfer is claimed.",
+      "discoverability": "Normal new-skill discoverability; donor-specific explicit-only flags were not imported. This does not authorize unsolicited exports at phase boundaries.",
+      "historicalResearch": "handoff-source-review.json retains the original pre-implementation recommendation and reading record."
     },
     "validation": "handoff-source-review-validation.json"
   }
