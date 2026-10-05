@@ -4388,6 +4388,15 @@ window.SKILL_ATLAS = {
         "section": "error-handling"
       },
       {
+        "name": "observability",
+        "category": "Implementation, verification and review",
+        "summary": "Design, add or review safe operational signals, correlated runs and durable diagnostics with evidence at the consumer.",
+        "path": "observability/SKILL.md",
+        "sha256": "31019251fcb41284795ceed054cd06183f80d10c525daf787d4db465c7f4e4aa",
+        "section": "observability",
+        "checkedAt": "2026-10-05"
+      },
+      {
         "name": "accessibility",
         "category": "Implementation, verification and review",
         "summary": "Design, implement or audit accessible user flows, with platform criteria and observed evidence.",
@@ -7534,13 +7543,14 @@ window.SKILL_ATLAS = {
       },
       {
         "title": "Make runtime behavior diagnosable",
-        "route": "Derive a specialist",
-        "owner": "New observability capability",
+        "route": "Derivation created",
+        "owner": "observability",
         "keys": [
-          "Addy Osmani/observability-and-instrumentation"
+          "Addy Osmani/observability-and-instrumentation",
+          "GSD/observability"
         ],
-        "why": "Start from operational questions and verify that useful, privacy-conscious logs, metrics or traces answer them.",
-        "boundary": "Complements error-handling and debug. Preserve the actual stack and budgets instead of requiring every kind of telemetry."
+        "why": "Combine question-driven signals with safe decision, failure and process-state evidence.",
+        "boundary": "debug owns diagnosis; error-handling owns failure contracts. Keep tools and signal coverage proportional to the task."
       },
       {
         "title": "Evaluation and continuation guidance is incorporated",
@@ -7642,8 +7652,8 @@ window.SKILL_ATLAS = {
     "repositoryCommit": "761cae1 (base; working-tree hashes below)",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 136,
-      "pending": 44,
+      "ready": 138,
+      "pending": 43,
       "optional": 47,
       "not-selected": 41
     },
@@ -11439,11 +11449,23 @@ window.SKILL_ATLAS = {
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Addy Osmani/observability-and-instrumentation": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "observability"
+        ],
+        "note": "Selected mechanisms are present in observability. This does not claim full donor installation, production operation or automatic host selection. See observability-validation.json.",
+        "evidence": [
+          {
+            "owner": "observability",
+            "path": "observability/origin.txt",
+            "line": 7,
+            "sha256": "87e6829c54529d27439570d1bc5a92e2b21434e31a1533517152e38a82e8a068",
+            "sourceId": "addy-observability",
+            "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026"
+          }
+        ]
       },
       "Addy Osmani/planning-and-task-breakdown": {
         "status": "pending",
@@ -12989,6 +13011,25 @@ window.SKILL_ATLAS = {
         "status": "ready",
         "label": "Incorporated",
         "note": "Selected mechanisms are recorded in local provenance; no claim of installation, full upstream adoption, or learning gains."
+      },
+      "GSD/observability": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "observability"
+        ],
+        "note": "Selected mechanisms are present in observability. This does not claim full donor installation, production operation or automatic host selection. See observability-validation.json.",
+        "evidence": [
+          {
+            "owner": "observability",
+            "path": "observability/origin.txt",
+            "line": 22,
+            "sha256": "87e6829c54529d27439570d1bc5a92e2b21434e31a1533517152e38a82e8a068",
+            "sourceId": "gsd-observability",
+            "baselineCommit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+            "reviewedThrough": "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+          }
+        ]
       }
     },
     "validation": "upstream-adoption-validation.json"
@@ -17044,6 +17085,113 @@ window.SKILL_ATLAS = {
           }
         ]
       }
+    ]
+  },
+  "observabilityReview": {
+    "date": "2026-10-05",
+    "html": "index.html#observability",
+    "validation": "observability-validation.json",
+    "scope": "Inventories of the 11 HANDOFF repositories and targeted candidate entrypoints/supporting files. Complete reads of the two selected donor entrypoints, Addy checklist and both licenses; not a semantic audit of every repository file.",
+    "skills": [
+      {
+        "id": "gsd-observability",
+        "key": "GSD/observability",
+        "name": "observability",
+        "declaredName": "observability",
+        "group": "GSD",
+        "author": "Lex Christopherson / GSD-2",
+        "collection": "observability",
+        "kind": "upstream",
+        "path": "src/resources/skills/observability/SKILL.md",
+        "repository": "https://github.com/gsd-build/gsd-2",
+        "source": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/skills/observability/SKILL.md",
+        "sha": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+        "sha256": "2e306ba431db19df29eabc4da61c48555cd703d673a6bfa57d98abb6d759fa61",
+        "lines": 174,
+        "chars": 8112,
+        "category": "Observability",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "owner": "observability",
+        "summary": "Record decisions and preserve safe failure and status evidence for unattended processes.",
+        "reason": "Complements Addy with fresh-reader diagnostics, durable state and checks of plausible failures.",
+        "caution": "Use existing stores and paths; preserve public failure contracts and define concurrency, freshness and recovery. No GSD runtime dependency.",
+        "inspection": "Complete pinned entrypoint and MIT license read. Referenced GSD implementation files were not audited or copied.",
+        "references": []
+      }
+    ],
+    "assessments": [
+      {
+        "collection": "addy",
+        "path": "skills/observability-and-instrumentation/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "e7fcb0820306d46268de9594d676ad98e35040858926c412b7000faa52a61f87",
+        "lines": 238,
+        "chars": 13890,
+        "name": "observability-and-instrumentation",
+        "id": "addy-osmani-observability-and-instrumentation",
+        "key": "Addy Osmani/observability-and-instrumentation",
+        "declaredName": "observability-and-instrumentation",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/observability-and-instrumentation/SKILL.md",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "category": "Observability",
+        "owner": "observability",
+        "summary": "Select operational signals from diagnostic questions, correlate runs and entry points, and verify actual delivery.",
+        "reason": "Provides the signal-design foundation of the local observability skill alongside GSD-2 unattended-process evidence.",
+        "caution": "Reuse existing tooling and choose the needed signals; no mandatory backend, alert quota, fixed severities or live notification test.",
+        "decision": "Blend",
+        "inspection": "Complete pinned entrypoint, observability checklist and MIT license read; selected mechanisms adapted.",
+        "references": [
+          {
+            "path": "references/observability-checklist.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/references/observability-checklist.md",
+            "sha256": "25fcd0e854596a5ab6f11b002050d245bf78f5ae0fcbd1df699b89451ae0e1e8"
+          }
+        ]
+      }
+    ],
+    "selection": "One maintained derivation; signal selection from Addy and unattended-process diagnostics from GSD-2. No runtime dependency on either donor.",
+    "alternatives": [
+      {
+        "name": "enterprise-agent-ops",
+        "repository": "affaan-m/ECC",
+        "path": "skills/enterprise-agent-ops/SKILL.md",
+        "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "decision": "Adjacent agent operations; not adopted."
+      },
+      {
+        "name": "canary-watch",
+        "repository": "affaan-m/ECC",
+        "path": "skills/canary-watch/SKILL.md",
+        "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "decision": "Post-deploy checks; not an instrumentation owner or adopted source."
+      },
+      {
+        "name": "vercel-optimize",
+        "repository": "vercel-labs/agent-skills",
+        "path": "skills/vercel-optimize/SKILL.md",
+        "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+        "decision": "Consumes Vercel metrics for cost and performance; not adopted."
+      },
+      {
+        "name": "deployment-verification-agent",
+        "repository": "EveryInc/compound-engineering-plugin",
+        "path": "skills/ce-code-review/references/personas/deployment-verification-agent.md",
+        "commit": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+        "decision": "Code-review persona for deployment readiness, not a standalone instrumentation skill; not adopted."
+      }
+    ],
+    "limitations": [
+      "Repository presence is distinct from installation and host selection.",
+      "Comparison candidates are not active upstream feeds.",
+      "Behavioral evaluation status and actual evidence are recorded separately."
     ]
   }
 };

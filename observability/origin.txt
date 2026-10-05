@@ -1,0 +1,64 @@
+format_version = 1
+skill = "observability"
+created = "2026-10-05"
+approach = "Derive: combine Addy Osmani's operational signal design with GSD-2's decision and unattended-process evidence, preserving existing tools and behavior instead of imposing either donor's full workflow."
+
+[[sources]]
+id = "addy-observability"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "1401c8b8030e023baeebb31781a6653fe8e93026"
+baseline_paths = ["skills/observability-and-instrumentation/SKILL.md", "references/observability-checklist.md", "LICENSE"]
+paths = ["skills/observability-and-instrumentation/SKILL.md", "references/observability-checklist.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Start from operational questions and match logs, metrics and traces to their purpose.", "Propagate correlation and entry-point identity; keep metric dimensions bounded and inspect actual emitted data.", "Use actionable alerts and verify instrumentation at the destination with controlled failures."]
+local_choices = ["Use the project's tooling and necessary signal types; no mandatory OpenTelemetry, dashboard, alert or instrumentation of every endpoint.", "Preserve useful project severity and threshold conventions, resource alerts with a concrete action, and legitimate aggregate statistics; no fixed quotas or blanket prohibitions.", "Apply privacy to raw errors and all signal sinks, define sampling limits, and distinguish missing data from verified health.", "Use isolated notification sinks unless the active task authorizes real delivery; no automatic deployment, paging or monitoring.", "Keep diagnostic context trustworthy and telemetry overhead or failures from silently changing business behavior."]
+reviews = []
+
+[[sources]]
+id = "gsd-observability"
+author = "Lex Christopherson / GSD-2"
+repository = "https://github.com/gsd-build/gsd-2"
+remote = "git@github.com:gsd-build/gsd-2.git"
+ref = "refs/heads/main"
+baseline_commit = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+reviewed_through = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+baseline_paths = ["src/resources/skills/observability/SKILL.md", "LICENSE"]
+paths = ["src/resources/skills/observability/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Record the decision and its reason rather than undifferentiated activity.", "Keep failure evidence accessible after process loss and expose meaningful status for unattended work.", "Remove temporary diagnostic noise and simulate a plausible failure to verify the signals."]
+local_choices = ["Reuse existing durable telemetry rather than requiring a new file for every failure; no GSD runtime or repository-path dependency.", "Define concurrency, freshness and recovery for persisted state; distinguish liveness, readiness and progress.", "Preserve the caller's error contract: observability does not authorize replacing a return value with an exception.", "Keep failure records and status surfaces minimal and subject to access, privacy and retention constraints."]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "debug"
+required = false
+role = "Conditional investigation of an observed failure; durable signal coverage remains with observability."
+
+[[dependencies]]
+kind = "local"
+name = "error-handling"
+required = false
+role = "Conditional design or repair of caller-visible failures and recovery when separately within scope."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Conditional verification of application behavior and delivered signals using current execution evidence."
+
+[[dependencies]]
+kind = "local"
+name = "ci-cd-automation"
+required = false
+role = "Conditional rollout and delivery-gate work; instrumentation does not start deployment."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested skill authoring or source maintenance."

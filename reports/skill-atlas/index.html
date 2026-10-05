@@ -8,8 +8,8 @@
   <title>Atlas de skills | Tu flujo de desarrollo</title>
   <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css?v=3dd1dd1fabc1">
-  <script src="catalog.js?v=78e279f5eb4d" defer></script>
-  <script src="app.js?v=c82c13424b3c" defer></script>
+  <script src="catalog.js?v=066b591428bd" defer></script>
+  <script src="app.js?v=da643e63c297" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al informe</a>
@@ -17,7 +17,8 @@
     <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">s</span><span>Atlas de skills<small>El flujo de desarrollo de Luis</small></span></a>
     <button id="theme-toggle" class="quiet-button theme-toggle" type="button" hidden>Modo claro</button>
     <nav>
-      <a href="#inventory" lang="en">Repository skills <span class="nav-tag" data-repository-count>35</span></a>
+      <a href="#inventory" lang="en">Repository skills <span class="nav-tag" data-repository-count>36</span></a>
+      <a href="#observability" lang="en">Observability <span class="nav-tag">New</span></a>
       <a href="#teaching" lang="en">Teaching <span class="nav-tag">New</span></a>
       <a href="#communication" lang="en">Communication <span class="nav-tag">New</span></a>
       <a href="#report-work-activity" lang="en">Activity reports <span class="nav-tag">New</span></a>
@@ -35,25 +36,25 @@
       <a href="#personal">Tus skills actuales</a>
       <a href="#similarities">Skills similares</a>
       <a href="#conflicts">Conflictos y correcciones</a>
-      <a href="#catalog" lang="en">Source catalog <span class="nav-tag" data-catalog-count>268</span></a>
+      <a href="#catalog" lang="en">Source catalog <span class="nav-tag" data-catalog-count>269</span></a>
       <a href="#evidence">Fuentes y cobertura</a>
       <a href="#workflow">Work-mode, al final <span class="nav-tag">4</span></a>
     </nav>
-    <div class="sidebar-note" lang="en"><span class="status-dot" aria-hidden="true"></span>Inventory checked<time datetime="2026-10-04">4 October 2026</time><p><span data-repository-count>35</span> skills present in this checkout. PR attachments and focused review delegation are included. Work-mode remains a proposal.</p><button id="print-report" class="quiet-button" type="button">Print / save PDF</button></div>
+    <div class="sidebar-note" lang="en"><span class="status-dot" aria-hidden="true"></span>Inventory checked<time datetime="2026-10-04">4 October 2026</time><p><span data-repository-count>36</span> skills present in this checkout. PR attachments and focused review delegation are included. Work-mode remains a proposal.</p><button id="print-report" class="quiet-button" type="button">Print / save PDF</button></div>
   </aside>
   <main id="main">
     <header id="overview" class="hero section" lang="en">
       <p class="kicker">The current workflow collection</p>
       <h1>Skills already in place.<br><span>What remains to build.</span></h1>
-      <p class="lead">The repository contains <span data-repository-count>35</span> skill packages. Teaching now has two owners: teach for lessons and learning-plan for study progressions and complete courses. explain-code and explain-decisions replace the ambiguous how and why names. Technical and nontechnical learning share the same learner-aware workflow. Checks in the source catalog identify material already incorporated.</p>
+      <p class="lead">The repository contains <span data-repository-count>36</span> skill packages. Teaching now has two owners: teach for lessons and learning-plan for study progressions and complete courses. explain-code and explain-decisions replace the ambiguous how and why names. Technical and nontechnical learning share the same learner-aware workflow. Checks in the source catalog identify material already incorporated.</p>
       <ol class="reading-order" aria-label="Reading order"><li><a href="#inventory"><span>1</span>Current skills</a></li><li><a href="#remaining"><span>2</span>Remaining choices</a></li><li><a href="#catalog"><span>3</span>Source comparison</a></li><li><a href="#workflow"><span>4</span>Future work-mode</a></li></ol>
       <div class="hero-actions"><a class="button primary" href="#report-work-activity">See the activity reporting design</a><a class="button secondary" href="?progress=ready#catalog">See incorporated sources</a></div>
-      <dl class="scope-stats"><div><dt>Repository skills</dt><dd data-repository-count>35</dd></div><div><dt>Local proposals</dt><dd data-pending-count>1</dd></div><div><dt>Original external entries</dt><dd>105</dd></div><div><dt>Original source cards</dt><dd>122</dd></div></dl>
-      <div class="notice"><strong>What the counts establish.</strong> Repository presence, source incorporation and a recommendation to install are different states. The catalog now has <span data-catalog-count>268</span> cards. Original snapshots remain available; the four named collections also have a dated current assessment. A check does not claim the full upstream skill is installed or synchronized.</div>
+      <dl class="scope-stats"><div><dt>Repository skills</dt><dd data-repository-count>36</dd></div><div><dt>Local proposals</dt><dd data-pending-count>1</dd></div><div><dt>Original external entries</dt><dd>105</dd></div><div><dt>Original source cards</dt><dd>122</dd></div></dl>
+      <div class="notice"><strong>What the counts establish.</strong> Repository presence, source incorporation and a recommendation to install are different states. The catalog now has <span data-catalog-count>269</span> cards. Original snapshots remain available; the four named collections also have a dated current assessment. A check does not claim the full upstream skill is installed or synchronized.</div>
     </header>
 
     <section id="inventory" class="section" aria-labelledby="inventory-heading" lang="en">
-      <div class="section-heading"><p class="kicker">Checked against the repository</p><h2 id="inventory-heading">The skills we already have</h2><p><span data-repository-count>35</span> packages are present, grouped by the task they own. Each entry identifies its current file and links to the analysis where available. These are repository packages; installed copies keep their own state.</p></div>
+      <div class="section-heading"><p class="kicker">Checked against the repository</p><h2 id="inventory-heading">The skills we already have</h2><p><span data-repository-count>36</span> packages are present, grouped by the task they own. Each entry identifies its current file and links to the analysis where available. These are repository packages; installed copies keep their own state.</p></div>
       <div id="repository-inventory" class="two-columns"></div>
       <noscript><p>The complete repository inventory and file hashes are available in <a href="sources.json">sources.json</a>, under repositoryInventory.</p></noscript>
       <div class="notice"><strong>Names and historical copies.</strong> <code>review-code-changes</code> is the current repository implementation derived from <code>review-audit</code>. <code>walkthrough</code> is absent from this checkout. Other installed-only entries in the original analysis are not counted as repository packages; this update does not check their installation.</div>
@@ -62,6 +63,25 @@
         <div id="pending-skills"></div>
         <p>The <a href="#install">installation selections</a> remain separate from repository packages. The new review changes performance optimization from direct installation to a proposed derivation.</p>
       </article>
+    </section>
+
+    <section id="observability" class="section" aria-labelledby="observability-heading" lang="en">
+      <div class="section-heading"><p class="kicker">Created · operational instrumentation</p><h2 id="observability-heading">Understand what happened from the signals</h2><p><code>observability</code> helps a person or agent diagnose a running system without the original implementation context. Start from a concrete question, reuse the existing telemetry tools, and add only the signals that answer it.</p></div>
+      <div class="two-columns"><article class="surface"><h3>Questions before infrastructure</h3><p>Connect structured events to the run and entry point, use bounded metric dimensions, and preserve trace context where work crosses components. Keep sensitive data out of every diagnostic sink and account for collection cost and failure.</p></article><article class="surface"><h3>Evidence after the process exits</h3><p>For unattended work, keep failure evidence in an existing durable store and expose meaningful status. Scope state to its work item, handle concurrent writes, and distinguish historical errors from current health and progress.</p></article></div>
+      <div class="table-wrap"><table><caption>Selected sources and local adaptations</caption><thead><tr><th>Source</th><th>Retained</th><th>Adapted boundary</th></tr></thead><tbody>
+        <tr><th>Addy Osmani · observability-and-instrumentation</th><td>Operational questions, correlation and entry-point identity, metrics, traces, actionable alerts and checks at the destination.</td><td>Choose the necessary signals and existing tools. No mandatory OpenTelemetry migration, universal alert thresholds, fixed severity count or live notification test.</td></tr>
+        <tr><th>GSD-2 · observability</th><td>Decision context, durable failure evidence, health and status for unattended work, and removal of temporary diagnostic noise.</td><td>Reuse the project's storage and paths. Preserve caller behavior and define state scope, concurrency, freshness and recovery.</td></tr>
+      </tbody></table></div>
+      <article class="surface"><h3>One responsibility in the collection</h3><p><code>debug</code> investigates an observed failure. <code>error-handling</code> defines failure and recovery contracts. <code>observability</code> adds or reviews durable diagnostic coverage. <code>verify</code> checks execution evidence, and <code>ci-cd-automation</code> owns deployment gates. A review request remains a review.</p><p>For example, a failed background payment should leave enough safe evidence to identify the run, its initiating entry point and failure stage. Missing telemetry remains unknown; a configured exporter alone does not prove delivery.</p></article>
+      <details class="technical"><summary>Related skills considered</summary><div class="details-body"><p>The inventories of all 11 handoff repositories were searched, followed by targeted entrypoint and supporting-file reads. This is a scoped comparison, not an audit of every file.</p><ul>
+        <li>ECC's <code>enterprise-agent-ops</code> covers ongoing agent operation; <code>canary-watch</code> checks deployed surfaces. Their lifecycle and monitoring work remains separate.</li>
+        <li>Vercel's <code>vercel-optimize</code> consumes production metrics for cost and performance analysis; it is not a general instrumentation procedure.</li>
+        <li>Compound Engineering's deployment reviewer supplies readiness and post-deploy monitoring checks within code review.</li>
+        <li>Matt Pocock and Superpowers contribute diagnosis workflows; pstack has structured telemetry guidance. Blode and Anthropic inspect browser behavior, while HumanLayer can use telemetry as a control-loop input. These are adjacent responsibilities.</li>
+      </ul><p>The two selected feeds are recorded in <code>observability/origin.txt</code> with their original MIT notices. Other inspected candidates are comparison evidence, not adopted feeds or runtime dependencies.</p></div></details>
+      <p id="observability-validation-summary">Reviewed independently with Astra Max and Fable Max. Matched implementation and review trials, six description-selection cases, package checks and atlas checks are recorded below. Both implementation suites passed 13 tests plus eight independent contract and privacy scenarios. This bounded sample does not establish general improvement, global installation or automatic host selection. Browser DOM checks passed; visual capture was unavailable.</p>
+      <div class="hero-actions"><a class="button primary" href="?q=observability&amp;progress=ready#catalog">See incorporated sources</a><a class="button secondary" href="observability-validation.json">Checks and limitations</a></div>
+      <div data-evidence="Addy Osmani/observability-and-instrumentation;GSD/observability"></div>
     </section>
 
     <section id="teaching" class="section" aria-labelledby="teaching-heading" lang="en">
@@ -765,7 +785,7 @@
     </section>
 
     <section id="catalog" class="section" aria-labelledby="catalog-heading">
-      <div class="section-heading" lang="en"><p class="kicker">Source selection and actual progress</p><h2 id="catalog-heading">Source skills and procedures</h2><p><span data-catalog-count>268</span> cards: the original 122, 87 additional sources from the four collections, six accessibility procedures and references, 24 TypeScript sources, 12 CI/CD sources, seven activity-reporting procedures, five communication and documentation sources, three pstack extraction and measurement sources, and two Cursor teaching sources. Current assessments and incorporation evidence appear on existing cards where they overlap. Historical source revisions remain available.</p><p><strong>✓ Incorporated</strong> means selected material is recorded in a current local skill's provenance. <strong>✓ In repository</strong> identifies a retained or replacement local package. Open the card to see the owner and evidence. A recommendation to combine or install is not a completion check.</p></div>
+      <div class="section-heading" lang="en"><p class="kicker">Source selection and actual progress</p><h2 id="catalog-heading">Source skills and procedures</h2><p><span data-catalog-count>269</span> cards: the original 122, 87 additional sources from the four collections, six accessibility procedures and references, 24 TypeScript sources, 12 CI/CD sources, seven activity-reporting procedures, five communication and documentation sources, three pstack extraction and measurement sources, two Cursor teaching sources, and one GSD observability source. Current assessments and incorporation evidence appear on existing cards where they overlap. Historical source revisions remain available.</p><p><strong>✓ Incorporated</strong> means selected material is recorded in a current local skill's provenance. <strong>✓ In repository</strong> identifies a retained or replacement local package. Open the card to see the owner and evidence. A recommendation to combine or install is not a completion check.</p></div>
       <p id="source-progress-summary" class="notice" lang="en"></p>
       <form class="filters" id="filters" role="search">
         <div class="search-field"><label for="search">Buscar por skill, comportamiento o responsable</label><input id="search" name="q" type="search" placeholder="Por ejemplo: React, comentarios, rebase" autocomplete="off"></div>

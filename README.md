@@ -286,6 +286,21 @@ boundaries. Adapt to the project's language and existing public interfaces.
 - Tests observable results and effects, including recovery and effects that must not repeat
 - Uses debug and verify conditionally, with pinned ECC and pstack provenance
 
+### observability
+
+Design, add, or review telemetry, health status and alerts that let a fresh reader
+diagnose running systems. Keep existing telemetry tools and public behavior.
+
+**Triggers:** `add useful instrumentation to this worker`, `review these logs and metrics`, `make this background job diagnosable`
+
+**Features:**
+
+- Selects signals from concrete questions, with correlated runs and entry points
+- Bounds metric dimensions, sensitive fields, event volume and telemetry failure effects
+- Preserves useful failure evidence and meaningful health for unattended processes
+- Verifies signals at their destination, distinguishing missing data from healthy operation
+- Combines pinned Addy Osmani and GSD-2 sources; keeps diagnosis and recovery with their existing owners
+
 ### accessibility
 
 Design, implement, or audit accessible user interfaces across complete tasks,
