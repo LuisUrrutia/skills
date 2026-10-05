@@ -94,8 +94,9 @@ Write clear, natural prose for the reader, language and channel. Replaces
 
 ### comment-style
 
-Word brief PR replies, review comments, Slack and WhatsApp messages with the
-point first and only the context the recipient needs.
+Word brief PR replies, review comments, chat messages and social replies with
+the point first. Keep fitting enthusiasm, humor and useful curiosity alongside
+the facts that matter.
 
 **Triggers:** `reply to this PR comment`, `shorten this Slack message`, `draft a WhatsApp reply`
 
