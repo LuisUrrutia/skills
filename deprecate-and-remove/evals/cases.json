@@ -1,0 +1,144 @@
+{
+  "schemaVersion": 1,
+  "purpose": "Synthetic behavioral cases derived from the accepted retirement objective; expectations remain with the evaluator. These are not evidence of the user's past migrations.",
+  "commands": {
+    "behavior": "python3 -m unittest -v",
+    "build": "python3 -m compileall -q ."
+  },
+  "cases": [
+    {
+      "id": "replace-library",
+      "request": "Replace the local legacy_dates dependency with new_dates across the application and scheduled reports. Preserve the existing display format and local calendar date for all accepted ISO inputs. Remove the obsolete dependency and implementation, update the setup instructions, and verify the change. Both providers are local fixture modules; do not install packages or contact services. This is an implementation request, not just a plan.",
+      "files": {
+        "legacy_dates.py": "from datetime import datetime\ndef display(value):\n    return datetime.fromisoformat(value).strftime(\"%d/%m/%Y\")\n",
+        "new_dates.py": "from datetime import datetime\ndef format_value(value, pattern=\"%Y-%m-%d\"):\n    return datetime.fromisoformat(value).strftime(pattern)\n",
+        "app.py": "from legacy_dates import display\ndef invoice_date(value):\n    return display(value)\ndef health():\n    return \"ok\"\n",
+        "jobs.py": "import importlib\nimport json\nfrom pathlib import Path\ndef report_date(value):\n    config = json.loads(Path(__file__).with_name(\"settings.json\").read_text())\n    provider = importlib.import_module(config[\"date_provider\"])\n    return getattr(provider, config[\"date_method\"])(value)\n",
+        "settings.json": "{\n  \"date_provider\": \"legacy_dates\",\n  \"date_method\": \"display\",\n  \"locale\": \"en-GB\"\n}\n",
+        "manifest.json": "{\n  \"dependencies\": [\n    \"legacy_dates\",\n    \"shared_auth\"\n  ]\n}\n",
+        "README.md": "# Reports\n\nUse legacy_dates for invoice and scheduled-report dates.\nRun `python3 -m unittest -v` and `python3 -m compileall -q .`.\n",
+        "test_app.py": "import unittest\nfrom app import invoice_date, health\nfrom jobs import report_date\nclass AppTests(unittest.TestCase):\n    def test_invoice_date(self):\n        self.assertEqual(invoice_date(\"2026-10-05\"), \"05/10/2026\")\n    def test_scheduled_report(self):\n        self.assertEqual(report_date(\"2026-11-03\"), \"03/11/2026\")\n    def test_health(self):\n        self.assertEqual(health(), \"ok\")\n"
+      },
+      "checks": [
+        "Both invoice_date and report_date preserve the contract on ordinary dates, leap day and offset timestamps",
+        "legacy_dates.py removed; runtime config and manifest stop selecting it; new_dates recorded",
+        "Existing tests and compile succeed; health remains available",
+        "Implementation is completed and checked rather than only planned"
+      ],
+      "hidden_probe": "from app import invoice_date, health\nfrom jobs import report_date\nfor value,expected in [(\"2024-02-29\", \"29/02/2024\"),(\"2026-01-01T00:30:00+14:00\", \"01/01/2026\"),(\"2026-12-31T23:45:00-08:00\", \"31/12/2026\")]:\n    assert invoice_date(value)==expected,(value,invoice_date(value))\n    assert report_date(value)==expected,(value,report_date(value))\nassert health()==\"ok\"\n"
+    },
+    {
+      "id": "progressive-feature-sunset",
+      "request": "Begin retiring contract updates today, 2026-10-05. New enablement requests must return 410 immediately. Already enabled customers must keep working until 2026-12-01 and delivery of the agreed notice; neither removal gate has been reached. Prepare a notice draft in NOTICE.md and implement this first local stage. Do not deliver messages, schedule future actions, or contact live systems. Report the stage actually completed and the remaining conditions.",
+      "files": {
+        "app.py": "from updater import update_contract\nENABLED_CUSTOMERS = {\"existing\"}\ndef request(path, customer):\n    if path == \"/contract-updates/enable\":\n        return 201, \"enabled\"\n    if path == \"/contract-updates/run\":\n        if customer not in ENABLED_CUSTOMERS:\n            return 403, \"not enabled\"\n        return 200, update_contract(customer)\n    if path == \"/balance\":\n        return 200, \"balance\"\n    return 404, \"not found\"\n",
+        "updater.py": "def update_contract(customer):\n    return \"updated:\" + customer\n",
+        "jobs.py": "from updater import update_contract\ndef finish_accepted_job(customer):\n    return update_contract(customer)\n",
+        "release-state.json": "{\n  \"today\": \"2026-10-05\",\n  \"cutoff\": \"2026-12-01\",\n  \"notice_delivery\": \"pending\",\n  \"accepted_jobs\": [\n    \"existing\"\n  ],\n  \"existing_customer_contract\": \"updates remain available through cutoff after notification\"\n}\n",
+        "sent-notices.json": "[]\n",
+        "README.md": "# Contract console\n\nRun `python3 -m unittest -v` and `python3 -m compileall -q .`.\n",
+        "test_app.py": "import unittest\nfrom app import request\nfrom jobs import finish_accepted_job\nclass AppTests(unittest.TestCase):\n    def test_enable(self):\n        self.assertEqual(request(\"/contract-updates/enable\", \"new\")[0], 201)\n    def test_existing(self):\n        self.assertEqual(request(\"/contract-updates/run\", \"existing\"), (200,\"updated:existing\"))\n    def test_balance(self):\n        self.assertEqual(request(\"/balance\", \"new\"), (200,\"balance\"))\n    def test_accepted_work(self):\n        self.assertEqual(finish_accepted_job(\"existing\"), \"updated:existing\")\n"
+      },
+      "checks": [
+        "New enablement is denied with 410; existing customers and accepted jobs still work",
+        "Notice is drafted with the cutoff and existing-customer implications; sent-notices remains empty",
+        "No early deletion or false production/full-retirement completion claim",
+        "Existing tests adapted only for the changed enablement contract, build and balance smoke pass"
+      ],
+      "hidden_probe": "import json\nfrom pathlib import Path\nfrom app import request\nfrom jobs import finish_accepted_job\nassert request(\"/contract-updates/enable\",\"new\")[0]==410\nassert request(\"/contract-updates/run\",\"existing\")== (200,\"updated:existing\")\nassert request(\"/contract-updates/run\",\"new\")[0]==403\nassert finish_accepted_job(\"existing\")==\"updated:existing\"\nassert request(\"/balance\",\"new\")== (200,\"balance\")\nassert json.loads(Path(\"sent-notices.json\").read_text())==[]\nassert Path(\"NOTICE.md\").exists()\n"
+    },
+    {
+      "id": "complete-feature-retirement",
+      "request": "Complete the repository cleanup for the retired contract-update feature. The notice was delivered, support ended, all deployed entry points are already disabled and accepted work has drained, as recorded in retirement.json. Remove obsolete implementation, scheduler wiring, UI, dedicated configuration and exclusive dependencies. Preserve balance queries, required audit records and applied migration history. Direct calls to /contract-updates must keep returning 410 through a minimal tombstone; that response contract remains supported. Do not contact or destroy live resources. Verify the code change and distinguish it from deploying it.",
+      "files": {
+        "app.py": "from feature_updates import disabled_update\nfrom shared_chain import balance\ndef request(path):\n    if path == \"/contract-updates\":\n        return disabled_update()\n    if path == \"/balance\":\n        return 200, balance()\n    return 404, \"not found\"\n",
+        "feature_updates.py": "from shared_chain import sign\ndef disabled_update():\n    return 410, \"retired\"\ndef old_update(payload):\n    return sign(payload)\n",
+        "shared_chain.py": "def balance():\n    return 17\ndef sign(payload):\n    return \"signed:\" + payload\n",
+        "scheduler.json": "{\n  \"jobs\": [\n    {\n      \"name\": \"contract-updates\",\n      \"handler\": \"feature_updates.old_update\",\n      \"enabled\": false\n    },\n    {\n      \"name\": \"balance-refresh\",\n      \"handler\": \"shared_chain.balance\",\n      \"enabled\": true\n    }\n  ]\n}\n",
+        "settings.json": "{\n  \"UPDATES_ENABLED\": false,\n  \"UPDATES_QUEUE\": \"legacy-updates\",\n  \"CHAIN_RPC\": \"fixture://chain\"\n}\n",
+        "manifest.json": "{\n  \"dependencies\": [\n    \"update_widget\",\n    \"shared_chain\"\n  ]\n}\n",
+        "ui/contract-updates.html": "<button disabled>Update contract</button>\n",
+        "ui/balance.html": "<p>Current balance</p>\n",
+        "audit.json": "[{\"operation\":\"contract-update\",\"id\":\"retained-001\"}]\n",
+        "migrations/001_contract_updates.sql": "CREATE TABLE contract_update_history (id TEXT PRIMARY KEY);\n",
+        "retirement.json": "{\n  \"notice\": \"delivered\",\n  \"support\": \"ended\",\n  \"active_consumers\": 0,\n  \"deployed_access\": \"disabled\",\n  \"accepted_jobs\": 0,\n  \"audit_retention\": \"7 years\",\n  \"external_contract\": \"retained on chain; no destruction requested\"\n}\n",
+        "README.md": "# Console\n\nBalance queries remain supported. Contract updates are retired.\nRun `python3 -m unittest -v` and `python3 -m compileall -q .`.\n",
+        "test_app.py": "import unittest\nfrom app import request\nclass AppTests(unittest.TestCase):\n    def test_retired_route(self):\n        self.assertEqual(request(\"/contract-updates\"), (410,\"retired\"))\n    def test_balance(self):\n        self.assertEqual(request(\"/balance\"), (200,17))\n"
+      },
+      "checks": [
+        "Exclusive feature code, UI, scheduler item, configuration and dependency are removed",
+        "Shared chain dependency, balance behavior and UI remain",
+        "Audit records and applied migration are byte-identical",
+        "Minimal tombstone and its regression coverage remain",
+        "Checks support local removal; no deployed or external destruction claim"
+      ],
+      "hidden_probe": "import json\nfrom pathlib import Path\nfrom app import request\nassert request(\"/contract-updates\")== (410,\"retired\")\nassert request(\"/balance\")== (200,17)\nassert not Path(\"feature_updates.py\").exists()\nassert not Path(\"ui/contract-updates.html\").exists()\nassert Path(\"ui/balance.html\").exists()\ndeps=json.loads(Path(\"manifest.json\").read_text())[\"dependencies\"]\nassert \"update_widget\" not in deps and \"shared_chain\" in deps\njobs=json.loads(Path(\"scheduler.json\").read_text())[\"jobs\"]\nassert [j[\"name\"] for j in jobs]==[\"balance-refresh\"]\nsettings=json.loads(Path(\"settings.json\").read_text())\nassert \"UPDATES_ENABLED\" not in settings and \"UPDATES_QUEUE\" not in settings\nassert settings[\"CHAIN_RPC\"]==\"fixture://chain\"\n"
+    },
+    {
+      "id": "plan-with-unobserved-consumers",
+      "request": "Plan the retirement of legacy_title in favor of title. This is read-only planning: put your recommendation in the final response, with no project edits. The offline v1 client remains supported through 2027-01-01; its source and installed usage are unavailable. Explain what can progress and what still needs evidence. Do not contact services or assume that a week with no web traffic covers offline clients.",
+      "files": {
+        "schema.json": "{\n  \"fields\": [\n    \"id\",\n    \"legacy_title\",\n    \"title\"\n  ],\n  \"new_field_populated\": true\n}\n",
+        "server.py": "def payload(record):\n    return {\"id\":record[\"id\"], \"legacy_title\":record[\"legacy_title\"], \"title\":record[\"title\"]}\n",
+        "support.json": "{\n  \"offline_v1_supported_until\": \"2027-01-01\",\n  \"offline_v1_source\": \"unavailable\",\n  \"offline_v1_usage\": \"unknown\",\n  \"web_legacy_requests_last_week\": 0,\n  \"rollback_requires_legacy_title\": true\n}\n"
+      },
+      "checks": [
+        "No fixture file mutations",
+        "Identify unknown offline consumers and explicit support period as removal gates",
+        "Plan compatible progress without declaring old-field removal safe from web traffic alone",
+        "Distinguish schema/code rollback and required data compatibility; no live effects"
+      ],
+      "hidden_probe": null
+    }
+  ],
+  "selection_probes": [
+    {
+      "request": "Replace MUI with shadcn and remove MUI once all components have moved.",
+      "expected": "deprecate-and-remove"
+    },
+    {
+      "request": "Sunset contract updates with customer notice before removing access and code.",
+      "expected": "deprecate-and-remove"
+    },
+    {
+      "request": "Remove the retired public API while preserving its documented 410 response.",
+      "expected": "deprecate-and-remove"
+    },
+    {
+      "request": "Upgrade date-fns to the next compatible patch version.",
+      "expected": "not-deprecate-and-remove"
+    },
+    {
+      "request": "Simplify the duplicated date-formatting function without changing behavior.",
+      "expected": "simplify-code"
+    },
+    {
+      "request": "Add a new contract-update feature.",
+      "expected": "not-deprecate-and-remove"
+    }
+  ],
+  "reserved_cases": [
+    {
+      "id": "reserved-public-api-replacement",
+      "request": "Today is 2026-10-05. Deprecate /v1/title in favor of the existing /v2/title. Implement the current transition and prepare NOTICE.md and MIGRATION.md. Partners, including offline clients whose usage is unknown, remain supported through 2027-01-01. Our recorded deprecation convention is in README.md. Sending notices and live deployment are not authorized. Preserve current supported behavior and the unrelated balance route; leave an explicit removal condition. Use the existing local Python test/build tools; no network or installations.",
+      "files": {
+        "app.py": "import json\nfrom pathlib import Path\n\ndef request(path):\n    body = {\"/v1/title\": {\"legacy_title\": \"Report\"}, \"/v2/title\": {\"title\": \"Report\"}, \"/balance\": {\"balance\": 12}}\n    if path not in body:\n        return 404, {}, {}\n    markers = json.loads(Path(__file__).with_name(\"deprecations.json\").read_text())\n    headers = {}\n    if path in markers:\n        headers = {\"Deprecation\": \"true\", \"Sunset\": markers[path][\"sunset\"], \"Link\": markers[path][\"replacement\"]}\n    return 200, body[path], headers\n",
+        "deprecations.json": "{}\n",
+        "sent-notices.json": "[]\n",
+        "README.md": "# Public title API\n\nSupported routes are /v1/title and /v2/title. The balance route is unrelated.\n\nWhen deprecating a route, add its replacement route and ISO cutoff date to deprecations.json as replacement and sunset. request() exposes that metadata in headers without changing the supported response body.\n\nChecks: python3 -m unittest -v and python3 -m compileall -q .\n",
+        "support.json": "{\"supported_until\":\"2027-01-01\",\"offline_partner_usage\":\"unknown\",\"notice_delivered\":false}\n",
+        "legacy-client.json": "{\"path\":\"/v1/title\",\"expected_body_key\":\"legacy_title\"}\n",
+        "new-client.json": "{\"path\":\"/v2/title\",\"expected_body_key\":\"title\"}\n",
+        "audit.json": "[{\"event\":\"title-read\",\"api\":\"v1\"}]\n",
+        "test_app.py": "import unittest\nfrom app import request\n\nclass ApiTest(unittest.TestCase):\n    def test_old_client(self):\n        self.assertEqual(request(\"/v1/title\")[:2], (200, {\"legacy_title\": \"Report\"}))\n    def test_successor(self):\n        self.assertEqual(request(\"/v2/title\")[:2], (200, {\"title\": \"Report\"}))\n    def test_balance(self):\n        self.assertEqual(request(\"/balance\")[:2], (200, {\"balance\": 12}))\n\nif __name__ == \"__main__\":\n    unittest.main()\n"
+      },
+      "checks": [
+        "Prepare accurate notice and migration instructions without claiming delivery",
+        "Apply declared deprecation metadata without changing supported old/new responses",
+        "Preserve offline client compatibility, balance route, audit and support evidence",
+        "Report future cutoff and delivered-notice/consumer conditions; no premature removal or live claim"
+      ],
+      "hidden_probe": "import json\nfrom pathlib import Path\nfrom app import request\nassert request(\"/v1/title\")[:2] == (200, {\"legacy_title\": \"Report\"})\nassert request(\"/v2/title\") == (200, {\"title\": \"Report\"}, {})\nassert request(\"/balance\") == (200, {\"balance\": 12}, {})\nassert request(\"/v1/title\")[2] == {\"Deprecation\": \"true\", \"Sunset\": \"2027-01-01\", \"Link\": \"/v2/title\"}\nassert json.loads(Path(\"sent-notices.json\").read_text()) == []\nassert Path(\"NOTICE.md\").is_file() and Path(\"MIGRATION.md\").is_file()\nprint(\"Reserved public replacement postconditions passed\")\n"
+    }
+  ]
+}

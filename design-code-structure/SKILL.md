@@ -1,24 +1,27 @@
 ---
 name: design-code-structure
-description: Use when designing or comparing data models, interfaces, and module boundaries for a software change.
+description: Use when designing, comparing, or improving data models, interfaces, and module boundaries for a software change.
 ---
 
 # Design code structure
 
-Resolve a concrete design decision with a usable interface, a model of the data
-and its ownership, and a recommendation supported by the actual constraints.
-Start from the caller's needs, compare meaningful alternatives, and keep the
-design open to evidence from implementation.
+Resolve a structural problem with a usable interface, clear ownership of data
+and invariants, and evidence for the chosen shape. Start from real callers and
+the change they need; carry the decision through implementation when authorized.
 
-A design request ends with the decision and sketch. When the active task also
-authorizes implementation, continue that work against the chosen design. Honor
-an explicit request to stop before implementing. This skill does not turn a
-bounded decision into a repository-wide architecture audit.
+Establish the work area and requested outcome. A design request ends with a
+recommendation and sketch. An implementation request continues through the
+authorized change and its checks. Honor an explicit request to stop before
+implementing. If the structure is settled and only its enforcement is missing,
+use [references/structural-checks.md](references/structural-checks.md) for that
+contract without reopening the design.
+Neither a local decision nor an enforcement gap expands the task into a
+repository-wide audit, cleanup, or tooling rollout.
 
 For requested source maintenance, read
 [references/upstream-updates.md](references/upstream-updates.md).
 
-## Ground the decision
+## Ground and select the change
 
 Identify the behavior to support, the decision still open, and the constraints
 already settled. Inventory source and documentation inside the bounded work area
@@ -30,134 +33,145 @@ rg --files --hidden --no-ignore <scope>
 
 Set `<scope>` to the relevant subsystem or supplied input directory. Exclude
 dependency and cache directories when necessary; keep local contracts and
-generated documentation discoverable. Other search tools need the equivalent
-include-ignored setting or a direct directory listing. A default filtered
-inventory cannot establish that a required contract is absent.
+generated documentation discoverable. Other tools need the equivalent setting
+or a direct listing. A filtered inventory cannot establish a contract's absence.
 
-Read the relevant implementation, callers, tests, domain terms, and recorded
-decisions from that inventory. Trace one concrete use from entry point to result,
-including where state lives and which actor can change it. Reuse a current,
-relevant trace; a filename or proposed diagram alone is not grounding.
+Read the implementation, callers, tests, domain terms, and recorded decisions.
+Trace a concrete use from entry point to result, including state ownership and
+who may change it. Reuse a current relevant trace; filenames and proposed diagrams
+alone do not establish how the system works.
 
-Use available specialists by registered name when their work is needed:
+When the caller has named the decision or boundary, address it. When asked to
+choose among structural improvements, first inspect representative history in
+the authorized area and connect substantive changes to current friction. Discount
+generated files, bulk formatting, and renames; commit counts alone do not measure
+design quality. If history is unavailable, use current callers, tests, and recorded
+requirements, and state the evidence gap.
 
-- `explain-code`: establish a missing account of the existing mechanism and ownership.
-- `explain-decisions`: recover a consequential design constraint before replacing the ownership
-  or layering it motivated. Distinguish recorded reasons from inference.
-- `analyze-change-effects`: test a compatibility or indirect-consumer assumption
-  that decides whether a proposed structure is viable.
-- `prototype`: resolve an empirical uncertainty that inspection cannot decide.
-  Hand over the question, alternatives, constraints, and deciding observation;
-  use the result with its limits.
+When choosing among improvements, rank them before designing alternatives. Name
+each opportunity's location, affected callers, current requirement or supported
+upcoming change, the knowledge that would become local, correctness risk, and
+migration and verification costs. Frequent coordinated edits can expose scattered
+ownership; a consequential low-frequency failure can still take priority.
+Select the opportunity the evidence justifies
+now, scoped to the smallest change that delivers it, and explain why material
+alternatives were deferred. A named decision needs no opportunity ranking;
+speculative cleanup does not become an automatic backlog.
 
-Resolve skills through the host's supported catalog or supplied named context.
-Do not claim an unavailable specialist ran. If optional help is unavailable,
-perform the bounded work directly and state material evidence gaps. When a
-requested specialist or missing evidence is essential, report the exact blocker
-and continue only independent work.
+Use available specialists by registered name when their evidence is needed:
 
-Separate requirements from preferences and assumptions. If conflicting terms or
-undecided behavior would change the public contract, ask the user that specific
-question before selecting the affected design. Continue work common to all
-answers. Do not guess a business rule to make a type sketch look complete.
+- `explain-code`: establish the current mechanism and ownership.
+- `explain-decisions`: recover a consequential constraint before replacing the
+  ownership or layering it motivated; distinguish recorded reasons from inference.
+- `analyze-change-effects`: investigate a deciding compatibility or indirect-consumer
+  assumption.
+- `prototype`: resolve an empirical uncertainty; supply the alternatives,
+  constraints, and deciding observation, and retain the result's limits.
 
-## Sketch from real usage
+Resolve skills through the host's catalog or supplied named context. Do not claim
+an unavailable specialist ran. Perform optional bounded work directly when useful
+and state material evidence gaps. If requested help or evidence is essential and
+inaccessible, report the blocker and continue only independent work.
 
-Write a representative caller interaction first: its inputs, result, and a
-material failure or lifecycle case. Derive the public types and operations from
-that use. For existing callers, show what they would actually change. Keep the
-usage and signatures consistent as the design develops.
+Separate requirements from preferences and assumptions. If undecided behavior
+or a conflicting term changes the public contract, ask before choosing the
+affected design. Continue only work common to the plausible answers. Do not guess
+a business rule to make a type sketch look complete.
 
-Choose data structures from the domain's valid states and dominant access
-patterns. Name who owns each invariant and how it is enforced. Group behavior
-around the knowledge it protects, rather than splitting every execution stage
-into its own module. Avoid storing values that can be derived reliably.
+## Shape the interface from usage
 
-The interface includes everything callers must know: types, ordering, errors,
-configuration, cancellation, and relevant cost or resource limits. Prefer a
-small surface that hides substantial decisions and coordination. A short
-signature that leaves callers to manage internal rules is not a simple interface.
+Write a representative caller interaction first: inputs, result, and a material
+failure or lifecycle case. Derive public types and operations from that use. Show
+what existing callers would change, keeping usage and signatures consistent.
 
-For persistent state, concurrent actors, external protocols, or a change to
-domain meaning, read [references/state-and-boundaries.md](references/state-and-boundaries.md).
-Use the project's language and module conventions; introduce terminology or
-abstractions only when they clarify a real distinction.
+Choose data structures from valid domain states and dominant access patterns.
+Name who owns each invariant and how it is enforced. Group behavior around the
+knowledge it protects, rather than giving every execution stage its own module.
+Avoid storing values that can be derived reliably.
+
+An interface includes everything callers must know: types, ordering, errors,
+configuration, cancellation, and relevant resource costs. Prefer a small surface
+that hides substantial decisions and coordination. A short signature that leaves
+callers managing internal rules is not a simple interface.
+
+For persistent state, concurrent actors, external protocols, or changes to domain
+meaning, read [references/state-and-boundaries.md](references/state-and-boundaries.md).
+Use the project's language, terminology, and module conventions. Introduce terms
+or abstractions only when they clarify a real distinction.
 
 ## Compare and choose
 
-For an unsettled structural choice, sketch at least two materially different
-ways to meet the same requirements. Change ownership, the data model, or the
-public interaction, not just names or file placement. Include the current shape
-when it remains viable. For an established pattern or a decision forced by the
-constraints, explain that constraint and use it without manufacturing options.
+For an unsettled structural choice, sketch at least two materially different ways
+to meet the same requirements. Vary ownership, the data model, or the caller's
+interaction; renaming the same design is not an alternative. Include the current
+shape when viable. Use an established pattern or a design forced by constraints
+without manufacturing options; explain the deciding constraint.
 
-Compare each viable option on:
+Compare correctness, caller effort, change locality, state and reading effort,
+and implementation, migration, verification, and relevant runtime costs. Check
+whether an edit made from one caller or example would stay correct across the
+subsystem. Unknown performance or provider guarantees remain assumptions until
+measured or established from evidence.
 
-- Correctness: which invariants it enforces and which assumptions remain open.
-- Caller effort: what complexity is hidden and what callers must still know.
-- Change locality: where a likely requirement change would propagate.
-- Partial context: whether a plausible edit made from one caller or example
-  stays correct across the relevant subsystem.
-- State and reading effort: what a maintainer must trace or hold in mind.
-- Cost: implementation, migration, verification, and relevant runtime costs.
-
-Screen for pass-through layers, exposed representations or reachable internals
-that should stay private, repeated policy, parallel ways to satisfy the same
-contract, hand-maintained copies of a registry, and callers coordinating internal
-stages. Name the project's available module, type, lint, test, or build mechanism
-that will enforce each intended boundary; implement it within authorized
-implementation. Derive related registries from an authority or check their defined
-relationship; independently meaningful lists need not be identical.
+Screen for pass-through layers, exposed private representations, duplicated
+policy, parallel routes for the same contract, hand-maintained registry copies,
+and callers coordinating internal stages. Try removing a suspect layer: does
+complexity disappear or spread into consumers? Access control, isolation,
+adaptation, or ownership can justify a boundary with one implementation; counts
+of files, adapters, or callers do not settle its value.
 
 Prefer one maintained route for the same contract. Preserve supported protocol
-surfaces, platform variants, and compatibility paths while their consumers need
-them; plan retirement within the authorized migration rather than deleting them
-to satisfy the screen. Try removing a suspect layer: does complexity disappear,
-or merely spread into consumers?
-A useful boundary can enforce access, isolation, adaptation, or ownership even
-with one implementation. Do not collapse it to satisfy a file count or a quota
-for adapters.
+surfaces, platform variants, and compatibility paths while consumers need them;
+retire them only within an authorized migration that accounts for those consumers.
+Derive related registries from an authority or check their
+defined relationship; independently meaningful lists need not be identical.
 
-Use `compare-solutions` when the user requests independent attempts, or when
-independent complete designs justify the extra work and delegation is authorized.
-Pass the same grounded task and constraints to all candidates, with this skill
-as their design specialist. It owns isolation, judgment, synthesis, and the
-execution record. A comparison participant produces its single assigned design
-and does not start another comparison. Several sketches written by one agent
-are alternatives, not independent attempts.
+For each material boundary, name the failure it must prevent, its owner, and the
+existing structural, type, lint, test, or build mechanism that can enforce it.
+Read [references/structural-checks.md](references/structural-checks.md) when
+designing, adding, or changing a check, or when a boundary change exceeds an
+existing check's demonstrated coverage. Reuse current evidence for an unchanged
+check only if it still covers the affected paths and contract. Proposed
+enforcement and demonstrated enforcement are different completion states.
 
-Recommend the simplest coherent option that meets the requirements. State the
-decisive evidence, accepted costs, and why the meaningful alternatives lost.
-Keep useful ideas only when they fit the chosen ownership and invariants; do not
-combine incompatible designs to avoid choosing. Unknown performance or provider
-guarantees remain assumptions until measured or established from evidence.
+Use `compare-solutions` for requested independent attempts, or when independent
+complete designs justify the work and delegation is authorized. Give candidates
+the same grounded task and constraints with this skill as their design specialist.
+It owns isolation, judgment, synthesis, and execution evidence. A participant
+produces its assigned design without starting another comparison; one agent's
+sketches are alternatives, not independent attempts.
 
-## Check and hand over
+Recommend the simplest coherent option that meets the requirements. Give the
+decisive evidence, accepted costs, and reasons meaningful alternatives lost.
+Combine useful ideas only when they preserve the chosen ownership and invariants.
 
-Trace the proposed usage through the sketch, including the deciding failure or
-lifecycle case. Check the types, ownership, invariants, and dependency behavior
-agree. Name the observable checks that would establish the implementation's
-contract through the same interface callers use. Internal tests may supplement
-that coverage; do not delete existing tests merely because a module was merged.
+## Carry the decision through and verify
 
-Use existing project commands for executable sketches when they test a material
-claim. Keep disposable experiments in permitted scratch storage. A type check
-establishes type consistency, not runtime correctness. Do not put throwing stubs
-or unfinished scaffolding into working product code for a design-only request.
+Trace usage through the chosen shape, including the deciding failure or lifecycle
+case. Check types, ownership, invariants, and dependencies agree. Name observable
+checks through the interface callers use; internal tests can supplement them.
+Retain useful coverage when merging or replacing modules.
 
-Return the chosen shape, representative usage and signatures, relevant module
-or data flow, alternatives and costs, evidence and unresolved assumptions, and
-the next implementation step. Scale the artifact to the decision: a small
-interface can fit in the response; a wider change may need a module map and a
-short rationale in the requested location. Use diagrams when relationships are
-clearer visually. Create or update a glossary or decision record only within the
-requested documentation scope or established project convention. Record a
-durable rationale when reversing the choice would be costly, its reason is not
-obvious, and real alternatives were considered.
+For a design-only request, return the shape, representative usage and signatures,
+data or module flow, alternatives and costs, unresolved assumptions, and the
+implementation and validation plan. Run existing commands on an executable
+sketch only when they establish a material claim. A type check proves type
+consistency, not runtime correctness. Keep disposable sketches in permitted
+scratch storage, outside product code; do not leave throwing stubs or claim an
+unexecuted check passed.
 
-During authorized implementation, treat repeated friction as evidence: callers
-learning hidden rules, recurring type escapes, duplicated policy, or unexpected
-shared writes may expose a wrong model. Revisit the affected assumptions and
-compare a revised shape before accumulating workarounds. A single necessary
-edge case is not grounds for a rewrite. Preserve valid behavior and constraints,
-remove obsolete structure where justified, and verify the revised result.
+During authorized implementation, prove one cohesive caller-to-result slice
+before generalizing a wider migration. Preserve supported behavior and constraints,
+connect the selected boundary checks to the project's actual verification path,
+remove obsolete structure where justified, and verify the resulting behavior.
+Repeated caller knowledge of hidden rules, type escapes, duplicated policy, or
+unexpected shared writes can invalidate the model: revisit the affected
+assumptions and compare a revised shape before
+adding workarounds. A necessary edge case alone does not justify a rewrite.
+
+Scale the handover to the decision. Use diagrams when relationships are clearer
+visually. Create a glossary or decision record only within the documentation scope
+or established convention; record a consequential, non-obvious choice when real
+alternatives were considered. Report the implemented slice, actual checks and
+outcomes, and any remaining migration or enforcement gap. Return to the caller's
+larger task when its authorized work remains.

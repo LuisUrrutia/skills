@@ -1,0 +1,294 @@
+{
+  "date": "2026-10-05",
+  "change": "Preserve emotion, quoted context and useful curiosity in brief social replies.",
+  "status": "Validated: final package, independent reviews, bounded behavioral cases and isolated atlas integration",
+  "feedback": {
+    "observedReply": "solid start, especially with partner apps included",
+    "userAssessment": "Too flat; it emphasizes a secondary detail instead of reacting to a substantial speed improvement.",
+    "approvedDirections": [
+      "An enthusiastic reaction can be the entire message.",
+      "Use quoted context for a short playful callback.",
+      "Ask whether a related feature benefits when that effect is unconfirmed.",
+      "A familiar comparison can work when its factual basis is supplied or verified."
+    ],
+    "scope": "General message-writing behavior. No current product speed, pricing or downstream-effect claim is hardcoded."
+  },
+  "revisions": {
+    "baseline": "c406652e7f9ddba5ec6ba89e36a10b8d55261fe6137353fa9cf6f92259839069",
+    "candidate": "59df4d0394ecfa487bfcc9541e20ea5ff1a30302d2439a86b495602ecaa5af57",
+    "unchangedPrReference": "40f5863483195b0bdc65e4e7f0eb9c08515fc64d132cf9bdc3eb105b2baf91d1",
+    "final": "4d17831c0de43bfbc4ff05157d0ac9ca10700f8db4753d4e818c0edc7c563c6e"
+  },
+  "consultations": [
+    {
+      "profile": "Codex gpt-6-astra / max",
+      "transport": "Fresh native subagent with explicit model and effort",
+      "status": "No material findings or optional corrections",
+      "scope": "Complete frozen baseline and candidate entrypoints and unchanged PR reference; read hashes matched.",
+      "rounds": 2,
+      "finalReadSha256": "4d17831c0de43bfbc4ff05157d0ac9ca10700f8db4753d4e818c0edc7c563c6e"
+    },
+    {
+      "profile": "Claude claude-fable-5-1 / max",
+      "transport": "Fresh T3 delegated task with explicit provider/model/effort",
+      "taskId": "node:delegated-task:command%3Amcp%3A68325650-5b1e-4c93-888a-df6d8405ee90%3Adelegate-task%3Acomment-emotion-fable-v1-20261005",
+      "status": "Closed: all five findings resolved; no unresolved material findings",
+      "rounds": 2,
+      "finalReadSha256": "4d17831c0de43bfbc4ff05157d0ac9ca10700f8db4753d4e818c0edc7c563c6e",
+      "scope": "Static review of the final entrypoint against baseline and candidate; live and frozen hashes matched. Origin and PR reference remain byte-identical to baseline. Behavioral cases and atlas reports were outside this review.",
+      "followupTaskId": "node:delegated-task:command%3Amcp%3A68325650-5b1e-4c93-888a-df6d8405ee90%3Adelegate-task%3Acomment-emotion-fable-final-20261005",
+      "findingsAndResponses": [
+        "Made the related-feature question rule conditional, preserving freedom to choose that useful angle without requiring it in every reply.",
+        "Clarified that remembered current prices, speeds and changing details are not verified comparison facts.",
+        "Removed the dated local_preferences field; origin.txt is byte-identical to baseline. User-feedback evidence belongs in this report and Git.",
+        "Restored all meaning-carrying punctuation alongside exclamation marks and fitting emoji.",
+        "Restored the immediate-clarity criterion and adjusted grammar and line wraps."
+      ]
+    }
+  ],
+  "trials": {
+    "profile": "Codex gpt-6-astra / max",
+    "method": "Independent clean-context executors, same seven synthetic requests, tools, authority, model and effort. Executors read only their frozen instructions and cases, without grading criteria or the other arm. The author assessed actual outputs against the stored contract.",
+    "baseline": [
+      {
+        "id": "major-speed-win",
+        "text": "a huge day 1 for those of us using coding agents every day",
+        "result": "pass"
+      },
+      {
+        "id": "quoted-joke",
+        "text": "three down, four to go! you’ve got this",
+        "result": "pass"
+      },
+      {
+        "id": "related-feature-question",
+        "text": "does screen control benefit from the lower latency too?",
+        "result": "pass"
+      },
+      {
+        "id": "known-comparison",
+        "text": "turbo speeds without the turbo fee, finally",
+        "result": "pass"
+      },
+      {
+        "id": "bad-news",
+        "text": "thanks for the update, let me know once you know which edits we can recover",
+        "result": "pass"
+      },
+      {
+        "id": "issue-acknowledgment",
+        "text": "thanks for confirming and keeping this open",
+        "result": "pass"
+      },
+      {
+        "id": "pr-status",
+        "text": "fixed the empty-input guard locally and the regression test passed; I haven’t pushed it yet",
+        "result": "pass"
+      }
+    ],
+    "candidate": [
+      {
+        "id": "major-speed-win",
+        "text": "that's a huge speed boost for day 1 🔥",
+        "result": "pass"
+      },
+      {
+        "id": "quoted-joke",
+        "text": "three down, four to go, save that coffee machine 💪",
+        "result": "pass"
+      },
+      {
+        "id": "related-feature-question",
+        "text": "does screen control get the speed boost too?",
+        "result": "pass"
+      },
+      {
+        "id": "known-comparison",
+        "text": "turbo speed without the turbo surcharge? finally 🙌",
+        "result": "pass"
+      },
+      {
+        "id": "bad-news",
+        "text": "thanks for the update. please let me know once you know which edits can be recovered",
+        "result": "pass"
+      },
+      {
+        "id": "issue-acknowledgment",
+        "text": "thanks for confirming and keeping it open",
+        "result": "pass"
+      },
+      {
+        "id": "pr-status",
+        "text": "fixed the empty-input guard locally, and the regression test passed. I haven't pushed it yet",
+        "result": "pass"
+      }
+    ],
+    "reserved": {
+      "skillSha256": "59df4d0394ecfa487bfcc9541e20ea5ff1a30302d2439a86b495602ecaa5af57",
+      "id": "explicit-register",
+      "text": "Twice the batch import speed at the same price is a welcome improvement.",
+      "result": "pass",
+      "reason": "Restrained requested register; no emoji, exclamation, joke or invented personal result.",
+      "request": "Draft a brief professional reply to a vendor announcing that batch imports now finish twice as fast at the same price. The user is pleased but explicitly requests a restrained tone with no humor, emoji or exclamation marks. They have not tried the change. Do not send the reply."
+    },
+    "interpretation": "Both versions passed the seven matched cases. The candidate showed expressive and contextual replies in this sample, but this is not a measured general improvement. The change makes the user's preference explicit after the observed live draft was rejected. The final revision passed all seven repeated cases plus the reserved register case; the trials still do not establish a statistical gain.",
+    "cases": [
+      {
+        "id": "major-speed-win",
+        "request": "Draft one brief English reply to this post: \"Day 1: our coding models are now about 50% faster on the existing subscription, including partner apps. No setup changes needed.\" Quoted post: \"For 28 days, each day we ship something useful to most users or do a full reset.\" The user uses coding agents for daily work and values getting work done faster. Choose the reply you would send; do not send it."
+      },
+      {
+        "id": "quoted-joke",
+        "request": "Draft one brief English reply to a friend's post: \"Day 3: I made it to the gym before work again!\" Their quoted post says: \"Seven mornings in a row or my brother gets my coffee machine.\" The user is cheering their friend on. Do not send it."
+      },
+      {
+        "id": "related-feature-question",
+        "request": "Draft a short reply to a developer tool launch. The post announces that model inference latency is much lower across the product, but does not discuss its screen-control feature. The user uses screen control and wants to know whether it benefits too. Do not claim an effect that has not been confirmed or send the reply."
+      },
+      {
+        "id": "known-comparison",
+        "request": "Write one brief casual reply to a synthetic product announcement: \"The standard plan now runs builds in 2 minutes instead of 3, at the same price.\" Verified background supplied by the caller: the paid turbo option ran the same builds in 2 minutes for an additional charge; the user disliked paying that charge. Do not send it."
+      },
+      {
+        "id": "bad-news",
+        "request": "Draft a brief reply to a teammate: \"The release lost customer edits. Rollback is complete, but we do not know which edits we can recover yet.\" The user wants to acknowledge the update and ask to be told once recovery is known. Do not send it."
+      },
+      {
+        "id": "issue-acknowledgment",
+        "request": "Draft one short reply to a maintainer who confirmed the user's settings-persistence bug and said they are keeping the issue open. There is no fix or request for further information yet. Do not send it."
+      },
+      {
+        "id": "pr-status",
+        "request": "Word a PR reply. The empty-input guard is fixed locally, its regression test passed, and it has not been pushed. Keep those facts and do not post it."
+      }
+    ],
+    "criteria": {
+      "major-speed-win": "React to the substantial main benefit with suitable enthusiasm, a relevant quoted callback, or a useful supported implication; do not merely praise partner coverage or invent experience.",
+      "quoted-joke": "Warm encouragement or a short contextual callback; no explanation of the joke, invented completion or demand.",
+      "related-feature-question": "Ask whether screen control also benefits; no assertion that it does.",
+      "known-comparison": "A brief positive or playful comparison grounded in the supplied times/prices; no claim that the paid option itself is now free.",
+      "bad-news": "Serious acknowledgment and recovery-status ask, preserving uncertainty without celebratory language.",
+      "issue-acknowledgment": "Brief natural acknowledgment, no invented fix or follow-up obligation.",
+      "pr-status": "All local/test/not-pushed facts survive with no delivery claim."
+    },
+    "final": [
+      {
+        "id": "major-speed-win",
+        "text": "50% faster on day 1? that’s huge 🔥",
+        "result": "pass"
+      },
+      {
+        "id": "quoted-joke",
+        "text": "three down, four to go! keep that coffee machine safe 💪",
+        "result": "pass"
+      },
+      {
+        "id": "related-feature-question",
+        "text": "does this speed up screen control too?",
+        "result": "pass"
+      },
+      {
+        "id": "known-comparison",
+        "text": "finally, turbo speed without paying extra 🙌",
+        "result": "pass"
+      },
+      {
+        "id": "bad-news",
+        "text": "thanks for the update. let me know once you know which edits we can recover",
+        "result": "pass"
+      },
+      {
+        "id": "issue-acknowledgment",
+        "text": "thanks for confirming and keeping this open",
+        "result": "pass"
+      },
+      {
+        "id": "pr-status",
+        "text": "the empty-input guard is fixed locally and its regression test passed. I haven’t pushed it yet",
+        "result": "pass"
+      },
+      {
+        "id": "explicit-register",
+        "text": "Twice as fast at the same price is a welcome improvement. Thank you for the update.",
+        "result": "pass"
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": "uv run --offline --with pyyaml --no-project python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py comment-style",
+      "result": "passed"
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 python -m unittest discover -s review-code-changes/tests -v",
+      "result": "passed: 12 tests",
+      "role": "Broader smoke outside the changed instructions"
+    },
+    {
+      "command": "Python TOML parse, bundled link resolution and baseline equality checks",
+      "result": "passed: metadata parses, bundled reference resolves, source pins and PR reference are unchanged"
+    },
+    {
+      "command": "node --check reports/skill-atlas/catalog.js",
+      "result": "passed for combined worktree and isolated commit version"
+    },
+    {
+      "command": "node --check reports/skill-atlas/app.js",
+      "result": "passed; app.js is preserved outside this change"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "method": "Python JSON/HTML checks on the combined worktree and HEAD-based isolated integration",
+      "result": "passed: exact sources.json/catalog.js mirror, catalog/app cache digests, unique HTML IDs and reaction report link; only comment-style inventory summary/hash and reactionRefinement changed in source data; reversing the integration recovers all six shared files byte for byte"
+    },
+    {
+      "method": "T3 preview navigation, unsaved PNG inspection, DOM checks and actual Reaction checks link click",
+      "result": "passed at http://localhost:8765/#comment-style, 1280x800; paragraph fits without clipping; report opens with the reviewed final hash, eight passing cases and both consultations closed; combined atlas has 40 packages and 277 unique cards"
+    }
+  ],
+  "limits": [
+    "No external message was sent.",
+    "No automatic host selection or installation was tested.",
+    "Synthetic cases supplied their product facts; they do not verify real product performance or pricing."
+  ],
+  "integration": {
+    "baselineCommit": "5130ad53533144cfa1e46e6ac46444410041c6f4",
+    "ownedPaths": [
+      "comment-style/SKILL.md",
+      "README.md",
+      "reports/skill-atlas/index.html",
+      "reports/skill-atlas/sources.json",
+      "reports/skill-atlas/catalog.js",
+      "reports/skill-atlas/comment-style-reactions-validation.json"
+    ],
+    "versions": [
+      {
+        "version": "combined",
+        "packages": 40,
+        "progress": {
+          "ready": 151,
+          "pending": 40,
+          "optional": 45,
+          "not-selected": 41
+        },
+        "result": "passed: exact source/catalog mirror, asset hashes, unique HTML IDs, report link, byte-exact reverse integration and all foreign JSON records preserved"
+      },
+      {
+        "version": "commit",
+        "packages": 39,
+        "progress": {
+          "ready": 148,
+          "pending": 41,
+          "optional": 46,
+          "not-selected": 41
+        },
+        "result": "passed: exact source/catalog mirror, asset hashes, unique HTML IDs, report link, byte-exact reverse integration and all foreign JSON records preserved"
+      }
+    ],
+    "isolation": "The index uses comment-style-only versions derived from HEAD. Combined working files retain deprecate-and-remove integration. Registry, app.js, other packages and reports are outside this boundary.",
+    "countsChangedByThisRevision": false
+  }
+}

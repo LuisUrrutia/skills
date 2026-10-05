@@ -1,0 +1,405 @@
+{
+  "date": "2026-10-05",
+  "status": "Checks passed within the recorded scope",
+  "package": "comment-style",
+  "scope": "Instruction consultation, synthetic drafting trials, package portability, private caller continuity and local atlas checks. No live message was sent; no global installation or real account activation was tested.",
+  "packageHashes": {
+    "SKILL.md": "c406652e7f9ddba5ec6ba89e36a10b8d55261fe6137353fa9cf6f92259839069",
+    "references/review.md": "40f5863483195b0bdc65e4e7f0eb9c08515fc64d132cf9bdc3eb105b2baf91d1",
+    "origin.txt": "c3a2be30a357a2e8c5654e0969a31b05ec59f8ed240332cccaa5421ecf2efd17",
+    "THIRD-PARTY-NOTICES.txt": "3bc39fa95342b6173d7e89df3b82bf4f9639617ef0a237a60b1d1623daa7362e"
+  },
+  "consultations": [
+    {
+      "profile": "Codex gpt-6-astra / max",
+      "transport": "Native subagent configured with the named model and reasoning effort; subsequent affected-point consultations reused the independent reviewer.",
+      "rounds": 4,
+      "status": "No unresolved material findings",
+      "scope": "Initial complete instructions and private migration; revised full frozen package; final corrected paragraph and its immediate context.",
+      "findingsAndResponses": [
+        "Distinguished shortest useful drafting from an explicitly faithful rewrite that retains every distinct fact.",
+        "Restored caller-required question framing for technical findings in unfamiliar languages.",
+        "Restored the original informal no-final-period and no-em-dash preferences.",
+        "Narrowed question framing to a technical finding inside a new comment or reply, preserving natural status updates and direct answers. Final paragraph hash verified.",
+        "Confirmed repository convention fallback, default-voice punctuation, and the reasoned rejection of a mechanism-specific defect example after reading the two final v4 files."
+      ],
+      "finalReadHashes": {
+        "SKILL.md": "c406652e7f9ddba5ec6ba89e36a10b8d55261fe6137353fa9cf6f92259839069",
+        "references/review.md": "40f5863483195b0bdc65e4e7f0eb9c08515fc64d132cf9bdc3eb105b2baf91d1"
+      }
+    },
+    {
+      "profile": "Claude claude-fable-5-1 / max",
+      "transport": "T3 delegate_task, explicit provider and effort",
+      "rounds": 3,
+      "status": "No unresolved material findings",
+      "findingsAndResponses": [
+        "Restored language requirements and informal preferences; Slack and WhatsApp are explicit activation channels.",
+        "Removed an index-specific example that could imply an unsupported fix; retained evidence and caller choice.",
+        "Restored literal casing, useful precedents and revision evidence without rigid identifier ceilings.",
+        "Delegated delivery mechanics to the service workflow and removed a stale private ownership claim.",
+        "Kept compact lists for multiple required points. Broad communicate-clearly changes and the existing private humanize workflow remain outside this migration.",
+        "Added repository review conventions as the fallback when the caller supplies none.",
+        "Clarified that no-final-period and no-em-dash preferences apply to the default voice, including PR comments.",
+        "Declined a switch-specific example: existing rules explicitly preserve supported defects and reject downgrading them to nits. An isolated taste objection is not a verified behavior failure. The targeted silent-extension case remains a defect in the execution.",
+        "Final affected-point consultation verified v4 hashes, closed the wording changes and withdrew the silent-extension objection as material. Its qualified example remains an optional preference, not a required change."
+      ],
+      "taskIds": [
+        "node:delegated-task:command%3Amcp%3A68325650-5b1e-4c93-888a-df6d8405ee90%3Adelegate-task%3Acomment-style-fable-review-v1-20261005",
+        "node:delegated-task:command%3Amcp%3A68325650-5b1e-4c93-888a-df6d8405ee90%3Adelegate-task%3Acomment-style-fable-review-final-20261005",
+        "node:delegated-task:command%3Amcp%3A68325650-5b1e-4c93-888a-df6d8405ee90%3Adelegate-task%3Acomment-style-fable-review-v4-20261005"
+      ],
+      "finalReadHashes": {
+        "SKILL.md": "c406652e7f9ddba5ec6ba89e36a10b8d55261fe6137353fa9cf6f92259839069",
+        "references/review.md": "40f5863483195b0bdc65e4e7f0eb9c08515fc64d132cf9bdc3eb105b2baf91d1"
+      }
+    }
+  ],
+  "trials": {
+    "method": "Fresh independent native subagents read only their frozen package, its bundled PR reference and the supplied cases. The same model profile and original eight requests were used for baseline and candidate; the final trial repeats them and adds five targeted regressions. One sample per case, evaluated against the requested contract by the author, not a statistical benchmark.",
+    "profile": "Codex gpt-6-astra / max",
+    "baseline": {
+      "skillSha256": "7ff9f925cd4abe63c7b83ca7606ddd7e0d22b2f478bed7e222d2bcbd738af1de",
+      "referenceSha256": "9fd75bff03baf16de220c799930eb9dea7f82d92d718604ca70e98861cfe7855",
+      "outputs": [
+        {
+          "id": "pr-local-fix",
+          "text": "fixed locally and the regression test passes, but I haven't pushed it yet"
+        },
+        {
+          "id": "pr-disagreement",
+          "text": "we need to keep this fallback bc we support macOS 10.15 and the replacement API requires macOS 13"
+        },
+        {
+          "id": "slack-rewrite",
+          "text": "Ana, can you review https://github.com/example/app/pull/42 by 14:00 Madrid time? It's validation only; tests are still running, so I can't confirm they pass yet"
+        },
+        {
+          "id": "whatsapp-spanish",
+          "text": "Llego 10 minutos tarde, no me esperes para pedir"
+        },
+        {
+          "id": "unverified-question",
+          "text": "are retries deduplicated? the public docs don't say"
+        },
+        {
+          "id": "multiple-points",
+          "text": "staging is ready; production is blocked until Security approves, and Mira needs that approval by Friday"
+        },
+        {
+          "id": "minor-comment",
+          "text": "suggestion: let's use the shared `Button` here"
+        },
+        {
+          "id": "draft-not-sent",
+          "text": "Sam, does tomorrow at 18:30 work for you?"
+        }
+      ]
+    },
+    "candidateV1": {
+      "skillSha256": "4c2681297e9083e9dfee3c810745faadae4c60097291571719ff100cb73a06f6",
+      "referenceSha256": "686a6f8fe8b1419f43684745dd9d283ef4ffc5f7737cd4cad1471580c48947db",
+      "outputs": [
+        {
+          "id": "pr-local-fix",
+          "text": "The empty-input guard is updated locally, and the regression test passes. The change hasn't been pushed yet."
+        },
+        {
+          "id": "pr-disagreement",
+          "text": "We need the fallback while we support macOS 10.15; the replacement API requires macOS 13."
+        },
+        {
+          "id": "slack-rewrite",
+          "text": "Ana, could you review https://github.com/example/app/pull/42 by 14:00 Madrid time? The change only covers validation. Tests are still running, so I can't confirm they pass yet."
+        },
+        {
+          "id": "whatsapp-spanish",
+          "text": "Llego 10 minutos tarde. No me esperes para pedir"
+        },
+        {
+          "id": "unverified-question",
+          "text": "Do you deduplicate retries?"
+        },
+        {
+          "id": "multiple-points",
+          "text": "Staging is ready. Production is blocked until Security approves; Mira needs that approval by Friday."
+        },
+        {
+          "id": "minor-comment",
+          "text": "suggestion: Replace this one-off copy with the shared `Button` component used for this UI elsewhere in the repository."
+        },
+        {
+          "id": "draft-not-sent",
+          "text": "Sam, does tomorrow at 18:30 work for you?"
+        }
+      ],
+      "observations": "Preserved factual contracts, but the obvious Button suggestion repeated known diagnosis and context; informal punctuation preferences were not restored. This is a retained regression observation, not an improvement claim."
+    },
+    "cases": [
+      {
+        "id": "pr-local-fix",
+        "request": "Draft one short English reply to the reviewer: \"Empty input crashes this endpoint.\" Verified facts supplied by the caller: an empty-input guard is changed locally, the regression test passes, and the change has not been pushed."
+      },
+      {
+        "id": "pr-disagreement",
+        "request": "Write a short reply to \"Delete this legacy fallback.\" The caller has verified that the app supports macOS 10.15 and the replacement API requires macOS 13. Keep the fallback for the current supported versions; no policy change or code change is authorized."
+      },
+      {
+        "id": "slack-rewrite",
+        "request": "Shorten this Slack draft faithfully, keeping its distinct facts and link: \"Hey team, I wanted to reach out to ask if Ana could please review https://github.com/example/app/pull/42 by 14:00 Madrid time. The change is limited to validation. The tests are still running, so I cannot confirm they pass yet.\""
+      },
+      {
+        "id": "whatsapp-spanish",
+        "request": "Redacta en español un WhatsApp para mi amigo: llego 10 minutos tarde y que no me espere para pedir. Solo el mensaje."
+      },
+      {
+        "id": "unverified-question",
+        "request": "Draft a short question to the vendor about whether retries are deduplicated. Their public docs do not say, and we cannot inspect their implementation. Do not assert that duplicates currently occur."
+      },
+      {
+        "id": "multiple-points",
+        "request": "Write one compact Slack update with all three points: staging is ready; production is blocked until Security approves; Mira needs the approval by Friday. Do not imply approval or deployment happened."
+      },
+      {
+        "id": "minor-comment",
+        "request": "Word one optional inline PR suggestion: this repository uses the shared Button component for this exact UI and the existing implementation is a one-off copy. The caller classifies it as optional, not a defect."
+      },
+      {
+        "id": "draft-not-sent",
+        "request": "Draft, but do not send, a brief WhatsApp message asking Sam if tomorrow at 18:30 works. No appointment has been confirmed."
+      },
+      {
+        "id": "shorten-obvious-ask",
+        "request": "Shorten this PR suggestion as much as possible. The reader already knows the diagnosis and the shared component is the agreed fix: \"suggestion: this is a one-off button that repeats the shared Button component, so we should replace it with the shared Button to retain focus, disabled and active behavior across all screens\"."
+      },
+      {
+        "id": "caller-question-preference",
+        "request": "Word one review comment. Verified finding: a C# handler accepts expired invites although the product contract requires rejecting them. The caller classifies it as a defect and explicitly requires findings in C# to be phrased as questions because the user does not work in that language."
+      },
+      {
+        "id": "status-with-question-preference",
+        "request": "Draft a PR reply in English. The caller requires technical findings in C# to be questions because the user does not work in that language. This reply is a status update: the expired-invite guard is fixed locally and its regression test passed; the change is not pushed. Do not post it."
+      },
+      {
+        "id": "repository-review-conventions",
+        "request": "Draft a short inline review comment. The user has supplied no review format. Repository instructions say optional review comments start with \"optional:\". Verified facts: the shared Button is the agreed replacement for this one-off implementation. This is optional advice, not a defect."
+      },
+      {
+        "id": "silent-extension-defect",
+        "request": "Word one English review finding. The caller verified that the new PaymentPending enum value reaches the default arm, which silently returns success without processing the payment; the contract requires processing it. The caller classifies this as a defect. There is only one occurrence. Do not change code or post the comment."
+      }
+    ],
+    "candidateV3": {
+      "outputs": [
+        {
+          "id": "pr-local-fix",
+          "text": "fixed locally with an empty-input guard; the regression test passes, but the change hasn't been pushed yet",
+          "result": "pass"
+        },
+        {
+          "id": "pr-disagreement",
+          "text": "we need the fallback while we support macOS 10.15; the replacement API requires macOS 13",
+          "result": "pass"
+        },
+        {
+          "id": "slack-rewrite",
+          "text": "Ana, can you review https://github.com/example/app/pull/42 by 14:00 Madrid time? The change only affects validation. Tests are still running, so I can't confirm they pass yet",
+          "result": "pass"
+        },
+        {
+          "id": "whatsapp-spanish",
+          "text": "llego 10 minutos tarde, no me esperes para pedir",
+          "result": "pass"
+        },
+        {
+          "id": "unverified-question",
+          "text": "do you deduplicate retries?",
+          "result": "pass"
+        },
+        {
+          "id": "multiple-points",
+          "text": "staging is ready. Production is blocked until Security approves, and Mira needs that approval by Friday",
+          "result": "pass"
+        },
+        {
+          "id": "minor-comment",
+          "text": "suggestion: use the shared `Button` here",
+          "result": "pass"
+        },
+        {
+          "id": "draft-not-sent",
+          "text": "Sam, does tomorrow at 18:30 work for you?",
+          "result": "pass"
+        },
+        {
+          "id": "shorten-obvious-ask",
+          "text": "suggestion: use the shared `Button` here",
+          "result": "pass"
+        },
+        {
+          "id": "caller-question-preference",
+          "text": "why does this handler accept expired invites when the product contract requires rejecting them?",
+          "result": "pass"
+        },
+        {
+          "id": "status-with-question-preference",
+          "text": "fixed the expired-invite guard locally; its regression test passed, but the change hasn't been pushed yet",
+          "result": "pass"
+        }
+      ],
+      "cannotAnswer": [],
+      "observations": "All 11 supplied contracts were met in this bounded run. The obvious agreed ask is now direct; caller-required findings are questions while status replies stay declarative. No consistent length or general quality advantage is established.",
+      "skillSha256": "fc03f7c96e5c1ed4251dac9d328a6d25e77df2e20fd405166466b52ba6f1ab6f",
+      "referenceSha256": "b6bea90601d019f2aec51ace4e5af6036a578fb9adbba596f33bcbfc5f486060"
+    },
+    "final": {
+      "outputs": [
+        {
+          "id": "pr-local-fix",
+          "text": "fixed locally with an empty-input guard; the regression test passes, but the change hasn't been pushed",
+          "result": "pass"
+        },
+        {
+          "id": "pr-disagreement",
+          "text": "we need this fallback because we support macOS 10.15 and the replacement API requires macOS 13",
+          "result": "pass"
+        },
+        {
+          "id": "slack-rewrite",
+          "text": "Ana, could you review https://github.com/example/app/pull/42 by 14:00 Madrid time? The change only covers validation. Tests are still running, so I can't confirm they pass yet",
+          "result": "pass"
+        },
+        {
+          "id": "whatsapp-spanish",
+          "text": "llego 10 minutos tarde, no me esperes para pedir",
+          "result": "pass"
+        },
+        {
+          "id": "unverified-question",
+          "text": "do you deduplicate retries?",
+          "result": "pass"
+        },
+        {
+          "id": "multiple-points",
+          "text": "staging is ready. Production is blocked until Security approves. Mira needs approval by Friday",
+          "result": "pass"
+        },
+        {
+          "id": "minor-comment",
+          "text": "suggestion: use the shared `Button` here",
+          "result": "pass"
+        },
+        {
+          "id": "draft-not-sent",
+          "text": "Sam, does tomorrow at 18:30 work for you?",
+          "result": "pass"
+        },
+        {
+          "id": "shorten-obvious-ask",
+          "text": "suggestion: use the shared `Button` here",
+          "result": "pass"
+        },
+        {
+          "id": "caller-question-preference",
+          "text": "why does this handler accept expired invites when the product contract requires rejecting them?",
+          "result": "pass"
+        },
+        {
+          "id": "status-with-question-preference",
+          "text": "the expired-invite guard is fixed locally and its regression test passed; the change hasn't been pushed",
+          "result": "pass"
+        },
+        {
+          "id": "repository-review-conventions",
+          "text": "optional: use the shared `Button` here",
+          "result": "pass"
+        },
+        {
+          "id": "silent-extension-defect",
+          "text": "the default arm returns success for `PaymentPending` without processing the payment, even though the contract requires it",
+          "result": "pass"
+        }
+      ],
+      "cannotAnswer": [],
+      "observations": "All 13 supplied contracts were met in this bounded run, including repository prefixes and a supported silent-extension defect. The agreed simple suggestion remains terse; status stays declarative. No statistical improvement claim."
+    }
+  },
+  "checks": [
+    {
+      "command": "uv run --offline --with pyyaml --no-project python /Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py comment-style",
+      "result": "passed: Skill is valid",
+      "note": "The first plain Python attempt lacked PyYAML. The cached offline uv environment provided it without changing repository dependencies."
+    },
+    {
+      "command": "python -m unittest discover -s review-code-changes/tests -v",
+      "result": "passed: 12 tests",
+      "role": "Broader smoke outside the changed skill; PYTHONDONTWRITEBYTECODE=1"
+    },
+    {
+      "command": "bash -n draft-review/scripts/validate.sh",
+      "repository": "private-skills, feat/fleet-skill",
+      "result": "passed"
+    },
+    {
+      "command": "env TMPDIR=\"$PWD/.tmp/comment-migration/tmp\" PYTHONDONTWRITEBYTECODE=1 bash draft-review/scripts/validate.sh",
+      "repository": "private-skills, feat/fleet-skill",
+      "result": "passed: 4 profile tests, 2 reviewer tests, review-audit validation and draft-review validation",
+      "note": "Passed again after removing the three unchanged private package files; no sibling comment-style directory remains."
+    },
+    {
+      "command": "Python tomllib parse and bundled Markdown link resolution on a copied package",
+      "result": "passed",
+      "scope": "All four final package files copied into an independent install layout."
+    },
+    {
+      "command": "sandbox-exec with source-checkout reads denied and copied-package reads allowed",
+      "result": "passed",
+      "scope": "Final entrypoint and bundled PR reference loaded from the copy; reading the source checkout raised PermissionError.",
+      "limits": "macOS sandbox and simulated account layout, not a second OS or a real alternate account."
+    },
+    {
+      "command": "T3 preview on http://localhost:8765/comment-style-research.html",
+      "result": "passed: 12 source cards, 11 repository rows, anchor navigation and both theme transitions; no horizontal overflow at 1280x800",
+      "note": "An initial missing theme button caused a script error. Adding the existing theme control repaired it; the shared theme script was unchanged."
+    },
+    {
+      "command": "node --check reports/skill-atlas/app.js && node --check reports/skill-atlas/catalog.js",
+      "result": "passed",
+      "role": "Static atlas JavaScript syntax/build-equivalent check; no application build system exists for this HTML report."
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "Python JSON and source-overlay assertions",
+      "result": "passed: catalog.js exactly mirrors sources.json; prior overlays and unrelated progress records are unchanged; counts and asset digests match",
+      "scope": "37 packages, 271 source cards, 140 ready / 43 pending / 47 optional / 41 not selected at this integration boundary."
+    },
+    {
+      "command": "T3 preview: atlas navigation, typed search, progress change events, reset and report links",
+      "result": "passed: comment-style search returns its three adopted sources; ready filter retains three, pending produces zero and reset restores 271; comparison and validation links load",
+      "scope": "Search and links were driven through UI tools. Progress filtering was checked by DOM change events because the native select keyboard attempt left its value unchanged. Fresh research-page tab and main atlas report no console errors; no horizontal overflow at 1280x800."
+    },
+    {
+      "command": "git rev-parse HEAD; git rev-list --parents -n 1 HEAD; git log -1 --format=%B; git diff <recorded-parent>..HEAD; git status --short",
+      "repository": "private-skills",
+      "result": "passed: one expected local commit, exact message and staged patch, empty index, only the three original fleet files remain dirty",
+      "note": "An initial byte comparison used the wrong Git diff path prefixes; comparing with the recorded c/ and i/ prefixes verified identical content."
+    }
+  ],
+  "limitations": [
+    "Explicit skill application was tested; automatic host skill selection and real service delivery were not.",
+    "No broad model-performance or shorter-in-every-case claim follows from these samples.",
+    "The private workflow still has its pre-existing humanize dependency; this migration changes only its comment-style dependency and placement rules.",
+    "Source-discovery hydration limits are recorded separately in comment-style-research.json."
+  ],
+  "migration": {
+    "privateSourceRevision": "0b1bd82c0229daf5a4c62f77f9bab45852666935",
+    "privateWorktreeBaseline": "9286ba931deb72e154e003118ab879f0995dca20",
+    "removedOriginalFiles": 3,
+    "consumer": "draft-review resolves comment-style by registered name from LuisUrrutia/skills; its validation no longer requires a sibling directory.",
+    "preservedOutsideWork": "Unrelated private fleet changes and concurrent design-code-structure changes in the destination.",
+    "privateCommit": "0b9c6e432bbdbe3c798d577c43de59ca96ba46fe"
+  }
+}

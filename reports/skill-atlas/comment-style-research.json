@@ -1,0 +1,359 @@
+{
+  "date": "2026-10-05",
+  "request": "Migrate comment-style and compare the handoff repositories for concise PR replies, Slack and WhatsApp messages.",
+  "decision": "Keep the established comment-style name and migrate a focused, standalone derivation; communicate-clearly remains the general prose owner.",
+  "privateSource": {
+    "repository": "https://github.com/LuisUrrutia/private-skills",
+    "commit": "0b1bd82c0229daf5a4c62f77f9bab45852666935",
+    "verification": "Local Git object and matching package files; no fresh private remote fetch.",
+    "entrypointSha256": "7ff9f925cd4abe63c7b83ca7606ddd7e0d22b2f478bed7e222d2bcbd738af1de",
+    "scope": "Only the message-writing package is transferred. Private profiles and source-specific examples are not redistributed."
+  },
+  "method": {
+    "transport": "Noninteractive SSH Git clones pinned to full commits; source instructions were inspected as data, never executed.",
+    "coverage": "All 11 repository path inventories, bounded available SKILL.md text screening, and the explicit complete/excerpt reads below. This is not an exhaustive semantic audit of all files or linked workflows.",
+    "discoveryFailure": "A broad partial-clone hydration attempt exceeded its 90-second per-command limit. Manifest screening counts describe files actually available. Required selected pstack and ECC entrypoints were then read successfully by immutable git show.",
+    "textPattern": "short/concise/brief/terse near message/reply/comment, WhatsApp, ghostwriter, internal-comms and writing shape/beats/fragments"
+  },
+  "repositories": [
+    {
+      "id": "addy",
+      "commit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+      "remote": "git@github.com:addyosmani/agent-skills.git",
+      "branch": "refs/remotes/origin/main",
+      "trackedPaths": 210,
+      "matchingPaths": [
+        "evals/plugin/code-review-stays-quiet-on-commit-message/graders/not-fired.md",
+        "evals/plugin/code-review-stays-quiet-on-commit-message/prompt.md"
+      ],
+      "manifestFilesScreened": 25,
+      "manifestMatches": []
+    },
+    {
+      "id": "anthropic",
+      "commit": "683bc88e56f3e09ba94f7055977f3d3aa499f202",
+      "remote": "git@github.com:anthropics/skills.git",
+      "branch": "refs/remotes/origin/main",
+      "trackedPaths": 441,
+      "matchingPaths": [
+        "skills/internal-comms/LICENSE.txt",
+        "skills/internal-comms/SKILL.md",
+        "skills/internal-comms/examples/3p-updates.md",
+        "skills/internal-comms/examples/company-newsletter.md",
+        "skills/internal-comms/examples/faq-answers.md",
+        "skills/internal-comms/examples/general-comms.md"
+      ],
+      "manifestFilesScreened": 20,
+      "manifestMatches": [
+        "skills/internal-comms/SKILL.md"
+      ]
+    },
+    {
+      "id": "compound",
+      "commit": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+      "remote": "git@github.com:EveryInc/compound-engineering-plugin.git",
+      "branch": "refs/remotes/origin/main",
+      "trackedPaths": 1456,
+      "matchingPaths": [
+        "docs/guides/ce-noslop.md",
+        "docs/guides/ce-resolve-pr-feedback.md",
+        "docs/plans/2026-09-07-feat-ce-noslop-writing-skill-plan.md",
+        "skills/ce-code-review/references/personas/previous-comments-reviewer.md",
+        "skills/ce-noslop/SKILL.md",
+        "skills/ce-noslop/references/patterns.md",
+        "skills/ce-noslop/references/terminology.md",
+        "skills/ce-resolve-pr-feedback/SKILL.md",
+        "skills/ce-resolve-pr-feedback/references/agents/pr-comment-resolver.md",
+        "skills/ce-resolve-pr-feedback/references/evaluation-rubric.md",
+        "skills/ce-resolve-pr-feedback/references/full-mode.md",
+        "skills/ce-resolve-pr-feedback/references/pipeline-mode.md",
+        "skills/ce-resolve-pr-feedback/references/resume.md",
+        "skills/ce-resolve-pr-feedback/references/return-to-caller.md",
+        "skills/ce-resolve-pr-feedback/references/targeted-mode.md",
+        "skills/ce-setup/assets/noslop-directive.md",
+        "tests/skill-eval-cell/fixtures/incremental-message/fallback/COMMIT_HISTORY.md",
+        "tests/skill-eval-cell/fixtures/incremental-message/project/AGENTS.md",
+        "tests/skill-eval-cell/fixtures/incremental-message/project/COMMIT_HISTORY.md",
+        "tests/skill-eval-cell/fixtures/incremental-message/recent-log/COMMIT_HISTORY.md",
+        "tests/skill-eval-cell/fixtures/noslop-drafts/dense.md",
+        "tests/skill-eval-cell/fixtures/noslop-drafts/detect.md",
+        "tests/skill-eval-cell/fixtures/noslop-drafts/facts.md",
+        "tests/skill-eval-cell/fixtures/noslop-drafts/french.md",
+        "tests/skill-eval-cell/fixtures/noslop-drafts/protected.md",
+        "tests/skill-eval-cell/fixtures/noslop-drafts/restraint.md"
+      ],
+      "manifestFilesScreened": 41,
+      "manifestMatches": []
+    },
+    {
+      "id": "cursor",
+      "commit": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+      "remote": "git@github.com:cursor/plugins.git",
+      "branch": "refs/remotes/origin/main",
+      "trackedPaths": 903,
+      "matchingPaths": [
+        "cursor-team-kit/skills/get-pr-comments/SKILL.md",
+        "pstack/agents/comment-sicko.md",
+        "pstack/skills/no-comments/SKILL.md",
+        "pstack/skills/technical-writing/SKILL.md"
+      ],
+      "manifestFilesScreened": 49,
+      "manifestMatches": [
+        "cursor-team-kit/skills/review-and-ship/SKILL.md",
+        "dyl-stack/skills/dyl-mode/SKILL.md",
+        "dyl-stack/skills/dyl-review/SKILL.md",
+        "pr-review-canvas/skills/pr-review-canvas/SKILL.md",
+        "pstack/automations/benny/skills/reproduce-and-fix-issues/SKILL.md",
+        "pstack/automations/benny/skills/triage-issue-reports/SKILL.md"
+      ]
+    },
+    {
+      "id": "ecc",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "remote": "git@github.com:affaan-m/ECC.git",
+      "branch": "refs/remotes/origin/main",
+      "trackedPaths": 4212,
+      "matchingPaths": [
+        "agents/comment-analyzer.md",
+        "skills/messages-ops/SKILL.md"
+      ],
+      "manifestFilesScreened": 50,
+      "manifestMatches": [
+        ".agents/skills/investor-outreach/SKILL.md",
+        ".cursor/skills/investor-outreach/SKILL.md"
+      ]
+    },
+    {
+      "id": "gsd",
+      "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "remote": "git@github.com:gsd-build/gsd-2.git",
+      "branch": "refs/remotes/origin/main",
+      "trackedPaths": 3613,
+      "matchingPaths": [
+        "docs/dev/context-and-hooks/04-message-types-and-llm-visibility.md",
+        "docs/dev/context-and-hooks/05-inter-extension-communication.md",
+        "docs/dev/pi-ui-tui/15-message-rendering-custom-message-display.md",
+        "docs/dev/what-is-pi/12-the-message-queue-talking-while-pi-thinks.md"
+      ],
+      "manifestFilesScreened": 38,
+      "manifestMatches": []
+    },
+    {
+      "id": "humanlayer",
+      "commit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
+      "remote": "git@github.com:humanlayer/skills.git",
+      "branch": "refs/remotes/origin/main",
+      "trackedPaths": 41,
+      "matchingPaths": [],
+      "manifestFilesScreened": 6,
+      "manifestMatches": []
+    },
+    {
+      "id": "matt",
+      "commit": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "remote": "git@github.com:mattpocock/skills.git",
+      "branch": "refs/remotes/origin/main",
+      "trackedPaths": 161,
+      "matchingPaths": [],
+      "manifestFilesScreened": 38,
+      "manifestMatches": [
+        "skills/engineering/triage/SKILL.md",
+        "skills/in-progress/writing-beats/SKILL.md",
+        "skills/in-progress/writing-fragments/SKILL.md",
+        "skills/in-progress/writing-shape/SKILL.md"
+      ]
+    },
+    {
+      "id": "mblode",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "remote": "git@github.com:mblode/agent-skills.git",
+      "branch": "refs/remotes/origin/main",
+      "trackedPaths": 553,
+      "matchingPaths": [
+        "maintenance/2026-10-02-ghostwriter-research.md",
+        "skills/dx-audit/rules/err-no-raw-stack-as-message.md",
+        "skills/ghostwriter/SKILL.md",
+        "skills/ghostwriter/evals/files/dashes/blog.md",
+        "skills/ghostwriter/evals/files/dashes/soul.md",
+        "skills/ghostwriter/evals/files/profile/donebear.md",
+        "skills/ghostwriter/evals/files/profile/email.md",
+        "skills/ghostwriter/evals/files/profile/slack.md",
+        "skills/ghostwriter/evals/files/profile/soul.md",
+        "skills/ghostwriter/references/copy.md",
+        "skills/ghostwriter/references/docs.md",
+        "skills/ghostwriter/references/readme.md",
+        "skills/ghostwriter/references/strategy.md",
+        "skills/ghostwriter/references/surfaces.md",
+        "skills/ghostwriter/references/tells.md",
+        "skills/ghostwriter/references/templates.md",
+        "skills/ui-design/rules/microcopy-leaked-error-message.md"
+      ],
+      "manifestFilesScreened": 28,
+      "manifestMatches": [
+        "skills/agent-ready/SKILL.md",
+        "skills/agent-skills-creator/SKILL.md",
+        "skills/agents-md/SKILL.md",
+        "skills/dx-audit/SKILL.md",
+        "skills/eli5/SKILL.md",
+        "skills/ghostwriter/SKILL.md",
+        "skills/presentation-creator/SKILL.md",
+        "skills/product-design/SKILL.md",
+        "skills/scaffold-cli/SKILL.md",
+        "skills/seo/SKILL.md",
+        "skills/typography-audit/SKILL.md",
+        "skills/ui-design/SKILL.md"
+      ]
+    },
+    {
+      "id": "superpowers",
+      "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "remote": "git@github.com:obra/superpowers.git",
+      "branch": "refs/remotes/origin/main",
+      "trackedPaths": 229,
+      "matchingPaths": [
+        "skills/receiving-code-review/SKILL.md"
+      ],
+      "manifestFilesScreened": 15,
+      "manifestMatches": []
+    },
+    {
+      "id": "vercel",
+      "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "remote": "git@github.com:vercel-labs/agent-skills.git",
+      "branch": "refs/remotes/origin/main",
+      "trackedPaths": 447,
+      "matchingPaths": [],
+      "manifestFilesScreened": 9,
+      "manifestMatches": []
+    }
+  ],
+  "candidates": [
+    {
+      "name": "Matthew Blode / ghostwriter",
+      "repository": "https://github.com/mblode/agent-skills",
+      "commit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+      "path": "skills/ghostwriter/SKILL.md",
+      "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/SKILL.md",
+      "coverage": "Complete entrypoint, surfaces.md, strategy.md, tells.md and LICENSE.md read",
+      "decision": "Adapt selected ideas",
+      "reason": "Closest external match: chat and PR wording, text-only delivery, fidelity and register. Keep comment-style focused; do not import profile storage, long-form surfaces or donor restrictions."
+    },
+    {
+      "name": "Superpowers / receiving-code-review",
+      "repository": "https://github.com/obra/superpowers",
+      "commit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "path": "skills/receiving-code-review/SKILL.md",
+      "url": "https://github.com/obra/superpowers/blob/8ca22dba9a94f28898bbce59f2537ff4d87c747d/skills/receiving-code-review/SKILL.md",
+      "coverage": "Complete entrypoint and LICENSE read",
+      "decision": "Adapt reply wording",
+      "reason": "Use supported acknowledgments, concise technical disagreement and factual corrections. Leave repair, authorization and resolution with existing owners."
+    },
+    {
+      "name": "Anthropic / internal-comms",
+      "repository": "https://github.com/anthropics/skills",
+      "commit": "683bc88e56f3e09ba94f7055977f3d3aa499f202",
+      "path": "skills/internal-comms/SKILL.md",
+      "url": "https://github.com/anthropics/skills/blob/683bc88e56f3e09ba94f7055977f3d3aa499f202/skills/internal-comms/SKILL.md",
+      "coverage": "Complete entrypoint and examples/general-comms.md read",
+      "decision": "Comparison only",
+      "reason": "Targets company reports, newsletters and other formatted internal communications. Its intake questions add friction to a fully specified short message."
+    },
+    {
+      "name": "Lauren Tan / pstack technical-writing",
+      "repository": "https://github.com/cursor/plugins",
+      "commit": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+      "path": "pstack/skills/technical-writing/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/77526ffa67f8dafc698d14b5356e6d4fc78c3127/pstack/skills/technical-writing/SKILL.md",
+      "coverage": "Complete entrypoint read",
+      "decision": "Already covered by local prose owner",
+      "reason": "Plain words and clarity are useful, but the procedure covers layered technical documents. Do not impose document modes or another required writer on a ping."
+    },
+    {
+      "name": "Cursor team / get-pr-comments",
+      "repository": "https://github.com/cursor/plugins",
+      "commit": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+      "path": "cursor-team-kit/skills/get-pr-comments/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/77526ffa67f8dafc698d14b5356e6d4fc78c3127/cursor-team-kit/skills/get-pr-comments/SKILL.md",
+      "coverage": "Complete entrypoint read",
+      "decision": "Different responsibility",
+      "reason": "Retrieves and groups review feedback; it does not define the outgoing reply style."
+    },
+    {
+      "name": "Compound Engineering / ce-noslop",
+      "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+      "commit": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+      "path": "skills/ce-noslop/SKILL.md",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-noslop/SKILL.md",
+      "coverage": "Complete entrypoint read",
+      "decision": "Already covered by local prose owner",
+      "reason": "General prose fidelity and pattern repair overlap communicate-clearly; no new dependency is needed."
+    },
+    {
+      "name": "Compound Engineering / ce-resolve-pr-feedback",
+      "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+      "commit": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+      "path": "skills/ce-resolve-pr-feedback/SKILL.md",
+      "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-resolve-pr-feedback/SKILL.md",
+      "coverage": "Selected reply-format excerpts in references/full-mode.md and references/evaluation-rubric.md; not a complete workflow audit",
+      "decision": "Different responsibility",
+      "reason": "Feedback judgment, fixes, publication and resolution belong to pr-followup. Its quoting and status machinery are not a compact-message template."
+    },
+    {
+      "name": "ECC / messages-ops",
+      "repository": "https://github.com/affaan-m/ECC",
+      "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+      "path": "skills/messages-ops/SKILL.md",
+      "url": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/messages-ops/SKILL.md",
+      "coverage": "Complete entrypoint read",
+      "decision": "Different responsibility",
+      "reason": "Reads message sources and reports retrieval evidence; it is not a short-form writing specialist."
+    },
+    {
+      "name": "Matt Pocock / writing-shape",
+      "repository": "https://github.com/mattpocock/skills",
+      "commit": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+      "path": "skills/in-progress/writing-shape/SKILL.md",
+      "url": "https://github.com/mattpocock/skills/blob/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d/skills/in-progress/writing-shape/SKILL.md",
+      "coverage": "Complete entrypoint read",
+      "decision": "Different responsibility",
+      "reason": "Shapes articles through an interactive paragraph-by-paragraph session, beyond the requested quick message."
+    },
+    {
+      "name": "Lauren Tan / pstack bro",
+      "repository": "https://github.com/cursor/plugins",
+      "commit": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+      "path": "pstack/skills/bro/SKILL.md",
+      "url": "https://github.com/cursor/plugins/blob/77526ffa67f8dafc698d14b5356e6d4fc78c3127/pstack/skills/bro/SKILL.md",
+      "coverage": "Complete entrypoint read",
+      "decision": "Different responsibility",
+      "reason": "Restates the previous assistant message in plain language. It does not define drafting, PR replies, or service delivery."
+    },
+    {
+      "name": "GSD / btw",
+      "repository": "https://github.com/gsd-build/gsd-2",
+      "commit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "path": "src/resources/skills/btw/SKILL.md",
+      "url": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/skills/btw/SKILL.md",
+      "coverage": "Complete entrypoint read",
+      "decision": "Different responsibility",
+      "reason": "Answers a side question using existing session context. It is not an outgoing-message writer."
+    },
+    {
+      "name": "Vercel / writing-guidelines",
+      "repository": "https://github.com/vercel-labs/agent-skills",
+      "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+      "path": "skills/writing-guidelines/SKILL.md",
+      "url": "https://github.com/vercel-labs/agent-skills/blob/063bee94c3f4df8453406c830b0a7df0f2860278/skills/writing-guidelines/SKILL.md",
+      "coverage": "Complete entrypoint read; external handbook not followed because this comparison does not adopt its rules",
+      "decision": "Different responsibility",
+      "reason": "Audits prose against an external handbook and returns findings. It does not produce a short outgoing message."
+    }
+  ],
+  "boundaries": [
+    "One short sentence is the default; meaningful conditions and required facts remain.",
+    "PR repair and review placement remain with their workflows.",
+    "Drafting does not send. Explicitly authorized sending uses the available service workflow and verified result.",
+    "No global installation, external message, PR, or push is part of this migration."
+  ],
+  "validation": "comment-style-validation.json"
+}

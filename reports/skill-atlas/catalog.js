@@ -4358,9 +4358,9 @@ window.SKILL_ATLAS = {
       {
         "name": "design-code-structure",
         "category": "Understanding and design",
-        "summary": "Design caller-facing models and enforceable module boundaries; compare alternatives and changes made with partial context.",
+        "summary": "Choose a useful structural change, design caller-facing models and module boundaries, and demonstrate selected checks through the actual verification path.",
         "path": "design-code-structure/SKILL.md",
-        "sha256": "88f4e1f886c1b0b6f7627aa3fb68091c2fd0fc47a74ad31dcf2dcc24c5c2004e",
+        "sha256": "84afc2ef4b1df24fc64a849355b5b4252b017e4e7fa159e37e2325919b267494",
         "section": "design-code-structure"
       },
       {
@@ -4386,6 +4386,23 @@ window.SKILL_ATLAS = {
         "path": "error-handling/SKILL.md",
         "sha256": "369d6f7d56b46ed6ac5e1be9ff60d7f3ae4924338056c94e3e63778bc044a63e",
         "section": "error-handling"
+      },
+      {
+        "name": "observability",
+        "category": "Implementation, verification and review",
+        "summary": "Assess and build project observability, including initial collection setup and instrumentation during feature work.",
+        "path": "observability/SKILL.md",
+        "sha256": "a6a3ec72c29dd64761ebd70f66ac5eff4579131a7c4e7a341c5f3b38b899e06d",
+        "section": "observability",
+        "checkedAt": "2026-10-05"
+      },
+      {
+        "name": "performance-optimization",
+        "category": "Implementation, verification and review",
+        "summary": "Find worthwhile measured improvements to user-relevant operations through bounded experiments that preserve behavior and resource limits.",
+        "path": "performance-optimization/SKILL.md",
+        "sha256": "72bf908b0e7c32340171f1077b50e292006cbe934683153af75f3b17e1141556",
+        "section": "performance-optimization"
       },
       {
         "name": "accessibility",
@@ -4448,16 +4465,18 @@ window.SKILL_ATLAS = {
         "category": "Git, pull requests and CI",
         "summary": "Create or update a reviewable PR, including real screenshots, attachment recovery and useful diagrams.",
         "path": "pr/SKILL.md",
-        "sha256": "41a211d27c5d394d9a5fe5c5c1e6cd69ad2ab662660d83affd2acc9f35032677",
-        "section": "pr-attachments"
+        "sha256": "1617be65af575e504854991dd556a0b1e0bdb90cd2e5c5dd84008d08c7befc13",
+        "section": "pr-attachments",
+        "checkedAt": "2026-10-05"
       },
       {
         "name": "pr-followup",
         "category": "Git, pull requests and CI",
         "summary": "Evaluate human and AI feedback, repair authorized CI failures or conflicts and report the current PR state.",
         "path": "pr-followup/SKILL.md",
-        "sha256": "a520a39b5ef077fc61ff8ec921431879c9703803db592f06b82147db9088f60c",
-        "section": "followup"
+        "sha256": "6678c4c1a69581cab21863fe2a2a130b2a8ca99361a1dabdb6b71917239e6dbf",
+        "section": "followup",
+        "checkedAt": "2026-10-05"
       },
       {
         "name": "stacked-pr",
@@ -4570,6 +4589,31 @@ window.SKILL_ATLAS = {
         "path": "learning-plan/SKILL.md",
         "sha256": "1cbb1f9415a3ef8ecc48ebc1b89d5401966af214df7e234df099921ce199901d",
         "section": "teaching"
+      },
+      {
+        "name": "comment-style",
+        "category": "Writing and personal workflows",
+        "summary": "Write concise chat messages, PR comments and social replies with essential facts, fitting emotion, contextual humor and useful questions.",
+        "path": "comment-style/SKILL.md",
+        "sha256": "4d17831c0de43bfbc4ff05157d0ac9ca10700f8db4753d4e818c0edc7c563c6e",
+        "section": "comment-style"
+      },
+      {
+        "name": "deprecate-and-remove",
+        "category": "Implementation, verification and review",
+        "summary": "Retire dependencies, APIs or features, with an optional replacement, verified transition conditions and complete obsolete-code cleanup.",
+        "path": "deprecate-and-remove/SKILL.md",
+        "sha256": "5bc34ccb77e4e50eb245cec9be2578563284879fe4c5f84f337eff640631d927",
+        "section": "deprecate-and-remove"
+      },
+      {
+        "name": "issue-workflow",
+        "category": "Git, pull requests and CI",
+        "summary": "Synchronize source tickets at work start, PR creation and observed merge under per-project transition rules.",
+        "path": "issue-workflow/SKILL.md",
+        "section": "issue-workflow",
+        "checkedAt": "2026-10-05",
+        "sha256": "6b706bb5b183591953de11c0a2d4b2b0981c49f3ec97cb00e286c24e076555dc"
       }
     ],
     "pending": [
@@ -7534,13 +7578,14 @@ window.SKILL_ATLAS = {
       },
       {
         "title": "Make runtime behavior diagnosable",
-        "route": "Derive a specialist",
-        "owner": "New observability capability",
+        "route": "Derivation created",
+        "owner": "observability",
         "keys": [
-          "Addy Osmani/observability-and-instrumentation"
+          "Addy Osmani/observability-and-instrumentation",
+          "GSD/observability"
         ],
-        "why": "Start from operational questions and verify that useful, privacy-conscious logs, metrics or traces answer them.",
-        "boundary": "Complements error-handling and debug. Preserve the actual stack and budgets instead of requiring every kind of telemetry."
+        "why": "Build project observability from prioritized additions, bootstrap missing facilities and instrument feature boundaries.",
+        "boundary": "debug owns incident investigation; error-handling owns failure contracts. Reuse suitable tools and establish missing collection where the requested work needs it."
       },
       {
         "title": "Evaluation and continuation guidance is incorporated",
@@ -7642,9 +7687,9 @@ window.SKILL_ATLAS = {
     "repositoryCommit": "761cae1 (base; working-tree hashes below)",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 136,
-      "pending": 44,
-      "optional": 47,
+      "ready": 151,
+      "pending": 40,
+      "optional": 45,
       "not-selected": 41
     },
     "skills": {
@@ -7687,7 +7732,7 @@ window.SKILL_ATLAS = {
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 38,
-            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
+            "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "matt-design",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
             "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
@@ -7751,7 +7796,7 @@ window.SKILL_ATLAS = {
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 38,
-            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
+            "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "matt-design",
             "baselineCommit": "d81f3a183412e71a5b1e84ca21bc1a35eea03a60",
             "reviewedThrough": "24fe0ef7737efae15c87225755e9f6f5965e4888",
@@ -8307,7 +8352,7 @@ window.SKILL_ATLAS = {
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
+            "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -8748,7 +8793,7 @@ window.SKILL_ATLAS = {
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
+            "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -8859,7 +8904,7 @@ window.SKILL_ATLAS = {
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
+            "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -8935,7 +8980,7 @@ window.SKILL_ATLAS = {
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
+            "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9020,7 +9065,7 @@ window.SKILL_ATLAS = {
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
+            "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9083,11 +9128,31 @@ window.SKILL_ATLAS = {
         ]
       },
       "pstack/principle-migrate-callers-then-delete-legacy-apis": {
-        "status": "optional",
-        "label": "Optional",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "deprecate-and-remove"
+        ],
+        "note": "Selected retirement guidance is derived into a repository package. Global installation, implicit host activation and production retirement are separate claims.",
+        "evidence": [
+          {
+            "owner": "deprecate-and-remove",
+            "path": "deprecate-and-remove/origin.txt",
+            "line": 22,
+            "sha256": "42ce96a152816987646c77483fa9884509504d1999db167c85d2e03e455ca338",
+            "sourceId": "pstack-internal-retirement",
+            "baselineCommit": "2cbf58508f40de470d7490b55c51d71241928fa2",
+            "reviewedThrough": "2cbf58508f40de470d7490b55c51d71241928fa2",
+            "borrowed": [
+              "Inventory and migrate controlled internal callers, then remove the previous API in the same coordinated change when no incompatible consumer remains."
+            ],
+            "localChoices": [
+              "Preserve the principle's external-consumer and coordinated-change conditions; do not inherit a blanket ban on adapters.",
+              "Account for stored data, in-flight work and independently deployed versions before assuming an atomic change is available.",
+              "Keep behavior and denial tests that protect continuing contracts."
+            ]
+          }
+        ]
       },
       "pstack/principle-minimize-reader-load": {
         "status": "ready",
@@ -9102,7 +9167,7 @@ window.SKILL_ATLAS = {
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
+            "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9157,7 +9222,7 @@ window.SKILL_ATLAS = {
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
+            "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9318,7 +9383,7 @@ window.SKILL_ATLAS = {
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
+            "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9386,7 +9451,7 @@ window.SKILL_ATLAS = {
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
+            "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9447,7 +9512,7 @@ window.SKILL_ATLAS = {
             "owner": "design-code-structure",
             "path": "design-code-structure/origin.txt",
             "line": 7,
-            "sha256": "bb20a0494eaf9ca30321a4cd8da2c505849a20cd822babd6f5819471d2027f31",
+            "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -10266,11 +10331,33 @@ window.SKILL_ATLAS = {
         ]
       },
       "Addy Osmani/performance-optimization": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "performance-optimization"
+        ],
+        "note": "Selected performance-search mechanisms are adapted into the local package. Full donor installation, runtime execution and synchronization are separate claims.",
+        "evidence": [
+          {
+            "owner": "performance-optimization",
+            "path": "performance-optimization/origin.txt",
+            "line": 7,
+            "sha256": "e5a7e0882ec9ac41db22ff235ee969debfed55561af96d035785258efcf136db",
+            "sourceId": "addy-performance-optimization",
+            "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "borrowed": [
+              "Measurement-first baseline, bottleneck, change, verification and keep/revert cycle, with maintainable regression protection.",
+              "Preserve relevant cache identity, freshness and resource behavior when evaluating a performance change."
+            ],
+            "localChoices": [
+              "Use project-specific metrics and meaningful benefit; no universal frontend, bundle or API budgets.",
+              "Use local verify for measurement validity, without copying its benchmark checklist or requiring field data for every local operation.",
+              "Keep domain patterns as conditional hypotheses, not a copied recipe library; do not weaken legitimate cache security or freshness policies.",
+              "A neutral simplification may remain for its independent authorized benefit without a speedup claim."
+            ]
+          }
+        ]
       },
       "Addy Osmani/context-engineering": {
         "status": "ready",
@@ -10918,11 +11005,38 @@ window.SKILL_ATLAS = {
         "note": "Selected material is recorded in present local packages. This does not mean the full source is installed, executed or synchronized."
       },
       "Matthew Blode/codebase-architecture": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "design-code-structure"
+        ],
+        "evidence": [
+          {
+            "owner": "design-code-structure",
+            "path": "design-code-structure/origin.txt",
+            "line": 65,
+            "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
+            "sourceId": "mblode-codebase-architecture",
+            "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "borrowed": [
+              "Choose a concrete structural improvement using scoped change history, current friction, change locality and migration cost before designing alternatives.",
+              "Connect the selected boundary to an existing executable check and introduce it with narrow, explicit handling of existing violations.",
+              "Demonstrate supported, deliberately violating and restored inputs through the real command, including failure propagation, filters and caches.",
+              "Prove a cohesive caller-to-result slice before generalizing a larger migration; distinguish proposed checks, observed checks and wired gates."
+            ],
+            "localChoices": [
+              "Rewrite the existing design workflow rather than adding a second architecture or repository-hardening owner.",
+              "Use history only when selecting improvements; discount mechanical churn and retain low-frequency correctness risks. Missing history is an evidence gap, not a ban on design.",
+              "Preserve caller-first design, established-pattern exceptions, justified single-implementation boundaries, public protocols, runtime validation and documentation authority.",
+              "Run deliberate violations only in authorized disposable fixtures or isolated copies; preserve user edits, restore owned mutations and identify the intended rejection cause.",
+              "Use existing verification paths and rule-specific exceptions. No universal pre-commit hook, CI policy change, new toolkit, numerical baseline, approval rubric or scheduled cleanup.",
+              "Do not adopt fixed TypeScript layers, AsyncLocalStorage, framework choices, vocabulary, adapter or consumer quotas, mandatory glossary or universal design-to-implementation transitions.",
+              "Route workflow, project-instruction and application verification work to their existing skills when needed; a local check does not establish unexecuted remote enforcement."
+            ]
+          }
+        ],
+        "note": "Selected prioritization and enforcement guidance is integrated and checked in the local package. This is not the full upstream skill, global installation or proof of remote enforcement."
       },
       "Matthew Blode/dx-audit": {
         "status": "optional",
@@ -10980,9 +11094,10 @@ window.SKILL_ATLAS = {
         "label": "Incorporated",
         "owners": [
           "communicate-clearly",
-          "write-documentation"
+          "write-documentation",
+          "comment-style"
         ],
-        "note": "Selected material is incorporated in the repository packages. This does not mean the full source is installed, executed or synchronized. Bounded checks are recorded in communication-validation.json.",
+        "note": "Selected material is incorporated in the repository packages. This does not mean the full source is installed, executed or synchronized. Bounded checks are recorded in communication-validation.json. Short-message wording is additionally incorporated in comment-style; its checks are recorded in comment-style-validation.json.",
         "evidence": [
           {
             "owner": "communicate-clearly",
@@ -11015,6 +11130,17 @@ window.SKILL_ATLAS = {
             "localChoices": [
               "Keep existing documentation conventions and mixed pages where useful; no imposed US English, technology stack, directory or mandatory CI.",
               "Preserve legitimate internal/contributor README audiences. No profile or publishing workflow."
+            ]
+          },
+          {
+            "owner": "comment-style",
+            "path": "comment-style/origin.txt",
+            "line": 19,
+            "sha256": "c3a2be30a357a2e8c5654e0969a31b05ec59f8ed240332cccaa5421ecf2efd17",
+            "sourceId": "mblode-ghostwriter",
+            "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "borrowed": [
+              "Finished text, channel and register adaptation, and fidelity without profile storage."
             ]
           }
         ]
@@ -11328,11 +11454,34 @@ window.SKILL_ATLAS = {
         ]
       },
       "Addy Osmani/deprecation-and-migration": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "deprecate-and-remove"
+        ],
+        "note": "Selected retirement guidance is derived into a repository package. Global installation, implicit host activation and production retirement are separate claims.",
+        "evidence": [
+          {
+            "owner": "deprecate-and-remove",
+            "path": "deprecate-and-remove/origin.txt",
+            "line": 7,
+            "sha256": "42ce96a152816987646c77483fa9884509504d1999db167c85d2e03e455ca338",
+            "sourceId": "addy-deprecation",
+            "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "borrowed": [
+              "Own the retirement decision and the transition of affected consumers through eventual removal.",
+              "Distinguish deprecation notices, migration work and evidence that permits removing the old implementation."
+            ],
+            "localChoices": [
+              "Support retirement without a replacement and respect an already chosen successor.",
+              "Keep immediate and progressive paths conditional on real consumers, support obligations and state.",
+              "Replace universal additive safety and reversibility with actual deployment, data and recovery evidence.",
+              "Preserve shared contracts, required records, history and supported-version guidance; remove only obsolete artifacts.",
+              "Notice delivery, live-resource changes and future scheduling retain the active task's authorization."
+            ]
+          }
+        ]
       },
       "Addy Osmani/documentation-and-adrs": {
         "status": "ready",
@@ -11439,11 +11588,23 @@ window.SKILL_ATLAS = {
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Addy Osmani/observability-and-instrumentation": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "observability"
+        ],
+        "note": "Selected mechanisms support project assessment, initial observability setup and feature instrumentation in the local package. Installation and production operation are separate. See observability-reorientation-validation.json.",
+        "evidence": [
+          {
+            "owner": "observability",
+            "path": "observability/origin.txt",
+            "line": 7,
+            "sha256": "c8e2e96f4af7ee53343534f8374fa035ecc4834aacbd7f1234f9616af2a95a77",
+            "sourceId": "addy-observability",
+            "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026"
+          }
+        ]
       },
       "Addy Osmani/planning-and-task-breakdown": {
         "status": "pending",
@@ -11763,11 +11924,33 @@ window.SKILL_ATLAS = {
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Compound Engineering/ce-optimize": {
-        "status": "optional",
-        "label": "Optional",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "performance-optimization"
+        ],
+        "note": "Selected performance-search mechanisms are adapted into the local package. Full donor installation, runtime execution and synchronization are separate claims.",
+        "evidence": [
+          {
+            "owner": "performance-optimization",
+            "path": "performance-optimization/origin.txt",
+            "line": 52,
+            "sha256": "e5a7e0882ec9ac41db22ff235ee969debfed55561af96d035785258efcf136db",
+            "sourceId": "compound-ce-optimize",
+            "baselineCommit": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+            "reviewedThrough": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+            "borrowed": [
+              "Choose the cheapest locating measurement that can change what gets implemented or skipped.",
+              "Rank opportunities by measured cost, likely benefit, confidence, implementation cost and risk.",
+              "Confirm the final combined result rather than adding independent gains."
+            ],
+            "localChoices": [
+              "Restrict scope to software performance and resource cost, not arbitrary model-judged quality campaigns.",
+              "Keep search evidence proportionate; no YAML spec, checkpoint framework, obligatory branch, worktree probe or script dependency.",
+              "Preserve existing task authorization and continuation instead of new routine approval gates or handing off unfinished authorized work."
+            ]
+          }
+        ]
       },
       "Compound Engineering/ce-plan": {
         "status": "pending",
@@ -12989,9 +13172,250 @@ window.SKILL_ATLAS = {
         "status": "ready",
         "label": "Incorporated",
         "note": "Selected mechanisms are recorded in local provenance; no claim of installation, full upstream adoption, or learning gains."
+      },
+      "GSD/observability": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "observability"
+        ],
+        "note": "Selected mechanisms support project assessment, initial observability setup and feature instrumentation in the local package. Installation and production operation are separate. See observability-reorientation-validation.json.",
+        "evidence": [
+          {
+            "owner": "observability",
+            "path": "observability/origin.txt",
+            "line": 22,
+            "sha256": "c8e2e96f4af7ee53343534f8374fa035ecc4834aacbd7f1234f9616af2a95a77",
+            "sourceId": "gsd-observability",
+            "baselineCommit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+            "reviewedThrough": "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+          }
+        ]
+      },
+      "Local/comment-style": {
+        "status": "ready",
+        "label": "In repository",
+        "owners": [
+          "comment-style"
+        ],
+        "note": "Selected wording guidance is present in comment-style. This does not establish automatic host selection or live message delivery. See comment-style-validation.json.",
+        "evidence": [
+          {
+            "owner": "comment-style",
+            "path": "comment-style/origin.txt",
+            "line": 6,
+            "sha256": "c3a2be30a357a2e8c5654e0969a31b05ec59f8ed240332cccaa5421ecf2efd17",
+            "sourceId": "private-comment-style",
+            "baselineCommit": "0b1bd82c0229daf5a4c62f77f9bab45852666935",
+            "borrowed": [
+              "Point-first pings, necessary identifiers, caller preferences and short review comments."
+            ]
+          }
+        ]
+      },
+      "Superpowers/receiving-code-review": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "comment-style"
+        ],
+        "note": "Selected wording guidance is present in comment-style. This does not establish automatic host selection or live message delivery. See comment-style-validation.json.",
+        "evidence": [
+          {
+            "owner": "comment-style",
+            "path": "comment-style/origin.txt",
+            "line": 34,
+            "sha256": "c3a2be30a357a2e8c5654e0969a31b05ec59f8ed240332cccaa5421ecf2efd17",
+            "sourceId": "superpowers-review-reception",
+            "baselineCommit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+            "borrowed": [
+              "Supported acknowledgments, concise disagreement, factual correction and existing-thread replies."
+            ]
+          }
+        ]
+      },
+      "ECC/benchmark-optimization-loop": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "performance-optimization"
+        ],
+        "note": "Selected performance-search mechanisms are adapted into the local package. Full donor installation, runtime execution and synchronization are separate claims.",
+        "evidence": [
+          {
+            "owner": "performance-optimization",
+            "path": "performance-optimization/origin.txt",
+            "line": 37,
+            "sha256": "e5a7e0882ec9ac41db22ff235ee969debfed55561af96d035785258efcf136db",
+            "sourceId": "ecc-benchmark-optimization-loop",
+            "baselineCommit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "reviewedThrough": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "borrowed": [
+              "Establish operation, correctness gate, metric, baseline and explicit search budget.",
+              "Compare against the prior accepted best, reject invalid candidates and confirm the final safe variant.",
+              "The best observed safe variant is not a global optimum."
+            ],
+            "localChoices": [
+              "Require measured benefit beyond variation; an explanation alone does not establish improvement.",
+              "Honor resource and behavior guardrails; do not promote the fastest primary metric blindly."
+            ]
+          }
+        ]
+      },
+      "pstack/perf-issue": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "performance-optimization"
+        ],
+        "note": "Selected performance-search mechanisms are adapted into the local package. Full donor installation, runtime execution and synchronization are separate claims.",
+        "evidence": [
+          {
+            "owner": "performance-optimization",
+            "path": "performance-optimization/origin.txt",
+            "line": 22,
+            "sha256": "e5a7e0882ec9ac41db22ff235ee969debfed55561af96d035785258efcf136db",
+            "sourceId": "pstack-performance-search",
+            "baselineCommit": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+            "reviewedThrough": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+            "borrowed": [
+              "Prioritize removing unnecessary or repeated work before more complex scheduling and concurrency.",
+              "Use one interpretable hypothesis per attempt and retain the baseline, accepted variants and rejected attempts with keep/revert evidence."
+            ],
+            "localChoices": [
+              "Stop at a justified goal or bounded search limit; no minimum attempt quota or requirement to push past a plateau.",
+              "No required model, subagent, worktree, branch, PR or publication workflow.",
+              "Shared measurement rules already live in verify; this feed covers only performance-search playbooks. Preserve unrelated work when reverting owned experiments."
+            ]
+          }
+        ]
+      },
+      "pstack/hillclimb": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "performance-optimization"
+        ],
+        "note": "Selected performance-search mechanisms are adapted into the local package. Full donor installation, runtime execution and synchronization are separate claims.",
+        "evidence": [
+          {
+            "owner": "performance-optimization",
+            "path": "performance-optimization/origin.txt",
+            "line": 22,
+            "sha256": "e5a7e0882ec9ac41db22ff235ee969debfed55561af96d035785258efcf136db",
+            "sourceId": "pstack-performance-search",
+            "baselineCommit": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+            "reviewedThrough": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+            "borrowed": [
+              "Prioritize removing unnecessary or repeated work before more complex scheduling and concurrency.",
+              "Use one interpretable hypothesis per attempt and retain the baseline, accepted variants and rejected attempts with keep/revert evidence."
+            ],
+            "localChoices": [
+              "Stop at a justified goal or bounded search limit; no minimum attempt quota or requirement to push past a plateau.",
+              "No required model, subagent, worktree, branch, PR or publication workflow.",
+              "Shared measurement rules already live in verify; this feed covers only performance-search playbooks. Preserve unrelated work when reverting owned experiments."
+            ]
+          }
+        ]
+      },
+      "Hoang Nguyen/database-migrations": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "deprecate-and-remove"
+        ],
+        "note": "Selected retirement guidance is derived into a repository package. Global installation, implicit host activation and production retirement are separate claims.",
+        "evidence": [
+          {
+            "owner": "deprecate-and-remove",
+            "path": "deprecate-and-remove/origin.txt",
+            "line": 37,
+            "sha256": "42ce96a152816987646c77483fa9884509504d1999db167c85d2e03e455ca338",
+            "sourceId": "hoang-data-transition",
+            "baselineCommit": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+            "reviewedThrough": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+            "borrowed": [
+              "Order compatible data transitions, bound and resume backfills, and verify convergence before removing an old shape.",
+              "Check database-specific locking and distinguish destructive data changes from code rollback."
+            ],
+            "localChoices": [
+              "Keep data-specific guidance conditional, with implementation details owned by project tools and delivery specialists.",
+              "Do not promise trivial reversal for all additive changes or prescribe fixed deployment cycles.",
+              "Separate feature retirement from data disposal and preserve retention obligations."
+            ]
+          }
+        ]
+      },
+      "Matt Pocock/setup-matt-pocock-skills": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "issue-workflow"
+        ],
+        "note": "Selected mechanisms are present in issue-workflow. No full donor installation, live tracker or unattended execution claim. See issue-workflow-validation.json.",
+        "evidence": [
+          {
+            "owner": "issue-workflow",
+            "path": "issue-workflow/origin.txt",
+            "line": 7,
+            "sha256": "57e4b5ab93fd8363f1f60150338268f0524fcb5ea3abd3dd93ae5b4ea7b137a0",
+            "sourceId": "matt-project-policy",
+            "baselineCommit": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+            "reviewedThrough": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+          }
+        ]
+      },
+      "ECC/jira-integration": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "issue-workflow"
+        ],
+        "note": "Selected mechanisms are present in issue-workflow. No full donor installation, live tracker or unattended execution claim. See issue-workflow-validation.json.",
+        "evidence": [
+          {
+            "owner": "issue-workflow",
+            "path": "issue-workflow/origin.txt",
+            "line": 22,
+            "sha256": "57e4b5ab93fd8363f1f60150338268f0524fcb5ea3abd3dd93ae5b4ea7b137a0",
+            "sourceId": "ecc-jira-transitions",
+            "baselineCommit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "reviewedThrough": "ef648e01899ba3e8dc6371642deaaf64b4477775"
+          }
+        ]
       }
     },
-    "validation": "upstream-adoption-validation.json"
+    "validation": "upstream-adoption-validation.json",
+    "targetedUpdates": [
+      {
+        "checkedAt": "2026-10-05",
+        "source": "Matthew Blode/codebase-architecture",
+        "repositoryCommit": "966ce66d4840e87973e7a144f1579b9cbf45965c",
+        "validation": "design-code-structure-integration.json",
+        "scope": "Only design-code-structure source evidence and aggregate counts refreshed."
+      },
+      {
+        "checkedAt": "2026-10-05",
+        "source": "performance-optimization selected feeds",
+        "repositoryCommit": "1285db35d1e707ff045ac7a3ab2189b11e450984",
+        "validation": "performance-optimization-validation.json",
+        "scope": "Only this package inventory entry, five source cards and their provenance/counts refreshed; other owners and historical assessments preserved."
+      },
+      {
+        "checkedAt": "2026-10-05",
+        "source": "deprecate-and-remove selected feeds",
+        "repositoryCommit": "10828ecb7636e23b0f273b692b94d8b5197bb050",
+        "validation": "deprecation-validation.json",
+        "scope": "Only the retirement package inventory, three selected source cards, provenance and counts refreshed."
+      },
+      {
+        "checkedAt": "2026-10-05",
+        "source": "issue-workflow: Matt Pocock/setup-matt-pocock-skills and ECC/jira-integration",
+        "repositoryCommit": "40c64b38a1239b78816f28038b65791bd9fa99ff",
+        "validation": "issue-workflow-validation.json",
+        "scope": "Add two selected source records and issue-workflow inventory; refresh pr/pr-followup hashes and aggregate counts only."
+      }
+    ]
   },
   "accessibilityReview": {
     "date": "2026-10-04",
@@ -17045,5 +17469,713 @@ window.SKILL_ATLAS = {
         ]
       }
     ]
+  },
+  "observabilityReview": {
+    "date": "2026-10-05",
+    "html": "index.html#observability",
+    "validation": "observability-reorientation-validation.json",
+    "scope": "Inventories of the 11 HANDOFF repositories and targeted candidate entrypoints/supporting files. Complete reads of the two selected donor entrypoints, Addy checklist and both licenses; not a semantic audit of every repository file.",
+    "skills": [
+      {
+        "id": "gsd-observability",
+        "key": "GSD/observability",
+        "name": "observability",
+        "declaredName": "observability",
+        "group": "GSD",
+        "author": "Lex Christopherson / GSD-2",
+        "collection": "observability",
+        "kind": "upstream",
+        "path": "src/resources/skills/observability/SKILL.md",
+        "repository": "https://github.com/gsd-build/gsd-2",
+        "source": "https://github.com/gsd-build/gsd-2/blob/33c00aaffa56e5d394bccce1c8df59fb842e84c5/src/resources/skills/observability/SKILL.md",
+        "sha": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+        "sha256": "2e306ba431db19df29eabc4da61c48555cd703d673a6bfa57d98abb6d759fa61",
+        "lines": 174,
+        "chars": 8112,
+        "category": "Observability",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "owner": "observability",
+        "summary": "Record decisions and preserve safe failure and status evidence for unattended processes.",
+        "reason": "Complements Addy with fresh-reader diagnostics, durable state and checks of plausible failures.",
+        "caution": "Use existing stores and paths; preserve public failure contracts and define concurrency, freshness and recovery. No GSD runtime dependency.",
+        "inspection": "Complete pinned entrypoint and MIT license read. Referenced GSD implementation files were not audited or copied.",
+        "references": []
+      }
+    ],
+    "assessments": [
+      {
+        "collection": "addy",
+        "path": "skills/observability-and-instrumentation/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "e7fcb0820306d46268de9594d676ad98e35040858926c412b7000faa52a61f87",
+        "lines": 238,
+        "chars": 13890,
+        "name": "observability-and-instrumentation",
+        "id": "addy-osmani-observability-and-instrumentation",
+        "key": "Addy Osmani/observability-and-instrumentation",
+        "declaredName": "observability-and-instrumentation",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "kind": "upstream",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/observability-and-instrumentation/SKILL.md",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "category": "Observability",
+        "owner": "observability",
+        "summary": "Select operational signals from diagnostic questions, correlate runs and entry points, and verify actual delivery.",
+        "reason": "Provides the signal-design foundation of the local observability skill alongside GSD-2 unattended-process evidence.",
+        "caution": "Reuse existing tooling and choose the needed signals; no mandatory backend, alert quota, fixed severities or live notification test.",
+        "decision": "Blend",
+        "inspection": "Complete pinned entrypoint, observability checklist and MIT license read; selected mechanisms adapted.",
+        "references": [
+          {
+            "path": "references/observability-checklist.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/references/observability-checklist.md",
+            "sha256": "25fcd0e854596a5ab6f11b002050d245bf78f5ae0fcbd1df699b89451ae0e1e8"
+          }
+        ]
+      }
+    ],
+    "selection": "One local derivation for building project observability: Addy signal design and GSD-2 unattended-process evidence, with explicit assessment, initial setup and feature-work modes. No donor runtime dependency.",
+    "alternatives": [
+      {
+        "name": "enterprise-agent-ops",
+        "repository": "affaan-m/ECC",
+        "path": "skills/enterprise-agent-ops/SKILL.md",
+        "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "decision": "Adjacent agent operations; not adopted."
+      },
+      {
+        "name": "canary-watch",
+        "repository": "affaan-m/ECC",
+        "path": "skills/canary-watch/SKILL.md",
+        "commit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "decision": "Post-deploy checks; not an instrumentation owner or adopted source."
+      },
+      {
+        "name": "vercel-optimize",
+        "repository": "vercel-labs/agent-skills",
+        "path": "skills/vercel-optimize/SKILL.md",
+        "commit": "063bee94c3f4df8453406c830b0a7df0f2860278",
+        "decision": "Consumes Vercel metrics for cost and performance; not adopted."
+      },
+      {
+        "name": "deployment-verification-agent",
+        "repository": "EveryInc/compound-engineering-plugin",
+        "path": "skills/ce-code-review/references/personas/deployment-verification-agent.md",
+        "commit": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+        "decision": "Code-review persona for deployment readiness, not a standalone instrumentation skill; not adopted."
+      }
+    ],
+    "limitations": [
+      "Repository presence is distinct from installation and host selection.",
+      "Comparison candidates are not active upstream feeds.",
+      "Behavioral evaluation status and actual evidence are recorded separately."
+    ],
+    "previousValidation": "observability-validation.json",
+    "localScopeRevision": {
+      "date": "2026-10-05",
+      "reason": "User requested project additions and initial setup rather than an incident-diagnosis-centered explanation.",
+      "scope": "Assess project architecture and workflows, prioritize concrete additions, establish absent telemetry facilities, and extend instrumentation during feature work.",
+      "boundary": "debug owns incident investigation; assessment-only remains read-only, feature changes stay scoped, and backend/deployment authority follows the active task.",
+      "upstreamPins": "Unchanged; this is a local-scope revision, not an upstream update."
+    }
+  },
+  "commentStyleReview": {
+    "date": "2026-10-05",
+    "research": "comment-style-research.json",
+    "html": "comment-style-research.html",
+    "validation": "comment-style-validation.json",
+    "scope": "A bounded comparison across all 11 handoff repository inventories, selected source reads, and the private package migration. Coverage and hydration limitations are recorded in the research report.",
+    "skills": [
+      {
+        "id": "local-comment-style",
+        "key": "Local/comment-style",
+        "collection": "local",
+        "name": "comment-style",
+        "declaredName": "comment-style",
+        "group": "Local",
+        "author": "Luis Urrutia",
+        "kind": "personal",
+        "path": "comment-style/SKILL.md",
+        "repository": "https://github.com/LuisUrrutia/private-skills",
+        "source": "https://github.com/LuisUrrutia/private-skills/blob/0b1bd82c0229daf5a4c62f77f9bab45852666935/comment-style/SKILL.md",
+        "sha": "0b1bd82c0229daf5a4c62f77f9bab45852666935",
+        "category": "Communication and documentation",
+        "decision": "Keep",
+        "action": "Migrated and adapted",
+        "owner": "comment-style",
+        "summary": "The personal short-message skill now lives in this collection for PR replies, review comments, Slack and WhatsApp.",
+        "reason": "Keep the established name, direct ask and casual voice while making personal messages independent of a repository.",
+        "caution": "The source snapshot is historical. The shared version preserves essential facts; review placement and delivery stay with the authorized workflow.",
+        "inspection": "Complete original package read and matched to a local Git commit; no fresh private remote fetch.",
+        "references": [
+          {
+            "path": "comment-style/references/review.md",
+            "url": "https://github.com/LuisUrrutia/private-skills/blob/0b1bd82c0229daf5a4c62f77f9bab45852666935/comment-style/references/review.md",
+            "coverage": "Complete local snapshot read; review placement remains with the private workflow."
+          }
+        ],
+        "sha256": "7ff9f925cd4abe63c7b83ca7606ddd7e0d22b2f478bed7e222d2bcbd738af1de",
+        "lines": 173,
+        "chars": 9011
+      },
+      {
+        "id": "superpowers-receiving-code-review",
+        "key": "Superpowers/receiving-code-review",
+        "collection": "superpowers",
+        "name": "receiving-code-review",
+        "declaredName": "receiving-code-review",
+        "group": "Superpowers",
+        "author": "Jesse Vincent",
+        "kind": "upstream",
+        "path": "skills/receiving-code-review/SKILL.md",
+        "repository": "https://github.com/obra/superpowers",
+        "source": "https://github.com/obra/superpowers/blob/8ca22dba9a94f28898bbce59f2537ff4d87c747d/skills/receiving-code-review/SKILL.md",
+        "sha": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+        "category": "Communication and documentation",
+        "decision": "Blend",
+        "action": "Reply wording adapted",
+        "owner": "comment-style",
+        "summary": "Answer review feedback with supported acknowledgments, technical disagreement or a brief correction.",
+        "reason": "Useful reply guidance complements the personal short-message contract.",
+        "caution": "No automatic code repair, source-based trust hierarchy, ban on intentional gratitude, or authority to post and resolve threads.",
+        "inspection": "Complete pinned entrypoint and MIT license read; selected wording mechanisms adapted.",
+        "references": [
+          {
+            "path": "LICENSE",
+            "url": "https://github.com/obra/superpowers/blob/8ca22dba9a94f28898bbce59f2537ff4d87c747d/LICENSE",
+            "coverage": "Complete license read; copyright notice retained."
+          }
+        ],
+        "sha256": "091df1629510af1b92fc4abd6f96732ebedb4cb2c0f3457e8f2740b0504a2438",
+        "lines": 205,
+        "chars": 6165
+      }
+    ],
+    "assessments": [
+      {
+        "id": "matthew-blode-ghostwriter",
+        "key": "Matthew Blode/ghostwriter",
+        "collection": "mblode",
+        "name": "ghostwriter",
+        "declaredName": "ghostwriter",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "path": "skills/ghostwriter/SKILL.md",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "287218e41b2fde42fc28943027795a1e3f29d1f7a75c1cc3623637a773c18553",
+        "lines": 77,
+        "category": "Communication and documentation",
+        "decision": "Blend",
+        "action": "Selected parts adapted",
+        "owner": "communicate-clearly; write-documentation; comment-style",
+        "summary": "Audience and channel guidance supports general prose, documents and focused short messages.",
+        "reason": "The existing communication owners retain their scope. Selected finished-text, fidelity and register guidance also supports the migrated comment-style specialist.",
+        "caution": "No mandatory private profiles, stored author learning, fixed sentence limits, long-form ownership in comment-style, or publication authority.",
+        "inspection": "Current comment-style review: complete entrypoint, surfaces, strategy, tells and MIT license. Earlier communication-review references are retained with their original scope.",
+        "references": [
+          {
+            "path": "skills/eli5/SKILL.md",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/eli5/SKILL.md",
+            "coverage": "Earlier communication review (retained): Complete file read"
+          },
+          {
+            "path": "skills/eli5/references/formats.md",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/eli5/references/formats.md",
+            "coverage": "Earlier communication review (retained): Complete file read"
+          },
+          {
+            "path": "skills/ghostwriter/references/docs.md",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/docs.md",
+            "coverage": "Earlier communication review (retained): Complete file read"
+          },
+          {
+            "path": "skills/ghostwriter/references/readme.md",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/readme.md",
+            "coverage": "Earlier communication review (retained): Complete file read"
+          },
+          {
+            "path": "skills/ghostwriter/references/strategy.md",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/strategy.md",
+            "coverage": "Complete file read for comment-style; also read in the earlier communication review"
+          },
+          {
+            "path": "skills/ghostwriter/references/surfaces.md",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/surfaces.md",
+            "coverage": "Complete file read for comment-style; also read in the earlier communication review"
+          },
+          {
+            "path": "skills/ghostwriter/references/tells.md",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/tells.md",
+            "coverage": "Complete file read for comment-style; also read in the earlier communication review"
+          },
+          {
+            "path": "skills/ghostwriter/references/templates.md",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/templates.md",
+            "coverage": "Earlier communication review (retained): Complete file read"
+          },
+          {
+            "path": "skills/ghostwriter/references/copy.md",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/ghostwriter/references/copy.md",
+            "coverage": "Earlier communication review (retained): Complete file read"
+          },
+          {
+            "path": "LICENSE.md",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/LICENSE.md",
+            "coverage": "Complete license read for comment-style; copyright notice retained."
+          }
+        ]
+      }
+    ],
+    "decision": "Migrate the focused personal skill; incorporate selected ghostwriter and receiving-code-review guidance without creating a competing general prose owner.",
+    "reactionRefinement": {
+      "date": "2026-10-05",
+      "basis": "Direct user feedback on an overly flat social reply.",
+      "change": "Keep enthusiasm, contextual humor, relevant curiosity and supported comparisons in brief replies. Read quoted context; do not assert unconfirmed effects.",
+      "validation": "comment-style-reactions-validation.json"
+    }
+  },
+  "designStructureReview": {
+    "date": "2026-10-05",
+    "repositoryCommit": "966ce66d4840e87973e7a144f1579b9cbf45965c (base; final package hashes in the validation record)",
+    "assessments": [
+      {
+        "collection": "mblode",
+        "path": "skills/codebase-architecture/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "ed86d31d2be5a43dd525f892ec2f0363e6484f28c2cbbab3e7c4f3fd33426733",
+        "lines": 187,
+        "chars": 20753,
+        "name": "codebase-architecture",
+        "id": "matthew-blode-codebase-architecture",
+        "key": "Matthew Blode/codebase-architecture",
+        "declaredName": "codebase-architecture",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/codebase-architecture/SKILL.md",
+        "action": "Integrated into existing skill",
+        "priority": "Applied",
+        "category": "Code structure",
+        "owner": "design-code-structure",
+        "summary": "Select a useful structural change, design its interface and ownership, and prove the relevant boundary through the existing verification path.",
+        "reason": "The coherent rewrite integrates history-informed prioritization, narrow enforcement exceptions, and supported/violating/restored checks while preserving the existing caller-first design method.",
+        "caution": "History is conditional on choosing improvements. Design-only work stops at a recommendation and validation plan; scoped isolated experiments may establish a deciding claim. Existing protocols, runtime checks, justified single-implementation boundaries and project conventions remain authoritative.",
+        "decision": "Blend",
+        "inspection": "Full pinned entrypoint, five relevant references and MIT license read. Selected language-neutral guidance integrated; framework defaults, hooks, schedules and automated approval policy were excluded.",
+        "references": [
+          {
+            "path": "skills/codebase-architecture/references/deepening-existing.md",
+            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.txt.",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/codebase-architecture/references/deepening-existing.md",
+            "sha256": "26083492e399a1afd7b32d2f354815bb0df8eb8325bfbd9c4f676bec8ae60c5e"
+          },
+          {
+            "path": "skills/codebase-architecture/references/enforcement-ladder.md",
+            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.txt.",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/codebase-architecture/references/enforcement-ladder.md",
+            "sha256": "c8c0ea60dd4c3f55069599e329711ee93117f8317cdf893e70a3361fb36398a0"
+          },
+          {
+            "path": "skills/codebase-architecture/references/guardrail-tooling.md",
+            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.txt.",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/codebase-architecture/references/guardrail-tooling.md",
+            "sha256": "ae88b498ed7a2c9915a435c9c481df7f80965b2916da68db7f51205026f13e29"
+          },
+          {
+            "path": "skills/codebase-architecture/references/verification-tiers.md",
+            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.txt.",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/codebase-architecture/references/verification-tiers.md",
+            "sha256": "bcb98956d62ed3ae7be0ecbae4eb015d4f5f4d59cb4d4e2edcde88d138499216"
+          },
+          {
+            "path": "skills/codebase-architecture/references/vocabulary.md",
+            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.txt.",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/codebase-architecture/references/vocabulary.md",
+            "sha256": "6061a75d3bec5fdf7c181906166e18fcd2581634da9bc961183eef918a110428"
+          },
+          {
+            "path": "LICENSE.md",
+            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.txt.",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/LICENSE.md",
+            "sha256": "81ac64b19ea7ae7f9a8d197705df58f48ffca02c74fca13e565dedf4f7595b46"
+          }
+        ]
+      }
+    ],
+    "validation": "design-code-structure-integration.json",
+    "scope": "Integrates selected Matthew Blode codebase-architecture material into design-code-structure. Original catalog assessments and earlier validation records remain historical evidence."
+  },
+  "performanceReview": {
+    "date": "2026-10-05",
+    "html": "index.html#performance-optimization",
+    "validation": "performance-optimization-validation.json",
+    "scope": "Targeted performance comparison following inventories of the 11 HANDOFF repositories; four selected feeds with pinned source texts and exact MIT notices. Not an audit of every file or proof of upstream execution.",
+    "skills": [
+      {
+        "id": "ecc-benchmark-optimization-loop",
+        "key": "ECC/benchmark-optimization-loop",
+        "name": "benchmark-optimization-loop",
+        "declaredName": "benchmark-optimization-loop",
+        "group": "ECC",
+        "author": "Affaan Mustafa / ECC",
+        "collection": "ecc",
+        "kind": "upstream",
+        "path": "skills/benchmark-optimization-loop/SKILL.md",
+        "repository": "https://github.com/affaan-m/ECC",
+        "source": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/benchmark-optimization-loop/SKILL.md",
+        "sha": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "sha256": "f11208b6a86bc311cfbd9e20688a189238fda6c1e03b6f8000ef9e55487f6f95",
+        "lines": 71,
+        "chars": 2656,
+        "category": "Performance",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "owner": "performance-optimization",
+        "summary": "Bound the search, preserve correctness and resource limits, compare against the accepted best and confirm the result.",
+        "reason": "Adds explicit stop conditions and safe promotion to the local optimization owner.",
+        "caution": "An explanation does not replace repeated comparable evidence. The best observed variant is not a global optimum.",
+        "inspection": "Complete pinned entrypoint or playbook and relevant selected references read. Source scripts were not executed or adopted.",
+        "references": []
+      },
+      {
+        "id": "pstack-perf-issue",
+        "key": "pstack/perf-issue",
+        "name": "perf-issue",
+        "declaredName": "perf-issue",
+        "group": "pstack",
+        "author": "Lauren Tan / pstack",
+        "collection": "pstack",
+        "kind": "upstream",
+        "path": "pstack/skills/poteto-mode/playbooks/perf-issue.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/77526ffa67f8dafc698d14b5356e6d4fc78c3127/pstack/skills/poteto-mode/playbooks/perf-issue.md",
+        "sha": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+        "sha256": "2b88ad0f880e4d4d755ac19fe52414d6631d6baa816d060f53cf0a7429d7e14a",
+        "lines": 25,
+        "chars": 1446,
+        "category": "Performance",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "owner": "performance-optimization",
+        "summary": "Prioritize unnecessary and repeated work using evidence from the operation.",
+        "reason": "Adds a useful order of opportunities before scheduling, concurrency or cheaper mechanisms.",
+        "caution": "This is a poteto-mode playbook. No mandatory model, delegation, profiler, architecture phase or PR workflow.",
+        "inspection": "Complete pinned entrypoint or playbook and relevant selected references read. Source scripts were not executed or adopted.",
+        "references": []
+      },
+      {
+        "id": "pstack-hillclimb",
+        "key": "pstack/hillclimb",
+        "name": "hillclimb",
+        "declaredName": "hillclimb",
+        "group": "pstack",
+        "author": "Lauren Tan / pstack",
+        "collection": "pstack",
+        "kind": "upstream",
+        "path": "pstack/skills/poteto-mode/playbooks/hillclimb.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/77526ffa67f8dafc698d14b5356e6d4fc78c3127/pstack/skills/poteto-mode/playbooks/hillclimb.md",
+        "sha": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+        "sha256": "244f289898fe67a458065e90fe8217c916c5acf61cdee8975ade3f9831a12e91",
+        "lines": 21,
+        "chars": 4403,
+        "category": "Performance",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "owner": "performance-optimization",
+        "summary": "Test one interpretable hypothesis at a time and retain kept and reverted attempts.",
+        "reason": "Adds baseline, accepted-best and experiment records without an unbounded tuning campaign.",
+        "caution": "This is a poteto-mode playbook. No minimum attempt quota or requirement to continue past a goal, plateau or budget.",
+        "inspection": "Complete pinned entrypoint or playbook and relevant selected references read. Source scripts were not executed or adopted.",
+        "references": []
+      }
+    ],
+    "assessments": [
+      {
+        "id": "addy-osmani-performance-optimization",
+        "key": "Addy Osmani/performance-optimization",
+        "name": "performance-optimization",
+        "declaredName": "performance-optimization",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "collection": "addy",
+        "kind": "upstream",
+        "path": "skills/performance-optimization/SKILL.md",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/performance-optimization/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "665a83a7218d6aebd02ca329a7b2422cf28f7c55cb56f870c05e12047770245c",
+        "lines": 267,
+        "chars": 16497,
+        "category": "Performance",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "owner": "performance-optimization",
+        "summary": "Measure a user-relevant operation, locate limiting work, test a change and keep only justified results.",
+        "reason": "Supplies the core measure-change-verify cycle for the local performance-optimization skill.",
+        "caution": "Use project targets and relevant workloads. No universal frontend or API budgets, mandatory tool or copied optimization recipe library.",
+        "inspection": "Complete pinned entrypoint or playbook and relevant selected references read. Source scripts were not executed or adopted.",
+        "references": [
+          {
+            "path": "skills/performance-optimization/references/optimization-patterns.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/performance-optimization/references/optimization-patterns.md",
+            "sha256": "fbf724076ffb8ac1a28e1a2773c0b550f5361090024b2dd32e5a682c69b7945f"
+          },
+          {
+            "path": "references/performance-checklist.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/references/performance-checklist.md",
+            "sha256": "40f564d1e62341e277c01ba42c42d95264b9ef3b8e5a23249dc6e121a7e70067"
+          }
+        ]
+      },
+      {
+        "id": "compound-engineering-ce-optimize",
+        "key": "Compound Engineering/ce-optimize",
+        "name": "ce-optimize",
+        "declaredName": "ce-optimize",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "collection": "compound",
+        "kind": "upstream",
+        "path": "skills/ce-optimize/SKILL.md",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-optimize/SKILL.md",
+        "sha": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+        "sha256": "942ff8ce14c4f2b9a44891631ed2a418d26319df23beb077460bf040bbbe2a9b",
+        "lines": 62,
+        "chars": 7877,
+        "category": "Performance",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "owner": "performance-optimization",
+        "summary": "Choose cheap measurements that change an optimization decision and verify the final combined result.",
+        "reason": "Adds opportunity prioritization and discriminating measurement to a bounded local search.",
+        "caution": "No CE spec/checkpoint framework, forced branch or worktree, model routing, routine approval gate or unrequested publication.",
+        "inspection": "Complete pinned entrypoint or playbook and relevant selected references read. Source scripts were not executed or adopted.",
+        "references": [
+          {
+            "path": "skills/ce-optimize/references/measurement.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-optimize/references/measurement.md",
+            "sha256": "b5b08e7a1855b4a5e4b3926491ce014ae59862d4cde8af5f40fc5bb0527045ca"
+          },
+          {
+            "path": "skills/ce-optimize/references/loop.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-optimize/references/loop.md",
+            "sha256": "9e49c84e271af6e0835fb6c4c9814ddeb04aa4b1d872bcbf098448974555fe33"
+          }
+        ]
+      }
+    ],
+    "selection": "Create one performance-optimization owner for bounded search and keep/revert decisions. Keep measurement validity with verify, regression diagnosis with debug, disposable experiments with prototype and durable signals with observability.",
+    "limitations": [
+      "Repository package; global installation and implicit host selection are not established.",
+      "Selected mechanisms are adapted, not entire upstream workflows or runtime dependencies."
+    ]
+  },
+  "deprecationReview": {
+    "date": "2026-10-05",
+    "html": "index.html#deprecate-and-remove",
+    "validation": "deprecation-validation.json",
+    "scope": "Derive retirement ownership from three pinned sources after the requested comparison. Historical assessments remain available; this overlay records the accepted broader objective.",
+    "objective": "Retire dependencies or features we no longer want to maintain, replace them when needed, and complete cleanup without breaking behavior that must remain.",
+    "skills": [
+      {
+        "id": "hoang-nguyen-database-migrations",
+        "key": "Hoang Nguyen/database-migrations",
+        "name": "database-migrations",
+        "declaredName": "database-migrations",
+        "group": "Hoang Nguyen",
+        "author": "Hoang Nguyen / Agent Skills Standard",
+        "collection": "hoang",
+        "kind": "upstream",
+        "path": "skills/database/database-migrations/SKILL.md",
+        "repository": "https://github.com/HoangNguyen0403/agent-skills-standard",
+        "source": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/database/database-migrations/SKILL.md",
+        "sha": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+        "sha256": "d9737eb1f7efbbcfdf2b4d7b320c87ab7f7b7da1b5f080fac5376c4c1444e26d",
+        "lines": 46,
+        "chars": 1359,
+        "category": "Retirement",
+        "decision": "Blend",
+        "action": "Derived into deprecate-and-remove",
+        "priority": "Available",
+        "owner": "deprecate-and-remove",
+        "summary": "Order compatible data transitions, bound and resume backfills, and verify convergence before removing an old shape. Check database-specific locking and distinguish destructive data changes from code rollback.",
+        "reason": "Selected mechanisms support retirement with or without a successor; design, delivery and verification keep their existing owners.",
+        "caution": "Keep data-specific guidance conditional, with implementation details owned by project tools and delivery specialists. Do not promise trivial reversal for all additive changes or prescribe fixed deployment cycles. Separate feature retirement from data disposal and preserve retention obligations.",
+        "inspection": "Full pinned entrypoint, listed reference and license read. Selected guidance adapted; donor recipes were not executed.",
+        "references": [
+          {
+            "path": "skills/database/database-migrations/references/migration-safety-checklist.md",
+            "coverage": "Full file read",
+            "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/database/database-migrations/references/migration-safety-checklist.md",
+            "sha256": "3063914c179bfe50d07a065bfb28756208652043d4e48822f51e52c74b3541b7"
+          },
+          {
+            "path": "LICENSE",
+            "coverage": "Full file read",
+            "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/LICENSE",
+            "sha256": "4d7986336b20626e0f4b37bdcd8010f718856bdf0fecb11f40dfdd5f705d49e1"
+          }
+        ]
+      }
+    ],
+    "assessments": [
+      {
+        "id": "addy-osmani-deprecation-and-migration",
+        "key": "Addy Osmani/deprecation-and-migration",
+        "name": "deprecation-and-migration",
+        "declaredName": "deprecation-and-migration",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "collection": "addy",
+        "kind": "upstream",
+        "path": "skills/deprecation-and-migration/SKILL.md",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/deprecation-and-migration/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "6a624f942e09c69863a4219b9bd5d56975026b67b0c70bc83385ffd2120b6142",
+        "lines": 247,
+        "chars": 12534,
+        "category": "Retirement",
+        "decision": "Blend",
+        "action": "Derived into deprecate-and-remove",
+        "priority": "Available",
+        "owner": "deprecate-and-remove",
+        "summary": "Own the retirement decision and the transition of affected consumers through eventual removal. Distinguish deprecation notices, migration work and evidence that permits removing the old implementation.",
+        "reason": "Selected mechanisms support retirement with or without a successor; design, delivery and verification keep their existing owners.",
+        "caution": "Support retirement without a replacement and respect an already chosen successor. Keep immediate and progressive paths conditional on real consumers, support obligations and state. Replace universal additive safety and reversibility with actual deployment, data and recovery evidence. Preserve shared contracts, required records, history and supported-version guidance; remove only obsolete artifacts. Notice delivery, live-resource changes and future scheduling retain the active task's authorization.",
+        "inspection": "Full pinned entrypoint, listed reference and license read. Selected guidance adapted; donor recipes were not executed.",
+        "references": [
+          {
+            "path": "LICENSE",
+            "coverage": "Full file read",
+            "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/LICENSE",
+            "sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7"
+          }
+        ]
+      },
+      {
+        "id": "pstack-principle-migrate-callers-then-delete-legacy-apis",
+        "key": "pstack/principle-migrate-callers-then-delete-legacy-apis",
+        "name": "principle-migrate-callers-then-delete-legacy-apis",
+        "declaredName": "principle-migrate-callers-then-delete-legacy-apis",
+        "group": "pstack",
+        "author": "Lauren Tan / pstack",
+        "collection": "pstack",
+        "kind": "upstream",
+        "path": "pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/2cbf58508f40de470d7490b55c51d71241928fa2/pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md",
+        "sha": "2cbf58508f40de470d7490b55c51d71241928fa2",
+        "sha256": "09978915a4a11990cf0a9a02d9c08cc59e0b7a04c5c24b83aa560fbe4146f75b",
+        "lines": 22,
+        "chars": 1146,
+        "category": "Retirement",
+        "decision": "Blend",
+        "action": "Derived into deprecate-and-remove",
+        "priority": "Available",
+        "owner": "deprecate-and-remove",
+        "summary": "Inventory and migrate controlled internal callers, then remove the previous API in the same coordinated change when no incompatible consumer remains.",
+        "reason": "Selected mechanisms support retirement with or without a successor; design, delivery and verification keep their existing owners.",
+        "caution": "Preserve the principle's external-consumer and coordinated-change conditions; do not inherit a blanket ban on adapters. Account for stored data, in-flight work and independently deployed versions before assuming an atomic change is available. Keep behavior and denial tests that protect continuing contracts.",
+        "inspection": "Full pinned entrypoint, listed reference and license read. Selected guidance adapted; donor recipes were not executed.",
+        "references": [
+          {
+            "path": "pstack/LICENSE",
+            "coverage": "Full file read",
+            "url": "https://github.com/cursor/plugins/blob/2cbf58508f40de470d7490b55c51d71241928fa2/pstack/LICENSE",
+            "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      "Synthetic fixtures exercise behavior; original MUI, Moment and smart-contract projects were not available.",
+      "Package creation is not global installation or implicit host activation.",
+      "No live notices, deployments, service deletion or on-chain operations were performed."
+    ]
+  },
+  "issueWorkflowReview": {
+    "date": "2026-10-05",
+    "html": "index.html#issue-workflow",
+    "validation": "issue-workflow-validation.json",
+    "scope": "Targeted lifecycle source review after inventory screening. Matt supplies project-policy placement and ECC supplies Jira discovery. LobeHub and other candidates remain comparison evidence, not copied source feeds.",
+    "skills": [
+      {
+        "id": "issue-workflow-matt-project-policy",
+        "key": "Matt Pocock/setup-matt-pocock-skills",
+        "name": "setup-matt-pocock-skills",
+        "declaredName": "setup-matt-pocock-skills",
+        "group": "Matt Pocock",
+        "author": "Matt Pocock",
+        "collection": "Ticket workflow",
+        "kind": "upstream",
+        "path": "skills/engineering/setup-matt-pocock-skills/SKILL.md",
+        "repository": "https://github.com/mattpocock/skills",
+        "source": "https://github.com/mattpocock/skills/blob/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d/skills/engineering/setup-matt-pocock-skills/SKILL.md",
+        "sha": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+        "sha256": "9a0c21694be19fa3eefc39343355d3af7414716ba364882c7432c2f821eac3e9",
+        "lines": 116,
+        "chars": 6847,
+        "category": "Ticket workflow",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "owner": "issue-workflow",
+        "summary": "Keep tracker conventions in the consuming repository and route to them from canonical agent instructions.",
+        "reason": "Incorporated into the project-policy template and provider-neutral lifecycle owner.",
+        "caution": "The local transition map is an extension requested by the user; the donor does not implement lifecycle synchronization.",
+        "inspection": "Complete pinned skill and MIT license read; selected ideas adapted in local wording.",
+        "references": []
+      },
+      {
+        "id": "issue-workflow-ecc-jira-transitions",
+        "key": "ECC/jira-integration",
+        "name": "jira-integration",
+        "declaredName": "jira-integration",
+        "group": "ECC",
+        "author": "ECC",
+        "collection": "Ticket workflow",
+        "kind": "upstream",
+        "path": "skills/jira-integration/SKILL.md",
+        "repository": "https://github.com/affaan-m/ECC",
+        "source": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/jira-integration/SKILL.md",
+        "sha": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "sha256": "ce0a0c815e3112a1e80d4dbd1d2d0c804c2af0371628d325e04d7ffbddf4247e",
+        "lines": 312,
+        "chars": 9855,
+        "category": "Ticket workflow",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "owner": "issue-workflow",
+        "summary": "Discover allowed Jira transition operations and treat ticket text as task data.",
+        "reason": "Incorporated into the project-policy template and provider-neutral lifecycle owner.",
+        "caution": "Use project destinations, available authenticated tools and guarded read-back; exclude fixed postmerge states, setup and comment-heavy workflows.",
+        "inspection": "Complete pinned skill and MIT license read; selected ideas adapted in local wording.",
+        "references": []
+      }
+    ],
+    "assessments": []
   }
 };

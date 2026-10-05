@@ -8,8 +8,8 @@
   <title>Atlas de skills | Tu flujo de desarrollo</title>
   <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css?v=3dd1dd1fabc1">
-  <script src="catalog.js?v=78e279f5eb4d" defer></script>
-  <script src="app.js?v=c82c13424b3c" defer></script>
+  <script src="catalog.js?v=c51173eddeb4" defer></script>
+  <script src="app.js?v=9c38951f4fbb" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al informe</a>
@@ -17,9 +17,14 @@
     <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">s</span><span>Atlas de skills<small>El flujo de desarrollo de Luis</small></span></a>
     <button id="theme-toggle" class="quiet-button theme-toggle" type="button" hidden>Modo claro</button>
     <nav>
-      <a href="#inventory" lang="en">Repository skills <span class="nav-tag" data-repository-count>35</span></a>
+      <a href="#deprecate-and-remove" lang="en">Retirement <span class="nav-tag">Created</span></a>
+      <a href="#inventory" lang="en">Repository skills <span class="nav-tag" data-repository-count>40</span></a>
+      <a href="#performance-optimization" lang="en">Performance <span class="nav-tag">New</span></a>
+      <a href="#issue-workflow" lang="en">Ticket workflow <span class="nav-tag">New</span></a>
+      <a href="#observability" lang="en">Observability <span class="nav-tag">New</span></a>
       <a href="#teaching" lang="en">Teaching <span class="nav-tag">New</span></a>
       <a href="#communication" lang="en">Communication <span class="nav-tag">New</span></a>
+      <a href="#comment-style" lang="en">Short messages <span class="nav-tag">New</span></a>
       <a href="#report-work-activity" lang="en">Activity reports <span class="nav-tag">New</span></a>
       <a href="#ci-cd-automation" lang="en">CI/CD <span class="nav-tag">New</span></a>
       <a href="#typescript-best-practices" lang="en">TypeScript <span class="nav-tag">New</span></a>
@@ -35,33 +40,93 @@
       <a href="#personal">Tus skills actuales</a>
       <a href="#similarities">Skills similares</a>
       <a href="#conflicts">Conflictos y correcciones</a>
-      <a href="#catalog" lang="en">Source catalog <span class="nav-tag" data-catalog-count>268</span></a>
+      <a href="#catalog" lang="en">Source catalog <span class="nav-tag" data-catalog-count>277</span></a>
       <a href="#evidence">Fuentes y cobertura</a>
       <a href="#workflow">Work-mode, al final <span class="nav-tag">4</span></a>
     </nav>
-    <div class="sidebar-note" lang="en"><span class="status-dot" aria-hidden="true"></span>Inventory checked<time datetime="2026-10-04">4 October 2026</time><p><span data-repository-count>35</span> skills present in this checkout. PR attachments and focused review delegation are included. Work-mode remains a proposal.</p><button id="print-report" class="quiet-button" type="button">Print / save PDF</button></div>
+    <div class="sidebar-note" lang="en"><span class="status-dot" aria-hidden="true"></span>Inventory checked<time datetime="2026-10-04">4 October 2026</time><p><span data-repository-count>40</span> skills present in this checkout. PR attachments and focused review delegation are included. Work-mode remains a proposal.</p><button id="print-report" class="quiet-button" type="button">Print / save PDF</button></div>
   </aside>
   <main id="main">
     <header id="overview" class="hero section" lang="en">
       <p class="kicker">The current workflow collection</p>
       <h1>Skills already in place.<br><span>What remains to build.</span></h1>
-      <p class="lead">The repository contains <span data-repository-count>35</span> skill packages. Teaching now has two owners: teach for lessons and learning-plan for study progressions and complete courses. explain-code and explain-decisions replace the ambiguous how and why names. Technical and nontechnical learning share the same learner-aware workflow. Checks in the source catalog identify material already incorporated.</p>
+      <p class="lead">The repository contains <span data-repository-count>40</span> skill packages. Teaching now has two owners: teach for lessons and learning-plan for study progressions and complete courses. explain-code and explain-decisions replace the ambiguous how and why names. Technical and nontechnical learning share the same learner-aware workflow. Checks in the source catalog identify material already incorporated.</p>
       <ol class="reading-order" aria-label="Reading order"><li><a href="#inventory"><span>1</span>Current skills</a></li><li><a href="#remaining"><span>2</span>Remaining choices</a></li><li><a href="#catalog"><span>3</span>Source comparison</a></li><li><a href="#workflow"><span>4</span>Future work-mode</a></li></ol>
       <div class="hero-actions"><a class="button primary" href="#report-work-activity">See the activity reporting design</a><a class="button secondary" href="?progress=ready#catalog">See incorporated sources</a></div>
-      <dl class="scope-stats"><div><dt>Repository skills</dt><dd data-repository-count>35</dd></div><div><dt>Local proposals</dt><dd data-pending-count>1</dd></div><div><dt>Original external entries</dt><dd>105</dd></div><div><dt>Original source cards</dt><dd>122</dd></div></dl>
-      <div class="notice"><strong>What the counts establish.</strong> Repository presence, source incorporation and a recommendation to install are different states. The catalog now has <span data-catalog-count>268</span> cards. Original snapshots remain available; the four named collections also have a dated current assessment. A check does not claim the full upstream skill is installed or synchronized.</div>
+      <dl class="scope-stats"><div><dt>Repository skills</dt><dd data-repository-count>40</dd></div><div><dt>Local proposals</dt><dd data-pending-count>1</dd></div><div><dt>Original external entries</dt><dd>105</dd></div><div><dt>Original source cards</dt><dd>122</dd></div></dl>
+      <div class="notice"><strong>What the counts establish.</strong> Repository presence, source incorporation and a recommendation to install are different states. The catalog now has <span data-catalog-count>277</span> cards. Original snapshots remain available; the four named collections also have a dated current assessment. A check does not claim the full upstream skill is installed or synchronized.</div>
     </header>
 
+    <section id="deprecate-and-remove" class="section" aria-labelledby="deprecate-and-remove-heading" lang="en">
+      <div class="section-heading"><p class="kicker">Created · dependency and feature retirement</p><h2 id="deprecate-and-remove-heading">Retire what we no longer want to maintain</h2><p><code>deprecate-and-remove</code> replaces dependencies when needed and retires features with no successor. Complete the cleanup while preserving behavior that must remain.</p></div>
+      <div class="two-columns"><article class="surface"><h3>With a replacement</h3><p>Examples: MUI to shadcn, or Moment to date-fns. Find consumers, preserve their required behavior, move them to the chosen successor and remove the obsolete implementation and exclusive dependencies.</p></article><article class="surface"><h3>Without a replacement</h3><p>Example: progressively end smart-contract updates. Prepare required notices, close access at the agreed stage, handle accepted work and remove obsolete routes, files, jobs and configuration. Retain required records and shared code.</p></article></div>
+      <div class="table-wrap"><table><caption>Three selected donors, one retirement owner</caption><thead><tr><th>Source</th><th>Retained</th><th>Local boundary</th></tr></thead><tbody>
+        <tr><th>Addy Osmani · deprecation-and-migration</th><td>Consumer transition, notices and closure.</td><td>A successor is optional. Notice preparation and delivery remain distinct.</td></tr>
+        <tr><th>pstack · migrate callers, then delete legacy APIs</th><td>Coordinated internal replacement and same-change removal.</td><td>Only when all consumers can move together; supported adapters can remain.</td></tr>
+        <tr><th>Hoang Nguyen · database-migrations</th><td>Compatible state transitions, resumable moves and convergence.</td><td>Conditional on stored state. Actual locks and recovery matter; additive changes are not universally safe.</td></tr>
+      </tbody></table></div>
+      <p class="notice"><strong>Completion follows evidence.</strong> Notice prepared, notice delivered, access disabled, consumers transitioned, code removed and removal deployed are separate states. A future cutoff or unknown supported consumer leaves the dependent removal pending.</p>
+      <p>Design, delivery, impact analysis, documentation, verification and review stay with their existing skills. <a href="deprecation-validation.json">Review and execution evidence</a> records the tested package and its limits. Repository presence does not establish global installation or implicit activation.</p>
+    </section>
+
     <section id="inventory" class="section" aria-labelledby="inventory-heading" lang="en">
-      <div class="section-heading"><p class="kicker">Checked against the repository</p><h2 id="inventory-heading">The skills we already have</h2><p><span data-repository-count>35</span> packages are present, grouped by the task they own. Each entry identifies its current file and links to the analysis where available. These are repository packages; installed copies keep their own state.</p></div>
+      <div class="section-heading"><p class="kicker">Checked against the repository</p><h2 id="inventory-heading">The skills we already have</h2><p><span data-repository-count>40</span> packages are present, grouped by the task they own. Each entry identifies its current file and links to the analysis where available. These are repository packages; installed copies keep their own state.</p></div>
       <div id="repository-inventory" class="two-columns"></div>
       <noscript><p>The complete repository inventory and file hashes are available in <a href="sources.json">sources.json</a>, under repositoryInventory.</p></noscript>
       <div class="notice"><strong>Names and historical copies.</strong> <code>review-code-changes</code> is the current repository implementation derived from <code>review-audit</code>. <code>walkthrough</code> is absent from this checkout. Other installed-only entries in the original analysis are not counted as repository packages; this update does not check their installation.</div>
       <article id="remaining" class="surface">
         <h3>What remains from the earlier plan</h3><p>These <span data-pending-count>1</span> local proposals have no SKILL.md in this checkout. Teaching is now implemented; work-mode remains the final composition step. The <a href="#author-review">new recommendations below</a> are additional choices, not created packages.</p>
         <div id="pending-skills"></div>
-        <p>The <a href="#install">installation selections</a> remain separate from repository packages. The new review changes performance optimization from direct installation to a proposed derivation.</p>
+        <p>The <a href="#install">installation selections</a> remain separate from repository packages. The measured <a href="#performance-optimization">performance-optimization derivation</a> is now present in this checkout.</p>
       </article>
+    </section>
+
+    <section id="performance-optimization" class="section" aria-labelledby="performance-optimization-heading" lang="en">
+      <div class="section-heading"><p class="kicker">Created · measured optimization</p><h2 id="performance-optimization-heading">Make a useful operation faster or cheaper</h2><p><code>performance-optimization</code> searches for measured improvements to an operation that matters to the user. Preserve required behavior, respect resource limits and keep a change only when its benefit justifies its complexity.</p></div>
+      <div class="two-columns"><article class="surface"><h3>One operation, a bounded search</h3><p>Define the workload, metric, worthwhile improvement and correctness checks. Locate limiting work, test one coherent hypothesis at a time, and record kept and rejected attempts. Stop at the goal, the budget or a specific evidence gap.</p></article><article class="surface"><h3>A result does not require a speedup</h3><p>A validated improvement is useful. So is evidence that none of the tried variants is worth keeping. A faster number from dropped work, weaker isolation, stale data or deferred completion cannot establish a win.</p></article></div>
+      <div class="table-wrap"><table><caption>Four selected sources, one maintained owner</caption><thead><tr><th>Source</th><th>Retained</th><th>Local boundary</th></tr></thead><tbody>
+        <tr><th>Addy Osmani · performance-optimization</th><td>Baseline, bottleneck, focused change, measurement and keep/revert.</td><td>Project-specific targets and workloads; no universal frontend, bundle or API budgets.</td></tr>
+        <tr><th>pstack · perf-issue and hillclimb</th><td>Remove unnecessary or repeated work first; preserve interpretable experiments and their decisions.</td><td>No mandatory model, delegation, attempt quota, worktree or PR workflow.</td></tr>
+        <tr><th>ECC · benchmark-optimization-loop</th><td>Explicit search budget, correctness gate and comparison with the accepted best.</td><td>Explanations do not replace measurements; best observed does not mean globally optimal.</td></tr>
+        <tr><th>Compound Engineering · ce-optimize</th><td>Cheap measurements that change a decision, opportunity ranking and final combined validation.</td><td>No spec/checkpoint framework or new routine approval gates.</td></tr>
+      </tbody></table></div>
+      <article class="surface"><h3>How it works with the existing skills</h3><p><code>debug</code> starts from an observed regression. <code>verify</code> judges measurement validity. <code>prototype</code> settles a bounded experimental question. <code>observability</code> provides durable diagnostic signals. This skill chooses the next optimization experiment and decides whether its benefit earns retention.</p><p>React, database, browser and platform-specific guidance supplies mechanisms when relevant. It does not replace the operation's own measurements or expand the task into a migration.</p></article>
+      <p id="performance-validation-summary">Independent Astra Max and Fable Max reviews are complete. Six matched tasks per arm passed: both versions kept a correct batch-report improvement and rejected memory reductions that changed behavior. The passing comparison does not establish an advantage attributable to the new instructions. Package, portability and browser checks passed; global installation, implicit host activation and production effectiveness remain untested.</p>
+      <div class="hero-actions"><a class="button primary" href="?q=performance-optimization&amp;progress=ready#catalog">See incorporated sources</a><a class="button secondary" href="performance-optimization-validation.json">Checks and limitations</a></div>
+      <div data-evidence="Addy Osmani/performance-optimization;pstack/perf-issue;pstack/hillclimb;ECC/benchmark-optimization-loop;Compound Engineering/ce-optimize"></div>
+    </section>
+
+    <section id="issue-workflow" class="section" aria-labelledby="issue-workflow-heading" lang="en">
+      <div class="section-heading"><p class="kicker">Created · project transition rules</p><h2 id="issue-workflow-heading">Keep the ticket aligned with delivery</h2><p><code>issue-workflow</code> applies the consuming project's <code>docs/agents/issue-tracker.md</code>. The package includes an unconfigured template; each project chooses its real states, allowed sources, branches, completion conditions and transition owner.</p></div>
+      <div class="table-wrap"><table><caption>Events and project decisions</caption><thead><tr><th>Verified event</th><th>Intended transition</th><th>Condition</th></tr></thead><tbody>
+        <tr><th>Implementation starts</th><td>In Progress</td><td>Reading or triaging alone leaves the ticket unchanged.</td></tr>
+        <tr><th>PR created</th><td>In Review</td><td>Drafts count by default. A project may explicitly choose ready-for-review instead.</td></tr>
+        <tr><th>PR merged</th><td>Project-selected next state</td><td>Ready for QA, Done or another configured state after branch and completion conditions hold.</td></tr>
+      </tbody></table></div>
+      <div class="two-columns"><article class="surface"><h3>One policy, one writer</h3><p>Resolve the exact ticket and actual workflow operations. Preserve manual progress and partial work. A configured automation owns its event; the agent verifies the result without racing it. Read back uncertain writes before retrying.</p></article><article class="surface"><h3>PR hooks and delivery limits</h3><p><code>pr</code> handles ticket discovery, linking and the creation/ready event. <code>pr-followup</code> reconciles observed ready and merged states. Approval is not merge. Other publishers need their own hook or explicit invocation; unattended review/merge events need a configured durable handler.</p></article></div>
+      <p>Matt Pocock supplies the per-project tracker document pattern. ECC supplies Jira transition discovery. Linear, Jira and GitHub adapters preserve their different state and automation models. GitHub issue closure remains separate from a Project Status field.</p>
+      <p>Independent Astra Max and Fable Max instruction reviews, matched fake-tracker execution and focused caller cases are recorded below. These checks do not establish live provider behavior, global installation or automatic host selection.</p>
+      <div class="hero-actions"><a class="button primary" href="?q=issue-workflow&amp;progress=ready#catalog">See incorporated sources</a><a class="button secondary" href="issue-workflow-validation.json">Checks and limitations</a></div>
+      <div data-evidence="Matt Pocock/setup-matt-pocock-skills;ECC/jira-integration"></div>
+    </section>
+
+    <section id="observability" class="section" aria-labelledby="observability-heading" lang="en">
+      <div class="section-heading"><p class="kicker">Project observability · setup and feature work</p><h2 id="observability-heading">Build observability into the project</h2><p><code>observability</code> analyzes the project, identifies where useful visibility is missing, and adds the instrumentation and collection setup it needs. Use it to assess a project, start from no telemetry, or instrument the feature being built.</p></div>
+      <div class="two-columns"><article class="surface"><h3>Project assessment and initial setup</h3><p>Inspect services, critical workflows, queues, storage and external calls. Prioritize concrete additions by impact, missing visibility and cost. Reuse suitable tools or establish a working path from events and metrics to storage and inspection, with usable configuration and instructions.</p></article><article class="surface"><h3>Instrumentation during feature work</h3><p>Add useful events, timings, outcome metrics and correlation at the boundaries a feature introduces or changes. Extend existing conventions, preserve public behavior and keep unrelated improvements separate. Verify the emitted data and show where to inspect it.</p></article></div>
+      <div class="table-wrap"><table><caption>Selected sources and local adaptations</caption><thead><tr><th>Source</th><th>Retained</th><th>Adapted boundary</th></tr></thead><tbody>
+        <tr><th>Addy Osmani · observability-and-instrumentation</th><td>Operational questions, correlation and entry-point identity, metrics, traces, actionable alerts and checks at the destination.</td><td>Choose the necessary signals; reuse suitable tools and establish missing collection facilities. No mandatory OpenTelemetry migration, universal alert thresholds, fixed severity count or live notification test.</td></tr>
+        <tr><th>GSD-2 · observability</th><td>Decision context, durable failure evidence, health and status for unattended work, and removal of temporary diagnostic noise.</td><td>Reuse the project's storage and paths. Preserve caller behavior and define state scope, concurrency, freshness and recovery.</td></tr>
+      </tbody></table></div>
+      <article class="surface"><h3>One responsibility in the collection</h3><p><code>debug</code> investigates an observed failure. <code>error-handling</code> defines failure and recovery contracts. <code>observability</code> builds and improves the project's instrumentation and telemetry setup. <code>verify</code> checks execution evidence, and <code>ci-cd-automation</code> owns deployment gates. A review request remains a review.</p><p>For a new export workflow, useful additions may include queue wait time, completion and failure counters, duration, and a run identity across producer and worker. If collection is absent, the task includes a suitable local or project-approved setup. An assessment request delivers priorities; an implementation request delivers verified changes.</p></article>
+      <details class="technical"><summary>Related skills considered</summary><div class="details-body"><p>The inventories of all 11 handoff repositories were searched, followed by targeted entrypoint and supporting-file reads. This is a scoped comparison, not an audit of every file.</p><ul>
+        <li>ECC's <code>enterprise-agent-ops</code> covers ongoing agent operation; <code>canary-watch</code> checks deployed surfaces. Their lifecycle and monitoring work remains separate.</li>
+        <li>Vercel's <code>vercel-optimize</code> consumes production metrics for cost and performance analysis; it is not a general instrumentation procedure.</li>
+        <li>Compound Engineering's deployment reviewer supplies readiness and post-deploy monitoring checks within code review.</li>
+        <li>Matt Pocock and Superpowers contribute diagnosis workflows; pstack has structured telemetry guidance. Blode and Anthropic inspect browser behavior, while HumanLayer can use telemetry as a control-loop input. These are adjacent responsibilities.</li>
+      </ul><p>The two selected feeds are recorded in <code>observability/origin.txt</code> with their original MIT notices. Other inspected candidates are comparison evidence, not adopted feeds or runtime dependencies.</p></div></details>
+      <p id="observability-validation-summary">Local setup and scoped project/feature cases passed in a comparison of the previous skill and the first revised candidate. Final wording received Astra Max and Fable Max review and focused checks. The record identifies the revision used by each check; host activation and production operation remain untested.</p>
+      <div class="hero-actions"><a class="button primary" href="?q=observability&amp;progress=ready#catalog">See incorporated sources</a><a class="button secondary" href="observability-reorientation-validation.json">Current checks and limitations</a></div>
+      <div data-evidence="Addy Osmani/observability-and-instrumentation;GSD/observability"></div>
     </section>
 
     <section id="teaching" class="section" aria-labelledby="teaching-heading" lang="en">
@@ -71,6 +136,15 @@
       <p>All 1,352 SKILL.md entries across the 11 handoff repositories were screened by metadata and scoped content searches. Relevant sources received complete reads. This is not a semantic audit of every translated or host-specific duplicate.</p>
       <div class="hero-actions"><a class="button primary" href="teaching-source-review.html">Sources and design decisions</a><a class="button secondary" href="teaching-validation.json">Checks and limitations</a></div>
       <div data-evidence="pstack/teach;Matt Pocock/teach;HumanLayer/show-me;Matthew Blode/eli5;Compound Engineering/ce-explain;Cursor teaching/create-learning-path;Cursor teaching/run-learning-retrospective"></div>
+    </section>
+
+    <section id="comment-style" class="section" aria-labelledby="comment-style-heading" lang="en">
+      <div class="section-heading"><p class="kicker">Migrated · PR replies, Slack and WhatsApp</p><h2 id="comment-style-heading">Short messages with the point first</h2><p><code>comment-style</code> brings the personal message-writing skill into this collection. Give the answer or ask, keep the facts that matter, and stop. One short sentence is the default; a needed caveat or required point stays.</p></div>
+      <div class="two-columns"><article class="surface"><h3>Keep the recipient's context</h3><p>Use the requested language and voice, preserve necessary names, links, deadlines and uncertainty, and return the finished message. An ordinary personal message needs no repository investigation.</p><p>For an agreed simple remedy: <code>suggestion: use the shared Button here</code>.</p><p>A social reply can be an excited reaction, a brief joke about the quoted post, or a relevant question. Keep the main benefit in view and leave unconfirmed effects as questions.</p></article><article class="surface"><h3>Keep status accurate</h3><p>A PR reply distinguishes changed locally, checked, published and deployed. Findings follow the caller's conventions; review workflows own repairs and placement. Drafting ends with text. Authorized delivery stays with the service workflow.</p></article></div>
+      <p><strong>Why these sources:</strong> the private package supplies the terse personal style. <code>ghostwriter</code> adds finished-text and channel guidance; <code>receiving-code-review</code> adds supported replies and concise disagreement. <code>communicate-clearly</code> remains the general prose owner.</p>
+      <p>Independent instruction consultations, synthetic drafting trials, package portability and caller checks are recorded with their limits. Repository presence does not prove global installation, automatic selection or live delivery.</p>
+      <div class="hero-actions"><a class="button primary" href="comment-style-research.html">Compare the sources</a><a class="button secondary" href="comment-style-validation.json">Checks and limitations</a><a class="button secondary" href="comment-style-reactions-validation.json">Reaction checks</a></div>
+      <div data-evidence="Local/comment-style;Matthew Blode/ghostwriter;Superpowers/receiving-code-review"></div>
     </section>
 
     <section id="communication" class="section" aria-labelledby="communication-heading" lang="en">
@@ -445,6 +519,16 @@
       </article>
       <article id="design-code-structure" class="surface">
         <p class="kicker">Decisión aplicada · diseño del código</p><h3>design-code-structure: decidir modelos, interfaces y responsabilidades</h3>
+        <div lang="en" id="design-structure-integration">
+          <p class="kicker">Matthew Blode integration · 5 October 2026</p>
+          <h4>One coherent design workflow</h4>
+          <p><code>design-code-structure</code> now connects choosing a useful improvement, designing its interface and ownership, and proving the selected boundary during authorized implementation. When choosing among improvements, it weighs substantive change history, current requirements, correctness risks and migration cost. Generated churn does not determine priority.</p>
+          <p>A conditional reference covers structural checks: reuse the existing verification path, preserve narrow exceptions, observe a valid case, reject a representative violation for the intended reason, then restore and verify the valid case. A tool that fails behind a wrapper that returns success is not an enforced gate. Probes use authorized isolated fixtures. Design work ends with a recommendation and validation plan; a scoped experiment may establish a deciding claim.</p>
+          <p>The existing pstack and Matt Pocock contributions remain: usage before types, meaningful alternatives, explicit invariants, public contracts, and justified boundaries with one implementation. GitHub Actions, project instructions and application verification retain their own specialists. The integration does not impose a framework, hooks, schedules, approval policy or a repository-wide rewrite.</p>
+          <p><strong>Source decision:</strong> selected Matthew Blode material is incorporated in the existing skill. The original catalog recommendation is preserved as history; the current card records the completed integration and its provenance. <a class="skill-link" href="#matthew-blode-codebase-architecture">Open the incorporated source</a>.</p>
+          <p><strong>Checks and limits:</strong> <a href="design-code-structure-integration.json">Source decisions, independent consultations and behavioral evidence</a>. Supplied-context trials and local checks do not establish global installation, automatic host selection or remote enforcement.</p>
+        </div>
+        <details class="technical"><summary lang="en">Original derivation and earlier validation</summary><div class="details-body">
         <p><strong>Derivación creada:</strong> <code>design-code-structure/SKILL.md</code>. Sustituye el nombre propuesto <code>architecture</code> y concreta la tarea: diseñar la estructura de un cambio. Entrega una recomendación, ejemplos de uso, tipos y límites, junto con alternativas, costes y supuestos pendientes.</p>
         <p><strong>Por qué derivar:</strong> pstack/architect combina investigación, candidatos independientes, bocetos e implementación. Matt añade profundidad de interfaces y modelado del dominio. Una capa tendría que reemplazar varios pasos para respetar tus herramientas, el alcance del encargo y las skills que ya hemos creado. La derivación conserva el método y mantiene esas conexiones de forma condicional.</p>
         <div class="table-wrap"><table><caption>Qué conservamos y qué queremos conseguir</caption><thead><tr><th>Fuente</th><th>Aportación</th><th>Aplicación local</th></tr></thead><tbody>
@@ -465,6 +549,7 @@
           <li><strong>Ambigüedad y cambios pequeños:</strong> el caso de cierre de cuentas pidió las decisiones pendientes sobre datos y propiedad. El cambio de un estado añadió la etiqueta exacta en el módulo existente y pasó tres pruebas públicas, build y smoke, sin abrir otro concurso de diseños.</li>
           <li><strong>Paquete y atlas:</strong> validador, referencias, procedencia, licencias, paridad del catálogo y sintaxis JavaScript correctos. Pasan tres pruebas existentes del repositorio. El atlas conserva 122 fichas, 16 explicaciones de adaptación y work-mode al final; revisado a 480 y 1280 píxeles.</li>
         </ul><p>Ocho ejecuciones independientes con gpt-6-astra y esfuerzo max: cuatro fallos conservados y cuatro resultados válidos en su alcance. La versión final pasa dos regresiones conocidas; no demuestra superioridad general, instalación ni selección automática. Tampoco prueba una exportación completa, servicios reales o la invocación de especialistas. Comandos, entradas, respuestas, huellas y límites: <code>reports/design-code-structure-validation.json</code>.</p></div></details>
+        </div></details>
       </article>
       <article class="surface" id="accessibility" lang="en">
         <p class="kicker">Created · complete user tasks</p><h3>accessibility: make the flow usable through its supported access methods</h3>
@@ -765,7 +850,7 @@
     </section>
 
     <section id="catalog" class="section" aria-labelledby="catalog-heading">
-      <div class="section-heading" lang="en"><p class="kicker">Source selection and actual progress</p><h2 id="catalog-heading">Source skills and procedures</h2><p><span data-catalog-count>268</span> cards: the original 122, 87 additional sources from the four collections, six accessibility procedures and references, 24 TypeScript sources, 12 CI/CD sources, seven activity-reporting procedures, five communication and documentation sources, three pstack extraction and measurement sources, and two Cursor teaching sources. Current assessments and incorporation evidence appear on existing cards where they overlap. Historical source revisions remain available.</p><p><strong>✓ Incorporated</strong> means selected material is recorded in a current local skill's provenance. <strong>✓ In repository</strong> identifies a retained or replacement local package. Open the card to see the owner and evidence. A recommendation to combine or install is not a completion check.</p></div>
+      <div class="section-heading" lang="en"><p class="kicker">Source selection and actual progress</p><h2 id="catalog-heading">Source skills and procedures</h2><p><span data-catalog-count>277</span> cards: the original 122, 87 additional sources from the four collections, six accessibility procedures and references, 24 TypeScript sources, 12 CI/CD sources, seven activity-reporting procedures, five communication and documentation sources, three pstack extraction and measurement sources, two Cursor teaching sources, one GSD observability source, two short-message sources, three optimization sources, two ticket workflow sources, and one retirement source. Current assessments and incorporation evidence appear on existing cards where they overlap. Historical source revisions remain available.</p><p><strong>✓ Incorporated</strong> means selected material is recorded in a current local skill's provenance. <strong>✓ In repository</strong> identifies a retained or replacement local package. Open the card to see the owner and evidence. A recommendation to combine or install is not a completion check.</p></div>
       <p id="source-progress-summary" class="notice" lang="en"></p>
       <form class="filters" id="filters" role="search">
         <div class="search-field"><label for="search">Buscar por skill, comportamiento o responsable</label><input id="search" name="q" type="search" placeholder="Por ejemplo: React, comentarios, rebase" autocomplete="off"></div>

@@ -13,6 +13,8 @@ This skill owns publication and PR presentation. `commit` owns atomic commits;
 owns feedback, CI repair and the transition from draft to ready for review. Use
 those owners only for work included in the active request or standing instructions.
 Returning to an authorized caller continues its workflow; completing this phase does not cancel the enclosing task.
+`issue-workflow` owns linked-ticket synchronization under the consuming project's
+canonical transition policy.
 
 ## Resolve the operation
 
@@ -87,6 +89,15 @@ Continue what the available evidence supports; do not invent missing conventions
 
 ## Compose for review
 
+When the task, branch, commits or PR body reference a ticket, use `issue-workflow`
+in Inspect mode before composing its PR relation. Pass the supplied ticket or
+lookup hint, exact repository, base and your evidence for a completing or
+contributing relation. It verifies the ticket identity and relation, returning
+`not applicable` if none is linked. For a verified ticket it returns the
+project's permitted link form and event policy; preserve valid links on Update.
+This also applies to Draft-only without authorizing tracker writes. Do not invent
+a ticket or use closing keywords when the policy requires the issue open for QA.
+
 Read [references/review-packet.md](references/review-packet.md) for every title
 or body. Read [references/visual-evidence.md](references/visual-evidence.md) when
 a changed interface, flow or structure would be easier to assess visually.
@@ -122,8 +133,22 @@ A successful phase has the exact PR URL, expected head and base, verified title
 and body, intended state, and only requested metadata changes. Included captures
 have verified uploaded references and a recorded rendering/access result. A failed
 write is unknown until inspected; avoid duplicate creation or claims of success on timeout.
+For a creation request with a linked ticket, invoke `issue-workflow` with the
+verified `pr-created` event, ticket URL, exact PR/head/base, draft state and
+completion relation. Include drafts. If the project instead selects `pr-ready`
+and this verified PR is already non-draft, reconcile `pr-ready` now; do not wait
+for a draft-to-ready transition that will never occur. Otherwise leave that
+configured ready event pending. This applies when an exact open PR already
+satisfies creation, using current state guards rather than blindly replaying an
+old transition. Standalone
+Update does not synthesize a creation event. Return the synchronization result
+separately; a blocked tracker transition does not undo publication or stop
+independent follow-up. If `issue-workflow` is missing, report that gap and retain
+the event for resumption without guessing a state.
 For a creation request, continue with `pr-followup` in Drive mode before returning:
 pass the exact PR URL, head/base SHAs, draft state, validation and known pending work.
+Also pass the verified ticket relation, transition result and merge-delivery owner
+or uncovered event from `issue-workflow` when relevant.
 That phase owns feedback/CI repair, readiness and post-ready observation under the
 same request; do not stop at the creation summary. Honor an explicit create-only
 instruction by returning after publication. Pass an explicit keep-draft instruction

@@ -1,7 +1,7 @@
 format_version = 1
 skill = "design-code-structure"
 created = "2026-10-03"
-approach = "Derive: pstack architect and Matt Pocock provide the design method; local scope, composition, host integration and completion require changes across the workflow."
+approach = "Derive: combine pstack and Matt Pocock design guidance with selected Matthew Blode prioritization and enforcement guidance in one bounded, language-neutral workflow."
 
 [[sources]]
 id = "pstack-architect"
@@ -61,6 +61,34 @@ reviews = [
   { from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60", to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/design-upstream-adoption-validation.json"] },
 ]
 
+[[sources]]
+id = "mblode-codebase-architecture"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+baseline_paths = ["skills/codebase-architecture/SKILL.md", "skills/codebase-architecture/references/deepening-existing.md", "skills/codebase-architecture/references/enforcement-ladder.md", "skills/codebase-architecture/references/guardrail-tooling.md", "skills/codebase-architecture/references/verification-tiers.md", "skills/codebase-architecture/references/vocabulary.md", "LICENSE.md"]
+paths = ["skills/codebase-architecture/SKILL.md", "skills/codebase-architecture/references/deepening-existing.md", "skills/codebase-architecture/references/enforcement-ladder.md", "skills/codebase-architecture/references/guardrail-tooling.md", "skills/codebase-architecture/references/verification-tiers.md", "skills/codebase-architecture/references/vocabulary.md", "LICENSE.md"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = [
+  "Choose a concrete structural improvement using scoped change history, current friction, change locality and migration cost before designing alternatives.",
+  "Connect the selected boundary to an existing executable check and introduce it with narrow, explicit handling of existing violations.",
+  "Demonstrate supported, deliberately violating and restored inputs through the real command, including failure propagation, filters and caches.",
+  "Prove a cohesive caller-to-result slice before generalizing a larger migration; distinguish proposed checks, observed checks and wired gates."
+]
+local_choices = [
+  "Rewrite the existing design workflow rather than adding a second architecture or repository-hardening owner.",
+  "Use history only when selecting improvements; discount mechanical churn and retain low-frequency correctness risks. Missing history is an evidence gap, not a ban on design.",
+  "Preserve caller-first design, established-pattern exceptions, justified single-implementation boundaries, public protocols, runtime validation and documentation authority.",
+  "Run deliberate violations only in authorized disposable fixtures or isolated copies; preserve user edits, restore owned mutations and identify the intended rejection cause.",
+  "Use existing verification paths and rule-specific exceptions. No universal pre-commit hook, CI policy change, new toolkit, numerical baseline, approval rubric or scheduled cleanup.",
+  "Do not adopt fixed TypeScript layers, AsyncLocalStorage, framework choices, vocabulary, adapter or consumer quotas, mandatory glossary or universal design-to-implementation transitions.",
+  "Route workflow, project-instruction and application verification work to their existing skills when needed; a local check does not establish unexecuted remote enforcement."
+]
+reviews = []
+
 [[dependencies]]
 kind = "local"
 name = "explain-code"
@@ -95,4 +123,22 @@ role = "Required for requested independent design attempts; owns execution, judg
 kind = "local"
 name = "agent-instructions"
 required = false
-role = "Required only for requested skill authoring or source maintenance."
+role = "Required for requested skill authoring or source maintenance; conditional authoring of an already-established project-instruction clause."
+
+[[dependencies]]
+kind = "local"
+name = "github-actions"
+required = false
+role = "Conditional workflow changes needed to connect a selected structural check."
+
+[[dependencies]]
+kind = "local"
+name = "create-project-instructions"
+required = false
+role = "Conditional discovery when requested project guidance for the selected boundary needs investigation."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Conditional application-level execution evidence after authorized implementation."

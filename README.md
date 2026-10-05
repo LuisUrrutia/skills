@@ -92,6 +92,19 @@ Write clear, natural prose for the reader, language and channel. Replaces
 - Prepares channel-appropriate content; external sending remains a separate authorized action
 - Records selected pinned sources, independent Astra/Fable Max reviews and bounded multilingual trials
 
+### comment-style
+
+Word brief PR replies, review comments, chat messages and social replies with
+the point first. Keep fitting enthusiasm, humor and useful curiosity alongside
+the facts that matter.
+
+**Triggers:** `reply to this PR comment`, `shorten this Slack message`, `draft a WhatsApp reply`
+
+Starts from the former private `comment-style` package. A short sentence is the
+default; facts, conditions and the user's intended tone survive shortening.
+Wording and authorized sending remain separate. Review workflows retain code
+repairs, comment placement and thread resolution.
+
 ### write-documentation
 
 Create, update or review human-facing documentation using current evidence and a
@@ -255,8 +268,9 @@ solutions or independent investigations justify the extra work.
 
 ### design-code-structure
 
-Design or compare data models, public interfaces, and module boundaries for a
-concrete software change. Use it directly for a decision or during authorized implementation.
+Design, compare, or improve data models, public interfaces, and module boundaries
+for a concrete software change. Connect the chosen design to demonstrated structural
+checks during authorized implementation; design-only requests stop at the plan.
 
 **Triggers:** `design this module`, `compare these interface designs`, `model the state and ownership for this change`
 
@@ -264,11 +278,13 @@ concrete software change. Use it directly for a decision or during authorized im
 
 - Derives types and operations from real caller usage and established constraints
 - Compares meaningful alternatives by correctness, caller effort, locality, state, and cost
-- Checks whether edits from partial context preserve enforced boundaries and authoritative registry relationships
+- Selects improvements using scoped semantic history, requirements, correctness risk, locality, and migration cost
+- Checks whether edits from partial context preserve boundaries and authoritative registry relationships
+- Proves selected structural checks with valid, violating, and restored inputs through the real verification command
 - Uses explain-code, explain-decisions, analyze-change-effects, prototype, and compare-solutions when the decision needs them
 - Handles shared invariants, retries, cancellation, external contracts, and migration when relevant
 - Revisits a design when repeated implementation friction exposes a wrong assumption
-- Records pstack and Matt Pocock sources with conditional upstream maintenance
+- Records pstack, Matt Pocock, and Matthew Blode sources with conditional upstream maintenance
 
 ### error-handling
 
@@ -285,6 +301,40 @@ boundaries. Adapt to the project's language and existing public interfaces.
 - Keeps public messages accurate and filters sensitive diagnostic content before recording it
 - Tests observable results and effects, including recovery and effects that must not repeat
 - Uses debug and verify conditionally, with pinned ECC and pstack provenance
+
+### observability
+
+Assess and build a project's observability, from initial setup to instrumentation
+added during feature work. Identify useful additions from the architecture and
+workflows, then implement and verify the requested coverage.
+
+**Triggers:** `set up observability and metrics for this project`, `find where we should add instrumentation`, `add observability while building this feature`
+
+**Features:**
+
+- Prioritizes concrete instrumentation points by impact, visibility gaps and cost
+- Builds a usable collection and inspection path when telemetry is absent
+- Extends existing conventions within a feature's affected operations and boundaries
+- Adds safe logs, bounded metrics, traces, health signals and alerts where useful
+- Delivers code, configuration, inspection instructions and verified emitted data
+- Keeps assessment-only work read-only and incident investigation with debug
+
+### performance-optimization
+
+Improve a user-relevant operation through measured changes that preserve required
+behavior and earn their complexity. Use it when the goal is known but the winning
+change is not.
+
+**Triggers:** `reduce this job's memory use`, `improve API throughput`, `make this operation faster without changing its results`
+
+**Features:**
+
+- Defines the operation, worthwhile benefit, correctness and resource limits before tuning
+- Prioritizes measured bottlenecks and runs bounded, interpretable experiments
+- Keeps supported gains, rejects unsafe or unjustified changes and records unsuccessful attempts
+- Uses `verify` for evidence, `debug` for regressions, `prototype` for disposable experiments and `observability` for durable signals
+- Adapts pinned Addy Osmani, pstack, ECC and Compound Engineering sources with original notices
+- Accepts a supported no-improvement result or a specific evidence gap; never promises a speedup
 
 ### accessibility
 
@@ -318,6 +368,19 @@ with runtime guarantees. Use it directly or as a language specialist during a ch
 - Keeps style in existing tooling and broader design, review, and recovery with their owners
 - Records five selected source feeds after reviewing nineteen repositories and all twenty-four pstack principles
 - Includes technical compiler/runtime evidence; independent agent improvement and host activation remain untested
+
+### deprecate-and-remove
+
+Retire a dependency, API, or feature the project no longer wants to maintain.
+Replace it when needed and complete cleanup while preserving required behavior.
+
+**Triggers:** `replace MUI with shadcn`, `replace Moment with date-fns`, `retire this feature progressively`
+
+Supports a coordinated internal replacement or a staged sunset with no successor.
+Tracks consumers, notices, access closure and removal conditions; preserves shared
+code, supported clients and required records. Distinguishes local cleanup from
+deployed retirement and composes the existing design, delivery and verification
+skills. Records three pinned donors and bounded synthetic execution evidence.
 
 ### simplify-code
 
@@ -400,6 +463,25 @@ Create atomic Conventional Commits that a human can understand and review.
 - Verifies the actual commit, parent, message and residual work after hooks run
 - Publishes only within existing authorization and hands PR presentation to `pr`
 
+### issue-workflow
+
+Keep a source ticket aligned with implementation start, PR creation and merge.
+Each consuming project owns its rules in `docs/agents/issue-tracker.md`; the
+package includes an unconfigured template and Linear, Jira and GitHub guidance.
+
+**Triggers:** `start implementing this ticket`, `synchronize this merged PR's ticket`, `configure ticket transitions`
+
+Starting work maps to In Progress, PR creation to In Review (including drafts),
+and verified merge to the project's chosen state, such as Ready for QA or Done.
+The policy chooses real states, source guards, branches, completion conditions and
+one transition owner. Partial work, manual progress and native automation are
+preserved; uncertain writes are reconciled before retrying.
+
+Install alongside `pr` and `pr-followup` for their event hooks. Approval alone is
+not merge. Other publishers need an explicit invocation or their own integration;
+unattended events require a configured durable handler. Repository files alone do
+not install the skill or enable tracker automation.
+
 ### pr
 
 Create or update a GitHub PR with a concise explanation and useful review evidence.
@@ -416,6 +498,7 @@ Create or update a GitHub PR with a concise explanation and useful review eviden
 - Uses diagrams and measured comparisons when they aid review
 - Preserves draft preference, verifies the GitHub actor and publishes over SSH
 - Refreshes the whole description after material publication under existing authorization
+- Resolves ticket hints through `issue-workflow` and applies the project-selected review event after creation
 
 ### pr-followup
 
@@ -432,8 +515,9 @@ Evaluate feedback on an existing PR and resolve authorized code, CI and base pro
 - Uses `commit` and `pr` for their phases; requires those local owners when those phases are reached
 - Distinguishes fixed, verified, published, replied and resolved states
 - Rechecks new heads and reports pending checks or decisions without automatic merge or scheduling
+- Reconciles observed ready/merge events through `issue-workflow`, preserving Check scope and existing authority
 
-All three record pinned sources and local decisions in `origin.txt`, with requested
+These Git and ticket workflow skills record pinned sources and local decisions in `origin.txt`, with requested
 source maintenance through `agent-instructions`. Repository files are distinct from
 installed copies.
 

@@ -1,0 +1,71 @@
+format_version = 1
+skill = "comment-style"
+created = "2026-10-05"
+approach = "Migrate the user's focused message-writing skill and derive small channel and PR-reply improvements. No upstream runtime dependency."
+
+[[local_snapshots]]
+id = "private-comment-style"
+author = "Luis Urrutia"
+repository = "https://github.com/LuisUrrutia/private-skills"
+commit = "0b1bd82c0229daf5a4c62f77f9bab45852666935"
+verification = "Commit and matching files verified in the local private repository; not verified against a fresh remote fetch. Historical migration source, not an upstream update feed."
+paths = ["comment-style/SKILL.md", "comment-style/references/review.md", "comment-style/scripts/validate.sh"]
+entrypoint_sha256 = "7ff9f925cd4abe63c7b83ca7606ddd7e0d22b2f478bed7e222d2bcbd738af1de"
+review_sha256 = "9fd75bff03baf16de220c799930eb9dea7f82d92d718604ca70e98861cfe7855"
+validator_sha256 = "431640cf2e2fafcc6b2ff03b4f65d3c6642d801015001910399e4695b6400255"
+borrowed = ["A plain, short ping with the point first, one useful thought and only necessary identifiers.", "Optional review prefixes, genuine questions, exact claims, and the user's casual English default."]
+local_choices = ["Extend the explicit scope to PR replies and WhatsApp without requiring a repository for personal messages.", "Preserve essential facts and conditions instead of enforcing an absolute sentence or identifier ceiling.", "Keep posting placement and per-site review markers with the private review workflow.", "Keep source-specific examples and private context out of the shared package.", "Replace the source validator, which requires a sibling repository script and exact headings, with host format validation and actual drafting trials during authoring."]
+
+[[sources]]
+id = "mblode-ghostwriter"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+baseline_paths = ["skills/ghostwriter/SKILL.md", "skills/ghostwriter/references/surfaces.md", "skills/ghostwriter/references/strategy.md", "skills/ghostwriter/references/tells.md", "LICENSE.md"]
+paths = ["skills/ghostwriter/SKILL.md", "skills/ghostwriter/references/surfaces.md", "skills/ghostwriter/references/strategy.md", "skills/ghostwriter/references/tells.md", "LICENSE.md"]
+borrowed = ["Return finished text without editing commentary; adapt the message to its conversation and recipient.", "Shorten without dropping distinct facts, uncertainty, necessary grammar or the user's voice."]
+local_choices = ["No persistent voice profiles, sample requests, automatic preference storage, private brief ritual, or broad long-form writing ownership.", "Do not import hypothetical deadlines, approval by silence, blanket emotional-message exclusions, or automatic multi-message bursts."]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt."
+reviews = []
+
+[[sources]]
+id = "superpowers-review-reception"
+author = "Jesse Vincent"
+repository = "https://github.com/obra/superpowers"
+remote = "git@github.com:obra/superpowers.git"
+ref = "refs/heads/main"
+baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+reviewed_through = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+baseline_paths = ["skills/receiving-code-review/SKILL.md", "LICENSE"]
+paths = ["skills/receiving-code-review/SKILL.md", "LICENSE"]
+borrowed = ["Answer review feedback with a supported change, answer or reason for disagreement instead of performative agreement.", "Correct an earlier mistaken response briefly and keep an inline reply in its existing thread."]
+local_choices = ["No new implementation authority, source-based trust hierarchy, blanket ban on intentional gratitude, or stop-all-work rule for one unclear item.", "The caller owns code repair, external posting and thread resolution; this skill supplies wording."]
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt."
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "communicate-clearly"
+required = false
+role = "General prose guidance when available; this package remains usable alone."
+
+[[dependencies]]
+kind = "local"
+name = "pr-followup"
+required = false
+role = "Investigating and repairing PR feedback only when that separate task is requested."
+
+[[dependencies]]
+kind = "local"
+name = "review-code-changes"
+required = false
+role = "Auditing code only when requested; not required to word a supplied finding."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Requested authoring and source maintenance, using this provenance record."
