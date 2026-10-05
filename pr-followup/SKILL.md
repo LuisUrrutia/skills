@@ -1,6 +1,6 @@
 ---
 name: pr-followup
-description: Follow an existing pull request, evaluate human and AI review feedback, and resolve authorized feedback, CI failures, and base conflicts.
+description: Follow an existing pull request through feedback, CI and conflict repair, and move a settled draft PR to ready for review.
 ---
 
 # PR follow-up
@@ -17,14 +17,19 @@ for. Use this directly with a PR URL or as a phase of an authorized delivery tas
   review PR comments includes acting on correct observations unless it says read-only.
 - **Drive:** repair feedback, CI and necessary base conflicts, publish when authorized,
   and observe the new revision until settled, blocked, or the observation limit is reached.
-  Use this for requested babysitting; do not start it merely because a PR was created.
+  Use this for requested babysitting and the continuation of a PR creation request.
 
 Resolve scope from the request and standing instructions. Record whether commits,
 publication, replies and thread resolution are authorized. Code repair alone does
-not authorize messages to reviewers. Do not require approval again for covered work.
-Set a finite observation window for Drive: use the user's limit, otherwise state a
-30-minute window. Reaching it returns current evidence and pending work, not success
-or an automatic extension. Persistent scheduling requires a separate explicit request.
+not authorize messages to reviewers. A PR creation request covers Drive repairs,
+verification, commits, publication and the conditional ready transition below;
+explicit read-only, create-only or keep-draft instructions constrain that scope.
+Do not require approval again for covered work.
+Set a finite observation window for Drive and for post-ready observation entered
+from Feedback: use the user's limit, otherwise state a 30-minute window. Start it
+on entry to Drive, or at the ready transition for Feedback. Reaching it returns
+current evidence and pending work, not success or an automatic extension.
+Persistent scheduling requires a separate explicit request.
 
 Resolve exact PR URL, target repository, head repository/ref/SHA, base ref/SHA,
 open/closed state, draft state and repository merge requirements. Match the local
@@ -91,6 +96,45 @@ verified fixes when authorized. Re-read the actual remote head after publication
 invalidate prior CI/readiness evidence, and update the whole PR body through `pr`.
 Do not republish merely to wake a bot. Continue collecting feedback for the new head.
 
+## Move a settled draft to review
+
+In Feedback or Drive scope, mark an open draft ready without another permission
+prompt when a fresh snapshot of the current head/base establishes all of these:
+
+- All applicable CI/CD has passed, with no active jobs or unexplained failures,
+  cancellations or unknown results. Optional failures also block this transition
+  unless the user explicitly accepts an exception. Explain legitimate policy-based
+  skips; jobs skipped only because the PR is a draft must be checked after the
+  transition.
+- Observed feedback has been resolved: accepted fixes are verified and published,
+  reviewer questions are answered visibly or settled by the user, decisions are
+  settled, and required thread resolutions are complete
+  under the authority in `references/feedback.md`. Merely listing an unresolved
+  item in the final report does not satisfy this gate. If a required reply or
+  thread resolution lacks authorization, keep the draft and report that prerequisite.
+- No known repair, conflict, active automated reviewer or other actionable work
+  remains. Inaccessible evidence blocks the transition. A future human review or
+  missing approval alone does not: ready for review is distinct from ready to merge.
+
+Honor an explicit keep-draft instruction and leave Check scope read-only. Recheck
+identity, head/base and readiness immediately before using `pr`'s publication
+identity checks and `gh pr ready <url>`. Verify `isDraft` is false; inspect remote
+state before retrying an uncertain write. If the revision moved, reassess it.
+
+The transition starts a new observation phase even if the SHA is unchanged.
+Invalidate the draft-era completion snapshot, discover workflows and automated
+reviewers triggered or unblocked by ready state, and collect every feedback channel
+again. Continue the repair/verify/publish loop for new failures and comments. Do not
+infer completion from the old green checks or a momentarily empty queue; verify
+expected post-ready work has run or report it as pending. Use the existing bounded
+observation window and host notifications, without silently resetting the window.
+Always attempt a fresh post-ready snapshot before returning, even at the deadline;
+report an inaccessible snapshot as blocked rather than claiming completion.
+
+Human feedback arriving during observation or on host resumption enters the same
+loop. If human review is still pending when observation stops, report that fact
+separately from completed technical work; never claim approval or merge readiness.
+
 ## Stop with an honest result
 
 Feedback work is accounted for when every observed item is applied or reported
@@ -102,15 +146,18 @@ required checks satisfied, observed failures and feedback accounted for, and no
 known active required reviewer left unobserved. Assess merge readiness separately:
 required approvals, review decisions, draft state and platform merge requirements
 must also be satisfied. Silence, an old green run, a quiet interval or API failure
-does not establish readiness. Never merge, enable auto-merge, mark an existing
-draft ready, or approve a gated workflow merely to make this loop finish.
+does not establish readiness. A draft eligible for the transition above is not
+finished until that transition and the post-ready checks are accounted for. Report
+an unmet draft-readiness gate as waiting or blocked, even if required checks pass.
+Never merge, enable auto-merge or approve a gated workflow merely to make this loop finish.
 
 Return the PR URL and current head, applied work summary with relevant commits,
 actual verification commands/results, current checks, and remaining items. For
 each unapplied item give the evidence-based reason; for a user decision include
 choices and recommendation. State `complete for requested scope`, `waiting`, or
 `blocked` and what would allow continuation. Retain the ledger only while needed
-for resumption, then remove owned scratch. Stop any watcher owned by this run.
+for resumption, then remove owned scratch. Stop local watchers owned by this run;
+retain a host-managed watch when the host requires it to resume pending review work.
 
 For requested source maintenance, use `agent-instructions` with `origin.txt` and
 [references/upstream-updates.md](references/upstream-updates.md).

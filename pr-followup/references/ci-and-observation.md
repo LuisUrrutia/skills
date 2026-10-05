@@ -51,10 +51,16 @@ interruptible and progress updates regular. Never claim a persistent background
 process exists unless it actually does. Do not create a recurring app schedule as
 a side effect of a one-session Drive request.
 
-At each meaningful change, retain PR identity, head/base, feedback versions and
-decisions, outstanding checks/reviewers, authorized actions, published fixes,
-replies and retry counts. On resume, inspect remote state before acting. Preserve
-others' watchers and scratch; stop and remove only resources owned by this run.
+For the post-ready pass, inspect workflow triggers and draft conditions, review
+requests and available reviewer-app configuration to identify expected work. Use
+current run and review state to establish what actually started; inaccessible
+configuration remains unknown. Record the ready-transition time and the fresh
+post-ready snapshot even when the head SHA did not change.
+
+At each meaningful change, retain the original observation deadline, PR identity,
+head/base, feedback versions and decisions, outstanding checks/reviewers, authorized actions, published fixes,
+replies and retry counts. On resume, inspect remote state before acting; a wake-up
+does not reset the deadline. Preserve others' watchers and scratch; stop and remove only resources owned by this run.
 
 A final fresh pass must cover current channels and show whether known work is
 complete. If required checks or reviewers remain active at the observation limit,
