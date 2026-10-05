@@ -447,6 +447,25 @@ Create atomic Conventional Commits that a human can understand and review.
 - Verifies the actual commit, parent, message and residual work after hooks run
 - Publishes only within existing authorization and hands PR presentation to `pr`
 
+### issue-workflow
+
+Keep a source ticket aligned with implementation start, PR creation and merge.
+Each consuming project owns its rules in `docs/agents/issue-tracker.md`; the
+package includes an unconfigured template and Linear, Jira and GitHub guidance.
+
+**Triggers:** `start implementing this ticket`, `synchronize this merged PR's ticket`, `configure ticket transitions`
+
+Starting work maps to In Progress, PR creation to In Review (including drafts),
+and verified merge to the project's chosen state, such as Ready for QA or Done.
+The policy chooses real states, source guards, branches, completion conditions and
+one transition owner. Partial work, manual progress and native automation are
+preserved; uncertain writes are reconciled before retrying.
+
+Install alongside `pr` and `pr-followup` for their event hooks. Approval alone is
+not merge. Other publishers need an explicit invocation or their own integration;
+unattended events require a configured durable handler. Repository files alone do
+not install the skill or enable tracker automation.
+
 ### pr
 
 Create or update a GitHub PR with a concise explanation and useful review evidence.
@@ -463,6 +482,7 @@ Create or update a GitHub PR with a concise explanation and useful review eviden
 - Uses diagrams and measured comparisons when they aid review
 - Preserves draft preference, verifies the GitHub actor and publishes over SSH
 - Refreshes the whole description after material publication under existing authorization
+- Resolves ticket hints through `issue-workflow` and applies the project-selected review event after creation
 
 ### pr-followup
 
@@ -479,8 +499,9 @@ Evaluate feedback on an existing PR and resolve authorized code, CI and base pro
 - Uses `commit` and `pr` for their phases; requires those local owners when those phases are reached
 - Distinguishes fixed, verified, published, replied and resolved states
 - Rechecks new heads and reports pending checks or decisions without automatic merge or scheduling
+- Reconciles observed ready/merge events through `issue-workflow`, preserving Check scope and existing authority
 
-All three record pinned sources and local decisions in `origin.txt`, with requested
+These Git and ticket workflow skills record pinned sources and local decisions in `origin.txt`, with requested
 source maintenance through `agent-instructions`. Repository files are distinct from
 installed copies.
 

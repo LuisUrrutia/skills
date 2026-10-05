@@ -44,7 +44,19 @@ checkout to that head before editing; preserve unrelated work and index state.
 Use host checkout ownership and `worktrunk` for necessary checkout operations;
 `stacked-pr` owns stack topology and rebases. Keep one mutation owner per PR or stack.
 Register the PR with the host when supported. Stop on a closed or merged target
-unless the user requested a specific historical operation.
+for repair work unless the user requested a specific historical operation. For
+a verified merged target with a linked ticket, first handle the authorized
+`pr-merged` synchronization below; Check scope remains read-only.
+For a standalone request limited to feedback inspection or repair, use Inspect
+unless the request or standing project instructions also authorize lifecycle
+synchronization. An active delivery/Drive task retains its existing authority.
+
+When first observing an open non-draft PR, or observing that another actor readied
+it, reconcile `pr-ready` through `issue-workflow` if the linked ticket's policy
+selects that event. Keep the scope rules above; do this before an approval stop.
+Use current source-state guards rather than replaying an already settled event.
+If the host cannot wake on an external ready change, report that coverage gap and
+reconcile when next invoked.
 
 ## Observe and evaluate
 
@@ -89,6 +101,7 @@ Load support only at the boundary that needs it:
 | Atomic commits | `commit`; carry existing authorization and preserved work. |
 | Push and complete PR description refresh | `pr`; pass exact identity and verified revision. |
 | Dependent PR topology or cascading rebase | `stacked-pr`, retaining one writer. |
+| Linked-ticket transitions | `issue-workflow`, using the project's policy and current remote evidence. |
 
 For CI, base updates and observation, read
 [references/ci-and-observation.md](references/ci-and-observation.md). Before GitHub
@@ -127,6 +140,9 @@ Honor an explicit keep-draft instruction and leave Check scope read-only. Rechec
 identity, head/base and readiness immediately before using `pr`'s publication
 identity checks and `gh pr ready <url>`. Verify `isDraft` is false; inspect remote
 state before retrying an uncertain write. If the revision moved, reassess it.
+When a linked ticket's policy selects `pr-ready`, pass the verified ready event
+to `issue-workflow`. Do not repeat `pr-created` merely because draft state changed.
+Report a blocked ticket transition separately and continue independent observation.
 
 The transition starts a new observation phase even if the SHA is unchanged.
 Invalidate the draft-era completion snapshot, discover workflows and automated
@@ -149,8 +165,18 @@ Feedback work is accounted for when every observed item is applied or reported
 with its reason for remaining unapplied and any required decision. Distinguish
 locally fixed, verified, published, replied and resolved; none implies the next.
 
-On each Drive wake, first check for merge or a current formal approval. Either
-ends babysitting: report the verified state and stop the host watch. A host may
+On each Drive wake, refresh PR state and reconcile an observed ready event as
+above, then check for merge or a current formal approval. Either
+ends babysitting. On verified merge with a linked ticket, invoke `issue-workflow`
+for `pr-merged` before returning, passing the ticket, exact PR/head, actual merge
+branch/revision/time and completing or contributing relation. Use Inspect in
+Check scope; otherwise carry the task's existing transition authority. Respect
+the policy's single owner and completion guards. Report its result separately
+from the PR outcome, including a missing skill or blocked tracker operation.
+Formal approval alone never emits `pr-merged`: retain the pending merge event and
+report its configured durable owner or the uncovered delivery gap. Stop the host
+watch when the PR stopping condition holds; do not extend Drive to solve that gap.
+A host may
 stop silently on merge or closure; do not promise a final agent message without
 a wake. Report that outcome when next invoked. Approval does
 not establish merge readiness; report any remaining checks, feedback or conflicts
