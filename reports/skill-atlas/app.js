@@ -3,9 +3,9 @@
 const atlas = window.SKILL_ATLAS;
 const repositoryInventory = atlas.repositoryInventory;
 const repositorySkills = new Map(repositoryInventory.skills.map((skill) => [skill.name, skill]));
-const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments, ...atlas.handoffReview.assessments, ...atlas.activityReview.skills, ...atlas.activityReview.assessments, ...atlas.reviewCodeChangesReview.dylReviewAdoption.assessments, ...atlas.communicationReview.assessments, ...atlas.upstreamAdoptionReview.skills, ...atlas.upstreamAdoptionReview.assessments, ...atlas.teachingReview.skills, ...atlas.teachingReview.assessments, ...atlas.observabilityReview.skills, ...atlas.observabilityReview.assessments, ...atlas.commentStyleReview.skills, ...atlas.commentStyleReview.assessments, ...atlas.designStructureReview.assessments, ...atlas.performanceReview.skills, ...atlas.performanceReview.assessments, ...atlas.issueWorkflowReview.skills, ...atlas.issueWorkflowReview.assessments].map((skill) => [skill.key, skill]));
+const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments, ...atlas.handoffReview.assessments, ...atlas.activityReview.skills, ...atlas.activityReview.assessments, ...atlas.reviewCodeChangesReview.dylReviewAdoption.assessments, ...atlas.communicationReview.assessments, ...atlas.upstreamAdoptionReview.skills, ...atlas.upstreamAdoptionReview.assessments, ...atlas.teachingReview.skills, ...atlas.teachingReview.assessments, ...atlas.observabilityReview.skills, ...atlas.observabilityReview.assessments, ...atlas.commentStyleReview.skills, ...atlas.commentStyleReview.assessments, ...atlas.designStructureReview.assessments, ...atlas.performanceReview.skills, ...atlas.performanceReview.assessments, ...atlas.deprecationReview.skills, ...atlas.deprecationReview.assessments, ...atlas.issueWorkflowReview.skills, ...atlas.issueWorkflowReview.assessments].map((skill) => [skill.key, skill]));
 const originalKeys = new Set(atlas.skills.map((skill) => skill.key));
-const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills, ...atlas.ciCdReview.skills, ...atlas.activityReview.skills, ...atlas.communicationReview.skills, ...atlas.upstreamAdoptionReview.skills, ...atlas.teachingReview.skills, ...atlas.observabilityReview.skills, ...atlas.commentStyleReview.skills, ...atlas.performanceReview.skills, ...atlas.issueWorkflowReview.skills];
+const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills, ...atlas.ciCdReview.skills, ...atlas.activityReview.skills, ...atlas.communicationReview.skills, ...atlas.upstreamAdoptionReview.skills, ...atlas.teachingReview.skills, ...atlas.observabilityReview.skills, ...atlas.commentStyleReview.skills, ...atlas.performanceReview.skills, ...atlas.deprecationReview.skills, ...atlas.issueWorkflowReview.skills];
 const byKey = new Map(catalogSkills.map((skill) => [skill.key, skill]));
 const byId = new Map(catalogSkills.map((skill) => [skill.id, skill]));
 const recommendationFor = (skill) => sourceReviews.get(skill.key) || skill;
@@ -19,6 +19,13 @@ const groupLabels = { Local: "Original local snapshots", "Cursor team": "Equipo 
 const normalizedSearch = (value) => value.toLocaleLowerCase("es").normalize("NFD").replace(/\p{Diacritic}/gu, "");
 
 const clusters = [
+  {
+    title: "Retirement with or without a replacement",
+    winner: "deprecate-and-remove: own the transition through cleanup",
+    keys: ["Addy Osmani/deprecation-and-migration", "pstack/principle-migrate-callers-then-delete-legacy-apis", "Hoang Nguyen/database-migrations"],
+    text: "Addy supplies retirement ownership; pstack covers coordinated internal caller removal; Hoang adds conditional data-transition checks.",
+    why: "Replace a dependency or end a feature deliberately. Preserve supported behavior, notices, accepted work and retained records; remove obsolete artifacts only when the actual conditions are met."
+  },
   {
     title: "Measured performance improvements",
     winner: "performance-optimization: bounded search with shared evidence assessment",

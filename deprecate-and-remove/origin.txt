@@ -1,0 +1,103 @@
+format_version = 1
+skill = "deprecate-and-remove"
+created = "2026-10-05"
+approach = "Derive: combine retirement ownership with conditional internal removal and staged state transitions; compose existing local specialists."
+
+[[sources]]
+id = "addy-deprecation"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "1401c8b8030e023baeebb31781a6653fe8e93026"
+baseline_paths = ["skills/deprecation-and-migration/SKILL.md", "LICENSE"]
+paths = ["skills/deprecation-and-migration/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Own the retirement decision and the transition of affected consumers through eventual removal.", "Distinguish deprecation notices, migration work and evidence that permits removing the old implementation."]
+local_choices = ["Support retirement without a replacement and respect an already chosen successor.", "Keep immediate and progressive paths conditional on real consumers, support obligations and state.", "Replace universal additive safety and reversibility with actual deployment, data and recovery evidence.", "Preserve shared contracts, required records, history and supported-version guidance; remove only obsolete artifacts.", "Notice delivery, live-resource changes and future scheduling retain the active task's authorization."]
+reviews = []
+
+[[sources]]
+id = "pstack-internal-retirement"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "2cbf58508f40de470d7490b55c51d71241928fa2"
+reviewed_through = "2cbf58508f40de470d7490b55c51d71241928fa2"
+baseline_paths = ["pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Inventory and migrate controlled internal callers, then remove the previous API in the same coordinated change when no incompatible consumer remains."]
+local_choices = ["Preserve the principle's external-consumer and coordinated-change conditions; do not inherit a blanket ban on adapters.", "Account for stored data, in-flight work and independently deployed versions before assuming an atomic change is available.", "Keep behavior and denial tests that protect continuing contracts."]
+reviews = []
+
+[[sources]]
+id = "hoang-data-transition"
+author = "Hoang Nguyen / Agent Skills Standard"
+repository = "https://github.com/HoangNguyen0403/agent-skills-standard"
+remote = "git@github.com:HoangNguyen0403/agent-skills-standard.git"
+ref = "refs/heads/main"
+baseline_commit = "1fb0537c339c1e135167f4c15ba603b8849da5bc"
+reviewed_through = "1fb0537c339c1e135167f4c15ba603b8849da5bc"
+baseline_paths = ["skills/database/database-migrations/SKILL.md", "skills/database/database-migrations/references/migration-safety-checklist.md", "LICENSE"]
+paths = ["skills/database/database-migrations/SKILL.md", "skills/database/database-migrations/references/migration-safety-checklist.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Order compatible data transitions, bound and resume backfills, and verify convergence before removing an old shape.", "Check database-specific locking and distinguish destructive data changes from code rollback."]
+local_choices = ["Keep data-specific guidance conditional, with implementation details owned by project tools and delivery specialists.", "Do not promise trivial reversal for all additive changes or prescribe fixed deployment cycles.", "Separate feature retirement from data disposal and preserve retention obligations."]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "analyze-change-effects"
+required = false
+role = "Conditional investigation of indirect consumers and deciding compatibility assumptions."
+
+[[dependencies]]
+kind = "local"
+name = "design-code-structure"
+required = false
+role = "Conditional replacement-interface or ownership design."
+
+[[dependencies]]
+kind = "local"
+name = "ci-cd-automation"
+required = false
+role = "Conditional delivery ordering, mixed-version operation and recovery."
+
+[[dependencies]]
+kind = "local"
+name = "write-documentation"
+required = false
+role = "Conditional preparation of substantial migration or sunset guides; no new sending authority."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Conditional application verification and current execution evidence."
+
+[[dependencies]]
+kind = "local"
+name = "review-code-changes"
+required = false
+role = "Conditional review of the resulting change."
+
+[[dependencies]]
+kind = "local"
+name = "commit"
+required = false
+role = "Commits when authorized or required by the active task and repository rules."
+
+[[dependencies]]
+kind = "local"
+name = "pr"
+required = false
+role = "Pull-request work within existing publication authority."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested skill authoring or source maintenance."

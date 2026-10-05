@@ -8,8 +8,8 @@
   <title>Atlas de skills | Tu flujo de desarrollo</title>
   <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css?v=3dd1dd1fabc1">
-  <script src="catalog.js?v=c7457200557a" defer></script>
-  <script src="app.js?v=46ad93df2d1a" defer></script>
+  <script src="catalog.js?v=841c025b38c7" defer></script>
+  <script src="app.js?v=9c38951f4fbb" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al informe</a>
@@ -17,7 +17,8 @@
     <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">s</span><span>Atlas de skills<small>El flujo de desarrollo de Luis</small></span></a>
     <button id="theme-toggle" class="quiet-button theme-toggle" type="button" hidden>Modo claro</button>
     <nav>
-      <a href="#inventory" lang="en">Repository skills <span class="nav-tag" data-repository-count>39</span></a>
+      <a href="#deprecate-and-remove" lang="en">Retirement <span class="nav-tag">Created</span></a>
+      <a href="#inventory" lang="en">Repository skills <span class="nav-tag" data-repository-count>40</span></a>
       <a href="#performance-optimization" lang="en">Performance <span class="nav-tag">New</span></a>
       <a href="#issue-workflow" lang="en">Ticket workflow <span class="nav-tag">New</span></a>
       <a href="#observability" lang="en">Observability <span class="nav-tag">New</span></a>
@@ -39,25 +40,37 @@
       <a href="#personal">Tus skills actuales</a>
       <a href="#similarities">Skills similares</a>
       <a href="#conflicts">Conflictos y correcciones</a>
-      <a href="#catalog" lang="en">Source catalog <span class="nav-tag" data-catalog-count>276</span></a>
+      <a href="#catalog" lang="en">Source catalog <span class="nav-tag" data-catalog-count>277</span></a>
       <a href="#evidence">Fuentes y cobertura</a>
       <a href="#workflow">Work-mode, al final <span class="nav-tag">4</span></a>
     </nav>
-    <div class="sidebar-note" lang="en"><span class="status-dot" aria-hidden="true"></span>Inventory checked<time datetime="2026-10-04">4 October 2026</time><p><span data-repository-count>39</span> skills present in this checkout. PR attachments and focused review delegation are included. Work-mode remains a proposal.</p><button id="print-report" class="quiet-button" type="button">Print / save PDF</button></div>
+    <div class="sidebar-note" lang="en"><span class="status-dot" aria-hidden="true"></span>Inventory checked<time datetime="2026-10-04">4 October 2026</time><p><span data-repository-count>40</span> skills present in this checkout. PR attachments and focused review delegation are included. Work-mode remains a proposal.</p><button id="print-report" class="quiet-button" type="button">Print / save PDF</button></div>
   </aside>
   <main id="main">
     <header id="overview" class="hero section" lang="en">
       <p class="kicker">The current workflow collection</p>
       <h1>Skills already in place.<br><span>What remains to build.</span></h1>
-      <p class="lead">The repository contains <span data-repository-count>39</span> skill packages. Teaching now has two owners: teach for lessons and learning-plan for study progressions and complete courses. explain-code and explain-decisions replace the ambiguous how and why names. Technical and nontechnical learning share the same learner-aware workflow. Checks in the source catalog identify material already incorporated.</p>
+      <p class="lead">The repository contains <span data-repository-count>40</span> skill packages. Teaching now has two owners: teach for lessons and learning-plan for study progressions and complete courses. explain-code and explain-decisions replace the ambiguous how and why names. Technical and nontechnical learning share the same learner-aware workflow. Checks in the source catalog identify material already incorporated.</p>
       <ol class="reading-order" aria-label="Reading order"><li><a href="#inventory"><span>1</span>Current skills</a></li><li><a href="#remaining"><span>2</span>Remaining choices</a></li><li><a href="#catalog"><span>3</span>Source comparison</a></li><li><a href="#workflow"><span>4</span>Future work-mode</a></li></ol>
       <div class="hero-actions"><a class="button primary" href="#report-work-activity">See the activity reporting design</a><a class="button secondary" href="?progress=ready#catalog">See incorporated sources</a></div>
-      <dl class="scope-stats"><div><dt>Repository skills</dt><dd data-repository-count>39</dd></div><div><dt>Local proposals</dt><dd data-pending-count>1</dd></div><div><dt>Original external entries</dt><dd>105</dd></div><div><dt>Original source cards</dt><dd>122</dd></div></dl>
-      <div class="notice"><strong>What the counts establish.</strong> Repository presence, source incorporation and a recommendation to install are different states. The catalog now has <span data-catalog-count>276</span> cards. Original snapshots remain available; the four named collections also have a dated current assessment. A check does not claim the full upstream skill is installed or synchronized.</div>
+      <dl class="scope-stats"><div><dt>Repository skills</dt><dd data-repository-count>40</dd></div><div><dt>Local proposals</dt><dd data-pending-count>1</dd></div><div><dt>Original external entries</dt><dd>105</dd></div><div><dt>Original source cards</dt><dd>122</dd></div></dl>
+      <div class="notice"><strong>What the counts establish.</strong> Repository presence, source incorporation and a recommendation to install are different states. The catalog now has <span data-catalog-count>277</span> cards. Original snapshots remain available; the four named collections also have a dated current assessment. A check does not claim the full upstream skill is installed or synchronized.</div>
     </header>
 
+    <section id="deprecate-and-remove" class="section" aria-labelledby="deprecate-and-remove-heading" lang="en">
+      <div class="section-heading"><p class="kicker">Created · dependency and feature retirement</p><h2 id="deprecate-and-remove-heading">Retire what we no longer want to maintain</h2><p><code>deprecate-and-remove</code> replaces dependencies when needed and retires features with no successor. Complete the cleanup while preserving behavior that must remain.</p></div>
+      <div class="two-columns"><article class="surface"><h3>With a replacement</h3><p>Examples: MUI to shadcn, or Moment to date-fns. Find consumers, preserve their required behavior, move them to the chosen successor and remove the obsolete implementation and exclusive dependencies.</p></article><article class="surface"><h3>Without a replacement</h3><p>Example: progressively end smart-contract updates. Prepare required notices, close access at the agreed stage, handle accepted work and remove obsolete routes, files, jobs and configuration. Retain required records and shared code.</p></article></div>
+      <div class="table-wrap"><table><caption>Three selected donors, one retirement owner</caption><thead><tr><th>Source</th><th>Retained</th><th>Local boundary</th></tr></thead><tbody>
+        <tr><th>Addy Osmani · deprecation-and-migration</th><td>Consumer transition, notices and closure.</td><td>A successor is optional. Notice preparation and delivery remain distinct.</td></tr>
+        <tr><th>pstack · migrate callers, then delete legacy APIs</th><td>Coordinated internal replacement and same-change removal.</td><td>Only when all consumers can move together; supported adapters can remain.</td></tr>
+        <tr><th>Hoang Nguyen · database-migrations</th><td>Compatible state transitions, resumable moves and convergence.</td><td>Conditional on stored state. Actual locks and recovery matter; additive changes are not universally safe.</td></tr>
+      </tbody></table></div>
+      <p class="notice"><strong>Completion follows evidence.</strong> Notice prepared, notice delivered, access disabled, consumers transitioned, code removed and removal deployed are separate states. A future cutoff or unknown supported consumer leaves the dependent removal pending.</p>
+      <p>Design, delivery, impact analysis, documentation, verification and review stay with their existing skills. <a href="deprecation-validation.json">Review and execution evidence</a> records the tested package and its limits. Repository presence does not establish global installation or implicit activation.</p>
+    </section>
+
     <section id="inventory" class="section" aria-labelledby="inventory-heading" lang="en">
-      <div class="section-heading"><p class="kicker">Checked against the repository</p><h2 id="inventory-heading">The skills we already have</h2><p><span data-repository-count>39</span> packages are present, grouped by the task they own. Each entry identifies its current file and links to the analysis where available. These are repository packages; installed copies keep their own state.</p></div>
+      <div class="section-heading"><p class="kicker">Checked against the repository</p><h2 id="inventory-heading">The skills we already have</h2><p><span data-repository-count>40</span> packages are present, grouped by the task they own. Each entry identifies its current file and links to the analysis where available. These are repository packages; installed copies keep their own state.</p></div>
       <div id="repository-inventory" class="two-columns"></div>
       <noscript><p>The complete repository inventory and file hashes are available in <a href="sources.json">sources.json</a>, under repositoryInventory.</p></noscript>
       <div class="notice"><strong>Names and historical copies.</strong> <code>review-code-changes</code> is the current repository implementation derived from <code>review-audit</code>. <code>walkthrough</code> is absent from this checkout. Other installed-only entries in the original analysis are not counted as repository packages; this update does not check their installation.</div>
@@ -837,7 +850,7 @@
     </section>
 
     <section id="catalog" class="section" aria-labelledby="catalog-heading">
-      <div class="section-heading" lang="en"><p class="kicker">Source selection and actual progress</p><h2 id="catalog-heading">Source skills and procedures</h2><p><span data-catalog-count>276</span> cards: the original 122, 87 additional sources from the four collections, six accessibility procedures and references, 24 TypeScript sources, 12 CI/CD sources, seven activity-reporting procedures, five communication and documentation sources, three pstack extraction and measurement sources, two Cursor teaching sources, one GSD observability source, two short-message sources, three optimization sources, and two ticket workflow sources. Current assessments and incorporation evidence appear on existing cards where they overlap. Historical source revisions remain available.</p><p><strong>✓ Incorporated</strong> means selected material is recorded in a current local skill's provenance. <strong>✓ In repository</strong> identifies a retained or replacement local package. Open the card to see the owner and evidence. A recommendation to combine or install is not a completion check.</p></div>
+      <div class="section-heading" lang="en"><p class="kicker">Source selection and actual progress</p><h2 id="catalog-heading">Source skills and procedures</h2><p><span data-catalog-count>277</span> cards: the original 122, 87 additional sources from the four collections, six accessibility procedures and references, 24 TypeScript sources, 12 CI/CD sources, seven activity-reporting procedures, five communication and documentation sources, three pstack extraction and measurement sources, two Cursor teaching sources, one GSD observability source, two short-message sources, three optimization sources, two ticket workflow sources, and one retirement source. Current assessments and incorporation evidence appear on existing cards where they overlap. Historical source revisions remain available.</p><p><strong>✓ Incorporated</strong> means selected material is recorded in a current local skill's provenance. <strong>✓ In repository</strong> identifies a retained or replacement local package. Open the card to see the owner and evidence. A recommendation to combine or install is not a completion check.</p></div>
       <p id="source-progress-summary" class="notice" lang="en"></p>
       <form class="filters" id="filters" role="search">
         <div class="search-field"><label for="search">Buscar por skill, comportamiento o responsable</label><input id="search" name="q" type="search" placeholder="Por ejemplo: React, comentarios, rebase" autocomplete="off"></div>

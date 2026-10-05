@@ -4599,6 +4599,14 @@ window.SKILL_ATLAS = {
         "section": "comment-style"
       },
       {
+        "name": "deprecate-and-remove",
+        "category": "Implementation, verification and review",
+        "summary": "Retire dependencies, APIs or features, with an optional replacement, verified transition conditions and complete obsolete-code cleanup.",
+        "path": "deprecate-and-remove/SKILL.md",
+        "sha256": "5bc34ccb77e4e50eb245cec9be2578563284879fe4c5f84f337eff640631d927",
+        "section": "deprecate-and-remove"
+      },
+      {
         "name": "issue-workflow",
         "category": "Git, pull requests and CI",
         "summary": "Synchronize source tickets at work start, PR creation and observed merge under per-project transition rules.",
@@ -7679,9 +7687,9 @@ window.SKILL_ATLAS = {
     "repositoryCommit": "761cae1 (base; working-tree hashes below)",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 148,
-      "pending": 41,
-      "optional": 46,
+      "ready": 151,
+      "pending": 40,
+      "optional": 45,
       "not-selected": 41
     },
     "skills": {
@@ -9120,11 +9128,31 @@ window.SKILL_ATLAS = {
         ]
       },
       "pstack/principle-migrate-callers-then-delete-legacy-apis": {
-        "status": "optional",
-        "label": "Optional",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "deprecate-and-remove"
+        ],
+        "note": "Selected retirement guidance is derived into a repository package. Global installation, implicit host activation and production retirement are separate claims.",
+        "evidence": [
+          {
+            "owner": "deprecate-and-remove",
+            "path": "deprecate-and-remove/origin.txt",
+            "line": 22,
+            "sha256": "42ce96a152816987646c77483fa9884509504d1999db167c85d2e03e455ca338",
+            "sourceId": "pstack-internal-retirement",
+            "baselineCommit": "2cbf58508f40de470d7490b55c51d71241928fa2",
+            "reviewedThrough": "2cbf58508f40de470d7490b55c51d71241928fa2",
+            "borrowed": [
+              "Inventory and migrate controlled internal callers, then remove the previous API in the same coordinated change when no incompatible consumer remains."
+            ],
+            "localChoices": [
+              "Preserve the principle's external-consumer and coordinated-change conditions; do not inherit a blanket ban on adapters.",
+              "Account for stored data, in-flight work and independently deployed versions before assuming an atomic change is available.",
+              "Keep behavior and denial tests that protect continuing contracts."
+            ]
+          }
+        ]
       },
       "pstack/principle-minimize-reader-load": {
         "status": "ready",
@@ -11426,11 +11454,34 @@ window.SKILL_ATLAS = {
         ]
       },
       "Addy Osmani/deprecation-and-migration": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "deprecate-and-remove"
+        ],
+        "note": "Selected retirement guidance is derived into a repository package. Global installation, implicit host activation and production retirement are separate claims.",
+        "evidence": [
+          {
+            "owner": "deprecate-and-remove",
+            "path": "deprecate-and-remove/origin.txt",
+            "line": 7,
+            "sha256": "42ce96a152816987646c77483fa9884509504d1999db167c85d2e03e455ca338",
+            "sourceId": "addy-deprecation",
+            "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "borrowed": [
+              "Own the retirement decision and the transition of affected consumers through eventual removal.",
+              "Distinguish deprecation notices, migration work and evidence that permits removing the old implementation."
+            ],
+            "localChoices": [
+              "Support retirement without a replacement and respect an already chosen successor.",
+              "Keep immediate and progressive paths conditional on real consumers, support obligations and state.",
+              "Replace universal additive safety and reversibility with actual deployment, data and recovery evidence.",
+              "Preserve shared contracts, required records, history and supported-version guidance; remove only obsolete artifacts.",
+              "Notice delivery, live-resource changes and future scheduling retain the active task's authorization."
+            ]
+          }
+        ]
       },
       "Addy Osmani/documentation-and-adrs": {
         "status": "ready",
@@ -13267,6 +13318,34 @@ window.SKILL_ATLAS = {
           }
         ]
       },
+      "Hoang Nguyen/database-migrations": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "deprecate-and-remove"
+        ],
+        "note": "Selected retirement guidance is derived into a repository package. Global installation, implicit host activation and production retirement are separate claims.",
+        "evidence": [
+          {
+            "owner": "deprecate-and-remove",
+            "path": "deprecate-and-remove/origin.txt",
+            "line": 37,
+            "sha256": "42ce96a152816987646c77483fa9884509504d1999db167c85d2e03e455ca338",
+            "sourceId": "hoang-data-transition",
+            "baselineCommit": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+            "reviewedThrough": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+            "borrowed": [
+              "Order compatible data transitions, bound and resume backfills, and verify convergence before removing an old shape.",
+              "Check database-specific locking and distinguish destructive data changes from code rollback."
+            ],
+            "localChoices": [
+              "Keep data-specific guidance conditional, with implementation details owned by project tools and delivery specialists.",
+              "Do not promise trivial reversal for all additive changes or prescribe fixed deployment cycles.",
+              "Separate feature retirement from data disposal and preserve retention obligations."
+            ]
+          }
+        ]
+      },
       "Matt Pocock/setup-matt-pocock-skills": {
         "status": "ready",
         "label": "Incorporated",
@@ -13321,6 +13400,13 @@ window.SKILL_ATLAS = {
         "repositoryCommit": "1285db35d1e707ff045ac7a3ab2189b11e450984",
         "validation": "performance-optimization-validation.json",
         "scope": "Only this package inventory entry, five source cards and their provenance/counts refreshed; other owners and historical assessments preserved."
+      },
+      {
+        "checkedAt": "2026-10-05",
+        "source": "deprecate-and-remove selected feeds",
+        "repositoryCommit": "10828ecb7636e23b0f273b692b94d8b5197bb050",
+        "validation": "deprecation-validation.json",
+        "scope": "Only the retirement package inventory, three selected source cards, provenance and counts refreshed."
       },
       {
         "checkedAt": "2026-10-05",
@@ -17895,6 +17981,130 @@ window.SKILL_ATLAS = {
     "limitations": [
       "Repository package; global installation and implicit host selection are not established.",
       "Selected mechanisms are adapted, not entire upstream workflows or runtime dependencies."
+    ]
+  },
+  "deprecationReview": {
+    "date": "2026-10-05",
+    "html": "index.html#deprecate-and-remove",
+    "validation": "deprecation-validation.json",
+    "scope": "Derive retirement ownership from three pinned sources after the requested comparison. Historical assessments remain available; this overlay records the accepted broader objective.",
+    "objective": "Retire dependencies or features we no longer want to maintain, replace them when needed, and complete cleanup without breaking behavior that must remain.",
+    "skills": [
+      {
+        "id": "hoang-nguyen-database-migrations",
+        "key": "Hoang Nguyen/database-migrations",
+        "name": "database-migrations",
+        "declaredName": "database-migrations",
+        "group": "Hoang Nguyen",
+        "author": "Hoang Nguyen / Agent Skills Standard",
+        "collection": "hoang",
+        "kind": "upstream",
+        "path": "skills/database/database-migrations/SKILL.md",
+        "repository": "https://github.com/HoangNguyen0403/agent-skills-standard",
+        "source": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/database/database-migrations/SKILL.md",
+        "sha": "1fb0537c339c1e135167f4c15ba603b8849da5bc",
+        "sha256": "d9737eb1f7efbbcfdf2b4d7b320c87ab7f7b7da1b5f080fac5376c4c1444e26d",
+        "lines": 46,
+        "chars": 1359,
+        "category": "Retirement",
+        "decision": "Blend",
+        "action": "Derived into deprecate-and-remove",
+        "priority": "Available",
+        "owner": "deprecate-and-remove",
+        "summary": "Order compatible data transitions, bound and resume backfills, and verify convergence before removing an old shape. Check database-specific locking and distinguish destructive data changes from code rollback.",
+        "reason": "Selected mechanisms support retirement with or without a successor; design, delivery and verification keep their existing owners.",
+        "caution": "Keep data-specific guidance conditional, with implementation details owned by project tools and delivery specialists. Do not promise trivial reversal for all additive changes or prescribe fixed deployment cycles. Separate feature retirement from data disposal and preserve retention obligations.",
+        "inspection": "Full pinned entrypoint, listed reference and license read. Selected guidance adapted; donor recipes were not executed.",
+        "references": [
+          {
+            "path": "skills/database/database-migrations/references/migration-safety-checklist.md",
+            "coverage": "Full file read",
+            "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/skills/database/database-migrations/references/migration-safety-checklist.md",
+            "sha256": "3063914c179bfe50d07a065bfb28756208652043d4e48822f51e52c74b3541b7"
+          },
+          {
+            "path": "LICENSE",
+            "coverage": "Full file read",
+            "url": "https://github.com/HoangNguyen0403/agent-skills-standard/blob/1fb0537c339c1e135167f4c15ba603b8849da5bc/LICENSE",
+            "sha256": "4d7986336b20626e0f4b37bdcd8010f718856bdf0fecb11f40dfdd5f705d49e1"
+          }
+        ]
+      }
+    ],
+    "assessments": [
+      {
+        "id": "addy-osmani-deprecation-and-migration",
+        "key": "Addy Osmani/deprecation-and-migration",
+        "name": "deprecation-and-migration",
+        "declaredName": "deprecation-and-migration",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "collection": "addy",
+        "kind": "upstream",
+        "path": "skills/deprecation-and-migration/SKILL.md",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/deprecation-and-migration/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "6a624f942e09c69863a4219b9bd5d56975026b67b0c70bc83385ffd2120b6142",
+        "lines": 247,
+        "chars": 12534,
+        "category": "Retirement",
+        "decision": "Blend",
+        "action": "Derived into deprecate-and-remove",
+        "priority": "Available",
+        "owner": "deprecate-and-remove",
+        "summary": "Own the retirement decision and the transition of affected consumers through eventual removal. Distinguish deprecation notices, migration work and evidence that permits removing the old implementation.",
+        "reason": "Selected mechanisms support retirement with or without a successor; design, delivery and verification keep their existing owners.",
+        "caution": "Support retirement without a replacement and respect an already chosen successor. Keep immediate and progressive paths conditional on real consumers, support obligations and state. Replace universal additive safety and reversibility with actual deployment, data and recovery evidence. Preserve shared contracts, required records, history and supported-version guidance; remove only obsolete artifacts. Notice delivery, live-resource changes and future scheduling retain the active task's authorization.",
+        "inspection": "Full pinned entrypoint, listed reference and license read. Selected guidance adapted; donor recipes were not executed.",
+        "references": [
+          {
+            "path": "LICENSE",
+            "coverage": "Full file read",
+            "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/LICENSE",
+            "sha256": "6f202f8bd568cd730dbb2b0d1f8e243bc74c2fa1f64dbce9b2c7ea08bd5c9fd7"
+          }
+        ]
+      },
+      {
+        "id": "pstack-principle-migrate-callers-then-delete-legacy-apis",
+        "key": "pstack/principle-migrate-callers-then-delete-legacy-apis",
+        "name": "principle-migrate-callers-then-delete-legacy-apis",
+        "declaredName": "principle-migrate-callers-then-delete-legacy-apis",
+        "group": "pstack",
+        "author": "Lauren Tan / pstack",
+        "collection": "pstack",
+        "kind": "upstream",
+        "path": "pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/2cbf58508f40de470d7490b55c51d71241928fa2/pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md",
+        "sha": "2cbf58508f40de470d7490b55c51d71241928fa2",
+        "sha256": "09978915a4a11990cf0a9a02d9c08cc59e0b7a04c5c24b83aa560fbe4146f75b",
+        "lines": 22,
+        "chars": 1146,
+        "category": "Retirement",
+        "decision": "Blend",
+        "action": "Derived into deprecate-and-remove",
+        "priority": "Available",
+        "owner": "deprecate-and-remove",
+        "summary": "Inventory and migrate controlled internal callers, then remove the previous API in the same coordinated change when no incompatible consumer remains.",
+        "reason": "Selected mechanisms support retirement with or without a successor; design, delivery and verification keep their existing owners.",
+        "caution": "Preserve the principle's external-consumer and coordinated-change conditions; do not inherit a blanket ban on adapters. Account for stored data, in-flight work and independently deployed versions before assuming an atomic change is available. Keep behavior and denial tests that protect continuing contracts.",
+        "inspection": "Full pinned entrypoint, listed reference and license read. Selected guidance adapted; donor recipes were not executed.",
+        "references": [
+          {
+            "path": "pstack/LICENSE",
+            "coverage": "Full file read",
+            "url": "https://github.com/cursor/plugins/blob/2cbf58508f40de470d7490b55c51d71241928fa2/pstack/LICENSE",
+            "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      "Synthetic fixtures exercise behavior; original MUI, Moment and smart-contract projects were not available.",
+      "Package creation is not global installation or implicit host activation.",
+      "No live notices, deployments, service deletion or on-chain operations were performed."
     ]
   },
   "issueWorkflowReview": {

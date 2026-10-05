@@ -367,6 +367,19 @@ with runtime guarantees. Use it directly or as a language specialist during a ch
 - Records five selected source feeds after reviewing nineteen repositories and all twenty-four pstack principles
 - Includes technical compiler/runtime evidence; independent agent improvement and host activation remain untested
 
+### deprecate-and-remove
+
+Retire a dependency, API, or feature the project no longer wants to maintain.
+Replace it when needed and complete cleanup while preserving required behavior.
+
+**Triggers:** `replace MUI with shadcn`, `replace Moment with date-fns`, `retire this feature progressively`
+
+Supports a coordinated internal replacement or a staged sunset with no successor.
+Tracks consumers, notices, access closure and removal conditions; preserves shared
+code, supported clients and required records. Distinguishes local cleanup from
+deployed retirement and composes the existing design, delivery and verification
+skills. Records three pinned donors and bounded synthetic execution evidence.
+
 ### simplify-code
 
 Simplify changed code through focused edits that preserve behavior. Use it
