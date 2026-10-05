@@ -92,6 +92,18 @@ Write clear, natural prose for the reader, language and channel. Replaces
 - Prepares channel-appropriate content; external sending remains a separate authorized action
 - Records selected pinned sources, independent Astra/Fable Max reviews and bounded multilingual trials
 
+### comment-style
+
+Word brief PR replies, review comments, Slack and WhatsApp messages with the
+point first and only the context the recipient needs.
+
+**Triggers:** `reply to this PR comment`, `shorten this Slack message`, `draft a WhatsApp reply`
+
+Starts from the former private `comment-style` package. A short sentence is the
+default; facts, conditions and the user's intended tone survive shortening.
+Wording and authorized sending remain separate. Review workflows retain code
+repairs, comment placement and thread resolution.
+
 ### write-documentation
 
 Create, update or review human-facing documentation using current evidence and a
