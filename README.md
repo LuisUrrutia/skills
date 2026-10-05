@@ -267,8 +267,9 @@ solutions or independent investigations justify the extra work.
 
 ### design-code-structure
 
-Design or compare data models, public interfaces, and module boundaries for a
-concrete software change. Use it directly for a decision or during authorized implementation.
+Design, compare, or improve data models, public interfaces, and module boundaries
+for a concrete software change. Connect the chosen design to demonstrated structural
+checks during authorized implementation; design-only requests stop at the plan.
 
 **Triggers:** `design this module`, `compare these interface designs`, `model the state and ownership for this change`
 
@@ -276,11 +277,13 @@ concrete software change. Use it directly for a decision or during authorized im
 
 - Derives types and operations from real caller usage and established constraints
 - Compares meaningful alternatives by correctness, caller effort, locality, state, and cost
-- Checks whether edits from partial context preserve enforced boundaries and authoritative registry relationships
+- Selects improvements using scoped semantic history, requirements, correctness risk, locality, and migration cost
+- Checks whether edits from partial context preserve boundaries and authoritative registry relationships
+- Proves selected structural checks with valid, violating, and restored inputs through the real verification command
 - Uses explain-code, explain-decisions, analyze-change-effects, prototype, and compare-solutions when the decision needs them
 - Handles shared invariants, retries, cancellation, external contracts, and migration when relevant
 - Revisits a design when repeated implementation friction exposes a wrong assumption
-- Records pstack and Matt Pocock sources with conditional upstream maintenance
+- Records pstack, Matt Pocock, and Matthew Blode sources with conditional upstream maintenance
 
 ### error-handling
 

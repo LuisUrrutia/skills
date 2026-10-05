@@ -3,7 +3,7 @@
 const atlas = window.SKILL_ATLAS;
 const repositoryInventory = atlas.repositoryInventory;
 const repositorySkills = new Map(repositoryInventory.skills.map((skill) => [skill.name, skill]));
-const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments, ...atlas.handoffReview.assessments, ...atlas.activityReview.skills, ...atlas.activityReview.assessments, ...atlas.reviewCodeChangesReview.dylReviewAdoption.assessments, ...atlas.communicationReview.assessments, ...atlas.upstreamAdoptionReview.skills, ...atlas.upstreamAdoptionReview.assessments, ...atlas.teachingReview.skills, ...atlas.teachingReview.assessments, ...atlas.observabilityReview.skills, ...atlas.observabilityReview.assessments, ...atlas.commentStyleReview.skills, ...atlas.commentStyleReview.assessments].map((skill) => [skill.key, skill]));
+const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments, ...atlas.handoffReview.assessments, ...atlas.activityReview.skills, ...atlas.activityReview.assessments, ...atlas.reviewCodeChangesReview.dylReviewAdoption.assessments, ...atlas.communicationReview.assessments, ...atlas.upstreamAdoptionReview.skills, ...atlas.upstreamAdoptionReview.assessments, ...atlas.teachingReview.skills, ...atlas.teachingReview.assessments, ...atlas.observabilityReview.skills, ...atlas.observabilityReview.assessments, ...atlas.commentStyleReview.skills, ...atlas.commentStyleReview.assessments, ...atlas.designStructureReview.assessments].map((skill) => [skill.key, skill]));
 const originalKeys = new Set(atlas.skills.map((skill) => skill.key));
 const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills, ...atlas.ciCdReview.skills, ...atlas.activityReview.skills, ...atlas.communicationReview.skills, ...atlas.upstreamAdoptionReview.skills, ...atlas.teachingReview.skills, ...atlas.observabilityReview.skills, ...atlas.commentStyleReview.skills];
 const byKey = new Map(catalogSkills.map((skill) => [skill.key, skill]));
@@ -114,12 +114,13 @@ const clusters = [
       "Matt Pocock/codebase-design",
       "Matt Pocock/domain-modeling",
       "Matt Pocock/improve-codebase-architecture",
+      "Matthew Blode/codebase-architecture",
       "pstack/architect",
       "pstack/principle-model-the-domain",
       "pstack/principle-minimize-reader-load"
     ],
-    "text": "Matt destaca interfaces pequeñas con comportamiento sustancial y límites públicos de prueba. pstack propone definir datos pronto y comparar diseños. domain-modeling aclara el lenguaje; la auditoría arquitectónica busca oportunidades de refactorización más amplias.",
-    "why": "design-code-structure parte del uso real, compara estructuras y recomienda una con sus invariantes y costes. Conserva explain-code, explain-decisions, compare-solutions y prototype como apoyos condicionales. La auditoría del repositorio completo sigue siendo otra tarea."
+    "text": "Matt contributes caller-facing interfaces and domain modeling; pstack contributes grounded alternatives, ownership and invariants. Matthew Blode adds evidence for selecting an improvement and demonstrating that its structural check rejects a representative violation.",
+    "why": "Use design-code-structure for one bounded decision and its authorized implementation. Consult history when choosing improvements, design from actual caller usage, and prove selected boundaries through the existing check command. Explanations, independent comparisons, prototypes, workflow changes and application verification retain their own specialists."
   },
   {
     "title": "Regresiones y TDD",
