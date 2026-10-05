@@ -45,9 +45,10 @@ retry with plain force. A standing authorization for this operation remains vali
 
 After material publication to an open PR, rewrite its whole body from the verified
 published diff in Update mode. Recheck head/base before writing; a concurrent
-movement invalidates the prepared claims. Hand the new revision to `pr-followup`
-for a creation request or when follow-up work is already authorized; return to an
-existing follow-up loop rather than starting a nested one.
+movement invalidates the prepared claims. Unless an explicit create-only instruction
+applies, hand the new revision to `pr-followup` for a creation request or when
+follow-up work is already authorized; return to an existing follow-up loop rather
+than starting a nested one.
 
 ## Create or update metadata
 
