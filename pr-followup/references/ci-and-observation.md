@@ -47,9 +47,20 @@ history but cannot prove the new revision passed.
 
 Use a resumable host watch when available and finish the agent turn while waiting.
 Keep one watch per PR and thread; reuse an active watch rather than restarting it
-after every message or push. When cadence is configurable, default to 10 minutes
-unless the user specifies otherwise. If the host fixes the interval, disclose it
-and use that watch without adding a second agent loop.
+after every message or push. When cadence is configurable, use elapsed wall-clock
+time since this PR's Drive task began to choose the default interval:
+
+| Elapsed time | Check interval |
+| --- | --- |
+| Less than 1 hour | 10 minutes |
+| From 1 hour to less than 3 hours | 30 minutes |
+| 3 hours or more | 1 hour |
+
+Retain the original start time across wakes, pushes and watch recovery; those
+operations do not restart the cadence. Honor an explicit user cadence override.
+Apply interval changes through the host watch's interval setting, not agent polling.
+If the host fixes the interval or cannot apply the transitions, disclose that
+limitation and use its watch without adding a second agent loop.
 The host's ordinary GitHub checks should not invoke a model; each delivered event
 starts agent work and consumes tokens for its context, investigation and response.
 Return compact status deltas and actionable findings to the model; avoid loading
@@ -85,8 +96,9 @@ current run and review state to establish what actually started; inaccessible
 configuration remains unknown. Record the ready-transition time and the fresh
 post-ready snapshot even when the head SHA did not change.
 
-At each meaningful change, retain PR identity, head/base, feedback versions and
-decisions, outstanding checks/reviewers, authorized actions, published fixes,
+At each meaningful change, retain the Drive start time, PR identity, head/base,
+feedback versions and decisions, outstanding checks/reviewers, authorized actions,
+published fixes,
 replies and retry counts. Retain an observation deadline only when the user set one.
 On resume, inspect remote state before acting. Preserve others' watchers and scratch;
 stop and remove only resources owned by this run.
