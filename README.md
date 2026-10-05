@@ -304,18 +304,20 @@ boundaries. Adapt to the project's language and existing public interfaces.
 
 ### observability
 
-Design, add, or review telemetry, health status and alerts that let a fresh reader
-diagnose running systems. Keep existing telemetry tools and public behavior.
+Assess and build a project's observability, from initial setup to instrumentation
+added during feature work. Identify useful additions from the architecture and
+workflows, then implement and verify the requested coverage.
 
-**Triggers:** `add useful instrumentation to this worker`, `review these logs and metrics`, `make this background job diagnosable`
+**Triggers:** `set up observability and metrics for this project`, `find where we should add instrumentation`, `add observability while building this feature`
 
 **Features:**
 
-- Selects signals from concrete questions, with correlated runs and entry points
-- Bounds metric dimensions, sensitive fields, event volume and telemetry failure effects
-- Preserves useful failure evidence and meaningful health for unattended processes
-- Verifies signals at their destination, distinguishing missing data from healthy operation
-- Combines pinned Addy Osmani and GSD-2 sources; keeps diagnosis and recovery with their existing owners
+- Prioritizes concrete instrumentation points by impact, visibility gaps and cost
+- Builds a usable collection and inspection path when telemetry is absent
+- Extends existing conventions within a feature's affected operations and boundaries
+- Adds safe logs, bounded metrics, traces, health signals and alerts where useful
+- Delivers code, configuration, inspection instructions and verified emitted data
+- Keeps assessment-only work read-only and incident investigation with debug
 
 ### performance-optimization
 

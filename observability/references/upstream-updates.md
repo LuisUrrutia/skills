@@ -10,8 +10,10 @@ leave source pins unchanged; ordinary instrumentation work remains usable.
 Neither request creates a schedule. Read `../origin.txt` for source revisions,
 review cursors, borrowed ideas and local decisions.
 
-Preserve diagnostic questions, existing tools and public behavior, safe bounded
-signals, durable evidence where needed, and verification at the consumer. Addy
+Preserve project assessment, initial setup and instrumentation during feature
+work as the local scope; debug retains incident investigation. Reuse suitable
+tools and establish missing collection facilities when needed. Preserve public
+behavior, safe bounded signals, durable evidence and verification at the consumer. Addy
 contributes signal selection, correlation, cardinality and actionable alerting;
 GSD-2 contributes decision context and unattended-process state.
 Keep signal types, tracing, persistence and alerts conditional. Do not import a

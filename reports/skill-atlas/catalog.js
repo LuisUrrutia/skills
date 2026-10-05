@@ -4390,9 +4390,9 @@ window.SKILL_ATLAS = {
       {
         "name": "observability",
         "category": "Implementation, verification and review",
-        "summary": "Design, add or review safe operational signals, correlated runs and durable diagnostics with evidence at the consumer.",
+        "summary": "Assess and build project observability, including initial collection setup and instrumentation during feature work.",
         "path": "observability/SKILL.md",
-        "sha256": "31019251fcb41284795ceed054cd06183f80d10c525daf787d4db465c7f4e4aa",
+        "sha256": "a6a3ec72c29dd64761ebd70f66ac5eff4579131a7c4e7a341c5f3b38b899e06d",
         "section": "observability",
         "checkedAt": "2026-10-05"
       },
@@ -7584,8 +7584,8 @@ window.SKILL_ATLAS = {
           "Addy Osmani/observability-and-instrumentation",
           "GSD/observability"
         ],
-        "why": "Combine question-driven signals with safe decision, failure and process-state evidence.",
-        "boundary": "debug owns diagnosis; error-handling owns failure contracts. Keep tools and signal coverage proportional to the task."
+        "why": "Build project observability from prioritized additions, bootstrap missing facilities and instrument feature boundaries.",
+        "boundary": "debug owns incident investigation; error-handling owns failure contracts. Reuse suitable tools and establish missing collection where the requested work needs it."
       },
       {
         "title": "Evaluation and continuation guidance is incorporated",
@@ -11593,13 +11593,13 @@ window.SKILL_ATLAS = {
         "owners": [
           "observability"
         ],
-        "note": "Selected mechanisms are present in observability. This does not claim full donor installation, production operation or automatic host selection. See observability-validation.json.",
+        "note": "Selected mechanisms support project assessment, initial observability setup and feature instrumentation in the local package. Installation and production operation are separate. See observability-reorientation-validation.json.",
         "evidence": [
           {
             "owner": "observability",
             "path": "observability/origin.txt",
             "line": 7,
-            "sha256": "87e6829c54529d27439570d1bc5a92e2b21434e31a1533517152e38a82e8a068",
+            "sha256": "c8e2e96f4af7ee53343534f8374fa035ecc4834aacbd7f1234f9616af2a95a77",
             "sourceId": "addy-observability",
             "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
             "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026"
@@ -13179,13 +13179,13 @@ window.SKILL_ATLAS = {
         "owners": [
           "observability"
         ],
-        "note": "Selected mechanisms are present in observability. This does not claim full donor installation, production operation or automatic host selection. See observability-validation.json.",
+        "note": "Selected mechanisms support project assessment, initial observability setup and feature instrumentation in the local package. Installation and production operation are separate. See observability-reorientation-validation.json.",
         "evidence": [
           {
             "owner": "observability",
             "path": "observability/origin.txt",
             "line": 22,
-            "sha256": "87e6829c54529d27439570d1bc5a92e2b21434e31a1533517152e38a82e8a068",
+            "sha256": "c8e2e96f4af7ee53343534f8374fa035ecc4834aacbd7f1234f9616af2a95a77",
             "sourceId": "gsd-observability",
             "baselineCommit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
             "reviewedThrough": "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
@@ -17473,7 +17473,7 @@ window.SKILL_ATLAS = {
   "observabilityReview": {
     "date": "2026-10-05",
     "html": "index.html#observability",
-    "validation": "observability-validation.json",
+    "validation": "observability-reorientation-validation.json",
     "scope": "Inventories of the 11 HANDOFF repositories and targeted candidate entrypoints/supporting files. Complete reads of the two selected donor entrypoints, Addy checklist and both licenses; not a semantic audit of every repository file.",
     "skills": [
       {
@@ -17540,7 +17540,7 @@ window.SKILL_ATLAS = {
         ]
       }
     ],
-    "selection": "One maintained derivation; signal selection from Addy and unattended-process diagnostics from GSD-2. No runtime dependency on either donor.",
+    "selection": "One local derivation for building project observability: Addy signal design and GSD-2 unattended-process evidence, with explicit assessment, initial setup and feature-work modes. No donor runtime dependency.",
     "alternatives": [
       {
         "name": "enterprise-agent-ops",
@@ -17575,7 +17575,15 @@ window.SKILL_ATLAS = {
       "Repository presence is distinct from installation and host selection.",
       "Comparison candidates are not active upstream feeds.",
       "Behavioral evaluation status and actual evidence are recorded separately."
-    ]
+    ],
+    "previousValidation": "observability-validation.json",
+    "localScopeRevision": {
+      "date": "2026-10-05",
+      "reason": "User requested project additions and initial setup rather than an incident-diagnosis-centered explanation.",
+      "scope": "Assess project architecture and workflows, prioritize concrete additions, establish absent telemetry facilities, and extend instrumentation during feature work.",
+      "boundary": "debug owns incident investigation; assessment-only remains read-only, feature changes stay scoped, and backend/deployment authority follows the active task.",
+      "upstreamPins": "Unchanged; this is a local-scope revision, not an upstream update."
+    }
   },
   "commentStyleReview": {
     "date": "2026-10-05",

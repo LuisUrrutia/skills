@@ -1,44 +1,79 @@
 ---
 name: observability
-description: Design, add, or review the telemetry, health status, and alerts that make running systems diagnosable in operation.
+description: Assess and build project observability, from initial setup to instrumentation added during feature work.
 ---
 
 # Observability
 
-Make the affected behavior understandable from signals available to a person or
-agent arriving without the original context. Preserve the requested scope: design
-and review produce recommendations; authorized implementation adds and verifies
-the instrumentation. Work with the project's existing language and telemetry tools.
+Equip the project with useful logs, metrics, traces and health signals. Analyze its
+architecture and workflows, identify missing coverage, and build the observability
+needed to understand its operation. Existing telemetry is input for deciding what
+to reuse and extend. Work can start before any incident or monitoring stack exists.
 
-## Establish the diagnostic questions
+`debug` owns investigating an observed failure using available evidence and targeted
+probes. This skill owns lasting instrumentation and its collection, storage and
+inspection setup. `error-handling` owns caller-visible errors, retries and recovery
+policy. Preserve those contracts while adding observability.
 
-Read the affected operations, entry points, asynchronous boundaries, failure paths,
-and existing logs, metrics, traces, status surfaces and alerts. Identify who uses
-the signals, where they can read them, and the relevant access, retention and cost
-constraints. Reuse useful coverage before adding another producer or backend.
+## Choose the scope of the addition
 
-Choose concrete questions from the task and plausible failure modes: which run
-failed, why a branch was taken, whether work is progressing, how often a dependency
-fails, or where time is spent. Map each question to the smallest useful signal and
-an observation that would answer it. Include success or recovery when needed to
-distinguish failure from expected operation. A simple change need not acquire every
-signal type, a dashboard, an alert or a new service.
+Take the scope from the active request; the mode does not expand its authority.
 
-`debug` owns investigating an observed failure; this skill owns durable diagnostic
-coverage. `error-handling` owns caller-visible errors, retries and recovery policy.
-An instrumentation change preserves results, exceptions, cancellation, effects and
-retry ownership unless a behavior change is also authorized. During authorized
-instrumentation, record a caught failure that would otherwise be silent with safe
-classification and operation identity. Preserve what the caller receives; route
-changes to that contract to `error-handling`.
+- **Project assessment:** examine the relevant services, workflows or proposed
+  telemetry changes, identify coverage gaps, and propose concrete additions in
+  priority order. An assessment, review or design request produces recommendations
+  without changing the project.
+- **Initial setup or project improvement:** choose and implement the instrumentation
+  and collection path needed for the requested coverage. If the project has none,
+  establish a usable foundation instead of waiting for existing signals to inspect.
+- **Feature work:** inspect the operations and boundaries the feature adds or
+  changes. Add useful instrumentation as part of authorized implementation and
+  extend the existing conventions. Keep unrelated project-wide improvements as
+  separate recommendations; a small change need not acquire an entire stack.
+
+## Find and prioritize instrumentation points
+
+Read the project's architecture, runtime and deployment configuration, critical
+workflows and existing telemetry conventions. Follow the relevant path through
+entry points, queues, workers, storage and external dependencies. Locate meaningful
+outcomes, decisions, delays and failures whose behavior is currently invisible.
+
+For each proposed addition, identify the operation or boundary, the information
+missing there, the signal to add and where someone will inspect it. Prioritize by
+user impact, operational uncertainty and cost. Typical targets include failed or
+slow requests, dependency calls, queue age, stalled jobs and incomplete workflows.
+Include successful outcomes and recovery so failures have a meaningful denominator
+or comparison. Define what an operator should be able to learn from each addition;
+an observed incident is not required to justify useful coverage.
+
+## Establish or extend the collection path
+
+Reuse suitable project libraries, backends and deployment facilities. When they
+are absent or insufficient, select the smallest setup that fits the language,
+runtime, operational needs and budget. Configure the necessary producers,
+collection/export, storage and a usable way to inspect the data. That can be a
+documented log query, metrics endpoint or existing dashboard; choose traces,
+dashboards and alerts where they serve the requested coverage.
+
+Include environment-specific configuration and documented startup or inspection
+steps so the setup is usable beyond the current session. Identify who can access
+the data and its retention and operating costs. Keep exporter and backend credentials
+in the project's secret mechanism, out of committed configuration, commands and
+output. Resolve routine local choices within the task; a material backend, billing,
+data-residency or external-service
+decision needs the user's constraints or decision. Continue independent local
+work and state any unavailable integration. A local collector proves only the
+delivery path exercised, not production deployment.
 
 ## Instrument the deciding boundaries
 
-Use established event names, levels, units and semantic conventions. Record
-meaningful outcomes and decisions in structured fields, including the safe values
+Use or establish consistent event names, levels, units and semantic conventions.
+Record meaningful outcomes and decisions in structured fields, including safe values
 or classifications that explain them. Function entry/exit chatter rarely answers
-an operational question. Give duplicate reports of one failure a clear owner rather than paging
-at every layer.
+an operational question. Give duplicate reports of one failure a clear owner.
+Record otherwise silent failed operations with safe classification and operation
+identity. Preserve results, exceptions, cancellation, effects and retry ownership
+unless changing that behavior is also part of the task.
 
 | Signal | Use it to answer | Preserve |
 | --- | --- | --- |
@@ -52,7 +87,8 @@ through the affected calls, queues and workers. When several entry points share 
 sink, record which entry point started the work alongside its run identity; a
 correlation ID alone cannot establish that. Keep retries and child operations
 associated without conflating separate executions. Treat incoming identifiers as
-untrusted, bounded input and use the existing propagation format.
+untrusted, bounded input. Reuse the project's propagation format; when none exists,
+choose a standard supported by the tooling.
 
 For metrics, use a bounded vocabulary such as operation, route template or outcome
 class. Request IDs, user IDs, raw URLs and arbitrary error text do not belong in
@@ -108,19 +144,22 @@ observed behavior or an explicit project requirement. Identify the responder and
 link the first useful query, mitigation or runbook. State how no traffic, stale
 data and missing telemetry differ from recovery. Do not invent universal numbers
 or delete existing alerts merely because they use another convention.
+If ownership or the information needed to choose an actionable condition is
+missing, propose the alert and the observations or decisions needed before enabling it.
 
 ## Verify the signals at their destination
 
-For design or review, inspect available evidence and state which checks remain
-unrun. When execution is authorized, exercise the affected success and representative
-failure paths in an isolated environment. Confirm that the intended trigger occurred, then
-read the resulting events, metric series, traces or status at the consumer. Check
-correlation across relevant entry points and boundaries, safe fields, expected
-counts and units, and any new state lifecycle. A configured exporter or successful
-test command alone does not prove that a signal arrived. Answer each diagnostic
-question from the observed signals as a reader without the original context would.
-If answering requires inspecting the implementation or rerunning the operation,
-record the missing diagnostic evidence as a blind spot.
+For assessment, review or design, tie recommendations to the inspected project and
+state how their result would be verified. During implementation, exercise the affected
+success and representative failure paths in an isolated environment. Confirm that
+the intended trigger occurred, then read the resulting events, metric series,
+traces or status at the consumer. Check correlation across relevant entry points
+and boundaries, safe fields, expected counts and units, and any new state lifecycle.
+A configured exporter or successful
+test command alone does not prove that a signal arrived. Confirm from the emitted
+data alone that a reader without the original context learns what each addition
+promised. If this requires reading the implementation or rerunning the operation
+with extra instrumentation, record a coverage gap.
 
 Use test collectors and notification sinks for failure injection and alert tests.
 Production disruption, threshold changes or messages to real recipients need
@@ -135,11 +174,12 @@ makes it material. Use available `verify` and project checks for execution evide
 direct checks remain useful when that skill is unavailable. Remove only temporary
 probes and fault controls owned by the task, preserving useful diagnostic evidence.
 
-Report the questions covered, changes or findings, where and how to inspect each
-signal, observed checks and remaining blind spots. Keep implementation, tested
-delivery and production operation distinct. Return to the active caller for
-remaining work; `ci-cd-automation` owns rollout gates and deployment recovery.
-Publication or ongoing monitoring follows the user's existing scope.
+Deliver the prioritized additions for an assessment, or the implemented code,
+configuration and inspection instructions for implementation. Report the coverage
+proposed or added, where to read the signals, observed checks and remaining gaps. Keep
+implementation, tested delivery and production operation distinct. Return to the
+active feature or project task; `ci-cd-automation` owns rollout gates and deployment
+recovery. Publication or ongoing monitoring follows the user's existing scope.
 
 For a requested check or update of this skill's sources, read
 [references/upstream-updates.md](references/upstream-updates.md).
