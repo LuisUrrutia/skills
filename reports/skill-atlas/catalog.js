@@ -4397,6 +4397,14 @@ window.SKILL_ATLAS = {
         "checkedAt": "2026-10-05"
       },
       {
+        "name": "performance-optimization",
+        "category": "Implementation, verification and review",
+        "summary": "Find worthwhile measured improvements to user-relevant operations through bounded experiments that preserve behavior and resource limits.",
+        "path": "performance-optimization/SKILL.md",
+        "sha256": "72bf908b0e7c32340171f1077b50e292006cbe934683153af75f3b17e1141556",
+        "section": "performance-optimization"
+      },
+      {
         "name": "accessibility",
         "category": "Implementation, verification and review",
         "summary": "Design, implement or audit accessible user flows, with platform criteria and observed evidence.",
@@ -7660,9 +7668,9 @@ window.SKILL_ATLAS = {
     "repositoryCommit": "761cae1 (base; working-tree hashes below)",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 141,
-      "pending": 42,
-      "optional": 47,
+      "ready": 146,
+      "pending": 41,
+      "optional": 46,
       "not-selected": 41
     },
     "skills": {
@@ -10284,11 +10292,33 @@ window.SKILL_ATLAS = {
         ]
       },
       "Addy Osmani/performance-optimization": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "performance-optimization"
+        ],
+        "note": "Selected performance-search mechanisms are adapted into the local package. Full donor installation, runtime execution and synchronization are separate claims.",
+        "evidence": [
+          {
+            "owner": "performance-optimization",
+            "path": "performance-optimization/origin.txt",
+            "line": 7,
+            "sha256": "e5a7e0882ec9ac41db22ff235ee969debfed55561af96d035785258efcf136db",
+            "sourceId": "addy-performance-optimization",
+            "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "borrowed": [
+              "Measurement-first baseline, bottleneck, change, verification and keep/revert cycle, with maintainable regression protection.",
+              "Preserve relevant cache identity, freshness and resource behavior when evaluating a performance change."
+            ],
+            "localChoices": [
+              "Use project-specific metrics and meaningful benefit; no universal frontend, bundle or API budgets.",
+              "Use local verify for measurement validity, without copying its benchmark checklist or requiring field data for every local operation.",
+              "Keep domain patterns as conditional hypotheses, not a copied recipe library; do not weaken legitimate cache security or freshness policies.",
+              "A neutral simplification may remain for its independent authorized benefit without a speedup claim."
+            ]
+          }
+        ]
       },
       "Addy Osmani/context-engineering": {
         "status": "ready",
@@ -11832,11 +11862,33 @@ window.SKILL_ATLAS = {
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Compound Engineering/ce-optimize": {
-        "status": "optional",
-        "label": "Optional",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "performance-optimization"
+        ],
+        "note": "Selected performance-search mechanisms are adapted into the local package. Full donor installation, runtime execution and synchronization are separate claims.",
+        "evidence": [
+          {
+            "owner": "performance-optimization",
+            "path": "performance-optimization/origin.txt",
+            "line": 52,
+            "sha256": "e5a7e0882ec9ac41db22ff235ee969debfed55561af96d035785258efcf136db",
+            "sourceId": "compound-ce-optimize",
+            "baselineCommit": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+            "reviewedThrough": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+            "borrowed": [
+              "Choose the cheapest locating measurement that can change what gets implemented or skipped.",
+              "Rank opportunities by measured cost, likely benefit, confidence, implementation cost and risk.",
+              "Confirm the final combined result rather than adding independent gains."
+            ],
+            "localChoices": [
+              "Restrict scope to software performance and resource cost, not arbitrary model-judged quality campaigns.",
+              "Keep search evidence proportionate; no YAML spec, checkpoint framework, obligatory branch, worktree probe or script dependency.",
+              "Preserve existing task authorization and continuation instead of new routine approval gates or handing off unfinished authorized work."
+            ]
+          }
+        ]
       },
       "Compound Engineering/ce-plan": {
         "status": "pending",
@@ -13119,6 +13171,90 @@ window.SKILL_ATLAS = {
             ]
           }
         ]
+      },
+      "ECC/benchmark-optimization-loop": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "performance-optimization"
+        ],
+        "note": "Selected performance-search mechanisms are adapted into the local package. Full donor installation, runtime execution and synchronization are separate claims.",
+        "evidence": [
+          {
+            "owner": "performance-optimization",
+            "path": "performance-optimization/origin.txt",
+            "line": 37,
+            "sha256": "e5a7e0882ec9ac41db22ff235ee969debfed55561af96d035785258efcf136db",
+            "sourceId": "ecc-benchmark-optimization-loop",
+            "baselineCommit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "reviewedThrough": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "borrowed": [
+              "Establish operation, correctness gate, metric, baseline and explicit search budget.",
+              "Compare against the prior accepted best, reject invalid candidates and confirm the final safe variant.",
+              "The best observed safe variant is not a global optimum."
+            ],
+            "localChoices": [
+              "Require measured benefit beyond variation; an explanation alone does not establish improvement.",
+              "Honor resource and behavior guardrails; do not promote the fastest primary metric blindly."
+            ]
+          }
+        ]
+      },
+      "pstack/perf-issue": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "performance-optimization"
+        ],
+        "note": "Selected performance-search mechanisms are adapted into the local package. Full donor installation, runtime execution and synchronization are separate claims.",
+        "evidence": [
+          {
+            "owner": "performance-optimization",
+            "path": "performance-optimization/origin.txt",
+            "line": 22,
+            "sha256": "e5a7e0882ec9ac41db22ff235ee969debfed55561af96d035785258efcf136db",
+            "sourceId": "pstack-performance-search",
+            "baselineCommit": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+            "reviewedThrough": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+            "borrowed": [
+              "Prioritize removing unnecessary or repeated work before more complex scheduling and concurrency.",
+              "Use one interpretable hypothesis per attempt and retain the baseline, accepted variants and rejected attempts with keep/revert evidence."
+            ],
+            "localChoices": [
+              "Stop at a justified goal or bounded search limit; no minimum attempt quota or requirement to push past a plateau.",
+              "No required model, subagent, worktree, branch, PR or publication workflow.",
+              "Shared measurement rules already live in verify; this feed covers only performance-search playbooks. Preserve unrelated work when reverting owned experiments."
+            ]
+          }
+        ]
+      },
+      "pstack/hillclimb": {
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "performance-optimization"
+        ],
+        "note": "Selected performance-search mechanisms are adapted into the local package. Full donor installation, runtime execution and synchronization are separate claims.",
+        "evidence": [
+          {
+            "owner": "performance-optimization",
+            "path": "performance-optimization/origin.txt",
+            "line": 22,
+            "sha256": "e5a7e0882ec9ac41db22ff235ee969debfed55561af96d035785258efcf136db",
+            "sourceId": "pstack-performance-search",
+            "baselineCommit": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+            "reviewedThrough": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+            "borrowed": [
+              "Prioritize removing unnecessary or repeated work before more complex scheduling and concurrency.",
+              "Use one interpretable hypothesis per attempt and retain the baseline, accepted variants and rejected attempts with keep/revert evidence."
+            ],
+            "localChoices": [
+              "Stop at a justified goal or bounded search limit; no minimum attempt quota or requirement to push past a plateau.",
+              "No required model, subagent, worktree, branch, PR or publication workflow.",
+              "Shared measurement rules already live in verify; this feed covers only performance-search playbooks. Preserve unrelated work when reverting owned experiments."
+            ]
+          }
+        ]
       }
     },
     "validation": "upstream-adoption-validation.json",
@@ -13129,6 +13265,13 @@ window.SKILL_ATLAS = {
         "repositoryCommit": "966ce66d4840e87973e7a144f1579b9cbf45965c",
         "validation": "design-code-structure-integration.json",
         "scope": "Only design-code-structure source evidence and aggregate counts refreshed."
+      },
+      {
+        "checkedAt": "2026-10-05",
+        "source": "performance-optimization selected feeds",
+        "repositoryCommit": "1285db35d1e707ff045ac7a3ab2189b11e450984",
+        "validation": "performance-optimization-validation.json",
+        "scope": "Only this package inventory entry, five source cards and their provenance/counts refreshed; other owners and historical assessments preserved."
       }
     ]
   },
@@ -17515,5 +17658,181 @@ window.SKILL_ATLAS = {
     ],
     "validation": "design-code-structure-integration.json",
     "scope": "Integrates selected Matthew Blode codebase-architecture material into design-code-structure. Original catalog assessments and earlier validation records remain historical evidence."
+  },
+  "performanceReview": {
+    "date": "2026-10-05",
+    "html": "index.html#performance-optimization",
+    "validation": "performance-optimization-validation.json",
+    "scope": "Targeted performance comparison following inventories of the 11 HANDOFF repositories; four selected feeds with pinned source texts and exact MIT notices. Not an audit of every file or proof of upstream execution.",
+    "skills": [
+      {
+        "id": "ecc-benchmark-optimization-loop",
+        "key": "ECC/benchmark-optimization-loop",
+        "name": "benchmark-optimization-loop",
+        "declaredName": "benchmark-optimization-loop",
+        "group": "ECC",
+        "author": "Affaan Mustafa / ECC",
+        "collection": "ecc",
+        "kind": "upstream",
+        "path": "skills/benchmark-optimization-loop/SKILL.md",
+        "repository": "https://github.com/affaan-m/ECC",
+        "source": "https://github.com/affaan-m/ECC/blob/ef648e01899ba3e8dc6371642deaaf64b4477775/skills/benchmark-optimization-loop/SKILL.md",
+        "sha": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+        "sha256": "f11208b6a86bc311cfbd9e20688a189238fda6c1e03b6f8000ef9e55487f6f95",
+        "lines": 71,
+        "chars": 2656,
+        "category": "Performance",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "owner": "performance-optimization",
+        "summary": "Bound the search, preserve correctness and resource limits, compare against the accepted best and confirm the result.",
+        "reason": "Adds explicit stop conditions and safe promotion to the local optimization owner.",
+        "caution": "An explanation does not replace repeated comparable evidence. The best observed variant is not a global optimum.",
+        "inspection": "Complete pinned entrypoint or playbook and relevant selected references read. Source scripts were not executed or adopted.",
+        "references": []
+      },
+      {
+        "id": "pstack-perf-issue",
+        "key": "pstack/perf-issue",
+        "name": "perf-issue",
+        "declaredName": "perf-issue",
+        "group": "pstack",
+        "author": "Lauren Tan / pstack",
+        "collection": "pstack",
+        "kind": "upstream",
+        "path": "pstack/skills/poteto-mode/playbooks/perf-issue.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/77526ffa67f8dafc698d14b5356e6d4fc78c3127/pstack/skills/poteto-mode/playbooks/perf-issue.md",
+        "sha": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+        "sha256": "2b88ad0f880e4d4d755ac19fe52414d6631d6baa816d060f53cf0a7429d7e14a",
+        "lines": 25,
+        "chars": 1446,
+        "category": "Performance",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "owner": "performance-optimization",
+        "summary": "Prioritize unnecessary and repeated work using evidence from the operation.",
+        "reason": "Adds a useful order of opportunities before scheduling, concurrency or cheaper mechanisms.",
+        "caution": "This is a poteto-mode playbook. No mandatory model, delegation, profiler, architecture phase or PR workflow.",
+        "inspection": "Complete pinned entrypoint or playbook and relevant selected references read. Source scripts were not executed or adopted.",
+        "references": []
+      },
+      {
+        "id": "pstack-hillclimb",
+        "key": "pstack/hillclimb",
+        "name": "hillclimb",
+        "declaredName": "hillclimb",
+        "group": "pstack",
+        "author": "Lauren Tan / pstack",
+        "collection": "pstack",
+        "kind": "upstream",
+        "path": "pstack/skills/poteto-mode/playbooks/hillclimb.md",
+        "repository": "https://github.com/cursor/plugins",
+        "source": "https://github.com/cursor/plugins/blob/77526ffa67f8dafc698d14b5356e6d4fc78c3127/pstack/skills/poteto-mode/playbooks/hillclimb.md",
+        "sha": "77526ffa67f8dafc698d14b5356e6d4fc78c3127",
+        "sha256": "244f289898fe67a458065e90fe8217c916c5acf61cdee8975ade3f9831a12e91",
+        "lines": 21,
+        "chars": 4403,
+        "category": "Performance",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "owner": "performance-optimization",
+        "summary": "Test one interpretable hypothesis at a time and retain kept and reverted attempts.",
+        "reason": "Adds baseline, accepted-best and experiment records without an unbounded tuning campaign.",
+        "caution": "This is a poteto-mode playbook. No minimum attempt quota or requirement to continue past a goal, plateau or budget.",
+        "inspection": "Complete pinned entrypoint or playbook and relevant selected references read. Source scripts were not executed or adopted.",
+        "references": []
+      }
+    ],
+    "assessments": [
+      {
+        "id": "addy-osmani-performance-optimization",
+        "key": "Addy Osmani/performance-optimization",
+        "name": "performance-optimization",
+        "declaredName": "performance-optimization",
+        "group": "Addy Osmani",
+        "author": "Addy Osmani",
+        "collection": "addy",
+        "kind": "upstream",
+        "path": "skills/performance-optimization/SKILL.md",
+        "repository": "https://github.com/addyosmani/agent-skills",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/performance-optimization/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "665a83a7218d6aebd02ca329a7b2422cf28f7c55cb56f870c05e12047770245c",
+        "lines": 267,
+        "chars": 16497,
+        "category": "Performance",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "owner": "performance-optimization",
+        "summary": "Measure a user-relevant operation, locate limiting work, test a change and keep only justified results.",
+        "reason": "Supplies the core measure-change-verify cycle for the local performance-optimization skill.",
+        "caution": "Use project targets and relevant workloads. No universal frontend or API budgets, mandatory tool or copied optimization recipe library.",
+        "inspection": "Complete pinned entrypoint or playbook and relevant selected references read. Source scripts were not executed or adopted.",
+        "references": [
+          {
+            "path": "skills/performance-optimization/references/optimization-patterns.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/performance-optimization/references/optimization-patterns.md",
+            "sha256": "fbf724076ffb8ac1a28e1a2773c0b550f5361090024b2dd32e5a682c69b7945f"
+          },
+          {
+            "path": "references/performance-checklist.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/references/performance-checklist.md",
+            "sha256": "40f564d1e62341e277c01ba42c42d95264b9ef3b8e5a23249dc6e121a7e70067"
+          }
+        ]
+      },
+      {
+        "id": "compound-engineering-ce-optimize",
+        "key": "Compound Engineering/ce-optimize",
+        "name": "ce-optimize",
+        "declaredName": "ce-optimize",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "collection": "compound",
+        "kind": "upstream",
+        "path": "skills/ce-optimize/SKILL.md",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-optimize/SKILL.md",
+        "sha": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+        "sha256": "942ff8ce14c4f2b9a44891631ed2a418d26319df23beb077460bf040bbbe2a9b",
+        "lines": 62,
+        "chars": 7877,
+        "category": "Performance",
+        "decision": "Blend",
+        "action": "Selected mechanisms adapted",
+        "priority": "Available",
+        "owner": "performance-optimization",
+        "summary": "Choose cheap measurements that change an optimization decision and verify the final combined result.",
+        "reason": "Adds opportunity prioritization and discriminating measurement to a bounded local search.",
+        "caution": "No CE spec/checkpoint framework, forced branch or worktree, model routing, routine approval gate or unrequested publication.",
+        "inspection": "Complete pinned entrypoint or playbook and relevant selected references read. Source scripts were not executed or adopted.",
+        "references": [
+          {
+            "path": "skills/ce-optimize/references/measurement.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-optimize/references/measurement.md",
+            "sha256": "b5b08e7a1855b4a5e4b3926491ce014ae59862d4cde8af5f40fc5bb0527045ca"
+          },
+          {
+            "path": "skills/ce-optimize/references/loop.md",
+            "coverage": "Full reference",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-optimize/references/loop.md",
+            "sha256": "9e49c84e271af6e0835fb6c4c9814ddeb04aa4b1d872bcbf098448974555fe33"
+          }
+        ]
+      }
+    ],
+    "selection": "Create one performance-optimization owner for bounded search and keep/revert decisions. Keep measurement validity with verify, regression diagnosis with debug, disposable experiments with prototype and durable signals with observability.",
+    "limitations": [
+      "Repository package; global installation and implicit host selection are not established.",
+      "Selected mechanisms are adapted, not entire upstream workflows or runtime dependencies."
+    ]
   }
 };

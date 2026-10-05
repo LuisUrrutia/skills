@@ -3,9 +3,9 @@
 const atlas = window.SKILL_ATLAS;
 const repositoryInventory = atlas.repositoryInventory;
 const repositorySkills = new Map(repositoryInventory.skills.map((skill) => [skill.name, skill]));
-const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments, ...atlas.handoffReview.assessments, ...atlas.activityReview.skills, ...atlas.activityReview.assessments, ...atlas.reviewCodeChangesReview.dylReviewAdoption.assessments, ...atlas.communicationReview.assessments, ...atlas.upstreamAdoptionReview.skills, ...atlas.upstreamAdoptionReview.assessments, ...atlas.teachingReview.skills, ...atlas.teachingReview.assessments, ...atlas.observabilityReview.skills, ...atlas.observabilityReview.assessments, ...atlas.commentStyleReview.skills, ...atlas.commentStyleReview.assessments, ...atlas.designStructureReview.assessments].map((skill) => [skill.key, skill]));
+const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments, ...atlas.handoffReview.assessments, ...atlas.activityReview.skills, ...atlas.activityReview.assessments, ...atlas.reviewCodeChangesReview.dylReviewAdoption.assessments, ...atlas.communicationReview.assessments, ...atlas.upstreamAdoptionReview.skills, ...atlas.upstreamAdoptionReview.assessments, ...atlas.teachingReview.skills, ...atlas.teachingReview.assessments, ...atlas.observabilityReview.skills, ...atlas.observabilityReview.assessments, ...atlas.commentStyleReview.skills, ...atlas.commentStyleReview.assessments, ...atlas.designStructureReview.assessments, ...atlas.performanceReview.skills, ...atlas.performanceReview.assessments].map((skill) => [skill.key, skill]));
 const originalKeys = new Set(atlas.skills.map((skill) => skill.key));
-const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills, ...atlas.ciCdReview.skills, ...atlas.activityReview.skills, ...atlas.communicationReview.skills, ...atlas.upstreamAdoptionReview.skills, ...atlas.teachingReview.skills, ...atlas.observabilityReview.skills, ...atlas.commentStyleReview.skills];
+const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills, ...atlas.ciCdReview.skills, ...atlas.activityReview.skills, ...atlas.communicationReview.skills, ...atlas.upstreamAdoptionReview.skills, ...atlas.teachingReview.skills, ...atlas.observabilityReview.skills, ...atlas.commentStyleReview.skills, ...atlas.performanceReview.skills];
 const byKey = new Map(catalogSkills.map((skill) => [skill.key, skill]));
 const byId = new Map(catalogSkills.map((skill) => [skill.id, skill]));
 const recommendationFor = (skill) => sourceReviews.get(skill.key) || skill;
@@ -19,6 +19,13 @@ const groupLabels = { Local: "Original local snapshots", "Cursor team": "Equipo 
 const normalizedSearch = (value) => value.toLocaleLowerCase("es").normalize("NFD").replace(/\p{Diacritic}/gu, "");
 
 const clusters = [
+  {
+    title: "Measured performance improvements",
+    winner: "performance-optimization: bounded search with shared evidence assessment",
+    keys: ["Addy Osmani/performance-optimization", "pstack/perf-issue", "pstack/hillclimb", "ECC/benchmark-optimization-loop", "Compound Engineering/ce-optimize"],
+    text: "Addy supplies the measurement cycle; pstack prioritizes work and records experiments; ECC bounds the search; Compound selects useful measurements and confirms the combined result.",
+    why: "Optimize an operation that matters, preserve its behavior and retain only benefits worth the complexity. verify assesses evidence, debug diagnoses regressions, prototype explores uncertain mechanisms and observability owns durable signals."
+  },
   {
     title: "Activity, contribution and outstanding work",
     winner: "report-work-activity, replacing daily-meeting-update",

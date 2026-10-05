@@ -1,0 +1,100 @@
+format_version = 1
+skill = "performance-optimization"
+created = "2026-10-05"
+approach = "Derive: measured optimization search that preserves required behavior and earns its complexity; reuse local owners for evidence, regression diagnosis, disposable experiments and durable instrumentation."
+
+[[sources]]
+id = "addy-performance-optimization"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "1401c8b8030e023baeebb31781a6653fe8e93026"
+baseline_paths = ["skills/performance-optimization/SKILL.md", "skills/performance-optimization/references/optimization-patterns.md", "references/performance-checklist.md", "LICENSE"]
+paths = ["skills/performance-optimization/SKILL.md", "skills/performance-optimization/references/optimization-patterns.md", "references/performance-checklist.md", "LICENSE"]
+license = "MIT; exact original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Measurement-first baseline, bottleneck, change, verification and keep/revert cycle, with maintainable regression protection.", "Preserve relevant cache identity, freshness and resource behavior when evaluating a performance change."]
+local_choices = ["Use project-specific metrics and meaningful benefit; no universal frontend, bundle or API budgets.", "Use local verify for measurement validity, without copying its benchmark checklist or requiring field data for every local operation.", "Keep domain patterns as conditional hypotheses, not a copied recipe library; do not weaken legitimate cache security or freshness policies.", "A neutral simplification may remain for its independent authorized benefit without a speedup claim."]
+reviews = []
+
+[[sources]]
+id = "pstack-performance-search"
+author = "Lauren Tan / pstack (hosted in cursor/plugins)"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "77526ffa67f8dafc698d14b5356e6d4fc78c3127"
+reviewed_through = "77526ffa67f8dafc698d14b5356e6d4fc78c3127"
+baseline_paths = ["pstack/skills/poteto-mode/playbooks/perf-issue.md", "pstack/skills/poteto-mode/playbooks/hillclimb.md", "pstack/LICENSE"]
+paths = ["pstack/skills/poteto-mode/playbooks/perf-issue.md", "pstack/skills/poteto-mode/playbooks/hillclimb.md", "pstack/LICENSE"]
+license = "MIT; exact original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Prioritize removing unnecessary or repeated work before more complex scheduling and concurrency.", "Use one interpretable hypothesis per attempt and retain the baseline, accepted variants and rejected attempts with keep/revert evidence."]
+local_choices = ["Stop at a justified goal or bounded search limit; no minimum attempt quota or requirement to push past a plateau.", "No required model, subagent, worktree, branch, PR or publication workflow.", "Shared measurement rules already live in verify; this feed covers only performance-search playbooks. Preserve unrelated work when reverting owned experiments."]
+reviews = []
+
+[[sources]]
+id = "ecc-benchmark-optimization-loop"
+author = "Affaan Mustafa / ECC"
+repository = "https://github.com/affaan-m/ECC"
+remote = "git@github.com:affaan-m/ECC.git"
+ref = "refs/heads/main"
+baseline_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+reviewed_through = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+baseline_paths = ["skills/benchmark-optimization-loop/SKILL.md", "LICENSE"]
+paths = ["skills/benchmark-optimization-loop/SKILL.md", "LICENSE"]
+license = "MIT; exact original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Establish operation, correctness gate, metric, baseline and explicit search budget.", "Compare against the prior accepted best, reject invalid candidates and confirm the final safe variant.", "The best observed safe variant is not a global optimum."]
+local_choices = ["Require measured benefit beyond variation; an explanation alone does not establish improvement.", "Honor resource and behavior guardrails; do not promote the fastest primary metric blindly."]
+reviews = []
+
+[[sources]]
+id = "compound-ce-optimize"
+author = "Every / Compound Engineering"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+baseline_commit = "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c"
+reviewed_through = "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c"
+baseline_paths = ["skills/ce-optimize/SKILL.md", "skills/ce-optimize/references/measurement.md", "skills/ce-optimize/references/loop.md", "LICENSE"]
+paths = ["skills/ce-optimize/SKILL.md", "skills/ce-optimize/references/measurement.md", "skills/ce-optimize/references/loop.md", "LICENSE"]
+license = "MIT; exact original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Choose the cheapest locating measurement that can change what gets implemented or skipped.", "Rank opportunities by measured cost, likely benefit, confidence, implementation cost and risk.", "Confirm the final combined result rather than adding independent gains."]
+local_choices = ["Restrict scope to software performance and resource cost, not arbitrary model-judged quality campaigns.", "Keep search evidence proportionate; no YAML spec, checkpoint framework, obligatory branch, worktree probe or script dependency.", "Preserve existing task authorization and continuation instead of new routine approval gates or handing off unfinished authorized work."]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Performance-evidence assessment and relevant execution checks; explicit bounded fallback when unavailable."
+
+[[dependencies]]
+kind = "local"
+name = "debug"
+required = false
+role = "Conditional owner of observed regressions and failures before broader optimization."
+
+[[dependencies]]
+kind = "local"
+name = "prototype"
+required = false
+role = "Conditional disposable experiment to settle a mechanism; return to the active optimization."
+
+[[dependencies]]
+kind = "local"
+name = "observability"
+required = false
+role = "Conditional durable diagnostic coverage that outlives the experiment."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested authoring or upstream source maintenance."
+
+[[dependencies]]
+kind = "local"
+name = "ci-cd-automation"
+required = false
+role = "Conditional owner of pipeline efficiency and delivery gates; can call this skill for a constituent operation."

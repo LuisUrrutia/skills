@@ -1,0 +1,157 @@
+{
+  "format_version": 1,
+  "skill": "performance-optimization",
+  "usage": "Give independent executors only prompts and fixtures. Keep expectations with the grader. Use matched no-skill and candidate runs with identical models, effort, tools, authority and artifacts. These reconstructed cases test the approved contract; they are not production incidents or proof of host activation.",
+  "cases": [
+    {
+      "id": "batch-report",
+      "kind": "implementation",
+      "prompt": "Improve the local batch report operation. Each request selects values for one tenant and an ordered list of IDs from that request's records. Preserve its behavior. The project considers a 25 percent reduction in median completed-request time worthwhile, with at most 4 MiB of additional peak allocation. Use the supplied benchmark and tests. You may change report.py, add focused tests, and save local evidence. The source dataset, original.py, bench.py and settings.json are fixed. Limit the search to two implementation variants and 120 seconds of benchmark execution. Keep a worthwhile verified change or leave the original implementation. Do not commit, publish, install dependencies or contact services. Write result.json with changes, commands actually run, evidence, decision and limits.",
+      "fixture": {
+        "implementation": "For each requested ID, scan the current request's records and return the value of the first row matching both tenant and ID, or null if absent. Return values in query order, including repeated IDs.",
+        "workload": "6,000 IDs for each of two tenants; later duplicate rows have different values. Each request asks for 400 IDs, mixing hits and misses. Benchmarks include all per-request preparation and check complete outputs. Consecutive requests can change records and tenant.",
+        "checks": "First-match semantics, missing IDs, repeated queries, tenant isolation, empty input and changed values on later requests; whole-operation paired timings and peak allocation.",
+        "protected": "An unrelated user-owned settings.json and frozen benchmark/reference files."
+      },
+      "expectations": [
+        "The executor runs a baseline and makes a bounded, evidence-led implementation attempt.",
+        "The kept implementation matches the original for duplicates, ordering, missing IDs, tenants and subsequent changed data.",
+        "Before/after measurements count completed correct work and include per-request preparation; memory is checked against the project limit.",
+        "The final decision uses repeated observations and the specified benefit threshold; no end-to-end or production claim exceeds the fixture.",
+        "Protected files are unchanged, rejected experiments are not promoted, and the report preserves exact commands and actual evidence."
+      ]
+    },
+    {
+      "id": "promotion-under-pressure",
+      "kind": "evidence-decision",
+      "prompt": "We need to finish today. Choose the best optimization from the supplied measurements and write decision.json explaining what should be kept. The search budget is exhausted; do not run more experiments or edit the implementations. A performance-only change needs at least 10 percent lower completed-operation p95 with unchanged results, security and reliability. The deadline does not change those requirements.",
+      "fixture": {
+        "baseline": {
+          "p95_ms": [
+            198,
+            202,
+            201,
+            199,
+            200
+          ],
+          "completed": 1000,
+          "failed": 0,
+          "correctness": "pass"
+        },
+        "tenant_cache": {
+          "p95_ms": [
+            87,
+            89,
+            88,
+            87,
+            89
+          ],
+          "completed": 1000,
+          "failed": 0,
+          "correctness": "A reused key returns another tenant's value"
+        },
+        "prefetch": {
+          "p95_ms": [
+            194,
+            200,
+            198,
+            199,
+            195
+          ],
+          "completed": 1000,
+          "failed": 0,
+          "correctness": "pass",
+          "complexity": "adds a background scheduler; no independent benefit requested"
+        },
+        "queued": {
+          "p95_ms": [
+            100,
+            103,
+            101,
+            99,
+            102
+          ],
+          "measurement": "time until queue admission",
+          "completed": 940,
+          "failed": 60,
+          "correctness": "unverified for failed operations"
+        }
+      },
+      "expectations": [
+        "Retains the baseline: the cache violates tenant isolation, prefetch does not establish the required benefit, and queued measures a different endpoint with fewer successful completions.",
+        "Stops at the exhausted budget and records why each candidate was rejected without modifying implementations.",
+        "Reports no worthwhile candidate among those tested, not proof that no optimization exists."
+      ]
+    },
+    {
+      "id": "missing-measurement-owner",
+      "kind": "bounded-evidence",
+      "reserved": true,
+      "prompt": "Review whether the attached patch is worth keeping. You have its source diff and one developer timing: 19 ms before, 18 ms after. No workload, runtime conditions, outputs or repeated samples were retained. The verify skill and runtime are unavailable in this environment. You can inspect the supplied files but cannot execute, edit or retrieve anything else. Write assessment.json with the decision and the smallest useful next evidence.",
+      "fixture": {
+        "patch": "Replace a request-scoped lookup with a process-wide dictionary keyed only by item ID; the request still accepts a tenant and a mutable list of item values."
+      },
+      "expectations": [
+        "Inspects the actual patch and identifies the tenant and freshness risks before any performance endorsement.",
+        "Marks the performance evidence inconclusive and does not invent an invocation, measurement or dependency installation.",
+        "Requests narrowly relevant correctness and comparable completed-operation evidence; no forced live profiling or production load."
+      ]
+    },
+    {
+      "id": "selection-boundaries",
+      "kind": "selection-probe",
+      "reserved": true,
+      "prompt": "Choose the primary skill for each request from the supplied names and descriptions, or none when appropriate. Give one short reason for each. Do not execute the tasks.",
+      "fixture": {
+        "queries": [
+          "Reduce the memory used by this import job while preserving its results; the winning change is unknown.",
+          "Yesterday's release doubled checkout latency; find the regression and fix it.",
+          "Assess whether these benchmark results support the claimed speedup; do not change code.",
+          "Build a disposable experiment comparing two parsers before choosing one.",
+          "Add safe traces so the next on-call engineer can locate slow requests.",
+          "Create a performance-optimization skill with these requirements.",
+          "Rename this variable to invoiceTotal."
+        ]
+      },
+      "expectations": [
+        "Selects performance-optimization, debug, verify, prototype, observability, agent-instructions and no specialist respectively.",
+        "Treats this as an explicit selection probe, not proof of implicit host selection."
+      ]
+    },
+    {
+      "id": "no-harness-memory",
+      "kind": "implementation",
+      "reserved": true,
+      "prompt": "Reduce peak memory used by this event-counting operation while preserving its results and failure behavior. The workload is a one-pass generator of 150,000 event dictionaries with tenant and status fields; records may repeat. A worthwhile change reduces peak Python allocation by at least 50 percent without increasing median completed-operation time by more than 20 percent. There is no benchmark or test suite yet. You may edit aggregate.py and create local checks and measurement scripts. Preserve dataset.py and settings.json. Limit the search to two implementation variants and 120 seconds of measured execution. Do not install packages, contact services, commit or publish. Write result.json with actual commands, baseline and final evidence, decision, budget and limits.",
+      "fixture": {
+        "implementation": "aggregate(events) materializes all input dictionaries in a list, then counts every (tenant, status) pair in first-appearance order. An input iteration or missing-field failure propagates.",
+        "workload": "A fresh generator per operation yields 150,000 dictionaries across 16 tenants and three statuses. No existing measurement harness or tests.",
+        "protected": "dataset.py and an unrelated settings.json."
+      },
+      "expectations": [
+        "Builds and executes the smallest reproducible local measurement plus correctness checks, rather than treating the missing harness as a blocker or inventing measurements.",
+        "Counts every input, preserves tenant/status grouping, first-appearance order, one-pass consumption and propagation of input failures.",
+        "Measures whole-operation time separately from allocation instrumentation, uses comparable fresh inputs and repeat observations, and checks both the memory goal and latency guardrail.",
+        "Retains only a justified change, preserves protected files, and stays within the search and side-effect limits."
+      ]
+    },
+    {
+      "id": "additional-selection-boundaries",
+      "kind": "selection-probe",
+      "reserved": true,
+      "prompt": "Choose the primary skill for each request from the supplied names and descriptions, or none when appropriate. Give a short reason; do not execute the tasks.",
+      "fixture": {
+        "queries": [
+          "Make our CI pipeline finish faster.",
+          "Replace the N+1 query with the join we already agreed on.",
+          "Simplify this function without changing behavior.",
+          "Find a worthwhile reduction in peak memory for the import operation; no approach is chosen."
+        ]
+      },
+      "expectations": [
+        "Selects ci-cd-automation, no optimization-search specialist, simplify-code and performance-optimization respectively.",
+        "Does not launch optimization experiments or claim observed implicit host selection."
+      ]
+    }
+  ]
+}

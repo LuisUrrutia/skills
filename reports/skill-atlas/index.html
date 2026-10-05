@@ -8,8 +8,8 @@
   <title>Atlas de skills | Tu flujo de desarrollo</title>
   <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css?v=3dd1dd1fabc1">
-  <script src="catalog.js?v=ed2cae1dc73f" defer></script>
-  <script src="app.js?v=4ae282ade198" defer></script>
+  <script src="catalog.js?v=f6d9c7673e57" defer></script>
+  <script src="app.js?v=434b516cb96c" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al informe</a>
@@ -17,7 +17,8 @@
     <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">s</span><span>Atlas de skills<small>El flujo de desarrollo de Luis</small></span></a>
     <button id="theme-toggle" class="quiet-button theme-toggle" type="button" hidden>Modo claro</button>
     <nav>
-      <a href="#inventory" lang="en">Repository skills <span class="nav-tag" data-repository-count>37</span></a>
+      <a href="#inventory" lang="en">Repository skills <span class="nav-tag" data-repository-count>38</span></a>
+      <a href="#performance-optimization" lang="en">Performance <span class="nav-tag">New</span></a>
       <a href="#observability" lang="en">Observability <span class="nav-tag">New</span></a>
       <a href="#teaching" lang="en">Teaching <span class="nav-tag">New</span></a>
       <a href="#communication" lang="en">Communication <span class="nav-tag">New</span></a>
@@ -37,33 +38,48 @@
       <a href="#personal">Tus skills actuales</a>
       <a href="#similarities">Skills similares</a>
       <a href="#conflicts">Conflictos y correcciones</a>
-      <a href="#catalog" lang="en">Source catalog <span class="nav-tag" data-catalog-count>271</span></a>
+      <a href="#catalog" lang="en">Source catalog <span class="nav-tag" data-catalog-count>274</span></a>
       <a href="#evidence">Fuentes y cobertura</a>
       <a href="#workflow">Work-mode, al final <span class="nav-tag">4</span></a>
     </nav>
-    <div class="sidebar-note" lang="en"><span class="status-dot" aria-hidden="true"></span>Inventory checked<time datetime="2026-10-04">4 October 2026</time><p><span data-repository-count>37</span> skills present in this checkout. PR attachments and focused review delegation are included. Work-mode remains a proposal.</p><button id="print-report" class="quiet-button" type="button">Print / save PDF</button></div>
+    <div class="sidebar-note" lang="en"><span class="status-dot" aria-hidden="true"></span>Inventory checked<time datetime="2026-10-04">4 October 2026</time><p><span data-repository-count>38</span> skills present in this checkout. PR attachments and focused review delegation are included. Work-mode remains a proposal.</p><button id="print-report" class="quiet-button" type="button">Print / save PDF</button></div>
   </aside>
   <main id="main">
     <header id="overview" class="hero section" lang="en">
       <p class="kicker">The current workflow collection</p>
       <h1>Skills already in place.<br><span>What remains to build.</span></h1>
-      <p class="lead">The repository contains <span data-repository-count>37</span> skill packages. Teaching now has two owners: teach for lessons and learning-plan for study progressions and complete courses. explain-code and explain-decisions replace the ambiguous how and why names. Technical and nontechnical learning share the same learner-aware workflow. Checks in the source catalog identify material already incorporated.</p>
+      <p class="lead">The repository contains <span data-repository-count>38</span> skill packages. Teaching now has two owners: teach for lessons and learning-plan for study progressions and complete courses. explain-code and explain-decisions replace the ambiguous how and why names. Technical and nontechnical learning share the same learner-aware workflow. Checks in the source catalog identify material already incorporated.</p>
       <ol class="reading-order" aria-label="Reading order"><li><a href="#inventory"><span>1</span>Current skills</a></li><li><a href="#remaining"><span>2</span>Remaining choices</a></li><li><a href="#catalog"><span>3</span>Source comparison</a></li><li><a href="#workflow"><span>4</span>Future work-mode</a></li></ol>
       <div class="hero-actions"><a class="button primary" href="#report-work-activity">See the activity reporting design</a><a class="button secondary" href="?progress=ready#catalog">See incorporated sources</a></div>
-      <dl class="scope-stats"><div><dt>Repository skills</dt><dd data-repository-count>37</dd></div><div><dt>Local proposals</dt><dd data-pending-count>1</dd></div><div><dt>Original external entries</dt><dd>105</dd></div><div><dt>Original source cards</dt><dd>122</dd></div></dl>
-      <div class="notice"><strong>What the counts establish.</strong> Repository presence, source incorporation and a recommendation to install are different states. The catalog now has <span data-catalog-count>271</span> cards. Original snapshots remain available; the four named collections also have a dated current assessment. A check does not claim the full upstream skill is installed or synchronized.</div>
+      <dl class="scope-stats"><div><dt>Repository skills</dt><dd data-repository-count>38</dd></div><div><dt>Local proposals</dt><dd data-pending-count>1</dd></div><div><dt>Original external entries</dt><dd>105</dd></div><div><dt>Original source cards</dt><dd>122</dd></div></dl>
+      <div class="notice"><strong>What the counts establish.</strong> Repository presence, source incorporation and a recommendation to install are different states. The catalog now has <span data-catalog-count>274</span> cards. Original snapshots remain available; the four named collections also have a dated current assessment. A check does not claim the full upstream skill is installed or synchronized.</div>
     </header>
 
     <section id="inventory" class="section" aria-labelledby="inventory-heading" lang="en">
-      <div class="section-heading"><p class="kicker">Checked against the repository</p><h2 id="inventory-heading">The skills we already have</h2><p><span data-repository-count>37</span> packages are present, grouped by the task they own. Each entry identifies its current file and links to the analysis where available. These are repository packages; installed copies keep their own state.</p></div>
+      <div class="section-heading"><p class="kicker">Checked against the repository</p><h2 id="inventory-heading">The skills we already have</h2><p><span data-repository-count>38</span> packages are present, grouped by the task they own. Each entry identifies its current file and links to the analysis where available. These are repository packages; installed copies keep their own state.</p></div>
       <div id="repository-inventory" class="two-columns"></div>
       <noscript><p>The complete repository inventory and file hashes are available in <a href="sources.json">sources.json</a>, under repositoryInventory.</p></noscript>
       <div class="notice"><strong>Names and historical copies.</strong> <code>review-code-changes</code> is the current repository implementation derived from <code>review-audit</code>. <code>walkthrough</code> is absent from this checkout. Other installed-only entries in the original analysis are not counted as repository packages; this update does not check their installation.</div>
       <article id="remaining" class="surface">
         <h3>What remains from the earlier plan</h3><p>These <span data-pending-count>1</span> local proposals have no SKILL.md in this checkout. Teaching is now implemented; work-mode remains the final composition step. The <a href="#author-review">new recommendations below</a> are additional choices, not created packages.</p>
         <div id="pending-skills"></div>
-        <p>The <a href="#install">installation selections</a> remain separate from repository packages. The new review changes performance optimization from direct installation to a proposed derivation.</p>
+        <p>The <a href="#install">installation selections</a> remain separate from repository packages. The measured <a href="#performance-optimization">performance-optimization derivation</a> is now present in this checkout.</p>
       </article>
+    </section>
+
+    <section id="performance-optimization" class="section" aria-labelledby="performance-optimization-heading" lang="en">
+      <div class="section-heading"><p class="kicker">Created · measured optimization</p><h2 id="performance-optimization-heading">Make a useful operation faster or cheaper</h2><p><code>performance-optimization</code> searches for measured improvements to an operation that matters to the user. Preserve required behavior, respect resource limits and keep a change only when its benefit justifies its complexity.</p></div>
+      <div class="two-columns"><article class="surface"><h3>One operation, a bounded search</h3><p>Define the workload, metric, worthwhile improvement and correctness checks. Locate limiting work, test one coherent hypothesis at a time, and record kept and rejected attempts. Stop at the goal, the budget or a specific evidence gap.</p></article><article class="surface"><h3>A result does not require a speedup</h3><p>A validated improvement is useful. So is evidence that none of the tried variants is worth keeping. A faster number from dropped work, weaker isolation, stale data or deferred completion cannot establish a win.</p></article></div>
+      <div class="table-wrap"><table><caption>Four selected sources, one maintained owner</caption><thead><tr><th>Source</th><th>Retained</th><th>Local boundary</th></tr></thead><tbody>
+        <tr><th>Addy Osmani · performance-optimization</th><td>Baseline, bottleneck, focused change, measurement and keep/revert.</td><td>Project-specific targets and workloads; no universal frontend, bundle or API budgets.</td></tr>
+        <tr><th>pstack · perf-issue and hillclimb</th><td>Remove unnecessary or repeated work first; preserve interpretable experiments and their decisions.</td><td>No mandatory model, delegation, attempt quota, worktree or PR workflow.</td></tr>
+        <tr><th>ECC · benchmark-optimization-loop</th><td>Explicit search budget, correctness gate and comparison with the accepted best.</td><td>Explanations do not replace measurements; best observed does not mean globally optimal.</td></tr>
+        <tr><th>Compound Engineering · ce-optimize</th><td>Cheap measurements that change a decision, opportunity ranking and final combined validation.</td><td>No spec/checkpoint framework or new routine approval gates.</td></tr>
+      </tbody></table></div>
+      <article class="surface"><h3>How it works with the existing skills</h3><p><code>debug</code> starts from an observed regression. <code>verify</code> judges measurement validity. <code>prototype</code> settles a bounded experimental question. <code>observability</code> provides durable diagnostic signals. This skill chooses the next optimization experiment and decides whether its benefit earns retention.</p><p>React, database, browser and platform-specific guidance supplies mechanisms when relevant. It does not replace the operation's own measurements or expand the task into a migration.</p></article>
+      <p id="performance-validation-summary">Independent Astra Max and Fable Max reviews are complete. Six matched tasks per arm passed: both versions kept a correct batch-report improvement and rejected memory reductions that changed behavior. The passing comparison does not establish an advantage attributable to the new instructions. Package, portability and browser checks passed; global installation, implicit host activation and production effectiveness remain untested.</p>
+      <div class="hero-actions"><a class="button primary" href="?q=performance-optimization&amp;progress=ready#catalog">See incorporated sources</a><a class="button secondary" href="performance-optimization-validation.json">Checks and limitations</a></div>
+      <div data-evidence="Addy Osmani/performance-optimization;pstack/perf-issue;pstack/hillclimb;ECC/benchmark-optimization-loop;Compound Engineering/ce-optimize"></div>
     </section>
 
     <section id="observability" class="section" aria-labelledby="observability-heading" lang="en">
@@ -806,7 +822,7 @@
     </section>
 
     <section id="catalog" class="section" aria-labelledby="catalog-heading">
-      <div class="section-heading" lang="en"><p class="kicker">Source selection and actual progress</p><h2 id="catalog-heading">Source skills and procedures</h2><p><span data-catalog-count>271</span> cards: the original 122, 87 additional sources from the four collections, six accessibility procedures and references, 24 TypeScript sources, 12 CI/CD sources, seven activity-reporting procedures, five communication and documentation sources, three pstack extraction and measurement sources, two Cursor teaching sources, one GSD observability source, and two short-message sources. Current assessments and incorporation evidence appear on existing cards where they overlap. Historical source revisions remain available.</p><p><strong>✓ Incorporated</strong> means selected material is recorded in a current local skill's provenance. <strong>✓ In repository</strong> identifies a retained or replacement local package. Open the card to see the owner and evidence. A recommendation to combine or install is not a completion check.</p></div>
+      <div class="section-heading" lang="en"><p class="kicker">Source selection and actual progress</p><h2 id="catalog-heading">Source skills and procedures</h2><p><span data-catalog-count>274</span> cards: the original 122, 87 additional sources from the four collections, six accessibility procedures and references, 24 TypeScript sources, 12 CI/CD sources, seven activity-reporting procedures, five communication and documentation sources, three pstack extraction and measurement sources, two Cursor teaching sources, one GSD observability source, two short-message sources, and three optimization sources. Current assessments and incorporation evidence appear on existing cards where they overlap. Historical source revisions remain available.</p><p><strong>✓ Incorporated</strong> means selected material is recorded in a current local skill's provenance. <strong>✓ In repository</strong> identifies a retained or replacement local package. Open the card to see the owner and evidence. A recommendation to combine or install is not a completion check.</p></div>
       <p id="source-progress-summary" class="notice" lang="en"></p>
       <form class="filters" id="filters" role="search">
         <div class="search-field"><label for="search">Buscar por skill, comportamiento o responsable</label><input id="search" name="q" type="search" placeholder="Por ejemplo: React, comentarios, rebase" autocomplete="off"></div>

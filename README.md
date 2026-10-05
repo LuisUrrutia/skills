@@ -316,6 +316,23 @@ diagnose running systems. Keep existing telemetry tools and public behavior.
 - Verifies signals at their destination, distinguishing missing data from healthy operation
 - Combines pinned Addy Osmani and GSD-2 sources; keeps diagnosis and recovery with their existing owners
 
+### performance-optimization
+
+Improve a user-relevant operation through measured changes that preserve required
+behavior and earn their complexity. Use it when the goal is known but the winning
+change is not.
+
+**Triggers:** `reduce this job's memory use`, `improve API throughput`, `make this operation faster without changing its results`
+
+**Features:**
+
+- Defines the operation, worthwhile benefit, correctness and resource limits before tuning
+- Prioritizes measured bottlenecks and runs bounded, interpretable experiments
+- Keeps supported gains, rejects unsafe or unjustified changes and records unsuccessful attempts
+- Uses `verify` for evidence, `debug` for regressions, `prototype` for disposable experiments and `observability` for durable signals
+- Adapts pinned Addy Osmani, pstack, ECC and Compound Engineering sources with original notices
+- Accepts a supported no-improvement result or a specific evidence gap; never promises a speedup
+
 ### accessibility
 
 Design, implement, or audit accessible user interfaces across complete tasks,
