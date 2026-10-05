@@ -30,10 +30,20 @@ On creation or review, make `description` the shortest clear answer to when the
 skill should be used. State the requested action and distinguishing context so
 the name and description suffice for selection before loading the body.
 
-Keep procedures, tool choices, deliverable details, and feature lists in the body
-or references. Add an exclusion only to prevent a likely overlap. Preserve words
-needed to distinguish related requests; brevity must not broaden or narrow the
-intended activation scope.
+For an existing skill, rewrite from the activation contract above. Preserve
+scope by checking the requests it should serve, not by retaining every term from
+the old description.
+
+Name the capability instead of listing its subtasks. For example, a skill
+covering inventory, setup, status, and job operations for build agents can say
+"Use when operating or maintaining build agents." The body keeps the subtask
+list; the description names the capability that covers it.
+
+Keep procedures, concrete examples, inventory facts, tool choices, deliverable
+details, and feature lists in the body or references. Retain a qualifier or
+exclusion only when a concrete intended request or neighboring skill shows the
+selection ambiguity it resolves. Check positive and near-miss requests; brevity
+must not broaden or narrow the intended activation scope.
 
 Check the description beside neighboring skills, not only in isolation. A shared
 writer can serve project discovery and workflow extraction without repeating
@@ -45,6 +55,22 @@ owner; do not make every description advertise the whole collection.
 Use `SKILL.md` for shared decisions and steps. Put substantial conditional detail
 in references with explicit loading conditions. Keep output templates separate
 from instructions.
+
+Bundle required instructions, reference material, templates, and helpers inside
+the skill folder. Normally place reference material in `references/` and link it
+from the entrypoint with package-relative paths. Follow nested resource links and
+symlinks to their final targets; every target must stay inside the resolved skill
+directory. Resolving a symlink to the author's repository is not a portability
+fix. Do not replace escaping paths with hardcoded checkout locations,
+usernames, home directories, or operating-system-specific installation paths.
+
+Distinguish bundled resources from runtime inputs, output destinations, external
+URLs, and skills resolved by registered name. A task may supply a project root
+and authorize a relative output outside the skill package. Document those inputs
+and destinations explicitly rather than assuming the author's checkout layout.
+Machine-specific paths may remain labeled inventory data, not installation
+requirements. When moving authoritative references into a skill, update their
+readers and writers and retain one source of truth within the authorized scope.
 
 Prefer code for stable, deterministic work so the agent does not repeat mechanical
 checks or transformations by reasoning through them on each run. Reuse an existing
@@ -78,9 +104,17 @@ selection is ambiguous.
 
 Run the available host validator, resolve local references and dependencies, and
 execute added or changed helpers on representative success and failure inputs.
-Read [evaluation.md](evaluation.md) for new
-behavior or activation changes. Package validity does not establish good decisions
-or successful host invocation.
+For a new package or changed resource paths, inspect resolved targets in the
+source package, then copy only the skill folder with symlinks preserved to a
+neutral directory under a different account layout. Exercise required reads from
+another working directory with the original checkout unavailable. Check resolved
+targets as well as file existence so a surviving symlink or absolute path cannot
+hide an external dependency. Inspect platform assumptions; report
+simulated account layouts and the platforms actually tested without implying
+another operating system or login was exercised.
+
+Read [evaluation.md](evaluation.md) for new behavior or activation changes.
+Package validity does not establish good decisions or successful host invocation.
 
 Finish when the requested skill exists, ownership and references are clear, and
 checks or their specific limits are reported. Installation, publishing, and
