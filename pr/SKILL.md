@@ -10,14 +10,16 @@ behavior, consequential decisions, and evidence needed to assess it.
 
 This skill owns publication and PR presentation. `commit` owns atomic commits;
 `stacked-pr` owns stack topology, submit and cascading rebases; `pr-followup`
-owns requested feedback and CI repair. Use those owners only for work included
-in the active request or standing instructions. Returning to an authorized caller
-continues its workflow; completing this phase does not cancel the enclosing task.
+owns feedback, CI repair and the transition from draft to ready for review. Use
+those owners only for work included in the active request or standing instructions.
+Returning to an authorized caller continues its workflow; completing this phase does not cancel the enclosing task.
 
 ## Resolve the operation
 
 - **Create:** publish the intended commits and open a PR when requested and no
   exact PR exists. Default to draft unless the user's preference says ready.
+  A request to create a PR also invokes `pr-followup` in Drive mode after
+  publication, including when an exact open PR already satisfies creation.
 - **Update:** refresh an existing open PR under existing authorization. Rewrite
   the whole body from the final published diff; preserve still-valid evidence
   and required template content. A request to update does not need a second approval.
@@ -120,8 +122,16 @@ A successful phase has the exact PR URL, expected head and base, verified title
 and body, intended state, and only requested metadata changes. Included captures
 have verified uploaded references and a recorded rendering/access result. A failed
 write is unknown until inspected; avoid duplicate creation or claims of success on timeout.
-Do not start monitoring, respond to reviews, change ready state on an existing PR,
-or merge solely because this phase succeeded.
+For a creation request, continue with `pr-followup` in Drive mode before returning:
+pass the exact PR URL, head/base SHAs, draft state, validation and known pending work.
+That phase owns feedback/CI repair, readiness and post-ready observation under the
+same request; do not stop at the creation summary. Honor an explicit create-only
+instruction by returning after publication. Pass an explicit keep-draft instruction
+to `pr-followup`, which runs Drive without the ready transition.
+An Update that satisfies a creation request also continues into Drive. Standalone Update and Draft-only do not start Drive;
+an Update called by follow-up returns to that existing loop. Never merge as
+a side effect of publication. If `pr-followup` is unavailable, report the verified
+publication result and the missing skill as a blocker to continuation.
 
 ## Return
 

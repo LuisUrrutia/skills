@@ -425,7 +425,7 @@ Evaluate feedback on an existing PR and resolve authorized code, CI and base pro
 
 **Features:**
 
-- Separates read-only checks, feedback repairs and bounded active observation
+- Separates read-only checks, feedback repairs and host-managed babysitting until merge or formal approval
 - Collects threads, reviews, conversation, check annotations and reviewer logs
 - Reevaluates edited comments and new replies in resolved or outdated threads
 - Tests claims against current code and keeps independent repairs progressing
