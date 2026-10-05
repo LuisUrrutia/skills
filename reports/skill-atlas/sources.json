@@ -4279,8 +4279,8 @@
     "validation": "reports/pr-attachments-validation.json"
   },
   "repositoryInventory": {
-    "checkedAt": "2026-10-04",
-    "repositoryCommit": "761cae1 (base; working-tree hashes below)",
+    "checkedAt": "2026-10-06",
+    "repositoryCommit": "0be9bbc (base; working-tree hashes below)",
     "scope": "Top-level skill packages present in this working tree. Presence does not prove installation, activation or production validation.",
     "groups": [
       "Instruction authoring",
@@ -4296,8 +4296,9 @@
         "category": "Instruction authoring",
         "summary": "Write and evaluate agent instructions and skills, reconciling independent Codex Astra and Claude Fable reviews at Max.",
         "path": "agent-instructions/SKILL.md",
-        "sha256": "fba84f1987bda16a1e43cd117bd37e9cf327bdb4322135ef1cb69ba5f6f222c4",
-        "section": "authoring"
+        "sha256": "fee06125e55bf8359953170972a88782a24a68665dcfe67adc62daf79850f8f8",
+        "section": "authoring",
+        "checkedAt": "2026-10-06"
       },
       {
         "name": "create-project-instructions",
@@ -4312,8 +4313,9 @@
         "category": "Instruction authoring",
         "summary": "Extract reusable decisions and route automation to its existing owner with failing and valid acceptance cases; agent-instructions owns writing.",
         "path": "workflow-to-skill/SKILL.md",
-        "sha256": "dcb671370d695ec72ba2e403e43ffb2750c00f725faaba95a976aa210358d582",
-        "section": "authoring"
+        "sha256": "5e3257c690a7d17afff6ca8ad23ce0bc57f19ec4b42fcd7c3c409ad48a71594c",
+        "section": "authoring",
+        "checkedAt": "2026-10-06"
       },
       {
         "name": "explain-code",
@@ -4614,9 +4616,24 @@
         "section": "issue-workflow",
         "checkedAt": "2026-10-05",
         "sha256": "6b706bb5b183591953de11c0a2d4b2b0981c49f3ec97cb00e286c24e076555dc"
+      },
+      {
+        "name": "wayfinder",
+        "category": "Understanding and design",
+        "summary": "Resolve an ambiguous initiative into a direction for planning, preserving connected decisions and evidence across sessions.",
+        "path": "wayfinder/SKILL.md",
+        "section": "wayfinder",
+        "checkedAt": "2026-10-06",
+        "sha256": "b08db4aa1fd814d0e1e40eedd3fffb8dabed3a14d01219ff7ddc08886bb5e801"
       }
     ],
     "pending": [
+      {
+        "name": "planning",
+        "status": "Requested; not created",
+        "summary": "Turn an agreed direction into executable work, dependencies and acceptance criteria.",
+        "section": "wayfinder"
+      },
       {
         "name": "work-mode",
         "status": "Coordinator not created",
@@ -7687,9 +7704,9 @@
     "repositoryCommit": "761cae1 (base; working-tree hashes below)",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 151,
+      "ready": 152,
       "pending": 40,
-      "optional": 45,
+      "optional": 44,
       "not-selected": 41
     },
     "skills": {
@@ -8009,11 +8026,39 @@
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Matt Pocock/wayfinder": {
-        "status": "optional",
-        "label": "Optional",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "wayfinder"
+        ],
+        "note": "Selected decision-map workflow derived into the repository package. Installation and implicit host activation are not established.",
+        "evidence": [
+          {
+            "owner": "wayfinder",
+            "path": "wayfinder/origin.txt",
+            "line": 7,
+            "sha256": "c19b8f5be4029b684ca8ce4d13dbec47a11a14d38d2ebd7c547aa0992e6d40be",
+            "sourceId": "matt-wayfinder",
+            "baselineCommit": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+            "reviewedThrough": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+            "borrowed": [
+              "Start with a destination and maintain a canonical map of decisions across sessions.",
+              "Distinguish explicit decision questions, unresolved vague areas, and exclusions.",
+              "Resolve questions through evidence, prototypes, and human judgment, then update dependent decisions.",
+              "Separate authoritative decision details from the map's compact index."
+            ],
+            "localChoices": [
+              "Use the user-approved objective: reach a defensible direction before execution planning.",
+              "Allow local Markdown and existing records; make issue trackers, labels, branches, assignments, and delegation conditional.",
+              "Keep the skill discoverable and omit the donor's disable-model-invocation control.",
+              "Remove fixed token budgets, one-ticket-per-session limits, and mandatory specialist or agent setup.",
+              "Compose local prototype and design-code-structure owners without inheriting donor implementation or approval gates.",
+              "Revalidate changed premises, preserve superseded rationale, honor delegated judgment, and keep recommendations distinct from authorized scope changes.",
+              "Continue already authorized planning without requiring a planning package or an extra approval.",
+              "Keep short maps in one file, split larger records when useful, and account for storage lifetime and next-session access."
+            ]
+          }
+        ]
       },
       "Matt Pocock/wizard": {
         "status": "optional",
@@ -13414,6 +13459,13 @@
         "repositoryCommit": "40c64b38a1239b78816f28038b65791bd9fa99ff",
         "validation": "issue-workflow-validation.json",
         "scope": "Add two selected source records and issue-workflow inventory; refresh pr/pr-followup hashes and aggregate counts only."
+      },
+      {
+        "checkedAt": "2026-10-06",
+        "source": "Matt Pocock/wayfinder",
+        "repositoryCommit": "0be9bbc (base; working-tree hashes recorded)",
+        "validation": "wayfinder-validation.json",
+        "scope": "Add wayfinder and the requested planning proposal; refresh this selected source, aggregate counts, and stale agent-instructions/workflow-to-skill entrypoint hashes only."
       }
     ]
   },
@@ -18177,5 +18229,78 @@
       }
     ],
     "assessments": []
+  },
+  "wayfinderReview": {
+    "date": "2026-10-06",
+    "html": "index.html#wayfinder",
+    "validation": "wayfinder-validation.json",
+    "scope": "One selected donor adapted to the approved objective. Historical source assessment retained.",
+    "objective": "Turn an ambiguous initiative into an evidence-backed direction that can be planned, preserving decisions and context across sessions.",
+    "assessments": [
+      {
+        "id": "matt-pocock-wayfinder",
+        "key": "Matt Pocock/wayfinder",
+        "name": "wayfinder",
+        "declaredName": "wayfinder",
+        "group": "Matt Pocock",
+        "author": "Matt Pocock",
+        "kind": "upstream",
+        "path": "skills/engineering/wayfinder/SKILL.md",
+        "source": "https://github.com/mattpocock/skills/blob/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d/skills/engineering/wayfinder/SKILL.md",
+        "sha": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+        "sha256": "fee6e1d0c50f0e736b4ef8a599060c959afae904c9a97d82c97f049fcc3aa0f1",
+        "lines": 128,
+        "category": "Planificación",
+        "decision": "Blend",
+        "owner": "wayfinder",
+        "summary": "Maintain a destination and a map of connected decisions, supported by research, experiments and necessary human judgment.",
+        "reason": "The user approved a separate owner for uncertainty that prevents execution planning, with continuity between sessions.",
+        "caution": "The local package makes trackers and delegation optional, preserves authority, and separates direction from executable planning. It does not inherit fixed session limits or automatic prototype integration.",
+        "repository": "https://github.com/mattpocock/skills",
+        "collection": "matt",
+        "chars": 11908,
+        "action": "Derived into wayfinder",
+        "priority": "Available",
+        "inspection": "Full pinned Wayfinder entrypoint and license read. Grilling, domain-modeling, research and prototype entrypoints were also read for composition context; their nested references were not audited.",
+        "references": [
+          {
+            "path": "skills/productivity/grilling/SKILL.md",
+            "coverage": "Full file read; context only unless listed as a selected feed in origin.txt",
+            "url": "https://github.com/mattpocock/skills/blob/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d/skills/productivity/grilling/SKILL.md",
+            "sha256": "10ff989e7498b23b5acb49d5048f11dcd906757d2f79c5cdf8a00001381296f2"
+          },
+          {
+            "path": "skills/engineering/domain-modeling/SKILL.md",
+            "coverage": "Full file read; context only unless listed as a selected feed in origin.txt",
+            "url": "https://github.com/mattpocock/skills/blob/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d/skills/engineering/domain-modeling/SKILL.md",
+            "sha256": "7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3"
+          },
+          {
+            "path": "skills/engineering/research/SKILL.md",
+            "coverage": "Full file read; context only unless listed as a selected feed in origin.txt",
+            "url": "https://github.com/mattpocock/skills/blob/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d/skills/engineering/research/SKILL.md",
+            "sha256": "985569f15739c713d6784887c3d186d4ef9ac85bec5ad9c068d25bf0739928e4"
+          },
+          {
+            "path": "skills/engineering/prototype/SKILL.md",
+            "coverage": "Full file read; context only unless listed as a selected feed in origin.txt",
+            "url": "https://github.com/mattpocock/skills/blob/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d/skills/engineering/prototype/SKILL.md",
+            "sha256": "714de632d116bb73f65cdb5a882db15b9369a6713b9a47c0fad827848f0bfbe3"
+          },
+          {
+            "path": "LICENSE",
+            "coverage": "Full file read; context only unless listed as a selected feed in origin.txt",
+            "url": "https://github.com/mattpocock/skills/blob/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d/LICENSE",
+            "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+          }
+        ]
+      }
+    ],
+    "limitations": [
+      "Repository package, not a global installation.",
+      "Supplied-instruction exercises do not establish automatic selection or broad effectiveness.",
+      "The requested planning package remains to be created."
+    ],
+    "assessmentRevision": "v3; package hashes in wayfinder-validation.json"
   }
 }

@@ -1,0 +1,37 @@
+format_version = 1
+skill = "wayfinder"
+created = "2026-10-06"
+approach = "Derive: adapt Matt Pocock's destination and decision-map workflow to a portable, evidence-backed direction before execution planning."
+
+[[sources]]
+id = "matt-wayfinder"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+reviewed_through = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+baseline_paths = ["skills/engineering/wayfinder/SKILL.md", "LICENSE"]
+paths = ["skills/engineering/wayfinder/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Start with a destination and maintain a canonical map of decisions across sessions.", "Distinguish explicit decision questions, unresolved vague areas, and exclusions.", "Resolve questions through evidence, prototypes, and human judgment, then update dependent decisions.", "Separate authoritative decision details from the map's compact index."]
+local_choices = ["Use the user-approved objective: reach a defensible direction before execution planning.", "Allow local Markdown and existing records; make issue trackers, labels, branches, assignments, and delegation conditional.", "Keep the skill discoverable and omit the donor's disable-model-invocation control.", "Remove fixed token budgets, one-ticket-per-session limits, and mandatory specialist or agent setup.", "Compose local prototype and design-code-structure owners without inheriting donor implementation or approval gates.", "Revalidate changed premises, preserve superseded rationale, honor delegated judgment, and keep recommendations distinct from authorized scope changes.", "Continue already authorized planning without requiring a planning package or an extra approval.", "Keep short maps in one file, split larger records when useful, and account for storage lifetime and next-session access."]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "prototype"
+required = false
+role = "Investigate uncertain UI, state, or behavioral questions through an authorized experiment."
+
+[[dependencies]]
+kind = "local"
+name = "design-code-structure"
+required = false
+role = "Investigate data models, interfaces, and module boundaries that affect the direction."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested skill authoring or source maintenance."

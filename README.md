@@ -29,6 +29,20 @@ chapters, examples, exercises, diagrams, and usable progress checkpoints.
 Fits the learner's constraints and uses `teach` for requested lesson content.
 A complete course includes the lessons; a planning-only request ends with the plan.
 
+### wayfinder
+
+Turn an ambiguous initiative into an evidence-backed direction before execution
+planning, preserving connected decisions and context across sessions.
+
+**Triggers:** `work out the direction for this initiative`, `resume our decision map`, `resolve what prevents planning this migration`
+
+Maintains a compact local or existing decision map with reasons, evidence,
+dependencies, open questions, and the next useful step. Research and experiments
+resolve accessible uncertainty; consequential choices stay with the appropriate
+decision-maker. A changed premise reopens affected decisions. Once the direction
+is clear, continue the authorized planning workflow. The separate `planning`
+package has not been created yet.
+
 ### agent-instructions
 
 Write and improve instructions for agents in `AGENTS.md`, `CLAUDE.md`, skills,
