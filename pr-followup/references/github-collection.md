@@ -32,6 +32,10 @@ thread root IDs obtained from GraphQL. Verify that every returned inline item is
 mapped; report unmapped items rather than dropping them. Keep root and reply IDs
 distinct. Resolved and outdated threads remain in the initial collection.
 
+Act only on published feedback. Correlate inline comments with their parent review;
+leave PENDING reviews and their comments unprocessed so they can be considered
+when submitted. A draft review is distinct from a draft PR.
+
 Retain IDs, authors, timestamps, body, URL, review/thread association, current and
 original commit/path/line anchors. Track a body digest as well as `updated_at`
 where available. Review records and some check outputs have no reliable edited
@@ -59,6 +63,17 @@ Read PR metadata again after collection and before mutation/completion. If head
 or relevant base moved, rebase the analysis on a new snapshot and invalidate
 revision-dependent conclusions. Do not combine an old green CI state with a new
 head or assume a stable comment count means no new feedback.
+
+## Verify an approval stop
+
+Read GitHub's current review decision and published reviews, not the host badge or
+notification text. Identify the approving reviewer, review ID and reviewed commit;
+check that the approval is not pending, dismissed, superseded or stale under the
+repository's policy. When the aggregate decision is absent, inspect latest review
+states per reviewer and establish a valid approval from those records. Unknown
+approval validity leaves Drive waiting. A successful reviewer check or a positive
+summary comment is not a formal APPROVED review. Report the approval used to stop
+and any pending CI; later changes are not watched after this task stops.
 
 ## Authorized write mechanics
 

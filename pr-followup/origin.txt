@@ -1,7 +1,7 @@
 format_version = 1
 skill = "pr-followup"
 created = "2026-10-03"
-approach = "Create a bounded current-head feedback and CI workflow composed with existing local owners."
+approach = "Follow current-head feedback and CI through approval or merge using resumable host observation and existing local owners."
 
 [[sources]]
 id = "pstack-pr-followup"
@@ -62,7 +62,7 @@ baseline_paths = ["skills/ce-babysit-pr/SKILL.md", "skills/ce-babysit-pr/referen
 paths = ["skills/ce-babysit-pr/SKILL.md", "skills/ce-babysit-pr/references/settle.md", "skills/ce-resolve-pr-feedback/SKILL.md", "skills/ce-resolve-pr-feedback/references/evaluation-rubric.md", "LICENSE"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Keep feedback and CI progressing independently, track per-item outcomes, reobserve after publication and distinguish settled checks from merge authorization."]
-local_choices = ["No watch engine, fixed hours-long loop, auto-merge, stale-head success, automatic posting or assumption that most feedback must be applied. Uncertainty needs investigation or a scoped decision."]
+local_choices = ["The user requires host-managed babysitting until merge or current formal approval, with no default time cutoff. No agent polling loop, auto-merge, stale-head success, automatic posting or assumption that most feedback must be applied. Uncertainty needs investigation or a scoped decision."]
 reviews = []
 
 [[sources]]
@@ -156,3 +156,18 @@ kind = "local"
 name = "worktrunk"
 required = false
 role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[sources]]
+id = "codex-babysit-historical"
+author = "OpenAI"
+repository = "https://github.com/openai/codex"
+remote = "git@github.com:openai/codex.git"
+ref = "a770e5b8470d3320eb53a56a286ea4a0a70a1f59"
+baseline_commit = "a770e5b8470d3320eb53a56a286ea4a0a70a1f59"
+reviewed_through = "a770e5b8470d3320eb53a56a286ea4a0a70a1f59"
+baseline_paths = [".codex/skills/babysit-pr/SKILL.md", "LICENSE"]
+paths = [".codex/skills/babysit-pr/SKILL.md", "LICENSE"]
+license = "Apache-2.0; concepts restated locally, no upstream files or code copied."
+borrowed = ["Keep pending review feedback unprocessed until published; retain one observation owner across fix/push cycles."]
+local_choices = ["Historical pinned reference: the skill was removed from main in 18131270fe82ef947830840eb5d6923d4b82609f; not a live installation recommendation.", "Host event notifications replace continuous model polling. Stop on current formal approval or merge per user policy. No copied watcher, author allowlist, automatic replies, merge authority or fixed three-retry budget."]
+reviews = []

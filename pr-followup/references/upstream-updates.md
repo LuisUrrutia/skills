@@ -6,7 +6,7 @@ with this skill as target. Read `../origin.txt` for exact revisions and choices.
 Check mode leaves files and pins unchanged; Update mode incorporates compatible
 changes and validates them. Neither mode creates a schedule.
 
-Preserve current-head evidence, complete feedback channels, skeptical triage, bounded observation and conditional owners. Do not import automatic merge, thread closure, fixed bot rosters or unattended scheduling.
+Preserve current-head evidence, complete feedback channels, skeptical triage, event-driven observation until merge or current formal approval and conditional owners. Do not import automatic merge, thread closure, fixed bot rosters or unattended scheduling.
 
 Local snapshots are compared by content hash, not an inferred remote feed.
 The shared procedure owns source acquisition, rename tracking, classification and cursor updates.
