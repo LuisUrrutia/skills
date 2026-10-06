@@ -26,6 +26,15 @@ Merging requires the user's explicit approval for the exact PR set and merge met
 before the merge command. Preserve unrelated dirty-tree work. Before rewriting ancestry, record the
 current branch and relevant tips so every original commit remains reachable until verification.
 
+When a request, project rule or task record sets a review-size cap, carry it through
+the selected route. Before pushing or creating PRs, invoke `pr` in
+Check cap mode for each layer, passing its actual immediate PR base, selected
+head and cap. An upper layer is never checked cumulatively against trunk. Require
+a current `within-cap` result; if `pr` is unavailable, report the missing check
+and keep capped publication pending. The selected stack route retains mutation
+and remediation ownership under the shared contract defined by `pr`.
+Read-only inspection may use the same check and report its verdict without publishing.
+
 ## Route the request
 
 Choose one primary route. Load its file, select the requested operation there, and stop when that

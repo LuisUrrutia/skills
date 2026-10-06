@@ -29,6 +29,57 @@ chapters, examples, exercises, diagrams, and usable progress checkpoints.
 Fits the learner's constraints and uses `teach` for requested lesson content.
 A complete course includes the lessons; a planning-only request ends with the plan.
 
+### wayfinder
+
+Turn an ambiguous initiative into an evidence-backed direction before execution
+planning, preserving connected decisions and context across sessions.
+
+**Triggers:** `work out the direction for this initiative`, `resume our decision map`, `resolve what prevents planning this migration`
+
+Grounds the problem, compares real options, and investigates the uncertainty that
+could change the direction. A compact decision map keeps reasons, evidence,
+authority, dependencies, and the next useful step across sessions. Changed
+premises reopen affected decisions. Once the direction is clear, continue the
+authorized workflow with `planning`.
+
+### planning
+
+Turn a defined outcome into an implementation plan that another engineer or agent
+can execute and verify. Create, review or revise plans according to the
+requested scope.
+
+**Triggers:** `plan this implementation`, `review this migration plan`, `revise the implementation approach`
+
+Grounds the work in current code and settled decisions, then defines observable
+results, genuine dependencies, interface agreements, and acceptance checks. Small
+changes get short plans; larger work passes its approach and constraints to
+`task-breakdown` for PR-sized delivery units. A durable plan preserves enough context
+for another session. Planning-only work ends with its artifact; already-authorized
+implementation continues without a new approval gate.
+
+Uses Wayfinder when connected direction decisions remain unresolved. Selected
+ideas from Matthew Blode, Matt Pocock, Sentimony, and Superpowers are recorded in
+`planning/origin.txt`; reviewed alternatives are in the atlas source review.
+
+### task-breakdown
+
+Divide a feature or implementation plan into small, testable units for human review,
+normally one task and one PR per unit. Keep an already-small change together.
+
+**Triggers:** `break this plan into PR-sized tasks`, `split this feature for review`, `revise an oversized delivery unit`
+
+Prefer complete behaviors across the necessary layers, such as one statistics card
+with its real data and tests. Use backend, frontend and integration stages when a
+concrete dependency warrants them, with honest intermediate verification limits.
+Size each PR for coherent human review. Numeric examples are guidance; an explicit
+user or project cap is enforced against the full additions-plus-deletions diff,
+including tests and generated text. The breakdown carries acceptance checks,
+dependencies, context and the applicable review budget to each executor.
+`issue-workflow` publishes the tasks only when requested.
+
+The flow is `wayfinder` → `planning` → `task-breakdown` → authorized ticket publication
+and implementation. `stacked-pr` handles branch dependencies when a stack is useful.
+
 ### agent-instructions
 
 Write and improve instructions for agents in `AGENTS.md`, `CLAUDE.md`, skills,
@@ -59,6 +110,23 @@ both skills for this workflow.
 - Preserves canonical instruction owners, host adapters, and scoped exceptions
 - Checks real commands and keeps private context appropriate for the destination
 - Reports source coverage, unresolved conflicts, and checks actually performed
+
+### retro
+
+Review a coding session to identify friction and propose concrete improvements to
+the agent's working environment. Each finding includes evidence, a responsible
+owner and a way to check the proposed improvement.
+
+**Triggers:** `review this session`, `what slowed us down`, `suggest improvements from this session`
+
+**Features:**
+
+- Inspects navigation, check wiring, instruction activation and tool use when the session warrants it
+- Distinguishes missing instructions from instructions the agent never loaded
+- Routes code, checks, documentation and instruction changes to their existing owners
+- Returns proposals by default and continues improvements already authorized by the caller
+- Accepts no useful finding and reports evidence gaps without inventing causes
+- Records pinned Matt Pocock and pstack sources, with conditional source maintenance
 
 ### workflow-to-skill
 
@@ -465,11 +533,14 @@ Create atomic Conventional Commits that a human can understand and review.
 
 ### issue-workflow
 
-Keep a source ticket aligned with implementation start, PR creation and merge.
+Publish prepared tasks and keep source tickets aligned with implementation start,
+PR creation and merge. `task-breakdown` owns the delivery boundaries; Publish mode
+preserves those contracts, reconciles existing tickets and verifies relationships.
+Drafting tasks alone makes no tracker writes or implementation-state transitions.
 Each consuming project owns its rules in `docs/agents/issue-tracker.md`; the
 package includes an unconfigured template and Linear, Jira and GitHub guidance.
 
-**Triggers:** `start implementing this ticket`, `synchronize this merged PR's ticket`, `configure ticket transitions`
+**Triggers:** `create tickets from this breakdown`, `start implementing this ticket`, `synchronize this merged PR's ticket`, `configure ticket transitions`
 
 Starting work maps to In Progress, PR creation to In Review (including drafts),
 and verified merge to the project's chosen state, such as Ready for QA or Done.
@@ -492,6 +563,7 @@ Create or update a GitHub PR with a concise explanation and useful review eviden
 
 - Resolves the exact target, fork, head and actual base
 - Checks claims against implementation, requirements and current verification
+- Checks a task's review-size cap against the actual PR diff before publishing code or creating the PR
 - Follows repository conventions while allowing useful additions where the format permits
 - Captures visible UI changes and attaches real images through supported `gh --attach` operations
 - Preserves uploaded URLs on rewrites and recovers partial uploads without duplicate PRs

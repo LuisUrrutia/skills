@@ -1,23 +1,30 @@
 ---
 name: issue-workflow
-description: Use when starting implementation from a ticket or synchronizing its status after PR creation or merge. Reading or triaging a ticket alone does not change its state.
+description: Use when starting implementation from a ticket, synchronizing its workflow state, or publishing prepared tasks to an issue tracker.
 ---
 
 # Issue workflow
 
-Synchronize the original ticket at a verified delivery event. The consuming
-project's `docs/agents/issue-tracker.md` owns destinations and transition rules;
-this skill owns discovery, guarded execution and evidence. That path is relative
-to the target project root, not this installed skill.
+Synchronize the original ticket when implementation starts and at later configured
+events. Also publish prepared tasks when requested. The consuming project's
+`docs/agents/issue-tracker.md` owns destinations and transition rules; this skill
+owns discovery, guarded execution and evidence. That path is relative to the
+target project root, not this installed skill.
 
 ## Resolve the operation
 
 - **Synchronize:** apply the policy for an event reached by authorized work or
   explicitly requested synchronization. Starting implementation from a ticket
-  counts as `work-started`; reading, planning or triaging it alone does not.
+  triggers its configured `work-started` transition, including work with no PR.
+  Reading, planning or triaging it alone does not.
+- **Publish:** create or update the requested tickets from a prepared breakdown.
+  Read [references/publish-tasks.md](references/publish-tasks.md), complete that
+  operation and return. Publication does not enter the delivery-event procedure.
+  `task-breakdown` owns missing functional boundaries and acceptance criteria.
 - **Inspect:** resolve the same facts and report the proposed action without
   writes, or return the permitted link form and policy before an event occurs.
-  Use this for read-only requests and `pr-followup` Check scope.
+  Use this for read-only requests and `pr-followup` Check scope. For a publication
+  preview, use the Publish reference's reads only and return drafts without writes.
 - **Configure:** when asked to establish or change project conventions, read
   [references/project-policy.md](references/project-policy.md) and use the
   bundled [assets/issue-tracker.md](assets/issue-tracker.md) as a starting point.
@@ -91,11 +98,8 @@ it does not authorize installing integrations or changing credentials.
    and inspect its result. Never race it with an agent write. An unchanged state
    is `pending automation`, not success; an inaccessible or conflicting rule is
    `blocked/unknown`. Agent fallback needs an explicit ownership change.
-4. For an agent-owned rule, establish the intended actor from explicit direction
-   or project policy; otherwise use the selected authenticated connection's known
-   identity. Verify that identity and scope through available account metadata or
-   an identity read; resolve an ambiguous account or mismatch before writing.
-   Provider-specific actor rules still apply. Re-read state and event immediately
+4. For an agent-owned rule, read [references/identity.md](references/identity.md)
+   and verify the actor and target scope. Re-read state and event immediately
    before the write; use an
    expected version/state guard when the API offers it. If facts changed, re-evaluate.
    Use the allowed transition and its required fields, never a different status

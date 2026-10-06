@@ -1,0 +1,115 @@
+format_version = 1
+skill = "task-breakdown"
+created = "2026-10-06"
+approach = "Derive: combine verifiable delivery decomposition with selected review-boundary, risk-ordering and context-freshness guidance, preserving the user-defined human review size contract."
+
+[[sources]]
+id = "blode-planning"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "cef4cfa837ca41b50d19f54551a3939ed7460434"
+reviewed_through = "cef4cfa837ca41b50d19f54551a3939ed7460434"
+baseline_paths = ["skills/planning/SKILL.md", "skills/planning/references/handoff-plans.md", "skills/planning/references/splitting.md", "skills/planning/references/claim-verification.md", "skills/planning/references/plan-quality-rubric.md", "LICENSE.md"]
+paths = ["skills/planning/SKILL.md", "skills/planning/references/handoff-plans.md", "skills/planning/references/splitting.md", "skills/planning/references/claim-verification.md", "skills/planning/references/plan-quality-rubric.md", "LICENSE.md"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Ground work units in repository evidence and preserve context for a fresh executor.", "Carry observable acceptance checks and genuine dependencies into delivery units."]
+local_choices = ["Extract delivery decomposition into a separately invocable skill; direction and overall planning remain with their owners.", "Treat the user's illustrative line count as guidance, not a default ceiling. Preserve small, testable review units and enforce explicitly established caps with estimation headroom and actual publication checks."]
+reviews = []
+
+[[sources]]
+id = "matt-to-tickets"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+reviewed_through = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+baseline_paths = ["skills/engineering/to-tickets/SKILL.md", "LICENSE"]
+paths = ["skills/engineering/to-tickets/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Split by complete observable behavior and record genuine blocking relationships.", "Use expand, migrate, contract for broad changes whose consumers cannot all move at once.", "Make the first valid integration check explicit when intermediate units cannot pass independently."]
+local_choices = ["Prefer small complete behaviors; permit justified backend/frontend/integration stages with explicit verification limits.", "Keep task drafting separate from issue-workflow publication, and preserve one authoritative record."]
+reviews = []
+
+[[sources]]
+id = "superpowers-writing-plans"
+author = "Jesse Vincent"
+repository = "https://github.com/obra/superpowers"
+remote = "git@github.com:obra/superpowers.git"
+ref = "refs/heads/main"
+baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+reviewed_through = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+baseline_paths = ["skills/writing-plans/SKILL.md", "LICENSE"]
+paths = ["skills/writing-plans/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Use a meaningful independent review decision to distinguish a delivery boundary from internal implementation steps."]
+local_choices = ["Apply the heuristic to PR-sized deliveries without importing commit-sized tasks, mandatory TDD steps or execution-method selection.", "Preserve justified enabling changes and real dependencies; keep a cohesive small delivery together."]
+reviews = []
+
+[[sources]]
+id = "gsd-slice-decomposition"
+author = "Lex Christopherson and GSD contributors"
+repository = "https://github.com/gsd-build/gsd-2"
+remote = "git@github.com:gsd-build/gsd-2.git"
+ref = "refs/heads/main"
+baseline_commit = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+reviewed_through = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+baseline_paths = ["src/resources/skills/decompose-into-slices/SKILL.md", "src/resources/extensions/gsd/templates/roadmap.md", "src/resources/extensions/gsd/prompts/plan-slice.md", "LICENSE"]
+paths = ["src/resources/skills/decompose-into-slices/SKILL.md", "src/resources/extensions/gsd/templates/roadmap.md", "src/resources/extensions/gsd/prompts/plan-slice.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Map material risks to the delivery units and evidence that resolve them.", "For large plans, distinguish a delivery map from detailed execution contracts for the next units."]
+local_choices = ["Carry inherited planning risks without reopening settled design decisions.", "Keep progressive detail optional and later units explicitly drafted until the existing readiness and size requirements are met.", "Do not import parser formats, tool-owned state, approval gates, worker topology or mandatory fragmentation into many slices."]
+reviews = []
+
+[[sources]]
+id = "gstack-spec-context"
+author = "Garry Tan"
+repository = "https://github.com/garrytan/gstack"
+remote = "git@github.com:garrytan/gstack.git"
+ref = "refs/heads/main"
+baseline_commit = "c285d88b90d39116ccfa2b901f80ea0fce0b26eb"
+reviewed_through = "c285d88b90d39116ccfa2b901f80ea0fce0b26eb"
+baseline_paths = ["spec/SKILL.md", "LICENSE"]
+paths = ["spec/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Record when current-state evidence was verified if it can become stale before implementation."]
+local_choices = ["For deferred execution, carry the inspected revision or date with source and contract references and require revalidation at pickup.", "Keep ordinary implementation choices with the executor and ticket publication with issue-workflow; do not import spec filing, time-based sizing or execution dispatch."]
+reviews = []
+
+[[dependencies]]
+name = "planning"
+kind = "local"
+required = false
+role = "Resolve missing implementation approach; keep the overall plan authoritative."
+
+[[dependencies]]
+name = "wayfinder"
+kind = "local"
+required = false
+role = "Resolve connected direction decisions that prevent decomposition."
+
+[[dependencies]]
+name = "issue-workflow"
+kind = "local"
+required = false
+role = "Publish prepared tasks only when that operation is authorized."
+
+[[dependencies]]
+name = "pr"
+kind = "local"
+required = false
+role = "Measure the actual PR diff against an explicitly established size cap before publication."
+
+[[dependencies]]
+name = "stacked-pr"
+kind = "local"
+required = false
+role = "Own dependent branches and enforce any explicitly established layer size cap during publication."
+
+[[dependencies]]
+name = "agent-instructions"
+kind = "local"
+required = false
+role = "Maintain sources when requested."

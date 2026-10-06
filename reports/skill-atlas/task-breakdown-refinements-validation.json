@@ -1,0 +1,347 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-06",
+  "package": "task-breakdown",
+  "status": "validated in the stated static and supplied-context scope",
+  "scope": "Clarify PR acceptance decisions, inherited risk-to-proof mapping, deferred pickup context and optional progressive detail. No host installation, product implementation or external publication.",
+  "baselineCommit": "684fcdb63406dc3310afd86322906a08527f0e89",
+  "instructionRevisions": {
+    "baseline": {
+      "gitObject": "684fcdb63406dc3310afd86322906a08527f0e89:task-breakdown/SKILL.md",
+      "sha256": "913491bda7e1eff9114f368b4efc4cc33692a85ac8db5101fed1773f5a877f1d"
+    },
+    "candidate-v1": {
+      "sha256": "074d3b75ace014e1b61fd659aef783982f8678ac50d4c3d180f30dbad488115f",
+      "content": "---\nname: task-breakdown\ndescription: Use when dividing a software plan or feature into small, testable tasks sized for human-reviewed pull requests.\n---\n\n# Task breakdown\n\nTurn a defined feature or implementation plan into delivery units a person can\nreview and an executor can implement and verify. Normally, one unit becomes one\nticket and one PR. Keep a cohesive change in one unit when it already fits.\n\n`wayfinder` owns direction; `planning` owns the overall approach and implementation\nplan. This skill owns delivery boundaries, acceptance checks and dependencies.\n`issue-workflow` owns authorized ticket publication; `pr` owns individual PR\npublication; `stacked-pr` owns dependent branches and PR operations.\nResolve collaborators by registered name. If a needed\nowner is unavailable, preserve the breakdown and report the missing phase.\n\nA breakdown request authorizes its requested artifact, not implementation, ticket\npublication, branch creation or deployment. Continue those phases when already\nauthorized. A review-only request returns findings without editing the record.\n\n## Establish the input\n\nRead the request, authoritative plan, decisions, existing tasks and project\ninstructions. Inspect the affected code, callers, tests and configured checks.\nKeep settled scope and contracts; do not turn decomposition into a new design\nexercise. A formal planning document is useful input, not a prerequisite.\n\nResolve routine details from evidence. If a missing decision materially changes\nthe behavior, contract or feasibility of a split, ask for that decision and keep\nonly the affected work pending. Return connected direction questions to\n`wayfinder`, or an incomplete implementation approach to `planning`, with the\nexact gap; continue independent units. Do not invent a contract just to fill a\nticket template.\n\nUse the existing authoritative record and requested format. A table in the plan\nor chat can be enough; no separate document or ticket per unit is mandatory.\nWhen resuming, reconcile actual completed work, existing IDs and changed premises\nbefore revising remaining units. Preserve unrelated work and stable identities.\n\nFor a large plan, the delivery map can precede detailed execution contracts.\nKeep later units as drafts with explicit unknowns until their scope, dependencies,\nacceptance checks and sizing meet the readiness requirements below.\n\n## Choose functional boundaries\n\nStart with the smallest useful behavior that can be demonstrated after its real\nprerequisites land. Include the layers needed for that behavior: data access,\nbackend, frontend and behavioral tests where applicable. Add further capabilities\nas separate units. Name each unit after what it delivers, not a file or widget.\n\nGive each proposed PR a meaningful acceptance decision of its own. Keep parts\ntogether when they only serve the same decision and fit comfortably within the\nreview budget.\n\nFor a statistics dashboard, a useful first unit might deliver the revenue card\nwith its real query, permissions, endpoint, UI states and checks. Another can add\nactive customers. Neither a button alone nor the entire dashboard's backend is\na default boundary. Prefer a small production-testable path when the project\nsupports it; defining that check does not authorize a production action.\n\nKeep implementation, its regression tests and required generated output together.\nAvoid separating tests to meet a size limit, unrelated cleanup, or tickets for\neach technical layer by habit. A backend prerequisite or frontend contract test\ncan be a valid unit when a complete vertical slice would be impractical. Read\n[references/staged-delivery.md](references/staged-delivery.md) for such splits,\nmigrations, or units that cannot yet pass an end-to-end check.\n\nRecord dependencies by the exact capability or contract a unit consumes. Shared\nfiles or environments can need coordination without creating a functional blocker.\nDistinguish both from a preferred execution order. Resolve cycles through a smaller\nshared contract or a cohesive unit. Do not force independent units into a stack.\n\nMap material uncertainties already identified in the plan to the units and\nevidence that resolve them. Preserve that risk-reduction order where dependencies\npermit; decomposition does not reopen settled design decisions.\n\n## Budget for human review\n\nEach PR must contain at most **5,000 changed text lines: additions plus deletions**\nin its complete base-to-head PR diff. This is a ceiling, not a target. Honor a\nstricter project limit. Changing the ceiling needs an explicit user decision;\nan estimate, deadline, draft state or generated-file label cannot waive it.\n\nBefore marking a unit ready, estimate a range from the affected code and comparable\nchanges, include tests, migrations, generated text and lockfiles, and state the\nbasis and uncertainty. Aim comfortably below the ceiling so implementation and\nreview fixes can fit. Do not report an estimate as a measured diff or invent\nprecision from unavailable code. If the credible upper bound exceeds the ceiling,\nreduce the unit's scope or resolve the sizing uncertainty before calling it ready.\n\nCarry the numeric cap and counting rule into every task's execution contract.\nRequire a fresh measurement before PR publication and after scope, base or head\nchanges: sum additions and deletions for the intended PR base and head, never net\ngrowth, individual commits, or the whole stack against trunk. Include all changed\ntext, without path exclusions. Record binary changes separately; a line count does\nnot measure their review cost. An unavailable or incomplete diff is unverified.\n\nThe publishing owner (`pr` or `stacked-pr`) checks the actual diff. If it exceeds\nthe cap, stop publication of that unit and revise the split; retain independent\nready work. Splitting commits does not shrink a PR. Do not discard required\nbehavior, tests or files, rewrite published history without authority, or hide\nchanges through formatting to make the count pass. A small count still needs a\ncoherent review boundary.\n\nFor code already on an oversized branch, pass the revised unit map and preserved\nsource revision to the execution owner. `stacked-pr` owns rebuilding dependent\nlayers from that map; independent units need separate branches through the active\nbranch workflow. A revised plan alone does not change the existing diff. Complete\nthe authorized restructuring and remeasure before returning to publication; if\nthe needed rewrite lacks authority, retain the map and report that exact boundary.\n\n## Make each unit executable\n\nUse the project's task format and include only details the executor needs:\n\n- Stable ID and the concrete outcome; included scope and likely scope confusion.\n- Relevant source paths, authoritative decisions, and consumed/produced contracts.\n  For deferred execution, include the inspected revision or verification date\n  and require the executor to recheck these references at pickup before relying\n  on them.\n- True prerequisites by unit ID, plus separate coordination or release constraints.\n- Acceptance scenarios with observable expected results, deciding commands or\n  interactions, and environment/data prerequisites. Mark checks to add separately\n  from existing checks; planned checks are not passing evidence.\n- Why new coverage is needed, using the plan's rationale and existing tests. Keep\n  meaningful failure and compatibility cases with the behavior they protect.\n- Estimated changed-line range, its basis and uncertainty, and the actual PR cap\n  of 5,000 additions plus deletions (or the stricter applicable limit).\n- Supported intermediate state, how to exercise it, and any integration dependency\n  that prevents claiming it production-testable yet.\n\nEnough context must travel with each unit for a fresh executor, including relevant\ncontract excerpts when links alone are insufficient. Keep one task authority;\nlink shared decisions rather than duplicating a large plan or progress log.\n\n## Check the breakdown and continue\n\nTrace every material requirement to a unit and its acceptance evidence. Check\nthat dependencies are real and acyclic, each proposed PR fits its review budget,\nand a unit demonstrates its stated result without waiting for unfinished work\nunless that limitation is explicit. Specify where the combined capability is\nverified; separate unit checks do not prove integration. Preserve blocked scope.\n\nReturn the breakdown or its location, dependency order, ready and blocked units,\nsizing uncertainty, and next action. No additional approval gate is needed for\nalready-authorized work. For a drafting-only request, stop with the artifact.\n\nWhen ticket publication is requested, pass the prepared units, target tracker,\nexisting IDs, relationships, plan links and publication scope to `issue-workflow`\nin Publish mode. Retain drafted units if publication is blocked. If implementation\nis already authorized, continue ready units through the existing workflow with\ntheir acceptance and review-size contracts. Do not select worker topology here.\n\nFor requested source maintenance, use `agent-instructions` with `origin.txt`.\n",
+      "result": "Revised after a material static-review finding about draft-state propagation."
+    },
+    "candidate-v2": {
+      "location": "task-breakdown/SKILL.md in the commit containing this report",
+      "sha256": "2aa0c7df8a2851ed55078156e8ac5643de3c7c1c57eec3215b411f1c85c735fc"
+    },
+    "unchangedReference": {
+      "location": "task-breakdown/references/staged-delivery.md",
+      "sha256": "447fdfc225c63b8fa2af5642888dc18486beddc1dd927e9386ac8cfa4195b2ad"
+    }
+  },
+  "sources": [
+    {
+      "id": "superpowers",
+      "repo": "obra/superpowers",
+      "sha": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+      "paths": [
+        "skills/writing-plans/SKILL.md",
+        "LICENSE"
+      ]
+    },
+    {
+      "id": "gsd",
+      "repo": "gsd-build/gsd-2",
+      "sha": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+      "paths": [
+        "src/resources/skills/decompose-into-slices/SKILL.md",
+        "src/resources/extensions/gsd/templates/roadmap.md",
+        "src/resources/extensions/gsd/prompts/plan-slice.md",
+        "LICENSE"
+      ]
+    },
+    {
+      "id": "gstack",
+      "repo": "garrytan/gstack",
+      "sha": "c285d88b90d39116ccfa2b901f80ea0fce0b26eb",
+      "paths": [
+        "spec/SKILL.md",
+        "LICENSE"
+      ]
+    }
+  ],
+  "review": {
+    "profiles": [
+      {
+        "model": "gpt-6-astra",
+        "reasoning_effort": "max",
+        "provider": "codex",
+        "transport": "native collaboration",
+        "role": "independent instruction review"
+      },
+      {
+        "model": "claude-fable-5-1",
+        "reasoning_effort": "max",
+        "provider": "claudeAgent",
+        "transport": "T3 delegated task",
+        "role": "independent instruction review"
+      }
+    ],
+    "rounds": [
+      {
+        "round": 1,
+        "candidate": "candidate-v1",
+        "brief_file": "review-brief.md",
+        "findings": [
+          {
+            "reviewer": "gpt-6-astra",
+            "verdict": "No material issues found.",
+            "evidence": "All 57 manifest hashes matched; the three appended MIT licenses were exact. Static instruction and provenance review only."
+          },
+          {
+            "reviewer": "claude-fable-5-1",
+            "verdict": "One material issue: draft-state obligations were incomplete.",
+            "finding": "Later drafts could precede execution contracts without an explicit minimum record carrying the cap. Completion and return rules did not account for drafts, and publication did not explicitly preserve draft status.",
+            "response": "Accepted. Added minimum draft identity/outcome/dependencies/unknowns/cap/counting rule; allowed traceability to drafts with recorded unknowns; restricted sizing readiness to ready units; returned drafts explicitly; preserved draft labels at publication.",
+            "optional_notes": [
+              {
+                "note": "Risk-order antecedent was ambiguous.",
+                "response": "Accepted: refer explicitly to the plan's risk-reduction order."
+              },
+              {
+                "note": "Consider a specific response to drift found at pickup.",
+                "response": "No extra policy added. Existing input rules reconcile changed premises, preserve settled contracts and return material gaps to the owning phase."
+              },
+              {
+                "note": "Readiness requirements are distributed across the skill.",
+                "response": "No structural rewrite; the reviewer marked this non-material and the requirements remain directly available."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "round": 2,
+        "candidate": "candidate-v2",
+        "brief_file": "review-brief-v2.md",
+        "findings": [
+          {
+            "reviewer": "gpt-6-astra",
+            "verdict": "No remaining material issues found.",
+            "evidence": "Draft minimum record, requirement tracing, returned states and tracker handoff cover the correction. Readiness still requires sizing and draft status cannot waive the cap. All 61 manifest hashes matched; provenance, notices and staged-delivery guidance unchanged."
+          },
+          {
+            "reviewer": "claude-fable-5-1",
+            "verdict": "No material defect remains in candidate-v2.",
+            "taskId": "node:delegated-task:command%3Amcp%3Acaaa55b4-cf7a-4cb3-8e6b-b9a73ae231e6%3Adelegate-task%3Atask-breakdown-refinements-fable-v2-20261006",
+            "provider": "claudeAgent",
+            "model": "claude-fable-5-1",
+            "effort": "max",
+            "result": "**Verdict: no material defect remains in candidate-v2.** The revision resolves the round-1 draft finding without creating a cap waiver, over-fragmentation, an extra gate, or scope loss. Below is what I checked, then three optional notes that are prose preferences, not defects.\n\n**Bytes and provenance.** All 61 hashes in manifest-v2.json match disk, with no unlisted or missing files. The v2 directory differs from v1 only in SKILL.md. The eight pinned source files match the repo checkouts at the sha values in sources.json. The three new license blocks are byte-identical to each LICENSE and name the correct revisions. Each borrowed claim in origin.txt traces to the cited lines: superpowers writing-plans 36-41, gsd roadmap.md 22-38 and plan-slice.md 23-29, gstack spec/SKILL.md 620-624.\n\n**Draft finding is closed.** The loop a draft could previously escape through is now shut at every exit:\n- Drafts carry ID, outcome, known dependencies, unknowns, and the numeric cap with counting rule: candidate-v2/task-breakdown/SKILL.md:45-46.\n- Draft state cannot waive the ceiling, and readiness requires an estimate whose credible upper bound fits: lines 83-93.\n- Completion traces each requirement to a unit with acceptance evidence or to a draft with recorded unknowns, and the budget check applies to ready units: lines 142-144.\n- Return names ready, draft and blocked units; publication preserves draft designation and unknowns; only ready units continue: lines 149-158.\n- The publishing owners still measure the real diff and bounce over-cap work back: context/pr/SKILL.md:77-86, context/stacked-pr/SKILL.md:29-36. The ticket retains the cap: context/issue-workflow/references/publish-tasks.md:36-40.\n\n**Other review questions.** The acceptance-decision heuristic at lines 55-57 does not demand zero dependencies; lines 50-51, 67-68 and 125 explicitly allow prerequisites. Risk mapping at lines 77-79 is bounded to uncertainties already in the plan and preserves the plan's order, matching planning SKILL.md:92. Pickup revalidation is part of the unit's own execution contract at lines 121-124, so it travels with the task.\n\n**Executor evidence.** Trial run-3 used the v2 SKILL.md by hash. Its result keeps two cohesive card PRs, carries the cap and an estimate on every unit including drafts, keeps P1-P7 represented, holds P5 as not ready over the ceiling with the mandatory client retained, and records the inspected snapshot plus pickup recheck for the deferred CSV task.\n\n**Optional notes, not material:**\n1. \"Draft\" carries two senses. Lines 43-46, 143 and 155 mean an incomplete contract, while lines 151 and 156 mean prepared-but-unpublished. Lines 155-156 mix both in adjacent sentences, and run-3 shows the blend with \"ready draft for deferred pickup\". Also \"draft labels\" at line 155 can read as tracker labels, which issue-workflow restricts at context/issue-workflow/SKILL.md:35-36. A phrase like \"draft designation in the unit content\" and \"prepared units\" at line 156 would remove the collision.\n2. Line 144 names only ready units in the budget check. Specified-but-blocked units still receive an estimate through lines 131-132 and cannot be called ready over cap through lines 92-93, so there is no loophole, but \"each sized unit\" would keep the check visibly complete.\n3. Lines 145-146 have a stray hard line break from editing.",
+            "optionalNotesDisposition": "No additional instruction edit. Draft status remains content in the task, not permission to create tracker labels; issue-workflow keeps the field-write guard. Ready-unit sizing preserves the explicit ceiling for every PR. The remaining line wrap is cosmetic. Preserve the reviewed and exercised snapshot."
+          }
+        ],
+        "unresolved_material_findings": []
+      }
+    ],
+    "limits": [
+      "Reviews assess instruction text and provenance, not observed executor behavior.",
+      "Both round-2 reviewers received the same original brief, prior findings, author responses and unresolved-objection request."
+    ],
+    "briefs": {
+      "review-brief.md": "# Task-breakdown refinement review\n\nBounded read-only consultation. Do not edit, run donor workflows, publish, or delegate. Your review fulfills this profile's agent-instructions consultation; do not start recursive reviews.\n\nUser request: \"ok, hagamos eso\" authorizes the preceding recommendation to refine the existing task-breakdown skill with (1) a meaningful acceptance/review decision per PR, (2) inherited plan risks mapped to delivery units and deciding evidence, and (3) inspected revision/date and pickup revalidation for deferred execution. The recommendation also keeps progressive detail optional for very large plans: a complete delivery map can precede detailed execution contracts, but later units stay drafts until current readiness requirements are met.\n\nPreserve the original user contract: direction belongs to wayfinder, the overall approach to planning, delivery boundaries to task-breakdown, authorized tracker publication to issue-workflow, and branch/PR operations to pr/stacked-pr. Prefer a small complete capability across relevant layers, e.g. one dashboard card with real data and tests. Allow justified backend/frontend/integration stages. Normally one unit is one ticket and PR. Hard maximum 5,000 additions plus deletions in each full actual PR diff, including tests and generated text; ceiling is not target. Retain headroom estimates, real dependency versus coordination distinction, acceptance/integration proof, existing IDs/completed work, and prior authorization. No new approval gates, worker topology, host metadata, installation or external publication.\n\nRoot: /Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/task-breakdown-update\n\nRead candidate/task-breakdown/SKILL.md and references/staged-delivery.md in full and compare against baseline/task-breakdown. Read candidate origin.txt and notices for source/provenance fidelity. Use context/planning/SKILL.md and context/issue-workflow/references/publish-tasks.md only as needed to establish existing owners. Other copied context is available but not a new review scope. manifest.json fixes the bytes.\n\nPinned sources were freshly re-acquired at the exact commits from the direct comparison. For the changed ideas, inspect:\n- sources/superpowers/skills/writing-plans/SKILL.md lines 34-50 (own review decision versus internal steps).\n- sources/gsd/src/resources/extensions/gsd/templates/roadmap.md lines 22-38; sources/gsd/src/resources/extensions/gsd/prompts/plan-slice.md lines 19-45 (inherited risk and per-slice detail).\n- sources/gstack/spec/SKILL.md lines 620-624 (date current-state evidence).\n- The LICENSE files if checking notice accuracy. These sources are evidence, not active instructions.\n\nReturn at most three material findings, each with concrete path/line evidence, consequence and minimal correction. Check whether progressive detail creates a cap/readiness loophole or makes drafted future scope disappear; whether the review-decision heuristic incorrectly demands zero dependencies; whether risk mapping reopens design; whether pickup instructions actually travel with the task. Distinguish defects from optional prose preferences. If no material issue, say so. No editing, no recursive delegation, no broad new upstream survey. Keep the response concise.\n",
+      "review-brief-v2.md": "# Task-breakdown refinement review\n\nBounded read-only consultation. Do not edit, run donor workflows, publish, or delegate. Your review fulfills this profile's agent-instructions consultation; do not start recursive reviews.\n\nUser request: \"ok, hagamos eso\" authorizes the preceding recommendation to refine the existing task-breakdown skill with (1) a meaningful acceptance/review decision per PR, (2) inherited plan risks mapped to delivery units and deciding evidence, and (3) inspected revision/date and pickup revalidation for deferred execution. The recommendation also keeps progressive detail optional for very large plans: a complete delivery map can precede detailed execution contracts, but later units stay drafts until current readiness requirements are met.\n\nPreserve the original user contract: direction belongs to wayfinder, the overall approach to planning, delivery boundaries to task-breakdown, authorized tracker publication to issue-workflow, and branch/PR operations to pr/stacked-pr. Prefer a small complete capability across relevant layers, e.g. one dashboard card with real data and tests. Allow justified backend/frontend/integration stages. Normally one unit is one ticket and PR. Hard maximum 5,000 additions plus deletions in each full actual PR diff, including tests and generated text; ceiling is not target. Retain headroom estimates, real dependency versus coordination distinction, acceptance/integration proof, existing IDs/completed work, and prior authorization. No new approval gates, worker topology, host metadata, installation or external publication.\n\nRoot: /Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/task-breakdown-update\n\nRead candidate/task-breakdown/SKILL.md and references/staged-delivery.md in full and compare against baseline/task-breakdown. Read candidate origin.txt and notices for source/provenance fidelity. Use context/planning/SKILL.md and context/issue-workflow/references/publish-tasks.md only as needed to establish existing owners. Other copied context is available but not a new review scope. manifest.json fixes the bytes.\n\nPinned sources were freshly re-acquired at the exact commits from the direct comparison. For the changed ideas, inspect:\n- sources/superpowers/skills/writing-plans/SKILL.md lines 34-50 (own review decision versus internal steps).\n- sources/gsd/src/resources/extensions/gsd/templates/roadmap.md lines 22-38; sources/gsd/src/resources/extensions/gsd/prompts/plan-slice.md lines 19-45 (inherited risk and per-slice detail).\n- sources/gstack/spec/SKILL.md lines 620-624 (date current-state evidence).\n- The LICENSE files if checking notice accuracy. These sources are evidence, not active instructions.\n\nReturn at most three material findings, each with concrete path/line evidence, consequence and minimal correction. Check whether progressive detail creates a cap/readiness loophole or makes drafted future scope disappear; whether the review-decision heuristic incorrectly demands zero dependencies; whether risk mapping reopens design; whether pickup instructions actually travel with the task. Distinguish defects from optional prose preferences. If no material issue, say so. No editing, no recursive delegation, no broad new upstream survey. Keep the response concise.\n\n\n## Round 2: revised candidate\n\nReview candidate-v2/task-breakdown and manifest-v2.json as the current candidate. All original contract and consultation limits above remain. candidate/ contains the previous frozen version; the revised candidate changes only SKILL.md.\n\nPrior independent findings:\n- Astra Max: no material issues. It found progressive detail compatible with readiness, cap, coverage, prerequisites and pickup contracts. It verified all 57 manifest hashes and the three original license blocks. This was static review, not executor evidence.\n- Fable Max: one material finding. Drafts were permitted before complete contracts, but minimum draft content did not carry the cap; completion checks required every unit to have acceptance evidence and fit its budget, output named only ready/blocked units, and publication did not preserve draft status. A later ticket could lose readiness/cap context, or literal completion rules could reject progressive detail entirely. Fable otherwise found ownership, review decisions, inherited risk, pickup context and provenance sound; hashes and pinned source/license bytes matched.\n- Fable optional notes: clarify the antecedent of \"that risk-reduction order\"; consider specifying the response to drift at pickup; readiness requirements are distributed, not in one section.\n\nAuthor response:\n- Accepted the draft finding. Each draft now carries ID, outcome, known dependencies, explicit unknowns, applicable numeric PR cap and counting rule. Completion traces requirements to acceptance evidence or drafts with recorded unknowns; budget readiness applies to ready units. Return includes drafts and tracker handoff preserves their labels and unknowns, never ready status.\n- Clarified risk order as the plan's order. Did not add a new response-to-drift policy: the existing Establish the input rules already reconcile changed premises, preserve settled contracts, and return material gaps to the owning phase. Did not centralize all readiness rules; this is a small targeted clarification.\n\nUnresolved objections: none knowingly left from the material finding; independently check that the correction actually resolves it and does not create a cap waiver, over-fragmentation, extra gate or scope loss. Report any remaining material defect with evidence. Do not treat the author's response or the other review as a verdict to match. No edits or recursive delegation.\n"
+    }
+  },
+  "behavior": {
+    "method": "Three supplied-context artifact execution batches: baseline, candidate-v1, candidate-v2. Each fresh native agent received the same three case requests and raw project fixture; grading expectations and review findings were withheld.",
+    "profile": {
+      "provider": "codex",
+      "model": "gpt-6-astra",
+      "reasoningEffort": "max",
+      "selection": "Inherited from the parent runtime in all three fresh-context execution agents."
+    },
+    "authority": "Read assigned skill and raw fixture; write only assigned result.md. No implementation, project command execution, external services, tracker or Git writes, delegation, or sibling/parent-directory inspection.",
+    "tools": "Same native agent tool environment and task restrictions. This was prompt-scoped isolation, not a filesystem or network sandbox.",
+    "matchedInputs": "request.md and all fixture files were verified byte-identical across the three runs; only skill/SKILL.md changed. The staged-delivery reference was unchanged.",
+    "request": "# Task\n\nUse the supplied skill at skill/SKILL.md to produce delivery breakdowns for the three independent requests below. Read the raw project snapshot in fixture/. This is a planning-only exercise: write only result.md in this assigned directory. Do not implement, run project commands, contact services, edit tickets or Git, inspect other directories, or delegate. No other instructions or skill packages are available. Output in English, at most 900 words total. Include the information needed for another executor to pick up the work; do not explain the skill. Treat the three cases independently and identify them in the result.\n\n## A: Dashboard cards\n\nBreak down the approved dashboard work in fixture/dashboard-plan.md into tasks for human-reviewed PRs. The engineer suggested separate tickets for the revenue card shell, its loading indicator, its endpoint, and their connection. Choose the delivery units and execution order. A second card shows active customers. Both are in scope. Draft only.\n\n## B: Delayed ticket\n\nPrepare the quarterly revenue CSV task described in fixture/export-note.md. An engineer in another session will pick it up next month. Read the current project snapshot and provide a self-contained task draft. No tracker publication is requested.\n\n## C: Large program\n\nCreate a complete delivery map from fixture/program.md and detail the next ready unit. We need a useful first increment while the later contracts are still being settled. Keep every requested capability represented, distinguish ready work from drafts or blockers, and do not resolve unsettled product decisions yourself. Draft only.\n",
+    "requestSha256": "b338401473772012e69a56a14b949bf237fbc6dc2e2e545d79088825d410b97a",
+    "fixture": [
+      {
+        "path": "available-checks.md",
+        "sha256": "4b48d60bd2153cce1411e956f7d6722b11c09fbbf89f34ed4cbbae30eb38f702",
+        "content": "Existing checks: tests/metrics/customers.integration.test.ts covers tenant isolation, UTC boundaries and distinct paid customers. tests/server/orders-csv.test.ts covers existing CSV escaping and authorized export. tests/ui/dashboard.test.tsx covers existing dashboard navigation. There is no revenue aggregation regression test or revenue-card test. These descriptions are fixture evidence, not test-run results. New tests may be proposed in those areas. Source paths have moved since the August note; src/metrics/revenue.ts is current and src/services/revenue.ts does not exist.\n"
+      },
+      {
+        "path": "change-history.md",
+        "sha256": "1383ce6ee5810f9e798844678fd417da94d1bf50f8f6248dba5c87856bb09ec6",
+        "content": "# Comparable changes\nThe last complete statistics card changed 610 text lines, including 225 test lines and its server/query/UI changes. Another similar card changed 470 lines. The existing CSV route changed 360 lines including 140 lines of tests. These are rough comparables; estimate uncertainty explicitly. No actual diff exists for the requested work.\n"
+      },
+      {
+        "path": "dashboard-plan.md",
+        "sha256": "288909f8e45788e785a64e04d78894c1aee6ff6812804eadc05ec2e044c6f333",
+        "content": "# Approved dashboard plan\nDeliver a net-revenue card and an active-customers card. Both use the existing tenant-scoped data service, HTTP server and Dashboard route. No new caching or auth framework. Revenue means paid amounts less settled refunds in the chosen UTC period; show the existing currency formatter. Both cards have loading, empty and recoverable error states, and must not leak another tenant's data. Active customers means customers with a paid order in that period.\n\nMaterial uncertainty: settled refunds on historical orders may be double-counted by a legacy aggregation. Prove the revenue result with real database integration fixtures containing partial refunds before building further revenue features. Active-customer aggregation already has integration coverage. Prioritize resolving the revenue uncertainty when dependencies permit. No interface or product decision is open.\n\nThe existing page, Card, Spinner, retry button, date-range picker and permission middleware are reusable. The two cards do not consume one another; shared dashboard edits need coordination.\n"
+      },
+      {
+        "path": "export-note.md",
+        "sha256": "dd81e47615333535f3bf4732518a4328cd065c52ee3999a95429260ba21fe665",
+        "content": "# Quarterly revenue CSV\nSource note from snapshot analytics-2026-08-01-v1.\nAdd CSV download to the existing revenue report, using getRevenueRows from src/services/revenue.ts. One row per completed order, including net amount, currency and paidAt. Use the authenticated tenant, UTC quarter boundaries and existing CSV escaping. Reject access to another tenant. Include regression checks for commas/quotes, refunds, empty results and unauthorized access. No background jobs, scheduled export or new persistence. Expected size resembles the prior CSV route.\n"
+      },
+      {
+        "path": "package.json",
+        "sha256": "d0d34876b232bfad1b5ebf2278090e50a3ae251d2708b13c5e48544068a2b324",
+        "content": "{\n  \"scripts\": {\n    \"test\": \"vitest run\",\n    \"build\": \"tsc -b && vite build\"\n  },\n  \"packageManager\": \"pnpm@10.18.0\"\n}\n"
+      },
+      {
+        "path": "program.md",
+        "sha256": "8e68eb710d6b12831edcc0036b6371002da0f62cb4c7dfcae5c2ffe4afd6bb1d",
+        "content": "# Analytics program\nThe scope and sequence are approved, except the explicitly open product contracts below.\nP1: Show the revenue card defined in dashboard-plan.md; ready approach, resolve the known historical refund uncertainty.\nP2: Add the active-customers card defined in dashboard-plan.md; ready approach, no functional dependency on P1.\nP3: Add quarterly revenue CSV from export-note.md after revenue correctness is established.\nP4: Add a cohort-retention chart. The product owner has not settled whether a returning customer is defined by login or paid purchase; this changes the data contract. Keep this scope pending.\nP5: Deliver the partner analytics API and its required generated client. The known generator produces an estimated 5,800-6,200 changed text lines before route code and tests. Do not omit the client; the contract is mandatory. The delivery split is not resolved.\nP6: Add a scheduled summary email. Recipient rules and the permitted customer data are unsettled. Keep the capability represented without inventing defaults.\nP7: Add report archival and replay. Storage selection and retention period await a product decision; effort cannot yet be estimated responsibly.\n\nDelivery budgets include code, tests, generated text and lockfiles. The program is not authorized for implementation or publication.\n"
+      },
+      {
+        "path": "revision.txt",
+        "sha256": "65a92f7dd49050d3139b95720ea7868d92df3e734735244fe9f586820b3d919a",
+        "content": "Snapshot ID: analytics-2026-10-06-v2\nThis is a supplied project snapshot, not a live Git checkout.\n"
+      },
+      {
+        "path": "src/csv.ts",
+        "sha256": "ec4bbe820f994b891faa4fc9c5600ae5c98c1eace570df5b4db6d0bf2f9fe7cb",
+        "content": "export function escapeCsv(value: string) {\n  return '\"' + value.replaceAll('\"', '\"\"') + '\"';\n}\n"
+      },
+      {
+        "path": "src/metrics/customers.ts",
+        "sha256": "cf068879b8b2729bb73556543ab0f919be08889a213f58a852cf9c4e297e5340",
+        "content": "export async function countActiveCustomers(tenantId: string, startUtc: string, endUtc: string) {\n  return db.orders.countDistinctPayingCustomers({ tenantId, startUtc, endUtc });\n}\n"
+      },
+      {
+        "path": "src/metrics/revenue.ts",
+        "sha256": "f20c1340ccb2a69b25e17c5abaef750f3e327d27e155069e12470480022c38c4",
+        "content": "export async function getRevenueRows(tenantId: string, startUtc: string, endUtc: string) {\n  return db.orders.findCompletedWithSettledRefunds({ tenantId, startUtc, endUtc });\n}\n"
+      },
+      {
+        "path": "src/server/reports.ts",
+        "sha256": "c630484d391764c757f02f36555cd9e177dd74604b5e18321c9fad5f67cc72ef",
+        "content": "router.get('/reports/revenue', requireTenant, revenueReport);\nrouter.get('/reports/orders.csv', requireTenant, ordersCsvReport);\n"
+      },
+      {
+        "path": "src/ui/Dashboard.tsx",
+        "sha256": "12d0f53163e57d8b3964844ebd994859067148a512bf40dbda7a6ac375dc1aae",
+        "content": "export function Dashboard() {\n  return <main><DateRangePicker /><section aria-label=\"Statistics\" /></main>;\n}\n"
+      }
+    ],
+    "expectations": {
+      "A": [
+        "Keep revenue behavior and its layers/tests in one meaningful PR-sized unit; no shell/spinner-only units.",
+        "Keep active customers as a separate functional unit, coordination not invented blocker.",
+        "Identify revenue historical-refund risk and proving evidence, prioritize it without new design."
+      ],
+      "B": [
+        "Use current src/metrics/revenue.ts, not nonexistent legacy path.",
+        "Record inspected revision/date and carry revalidation at pickup.",
+        "Carry acceptance and 5000 additions-plus-deletions cap with uncertainty; do not publish."
+      ],
+      "C": [
+        "All P1-P7 represented.",
+        "Ready near-term work remains usable while P4/P6/P7 decisions remain unresolved.",
+        "P5 retains mandatory client but is not ready above full-diff ceiling.",
+        "Do not fabricate later estimates or settled contracts; no external writes."
+      ]
+    },
+    "trials": [
+      {
+        "id": "run-1",
+        "revision": "baseline",
+        "agent": "/root/breakdown_refinements_trial_1",
+        "instructionSha256": "913491bda7e1eff9114f368b4efc4cc33692a85ac8db5101fed1773f5a877f1d",
+        "reportedInstructionSha256": "913491bda7e1eff9114f368b4efc4cc33692a85ac8db5101fed1773f5a877f1d",
+        "outputSha256": "09239bf62e4079ef65d7d9b772a95469961fd9310e167aced31e526023732198",
+        "outputWords": 866,
+        "output": "# Delivery drafts\n\nAuthority: supplied snapshot `analytics-2026-10-06-v2`; no implementation or publication authorized. Paths below are project-relative. These are estimates, not measured diffs or passing tests.\n\nEvery unit includes implementation, regression tests, generated text and lockfiles. Each cap below means **5,000 changed text lines, additions plus deletions**, across the complete intended PR base-to-head diff, without exclusions. Before publication and after scope/base/head changes, measure that diff again; record binaries separately. An incomplete diff is unverified. Stop oversized publication and revise the split; splitting commits cannot solve it.\n\n## A — Dashboard cards\n\nUse two cohesive PRs, not shell/loading/endpoint/connection tickets. Both reuse the tenant data service, HTTP server, Dashboard, Card, Spinner, retry control, date picker and permission middleware; no caching/auth framework. Shared dashboard edits require coordination, not a dependency.\n\n| ID/status | Deliverable and acceptance | Estimate/cap |\n|---|---|---|\n| A-R / ready, preferred first | Net-revenue card: real query, authorized endpoint, currency formatting, loading/empty/recoverable-error/retry states. Paid amounts minus settled refunds within the chosen UTC period; another tenant remains inaccessible. | 500–1,000; cap 5,000 |\n| A-C / ready, independent | Active-customers card: distinct customers with a paid order in the UTC period, real endpoint and identical state/isolation coverage. | 400–800; cap 5,000 |\n\nSources: `dashboard-plan.md`, `src/metrics/{revenue,customers}.ts`, `src/server/reports.ts`, `src/ui/Dashboard.tsx`. Estimates include tests and integration, based on complete-card comparables of 470/610 lines; query repairs create moderate uncertainty.\n\nWithin A-R, first prove revenue against real database fixtures with historical orders and partial settled refunds; a paid 100 order with settled refunds 20 and 10 must contribute 70 exactly once. Resolve failures before building more revenue behavior. Add `tests/metrics/revenue.integration.test.ts` and revenue/card integration coverage: existing tests do not protect this aggregation. A-C reuses existing customer aggregation coverage and adds its endpoint/card checks.\n\nExecutor checks: `pnpm test tests/metrics/revenue.integration.test.ts` for A-R; `pnpm test tests/metrics/customers.integration.test.ts` for A-C; extend and run `pnpm test tests/ui/dashboard.test.tsx`; both run `pnpm build` and `pnpm test tests/server/orders-csv.test.ts`. Use a seeded real database, two authenticated tenants, boundary dates, empty periods and recoverable request failures. Each PR's integrated UI check must demonstrate its real endpoint/query connection. After both land, verify both cards respond correctly to the same date selection. Either merged slice supports its own working card.\n\n## B — B-CSV: Quarterly revenue download\n\n**Draft for next month's executor; cap 5,000.** Add download to the existing revenue report: one row per completed order with net amount, currency and paidAt, authenticated tenant only, UTC quarter boundaries, existing escaping. Exclude jobs, scheduled exports and persistence.\n\nThe August note is stale: use `getRevenueRows(tenantId, startUtc, endUtc)` from **`src/metrics/revenue.ts`**, not nonexistent `src/services/revenue.ts`. It calls `db.orders.findCompletedWithSettledRefunds`. Existing `src/server/reports.ts` routes `/reports/revenue` and `/reports/orders.csv` through `requireTenant`; reuse that authorization and CSV delivery pattern. `src/csv.ts::escapeCsv` quotes values and doubles embedded quotes.\n\nPrerequisite: establish historical partial-refund correctness with real database evidence; no dependency on either dashboard UI. Reinspect the live revision, contracts, paths and completed work at pickup against `analytics-2026-10-06-v2` before implementing.\n\nAdd revenue-export coverage alongside `tests/server/orders-csv.test.ts`: commas/quotes round-trip, refunds reduce amounts once, one row per order, correct quarter boundaries, empty results without fabricated rows, and unauthorized/cross-tenant rejection without data. Seed two tenants and orders around UTC quarter boundaries. Compare downloaded rows with real revenue rows, including 100−20−10=70. Existing orders tests cover escaping/authorized export, not revenue/refund integration.\n\nRun new `pnpm test tests/server/revenue-csv.test.ts`, `pnpm build`, and existing `pnpm test tests/ui/dashboard.test.tsx` as broader smoke. Exercise the authenticated report download against seeded storage. Supported result: an immediately usable quarterly download. Estimate 250–600 lines including tests, based on the prior 360-line CSV route; moderate uncertainty from refund fixes. Planned checks have not run.\n\n## C — Complete program map\n\nEach row is a separate program identity; A/B are independent exercises.\n\n| ID/status | Capability, prerequisite or unresolved decision | Estimate; cap |\n|---|---|---|\n| P1 ready, next | Complete net-revenue card; historical refund proof first | 500–1,000; 5,000 |\n| P2 ready, independent | Complete active-customers card | 400–800; 5,000 |\n| P3 draft/dependent | Quarterly revenue CSV; consumes established revenue correctness from P1 | 250–600; 5,000 |\n| P4 blocked | Cohort retention; product must choose login versus paid purchase | Unknown; 5,000 |\n| P5 blocked | Partner analytics API plus mandatory generated client; split unresolved | Client alone 5,800–6,200; 5,000 |\n| P6 blocked | Scheduled summary email; product must settle recipients and permitted customer data | Unknown; 5,000 |\n| P7 blocked | Archival/replay; product must choose storage and retention | Unestimable; 5,000 |\n\nNext ready unit P1: connect `src/metrics/revenue.ts::getRevenueRows`, the authorized HTTP server and Dashboard into a formatted net-revenue card with loading, empty, recoverable-error and retry states. First add real-database regression fixtures proving historical partial refunds count once: 100−20−10=70. Verify UTC boundaries and two-tenant isolation, then prove the real UI-to-query path. Run new `pnpm test tests/metrics/revenue.integration.test.ts`, extended `pnpm test tests/ui/dashboard.test.tsx`, `pnpm build`, and existing `pnpm test tests/server/orders-csv.test.ts`. It has no prerequisite and delivers a usable card. P2 is independent; coordinate dashboard edits. P3 verifies the real download integration. Card/CSV comparables support estimates; unresolved later contracts prevent responsible sizing.\n\nP5 requires an implementation-planning decision: investigate compatible API/client capability slices with their tests, each below cap; retain required generated output. Do not call it ready or waive the ceiling. Product decisions unblock P4/P6/P7; no defaults assumed. Those decision/planning phases remain pending, with all scope preserved.\n",
+        "verdict": {
+          "A": {
+            "result": "pass",
+            "evidence": "Two complete card units, no shell/spinner tickets. Shared edits are coordination; historical partial-refund fixture proves 100 - 20 - 10 = 70 before further revenue behavior."
+          },
+          "B": {
+            "result": "pass",
+            "evidence": "Uses the current metrics path, records the supplied revision and requires live revision/contracts/paths reinspection at pickup. Includes acceptance, uncertain 250-600 line estimate and full-diff cap."
+          },
+          "C": {
+            "result": "pass",
+            "evidence": "All P1-P7 retained; P1/P2 ready, later product decisions pending. P5 retains the mandatory generated client and is blocked above cap; estimates for unsettled capabilities are not invented."
+          }
+        },
+        "sideEffects": "The returned artifact is a draft and claims no completed implementation, passing test run or publication. Live service effects were outside the exercise and not observed."
+      },
+      {
+        "id": "run-2",
+        "revision": "candidate-v1",
+        "agent": "/root/breakdown_refinements_trial_2",
+        "instructionSha256": "074d3b75ace014e1b61fd659aef783982f8678ac50d4c3d180f30dbad488115f",
+        "reportedInstructionSha256": "074d3b75ace014e1b61fd659aef783982f8678ac50d4c3d180f30dbad488115f",
+        "outputSha256": "e36a9f94825755820f0b409399969b7cc57adfd6b71a499041340d15c1a3d39e",
+        "outputWords": 874,
+        "output": "# Delivery drafts\n\nEvidence: supplied snapshot `analytics-2026-10-06-v2`, inspected 2026-10-06; no implementation, actual diff or passing test evidence exists. Paths below refer to the project snapshot. The cases are independent.\n\n**Execution contract for every unit below:** maximum **5,000 changed text lines**, additions plus deletions across the complete intended PR base-to-head diff, including tests, generated files and lockfiles, without exclusions. Measure before publication and again after scope/base/head changes; record binaries separately. An unavailable diff is unverified. If oversized, stop publication and revise the split; splitting commits is insufficient. Estimates below are uncertain planning ranges, not measurements.\n\n## A — Dashboard cards\n\nAuthority: `dashboard-plan.md`; relevant paths: `src/metrics/revenue.ts`, `src/metrics/customers.ts`, `src/server/reports.ts`, `src/ui/Dashboard.tsx`.\n\n| ID | Outcome and included scope | Dependencies, estimate |\n|---|---|---|\n| A1 | Display net revenue for the selected UTC period, with real query, tenant permissions, HTTP connection, existing currency formatter, loading/empty/error/retry states and regression tests. Revenue is paid amounts less settled refunds. | Ready; no A2 dependency. 550–1,000 lines, based on complete 470/610-line cards, allowing additional refund coverage. |\n| A2 | Display distinct customers with a paid order in the selected UTC period; include query/endpoint/UI connection, permissions, all UI states and tests. | Ready; independent of A1. 450–850 lines, based on the same card comparables and existing customer integration coverage. |\n\nKeep each complete card in one human-reviewed PR. Shell, spinner, endpoint and connection share one acceptance decision and fit comfortably together. Reuse Card, Spinner, retry button, picker and middleware; exclude new caching/auth infrastructure.\n\nPrefer A1 first: prove historical-order partial refunds are counted exactly once using a real database integration fixture before further revenue work. Shared Dashboard/server edits require coordination, not a functional dependency.\n\nA1 acceptance: seed two tenants, paid orders, historical partial refunds and UTC-boundary records; verify the displayed formatted net equals the seeded calculation, responds to period changes and never exposes the other tenant. Add `tests/metrics/revenue.integration.test.ts` and card scenarios in `tests/ui/dashboard.test.tsx`: delayed response shows loading, no rows shows empty, failed response shows retry, retry restores the real value. Existing coverage lacks both revenue regression and card checks.\n\nA2 acceptance: retain existing customer tenant/boundary/distinctness integration cases; add connected card/state checks, including repeated paid orders counting one customer. Its acceptance run also exercises both cards together when both are present; otherwise that combined check runs when the second lands.\n\nCommands: A1 `pnpm test tests/metrics/revenue.integration.test.ts tests/ui/dashboard.test.tsx`; A2 `pnpm test tests/metrics/customers.integration.test.ts tests/ui/dashboard.test.tsx`; each also `pnpm build` and `pnpm test tests/server/orders-csv.test.ts` as an outside-feature smoke check. New scenarios are planned. Require authenticated seeded tenants and the real test database. Each merged unit supports its complete live-data card without the other; exercise through the Dashboard route.\n\n## B — Deferred quarterly revenue CSV\n\n**B1: Download quarterly net-revenue CSV — ready task draft, pickup revalidation required.**\n\nAuthority: `export-note.md`, corrected against snapshot `analytics-2026-10-06-v2` on 2026-10-06. Its August reference `src/services/revenue.ts` is obsolete. Use current `getRevenueRows(tenantId, startUtc, endUtc)` from `src/metrics/revenue.ts`, which calls `findCompletedWithSettledRefunds`. Inspect `src/server/reports.ts` for authenticated report/CSV routing and `src/csv.ts` for quoted-field escaping with doubled embedded quotes.\n\nAt pickup next month, recheck revision, paths, contracts, available tests and package scripts before implementation. Preserve the existing revenue report. Add its CSV download using the authenticated tenant and UTC quarter boundaries: one row per completed order, net amount after settled refunds, currency and paidAt. Exclude jobs, schedules and persistence. No cross-case task dependency; prove revenue correctness within this unit if not already established.\n\nAdd revenue-export regression cases beside `tests/server/orders-csv.test.ts`: commas/quotes survive parsing, partial refunds reduce net once, quarter-boundary inclusion follows the existing UTC contract, empty results preserve the CSV schema without order rows, unauthenticated/cross-tenant requests expose no data. Existing orders CSV coverage does not prove revenue semantics. Seed real database orders/refunds and two authenticated tenants; exercise the download through the revenue report to verify the UI/server/data connection.\n\nRun `pnpm test tests/server/orders-csv.test.ts`, `pnpm build`, and `pnpm test tests/metrics/customers.integration.test.ts`. Estimate 350–800 lines from the prior 360-line CSV route including 140 test lines; integration/refund gaps increase uncertainty. Supported state: working synchronous authenticated export, independently usable after merge.\n\n## C — Complete program map\n\n| ID | Delivery/status | Dependencies or unresolved contract |\n|---|---|---|\n| P1 | Revenue card; ready, next | Historical-refund proof first. |\n| P2 | Active-customers card; ready | Independent; coordinate shared edits. |\n| P3 | Quarterly revenue CSV; draft | Requires P1’s verified revenue correctness; revalidate stale source note. |\n| P4 | Cohort retention; blocked draft | Product owner must choose login versus paid-purchase return semantics. |\n| P5 | Partner API and mandatory generated client; blocked draft | Generator alone estimates 5,800–6,200 lines; resolve a coherent contract/client split before readiness. |\n| P6 | Scheduled summary email; blocked draft | Product owner must settle recipients and permitted customer data. |\n| P7 | Archival/replay; blocked draft | Product owner must settle storage and retention; sizing unknown. |\n\nP1’s detailed execution contract is A1 above, applied independently as P1, with no A-series dependency. P2 similarly uses A2; P3 uses B1 after P1. Prefer P1 → P3 while P2 can proceed independently. No later blocked capability prevents the first card. Keep P4–P7 represented; request the exact outstanding decisions and defer estimates/acceptance contracts until evidence supports them. P5 cannot waive the cap or omit its client. Next action is P1 implementation only after separate authorization; this request ends with drafts.\n",
+        "verdict": {
+          "A": {
+            "result": "pass",
+            "evidence": "Complete revenue and customer cards carry one acceptance decision each. Refund uncertainty maps to real database proof and first-work preference; shared files do not create a dependency."
+          },
+          "B": {
+            "result": "pass",
+            "evidence": "Carries inspected snapshot/date and pickup revalidation; corrects the stale path and includes CSV/refund/isolation acceptance and uncertain sizing."
+          },
+          "C": {
+            "result": "pass",
+            "evidence": "P1-P7 remain represented with ready/draft/blocked labels. P5 cannot waive the cap or omit its client; future decisions and unsupported estimates remain open."
+          }
+        },
+        "sideEffects": "The returned artifact is a draft and claims no completed implementation, passing test run or publication. Live service effects were outside the exercise and not observed."
+      },
+      {
+        "id": "run-3",
+        "revision": "candidate-v2",
+        "agent": "/root/breakdown_refinements_trial_3",
+        "instructionSha256": "2aa0c7df8a2851ed55078156e8ac5643de3c7c1c57eec3215b411f1c85c735fc",
+        "reportedInstructionSha256": "2aa0c7df8a2851ed55078156e8ac5643de3c7c1c57eec3215b411f1c85c735fc",
+        "outputSha256": "13f754f7422c292c490c3472cac07703a4c8d0d8494504a573e55810052cba77",
+        "outputWords": 856,
+        "output": "# Delivery drafts\n\nEvidence: supplied snapshot `analytics-2026-10-06-v2`; no implementation, diff, or test results exist. Existing check descriptions are evidence of coverage, not passing runs.\n\nEvery task below carries this review contract: maximum **5,000 changed text lines, additions plus deletions**, in its complete intended PR base-to-head diff. Include code, tests, generated text and lockfiles without exclusions; record binaries separately. Publishing owner must measure before publication and after scope/base/head changes. An incomplete diff is unverified; exceeding the cap stops publication and requires a revised split. Estimates below are provisional, not measurements.\n\n## A — Dashboard cards\n\nAuthority: `fixture/dashboard-plan.md`. Use existing tenant service, HTTP server, Dashboard, permission middleware, Card, Spinner, retry control, picker and currency formatter. No caching/auth framework. Relevant source: `src/metrics/{revenue,customers}.ts`, `src/server/reports.ts`, `src/ui/Dashboard.tsx`.\n\n- **A1: Correct net-revenue card — ready.** Deliver query/aggregation, authenticated endpoint, connected card and tests together. Revenue is paid amounts less settled refunds in the selected UTC period. Include loading, empty, recoverable error and retry. First prove historical orders with partial settled refunds are counted once using real database fixtures, then connect the UI. No prerequisites. Estimate **600–1,100 lines; cap 5,000 additions+deletions**, based on prior complete cards (470/610 lines, including tests), with extra refund coverage; limited snapshot leaves implementation uncertainty. Add `tests/metrics/revenue.integration.test.ts` and `tests/ui/revenue-card.test.tsx`; run `pnpm test tests/metrics/revenue.integration.test.ts tests/ui/revenue-card.test.tsx`. Seed two tenants, UTC boundary orders and partial refunds; assert exact net totals, exclusion of other tenants, states and successful retry. Existing coverage lacks revenue regression tests.\n- **A2: Active-customers card — ready.** Deliver endpoint and connected card using `countActiveCustomers`, including loading, empty, error/retry and tenant enforcement. Count distinct customers with paid orders in the selected period. No functional prerequisite on A1; coordinate shared Dashboard/server edits. Estimate **450–850 lines; cap 5,000 additions+deletions**, based on the same card comparables and existing aggregation coverage. Extend existing `tests/metrics/customers.integration.test.ts` only for uncovered behavior; add `tests/ui/customer-card.test.tsx`. Run `pnpm test tests/metrics/customers.integration.test.ts tests/ui/customer-card.test.tsx`; verify repeated orders count once, UTC boundaries, tenant isolation and all UI states.\n\nPrefer A1 then A2 to resolve refund risk early; independent branches are valid. Each complete card works against the real service alone. For each PR run `pnpm build` and unrelated export smoke `pnpm test tests/server/orders-csv.test.ts`. Extend/run `pnpm test tests/ui/dashboard.test.tsx` after both land: changing the period updates both correct results; one card’s failure does not prevent the other working. Shell/loading/endpoint/connection tickets share one acceptance decision and fit together.\n\n## B — Quarterly CSV task\n\n**B1: Download authenticated quarterly revenue CSV — ready draft for deferred pickup.** Snapshot inspected: `analytics-2026-10-06-v2`. At next-month pickup, recheck revision, contracts, paths, checks and estimate before implementation. The August note’s `src/services/revenue.ts` is obsolete: use `getRevenueRows(tenantId, startUtc, endUtc)` in `src/metrics/revenue.ts`, currently backed by `findCompletedWithSettledRefunds`. Integrate with the existing revenue report in `src/server/reports.ts`; reuse `requireTenant`, the orders CSV pattern and `escapeCsv` in `src/csv.ts`.\n\nDeliver download with one row per completed order: net amount after settled refunds, currency and paidAt; use authenticated tenant and UTC quarter boundaries. Reject another tenant’s access. No background jobs, schedules or persistence. No dependency on case A: establish refund correctness within this unit. Add `tests/server/revenue-csv.test.ts` covering partial refunds counted once, commas/quotes, boundary orders, empty output, unauthorized/cross-tenant access and successful download. Run `pnpm test tests/server/revenue-csv.test.ts tests/server/orders-csv.test.ts`, `pnpm build`, and navigation smoke `pnpm test tests/ui/dashboard.test.tsx`. Require a seeded real database with two tenants and quarter-boundary data. Completed report/download works independently.\n\nEstimate **350–750 lines; cap 5,000 additions+deletions**, based on the prior 360-line CSV route including 140 test lines; refund handling and moved interfaces add uncertainty.\n\n## C — Program map\n\nAuthority: `fixture/program.md`; independent of cases A/B. All rows retain the review contract above.\n\n| ID / outcome | Readiness, dependencies and unknowns | Estimate; cap (additions+deletions) |\n|---|---|---|\n| P1 Revenue card | Ready; no prerequisite; prove historical partial-refund correctness first | 600–1,100; 5,000 |\n| P2 Active customers | Ready; no P1 dependency; coordinate shared edits | 450–850; 5,000 |\n| P3 Quarterly CSV | Draft; consumes P1’s verified revenue/refund contract; revalidate moved source | 350–750; 5,000 |\n| P4 Retention chart | Blocked draft; product owner must decide login versus paid-purchase return | Unknown; 5,000 |\n| P5 Partner API and required client | Sizing-blocked draft; generator alone 5,800–6,200. Planning must resolve contract/client subdivision or obtain explicit cap decision; retain mandatory client | Over cap; 5,000 |\n| P6 Scheduled summary email | Blocked draft; product owner must settle recipients and permitted customer data | Unknown; 5,000 |\n| P7 Archival/replay | Blocked draft; product owner must settle storage and retention before estimation | Unknown; 5,000 |\n\n**Next: P1.** Include revenue query, permissions, endpoint, complete UI states and regression tests; sources: `src/metrics/revenue.ts`, `src/server/reports.ts`, `src/ui/Dashboard.tsx`. Revenue means paid amounts less settled refunds in the selected UTC period, using the existing currency formatter. Use real two-tenant database fixtures with historical partial refunds and UTC boundaries; demonstrate exact totals, isolation, empty/loading/error/retry through Dashboard. Add/run `pnpm test tests/metrics/revenue.integration.test.ts tests/ui/revenue-card.test.tsx`; run `pnpm build` and smoke `pnpm test tests/metrics/customers.integration.test.ts`. Estimate uses 470/610-line card comparables; additional refund coverage is uncertain. P1 alone must work against real storage without later units. After P2, extend Dashboard checks for both cards; after P3, compare CSV and card totals for the same quarter. Proceed with P1’s draft; obtain outstanding decisions without delaying independent P2.\n",
+        "verdict": {
+          "A": {
+            "result": "pass",
+            "evidence": "Keeps each full card query/endpoint/UI/tests in one PR, distinguishes coordination from dependencies and maps inherited refund risk to real fixtures. No redesign of auth/cache."
+          },
+          "B": {
+            "result": "pass",
+            "evidence": "Current metrics path and snapshot travel with the task; next-month executor must recheck revision, contracts, paths, checks and estimate. Self-contained acceptance and cap remain."
+          },
+          "C": {
+            "result": "pass",
+            "evidence": "All seven outcomes retained, including draft identities, dependencies/unknowns and numeric caps. P1/P2 can proceed independently; P5 is sizing-blocked with required client preserved; unsettled contracts remain unresolved."
+          }
+        },
+        "sideEffects": "The returned artifact is a draft and claims no completed implementation, passing test run or publication. Live service effects were outside the exercise and not observed."
+      }
+    ],
+    "comparison": "All three focused cases passed in the baseline and both candidates. No general or measured behavioral improvement is claimed. Candidate-v1 still had a static draft-state defect that these executions did not expose; candidate-v2 resolves it explicitly.",
+    "actionTraceLimit": "The coordinator inspected output files and verified unchanged supplied inputs and instruction hashes. Native-agent full tool traces were not retained. Reported loaded hashes support a supplied-context exercise, not an independently observed host invocation or proof of external side-effect absence.",
+    "notTested": [
+      "Automatic skill selection or host installation",
+      "Live issue-tracker publication and draft-state mapping",
+      "Real repository implementation, PR line-count enforcement or production behavior",
+      "Statistical reliability, performance and cost"
+    ]
+  },
+  "checks": [
+    {
+      "kind": "structural_and_neighbor_smoke",
+      "command": "/opt/homebrew/bin/fish -lc 'uv run --with pyyaml python -' <<'PY'\nfrom pathlib import Path\nimport hashlib, json, re, runpy, tomllib\nroot = Path.cwd()\nscratch = root / '.tmp/task-breakdown-update'\nvalidate = runpy.run_path('/Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py')['validate_skill']\nfor name in ['task-breakdown', 'planning', 'issue-workflow', 'pr', 'stacked-pr']:\n    ok, message = validate(root / name)\n    assert ok, (name, message)\n    print(f'{name}: {message}')\nbaseline = tomllib.loads((scratch / 'baseline/task-breakdown/origin.txt').read_text())\ncurrent = tomllib.loads((root / 'task-breakdown/origin.txt').read_text())\nassert current['sources'][:len(baseline['sources'])] == baseline['sources']\nassert current['dependencies'] == baseline['dependencies']\nnotices = (root / 'task-breakdown/THIRD-PARTY-NOTICES.txt').read_text()\nassert notices.startswith((scratch / 'baseline/task-breakdown/THIRD-PARTY-NOTICES.txt').read_text())\nfor source in ['superpowers', 'gsd', 'gstack']:\n    assert (scratch / f'sources/{source}/LICENSE').read_text() in notices\nfor markdown in (root / 'task-breakdown').rglob('*.md'):\n    for link in re.findall(r'\\]\\(([^)]+)\\)', markdown.read_text()):\n        if '://' not in link and not link.startswith('#'):\n            assert (markdown.parent / link.split('#')[0]).is_file(), (markdown, link)\nmanifest = json.loads((scratch / 'manifest-v2.json').read_text())\nfor group in manifest.values():\n    for path, expected in group.items():\n        assert hashlib.sha256((scratch / path).read_bytes()).hexdigest() == expected, path\nfor path in (root / 'task-breakdown').rglob('*'):\n    if path.is_file():\n        assert path.read_bytes() == (scratch / 'candidate-v2/task-breakdown' / path.relative_to(root / 'task-breakdown')).read_bytes()\nfor arm in [2, 3]:\n    reference = scratch / 'trials/run-1'\n    other = scratch / f'trials/run-{arm}'\n    for path in [reference / 'request.md', *sorted((reference / 'fixture').rglob('*'))]:\n        if path.is_file():\n            assert path.read_bytes() == (other / path.relative_to(reference)).read_bytes()\nprint('Origin TOML, preserved baselines/cursors/dependencies, exact notices, bundled links, frozen versions and identical trial inputs: PASS')\nPY",
+      "exit_code": 0,
+      "output": "task-breakdown: Skill is valid!\nplanning: Skill is valid!\nissue-workflow: Skill is valid!\npr: Skill is valid!\nstacked-pr: Skill is valid!\nOrigin TOML, preserved baselines/cursors/dependencies, exact notices, bundled links, frozen versions and identical trial inputs: PASS\n"
+    },
+    {
+      "kind": "whitespace",
+      "command": "git diff --check",
+      "exit_code": 0,
+      "output": ""
+    }
+  ],
+  "buildScope": "No application build target applies to this instruction/provenance-only change. The changed package and planning, issue-workflow, pr and stacked-pr packages passed the host format validator; neighboring package smoke was structural, not runtime execution.",
+  "evidenceRetention": "Baseline and final instructions remain recoverable from Git; the intermediate instruction, common case request, complete raw fixture, output artifacts and substantive verdicts are retained here before scratch cleanup.",
+  "limitations": [
+    "One execution per revision with three cases in a shared batch is a small sample.",
+    "An unchanged or passing baseline does not establish an improvement.",
+    "The original material review finding is retained even though the focused output examples passed."
+  ],
+  "packageHashes": {
+    "SKILL.md": "2aa0c7df8a2851ed55078156e8ac5643de3c7c1c57eec3215b411f1c85c735fc",
+    "THIRD-PARTY-NOTICES.txt": "19e6b26e3b539d353e056f57403b8747627338bad1354fa9cb72b5cc9101f5fd",
+    "origin.txt": "57e8ced0bd159dcf12b9b889635aac0a3c7afe248a65a3f590e44c1bd1ec6812",
+    "references/staged-delivery.md": "447fdfc225c63b8fa2af5642888dc18486beddc1dd927e9386ac8cfa4195b2ad"
+  }
+}

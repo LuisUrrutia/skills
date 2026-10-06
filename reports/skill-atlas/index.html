@@ -8,8 +8,8 @@
   <title>Atlas de skills | Tu flujo de desarrollo</title>
   <script src="theme.js"></script>
   <link rel="stylesheet" href="styles.css?v=3dd1dd1fabc1">
-  <script src="catalog.js?v=c51173eddeb4" defer></script>
-  <script src="app.js?v=9c38951f4fbb" defer></script>
+  <script src="catalog.js?v=6aea2f038ca2" defer></script>
+  <script src="app.js?v=07d1aed7e860" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Saltar al informe</a>
@@ -17,8 +17,10 @@
     <a class="brand" href="#overview"><span class="brand-mark" aria-hidden="true">s</span><span>Atlas de skills<small>El flujo de desarrollo de Luis</small></span></a>
     <button id="theme-toggle" class="quiet-button theme-toggle" type="button" hidden>Modo claro</button>
     <nav>
+      <a href="#wayfinder" lang="en">Wayfinder <span class="nav-tag">Created</span></a>
+      <a href="#planning" lang="en">Planning <span class="nav-tag">Created</span></a>
       <a href="#deprecate-and-remove" lang="en">Retirement <span class="nav-tag">Created</span></a>
-      <a href="#inventory" lang="en">Repository skills <span class="nav-tag" data-repository-count>40</span></a>
+      <a href="#inventory" lang="en">Repository skills <span class="nav-tag" data-repository-count>44</span></a>
       <a href="#performance-optimization" lang="en">Performance <span class="nav-tag">New</span></a>
       <a href="#issue-workflow" lang="en">Ticket workflow <span class="nav-tag">New</span></a>
       <a href="#observability" lang="en">Observability <span class="nav-tag">New</span></a>
@@ -44,18 +46,37 @@
       <a href="#evidence">Fuentes y cobertura</a>
       <a href="#workflow">Work-mode, al final <span class="nav-tag">4</span></a>
     </nav>
-    <div class="sidebar-note" lang="en"><span class="status-dot" aria-hidden="true"></span>Inventory checked<time datetime="2026-10-04">4 October 2026</time><p><span data-repository-count>40</span> skills present in this checkout. PR attachments and focused review delegation are included. Work-mode remains a proposal.</p><button id="print-report" class="quiet-button" type="button">Print / save PDF</button></div>
+    <div class="sidebar-note" lang="en"><span class="status-dot" aria-hidden="true"></span>Inventory checked<time datetime="2026-10-06">6 October 2026</time><p><span data-repository-count>44</span> skills present in this checkout. PR attachments and focused review delegation are included. Work-mode remains a proposal.</p><button id="print-report" class="quiet-button" type="button">Print / save PDF</button></div>
   </aside>
   <main id="main">
     <header id="overview" class="hero section" lang="en">
       <p class="kicker">The current workflow collection</p>
       <h1>Skills already in place.<br><span>What remains to build.</span></h1>
-      <p class="lead">The repository contains <span data-repository-count>40</span> skill packages. Teaching now has two owners: teach for lessons and learning-plan for study progressions and complete courses. explain-code and explain-decisions replace the ambiguous how and why names. Technical and nontechnical learning share the same learner-aware workflow. Checks in the source catalog identify material already incorporated.</p>
+      <p class="lead">The repository contains <span data-repository-count>44</span> skill packages. Wayfinder now resolves ambiguity into a direction for execution planning. Its decision map preserves reasons, evidence, dependencies and open questions across sessions. Planning now turns that direction into executable work, dependencies and acceptance checks. Checks in the source catalog identify material already incorporated.</p>
       <ol class="reading-order" aria-label="Reading order"><li><a href="#inventory"><span>1</span>Current skills</a></li><li><a href="#remaining"><span>2</span>Remaining choices</a></li><li><a href="#catalog"><span>3</span>Source comparison</a></li><li><a href="#workflow"><span>4</span>Future work-mode</a></li></ol>
-      <div class="hero-actions"><a class="button primary" href="#report-work-activity">See the activity reporting design</a><a class="button secondary" href="?progress=ready#catalog">See incorporated sources</a></div>
-      <dl class="scope-stats"><div><dt>Repository skills</dt><dd data-repository-count>40</dd></div><div><dt>Local proposals</dt><dd data-pending-count>1</dd></div><div><dt>Original external entries</dt><dd>105</dd></div><div><dt>Original source cards</dt><dd>122</dd></div></dl>
+      <div class="hero-actions"><a class="button primary" href="#wayfinder">See Wayfinder</a><a class="button secondary" href="?progress=ready#catalog">See incorporated sources</a></div>
+      <dl class="scope-stats"><div><dt>Repository skills</dt><dd data-repository-count>44</dd></div><div><dt>Local proposals</dt><dd data-pending-count>1</dd></div><div><dt>Original external entries</dt><dd>105</dd></div><div><dt>Original source cards</dt><dd>122</dd></div></dl>
       <div class="notice"><strong>What the counts establish.</strong> Repository presence, source incorporation and a recommendation to install are different states. The catalog now has <span data-catalog-count>277</span> cards. Original snapshots remain available; the four named collections also have a dated current assessment. A check does not claim the full upstream skill is installed or synchronized.</div>
     </header>
+
+    <section id="wayfinder" class="section" aria-labelledby="wayfinder-heading" lang="en">
+      <div class="section-heading"><p class="kicker">Reworked · direction before execution planning</p><h2 id="wayfinder-heading">Decide enough to plan the work</h2><p><code>wayfinder</code> turns an ambiguous initiative into an evidence-backed direction while preserving decisions and context across sessions.</p></div>
+      <div class="two-columns"><article class="surface"><h3>Choose a direction from evidence</h3><p>Ground the desired outcome in what happens today. Compare real options against the same constraints, identify what would change the recommendation, and investigate the uncertainty that matters next. Scale the work to the cost of being wrong and stop when more detail would not change the decision.</p></article><article class="surface"><h3>Keep the decision map alive</h3><p>Record choices, authority, reasons, evidence, dependencies and the next useful step. New evidence reopens affected decisions while preserving their history. A settled direction proceeds into the authorized workflow with the separate planning package.</p></article></div>
+      <div class="table-wrap"><table><thead><tr><th>Source</th><th>Contribution</th><th>Adaptation boundary</th></tr></thead><tbody><tr><th>Matt Pocock · Wayfinder</th><td>Destination, connected questions and continuity across sessions.</td><td>Portable map; tracker, delegation and session size remain conditional.</td></tr><tr><th>Compound Engineering · ce-brainstorm / ce-pov</th><td>Problem framing, real alternatives and evidence that could change the direction.</td><td>No CE configuration, compulsory interview or added approval stages.</td></tr><tr><th>Matthew Blode · planning references</th><td>Concrete option evidence, the deciding fact and the conditions that keep a decision valid.</td><td>Execution planning and ticket splitting stay separate.</td></tr><tr><th>pstack · figure-it-out and principles</th><td>Proportionate experiments, distinct alternatives and direct observation.</td><td>No full execution pipeline, model roster or fixed prototype count.</td></tr></tbody></table></div>
+      <p>The source review screened 19 SSH-pinned repository trees and records exactly which files were read. Four repositories supply selected mechanisms; other candidates were rejected or retained as context. MIT notices are preserved. Optional local specialists remain <code>prototype</code> and <code>design-code-structure</code>.</p>
+      <p id="wayfinder-validation-summary">Codex gpt-6-astra Max and Claude claude-fable-5-1 Max reviewed the rewrite independently. Follow-up reviews resolved map ordering, resumption and attribution findings. Four bounded cases compare the previous package with the rewrite; final reruns preserve the tested authority and planning boundaries. The rewrite adds an explicit reversal condition missing from the previous response in one case. These runs do not establish general performance gains or automatic host activation.</p>
+      <div class="hero-actions"><a class="button primary" href="?q=wayfinder&amp;progress=ready#catalog">See incorporated sources</a><a class="button secondary" href="wayfinder-source-review.json">Source decisions and reading scope</a><a class="button secondary" href="wayfinder-rewrite-validation.json">Checks and limitations</a></div>
+      <p><a href="wayfinder-validation.json">Original implementation evidence</a> remains available, including the earlier dependency-cycle failure and correction. Repository presence does not establish global installation or automatic host selection.</p>
+      <div data-evidence="Matt Pocock/wayfinder"></div>
+    </section>
+
+    <section id="planning" class="section" aria-labelledby="planning-heading" lang="en">
+      <div class="section-heading"><p class="kicker">Created · executable work after direction</p><h2 id="planning-heading">Make the outcome executable and verifiable</h2><p><code>planning</code> creates, reviews, revises or divides implementation plans from current evidence and settled decisions.</p></div>
+      <div class="two-columns"><article class="surface"><h3>Work another executor can complete</h3><p>Define observable outcomes, true dependencies, interface agreements and acceptance checks. Keep small changes cohesive; divide larger work around complete behavior, with explicit integration and migration stages.</p></article><article class="surface"><h3>Preserve scope and continuity</h3><p>Use Wayfinder when connected direction decisions remain open. Keep one authoritative plan with accessible context. Review-only work returns findings; planning-only work ends with its artifact. Already-authorized implementation continues without another approval gate.</p></article></div>
+      <p>The focused source review covers eight repositories. Selected mechanisms come from Matthew Blode, Matt Pocock, Sentimony and Superpowers. Pinned revisions, reading scope, exclusions and retained licenses distinguish inspiration from installation.</p>
+      <div class="hero-actions"><a class="button primary" href="planning-source-review.json">Source decisions and reading scope</a><a class="button secondary" href="planning-validation.json">Checks and limitations</a></div>
+      <div data-evidence="Matt Pocock/to-tickets"></div>
+    </section>
 
     <section id="deprecate-and-remove" class="section" aria-labelledby="deprecate-and-remove-heading" lang="en">
       <div class="section-heading"><p class="kicker">Created · dependency and feature retirement</p><h2 id="deprecate-and-remove-heading">Retire what we no longer want to maintain</h2><p><code>deprecate-and-remove</code> replaces dependencies when needed and retires features with no successor. Complete the cleanup while preserving behavior that must remain.</p></div>
@@ -70,12 +91,12 @@
     </section>
 
     <section id="inventory" class="section" aria-labelledby="inventory-heading" lang="en">
-      <div class="section-heading"><p class="kicker">Checked against the repository</p><h2 id="inventory-heading">The skills we already have</h2><p><span data-repository-count>40</span> packages are present, grouped by the task they own. Each entry identifies its current file and links to the analysis where available. These are repository packages; installed copies keep their own state.</p></div>
+      <div class="section-heading"><p class="kicker">Checked against the repository</p><h2 id="inventory-heading">The skills we already have</h2><p><span data-repository-count>44</span> packages are present, grouped by the task they own. Each entry identifies its current file and links to the analysis where available. These are repository packages; installed copies keep their own state.</p></div>
       <div id="repository-inventory" class="two-columns"></div>
       <noscript><p>The complete repository inventory and file hashes are available in <a href="sources.json">sources.json</a>, under repositoryInventory.</p></noscript>
       <div class="notice"><strong>Names and historical copies.</strong> <code>review-code-changes</code> is the current repository implementation derived from <code>review-audit</code>. <code>walkthrough</code> is absent from this checkout. Other installed-only entries in the original analysis are not counted as repository packages; this update does not check their installation.</div>
       <article id="remaining" class="surface">
-        <h3>What remains from the earlier plan</h3><p>These <span data-pending-count>1</span> local proposals have no SKILL.md in this checkout. Teaching is now implemented; work-mode remains the final composition step. The <a href="#author-review">new recommendations below</a> are additional choices, not created packages.</p>
+        <h3>What remains from the earlier plan</h3><p>Remaining local proposals: <span data-pending-count>1</span>. Wayfinder and planning are implemented; work-mode remains the final composition step. The <a href="#author-review">new recommendations below</a> are additional choices, not created packages.</p>
         <div id="pending-skills"></div>
         <p>The <a href="#install">installation selections</a> remain separate from repository packages. The measured <a href="#performance-optimization">performance-optimization derivation</a> is now present in this checkout.</p>
       </article>
@@ -224,7 +245,7 @@
       <div class="section-heading"><p class="kicker">Expanded source review · 4 October 2026</p><h2 id="author-review-heading">What to bring into this collection</h2><p>95 skills inventoried across four repositories. The original assessment found 18 incorporated sources and evaluated the other 77. Current completion checks below also include later work, including verification and accessibility; a partial adoption does not complete every proposed capability. The strongest additions improve a specific capability. Installing all four collections would create competing owners for review, verification, writing, Git and orchestration.</p></div>
       <div id="author-collections" class="two-columns"></div>
       <h3 class="review-subheading">Recommended order</h3>
-      <p>Interface verification and shared performance-evidence criteria are now expanded. Planning and interaction design are the next proposed capabilities; broader optimization and observability remain separate specialties. Keep <code>work-mode</code> until the end, with pstack as its main foundation and the accepted local skills as its building blocks.</p>
+      <p>Interface verification and shared performance-evidence criteria are now expanded. Planning is implemented; interaction design remains a proposed capability, while optimization and observability retain their separate owners. Keep <code>work-mode</code> until the end, with pstack as its main foundation and the accepted local skills as its building blocks.</p>
       <div id="author-shortlist" class="two-columns"></div>
       <div id="author-internal-references"></div>
       <article class="surface review-boundaries"><h3>Keep these responsibilities distinct</h3><ul><li>Blode's <code>app-verification</code> explicitly derives from pstack. It extends the same lineage; it is not a second independent endorsement.</li><li><code>ce-compound</code> records a project lesson. <code>workflow-to-skill</code> extracts a reusable procedure. Both can be useful without becoming one skill.</li><li>HumanLayer's control loops automate recurring maintenance. They do not replace the per-task coordinator or PR follow-up.</li><li><code>ce-proof</code> integrates a document editor. It is unrelated to verifying that software works.</li><li><code>chat-history</code> is an optional direct-install candidate. The original selection pass installed or derived no skills; later adaptations have their own evidence below.</li></ul></article>

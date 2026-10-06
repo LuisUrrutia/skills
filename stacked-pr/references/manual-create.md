@@ -8,7 +8,7 @@ Load [stack-design.md](stack-design.md). State the bottom-to-top plan, then crea
 the one below it and commit one concern per layer. For adoption or an oversized source branch,
 preserve every original tip and load [troubleshooting.md](troubleshooting.md) before rewriting.
 
-Build is complete when each branch contains its parent, every changed path has one owner layer,
+Build is complete when each branch contains its parent, every incremental change has one owner layer,
 layer checks pass, and the combined top diff matches the intended feature.
 
 ## Open or adopt PRs

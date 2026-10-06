@@ -1,0 +1,82 @@
+format_version = 1
+skill = "wayfinder"
+created = "2026-10-06"
+approach = "Derive: keep Matt Pocock's durable decision map and combine selective problem-framing, option-comparison, and experiment guidance into one direction-finding workflow."
+
+[[sources]]
+id = "matt-wayfinder"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+reviewed_through = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+baseline_paths = ["skills/engineering/wayfinder/SKILL.md", "LICENSE"]
+paths = ["skills/engineering/wayfinder/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Start with a destination and maintain a canonical map of decisions across sessions.", "Distinguish explicit decision questions, unresolved vague areas, and exclusions.", "Resolve questions through evidence, prototypes, and human judgment, then update dependent decisions.", "Separate authoritative decision details from the map's compact index."]
+local_choices = ["Use the user-approved objective: reach a defensible direction before execution planning.", "Allow local Markdown and existing records; make issue trackers, labels, branches, assignments, and delegation conditional.", "Keep the skill discoverable and omit the donor's disable-model-invocation control.", "Remove fixed token budgets, one-ticket-per-session limits, and mandatory specialist or agent setup.", "Compose local prototype and design-code-structure owners without inheriting donor implementation or approval gates.", "Revalidate changed premises, preserve superseded rationale, honor delegated judgment, and keep recommendations distinct from authorized scope changes.", "Continue already authorized planning without requiring a planning package or an extra approval.", "Keep short maps in one file, split larger records when useful, and account for storage lifetime and next-session access."]
+reviews = []
+
+[[sources]]
+id = "compound-wayfinder"
+author = "Every / Compound Engineering"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+baseline_commit = "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c"
+reviewed_through = "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c"
+baseline_paths = ["skills/ce-brainstorm/SKILL.md", "skills/ce-brainstorm/references/product-pressure-test.md", "skills/ce-brainstorm/references/approaches.md", "skills/ce-brainstorm/references/blindspot-pass.md", "skills/ce-brainstorm/references/interaction-rules.md", "skills/ce-pov/SKILL.md", "skills/ce-pov/references/method.md", "LICENSE"]
+paths = ["skills/ce-brainstorm/SKILL.md", "skills/ce-brainstorm/references/product-pressure-test.md", "skills/ce-brainstorm/references/approaches.md", "skills/ce-brainstorm/references/blindspot-pass.md", "skills/ce-brainstorm/references/interaction-rules.md", "skills/ce-pov/SKILL.md", "skills/ce-pov/references/method.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Test the problem behind a proposed solution using current behavior, workarounds, and evidence of need.", "Compare real alternatives, including the incumbent or no change when credible, without padding a menu.", "Explain unfamiliar decision territory before asking the user to judge it.", "Scale investigation to reversibility and seek evidence that could disconfirm the direction."]
+local_choices = ["Use one portable decision map rather than CE configuration, artifact contracts, model tiers, or a prescribed folder.", "Honor settled choices and existing delegated authority without mandatory challenge, confirmation, or teaching-offer gates.", "Keep product, architecture, and migration decisions in scope; leave the implementation approach to planning and delivery decomposition to task-breakdown.", "Use decision-relevant evidence rather than fixed research floors or forced numbers of options, sources, or questions."]
+reviews = []
+
+[[sources]]
+id = "blode-decision-briefs"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+baseline_paths = ["skills/planning/SKILL.md", "skills/planning/references/decision-briefs.md", "skills/planning/references/doc-grounding.md", "skills/planning/references/claim-verification.md", "LICENSE.md"]
+paths = ["skills/planning/SKILL.md", "skills/planning/references/decision-briefs.md", "skills/planning/references/doc-grounding.md", "skills/planning/references/claim-verification.md", "LICENSE.md"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Make option costs concrete, distinguish measured evidence from estimates, and ask about the fact on which the recommendation turns.", "Record what would change a decision and revisit its validity when a premise changes.", "Test consequential claims through the smallest relevant evidence surface, preserving inconclusive results."]
+local_choices = ["Adapt the decision mechanism before execution planning; do not import ticket splitting, implementation plans, or plan-review scorecards.", "Use previews only where they clarify a decision; no fixed word budget or mandatory numerical cost estimate.", "Keep durable context in the existing authoritative map rather than automatically creating another plan or proposing agent-memory writes."]
+reviews = []
+
+[[sources]]
+id = "pstack-wayfinder"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "df581122cde17e6e27686b5a448bde23e4ad4318"
+reviewed_through = "df581122cde17e6e27686b5a448bde23e4ad4318"
+baseline_paths = ["pstack/skills/figure-it-out/SKILL.md", "pstack/skills/principle-exhaust-the-design-space/SKILL.md", "pstack/skills/principle-prove-it-works/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/figure-it-out/SKILL.md", "pstack/skills/principle-exhaust-the-design-space/SKILL.md", "pstack/skills/principle-prove-it-works/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Scale rigor to the impact and reversibility of a decision.", "Compare structurally distinct options when the choice is genuinely open.", "State a falsifiable observation, run a small experiment, and judge the actual artifact rather than a completion report."]
+local_choices = ["Keep discovery as the scope; do not import the full poteto-mode execution, delivery, audit-log, or review pipeline.", "Prototype only when it resolves a decision and is authorized, with no fixed count of implementations.", "Keep the existing decision map as the audit trail, and preserve task-specific permissions for delegation and external writes."]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "prototype"
+required = false
+role = "Investigate uncertain UI, state, or behavioral questions through an authorized experiment."
+
+[[dependencies]]
+kind = "local"
+name = "design-code-structure"
+required = false
+role = "Investigate data models, interfaces, and module boundaries that affect the direction."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested skill authoring or source maintenance."

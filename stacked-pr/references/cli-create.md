@@ -6,10 +6,11 @@ preconditions.
 ## Plan
 
 Load [stack-design.md](stack-design.md). State the layers bottom-to-top, with one concern and one
-owner for every changed path. For an oversized branch, existing PRs, worktrees, or another branch
-manager, load [troubleshooting.md](troubleshooting.md) before rewriting or adopting anything.
+owner for every incremental change; files may evolve across layers. For an oversized branch,
+existing PRs, worktrees, or another branch manager, load
+[troubleshooting.md](troubleshooting.md) before rewriting or adopting anything.
 
-Planning is complete when every changed path has one owner, every dependency points toward the
+Planning is complete when every incremental change has one owner, every dependency points toward the
 trunk, and the verification command for each layer is known.
 
 ## Build or adopt
@@ -22,8 +23,8 @@ serve its single concern.
 For adoption, preserve existing tips and verify ancestry before writing local stack metadata.
 
 Build or adoption is complete when the CLI's JSON view shows the planned order, each adjacent parent
-is an ancestor of its child, every commit and changed path belongs to one layer, layer checks pass,
-and no branch needs a rebase. Stop here when the request is local-only.
+is an ancestor of its child, every incremental change and commit belongs to one concern,
+layer checks pass, and no branch needs a rebase. Stop here when the request is local-only.
 
 ## Submit
 
