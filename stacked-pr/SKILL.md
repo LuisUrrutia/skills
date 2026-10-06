@@ -27,14 +27,13 @@ before the merge command. Preserve unrelated dirty-tree work. Before rewriting a
 current branch and relevant tips so every original commit remains reachable until verification.
 
 When a request, project rule or task record sets a review-size cap, carry it through
-the selected route. Before publishing new code or creating PRs, measure additions
-plus deletions for each layer's full `<base-sha>...<head-sha>` diff against its
-actual immediate PR base, including tests, generated text and lockfiles. Use
-Git's `--shortstat` totals and `--numstat` for binary entries; record revisions and
-binary review burden separately. Never count an upper layer cumulatively against
-trunk. Splitting commits does not shrink a PR. An unavailable count blocks publication;
-an over-cap layer returns to `task-breakdown` before publication. Recheck after base
-or head changes. Scope this gate to publication; read-only inspection can report it.
+the selected route. Before pushing or creating PRs, invoke `pr` in
+Check cap mode for each layer, passing its actual immediate PR base, selected
+head and cap. An upper layer is never checked cumulatively against trunk. Require
+a current `within-cap` result; if `pr` is unavailable, report the missing check
+and keep capped publication pending. The selected stack route retains mutation
+and remediation ownership under the shared contract defined by `pr`.
+Read-only inspection may use the same check and report its verdict without publishing.
 
 ## Route the request
 

@@ -27,6 +27,9 @@ canonical transition policy.
   and required template content. A request to update does not need a second approval.
 - **Draft-only:** provide requested copy or inspection without a commit, push,
   or GitHub mutation. Use only the reads needed for that deliverable.
+- **Check cap:** apply only [the shared size check](#check-the-review-size-cap)
+  and return its verdict. The caller retains remediation, publication and
+  continuation; this operation does not enter the other PR phases.
 
 An exact closed or merged PR is historical state. Show its URL and state; do not
 edit, reopen or replace it unless the user has chosen that operation. Ask only for
@@ -74,17 +77,6 @@ Recommend a split when it materially helps; do not rewrite published history,
 reorder a stack or separate a behavior from its regression test just to shorten
 the diff. Necessary generated output is not automatically noise.
 
-When the request, project rules or task record sets a PR size cap, measure additions
-plus deletions in the full `<base-sha>...<head-sha>` diff, including tests, generated
-text and lockfiles. Use Git's `--shortstat` for totals and `--numstat` to identify
-binary entries; do not use net growth, sums of commits or excluded paths. Record
-the exact revisions, count, cap and any binary review burden. For a stack layer,
-the base is its immediate PR base. An unavailable diff blocks publication of the
-capped work until it can be measured. If over the cap, stop code publication and
-PR creation, and use `task-breakdown` to revise the units;
-do not silently waive the cap or rewrite published history. Draft-only and
-metadata-only work can still report the violation without shipping more code.
-
 Before composing a body, read:
 
 - Written PR rules in repository instructions and `CONTRIBUTING.md`.
@@ -97,6 +89,25 @@ Before composing a body, read:
 
 Record inaccessible required evidence as unknown with the exact failed lookup.
 Continue what the available evidence supports; do not invent missing conventions.
+
+## Check the review-size cap
+
+Use this check when the request, project rules or task record sets a PR size cap.
+Resolve the selected base and head to exact SHAs and retain the applicable cap.
+A Check cap request with missing revisions or cap is `unverified`.
+
+Measure additions plus deletions in the full `<base-sha>...<head-sha>` diff,
+including tests, generated text and lockfiles. Use Git's `--shortstat` for totals
+and `--numstat` to identify binary entries; do not use net growth, sums of commits
+or excluded paths. Splitting commits does not shrink a PR.
+
+Return `within-cap`, `over-cap` or `unverified`, with the exact revisions, count,
+cap and any binary review burden. An unavailable diff is unverified. Before
+pushing or creating a PR, require a current `within-cap` result;
+changed base or head invalidates an earlier count. The publishing owner sends
+over-cap work to `task-breakdown` to revise the units. Do not silently waive the
+cap or rewrite published history. Draft-only and metadata-only work can report
+the violation without shipping more code.
 
 ## Compose for review
 
@@ -136,8 +147,8 @@ screenshots and completed checklist claims before carrying them forward. Use
 For any Git or GitHub mutation, read
 [references/publication.md](references/publication.md). It owns identity checks,
 SSH publication, non-interactive commands, draft state and post-write verification.
-Recheck any review-size cap against the selected publication revisions immediately
-before pushing or creating the PR; changed base or head invalidates an earlier count.
+Apply the shared size check to capped work immediately before pushing or creating
+the PR, using the selected publication revisions.
 Complete the reviewable title/body and necessary validation before asking for a
 remaining authorization. Existing request and standing authorization take precedence
 over source workflows that require blanket confirmation.
