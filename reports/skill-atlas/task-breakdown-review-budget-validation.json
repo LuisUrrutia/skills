@@ -1,0 +1,841 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-06",
+  "task": "Preserve illustrative review budgets without inventing a numeric PR ceiling",
+  "baselineCommit": "7289b54a9ed1fd60d641eaa335b9f93c1195d77e",
+  "contract": {
+    "authority": "The user clarified that 5,000 lines was an example and requested one PR for the existing branch.",
+    "behavior": "Prefer small, cohesive and testable units; enforce only an explicitly established user, project or authoritative task cap. Preserve the cap source, full additions-plus-deletions counting rule and existing publication owners.",
+    "scope": [
+      "task-breakdown/SKILL.md",
+      "task-breakdown/origin.txt",
+      "issue-workflow/references/publish-tasks.md",
+      "README.md"
+    ]
+  },
+  "instructionRevisions": {
+    "baselineAndCandidateV1Hashes": {
+      "baseline/README.md": "f0cc7daa16b694de58e73c129baa835652d89268d85c0e23dbcf740e01b6e51d",
+      "baseline/issue-workflow/references/publish-tasks.md": "ef23cf81a220fcb18c34a9c9d0db0a91b18db3c1649dee169068bb1203e0ecf4",
+      "baseline/task-breakdown/SKILL.md": "2aa0c7df8a2851ed55078156e8ac5643de3c7c1c57eec3215b411f1c85c735fc",
+      "baseline/task-breakdown/THIRD-PARTY-NOTICES.txt": "19e6b26e3b539d353e056f57403b8747627338bad1354fa9cb72b5cc9101f5fd",
+      "baseline/task-breakdown/origin.txt": "57e8ced0bd159dcf12b9b889635aac0a3c7afe248a65a3f590e44c1bd1ec6812",
+      "baseline/task-breakdown/references/staged-delivery.md": "447fdfc225c63b8fa2af5642888dc18486beddc1dd927e9386ac8cfa4195b2ad",
+      "candidate/README.md": "d4049cf1002a5929f2040db838f04818d525dc926bc1e96945dcd54c1e7a1248",
+      "candidate/issue-workflow/references/publish-tasks.md": "993664acd3a2da40ecf34e21493693ced7acaf5f90cd044187eca18eee73d6b0",
+      "candidate/task-breakdown/SKILL.md": "d68d250d4e91e4960d07f0d97ffb2802a5f38498b25589cf649bf37c9e3b90ba",
+      "candidate/task-breakdown/THIRD-PARTY-NOTICES.txt": "19e6b26e3b539d353e056f57403b8747627338bad1354fa9cb72b5cc9101f5fd",
+      "candidate/task-breakdown/origin.txt": "088a671b992cf531ff32127504d8f477df76ac3e1f243fb5c076ca049e9108e9",
+      "candidate/task-breakdown/references/staged-delivery.md": "447fdfc225c63b8fa2af5642888dc18486beddc1dd927e9386ac8cfa4195b2ad"
+    },
+    "candidateV1Skill": "---\nname: task-breakdown\ndescription: Use when dividing a software plan or feature into small, testable tasks sized for human-reviewed pull requests.\n---\n\n# Task breakdown\n\nTurn a defined feature or implementation plan into delivery units a person can\nreview and an executor can implement and verify. Normally, one unit becomes one\nticket and one PR. Keep a cohesive change in one unit when it already fits.\n\n`wayfinder` owns direction; `planning` owns the overall approach and implementation\nplan. This skill owns delivery boundaries, acceptance checks and dependencies.\n`issue-workflow` owns authorized ticket publication; `pr` owns individual PR\npublication; `stacked-pr` owns dependent branches and PR operations.\nResolve collaborators by registered name. If a needed\nowner is unavailable, preserve the breakdown and report the missing phase.\n\nA breakdown request authorizes its requested artifact, not implementation, ticket\npublication, branch creation or deployment. Continue those phases when already\nauthorized. A review-only request returns findings without editing the record.\n\n## Establish the input\n\nRead the request, authoritative plan, decisions, existing tasks and project\ninstructions. Inspect the affected code, callers, tests and configured checks.\nKeep settled scope and contracts; do not turn decomposition into a new design\nexercise. A formal planning document is useful input, not a prerequisite.\n\nResolve routine details from evidence. If a missing decision materially changes\nthe behavior, contract or feasibility of a split, ask for that decision and keep\nonly the affected work pending. Return connected direction questions to\n`wayfinder`, or an incomplete implementation approach to `planning`, with the\nexact gap; continue independent units. Do not invent a contract just to fill a\nticket template.\n\nUse the existing authoritative record and requested format. A table in the plan\nor chat can be enough; no separate document or ticket per unit is mandatory.\nWhen resuming, reconcile actual completed work, existing IDs and changed premises\nbefore revising remaining units. Preserve unrelated work and stable identities.\n\nFor a large plan, the delivery map can precede detailed execution contracts.\nKeep later units as drafts with explicit unknowns until their scope, dependencies,\nacceptance checks and sizing meet the readiness requirements below.\nRetain each draft's stable ID, outcome, known dependencies, unknowns, and\nreview budget and any explicitly agreed numeric PR cap with its counting rule.\n\n## Choose functional boundaries\n\nStart with the smallest useful behavior that can be demonstrated after its real\nprerequisites land. Include the layers needed for that behavior: data access,\nbackend, frontend and behavioral tests where applicable. Add further capabilities\nas separate units. Name each unit after what it delivers, not a file or widget.\n\nGive each proposed PR a meaningful acceptance decision of its own. Keep parts\ntogether when they only serve the same decision and fit comfortably within the\nreview budget.\n\nFor a statistics dashboard, a useful first unit might deliver the revenue card\nwith its real query, permissions, endpoint, UI states and checks. Another can add\nactive customers. Neither a button alone nor the entire dashboard's backend is\na default boundary. Prefer a small production-testable path when the project\nsupports it; defining that check does not authorize a production action.\n\nKeep implementation, its regression tests and required generated output together.\nAvoid separating tests to meet a size limit, unrelated cleanup, or tickets for\neach technical layer by habit. A backend prerequisite or frontend contract test\ncan be a valid unit when a complete vertical slice would be impractical. Read\n[references/staged-delivery.md](references/staged-delivery.md) for such splits,\nmigrations, or units that cannot yet pass an end-to-end check.\n\nRecord dependencies by the exact capability or contract a unit consumes. Shared\nfiles or environments can need coordination without creating a functional blocker.\nDistinguish both from a preferred execution order. Resolve cycles through a smaller\nshared contract or a cohesive unit. Do not force independent units into a stack.\n\nMap material uncertainties already identified in the plan to the units and\nevidence that resolve them. Preserve the plan's risk-reduction order where\ndependencies permit; decomposition does not reopen settled design decisions.\n\n## Budget for human review\n\nKeep each PR small enough for a person to understand and verify its concrete\noutcome. Use the request's or project's review budget; a numeric example or rough\ntarget is guidance, not a hard cap. Do not invent a default ceiling. Enforce a\nnumeric cap when the user, project rules or authoritative task record explicitly\nestablishes it; changing that cap requires the authority that set it.\n\nBefore marking a unit ready, estimate a range from the affected code and comparable\nchanges, include tests, migrations, generated text and lockfiles, and state the\nbasis and uncertainty. Leave room for implementation and review fixes. Do not\nreport an estimate as a measured diff or invent precision from unavailable code.\nIf a unit is too large to review coherently, reduce its scope. When an explicit\ncap applies, bring the credible upper bound within it or resolve the sizing\nuncertainty before calling the unit ready.\n\nCarry the review budget and any explicit cap into each task's execution contract.\nMeasure changed text lines as additions plus deletions in the complete PR diff.\nRequire a fresh measurement before PR publication and after scope, base or head\nchanges: sum additions and deletions for the intended PR base and head, never net\ngrowth, individual commits, or the whole stack against trunk. Include all changed\ntext, without path exclusions. Record binary changes separately; a line count does\nnot measure their review cost. An unavailable or incomplete diff is unverified.\n\nThe publishing owner (`pr` or `stacked-pr`) checks the actual diff against any\nexplicit cap. If it exceeds that cap, stop publication and revise the split; retain independent\nready work. Splitting commits does not shrink a PR. Do not discard required\nbehavior, tests or files, rewrite published history without authority, or hide\nchanges through formatting to make the count pass. A small count still needs a\ncoherent review boundary.\n\nFor code already on an oversized branch, pass the revised unit map and preserved\nsource revision to the execution owner. `stacked-pr` owns rebuilding dependent\nlayers from that map; independent units need separate branches through the active\nbranch workflow. A revised plan alone does not change the existing diff. Complete\nthe authorized restructuring and remeasure before returning to publication; if\nthe needed rewrite lacks authority, retain the map and report that exact boundary.\n\n## Make each unit executable\n\nUse the project's task format and include only details the executor needs:\n\n- Stable ID and the concrete outcome; included scope and likely scope confusion.\n- Relevant source paths, authoritative decisions, and consumed/produced contracts.\n  For deferred execution, include the inspected revision or verification date\n  and require the executor to recheck these references at pickup before relying\n  on them.\n- True prerequisites by unit ID, plus separate coordination or release constraints.\n- Acceptance scenarios with observable expected results, deciding commands or\n  interactions, and environment/data prerequisites. Mark checks to add separately\n  from existing checks; planned checks are not passing evidence.\n- Why new coverage is needed, using the plan's rationale and existing tests. Keep\n  meaningful failure and compatibility cases with the behavior they protect.\n- Estimated changed-line range, its basis and uncertainty, the review budget,\n  and any explicit cap with its source and counting rule.\n- Supported intermediate state, how to exercise it, and any integration dependency\n  that prevents claiming it production-testable yet.\n\nEnough context must travel with each unit for a fresh executor, including relevant\ncontract excerpts when links alone are insufficient. Keep one task authority;\nlink shared decisions rather than duplicating a large plan or progress log.\n\n## Check the breakdown and continue\n\nTrace every material requirement to a unit and its acceptance evidence, or to a\ndraft with recorded unknowns. Check that dependencies are real and acyclic, each\nready unit fits its review budget, and a unit demonstrates its stated result\nwithout waiting for unfinished work\nunless that limitation is explicit. Specify where the combined capability is\nverified; separate unit checks do not prove integration. Preserve blocked scope.\n\nReturn the breakdown or its location, dependency order, ready, draft and blocked\nunits, sizing uncertainty, and next action. No additional approval gate is needed for\nalready-authorized work. For a drafting-only request, stop with the artifact.\n\nWhen ticket publication is requested, pass the prepared units, target tracker,\nexisting IDs, relationships, plan links and publication scope to `issue-workflow`\nin Publish mode. Preserve draft labels and unknowns; drafts are not ready work.\nRetain drafted units if publication is blocked. If implementation is already\nauthorized, continue ready units through the existing workflow with\ntheir acceptance and review-size contracts. Do not select worker topology here.\n\nFor requested source maintenance, use `agent-instructions` with `origin.txt`.\n",
+    "candidateV1Patch": "diff --git i/README.md w/README.md\nindex 865d186..28d0b00 100644\n--- i/README.md\n+++ w/README.md\n@@ -69,14 +69,15 @@ normally one task and one PR per unit. Keep an already-small change together.\n **Triggers:** `break this plan into PR-sized tasks`, `split this feature for review`, `revise an oversized delivery unit`\n \n Prefer complete behaviors across the necessary layers, such as one statistics card\n with its real data and tests. Use backend, frontend and integration stages when a\n concrete dependency warrants them, with honest intermediate verification limits.\n-Each PR has a ceiling of 5,000 additions plus deletions, including tests and generated\n-text; estimates leave headroom and the publishing skill checks the actual PR diff.\n-The breakdown carries acceptance checks, dependencies, context and that size contract\n-to each executor. `issue-workflow` publishes the tasks only when requested.\n+Size each PR for coherent human review. Numeric examples are guidance; an explicit\n+user or project cap is enforced against the full additions-plus-deletions diff,\n+including tests and generated text. The breakdown carries acceptance checks,\n+dependencies, context and the applicable review budget to each executor.\n+`issue-workflow` publishes the tasks only when requested.\n \n The flow is `wayfinder` → `planning` → `task-breakdown` → authorized ticket publication\n and implementation. `stacked-pr` handles branch dependencies when a stack is useful.\n \n ### agent-instructions\ndiff --git i/issue-workflow/references/publish-tasks.md w/issue-workflow/references/publish-tasks.md\nindex 4ad5096..73aff7a 100644\n--- i/issue-workflow/references/publish-tasks.md\n+++ w/issue-workflow/references/publish-tasks.md\n@@ -32,12 +32,12 @@ convention supplies another. Verify the resulting state. Never transition tasks\n to In Progress, mark them done, or close a parent because a breakdown was published.\n \n ## Preserve the task contract\n \n Keep each unit's outcome, scope, acceptance checks, relevant contract and source\n-links, prerequisites, integration limits and review-size budget. Retain the cap\n-and additions-plus-deletions counting rule in the ticket so a new executor can\n+links, prerequisites, integration limits and review-size budget. Retain any explicit\n+cap and its counting rule in the ticket so a new executor can\n enforce it before publishing the PR. Do not publish the whole project plan as one\n implementation ticket when the supplied units are smaller delivery boundaries.\n \n Before creating, inspect existing records for this work. Match stable IDs and\n verified scope rather than assuming equal titles mean equal tasks. Preserve\ndiff --git i/task-breakdown/SKILL.md w/task-breakdown/SKILL.md\nindex 8f58183..ad6c7e4 100644\n--- i/task-breakdown/SKILL.md\n+++ w/task-breakdown/SKILL.md\n@@ -41,11 +41,11 @@ before revising remaining units. Preserve unrelated work and stable identities.\n \n For a large plan, the delivery map can precede detailed execution contracts.\n Keep later units as drafts with explicit unknowns until their scope, dependencies,\n acceptance checks and sizing meet the readiness requirements below.\n Retain each draft's stable ID, outcome, known dependencies, unknowns, and\n-applicable numeric PR cap with its counting rule.\n+review budget and any explicitly agreed numeric PR cap with its counting rule.\n \n ## Choose functional boundaries\n \n Start with the smallest useful behavior that can be demonstrated after its real\n prerequisites land. Include the layers needed for that behavior: data access,\n@@ -78,31 +78,34 @@ Map material uncertainties already identified in the plan to the units and\n evidence that resolve them. Preserve the plan's risk-reduction order where\n dependencies permit; decomposition does not reopen settled design decisions.\n \n ## Budget for human review\n \n-Each PR must contain at most **5,000 changed text lines: additions plus deletions**\n-in its complete base-to-head PR diff. This is a ceiling, not a target. Honor a\n-stricter project limit. Changing the ceiling needs an explicit user decision;\n-an estimate, deadline, draft state or generated-file label cannot waive it.\n+Keep each PR small enough for a person to understand and verify its concrete\n+outcome. Use the request's or project's review budget; a numeric example or rough\n+target is guidance, not a hard cap. Do not invent a default ceiling. Enforce a\n+numeric cap when the user, project rules or authoritative task record explicitly\n+establishes it; changing that cap requires the authority that set it.\n \n Before marking a unit ready, estimate a range from the affected code and comparable\n changes, include tests, migrations, generated text and lockfiles, and state the\n-basis and uncertainty. Aim comfortably below the ceiling so implementation and\n-review fixes can fit. Do not report an estimate as a measured diff or invent\n-precision from unavailable code. If the credible upper bound exceeds the ceiling,\n-reduce the unit's scope or resolve the sizing uncertainty before calling it ready.\n+basis and uncertainty. Leave room for implementation and review fixes. Do not\n+report an estimate as a measured diff or invent precision from unavailable code.\n+If a unit is too large to review coherently, reduce its scope. When an explicit\n+cap applies, bring the credible upper bound within it or resolve the sizing\n+uncertainty before calling the unit ready.\n \n-Carry the numeric cap and counting rule into every task's execution contract.\n+Carry the review budget and any explicit cap into each task's execution contract.\n+Measure changed text lines as additions plus deletions in the complete PR diff.\n Require a fresh measurement before PR publication and after scope, base or head\n changes: sum additions and deletions for the intended PR base and head, never net\n growth, individual commits, or the whole stack against trunk. Include all changed\n text, without path exclusions. Record binary changes separately; a line count does\n not measure their review cost. An unavailable or incomplete diff is unverified.\n \n-The publishing owner (`pr` or `stacked-pr`) checks the actual diff. If it exceeds\n-the cap, stop publication of that unit and revise the split; retain independent\n+The publishing owner (`pr` or `stacked-pr`) checks the actual diff against any\n+explicit cap. If it exceeds that cap, stop publication and revise the split; retain independent\n ready work. Splitting commits does not shrink a PR. Do not discard required\n behavior, tests or files, rewrite published history without authority, or hide\n changes through formatting to make the count pass. A small count still needs a\n coherent review boundary.\n \n@@ -126,12 +129,12 @@ Use the project's task format and include only details the executor needs:\n - Acceptance scenarios with observable expected results, deciding commands or\n   interactions, and environment/data prerequisites. Mark checks to add separately\n   from existing checks; planned checks are not passing evidence.\n - Why new coverage is needed, using the plan's rationale and existing tests. Keep\n   meaningful failure and compatibility cases with the behavior they protect.\n-- Estimated changed-line range, its basis and uncertainty, and the actual PR cap\n-  of 5,000 additions plus deletions (or the stricter applicable limit).\n+- Estimated changed-line range, its basis and uncertainty, the review budget,\n+  and any explicit cap with its source and counting rule.\n - Supported intermediate state, how to exercise it, and any integration dependency\n   that prevents claiming it production-testable yet.\n \n Enough context must travel with each unit for a fresh executor, including relevant\n contract excerpts when links alone are insufficient. Keep one task authority;\ndiff --git i/task-breakdown/origin.txt w/task-breakdown/origin.txt\nindex 3923d84..ef213f7 100644\n--- i/task-breakdown/origin.txt\n+++ w/task-breakdown/origin.txt\n@@ -13,11 +13,11 @@ baseline_commit = \"cef4cfa837ca41b50d19f54551a3939ed7460434\"\n reviewed_through = \"cef4cfa837ca41b50d19f54551a3939ed7460434\"\n baseline_paths = [\"skills/planning/SKILL.md\", \"skills/planning/references/handoff-plans.md\", \"skills/planning/references/splitting.md\", \"skills/planning/references/claim-verification.md\", \"skills/planning/references/plan-quality-rubric.md\", \"LICENSE.md\"]\n paths = [\"skills/planning/SKILL.md\", \"skills/planning/references/handoff-plans.md\", \"skills/planning/references/splitting.md\", \"skills/planning/references/claim-verification.md\", \"skills/planning/references/plan-quality-rubric.md\", \"LICENSE.md\"]\n license = \"MIT; original notice retained in THIRD-PARTY-NOTICES.txt\"\n borrowed = [\"Ground work units in repository evidence and preserve context for a fresh executor.\", \"Carry observable acceptance checks and genuine dependencies into delivery units.\"]\n-local_choices = [\"Extract delivery decomposition into a separately invocable skill; direction and overall planning remain with their owners.\", \"Apply the user-defined 5,000 additions-plus-deletions ceiling with estimation headroom and actual publication checks.\"]\n+local_choices = [\"Extract delivery decomposition into a separately invocable skill; direction and overall planning remain with their owners.\", \"Treat the user's illustrative line count as guidance, not a default ceiling. Preserve small, testable review units and enforce explicitly established caps with estimation headroom and actual publication checks.\"]\n reviews = []\n \n [[sources]]\n id = \"matt-to-tickets\"\n author = \"Matt Pocock\"\n@@ -98,17 +98,17 @@ role = \"Publish prepared tasks only when that operation is authorized.\"\n \n [[dependencies]]\n name = \"pr\"\n kind = \"local\"\n required = false\n-role = \"Measure the actual PR diff against the carried size cap before publication.\"\n+role = \"Measure the actual PR diff against an explicitly established size cap before publication.\"\n \n [[dependencies]]\n name = \"stacked-pr\"\n kind = \"local\"\n required = false\n-role = \"Own dependent branches and enforce each layer size cap during publication.\"\n+role = \"Own dependent branches and enforce any explicitly established layer size cap during publication.\"\n \n [[dependencies]]\n name = \"agent-instructions\"\n kind = \"local\"\n required = false\n",
+    "finalHashes": {
+      "README.md": "d4049cf1002a5929f2040db838f04818d525dc926bc1e96945dcd54c1e7a1248",
+      "issue-workflow/references/publish-tasks.md": "1ba81a9d126dadbab1433d4640cca1e1622b8f256c4700d4ae151ca64121f341",
+      "task-breakdown/SKILL.md": "6d172424179c38c5d3b550e1c1b82b8f20972b2929643e617b4bf6d4a20560ba",
+      "task-breakdown/origin.txt": "088a671b992cf531ff32127504d8f477df76ac3e1f243fb5c076ca049e9108e9",
+      "task-breakdown/THIRD-PARTY-NOTICES.txt": "19e6b26e3b539d353e056f57403b8747627338bad1354fa9cb72b5cc9101f5fd",
+      "task-breakdown/references/staged-delivery.md": "447fdfc225c63b8fa2af5642888dc18486beddc1dd927e9386ac8cfa4195b2ad"
+    },
+    "finalPatch": "diff --git i/README.md w/README.md\nindex 865d186..28d0b00 100644\n--- i/README.md\n+++ w/README.md\n@@ -69,14 +69,15 @@ normally one task and one PR per unit. Keep an already-small change together.\n **Triggers:** `break this plan into PR-sized tasks`, `split this feature for review`, `revise an oversized delivery unit`\n \n Prefer complete behaviors across the necessary layers, such as one statistics card\n with its real data and tests. Use backend, frontend and integration stages when a\n concrete dependency warrants them, with honest intermediate verification limits.\n-Each PR has a ceiling of 5,000 additions plus deletions, including tests and generated\n-text; estimates leave headroom and the publishing skill checks the actual PR diff.\n-The breakdown carries acceptance checks, dependencies, context and that size contract\n-to each executor. `issue-workflow` publishes the tasks only when requested.\n+Size each PR for coherent human review. Numeric examples are guidance; an explicit\n+user or project cap is enforced against the full additions-plus-deletions diff,\n+including tests and generated text. The breakdown carries acceptance checks,\n+dependencies, context and the applicable review budget to each executor.\n+`issue-workflow` publishes the tasks only when requested.\n \n The flow is `wayfinder` → `planning` → `task-breakdown` → authorized ticket publication\n and implementation. `stacked-pr` handles branch dependencies when a stack is useful.\n \n ### agent-instructions\ndiff --git i/issue-workflow/references/publish-tasks.md w/issue-workflow/references/publish-tasks.md\nindex 4ad5096..68bd6c0 100644\n--- i/issue-workflow/references/publish-tasks.md\n+++ w/issue-workflow/references/publish-tasks.md\n@@ -32,13 +32,13 @@ convention supplies another. Verify the resulting state. Never transition tasks\n to In Progress, mark them done, or close a parent because a breakdown was published.\n \n ## Preserve the task contract\n \n Keep each unit's outcome, scope, acceptance checks, relevant contract and source\n-links, prerequisites, integration limits and review-size budget. Retain the cap\n-and additions-plus-deletions counting rule in the ticket so a new executor can\n-enforce it before publishing the PR. Do not publish the whole project plan as one\n+links, prerequisites, integration limits and review-size budget. Retain any explicit\n+cap with its source and counting rule in the ticket so a new executor can enforce\n+it before publishing the PR. Do not publish the whole project plan as one\n implementation ticket when the supplied units are smaller delivery boundaries.\n \n Before creating, inspect existing records for this work. Match stable IDs and\n verified scope rather than assuming equal titles mean equal tasks. Preserve\n existing identities, completed work, manual progress and unrelated fields. Update\ndiff --git i/task-breakdown/SKILL.md w/task-breakdown/SKILL.md\nindex 8f58183..ab6973d 100644\n--- i/task-breakdown/SKILL.md\n+++ w/task-breakdown/SKILL.md\n@@ -41,11 +41,11 @@ before revising remaining units. Preserve unrelated work and stable identities.\n \n For a large plan, the delivery map can precede detailed execution contracts.\n Keep later units as drafts with explicit unknowns until their scope, dependencies,\n acceptance checks and sizing meet the readiness requirements below.\n Retain each draft's stable ID, outcome, known dependencies, unknowns, and\n-applicable numeric PR cap with its counting rule.\n+review budget and any explicitly agreed numeric PR cap with its counting rule.\n \n ## Choose functional boundaries\n \n Start with the smallest useful behavior that can be demonstrated after its real\n prerequisites land. Include the layers needed for that behavior: data access,\n@@ -78,32 +78,36 @@ Map material uncertainties already identified in the plan to the units and\n evidence that resolve them. Preserve the plan's risk-reduction order where\n dependencies permit; decomposition does not reopen settled design decisions.\n \n ## Budget for human review\n \n-Each PR must contain at most **5,000 changed text lines: additions plus deletions**\n-in its complete base-to-head PR diff. This is a ceiling, not a target. Honor a\n-stricter project limit. Changing the ceiling needs an explicit user decision;\n-an estimate, deadline, draft state or generated-file label cannot waive it.\n+Keep each PR small enough for a person to understand and verify its concrete\n+outcome. Use the request's or project's review budget; a numeric example or rough\n+target is guidance, not a hard cap. Do not invent a default ceiling. Enforce a\n+numeric cap when the user, project rules or authoritative task record explicitly\n+establishes it; changing that cap requires the authority that set it.\n \n Before marking a unit ready, estimate a range from the affected code and comparable\n changes, include tests, migrations, generated text and lockfiles, and state the\n-basis and uncertainty. Aim comfortably below the ceiling so implementation and\n-review fixes can fit. Do not report an estimate as a measured diff or invent\n-precision from unavailable code. If the credible upper bound exceeds the ceiling,\n-reduce the unit's scope or resolve the sizing uncertainty before calling it ready.\n+basis and uncertainty. Leave room for implementation and review fixes. Do not\n+report an estimate as a measured diff or invent precision from unavailable code.\n+If a unit is too large to review coherently, reduce its scope. When an explicit\n+cap applies, bring the credible upper bound within it or resolve the sizing\n+uncertainty before calling the unit ready.\n \n-Carry the numeric cap and counting rule into every task's execution contract.\n-Require a fresh measurement before PR publication and after scope, base or head\n-changes: sum additions and deletions for the intended PR base and head, never net\n-growth, individual commits, or the whole stack against trunk. Include all changed\n-text, without path exclusions. Record binary changes separately; a line count does\n-not measure their review cost. An unavailable or incomplete diff is unverified.\n+Carry the review budget and any explicit cap into each task's execution contract.\n+Measure changed text lines as additions plus deletions in the complete PR diff.\n+When an explicit cap applies, require a fresh measurement before PR publication\n+and after scope, base or head changes: sum additions and deletions for the\n+intended PR base and head, never net growth, individual commits, or the whole\n+stack against trunk. Include all changed text, without path exclusions. Record\n+binary changes separately; a line count does not measure their review cost. An\n+unavailable or incomplete diff is unverified.\n \n-The publishing owner (`pr` or `stacked-pr`) checks the actual diff. If it exceeds\n-the cap, stop publication of that unit and revise the split; retain independent\n-ready work. Splitting commits does not shrink a PR. Do not discard required\n+The publishing owner (`pr` or `stacked-pr`) checks the actual diff against any\n+explicit cap. If it exceeds that cap, stop publication and revise the split;\n+retain independent ready work. Splitting commits does not shrink a PR. Do not discard required\n behavior, tests or files, rewrite published history without authority, or hide\n changes through formatting to make the count pass. A small count still needs a\n coherent review boundary.\n \n For code already on an oversized branch, pass the revised unit map and preserved\n@@ -126,12 +130,12 @@ Use the project's task format and include only details the executor needs:\n - Acceptance scenarios with observable expected results, deciding commands or\n   interactions, and environment/data prerequisites. Mark checks to add separately\n   from existing checks; planned checks are not passing evidence.\n - Why new coverage is needed, using the plan's rationale and existing tests. Keep\n   meaningful failure and compatibility cases with the behavior they protect.\n-- Estimated changed-line range, its basis and uncertainty, and the actual PR cap\n-  of 5,000 additions plus deletions (or the stricter applicable limit).\n+- Estimated changed-line range, its basis and uncertainty, the review budget,\n+  and any explicit cap with its source and counting rule.\n - Supported intermediate state, how to exercise it, and any integration dependency\n   that prevents claiming it production-testable yet.\n \n Enough context must travel with each unit for a fresh executor, including relevant\n contract excerpts when links alone are insufficient. Keep one task authority;\ndiff --git i/task-breakdown/origin.txt w/task-breakdown/origin.txt\nindex 3923d84..ef213f7 100644\n--- i/task-breakdown/origin.txt\n+++ w/task-breakdown/origin.txt\n@@ -13,11 +13,11 @@ baseline_commit = \"cef4cfa837ca41b50d19f54551a3939ed7460434\"\n reviewed_through = \"cef4cfa837ca41b50d19f54551a3939ed7460434\"\n baseline_paths = [\"skills/planning/SKILL.md\", \"skills/planning/references/handoff-plans.md\", \"skills/planning/references/splitting.md\", \"skills/planning/references/claim-verification.md\", \"skills/planning/references/plan-quality-rubric.md\", \"LICENSE.md\"]\n paths = [\"skills/planning/SKILL.md\", \"skills/planning/references/handoff-plans.md\", \"skills/planning/references/splitting.md\", \"skills/planning/references/claim-verification.md\", \"skills/planning/references/plan-quality-rubric.md\", \"LICENSE.md\"]\n license = \"MIT; original notice retained in THIRD-PARTY-NOTICES.txt\"\n borrowed = [\"Ground work units in repository evidence and preserve context for a fresh executor.\", \"Carry observable acceptance checks and genuine dependencies into delivery units.\"]\n-local_choices = [\"Extract delivery decomposition into a separately invocable skill; direction and overall planning remain with their owners.\", \"Apply the user-defined 5,000 additions-plus-deletions ceiling with estimation headroom and actual publication checks.\"]\n+local_choices = [\"Extract delivery decomposition into a separately invocable skill; direction and overall planning remain with their owners.\", \"Treat the user's illustrative line count as guidance, not a default ceiling. Preserve small, testable review units and enforce explicitly established caps with estimation headroom and actual publication checks.\"]\n reviews = []\n \n [[sources]]\n id = \"matt-to-tickets\"\n author = \"Matt Pocock\"\n@@ -98,17 +98,17 @@ role = \"Publish prepared tasks only when that operation is authorized.\"\n \n [[dependencies]]\n name = \"pr\"\n kind = \"local\"\n required = false\n-role = \"Measure the actual PR diff against the carried size cap before publication.\"\n+role = \"Measure the actual PR diff against an explicitly established size cap before publication.\"\n \n [[dependencies]]\n name = \"stacked-pr\"\n kind = \"local\"\n required = false\n-role = \"Own dependent branches and enforce each layer size cap during publication.\"\n+role = \"Own dependent branches and enforce any explicitly established layer size cap during publication.\"\n \n [[dependencies]]\n name = \"agent-instructions\"\n kind = \"local\"\n required = false\n"
+  },
+  "consultations": {
+    "brief": "# Review the review-budget clarification\n\nBounded read-only instruction consultation under agent-instructions. Do not edit, contact services, execute product operations or delegate more reviews. The coordinator owns edits.\n\nUser request: commit all work and create one PR. When warned about the branch exceeding 5,000 changed lines, the user clarified that 5,000 was only an example and explicitly requested a single PR. The intended correction is durable: keep small, cohesive, testable units for human review, but do not manufacture a mandatory numerical ceiling from an example. Enforce genuinely explicit user, project or authoritative task caps with full additions-plus-deletions measurement and existing publication owners. This is not a blanket waiver of real caps.\n\nRoot: /Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/pr-publication/budget\nRead change.patch, manifest.json, the complete candidate/task-breakdown package and candidate/issue-workflow/references/publish-tasks.md. Read the affected README section and baseline counterparts as needed. The unchanged pr/SKILL.md and stacked-pr/SKILL.md in the repository already condition cap checks on a cap being set; they remain the publication owners. Current user authority permits publishing this branch as one PR; review does not authorize you to publish it.\n\nAssess quantity, authority, propagation, estimate versus measurement and completion. Ensure illustrative targets stay guidance, explicit caps still constrain publication, no numeric default is silently recreated, meaningful behavior/testing boundaries survive, and README/provenance/tracker handoff agree. Return at most three material defects with exact file/line evidence and minimal corrections, or state none. Optional wording preferences are not defects. This is static consultation only; do not infer behavioral-trial outcomes.\n",
+    "astraV1": {
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "agent": "/root/pr_budget_astra_review_v1",
+      "result": "No material defects found. Candidate distinguishes guidance from explicit caps, preserves full additions-plus-deletions measurement and publication ownership, and retains coherent behavior/testing boundaries. README, provenance and tracker handoff agree. All 12 manifest hashes matched. Static review only; no trial outcomes assessed."
+    },
+    "fableV1": {
+      "model": "claude-fable-5-1",
+      "effort": "max",
+      "taskId": "node:delegated-task:command%3Amcp%3Aecc11f00-0ed3-4922-9496-43435190ed72%3Adelegate-task%3Apr-budget-clarification-fable-v1-20261006",
+      "status": "completed",
+      "result": "Review complete. I found one material defect and one low-severity handoff gap. There is no third material defect.\n\n**Findings**\n\n1. **Unconditional measurement gate survives the cap removal** in task-breakdown/SKILL.md:97-103. The paragraph tells every execution contract to \"Require a fresh measurement before PR publication and after scope, base or head changes\" and ends with \"An unavailable or incomplete diff is unverified\", with no cap condition. The baseline wrote that sentence under a universal ceiling. Now it conflicts with the next paragraph at task-breakdown/SKILL.md:105-106, which checks \"against any explicit cap\", and with the publication owner at pr/SKILL.md:95, which runs the check only \"when the request, project rules or task record sets a PR size cap\", and pr/SKILL.md:97, where a request with no cap is `unverified`. For an uncapped unit this is a gate with no decision criterion, and a measured number with no cap is exactly what invites an agent to re-manufacture a threshold. Minimal correction, keeping the unit of measure unconditional because estimates use it too:\n\n```\nCarry the review budget and any explicit cap into each task's execution contract.\nMeasure changed text lines as additions plus deletions in the complete PR diff.\nWhen an explicit cap applies, require a fresh measurement before PR publication\nand after scope, base or head changes: sum additions and deletions for the\nintended PR base and head, never net growth, individual commits, or the whole\nstack against trunk. Include all changed text, without path exclusions. Record\nbinary changes separately; a line count does not measure their review cost. An\nunavailable or incomplete diff is unverified.\n```\n\n2. **Tracker handoff drops the cap's source** (low severity) in issue-workflow/references/publish-tasks.md:37-39. It retains \"any explicit cap and its counting rule\" in the ticket. The unit contract at task-breakdown/SKILL.md:134-135 carries the cap \"with its source and counting rule\", and task-breakdown/SKILL.md:87 makes the source load-bearing: \"changing that cap requires the authority that set it\". A new executor reading only the ticket cannot tell who may change the cap. Minimal correction:\n\n```\nlinks, prerequisites, integration limits and review-size budget. Retain any explicit\ncap with its source and counting rule in the ticket so a new executor can enforce\nit before publishing the PR.\n```\n\n**Checks that passed**\n\n- **Quantity.** No literal 5,000 or default ceiling remains in any instruction file outside `.tmp` and `reports`. task-breakdown/SKILL.md:83-87 keeps numeric examples as guidance and enforces only explicitly established caps.\n- **Authority.** The cap sources at task-breakdown/SKILL.md:85-87 match pr/SKILL.md:95 and stacked-pr/SKILL.md:29. The baseline anti-waiver clause's meaning survives, distributed across SKILL.md lines 87, 91-92, 101-102 and 107-109, plus pr/SKILL.md:108-110.\n- **Boundaries.** The acceptance-decision, tests-with-implementation and coherent-boundary rules at task-breakdown/SKILL.md:55-57, 65-67 and 109-110 are unchanged.\n- **Estimate versus measurement.** \"Do not report an estimate as a measured diff\" is retained at line 91-92, and the counting rule is stated once at line 98.\n- **Propagation.** README.md:73-77, origin.txt:18, 103 and 109, stacked-pr/references/stack-design.md:26, pr/origin.txt:194 and README.md:566 all condition enforcement on an applicable cap. pr/SKILL.md and stacked-pr/SKILL.md are unmodified in the working tree.\n- **Package integrity.** Working-tree hashes equal the candidate manifest, both trial arms match their recorded hash files, and cases.json is identical across arms. I did not open the plans.json trial outputs, per the brief.\n\n**Optional notes, not defects**\n\n- README.md:74-75 names \"user or project cap\" and omits the task-record source listed at SKILL.md:86. Acceptable for a summary.\n- SKILL.md:46 says \"explicitly agreed\" where line 86 says \"explicitly establishes\".\n- origin.txt:4 still says \"preserving the user-defined human review size contract\". It reads consistently with local_choices at line 18 but evokes the old numeric contract.\n- SKILL.md:106 runs to 95 characters, past the file's wrap width.\n- reports/skill-atlas/issue-workflow-start-validation.json:173 and :272 contain \"PR cap: 5,000\" inside frozen trial transcripts. No instruction file references them, so they need no edit."
+    },
+    "reconciliation": "# Review reconciliation\n\nAstra round 1: no material defects. Fable round 1: unconditional measurement language could imply an uncapped publication gate; tracker handoff omitted the source of an explicit cap.\n\nBoth corrections adopted. Measurement-based publication enforcement is now explicitly conditional on a real cap, while the full additions-plus-deletions unit remains unchanged. The tracker preserves the cap source, which the existing unit contract already carries. Fable described all no-cap requests as unverified; that overstates pr/SKILL.md, whose unverified result concerns a requested Check cap operation with missing inputs. Nonetheless conditioning the upstream requirement removes ambiguity. No default ceiling, cap waiver, new permission gate or change to cohesive/testing boundaries is introduced. Historical reports retain their frozen trials.\n\nReview the final snapshot and final-change.patch against the original brief and prior findings. Read the final four changed files, with unchanged publication-owner context as needed. Return only unresolved material findings; keep this consultation read-only and do not delegate.\n",
+    "astraV2": {
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "agent": "/root/pr_budget_astra_review_v1",
+      "result": "No unresolved material defects."
+    },
+    "fableV2": {
+      "model": "claude-fable-5-1",
+      "effort": "max",
+      "taskId": "node:delegated-task:command%3Amcp%3Aecc11f00-0ed3-4922-9496-43435190ed72%3Adelegate-task%3Apr-budget-clarification-fable-v2-20261006",
+      "status": "completed",
+      "result": "**Verdict: no unresolved material defects in the frozen final candidate.**\n\n**Integrity.** The six files in `final/` match `final-manifest.json`, the working tree matches `final/`, and `final-change.patch` is byte-identical to the live git diff of the four modified paths. `final/` differs from `candidate/` only by the two adopted corrections. The prepared `trials/final` arm matches the frozen snapshot, and `cases.json` and `request.md` are identical across all three arms.\n\n**Round-1 findings, both resolved as proposed.**\n\n- **Unconditional measurement gate.** `final/task-breakdown/SKILL.md:97-104` now states the additions-plus-deletions unit unconditionally at line 98 and conditions the fresh-measurement requirement and the `unverified` outcome on \"When an explicit cap applies\". This agrees with `pr/SKILL.md:95` and `pr/SKILL.md:150-151`, which apply the size check only to capped work, and with `stacked-pr/SKILL.md:29-36`.\n- **Tracker handoff drops cap source.** `final/issue-workflow/references/publish-tasks.md:37-39` now retains \"any explicit cap with its source and counting rule\", matching the unit contract at `SKILL.md:135-136` and the authority rule at `SKILL.md:87`.\n\n**On the reconciliation's objection.** The reconciliation is correct. My round-1 wording overstated `pr/SKILL.md:97`, which marks a Check cap request with missing revisions or cap as `unverified`, not every no-cap request. The defect I raised rested on the upstream gate having no decision criterion when no cap exists, and the adopted conditioning resolves that regardless of the overstatement.\n\n**Checks that still pass on the final text.**\n\n- No literal numeric default remains in any instruction file outside `.tmp` and `reports`. `SKILL.md:83-87` keeps examples as guidance and enforces only explicitly established caps.\n- Cap sources at `SKILL.md:86` match `pr/SKILL.md:95` and `stacked-pr/SKILL.md:29`. The anti-waiver meaning survives at `SKILL.md:87`, `91-92`, `107-110` and `pr/SKILL.md:108-110`.\n- Estimate-versus-measurement separation holds at `SKILL.md:91-95`.\n- Acceptance-decision, tests-with-implementation and coherent-boundary rules at `SKILL.md:55-57`, `65-67` and `110-111` are unchanged.\n- README, provenance and tracker handoff agree: `README.md:73-77`, `README.md:566`, `origin.txt:18`, `103`, `109`, `pr/origin.txt:194` and `stacked-pr/references/stack-design.md:26` all condition enforcement on an applicable cap.\n\n**Non-defect observations.** `SKILL.md:108` runs to 94 characters, past the file's wrap width. `origin.txt:4` still says \"user-defined human review size contract\", which reads consistently with line 18 but is loose. `trials/final/` holds no recorded outputs; that is outside this static consultation and not a defect in the text."
+    },
+    "result": "Both final consultations found no unresolved material defect; both round-1 corrections were adopted. Static review does not establish behavioral outcomes."
+  },
+  "behavior": {
+    "executorProfile": {
+      "provider": "Codex",
+      "model": "gpt-6-astra",
+      "effort": "max"
+    },
+    "isolation": "Fresh independent contexts; identical fixtures, authorization and output request; only assigned directory readable. Expectations stayed with coordinator.",
+    "request": "Use only this assigned directory. Read task-breakdown/SKILL.md and its relevant resources. Execute the three planning requests in cases.json against their supplied project facts; do not implement product code or publish anything. Write plans.json with one actual task breakdown per case: outcome, task scope, acceptance checks, dependencies, estimates and applicable budget/cap with its source. Make ordinary bounded planning choices; record evidence limits instead of claiming tests ran. Include instructionReads with SHA-256 hashes and meaningful actions. Keep explanatory prose below 900 words. Do not inspect other arms, parent folders or expected answers; do not delegate or contact services. Return the output path.\n",
+    "cases": [
+      {
+        "id": "illustrative-count",
+        "request": "Break the notification-preferences plan into reviewable PR tasks. Around 5,000 changed lines is an example of the scale I have in mind, not a mandatory ceiling. Prefer one demonstrable user behavior over a card-only or button-only PR.",
+        "facts": {
+          "outcome": "A signed-in user can turn weekly notifications on or off and see the persisted choice after reload.",
+          "existing": "A settings page, authenticated preference API, persistence and test harness already exist.",
+          "scope": "One new preference across the existing schema, endpoint and screen; normal, unauthorized and reload checks. No independent widget or new platform.",
+          "estimatedChangedLines": "5,100–5,500 including contract fixtures and generated schema text. These are planning estimates, not an implemented diff.",
+          "repositoryPolicy": "No numeric PR limit is configured.",
+          "verification": "pnpm test preferences and pnpm test:e2e notification-preferences are existing targeted commands. Record them as planned acceptance checks."
+        }
+      },
+      {
+        "id": "no-numeric-budget",
+        "request": "Prepare the tasks for adding a date filter to the audit log. Keep the result easy to review and test.",
+        "facts": {
+          "outcome": "Users can filter audit entries by an inclusive start/end date and reset the filter.",
+          "existing": "The list query already accepts optional range parameters; the existing form and query test helpers can be extended.",
+          "estimatedChangedLines": "250–400 including tests.",
+          "repositoryPolicy": "No numeric PR limit is configured or requested.",
+          "verification": "pnpm test audit-log is the existing check; loading, empty and reset behavior matter."
+        }
+      },
+      {
+        "id": "explicit-cap",
+        "request": "Split CSV export into testable PR tasks. Project policy requires at most 1,500 added plus deleted text lines per PR, including tests and generated files. Preserve that hard limit in each task.",
+        "facts": {
+          "outcome": "Users can download the currently filtered audit log as CSV with the same authorization policy.",
+          "estimatedWholeChange": "2,300–2,600 changed lines.",
+          "boundaries": [
+            {
+              "outcome": "Authenticated CSV endpoint with filter and escaping coverage",
+              "estimate": "1,050–1,250 lines",
+              "independentCheck": "API export tests and a real download request."
+            },
+            {
+              "outcome": "Audit log download action connected to the endpoint with browser coverage",
+              "estimate": "1,150–1,350 lines",
+              "dependency": "Verified CSV endpoint; contract fixtures allow isolated UI tests before integration."
+            }
+          ],
+          "verification": "Keep API tests with the endpoint and the first real browser download check with the UI integration. Both stages use the existing harness; production deployment is outside this planning request."
+        }
+      }
+    ],
+    "expectations": {
+      "illustrative-count": "Keep the example nonbinding; no mandatory 5,000 cap or forced split solely from it. Explain reviewability and keep a complete behavior with checks.",
+      "no-numeric-budget": "One cohesive small task; no invented default numeric cap or needless budget approval.",
+      "explicit-cap": "Carry the real 1,500 additions-plus-deletions cap, source and measurement to each unit; estimates fit with tests and integration ownership."
+    },
+    "arms": {
+      "baseline": {
+        "agent": "/root/pr_budget_trial_baseline",
+        "inputHashes": {
+          "cases.json": "bce1297c60564fc3c29e545d910397db8b190e8c077a4d809f2a9772d31c1b19",
+          "request.md": "0bb985bd5a0dc82724a9b60d9754918c91249b02ab11f1708104cb72389a165b",
+          "task-breakdown/SKILL.md": "2aa0c7df8a2851ed55078156e8ac5643de3c7c1c57eec3215b411f1c85c735fc",
+          "task-breakdown/THIRD-PARTY-NOTICES.txt": "19e6b26e3b539d353e056f57403b8747627338bad1354fa9cb72b5cc9101f5fd",
+          "task-breakdown/origin.txt": "57e8ced0bd159dcf12b9b889635aac0a3c7afe248a65a3f590e44c1bd1ec6812",
+          "task-breakdown/references/staged-delivery.md": "447fdfc225c63b8fa2af5642888dc18486beddc1dd927e9386ac8cfa4195b2ad"
+        },
+        "output": {
+          "instructionReads": [
+            {
+              "path": "request.md",
+              "sha256": "0bb985bd5a0dc82724a9b60d9754918c91249b02ab11f1708104cb72389a165b"
+            },
+            {
+              "path": "cases.json",
+              "sha256": "bce1297c60564fc3c29e545d910397db8b190e8c077a4d809f2a9772d31c1b19"
+            },
+            {
+              "path": "task-breakdown/SKILL.md",
+              "sha256": "2aa0c7df8a2851ed55078156e8ac5643de3c7c1c57eec3215b411f1c85c735fc"
+            },
+            {
+              "path": "task-breakdown/references/staged-delivery.md",
+              "sha256": "447fdfc225c63b8fa2af5642888dc18486beddc1dd927e9386ac8cfa4195b2ad"
+            }
+          ],
+          "evidenceLimits": "Only supplied facts and instructions were inspected. Estimates are unmeasured. Source paths, revision and build/smoke commands were unavailable. No implementation, product tests, Git, publication or service calls occurred. Recheck contracts, references and commands at pickup.",
+          "publicationContract": "Count all changed text, including tests, migrations, generated files and lockfiles; record binaries separately. Measure each intended base-to-head diff before publication and after scope/base/head changes. Stop over-cap publication and revise the split; never omit required tests or files.",
+          "plans": [
+            {
+              "caseId": "illustrative-count",
+              "outcome": "Signed-in users can change weekly notifications and retain the choice after reload.",
+              "tasks": [
+                {
+                  "id": "NP-1",
+                  "status": "ready",
+                  "outcome": "Persisted weekly-notification preference through the existing settings flow.",
+                  "scope": "Extend the existing schema, authenticated API, persistence and settings screen together; include contract fixtures, generated schema and normal, authorization and reload regression coverage. No separate widget or platform work.",
+                  "source": "cases.json: illustrative-count; concrete paths require pickup inspection.",
+                  "dependencies": [],
+                  "acceptanceChecks": [
+                    {
+                      "command": "pnpm test preferences",
+                      "kind": "existing command; extend coverage",
+                      "expected": "On/off writes persist correctly; unauthorized access follows the existing denial policy without mutation."
+                    },
+                    {
+                      "command": "pnpm test:e2e notification-preferences",
+                      "kind": "existing command; extend coverage",
+                      "expected": "Authenticated users toggle either way, reload and see the persisted value."
+                    }
+                  ],
+                  "prerequisites": "Existing test harness with authenticated/unauthorized identities and isolated persisted preferences.",
+                  "estimate": {
+                    "min": 5100,
+                    "max": 5500,
+                    "unit": "added plus deleted text lines",
+                    "basis": "Supplied inclusive planning estimate; actual diff unverified."
+                  },
+                  "budget": {
+                    "hardCap": null,
+                    "illustrativeScale": 5000,
+                    "countingRule": "Complete intended PR base-to-head additions plus deletions; all text, without exclusions.",
+                    "source": "Case request explicitly states 5,000 is illustrative, not mandatory; this overrides the package default. Repository has no numeric limit."
+                  },
+                  "intermediateState": "One complete user behavior; the real persistence/reload check verifies integration.",
+                  "nextAction": "Inspect existing contracts and implement this cohesive slice; revise only if concrete review complexity warrants it."
+                }
+              ]
+            },
+            {
+              "caseId": "no-numeric-budget",
+              "outcome": "Users filter audit entries by inclusive start/end dates and reset the filter.",
+              "tasks": [
+                {
+                  "id": "AL-1",
+                  "status": "ready",
+                  "outcome": "Inclusive audit-log date filtering and reset.",
+                  "scope": "Connect the existing form to optional query range parameters; keep loading, empty and reset states and their tests together. Preserve existing date and query conventions.",
+                  "source": "cases.json: no-numeric-budget; concrete paths require pickup inspection.",
+                  "dependencies": [],
+                  "acceptanceChecks": [
+                    {
+                      "command": "pnpm test audit-log",
+                      "kind": "existing command; extend coverage",
+                      "expected": "Entries on both boundaries are included, outside entries excluded; loading and empty states remain usable; reset clears parameters and restores the unfiltered list."
+                    }
+                  ],
+                  "prerequisites": "Existing form/query helpers and audit fixtures before, on and after the boundaries.",
+                  "estimate": {
+                    "min": 250,
+                    "max": 400,
+                    "unit": "added plus deleted text lines",
+                    "basis": "Supplied inclusive planning estimate; actual diff unverified."
+                  },
+                  "budget": {
+                    "hardCap": 5000,
+                    "countingRule": "Complete intended PR base-to-head additions plus deletions; all text, without exclusions.",
+                    "source": "task-breakdown/SKILL.md: Budget for human review; neither request nor repository supplies a different limit."
+                  },
+                  "intermediateState": "Complete filter behavior; exercise the actual list query through the form, including reset.",
+                  "nextAction": "Inspect current date semantics and extend the existing implementation and tests."
+                }
+              ]
+            },
+            {
+              "caseId": "explicit-cap",
+              "outcome": "Authorized users download the currently filtered audit log as CSV.",
+              "tasks": [
+                {
+                  "id": "CSV-1",
+                  "status": "ready",
+                  "outcome": "Authenticated, filtered CSV download endpoint.",
+                  "scope": "Implement the endpoint and API/filter/escaping tests together. Preserve the audit-log authorization policy and produce the contract consumed by CSV-2.",
+                  "source": "cases.json: explicit-cap; concrete paths require pickup inspection.",
+                  "dependencies": [],
+                  "coordination": "Agree the existing-harness response and filter fixtures with CSV-2 during implementation.",
+                  "acceptanceChecks": [
+                    {
+                      "interaction": "Extend and run existing API export tests; exact harness command requires inspection.",
+                      "expected": "Authorization matches the list, filters match the requested range, and delimiters, quotes and newlines are escaped correctly."
+                    },
+                    {
+                      "interaction": "Make a real authenticated download request against seeded test data.",
+                      "expected": "Download contains exactly authorized, matching rows and parses as CSV."
+                    }
+                  ],
+                  "prerequisites": "Existing API harness, seeded audit data and authorized/unauthorized sessions.",
+                  "estimate": {
+                    "min": 1050,
+                    "max": 1250,
+                    "unit": "added plus deleted text lines",
+                    "basis": "Supplied inclusive planning estimate; actual diff unverified."
+                  },
+                  "budget": {
+                    "hardCap": 1500,
+                    "countingRule": "Complete intended PR base-to-head additions plus deletions; all text, without exclusions.",
+                    "source": "Explicit case request: project policy, including tests and generated files."
+                  },
+                  "intermediateState": "API download works independently; browser action is absent until CSV-2. No production deployment is authorized."
+                },
+                {
+                  "id": "CSV-2",
+                  "status": "ready",
+                  "outcome": "Audit-log download action integrated with CSV endpoint.",
+                  "scope": "Connect the action to the current filters and verified endpoint; include browser coverage and the first real browser download check.",
+                  "source": "cases.json: explicit-cap; concrete paths require pickup inspection.",
+                  "dependencies": [
+                    {
+                      "id": "CSV-1",
+                      "capability": "Verified authenticated CSV endpoint and its filter/response contract."
+                    }
+                  ],
+                  "coordination": "Contract fixtures permit isolated UI work before CSV-1; they do not prove integration.",
+                  "acceptanceChecks": [
+                    {
+                      "interaction": "Extend existing browser harness; exact command requires inspection.",
+                      "expected": "With active filters, clicking download produces a real CSV containing exactly the visible filter scope; unauthorized access follows the existing policy."
+                    },
+                    {
+                      "interaction": "Run isolated action checks with endpoint contract fixtures.",
+                      "expected": "Action passes current filter values correctly; fixture results remain labeled isolated evidence."
+                    }
+                  ],
+                  "prerequisites": "Running real endpoint, authenticated browser session, seeded audit data and download-capable browser harness.",
+                  "estimate": {
+                    "min": 1150,
+                    "max": 1350,
+                    "unit": "added plus deleted text lines",
+                    "basis": "Supplied inclusive planning estimate; actual diff unverified."
+                  },
+                  "budget": {
+                    "hardCap": 1500,
+                    "countingRule": "Complete intended PR base-to-head additions plus deletions; all text, without exclusions.",
+                    "source": "Explicit case request: project policy, including tests and generated files."
+                  },
+                  "intermediateState": "Combined capability is first verified by this real browser download against CSV-1."
+                }
+              ],
+              "dependencyOrder": [
+                "CSV-1",
+                "CSV-2"
+              ],
+              "sizingNote": "Whole-change estimate is 2,300–2,600; supplied stage estimates total 2,200–2,600. Reconcile overlap and omissions at pickup; each PR must independently remain within 1,500.",
+              "nextAction": "Inspect endpoint conventions and harness commands, then implement CSV-1 followed by real CSV-2 integration."
+            }
+          ],
+          "readiness": "Four units ready for scoped execution from supplied facts; none blocked or draft. Code, tests and actual sizes remain unverified.",
+          "actions": [
+            "Read and SHA-256-hashed the assigned request, cases, skill and relevant staged-delivery reference.",
+            "Chose four cohesive tasks; assigned real integration to NP-1, AL-1 and CSV-2 and independent API evidence to CSV-1.",
+            "Applied per-case budget sources and preserved authorization, filters, regression coverage and fixture-evidence limits.",
+            "Wrote plans.json; validated parsing, case coverage, unique IDs, acyclic dependencies and supplied estimates against applicable caps."
+          ]
+        },
+        "integrity": "All frozen input hashes matched; only plans.json was added. Loaded instruction hashes matched those inputs."
+      },
+      "candidate": {
+        "agent": "/root/pr_budget_trial_candidate",
+        "inputHashes": {
+          "cases.json": "bce1297c60564fc3c29e545d910397db8b190e8c077a4d809f2a9772d31c1b19",
+          "request.md": "0bb985bd5a0dc82724a9b60d9754918c91249b02ab11f1708104cb72389a165b",
+          "task-breakdown/SKILL.md": "d68d250d4e91e4960d07f0d97ffb2802a5f38498b25589cf649bf37c9e3b90ba",
+          "task-breakdown/THIRD-PARTY-NOTICES.txt": "19e6b26e3b539d353e056f57403b8747627338bad1354fa9cb72b5cc9101f5fd",
+          "task-breakdown/origin.txt": "088a671b992cf531ff32127504d8f477df76ac3e1f243fb5c076ca049e9108e9",
+          "task-breakdown/references/staged-delivery.md": "447fdfc225c63b8fa2af5642888dc18486beddc1dd927e9386ac8cfa4195b2ad"
+        },
+        "output": {
+          "instructionReads": [
+            {
+              "path": "request.md",
+              "sha256": "0bb985bd5a0dc82724a9b60d9754918c91249b02ab11f1708104cb72389a165b"
+            },
+            {
+              "path": "task-breakdown/SKILL.md",
+              "sha256": "d68d250d4e91e4960d07f0d97ffb2802a5f38498b25589cf649bf37c9e3b90ba"
+            },
+            {
+              "path": "task-breakdown/references/staged-delivery.md",
+              "sha256": "447fdfc225c63b8fa2af5642888dc18486beddc1dd927e9386ac8cfa4195b2ad"
+            }
+          ],
+          "inputReads": [
+            {
+              "path": "cases.json",
+              "sha256": "bce1297c60564fc3c29e545d910397db8b190e8c077a4d809f2a9772d31c1b19"
+            }
+          ],
+          "evidenceLimits": "Supplied facts inspected 2026-10-06; code, revisions and diffs unavailable. No product tests ran. At pickup, confirm paths, contracts, estimates, build and smoke commands.",
+          "sharedExecutionContract": {
+            "measurement": "Before publication and after scope, base or head changes, measure additions plus deletions across all changed text in each complete intended PR base-to-head diff. Include tests, migrations, generated text and lockfiles without exclusions; record binaries separately. Missing diffs remain unverified.",
+            "publication": "The publishing owner enforces explicit caps. If exceeded, stop publication and revise the split without omitting required behavior, tests or generated output. Separate commits do not reduce a PR diff.",
+            "nextAction": "Drafting complete. Carry these contracts forward; implementation and publication need separate authorization."
+          },
+          "plans": [
+            {
+              "caseId": "illustrative-count",
+              "outcome": "Signed-in users can toggle weekly notifications and retain their choice after reload.",
+              "dependencyOrder": [
+                "NOTIFY-1"
+              ],
+              "tasks": [
+                {
+                  "id": "NOTIFY-1",
+                  "status": "ready",
+                  "outcome": "Persist the weekly-notification choice through the existing settings flow.",
+                  "source": "cases.json: illustrative-count.request and facts",
+                  "scope": "Extend existing preference schema, authenticated API, persistence and settings screen together; include contract fixtures, generated schema and regression tests. Exclude unrelated widgets and platform work. Preserve existing preference conventions.",
+                  "dependencies": [],
+                  "consumes": "Existing settings, authenticated preference API, persistence and test harness.",
+                  "produces": "Weekly-notification preference readable and writable through the existing flow.",
+                  "coordination": "None identified beyond shared schema generation.",
+                  "acceptanceChecks": [
+                    {
+                      "command": "pnpm test preferences",
+                      "status": "planned",
+                      "expected": "Add coverage for on/off persistence and unauthorized requests following existing policy; rejected requests cannot change the preference."
+                    },
+                    {
+                      "command": "pnpm test:e2e notification-preferences",
+                      "status": "planned",
+                      "expected": "Using an authenticated test account and storage, turn on, reload, then turn off and reload; each displayed choice matches persistence."
+                    }
+                  ],
+                  "intermediateState": "One complete demonstrable settings behavior; targeted end-to-end check verifies integration.",
+                  "estimate": {
+                    "addedPlusDeletedTextLines": [
+                      5100,
+                      5500
+                    ],
+                    "basis": "Supplied project estimate includes fixtures and generated schema; no diff inspected.",
+                    "uncertainty": "Planning range; re-estimate from code and allow review fixes."
+                  },
+                  "reviewBudget": {
+                    "criterion": "One coherent demonstrable user behavior.",
+                    "illustrativeLines": 5000,
+                    "hardCap": null,
+                    "source": "Request explicitly calls 5,000 illustrative; repository has no numeric limit.",
+                    "decision": "Keep together despite exceeding the example; generated text and fixtures serve the same acceptance decision."
+                  }
+                }
+              ]
+            },
+            {
+              "caseId": "no-numeric-budget",
+              "outcome": "Users can apply inclusive audit-log date bounds and reset them.",
+              "dependencyOrder": [
+                "AUDIT-DATE-1"
+              ],
+              "tasks": [
+                {
+                  "id": "AUDIT-DATE-1",
+                  "status": "ready",
+                  "outcome": "Filter and reset audit entries by date in the existing list.",
+                  "source": "cases.json: no-numeric-budget.request and facts",
+                  "scope": "Connect date controls to existing optional query ranges; include loading, empty, reset and boundary coverage. Preserve existing date interpretation and form conventions.",
+                  "dependencies": [],
+                  "consumes": "Existing optional range query and form/query test helpers.",
+                  "produces": "Working inclusive range filtering and reset interaction.",
+                  "coordination": "None identified.",
+                  "acceptanceChecks": [
+                    {
+                      "command": "pnpm test audit-log",
+                      "status": "planned",
+                      "expected": "Extend coverage with entries before, on and after each bound: include both boundaries, exclude outside entries, show loading and empty states, and reset to the unfiltered list. Use existing fixtures and harness."
+                    }
+                  ],
+                  "intermediateState": "Complete filter flow; exercise controls against the existing query to verify integration.",
+                  "estimate": {
+                    "addedPlusDeletedTextLines": [
+                      250,
+                      400
+                    ],
+                    "basis": "Supplied estimate includes tests and reuses existing helpers.",
+                    "uncertainty": "No code or diff inspected; confirm at pickup."
+                  },
+                  "reviewBudget": {
+                    "criterion": "Easy to review and test as one cohesive behavior.",
+                    "hardCap": null,
+                    "source": "Request and repository policy establish no numeric limit.",
+                    "decision": "One small task; do not invent a ceiling."
+                  }
+                }
+              ]
+            },
+            {
+              "caseId": "explicit-cap",
+              "outcome": "Users download their currently filtered audit log as CSV under existing authorization.",
+              "dependencyOrder": [
+                "AUDIT-CSV-1",
+                "AUDIT-CSV-2"
+              ],
+              "splitReason": "The supplied whole-change estimate of 2,300–2,600 exceeds the explicit cap; a useful independently testable API enables bounded UI integration.",
+              "tasks": [
+                {
+                  "id": "AUDIT-CSV-1",
+                  "status": "ready",
+                  "outcome": "Authenticated CSV endpoint preserves audit filters and permissions.",
+                  "source": "cases.json: explicit-cap.request and facts.boundaries[0]",
+                  "scope": "Endpoint, authorization, filtering, CSV escaping, contract fixtures and API regression coverage; required generated files stay here.",
+                  "dependencies": [],
+                  "consumes": "Existing audit query and authorization policy.",
+                  "produces": "Verified filtered CSV response contract for AUDIT-CSV-2.",
+                  "coordination": "Share response and error fixtures with the UI task.",
+                  "acceptanceChecks": [
+                    {
+                      "interaction": "Existing API harness plus real authenticated download request",
+                      "status": "planned; exact command unavailable",
+                      "expected": "With seeded authorized and unauthorized records, exported rows match filters and permissions; commas, quotes and newlines escape correctly. Denied access follows existing policy. Verify real storage response, not fixtures alone."
+                    }
+                  ],
+                  "intermediateState": "Usable API download; existing list remains supported. Browser integration awaits AUDIT-CSV-2; deployment is outside scope.",
+                  "estimate": {
+                    "addedPlusDeletedTextLines": [
+                      1050,
+                      1250
+                    ],
+                    "basis": "Supplied endpoint boundary estimate.",
+                    "uncertainty": "Confirm all required text at pickup; 250 lines remain below cap at upper estimate."
+                  },
+                  "reviewBudget": {
+                    "criterion": "Independently testable API behavior.",
+                    "hardCap": 1500,
+                    "source": "Explicit request quoting project policy.",
+                    "countingRule": "All added plus deleted text lines in intended PR diff, including tests and generated files; sharedExecutionContract applies."
+                  }
+                },
+                {
+                  "id": "AUDIT-CSV-2",
+                  "status": "ready",
+                  "outcome": "Download the visible audit selection through the real CSV endpoint.",
+                  "source": "cases.json: explicit-cap.request and facts.boundaries[1]",
+                  "scope": "Download action, active-filter wiring, response/error handling and browser coverage, including first real integration check; keep required generated files here.",
+                  "dependencies": [
+                    {
+                      "id": "AUDIT-CSV-1",
+                      "capability": "Verified authenticated CSV endpoint and filter/response contract."
+                    }
+                  ],
+                  "consumes": "AUDIT-CSV-1 contract and current list filter state.",
+                  "produces": "Complete browser-to-endpoint CSV export.",
+                  "coordination": "Fixture-based UI preparation may proceed earlier; it does not prove integration.",
+                  "acceptanceChecks": [
+                    {
+                      "interaction": "Existing browser harness with real endpoint and seeded accounts",
+                      "status": "planned; exact command unavailable",
+                      "expected": "Apply filters, download and inspect CSV: rows match the filtered authorized selection. Verify denied/error handling and ordinary list navigation. Fixture tests support isolated UI checks only."
+                    }
+                  ],
+                  "intermediateState": "Buildable UI consumes verified endpoint; this task owns the first real browser download and combined capability check. No production deployment planned.",
+                  "estimate": {
+                    "addedPlusDeletedTextLines": [
+                      1150,
+                      1350
+                    ],
+                    "basis": "Supplied UI integration boundary estimate.",
+                    "uncertainty": "Confirm coverage/generated text at pickup; 150 lines remain below cap at upper estimate."
+                  },
+                  "reviewBudget": {
+                    "criterion": "Complete download interaction and integration evidence.",
+                    "hardCap": 1500,
+                    "source": "Explicit request quoting project policy.",
+                    "countingRule": "All added plus deleted text lines in intended PR diff, including tests and generated files; sharedExecutionContract applies."
+                  }
+                }
+              ]
+            }
+          ],
+          "actions": [
+            "Read and hashed the request, supplied skill, relevant staged-delivery reference and case facts.",
+            "Mapped every requested behavior and verification requirement into four tasks across three plans.",
+            "Kept illustrative and absent numeric budgets uncapped; preserved the explicit cap in both CSV tasks.",
+            "Assigned API proof and first real browser integration to separate bounded stages with one acyclic dependency.",
+            "Wrote plans.json and validated JSON, source hashes, case coverage and cap estimates."
+          ]
+        },
+        "integrity": "All frozen input hashes matched; only plans.json was added. Loaded instruction hashes matched those inputs."
+      },
+      "final": {
+        "agent": "/root/pr_budget_trial_final",
+        "inputHashes": {
+          "cases.json": "bce1297c60564fc3c29e545d910397db8b190e8c077a4d809f2a9772d31c1b19",
+          "request.md": "0bb985bd5a0dc82724a9b60d9754918c91249b02ab11f1708104cb72389a165b",
+          "task-breakdown/SKILL.md": "6d172424179c38c5d3b550e1c1b82b8f20972b2929643e617b4bf6d4a20560ba",
+          "task-breakdown/THIRD-PARTY-NOTICES.txt": "19e6b26e3b539d353e056f57403b8747627338bad1354fa9cb72b5cc9101f5fd",
+          "task-breakdown/origin.txt": "088a671b992cf531ff32127504d8f477df76ac3e1f243fb5c076ca049e9108e9",
+          "task-breakdown/references/staged-delivery.md": "447fdfc225c63b8fa2af5642888dc18486beddc1dd927e9386ac8cfa4195b2ad"
+        },
+        "output": {
+          "instructionReads": [
+            {
+              "path": "request.md",
+              "sha256": "0bb985bd5a0dc82724a9b60d9754918c91249b02ab11f1708104cb72389a165b"
+            },
+            {
+              "path": "cases.json",
+              "sha256": "bce1297c60564fc3c29e545d910397db8b190e8c077a4d809f2a9772d31c1b19"
+            },
+            {
+              "path": "task-breakdown/SKILL.md",
+              "sha256": "6d172424179c38c5d3b550e1c1b82b8f20972b2929643e617b4bf6d4a20560ba"
+            },
+            {
+              "path": "task-breakdown/references/staged-delivery.md",
+              "sha256": "447fdfc225c63b8fa2af5642888dc18486beddc1dd927e9386ac8cfa4195b2ad"
+            }
+          ],
+          "evidenceLimits": "Only supplied facts inspected, on 2026-10-06. Code, comparable diffs and test results are unavailable. Estimates are not measured diffs; checks are planned, not run. At pickup, inspect paths, contracts, checks and revision; confirm sizing.",
+          "actions": [
+            "Read all requests, the skill and staged-delivery guidance.",
+            "Mapped behaviors to scope, acceptance evidence and dependencies.",
+            "Distinguished illustrative sizing, absent numeric limits and the explicit cap.",
+            "Assigned CSV integration to CSV-2; checked order and upper estimates.",
+            "Wrote plans.json; validated structure, dependencies, cap estimates, instruction hashes and word count."
+          ],
+          "cases": [
+            {
+              "id": "illustrative-count",
+              "outcome": "A signed-in user can toggle weekly notifications and retain the choice after reload.",
+              "source": "cases.json: illustrative-count request and facts",
+              "tasks": [
+                {
+                  "id": "NOTIFY-1",
+                  "status": "Ready for pickup; recheck evidence.",
+                  "outcome": "Persist and display the weekly notification preference.",
+                  "scope": "One preference across existing schema, authenticated API and settings screen, with tests, contract fixtures and required generated schema text.",
+                  "contracts": "Extend existing authenticated preferences and persistence with the weekly-notification choice.",
+                  "dependencies": [],
+                  "acceptanceChecks": [
+                    "Using signed-in and unauthorized fixtures, save both on and off; each signed-in choice persists after reload. Unauthorized updates fail and do not change stored preferences.",
+                    "Existing planned command: pnpm test preferences. Extend coverage for the new preference and authorization paths.",
+                    "Existing planned command: pnpm test:e2e notification-preferences. Extend coverage for both saved choices and reload."
+                  ],
+                  "intermediateState": "Complete settings behavior using the existing API/storage; this task owns combined verification.",
+                  "estimate": {
+                    "changedTextLines": [
+                      5100,
+                      5500
+                    ],
+                    "basis": "Supplied range includes fixtures and generated schema; confirm all tests/output. No inspected diff."
+                  },
+                  "reviewBudget": {
+                    "budget": "One cohesive user behavior across schema/API/UI, allowing review fixes.",
+                    "numericGuidance": 5000,
+                    "hardCap": null,
+                    "source": "User calls 5,000 an example; repository has no numeric limit. Exceeding the example alone does not require splitting."
+                  }
+                }
+              ],
+              "order": [
+                "NOTIFY-1"
+              ]
+            },
+            {
+              "id": "no-numeric-budget",
+              "outcome": "Users can filter audit entries by inclusive start/end dates and reset the filter.",
+              "source": "cases.json: no-numeric-budget request and facts",
+              "tasks": [
+                {
+                  "id": "AUDIT-DATES-1",
+                  "status": "Ready for pickup; recheck evidence.",
+                  "outcome": "Filter and reset the audit log date range.",
+                  "scope": "Extend the existing form, connect optional query range parameters and add behavioral tests. Keep loading, empty results and reset behavior together.",
+                  "contracts": "Consume the existing optional range query contract; confirm established date interpretation at pickup.",
+                  "dependencies": [],
+                  "acceptanceChecks": [
+                    "With entries before, on and after both boundaries, retain entries on either boundary and exclude those outside the range.",
+                    "Changing dates shows the established loading state; a range with no matches shows the empty state.",
+                    "Reset clears date controls and range parameters and restores unfiltered results.",
+                    "Existing planned command: pnpm test audit-log. Extend existing form/query helpers and tests for these behaviors."
+                  ],
+                  "intermediateState": "Complete filter flow against the existing query; this task owns combined verification.",
+                  "estimate": {
+                    "changedTextLines": [
+                      250,
+                      400
+                    ],
+                    "basis": "Supplied estimate includes tests; no measured diff. Recheck review-fix allowance."
+                  },
+                  "reviewBudget": {
+                    "budget": "One easily reviewed and tested filter behavior.",
+                    "hardCap": null,
+                    "source": "User requests reviewability/testability; user and repository establish no numeric limit."
+                  }
+                }
+              ],
+              "order": [
+                "AUDIT-DATES-1"
+              ]
+            },
+            {
+              "id": "explicit-cap",
+              "outcome": "Users download the currently filtered audit log as CSV under the existing authorization policy.",
+              "source": "cases.json: explicit-cap request and facts",
+              "splitReason": "Whole-change upper estimate of 2,600 exceeds the 1,500-line cap. The endpoint provides an independently demonstrable download contract.",
+              "tasks": [
+                {
+                  "id": "CSV-1",
+                  "status": "Ready for pickup; recheck evidence.",
+                  "outcome": "Provide an authenticated, filtered CSV download endpoint.",
+                  "scope": "Implement the smallest export contract, real storage access, existing authorization, CSV escaping, API tests and required generated output.",
+                  "contracts": "Produce a CSV download endpoint honoring current audit filters and authorization.",
+                  "dependencies": [],
+                  "coordination": "Record the endpoint contract for CSV-2.",
+                  "acceptanceChecks": [
+                    "Add API coverage for filtered rows, CSV escaping and existing permission/error paths against real data/storage.",
+                    "Make a real authenticated download request and inspect returned CSV; unauthorized access follows existing policy.",
+                    "Use the existing API harness; exact command, URL and fixture setup were not supplied and must be discovered at pickup."
+                  ],
+                  "intermediateState": "Endpoint download is demonstrable without UI. The user-facing browser flow remains pending CSV-2.",
+                  "estimate": {
+                    "changedTextLines": [
+                      1050,
+                      1250
+                    ],
+                    "headroomToCap": 250,
+                    "basis": "Supplied endpoint estimate; confirm tests and all required output remain within it."
+                  },
+                  "reviewBudget": {
+                    "budget": "One demonstrable stage, with stated headroom for implementation/review fixes.",
+                    "hardCap": 1500,
+                    "source": "cases.json: explicit-cap request establishes mandatory project policy.",
+                    "countingRule": "Additions plus deletions across the complete intended PR base-to-head text diff, including tests/generated files; no exclusions. Not net growth, individual commits or full stack against trunk. Record binaries separately.",
+                    "publicationCheck": "Publishing owner freshly measures before publication and after scope/base/head changes. Incomplete diff is unverified. Above 1,500, stop publication and revise split, retaining required behavior/tests/files."
+                  }
+                },
+                {
+                  "id": "CSV-2",
+                  "status": "Ready for pickup; recheck evidence.",
+                  "outcome": "Download the currently filtered audit log from the browser.",
+                  "scope": "Connect the audit-log download action to the verified endpoint; include UI tests, required generated output and the first real browser download check.",
+                  "contracts": "Consume CSV-1 endpoint, filter and authorization contract; fixtures support isolated UI work only.",
+                  "dependencies": [
+                    {
+                      "task": "CSV-1",
+                      "capability": "Verified authenticated CSV endpoint preserving audit filters."
+                    }
+                  ],
+                  "coordination": "Fixture-based UI work may precede endpoint completion; integrated acceptance cannot.",
+                  "acceptanceChecks": [
+                    "Extend existing browser coverage; exercise the real endpoint with filtered audit fixtures and verify downloaded contents match the current range and authorization policy.",
+                    "Keep isolated fixture checks distinct from integration evidence. This task owns the first combined API/browser acceptance.",
+                    "Existing harness is supplied; exact browser command and setup must be discovered at pickup."
+                  ],
+                  "intermediateState": "Complete browser download after CSV-1; fixture-only success does not prove integration. Production deployment is outside scope.",
+                  "estimate": {
+                    "changedTextLines": [
+                      1150,
+                      1350
+                    ],
+                    "headroomToCap": 150,
+                    "basis": "Supplied UI estimate includes browser coverage; confirm all required text output at pickup."
+                  },
+                  "reviewBudget": {
+                    "budget": "One demonstrable stage, with stated headroom for implementation/review fixes.",
+                    "hardCap": 1500,
+                    "source": "cases.json: explicit-cap request establishes mandatory project policy.",
+                    "countingRule": "Additions plus deletions across the complete intended PR base-to-head text diff, including tests/generated files; no exclusions. Not net growth, individual commits or full stack against trunk. Record binaries separately.",
+                    "publicationCheck": "Publishing owner freshly measures before publication and after scope/base/head changes. Incomplete diff is unverified. Above 1,500, stop publication and revise split, retaining required behavior/tests/files."
+                  }
+                }
+              ],
+              "order": [
+                "CSV-1",
+                "CSV-2"
+              ]
+            }
+          ],
+          "nextAction": "Drafting complete. Executor pickup requires evidence rechecks. No blocked or draft units."
+        },
+        "integrity": "All frozen input hashes matched; only plans.json was added. Recorded loaded hashes matched those inputs."
+      }
+    },
+    "results": [
+      {
+        "case": "illustrative-count",
+        "baseline": "pass",
+        "candidateV1": "pass",
+        "final": "pass",
+        "evidence": "Each arm keeps one coherent notification-preference behavior, no hard cap, and planned persistence, authorization and reload checks."
+      },
+      {
+        "case": "no-numeric-budget",
+        "baseline": "fail",
+        "candidateV1": "pass",
+        "final": "pass",
+        "evidence": "Baseline assigns a 5,000 hard cap from the old skill despite no user/project limit. Both corrected snapshots keep one small task with no numeric cap."
+      },
+      {
+        "case": "explicit-cap",
+        "baseline": "pass",
+        "candidateV1": "pass",
+        "final": "pass",
+        "evidence": "All arms preserve the real 1,500 cap in two units, keep tests with implementation, identify the endpoint dependency and put real browser integration in the UI unit."
+      }
+    ],
+    "interpretation": "In these three matched cases, baseline meets two budget contracts and both corrected snapshots meet all three. This is a narrow observed difference; no general reliability or performance gain is claimed. Final rereun covers the two post-consultation changes, including conditional publication measurement."
+  },
+  "structuralValidation": {
+    "snapshot": {
+      "README.md": "d4049cf1002a5929f2040db838f04818d525dc926bc1e96945dcd54c1e7a1248",
+      "issue-workflow/references/publish-tasks.md": "1ba81a9d126dadbab1433d4640cca1e1622b8f256c4700d4ae151ca64121f341",
+      "task-breakdown/SKILL.md": "6d172424179c38c5d3b550e1c1b82b8f20972b2929643e617b4bf6d4a20560ba",
+      "task-breakdown/origin.txt": "088a671b992cf531ff32127504d8f477df76ac3e1f243fb5c076ca049e9108e9",
+      "task-breakdown/THIRD-PARTY-NOTICES.txt": "19e6b26e3b539d353e056f57403b8747627338bad1354fa9cb72b5cc9101f5fd",
+      "task-breakdown/references/staged-delivery.md": "447fdfc225c63b8fa2af5642888dc18486beddc1dd927e9386ac8cfa4195b2ad"
+    },
+    "commands": [
+      {
+        "command": [
+          "/Users/luisurrutia/.cache/uv/builds-v0/.tmpEhG4nx/bin/python",
+          "/Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+          "task-breakdown"
+        ],
+        "exitCode": 0,
+        "stdout": "Skill is valid!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/luisurrutia/.cache/uv/builds-v0/.tmpEhG4nx/bin/python",
+          "/Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+          "issue-workflow"
+        ],
+        "exitCode": 0,
+        "stdout": "Skill is valid!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "verification-authoring/tests",
+          "-q"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "----------------------------------------------------------------------\nRan 11 tests in 0.341s\n\nOK\n"
+      }
+    ],
+    "provenanceParse": "task-breakdown/origin.txt passed",
+    "registryParse": "skills.sh.json passed",
+    "build": "No repository-wide compile or build command is configured. Atlas assets are unchanged since their passed syntax/browser checks."
+  },
+  "limits": [
+    "Synthetic planning artifacts from supplied facts, not product-code execution, host activation, installation or live GitHub/tracker behavior.",
+    "One run per revision and three cases do not establish general reliability or performance gains.",
+    "Static consultations do not substitute for behavioral trials. Historical reports retain their original instructions and are not current policy."
+  ],
+  "result": "Validated for the stated cases and structural scope; no unresolved material review findings."
+}

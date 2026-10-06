@@ -71,10 +71,11 @@ normally one task and one PR per unit. Keep an already-small change together.
 Prefer complete behaviors across the necessary layers, such as one statistics card
 with its real data and tests. Use backend, frontend and integration stages when a
 concrete dependency warrants them, with honest intermediate verification limits.
-Each PR has a ceiling of 5,000 additions plus deletions, including tests and generated
-text; estimates leave headroom and the publishing skill checks the actual PR diff.
-The breakdown carries acceptance checks, dependencies, context and that size contract
-to each executor. `issue-workflow` publishes the tasks only when requested.
+Size each PR for coherent human review. Numeric examples are guidance; an explicit
+user or project cap is enforced against the full additions-plus-deletions diff,
+including tests and generated text. The breakdown carries acceptance checks,
+dependencies, context and the applicable review budget to each executor.
+`issue-workflow` publishes the tasks only when requested.
 
 The flow is `wayfinder` → `planning` → `task-breakdown` → authorized ticket publication
 and implementation. `stacked-pr` handles branch dependencies when a stack is useful.

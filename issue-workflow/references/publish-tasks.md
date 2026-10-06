@@ -34,9 +34,9 @@ to In Progress, mark them done, or close a parent because a breakdown was publis
 ## Preserve the task contract
 
 Keep each unit's outcome, scope, acceptance checks, relevant contract and source
-links, prerequisites, integration limits and review-size budget. Retain the cap
-and additions-plus-deletions counting rule in the ticket so a new executor can
-enforce it before publishing the PR. Do not publish the whole project plan as one
+links, prerequisites, integration limits and review-size budget. Retain any explicit
+cap with its source and counting rule in the ticket so a new executor can enforce
+it before publishing the PR. Do not publish the whole project plan as one
 implementation ticket when the supplied units are smaller delivery boundaries.
 
 Before creating, inspect existing records for this work. Match stable IDs and

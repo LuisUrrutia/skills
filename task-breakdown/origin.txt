@@ -15,7 +15,7 @@ baseline_paths = ["skills/planning/SKILL.md", "skills/planning/references/handof
 paths = ["skills/planning/SKILL.md", "skills/planning/references/handoff-plans.md", "skills/planning/references/splitting.md", "skills/planning/references/claim-verification.md", "skills/planning/references/plan-quality-rubric.md", "LICENSE.md"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Ground work units in repository evidence and preserve context for a fresh executor.", "Carry observable acceptance checks and genuine dependencies into delivery units."]
-local_choices = ["Extract delivery decomposition into a separately invocable skill; direction and overall planning remain with their owners.", "Apply the user-defined 5,000 additions-plus-deletions ceiling with estimation headroom and actual publication checks."]
+local_choices = ["Extract delivery decomposition into a separately invocable skill; direction and overall planning remain with their owners.", "Treat the user's illustrative line count as guidance, not a default ceiling. Preserve small, testable review units and enforce explicitly established caps with estimation headroom and actual publication checks."]
 reviews = []
 
 [[sources]]
@@ -100,13 +100,13 @@ role = "Publish prepared tasks only when that operation is authorized."
 name = "pr"
 kind = "local"
 required = false
-role = "Measure the actual PR diff against the carried size cap before publication."
+role = "Measure the actual PR diff against an explicitly established size cap before publication."
 
 [[dependencies]]
 name = "stacked-pr"
 kind = "local"
 required = false
-role = "Own dependent branches and enforce each layer size cap during publication."
+role = "Own dependent branches and enforce any explicitly established layer size cap during publication."
 
 [[dependencies]]
 name = "agent-instructions"

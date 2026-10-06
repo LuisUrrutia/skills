@@ -43,7 +43,7 @@ For a large plan, the delivery map can precede detailed execution contracts.
 Keep later units as drafts with explicit unknowns until their scope, dependencies,
 acceptance checks and sizing meet the readiness requirements below.
 Retain each draft's stable ID, outcome, known dependencies, unknowns, and
-applicable numeric PR cap with its counting rule.
+review budget and any explicitly agreed numeric PR cap with its counting rule.
 
 ## Choose functional boundaries
 
@@ -80,28 +80,32 @@ dependencies permit; decomposition does not reopen settled design decisions.
 
 ## Budget for human review
 
-Each PR must contain at most **5,000 changed text lines: additions plus deletions**
-in its complete base-to-head PR diff. This is a ceiling, not a target. Honor a
-stricter project limit. Changing the ceiling needs an explicit user decision;
-an estimate, deadline, draft state or generated-file label cannot waive it.
+Keep each PR small enough for a person to understand and verify its concrete
+outcome. Use the request's or project's review budget; a numeric example or rough
+target is guidance, not a hard cap. Do not invent a default ceiling. Enforce a
+numeric cap when the user, project rules or authoritative task record explicitly
+establishes it; changing that cap requires the authority that set it.
 
 Before marking a unit ready, estimate a range from the affected code and comparable
 changes, include tests, migrations, generated text and lockfiles, and state the
-basis and uncertainty. Aim comfortably below the ceiling so implementation and
-review fixes can fit. Do not report an estimate as a measured diff or invent
-precision from unavailable code. If the credible upper bound exceeds the ceiling,
-reduce the unit's scope or resolve the sizing uncertainty before calling it ready.
+basis and uncertainty. Leave room for implementation and review fixes. Do not
+report an estimate as a measured diff or invent precision from unavailable code.
+If a unit is too large to review coherently, reduce its scope. When an explicit
+cap applies, bring the credible upper bound within it or resolve the sizing
+uncertainty before calling the unit ready.
 
-Carry the numeric cap and counting rule into every task's execution contract.
-Require a fresh measurement before PR publication and after scope, base or head
-changes: sum additions and deletions for the intended PR base and head, never net
-growth, individual commits, or the whole stack against trunk. Include all changed
-text, without path exclusions. Record binary changes separately; a line count does
-not measure their review cost. An unavailable or incomplete diff is unverified.
+Carry the review budget and any explicit cap into each task's execution contract.
+Measure changed text lines as additions plus deletions in the complete PR diff.
+When an explicit cap applies, require a fresh measurement before PR publication
+and after scope, base or head changes: sum additions and deletions for the
+intended PR base and head, never net growth, individual commits, or the whole
+stack against trunk. Include all changed text, without path exclusions. Record
+binary changes separately; a line count does not measure their review cost. An
+unavailable or incomplete diff is unverified.
 
-The publishing owner (`pr` or `stacked-pr`) checks the actual diff. If it exceeds
-the cap, stop publication of that unit and revise the split; retain independent
-ready work. Splitting commits does not shrink a PR. Do not discard required
+The publishing owner (`pr` or `stacked-pr`) checks the actual diff against any
+explicit cap. If it exceeds that cap, stop publication and revise the split;
+retain independent ready work. Splitting commits does not shrink a PR. Do not discard required
 behavior, tests or files, rewrite published history without authority, or hide
 changes through formatting to make the count pass. A small count still needs a
 coherent review boundary.
@@ -128,8 +132,8 @@ Use the project's task format and include only details the executor needs:
   from existing checks; planned checks are not passing evidence.
 - Why new coverage is needed, using the plan's rationale and existing tests. Keep
   meaningful failure and compatibility cases with the behavior they protect.
-- Estimated changed-line range, its basis and uncertainty, and the actual PR cap
-  of 5,000 additions plus deletions (or the stricter applicable limit).
+- Estimated changed-line range, its basis and uncertainty, the review budget,
+  and any explicit cap with its source and counting rule.
 - Supported intermediate state, how to exercise it, and any integration dependency
   that prevents claiming it production-testable yet.
 
