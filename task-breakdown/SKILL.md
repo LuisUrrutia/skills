@@ -39,12 +39,22 @@ or chat can be enough; no separate document or ticket per unit is mandatory.
 When resuming, reconcile actual completed work, existing IDs and changed premises
 before revising remaining units. Preserve unrelated work and stable identities.
 
+For a large plan, the delivery map can precede detailed execution contracts.
+Keep later units as drafts with explicit unknowns until their scope, dependencies,
+acceptance checks and sizing meet the readiness requirements below.
+Retain each draft's stable ID, outcome, known dependencies, unknowns, and
+applicable numeric PR cap with its counting rule.
+
 ## Choose functional boundaries
 
 Start with the smallest useful behavior that can be demonstrated after its real
 prerequisites land. Include the layers needed for that behavior: data access,
 backend, frontend and behavioral tests where applicable. Add further capabilities
 as separate units. Name each unit after what it delivers, not a file or widget.
+
+Give each proposed PR a meaningful acceptance decision of its own. Keep parts
+together when they only serve the same decision and fit comfortably within the
+review budget.
 
 For a statistics dashboard, a useful first unit might deliver the revenue card
 with its real query, permissions, endpoint, UI states and checks. Another can add
@@ -64,6 +74,10 @@ files or environments can need coordination without creating a functional blocke
 Distinguish both from a preferred execution order. Resolve cycles through a smaller
 shared contract or a cohesive unit. Do not force independent units into a stack.
 
+Map material uncertainties already identified in the plan to the units and
+evidence that resolve them. Preserve the plan's risk-reduction order where
+dependencies permit; decomposition does not reopen settled design decisions.
+
 ## Budget for human review
 
 Each PR must contain at most **5,000 changed text lines: additions plus deletions**
@@ -71,7 +85,7 @@ in its complete base-to-head PR diff. This is a ceiling, not a target. Honor a
 stricter project limit. Changing the ceiling needs an explicit user decision;
 an estimate, deadline, draft state or generated-file label cannot waive it.
 
-For each proposed unit, estimate a range from the affected code and comparable
+Before marking a unit ready, estimate a range from the affected code and comparable
 changes, include tests, migrations, generated text and lockfiles, and state the
 basis and uncertainty. Aim comfortably below the ceiling so implementation and
 review fixes can fit. Do not report an estimate as a measured diff or invent
@@ -105,6 +119,9 @@ Use the project's task format and include only details the executor needs:
 
 - Stable ID and the concrete outcome; included scope and likely scope confusion.
 - Relevant source paths, authoritative decisions, and consumed/produced contracts.
+  For deferred execution, include the inspected revision or verification date
+  and require the executor to recheck these references at pickup before relying
+  on them.
 - True prerequisites by unit ID, plus separate coordination or release constraints.
 - Acceptance scenarios with observable expected results, deciding commands or
   interactions, and environment/data prerequisites. Mark checks to add separately
@@ -122,20 +139,22 @@ link shared decisions rather than duplicating a large plan or progress log.
 
 ## Check the breakdown and continue
 
-Trace every material requirement to a unit and its acceptance evidence. Check
-that dependencies are real and acyclic, each proposed PR fits its review budget,
-and a unit demonstrates its stated result without waiting for unfinished work
+Trace every material requirement to a unit and its acceptance evidence, or to a
+draft with recorded unknowns. Check that dependencies are real and acyclic, each
+ready unit fits its review budget, and a unit demonstrates its stated result
+without waiting for unfinished work
 unless that limitation is explicit. Specify where the combined capability is
 verified; separate unit checks do not prove integration. Preserve blocked scope.
 
-Return the breakdown or its location, dependency order, ready and blocked units,
-sizing uncertainty, and next action. No additional approval gate is needed for
+Return the breakdown or its location, dependency order, ready, draft and blocked
+units, sizing uncertainty, and next action. No additional approval gate is needed for
 already-authorized work. For a drafting-only request, stop with the artifact.
 
 When ticket publication is requested, pass the prepared units, target tracker,
 existing IDs, relationships, plan links and publication scope to `issue-workflow`
-in Publish mode. Retain drafted units if publication is blocked. If implementation
-is already authorized, continue ready units through the existing workflow with
+in Publish mode. Preserve draft labels and unknowns; drafts are not ready work.
+Retain drafted units if publication is blocked. If implementation is already
+authorized, continue ready units through the existing workflow with
 their acceptance and review-size contracts. Do not select worker topology here.
 
 For requested source maintenance, use `agent-instructions` with `origin.txt`.
