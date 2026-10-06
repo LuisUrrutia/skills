@@ -85,6 +85,9 @@ plan needs a starting structure, and omit sections that add no useful informatio
   behavior and compatibility that the requirement or affected path makes material.
   Locate existing check commands; distinguish checks to add from those available
   now. Name access or environment prerequisites and unverified command assumptions.
+  For each proposed test, identify the regression it would catch and the gap in
+  existing coverage. Prefer extending a test that already exercises the contract
+  over adding a near-duplicate.
 - **Risk and recovery:** order decisive feasibility checks early where dependencies
   permit. For migrations or irreversible changes, specify transition states,
   release prerequisites, and rollback or forward recovery within the agreed scope.
