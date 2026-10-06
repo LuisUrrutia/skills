@@ -4447,6 +4447,14 @@ window.SKILL_ATLAS = {
         "section": "review-code-changes"
       },
       {
+        "name": "pr-review-draft",
+        "category": "Implementation, verification and review",
+        "summary": "Prepare an editable pending GitHub review from independent Codex, Claude and CodeRabbit attempts over one frozen PR scope.",
+        "path": "pr-review-draft/SKILL.md",
+        "sha256": "e94e11ae14cd9d4083e410202ef67869d3235105d80d0bc2e81fc2805b7e375d",
+        "checkedAt": "2026-10-06"
+      },
+      {
         "name": "worktrunk",
         "category": "Git, pull requests and CI",
         "summary": "Manage worktrees with wt; apply the session ownership and handoff rules when changing checkouts.",
@@ -4674,7 +4682,8 @@ window.SKILL_ATLAS = {
       "daily-meeting-update": "report-work-activity",
       "humanize": "communicate-clearly",
       "how": "explain-code",
-      "why": "explain-decisions"
+      "why": "explain-decisions",
+      "draft-review": "pr-review-draft"
     },
     "validationScope": "Package presence, declared names and entrypoint hashes checked. TypeScript has 22 technical compiler/runtime/configuration probes and package validation; independent agent behavior and host activation are not tested. Other skills retain their separate dated evidence. Presence is not installation. CI/CD has separate package, atlas, dual-review and three matched design-case records. Provider execution and implicit activation remain untested. Handoff has independent Astra/Fable Max static reviews, a matched document-creation pair, a non-repository trial and a cold-recipient diagnostic. Supplied context does not establish implicit activation or real cross-host transfer."
   },

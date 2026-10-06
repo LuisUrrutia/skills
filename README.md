@@ -485,6 +485,26 @@ review-audit skill; it preserves a read-only review phase and local reports.
 - Validates Markdown coverage against a path inventory and renders HTML with an external stylesheet
 - Records local snapshots and pinned review sources, including Compound Engineering, OpenClaw, and Alireza Rezvani
 
+### pr-review-draft
+
+Prepare an editable pending GitHub review from independent Codex, Claude and
+CodeRabbit attempts over the same frozen PR scope. The user submits the review.
+
+**Triggers:** explicitly invoke `$pr-review-draft` to draft unpublished inline PR comments.
+
+Uses `review-code-changes` for the audit protocol, `compare-solutions` for independent
+attempts and `comment-style` for wording. The parent verifies findings, checks
+cross-repository seams and reconciles existing feedback before writing pending
+comments. Read-only review controls, bounded retries and exact actor/head binding
+remain part of the workflow.
+
+This replaces the former private `draft-review` skill. Update installed links and
+explicit invocations to `pr-review-draft`; no alias package is included. Private
+profiles stay outside the package, in `$XDG_CONFIG_HOME/pr-review-draft/profiles`
+(or `~/.config/pr-review-draft/profiles`) or a directory passed with `--profiles-dir`.
+Existing `~/.config/draft-review/profiles` users must link or move that directory
+to the new location, or select it explicitly. Generic reviews need no profile.
+
 ### verification-authoring
 
 Create and maintain project-local `verify-<app>` skills that another agent can
