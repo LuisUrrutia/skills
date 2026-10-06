@@ -1,25 +1,26 @@
 ---
 name: issue-workflow
-description: Use when publishing prepared tasks to an issue tracker or synchronizing tickets with implementation and PR events. Reading or triaging alone does not change state.
+description: Use when starting implementation from a ticket, synchronizing its workflow state, or publishing prepared tasks to an issue tracker.
 ---
 
 # Issue workflow
 
-Publish prepared tasks or synchronize the original ticket at a verified delivery
-event. The consuming project's `docs/agents/issue-tracker.md` owns destinations
-and transition rules; this skill owns discovery, guarded execution and evidence.
-That path is relative
-to the target project root, not this installed skill.
+Synchronize the original ticket when implementation starts and at later configured
+events. Also publish prepared tasks when requested. The consuming project's
+`docs/agents/issue-tracker.md` owns destinations and transition rules; this skill
+owns discovery, guarded execution and evidence. That path is relative to the
+target project root, not this installed skill.
 
 ## Resolve the operation
 
+- **Synchronize:** apply the policy for an event reached by authorized work or
+  explicitly requested synchronization. Starting implementation from a ticket
+  triggers its configured `work-started` transition, including work with no PR.
+  Reading, planning or triaging it alone does not.
 - **Publish:** create or update the requested tickets from a prepared breakdown.
   Read [references/publish-tasks.md](references/publish-tasks.md), complete that
   operation and return. Publication does not enter the delivery-event procedure.
   `task-breakdown` owns missing functional boundaries and acceptance criteria.
-- **Synchronize:** apply the policy for an event reached by authorized work or
-  explicitly requested synchronization. Starting implementation from a ticket
-  counts as `work-started`; reading, planning or triaging it alone does not.
 - **Inspect:** resolve the same facts and report the proposed action without
   writes, or return the permitted link form and policy before an event occurs.
   Use this for read-only requests and `pr-followup` Check scope. For a publication

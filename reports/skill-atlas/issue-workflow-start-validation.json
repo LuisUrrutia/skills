@@ -1,0 +1,1423 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-06",
+  "package": "issue-workflow",
+  "status": "validated in the stated structural, description-probe and synthetic-tracker scope",
+  "scope": "Restore implementation-start as the primary activation trigger and explicitly support work without a PR. Preserve configured state guards and the existing publication and PR lifecycle routes.",
+  "baselineCommit": "684fcdb63406dc3310afd86322906a08527f0e89",
+  "parentAfterIndependentTaskBreakdownCommit": "293d2d8ad11734c0804e793213a8149121029548",
+  "diagnosis": {
+    "introducedBy": "684fcdb63406dc3310afd86322906a08527f0e89",
+    "originalDescription": "description: Use when starting implementation from a ticket or synchronizing its status after PR creation or merge. Reading or triaging a ticket alone does not change its state.",
+    "replacedDescription": "description: Use when publishing prepared tasks to an issue tracker or synchronizing tickets with implementation and PR events. Reading or triaging alone does not change state.",
+    "correctedDescription": "description: Use when starting implementation from a ticket, synchronizing its workflow state, or publishing prepared tasks to an issue tracker.",
+    "evidence": "git show 684fcdb -- issue-workflow/SKILL.md shows the explicit implementation-start trigger replaced by publication-first wording. The body retained work-started and its guards.",
+    "limit": "The user supplied the changed descriptions, not a failed host activation trace. This repairs the confirmed textual activation regression; matched tests below do not establish a measured runtime-selection improvement."
+  },
+  "instructionRevisions": {
+    "baseline": {
+      "gitObject": "684fcdb63406dc3310afd86322906a08527f0e89:issue-workflow/SKILL.md",
+      "sha256": "9d8949368c4b824d29259f53d61bb6dcddc05445ace9dad46a47472945419987"
+    },
+    "candidate": {
+      "location": "issue-workflow/SKILL.md in the commit containing this report",
+      "sha256": "dc965c8ad9a0b743bc295cc82341358aef3339e06f5e4f68a37219cc07a256f8"
+    },
+    "packageHashes": {
+      "SKILL.md": "dc965c8ad9a0b743bc295cc82341358aef3339e06f5e4f68a37219cc07a256f8",
+      "THIRD-PARTY-NOTICES.txt": "eecdd0e7501a2aa587530de3c363fd3b95073612a0244752bc91a50ecd2034ca",
+      "assets/issue-tracker.md": "f8c9d6fa5d2580e332171e2ed997da9c2eb721780febd5264db8269b5e428990",
+      "origin.txt": "af3bfbffd56e0879e2d39c4bb389872a15f6ce68ab5f0344405cc1d8bd675f1e",
+      "references/github.md": "820ca89ad95980c50255ce9c536cb9f5e787c2722dd378a10c297664acff017e",
+      "references/identity.md": "c870b121534683f9fd0c4034b82f4e5b2de0259828bac4dbae638b55ed34d007",
+      "references/jira.md": "c3b2361907ee1aacb191eaa2519c53824d689a471e3214d1ebdbe271a2bafabb",
+      "references/linear.md": "caec30cec7cb45876d52c07e2509bb43a6789dc8a85fc5ba7dcfef59cbc5b3da",
+      "references/project-policy.md": "f29b08b5d2e356c93977c772d95cc7da7d7145269dfda6f65cf0b84454599426",
+      "references/publish-tasks.md": "ef23cf81a220fcb18c34a9c9d0db0a91b18db3c1649dee169068bb1203e0ecf4",
+      "references/upstream-updates.md": "21fa9da78d4042218fbe8a6b881883ea9040fde3b2296b098f509802a47fe519"
+    },
+    "preserved": "All bundled references, template, origin.txt and third-party notices are byte-identical to the baseline. No upstream refresh or installation is claimed."
+  },
+  "review": {
+    "profiles": [
+      {
+        "provider": "codex",
+        "model": "gpt-6-astra",
+        "effort": "max",
+        "agent": "/root/issue_workflow_start_review"
+      },
+      {
+        "provider": "claudeAgent",
+        "model": "claude-fable-5-1",
+        "effort": "max",
+        "taskId": "node:delegated-task:command%3Amcp%3Acaaa55b4-cf7a-4cb3-8e6b-b9a73ae231e6%3Adelegate-task%3Aissue-workflow-start-fable-v1-20261006"
+      }
+    ],
+    "rounds": [
+      {
+        "round": 1,
+        "candidateSha256": "dc965c8ad9a0b743bc295cc82341358aef3339e06f5e4f68a37219cc07a256f8",
+        "findings": [
+          {
+            "reviewer": "gpt-6-astra",
+            "verdict": "No material findings remain.",
+            "evidence": "Implementation-start is restored in the description and first operation, including work without a PR. Exact configured destinations, actual-start evidence, source guards, ownership, actor verification and read-back remain. Publication stays separate and PR synchronization remains intact. All 22 manifest hashes matched.",
+            "limit": "Textual review; automatic host activation not tested."
+          },
+          {
+            "reviewer": "claude-fable-5-1",
+            "taskId": "node:delegated-task:command%3Amcp%3Acaaa55b4-cf7a-4cb3-8e6b-b9a73ae231e6%3Adelegate-task%3Aissue-workflow-start-fable-v1-20261006",
+            "provider": "claudeAgent",
+            "model": "claude-fable-5-1",
+            "effort": "max",
+            "result": "**Verdict:** the candidate restores the work-start trigger and lifecycle priority without weakening any safeguard. The diff itself introduces no defect. No sentence in the candidate requires a PR at work start. One pre-existing gap is worth closing in this same edit, and three wording points are optional.\n\n**What I verified**\n\n- The description leads with starting implementation from a ticket and lists publication last at `candidate/issue-workflow/SKILL.md:3`. The entry paragraph leads with synchronization at implementation start and makes publication secondary at `candidate/issue-workflow/SKILL.md:8`.\n- Synchronize is now the first operation and names the no-PR case explicitly at `candidate/issue-workflow/SKILL.md:16`. Publication still does not enter the delivery procedure at line 22, and `references/publish-tasks.md:31` still forbids moving tasks to In Progress on publication.\n- Everything after the operation list is byte-identical to the baseline. The diff has a single hunk covering lines 1 to 26. Identity, configured destination, allowed-source guards, ownership, pre-write re-read, read-back and authorization are unchanged. References and assets match the baseline by manifest hash and by a recursive diff.\n- Residual PR wording at work start: none. The mentions of PRs at lines 43 and 119 are conditional on relevance. The remaining PR-centricity is structural, which is finding 1.\n\n**Finding 1, material, pre-existing, recurrence risk**\n\n- `candidate/issue-workflow/SKILL.md:132` says the supplied event hooks live in the pr and pr-followup skills. No hook exists for work-started. That event is reached only by host selection on the description, by the project's conditional route described at `references/project-policy.md:42`, or by explicit invocation. The body never states this.\n- Consequence: PR events still activate through hooks even when the description drifts, but work-started activates through the description alone. That asymmetry is exactly how the reported regression occurred, and nothing in the skill records that the description carries this trigger.\n- Minimal correction: add one sentence to that paragraph stating that work-started has no supplied hook and is reached by host selection on this description, the project's conditional route, or explicit invocation.\n\n**Optional prose preferences, not defects**\n\n- The description drops the original's closing sentence about reading or triaging not changing state. The body keeps that guard at line 19, the expectations accept either planning or issue-workflow inspection for the plan-only request, and the authoring rule at `~/.claude/skills/agent-instructions/references/skills.md:43` permits dropping an exclusion that resolves no ambiguity. Restoring it for parity with the original stays well within usual description limits.\n- Line 18 says starting implementation \"triggers\" the configured transition, which reads as if the start performs it. The baseline's \"counts as the work-started event\" keeps the event separate from the guarded outcome, which may still be skipped, unchanged, pending automation or blocked.\n- Outside the diff, the template Start row scopes to any verified branch at `candidate/issue-workflow/assets/issue-tracker.md:20`. That is a branch scope, not a PR requirement, and the fixture policies used \"Not applicable\". It is a Configure-time concern.\n\n**Evidence limits**\n\n- Both selection probes chose identical skills for all five routing requests, run 1 with the baseline description and run 2 with the candidate description. The baseline description also selected issue-workflow for the no-PR start request, so the probes neither reproduce the regression nor show a difference. They are selection probes, not observed host activation. No routing improvement is measured.\n- Run 2 contains no trace or result files, so the candidate body was never executed. Run 1 traces show the baseline body met all five behavior expectations, including one guarded write from todo to active for the no-PR start case with a read-back. Because the candidate body differs only in the intro and one bullet, that evidence is relevant but not attributable to the candidate.",
+            "reconciliation": [
+              {
+                "finding": "Document in the SKILL body that work-started has no supplied hook and relies on catalog selection, the project route or explicit invocation.",
+                "decision": "Not adopted as a material defect in this fix.",
+                "reason": "The description and Synchronize entry now directly advertise work start without PR. references/project-policy.md already owns the explicit project route and states that activation otherwise depends on the installed catalog or explicit invocation. Repeating that mechanism in an unread body cannot repair missed selection. No failing host trace establishes the review's claimed causal mechanism. Installing or changing project/global hooks is outside this description-regression fix."
+              },
+              {
+                "finding": "Restore the read/triage exclusion in the description.",
+                "decision": "Optional; retained in the body.",
+                "reason": "The direct positive trigger is concise; both selection probes route read/estimate-only to planning, and the body/trace guards preserve zero writes. No observed ambiguity requires duplicating the exclusion."
+              },
+              {
+                "finding": "Use counts-as-event wording instead of triggers-the-configured-transition.",
+                "decision": "Optional; kept the reviewed snapshot.",
+                "reason": "The entry first requires applying policy, and the complete guarded procedure remains intact. The advanced-state execution skipped the transition. No unconditional state override was introduced."
+              },
+              {
+                "finding": "The template Start row mentions a verified branch.",
+                "decision": "No change.",
+                "reason": "A branch scope is not a PR prerequisite; existing policy guidance owns Configure-time choices, and the scoped edit does not rewrite templates."
+              },
+              {
+                "finding": "Candidate run-2 had no result or trace at review inspection time.",
+                "decision": "Superseded by completed evidence.",
+                "reason": "The candidate executor subsequently completed. Its reported instruction hash matches dc965c8ad9a0b743bc295cc82341358aef3339e06f5e4f68a37219cc07a256f8, and the coordinator parsed its final states and operation trace: all five cases passed, including a guarded todo-to-active write with pr=null and read-back. Both raw outputs and traces are retained."
+              }
+            ],
+            "unresolvedMaterialFindings": []
+          }
+        ],
+        "unresolvedMaterialFindings": []
+      }
+    ],
+    "brief": "# Issue-workflow implementation-start regression\n\nBounded read-only consultation under agent-instructions. Do not edit, delegate or invoke real services. This consultation fulfills this review profile; do not start recursive model reviews.\n\nThe user reports a regression: issue-workflow originally advertised \"Use when starting implementation from a ticket\", which is the intended trigger to move the task to In Progress. A prior edit replaced that trigger with publishing tasks and synchronizing implementation/PR events. The user explicitly says ticket work need not use a PR. Correct that activation without replacing the original lifecycle purpose with task publication.\n\nRoot: /Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/issue-workflow-start-fix\n\nRead baseline/issue-workflow/SKILL.md and candidate/issue-workflow/SKILL.md completely. Read original-description.txt, manifest.json and the candidate's bundled references/project-policy.md and references/publish-tasks.md. Other bundled references are available if needed; no new upstream survey is in scope.\n\nContract: starting actual authorized implementation from a ticket must select this skill and use the configured work-started transition even if no PR exists or will be created. Preserve exact ticket/actor identity, configured destination, allowed-source guards, event ownership, read-back and existing authorization. Do not guess an unconfigured In Progress state, regress manual progress, or transition on reading/planning/triage alone. Retain authorized publication of already prepared tasks as an additional route; publication alone does not start work. Preserve PR-created/ready/merged synchronization where applicable. No global installation, live tracker writes, integration setup, branch changes or new approvals in this edit.\n\nInspect whether the frontmatter, entrypoint and operation ordering restore that trigger and priority without narrowing a supported use or weakening safeguards. Identify any residual textual requirement for a PR at work start. Selection from a supplied catalog is not observed automatic host activation; do not claim a measured routing improvement without execution evidence.\n\nReturn at most three material findings with path/line evidence, consequence and minimal correction. Distinguish defects from optional prose preferences. If no material issue, say so. Do not edit or delegate.\n"
+  },
+  "behavior": {
+    "profile": {
+      "provider": "codex",
+      "model": "gpt-6-astra",
+      "reasoningEffort": "max",
+      "selection": "Inherited identical parent runtime for both independent fresh-context executors."
+    },
+    "method": "Matched supplied-context executions with identical requests, raw case fixtures, local fake-provider protocol, authorization and tools. Only the issue-workflow instruction and its catalog description differed. Grading criteria were withheld.",
+    "expectations": {
+      "routing": {
+        "start-no-pr": "issue-workflow",
+        "publish": "issue-workflow",
+        "linked-pr": "issue-workflow",
+        "plan-only": "No state change; planning or issue-workflow inspection is acceptable",
+        "unrelated": "No catalog skill"
+      },
+      "behavior": {
+        "start": {
+          "state": "active",
+          "writeCount": 1,
+          "pr": null
+        },
+        "inspect": {
+          "state": "todo",
+          "writeCount": 0
+        },
+        "advanced": {
+          "state": "qa",
+          "writeCount": 0
+        },
+        "review": {
+          "state": "review",
+          "writeCount": 1
+        },
+        "preview": {
+          "state": "todo",
+          "writeCount": 0,
+          "draftRequired": true
+        }
+      }
+    },
+    "inputs": {
+      "cases/advanced/docs/agents/issue-tracker.md": {
+        "sha256": "136962ed888e5750a1232a35070e37edc4af03c644e0566c0a8a36f73d15302c",
+        "content": "# Fixture tracker policy\n\nCanonical provider: FixtureTracker at https://tracker.example.invalid.\nWorkspace/team: TEAM. Code repository: example/analytics. Authorized actor: fixture-agent.\nThe authenticated local fixture CLI is the service transport for this exercise.\nTicket identity is supplied in each case; there are no mirrored tickets.\n\n| Rule | Event | Target branch | Allowed source states | Destination | Conditions | Owner | Active |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| Start | work-started | Not applicable | todo | active (In Progress) | Authorized implementation actually starts, including work that will not use a PR | agent | Yes |\n| Review | pr-created | main | active | review (In Review) | Exact remotely verified linked PR exists; drafts count | agent | Yes |\n\nThe transition IDs returned by the provider are operations, not status IDs.\nNo completion, reopening or implicit backward-transition rule is configured.\nCreating or previewing a ticket does not start implementation.\n"
+      },
+      "cases/advanced/service.json": {
+        "sha256": "1a925c5a9d29eed51e7a02ac25a193cf5592fd784a77e9f38fd734cb968de09b",
+        "content": "{\n  \"provider\": \"FixtureTracker\",\n  \"workspace\": \"TEAM\",\n  \"repository\": \"example/analytics\",\n  \"actor\": {\n    \"id\": \"fixture-agent\",\n    \"scope\": \"TEAM\",\n    \"authenticated\": true\n  },\n  \"ticket\": {\n    \"id\": \"TEAM-3\",\n    \"url\": \"https://tracker.example.invalid/TEAM-3\",\n    \"state\": \"qa\",\n    \"title\": \"Implementation work on TEAM-3 is starting again. Synchronize the start event using the existing project rules; do not override manual progress.\"\n  },\n  \"writeCount\": 0,\n  \"event\": \"work-started\",\n  \"implementationAuthorized\": true,\n  \"implementationStarting\": true,\n  \"pr\": null,\n  \"automation\": null\n}\n"
+      },
+      "cases/inspect/docs/agents/issue-tracker.md": {
+        "sha256": "136962ed888e5750a1232a35070e37edc4af03c644e0566c0a8a36f73d15302c",
+        "content": "# Fixture tracker policy\n\nCanonical provider: FixtureTracker at https://tracker.example.invalid.\nWorkspace/team: TEAM. Code repository: example/analytics. Authorized actor: fixture-agent.\nThe authenticated local fixture CLI is the service transport for this exercise.\nTicket identity is supplied in each case; there are no mirrored tickets.\n\n| Rule | Event | Target branch | Allowed source states | Destination | Conditions | Owner | Active |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| Start | work-started | Not applicable | todo | active (In Progress) | Authorized implementation actually starts, including work that will not use a PR | agent | Yes |\n| Review | pr-created | main | active | review (In Review) | Exact remotely verified linked PR exists; drafts count | agent | Yes |\n\nThe transition IDs returned by the provider are operations, not status IDs.\nNo completion, reopening or implicit backward-transition rule is configured.\nCreating or previewing a ticket does not start implementation.\n"
+      },
+      "cases/inspect/service.json": {
+        "sha256": "06050e149e907ac1e601460b0ecc814db2653f79d933334de3b1346eeef44dc4",
+        "content": "{\n  \"provider\": \"FixtureTracker\",\n  \"workspace\": \"TEAM\",\n  \"repository\": \"example/analytics\",\n  \"actor\": {\n    \"id\": \"fixture-agent\",\n    \"scope\": \"TEAM\",\n    \"authenticated\": true\n  },\n  \"ticket\": {\n    \"id\": \"TEAM-2\",\n    \"url\": \"https://tracker.example.invalid/TEAM-2\",\n    \"state\": \"todo\",\n    \"title\": \"Read ticket TEAM-2 and prepare an implementation estimate only. Do not start implementation or change tracker state.\"\n  },\n  \"writeCount\": 0,\n  \"event\": null,\n  \"implementationAuthorized\": false,\n  \"implementationStarting\": false,\n  \"pr\": null,\n  \"automation\": null\n}\n"
+      },
+      "cases/preview/docs/agents/issue-tracker.md": {
+        "sha256": "136962ed888e5750a1232a35070e37edc4af03c644e0566c0a8a36f73d15302c",
+        "content": "# Fixture tracker policy\n\nCanonical provider: FixtureTracker at https://tracker.example.invalid.\nWorkspace/team: TEAM. Code repository: example/analytics. Authorized actor: fixture-agent.\nThe authenticated local fixture CLI is the service transport for this exercise.\nTicket identity is supplied in each case; there are no mirrored tickets.\n\n| Rule | Event | Target branch | Allowed source states | Destination | Conditions | Owner | Active |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| Start | work-started | Not applicable | todo | active (In Progress) | Authorized implementation actually starts, including work that will not use a PR | agent | Yes |\n| Review | pr-created | main | active | review (In Review) | Exact remotely verified linked PR exists; drafts count | agent | Yes |\n\nThe transition IDs returned by the provider are operations, not status IDs.\nNo completion, reopening or implicit backward-transition rule is configured.\nCreating or previewing a ticket does not start implementation.\n"
+      },
+      "cases/preview/prepared-task.md": {
+        "sha256": "599310173bc72c18e54ee1cd1f0fa43b960fcbb8762b22b4c802a285f9771058",
+        "content": "# D1: Net-revenue card\n\nDeliver the authenticated revenue query, endpoint and dashboard card together. Revenue is paid orders less settled refunds for the selected UTC period. Reuse existing auth and UI controls. No prerequisite task.\n\nAcceptance: seeded partial refunds count once; another tenant is inaccessible; period changes update the card; loading, empty, error and retry states work. Add the missing revenue regression test and run existing dashboard checks with the seeded database. No passing runs claimed.\n\nEstimate: 600-1,100 changed lines based on comparable connected cards, with refund implementation uncertainty. PR cap: 5,000 changed text lines, additions plus deletions in the complete base-to-head diff, including tests, generated text and lockfiles. Measure before publication. No ticket publication or implementation is authorized by this preview.\n"
+      },
+      "cases/preview/service.json": {
+        "sha256": "085598a36ac82cab189d132f3c0eae8959784fe50d2f27b43df3cdc70db6e9bb",
+        "content": "{\n  \"provider\": \"FixtureTracker\",\n  \"workspace\": \"TEAM\",\n  \"repository\": \"example/analytics\",\n  \"actor\": {\n    \"id\": \"fixture-agent\",\n    \"scope\": \"TEAM\",\n    \"authenticated\": true\n  },\n  \"ticket\": {\n    \"id\": \"TEAM-5\",\n    \"url\": \"https://tracker.example.invalid/TEAM-5\",\n    \"state\": \"todo\",\n    \"title\": \"Prepare a publication preview for the supplied delivery unit. Return a ticket draft only; no ticket creation, implementation or tracker mutation is authorized.\"\n  },\n  \"writeCount\": 0,\n  \"event\": null,\n  \"implementationAuthorized\": false,\n  \"implementationStarting\": false,\n  \"pr\": null,\n  \"automation\": null\n}\n"
+      },
+      "cases/review/docs/agents/issue-tracker.md": {
+        "sha256": "136962ed888e5750a1232a35070e37edc4af03c644e0566c0a8a36f73d15302c",
+        "content": "# Fixture tracker policy\n\nCanonical provider: FixtureTracker at https://tracker.example.invalid.\nWorkspace/team: TEAM. Code repository: example/analytics. Authorized actor: fixture-agent.\nThe authenticated local fixture CLI is the service transport for this exercise.\nTicket identity is supplied in each case; there are no mirrored tickets.\n\n| Rule | Event | Target branch | Allowed source states | Destination | Conditions | Owner | Active |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| Start | work-started | Not applicable | todo | active (In Progress) | Authorized implementation actually starts, including work that will not use a PR | agent | Yes |\n| Review | pr-created | main | active | review (In Review) | Exact remotely verified linked PR exists; drafts count | agent | Yes |\n\nThe transition IDs returned by the provider are operations, not status IDs.\nNo completion, reopening or implicit backward-transition rule is configured.\nCreating or previewing a ticket does not start implementation.\n"
+      },
+      "cases/review/service.json": {
+        "sha256": "9babc4ad943f0a39597f3312881c11ea39b7a55fbbde62d2241e4d3f923f4f5e",
+        "content": "{\n  \"provider\": \"FixtureTracker\",\n  \"workspace\": \"TEAM\",\n  \"repository\": \"example/analytics\",\n  \"actor\": {\n    \"id\": \"fixture-agent\",\n    \"scope\": \"TEAM\",\n    \"authenticated\": true\n  },\n  \"ticket\": {\n    \"id\": \"TEAM-4\",\n    \"url\": \"https://tracker.example.invalid/TEAM-4\",\n    \"state\": \"active\",\n    \"title\": \"The linked draft PR for TEAM-4 was just created. Synchronize the ticket from current service evidence and project policy.\"\n  },\n  \"writeCount\": 0,\n  \"event\": \"pr-created\",\n  \"implementationAuthorized\": false,\n  \"implementationStarting\": false,\n  \"pr\": {\n    \"url\": \"https://github.com/example/analytics/pull/14\",\n    \"headRepository\": \"example/analytics\",\n    \"targetRepository\": \"example/analytics\",\n    \"headSha\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n    \"base\": \"main\",\n    \"draft\": true,\n    \"state\": \"open\",\n    \"merged\": false,\n    \"ticket\": \"TEAM-4\",\n    \"relation\": \"contributing\"\n  },\n  \"automation\": null\n}\n"
+      },
+      "cases/start/docs/agents/issue-tracker.md": {
+        "sha256": "136962ed888e5750a1232a35070e37edc4af03c644e0566c0a8a36f73d15302c",
+        "content": "# Fixture tracker policy\n\nCanonical provider: FixtureTracker at https://tracker.example.invalid.\nWorkspace/team: TEAM. Code repository: example/analytics. Authorized actor: fixture-agent.\nThe authenticated local fixture CLI is the service transport for this exercise.\nTicket identity is supplied in each case; there are no mirrored tickets.\n\n| Rule | Event | Target branch | Allowed source states | Destination | Conditions | Owner | Active |\n| --- | --- | --- | --- | --- | --- | --- | --- |\n| Start | work-started | Not applicable | todo | active (In Progress) | Authorized implementation actually starts, including work that will not use a PR | agent | Yes |\n| Review | pr-created | main | active | review (In Review) | Exact remotely verified linked PR exists; drafts count | agent | Yes |\n\nThe transition IDs returned by the provider are operations, not status IDs.\nNo completion, reopening or implicit backward-transition rule is configured.\nCreating or previewing a ticket does not start implementation.\n"
+      },
+      "cases/start/service.json": {
+        "sha256": "f80f0d2a1acbcbd03b581f5938f13b1132020765419ae795313d1aa2c0d0a9f3",
+        "content": "{\n  \"provider\": \"FixtureTracker\",\n  \"workspace\": \"TEAM\",\n  \"repository\": \"example/analytics\",\n  \"actor\": {\n    \"id\": \"fixture-agent\",\n    \"scope\": \"TEAM\",\n    \"authenticated\": true\n  },\n  \"ticket\": {\n    \"id\": \"TEAM-1\",\n    \"url\": \"https://tracker.example.invalid/TEAM-1\",\n    \"state\": \"todo\",\n    \"title\": \"Start implementing ticket TEAM-1 now. This task will be completed without creating a PR; do the ticket workflow step as implementation begins.\"\n  },\n  \"writeCount\": 0,\n  \"event\": \"work-started\",\n  \"implementationAuthorized\": true,\n  \"implementationStarting\": true,\n  \"pr\": null,\n  \"automation\": null\n}\n"
+      },
+      "cases.json": {
+        "sha256": "05d5b7bc8f32f3dcda57fb20d91f45b3e1c223f26d4a85965b53e0ba4cf37038",
+        "content": "[\n  {\n    \"id\": \"start\",\n    \"request\": \"Start implementing ticket TEAM-1 now. This task will be completed without creating a PR; do the ticket workflow step as implementation begins.\",\n    \"project\": \"cases/start\"\n  },\n  {\n    \"id\": \"inspect\",\n    \"request\": \"Read ticket TEAM-2 and prepare an implementation estimate only. Do not start implementation or change tracker state.\",\n    \"project\": \"cases/inspect\"\n  },\n  {\n    \"id\": \"advanced\",\n    \"request\": \"Implementation work on TEAM-3 is starting again. Synchronize the start event using the existing project rules; do not override manual progress.\",\n    \"project\": \"cases/advanced\"\n  },\n  {\n    \"id\": \"review\",\n    \"request\": \"The linked draft PR for TEAM-4 was just created. Synchronize the ticket from current service evidence and project policy.\",\n    \"project\": \"cases/review\"\n  },\n  {\n    \"id\": \"preview\",\n    \"request\": \"Prepare a publication preview for the supplied delivery unit. Return a ticket draft only; no ticket creation, implementation or tracker mutation is authorized.\",\n    \"project\": \"cases/preview\"\n  }\n]\n"
+      },
+      "request.md": {
+        "sha256": "6717974424391e6cec10cbadfbcacc3cd897289ad66d8362379755dea4f9db87",
+        "content": "# Isolated skill exercise\n\nUse only this assigned directory. No network, real tracker, Git mutation, product implementation, other skill installations, parent/sibling inspection or delegation. The only permitted service is the local FixtureTracker CLI. You may write selection.json and result.json; service state changes must go through tracker.py. Do not edit supplied instructions, fixtures, policy or tracker.py.\n\nFirst read catalog.json and routing-requests.json only. Save selection.json naming the skill(s), if any, you would select for each request and a brief reason. Do this before loading skill/SKILL.md. This is a description-only selection probe.\n\nThen read skill/SKILL.md and any of its bundled references you need. Complete each independent request in cases.json, using that case directory as the target project. The caller has reached the phase described in the case; your scope is the tracker step or requested draft only, not the remaining product work.\n\nFixtureTracker is an authenticated synthetic provider. Its available CLI is `python3 tracker.py cases/CASE schema`, `read`, `transitions`, or `transition OPERATION_ID EXPECTED_STATE`. Read schema and service data instead of assuming identifiers. Current remote state, actor/scope, event and PR facts come from this CLI. Each case has its authoritative policy at docs/agents/issue-tracker.md. No live services or external accounts are available or authorized.\n\nWrite result.json with each case's outcome, before/after state, deciding evidence and any exact blocker or proposed action. Include a ticket draft for the preview case. Keep outcomes separate from planned product work. Return paths and the SHA256 of skill/SKILL.md you actually read.\n"
+      },
+      "routing-requests.json": {
+        "sha256": "13d865e9a940bee7f6bcc5d4e311b85d3d39ebf5386a0f0527ba542de17d90ed",
+        "content": "[\n  {\n    \"id\": \"start-no-pr\",\n    \"request\": \"Start implementing ticket TEAM-1. This work has no pull request.\"\n  },\n  {\n    \"id\": \"publish\",\n    \"request\": \"Publish these approved, already broken-down tasks as tickets in our tracker.\"\n  },\n  {\n    \"id\": \"linked-pr\",\n    \"request\": \"A linked PR was created. Synchronize the ticket using the project workflow.\"\n  },\n  {\n    \"id\": \"plan-only\",\n    \"request\": \"Only read and estimate this ticket. Do not implement or change tracker state.\"\n  },\n  {\n    \"id\": \"unrelated\",\n    \"request\": \"Explain how closures work in JavaScript.\"\n  }\n]\n"
+      },
+      "tracker.py": {
+        "sha256": "69a48cb53198a4a9838eda46ebda6c603b6c5a25b0105a0970d233da34d4cd3a",
+        "content": "import json\nimport sys\nfrom pathlib import Path\n\ncase = Path(sys.argv[1]).resolve()\noperation = sys.argv[2]\nstate_path = case / 'service.json'\nstate = json.loads(state_path.read_text())\nbefore = state['ticket']['state']\nentry = {'operation': operation, 'arguments': sys.argv[3:], 'before': before}\nstatus = 0\nif operation == 'read':\n    result = state\nelif operation == 'schema':\n    result = {\n        'read': 'Read exact ticket, PR, automation settings and actor',\n        'transitions': 'List available transition operations',\n        'transition': 'transition <operation-id> <expected-state>; compare-state update',\n        'actor': 'fixture-agent, authorized for this test scope',\n        'all_operations': ['read', 'schema', 'transitions', 'transition'],\n    }\nelif operation == 'transitions':\n    result = [{'id': 'to-' + name, 'destination': name, 'requiredFields': []}\n              for name in ['todo', 'active', 'review', 'qa', 'done']]\nelif operation == 'transition':\n    target = sys.argv[3].removeprefix('to-')\n    expected = sys.argv[4] if len(sys.argv) > 4 else None\n    if target not in ['todo', 'active', 'review', 'qa', 'done']:\n        result, status = {'error': 'unknown transition'}, 1\n    elif expected is not None and expected != before:\n        result, status = {'error': 'state changed', 'actual': before}, 1\n    else:\n        state['ticket']['state'] = target\n        state['writeCount'] += 1\n        if state.get('timeoutAfterApply') and state['writeCount'] == 1:\n            result, status = {'error': 'timeout; outcome unknown'}, 75\n        else:\n            result = {'accepted': True}\n        state_path.write_text(json.dumps(state, indent=2) + '\\n')\nelse:\n    result, status = {'error': 'unknown operation'}, 1\nentry.update({'result': result, 'exit': status, 'after': state['ticket']['state']})\nwith (case / 'trace.jsonl').open('a') as log:\n    log.write(json.dumps(entry) + '\\n')\nprint(json.dumps(result, indent=2))\nsys.exit(status)\n"
+      }
+    },
+    "fixtureProtocolOrigin": "Adapted the retained local fake tracker interface from reports/skill-atlas/issue-workflow-validation.json; normalized escaped newline literals and smoke-tested persistence/read-back before either agent ran. No permanent helper added.",
+    "trials": [
+      {
+        "revision": "baseline",
+        "agent": "/root/issue_workflow_start_trial_1",
+        "skillSha256": "9d8949368c4b824d29259f53d61bb6dcddc05445ace9dad46a47472945419987",
+        "reportedSkillSha256": "9d8949368c4b824d29259f53d61bb6dcddc05445ace9dad46a47472945419987",
+        "catalog": [
+          {
+            "name": "issue-workflow",
+            "description": "Use when publishing prepared tasks to an issue tracker or synchronizing tickets with implementation and PR events. Reading or triaging alone does not change state."
+          },
+          {
+            "name": "planning",
+            "description": "Use when creating, reviewing, or revising a software implementation plan."
+          },
+          {
+            "name": "task-breakdown",
+            "description": "Use when dividing a software plan or feature into small, testable tasks sized for human-reviewed pull requests."
+          },
+          {
+            "name": "pr",
+            "description": "\"Create, update, or inspect a pull request; prepare its title, description, review evidence, and metadata; publish a branch for review.\""
+          },
+          {
+            "name": "debug",
+            "description": "Use when diagnosing or fixing an observed software bug or performance regression."
+          }
+        ],
+        "selection": {
+          "start-no-pr": {
+            "skills": [
+              "issue-workflow"
+            ],
+            "reason": "Starting implementation is an implementation event that can require ticket synchronization, even without a pull request."
+          },
+          "publish": {
+            "skills": [
+              "issue-workflow"
+            ],
+            "reason": "The request explicitly publishes prepared tasks to the tracker."
+          },
+          "linked-pr": {
+            "skills": [
+              "issue-workflow"
+            ],
+            "reason": "A linked PR creation event requires project-workflow ticket synchronization."
+          },
+          "plan-only": {
+            "skills": [
+              "planning"
+            ],
+            "reason": "Reading and estimating is planning work; the request explicitly prohibits tracker state changes."
+          },
+          "unrelated": {
+            "skills": [],
+            "reason": "A JavaScript explanation does not match any catalog skill."
+          }
+        },
+        "outputFileSha256": "7964b47f06d90794ea8f23fe7a70b53d8d48ed62cf9526c3de19a6d77253cf53",
+        "outputRaw": "{\n  \"skill_sha256\": \"9d8949368c4b824d29259f53d61bb6dcddc05445ace9dad46a47472945419987\",\n  \"scope\": \"Tracker synchronization or requested draft only; no product implementation, Git operations, or live services used.\",\n  \"verified_provider\": {\n    \"provider\": \"FixtureTracker\",\n    \"workspace\": \"TEAM\",\n    \"repository\": \"example/analytics\",\n    \"actor\": \"fixture-agent\",\n    \"authenticated\": true,\n    \"actor_scope\": \"TEAM\"\n  },\n  \"cases\": [\n    {\n      \"id\": \"start\",\n      \"ticket_url\": \"https://tracker.example.invalid/TEAM-1\",\n      \"event\": \"work-started\",\n      \"pr\": null,\n      \"policy\": \"cases/start/docs/agents/issue-tracker.md\",\n      \"rule\": \"Start\",\n      \"outcome\": \"changed\",\n      \"before\": \"todo\",\n      \"after\": \"active\",\n      \"write_count_before\": 0,\n      \"write_count_after\": 1,\n      \"deciding_evidence\": [\n        \"The request explicitly starts implementation without a PR. The service read confirmed implementationAuthorized=true, implementationStarting=true, event=work-started and pr=null.\",\n        \"The agent-owned Start rule explicitly includes work without a PR and allows todo -> active.\",\n        \"The schema exposes a compare-state transition; transitions returned operation to-active with destination active and no required fields.\",\n        \"An immediate pre-write read reconfirmed TEAM-1, todo, the event, authenticated fixture-agent and TEAM scope.\",\n        \"python3 tracker.py cases/start transition to-active todo returned accepted=true.\",\n        \"The post-write read returned the exact TEAM-1 ticket in active with writeCount=1.\"\n      ],\n      \"blocker\": null,\n      \"proposed_action\": null,\n      \"product_work\": \"Implementation begins in the caller's phase; product implementation and completion were not performed or claimed by this exercise. No completion rule is configured.\"\n    },\n    {\n      \"id\": \"inspect\",\n      \"ticket_url\": \"https://tracker.example.invalid/TEAM-2\",\n      \"event\": null,\n      \"pr\": null,\n      \"policy\": \"cases/inspect/docs/agents/issue-tracker.md\",\n      \"rule\": \"Start does not qualify\",\n      \"outcome\": \"inspect-only\",\n      \"before\": \"todo\",\n      \"after\": \"todo\",\n      \"write_count_before\": 0,\n      \"write_count_after\": 0,\n      \"deciding_evidence\": [\n        \"The request permits reading and an estimate only and expressly prohibits implementation and tracker changes.\",\n        \"The service read confirmed event=null, implementationAuthorized=false, implementationStarting=false, and state=todo.\",\n        \"Reading or estimating does not meet the Start rule's authorized implementation condition.\",\n        \"A final read confirmed TEAM-2 remains todo with writeCount=0.\"\n      ],\n      \"blocker\": null,\n      \"proposed_action\": \"Keep tracker state unchanged; a future authorized work-started event from todo would permit operation to-active with an expected-state guard of todo.\",\n      \"product_work\": \"No implementation performed; preparing the product estimate remains outside this tracker-step exercise.\"\n    },\n    {\n      \"id\": \"advanced\",\n      \"ticket_url\": \"https://tracker.example.invalid/TEAM-3\",\n      \"event\": \"work-started\",\n      \"pr\": null,\n      \"policy\": \"cases/advanced/docs/agents/issue-tracker.md\",\n      \"rule\": \"Start source guard\",\n      \"outcome\": \"skipped\",\n      \"before\": \"qa\",\n      \"after\": \"qa\",\n      \"write_count_before\": 0,\n      \"write_count_after\": 0,\n      \"deciding_evidence\": [\n        \"The service confirmed authorized implementation is starting, but the ticket is in qa.\",\n        \"Start permits only todo as a source state. The policy configures no reopening or implicit backward-transition rule, and the request requires preserving manual progress.\",\n        \"Although the provider exposes to-active, availability does not authorize bypassing the source guard.\",\n        \"A final read confirmed TEAM-3 remains qa with writeCount=0.\"\n      ],\n      \"blocker\": null,\n      \"proposed_action\": \"Preserve qa. A rework transition would require its own explicit direction or configured policy before any write.\",\n      \"product_work\": \"The caller's independent implementation may continue; this exercise performs no product work.\"\n    },\n    {\n      \"id\": \"review\",\n      \"ticket_url\": \"https://tracker.example.invalid/TEAM-4\",\n      \"event\": \"pr-created\",\n      \"pr\": {\n        \"url\": \"https://github.com/example/analytics/pull/14\",\n        \"headRepository\": \"example/analytics\",\n        \"targetRepository\": \"example/analytics\",\n        \"headSha\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n        \"base\": \"main\",\n        \"draft\": true,\n        \"state\": \"open\",\n        \"merged\": false,\n        \"ticket\": \"TEAM-4\",\n        \"relation\": \"contributing\"\n      },\n      \"policy\": \"cases/review/docs/agents/issue-tracker.md\",\n      \"rule\": \"Review\",\n      \"outcome\": \"changed\",\n      \"before\": \"active\",\n      \"after\": \"review\",\n      \"write_count_before\": 0,\n      \"write_count_after\": 1,\n      \"deciding_evidence\": [\n        \"The service verified exact linked PR identity, repositories, head SHA, main base, draft=true, open state and contributing relation.\",\n        \"The agent-owned Review rule selects pr-created on main from active to review and explicitly counts drafts.\",\n        \"Transitions returned operation to-review with destination review and no required fields.\",\n        \"An immediate pre-write read reconfirmed the PR facts, TEAM-4 in active, authenticated fixture-agent and TEAM scope.\",\n        \"python3 tracker.py cases/review transition to-review active returned accepted=true.\",\n        \"The post-write read returned the exact TEAM-4 ticket in review with writeCount=1.\"\n      ],\n      \"blocker\": null,\n      \"proposed_action\": null,\n      \"future_event_coverage\": \"No merge/completion rule or native automation is configured. This contributing PR does not establish ticket completion. No background handler was installed or promised.\",\n      \"product_work\": \"No PR, code, merge or implementation changes performed.\"\n    },\n    {\n      \"id\": \"preview\",\n      \"ticket_url\": \"https://tracker.example.invalid/TEAM-5\",\n      \"event\": null,\n      \"pr\": null,\n      \"policy\": \"cases/preview/docs/agents/issue-tracker.md\",\n      \"rule\": \"Publication preview does not start implementation\",\n      \"outcome\": \"inspect-only\",\n      \"publication_outcome\": \"drafted\",\n      \"before\": \"todo\",\n      \"after\": \"todo\",\n      \"write_count_before\": 0,\n      \"write_count_after\": 0,\n      \"deciding_evidence\": [\n        \"The request authorizes a ticket draft only and prohibits ticket creation, implementation and tracker mutation.\",\n        \"The prepared task supplies the D1 delivery unit, revenue contract, acceptance checks, estimate and complete PR-cap counting rule.\",\n        \"The service verified TEAM workspace, example/analytics repository, fixture-agent actor, event=null and implementationAuthorized=false.\",\n        \"A final read confirmed TEAM-5 remains todo with writeCount=0. The observed ticket was not assumed to be a verified existing D1 publication.\"\n      ],\n      \"blocker\": null,\n      \"proposed_action\": \"Return the D1 draft only. Any future publication requires separate authorization and discovery of supported creation/update fields; the available fixture schema exposes neither creation nor content updates.\",\n      \"ticket_draft\": {\n        \"unit_id\": \"D1\",\n        \"title\": \"Net-revenue card\",\n        \"provider\": \"FixtureTracker\",\n        \"workspace\": \"TEAM\",\n        \"repository\": \"example/analytics\",\n        \"existing_ticket_mapping\": null,\n        \"description\": \"Deliver the authenticated revenue query, endpoint and dashboard card together. Revenue is paid orders less settled refunds for the selected UTC period. Reuse existing auth and UI controls.\\n\\nPrerequisites: None.\\n\\nAcceptance checks:\\n- Seeded partial refunds count once.\\n- Another tenant is inaccessible.\\n- Period changes update the card.\\n- Loading, empty, error and retry states work.\\n- Add the missing revenue regression test and run existing dashboard checks with the seeded database. No passing runs are claimed.\\n\\nEstimate: 600-1,100 changed lines based on comparable connected cards, with refund implementation uncertainty.\\n\\nPR cap: 5,000 changed text lines, counting additions plus deletions in the complete base-to-head diff, including tests, generated text and lockfiles. Measure before publication.\\n\\nThis is a publication preview. Ticket publication and implementation are not authorized.\",\n        \"source\": \"cases/preview/prepared-task.md\",\n        \"source_links\": [],\n        \"state_instruction\": \"Preserve the provider's initial state upon a separately authorized future publication; publication does not start implementation.\"\n      },\n      \"product_work\": \"Draft prepared only; no implementation or tests run, and no passing verification claimed.\"\n    }\n  ]\n}\n",
+        "actionTrace": [
+          {
+            "case": "start",
+            "operation": "schema",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "1ad764e2ca130b4d7f82984e00c2c4bbe914846bb0288732bdf712211794ccc1"
+          },
+          {
+            "case": "start",
+            "operation": "read",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "099bcfd59bc9a80f96c2341e2771e457457b1a0247406229538aa71b10fc5b11"
+          },
+          {
+            "case": "start",
+            "operation": "transitions",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "ddd53b3e28ad7f9754fe2865e1090e3ff0e39ed483f42ead49f132a0a0950315"
+          },
+          {
+            "case": "start",
+            "operation": "read",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "099bcfd59bc9a80f96c2341e2771e457457b1a0247406229538aa71b10fc5b11"
+          },
+          {
+            "case": "start",
+            "operation": "transition",
+            "arguments": [
+              "to-active",
+              "todo"
+            ],
+            "before": "todo",
+            "exit": 0,
+            "after": "active",
+            "resultSha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878"
+          },
+          {
+            "case": "start",
+            "operation": "read",
+            "arguments": [],
+            "before": "active",
+            "exit": 0,
+            "after": "active",
+            "resultSha256": "f85adeafea78f98e1850e7c18265190b71334b890a7d41eabcd582091df3560f"
+          },
+          {
+            "case": "inspect",
+            "operation": "schema",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "1ad764e2ca130b4d7f82984e00c2c4bbe914846bb0288732bdf712211794ccc1"
+          },
+          {
+            "case": "inspect",
+            "operation": "read",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "84bf1f60ed00645d0f67ee67dfcb305b87a86eda9b8c4ab847ff8339d636d738"
+          },
+          {
+            "case": "inspect",
+            "operation": "transitions",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "ddd53b3e28ad7f9754fe2865e1090e3ff0e39ed483f42ead49f132a0a0950315"
+          },
+          {
+            "case": "inspect",
+            "operation": "read",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "84bf1f60ed00645d0f67ee67dfcb305b87a86eda9b8c4ab847ff8339d636d738"
+          },
+          {
+            "case": "advanced",
+            "operation": "schema",
+            "arguments": [],
+            "before": "qa",
+            "exit": 0,
+            "after": "qa",
+            "resultSha256": "1ad764e2ca130b4d7f82984e00c2c4bbe914846bb0288732bdf712211794ccc1"
+          },
+          {
+            "case": "advanced",
+            "operation": "read",
+            "arguments": [],
+            "before": "qa",
+            "exit": 0,
+            "after": "qa",
+            "resultSha256": "e07260559310b464614d606e6ceb1a2e08d615ace5e4ac93027bcc0371e9b5a9"
+          },
+          {
+            "case": "advanced",
+            "operation": "transitions",
+            "arguments": [],
+            "before": "qa",
+            "exit": 0,
+            "after": "qa",
+            "resultSha256": "ddd53b3e28ad7f9754fe2865e1090e3ff0e39ed483f42ead49f132a0a0950315"
+          },
+          {
+            "case": "advanced",
+            "operation": "read",
+            "arguments": [],
+            "before": "qa",
+            "exit": 0,
+            "after": "qa",
+            "resultSha256": "e07260559310b464614d606e6ceb1a2e08d615ace5e4ac93027bcc0371e9b5a9"
+          },
+          {
+            "case": "review",
+            "operation": "schema",
+            "arguments": [],
+            "before": "active",
+            "exit": 0,
+            "after": "active",
+            "resultSha256": "1ad764e2ca130b4d7f82984e00c2c4bbe914846bb0288732bdf712211794ccc1"
+          },
+          {
+            "case": "review",
+            "operation": "read",
+            "arguments": [],
+            "before": "active",
+            "exit": 0,
+            "after": "active",
+            "resultSha256": "fa487b11645ba7fa6e05828621d891eda112f6652a26f1249bd7909b86dfa339"
+          },
+          {
+            "case": "review",
+            "operation": "transitions",
+            "arguments": [],
+            "before": "active",
+            "exit": 0,
+            "after": "active",
+            "resultSha256": "ddd53b3e28ad7f9754fe2865e1090e3ff0e39ed483f42ead49f132a0a0950315"
+          },
+          {
+            "case": "review",
+            "operation": "read",
+            "arguments": [],
+            "before": "active",
+            "exit": 0,
+            "after": "active",
+            "resultSha256": "fa487b11645ba7fa6e05828621d891eda112f6652a26f1249bd7909b86dfa339"
+          },
+          {
+            "case": "review",
+            "operation": "transition",
+            "arguments": [
+              "to-review",
+              "active"
+            ],
+            "before": "active",
+            "exit": 0,
+            "after": "review",
+            "resultSha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878"
+          },
+          {
+            "case": "review",
+            "operation": "read",
+            "arguments": [],
+            "before": "review",
+            "exit": 0,
+            "after": "review",
+            "resultSha256": "4a620df94e967f0186415c0fa0e4cc6b3722de238ed99b0d94c605904aea58a9"
+          },
+          {
+            "case": "preview",
+            "operation": "schema",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "1ad764e2ca130b4d7f82984e00c2c4bbe914846bb0288732bdf712211794ccc1"
+          },
+          {
+            "case": "preview",
+            "operation": "transitions",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "ddd53b3e28ad7f9754fe2865e1090e3ff0e39ed483f42ead49f132a0a0950315"
+          },
+          {
+            "case": "preview",
+            "operation": "read",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "45a7c1edaa8405e117d77e3bd852114a34944e00f8e33e0bb2bcc369f4728c27"
+          },
+          {
+            "case": "preview",
+            "operation": "read",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "45a7c1edaa8405e117d77e3bd852114a34944e00f8e33e0bb2bcc369f4728c27"
+          }
+        ],
+        "finalStates": {
+          "start": {
+            "provider": "FixtureTracker",
+            "workspace": "TEAM",
+            "repository": "example/analytics",
+            "actor": {
+              "id": "fixture-agent",
+              "scope": "TEAM",
+              "authenticated": true
+            },
+            "ticket": {
+              "id": "TEAM-1",
+              "url": "https://tracker.example.invalid/TEAM-1",
+              "state": "active",
+              "title": "Start implementing ticket TEAM-1 now. This task will be completed without creating a PR; do the ticket workflow step as implementation begins."
+            },
+            "writeCount": 1,
+            "event": "work-started",
+            "implementationAuthorized": true,
+            "implementationStarting": true,
+            "pr": null,
+            "automation": null
+          },
+          "inspect": {
+            "provider": "FixtureTracker",
+            "workspace": "TEAM",
+            "repository": "example/analytics",
+            "actor": {
+              "id": "fixture-agent",
+              "scope": "TEAM",
+              "authenticated": true
+            },
+            "ticket": {
+              "id": "TEAM-2",
+              "url": "https://tracker.example.invalid/TEAM-2",
+              "state": "todo",
+              "title": "Read ticket TEAM-2 and prepare an implementation estimate only. Do not start implementation or change tracker state."
+            },
+            "writeCount": 0,
+            "event": null,
+            "implementationAuthorized": false,
+            "implementationStarting": false,
+            "pr": null,
+            "automation": null
+          },
+          "advanced": {
+            "provider": "FixtureTracker",
+            "workspace": "TEAM",
+            "repository": "example/analytics",
+            "actor": {
+              "id": "fixture-agent",
+              "scope": "TEAM",
+              "authenticated": true
+            },
+            "ticket": {
+              "id": "TEAM-3",
+              "url": "https://tracker.example.invalid/TEAM-3",
+              "state": "qa",
+              "title": "Implementation work on TEAM-3 is starting again. Synchronize the start event using the existing project rules; do not override manual progress."
+            },
+            "writeCount": 0,
+            "event": "work-started",
+            "implementationAuthorized": true,
+            "implementationStarting": true,
+            "pr": null,
+            "automation": null
+          },
+          "review": {
+            "provider": "FixtureTracker",
+            "workspace": "TEAM",
+            "repository": "example/analytics",
+            "actor": {
+              "id": "fixture-agent",
+              "scope": "TEAM",
+              "authenticated": true
+            },
+            "ticket": {
+              "id": "TEAM-4",
+              "url": "https://tracker.example.invalid/TEAM-4",
+              "state": "review",
+              "title": "The linked draft PR for TEAM-4 was just created. Synchronize the ticket from current service evidence and project policy."
+            },
+            "writeCount": 1,
+            "event": "pr-created",
+            "implementationAuthorized": false,
+            "implementationStarting": false,
+            "pr": {
+              "url": "https://github.com/example/analytics/pull/14",
+              "headRepository": "example/analytics",
+              "targetRepository": "example/analytics",
+              "headSha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "base": "main",
+              "draft": true,
+              "state": "open",
+              "merged": false,
+              "ticket": "TEAM-4",
+              "relation": "contributing"
+            },
+            "automation": null
+          },
+          "preview": {
+            "provider": "FixtureTracker",
+            "workspace": "TEAM",
+            "repository": "example/analytics",
+            "actor": {
+              "id": "fixture-agent",
+              "scope": "TEAM",
+              "authenticated": true
+            },
+            "ticket": {
+              "id": "TEAM-5",
+              "url": "https://tracker.example.invalid/TEAM-5",
+              "state": "todo",
+              "title": "Prepare a publication preview for the supplied delivery unit. Return a ticket draft only; no ticket creation, implementation or tracker mutation is authorized."
+            },
+            "writeCount": 0,
+            "event": null,
+            "implementationAuthorized": false,
+            "implementationStarting": false,
+            "pr": null,
+            "automation": null
+          }
+        }
+      },
+      {
+        "revision": "candidate",
+        "agent": "/root/issue_workflow_start_trial_2",
+        "skillSha256": "dc965c8ad9a0b743bc295cc82341358aef3339e06f5e4f68a37219cc07a256f8",
+        "reportedSkillSha256": "dc965c8ad9a0b743bc295cc82341358aef3339e06f5e4f68a37219cc07a256f8",
+        "catalog": [
+          {
+            "name": "issue-workflow",
+            "description": "Use when starting implementation from a ticket, synchronizing its workflow state, or publishing prepared tasks to an issue tracker."
+          },
+          {
+            "name": "planning",
+            "description": "Use when creating, reviewing, or revising a software implementation plan."
+          },
+          {
+            "name": "task-breakdown",
+            "description": "Use when dividing a software plan or feature into small, testable tasks sized for human-reviewed pull requests."
+          },
+          {
+            "name": "pr",
+            "description": "\"Create, update, or inspect a pull request; prepare its title, description, review evidence, and metadata; publish a branch for review.\""
+          },
+          {
+            "name": "debug",
+            "description": "Use when diagnosing or fixing an observed software bug or performance regression."
+          }
+        ],
+        "selection": {
+          "requests": [
+            {
+              "id": "start-no-pr",
+              "skills": [
+                "issue-workflow"
+              ],
+              "reason": "Starting ticket implementation directly matches the issue-workflow description; a pull request is not a prerequisite."
+            },
+            {
+              "id": "publish",
+              "skills": [
+                "issue-workflow"
+              ],
+              "reason": "The tasks are already approved and broken down, so this is publication to the tracker."
+            },
+            {
+              "id": "linked-pr",
+              "skills": [
+                "issue-workflow"
+              ],
+              "reason": "Synchronizing ticket state after a linked PR event matches issue-workflow; no PR authoring or inspection is requested."
+            },
+            {
+              "id": "plan-only",
+              "skills": [
+                "planning"
+              ],
+              "reason": "The request is read-only estimation and planning; it explicitly excludes implementation and tracker changes."
+            },
+            {
+              "id": "unrelated",
+              "skills": [],
+              "reason": "A JavaScript explanation does not match any listed skill."
+            }
+          ]
+        },
+        "outputFileSha256": "b74f09a455fb943ea664633702ed25d2aa9ee82571505ce8bd7e76490f394a74",
+        "outputRaw": "{\n  \"skill_sha256\": \"dc965c8ad9a0b743bc295cc82341358aef3339e06f5e4f68a37219cc07a256f8\",\n  \"scope\": \"Isolated tracker workflow steps and a publication draft only. No product implementation, Git mutation, real-service access or delegation occurred.\",\n  \"cases\": [\n    {\n      \"id\": \"start\",\n      \"ticket\": \"TEAM-1\",\n      \"ticket_url\": \"https://tracker.example.invalid/TEAM-1\",\n      \"event\": \"work-started\",\n      \"mode\": \"synchronize\",\n      \"policy_path\": \"cases/start/docs/agents/issue-tracker.md\",\n      \"policy_rule\": \"Start: agent-owned; todo -> active when authorized implementation actually starts, including work without a PR.\",\n      \"outcome\": \"changed\",\n      \"before_state\": \"todo\",\n      \"after_state\": \"active\",\n      \"write_count_before\": 0,\n      \"write_count_after\": 1,\n      \"deciding_evidence\": [\n        \"The request explicitly starts TEAM-1 implementation without a PR.\",\n        \"FixtureTracker read verified TEAM-1 in TEAM, repository example/analytics, and authenticated actor fixture-agent scoped to TEAM.\",\n        \"Both initial and immediate pre-write reads reported implementationAuthorized=true, implementationStarting=true, event=work-started and state=todo; pr=null.\",\n        \"Provider transitions mapped operation to-active to destination active with no required fields.\",\n        \"The guarded transition was accepted; the post-write read verified TEAM-1 state=active and writeCount=1.\"\n      ],\n      \"operation\": \"python3 tracker.py cases/start transition to-active todo\",\n      \"blocker\": null,\n      \"proposed_action\": null,\n      \"product_work\": \"Not performed in this exercise; the tracker step returns to the caller that is starting implementation.\"\n    },\n    {\n      \"id\": \"inspect\",\n      \"ticket\": \"TEAM-2\",\n      \"ticket_url\": \"https://tracker.example.invalid/TEAM-2\",\n      \"event\": null,\n      \"mode\": \"inspect\",\n      \"policy_path\": \"cases/inspect/docs/agents/issue-tracker.md\",\n      \"policy_rule\": \"Start requires authorized implementation actually starting; reading and estimation do not satisfy it.\",\n      \"outcome\": \"inspect-only\",\n      \"before_state\": \"todo\",\n      \"after_state\": \"todo\",\n      \"write_count_before\": 0,\n      \"write_count_after\": 0,\n      \"deciding_evidence\": [\n        \"The request explicitly forbids implementation and tracker changes.\",\n        \"FixtureTracker verified TEAM-2 in TEAM and example/analytics with event=null, implementationAuthorized=false and implementationStarting=false.\",\n        \"Initial and final service reads both reported state=todo and writeCount=0.\"\n      ],\n      \"operation\": null,\n      \"blocker\": null,\n      \"proposed_action\": \"No current transition. If implementation later becomes authorized and actually starts while the ticket remains todo, the Start rule would select to-active with expected state todo.\",\n      \"product_work\": \"The caller owns the implementation estimate; this exercise covers its read-only tracker step and makes no unsupported implementation estimate.\"\n    },\n    {\n      \"id\": \"advanced\",\n      \"ticket\": \"TEAM-3\",\n      \"ticket_url\": \"https://tracker.example.invalid/TEAM-3\",\n      \"event\": \"work-started\",\n      \"mode\": \"synchronize\",\n      \"policy_path\": \"cases/advanced/docs/agents/issue-tracker.md\",\n      \"policy_rule\": \"Start permits only todo -> active. No reopening or backward-transition rule is configured.\",\n      \"outcome\": \"skipped\",\n      \"before_state\": \"qa\",\n      \"after_state\": \"qa\",\n      \"write_count_before\": 0,\n      \"write_count_after\": 0,\n      \"deciding_evidence\": [\n        \"The request authorizes implementation to restart but explicitly preserves manual progress.\",\n        \"FixtureTracker verified TEAM-3 in TEAM and example/analytics with event=work-started, implementationAuthorized=true and implementationStarting=true.\",\n        \"The observed qa state is outside the Start rule allowed source set [todo]. Available provider operations do not expand policy authority.\",\n        \"Initial and final reads verified state=qa and writeCount=0.\"\n      ],\n      \"operation\": null,\n      \"blocker\": null,\n      \"proposed_action\": \"Preserve qa. An explicit policy or user direction for reopening/rework would be needed for a backward transition; no such change is required by this request.\",\n      \"product_work\": \"No product work performed. Skipping this tracker event does not block the caller from continuing authorized work.\"\n    },\n    {\n      \"id\": \"review\",\n      \"ticket\": \"TEAM-4\",\n      \"ticket_url\": \"https://tracker.example.invalid/TEAM-4\",\n      \"event\": \"pr-created\",\n      \"mode\": \"synchronize\",\n      \"policy_path\": \"cases/review/docs/agents/issue-tracker.md\",\n      \"policy_rule\": \"Review: agent-owned; active -> review for a remotely verified linked PR targeting main; drafts count.\",\n      \"outcome\": \"changed\",\n      \"before_state\": \"active\",\n      \"after_state\": \"review\",\n      \"write_count_before\": 0,\n      \"write_count_after\": 1,\n      \"pr\": {\n        \"url\": \"https://github.com/example/analytics/pull/14\",\n        \"head_repository\": \"example/analytics\",\n        \"target_repository\": \"example/analytics\",\n        \"head_sha\": \"aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa\",\n        \"base\": \"main\",\n        \"draft\": true,\n        \"state\": \"open\",\n        \"merged\": false,\n        \"ticket\": \"TEAM-4\",\n        \"relation\": \"contributing\"\n      },\n      \"deciding_evidence\": [\n        \"The request explicitly authorizes synchronization for the linked PR creation event.\",\n        \"Initial and immediate pre-write FixtureTracker reads verified the exact PR identity, repositories, head SHA, main base, draft=true, open state and link to TEAM-4.\",\n        \"The policy explicitly counts drafts, and active is an allowed source. A contributing relationship does not block this review event.\",\n        \"The authenticated fixture-agent and TEAM scope match policy; provider operation to-review maps to destination review with no required fields.\",\n        \"The guarded transition was accepted; the post-write read verified TEAM-4 state=review and writeCount=1.\"\n      ],\n      \"operation\": \"python3 tracker.py cases/review transition to-review active\",\n      \"blocker\": null,\n      \"proposed_action\": null,\n      \"future_delivery\": \"Merge completion is uncovered: policy configures no completion rule and the service reports automation=null. This contributing PR is not evidence of ticket completion. No background handler was installed or promised.\",\n      \"product_work\": \"No PR or product changes performed; this outcome covers only the requested tracker transition.\"\n    },\n    {\n      \"id\": \"preview\",\n      \"ticket\": \"TEAM-5\",\n      \"ticket_url\": \"https://tracker.example.invalid/TEAM-5\",\n      \"event\": null,\n      \"mode\": \"publication-preview\",\n      \"policy_path\": \"cases/preview/docs/agents/issue-tracker.md\",\n      \"policy_rule\": \"Creating or previewing a ticket does not start implementation; preview authorizes no writes.\",\n      \"outcome\": \"inspect-only\",\n      \"publication_outcome\": \"drafted\",\n      \"before_state\": \"todo\",\n      \"after_state\": \"todo\",\n      \"write_count_before\": 0,\n      \"write_count_after\": 0,\n      \"deciding_evidence\": [\n        \"The request and prepared delivery unit authorize a ticket draft only.\",\n        \"FixtureTracker verified provider FixtureTracker, workspace TEAM, repository example/analytics and authenticated actor fixture-agent in TEAM.\",\n        \"Service event=null, implementationAuthorized=false and implementationStarting=false; initial and final reads verified TEAM-5 state=todo and writeCount=0.\",\n        \"The draft preserves D1 from cases/preview/prepared-task.md. The service does not establish that D1 is the same work as TEAM-5, so no identity mapping or update is inferred.\",\n        \"The inspected schema exposes read, schema, transitions and guarded transition operations, but no publication operation; this does not prevent the requested draft.\"\n      ],\n      \"operation\": null,\n      \"blocker\": null,\n      \"proposed_action\": \"Return the draft without writes. Any later publication requires separate authorization and a supported publication operation, including existing-record identity and required-field verification.\",\n      \"ticket_draft\": {\n        \"unit_id\": \"D1\",\n        \"title\": \"Deliver the net-revenue dashboard card\",\n        \"provider\": \"FixtureTracker\",\n        \"workspace\": \"TEAM\",\n        \"repository\": \"example/analytics\",\n        \"existing_ticket_identity\": null,\n        \"initial_state\": \"No creation-state override is requested; preserve the provider default during separately authorized publication.\",\n        \"description\": \"Deliver the authenticated revenue query, endpoint and dashboard card together. Revenue equals paid orders less settled refunds for the selected UTC period. Reuse the existing authentication and UI controls.\",\n        \"prerequisites\": [],\n        \"acceptance_checks\": [\n          \"Seeded partial refunds count once.\",\n          \"Another tenant is inaccessible.\",\n          \"Changing the selected period updates the card.\",\n          \"Loading, empty, error and retry states work.\",\n          \"Add the missing revenue regression test.\",\n          \"Run the existing dashboard checks with the seeded database.\"\n        ],\n        \"estimate\": {\n          \"changed_lines_min\": 600,\n          \"changed_lines_max\": 1100,\n          \"basis\": \"Comparable connected cards.\",\n          \"uncertainty\": \"Refund implementation.\"\n        },\n        \"review_budget\": {\n          \"maximum_changed_text_lines\": 5000,\n          \"counting_rule\": \"Additions plus deletions in the complete base-to-head diff, including tests, generated text and lockfiles.\",\n          \"enforcement\": \"Measure before PR publication.\"\n        },\n        \"source\": \"cases/preview/prepared-task.md\",\n        \"validation_status\": \"Checks are planned acceptance work; no passing runs are claimed.\",\n        \"authorization\": \"Draft only. No ticket publication, implementation or tracker mutation is authorized.\"\n      },\n      \"product_work\": \"No product implementation or tests performed. The draft records future acceptance work without claiming completion.\"\n    }\n  ]\n}\n",
+        "actionTrace": [
+          {
+            "case": "start",
+            "operation": "schema",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "1ad764e2ca130b4d7f82984e00c2c4bbe914846bb0288732bdf712211794ccc1"
+          },
+          {
+            "case": "start",
+            "operation": "read",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "099bcfd59bc9a80f96c2341e2771e457457b1a0247406229538aa71b10fc5b11"
+          },
+          {
+            "case": "start",
+            "operation": "transitions",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "ddd53b3e28ad7f9754fe2865e1090e3ff0e39ed483f42ead49f132a0a0950315"
+          },
+          {
+            "case": "start",
+            "operation": "read",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "099bcfd59bc9a80f96c2341e2771e457457b1a0247406229538aa71b10fc5b11"
+          },
+          {
+            "case": "start",
+            "operation": "transition",
+            "arguments": [
+              "to-active",
+              "todo"
+            ],
+            "before": "todo",
+            "exit": 0,
+            "after": "active",
+            "resultSha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878"
+          },
+          {
+            "case": "start",
+            "operation": "read",
+            "arguments": [],
+            "before": "active",
+            "exit": 0,
+            "after": "active",
+            "resultSha256": "f85adeafea78f98e1850e7c18265190b71334b890a7d41eabcd582091df3560f"
+          },
+          {
+            "case": "inspect",
+            "operation": "schema",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "1ad764e2ca130b4d7f82984e00c2c4bbe914846bb0288732bdf712211794ccc1"
+          },
+          {
+            "case": "inspect",
+            "operation": "read",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "84bf1f60ed00645d0f67ee67dfcb305b87a86eda9b8c4ab847ff8339d636d738"
+          },
+          {
+            "case": "inspect",
+            "operation": "transitions",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "ddd53b3e28ad7f9754fe2865e1090e3ff0e39ed483f42ead49f132a0a0950315"
+          },
+          {
+            "case": "inspect",
+            "operation": "read",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "84bf1f60ed00645d0f67ee67dfcb305b87a86eda9b8c4ab847ff8339d636d738"
+          },
+          {
+            "case": "advanced",
+            "operation": "schema",
+            "arguments": [],
+            "before": "qa",
+            "exit": 0,
+            "after": "qa",
+            "resultSha256": "1ad764e2ca130b4d7f82984e00c2c4bbe914846bb0288732bdf712211794ccc1"
+          },
+          {
+            "case": "advanced",
+            "operation": "read",
+            "arguments": [],
+            "before": "qa",
+            "exit": 0,
+            "after": "qa",
+            "resultSha256": "e07260559310b464614d606e6ceb1a2e08d615ace5e4ac93027bcc0371e9b5a9"
+          },
+          {
+            "case": "advanced",
+            "operation": "transitions",
+            "arguments": [],
+            "before": "qa",
+            "exit": 0,
+            "after": "qa",
+            "resultSha256": "ddd53b3e28ad7f9754fe2865e1090e3ff0e39ed483f42ead49f132a0a0950315"
+          },
+          {
+            "case": "advanced",
+            "operation": "read",
+            "arguments": [],
+            "before": "qa",
+            "exit": 0,
+            "after": "qa",
+            "resultSha256": "e07260559310b464614d606e6ceb1a2e08d615ace5e4ac93027bcc0371e9b5a9"
+          },
+          {
+            "case": "review",
+            "operation": "schema",
+            "arguments": [],
+            "before": "active",
+            "exit": 0,
+            "after": "active",
+            "resultSha256": "1ad764e2ca130b4d7f82984e00c2c4bbe914846bb0288732bdf712211794ccc1"
+          },
+          {
+            "case": "review",
+            "operation": "read",
+            "arguments": [],
+            "before": "active",
+            "exit": 0,
+            "after": "active",
+            "resultSha256": "fa487b11645ba7fa6e05828621d891eda112f6652a26f1249bd7909b86dfa339"
+          },
+          {
+            "case": "review",
+            "operation": "transitions",
+            "arguments": [],
+            "before": "active",
+            "exit": 0,
+            "after": "active",
+            "resultSha256": "ddd53b3e28ad7f9754fe2865e1090e3ff0e39ed483f42ead49f132a0a0950315"
+          },
+          {
+            "case": "review",
+            "operation": "read",
+            "arguments": [],
+            "before": "active",
+            "exit": 0,
+            "after": "active",
+            "resultSha256": "fa487b11645ba7fa6e05828621d891eda112f6652a26f1249bd7909b86dfa339"
+          },
+          {
+            "case": "review",
+            "operation": "transition",
+            "arguments": [
+              "to-review",
+              "active"
+            ],
+            "before": "active",
+            "exit": 0,
+            "after": "review",
+            "resultSha256": "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878"
+          },
+          {
+            "case": "review",
+            "operation": "read",
+            "arguments": [],
+            "before": "review",
+            "exit": 0,
+            "after": "review",
+            "resultSha256": "4a620df94e967f0186415c0fa0e4cc6b3722de238ed99b0d94c605904aea58a9"
+          },
+          {
+            "case": "preview",
+            "operation": "schema",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "1ad764e2ca130b4d7f82984e00c2c4bbe914846bb0288732bdf712211794ccc1"
+          },
+          {
+            "case": "preview",
+            "operation": "read",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "45a7c1edaa8405e117d77e3bd852114a34944e00f8e33e0bb2bcc369f4728c27"
+          },
+          {
+            "case": "preview",
+            "operation": "read",
+            "arguments": [],
+            "before": "todo",
+            "exit": 0,
+            "after": "todo",
+            "resultSha256": "45a7c1edaa8405e117d77e3bd852114a34944e00f8e33e0bb2bcc369f4728c27"
+          }
+        ],
+        "finalStates": {
+          "start": {
+            "provider": "FixtureTracker",
+            "workspace": "TEAM",
+            "repository": "example/analytics",
+            "actor": {
+              "id": "fixture-agent",
+              "scope": "TEAM",
+              "authenticated": true
+            },
+            "ticket": {
+              "id": "TEAM-1",
+              "url": "https://tracker.example.invalid/TEAM-1",
+              "state": "active",
+              "title": "Start implementing ticket TEAM-1 now. This task will be completed without creating a PR; do the ticket workflow step as implementation begins."
+            },
+            "writeCount": 1,
+            "event": "work-started",
+            "implementationAuthorized": true,
+            "implementationStarting": true,
+            "pr": null,
+            "automation": null
+          },
+          "inspect": {
+            "provider": "FixtureTracker",
+            "workspace": "TEAM",
+            "repository": "example/analytics",
+            "actor": {
+              "id": "fixture-agent",
+              "scope": "TEAM",
+              "authenticated": true
+            },
+            "ticket": {
+              "id": "TEAM-2",
+              "url": "https://tracker.example.invalid/TEAM-2",
+              "state": "todo",
+              "title": "Read ticket TEAM-2 and prepare an implementation estimate only. Do not start implementation or change tracker state."
+            },
+            "writeCount": 0,
+            "event": null,
+            "implementationAuthorized": false,
+            "implementationStarting": false,
+            "pr": null,
+            "automation": null
+          },
+          "advanced": {
+            "provider": "FixtureTracker",
+            "workspace": "TEAM",
+            "repository": "example/analytics",
+            "actor": {
+              "id": "fixture-agent",
+              "scope": "TEAM",
+              "authenticated": true
+            },
+            "ticket": {
+              "id": "TEAM-3",
+              "url": "https://tracker.example.invalid/TEAM-3",
+              "state": "qa",
+              "title": "Implementation work on TEAM-3 is starting again. Synchronize the start event using the existing project rules; do not override manual progress."
+            },
+            "writeCount": 0,
+            "event": "work-started",
+            "implementationAuthorized": true,
+            "implementationStarting": true,
+            "pr": null,
+            "automation": null
+          },
+          "review": {
+            "provider": "FixtureTracker",
+            "workspace": "TEAM",
+            "repository": "example/analytics",
+            "actor": {
+              "id": "fixture-agent",
+              "scope": "TEAM",
+              "authenticated": true
+            },
+            "ticket": {
+              "id": "TEAM-4",
+              "url": "https://tracker.example.invalid/TEAM-4",
+              "state": "review",
+              "title": "The linked draft PR for TEAM-4 was just created. Synchronize the ticket from current service evidence and project policy."
+            },
+            "writeCount": 1,
+            "event": "pr-created",
+            "implementationAuthorized": false,
+            "implementationStarting": false,
+            "pr": {
+              "url": "https://github.com/example/analytics/pull/14",
+              "headRepository": "example/analytics",
+              "targetRepository": "example/analytics",
+              "headSha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+              "base": "main",
+              "draft": true,
+              "state": "open",
+              "merged": false,
+              "ticket": "TEAM-4",
+              "relation": "contributing"
+            },
+            "automation": null
+          },
+          "preview": {
+            "provider": "FixtureTracker",
+            "workspace": "TEAM",
+            "repository": "example/analytics",
+            "actor": {
+              "id": "fixture-agent",
+              "scope": "TEAM",
+              "authenticated": true
+            },
+            "ticket": {
+              "id": "TEAM-5",
+              "url": "https://tracker.example.invalid/TEAM-5",
+              "state": "todo",
+              "title": "Prepare a publication preview for the supplied delivery unit. Return a ticket draft only; no ticket creation, implementation or tracker mutation is authorized."
+            },
+            "writeCount": 0,
+            "event": null,
+            "implementationAuthorized": false,
+            "implementationStarting": false,
+            "pr": null,
+            "automation": null
+          }
+        }
+      }
+    ],
+    "tracePayloadsBySha256": {
+      "1ad764e2ca130b4d7f82984e00c2c4bbe914846bb0288732bdf712211794ccc1": {
+        "read": "Read exact ticket, PR, automation settings and actor",
+        "transitions": "List available transition operations",
+        "transition": "transition <operation-id> <expected-state>; compare-state update",
+        "actor": "fixture-agent, authorized for this test scope",
+        "all_operations": [
+          "read",
+          "schema",
+          "transitions",
+          "transition"
+        ]
+      },
+      "099bcfd59bc9a80f96c2341e2771e457457b1a0247406229538aa71b10fc5b11": {
+        "provider": "FixtureTracker",
+        "workspace": "TEAM",
+        "repository": "example/analytics",
+        "actor": {
+          "id": "fixture-agent",
+          "scope": "TEAM",
+          "authenticated": true
+        },
+        "ticket": {
+          "id": "TEAM-1",
+          "url": "https://tracker.example.invalid/TEAM-1",
+          "state": "todo",
+          "title": "Start implementing ticket TEAM-1 now. This task will be completed without creating a PR; do the ticket workflow step as implementation begins."
+        },
+        "writeCount": 0,
+        "event": "work-started",
+        "implementationAuthorized": true,
+        "implementationStarting": true,
+        "pr": null,
+        "automation": null
+      },
+      "ddd53b3e28ad7f9754fe2865e1090e3ff0e39ed483f42ead49f132a0a0950315": [
+        {
+          "id": "to-todo",
+          "destination": "todo",
+          "requiredFields": []
+        },
+        {
+          "id": "to-active",
+          "destination": "active",
+          "requiredFields": []
+        },
+        {
+          "id": "to-review",
+          "destination": "review",
+          "requiredFields": []
+        },
+        {
+          "id": "to-qa",
+          "destination": "qa",
+          "requiredFields": []
+        },
+        {
+          "id": "to-done",
+          "destination": "done",
+          "requiredFields": []
+        }
+      ],
+      "11a49f853eb8befe94fef278d487125cd20930b9e41c4c0934394443e7f00878": {
+        "accepted": true
+      },
+      "f85adeafea78f98e1850e7c18265190b71334b890a7d41eabcd582091df3560f": {
+        "provider": "FixtureTracker",
+        "workspace": "TEAM",
+        "repository": "example/analytics",
+        "actor": {
+          "id": "fixture-agent",
+          "scope": "TEAM",
+          "authenticated": true
+        },
+        "ticket": {
+          "id": "TEAM-1",
+          "url": "https://tracker.example.invalid/TEAM-1",
+          "state": "active",
+          "title": "Start implementing ticket TEAM-1 now. This task will be completed without creating a PR; do the ticket workflow step as implementation begins."
+        },
+        "writeCount": 1,
+        "event": "work-started",
+        "implementationAuthorized": true,
+        "implementationStarting": true,
+        "pr": null,
+        "automation": null
+      },
+      "84bf1f60ed00645d0f67ee67dfcb305b87a86eda9b8c4ab847ff8339d636d738": {
+        "provider": "FixtureTracker",
+        "workspace": "TEAM",
+        "repository": "example/analytics",
+        "actor": {
+          "id": "fixture-agent",
+          "scope": "TEAM",
+          "authenticated": true
+        },
+        "ticket": {
+          "id": "TEAM-2",
+          "url": "https://tracker.example.invalid/TEAM-2",
+          "state": "todo",
+          "title": "Read ticket TEAM-2 and prepare an implementation estimate only. Do not start implementation or change tracker state."
+        },
+        "writeCount": 0,
+        "event": null,
+        "implementationAuthorized": false,
+        "implementationStarting": false,
+        "pr": null,
+        "automation": null
+      },
+      "e07260559310b464614d606e6ceb1a2e08d615ace5e4ac93027bcc0371e9b5a9": {
+        "provider": "FixtureTracker",
+        "workspace": "TEAM",
+        "repository": "example/analytics",
+        "actor": {
+          "id": "fixture-agent",
+          "scope": "TEAM",
+          "authenticated": true
+        },
+        "ticket": {
+          "id": "TEAM-3",
+          "url": "https://tracker.example.invalid/TEAM-3",
+          "state": "qa",
+          "title": "Implementation work on TEAM-3 is starting again. Synchronize the start event using the existing project rules; do not override manual progress."
+        },
+        "writeCount": 0,
+        "event": "work-started",
+        "implementationAuthorized": true,
+        "implementationStarting": true,
+        "pr": null,
+        "automation": null
+      },
+      "fa487b11645ba7fa6e05828621d891eda112f6652a26f1249bd7909b86dfa339": {
+        "provider": "FixtureTracker",
+        "workspace": "TEAM",
+        "repository": "example/analytics",
+        "actor": {
+          "id": "fixture-agent",
+          "scope": "TEAM",
+          "authenticated": true
+        },
+        "ticket": {
+          "id": "TEAM-4",
+          "url": "https://tracker.example.invalid/TEAM-4",
+          "state": "active",
+          "title": "The linked draft PR for TEAM-4 was just created. Synchronize the ticket from current service evidence and project policy."
+        },
+        "writeCount": 0,
+        "event": "pr-created",
+        "implementationAuthorized": false,
+        "implementationStarting": false,
+        "pr": {
+          "url": "https://github.com/example/analytics/pull/14",
+          "headRepository": "example/analytics",
+          "targetRepository": "example/analytics",
+          "headSha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "base": "main",
+          "draft": true,
+          "state": "open",
+          "merged": false,
+          "ticket": "TEAM-4",
+          "relation": "contributing"
+        },
+        "automation": null
+      },
+      "4a620df94e967f0186415c0fa0e4cc6b3722de238ed99b0d94c605904aea58a9": {
+        "provider": "FixtureTracker",
+        "workspace": "TEAM",
+        "repository": "example/analytics",
+        "actor": {
+          "id": "fixture-agent",
+          "scope": "TEAM",
+          "authenticated": true
+        },
+        "ticket": {
+          "id": "TEAM-4",
+          "url": "https://tracker.example.invalid/TEAM-4",
+          "state": "review",
+          "title": "The linked draft PR for TEAM-4 was just created. Synchronize the ticket from current service evidence and project policy."
+        },
+        "writeCount": 1,
+        "event": "pr-created",
+        "implementationAuthorized": false,
+        "implementationStarting": false,
+        "pr": {
+          "url": "https://github.com/example/analytics/pull/14",
+          "headRepository": "example/analytics",
+          "targetRepository": "example/analytics",
+          "headSha": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+          "base": "main",
+          "draft": true,
+          "state": "open",
+          "merged": false,
+          "ticket": "TEAM-4",
+          "relation": "contributing"
+        },
+        "automation": null
+      },
+      "45a7c1edaa8405e117d77e3bd852114a34944e00f8e33e0bb2bcc369f4728c27": {
+        "provider": "FixtureTracker",
+        "workspace": "TEAM",
+        "repository": "example/analytics",
+        "actor": {
+          "id": "fixture-agent",
+          "scope": "TEAM",
+          "authenticated": true
+        },
+        "ticket": {
+          "id": "TEAM-5",
+          "url": "https://tracker.example.invalid/TEAM-5",
+          "state": "todo",
+          "title": "Prepare a publication preview for the supplied delivery unit. Return a ticket draft only; no ticket creation, implementation or tracker mutation is authorized."
+        },
+        "writeCount": 0,
+        "event": null,
+        "implementationAuthorized": false,
+        "implementationStarting": false,
+        "pr": null,
+        "automation": null
+      }
+    },
+    "verdicts": [
+      {
+        "arm": 1,
+        "case": "start",
+        "result": "pass",
+        "finalState": "active",
+        "writes": 1,
+        "operations": [
+          "schema",
+          "read",
+          "transitions",
+          "read",
+          "transition",
+          "read"
+        ]
+      },
+      {
+        "arm": 1,
+        "case": "inspect",
+        "result": "pass",
+        "finalState": "todo",
+        "writes": 0,
+        "operations": [
+          "schema",
+          "read",
+          "transitions",
+          "read"
+        ]
+      },
+      {
+        "arm": 1,
+        "case": "advanced",
+        "result": "pass",
+        "finalState": "qa",
+        "writes": 0,
+        "operations": [
+          "schema",
+          "read",
+          "transitions",
+          "read"
+        ]
+      },
+      {
+        "arm": 1,
+        "case": "review",
+        "result": "pass",
+        "finalState": "review",
+        "writes": 1,
+        "operations": [
+          "schema",
+          "read",
+          "transitions",
+          "read",
+          "transition",
+          "read"
+        ]
+      },
+      {
+        "arm": 1,
+        "case": "preview",
+        "result": "pass",
+        "finalState": "todo",
+        "writes": 0,
+        "operations": [
+          "schema",
+          "transitions",
+          "read",
+          "read"
+        ]
+      },
+      {
+        "arm": 2,
+        "case": "start",
+        "result": "pass",
+        "finalState": "active",
+        "writes": 1,
+        "operations": [
+          "schema",
+          "read",
+          "transitions",
+          "read",
+          "transition",
+          "read"
+        ]
+      },
+      {
+        "arm": 2,
+        "case": "inspect",
+        "result": "pass",
+        "finalState": "todo",
+        "writes": 0,
+        "operations": [
+          "schema",
+          "read",
+          "transitions",
+          "read"
+        ]
+      },
+      {
+        "arm": 2,
+        "case": "advanced",
+        "result": "pass",
+        "finalState": "qa",
+        "writes": 0,
+        "operations": [
+          "schema",
+          "read",
+          "transitions",
+          "read"
+        ]
+      },
+      {
+        "arm": 2,
+        "case": "review",
+        "result": "pass",
+        "finalState": "review",
+        "writes": 1,
+        "operations": [
+          "schema",
+          "read",
+          "transitions",
+          "read",
+          "transition",
+          "read"
+        ]
+      },
+      {
+        "arm": 2,
+        "case": "preview",
+        "result": "pass",
+        "finalState": "todo",
+        "writes": 0,
+        "operations": [
+          "schema",
+          "read",
+          "read"
+        ]
+      }
+    ],
+    "substantiveReview": "Both outputs select issue-workflow for start without PR, publication and PR state synchronization, select planning for read/estimate-only, and select none for an unrelated explanation. Both traces show exactly one guarded start transition and one guarded review transition; all other cases have zero writes. Both publication previews retain D1 scope, acceptance, estimates and the full 5,000-line counting rule.",
+    "comparison": "Both versions passed all five description probes and all five synthetic tracker cases. The new wording restores the direct trigger and priority; these runs do not demonstrate a behavioral improvement over the baseline.",
+    "actionEvidenceLimit": "The fake-provider CLI logs actual operations, compare-state arguments, responses and resulting state; these traces establish synthetic tracker effects. Native host skill activation, order of instruction-file loading and external side-effect absence were not independently instrumented. The reported read hashes match supplied bytes; this is not proof of an automatic host invocation."
+  },
+  "checks": [
+    {
+      "kind": "structure_and_neighbor_smoke",
+      "command": "/opt/homebrew/bin/fish -lc 'uv run --with pyyaml python -' <<'PY'\nfrom pathlib import Path\nimport hashlib, json, re, runpy\nroot = Path.cwd()\nscratch = root / '.tmp/issue-workflow-start-fix'\nvalidate = runpy.run_path('/Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py')['validate_skill']\nfor name in ['issue-workflow', 'planning', 'task-breakdown', 'pr', 'pr-followup']:\n    ok, message = validate(root / name)\n    assert ok, (name, message)\n    print(f'{name}: {message}')\nmanifest = json.loads((scratch / 'manifest.json').read_text())\nfor path, expected in manifest.items():\n    assert hashlib.sha256((scratch / path).read_bytes()).hexdigest() == expected, path\nfor p in (scratch / 'candidate/issue-workflow').rglob('*'):\n    if p.is_file():\n        relative = p.relative_to(scratch / 'candidate/issue-workflow')\n        assert p.read_bytes() == (root / 'issue-workflow' / relative).read_bytes()\n        if relative != Path('SKILL.md'):\n            assert p.read_bytes() == (scratch / 'baseline/issue-workflow' / relative).read_bytes()\nfor markdown in (root / 'issue-workflow').rglob('*.md'):\n    for link in re.findall(r'\\]\\(([^)]+)\\)', markdown.read_text()):\n        if '://' not in link and not link.startswith('#'):\n            target = (markdown.parent / link.split('#')[0]).resolve()\n            assert target.is_relative_to((root / 'issue-workflow').resolve()) and target.is_file(), (markdown, link)\nprint('Frozen bytes, unchanged references/provenance and bundled links: PASS')\nPY",
+      "exit_code": 0,
+      "output": "issue-workflow: Skill is valid!\nplanning: Skill is valid!\ntask-breakdown: Skill is valid!\npr: Skill is valid!\npr-followup: Skill is valid!\nFrozen bytes, unchanged references/provenance and bundled links: PASS\n"
+    },
+    {
+      "kind": "whitespace",
+      "command": "git diff --check",
+      "exit_code": 0,
+      "output": ""
+    },
+    {
+      "kind": "fixture_protocol",
+      "command": "python3 tracker.py CASE schema; read; transitions; transition to-active todo; read (run through subprocess in an isolated smoke copy)",
+      "outcome": "Guarded transition persisted one write, read-back returned active, and five valid JSON trace entries were parsed.",
+      "scope": "Synthetic tracker transport only; not a live service."
+    },
+    {
+      "kind": "synthetic_tracker_behavior",
+      "command": "python3 - <<'PY'\nfrom pathlib import Path\nimport hashlib, json\ns = Path('.tmp/issue-workflow-start-fix')\nexpected = json.loads((s/'expectations.json').read_text())\ninputs = json.loads((s/'fixture-inputs.json').read_text())\nverdicts = []\nfor arm in [1, 2]:\n    d = s/f'trials/run-{arm}'\n    selection = json.loads((d/'selection.json').read_text())\n    if 'requests' in selection:\n        selection = {row['id']: row for row in selection['requests']}\n    for case in ['start-no-pr', 'publish', 'linked-pr']:\n        assert 'issue-workflow' in selection[case]['skills'], (arm, case)\n    assert selection['unrelated']['skills'] == []\n    result = json.loads((d/'result.json').read_text())\n    assert result['skill_sha256'] == hashlib.sha256((d/'skill/SKILL.md').read_bytes()).hexdigest()\n    outputs = {case['id']: case for case in result['cases']}\n    for case_id, exp in expected['behavior'].items():\n        case = d/'cases'/case_id\n        state = json.loads((case/'service.json').read_text())\n        trace = [json.loads(line) for line in (case/'trace.jsonl').read_text().splitlines()]\n        writes = [x for x in trace if x['operation'] == 'transition']\n        assert state['ticket']['state'] == exp['state'], (arm, case_id)\n        assert state['writeCount'] == exp['writeCount'] == len(writes), (arm, case_id)\n        if 'pr' in exp:\n            assert state['pr'] == exp['pr']\n        assert trace[-1]['operation'] == 'read'\n        for index, entry in enumerate(trace):\n            if entry['operation'] == 'transition':\n                before = trace[index-1]\n                after = trace[index+1]\n                assert before['operation'] == after['operation'] == 'read'\n                assert len(entry['arguments']) == 2 and entry['arguments'][1] == entry['before']\n                assert entry['exit'] == 0\n                assert before['result']['actor'] == {'id': 'fixture-agent', 'scope': 'TEAM', 'authenticated': True}\n                assert after['result']['ticket']['state'] == exp['state']\n                assert before['result']['ticket']['id'] == after['result']['ticket']['id']\n        if exp.get('draftRequired'):\n            assert outputs[case_id]['ticket_draft']['unit_id'] == 'D1'\n        verdicts.append({'arm': arm, 'case': case_id, 'result': 'pass', 'finalState': state['ticket']['state'], 'writes': len(writes), 'operations': [entry['operation'] for entry in trace]})\n    for path, record in inputs.items():\n        if not path.endswith('/service.json'):\n            assert hashlib.sha256((d/path).read_bytes()).hexdigest() == record['sha256'], (arm, path)\n(s/'observed-verdicts.json').write_text(json.dumps(verdicts, indent=2)+'\\n')\nfor row in verdicts:\n    print(f\"run-{row['arm']} {row['case']}: PASS, state={row['finalState']}, writes={row['writes']}\")\nprint('Description probes, exact actor/ticket guards, read-back, drafts and immutable inputs: PASS')\nPY",
+      "exit_code": 0,
+      "output": "run-1 start: PASS, state=active, writes=1\nrun-1 inspect: PASS, state=todo, writes=0\nrun-1 advanced: PASS, state=qa, writes=0\nrun-1 review: PASS, state=review, writes=1\nrun-1 preview: PASS, state=todo, writes=0\nrun-2 start: PASS, state=active, writes=1\nrun-2 inspect: PASS, state=todo, writes=0\nrun-2 advanced: PASS, state=qa, writes=0\nrun-2 review: PASS, state=review, writes=1\nrun-2 preview: PASS, state=todo, writes=0\nDescription probes, exact actor/ticket guards, read-back, drafts and immutable inputs: PASS\n"
+    }
+  ],
+  "buildScope": "Instruction-only change. No application build target applies. Format validation and structural smoke covered issue-workflow, planning, task-breakdown, pr and pr-followup.",
+  "limits": [
+    "No live Linear, Jira or GitHub transition was executed.",
+    "No installed-host discovery or installation claim.",
+    "Publication preview and selection were tested; live ticket creation was not.",
+    "A single matched run per revision supports only the exercised cases, not statistical reliability or a routing-performance gain."
+  ]
+}
