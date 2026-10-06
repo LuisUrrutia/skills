@@ -1,0 +1,160 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-06",
+  "baseline": "a427edf831270b74c0a94dcecd49e767e61fc20e",
+  "status": "Validated for the stated static and browser scope; all consultation findings accounted for.",
+  "scope": "Narrow authorization fidelity corrections in the QA handoff and task-publication reference, plus reconciliation of the current atlas inventory.",
+  "findings": [
+    {
+      "url": "https://github.com/LuisUrrutia/skills/pull/11#discussion_r4195860583",
+      "decision": "Apply",
+      "change": "QA acceptance cases require executable tests only when writing and running are authorized. Cases-only output and already-authorized continuation remain intact."
+    },
+    {
+      "url": "https://github.com/LuisUrrutia/skills/pull/11#discussion_r4195860605",
+      "decision": "Apply the write-scope boundary",
+      "change": "Preserve the unit-to-ticket mapping; update the authoritative task record only within authorized scope, otherwise return it. No blanket approval prompt is added because returning the map completes the requested publication without that extra write."
+    },
+    {
+      "url": "https://github.com/LuisUrrutia/skills/pull/11#discussion_r4195860617",
+      "decision": "Apply inventory refresh; preserve history",
+      "change": "Add retro and task-breakdown, refresh five changed entrypoint hashes and checked dates, and display 44 packages. Append a dated scope entry instead of rewriting earlier scopes, which describe their original snapshots."
+    }
+  ],
+  "consultations": {
+    "brief": "Bounded read-only consultation under agent-instructions. Do not edit, publish, run product operations or delegate. The coordinator owns changes.\n\nTask: Continue PR 11 follow-up and act on correct review findings. User authorized committing and publishing all branch work as one PR. The earlier 5,000 count is illustrative only. Preserve that clarification and already-authorized continuation; do not add blanket approval prompts.\n\nCurrent baseline: a427edf831270b74c0a94dcecd49e767e61fc20e. Frozen candidate is /Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/pr-publication/feedback-r1/candidate. Read change.patch and manifest.json in the parent directory; read full candidate/HANDOFF-QA.md, candidate/issue-workflow/references/publish-tasks.md, and the unchanged issue-workflow/SKILL.md and identity reference in the repository. Read candidate/inventory-review.json for the inventory and source update history; the complete frozen catalog/source/index files are available when needed.\n\nThree reported concerns: QA acceptance bullets require executable tests without qualifying the request; ticket publication unconditionally updates an authoritative task record; atlas inventory omits retro/task-breakdown and contains five stale entrypoint hashes. Compare to the existing scope contract: cases alone stop at cases; writing/running stays authorized; ticket writes do not automatically authorize unrelated record writes. Existing publication permission should not prompt again, and returning the mapping can finish publication without updating an out-of-scope record. Inventory is current package presence, not installation/activation. Dated source update entries describe their original snapshots; assess whether retaining them and appending a current update accurately preserves history.\n\nAssess the candidate for concrete remaining omissions/conflicts in scope, authority, completion, inventory consistency and unrelated meaning. These are narrow fidelity corrections and inventory refresh; no new skill, activation rule, external tool policy or behavioral-success claim is intended. Return at most three material defects with exact evidence and minimal corrections, or state none. Optional wording preferences are not defects. Do not infer runtime or host behavior from static consultation.\n",
+    "astra": {
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "agent": "/root/pr_feedback_authority_astra_v1",
+      "result": "No instruction or inventory defects found. The new validation reference must exist before publication; this report supplies that record. Static checks confirmed 44 packages and hashes, mirrored catalog, counts, cache version and preserved history."
+    },
+    "fable": {
+      "taskId": "node:delegated-task:command%3Amcp%3Aecc11f00-0ed3-4922-9496-43435190ed72%3Adelegate-task%3Apr11-feedback-authority-inventory-fable-v1-20261006",
+      "model": "claude-fable-5-1",
+      "effort": "max",
+      "status": "completed",
+      "result": "**Verdict: one material defect. The three reported concerns are resolved correctly in the frozen candidate.** The candidate equals the working tree: all five manifest hashes match, the patch equals `git diff HEAD`, and `candidate/HANDOFF-QA.md` is byte-identical to the checkout copy. This was static review only; I made no edits and inferred no host behavior.\n\n**Defect 1: the new update record points at evidence that does not exist.**\n- Evidence: `reports/skill-atlas/sources.json:13684` and `reports/skill-atlas/catalog.js:13684` set `\"validation\": \"pr-feedback-validation.json\"`. No such file exists under `reports/skill-atlas/`, and the manifest lists only five files. Every other `validation` value in sources.json resolves to a real file. The app does not render `targetedUpdates`, so this is a false evidence pointer, not a rendering break.\n- Minimal correction: either add `reports/skill-atlas/pr-feedback-validation.json` to the candidate and manifest, recording only the static reconciliation (commit, date, the 44 paths, hash method and result, catalog.js payload equal to sources.json), or delete the `validation` key from that entry. I recommend the record, since all seven earlier entries carry one. The committed `retro-validation.json` and three `task-breakdown-*-validation.json` files describe the packages, not this refresh, so they are not substitutes.\n\n**Verified resolved, with evidence.**\n- QA bullets: candidate `HANDOFF-QA.md:175-177` and `182-184` now condition writing and running on authorization and preserve the blocked outcome. The scope contract at lines 80-82 and the owner table at line 39 are unchanged and consistent. The duplicate-test bullet at 178-179 is a prohibition, not a run requirement. The illustrative-count clarification lives in `task-breakdown/origin.txt:18` and `task-breakdown/SKILL.md:84-87`, untouched; no \"5,000\" literal exists outside `.tmp` and `reports`.\n- Ticket publication: `publish-tasks.md:57-61` updates the task record only within authorized write scope and otherwise returns the map, with no new prompt. This agrees with `SKILL.md:20-23` and `33-38`, `identity.md:14-15`, and `task-breakdown/SKILL.md:19-21`, `141`, `157-159`. Completion stays defined at `publish-tasks.md:71-74`.\n- Inventory: 44 packages on disk, 44 rows, every sha256 equals the shasum of its SKILL.md. HEAD had 42 rows with exactly the five stale hashes the scope line names, plus retro and task-breakdown missing. All pending and not-in-repository names are absent on disk. The catalog.js payload is JSON-equivalent to sources.json, index.html counts moved to 44, and its catalog cache parameter equals the new file hash prefix. The absent `section` on the two new rows is correct: `app.js:723` renders a plain name when section is falsy, and index.html has no task-breakdown or retro analysis section. Retaining the dated 0be9bbc and 5cc6610 entries and appending the a427edf entry preserves history accurately, since each keeps its own commit, date and scope.\n\n**Non-defect notes, outside the declared scope.**\n- Pre-existing at HEAD: `sourceProgress` still lists Matt Pocock/retro with owner workflow-to-skill only, and Matthew Blode/planning with wayfinder and planning, while `retro/origin.txt:12` and `task-breakdown/origin.txt:12` now record them as donors. The candidate's scope line does not claim a source-progress refresh, so the PR body should not claim full atlas reconciliation.\n- Optional wording: `publish-tasks.md:59` could read \"Capture confirmed items in that map before proceeding\" to name the capture location; the adjacent sentences already imply it."
+    },
+    "reconciliation": "Both reviewers confirmed the three repairs and identified the then-missing validation record. This file supplies the record and is verified before publication. The five reviewed instruction/data files retain their exact reviewed hashes. Historical source adoption cards were not refreshed; only current package inventory is claimed."
+  },
+  "checks": {
+    "baseline": "a427edf831270b74c0a94dcecd49e767e61fc20e",
+    "candidateHashes": {
+      "HANDOFF-QA.md": "7e910c996f6b559fc3a9e9cdee38c44622d88e62f0c4644946f7b7e970c3bc7d",
+      "issue-workflow/references/publish-tasks.md": "563351ffe4c4a84d705465cf7b9d9a7287656e194ef22c21cd720d4a7d26eca7",
+      "reports/skill-atlas/sources.json": "20b0dd7d459bc0b34ff13cf8432412d0bcd2ee8e4bba7bdeff7ec31d7475d87a",
+      "reports/skill-atlas/catalog.js": "6aea2f038ca25e9c2579e1b471b022829bb0339d59e827d713618ed2f9080412",
+      "reports/skill-atlas/index.html": "26c1b2ab8fd9c91ec816ba18ca13607a86900143f0f213ff881d6c44eb00325d"
+    },
+    "inventory": {
+      "packages": 44,
+      "allEntrypointHashesMatch": true,
+      "noMissingOrExtraPackages": true,
+      "sourcePinsPreserved": true,
+      "priorUpdateHistoryPreserved": true,
+      "catalogMirrorExact": true,
+      "cacheVersionMatches": true,
+      "htmlCounts": [
+        "44",
+        "44",
+        "44",
+        "44",
+        "44"
+      ],
+      "sectionLinksResolve": true,
+      "hashMethod": "SHA-256 of the complete bytes of every top-level */SKILL.md file, compared to repositoryInventory.skills. Names and paths must form the same complete set.",
+      "entriesSource": "sources.json#/repositoryInventory/skills"
+    },
+    "commands": [
+      {
+        "command": [
+          "/Users/luisurrutia/.cache/uv/builds-v0/.tmprNg8ld/bin/python",
+          "/Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+          "issue-workflow"
+        ],
+        "exitCode": 0,
+        "stdout": "Skill is valid!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/opt/homebrew/bin/fish",
+          "-lc",
+          "node --check reports/skill-atlas/catalog.js"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/opt/homebrew/bin/fish",
+          "-lc",
+          "node --check reports/skill-atlas/app.js"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "python3",
+          "-B",
+          "-m",
+          "unittest",
+          "discover",
+          "-s",
+          "verification-authoring/tests",
+          "-q"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": "----------------------------------------------------------------------\nRan 11 tests in 0.336s\n\nOK\n"
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    ],
+    "scope": "Narrow fidelity corrections under the existing authorization contract; static consultation and package checks do not claim observed agent-host behavior. No project-wide build command is configured."
+  },
+  "browser": {
+    "desktop": {
+      "width": 1280,
+      "height": 800,
+      "inventoryRows": 44,
+      "displayedCounts": [
+        44,
+        44,
+        44,
+        44,
+        44
+      ],
+      "missingAnchors": [],
+      "horizontalOverflow": false
+    },
+    "mobile": {
+      "width": 480,
+      "height": 900,
+      "inventoryRows": 44,
+      "newEntriesPresent": true,
+      "horizontalOverflow": false
+    },
+    "catalogMatchesFetchedSources": true,
+    "screenshots": "Current inventory desktop and Planning mobile captures were visually inspected and retained for the PR description.",
+    "initialStaleNavigation": "The first navigation reused the old page and c572398d20a8 catalog (42 rows). A no-store source fetch and direct server reads showed 44. Loading a fresh document URL selected 6aea2f038ca2 and produced 44 rows with matching data. The first capture is excluded from current-state evidence."
+  },
+  "limits": [
+    "These narrow wording repairs were checked for fidelity to the existing scope contract; no new behavioral or host-activation trial is claimed.",
+    "No QA tests, live tracker writes or upstream e2e installation were executed.",
+    "CodeRabbit reported its ast-grep timeout on the generated catalog. Local JavaScript syntax, catalog parity and browser checks passed; they do not reproduce that unavailable external analysis.",
+    "No repository-wide compile/build command is configured."
+  ]
+}
