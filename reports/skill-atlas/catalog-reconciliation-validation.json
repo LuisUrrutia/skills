@@ -1,0 +1,113 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-06",
+  "scope": "Reconcile the displayed source catalog with existing repository packages, provenance and recorded selection decisions.",
+  "baselineCommit": "f4e7a1f732c039cfeb2c217eea1954f3f308cccf",
+  "status": "passed-with-visual-capture-limits",
+  "changes": {
+    "sourceDecisions": "ce-plan and planning-and-task-breakdown move from pending to reviewed and not selected, following planning-source-review.json.",
+    "currentCoverage": "Show available local owners separately from incorporation of the upstream source. Show current replacement names while preserving original source identifiers and search terms.",
+    "currentAssessments": 16,
+    "recipientRelationshipsAdded": 8,
+    "existingEvidenceHashesRefreshed": 26,
+    "preserved": "All original source cards and dated assessment objects; all existing skill packages and previous validation reports.",
+    "remainingCoordinator": "work-mode has no repository package; ce-work remains unincorporated."
+  },
+  "snapshot": {
+    "packages": 44,
+    "sourceCards": 277,
+    "counts": {
+      "ready": 157,
+      "pending": 35,
+      "optional": 42,
+      "not-selected": 43
+    },
+    "fileSha256": {
+      "sources.json": "4481249ff1a6e478ebea3bbf0082617236ca5bf47365c40b446305d0fb9f954e",
+      "catalog.js": "8961da5ebd06a8977453cd81a90d21da86ef882c6ffb2076c2ce921d0eef2d04",
+      "app.js": "c3df7544f02df0d7f383f1e142cd3ad71c4344df8bd3645286a08aa9d61415e2",
+      "index.html": "712b6b7e260ea1c52e46a83669378ffed6c620a944db074a6e9491fb6090b318"
+    }
+  },
+  "checks": [
+    {
+      "command": "/opt/homebrew/bin/python3.14 .tmp/atlas-refresh/check-catalog.py",
+      "exitCode": 0,
+      "result": "277 cards, 44 packages and 201 evidence records checked; eight added recipients match current provenance; both declined sources have selected=false in their recorded reading; all original assessments preserved; JSON/JavaScript parity, asset cache hashes and local file links pass.",
+      "method": "Temporary read-only assertions against current SKILL.md inventory, parsed origin.txt records, the baseline sources.json, local decision reports and index.html. The temporary checker is removed after completion."
+    },
+    {
+      "command": "node -",
+      "exitCode": 0,
+      "result": "277 unique rendered cards, effective owner strings, review reference arrays and both non-selection overrides verified.",
+      "method": "Read-only VM evaluation of catalog.js data and the app initialization through recommendationFor/progressFor; assert unique cards, owner types, reference arrays and the two Skip decisions."
+    },
+    {
+      "commands": [
+        "node --check reports/skill-atlas/app.js",
+        "node --check reports/skill-atlas/catalog.js",
+        "node --check reports/skill-atlas/theme.js"
+      ],
+      "exitCode": 0,
+      "result": "JavaScript syntax passes. This static atlas has no package manifest or bundling/build command."
+    },
+    {
+      "command": "PYTHONDONTWRITEBYTECODE=1 /opt/homebrew/bin/python3.14 -m unittest discover -s review-code-changes/tests -v",
+      "exitCode": 0,
+      "testsPassed": 12
+    },
+    {
+      "command": "git diff --check",
+      "exitCode": 0
+    },
+    {
+      "entrypoint": "http://127.0.0.1:8765/",
+      "result": "HTTP catalog bytes match the current checkout. The previous checkout server was replaced on the same port."
+    }
+  ],
+  "browser": {
+    "tool": "T3 collaborative preview",
+    "cases": [
+      "Search ce-plan and planning-and-task-breakdown: each card opens with Reviewed; not selected and links to available planning and task-breakdown.",
+      "Select Not incorporated through the native filter: 35 cards; search each declined planning source: zero results and the empty state.",
+      "Use the empty-state reset: all 277 cards return. Follow Show incorporated sources: 157 cards. Use the form reset: all 277 return.",
+      "Search review-audit: the retained source card is titled review-code-changes and identifies the original name. Search review-code-changes: the same card is included.",
+      "Search ce-work and open its card: Not incorporated, proposed coordinator action and Still to create: work-mode.",
+      "Search task-breakdown: Matt to-tickets and Blode planning are present with the added owner relationships.",
+      "Toggle the theme to light and back to dark; select the small documentation scenario and observe its reading, editing and verification stages."
+    ],
+    "integrity": {
+      "missingInternalAnchors": 0,
+      "duplicateIds": 0,
+      "consoleEntriesInSuccessfulDesktopSnapshot": 0
+    },
+    "layout": [
+      {
+        "viewportWidth": 1280,
+        "horizontalOverflow": false,
+        "imageInspected": true
+      },
+      {
+        "viewportWidth": 375,
+        "documentWidth": 363,
+        "horizontalOverflow": false,
+        "imageInspected": false
+      },
+      {
+        "viewportWidth": 480,
+        "documentWidth": 465,
+        "horizontalOverflow": false,
+        "imageInspected": false
+      }
+    ],
+    "captureLimit": "The initial desktop card image was inspected. Later preview_snapshot calls returned PreviewAutomationExecutionError, including after reopening. Mobile checks therefore establish DOM dimensions only. A fresh tab restored control interactions; the form reset, theme and scenario were then verified there."
+  },
+  "correctedCheckFailures": [
+    "The first provenance refresh omitted local_snapshots and stopped before writing output. It was corrected to read both sources and local_snapshots.",
+    "The first local-link checker rejected a valid directory URL; it was corrected to accept a directory with index.html and rerun successfully.",
+    "Diff review caught byte counts assigned to character counts in two temporary overrides. Those fields were removed, preserving the original character counts for identical source hashes; parity and syntax were rerun."
+  ],
+  "limits": [
+    "This checks current repository evidence and the atlas presentation; it does not establish installed-host availability or fresh upstream synchronization."
+  ]
+}

@@ -4630,7 +4630,7 @@
       {
         "name": "planning",
         "category": "Understanding and design",
-        "summary": "Create, review, revise or divide evidence-grounded implementation plans with verifiable outcomes, dependencies and acceptance checks.",
+        "summary": "Create, review or revise implementation plans with verifiable outcomes, dependencies and acceptance checks; task-breakdown owns PR-sized decomposition.",
         "path": "planning/SKILL.md",
         "section": "planning",
         "checkedAt": "2026-10-06",
@@ -4704,10 +4704,10 @@
     "date": "2026-10-04",
     "repositoryCommit": "b4908e702867a3e9c3fb7e01ca4559b6fc173b34",
     "total": 95,
-    "remainingReviewed": 67,
-    "alreadyIncorporated": 28,
+    "remainingReviewed": 54,
+    "alreadyIncorporated": 41,
     "additionalCatalogCards": 87,
-    "scope": "All 95 distributed SKILL.md entrypoints under the four repositories' skills/ or plugins/ directories. The initial selection screened 77 unincorporated sources and mapped 18 existing sources to provenance; only listed supporting files were inspected. Subsequent derivations bring the current selected-incorporation count to 28; 67 remain adoption assessments. A check records selected material, not completion of every proposed capability. Existing sources were not generally audited for upstream changes. Compound also has one internal contributor skill assessed separately and six excluded test fixtures.",
+    "scope": "All 95 distributed SKILL.md entrypoints under the four repositories' skills/ or plugins/ directories. The initial selection screened 77 unincorporated sources and mapped 18 existing sources to provenance; only listed supporting files were inspected. Current selected-incorporation totals are computed from these cards. A check records selected material, not completion of every proposed capability. Existing sources were not generally audited for upstream changes. Compound also has one internal contributor skill assessed separately and six excluded test fixtures.",
     "limitations": [
       "Recommendations are a selection review, not installation or runtime certification of the collection.",
       "Only listed supporting files were inspected. Hundreds of other references, scripts and agent prompts were not exhaustively audited.",
@@ -7581,15 +7581,14 @@
         "boundary": "The pstack launch/doctor/drive/evidence contract remains with local recipes. Probes use native tools, preserve required coverage and report unavailable observations."
       },
       {
-        "title": "Create a lean planning capability",
-        "route": "Derive and combine",
-        "owner": "New capability; name not selected",
+        "title": "Planning and task decomposition are available",
+        "route": "Created",
+        "owner": "planning; task-breakdown",
         "keys": [
           "Matthew Blode/planning",
-          "Addy Osmani/planning-and-task-breakdown",
-          "Compound Engineering/ce-plan"
+          "Matt Pocock/to-tickets"
         ],
-        "why": "Use Blode as the base, adding dependency ordering and verified acceptance criteria from Addy and selected CE handoff checks.",
+        "why": "Planning defines the approach and acceptance criteria; task-breakdown defines PR-sized delivery units. Addy and ce-plan were reviewed but not selected for planning.",
         "boundary": "Scale to the decision. No mandatory interviews, new files or approval stops after a plan already authorizes continuation."
       },
       {
@@ -7603,15 +7602,15 @@
         "boundary": "Use the existing design system and product decisions. Accessibility means completing the task, not merely labeling the first control."
       },
       {
-        "title": "Optimize from measurements",
-        "route": "Derive; keep advanced campaigns optional",
-        "owner": "New performance capability",
+        "title": "Measured optimization is available",
+        "route": "Created",
+        "owner": "performance-optimization",
         "keys": [
           "Addy Osmani/performance-optimization",
           "Compound Engineering/ce-optimize"
         ],
-        "why": "Start with Addy: profile, change one cause, remeasure under comparable conditions, retain only supported wins.",
-        "boundary": "Use CE experiment machinery only for a real campaign. A noisy local result is not a proven production improvement."
+        "why": "The current specialist combines selected measurement, bounded-search and validation mechanisms. It preserves required behavior and retains improvements only when measurements support them.",
+        "boundary": "Use the existing package for optimization work. Project-specific mechanisms and optional campaign depth follow the actual task; no new optimization skill is needed."
       },
       {
         "title": "Make runtime behavior diagnosable",
@@ -7717,17 +7716,17 @@
       "alreadyIncorporated": 18,
       "remainingReviewed": 77
     },
-    "incorporationUpdatedAt": "2026-10-04"
+    "incorporationUpdatedAt": "2026-10-06"
   },
   "sourceProgress": {
-    "checkedAt": "2026-10-04",
-    "repositoryCommit": "761cae1 (base; working-tree hashes below)",
+    "checkedAt": "2026-10-06",
+    "repositoryCommit": "f4e7a1f732c039cfeb2c217eea1954f3f308cccf (base; current evidence hashes below)",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
       "ready": 157,
-      "pending": 37,
+      "pending": 35,
       "optional": 42,
-      "not-selected": 41
+      "not-selected": 43
     },
     "skills": {
       "Matt Pocock/code-review": {
@@ -7854,17 +7853,17 @@
       },
       "Matt Pocock/grill-with-docs": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Matt Pocock/implement": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Matt Pocock/implement-spec": {
         "status": "optional",
@@ -7941,7 +7940,8 @@
         "status": "ready",
         "label": "Incorporated",
         "owners": [
-          "workflow-to-skill"
+          "workflow-to-skill",
+          "retro"
         ],
         "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
@@ -7960,6 +7960,26 @@
             "localChoices": [
               "Extract only within the requested history and project; no automatic global audit or unrelated enforcement change.",
               "Writing and validation remain in agent-instructions. A scoped lesson may belong in project documentation rather than a new skill."
+            ]
+          },
+          {
+            "owner": "retro",
+            "path": "retro/origin.txt",
+            "line": 7,
+            "sha256": "65a7310c69af8a623a15bacb739842cff52f7e4ab18c9c1ab3ed5c26b7916145",
+            "sourceId": "matt-retro",
+            "baselineCommit": "7a030a8b0dcaa601bb0dda9aaf174affb3d61145",
+            "reviewedThrough": "7a030a8b0dcaa601bb0dda9aaf174affb3d61145",
+            "borrowed": [
+              "Review a session's primary evidence and prioritize improvements to the agent's working environment.",
+              "Investigate navigation, information access, automated checks, instruction friction and tool economy.",
+              "Inspect existing check wiring before adding a check, and prefer deterministic enforcement for mechanical violations."
+            ],
+            "localChoices": [
+              "Retain normal skill discovery; do not add a mandatory retrospective after every implementation.",
+              "Use a proposal-only default while preserving already-authorized implementation and caller continuation.",
+              "Keep established local writing and verification owners instead of requiring writing-for-agents or a separate reviewer-only standards file.",
+              "Treat categories as conditional prompts; report no finding when evidence does not support a useful change."
             ]
           }
         ]
@@ -8035,14 +8055,15 @@
         "status": "ready",
         "label": "Selected parts incorporated",
         "owners": [
-          "planning"
+          "planning",
+          "task-breakdown"
         ],
         "evidence": [
           {
             "owner": "planning",
             "path": "planning/origin.txt",
             "line": 22,
-            "sha256": "4085a0aaeb2988d376950559b844e352148d9070204fc89ec8d8c0de0f0b9a1f",
+            "sha256": "58d99039850006c28b04859a0fbae2287c59e920b3e329def0e692dd73955039",
             "sourceId": "matt-to-tickets",
             "baselineCommit": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
             "reviewedThrough": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
@@ -8053,12 +8074,30 @@
             ],
             "localChoices": [
               "Keep a small change together and permit one plan rather than requiring one file per ticket.",
-              "Drafting is separate from authorized publication; use project-native tracker conventions without setup, labels, or mandatory approval ceremonies.",
+              "Detailed expand/migrate/contract and first-integration procedures moved to task-breakdown; publication recovery moved to issue-workflow. Their package records preserve direct source inspiration where applicable.",
               "Retain useful verified entry points and contract excerpts, with a freshness check when resuming."
+            ]
+          },
+          {
+            "owner": "task-breakdown",
+            "path": "task-breakdown/origin.txt",
+            "line": 22,
+            "sha256": "088a671b992cf531ff32127504d8f477df76ac3e1f243fb5c076ca049e9108e9",
+            "sourceId": "matt-to-tickets",
+            "baselineCommit": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+            "reviewedThrough": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+            "borrowed": [
+              "Split by complete observable behavior and record genuine blocking relationships.",
+              "Use expand, migrate, contract for broad changes whose consumers cannot all move at once.",
+              "Make the first valid integration check explicit when intermediate units cannot pass independently."
+            ],
+            "localChoices": [
+              "Prefer small complete behaviors; permit justified backend/frontend/integration stages with explicit verification limits.",
+              "Keep task drafting separate from issue-workflow publication, and preserve one authoritative record."
             ]
           }
         ],
-        "note": "Work-unit and dependency mechanisms incorporated into planning. This does not establish whole-skill installation or synchronization."
+        "note": "Selected decomposition guidance is recorded in planning and task-breakdown. Detailed delivery units now belong to task-breakdown; tracker publication belongs to issue-workflow."
       },
       "Matt Pocock/triage": {
         "status": "optional",
@@ -8078,7 +8117,7 @@
             "owner": "wayfinder",
             "path": "wayfinder/origin.txt",
             "line": 7,
-            "sha256": "c967774c9d0d894a5083ee3404e5a5746ab4c526629b21158485d6d997b932f1",
+            "sha256": "e0e7a45773bdcab03cca70ec7deb8874a0f51a896fca418d7463ae2284c8931a",
             "sourceId": "matt-wayfinder",
             "baselineCommit": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
             "reviewedThrough": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
@@ -8272,7 +8311,7 @@
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
             "line": 24,
-            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
+            "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "cursor-ci-followup",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -8297,7 +8336,7 @@
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
             "line": 24,
-            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
+            "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "cursor-ci-followup",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -8338,7 +8377,7 @@
             "owner": "pr",
             "path": "pr/origin.txt",
             "line": 24,
-            "sha256": "a1467ef6f51b587b41bf21533ce879f7e1e0b0a04300e68a70a855681608b01e",
+            "sha256": "1fbdcc5fa64bc03edf1dcd176e0ca1cd4b77c7e845e3f59b0d485269bf9027e4",
             "sourceId": "cursor-reviewable-pr",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -8414,7 +8453,7 @@
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
             "line": 24,
-            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
+            "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "cursor-ci-followup",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -8505,10 +8544,10 @@
       },
       "pstack/automate-me": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "pstack/blast-radius": {
         "status": "ready",
@@ -8647,7 +8686,7 @@
             "owner": "wayfinder",
             "path": "wayfinder/origin.txt",
             "line": 52,
-            "sha256": "c967774c9d0d894a5083ee3404e5a5746ab4c526629b21158485d6d997b932f1",
+            "sha256": "e0e7a45773bdcab03cca70ec7deb8874a0f51a896fca418d7463ae2284c8931a",
             "sourceId": "pstack-wayfinder",
             "baselineCommit": "df581122cde17e6e27686b5a448bde23e4ad4318",
             "reviewedThrough": "df581122cde17e6e27686b5a448bde23e4ad4318",
@@ -8883,10 +8922,10 @@
       },
       "pstack/principle-attack-the-premise": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "pstack/principle-boundary-discipline": {
         "status": "ready",
@@ -8967,10 +9006,10 @@
       },
       "pstack/principle-build-the-lever": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "pstack/principle-encode-lessons-in-structure": {
         "status": "ready",
@@ -9038,7 +9077,7 @@
             "owner": "wayfinder",
             "path": "wayfinder/origin.txt",
             "line": 52,
-            "sha256": "c967774c9d0d894a5083ee3404e5a5746ab4c526629b21158485d6d997b932f1",
+            "sha256": "e0e7a45773bdcab03cca70ec7deb8874a0f51a896fca418d7463ae2284c8931a",
             "sourceId": "pstack-wayfinder",
             "baselineCommit": "df581122cde17e6e27686b5a448bde23e4ad4318",
             "reviewedThrough": "df581122cde17e6e27686b5a448bde23e4ad4318",
@@ -9058,10 +9097,10 @@
       },
       "pstack/principle-experience-first": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "pstack/principle-fix-root-causes": {
         "status": "ready",
@@ -9134,10 +9173,10 @@
       },
       "pstack/principle-guard-the-context-window": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "pstack/principle-laziness-protocol": {
         "status": "ready",
@@ -9395,10 +9434,10 @@
       },
       "pstack/principle-never-block-on-the-human": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "pstack/principle-outcome-oriented-execution": {
         "status": "optional",
@@ -9470,7 +9509,7 @@
             "owner": "wayfinder",
             "path": "wayfinder/origin.txt",
             "line": 52,
-            "sha256": "c967774c9d0d894a5083ee3404e5a5746ab4c526629b21158485d6d997b932f1",
+            "sha256": "e0e7a45773bdcab03cca70ec7deb8874a0f51a896fca418d7463ae2284c8931a",
             "sourceId": "pstack-wayfinder",
             "baselineCommit": "df581122cde17e6e27686b5a448bde23e4ad4318",
             "reviewedThrough": "df581122cde17e6e27686b5a448bde23e4ad4318",
@@ -9643,10 +9682,10 @@
       },
       "pstack/principle-sequence-verifiable-units": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "pstack/principle-subtract-before-you-add": {
         "status": "ready",
@@ -9794,7 +9833,8 @@
         "status": "ready",
         "label": "Incorporated",
         "owners": [
-          "workflow-to-skill"
+          "workflow-to-skill",
+          "retro"
         ],
         "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
@@ -9818,6 +9858,24 @@
               "Preserve existing authorization; no automatic backlog writes or repeated approval gate.",
               "No fixed recurrence threshold for explicitly requested skills."
             ]
+          },
+          {
+            "owner": "retro",
+            "path": "retro/origin.txt",
+            "line": 37,
+            "sha256": "65a7310c69af8a623a15bacb739842cff52f7e4ab18c9c1ab3ed5c26b7916145",
+            "sourceId": "pstack-reflect",
+            "baselineCommit": "df581122cde17e6e27686b5a448bde23e4ad4318",
+            "reviewedThrough": "df581122cde17e6e27686b5a448bde23e4ad4318",
+            "borrowed": [
+              "Keep transcript inspection within the identified work, and disclose a digest's evidence limits.",
+              "Distinguish a missed skill trigger from missing instructions and prefer an existing skill owner."
+            ],
+            "localChoices": [
+              "Read only the entrypoint for these boundary and routing ideas; the multi-reviewer prompt templates are not part of this derivation.",
+              "Use host-provided transcript access and registered local owners rather than Cursor-specific paths, fixed model roles or create-skill.",
+              "Do not file backlog items automatically or add an approval gate to changes already authorized by the active request."
+            ]
           }
         ]
       },
@@ -9834,7 +9892,7 @@
             "owner": "pr",
             "path": "pr/origin.txt",
             "line": 39,
-            "sha256": "a1467ef6f51b587b41bf21533ce879f7e1e0b0a04300e68a70a855681608b01e",
+            "sha256": "1fbdcc5fa64bc03edf1dcd176e0ca1cd4b77c7e845e3f59b0d485269bf9027e4",
             "sourceId": "pstack-decision-evidence",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9849,7 +9907,7 @@
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
             "line": 84,
-            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
+            "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "pstack-decision-evidence",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
@@ -9909,7 +9967,8 @@
         "owners": [
           "explain-code",
           "communicate-clearly",
-          "teach"
+          "teach",
+          "write-documentation"
         ],
         "note": "Selected mechanisms are recorded in local provenance; no claim of installation, full upstream adoption, or learning gains.",
         "evidence": [
@@ -9972,6 +10031,22 @@
             "localChoices": [
               "Use local explain-code and explain-decisions conditionally, with direct evidence fallback.",
               "No fixed sentence stops, mandatory repeated diagrams, image generation, English-only conversation, or upstream runtime dependencies."
+            ]
+          },
+          {
+            "owner": "write-documentation",
+            "path": "write-documentation/origin.txt",
+            "line": 7,
+            "sha256": "e4254a005605437c9988a0b1ed15145eb486c1e356fc372fd74ef85135377e66",
+            "sourceId": "cursor",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Stable terminology, reader prerequisites, conditions before actions and reader-task documentation structure."
+            ],
+            "localChoices": [
+              "Adapt English-specific grammar and punctuation to the target language; no sentence caps, word blacklist or STE compliance claim.",
+              "No mandatory teaching, image generation, or unslop invocation. Existing local prose and investigation owners remain responsible."
             ]
           }
         ]
@@ -10052,7 +10127,8 @@
         "status": "ready",
         "label": "Incorporated",
         "owners": [
-          "communicate-clearly"
+          "communicate-clearly",
+          "write-documentation"
         ],
         "note": "Selected material is incorporated in the repository packages. This does not mean the full source is installed, executed or synchronized. Bounded checks are recorded in communication-validation.json.",
         "evidence": [
@@ -10066,6 +10142,22 @@
             "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
             "borrowed": [
               "Stable terminology, clear relationships, reader prerequisites, conditions before actions, and a final naturalness pass."
+            ],
+            "localChoices": [
+              "Adapt English-specific grammar and punctuation to the target language; no sentence caps, word blacklist or STE compliance claim.",
+              "No mandatory teaching, image generation, or unslop invocation. Existing local prose and investigation owners remain responsible."
+            ]
+          },
+          {
+            "owner": "write-documentation",
+            "path": "write-documentation/origin.txt",
+            "line": 7,
+            "sha256": "e4254a005605437c9988a0b1ed15145eb486c1e356fc372fd74ef85135377e66",
+            "sourceId": "cursor",
+            "baselineCommit": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "reviewedThrough": "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a",
+            "borrowed": [
+              "Stable terminology, reader prerequisites, conditions before actions and reader-task documentation structure."
             ],
             "localChoices": [
               "Adapt English-specific grammar and punctuation to the target language; no sentence caps, word blacklist or STE compliance claim.",
@@ -10272,7 +10364,7 @@
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
             "line": 39,
-            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
+            "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "dyl-pr-readiness",
             "baselineCommit": "23e4138daa01c42d4969f7a5465f82704e64f798",
             "reviewedThrough": "23e4138daa01c42d4969f7a5465f82704e64f798",
@@ -10280,7 +10372,7 @@
               "Recheck current CI, review feedback and integration state after repair."
             ],
             "localChoices": [
-              "No mandatory skill roster, forced deep-review phase, automatic ready state, fixed bot wait or requirement to resolve every thread to silence a reviewer."
+              "The user's 2026-10-05 policy requires eligible drafts to become ready, followed by fresh CI and review observation even at the same SHA. No mandatory skill roster, forced deep-review phase, fixed bot wait or thread resolution to hide remaining work."
             ]
           }
         ]
@@ -10297,7 +10389,7 @@
             "owner": "pr",
             "path": "pr/origin.txt",
             "line": 86,
-            "sha256": "a1467ef6f51b587b41bf21533ce879f7e1e0b0a04300e68a70a855681608b01e",
+            "sha256": "1fbdcc5fa64bc03edf1dcd176e0ca1cd4b77c7e845e3f59b0d485269bf9027e4",
             "sourceId": "humanlayer-visual-pr",
             "baselineCommit": "ca7c8088db69e315a8b2deea43820270457f8f3c",
             "reviewedThrough": "ca7c8088db69e315a8b2deea43820270457f8f3c",
@@ -10372,10 +10464,10 @@
       },
       "Anthropic/frontend-design": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Anthropic/skill-creator": {
         "status": "ready",
@@ -10554,24 +10646,24 @@
       },
       "Vercel/react-best-practices": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Vercel/composition-patterns": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Vercel/react-view-transitions": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Vercel/react-native-skills": {
         "status": "optional",
@@ -10582,10 +10674,10 @@
       },
       "Vercel/web-design-guidelines": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "ECC/frontend-a11y": {
         "status": "ready",
@@ -10641,10 +10733,10 @@
       },
       "ECC/e2e-testing": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "ECC/error-handling": {
         "status": "ready",
@@ -10698,17 +10790,17 @@
       },
       "ECC/react-patterns": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "ECC/react-testing": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Local/commit": {
         "status": "ready",
@@ -10728,10 +10820,10 @@
       },
       "Local/walkthrough": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Outside this repository",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "Historical installed-skill snapshot with no package in this repository. This is not a request to recreate it; installed copies were not rechecked."
       },
       "Local/worktrunk": {
         "status": "ready",
@@ -10761,7 +10853,7 @@
             "owner": "pr",
             "path": "pr/SKILL.md",
             "line": 1,
-            "sha256": "41a211d27c5d394d9a5fe5c5c1e6cd69ad2ab662660d83affd2acc9f35032677"
+            "sha256": "082a524447d992d9272083dafd4a17f6ee1785f5f4c8d1ad0d787925d33e6242"
           }
         ]
       },
@@ -10848,7 +10940,7 @@
             "owner": "stacked-pr",
             "path": "stacked-pr/SKILL.md",
             "line": 1,
-            "sha256": "97ee8e7f07423d8a861c7299451a45d5c32a754a9d43a2931b7aa7916989a78e"
+            "sha256": "c3cdf91d8e08abf60a1e324a322b324cece0e36b90ec57f2f2c030fbe2f5f643"
           }
         ]
       },
@@ -10902,31 +10994,31 @@
       },
       "Local/draft-review": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Outside this repository",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "Historical installed-skill snapshot with no package in this repository. This is not a request to recreate it; installed copies were not rechecked."
       },
       "Local/visual-change-explainer": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Outside this repository",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "Historical installed-skill snapshot with no package in this repository. This is not a request to recreate it; installed copies were not rechecked."
       },
       "Local/home-assistant": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Outside this repository",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "Historical installed-skill snapshot with no package in this repository. This is not a request to recreate it; installed copies were not rechecked."
       },
       "Local/bird": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Outside this repository",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "Historical installed-skill snapshot with no package in this repository. This is not a request to recreate it; installed copies were not rechecked."
       },
       "Local/skill-creator": {
         "status": "ready",
@@ -10950,10 +11042,11 @@
       },
       "HumanLayer/narrow-react-prop-types": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "Reviewed for TypeScript and not selected for that package. A React-specific incorporation is not recorded; typescript-best-practices and design-code-structure are already available.",
+        "decisionRecord": "typescript-best-practices-research.json"
       },
       "Matthew Blode/agent-ready": {
         "status": "optional",
@@ -11284,12 +11377,18 @@
           {
             "owner": "comment-style",
             "path": "comment-style/origin.txt",
-            "line": 19,
+            "line": 20,
             "sha256": "c3a2be30a357a2e8c5654e0969a31b05ec59f8ed240332cccaa5421ecf2efd17",
             "sourceId": "mblode-ghostwriter",
             "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
             "borrowed": [
-              "Finished text, channel and register adaptation, and fidelity without profile storage."
+              "Return finished text without editing commentary; adapt the message to its conversation and recipient.",
+              "Shorten without dropping distinct facts, uncertainty, necessary grammar or the user's voice."
+            ],
+            "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "localChoices": [
+              "No persistent voice profiles, sample requests, automatic preference storage, private brief ritual, or broad long-form writing ownership.",
+              "Do not import hypothetical deadlines, approval by silence, blanket emotional-message exclusions, or automatic multi-message bursts."
             ]
           }
         ]
@@ -11306,14 +11405,15 @@
         "label": "Selected parts incorporated",
         "owners": [
           "wayfinder",
-          "planning"
+          "planning",
+          "task-breakdown"
         ],
         "evidence": [
           {
             "owner": "wayfinder",
             "path": "wayfinder/origin.txt",
             "line": 37,
-            "sha256": "c967774c9d0d894a5083ee3404e5a5746ab4c526629b21158485d6d997b932f1",
+            "sha256": "e0e7a45773bdcab03cca70ec7deb8874a0f51a896fca418d7463ae2284c8931a",
             "sourceId": "blode-decision-briefs",
             "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
             "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
@@ -11332,7 +11432,7 @@
             "owner": "planning",
             "path": "planning/origin.txt",
             "line": 7,
-            "sha256": "4085a0aaeb2988d376950559b844e352148d9070204fc89ec8d8c0de0f0b9a1f",
+            "sha256": "58d99039850006c28b04859a0fbae2287c59e920b3e329def0e692dd73955039",
             "sourceId": "blode-planning",
             "baselineCommit": "cef4cfa837ca41b50d19f54551a3939ed7460434",
             "reviewedThrough": "cef4cfa837ca41b50d19f54551a3939ed7460434",
@@ -11347,6 +11447,23 @@
               "Use Wayfinder for connected direction decisions, and keep planning focused on executable work.",
               "Honor existing output and approval conventions without fixed question counts, score targets, or a mandatory notes file.",
               "Keep verification plans distinct from observed evidence and avoid treating proxies such as file counts as quality proof."
+            ]
+          },
+          {
+            "owner": "task-breakdown",
+            "path": "task-breakdown/origin.txt",
+            "line": 7,
+            "sha256": "088a671b992cf531ff32127504d8f477df76ac3e1f243fb5c076ca049e9108e9",
+            "sourceId": "blode-planning",
+            "baselineCommit": "cef4cfa837ca41b50d19f54551a3939ed7460434",
+            "reviewedThrough": "cef4cfa837ca41b50d19f54551a3939ed7460434",
+            "borrowed": [
+              "Ground work units in repository evidence and preserve context for a fresh executor.",
+              "Carry observable acceptance checks and genuine dependencies into delivery units."
+            ],
+            "localChoices": [
+              "Extract delivery decomposition into a separately invocable skill; direction and overall planning remain with their owners.",
+              "Treat the user's illustrative line count as guidance, not a default ceiling. Preserve small, testable review units and enforce explicitly established caps with estimation headroom and actual publication checks."
             ]
           }
         ],
@@ -11364,7 +11481,7 @@
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
             "line": 69,
-            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
+            "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "mblode-followup",
             "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
             "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
@@ -11389,7 +11506,7 @@
             "owner": "pr",
             "path": "pr/origin.txt",
             "line": 71,
-            "sha256": "a1467ef6f51b587b41bf21533ce879f7e1e0b0a04300e68a70a855681608b01e",
+            "sha256": "1fbdcc5fa64bc03edf1dcd176e0ca1cd4b77c7e845e3f59b0d485269bf9027e4",
             "sourceId": "mblode-pr",
             "baselineCommit": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
             "reviewedThrough": "51e9ae4fd21ff9b0cfe269c874b40342e8538a47",
@@ -11464,10 +11581,10 @@
       },
       "Matthew Blode/test-audit": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Matthew Blode/tidy": {
         "status": "not-selected",
@@ -11492,10 +11609,10 @@
       },
       "Matthew Blode/ui-design": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Matthew Blode/ui-verification": {
         "status": "ready",
@@ -11547,10 +11664,10 @@
       },
       "Addy Osmani/api-and-interface-design": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Addy Osmani/ci-cd-and-automation": {
         "status": "ready",
@@ -11611,10 +11728,10 @@
       },
       "Addy Osmani/constraint-driven-development": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Addy Osmani/debugging-and-error-recovery": {
         "status": "ready",
@@ -11768,10 +11885,10 @@
       },
       "Addy Osmani/incremental-implementation": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Addy Osmani/interview-me": {
         "status": "not-selected",
@@ -11795,23 +11912,39 @@
             "sha256": "c8e2e96f4af7ee53343534f8374fa035ecc4834aacbd7f1234f9616af2a95a77",
             "sourceId": "addy-observability",
             "baselineCommit": "1401c8b8030e023baeebb31781a6653fe8e93026",
-            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026"
+            "reviewedThrough": "1401c8b8030e023baeebb31781a6653fe8e93026",
+            "borrowed": [
+              "Start from operational questions and match logs, metrics and traces to their purpose.",
+              "Propagate correlation and entry-point identity; keep metric dimensions bounded and inspect actual emitted data.",
+              "Use actionable alerts and verify instrumentation at the destination with controlled failures."
+            ],
+            "localChoices": [
+              "Assess architecture and workflows to prioritize concrete instrumentation additions; no existing incident is required. Incident investigation remains with debug.",
+              "Reuse suitable project tooling; when absent or insufficient, establish the necessary collection and inspection path. No mandatory OpenTelemetry, dashboard, alert or instrumentation of every endpoint.",
+              "Include useful instrumentation in authorized feature work, with unrelated project-wide expansion reported separately. Assessment-only requests remain recommendations.",
+              "Resolve routine setup locally, while material vendor, cost or external-service decisions follow the user's constraints and task authority.",
+              "Preserve useful project severity and threshold conventions, resource alerts with a concrete action, and legitimate aggregate statistics; no fixed quotas or blanket prohibitions.",
+              "Apply privacy to raw errors and all signal sinks, define sampling limits, and distinguish missing data from verified health.",
+              "Use isolated notification sinks unless the active task authorizes real delivery; no automatic deployment, paging or monitoring.",
+              "Keep diagnostic context trustworthy and telemetry overhead or failures from silently changing business behavior."
+            ]
           }
         ]
       },
       "Addy Osmani/planning-and-task-breakdown": {
-        "status": "pending",
-        "label": "Pending",
+        "status": "not-selected",
+        "label": "Reviewed; not selected",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "Reviewed for planning and not selected: requirements, dependencies and verification overlap the chosen donors. Planning and task-breakdown already cover the local capability.",
+        "decisionRecord": "planning-source-review.json"
       },
       "Addy Osmani/security-and-hardening": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Addy Osmani/shipping-and-launch": {
         "status": "optional",
@@ -11822,17 +11955,17 @@
       },
       "Addy Osmani/source-driven-development": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Addy Osmani/spec-driven-development": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Addy Osmani/test-driven-development": {
         "status": "not-selected",
@@ -11860,7 +11993,7 @@
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
             "line": 54,
-            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
+            "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "compound-followup",
             "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
             "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
@@ -11868,7 +12001,7 @@
               "Keep feedback and CI progressing independently, track per-item outcomes, reobserve after publication and distinguish settled checks from merge authorization."
             ],
             "localChoices": [
-              "No watch engine, fixed hours-long loop, auto-merge, stale-head success, automatic posting or assumption that most feedback must be applied. Uncertainty needs investigation or a scoped decision."
+              "The user requires host-managed babysitting until merge or current formal approval, with no default time cutoff. No agent polling loop, auto-merge, stale-head success, automatic posting or assumption that most feedback must be applied. Uncertainty needs investigation or a scoped decision."
             ]
           }
         ]
@@ -11891,7 +12024,7 @@
             "owner": "wayfinder",
             "path": "wayfinder/origin.txt",
             "line": 22,
-            "sha256": "c967774c9d0d894a5083ee3404e5a5746ab4c526629b21158485d6d997b932f1",
+            "sha256": "e0e7a45773bdcab03cca70ec7deb8874a0f51a896fca418d7463ae2284c8931a",
             "sourceId": "compound-wayfinder",
             "baselineCommit": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
             "reviewedThrough": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
@@ -11904,7 +12037,7 @@
             "localChoices": [
               "Use one portable decision map rather than CE configuration, artifact contracts, model tiers, or a prescribed folder.",
               "Honor settled choices and existing delegated authority without mandatory challenge, confirmation, or teaching-offer gates.",
-              "Keep product, architecture, and migration decisions in scope; leave execution decomposition to planning.",
+              "Keep product, architecture, and migration decisions in scope; leave the implementation approach to planning and delivery decomposition to task-breakdown.",
               "Use decision-relevant evidence rather than fixed research floors or forced numbers of options, sources, or questions."
             ]
           }
@@ -11977,7 +12110,7 @@
             "owner": "pr",
             "path": "pr/origin.txt",
             "line": 56,
-            "sha256": "a1467ef6f51b587b41bf21533ce879f7e1e0b0a04300e68a70a855681608b01e",
+            "sha256": "1fbdcc5fa64bc03edf1dcd176e0ca1cd4b77c7e845e3f59b0d485269bf9027e4",
             "sourceId": "compound-pr",
             "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
             "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
@@ -11985,7 +12118,7 @@
               "Explain the outcome from the whole change, treat lookup failures as unknown, and verify exact existing PR identity before creating."
             ],
             "localChoices": [
-              "Separate commit, publication and follow-up owners; existing authorization avoids repeated approval. No branded footer, teaching archive, mandatory new branch or automatic babysitting."
+              "Separate commit, publication and follow-up owners; existing authorization avoids repeated approval. PR creation continues into event-driven pr-followup Drive under the user's 2026-10-05 policy. No branded footer, teaching archive or mandatory new branch."
             ]
           }
         ]
@@ -12038,10 +12171,11 @@
       },
       "Compound Engineering/ce-doc-review": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "Reviewed during the communication comparison and kept separate from prose editing. A planning-specific incorporation is not recorded; planning already exists.",
+        "decisionRecord": "communication-source-review.json"
       },
       "Compound Engineering/ce-dogfood": {
         "status": "ready",
@@ -12170,11 +12304,12 @@
         ]
       },
       "Compound Engineering/ce-plan": {
-        "status": "pending",
-        "label": "Pending",
+        "status": "not-selected",
+        "label": "Reviewed; not selected",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "Reviewed for planning and not selected: CE output contracts, model elevation and mandatory handoff machinery exceed the chosen package. The local planning skill is available.",
+        "decisionRecord": "planning-source-review.json"
       },
       "Compound Engineering/ce-polish": {
         "status": "optional",
@@ -12194,7 +12329,7 @@
             "owner": "wayfinder",
             "path": "wayfinder/origin.txt",
             "line": 22,
-            "sha256": "c967774c9d0d894a5083ee3404e5a5746ab4c526629b21158485d6d997b932f1",
+            "sha256": "e0e7a45773bdcab03cca70ec7deb8874a0f51a896fca418d7463ae2284c8931a",
             "sourceId": "compound-wayfinder",
             "baselineCommit": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
             "reviewedThrough": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
@@ -12207,7 +12342,7 @@
             "localChoices": [
               "Use one portable decision map rather than CE configuration, artifact contracts, model tiers, or a prescribed folder.",
               "Honor settled choices and existing delegated authority without mandatory challenge, confirmation, or teaching-offer gates.",
-              "Keep product, architecture, and migration decisions in scope; leave execution decomposition to planning.",
+              "Keep product, architecture, and migration decisions in scope; leave the implementation approach to planning and delivery decomposition to task-breakdown.",
               "Use decision-relevant evidence rather than fixed research floors or forced numbers of options, sources, or questions."
             ]
           }
@@ -12254,7 +12389,7 @@
             "owner": "pr-followup",
             "path": "pr-followup/origin.txt",
             "line": 54,
-            "sha256": "fffce0145a212c618b8b70238f56ee5e9c671087f7eec2932fe140d06c71a16a",
+            "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "compound-followup",
             "baselineCommit": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
             "reviewedThrough": "9af474a70e7f2a844338519ad9e92aafbd92d4fb",
@@ -12262,7 +12397,7 @@
               "Keep feedback and CI progressing independently, track per-item outcomes, reobserve after publication and distinguish settled checks from merge authorization."
             ],
             "localChoices": [
-              "No watch engine, fixed hours-long loop, auto-merge, stale-head success, automatic posting or assumption that most feedback must be applied. Uncertainty needs investigation or a scoped decision."
+              "The user requires host-managed babysitting until merge or current formal approval, with no default time cutoff. No agent polling loop, auto-merge, stale-head success, automatic posting or assumption that most feedback must be applied. Uncertainty needs investigation or a scoped decision."
             ]
           }
         ]
@@ -12334,10 +12469,10 @@
       },
       "Compound Engineering/ce-test-browser": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Compound Engineering/ce-test-xcode": {
         "status": "optional",
@@ -12348,10 +12483,10 @@
       },
       "Compound Engineering/ce-work": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Compound Engineering/ce-worktree": {
         "status": "not-selected",
@@ -12362,10 +12497,10 @@
       },
       "Compound Engineering/lfg": {
         "status": "pending",
-        "label": "Pending",
+        "label": "Not incorporated",
         "owners": [],
         "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
       },
       "Compound Engineering/wtf": {
         "status": "not-selected",
@@ -13269,7 +13404,8 @@
         "status": "ready",
         "label": "Incorporated",
         "owners": [
-          "workflow-to-skill"
+          "workflow-to-skill",
+          "retro"
         ],
         "note": "Selected criteria are adapted into the local owner with explicit deviations and bounded execution evidence. The full donor skill is not installed or copied.",
         "evidence": [
@@ -13292,6 +13428,24 @@
               "Add a valid nearby acceptance control to the failing-case proof; label reconstructed cases and execute both before claiming enforcement. This paired-case requirement is a local strengthening beyond the donor.",
               "No fixed two-occurrence threshold, automatic global audit, mandatory AGENTS rule table, exception-expiry policy, docs-last ordering, repository edits during extraction, or new approval gate.",
               "Missing meaningful cases or expected outcomes remain unresolved rather than invented. Adoption evidence: reports/skill-atlas/workflow-upstream-adoption-validation.json"
+            ]
+          },
+          {
+            "owner": "retro",
+            "path": "retro/origin.txt",
+            "line": 22,
+            "sha256": "65a7310c69af8a623a15bacb739842cff52f7e4ab18c9c1ab3ed5c26b7916145",
+            "sourceId": "pstack-correct",
+            "baselineCommit": "df581122cde17e6e27686b5a448bde23e4ad4318",
+            "reviewedThrough": "df581122cde17e6e27686b5a448bde23e4ad4318",
+            "borrowed": [
+              "Prefer eliminating an invalid path structurally, then use types and executable checks before prose-only enforcement.",
+              "Ground proposed prevention in a real mistake and identify how the check would reject it."
+            ],
+            "localChoices": [
+              "Propose and route changes within the user's scope rather than automatically repairing every class or creating commits during diagnosis.",
+              "No fixed recurrence threshold, universal single implementation policy, mandatory rule table or required exception expiry.",
+              "Preserve legitimate exceptions and inspect actual enforcement coverage; pair a failing example with a valid nearby example through local verification owners."
             ]
           }
         ]
@@ -13429,7 +13583,18 @@
             "sha256": "c8e2e96f4af7ee53343534f8374fa035ecc4834aacbd7f1234f9616af2a95a77",
             "sourceId": "gsd-observability",
             "baselineCommit": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
-            "reviewedThrough": "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+            "reviewedThrough": "33c00aaffa56e5d394bccce1c8df59fb842e84c5",
+            "borrowed": [
+              "Record the decision and its reason rather than undifferentiated activity.",
+              "Keep failure evidence accessible after process loss and expose meaningful status for unattended work.",
+              "Remove temporary diagnostic noise and simulate a plausible failure to verify the signals."
+            ],
+            "localChoices": [
+              "Reuse existing durable telemetry rather than requiring a new file for every failure; no GSD runtime or repository-path dependency.",
+              "Define concurrency, freshness and recovery for persisted state; distinguish liveness, readiness and progress.",
+              "Preserve the caller's error contract: observability does not authorize replacing a return value with an exception.",
+              "Keep failure records and status surfaces minimal and subject to access, privacy and retention constraints."
+            ]
           }
         ]
       },
@@ -13444,12 +13609,20 @@
           {
             "owner": "comment-style",
             "path": "comment-style/origin.txt",
-            "line": 6,
+            "line": 7,
             "sha256": "c3a2be30a357a2e8c5654e0969a31b05ec59f8ed240332cccaa5421ecf2efd17",
             "sourceId": "private-comment-style",
             "baselineCommit": "0b1bd82c0229daf5a4c62f77f9bab45852666935",
             "borrowed": [
-              "Point-first pings, necessary identifiers, caller preferences and short review comments."
+              "A plain, short ping with the point first, one useful thought and only necessary identifiers.",
+              "Optional review prefixes, genuine questions, exact claims, and the user's casual English default."
+            ],
+            "localChoices": [
+              "Extend the explicit scope to PR replies and WhatsApp without requiring a repository for personal messages.",
+              "Preserve essential facts and conditions instead of enforcing an absolute sentence or identifier ceiling.",
+              "Keep posting placement and per-site review markers with the private review workflow.",
+              "Keep source-specific examples and private context out of the shared package.",
+              "Replace the source validator, which requires a sibling repository script and exact headings, with host format validation and actual drafting trials during authoring."
             ]
           }
         ]
@@ -13458,19 +13631,44 @@
         "status": "ready",
         "label": "Incorporated",
         "owners": [
-          "comment-style"
+          "comment-style",
+          "review-code-changes"
         ],
         "note": "Selected wording guidance is present in comment-style. This does not establish automatic host selection or live message delivery. See comment-style-validation.json.",
         "evidence": [
           {
             "owner": "comment-style",
             "path": "comment-style/origin.txt",
-            "line": 34,
+            "line": 35,
             "sha256": "c3a2be30a357a2e8c5654e0969a31b05ec59f8ed240332cccaa5421ecf2efd17",
             "sourceId": "superpowers-review-reception",
             "baselineCommit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
             "borrowed": [
-              "Supported acknowledgments, concise disagreement, factual correction and existing-thread replies."
+              "Answer review feedback with a supported change, answer or reason for disagreement instead of performative agreement.",
+              "Correct an earlier mistaken response briefly and keep an inline reply in its existing thread."
+            ],
+            "reviewedThrough": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+            "localChoices": [
+              "No new implementation authority, source-based trust hierarchy, blanket ban on intentional gratitude, or stop-all-work rule for one unclear item.",
+              "The caller owns code repair, external posting and thread resolution; this skill supplies wording."
+            ]
+          },
+          {
+            "owner": "review-code-changes",
+            "path": "review-code-changes/origin.txt",
+            "line": 24,
+            "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
+            "sourceId": "superpowers-review",
+            "baselineCommit": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+            "reviewedThrough": "8ca22dba9a94f28898bbce59f2537ff4d87c747d",
+            "borrowed": [
+              "Supply a bounded review scope, requirements, and output contract without the implementer's full reasoning history.",
+              "Verify external feedback against current code and supported contracts before accepting it."
+            ],
+            "localChoices": [
+              "The review phase stays read-only; compare-solutions owns complete independent audits while review-code-changes may coordinate complementary facets.",
+              "Feedback reception contributes evaluation criteria, not repair, reply, thread-resolution, or global pause authority.",
+              "Specification gaps remain unknown unless established behavior or an explicit requirement supports the claim."
             ]
           }
         ]
@@ -13599,10 +13797,18 @@
             "owner": "issue-workflow",
             "path": "issue-workflow/origin.txt",
             "line": 7,
-            "sha256": "57e4b5ab93fd8363f1f60150338268f0524fcb5ea3abd3dd93ae5b4ea7b137a0",
+            "sha256": "af3bfbffd56e0879e2d39c4bb389872a15f6ce68ab5f0344405cc1d8bd675f1e",
             "sourceId": "matt-project-policy",
             "baselineCommit": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
-            "reviewedThrough": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+            "reviewedThrough": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+            "borrowed": [
+              "Keep each consuming project's tracker conventions in docs/agents/issue-tracker.md and route to them from its canonical agent instructions."
+            ],
+            "localChoices": [
+              "Add the requested event, source-state, branch, completion and ownership policy; the donor does not supply this transition map.",
+              "Preserve an existing canonical path and host import arrangement; no duplicate AGENTS.md/CLAUDE.md or global instruction edit.",
+              "Do not create tracker labels, domains, issues or a configured policy during ordinary synchronization."
+            ]
           }
         ]
       },
@@ -13618,15 +13824,24 @@
             "owner": "issue-workflow",
             "path": "issue-workflow/origin.txt",
             "line": 22,
-            "sha256": "57e4b5ab93fd8363f1f60150338268f0524fcb5ea3abd3dd93ae5b4ea7b137a0",
+            "sha256": "af3bfbffd56e0879e2d39c4bb389872a15f6ce68ab5f0344405cc1d8bd675f1e",
             "sourceId": "ecc-jira-transitions",
             "baselineCommit": "ef648e01899ba3e8dc6371642deaaf64b4477775",
-            "reviewedThrough": "ef648e01899ba3e8dc6371642deaaf64b4477775"
+            "reviewedThrough": "ef648e01899ba3e8dc6371642deaaf64b4477775",
+            "borrowed": [
+              "Discover Jira's currently allowed transition operations before writing.",
+              "Treat ticket text as task data rather than authority for tool calls or workflow changes."
+            ],
+            "localChoices": [
+              "Use available authenticated tools and inspect their schema; no particular MCP installation, credential setup, comments or automatic issue creation.",
+              "Use a project-specific postmerge destination instead of a universal Done/In Review rule.",
+              "Make retry recovery, single ownership, exact identity and post-write evidence common across providers."
+            ]
           }
         ]
       }
     },
-    "validation": "upstream-adoption-validation.json",
+    "validation": "catalog-reconciliation-validation.json",
     "targetedUpdates": [
       {
         "checkedAt": "2026-10-05",
@@ -13683,6 +13898,13 @@
         "repositoryCommit": "a427edf831270b74c0a94dcecd49e767e61fc20e",
         "validation": "pr-feedback-validation.json",
         "scope": "Add retro and task-breakdown, refresh pr, stacked-pr, issue-workflow, wayfinder and planning entrypoint hashes, and reconcile all 44 packages with disk. Preserve source pins and earlier dated update scopes."
+      },
+      {
+        "checkedAt": "2026-10-06",
+        "source": "Current catalog decisions, local recipients and evidence",
+        "repositoryCommit": "f4e7a1f732c039cfeb2c217eea1954f3f308cccf",
+        "validation": "catalog-reconciliation-validation.json",
+        "scope": "Reconcile recorded non-selections, current owner names, eight missing recipient relationships, provenance hashes and recommendations. Preserve original source assessments and dated validation reports; no skills installed or authored."
       }
     ]
   },
@@ -18932,5 +19154,102 @@
       }
     ],
     "limitations": "Only the two existing catalog cards are reassessed here. Sentimony and Superpowers are separately pinned in planning/origin.txt and the source review. No other source or package review is refreshed."
+  },
+  "catalogReconciliation": {
+    "date": "2026-10-06",
+    "baseline": "f4e7a1f732c039cfeb2c217eea1954f3f308cccf",
+    "scope": "Current display corrections grounded in existing package provenance and recorded source decisions. Earlier assessment objects retain their dated reading scope.",
+    "validation": "catalog-reconciliation-validation.json",
+    "assessments": [
+      {
+        "key": "Addy Osmani/planning-and-task-breakdown",
+        "owner": "planning; task-breakdown",
+        "decision": "Skip",
+        "action": "Use existing local skills",
+        "priority": "Decision complete",
+        "reason": "Reviewed for planning and not selected: requirements, dependencies and verification overlap the chosen donors. Planning and task-breakdown already cover the local capability.",
+        "source": "https://github.com/addyosmani/agent-skills/blob/1401c8b8030e023baeebb31781a6653fe8e93026/skills/planning-and-task-breakdown/SKILL.md",
+        "sha": "1401c8b8030e023baeebb31781a6653fe8e93026",
+        "sha256": "ed0f90cc5951ddd4bcab7f871f64efec93a49af9279ef93bc470da77ad8da3f7",
+        "lines": 257,
+        "inspection": "Complete entrypoint reading and non-selection recorded in planning-source-review.json; no donor procedure incorporated."
+      },
+      {
+        "key": "Compound Engineering/ce-plan",
+        "owner": "planning; task-breakdown",
+        "decision": "Skip",
+        "action": "Use existing local skills",
+        "priority": "Decision complete",
+        "reason": "Reviewed for planning and not selected: CE output contracts, model elevation and mandatory handoff machinery exceed the chosen package. The local planning skill is available.",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/457f946dcdaf5a8ef7938167fab285623bcd4119/skills/ce-plan/SKILL.md",
+        "sha": "457f946dcdaf5a8ef7938167fab285623bcd4119",
+        "sha256": "6c5842bfc91a9aad65fcdf83669f86ef499a9b40dc99f9340c5981d2bc6f1720",
+        "lines": 60,
+        "inspection": "Complete entrypoint reading and non-selection recorded in planning-source-review.json; no donor procedure incorporated."
+      },
+      {
+        "key": "HumanLayer/narrow-react-prop-types",
+        "owner": "typescript-best-practices; design-code-structure",
+        "priority": "Conditional",
+        "action": "Assess only for a React contract gap",
+        "reason": "The TypeScript review did not select this narrowing workflow. Existing type and design skills own the general contract; any React-specific adoption needs a demonstrated gap."
+      },
+      {
+        "key": "Matthew Blode/typography-audit",
+        "owner": "accessibility; optional visual review"
+      },
+      {
+        "key": "Matthew Blode/ui-design",
+        "owner": "accessibility; proposed frontend-design specialist"
+      },
+      {
+        "key": "Addy Osmani/idea-refine",
+        "owner": "wayfinder; optional ideation"
+      },
+      {
+        "key": "Addy Osmani/interview-me",
+        "owner": "wayfinder; planning; explicit interviews only"
+      },
+      {
+        "key": "Addy Osmani/spec-driven-development",
+        "owner": "planning; task-breakdown"
+      },
+      {
+        "key": "Compound Engineering/ce-doc-review",
+        "owner": "planning; compare-solutions when justified"
+      },
+      {
+        "key": "Compound Engineering/ce-noslop",
+        "owner": "communicate-clearly"
+      },
+      {
+        "key": "Compound Engineering/wtf",
+        "owner": "communicate-clearly; explain-code; teach",
+        "reason": "The capability is covered by the current prose, explanation and teaching skills. A separate global command adds no demonstrated missing behavior."
+      },
+      {
+        "key": "Compound Engineering/ce-work",
+        "action": "Assess for the proposed coordinator"
+      },
+      {
+        "key": "Compound Engineering/lfg",
+        "action": "Assess for the proposed coordinator"
+      },
+      {
+        "key": "Addy Osmani/incremental-implementation",
+        "action": "Assess for the proposed coordinator"
+      },
+      {
+        "key": "Matthew Blode/planning",
+        "owner": "wayfinder; planning; task-breakdown",
+        "summary": "Selected decision guidance supports wayfinder; implementation planning belongs to planning, and PR-sized delivery decomposition belongs to task-breakdown.",
+        "reason": "The repository now keeps direction, executable planning and detailed task decomposition in separate available packages. Each retains its own source evidence."
+      },
+      {
+        "key": "Matt Pocock/to-tickets",
+        "owner": "planning; task-breakdown",
+        "reason": "Task-breakdown now owns detailed delivery-unit sizing, dependencies and migration stages. Planning hands over the approach and acceptance criteria; issue-workflow owns authorized ticket publication."
+      }
+    ]
   }
 }
