@@ -54,9 +54,11 @@ scope and relationships after writing; a returned ID alone does not prove them.
 
 ## Reconcile partial outcomes
 
-Retain a compact unit-ID to ticket-ID/URL map in the authoritative task record.
-Record confirmed items before proceeding so a resumed run can reuse them. Keep
-one source of progress; publication is not permission to maintain competing boards.
+Retain a compact unit-ID to ticket-ID/URL map. Update the authoritative task record
+when it is within the authorized write scope; otherwise return the map without
+changing that record. Capture confirmed items before proceeding so a resumed run
+can reuse them. Keep one source of progress; publication is not permission to
+maintain competing boards.
 
 After a timeout or uncertain write, inspect the target service before retrying.
 Use supported idempotency keys where available. If the item or link exists, verify

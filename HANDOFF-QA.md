@@ -172,14 +172,16 @@ them available; installation mechanics remain owned by dotfiles.
 
 ## Acceptance cases for the future skill
 
-- A ticket with clear criteria and no tests yields grounded cases and a runnable
-  test in the selected framework, or the exact execution prerequisite blocking it.
+- A ticket with clear criteria and no tests yields grounded cases. When writing
+  and running tests is authorized, also produce a test in the selected framework
+  and run it, or state the exact execution prerequisite blocking the run.
 - Existing tests already cover the contract: extend only a missing case and
   avoid adding duplicate tests merely to produce new files.
 - A feature with no ticket: distinguish established behavior from an unresolved
   product decision; finish independent cases while the material question is open.
-- An e2e project: load the unchanged installed skill, write and execute a relevant
-  test, and inspect current reports rather than accepting an agent's assurance.
+- For an authorized request to write and run tests in an e2e project: load the
+  unchanged installed skill, write and execute a relevant test, and inspect
+  current reports rather than accepting an agent's assurance.
 - A plain Playwright project: preserve its fixtures, runner and conventions;
   do not require e2e or the future Playwright MCP to author and run existing tests.
 - A requirement present in the ticket/plan but absent from the diff remains in
