@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import json
+import re
 import subprocess
 import sys
 from dataclasses import dataclass
@@ -21,6 +22,8 @@ class WorkerSpec:
     stdin_path: Path | None = None
     guard: tuple[str, ...] = ()
     protection: str = "none"
+    preflight_error: str | None = None
+    limitations: tuple[str, ...] = ()
 
 
 def build_specs(snapshot: Path, manifest: dict, scratch: Path, pr_json: Path,
@@ -30,6 +33,10 @@ def build_specs(snapshot: Path, manifest: dict, scratch: Path, pr_json: Path,
     specs = []
     private_paths = (snapshot, *(Path(path) for path in manifest.get("private_paths", [])))
     for name in ("claude", "codex", "coderabbit"):
+        if name not in settings.get("workers", ("claude", "codex", "coderabbit", "feedback")):
+            continue
+        preflight_error = None
+        limitations = ()
         output = scratch / name
         output.mkdir(exist_ok=True)
         report = output / ("review.jsonl" if name == "coderabbit" else "review.md")
@@ -60,7 +67,23 @@ def build_specs(snapshot: Path, manifest: dict, scratch: Path, pr_json: Path,
             if settings["codex_effort"]:
                 command += ["-c", "model_reasoning_effort=" + json.dumps(settings["codex_effort"])]
         else:
-            command = ["coderabbit", "review", "--agent", "--fresh", "--committed",
+            try:
+                help_result = subprocess.run(
+                    ["coderabbit", "review", "--help"], stdin=subprocess.DEVNULL,
+                    capture_output=True, text=True, timeout=10)
+                if help_result.returncode:
+                    raise ValueError("CodeRabbit review --help failed")
+                flags = set(re.findall(r"^\s*(?:-\w,\s+)?(--[a-z][a-z-]*)\b", help_result.stdout, re.M))
+                required = {"--agent", "--committed", "--base", "--base-commit", "--config"}
+                if not required <= flags:
+                    raise ValueError("CodeRabbit lacks required options: " + ", ".join(sorted(required - flags)))
+                fresh = ["--fresh"] if "--fresh" in flags else []
+                if not fresh:
+                    limitations = ("CodeRabbit does not support --fresh; checkpoint reuse is not excluded by the invocation",)
+            except (OSError, ValueError, subprocess.TimeoutExpired) as error:
+                fresh = []
+                preflight_error = str(error)
+            command = ["coderabbit", "review", "--agent", *fresh, "--committed",
                        "--base", manifest["target"]["base_name"],
                        "--base-commit", manifest["merge_base"], "--config", str(packet)]
         wrapper = [] if name == "codex" else guarded(
@@ -69,7 +92,9 @@ def build_specs(snapshot: Path, manifest: dict, scratch: Path, pr_json: Path,
                                output / "stdout.log" if name == "codex" else report,
                                output / "stderr.log", report,
                                packet if name in {"claude", "codex"} else None, tuple(wrapper),
-                               "codex-read-only" if name == "codex" else "os-read-only"))
+                               "codex-read-only" if name == "codex" else "os-read-only", preflight_error, limitations))
+    if "feedback" not in settings.get("workers", ("claude", "codex", "coderabbit", "feedback")):
+        return specs
     output = scratch / "existing-feedback"
     specs.append(WorkerSpec("feedback", "collector",
                  [sys.executable, str(runner), "_collect-feedback", "--pr-json", str(pr_json),
@@ -84,7 +109,15 @@ def validate_report(report: Path, snapshot: Path) -> tuple[bool, str]:
          "--changed-paths", str(snapshot.parent / "changed-paths.json")],
         stdin=subprocess.DEVNULL, capture_output=True, text=True, timeout=30,
     )
-    return result.returncode == 0, result.stdout.strip() or result.stderr.strip()
+    detail = "\n".join(part.strip() for part in (result.stdout, result.stderr) if part.strip())
+    if result.returncode:
+        return False, detail
+    manifest = json.loads(snapshot.read_text())
+    expected = f"Scope: `{manifest['merge_base']}..{manifest['target']['head']}`"
+    scope = next(line for line in report.read_text().splitlines() if line.startswith("Scope: `"))
+    if scope != expected:
+        return False, f"report Scope differs from the frozen comparison; expected {expected}"
+    return True, detail
 
 
 def validate_jsonl(report: Path, snapshot: Path) -> tuple[bool, str]:
@@ -107,6 +140,11 @@ def validate_jsonl(report: Path, snapshot: Path) -> tuple[bool, str]:
             return False, "CodeRabbit needs exactly one final completion event"
         findings = [e for e in events if e["type"] == "finding"]
         complete = completions[0]
+        unreviewed = complete.get("unreviewedFileCount", 0)
+        if type(unreviewed) is not int or unreviewed < 0:
+            return False, "malformed CodeRabbit unreviewedFileCount"
+        if complete.get("outcome") == "failed" or unreviewed:
+            return False, "CodeRabbit completion reports an incomplete review"
         if "no fresh detailed file review" in str(complete.get("message", "")).casefold():
             return False, "CodeRabbit reused a local checkpoint without a fresh review"
         if type(complete.get("findings")) is not int or complete["findings"] != len(findings):
@@ -124,6 +162,8 @@ def validate_jsonl(report: Path, snapshot: Path) -> tuple[bool, str]:
         reported = complete.get("reviewedFiles")
         if reported is not None and (not isinstance(reported, list) or any(not isinstance(p, str) for p in reported)):
             return False, "malformed CodeRabbit reviewedFiles"
+        if paths and reported == []:
+            return False, "CodeRabbit reported no reviewed files for a nonempty scope"
         return True, f"CodeRabbit complete: {len(findings)} findings; native reviewedFiles={reported!r}; no canonical per-path coverage claimed"
     except (OSError, ValueError, KeyError) as error:
         return False, str(error)
@@ -148,4 +188,6 @@ def validate_worker(spec: WorkerSpec, snapshot: Path) -> tuple[bool, str, str]:
             return False, "invalid feedback manifest", "invalid"
         except (OSError, ValueError) as error:
             return False, str(error), "invalid"
+    if spec.limitations:
+        detail += "; " + "; ".join(spec.limitations)
     return valid, detail, "valid" if valid else "invalid"

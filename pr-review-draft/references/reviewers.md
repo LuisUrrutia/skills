@@ -31,7 +31,15 @@ Runtime probes need a separate authorized parent investigation.
 Codex uses `exec` with that review packet: `exec review` applies its own finding
 formatter and did not preserve the canonical report in the real CLI trial.
 
-## Launch and observe
+## Select the host transport
+
+In T3 Code, use app-owned subagents as described in
+[t3-subagents.md](t3-subagents.md). A shell background process is not a T3
+subagent. Do not run the complete CLI roster as well as delegated reviewers.
+Outside T3, use the CLI supervisor below. An unavailable T3 delegation capability
+is a reported blocker, not permission to silently switch to invisible processes.
+
+## CLI launch and observe
 
 From the reviewed repository, start one host-managed background execution:
 
@@ -90,6 +98,24 @@ not wake an agent by itself. For status:
 python3 "$SKILL_DIR/scripts/reviewers.py" status --scratchpad "$SCRATCHPAD"
 ```
 
+## Report-format recovery
+
+For a failed canonical report, retain its raw bytes and the exact validator
+stdout/stderr. Identify the violated rule from the frozen `report.py`; a screenshot
+of "validation failed" does not identify the cause. Do not relax the validator,
+rewrite execution evidence, invent coverage or silently discard findings.
+For a recoverable formatting failure, give the same engine its own report, exact
+validator diagnostics and the frozen packet for one correction attempt. Preserve
+findings, evidence, uncertainty and unperformed checks; request only the required
+format corrections. The validator stops at the first error: recheck the entire
+supplied grammar, including single-line evidence locations and a single backtick
+span per Checks command. Validate the corrected artifact again and compare every
+finding with the archived report. Record changed or missing findings; do not
+accept silent finding loss or new unsupported claims as a successful repair. A second failure
+leaves the seat incomplete. This correction consumes the seat's second attempt,
+not an extra unbounded retry. The CLI supervisor supplies this correction prompt on a format-invalid retry;
+never edit `packet.md`.
+
 ## Outputs and meaning
 
 - `claude/review.md` and `codex/review.md`: canonical code change reports,
@@ -100,12 +126,21 @@ python3 "$SKILL_DIR/scripts/reviewers.py" status --scratchpad "$SCRATCHPAD"
   `reviewedFiles`. An empty comparison emitted `review_skipped` with zero findings;
   accept that only for an empty inventory. Empty output, errors, action_required,
   malformed events, missing completion or a count/snapshot mismatch fail the seat.
-  The initial 0.7.5 probe auto-updated to 0.8.2. Retain native update logs alongside
+  Also reject a failed `outcome`, positive `unreviewedFileCount`, or explicitly
+  empty `reviewedFiles` for a nonempty scope. A `review_completed` status alone
+  does not override those failure signals.
+  In a separate historical run, a 0.7.5 probe auto-updated to 0.8.2. Retain native update logs alongside
   the version captured at launch; that launch value alone may not identify the
   version that finished a self-updating CLI run.
-  Launches use `--fresh` so a local checkpoint cannot suppress the full independent
-  review. A completion explicitly saying no fresh detailed review occurred fails
-  validation; it is not a successful zero-finding audit. Do not add `--use-credits`
+  The adapter probes `coderabbit review --help` before launch and requires the
+  structured committed-review options. It passes `--fresh` only when advertised;
+  the locally observed 0.7.6 supports `--agent` but rejects `--fresh`. Without
+  that option, request the same committed comparison and inspect native completion
+  evidence. The worker records the missing freshness guarantee in its limitations
+  and validation detail; carry it into the parent's Review basis. A completion explicitly saying no fresh detailed review occurred fails
+  validation; it is not a successful zero-finding audit. Do not erase checkpoints
+  or infer freshness from a zero exit code. If native evidence cannot establish
+  a complete review, keep the seat incomplete and report the exact limitation. Do not add `--use-credits`
   by inference if the CLI asks for usage-credit consent.
 - `reviewers-state.json`, `reviewer-events/`, engine logs and `attempts/`: execution
   evidence owned by the supervisor. Do not rewrite these to repair a failed seat.
