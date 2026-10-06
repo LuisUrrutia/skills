@@ -8,6 +8,9 @@ const originalKeys = new Set(atlas.skills.map((skill) => skill.key));
 const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills, ...atlas.ciCdReview.skills, ...atlas.activityReview.skills, ...atlas.communicationReview.skills, ...atlas.upstreamAdoptionReview.skills, ...atlas.teachingReview.skills, ...atlas.observabilityReview.skills, ...atlas.commentStyleReview.skills, ...atlas.performanceReview.skills, ...atlas.deprecationReview.skills, ...atlas.issueWorkflowReview.skills];
 const byKey = new Map(catalogSkills.map((skill) => [skill.key, skill]));
 const byId = new Map(catalogSkills.map((skill) => [skill.id, skill]));
+for (const assessment of atlas.catalogReconciliation.assessments) {
+  sourceReviews.set(assessment.key, { ...(sourceReviews.get(assessment.key) || byKey.get(assessment.key)), ...assessment });
+}
 const recommendationFor = (skill) => sourceReviews.get(skill.key) || skill;
 const progressFor = (skill) => atlas.sourceProgress.skills[skill.key];
 const supplements = new Map(atlas.supplementary.map((source) => [source.id, source]));
@@ -107,7 +110,7 @@ const clusters = [
   },
   {
     "title": "Entrevistas, especificaciones y tareas",
-    "winner": "wayfinder for direction; planning for executable work",
+    "winner": "wayfinder for direction; planning for approach; task-breakdown for delivery units",
     "keys": [
       "Matt Pocock/grilling",
       "Matt Pocock/grill-me",
@@ -118,7 +121,7 @@ const clusters = [
       "Matt Pocock/to-questionnaire",
       "Matt Pocock/triage"
     ],
-    "text": "The local wayfinder resolves connected decisions and preserves their evidence across sessions. Planning turns a settled direction into executable work with dependencies and acceptance checks. Interviews, specifications and ticket decomposition remain distinct techniques.",
+    "text": "The local wayfinder resolves connected decisions and preserves their evidence across sessions. Planning defines the implementation approach and acceptance checks. Task-breakdown defines PR-sized delivery units and their dependencies. Interviews and specifications remain conditional techniques.",
     "why": "Use a decision map when ambiguity prevents useful planning. A settled direction can proceed directly to the already authorized planning workflow."
   },
   {
@@ -694,7 +697,15 @@ function progressMarkup(skill) {
   const progress = progressFor(skill);
   const owners = progress.owners.map((name) => `<a href="#repository-${escapeHtml(name)}"><code>${escapeHtml(name)}</code></a>`).join(", ");
   const evidence = progress.evidence.map((record) => `<li><code>${escapeHtml(record.path)}:${record.line}</code>${record.baselineCommit ? ` · adopted baseline <code>${escapeHtml(record.baselineCommit.slice(0, 12))}</code>` : ""}${record.borrowed?.length ? `<p>${escapeHtml(record.borrowed.join(" "))}</p>` : ""}</li>`).join("");
-  return `<div class="source-progress" lang="en"><p><strong>${progress.status === "ready" ? "✓ " : ""}${escapeHtml(progress.label)}</strong>${owners ? ` in ${owners}` : ""}. ${escapeHtml(progress.note)}</p>${evidence ? `<details class="evidence"><summary>Completion evidence (${progress.evidence.length})</summary><ul>${evidence}</ul></details>` : ""}</div>`;
+  return `<div class="source-progress" lang="en"><p><strong>${progress.status === "ready" ? "✓ " : ""}${escapeHtml(progress.label)}</strong>${owners ? ` in ${owners}` : ""}. ${escapeHtml(progress.note)}${progress.decisionRecord ? ` <a href="${escapeHtml(progress.decisionRecord)}">Recorded decision</a>.` : ""}</p>${evidence ? `<details class="evidence"><summary>Completion evidence (${progress.evidence.length})</summary><ul>${evidence}</ul></details>` : ""}</div>`;
+}
+
+function localCoverageMarkup(skill) {
+  if (progressFor(skill).status === "ready") return "";
+  const ownerNames = new Set(recommendationFor(skill).owner.split(/[^a-z0-9-]+/));
+  const available = repositoryInventory.skills.filter((item) => ownerNames.has(item.name));
+  const proposed = repositoryInventory.pending.filter((item) => ownerNames.has(item.name));
+  return `${available.length ? `<p lang="en"><strong>Related local skills (available):</strong> ${available.map((item) => `<a href="#repository-${escapeHtml(item.name)}"><code>${escapeHtml(item.name)}</code></a>`).join(", ")}. Source incorporation is a separate decision.</p>` : ""}${proposed.length ? `<p lang="en"><strong>Still to create:</strong> ${proposed.map((item) => `<a href="#${escapeHtml(item.section)}"><code>${escapeHtml(item.name)}</code></a>`).join(", ")}.</p>` : ""}`;
 }
 
 function reviewEvidenceMarkup(skill) {
@@ -714,7 +725,12 @@ document.querySelector("#author-collections").innerHTML = atlas.authorReview.col
 document.querySelector("#author-shortlist").innerHTML = atlas.authorReview.shortlist.map((item, index) => `<article class="surface"><p class="kicker">${index + 1}. ${escapeHtml(item.route)}</p><h3>${escapeHtml(item.title)}</h3><p>${escapeHtml(item.why)}</p><p><strong>Owner:</strong> ${escapeHtml(item.owner)}.</p><p class="skill-meta">${escapeHtml(item.boundary)}</p>${skillLinks(item.keys)}</article>`).join("");
 document.querySelector("#author-internal-references").innerHTML = atlas.authorReview.internalReferences.map((item) => `<article class="surface review-boundaries"><p class="kicker">Additional internal reference · ${escapeHtml(item.status)}</p><h3>${escapeHtml(item.collection)} / ${escapeHtml(item.name)}</h3><p>${escapeHtml(item.summary)}</p><p><strong>Proposed owner:</strong> <code>${escapeHtml(item.owner)}</code>. ${escapeHtml(item.reason)}</p><p>${escapeHtml(item.action)}. ${escapeHtml(item.caution)}</p><details class="evidence"><summary>Inspected internal procedure and supporting guidance</summary><ul>${item.files.map((file) => `<li><strong>${escapeHtml(file.path)}</strong><span>${escapeHtml(file.coverage)}</span><a href="${escapeHtml(file.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(file.url)}</a></li>`).join("")}</ul></details></article>`).join("");
 document.querySelector("#author-review-limits").innerHTML = `<p>${escapeHtml(atlas.authorReview.scope)}</p><ul>${atlas.authorReview.limitations.map((limit) => `<li>${escapeHtml(limit)}</li>`).join("")}</ul>`;
-document.querySelector("#source-progress-summary").innerHTML = `<strong>${atlas.sourceProgress.counts.ready} sources ready</strong> · ${atlas.sourceProgress.counts.pending} pending · ${atlas.sourceProgress.counts.optional} optional · ${atlas.sourceProgress.counts["not-selected"]} not selected. <a href="?progress=ready#catalog">Show ready sources</a>.`;
+const progressCounts = catalogSkills.reduce((counts, skill) => {
+  const status = progressFor(skill).status;
+  counts[status] = (counts[status] || 0) + 1;
+  return counts;
+}, {});
+document.querySelector("#source-progress-summary").innerHTML = `<strong>${progressCounts.ready} sources incorporated or available</strong> · ${progressCounts.pending} not incorporated · ${progressCounts.optional} optional · ${progressCounts["not-selected"]} not selected. <a href="?progress=ready#catalog">Show incorporated sources</a>.`;
 
 document.querySelectorAll("[data-repository-count]").forEach((element) => { element.textContent = repositoryInventory.skills.length; });
 document.querySelectorAll("[data-pending-count]").forEach((element) => { element.textContent = repositoryInventory.pending.length; });
@@ -736,8 +752,10 @@ document.querySelector("#skill-list").innerHTML = catalogSkills.map((skill) => {
   const review = recommendationFor(skill);
   const progress = progressFor(skill);
   const owner = progress.owners.length ? progress.owners.join(", ") : review.owner;
+  const replacement = skill.kind === "personal" && !repositorySkills.has(skill.name) ? repositoryInventory.replacements[skill.name] : null;
+  const title = replacement || skill.name;
   const historicalNote = sourceReviews.has(skill.key) ? "" : '<p class="skill-meta" lang="en">The rationale below is the original assessment. Current incorporation and its evidence are shown above.</p>';
-  return `<details class="skill-row" id="${skill.id}"><summary><span><span class="skill-title">${escapeHtml(skill.name)}</span><span class="skill-meta">${escapeHtml(skill.group === "Local" ? skill.kind === "system" ? "Included in Codex" : "Original local snapshot" : groupLabels[skill.group] || skill.group)} · ${escapeHtml(review.category)}${skill.entryType === "playbook" ? " · poteto-mode procedure" : ""}</span></span><span class="source-badges"><span class="badge progress-${progress.status}" lang="en">${progress.status === "ready" ? "✓ " : ""}${escapeHtml(progress.label)}</span><span class="badge ${slug(review.decision)}">${escapeHtml(review.action || decisionLabels[review.decision])}</span></span></summary><div class="skill-body">${progressMarkup(skill)}${repositoryReference(skill)}<p>${escapeHtml(review.summary)}</p><p class="skill-owner" lang="en">${progress.status === "ready" ? "Current recipient or source role" : "Proposed owner"}: <strong>${escapeHtml(owner)}</strong>${review.priority ? ` · ${escapeHtml(review.priority)}` : ""}</p>${historicalNote}<dl><div><dt lang="en">Why use it</dt><dd>${escapeHtml(review.reason)}</dd></div><div><dt lang="en">What to adapt or preserve</dt><dd>${escapeHtml(review.caution)}</dd></div></dl><p class="skill-meta">${escapeHtml(skill.author)}. <code>${escapeHtml(skill.declaredName)}</code> · ${review.lines} source lines.</p>${reviewEvidenceMarkup(skill)}</div></details>`;
+  return `<details class="skill-row" id="${skill.id}"><summary><span><span class="skill-title">${escapeHtml(title)}</span><span class="skill-meta">${escapeHtml(skill.group === "Local" ? skill.kind === "system" ? "Included in Codex" : "Original local snapshot" : groupLabels[skill.group] || skill.group)}${replacement ? ` · Original source: ${escapeHtml(skill.name)}` : ""} · ${escapeHtml(review.category)}${skill.entryType === "playbook" ? " · poteto-mode procedure" : ""}</span></span><span class="source-badges"><span class="badge progress-${progress.status}" lang="en">${progress.status === "ready" ? "✓ " : ""}${escapeHtml(progress.label)}</span><span class="badge ${slug(review.decision)}">${escapeHtml(review.action || decisionLabels[review.decision])}</span></span></summary><div class="skill-body">${progressMarkup(skill)}${repositoryReference(skill)}${localCoverageMarkup(skill)}<p>${escapeHtml(review.summary)}</p><p class="skill-owner" lang="en">${progress.status === "ready" ? "Current recipient or source role" : "Related skill or proposed owner"}: <strong>${escapeHtml(owner)}</strong>${review.priority ? ` · ${escapeHtml(review.priority)}` : ""}</p>${historicalNote}<dl><div><dt lang="en">Why use it</dt><dd>${escapeHtml(review.reason)}</dd></div><div><dt lang="en">What to adapt or preserve</dt><dd>${escapeHtml(review.caution)}</dd></div></dl><p class="skill-meta">${escapeHtml(skill.author)}. <code>${escapeHtml(skill.declaredName)}</code> · ${review.lines} source lines.</p>${reviewEvidenceMarkup(skill)}</div></details>`;
 }).join("");
 
 document.querySelector("#repository-sources").innerHTML = atlas.repositories.map((repository) => `<article class="repo-source"><strong>${escapeHtml(repository.repo)}</strong><span>${repository.count} entradas revisadas</span><a href="${escapeHtml(repository.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(repository.url)}</a></article>`).join("");
