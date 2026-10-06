@@ -4620,11 +4620,11 @@
       {
         "name": "wayfinder",
         "category": "Understanding and design",
-        "summary": "Resolve an ambiguous initiative into a direction for planning, preserving connected decisions and evidence across sessions.",
+        "summary": "Ground the problem, compare real options and resolve decisive uncertainty before planning, preserving decisions across sessions.",
         "path": "wayfinder/SKILL.md",
         "section": "wayfinder",
         "checkedAt": "2026-10-06",
-        "sha256": "b08db4aa1fd814d0e1e40eedd3fffb8dabed3a14d01219ff7ddc08886bb5e801"
+        "sha256": "620760dcc6d0d819267149ddc02321626097bf9445f7feda0f1649f0b09a749f"
       }
     ],
     "pending": [
@@ -7704,9 +7704,9 @@
     "repositoryCommit": "761cae1 (base; working-tree hashes below)",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 152,
-      "pending": 40,
-      "optional": 44,
+      "ready": 156,
+      "pending": 37,
+      "optional": 43,
       "not-selected": 41
     },
     "skills": {
@@ -8027,17 +8027,16 @@
       },
       "Matt Pocock/wayfinder": {
         "status": "ready",
-        "label": "Incorporated",
+        "label": "Selected parts incorporated",
         "owners": [
           "wayfinder"
         ],
-        "note": "Selected decision-map workflow derived into the repository package. Installation and implicit host activation are not established.",
         "evidence": [
           {
             "owner": "wayfinder",
             "path": "wayfinder/origin.txt",
             "line": 7,
-            "sha256": "c19b8f5be4029b684ca8ce4d13dbec47a11a14d38d2ebd7c547aa0992e6d40be",
+            "sha256": "c967774c9d0d894a5083ee3404e5a5746ab4c526629b21158485d6d997b932f1",
             "sourceId": "matt-wayfinder",
             "baselineCommit": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
             "reviewedThrough": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
@@ -8058,7 +8057,8 @@
               "Keep short maps in one file, split larger records when useful, and account for storage lifetime and next-session access."
             ]
           }
-        ]
+        ],
+        "note": "Retained foundation; preserve the local scope, delegated authority, optional tracker and resumption protections. Source incorporation does not establish whole-skill installation or synchronization."
       },
       "Matt Pocock/wizard": {
         "status": "optional",
@@ -8595,11 +8595,33 @@
         ]
       },
       "pstack/figure-it-out": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Selected parts incorporated",
+        "owners": [
+          "wayfinder"
+        ],
+        "evidence": [
+          {
+            "owner": "wayfinder",
+            "path": "wayfinder/origin.txt",
+            "line": 52,
+            "sha256": "c967774c9d0d894a5083ee3404e5a5746ab4c526629b21158485d6d997b932f1",
+            "sourceId": "pstack-wayfinder",
+            "baselineCommit": "df581122cde17e6e27686b5a448bde23e4ad4318",
+            "reviewedThrough": "df581122cde17e6e27686b5a448bde23e4ad4318",
+            "borrowed": [
+              "Scale rigor to the impact and reversibility of a decision.",
+              "Compare structurally distinct options when the choice is genuinely open.",
+              "State a falsifiable observation, run a small experiment, and judge the actual artifact rather than a completion report."
+            ],
+            "localChoices": [
+              "Keep discovery as the scope; do not import the full poteto-mode execution, delivery, audit-log, or review pipeline.",
+              "Prototype only when it resolves a decision and is authorized, with no fixed count of implementations.",
+              "Keep the existing decision map as the audit trail, and preserve task-specific permissions for delegation and external writes."
+            ]
+          }
+        ],
+        "note": "Selected discovery guidance only. The general execution and delivery coordinator remains outside Wayfinder. Source incorporation does not establish whole-skill installation or synchronization."
       },
       "pstack/how": {
         "status": "ready",
@@ -8939,11 +8961,11 @@
       },
       "pstack/principle-exhaust-the-design-space": {
         "status": "ready",
-        "label": "Incorporated",
+        "label": "Selected parts incorporated",
         "owners": [
-          "design-code-structure"
+          "design-code-structure",
+          "wayfinder"
         ],
-        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "design-code-structure",
@@ -8969,8 +8991,28 @@
               "Name existing enforcement mechanisms during design and implement only within authorized implementation; independently meaningful lists may differ.",
               "Retain supported protocol, platform and compatibility routes until the authorized migration permits retirement; choose writer ownership from the actual invariant."
             ]
+          },
+          {
+            "owner": "wayfinder",
+            "path": "wayfinder/origin.txt",
+            "line": 52,
+            "sha256": "c967774c9d0d894a5083ee3404e5a5746ab4c526629b21158485d6d997b932f1",
+            "sourceId": "pstack-wayfinder",
+            "baselineCommit": "df581122cde17e6e27686b5a448bde23e4ad4318",
+            "reviewedThrough": "df581122cde17e6e27686b5a448bde23e4ad4318",
+            "borrowed": [
+              "Scale rigor to the impact and reversibility of a decision.",
+              "Compare structurally distinct options when the choice is genuinely open.",
+              "State a falsifiable observation, run a small experiment, and judge the actual artifact rather than a completion report."
+            ],
+            "localChoices": [
+              "Keep discovery as the scope; do not import the full poteto-mode execution, delivery, audit-log, or review pipeline.",
+              "Prototype only when it resolves a decision and is authorized, with no fixed count of implementations.",
+              "Keep the existing decision map as the audit trail, and preserve task-specific permissions for delegation and external writes."
+            ]
           }
-        ]
+        ],
+        "note": "Adapted in Wayfinder alongside the existing design-code-structure incorporation. No mandatory number of prototypes. Source incorporation does not establish whole-skill installation or synchronization."
       },
       "pstack/principle-experience-first": {
         "status": "pending",
@@ -9325,12 +9367,12 @@
       },
       "pstack/principle-prove-it-works": {
         "status": "ready",
-        "label": "Incorporated",
+        "label": "Selected parts incorporated",
         "owners": [
           "compare-solutions",
-          "typescript-best-practices"
+          "typescript-best-practices",
+          "wayfinder"
         ],
-        "note": "Selected material is recorded in present local packages at the baselines below. This does not mean the full source is installed, tested or synchronized.",
         "evidence": [
           {
             "owner": "compare-solutions",
@@ -9381,8 +9423,28 @@
               "Correct number-duration, mutable-tuple, readonly, satisfies and unconditional-internal-trust overclaims. A stronger annotation does not create a runtime invariant.",
               "Review all 24 principle skills, but retain only TypeScript-relevant decisions. Do not import broad autonomy, mandatory scripts, repository rewrites, fixed argument style, logger policy or host metadata."
             ]
+          },
+          {
+            "owner": "wayfinder",
+            "path": "wayfinder/origin.txt",
+            "line": 52,
+            "sha256": "c967774c9d0d894a5083ee3404e5a5746ab4c526629b21158485d6d997b932f1",
+            "sourceId": "pstack-wayfinder",
+            "baselineCommit": "df581122cde17e6e27686b5a448bde23e4ad4318",
+            "reviewedThrough": "df581122cde17e6e27686b5a448bde23e4ad4318",
+            "borrowed": [
+              "Scale rigor to the impact and reversibility of a decision.",
+              "Compare structurally distinct options when the choice is genuinely open.",
+              "State a falsifiable observation, run a small experiment, and judge the actual artifact rather than a completion report."
+            ],
+            "localChoices": [
+              "Keep discovery as the scope; do not import the full poteto-mode execution, delivery, audit-log, or review pipeline.",
+              "Prototype only when it resolves a decision and is authorized, with no fixed count of implementations.",
+              "Keep the existing decision map as the audit trail, and preserve task-specific permissions for delegation and external writes."
+            ]
           }
-        ]
+        ],
+        "note": "Selected investigation guidance; existing verification owners remain responsible for software completion checks. Source incorporation does not establish whole-skill installation or synchronization."
       },
       "pstack/principle-redesign-from-first-principles": {
         "status": "ready",
@@ -11198,11 +11260,33 @@
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Matthew Blode/planning": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Selected parts incorporated",
+        "owners": [
+          "wayfinder"
+        ],
+        "evidence": [
+          {
+            "owner": "wayfinder",
+            "path": "wayfinder/origin.txt",
+            "line": 37,
+            "sha256": "c967774c9d0d894a5083ee3404e5a5746ab4c526629b21158485d6d997b932f1",
+            "sourceId": "blode-decision-briefs",
+            "baselineCommit": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "reviewedThrough": "012e6e5208f512151bdea0e2965dafd01ff61340",
+            "borrowed": [
+              "Make option costs concrete, distinguish measured evidence from estimates, and ask about the fact on which the recommendation turns.",
+              "Record what would change a decision and revisit its validity when a premise changes.",
+              "Test consequential claims through the smallest relevant evidence surface, preserving inconclusive results."
+            ],
+            "localChoices": [
+              "Adapt the decision mechanism before execution planning; do not import ticket splitting, implementation plans, or plan-review scorecards.",
+              "Use previews only where they clarify a decision; no fixed word budget or mandatory numerical cost estimate.",
+              "Keep durable context in the existing authoritative map rather than automatically creating another plan or proposing agent-memory writes."
+            ]
+          }
+        ],
+        "note": "Decision-brief and evidence mechanisms incorporated into Wayfinder. Execution planning and ticket splitting remain pending as a separate package. Source incorporation does not establish whole-skill installation or synchronization."
       },
       "Matthew Blode/pr-babysitter": {
         "status": "ready",
@@ -11733,11 +11817,35 @@
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Compound Engineering/ce-brainstorm": {
-        "status": "pending",
-        "label": "Pending",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Selected parts incorporated",
+        "owners": [
+          "wayfinder"
+        ],
+        "evidence": [
+          {
+            "owner": "wayfinder",
+            "path": "wayfinder/origin.txt",
+            "line": 22,
+            "sha256": "c967774c9d0d894a5083ee3404e5a5746ab4c526629b21158485d6d997b932f1",
+            "sourceId": "compound-wayfinder",
+            "baselineCommit": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+            "reviewedThrough": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+            "borrowed": [
+              "Test the problem behind a proposed solution using current behavior, workarounds, and evidence of need.",
+              "Compare real alternatives, including the incumbent or no change when credible, without padding a menu.",
+              "Explain unfamiliar decision territory before asking the user to judge it.",
+              "Scale investigation to reversibility and seek evidence that could disconfirm the direction."
+            ],
+            "localChoices": [
+              "Use one portable decision map rather than CE configuration, artifact contracts, model tiers, or a prescribed folder.",
+              "Honor settled choices and existing delegated authority without mandatory challenge, confirmation, or teaching-offer gates.",
+              "Keep product, architecture, and migration decisions in scope; leave execution decomposition to planning.",
+              "Use decision-relevant evidence rather than fixed research floors or forced numbers of options, sources, or questions."
+            ]
+          }
+        ],
+        "note": "Adapted to the existing map without CE artifact contracts, mandatory interviews or confirmation gates. Source incorporation does not establish whole-skill installation or synchronization."
       },
       "Compound Engineering/ce-code-review": {
         "status": "ready",
@@ -12012,11 +12120,35 @@
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Compound Engineering/ce-pov": {
-        "status": "optional",
-        "label": "Optional",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Selected parts incorporated",
+        "owners": [
+          "wayfinder"
+        ],
+        "evidence": [
+          {
+            "owner": "wayfinder",
+            "path": "wayfinder/origin.txt",
+            "line": 22,
+            "sha256": "c967774c9d0d894a5083ee3404e5a5746ab4c526629b21158485d6d997b932f1",
+            "sourceId": "compound-wayfinder",
+            "baselineCommit": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+            "reviewedThrough": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+            "borrowed": [
+              "Test the problem behind a proposed solution using current behavior, workarounds, and evidence of need.",
+              "Compare real alternatives, including the incumbent or no change when credible, without padding a menu.",
+              "Explain unfamiliar decision territory before asking the user to judge it.",
+              "Scale investigation to reversibility and seek evidence that could disconfirm the direction."
+            ],
+            "localChoices": [
+              "Use one portable decision map rather than CE configuration, artifact contracts, model tiers, or a prescribed folder.",
+              "Honor settled choices and existing delegated authority without mandatory challenge, confirmation, or teaching-offer gates.",
+              "Keep product, architecture, and migration decisions in scope; leave execution decomposition to planning.",
+              "Use decision-relevant evidence rather than fixed research floors or forced numbers of options, sources, or questions."
+            ]
+          }
+        ],
+        "note": "Selected judgment criteria only. No separate adoption-assessment package, fixed evidence floors or mandatory model panels. Source incorporation does not establish whole-skill installation or synchronization."
       },
       "Compound Engineering/ce-product-pulse": {
         "status": "optional",
@@ -13466,6 +13598,13 @@
         "repositoryCommit": "0be9bbc (base; working-tree hashes recorded)",
         "validation": "wayfinder-validation.json",
         "scope": "Add wayfinder and the requested planning proposal; refresh this selected source, aggregate counts, and stale agent-instructions/workflow-to-skill entrypoint hashes only."
+      },
+      {
+        "checkedAt": "2026-10-06",
+        "source": "Wayfinder: selected Matt Pocock, pstack, Compound Engineering and Matthew Blode mechanisms",
+        "repositoryCommit": "5cc6610 (base; working-tree hashes recorded)",
+        "validation": "wayfinder-rewrite-validation.json",
+        "scope": "Rewrite Wayfinder after screening 19 pinned repositories; add three selected provenance feeds, preserve unrelated pins and source history, and refresh only affected source cards, package hashes and aggregate counts."
       }
     ]
   },
@@ -18233,8 +18372,8 @@
   "wayfinderReview": {
     "date": "2026-10-06",
     "html": "index.html#wayfinder",
-    "validation": "wayfinder-validation.json",
-    "scope": "One selected donor adapted to the approved objective. Historical source assessment retained.",
+    "validation": "wayfinder-rewrite-validation.json",
+    "scope": "SSH-pinned tree screening of all 19 previously supplied repositories, followed by selected full-file reading and explicitly identified partial screens. Not an exhaustive semantic audit of every file or linked workflow.",
     "objective": "Turn an ambiguous initiative into an evidence-backed direction that can be planned, preserving decisions and context across sessions.",
     "assessments": [
       {
@@ -18253,45 +18392,348 @@
         "category": "Planificación",
         "decision": "Blend",
         "owner": "wayfinder",
-        "summary": "Maintain a destination and a map of connected decisions, supported by research, experiments and necessary human judgment.",
-        "reason": "The user approved a separate owner for uncertainty that prevents execution planning, with continuity between sessions.",
-        "caution": "The local package makes trackers and delegation optional, preserves authority, and separates direction from executable planning. It does not inherit fixed session limits or automatic prototype integration.",
+        "summary": "Keep a destination and a map of connected decisions, with evidence and continuity across sessions.",
+        "reason": "Selected mechanism supports the approved direction-finding contract; see the current source review for scope and exclusions.",
+        "caution": "Retained foundation; preserve the local scope, delegated authority, optional tracker and resumption protections.",
         "repository": "https://github.com/mattpocock/skills",
         "collection": "matt",
         "chars": 11908,
-        "action": "Derived into wayfinder",
+        "action": "Selected parts incorporated",
         "priority": "Available",
-        "inspection": "Full pinned Wayfinder entrypoint and license read. Grilling, domain-modeling, research and prototype entrypoints were also read for composition context; their nested references were not audited.",
+        "inspection": "Complete entrypoint and the listed relevant source files read at the pinned revision. Other linked workflows were not exhaustively audited.",
         "references": [
           {
-            "path": "skills/productivity/grilling/SKILL.md",
-            "coverage": "Full file read; context only unless listed as a selected feed in origin.txt",
-            "url": "https://github.com/mattpocock/skills/blob/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d/skills/productivity/grilling/SKILL.md",
-            "sha256": "10ff989e7498b23b5acb49d5048f11dcd906757d2f79c5cdf8a00001381296f2"
-          },
-          {
-            "path": "skills/engineering/domain-modeling/SKILL.md",
-            "coverage": "Full file read; context only unless listed as a selected feed in origin.txt",
-            "url": "https://github.com/mattpocock/skills/blob/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d/skills/engineering/domain-modeling/SKILL.md",
-            "sha256": "7b925d7b1e341a2eeae33ad68a8a8c0ab889a38ddd22a7598e4c240e5a7556a3"
-          },
-          {
-            "path": "skills/engineering/research/SKILL.md",
-            "coverage": "Full file read; context only unless listed as a selected feed in origin.txt",
-            "url": "https://github.com/mattpocock/skills/blob/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d/skills/engineering/research/SKILL.md",
-            "sha256": "985569f15739c713d6784887c3d186d4ef9ac85bec5ad9c068d25bf0739928e4"
-          },
-          {
-            "path": "skills/engineering/prototype/SKILL.md",
-            "coverage": "Full file read; context only unless listed as a selected feed in origin.txt",
-            "url": "https://github.com/mattpocock/skills/blob/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d/skills/engineering/prototype/SKILL.md",
-            "sha256": "714de632d116bb73f65cdb5a882db15b9369a6713b9a47c0fad827848f0bfbe3"
-          },
-          {
             "path": "LICENSE",
-            "coverage": "Full file read; context only unless listed as a selected feed in origin.txt",
+            "coverage": "Complete file read",
             "url": "https://github.com/mattpocock/skills/blob/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d/LICENSE",
             "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+          }
+        ]
+      },
+      {
+        "id": "pstack-figure-it-out",
+        "key": "pstack/figure-it-out",
+        "name": "figure-it-out",
+        "declaredName": "figure-it-out",
+        "group": "pstack",
+        "author": "Lauren Tan",
+        "kind": "upstream",
+        "path": "pstack/skills/figure-it-out/SKILL.md",
+        "source": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/figure-it-out/SKILL.md",
+        "sha": "df581122cde17e6e27686b5a448bde23e4ad4318",
+        "sha256": "0eb9485f0e7d84fee56b5d0f0af0faf4635e3ca87c8cba3970c01293b76ecc19",
+        "lines": 53,
+        "category": "Coordinación",
+        "decision": "Blend",
+        "owner": "wayfinder",
+        "summary": "Resolve consequential uncertainty through bounded experiments and a reviewable decision trail.",
+        "reason": "Selected mechanism supports the approved direction-finding contract; see the current source review for scope and exclusions.",
+        "caution": "Selected discovery guidance only. The general execution and delivery coordinator remains outside Wayfinder.",
+        "repository": "https://github.com/cursor/plugins",
+        "chars": 4059,
+        "action": "Selected parts incorporated",
+        "priority": "Available",
+        "inspection": "Complete entrypoint and the listed relevant source files read at the pinned revision. Other linked workflows were not exhaustively audited.",
+        "references": [
+          {
+            "path": "pstack/LICENSE",
+            "coverage": "Complete file read",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/LICENSE",
+            "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
+          },
+          {
+            "path": "pstack/skills/principle-exhaust-the-design-space/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/principle-exhaust-the-design-space/SKILL.md",
+            "sha256": "8583310d7297b7823d75494faa57b003564d436807febecdecbd8321abe5cf6e"
+          },
+          {
+            "path": "pstack/skills/principle-prove-it-works/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/principle-prove-it-works/SKILL.md",
+            "sha256": "ec79a15025bac8d33d62011c54f3b612733fd2a024e623b531b3637aa75070e2"
+          }
+        ]
+      },
+      {
+        "id": "pstack-principle-exhaust-the-design-space",
+        "key": "pstack/principle-exhaust-the-design-space",
+        "name": "principle-exhaust-the-design-space",
+        "declaredName": "principle-exhaust-the-design-space",
+        "group": "pstack",
+        "author": "Lauren Tan",
+        "kind": "upstream",
+        "path": "pstack/skills/principle-exhaust-the-design-space/SKILL.md",
+        "source": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/principle-exhaust-the-design-space/SKILL.md",
+        "sha": "df581122cde17e6e27686b5a448bde23e4ad4318",
+        "sha256": "8583310d7297b7823d75494faa57b003564d436807febecdecbd8321abe5cf6e",
+        "lines": 21,
+        "category": "Principios",
+        "decision": "Blend",
+        "owner": "design-code-structure; wayfinder",
+        "summary": "Compare materially different options when a consequential choice is open.",
+        "reason": "Selected mechanism supports the approved direction-finding contract; see the current source review for scope and exclusions.",
+        "caution": "Adapted in Wayfinder alongside the existing design-code-structure incorporation. No mandatory number of prototypes.",
+        "repository": "https://github.com/cursor/plugins",
+        "chars": 1152,
+        "action": "Selected parts incorporated",
+        "priority": "Available",
+        "inspection": "Complete entrypoint and the listed relevant source files read at the pinned revision. Other linked workflows were not exhaustively audited.",
+        "references": [
+          {
+            "path": "pstack/LICENSE",
+            "coverage": "Complete file read",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/LICENSE",
+            "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
+          },
+          {
+            "path": "pstack/skills/figure-it-out/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/figure-it-out/SKILL.md",
+            "sha256": "0eb9485f0e7d84fee56b5d0f0af0faf4635e3ca87c8cba3970c01293b76ecc19"
+          },
+          {
+            "path": "pstack/skills/principle-prove-it-works/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/principle-prove-it-works/SKILL.md",
+            "sha256": "ec79a15025bac8d33d62011c54f3b612733fd2a024e623b531b3637aa75070e2"
+          }
+        ]
+      },
+      {
+        "id": "pstack-principle-prove-it-works",
+        "key": "pstack/principle-prove-it-works",
+        "name": "principle-prove-it-works",
+        "declaredName": "principle-prove-it-works",
+        "group": "pstack",
+        "author": "Lauren Tan",
+        "kind": "upstream",
+        "path": "pstack/skills/principle-prove-it-works/SKILL.md",
+        "source": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/principle-prove-it-works/SKILL.md",
+        "sha": "df581122cde17e6e27686b5a448bde23e4ad4318",
+        "sha256": "ec79a15025bac8d33d62011c54f3b612733fd2a024e623b531b3637aa75070e2",
+        "lines": 22,
+        "category": "Principios",
+        "decision": "Blend",
+        "owner": "compare-solutions; typescript-best-practices; wayfinder",
+        "summary": "Use actual observations to assess the original decision rather than accepting a subtask completion report.",
+        "reason": "Selected mechanism supports the approved direction-finding contract; see the current source review for scope and exclusions.",
+        "caution": "Selected investigation guidance; existing verification owners remain responsible for software completion checks.",
+        "repository": "https://github.com/cursor/plugins",
+        "chars": 1371,
+        "action": "Selected parts incorporated",
+        "priority": "Available",
+        "inspection": "Complete entrypoint and the listed relevant source files read at the pinned revision. Other linked workflows were not exhaustively audited.",
+        "references": [
+          {
+            "path": "pstack/LICENSE",
+            "coverage": "Complete file read",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/LICENSE",
+            "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e"
+          },
+          {
+            "path": "pstack/skills/figure-it-out/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/figure-it-out/SKILL.md",
+            "sha256": "0eb9485f0e7d84fee56b5d0f0af0faf4635e3ca87c8cba3970c01293b76ecc19"
+          },
+          {
+            "path": "pstack/skills/principle-exhaust-the-design-space/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/principle-exhaust-the-design-space/SKILL.md",
+            "sha256": "8583310d7297b7823d75494faa57b003564d436807febecdecbd8321abe5cf6e"
+          }
+        ]
+      },
+      {
+        "collection": "mblode",
+        "path": "skills/planning/SKILL.md",
+        "sha": "012e6e5208f512151bdea0e2965dafd01ff61340",
+        "sha256": "c3c10312eb869f8ed0d8077d36aaacab5ce909ef0425abef7cbec80303255795",
+        "lines": 64,
+        "chars": 5375,
+        "name": "planning",
+        "id": "matthew-blode-planning",
+        "key": "Matthew Blode/planning",
+        "declaredName": "planning",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/planning/SKILL.md",
+        "action": "Selected parts incorporated",
+        "priority": "Available",
+        "category": "Planning",
+        "owner": "wayfinder",
+        "summary": "Ground option costs, identify the fact that changes the recommendation, and preserve decision validity.",
+        "reason": "Selected mechanism supports the approved direction-finding contract; see the current source review for scope and exclusions.",
+        "caution": "Decision-brief and evidence mechanisms incorporated into Wayfinder. Execution planning and ticket splitting remain pending as a separate package.",
+        "decision": "Blend",
+        "inspection": "Complete entrypoint and the listed relevant source files read at the pinned revision. Other linked workflows were not exhaustively audited.",
+        "references": [
+          {
+            "path": "LICENSE.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/LICENSE.md",
+            "sha256": "81ac64b19ea7ae7f9a8d197705df58f48ffca02c74fca13e565dedf4f7595b46"
+          },
+          {
+            "path": "skills/planning/references/claim-verification.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/planning/references/claim-verification.md",
+            "sha256": "f4e0d906e53c7cceca5dcfb4ee8300c250038e696c84c4c7ec898d8be1aa9d72"
+          },
+          {
+            "path": "skills/planning/references/decision-briefs.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/planning/references/decision-briefs.md",
+            "sha256": "874d28054449d4e8d848205a1422564ee12fc9d83afd9a7193e6ded705e24be1"
+          },
+          {
+            "path": "skills/planning/references/doc-grounding.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/planning/references/doc-grounding.md",
+            "sha256": "e0bf1ff0d236b6d112806ebc4dc8090bd8576ad7edbc44595382d0ec41c584aa"
+          }
+        ]
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-brainstorm/SKILL.md",
+        "sha": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+        "sha256": "1820aa67cd39b4f220b6b1e638bd98841e6ba8e8a3c3f35448155a28b2822948",
+        "lines": 69,
+        "chars": 7770,
+        "name": "ce-brainstorm",
+        "id": "compound-engineering-ce-brainstorm",
+        "key": "Compound Engineering/ce-brainstorm",
+        "declaredName": "ce-brainstorm",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-brainstorm/SKILL.md",
+        "action": "Selected parts incorporated",
+        "priority": "Available",
+        "category": "Planning",
+        "owner": "wayfinder",
+        "summary": "Test the problem behind a suggested solution using current behavior, workarounds and real alternatives.",
+        "reason": "Selected mechanism supports the approved direction-finding contract; see the current source review for scope and exclusions.",
+        "caution": "Adapted to the existing map without CE artifact contracts, mandatory interviews or confirmation gates.",
+        "decision": "Blend",
+        "inspection": "Complete entrypoint and the listed relevant source files read at the pinned revision. Other linked workflows were not exhaustively audited.",
+        "references": [
+          {
+            "path": "LICENSE",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/LICENSE",
+            "sha256": "61d89de7646effdaba2d0a4ab7bd0eba60b4094b83efe5bc73c7940e43e93fc6"
+          },
+          {
+            "path": "skills/ce-brainstorm/references/approaches.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-brainstorm/references/approaches.md",
+            "sha256": "d63445da4bcd8568ff7b5e64a64d3be342066bbfe68f74b520b7a5e80e264214"
+          },
+          {
+            "path": "skills/ce-brainstorm/references/blindspot-pass.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-brainstorm/references/blindspot-pass.md",
+            "sha256": "0a5a73a2d4c0ea5989523a4713bc12f1b2fa3f54f09f21e113a376c318012e54"
+          },
+          {
+            "path": "skills/ce-brainstorm/references/interaction-rules.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-brainstorm/references/interaction-rules.md",
+            "sha256": "57fbedade35d71d265b3bfe8f0c929277e9642f471a17be74d636a7c181ac7ca"
+          },
+          {
+            "path": "skills/ce-brainstorm/references/product-pressure-test.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-brainstorm/references/product-pressure-test.md",
+            "sha256": "72e1253a90950f0f9f80f2f8a92318fa42bcfec1a98ce12f5004606d1ca48956"
+          },
+          {
+            "path": "skills/ce-pov/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-pov/SKILL.md",
+            "sha256": "c9ff88b00bcd953b07f93da2945e8f56f536b86260f4b6f8fe74d6bdb0835238"
+          },
+          {
+            "path": "skills/ce-pov/references/method.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-pov/references/method.md",
+            "sha256": "d95978743b889858389638533439862968397985038f89c26bb79d1e22225fa3"
+          }
+        ]
+      },
+      {
+        "collection": "compound",
+        "path": "skills/ce-pov/SKILL.md",
+        "sha": "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c",
+        "sha256": "c9ff88b00bcd953b07f93da2945e8f56f536b86260f4b6f8fe74d6bdb0835238",
+        "lines": 64,
+        "chars": 7763,
+        "name": "ce-pov",
+        "id": "compound-engineering-ce-pov",
+        "key": "Compound Engineering/ce-pov",
+        "declaredName": "ce-pov",
+        "group": "Compound Engineering",
+        "author": "Every / Compound Engineering",
+        "kind": "upstream",
+        "repository": "https://github.com/EveryInc/compound-engineering-plugin",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-pov/SKILL.md",
+        "action": "Selected parts incorporated",
+        "priority": "Available",
+        "category": "Adoption decisions",
+        "owner": "wayfinder",
+        "summary": "Consider the incumbent, seek disconfirming evidence and scale investigation to reversal cost.",
+        "reason": "Selected mechanism supports the approved direction-finding contract; see the current source review for scope and exclusions.",
+        "caution": "Selected judgment criteria only. No separate adoption-assessment package, fixed evidence floors or mandatory model panels.",
+        "decision": "Blend",
+        "inspection": "Complete entrypoint and the listed relevant source files read at the pinned revision. Other linked workflows were not exhaustively audited.",
+        "references": [
+          {
+            "path": "LICENSE",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/LICENSE",
+            "sha256": "61d89de7646effdaba2d0a4ab7bd0eba60b4094b83efe5bc73c7940e43e93fc6"
+          },
+          {
+            "path": "skills/ce-brainstorm/SKILL.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-brainstorm/SKILL.md",
+            "sha256": "1820aa67cd39b4f220b6b1e638bd98841e6ba8e8a3c3f35448155a28b2822948"
+          },
+          {
+            "path": "skills/ce-brainstorm/references/approaches.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-brainstorm/references/approaches.md",
+            "sha256": "d63445da4bcd8568ff7b5e64a64d3be342066bbfe68f74b520b7a5e80e264214"
+          },
+          {
+            "path": "skills/ce-brainstorm/references/blindspot-pass.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-brainstorm/references/blindspot-pass.md",
+            "sha256": "0a5a73a2d4c0ea5989523a4713bc12f1b2fa3f54f09f21e113a376c318012e54"
+          },
+          {
+            "path": "skills/ce-brainstorm/references/interaction-rules.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-brainstorm/references/interaction-rules.md",
+            "sha256": "57fbedade35d71d265b3bfe8f0c929277e9642f471a17be74d636a7c181ac7ca"
+          },
+          {
+            "path": "skills/ce-brainstorm/references/product-pressure-test.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-brainstorm/references/product-pressure-test.md",
+            "sha256": "72e1253a90950f0f9f80f2f8a92318fa42bcfec1a98ce12f5004606d1ca48956"
+          },
+          {
+            "path": "skills/ce-pov/references/method.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c/skills/ce-pov/references/method.md",
+            "sha256": "d95978743b889858389638533439862968397985038f89c26bb79d1e22225fa3"
           }
         ]
       }
@@ -18301,6 +18743,15 @@
       "Supplied-instruction exercises do not establish automatic selection or broad effectiveness.",
       "The requested planning package remains to be created."
     ],
-    "assessmentRevision": "v3; package hashes in wayfinder-validation.json"
+    "assessmentRevision": "Cross-repository rewrite; final hashes and matched trials in wayfinder-rewrite-validation.json",
+    "sources": "wayfinder-source-review.json",
+    "history": [
+      {
+        "date": "2026-10-06",
+        "scope": "One selected donor adapted to the approved objective. Historical source assessment retained.",
+        "validation": "wayfinder-validation.json",
+        "assessmentRevision": "v3; package hashes in wayfinder-validation.json"
+      }
+    ]
   }
 }

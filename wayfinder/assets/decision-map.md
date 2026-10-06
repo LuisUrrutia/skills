@@ -2,10 +2,10 @@
 
 ## Destination
 
-- Outcome and intended users:
+- Outcome, intended users, and observable success:
+- Current behavior or workaround, and evidence of the problem:
 - Planning-readiness condition:
-- Constraints and existing agreements:
-- Working assumptions:
+- Constraints, existing agreements, and working assumptions:
 - Out of scope, with reason, authority, and decision-record pointer:
 - Status, last update, and current next action:
 
@@ -13,7 +13,7 @@
 
 | ID | Question | State | Depends on | Owner or needed decision-maker | Record |
 | --- | --- | --- | --- | --- | --- |
-| D1 | <Specific question> | <Open / investigating / waiting / resolved / deferred / superseded> | <Prerequisite answer IDs, or none> | <Actor, when relevant> | <Section or canonical link> |
+| D1 | <Specific question> | <Open / investigating / waiting / resolved / deferred / excluded / superseded> | <Prerequisite answer IDs, or none> | <Actor, when relevant> | <Section or canonical link> |
 
 ## Not yet specified
 
@@ -22,19 +22,19 @@ known dependencies or the observation that would make them actionable.>
 
 ## Decision record: <ID and question>
 
-- Why this question matters and what depends on it:
+- Why this matters and what depends on it:
 - Current facts and constraints, with evidence pointers:
-- Alternatives and consequential tradeoffs:
-- Investigation or experiment, conditions, and actual result:
-- Decision or pending recommendation; who or what authorizes it:
-- Rationale, assumptions, and limits:
-- Effect on other decisions; superseded records if any:
-- Remaining question, needed input, and next action:
+- Real alternatives, consequential tradeoffs, and cost of reversal:
+- Decisive assumption or missing fact; what would change the recommendation:
+- Investigation: deciding observation, conditions, actual result, and limits:
+- Choice or pending recommendation; rationale and who or what authorizes it:
+- Remaining assumptions; effect on other decisions; superseded records:
+- Needed input and next action:
 - If deferred, authority and the condition for reconsideration:
 
 ## Direction for planning
 
-<When ready: agreed direction, scope, constraints, evidence, and residual risks
-with the check or decision that will address each. When blocked: the exact
-dependency, its effect, and the next step. Keep a narrowed initiative's readiness
-distinct from the broader initiative's status.>
+<When ready: direction, scope, constraints, evidence, and residual risks with the
+check or decision that will address each. When blocked: the exact dependency,
+its effect, and the next step. Keep a narrowed initiative's readiness distinct
+from the broader initiative's status.>

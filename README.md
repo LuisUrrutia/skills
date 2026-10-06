@@ -36,12 +36,12 @@ planning, preserving connected decisions and context across sessions.
 
 **Triggers:** `work out the direction for this initiative`, `resume our decision map`, `resolve what prevents planning this migration`
 
-Maintains a compact local or existing decision map with reasons, evidence,
-dependencies, open questions, and the next useful step. Research and experiments
-resolve accessible uncertainty; consequential choices stay with the appropriate
-decision-maker. A changed premise reopens affected decisions. Once the direction
-is clear, continue the authorized planning workflow. The separate `planning`
-package has not been created yet.
+Grounds the problem, compares real options, and investigates the uncertainty that
+could change the direction. A compact decision map keeps reasons, evidence,
+authority, dependencies, and the next useful step across sessions. Changed
+premises reopen affected decisions. Once the direction is clear, continue the
+authorized planning workflow. The separate `planning` package has not been
+created yet.
 
 ### agent-instructions
 
