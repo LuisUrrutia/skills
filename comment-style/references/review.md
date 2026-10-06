@@ -40,12 +40,13 @@ Start with the observable problem, a genuine question, or an established
 straightforward change. Omit formulaic politeness such as an opening "please".
 Keep the tone respectful through factual, direct wording.
 
-One finding gets one point, not necessarily one sentence. Use short sentences
-for the problem, consequence and any requested change when each needs space. Avoid
-joining a request to its explanation with a semicolon. Split the sentences or
-connect them naturally with "if", "when" or "because". Preserve the causal
-sequence and necessary conditions without imposing the same structure on every
-comment.
+Build each finding around one connected idea. When a request needs a reason,
+weave its condition and consequence into the same thought with links such as
+"because", "since", "if" or "when". Prefer that connection over a detached
+explanation or a standalone instruction tacked onto the end. Avoid using a
+semicolon to join the request and its explanation. Split sentences when that
+improves readability, keeping their causal connection explicit. Preserve necessary
+conditions without forcing a sentence count or the same structure on every comment.
 
 Preserve exact identifiers and reachable example values when they are necessary;
 shorten the explanation, not its evidence. Point to an existing pattern when that

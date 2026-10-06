@@ -96,5 +96,34 @@
     "comment-style/SKILL.md": "ab691d8fa7c18fb3ffca52d92dfcb695018491be7c3d138f3f925fa745b72d3f",
     "comment-style/references/review.md": "7fcc113c4858c946493c0a522cdc8da2d9a0c8d343cbf29bc363446eebc90861",
     "pr-review-draft/SKILL.md": "ea2646f39bea431b9e48a9136b9f0e604f89b77328d1139e3f62ed8d4a754e48"
+  },
+  "cohesion_followup": {
+    "baseline": "09e353163d56904d83de27f60deb0ddc475ad51b",
+    "user_preference": "Keep request and reason cohesive instead of splitting them into detached statements.",
+    "approved_examples": [
+      "retry affiliate aggregation even when the merchant row already exists, because if it fails after the insert, redelivery hits `isStored` and acknowledges the message without ever completing the affiliate day",
+      "when a merchant is reassigned, reconcile both affiliates even if all merchant days are already stored, since an empty `missingDays` leaves the totals with the old affiliate and the new one never receives them"
+    ],
+    "change": "Replace the short-sentence-first paragraph with explicit request/reason cohesion, causal connectors, and sentence breaks only when they improve readability. No fixed sentence count.",
+    "reference_sha256": "418bcdf132b0f1fc7999518aac5b4acca5fc1def6831c5d13cbfc27284401e6b",
+    "checks": [
+      "Fidelity review against user-approved examples.",
+      "Inline Python comparison: surrounding instruction text remains byte-identical; all local Markdown links stay inside package and resolve.",
+      "git diff --check passed.",
+      "fish -lc with TMPDIR=\"$PWD/.agents/review-wording-tmp\" bash pr-review-draft/scripts/validate.sh \"$PWD/review-code-changes\": package and Python syntax passed; 33 tests passed in 18.156s."
+    ],
+    "consultations": [
+      {
+        "profile": "Codex gpt-6-astra / max",
+        "runner": "fresh native subagent /root/cohesion_review",
+        "result": "No material findings; accept frozen diff."
+      },
+      {
+        "profile": "Claude claude-fable-5-1 / max",
+        "task_id": "node:delegated-task:command%3Amcp%3A81af02ff-19e3-46c4-9004-5d4e2057c257%3Adelegate-task%3Areview-cohesion-fable-1",
+        "result": "Approve frozen candidate; no material omission or conflict. No further changes requested."
+      }
+    ],
+    "limits": "Narrow wording correction checked for fidelity, not a new matched behavioral trial. Source checkout only, not installed."
   }
 }
