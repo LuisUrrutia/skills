@@ -40,8 +40,26 @@ Grounds the problem, compares real options, and investigates the uncertainty tha
 could change the direction. A compact decision map keeps reasons, evidence,
 authority, dependencies, and the next useful step across sessions. Changed
 premises reopen affected decisions. Once the direction is clear, continue the
-authorized planning workflow. The separate `planning` package has not been
-created yet.
+authorized workflow with `planning`.
+
+### planning
+
+Turn a defined outcome into an implementation plan that another engineer or agent
+can execute and verify. Create, review, revise, or split plans according to the
+requested scope.
+
+**Triggers:** `plan this implementation`, `review this migration plan`, `break this plan into tasks`
+
+Grounds the work in current code and settled decisions, then defines observable
+results, genuine dependencies, interface agreements, and acceptance checks. Small
+changes get short plans; larger work gets independently verifiable units and
+explicit integration or migration stages. A durable plan preserves enough context
+for another session. Planning-only work ends with its artifact; already-authorized
+implementation continues without a new approval gate.
+
+Uses Wayfinder when connected direction decisions remain unresolved. Selected
+ideas from Matthew Blode, Matt Pocock, Sentimony, and Superpowers are recorded in
+`planning/origin.txt`; reviewed alternatives are in the atlas source review.
 
 ### agent-instructions
 

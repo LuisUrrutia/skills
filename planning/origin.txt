@@ -1,0 +1,82 @@
+format_version = 1
+skill = "planning"
+created = "2026-10-06"
+approach = "Derive: combine evidence-grounded planning, verifiable work units, explicit dependencies, and proportional detail while keeping direction finding and execution with their existing owners."
+
+[[sources]]
+id = "blode-planning"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "cef4cfa837ca41b50d19f54551a3939ed7460434"
+reviewed_through = "cef4cfa837ca41b50d19f54551a3939ed7460434"
+baseline_paths = ["skills/planning/SKILL.md", "skills/planning/references/handoff-plans.md", "skills/planning/references/splitting.md", "skills/planning/references/claim-verification.md", "skills/planning/references/plan-quality-rubric.md", "LICENSE.md"]
+paths = ["skills/planning/SKILL.md", "skills/planning/references/handoff-plans.md", "skills/planning/references/splitting.md", "skills/planning/references/claim-verification.md", "skills/planning/references/plan-quality-rubric.md", "LICENSE.md"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Ground executable plans in repository evidence and material acceptance scenarios.", "Preserve an authoritative plan, a self-contained handoff, and reasons to replan when premises change.", "Verify consequential claims and stop reviewing when evidenced gaps are resolved.", "Ask only for consequential unresolved choices and preserve existing host approval authority without a second gate."]
+local_choices = ["Keep review-only requests read-only; revise the plan only when writing or revision is authorized.", "Use Wayfinder for connected direction decisions, and keep planning focused on executable work.", "Honor existing output and approval conventions without fixed question counts, score targets, or a mandatory notes file.", "Keep verification plans distinct from observed evidence and avoid treating proxies such as file counts as quality proof."]
+reviews = []
+
+[[sources]]
+id = "matt-to-tickets"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+reviewed_through = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+baseline_paths = ["skills/engineering/to-tickets/SKILL.md", "LICENSE"]
+paths = ["skills/engineering/to-tickets/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Split by complete observable behavior and record genuine blocking relationships.", "Use expand, migrate, contract for broad changes whose consumers cannot all move at once.", "Make the first valid integration check explicit when intermediate units cannot pass independently."]
+local_choices = ["Keep a small change together and permit one plan rather than requiring one file per ticket.", "Drafting is separate from authorized publication; use project-native tracker conventions without setup, labels, or mandatory approval ceremonies.", "Retain useful verified entry points and contract excerpts, with a freshness check when resuming."]
+reviews = []
+
+[[sources]]
+id = "sentimony-scope-triage"
+author = "Ihor Orlovskyi / Sentimony"
+repository = "https://github.com/sentimony/skills"
+remote = "git@github.com:sentimony/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "53d0630136d6e1d7ee70e3744bc250683b6c57f9"
+reviewed_through = "53d0630136d6e1d7ee70e3744bc250683b6c57f9"
+baseline_paths = ["skills/scope-triage/SKILL.md", "skills/scope-triage/references/attribution.md", "skills/scope-triage/LICENSE"]
+paths = ["skills/scope-triage/SKILL.md", "skills/scope-triage/references/attribution.md", "skills/scope-triage/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Scale process to whether the outcome, contract, and decisions are settled rather than the number of files.", "Resolve accessible facts before asking for user choices; keep consequential unknowns explicit."]
+local_choices = ["A direct planning request still receives a proportionate plan.", "Use no confidence percentages, classification ritual, approval loop, or forced full-design route.", "Preserve authorization across turns and continue independent work while a material choice is pending.", "Leave direction finding with Wayfinder instead of incorporating the donor design workflow."]
+reviews = []
+
+[[sources]]
+id = "superpowers-writing-plans"
+author = "Jesse Vincent / Superpowers"
+repository = "https://github.com/obra/superpowers"
+remote = "git@github.com:obra/superpowers.git"
+ref = "refs/heads/main"
+baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+reviewed_through = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+baseline_paths = ["skills/writing-plans/SKILL.md", "LICENSE"]
+paths = ["skills/writing-plans/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Size work around independently testable results, carrying the decisions an executor cannot infer.", "State consumed and produced interfaces when separate workers must agree, and check that contracts connect.", "Keep relevant global constraints and failure cases visible without transcribing the implementation."]
+local_choices = ["No mandatory executor, subagent topology, worktree, TDD micro-step template, or repeated approval.", "Use project conventions and task-relevant detail rather than a fixed header, directory, or number of review cases.", "Treat source paths and ordinary implementation choices proportionately to the handoff."]
+reviews = []
+
+[[dependencies]]
+name = "wayfinder"
+kind = "local"
+required = false
+role = "Resolve connected decisions that prevent choosing an implementation direction."
+
+[[dependencies]]
+name = "design-code-structure"
+kind = "local"
+required = false
+role = "Resolve an unsettled software model, interface, or module boundary in design-only scope."
+
+[[dependencies]]
+name = "agent-instructions"
+kind = "local"
+required = false
+role = "Maintain recorded source inspiration when explicitly requested."

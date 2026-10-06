@@ -4625,15 +4625,18 @@ window.SKILL_ATLAS = {
         "section": "wayfinder",
         "checkedAt": "2026-10-06",
         "sha256": "620760dcc6d0d819267149ddc02321626097bf9445f7feda0f1649f0b09a749f"
+      },
+      {
+        "name": "planning",
+        "category": "Understanding and design",
+        "summary": "Create, review, revise or divide evidence-grounded implementation plans with verifiable outcomes, dependencies and acceptance checks.",
+        "path": "planning/SKILL.md",
+        "section": "planning",
+        "checkedAt": "2026-10-06",
+        "sha256": "05649d34e2ed7e920a5804feffccec6feeb86dba1a82697c99d5553c07e064c3"
       }
     ],
     "pending": [
-      {
-        "name": "planning",
-        "status": "Requested; not created",
-        "summary": "Turn an agreed direction into executable work, dependencies and acceptance criteria.",
-        "section": "wayfinder"
-      },
       {
         "name": "work-mode",
         "status": "Coordinator not created",
@@ -7704,9 +7707,9 @@ window.SKILL_ATLAS = {
     "repositoryCommit": "761cae1 (base; working-tree hashes below)",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 156,
+      "ready": 157,
       "pending": 37,
-      "optional": 43,
+      "optional": 42,
       "not-selected": 41
     },
     "skills": {
@@ -8012,11 +8015,33 @@ window.SKILL_ATLAS = {
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Matt Pocock/to-tickets": {
-        "status": "optional",
-        "label": "Optional",
-        "owners": [],
-        "evidence": [],
-        "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
+        "status": "ready",
+        "label": "Selected parts incorporated",
+        "owners": [
+          "planning"
+        ],
+        "evidence": [
+          {
+            "owner": "planning",
+            "path": "planning/origin.txt",
+            "line": 22,
+            "sha256": "4085a0aaeb2988d376950559b844e352148d9070204fc89ec8d8c0de0f0b9a1f",
+            "sourceId": "matt-to-tickets",
+            "baselineCommit": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+            "reviewedThrough": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+            "borrowed": [
+              "Split by complete observable behavior and record genuine blocking relationships.",
+              "Use expand, migrate, contract for broad changes whose consumers cannot all move at once.",
+              "Make the first valid integration check explicit when intermediate units cannot pass independently."
+            ],
+            "localChoices": [
+              "Keep a small change together and permit one plan rather than requiring one file per ticket.",
+              "Drafting is separate from authorized publication; use project-native tracker conventions without setup, labels, or mandatory approval ceremonies.",
+              "Retain useful verified entry points and contract excerpts, with a freshness check when resuming."
+            ]
+          }
+        ],
+        "note": "Work-unit and dependency mechanisms incorporated into planning. This does not establish whole-skill installation or synchronization."
       },
       "Matt Pocock/triage": {
         "status": "optional",
@@ -11263,7 +11288,8 @@ window.SKILL_ATLAS = {
         "status": "ready",
         "label": "Selected parts incorporated",
         "owners": [
-          "wayfinder"
+          "wayfinder",
+          "planning"
         ],
         "evidence": [
           {
@@ -11284,9 +11310,30 @@ window.SKILL_ATLAS = {
               "Use previews only where they clarify a decision; no fixed word budget or mandatory numerical cost estimate.",
               "Keep durable context in the existing authoritative map rather than automatically creating another plan or proposing agent-memory writes."
             ]
+          },
+          {
+            "owner": "planning",
+            "path": "planning/origin.txt",
+            "line": 7,
+            "sha256": "4085a0aaeb2988d376950559b844e352148d9070204fc89ec8d8c0de0f0b9a1f",
+            "sourceId": "blode-planning",
+            "baselineCommit": "cef4cfa837ca41b50d19f54551a3939ed7460434",
+            "reviewedThrough": "cef4cfa837ca41b50d19f54551a3939ed7460434",
+            "borrowed": [
+              "Ground executable plans in repository evidence and material acceptance scenarios.",
+              "Preserve an authoritative plan, a self-contained handoff, and reasons to replan when premises change.",
+              "Verify consequential claims and stop reviewing when evidenced gaps are resolved.",
+              "Ask only for consequential unresolved choices and preserve existing host approval authority without a second gate."
+            ],
+            "localChoices": [
+              "Keep review-only requests read-only; revise the plan only when writing or revision is authorized.",
+              "Use Wayfinder for connected direction decisions, and keep planning focused on executable work.",
+              "Honor existing output and approval conventions without fixed question counts, score targets, or a mandatory notes file.",
+              "Keep verification plans distinct from observed evidence and avoid treating proxies such as file counts as quality proof."
+            ]
           }
         ],
-        "note": "Decision-brief and evidence mechanisms incorporated into Wayfinder. Execution planning and ticket splitting remain pending as a separate package. Source incorporation does not establish whole-skill installation or synchronization."
+        "note": "Selected planning mechanisms incorporated into planning. Existing Wayfinder decision evidence retains its own source pin. This does not establish whole-skill installation or synchronization."
       },
       "Matthew Blode/pr-babysitter": {
         "status": "ready",
@@ -13605,6 +13652,13 @@ window.SKILL_ATLAS = {
         "repositoryCommit": "5cc6610 (base; working-tree hashes recorded)",
         "validation": "wayfinder-rewrite-validation.json",
         "scope": "Rewrite Wayfinder after screening 19 pinned repositories; add three selected provenance feeds, preserve unrelated pins and source history, and refresh only affected source cards, package hashes and aggregate counts."
+      },
+      {
+        "checkedAt": "2026-10-06",
+        "source": "Planning: selected planning and ticket decomposition mechanisms",
+        "repositoryCommit": "b9e6f04b31eacecda7286892983b98e63fe3e3d3",
+        "validation": "planning-validation.json",
+        "scope": "Add planning inventory, remove its pending proposal, reassess the existing Matt Pocock/to-tickets and Matthew Blode/planning cards, and refresh aggregate counts. Other source pins and historical assessments are preserved."
       }
     ]
   },
@@ -18741,7 +18795,7 @@ window.SKILL_ATLAS = {
     "limitations": [
       "Repository package, not a global installation.",
       "Supplied-instruction exercises do not establish automatic selection or broad effectiveness.",
-      "The requested planning package remains to be created."
+      "At the time of this Wayfinder review, planning had not been created. The subsequent package and its evidence are recorded in planningReview."
     ],
     "assessmentRevision": "Cross-repository rewrite; final hashes and matched trials in wayfinder-rewrite-validation.json",
     "sources": "wayfinder-source-review.json",
@@ -18753,5 +18807,106 @@ window.SKILL_ATLAS = {
         "assessmentRevision": "v3; package hashes in wayfinder-validation.json"
       }
     ]
+  },
+  "planningReview": {
+    "date": "2026-10-06",
+    "html": "index.html#planning",
+    "sources": "planning-source-review.json",
+    "validation": "planning-validation.json",
+    "scope": "Eight planning candidates from the repositories previously compared. Entry points and relevant selected-donor resources, not a full audit of each repository.",
+    "objective": "Turn a defined outcome into executable, verifiable work while preserving settled direction and authorized continuation.",
+    "assessments": [
+      {
+        "collection": "mblode",
+        "path": "skills/planning/SKILL.md",
+        "sha": "cef4cfa837ca41b50d19f54551a3939ed7460434",
+        "sha256": "c3c10312eb869f8ed0d8077d36aaacab5ce909ef0425abef7cbec80303255795",
+        "lines": 64,
+        "chars": 5375,
+        "name": "planning",
+        "id": "matthew-blode-planning",
+        "key": "Matthew Blode/planning",
+        "declaredName": "planning",
+        "group": "Matthew Blode",
+        "author": "Matthew Blode",
+        "kind": "upstream",
+        "repository": "https://github.com/mblode/agent-skills",
+        "source": "https://github.com/mblode/agent-skills/blob/cef4cfa837ca41b50d19f54551a3939ed7460434/skills/planning/SKILL.md",
+        "action": "Selected parts incorporated",
+        "priority": "Available",
+        "category": "Planning",
+        "owner": "wayfinder; planning",
+        "summary": "Grounded execution plans, sufficient handoff context, and material acceptance evidence.",
+        "reason": "Selected mechanisms support executable planning; original assessments and other owners remain in their dated records.",
+        "caution": "Project conventions and existing authority govern output and continuation. No mandatory tracker, worker topology or additional approval.",
+        "decision": "Blend",
+        "inspection": "Entrypoint and the listed selected donor resources read completely at this pin; no full repository audit claimed.",
+        "references": [
+          {
+            "path": "LICENSE.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/mblode/agent-skills/blob/cef4cfa837ca41b50d19f54551a3939ed7460434/LICENSE.md",
+            "sha256": "81ac64b19ea7ae7f9a8d197705df58f48ffca02c74fca13e565dedf4f7595b46"
+          },
+          {
+            "path": "skills/planning/references/handoff-plans.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/mblode/agent-skills/blob/cef4cfa837ca41b50d19f54551a3939ed7460434/skills/planning/references/handoff-plans.md",
+            "sha256": "9e4b0ae268d5f3ba119a2b2b8d1e812dfe96119e3488eab1be5dc10991db2db3"
+          },
+          {
+            "path": "skills/planning/references/splitting.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/mblode/agent-skills/blob/cef4cfa837ca41b50d19f54551a3939ed7460434/skills/planning/references/splitting.md",
+            "sha256": "b6d5f94ceb0eca31ce77e7ae2c8e2a67da8001e01cda0b62d47ae58b2917aeb1"
+          },
+          {
+            "path": "skills/planning/references/claim-verification.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/mblode/agent-skills/blob/cef4cfa837ca41b50d19f54551a3939ed7460434/skills/planning/references/claim-verification.md",
+            "sha256": "f4e0d906e53c7cceca5dcfb4ee8300c250038e696c84c4c7ec898d8be1aa9d72"
+          },
+          {
+            "path": "skills/planning/references/plan-quality-rubric.md",
+            "coverage": "Complete file read",
+            "url": "https://github.com/mblode/agent-skills/blob/cef4cfa837ca41b50d19f54551a3939ed7460434/skills/planning/references/plan-quality-rubric.md",
+            "sha256": "72ca890c132d73c439367f75c69e5dfea25bcaaf95597318a965bb50bc36e019"
+          }
+        ]
+      },
+      {
+        "id": "matt-pocock-to-tickets",
+        "key": "Matt Pocock/to-tickets",
+        "name": "to-tickets",
+        "declaredName": "to-tickets",
+        "group": "Matt Pocock",
+        "author": "Matt Pocock",
+        "kind": "upstream",
+        "path": "skills/engineering/to-tickets/SKILL.md",
+        "source": "https://github.com/mattpocock/skills/blob/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d/skills/engineering/to-tickets/SKILL.md",
+        "sha": "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d",
+        "sha256": "5c9fba69845c2519b9b35b9af42ae5142c21f8ca15ac2123dc2722002c8058ae",
+        "lines": 105,
+        "category": "Planificación",
+        "decision": "Blend",
+        "owner": "planning",
+        "summary": "Complete behavior slices, true blocking dependencies, and explicit migration or integration stages.",
+        "reason": "Selected mechanisms support executable planning; original assessments and other owners remain in their dated records.",
+        "caution": "Project conventions and existing authority govern output and continuation. No mandatory tracker, worker topology or additional approval.",
+        "chars": 5671,
+        "action": "Selected parts incorporated",
+        "priority": "Available",
+        "inspection": "Entrypoint and the listed selected donor resources read completely at this pin; no full repository audit claimed.",
+        "references": [
+          {
+            "path": "LICENSE",
+            "coverage": "Complete file read",
+            "url": "https://github.com/mattpocock/skills/blob/4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d/LICENSE",
+            "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5"
+          }
+        ]
+      }
+    ],
+    "limitations": "Only the two existing catalog cards are reassessed here. Sentimony and Superpowers are separately pinned in planning/origin.txt and the source review. No other source or package review is refreshed."
   }
 };

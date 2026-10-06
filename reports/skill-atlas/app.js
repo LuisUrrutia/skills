@@ -3,7 +3,7 @@
 const atlas = window.SKILL_ATLAS;
 const repositoryInventory = atlas.repositoryInventory;
 const repositorySkills = new Map(repositoryInventory.skills.map((skill) => [skill.name, skill]));
-const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments, ...atlas.handoffReview.assessments, ...atlas.activityReview.skills, ...atlas.activityReview.assessments, ...atlas.reviewCodeChangesReview.dylReviewAdoption.assessments, ...atlas.communicationReview.assessments, ...atlas.upstreamAdoptionReview.skills, ...atlas.upstreamAdoptionReview.assessments, ...atlas.teachingReview.skills, ...atlas.teachingReview.assessments, ...atlas.observabilityReview.skills, ...atlas.observabilityReview.assessments, ...atlas.commentStyleReview.skills, ...atlas.commentStyleReview.assessments, ...atlas.designStructureReview.assessments, ...atlas.performanceReview.skills, ...atlas.performanceReview.assessments, ...atlas.deprecationReview.skills, ...atlas.deprecationReview.assessments, ...atlas.issueWorkflowReview.skills, ...atlas.issueWorkflowReview.assessments, ...atlas.wayfinderReview.assessments].map((skill) => [skill.key, skill]));
+const sourceReviews = new Map([...atlas.authorReview.skills, ...atlas.accessibilityReview.skills, ...atlas.accessibilityReview.assessments, ...atlas.typescriptReview.skills, ...atlas.typescriptReview.assessments, ...atlas.ciCdReview.skills, ...atlas.ciCdReview.assessments, ...atlas.handoffReview.assessments, ...atlas.activityReview.skills, ...atlas.activityReview.assessments, ...atlas.reviewCodeChangesReview.dylReviewAdoption.assessments, ...atlas.communicationReview.assessments, ...atlas.upstreamAdoptionReview.skills, ...atlas.upstreamAdoptionReview.assessments, ...atlas.teachingReview.skills, ...atlas.teachingReview.assessments, ...atlas.observabilityReview.skills, ...atlas.observabilityReview.assessments, ...atlas.commentStyleReview.skills, ...atlas.commentStyleReview.assessments, ...atlas.designStructureReview.assessments, ...atlas.performanceReview.skills, ...atlas.performanceReview.assessments, ...atlas.deprecationReview.skills, ...atlas.deprecationReview.assessments, ...atlas.issueWorkflowReview.skills, ...atlas.issueWorkflowReview.assessments, ...atlas.wayfinderReview.assessments, ...atlas.planningReview.assessments].map((skill) => [skill.key, skill]));
 const originalKeys = new Set(atlas.skills.map((skill) => skill.key));
 const catalogSkills = [...atlas.skills, ...atlas.authorReview.skills.filter((skill) => !originalKeys.has(skill.key)), ...atlas.accessibilityReview.skills, ...atlas.typescriptReview.skills, ...atlas.ciCdReview.skills, ...atlas.activityReview.skills, ...atlas.communicationReview.skills, ...atlas.upstreamAdoptionReview.skills, ...atlas.teachingReview.skills, ...atlas.observabilityReview.skills, ...atlas.commentStyleReview.skills, ...atlas.performanceReview.skills, ...atlas.deprecationReview.skills, ...atlas.issueWorkflowReview.skills];
 const byKey = new Map(catalogSkills.map((skill) => [skill.key, skill]));
@@ -107,7 +107,7 @@ const clusters = [
   },
   {
     "title": "Entrevistas, especificaciones y tareas",
-    "winner": "wayfinder for direction; planning remains to be created",
+    "winner": "wayfinder for direction; planning for executable work",
     "keys": [
       "Matt Pocock/grilling",
       "Matt Pocock/grill-me",
@@ -118,7 +118,7 @@ const clusters = [
       "Matt Pocock/to-questionnaire",
       "Matt Pocock/triage"
     ],
-    "text": "The local wayfinder resolves connected decisions and preserves their evidence across sessions. Planning will turn a settled direction into executable work. Interviews, specifications and ticket decomposition remain distinct techniques.",
+    "text": "The local wayfinder resolves connected decisions and preserves their evidence across sessions. Planning turns a settled direction into executable work with dependencies and acceptance checks. Interviews, specifications and ticket decomposition remain distinct techniques.",
     "why": "Use a decision map when ambiguity prevents useful planning. A settled direction can proceed directly to the already authorized planning workflow."
   },
   {
