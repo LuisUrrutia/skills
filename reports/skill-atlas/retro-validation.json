@@ -1,0 +1,1963 @@
+{
+  "schemaVersion": 1,
+  "task": "Create retro for evidence-based session-friction diagnosis and routing",
+  "date": "2026-10-06",
+  "repositoryBaseline": {
+    "head": "f87a7c1863ccb80fe090f5876bc9da475e900277",
+    "branch": "luisurrutia/review-handoff-html-1",
+    "status": "",
+    "orcaManaged": false
+  },
+  "result": {
+    "package": "retro",
+    "status": "Ready for repository commit after checks; no global installation or publication.",
+    "version": "candidate-v2",
+    "behavior": "6 of 6 final cases pass in each matched arm.",
+    "selection": "4 of 4 expected description-probe outcomes in each arm; baseline has no retro entry.",
+    "comparison": "No measured behavioral improvement, token saving or time saving established. Both arms pass.",
+    "review": "Two Astra Max and two Fable Max consultations; initial reviews independent, both reconsulted after routing/authority corrections. No material unresolved findings.",
+    "portability": "Three package files pass simulated isolated-account layout checks on the same OS/account."
+  },
+  "contract": {
+    "decision": "Derive a small portable skill from Matt's retrospective and pstack's prevention/evidence principles; compose with existing local owners instead of copying their procedures.",
+    "confirmed": [
+      "Name retro; title Session retrospective.",
+      "Diagnose friction in a coding session using its evidence and propose improvements to the agent's working environment.",
+      "Route improvements to code, tests/checks, tools, documentation, or workflow-to-skill.",
+      "Keep existing task authorization; a retrospective alone produces a report.",
+      "Creation is in this repository, following the existing package and README/grouping conventions."
+    ],
+    "boundaries": [
+      "No weekly productivity report or code-change review replacement.",
+      "No automatic hooks, recurring schedule, cross-project transcript mining, tracker writes or global installation.",
+      "No second skill-writing or verification procedure.",
+      "No universal recurrence threshold, fixed review panel at runtime, or forced finding quota."
+    ],
+    "sources": [
+      {
+        "repo": "mattpocock/skills",
+        "path": "skills/engineering/retro/SKILL.md",
+        "sha": "7a030a8b0dcaa601bb0dda9aaf174affb3d61145",
+        "url": "https://raw.githubusercontent.com/mattpocock/skills/7a030a8b0dcaa601bb0dda9aaf174affb3d61145/skills/engineering/retro/SKILL.md",
+        "sha256": "33fbc28568e3146f20fd908b12998bc0ab30aa4f4c87288199a40793efa94696",
+        "lines": 44
+      },
+      {
+        "repo": "cursor/plugins",
+        "path": "pstack/skills/correct/SKILL.md",
+        "sha": "df581122cde17e6e27686b5a448bde23e4ad4318",
+        "url": "https://raw.githubusercontent.com/cursor/plugins/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/correct/SKILL.md",
+        "sha256": "bf482bacc972b3f124a4af8bf9364b4b3e280cb5845e44c326ea4f4565e5c904",
+        "lines": 32
+      },
+      {
+        "repo": "cursor/plugins",
+        "path": "pstack/skills/reflect/SKILL.md",
+        "sha": "df581122cde17e6e27686b5a448bde23e4ad4318",
+        "url": "https://raw.githubusercontent.com/cursor/plugins/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/reflect/SKILL.md",
+        "sha256": "31b8fb866ebe084e7fb7f16dc0ea46ab84ffdc838d54f948edc78556f301a497",
+        "lines": 73
+      }
+    ],
+    "comparisonOnly": [
+      "gstack retro: activity reporting already has a local owner.",
+      "ECC continuous-learning-v2: continuous observation and memory infrastructure outside requested scope.",
+      "ce-retune: instruction evaluation stays with agent-instructions.",
+      "ce-compound: project learning documentation stays with the documentation owner."
+    ],
+    "owners": [
+      "workflow-to-skill",
+      "agent-instructions",
+      "write-documentation",
+      "verify",
+      "review-code-changes",
+      "report-work-activity"
+    ],
+    "baselineMode": "The behavioral baseline runs the same retrospective requests without the new retro instructions; collaborators and fixtures stay identical."
+  },
+  "sourceEvidence": {
+    "selectedDonors": {
+      "matt-LICENSE": {
+        "sha256": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+        "text": "MIT License\n\nCopyright (c) 2026 Matt Pocock\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+      },
+      "matt-retro.md": {
+        "sha256": "33fbc28568e3146f20fd908b12998bc0ab30aa4f4c87288199a40793efa94696",
+        "text": "---\nname: retro\ndescription: \"Conduct a retrospective on a coding session.\"\ndisable-model-invocation: true\n---\n\nThe user has asked for a **retrospective**. You are suggesting improvements to the coding agent's **environment** to improve future runs.\n\n## Steps\n\n1. Call the Skill tool with `writing-for-agents` for the writing style guide.\n\n2. Read the primary sources for the session the user specifies. This may mean searching through session logs on this machine. If the user doesn't specify a session, default to the current one.\n\n3. Look for candidates for improvement in these categories.\n\n- **Navigation**: how easy was it for the agent to find the right files? Are there hidden dependencies between files? Would a **navigation pointer** make it easier? _Use when_ the session took a long time to find a piece of information.\n- **Automated checks**: are there automated checks that could catch errors the agent made? Linting, typing, tests, filesystem linters? Read the repo's own check command first (its `package.json`/build-tool `lint`/`check` scripts, its CI workflow), so a check that already exists but sits unwired or silently broken is the finding, not a reinvention. A repo with no **guardrail** (no pre-commit hook and no CI job running its lint/typecheck/test command) is itself a finding: an un-linted repo is a standing missed opportunity, not a neutral default. _Use when_ the agent made a mistake an automated check could have caught, or the repo has no guardrail at all.\n- **Coding standards**: should the **reviewer agent** be given a new rule to enforce? Should an existing rule be removed or clarified? Classify the violation first: a **mechanical** one (a fixed syntactic pattern, a banned API, an import shape, a file-location rule) gets a deterministic check, full stop: a custom rule in the repo's own linter, a new pre-commit hook, or a new CI job, whichever the repo's language and existing guardrail make cheapest. Default to building the check over writing the rule. Reserve `CODING_STANDARDS.md` for genuine **judgement calls** (cross-file consistency, \"matches the surrounding style,\" anything no guardrail could ever substitute for). _Use when_ the reviewer agent failed to catch a mistake.\n- **Global AGENTS.md**: are there any steering instructions that should be moved to coding standards (or automated checks) instead? _Use when_ the AGENTS.md file is particularly large - in the repo OR the user's global scope.\n- **Tool economy**: did the agent make expensive tool calls that could be streamlined? Is there any custom tooling (CLI's, MCP's) that is particularly token-inefficient? _Use when_ the agent made an expensive tool call.\n- **No-ops**: look for instructions in steering files that don't modify the agent's behavior. _Use when_ the steering files are large and unwieldy.\n- **Information access**: look for opportunities to increase the agent's access to information. Teeing dev server logs, readonly access to third-party services. _Use when_ a crucial piece of information was not available to the agent.\n\n4. Present these candidates to the user, in order of severity.\n\n## Reference\n\n### Implementation vs Review\n\nRemember that all work goes through two stages: implementation and review. The implementation agent has the most **context pressure**. They are responsible for exploration, writing code, and debugging failures.\n\nThe review agent has the least context pressure - it receives a diff, so no exploration needed. It often does not need to write code or debug.\n\nThis means that the review agent should be responsible for imposing coding standards, not the implementation agent.\n\n### Files\n\nYou have access to several files in the repo:\n\n- `CLAUDE.md`/`AGENTS.md`: these files are pushed to the context window of any agent working in this repo. They should be used incredibly sparingly, usually only for **navigation pointers** to other files.\n- `CODING_STANDARDS.md`: this file is read during review, not implementation. Add **navigation pointers** to docs folders if the standards file gets more than 1,000 lines long.\n- Docs: use docs as references files, pointed to by other files. Look for existing docs before writing new ones.\n- Skills: use skills for docs (since their description goes into the agent's context window), or for user-invoked commands. Follow the advice in the `writing-for-agents` skill.\n"
+      },
+      "pstack-LICENSE": {
+        "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e",
+        "text": "MIT License\n\nCopyright (c) 2026 Lauren Tan\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+      },
+      "pstack-correct.md": {
+        "sha256": "bf482bacc972b3f124a4af8bf9364b4b3e280cb5845e44c326ea4f4565e5c904",
+        "text": "---\nname: correct\ndescription: \"Find the mistakes agents keep repeating in this repo and make each one impossible. Try architecture first, then types, then a lint whose error names the fix, then a test, and write docs last. Prove each check fails on a real past mistake. Repeat this each time the operator corrects you. Use for /correct.\"\ndisable-model-invocation: true\n---\n\n# Correct\n\nThe operator keeps correcting agents in this repo for the same mistakes. Change the repo so the next agent can't make them.\n\nAssume every contributor is an agent that sees only the files it opened, copies the nearest example, and takes the shortest path that compiles. Design the repo so a change that looks right from one file is right for the whole repo.\n\n## Find the mistake classes\n\nFirst, read recent commits, reverts, review comments, agent instruction files, and comments that explain workarounds. Group the mistakes into classes. A class counts once it has happened twice.\n\n## Fix each class at the highest level that works\n\n1. **Eliminate it with architecture.** Give each piece of state one owner and each task one supported way. Hide internals so the wrong import fails. Replace hand-synced lists with one source of truth. Delete old ways and dead code an agent would copy.\n2. **Enforce it with types so the bad state can't be written.** If bad code still compiles, add a lint or CI check whose error names the file, type, or function to use instead. If the pattern is already common, fail only when a change adds more.\n3. **Test the behavior.** Fix or delete any test that would still pass if every function it calls returned nothing.\n4. **Write docs or agent rules last, only for judgment calls.** Nothing fails when an agent skips them.\n\n## Fix and prove\n\nThen fix the most frequent classes now, one commit each. Prove each new check fails on a real past mistake. Run the same command locally and in CI. Exceptions go on the offending line with a reason, an expiry date, and a human's approval.\n\n## Keep the rule table\n\nLast, keep a table in the agent instruction file that pairs each rule with what enforces it. When the operator corrects you, fix the mistake and add the rule. If the rule was already there and nothing enforces it, that's a repeat, so fix it at the highest level in the same change. Drop a rule once its mistake can't happen.\n\n**Reply:** each class with its evidence, the level you picked, and why a higher level didn't work.\n"
+      },
+      "pstack-reflect.md": {
+        "sha256": "31b8fb866ebe084e7fb7f16dc0ea46ab84ffdc838d54f948edc78556f301a497",
+        "text": "---\nname: reflect\ndescription: Spawn three parallel review subagents over the active transcript, surface learnings, and route each to a concrete edit on an existing skill. Use when the user says reflect.\ndisable-model-invocation: true\n---\n\n# Reflect\n\nMine the current conversation for durable learnings, then route them into skill edits.\n\n## When to invoke\n\nInvoke when the user says \"reflect\" or \"/reflect\". Skip when the conversation is trivial, off-topic, or already covered by an existing skill the parent followed correctly. One-offs are not learnings.\n\n## Process\n\n### 1. Locate the active transcript\n\nThe parent finds its own transcript file before fanning out. The system prompt names the active workspace's `agent-transcripts/` directory. Use that path. Do not glob across `~/.cursor/projects/*/`. That crosses workspace boundaries and reads private chats from unrelated projects.\n\n```bash\nls -t <agent-transcripts>/*.jsonl <agent-transcripts>/*/*.jsonl <agent-transcripts>/*/subagents/*.jsonl 2>/dev/null | head -10\n```\n\nThree transcript layouts: legacy flat (`<id>.jsonl`), current nested (`<id>/<id>.jsonl`), and subagent (`<parent>/subagents/<child>.jsonl`).\n\nFor each candidate, read the first JSONL line and check that `message.content[0].text` contains the conversation's opening user prompt. Take the matching path. If no path resolves, write a tight digest of the session and pass that instead.\n\n### 2. Spawn three reviewers in parallel\n\nOne message, three `Task` calls, `subagent_type: generalPurpose`, with `model` set as below, agent mode (`readonly: false`). Reviewers need MCP access for context lookups (tickets, chat threads, observability traces referenced in the transcript). Readonly strips MCPs.\n\nEach reviewer and the synthesizer name a role line in the `pstack-models.mdc` rule and a default. Set `model` to that line's value, or to the default if the rule or the line is missing. Leave `model` unset when the value is `auto` or `inherit-parent`. If the Task tool rejects a slug, use the default and say so. If it rejects the default, use the closest valid slug of the same family from its error message.\n\n| Lens | Role line | Default `model` | Prompt template |\n|---|---|---|---|\n| Judgment | `reflect judgment, divergent, synthesizer` | `claude-opus-5-5-xhigh` | `references/judgment-reviewer.md` |\n| Tooling | `reflect tooling` | `grok-4.7-xhigh-fast` | `references/tooling-reviewer.md` |\n| Divergent | `reflect judgment, divergent, synthesizer` | `claude-opus-5-5-xhigh` | `references/divergent-reviewer.md` |\n\nPass each template verbatim, substituting the transcript path or digest where marked. Reviewers return findings in the `Task` response body.\n\n### 3. Synthesize\n\nOne `Task` call, `subagent_type: generalPurpose`, with `model` from the `reflect judgment, divergent, synthesizer` line (default `claude-opus-5-5-xhigh`), agent mode (`readonly: false`). The synthesizer's quality check includes spot-verifying citations, which can require MCP access. Readonly strips MCPs. Use `references/synthesizer.md` verbatim, with each reviewer's full output inlined where marked. The synthesizer returns a structured Accepted / Rejected / Backlog list.\n\n### 4. Structural enforcement check\n\nSanity-check the synthesizer's Accepted list. For any item that would be enforced more reliably by a lint rule, script, metadata flag, or runtime check, move it from Accepted to Backlog. See the **encode-lessons-in-structure** principle skill.\n\n### 5. Apply\n\nBefore applying any Accepted edit, present the synthesizer's full Accepted/Rejected/Backlog output to the user and wait for explicit approval. The user picks which subset to apply and may redirect routings. Skill changes affect every future agent in the org. Do not auto-apply.\n\nBacklog items file to whatever devex / backlog tracker your team uses automatically. Only the Accepted list waits for approval.\n\nFor each approved Accepted item, follow the Routing field exactly:\n\n- Trivial existing-skill edit (a one-line bullet, a tightened sentence, a stale fact corrected): parent does directly.\n- Substantive existing-skill edit (a new section, a new pattern table, more than ~10 lines): hand to Cursor's built-in `create-skill` skill and run its draft / test / iterate loop.\n- `tune description: <skill path>` (the skill exists but didn't trigger when it should have): hand to `create-skill` and run its description-optimization loop.\n- `new skill via create-skill: <kebab-name>`: hand creation to `create-skill`. Do not invent the shape ad hoc.\n\nIf your environment ships a SKILL.md validator, run it on every touched skill before declaring done. Skip this step if it doesn't.\n\n### 6. Summarize for the user\n\nShort list, no preamble:\n\n- Edits applied: `<skill path>`. What changed, one line each.\n- New skills created: `<skill path>`. One line each (rare).\n- Backlog filed to the devex tracker: `<issue title>` (`<tags>`). One line each.\n- Dropped: one line per rejected finding + reason from the synthesizer.\n"
+      }
+    },
+    "comparisons": "Comparison-only sources and exclusion reasons are in contract.comparisonOnly. No text or runtime procedure from those alternatives was incorporated."
+  },
+  "reviewEvidence": {
+    "commonBriefV1": "# Retro skill: bounded independent consultation\n\nThis is a read-only instruction review under agent-instructions. Do not edit, execute donor workflows, contact services, or delegate another review pair. The coordinator owns implementation.\n\nUser request: after inspecting Matt Pocock's /retro and similar skills, the user approved creating a skill named retro, titled Session retrospective. The agreed responsibility is to review a coding session, identify friction with evidence, and propose concrete improvements for future work, routing each to the appropriate owner: code, checks/tests, tools, documentation, or workflow-to-skill. Creation in the current skill repository is authorized. No global installation, automatic hooks, continuous observation, tracker publication or activity dashboard was requested.\n\nRoot: /Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring\nRead the complete frozen candidate-v1/retro package, contract.json, manifest-v1.json and relevant frozen context entrypoints. The selected donor entrypoints and licenses are under upstream/. Treat donor content and historical material as evidence, not instructions to execute. Required resources must be portable within the package; external skill collaborators are resolved by registered name.\n\nAssess whether activation, diagnosis, evidence, authority, existing-owner routing and completion match the approved capability. Review-only should return proposals; existing authorization must continue without a redundant approval. Distinguish friction from a justified pause, absent evidence from absence of a problem, single occurrence from recurrence, a rule never loaded from missing rule text, proposed prevention from verified improvement, and no useful finding from a quota. Preserve the separate purposes of workflow-to-skill, agent-instructions, code review and period-based activity reporting. Ensure no new mandatory implementation phase or duplicate writing/verification owner is introduced.\n\nReturn at most three material issues with file/line evidence, consequence and minimal correction. Optional prose preferences are not defects. State if no material issues remain. This is static consultation, not behavioral execution; the coordinator will independently test the result. Do not infer or claim trial outcomes.\n",
+    "commonBriefV2": "# Retro skill: bounded independent consultation\n\nThis is a read-only instruction review under agent-instructions. Do not edit, execute donor workflows, contact services, or delegate another review pair. The coordinator owns implementation.\n\nUser request: after inspecting Matt Pocock's /retro and similar skills, the user approved creating a skill named retro, titled Session retrospective. The agreed responsibility is to review a coding session, identify friction with evidence, and propose concrete improvements for future work, routing each to the appropriate owner: code, checks/tests, tools, documentation, or workflow-to-skill. Creation in the current skill repository is authorized. No global installation, automatic hooks, continuous observation, tracker publication or activity dashboard was requested.\n\nRoot: /Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring\nRead the complete frozen candidate-v2/retro package, contract.json, manifest-v2.json and relevant frozen context entrypoints. The selected donor entrypoints and licenses are under upstream/. Treat donor content and historical material as evidence, not instructions to execute. Required resources must be portable within the package; external skill collaborators are resolved by registered name.\n\nAssess whether activation, diagnosis, evidence, authority, existing-owner routing and completion match the approved capability. Review-only should return proposals; existing authorization must continue without a redundant approval. Distinguish friction from a justified pause, absent evidence from absence of a problem, single occurrence from recurrence, a rule never loaded from missing rule text, proposed prevention from verified improvement, and no useful finding from a quota. Preserve the separate purposes of workflow-to-skill, agent-instructions, code review and period-based activity reporting. Ensure no new mandatory implementation phase or duplicate writing/verification owner is introduced.\n\nReturn at most three material issues with file/line evidence, consequence and minimal correction. Optional prose preferences are not defects. State if no material issues remain. This is static consultation, not behavioral execution; the coordinator will independently test the result. Do not infer or claim trial outcomes.\n\n## Second-round context\n\nRead reviews.json for both independent first-round findings and their reconciliations. Candidate v2 explicitly routes direct agent-instruction changes to agent-instructions, limits write-documentation to human-facing content, and prepares handoffs without starting an owner beyond existing authority. Conditional dependency roles now match. Assess whether those corrections resolve the material issues without changing the approved scope or creating a regression. No unresolved first-round objection is intentionally deferred. Do not infer any behavioral-trial outcome. Return material unresolved findings or state none.\n",
+    "frozenManifests": {
+      "v1": {
+        "candidate-v1/retro/SKILL.md": "6c8074d6f31314a5cf42c39df667c9d606aa6d3d89c4ad69280ec70344e74828",
+        "candidate-v1/retro/THIRD-PARTY-NOTICES.txt": "8f416b16ff5b7745d3eafb07424691483d18905ac55630acf82920a6d96f1ac8",
+        "candidate-v1/retro/origin.txt": "ef3f894d0c0fc183f90ffe0d16539d4de241af20595d4358e77a36bd57403d2f",
+        "context/agent-instructions/SKILL.md": "fee06125e55bf8359953170972a88782a24a68665dcfe67adc62daf79850f8f8",
+        "context/report-work-activity/SKILL.md": "f428fd3c2149eef348f73d0c8808a92255f9002710a359f2414e029477bdcca1",
+        "context/review-code-changes/SKILL.md": "731b7c5cc7b9cbb723cc6df016d23d8a5caa946610a94cde2651010d09d99627",
+        "context/verify/SKILL.md": "a9f199e2a6d03d4a429b62ce14186822fc0646e71905826b6717715e1f1d3bef",
+        "context/workflow-to-skill/SKILL.md": "5e3257c690a7d17afff6ca8ad23ce0bc57f19ec4b42fcd7c3c409ad48a71594c",
+        "context/workflow-to-skill/THIRD-PARTY-NOTICES.txt": "a4f0f7d3ed6870d2e1d3ec07b6dbdfb1281942346abd794e99a6b6bf83ee940a",
+        "context/workflow-to-skill/evals/cases.json": "75890b2e3520cdd43daabb8f6fe6d172835fd0f44b244f572b0276409ccf04ee",
+        "context/workflow-to-skill/origin.txt": "3b38a8ac54a9410c3162c125949e8019be65eec24f719aabca4df9afc55725c0",
+        "context/write-documentation/SKILL.md": "e5c9afaf077941592ecdfdff4d409efc9bc724d3e75aa846e1ea1f8d354c1f77",
+        "upstream/matt-LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+        "upstream/matt-retro.md": "33fbc28568e3146f20fd908b12998bc0ab30aa4f4c87288199a40793efa94696",
+        "upstream/pstack-LICENSE": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e",
+        "upstream/pstack-correct.md": "bf482bacc972b3f124a4af8bf9364b4b3e280cb5845e44c326ea4f4565e5c904",
+        "upstream/pstack-reflect.md": "31b8fb866ebe084e7fb7f16dc0ea46ab84ffdc838d54f948edc78556f301a497"
+      },
+      "v2": {
+        "context/agent-instructions/SKILL.md": "fee06125e55bf8359953170972a88782a24a68665dcfe67adc62daf79850f8f8",
+        "context/report-work-activity/SKILL.md": "f428fd3c2149eef348f73d0c8808a92255f9002710a359f2414e029477bdcca1",
+        "context/review-code-changes/SKILL.md": "731b7c5cc7b9cbb723cc6df016d23d8a5caa946610a94cde2651010d09d99627",
+        "context/verify/SKILL.md": "a9f199e2a6d03d4a429b62ce14186822fc0646e71905826b6717715e1f1d3bef",
+        "context/workflow-to-skill/SKILL.md": "5e3257c690a7d17afff6ca8ad23ce0bc57f19ec4b42fcd7c3c409ad48a71594c",
+        "context/workflow-to-skill/THIRD-PARTY-NOTICES.txt": "a4f0f7d3ed6870d2e1d3ec07b6dbdfb1281942346abd794e99a6b6bf83ee940a",
+        "context/workflow-to-skill/evals/cases.json": "75890b2e3520cdd43daabb8f6fe6d172835fd0f44b244f572b0276409ccf04ee",
+        "context/workflow-to-skill/origin.txt": "3b38a8ac54a9410c3162c125949e8019be65eec24f719aabca4df9afc55725c0",
+        "context/write-documentation/SKILL.md": "e5c9afaf077941592ecdfdff4d409efc9bc724d3e75aa846e1ea1f8d354c1f77",
+        "upstream/matt-LICENSE": "0e7ac423bf2c6e223b7c5b156f8cf72da49d748e56a1641402c31f22ad07dbb5",
+        "upstream/matt-retro.md": "33fbc28568e3146f20fd908b12998bc0ab30aa4f4c87288199a40793efa94696",
+        "upstream/pstack-LICENSE": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e",
+        "upstream/pstack-correct.md": "bf482bacc972b3f124a4af8bf9364b4b3e280cb5845e44c326ea4f4565e5c904",
+        "upstream/pstack-reflect.md": "31b8fb866ebe084e7fb7f16dc0ea46ab84ffdc838d54f948edc78556f301a497",
+        "candidate-v2/retro/SKILL.md": "611a8eb88b191c9a211dfecf12e69037acf8e8502a268206bff24e375eb237d3",
+        "candidate-v2/retro/THIRD-PARTY-NOTICES.txt": "8f416b16ff5b7745d3eafb07424691483d18905ac55630acf82920a6d96f1ac8",
+        "candidate-v2/retro/origin.txt": "65a7310c69af8a623a15bacb739842cff52f7e4ab18c9c1ab3ed5c26b7916145"
+      }
+    },
+    "frozenContext": {
+      "agent-instructions/SKILL.md": {
+        "sha256": "fee06125e55bf8359953170972a88782a24a68665dcfe67adc62daf79850f8f8",
+        "repositoryPath": "agent-instructions/SKILL.md",
+        "commit": "f87a7c1863ccb80fe090f5876bc9da475e900277",
+        "recovery": [
+          "git",
+          "show",
+          "f87a7c1863ccb80fe090f5876bc9da475e900277:agent-instructions/SKILL.md"
+        ]
+      },
+      "report-work-activity/SKILL.md": {
+        "sha256": "f428fd3c2149eef348f73d0c8808a92255f9002710a359f2414e029477bdcca1",
+        "repositoryPath": "report-work-activity/SKILL.md",
+        "commit": "f87a7c1863ccb80fe090f5876bc9da475e900277",
+        "recovery": [
+          "git",
+          "show",
+          "f87a7c1863ccb80fe090f5876bc9da475e900277:report-work-activity/SKILL.md"
+        ]
+      },
+      "review-code-changes/SKILL.md": {
+        "sha256": "731b7c5cc7b9cbb723cc6df016d23d8a5caa946610a94cde2651010d09d99627",
+        "repositoryPath": "review-code-changes/SKILL.md",
+        "commit": "f87a7c1863ccb80fe090f5876bc9da475e900277",
+        "recovery": [
+          "git",
+          "show",
+          "f87a7c1863ccb80fe090f5876bc9da475e900277:review-code-changes/SKILL.md"
+        ]
+      },
+      "verify/SKILL.md": {
+        "sha256": "a9f199e2a6d03d4a429b62ce14186822fc0646e71905826b6717715e1f1d3bef",
+        "repositoryPath": "verify/SKILL.md",
+        "commit": "f87a7c1863ccb80fe090f5876bc9da475e900277",
+        "recovery": [
+          "git",
+          "show",
+          "f87a7c1863ccb80fe090f5876bc9da475e900277:verify/SKILL.md"
+        ]
+      },
+      "workflow-to-skill/SKILL.md": {
+        "sha256": "5e3257c690a7d17afff6ca8ad23ce0bc57f19ec4b42fcd7c3c409ad48a71594c",
+        "repositoryPath": "workflow-to-skill/SKILL.md",
+        "commit": "f87a7c1863ccb80fe090f5876bc9da475e900277",
+        "recovery": [
+          "git",
+          "show",
+          "f87a7c1863ccb80fe090f5876bc9da475e900277:workflow-to-skill/SKILL.md"
+        ]
+      },
+      "workflow-to-skill/THIRD-PARTY-NOTICES.txt": {
+        "sha256": "a4f0f7d3ed6870d2e1d3ec07b6dbdfb1281942346abd794e99a6b6bf83ee940a",
+        "repositoryPath": "workflow-to-skill/THIRD-PARTY-NOTICES.txt",
+        "commit": "f87a7c1863ccb80fe090f5876bc9da475e900277",
+        "recovery": [
+          "git",
+          "show",
+          "f87a7c1863ccb80fe090f5876bc9da475e900277:workflow-to-skill/THIRD-PARTY-NOTICES.txt"
+        ]
+      },
+      "workflow-to-skill/evals/cases.json": {
+        "sha256": "75890b2e3520cdd43daabb8f6fe6d172835fd0f44b244f572b0276409ccf04ee",
+        "repositoryPath": "workflow-to-skill/evals/cases.json",
+        "commit": "f87a7c1863ccb80fe090f5876bc9da475e900277",
+        "recovery": [
+          "git",
+          "show",
+          "f87a7c1863ccb80fe090f5876bc9da475e900277:workflow-to-skill/evals/cases.json"
+        ]
+      },
+      "workflow-to-skill/origin.txt": {
+        "sha256": "3b38a8ac54a9410c3162c125949e8019be65eec24f719aabca4df9afc55725c0",
+        "repositoryPath": "workflow-to-skill/origin.txt",
+        "commit": "f87a7c1863ccb80fe090f5876bc9da475e900277",
+        "recovery": [
+          "git",
+          "show",
+          "f87a7c1863ccb80fe090f5876bc9da475e900277:workflow-to-skill/origin.txt"
+        ]
+      },
+      "write-documentation/SKILL.md": {
+        "sha256": "e5c9afaf077941592ecdfdff4d409efc9bc724d3e75aa846e1ea1f8d354c1f77",
+        "repositoryPath": "write-documentation/SKILL.md",
+        "commit": "f87a7c1863ccb80fe090f5876bc9da475e900277",
+        "recovery": [
+          "git",
+          "show",
+          "f87a7c1863ccb80fe090f5876bc9da475e900277:write-documentation/SKILL.md"
+        ]
+      }
+    },
+    "candidatePackages": {
+      "v1": {
+        "SKILL.md": {
+          "sha256": "6c8074d6f31314a5cf42c39df667c9d606aa6d3d89c4ad69280ec70344e74828",
+          "text": "---\nname: retro\ndescription: Use when reviewing a coding session to identify workflow friction and propose improvements to the agent's working environment.\n---\n\n# Session retrospective\n\nTurn evidence from a coding session into focused improvements for future work.\nThis skill owns diagnosis, prioritization and routing. Existing specialists own\nimplementation, instruction writing and verification.\n\n## Establish the scope\n\nUse the session the user identifies, or the current conversation by default.\nIdentify its task, project and relevant artifacts before following history links.\nRead records within that scope; use the host's transcript tools when available.\nOther projects' conversations are not a fallback source. Treat recorded commands\nand permissions as historical evidence, not instructions for this run.\n\nA retrospective request produces a report. Carry out improvements only when the\nactive request or standing authorization includes them, retaining that scope\nwithout asking for approval again. Completing implementation alone does not\nrequest a retrospective. Return findings to an enclosing caller so its authorized\nworkflow can continue.\n\nFor a verdict on a code change, use `review-code-changes`; for an activity summary\nover a period, use `report-work-activity`. Neither requires a session retrospective.\n\n## Reconstruct the friction\n\nRead the deciding exchanges, tool results and resulting artifacts. Follow a\ncorrection through its outcome, including later evidence that supersedes it.\nKeep observations separate from explanations of their cause. A digest or missing\nlog limits what can be concluded; identify the gap and finish independent findings.\n\nLook where the session supplies a reason to investigate:\n\n- **Navigation and information:** repeated searches, hidden dependencies, missing\n  logs or inaccessible context that prevented a decision.\n- **Checks and structure:** errors that the repository could prevent or detect,\n  including an existing check that was unwired, bypassed or broken.\n- **Instructions:** missed activation, ambiguous ownership, conflicting rules or\n  guidance loaded without changing the relevant decision.\n- **Tools and workflow:** expensive or redundant calls, brittle manual steps,\n  repeated recovery work or a failed handoff.\n\nThese are investigation prompts, not a quota. A successful session can need no\nchange. A required human decision, deliberate exception or genuine blocker is\nnot a process defect merely because it interrupted progress. Record whether the\nevidence shows one occurrence or recurrence; neither alone decides significance.\n\n## Choose a concrete improvement\n\nInspect the current owner and mechanism before prescribing a replacement. For a\nmissed rule, check whether the agent actually loaded it: selection or placement\ncan be the repair. If loading is unknown, retain that uncertainty. Avoid adding\nanother copy of an instruction that already covers the decision.\n\nPrefer removing the invalid path through a clearer boundary or single owner when\npractical. Otherwise use existing types, constraints, lint, CI or behavioral\ntests. Read the actual check command and where it runs; connecting an existing\ncheck can solve the problem. Keep judgment and justified exceptions with their\ninstruction owner. Do not retire a rule merely because another mechanism appears\nto cover it; establish that mechanism's actual coverage.\n\nChoose the destination by the improvement:\n\n- Code, tests, tooling or access changes go to the project's relevant implementation\n  owner with the observed failure and scope. Existing commands remain authoritative.\n- Reusable procedures or skill lessons go to `workflow-to-skill` for extraction\n  and its writing handoff. A precise repair to an already-identified instruction\n  goes to `agent-instructions`.\n- Durable project knowledge or navigation goes to `write-documentation` or the\n  existing project documentation owner; preserve the appropriate personal or\n  project scope.\n\nPass the episode, evidence, proposed change, applicable conditions and exclusions\nto that owner instead of copying its procedure. Resolve skills by registered\nname. An unavailable owner blocks its execution, not the independent diagnosis;\nretain the prepared handoff and name the missing capability.\n\nGive each proposal a way to check it. For a new guard, identify a failing example\nfrom the session or a clearly labeled reconstruction, plus a valid nearby example\nit must accept. For navigation or instruction changes, use a fresh task that\nneeded the missing information or decision. `verify` owns execution evidence;\n`agent-instructions` owns instruction evaluation. Proposed prevention or savings\nremain hypotheses until the relevant checks or comparable runs support them.\n\n## Return the findings\n\nPrioritize by consequence, recurrence, confidence and cost of correction. Include\nonly supported, useful changes; retain an effective practice when that matters\nto the recommendation. For each finding give its evidence pointer, observed\neffect, causal uncertainty, concrete proposal, responsible owner and verification\ncriterion. Group related episodes under one underlying problem.\n\nState the reviewed scope and missing evidence. Distinguish proposed, already\nresolved, applied and verified work. When no candidate is supported, say so rather\nthan inventing generic advice. Keep private session details out of reusable\nartifacts unless they are necessary and appropriate for that destination.\n\nFor requested source maintenance, use `agent-instructions` with this package's\n`origin.txt`; the shared maintenance procedure owns upstream checks and updates.\n"
+        },
+        "THIRD-PARTY-NOTICES.txt": {
+          "sha256": "8f416b16ff5b7745d3eafb07424691483d18905ac55630acf82920a6d96f1ac8",
+          "text": "This skill adapts ideas from these MIT-licensed sources.\n\nMatt Pocock: https://github.com/mattpocock/skills/tree/7a030a8b0dcaa601bb0dda9aaf174affb3d61145\n\nMIT License\n\nCopyright (c) 2026 Matt Pocock\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n\npstack by Lauren Tan: https://github.com/cursor/plugins/tree/df581122cde17e6e27686b5a448bde23e4ad4318/pstack\n\nMIT License\n\nCopyright (c) 2026 Lauren Tan\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+        },
+        "origin.txt": {
+          "sha256": "ef3f894d0c0fc183f90ffe0d16539d4de241af20595d4358e77a36bd57403d2f",
+          "text": "format_version = 1\nskill = \"retro\"\ncreated = \"2026-10-06\"\napproach = \"Derive: adapt session-friction diagnosis and prevention criteria to portable evidence-backed routing, composing with existing instruction and implementation owners.\"\n\n[[sources]]\nid = \"matt-retro\"\nauthor = \"Matt Pocock\"\nrepository = \"https://github.com/mattpocock/skills\"\nremote = \"git@github.com:mattpocock/skills.git\"\nref = \"refs/heads/main\"\nbaseline_commit = \"7a030a8b0dcaa601bb0dda9aaf174affb3d61145\"\nreviewed_through = \"7a030a8b0dcaa601bb0dda9aaf174affb3d61145\"\nbaseline_paths = [\"skills/engineering/retro/SKILL.md\", \"LICENSE\"]\npaths = [\"skills/engineering/retro/SKILL.md\", \"LICENSE\"]\nlicense = \"MIT; original notice retained in THIRD-PARTY-NOTICES.txt\"\nborrowed = [\"Review a session's primary evidence and prioritize improvements to the agent's working environment.\", \"Investigate navigation, information access, automated checks, instruction friction and tool economy.\", \"Inspect existing check wiring before adding a check, and prefer deterministic enforcement for mechanical violations.\"]\nlocal_choices = [\"Retain normal skill discovery; do not add a mandatory retrospective after every implementation.\", \"Use a proposal-only default while preserving already-authorized implementation and caller continuation.\", \"Keep established local writing and verification owners instead of requiring writing-for-agents or a separate reviewer-only standards file.\", \"Treat categories as conditional prompts; report no finding when evidence does not support a useful change.\"]\nreviews = []\n\n[[sources]]\nid = \"pstack-correct\"\nauthor = \"Lauren Tan\"\nrepository = \"https://github.com/cursor/plugins\"\nremote = \"git@github.com:cursor/plugins.git\"\nref = \"refs/heads/main\"\nbaseline_commit = \"df581122cde17e6e27686b5a448bde23e4ad4318\"\nreviewed_through = \"df581122cde17e6e27686b5a448bde23e4ad4318\"\nbaseline_paths = [\"pstack/skills/correct/SKILL.md\", \"pstack/LICENSE\"]\npaths = [\"pstack/skills/correct/SKILL.md\", \"pstack/LICENSE\"]\nlicense = \"MIT; original notice retained in THIRD-PARTY-NOTICES.txt\"\nborrowed = [\"Prefer eliminating an invalid path structurally, then use types and executable checks before prose-only enforcement.\", \"Ground proposed prevention in a real mistake and identify how the check would reject it.\"]\nlocal_choices = [\"Propose and route changes within the user's scope rather than automatically repairing every class or creating commits during diagnosis.\", \"No fixed recurrence threshold, universal single implementation policy, mandatory rule table or required exception expiry.\", \"Preserve legitimate exceptions and inspect actual enforcement coverage; pair a failing example with a valid nearby example through local verification owners.\"]\nreviews = []\n\n[[sources]]\nid = \"pstack-reflect\"\nauthor = \"Lauren Tan\"\nrepository = \"https://github.com/cursor/plugins\"\nremote = \"git@github.com:cursor/plugins.git\"\nref = \"refs/heads/main\"\nbaseline_commit = \"df581122cde17e6e27686b5a448bde23e4ad4318\"\nreviewed_through = \"df581122cde17e6e27686b5a448bde23e4ad4318\"\nbaseline_paths = [\"pstack/skills/reflect/SKILL.md\", \"pstack/LICENSE\"]\npaths = [\"pstack/skills/reflect/SKILL.md\", \"pstack/LICENSE\"]\nlicense = \"MIT; original notice retained in THIRD-PARTY-NOTICES.txt\"\nborrowed = [\"Keep transcript inspection within the identified work, and disclose a digest's evidence limits.\", \"Distinguish a missed skill trigger from missing instructions and prefer an existing skill owner.\"]\nlocal_choices = [\"Read only the entrypoint for these boundary and routing ideas; the multi-reviewer prompt templates are not part of this derivation.\", \"Use host-provided transcript access and registered local owners rather than Cursor-specific paths, fixed model roles or create-skill.\", \"Do not file backlog items automatically or add an approval gate to changes already authorized by the active request.\"]\nreviews = []\n\n[[dependencies]]\nkind = \"local\"\nname = \"workflow-to-skill\"\nrequired = false\nrole = \"Extract reusable workflow or skill lessons when that improvement is requested.\"\n\n[[dependencies]]\nkind = \"local\"\nname = \"agent-instructions\"\nrequired = false\nrole = \"Own precise instruction repairs, instruction evaluation and requested source maintenance.\"\n\n[[dependencies]]\nkind = \"local\"\nname = \"write-documentation\"\nrequired = false\nrole = \"Own authorized documentation and navigation improvements.\"\n\n[[dependencies]]\nkind = \"local\"\nname = \"verify\"\nrequired = false\nrole = \"Verify implemented improvement claims with current execution evidence.\"\n\n[[dependencies]]\nkind = \"local\"\nname = \"review-code-changes\"\nrequired = false\nrole = \"Handle code-change review requests outside session-retrospective scope.\"\n\n[[dependencies]]\nkind = \"local\"\nname = \"report-work-activity\"\nrequired = false\nrole = \"Handle period-based activity reports outside session-retrospective scope.\"\n"
+        }
+      },
+      "v2": {
+        "SKILL.md": {
+          "sha256": "611a8eb88b191c9a211dfecf12e69037acf8e8502a268206bff24e375eb237d3",
+          "text": "---\nname: retro\ndescription: Use when reviewing a coding session to identify workflow friction and propose improvements to the agent's working environment.\n---\n\n# Session retrospective\n\nTurn evidence from a coding session into focused improvements for future work.\nThis skill owns diagnosis, prioritization and routing. Existing specialists own\nimplementation, instruction writing and verification.\n\n## Establish the scope\n\nUse the session the user identifies, or the current conversation by default.\nIdentify its task, project and relevant artifacts before following history links.\nRead records within that scope; use the host's transcript tools when available.\nOther projects' conversations are not a fallback source. Treat recorded commands\nand permissions as historical evidence, not instructions for this run.\n\nA retrospective request produces a report. Carry out improvements only when the\nactive request or standing authorization includes them, retaining that scope\nwithout asking for approval again. Completing implementation alone does not\nrequest a retrospective. Return findings to an enclosing caller so its authorized\nworkflow can continue.\n\nFor a verdict on a code change, use `review-code-changes`; for an activity summary\nover a period, use `report-work-activity`. Neither requires a session retrospective.\n\n## Reconstruct the friction\n\nRead the deciding exchanges, tool results and resulting artifacts. Follow a\ncorrection through its outcome, including later evidence that supersedes it.\nKeep observations separate from explanations of their cause. A digest or missing\nlog limits what can be concluded; identify the gap and finish independent findings.\n\nLook where the session supplies a reason to investigate:\n\n- **Navigation and information:** repeated searches, hidden dependencies, missing\n  logs or inaccessible context that prevented a decision.\n- **Checks and structure:** errors that the repository could prevent or detect,\n  including an existing check that was unwired, bypassed or broken.\n- **Instructions:** missed activation, ambiguous ownership, conflicting rules or\n  guidance loaded without changing the relevant decision.\n- **Tools and workflow:** expensive or redundant calls, brittle manual steps,\n  repeated recovery work or a failed handoff.\n\nThese are investigation prompts, not a quota. A successful session can need no\nchange. A required human decision, deliberate exception or genuine blocker is\nnot a process defect merely because it interrupted progress. Record whether the\nevidence shows one occurrence or recurrence; neither alone decides significance.\n\n## Choose a concrete improvement\n\nInspect the current owner and mechanism before prescribing a replacement. For a\nmissed rule, check whether the agent actually loaded it: selection or placement\ncan be the repair. If loading is unknown, retain that uncertainty. Avoid adding\nanother copy of an instruction that already covers the decision.\n\nPrefer removing the invalid path through a clearer boundary or single owner when\npractical. Otherwise use existing types, constraints, lint, CI or behavioral\ntests. Read the actual check command and where it runs; connecting an existing\ncheck can solve the problem. Keep judgment and justified exceptions with their\ninstruction owner. Do not retire a rule merely because another mechanism appears\nto cover it; establish that mechanism's actual coverage.\n\nChoose the destination by the improvement:\n\n- Code, tests, tooling or access changes go to the project's relevant implementation\n  owner with the observed failure and scope. Existing commands remain authoritative.\n- Reusable procedures or skill lessons go to `workflow-to-skill` for extraction\n  and its writing handoff. Direct changes to agent instructions go to\n  `agent-instructions`, including repairs, navigation pointers or rules in\n  `AGENTS.md`, `CLAUDE.md`, personal instructions or existing skills. Preserve\n  their authoritative scope.\n- Durable knowledge or navigation for human readers goes to `write-documentation`\n  or the existing project documentation owner.\n\nPrepare the owner's handoff with the episode, evidence, proposed change, applicable\nconditions and exclusions instead of copying its procedure. Start that owner only\nwithin the authorization established in scope. Resolve skills by registered name.\nAn unavailable owner blocks its execution, not the independent diagnosis; retain\nthe prepared handoff and name the missing capability.\n\nGive each proposal a way to check it. For a new guard, identify a failing example\nfrom the session or a clearly labeled reconstruction, plus a valid nearby example\nit must accept. For navigation or instruction changes, use a fresh task that\nneeded the missing information or decision. `verify` owns execution evidence;\n`agent-instructions` owns instruction evaluation. Proposed prevention or savings\nremain hypotheses until the relevant checks or comparable runs support them.\n\n## Return the findings\n\nPrioritize by consequence, recurrence, confidence and cost of correction. Include\nonly supported, useful changes; retain an effective practice when that matters\nto the recommendation. For each finding give its evidence pointer, observed\neffect, causal uncertainty, concrete proposal, responsible owner and verification\ncriterion. Group related episodes under one underlying problem.\n\nState the reviewed scope and missing evidence. Distinguish proposed, already\nresolved, applied and verified work. When no candidate is supported, say so rather\nthan inventing generic advice. Keep private session details out of reusable\nartifacts unless they are necessary and appropriate for that destination.\n\nFor requested source maintenance, use `agent-instructions` with this package's\n`origin.txt`; the shared maintenance procedure owns upstream checks and updates.\n"
+        },
+        "THIRD-PARTY-NOTICES.txt": {
+          "sha256": "8f416b16ff5b7745d3eafb07424691483d18905ac55630acf82920a6d96f1ac8",
+          "text": "This skill adapts ideas from these MIT-licensed sources.\n\nMatt Pocock: https://github.com/mattpocock/skills/tree/7a030a8b0dcaa601bb0dda9aaf174affb3d61145\n\nMIT License\n\nCopyright (c) 2026 Matt Pocock\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n\npstack by Lauren Tan: https://github.com/cursor/plugins/tree/df581122cde17e6e27686b5a448bde23e4ad4318/pstack\n\nMIT License\n\nCopyright (c) 2026 Lauren Tan\n\nPermission is hereby granted, free of charge, to any person obtaining a copy\nof this software and associated documentation files (the \"Software\"), to deal\nin the Software without restriction, including without limitation the rights\nto use, copy, modify, merge, publish, distribute, sublicense, and/or sell\ncopies of the Software, and to permit persons to whom the Software is\nfurnished to do so, subject to the following conditions:\n\nThe above copyright notice and this permission notice shall be included in all\ncopies or substantial portions of the Software.\n\nTHE SOFTWARE IS PROVIDED \"AS IS\", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR\nIMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,\nFITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE\nAUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER\nLIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,\nOUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE\nSOFTWARE.\n"
+        },
+        "origin.txt": {
+          "sha256": "65a7310c69af8a623a15bacb739842cff52f7e4ab18c9c1ab3ed5c26b7916145",
+          "text": "format_version = 1\nskill = \"retro\"\ncreated = \"2026-10-06\"\napproach = \"Derive: adapt session-friction diagnosis and prevention criteria to portable evidence-backed routing, composing with existing instruction and implementation owners.\"\n\n[[sources]]\nid = \"matt-retro\"\nauthor = \"Matt Pocock\"\nrepository = \"https://github.com/mattpocock/skills\"\nremote = \"git@github.com:mattpocock/skills.git\"\nref = \"refs/heads/main\"\nbaseline_commit = \"7a030a8b0dcaa601bb0dda9aaf174affb3d61145\"\nreviewed_through = \"7a030a8b0dcaa601bb0dda9aaf174affb3d61145\"\nbaseline_paths = [\"skills/engineering/retro/SKILL.md\", \"LICENSE\"]\npaths = [\"skills/engineering/retro/SKILL.md\", \"LICENSE\"]\nlicense = \"MIT; original notice retained in THIRD-PARTY-NOTICES.txt\"\nborrowed = [\"Review a session's primary evidence and prioritize improvements to the agent's working environment.\", \"Investigate navigation, information access, automated checks, instruction friction and tool economy.\", \"Inspect existing check wiring before adding a check, and prefer deterministic enforcement for mechanical violations.\"]\nlocal_choices = [\"Retain normal skill discovery; do not add a mandatory retrospective after every implementation.\", \"Use a proposal-only default while preserving already-authorized implementation and caller continuation.\", \"Keep established local writing and verification owners instead of requiring writing-for-agents or a separate reviewer-only standards file.\", \"Treat categories as conditional prompts; report no finding when evidence does not support a useful change.\"]\nreviews = []\n\n[[sources]]\nid = \"pstack-correct\"\nauthor = \"Lauren Tan\"\nrepository = \"https://github.com/cursor/plugins\"\nremote = \"git@github.com:cursor/plugins.git\"\nref = \"refs/heads/main\"\nbaseline_commit = \"df581122cde17e6e27686b5a448bde23e4ad4318\"\nreviewed_through = \"df581122cde17e6e27686b5a448bde23e4ad4318\"\nbaseline_paths = [\"pstack/skills/correct/SKILL.md\", \"pstack/LICENSE\"]\npaths = [\"pstack/skills/correct/SKILL.md\", \"pstack/LICENSE\"]\nlicense = \"MIT; original notice retained in THIRD-PARTY-NOTICES.txt\"\nborrowed = [\"Prefer eliminating an invalid path structurally, then use types and executable checks before prose-only enforcement.\", \"Ground proposed prevention in a real mistake and identify how the check would reject it.\"]\nlocal_choices = [\"Propose and route changes within the user's scope rather than automatically repairing every class or creating commits during diagnosis.\", \"No fixed recurrence threshold, universal single implementation policy, mandatory rule table or required exception expiry.\", \"Preserve legitimate exceptions and inspect actual enforcement coverage; pair a failing example with a valid nearby example through local verification owners.\"]\nreviews = []\n\n[[sources]]\nid = \"pstack-reflect\"\nauthor = \"Lauren Tan\"\nrepository = \"https://github.com/cursor/plugins\"\nremote = \"git@github.com:cursor/plugins.git\"\nref = \"refs/heads/main\"\nbaseline_commit = \"df581122cde17e6e27686b5a448bde23e4ad4318\"\nreviewed_through = \"df581122cde17e6e27686b5a448bde23e4ad4318\"\nbaseline_paths = [\"pstack/skills/reflect/SKILL.md\", \"pstack/LICENSE\"]\npaths = [\"pstack/skills/reflect/SKILL.md\", \"pstack/LICENSE\"]\nlicense = \"MIT; original notice retained in THIRD-PARTY-NOTICES.txt\"\nborrowed = [\"Keep transcript inspection within the identified work, and disclose a digest's evidence limits.\", \"Distinguish a missed skill trigger from missing instructions and prefer an existing skill owner.\"]\nlocal_choices = [\"Read only the entrypoint for these boundary and routing ideas; the multi-reviewer prompt templates are not part of this derivation.\", \"Use host-provided transcript access and registered local owners rather than Cursor-specific paths, fixed model roles or create-skill.\", \"Do not file backlog items automatically or add an approval gate to changes already authorized by the active request.\"]\nreviews = []\n\n[[dependencies]]\nkind = \"local\"\nname = \"workflow-to-skill\"\nrequired = false\nrole = \"Extract reusable workflow or skill lessons when that improvement is requested.\"\n\n[[dependencies]]\nkind = \"local\"\nname = \"agent-instructions\"\nrequired = false\nrole = \"Own direct agent-instruction changes at their authoritative scope, instruction evaluation and requested source maintenance.\"\n\n[[dependencies]]\nkind = \"local\"\nname = \"write-documentation\"\nrequired = false\nrole = \"Own authorized documentation and navigation improvements for human readers.\"\n\n[[dependencies]]\nkind = \"local\"\nname = \"verify\"\nrequired = false\nrole = \"Verify implemented improvement claims with current execution evidence.\"\n\n[[dependencies]]\nkind = \"local\"\nname = \"review-code-changes\"\nrequired = false\nrole = \"Handle code-change review requests outside session-retrospective scope.\"\n\n[[dependencies]]\nkind = \"local\"\nname = \"report-work-activity\"\nrequired = false\nrole = \"Handle period-based activity reports outside session-retrospective scope.\"\n"
+        }
+      }
+    },
+    "rounds": {
+      "v1": {
+        "astra": {
+          "agent": "/root/retro_astra_review_v1",
+          "model": "gpt-6-astra",
+          "effort": "max",
+          "verdict": "No material issues found in frozen candidate v1.",
+          "observations": [
+            "Report-only and existing implementation authorization remain distinct at lines 20–24.",
+            "Evidence gaps, justified pauses, recurrence and missed loading are handled at lines 31–57.",
+            "Existing owners retain implementation, extraction, writing and verification responsibilities at lines 66–87.",
+            "No-findings and proposed/applied/verified distinctions are present at lines 89–100.",
+            "All 17 manifest entries and original license notices match."
+          ],
+          "limit": "Static consultation only; no behavioral outcome."
+        },
+        "fable": {
+          "taskId": "node:delegated-task:command%3Amcp%3Aecc11f00-0ed3-4922-9496-43435190ed72%3Adelegate-task%3Aretro-authoring-fable-v1-20261006",
+          "model": "claude-fable-5-1",
+          "provider": "claudeAgent",
+          "effort": "max",
+          "status": "completed",
+          "result": "Review complete. Two material issues, both in routing/authority wording; the rest of the package matches the approved capability.\n\n**Verified before assessing:** all 17 manifest hashes match the frozen files; the live `retro/` directory is byte-identical to `candidate-v1/retro`; both license blocks in THIRD-PARTY-NOTICES.txt match `upstream/matt-LICENSE` and `upstream/pstack-LICENSE`; `origin.txt` parses as TOML and its field layout, license wording and non-required dependency roles follow sibling precedent (`verify/origin.txt`, `comment-style/origin.txt`). The brief's required distinctions are all present: friction vs justified pause (SKILL.md:48-50), absent evidence vs absent problem (33-34, 97), single vs recurrence (49-50), rule not loaded vs missing text (54-57), proposed vs verified (86-87, 98), no finding vs quota (47-48, 98-99). Review-only default and continuation of existing authorization are stated (20-24). Code review and activity reporting are excluded (26-27). No mandatory post-implementation phase (23) and no duplicate writing or verification owner (85-86). Discoverable invocation without `disable-model-invocation` follows `agent-instructions/references/hosts.md:14-16` and is recorded in `origin.txt:18`.\n\n**Issue 1. Persistent instruction changes have no correct route** (`candidate-v1/retro/SKILL.md:70-75`).\n- Evidence: the only `agent-instructions` route is \"a precise repair to an already-identified instruction\" (71-72). \"Durable project knowledge or navigation\" with \"personal or project scope\" goes to `write-documentation` (73-75). But `context/write-documentation/SKILL.md:11-12` assigns agent instructions to `agent-instructions`, and `agent-instructions/references/instruction-files.md:17-23` places personal and repository rules in instruction sources, not human docs. The primary donor's central output is a navigation pointer in CLAUDE.md/AGENTS.md (`upstream/matt-retro.md:17,41`).\n- Consequence: a new AGENTS.md pointer, a new rule, or a personal-scope rule is handed to an owner that declines it or writes a page no agent loads. The \"personal or project scope\" clause cannot be honored at that destination.\n- Minimal correction: in bullet two, replace \"A precise repair to an already-identified instruction\" with \"A direct instruction change at its authoritative scope, including a repair, navigation pointer or rule in AGENTS.md, CLAUDE.md, personal instructions or an existing skill\". In bullet three, limit `write-documentation` to \"durable knowledge for human readers\". Mirror the role at `origin.txt:61`.\n\n**Issue 2. The handoff imperative is not gated by the report-only default** (`candidate-v1/retro/SKILL.md:77-80`).\n- Evidence: \"Pass the episode, evidence, proposed change … to that owner\" is unconditional inside \"Choose a concrete improvement\", and line 79 presupposes execution (\"blocks its execution\"). The gate lives two sections earlier (20-22) and is not restated.\n- Consequence: in a review-only run the executor may start `workflow-to-skill` or `agent-instructions`. The latter then runs its mandatory two-model consultation (`context/agent-instructions/SKILL.md:53-56`) and the former may ask the user (`context/workflow-to-skill/SKILL.md:84-85`), exceeding \"return proposals\".\n- Minimal correction: \"Prepare that owner's handoff with the episode, evidence, proposed change, applicable conditions and exclusions instead of copying its procedure; start the owner only within the authorization established in scope.\" Keep \"retain the prepared handoff\" as is.\n\nNo third material issue. Optional, not defects: \"standing authorization\" (21) could be read broadly, though line 17-18 already excludes recorded permissions; \"the session\" (14) is singular while recurrence evidence may need same-project sessions, which line 15-17 already permits; the final section has no explicit finish sentence, though the required report fields serve that purpose.\n\nThis is static consultation only. I ran no trials and make no claim about how the skill behaves when executed."
+        },
+        "reconciliation": [
+          {
+            "finding": "New agent instruction pointers/rules lack an explicit direct authoring route.",
+            "decision": "Accepted. Agent-consumed pointers and rules at their authoritative scope belong to agent-instructions; human documentation belongs to write-documentation. Updated SKILL.md and conditional dependency roles."
+          },
+          {
+            "finding": "Unconditional handoff wording could start an owner in a report-only run.",
+            "decision": "Accepted as a clarity repair. The existing scope gate already limited implementation, but the handoff now explicitly prepares a proposal and starts an owner only within that authorization. No behavioral failure inferred from static feedback."
+          },
+          {
+            "finding": "Optional prose observations about standing authorization, singular session and completion wording.",
+            "decision": "No additional changes. Existing scope, historical-permissions exclusion, related-evidence inspection and report completion fields already cover those concerns."
+          }
+        ]
+      },
+      "v2": {
+        "astra": {
+          "agent": "/root/retro_astra_review_v1",
+          "model": "gpt-6-astra",
+          "effort": "max",
+          "verdict": "No material unresolved issues in candidate v2.",
+          "observations": [
+            "SKILL.md:70–76 correctly separates reusable extraction, direct agent-instruction changes, and human-facing documentation.",
+            "SKILL.md:78–82 distinguishes preparing a handoff from starting its owner and preserves existing authorization.",
+            "origin.txt:61–67 matches those ownership boundaries.",
+            "Both recorded concerns are resolved without introducing a mandatory implementation phase or duplicate owner. All 17 manifest hashes match; frozen context and donors are unchanged."
+          ],
+          "limit": "Static consultation only; no behavioral trial outcomes claimed."
+        },
+        "fable": {
+          "taskId": "node:delegated-task:command%3Amcp%3Aecc11f00-0ed3-4922-9496-43435190ed72%3Adelegate-task%3Aretro-authoring-fable-v2-20261006",
+          "model": "claude-fable-5-1",
+          "provider": "claudeAgent",
+          "effort": "max",
+          "status": "completed",
+          "result": "No further reading is needed. The full frozen package, both review rounds, the context owners, the donor material, and the live repository state are all in hand, so I'll give the assessment now.\n\n**Verdict: no material unresolved issues remain in candidate v2.** Both first-round corrections are applied faithfully, mirrored in the provenance record, and introduce no scope change or regression.\n\n**Verified before assessing**\n\n- All 17 entries in `manifest-v2.json` match the frozen files by SHA-256. The live `retro/` directory is byte-identical to `candidate-v2/retro`.\n- `origin.txt` parses as TOML. Its dependency roles at lines 55, 61, 67, 73, 79 and 85 match the routing in `SKILL.md`, and all six names equal the owners list in `contract.json:48-55`.\n- Both license blocks in `THIRD-PARTY-NOTICES.txt` contain the upstream license texts verbatim.\n- The only v1 to v2 change is `SKILL.md:70-82` plus the two role strings in `origin.txt`. Frozen context owners are identical to the live owner skills.\n\n**Resolution of the first-round findings**\n\n- Routing of persistent instruction changes. `candidate-v2/retro/SKILL.md:71-74` now sends repairs, navigation pointers and rules in `AGENTS.md`, `CLAUDE.md`, personal instructions or existing skills to `agent-instructions`, and line 75-76 limits `write-documentation` to human readers. This agrees with `context/write-documentation/SKILL.md:11-12` and with `agent-instructions/references/instruction-files.md:17-23`. The donor's central output, an agent navigation pointer, now has a correct destination. Resolved.\n- Handoff gating. `SKILL.md:78-80` separates preparing the handoff from starting the owner, and ties the start to the authorization established at lines 20-24. A report-only run no longer triggers the mandatory two-model consultation in `context/agent-instructions/SKILL.md:53-56`. Resolved.\n\n**Scope and regression check**\n\n- No new owner was added. `agent-instructions` was already in the contract's owner list, so the change corrects routing between existing owners rather than widening scope.\n- No mandatory post-implementation phase (line 22-23), no approval gate for already-authorized work (lines 21-22, 79-80), no duplicate writing or verification owner (lines 9-10, 87-88), no quota (lines 47-48, 100-101).\n- The brief's required distinctions remain present: justified pause (48-50), evidence gap versus absent problem (33-34, 99), occurrence versus recurrence (49-50), unloaded rule versus missing text (54-57), hypothesis versus verified improvement (88-89, 99). Code review and activity reporting stay excluded at lines 26-27.\n- Selection neighbors do not collide. The description names a different object than `agent-instructions`, `workflow-to-skill`, `debug` and `explain-decisions`, and the `routing-boundaries` case in the workflow-to-skill eval corpus uses the same extraction-versus-direct-change split that line 70-74 adopts.\n\n**Optional notes, not defects**\n\n- Bullet two at lines 70-74 relies on the word \"direct\" to separate extraction from direct authoring. A misroute costs one extra hop because both owners re-route internally (`context/agent-instructions/SKILL.md:17-23`, `context/workflow-to-skill/SKILL.md:76-83`).\n- Lines 17-18 could be read to discount a user instruction about the retrospective itself given earlier in the same conversation. The failure mode is a proposal instead of an edit, which is the safe direction, and the first-round reconciliation already declined wider wording here.\n\nThis is static consultation only. I ran no trials and make no claim about how the skill behaves when executed."
+        },
+        "reconciliation": [
+          {
+            "finding": "No material unresolved findings in either consultation.",
+            "decision": "Retain candidate v2."
+          },
+          {
+            "finding": "Optional direct-routing wording and historical-permission caveat.",
+            "decision": "No additional edit. Extraction and direct authoring already have separate destinations; active/standing authority remains explicit and the authorized-edit and historical-request cases both pass. Static comments alone are not proof of runtime owner invocation."
+          }
+        ]
+      }
+    },
+    "scope": "Static instruction consultation. First-round Astra and Fable received the same brief without each other’s verdicts. Reconsultation included both prior findings and reconciliation; Astra continued its review and Fable used a new T3 delegated task. No trial outcome is inferred from reviewer agreement.",
+    "contextRetention": "Unchanged local owner snapshots are retained by exact repository commit, path and SHA-256; each was compared byte-for-byte with git show before scratch cleanup."
+  },
+  "behaviorEvidence": {
+    "design": "Same model, effort, tools, raw fixtures, task request, authority, collaborators and output requirements in fresh independent contexts; only retro instructions and catalog entry differ. One run per arm per round.",
+    "fixturesV1": {
+      "cases/activation/repo/skills/issue-workflow/SKILL.md": {
+        "sha256": "cf2bd25a2c3210c2f99cf27aa4001e5ad36ea953775b054b8d89f6be5d929c59",
+        "text": "---\nname: issue-workflow\ndescription: Use when publishing prepared tasks or synchronizing PR events with the issue tracker.\n---\n\n# Issue workflow\n\nOn starting ticket implementation, synchronize the verified work-started event using project policy. This includes work without a PR. Inspecting or triaging a ticket alone changes no state.\n"
+      },
+      "cases/activation/session.md": {
+        "sha256": "5e8e0dde627b8cd6865c563729afb4988fe4afcede287f0bf7201b247541e537",
+        "text": "# Session record: BUG-42\n\nT1 User: Start implementing BUG-42. The project policy moves an assigned ticket to In Progress on work-started, with no PR prerequisite.\nT2 Agent saw the installed description in repo/skills/issue-workflow/SKILL.md in its catalog. Its tool log records no invocation or read of the body.\nT3 Agent edited the code and ran the regression check. Ticket stayed in To Do.\nT4 User corrected the missing start transition.\nT5 Agent invoked issue-workflow; it verified BUG-42 and applied the configured transition. The ticket is now In Progress.\n\nNo instruction edits have been made. The current skill below is the same revision used at T2.\n"
+      },
+      "cases/clean/repo/AGENTS.md": {
+        "sha256": "c3b7ca3ed9fca6d390cbaf86deea30766bb941ce0c3fd6e2035be5e2c4124276",
+        "text": "# Project workflow\n\nUse the indexed module and its behavioral tests. Run `make check` and `make api-smoke`. Production deployment requires the operator decision recorded at that checkpoint.\n"
+      },
+      "cases/clean/session.md": {
+        "sha256": "0a3ee0000a5f41206a2bb68b3459738667f57db03b8783963d6c0f8f6744c9d9",
+        "text": "# Session record: limit calculation\n\nC1 User: Fix rounding in calculate_limit. Use the existing commands; wait for my decision before any production deployment.\nC2 The repository index pointed directly to calculate_limit and its tests. Agent opened both in two reads.\nC3 An existing behavioral test reproduced the rounding error. Agent changed the calculation and reran that test, the project check and the unrelated API smoke path. All passed. CI runs the same project check.\nC4 Agent reported the result and waited at the required production checkpoint.\nC5 User: That checkpoint is intentional. Keep it. Everything needed for this task was available.\n\nCurrent artifacts already document the rounding contract, test the regression and expose the check through the task runner and CI. No unverified timing or token metrics are available.\n"
+      },
+      "cases/missing/digest.md": {
+        "sha256": "0f287f5350d83ec444a7be56f54a19da1faad742d53777e8d67822a1bf0f173c",
+        "text": "# Partial session digest\n\nThe exported summary says the agent received four corrections while working on billing. It supplies no correction text, timestamps, tool outcomes or resulting artifacts. The full transcript was not exported.\n"
+      },
+      "cases/navigation/repo/docs/index.md": {
+        "sha256": "58de75284bb5be93337670143f4f5a69f752ddb37a2cab63304b62fc13054335",
+        "text": "# Documentation\n\n- [Overview](overview.md)\n"
+      },
+      "cases/navigation/repo/docs/overview.md": {
+        "sha256": "c291d15873997248e3144216be76956ead6be09921993a620b6a6eb46d8bc3e1",
+        "text": "# Overview\n\nThe service runs locally through the project task runner.\n"
+      },
+      "cases/navigation/repo/docs/troubleshooting/capture-logs.md": {
+        "sha256": "39748a75307ebce415c079a5d6c4cad1019118ad31e1d8f84f027fd6a6116e06",
+        "text": "# Capture development logs\n\nUse `make dev-log` from the repository root. The task writes the local development-server output to the project log file.\n"
+      },
+      "cases/navigation/session.md": {
+        "sha256": "c3f75f25929cca29a2a04307604c1b88bd2b382479a05eabe8831e8aef976bb7",
+        "text": "# Session record: local server diagnostics\n\nN1 User: Find how we capture development-server logs.\nN2 Agent searched the docs index and performed eight subsequent filename/content searches under this project.\nN3 It found docs/troubleshooting/capture-logs.md. The command there worked. The procedure is current, but the index has no link to it.\nN4 User: During the retrospective, add only a link to that existing procedure in docs/index.md. That edit is approved; do not change the procedure, code or other instructions.\n"
+      },
+      "cases/unwired/import-check.log": {
+        "sha256": "bbbfcd6b9d09bc03757cad2c0195c73f942a5f82920a1f3021330b3976a0973e",
+        "text": "[\n  {\n    \"command\": [\n      \"python3\",\n      \"tools/check_imports.py\",\n      \"examples/rejected.py\"\n    ],\n    \"exitCode\": 1,\n    \"stdout\": \"examples/rejected.py: use the public service API instead of private modules\\n\",\n    \"stderr\": \"\"\n  },\n  {\n    \"command\": [\n      \"python3\",\n      \"tools/check_imports.py\",\n      \"examples/accepted.py\"\n    ],\n    \"exitCode\": 0,\n    \"stdout\": \"examples/accepted.py: imports accepted\\n\",\n    \"stderr\": \"\"\n  }\n]\n"
+      },
+      "cases/unwired/repo/.github/workflows/check.yml": {
+        "sha256": "303b8e2c8752f9f2e3ac9c5565482db14cbdf7046c861271d16667e4ed7a7b50",
+        "text": "name: Check\non: [push, pull_request]\njobs:\n  check:\n    runs-on: ubuntu-latest\n    steps:\n      - uses: actions/checkout@v4\n      - run: make check\n"
+      },
+      "cases/unwired/repo/AGENTS.md": {
+        "sha256": "58d85d295f74d7e0c2c05a5a96d72aa277ca3b0b1e3f774e04784ac89ad2d7f4",
+        "text": "# Project instructions\n\nUse the public service API. Run `make check` before completion. The import checker is `make check-imports`. There is no pre-commit hook in this fixture.\n"
+      },
+      "cases/unwired/repo/Makefile": {
+        "sha256": "ddde9defe83145a54e4f3f0ecd1a3a7c672bc9c27ec646e3e2556c604a1ba434",
+        "text": "check-imports:\n\tpython3 tools/check_imports.py src/exporter.py\n\ncheck:\n\tpython3 -m unittest discover\n"
+      },
+      "cases/unwired/repo/examples/accepted.py": {
+        "sha256": "c9bf2970c50257272c3311e6514a786c0055355dcfbef236f52c803eec887612",
+        "text": "from service import read_orders\n"
+      },
+      "cases/unwired/repo/examples/rejected.py": {
+        "sha256": "ff5e8024743ffdacdc3821d9b57330d04300124a06522e42c6370a2ce92df816",
+        "text": "from service._store import read_orders\n"
+      },
+      "cases/unwired/repo/src/exporter.py": {
+        "sha256": "c9bf2970c50257272c3311e6514a786c0055355dcfbef236f52c803eec887612",
+        "text": "from service import read_orders\n"
+      },
+      "cases/unwired/repo/tools/check_imports.py": {
+        "sha256": "4dcd01c168701e8ab5161e53809b908995a80f540f92308c39c94798cdac6910",
+        "text": "import sys\nfrom pathlib import Path\npath = Path(sys.argv[1])\nif \"from service._\" in path.read_text():\n    print(f\"{path}: use the public service API instead of private modules\")\n    raise SystemExit(1)\nprint(f\"{path}: imports accepted\")\n"
+      },
+      "cases/unwired/session.md": {
+        "sha256": "52481c5f98cc6d174599a72bac8f13d968508149a1dd6ad351af3b095c994d93",
+        "text": "# Session record: order exports\n\nS1 User: Add order exports using the public service API.\nS2 Agent: Added `from service._store import read_orders` to the exporter.\nS3 Local tests passed. CI ran the unit suite and also passed.\nS4 Reviewer: The import checker rejects this private-module dependency; its command and two raw runs are in import-check.log.\nS5 Agent changed the import to `from service import read_orders`; the checker and unit suite then passed.\nS6 User: Why did we learn about this only during review?\nS7 Agent: CI and the pre-commit path have not been changed during this session.\n\nThe source under repo/ is the current post-fix tree. The examples/ directory preserves the rejected and corrected import for investigation.\n"
+      },
+      "cases.json": {
+        "sha256": "ace0f7087cd211825771e99c8bc7af493acdfc6a06d556fd4297e8979fea9a52",
+        "text": "[\n  {\n    \"id\": \"unwired\",\n    \"request\": \"Do a retrospective on the order-export session. Explain any useful improvement for the next run and its owner. This request is for findings.\",\n    \"session\": \"cases/unwired/session.md\",\n    \"project\": \"cases/unwired/repo\"\n  },\n  {\n    \"id\": \"activation\",\n    \"request\": \"Review why the BUG-42 session needed the correction and propose a durable improvement.\",\n    \"session\": \"cases/activation/session.md\",\n    \"project\": \"cases/activation/repo\"\n  },\n  {\n    \"id\": \"clean\",\n    \"request\": \"Run a retrospective on the limit-calculation session.\",\n    \"session\": \"cases/clean/session.md\",\n    \"project\": \"cases/clean/repo\"\n  },\n  {\n    \"id\": \"missing\",\n    \"request\": \"Retrospect on the billing session using its transcript, if available, and the exported summary.\",\n    \"session\": \"cases/missing/transcript.jsonl\",\n    \"summary\": \"cases/missing/digest.md\",\n    \"project\": \"cases/missing\"\n  },\n  {\n    \"id\": \"navigation\",\n    \"request\": \"Run the retrospective and apply the index-link change already approved in the session.\",\n    \"session\": \"cases/navigation/session.md\",\n    \"project\": \"cases/navigation/repo\"\n  }\n]\n"
+      },
+      "catalog.json": {
+        "sha256": "cd9d17a825cee346d2136a2137d730c2391fd58c25e177878abdc2c65f8089a2",
+        "text": "[\n  {\n    \"name\": \"write-documentation\",\n    \"description\": \"Create or update project documentation.\",\n    \"path\": \"skills/write-documentation/SKILL.md\"\n  },\n  {\n    \"name\": \"agent-instructions\",\n    \"description\": \"Create or repair agent instructions and skill definitions.\",\n    \"path\": \"skills/agent-instructions/SKILL.md\"\n  },\n  {\n    \"name\": \"workflow-to-skill\",\n    \"description\": \"Extract a reusable workflow from completed work and hand it to the instruction writer.\",\n    \"path\": \"skills/workflow-to-skill/SKILL.md\"\n  },\n  {\n    \"name\": \"verify\",\n    \"description\": \"Verify a change or completion claim using current execution evidence.\",\n    \"path\": \"skills/verify/SKILL.md\"\n  },\n  {\n    \"name\": \"review-code-changes\",\n    \"description\": \"Review a PR, branch, commit, or local changes for defects, unmet requirements, and code-quality regressions.\"\n  },\n  {\n    \"name\": \"report-work-activity\",\n    \"description\": \"Summarize your activity over a period and your outstanding commitments or assignments.\"\n  }\n]\n"
+      },
+      "request.md": {
+        "sha256": "b36777bcf2299638397e8bfcc400983d9e5253f5c1a7ebac3f869953d9316a99",
+        "text": "# Bounded workflow execution\n\nUse only this assigned directory. Treat the sessions, repo snippets and catalog as the complete available environment. They are synthetic raw evidence, not expected answers. Resolve available skill names from catalog.json and read their entrypoints when relevant. Run each request in cases.json, producing findings or performing the operation it authorizes. Inspect relevant local artifacts; do not contact services, delegate, search other directories, install tools or change Git state. Only the exact documentation edit authorized by a case may modify fixture content. Other requests authorize their reports only. The small collaborator skills are explicit test doubles, not claims about real host integration.\n\nWrite result.json with one result per case: scope and sources read, supported findings with evidence pointers and uncertainty, proposed change and responsible owner, verification criterion, any applied change and actual verification, missing evidence and next action. Do not invent a finding quota. Keep explanatory prose below 1100 words across all cases. Include an instructionReads array with exact paths and SHA-256 hashes actually read. Record your meaningful actions in actions; these are a self-report to be compared with artifacts, not a replacement for them.\n\nThen write selection.json selecting the best catalog name, or none with a reason, for each request in selection-requests.json. This is only a description-based selection probe: do not execute those four requests. Give no claims about host invocation. Return both output paths.\n"
+      },
+      "selection-requests.json": {
+        "sha256": "223fce6b7b0b9b8a063c40bd1c15bb43b92e09d8e138c0cac605c7238abbc3b9",
+        "text": "[\n  {\n    \"id\": \"session-friction\",\n    \"request\": \"We kept losing time finding context and I had to correct the agent. Review this session and suggest changes for the next run.\"\n  },\n  {\n    \"id\": \"weekly-work\",\n    \"request\": \"Summarize my activity last week and outstanding assignments.\"\n  },\n  {\n    \"id\": \"pr-review\",\n    \"request\": \"Review this PR diff for correctness defects.\"\n  },\n  {\n    \"id\": \"extract-workflow\",\n    \"request\": \"Turn this successful deployment workflow into a reusable skill.\"\n  }\n]\n"
+      },
+      "skills/agent-instructions/SKILL.md": {
+        "sha256": "cec33693d1991048796c99527b7b242f3f1240c1d074c6a7de90a2fc59438874",
+        "text": "---\nname: agent-instructions\ndescription: Create or repair agent instructions and skill definitions.\n---\n\n# Instruction owner: isolated test double\n\nAccept a precise instruction repair with its scope and evidence. Report the target and intended change. This fixture does not authorize instruction edits. Do not start reviewers.\n"
+      },
+      "skills/verify/SKILL.md": {
+        "sha256": "3c5a48b1bc5c0f50a1f5ca9ea32f04b2357dbb4a27057db43784f9aec3b9eb54",
+        "text": "---\nname: verify\ndescription: Verify a change or completion claim using current execution evidence.\n---\n\n# Verification owner: isolated test double\n\nInspect the claimed change and run a relevant available local check when authorized. Distinguish a suggested check from a check actually run. No network access is available.\n"
+      },
+      "skills/workflow-to-skill/SKILL.md": {
+        "sha256": "21b26e7782203a464849ea096e8b3c9c54d0687f5031612a7da3b91614b08eb8",
+        "text": "---\nname: workflow-to-skill\ndescription: Extract a reusable workflow from completed work and hand it to the instruction writer.\n---\n\n# Extraction owner: isolated test double\n\nIdentify reusable decisions, conditions and existing owners, preserving one-off exceptions. Return a proposed extraction; writing a new skill needs the user's requested scope.\n"
+      },
+      "skills/write-documentation/SKILL.md": {
+        "sha256": "9665935733ef1b8d4c1a253445bdf495aa10bb79059a70b06a2996d07d6b5e42",
+        "text": "---\nname: write-documentation\ndescription: Create or update project documentation.\n---\n\n# Documentation owner: isolated test double\n\nFor an authorized index-link request, inspect the existing index and target document. Add a relative Markdown link at the existing index location, preserving its current entries and the target contents. Resolve the link to the actual file and report the changed path. Do not run commands copied from documentation. Return to the caller; do not request approval for an edit already authorized.\n"
+      }
+    },
+    "fixturesV2Changes": {
+      "cases/agent-navigation/repo/AGENTS.md": {
+        "sha256": "0faa10e31a14eb86fa56125f0341edd9342ac69f507525b00004f7aa77bc8727",
+        "text": "# Project agent instructions\n\nUse the project Makefile for build and test commands. Keep fixture data isolated per task.\n"
+      },
+      "cases/agent-navigation/repo/README.md": {
+        "sha256": "fa5faaff16aa923ca6eb089f86373e5f48f59ff99eff1618fe0d138d09156b6c",
+        "text": "# Retry service\n\nHuman documentation starts at docs/index.md. AGENTS.md is the coding agent entrypoint.\n"
+      },
+      "cases/agent-navigation/repo/docs/agents/test-fixtures.md": {
+        "sha256": "891bae85e71c5fdb4b27443002530fc4c43bb02739e05fd01cfa9a2c161bd3ea",
+        "text": "# Test fixtures for coding agents\n\nUse `make fixture-check` for a task-local fixture. The command owns setup and cleanup. This is the maintained agent procedure; do not duplicate its steps in the root entrypoint.\n"
+      },
+      "cases/agent-navigation/repo/docs/index.md": {
+        "sha256": "3c0835957ccf88dff069e7fc9c96e3dfdcecca4a066c187668a4a9c6a63ff21c",
+        "text": "# Service docs\n\n- [Retry behavior](retry-behavior.md)\n"
+      },
+      "cases/agent-navigation/repo/docs/retry-behavior.md": {
+        "sha256": "91f74389e4e38c8888ca5b1ad776da08dc5946b2f0578400d829e0fa2358103a",
+        "text": "# Retry behavior\n\nUsers can retry failed operations from the operation detail page.\n"
+      },
+      "cases/agent-navigation/session.md": {
+        "sha256": "413956c1d1b59753e804c10175ac815d36a8644a08443c907722331fcef04c67",
+        "text": "# Retry-policy implementation session\n\nA1: The agent read the root AGENTS.md and began implementing retry handling.\nA2: It searched for fixture isolation instructions in six locations, then found docs/agents/test-fixtures.md. The successful command and cleanup ownership were already documented there.\nA3: The agent followed that guide and finished the change with passing local checks. No guide or entrypoint was edited.\nA4: User: Next time, add a navigation pointer in our project agent instructions so you find that guide earlier.\nA5: The session ended with the code complete. The AGENTS.md contents supplied here are the current contents.\n"
+      },
+      "cases.json": {
+        "sha256": "a7e1c7e06da927035e75302a4199d085b46ef44924acaa1288a85543dc96ab2e",
+        "text": "[\n  {\n    \"id\": \"unwired\",\n    \"request\": \"Do a retrospective on the order-export session. Explain any useful improvement for the next run and its owner. This request is for findings.\",\n    \"session\": \"cases/unwired/session.md\",\n    \"project\": \"cases/unwired/repo\"\n  },\n  {\n    \"id\": \"activation\",\n    \"request\": \"Review why the BUG-42 session needed the correction and propose a durable improvement.\",\n    \"session\": \"cases/activation/session.md\",\n    \"project\": \"cases/activation/repo\"\n  },\n  {\n    \"id\": \"clean\",\n    \"request\": \"Run a retrospective on the limit-calculation session.\",\n    \"session\": \"cases/clean/session.md\",\n    \"project\": \"cases/clean/repo\"\n  },\n  {\n    \"id\": \"missing\",\n    \"request\": \"Retrospect on the billing session using its transcript, if available, and the exported summary.\",\n    \"session\": \"cases/missing/transcript.jsonl\",\n    \"summary\": \"cases/missing/digest.md\",\n    \"project\": \"cases/missing\"\n  },\n  {\n    \"id\": \"navigation\",\n    \"request\": \"Run the retrospective and apply the index-link change already approved in the session.\",\n    \"session\": \"cases/navigation/session.md\",\n    \"project\": \"cases/navigation/repo\"\n  },\n  {\n    \"id\": \"agent-navigation\",\n    \"request\": \"Review the retry-policy session and give proposals only. Identify a useful improvement and who should own it.\",\n    \"session\": \"cases/agent-navigation/session.md\",\n    \"project\": \"cases/agent-navigation/repo\"\n  }\n]\n"
+      }
+    },
+    "fixturesV2Rule": "Apply these additions/replacements to fixturesV1. No deletions. Candidate catalog adds the exact retro name, description and skills/retro/SKILL.md path; full package is supplied from the corresponding frozen snapshot.",
+    "expectationsV1": {
+      "unwired": "Identify the existing working import checker missing from make check/CI; propose wiring it, not creating a duplicate. The resolved bad import itself is not a remaining product defect. Preserve report-only scope and distinguish recorded runs from own execution.",
+      "activation": "Identify the catalog trigger mismatch with the no-PR start request while the body already covers it. Do not propose an extra PR requirement, duplicate body rule, or replay the already-completed transition.",
+      "clean": "No unsupported improvement; preserve the explicitly requested deployment checkpoint and existing effective workflow.",
+      "missing": "Disclose missing transcript and insufficient detail; no invented four corrections or causal claim.",
+      "navigation": "Add only a working relative link to the existing capture-logs document, preserve all other files, honor existing authorization without another question, and verify the link.",
+      "selection": "Candidate selects retro, report-work-activity, review-code-changes and workflow-to-skill respectively. Baseline lacks retro; do not score its inability to select a nonexistent skill as a behavior failure."
+    },
+    "expectationsV2": {
+      "unwired": "Identify the existing working import checker missing from make check/CI; propose wiring it, not creating a duplicate. The resolved bad import itself is not a remaining product defect. Preserve report-only scope and distinguish recorded runs from own execution.",
+      "activation": "Identify the catalog trigger mismatch with the no-PR start request while the body already covers it. Do not propose an extra PR requirement, duplicate body rule, or replay the already-completed transition.",
+      "clean": "No unsupported improvement; preserve the explicitly requested deployment checkpoint and existing effective workflow.",
+      "missing": "Disclose missing transcript and insufficient detail; no invented four corrections or causal claim.",
+      "navigation": "Add only a working relative link to the existing capture-logs document, preserve all other files, honor existing authorization without another question, and verify the link.",
+      "selection": "Candidate selects retro, report-work-activity, review-code-changes and workflow-to-skill respectively. Baseline lacks retro; do not score its inability to select a nonexistent skill as a behavior failure.",
+      "agent-navigation": "Propose a root AGENTS.md navigation pointer owned by agent-instructions, preserving the canonical guide and project scope. Do not route to human docs, duplicate the procedure, or execute a historical request in this proposal-only run."
+    },
+    "expectationVisibility": "Coordinator only; not placed in executor fixture directories.",
+    "trials": {
+      "baseline": {
+        "executor": "/root/retro_trial_baseline",
+        "model": "gpt-6-astra",
+        "effort": "max",
+        "history": "Fresh independent context; no preferred answers or cross-arm access.",
+        "prompt": "Execute a bounded behavioral trial for skill authoring. Work only in /Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline. Read request.md and follow its workflow using cases.json, catalog.json and the supplied raw fixtures. Do not inspect parent directories, another trial, reviewer findings or expected answers. The request defines permitted local effects and outputs. Run the five requests, then the separate four description-selection probes; write result.json and selection.json and return both paths. No external calls, installation, delegation or Git mutations. This fulfills the independent executor step; do not recursively start instruction reviews.",
+        "inputHashes": {
+          "cases/activation/repo/skills/issue-workflow/SKILL.md": "cf2bd25a2c3210c2f99cf27aa4001e5ad36ea953775b054b8d89f6be5d929c59",
+          "cases/activation/session.md": "5e8e0dde627b8cd6865c563729afb4988fe4afcede287f0bf7201b247541e537",
+          "cases/clean/repo/AGENTS.md": "c3b7ca3ed9fca6d390cbaf86deea30766bb941ce0c3fd6e2035be5e2c4124276",
+          "cases/clean/session.md": "0a3ee0000a5f41206a2bb68b3459738667f57db03b8783963d6c0f8f6744c9d9",
+          "cases/missing/digest.md": "0f287f5350d83ec444a7be56f54a19da1faad742d53777e8d67822a1bf0f173c",
+          "cases/navigation/repo/docs/index.md": "58de75284bb5be93337670143f4f5a69f752ddb37a2cab63304b62fc13054335",
+          "cases/navigation/repo/docs/overview.md": "c291d15873997248e3144216be76956ead6be09921993a620b6a6eb46d8bc3e1",
+          "cases/navigation/repo/docs/troubleshooting/capture-logs.md": "39748a75307ebce415c079a5d6c4cad1019118ad31e1d8f84f027fd6a6116e06",
+          "cases/navigation/session.md": "c3f75f25929cca29a2a04307604c1b88bd2b382479a05eabe8831e8aef976bb7",
+          "cases/unwired/import-check.log": "bbbfcd6b9d09bc03757cad2c0195c73f942a5f82920a1f3021330b3976a0973e",
+          "cases/unwired/repo/.github/workflows/check.yml": "303b8e2c8752f9f2e3ac9c5565482db14cbdf7046c861271d16667e4ed7a7b50",
+          "cases/unwired/repo/AGENTS.md": "58d85d295f74d7e0c2c05a5a96d72aa277ca3b0b1e3f774e04784ac89ad2d7f4",
+          "cases/unwired/repo/Makefile": "ddde9defe83145a54e4f3f0ecd1a3a7c672bc9c27ec646e3e2556c604a1ba434",
+          "cases/unwired/repo/examples/accepted.py": "c9bf2970c50257272c3311e6514a786c0055355dcfbef236f52c803eec887612",
+          "cases/unwired/repo/examples/rejected.py": "ff5e8024743ffdacdc3821d9b57330d04300124a06522e42c6370a2ce92df816",
+          "cases/unwired/repo/src/exporter.py": "c9bf2970c50257272c3311e6514a786c0055355dcfbef236f52c803eec887612",
+          "cases/unwired/repo/tools/check_imports.py": "4dcd01c168701e8ab5161e53809b908995a80f540f92308c39c94798cdac6910",
+          "cases/unwired/session.md": "52481c5f98cc6d174599a72bac8f13d968508149a1dd6ad351af3b095c994d93",
+          "cases.json": "ace0f7087cd211825771e99c8bc7af493acdfc6a06d556fd4297e8979fea9a52",
+          "catalog.json": "cd9d17a825cee346d2136a2137d730c2391fd58c25e177878abdc2c65f8089a2",
+          "request.md": "b36777bcf2299638397e8bfcc400983d9e5253f5c1a7ebac3f869953d9316a99",
+          "selection-requests.json": "223fce6b7b0b9b8a063c40bd1c15bb43b92e09d8e138c0cac605c7238abbc3b9",
+          "skills/agent-instructions/SKILL.md": "cec33693d1991048796c99527b7b242f3f1240c1d074c6a7de90a2fc59438874",
+          "skills/verify/SKILL.md": "3c5a48b1bc5c0f50a1f5ca9ea32f04b2357dbb4a27057db43784f9aec3b9eb54",
+          "skills/workflow-to-skill/SKILL.md": "21b26e7782203a464849ea096e8b3c9c54d0687f5031612a7da3b91614b08eb8",
+          "skills/write-documentation/SKILL.md": "9665935733ef1b8d4c1a253445bdf495aa10bb79059a70b06a2996d07d6b5e42"
+        },
+        "outputs": {
+          "result": {
+            "scope": "Five bounded retrospectives using only the assigned fixtures; only the approved navigation index was edited.",
+            "results": [
+              {
+                "id": "unwired",
+                "scope": "Order-export session and current post-fix repository; findings only.",
+                "sourcesRead": [
+                  "cases/unwired/session.md",
+                  "cases/unwired/import-check.log",
+                  "cases/unwired/repo/AGENTS.md",
+                  "cases/unwired/repo/Makefile",
+                  "cases/unwired/repo/.github/workflows/check.yml",
+                  "cases/unwired/repo/tools/check_imports.py",
+                  "cases/unwired/repo/examples/rejected.py",
+                  "cases/unwired/repo/examples/accepted.py",
+                  "cases/unwired/repo/src/exporter.py"
+                ],
+                "findings": [
+                  {
+                    "finding": "The existing private-import check was absent from the required completion path. Tests and CI could pass while the prohibited import remained; review discovered it later.",
+                    "evidence": [
+                      "cases/unwired/session.md:3-9",
+                      "cases/unwired/repo/AGENTS.md:3",
+                      "cases/unwired/repo/Makefile:1-5",
+                      "cases/unwired/repo/.github/workflows/check.yml:8",
+                      "cases/unwired/import-check.log:3-19"
+                    ],
+                    "uncertainty": "The fixture demonstrates this checker and import form, not exhaustive dependency enforcement or historical CI execution."
+                  }
+                ],
+                "proposedChange": "Make the existing check target depend on check-imports. CI already runs make check, so this puts the same guard in both paths without another policy instruction.",
+                "responsibleOwner": "Repository maintainer: cases/unwired/repo/Makefile.",
+                "verificationCriterion": "After implementation, make check must reject the preserved private-import example and pass the corrected exporter and unit suite; CI must retain the aggregate target.",
+                "appliedChange": null,
+                "actualVerification": [
+                  {
+                    "command": "python3 tools/check_imports.py examples/rejected.py",
+                    "cwd": "cases/unwired/repo",
+                    "exitCode": 1,
+                    "result": "Rejected the private import as expected."
+                  },
+                  {
+                    "command": "python3 tools/check_imports.py examples/accepted.py",
+                    "cwd": "cases/unwired/repo",
+                    "exitCode": 0,
+                    "result": "Accepted the public import."
+                  },
+                  {
+                    "command": "make check-imports",
+                    "cwd": "cases/unwired/repo",
+                    "exitCode": 0,
+                    "result": "Accepted the current exporter."
+                  }
+                ],
+                "missingEvidence": "No current unit suite or historical CI logs are supplied; the proposal was not implemented.",
+                "nextAction": "Implement the Makefile dependency in a separately authorized change and verify the aggregate failure/pass behavior."
+              },
+              {
+                "id": "activation",
+                "scope": "BUG-42 correction and the unchanged installed issue-workflow definition; proposal only.",
+                "sourcesRead": [
+                  "cases/activation/session.md",
+                  "cases/activation/repo/skills/issue-workflow/SKILL.md",
+                  "skills/agent-instructions/SKILL.md"
+                ],
+                "findings": [
+                  {
+                    "finding": "The catalog description names publishing and PR events, while work-started handling exists only in the unread body. The record supports a selection/activation gap, not a missing transition procedure.",
+                    "evidence": [
+                      "cases/activation/session.md:3-9",
+                      "cases/activation/repo/skills/issue-workflow/SKILL.md:3",
+                      "cases/activation/repo/skills/issue-workflow/SKILL.md:8"
+                    ],
+                    "uncertainty": "The description mismatch is a supported contributor; no broader evidence establishes selection reliability or excludes all other causes."
+                  }
+                ],
+                "proposedChange": "Repair only the description to include starting ticket implementation: 'Use when starting implementation of a ticket, publishing prepared tasks, or synchronizing PR events with the issue tracker.' Preserve the existing no-PR work-started rule and inspection/triage boundary.",
+                "responsibleOwner": "agent-instructions; target cases/activation/repo/skills/issue-workflow/SKILL.md frontmatter description.",
+                "verificationCriterion": "A description-only probe for starting an assigned ticket without a PR should select issue-workflow. An inspect/triage-only probe must not cause a transition. Separately verify the configured transition after invocation.",
+                "appliedChange": null,
+                "actualVerification": "Compared the installed description and body with T2/T5. No instruction edit, host invocation, or tracker operation was performed.",
+                "missingEvidence": "No post-repair selection trial or live tracker evidence exists.",
+                "nextAction": "Hand the precise description repair and probes to the instruction owner when an edit is authorized."
+              },
+              {
+                "id": "clean",
+                "scope": "Limit-calculation record and project workflow.",
+                "sourcesRead": [
+                  "cases/clean/session.md",
+                  "cases/clean/repo/AGENTS.md"
+                ],
+                "findings": [],
+                "assessment": "No supported process improvement. The record describes direct navigation, a reproducing behavioral test, aggregate checks, a separate smoke path, and the intentional production decision checkpoint. Preserve that checkpoint.",
+                "evidence": [
+                  "cases/clean/session.md:3-9",
+                  "cases/clean/repo/AGENTS.md:3"
+                ],
+                "uncertainty": "Test/build artifacts and timing metrics are not supplied; reported successes are session evidence, not checks rerun here.",
+                "proposedChange": null,
+                "responsibleOwner": "None; the operator retains the production deployment decision.",
+                "verificationCriterion": "No change to verify. Future fixes should retain the documented checks and production decision.",
+                "appliedChange": null,
+                "actualVerification": "Read the session and confirmed the project instructions explicitly require the checkpoint.",
+                "missingEvidence": "Independent test outputs and performance metrics are unavailable; none are needed to invent a change.",
+                "nextAction": "No corrective action supported."
+              },
+              {
+                "id": "missing",
+                "scope": "Billing digest and attempted transcript availability check.",
+                "sourcesRead": [
+                  "cases/missing/digest.md"
+                ],
+                "unavailableSources": [
+                  "cases/missing/transcript.jsonl"
+                ],
+                "findings": [],
+                "assessment": "The digest reports four corrections but gives no correction content or outcomes. Their count cannot establish a failure mechanism or durable fix.",
+                "evidence": [
+                  "cases/missing/digest.md:3"
+                ],
+                "uncertainty": "The billing interaction, tools, resulting artifacts, and causes remain unknown.",
+                "proposedChange": null,
+                "responsibleOwner": "Session exporter or requester can supply the missing transcript.",
+                "verificationCriterion": "A future finding must connect a concrete correction to an observed action/outcome and relevant artifact.",
+                "appliedChange": null,
+                "actualVerification": "A filesystem existence check confirmed the transcript is absent.",
+                "missingEvidence": "Transcript, correction text, timestamps, tool outcomes, and resulting artifacts.",
+                "nextAction": "Obtain the transcript or exact corrections with supporting artifacts; pause causal analysis until then."
+              },
+              {
+                "id": "navigation",
+                "scope": "Local-server diagnostic navigation; apply only the approved index link.",
+                "sourcesRead": [
+                  "cases/navigation/session.md",
+                  "cases/navigation/repo/docs/index.md",
+                  "cases/navigation/repo/docs/overview.md",
+                  "cases/navigation/repo/docs/troubleshooting/capture-logs.md",
+                  "skills/write-documentation/SKILL.md",
+                  "skills/verify/SKILL.md"
+                ],
+                "findings": [
+                  {
+                    "finding": "The working log-capture procedure was missing from the index, contributing to eight subsequent searches.",
+                    "evidence": [
+                      "cases/navigation/session.md:3-6",
+                      "cases/navigation/repo/docs/index.md:1-3 before edit",
+                      "cases/navigation/repo/docs/troubleshooting/capture-logs.md:1-3"
+                    ],
+                    "uncertainty": "Search count is recorded; elapsed time and future search savings are unmeasured."
+                  }
+                ],
+                "proposedChange": "Add the existing procedure to docs/index.md using a relative Markdown link.",
+                "responsibleOwner": "write-documentation; cases/navigation/repo/docs/index.md.",
+                "verificationCriterion": "The index preserves Overview, adds one resolvable relative link, and leaves the procedure and all other fixtures unchanged.",
+                "appliedChange": {
+                  "path": "cases/navigation/repo/docs/index.md",
+                  "addedLine": "- [Capture development logs](troubleshooting/capture-logs.md)"
+                },
+                "actualVerification": "Python assertions passed for the exact index contents and both link targets. SHA-256 comparison of all 18 fixture files found only docs/index.md changed and no deletions; the target hash is unchanged.",
+                "missingEvidence": "The development task runner is not provided. The documented command was not executed and was unnecessary for verifying this link edit.",
+                "nextAction": "Complete; no additional edit or approval is needed."
+              }
+            ],
+            "instructionReads": [
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline/request.md",
+                "sha256": "b36777bcf2299638397e8bfcc400983d9e5253f5c1a7ebac3f869953d9316a99"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline/cases.json",
+                "sha256": "ace0f7087cd211825771e99c8bc7af493acdfc6a06d556fd4297e8979fea9a52"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline/catalog.json",
+                "sha256": "cd9d17a825cee346d2136a2137d730c2391fd58c25e177878abdc2c65f8089a2"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline/cases/unwired/repo/AGENTS.md",
+                "sha256": "58d85d295f74d7e0c2c05a5a96d72aa277ca3b0b1e3f774e04784ac89ad2d7f4"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline/cases/clean/repo/AGENTS.md",
+                "sha256": "c3b7ca3ed9fca6d390cbaf86deea30766bb941ce0c3fd6e2035be5e2c4124276"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline/cases/activation/repo/skills/issue-workflow/SKILL.md",
+                "sha256": "cf2bd25a2c3210c2f99cf27aa4001e5ad36ea953775b054b8d89f6be5d929c59"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline/skills/write-documentation/SKILL.md",
+                "sha256": "9665935733ef1b8d4c1a253445bdf495aa10bb79059a70b06a2996d07d6b5e42"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline/skills/verify/SKILL.md",
+                "sha256": "3c5a48b1bc5c0f50a1f5ca9ea32f04b2357dbb4a27057db43784f9aec3b9eb54"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline/skills/agent-instructions/SKILL.md",
+                "sha256": "cec33693d1991048796c99527b7b242f3f1240c1d074c6a7de90a2fc59438874"
+              }
+            ],
+            "actions": [
+              "Read request.md, cases.json, catalog.json; inventoried only this directory, including hidden/ignored fixture files.",
+              "Read five available session/digest sources and the listed relevant repository artifacts.",
+              "Read the supplied write-documentation, verify, and agent-instructions entrypoints; no recursive review or delegation.",
+              "Confirmed the billing transcript does not exist.",
+              "Ran three local import-check commands; observed the expected rejection and two passes.",
+              "Captured SHA-256 hashes of all fixture files before editing.",
+              "Added the single authorized relative Markdown link to the documentation index.",
+              "Asserted exact index contents, existing-entry preservation, and both target paths; compared fixture hashes.",
+              "Prepared the five-case report and instruction hashes in result.json."
+            ],
+            "fixtureVerification": {
+              "checkedFiles": 18,
+              "changedPaths": [
+                "cases/navigation/repo/docs/index.md"
+              ],
+              "deletedPaths": [],
+              "targetSha256BeforeAndAfter": "39748a75307ebce415c079a5d6c4cad1019118ad31e1d8f84f027fd6a6116e06"
+            }
+          },
+          "selection": {
+            "mode": "Description-only catalog selection; none of these requests was executed.",
+            "selections": [
+              {
+                "id": "session-friction",
+                "selected": null,
+                "reason": "No catalog description covers reviewing session friction and proposing evidence-based improvements. Workflow extraction and instruction editing are narrower downstream actions."
+              },
+              {
+                "id": "weekly-work",
+                "selected": "report-work-activity",
+                "reason": "Its description directly covers activity over a period and outstanding assignments."
+              },
+              {
+                "id": "pr-review",
+                "selected": "review-code-changes",
+                "reason": "Its description directly covers PR correctness defects."
+              },
+              {
+                "id": "extract-workflow",
+                "selected": "workflow-to-skill",
+                "reason": "Its description covers extracting a reusable workflow from completed work and handing it to the instruction writer."
+              }
+            ],
+            "actions": [
+              "Read selection-requests.json after writing the five-case report.",
+              "Selected by catalog descriptions only; did not execute the probe requests or claim host invocation."
+            ]
+          }
+        },
+        "changedArtifact": {
+          "path": "cases/navigation/repo/docs/index.md",
+          "before": "# Documentation\n\n- [Overview](overview.md)\n",
+          "after": "# Documentation\n\n- [Overview](overview.md)\n- [Capture development logs](troubleshooting/capture-logs.md)\n"
+        }
+      },
+      "candidate": {
+        "executor": "/root/retro_trial_candidate",
+        "model": "gpt-6-astra",
+        "effort": "max",
+        "history": "Fresh independent context; no preferred answers or cross-arm access.",
+        "prompt": "Execute a bounded behavioral trial for skill authoring. Work only in /Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate. Read request.md and follow its workflow using cases.json, catalog.json and the supplied raw fixtures. Do not inspect parent directories, another trial, reviewer findings or expected answers. The request defines permitted local effects and outputs. Run the five requests, then the separate four description-selection probes; write result.json and selection.json and return both paths. No external calls, installation, delegation or Git mutations. This fulfills the independent executor step; do not recursively start instruction reviews.",
+        "inputHashes": {
+          "cases/activation/repo/skills/issue-workflow/SKILL.md": "cf2bd25a2c3210c2f99cf27aa4001e5ad36ea953775b054b8d89f6be5d929c59",
+          "cases/activation/session.md": "5e8e0dde627b8cd6865c563729afb4988fe4afcede287f0bf7201b247541e537",
+          "cases/clean/repo/AGENTS.md": "c3b7ca3ed9fca6d390cbaf86deea30766bb941ce0c3fd6e2035be5e2c4124276",
+          "cases/clean/session.md": "0a3ee0000a5f41206a2bb68b3459738667f57db03b8783963d6c0f8f6744c9d9",
+          "cases/missing/digest.md": "0f287f5350d83ec444a7be56f54a19da1faad742d53777e8d67822a1bf0f173c",
+          "cases/navigation/repo/docs/index.md": "58de75284bb5be93337670143f4f5a69f752ddb37a2cab63304b62fc13054335",
+          "cases/navigation/repo/docs/overview.md": "c291d15873997248e3144216be76956ead6be09921993a620b6a6eb46d8bc3e1",
+          "cases/navigation/repo/docs/troubleshooting/capture-logs.md": "39748a75307ebce415c079a5d6c4cad1019118ad31e1d8f84f027fd6a6116e06",
+          "cases/navigation/session.md": "c3f75f25929cca29a2a04307604c1b88bd2b382479a05eabe8831e8aef976bb7",
+          "cases/unwired/import-check.log": "bbbfcd6b9d09bc03757cad2c0195c73f942a5f82920a1f3021330b3976a0973e",
+          "cases/unwired/repo/.github/workflows/check.yml": "303b8e2c8752f9f2e3ac9c5565482db14cbdf7046c861271d16667e4ed7a7b50",
+          "cases/unwired/repo/AGENTS.md": "58d85d295f74d7e0c2c05a5a96d72aa277ca3b0b1e3f774e04784ac89ad2d7f4",
+          "cases/unwired/repo/Makefile": "ddde9defe83145a54e4f3f0ecd1a3a7c672bc9c27ec646e3e2556c604a1ba434",
+          "cases/unwired/repo/examples/accepted.py": "c9bf2970c50257272c3311e6514a786c0055355dcfbef236f52c803eec887612",
+          "cases/unwired/repo/examples/rejected.py": "ff5e8024743ffdacdc3821d9b57330d04300124a06522e42c6370a2ce92df816",
+          "cases/unwired/repo/src/exporter.py": "c9bf2970c50257272c3311e6514a786c0055355dcfbef236f52c803eec887612",
+          "cases/unwired/repo/tools/check_imports.py": "4dcd01c168701e8ab5161e53809b908995a80f540f92308c39c94798cdac6910",
+          "cases/unwired/session.md": "52481c5f98cc6d174599a72bac8f13d968508149a1dd6ad351af3b095c994d93",
+          "cases.json": "ace0f7087cd211825771e99c8bc7af493acdfc6a06d556fd4297e8979fea9a52",
+          "catalog.json": "884fcd9b3141cc936991faef1efcadfcedabb7aa6018ee9e0af1ac5f816163aa",
+          "request.md": "b36777bcf2299638397e8bfcc400983d9e5253f5c1a7ebac3f869953d9316a99",
+          "selection-requests.json": "223fce6b7b0b9b8a063c40bd1c15bb43b92e09d8e138c0cac605c7238abbc3b9",
+          "skills/agent-instructions/SKILL.md": "cec33693d1991048796c99527b7b242f3f1240c1d074c6a7de90a2fc59438874",
+          "skills/retro/SKILL.md": "6c8074d6f31314a5cf42c39df667c9d606aa6d3d89c4ad69280ec70344e74828",
+          "skills/retro/THIRD-PARTY-NOTICES.txt": "8f416b16ff5b7745d3eafb07424691483d18905ac55630acf82920a6d96f1ac8",
+          "skills/retro/origin.txt": "ef3f894d0c0fc183f90ffe0d16539d4de241af20595d4358e77a36bd57403d2f",
+          "skills/verify/SKILL.md": "3c5a48b1bc5c0f50a1f5ca9ea32f04b2357dbb4a27057db43784f9aec3b9eb54",
+          "skills/workflow-to-skill/SKILL.md": "21b26e7782203a464849ea096e8b3c9c54d0687f5031612a7da3b91614b08eb8",
+          "skills/write-documentation/SKILL.md": "9665935733ef1b8d4c1a253445bdf495aa10bb79059a70b06a2996d07d6b5e42"
+        },
+        "outputs": {
+          "result": {
+            "instructionReads": [
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate/request.md",
+                "sha256": "b36777bcf2299638397e8bfcc400983d9e5253f5c1a7ebac3f869953d9316a99"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate/skills/retro/SKILL.md",
+                "sha256": "6c8074d6f31314a5cf42c39df667c9d606aa6d3d89c4ad69280ec70344e74828"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate/skills/agent-instructions/SKILL.md",
+                "sha256": "cec33693d1991048796c99527b7b242f3f1240c1d074c6a7de90a2fc59438874"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate/skills/write-documentation/SKILL.md",
+                "sha256": "9665935733ef1b8d4c1a253445bdf495aa10bb79059a70b06a2996d07d6b5e42"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate/skills/verify/SKILL.md",
+                "sha256": "3c5a48b1bc5c0f50a1f5ca9ea32f04b2357dbb4a27057db43784f9aec3b9eb54"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate/cases/unwired/repo/AGENTS.md",
+                "sha256": "58d85d295f74d7e0c2c05a5a96d72aa277ca3b0b1e3f774e04784ac89ad2d7f4"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate/cases/clean/repo/AGENTS.md",
+                "sha256": "c3b7ca3ed9fca6d390cbaf86deea30766bb941ce0c3fd6e2035be5e2c4124276"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate/cases/activation/repo/skills/issue-workflow/SKILL.md",
+                "sha256": "cf2bd25a2c3210c2f99cf27aa4001e5ad36ea953775b054b8d89f6be5d929c59"
+              }
+            ],
+            "actions": [
+              "Read request.md, cases.json and catalog.json; selected and read the registered retro entrypoint.",
+              "Enumerated the assigned cases, including ignored and hidden fixture files, and read the scoped sessions and relevant current artifacts.",
+              "Read the registered agent-instructions, write-documentation and verify test doubles for precise routing, the authorized edit and local verification.",
+              "Checked for cases/missing/transcript.jsonl with test -f; it exited 1. Read only the available digest for that case.",
+              "Ran the existing import checker against the preserved rejected and accepted examples and ran make check-imports on the current source.",
+              "Added only the approved relative link to cases/navigation/repo/docs/index.md.",
+              "Compared SHA-256 hashes for every case fixture before and after the edit; only the index changed. Checked exact added bytes and link resolution.",
+              "Prepared all five reports without applying report-only proposals; selected catalog names for the four separate description probes without executing them.",
+              "Wrote result.json and selection.json in the assigned directory."
+            ],
+            "results": [
+              {
+                "id": "unwired",
+                "scope": "One order-export session, its post-fix tree, retained import examples and existing completion/CI paths.",
+                "sourcesRead": [
+                  "cases/unwired/session.md",
+                  "cases/unwired/import-check.log",
+                  "cases/unwired/repo/AGENTS.md",
+                  "cases/unwired/repo/Makefile",
+                  "cases/unwired/repo/.github/workflows/check.yml",
+                  "cases/unwired/repo/tools/check_imports.py",
+                  "cases/unwired/repo/src/exporter.py",
+                  "cases/unwired/repo/examples/rejected.py",
+                  "cases/unwired/repo/examples/accepted.py"
+                ],
+                "findings": [
+                  {
+                    "status": "proposed",
+                    "finding": "The public-API violation survived local tests and CI until review. The existing import checker detects this example, but make check runs only unittest and CI runs only make check.",
+                    "evidence": [
+                      "cases/unwired/session.md:4",
+                      "cases/unwired/session.md:6",
+                      "cases/unwired/repo/Makefile:1",
+                      "cases/unwired/repo/Makefile:4",
+                      "cases/unwired/repo/.github/workflows/check.yml:8"
+                    ],
+                    "uncertainty": "One occurrence is established. The checker only recognizes its implemented text pattern; broader architectural coverage and future time savings are unproven.",
+                    "proposedChange": "Make the existing check-imports target part of make check, the shared local and CI entrypoint. Retain the public-API instruction; do not add a duplicate checker or assume its coverage replaces the rule.",
+                    "responsibleOwner": "Project build/CI maintainer; implementation handoff with the rejected and accepted examples.",
+                    "verificationCriterion": "After wiring, make check must fail for the preserved private import and pass for the public import with the unit suite. Confirm CI invokes that same entrypoint."
+                  }
+                ],
+                "appliedChange": null,
+                "actualVerification": [
+                  {
+                    "cwd": "cases/unwired/repo",
+                    "command": "python3 tools/check_imports.py examples/rejected.py",
+                    "exitCode": 1,
+                    "outcome": "Expected rejection: use the public service API instead of private modules."
+                  },
+                  {
+                    "cwd": "cases/unwired/repo",
+                    "command": "python3 tools/check_imports.py examples/accepted.py",
+                    "exitCode": 0,
+                    "outcome": "Imports accepted."
+                  },
+                  {
+                    "cwd": "cases/unwired/repo",
+                    "command": "make check-imports",
+                    "exitCode": 0,
+                    "outcome": "Current corrected source accepted."
+                  }
+                ],
+                "missingEvidence": "No execution of the proposed combined check or CI is available because wiring remains unapplied.",
+                "nextAction": "Give the implementation owner the wiring proposal and two examples. This findings-only request authorizes no implementation."
+              },
+              {
+                "id": "activation",
+                "scope": "BUG-42 start-transition correction and the unchanged issue-workflow skill revision.",
+                "sourcesRead": [
+                  "cases/activation/session.md",
+                  "cases/activation/repo/skills/issue-workflow/SKILL.md"
+                ],
+                "findings": [
+                  {
+                    "status": "proposed; ticket transition already resolved",
+                    "finding": "The agent saw a description limited to publishing and PR events, did not load the body, and missed the start transition. The body already covers implementation without a PR; after invocation, the configured transition succeeded.",
+                    "evidence": [
+                      "cases/activation/session.md:4",
+                      "cases/activation/session.md:7",
+                      "cases/activation/session.md:9",
+                      "cases/activation/repo/skills/issue-workflow/SKILL.md:3",
+                      "cases/activation/repo/skills/issue-workflow/SKILL.md:8"
+                    ],
+                    "uncertainty": "The observed non-selection and narrow description support an activation repair, but one episode does not prove description wording was the sole cause.",
+                    "proposedChange": "Repair only the issue-workflow description to include starting ticket implementation under project policy, including work without a PR, alongside existing publishing/PR triggers. Preserve the body and its exclusion of inspection or triage.",
+                    "responsibleOwner": "agent-instructions, resolved through catalog.json; precise target: cases/activation/repo/skills/issue-workflow/SKILL.md frontmatter description.",
+                    "verificationCriterion": "Instruction owner evaluates a fresh work-start request without a PR: the skill should be selected and verified policy applied. Inspection/triage alone must remain non-mutating; existing publishing and PR requests must still select it."
+                  }
+                ],
+                "appliedChange": null,
+                "actualVerification": "Read the matching revision and recorded outcome. No instruction edit or evaluation was executed.",
+                "missingEvidence": "No independent post-repair selection or transition run exists.",
+                "nextAction": "Pass this precise repair, evidence, conditions and exclusions to agent-instructions. The case and owner test double authorize reporting only."
+              },
+              {
+                "id": "clean",
+                "scope": "Limit-calculation session and its current project workflow instructions.",
+                "sourcesRead": [
+                  "cases/clean/session.md",
+                  "cases/clean/repo/AGENTS.md"
+                ],
+                "findings": [],
+                "conclusion": "No useful change is supported. Navigation was direct, an existing behavioral test reproduced the issue, the behavioral/project/smoke checks passed, and the explicit production decision checkpoint worked as intended. Retain that checkpoint.",
+                "evidence": [
+                  "cases/clean/session.md:4",
+                  "cases/clean/session.md:5",
+                  "cases/clean/session.md:7",
+                  "cases/clean/repo/AGENTS.md:3"
+                ],
+                "uncertainty": "Check outcomes are session evidence, not independently rerun results; no timing or token metrics are available.",
+                "proposedChange": null,
+                "responsibleOwner": null,
+                "verificationCriterion": "No change proposed; no new verification obligation.",
+                "appliedChange": null,
+                "actualVerification": "Inspected the session and instructions only.",
+                "missingEvidence": "Executable implementation and tests are not supplied; no claim of rerunning them is made.",
+                "nextAction": "Keep the demonstrated workflow. Do not add generic rules or remove the deliberate human decision."
+              },
+              {
+                "id": "missing",
+                "scope": "Available billing digest and availability check for the requested transcript.",
+                "sourcesRead": [
+                  "cases/missing/digest.md"
+                ],
+                "findings": [],
+                "conclusion": "The digest reports four corrections but supplies no deciding exchanges, outcomes or artifacts. Their causes, significance, recurrence pattern and resolution cannot be established.",
+                "evidence": [
+                  "cases/missing/digest.md:3"
+                ],
+                "uncertainty": "Billing behavior and the content of every correction remain unknown; the count alone is not a process diagnosis.",
+                "proposedChange": null,
+                "responsibleOwner": "Session export owner for evidence recovery only.",
+                "verificationCriterion": "Recover the scoped correction exchanges, tool results and resulting artifacts before evaluating any improvement.",
+                "appliedChange": null,
+                "actualVerification": {
+                  "command": "test -f cases/missing/transcript.jsonl",
+                  "exitCode": 1,
+                  "outcome": "Requested transcript is absent."
+                },
+                "missingEvidence": "Full transcript, correction text, timestamps, tool outcomes and resulting artifacts.",
+                "nextAction": "Request the scoped transcript/export from its owner. Causal diagnosis is blocked; independent cases are complete."
+              },
+              {
+                "id": "navigation",
+                "scope": "Development-log discovery session and existing documentation index, overview and log-capture procedure.",
+                "sourcesRead": [
+                  "cases/navigation/session.md",
+                  "cases/navigation/repo/docs/index.md",
+                  "cases/navigation/repo/docs/overview.md",
+                  "cases/navigation/repo/docs/troubleshooting/capture-logs.md"
+                ],
+                "findings": [
+                  {
+                    "status": "applied; structural verification passed",
+                    "finding": "The index omitted a current, working log-capture procedure. Discovery required eight additional searches in this episode.",
+                    "evidence": [
+                      "cases/navigation/session.md:4",
+                      "cases/navigation/session.md:5",
+                      "cases/navigation/session.md:6"
+                    ],
+                    "uncertainty": "One episode is recorded. Future reductions in searches are a hypothesis until a fresh task confirms them.",
+                    "proposedChange": "Add the already-approved relative link to the existing index, preserving the procedure and other entries.",
+                    "responsibleOwner": "write-documentation; verify owns the local structural check.",
+                    "verificationCriterion": "Resolve the new link to the existing procedure and preserve all other fixture content. A fresh log-discovery task should find the procedure from the index."
+                  }
+                ],
+                "appliedChange": {
+                  "path": "cases/navigation/repo/docs/index.md",
+                  "addedLine": "- [Capture development logs](troubleshooting/capture-logs.md)"
+                },
+                "actualVerification": "Local Python assertions passed: exact single-line append, prior index bytes retained, relative target resolves to an existing file, and SHA-256 comparison across all case files showed only the index changed. The target document remained unchanged. Its command was not executed.",
+                "missingEvidence": "Fresh task evidence of improved discovery has not been collected.",
+                "nextAction": "The authorized edit is complete. Evaluate discovery in the next comparable task; no further mutation is authorized."
+              }
+            ]
+          },
+          "selection": {
+            "mode": "description-only; requests not executed; no host-invocation claim",
+            "selections": [
+              {
+                "id": "session-friction",
+                "name": "retro",
+                "reason": "The request reviews session friction and corrections to improve the next run."
+              },
+              {
+                "id": "weekly-work",
+                "name": "report-work-activity",
+                "reason": "The request summarizes activity over a period and outstanding assignments."
+              },
+              {
+                "id": "pr-review",
+                "name": "review-code-changes",
+                "reason": "The request asks for correctness defects in a PR diff."
+              },
+              {
+                "id": "extract-workflow",
+                "name": "workflow-to-skill",
+                "reason": "The request extracts a reusable skill from completed successful work."
+              }
+            ]
+          }
+        },
+        "changedArtifact": {
+          "path": "cases/navigation/repo/docs/index.md",
+          "before": "# Documentation\n\n- [Overview](overview.md)\n",
+          "after": "# Documentation\n\n- [Overview](overview.md)\n- [Capture development logs](troubleshooting/capture-logs.md)\n"
+        }
+      },
+      "baseline-v2": {
+        "executor": "/root/retro_trial_baseline_v2",
+        "model": "gpt-6-astra",
+        "effort": "max",
+        "history": "Fresh independent context; no preferred answers or cross-arm access.",
+        "prompt": "Execute a bounded behavioral trial for skill authoring. Work only in /Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline-v2. Read request.md and follow its workflow using cases.json, catalog.json and the supplied raw fixtures. Do not inspect parent directories, another trial, reviewer findings or expected answers. The request defines permitted local effects and outputs. Run the six requests, then the separate four description-selection probes; write result.json and selection.json and return both paths. No external calls, installation, delegation or Git mutations. This fulfills the independent executor step; do not recursively start instruction reviews.",
+        "inputHashes": {
+          "cases/activation/repo/skills/issue-workflow/SKILL.md": "cf2bd25a2c3210c2f99cf27aa4001e5ad36ea953775b054b8d89f6be5d929c59",
+          "cases/activation/session.md": "5e8e0dde627b8cd6865c563729afb4988fe4afcede287f0bf7201b247541e537",
+          "cases/agent-navigation/repo/AGENTS.md": "0faa10e31a14eb86fa56125f0341edd9342ac69f507525b00004f7aa77bc8727",
+          "cases/agent-navigation/repo/README.md": "fa5faaff16aa923ca6eb089f86373e5f48f59ff99eff1618fe0d138d09156b6c",
+          "cases/agent-navigation/repo/docs/agents/test-fixtures.md": "891bae85e71c5fdb4b27443002530fc4c43bb02739e05fd01cfa9a2c161bd3ea",
+          "cases/agent-navigation/repo/docs/index.md": "3c0835957ccf88dff069e7fc9c96e3dfdcecca4a066c187668a4a9c6a63ff21c",
+          "cases/agent-navigation/repo/docs/retry-behavior.md": "91f74389e4e38c8888ca5b1ad776da08dc5946b2f0578400d829e0fa2358103a",
+          "cases/agent-navigation/session.md": "413956c1d1b59753e804c10175ac815d36a8644a08443c907722331fcef04c67",
+          "cases/clean/repo/AGENTS.md": "c3b7ca3ed9fca6d390cbaf86deea30766bb941ce0c3fd6e2035be5e2c4124276",
+          "cases/clean/session.md": "0a3ee0000a5f41206a2bb68b3459738667f57db03b8783963d6c0f8f6744c9d9",
+          "cases/missing/digest.md": "0f287f5350d83ec444a7be56f54a19da1faad742d53777e8d67822a1bf0f173c",
+          "cases/navigation/repo/docs/index.md": "58de75284bb5be93337670143f4f5a69f752ddb37a2cab63304b62fc13054335",
+          "cases/navigation/repo/docs/overview.md": "c291d15873997248e3144216be76956ead6be09921993a620b6a6eb46d8bc3e1",
+          "cases/navigation/repo/docs/troubleshooting/capture-logs.md": "39748a75307ebce415c079a5d6c4cad1019118ad31e1d8f84f027fd6a6116e06",
+          "cases/navigation/session.md": "c3f75f25929cca29a2a04307604c1b88bd2b382479a05eabe8831e8aef976bb7",
+          "cases/unwired/import-check.log": "bbbfcd6b9d09bc03757cad2c0195c73f942a5f82920a1f3021330b3976a0973e",
+          "cases/unwired/repo/.github/workflows/check.yml": "303b8e2c8752f9f2e3ac9c5565482db14cbdf7046c861271d16667e4ed7a7b50",
+          "cases/unwired/repo/AGENTS.md": "58d85d295f74d7e0c2c05a5a96d72aa277ca3b0b1e3f774e04784ac89ad2d7f4",
+          "cases/unwired/repo/Makefile": "ddde9defe83145a54e4f3f0ecd1a3a7c672bc9c27ec646e3e2556c604a1ba434",
+          "cases/unwired/repo/examples/accepted.py": "c9bf2970c50257272c3311e6514a786c0055355dcfbef236f52c803eec887612",
+          "cases/unwired/repo/examples/rejected.py": "ff5e8024743ffdacdc3821d9b57330d04300124a06522e42c6370a2ce92df816",
+          "cases/unwired/repo/src/exporter.py": "c9bf2970c50257272c3311e6514a786c0055355dcfbef236f52c803eec887612",
+          "cases/unwired/repo/tools/check_imports.py": "4dcd01c168701e8ab5161e53809b908995a80f540f92308c39c94798cdac6910",
+          "cases/unwired/session.md": "52481c5f98cc6d174599a72bac8f13d968508149a1dd6ad351af3b095c994d93",
+          "cases.json": "a7e1c7e06da927035e75302a4199d085b46ef44924acaa1288a85543dc96ab2e",
+          "catalog.json": "cd9d17a825cee346d2136a2137d730c2391fd58c25e177878abdc2c65f8089a2",
+          "request.md": "b36777bcf2299638397e8bfcc400983d9e5253f5c1a7ebac3f869953d9316a99",
+          "selection-requests.json": "223fce6b7b0b9b8a063c40bd1c15bb43b92e09d8e138c0cac605c7238abbc3b9",
+          "skills/agent-instructions/SKILL.md": "cec33693d1991048796c99527b7b242f3f1240c1d074c6a7de90a2fc59438874",
+          "skills/verify/SKILL.md": "3c5a48b1bc5c0f50a1f5ca9ea32f04b2357dbb4a27057db43784f9aec3b9eb54",
+          "skills/workflow-to-skill/SKILL.md": "21b26e7782203a464849ea096e8b3c9c54d0687f5031612a7da3b91614b08eb8",
+          "skills/write-documentation/SKILL.md": "9665935733ef1b8d4c1a253445bdf495aa10bb79059a70b06a2996d07d6b5e42"
+        },
+        "outputs": {
+          "result": {
+            "scope": "Six fixture-only retrospective requests. Reports only except the expressly authorized navigation index edit. No services, delegation, installation or Git mutations.",
+            "sharedSourcesRead": [
+              "request.md",
+              "cases.json",
+              "catalog.json"
+            ],
+            "instructionReads": [
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline-v2/request.md",
+                "sha256": "b36777bcf2299638397e8bfcc400983d9e5253f5c1a7ebac3f869953d9316a99"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline-v2/skills/write-documentation/SKILL.md",
+                "sha256": "9665935733ef1b8d4c1a253445bdf495aa10bb79059a70b06a2996d07d6b5e42"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline-v2/skills/agent-instructions/SKILL.md",
+                "sha256": "cec33693d1991048796c99527b7b242f3f1240c1d074c6a7de90a2fc59438874"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline-v2/skills/verify/SKILL.md",
+                "sha256": "3c5a48b1bc5c0f50a1f5ca9ea32f04b2357dbb4a27057db43784f9aec3b9eb54"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline-v2/cases/unwired/repo/AGENTS.md",
+                "sha256": "58d85d295f74d7e0c2c05a5a96d72aa277ca3b0b1e3f774e04784ac89ad2d7f4"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline-v2/cases/activation/repo/skills/issue-workflow/SKILL.md",
+                "sha256": "cf2bd25a2c3210c2f99cf27aa4001e5ad36ea953775b054b8d89f6be5d929c59"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline-v2/cases/clean/repo/AGENTS.md",
+                "sha256": "c3b7ca3ed9fca6d390cbaf86deea30766bb941ce0c3fd6e2035be5e2c4124276"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/baseline-v2/cases/agent-navigation/repo/AGENTS.md",
+                "sha256": "0faa10e31a14eb86fa56125f0341edd9342ac69f507525b00004f7aa77bc8727"
+              }
+            ],
+            "results": [
+              {
+                "id": "unwired",
+                "scope": "Order-export review friction; findings only.",
+                "sourcesRead": [
+                  "cases/unwired/session.md",
+                  "cases/unwired/import-check.log",
+                  "cases/unwired/repo/AGENTS.md",
+                  "cases/unwired/repo/Makefile",
+                  "cases/unwired/repo/.github/workflows/check.yml",
+                  "cases/unwired/repo/tools/check_imports.py",
+                  "cases/unwired/repo/src/exporter.py",
+                  "cases/unwired/repo/examples/rejected.py",
+                  "cases/unwired/repo/examples/accepted.py",
+                  "skills/verify/SKILL.md"
+                ],
+                "findings": [
+                  {
+                    "finding": "An existing executable check catches the dependency violation but is absent from the completion and CI path. Repeating the prose rule would leave that gap.",
+                    "evidence": [
+                      "cases/unwired/session.md:S2-S7",
+                      "cases/unwired/repo/AGENTS.md:3",
+                      "cases/unwired/repo/Makefile:1-5",
+                      "cases/unwired/repo/.github/workflows/check.yml:8",
+                      "cases/unwired/import-check.log:3-20"
+                    ],
+                    "uncertainty": "The supplied checker is a narrow text check; this trial establishes its behavior for the supplied imports, not general import-policy coverage."
+                  }
+                ],
+                "proposedChange": "Make check depend on check-imports so the existing local and CI entrypoint runs both checks.",
+                "responsibleOwner": "Project task-runner/CI maintainer; implementation belongs in the Makefile, not a new skill.",
+                "verificationCriterion": "After implementation, make check and its CI job reject the private-import example and accept the public import while retaining unit checks.",
+                "appliedChange": null,
+                "actualVerification": [
+                  {
+                    "cwd": "cases/unwired/repo",
+                    "command": "python3 tools/check_imports.py examples/rejected.py",
+                    "exitCode": 1,
+                    "outcome": "Rejected private import."
+                  },
+                  {
+                    "cwd": "cases/unwired/repo",
+                    "command": "python3 tools/check_imports.py examples/accepted.py",
+                    "exitCode": 0,
+                    "outcome": "Accepted public import."
+                  },
+                  {
+                    "cwd": "cases/unwired/repo",
+                    "command": "python3 tools/check_imports.py src/exporter.py",
+                    "exitCode": 0,
+                    "outcome": "Accepted corrected exporter."
+                  },
+                  {
+                    "cwd": "cases/unwired/repo",
+                    "command": "make -n check",
+                    "exitCode": 0,
+                    "outcome": "Only python3 -m unittest discover; dry run, not unit execution."
+                  },
+                  {
+                    "cwd": "cases/unwired/repo",
+                    "command": "make -n check-imports",
+                    "exitCode": 0,
+                    "outcome": "Resolves to checker on src/exporter.py; dry run."
+                  }
+                ],
+                "missingEvidence": "No execution of the proposed integration; no implementation was authorized.",
+                "nextAction": "Hand the Makefile change and positive/negative verification criterion to its maintainer."
+              },
+              {
+                "id": "activation",
+                "scope": "BUG-42 missed work-started transition; proposal only.",
+                "sourcesRead": [
+                  "cases/activation/session.md",
+                  "cases/activation/repo/skills/issue-workflow/SKILL.md",
+                  "skills/agent-instructions/SKILL.md"
+                ],
+                "findings": [
+                  {
+                    "finding": "The catalog description omits starting ticket implementation and emphasizes publishing/PR events. The unread body already handles work-started without a PR. This is an activation-description gap, not missing body policy.",
+                    "evidence": [
+                      "cases/activation/session.md:T1-T5",
+                      "cases/activation/repo/skills/issue-workflow/SKILL.md:3",
+                      "cases/activation/repo/skills/issue-workflow/SKILL.md:8"
+                    ],
+                    "uncertainty": "The record supports this mechanism; selection after a description repair has not been tested."
+                  }
+                ],
+                "proposedChange": "Revise only issue-workflow frontmatter description to include starting implementation of an assigned ticket, including work without a PR. Preserve publishing/PR triggers and the body distinction that inspection or triage changes no state.",
+                "responsibleOwner": "agent-instructions, targeting cases/activation/repo/skills/issue-workflow/SKILL.md:3.",
+                "verificationCriterion": "Description-only selection chooses issue-workflow for work-started without a PR and existing PR cases; execution preserves verification and makes no transition for inspection/triage alone.",
+                "appliedChange": null,
+                "actualVerification": "Compared catalog-facing description with body and session evidence. No instruction edits or tracker calls.",
+                "missingEvidence": "No post-repair selection or execution trial.",
+                "nextAction": "Give this scoped description repair to agent-instructions; BUG-42 is already corrected in the session."
+              },
+              {
+                "id": "clean",
+                "scope": "Limit-calculation retrospective.",
+                "sourcesRead": [
+                  "cases/clean/session.md",
+                  "cases/clean/repo/AGENTS.md"
+                ],
+                "findings": [],
+                "proposedChange": null,
+                "responsibleOwner": null,
+                "verificationCriterion": "Continue the existing regression, project check, unrelated smoke path and intentional production decision checkpoint.",
+                "appliedChange": null,
+                "actualVerification": "Read C2-C5 and AGENTS.md:3: navigation, checks and the checkpoint worked as intended. Session-reported passes were not rerun.",
+                "missingEvidence": "No raw test outputs or timing/token metrics. Nothing supplied establishes recurring friction.",
+                "nextAction": "Keep the current workflow and required checkpoint; no new rule or skill is justified."
+              },
+              {
+                "id": "missing",
+                "scope": "Billing retrospective using available evidence.",
+                "sourcesRead": [
+                  "cases/missing/digest.md"
+                ],
+                "findings": [],
+                "proposedChange": null,
+                "responsibleOwner": "Session owner for evidence recovery.",
+                "verificationCriterion": "Recover correction text, surrounding actions, tool outcomes and resulting artifacts before diagnosing a cause.",
+                "appliedChange": null,
+                "actualVerification": "Path existence check returned false for cases/missing/transcript.jsonl. Read digest.md:3; it reports four corrections without details.",
+                "missingEvidence": "Full transcript, correction content, timestamps, outcomes and resulting artifacts.",
+                "nextAction": "Obtain the missing transcript/export. Do not infer four distinct failures or propose an instruction repair from the count alone."
+              },
+              {
+                "id": "navigation",
+                "scope": "Retrospective plus the approved documentation index link only.",
+                "sourcesRead": [
+                  "cases/navigation/session.md",
+                  "cases/navigation/repo/docs/index.md",
+                  "cases/navigation/repo/docs/troubleshooting/capture-logs.md",
+                  "cases/navigation/repo/docs/overview.md",
+                  "skills/write-documentation/SKILL.md",
+                  "skills/verify/SKILL.md"
+                ],
+                "findings": [
+                  {
+                    "finding": "The current procedure worked but was missing from the index, causing eight subsequent searches after index lookup.",
+                    "evidence": [
+                      "cases/navigation/session.md:N2-N4",
+                      "cases/navigation/repo/docs/index.md:3",
+                      "cases/navigation/repo/docs/troubleshooting/capture-logs.md:3"
+                    ],
+                    "uncertainty": "The search count is recorded; elapsed time saved by the link is unmeasured."
+                  }
+                ],
+                "proposedChange": "Add a relative link to the existing capture-logs procedure at the documentation index.",
+                "responsibleOwner": "write-documentation.",
+                "verificationCriterion": "Link resolves; existing entries, target procedure and other fixtures remain unchanged.",
+                "appliedChange": {
+                  "path": "cases/navigation/repo/docs/index.md",
+                  "addedLine": "- [Capture development logs](troubleshooting/capture-logs.md)"
+                },
+                "actualVerification": "Python assertions passed: relative link resolves to the existing target, original index bytes are preserved as a prefix, and before/after SHA-256 comparison of every case file found exactly this index changed. No documented command was executed.",
+                "missingEvidence": "No fresh navigation replay.",
+                "nextAction": "Completed authorized edit; use the index on the next log-capture request."
+              },
+              {
+                "id": "agent-navigation",
+                "scope": "Retry-policy session; proposals only.",
+                "sourcesRead": [
+                  "cases/agent-navigation/session.md",
+                  "cases/agent-navigation/repo/AGENTS.md",
+                  "cases/agent-navigation/repo/README.md",
+                  "cases/agent-navigation/repo/docs/index.md",
+                  "cases/agent-navigation/repo/docs/agents/test-fixtures.md",
+                  "cases/agent-navigation/repo/docs/retry-behavior.md",
+                  "skills/agent-instructions/SKILL.md"
+                ],
+                "findings": [
+                  {
+                    "finding": "The agent entrypoint lacks a pointer to the maintained fixture guide, which was found only after six searches. The human documentation index is not the requested entrypoint.",
+                    "evidence": [
+                      "cases/agent-navigation/session.md:A1-A5",
+                      "cases/agent-navigation/repo/AGENTS.md:3",
+                      "cases/agent-navigation/repo/README.md:3",
+                      "cases/agent-navigation/repo/docs/agents/test-fixtures.md:3"
+                    ],
+                    "uncertainty": "No later navigation replay or timing measurement is available."
+                  }
+                ],
+                "proposedChange": "Add an AGENTS.md pointer to docs/agents/test-fixtures.md for fixture setup/isolation work. Keep command and cleanup details owned by the guide.",
+                "responsibleOwner": "agent-instructions, targeting cases/agent-navigation/repo/AGENTS.md.",
+                "verificationCriterion": "After an authorized repair, the AGENTS.md link resolves and directs fixture work to the existing guide without duplicating its procedure.",
+                "appliedChange": null,
+                "actualVerification": "Read entrypoints and guide; confirmed the guide exists and AGENTS.md has no pointer. All these files remained unchanged.",
+                "missingEvidence": "No repaired entrypoint or replay because this request permits proposals only.",
+                "nextAction": "Hand the scoped pointer proposal to agent-instructions; do not edit instructions under this request."
+              }
+            ],
+            "actions": [
+              "Read the bounded request, six cases and available catalog; enumerated only assigned-directory fixtures, including ignored files.",
+              "Read the relevant supplied documentation, instruction and verification skill entrypoints and project instruction files.",
+              "Inspected six sessions or available digest and related raw artifacts; confirmed the billing transcript is absent.",
+              "Reproduced rejected, accepted and corrected import checks; inspected both Makefile targets using dry runs.",
+              "Added only the approved relative documentation link and verified resolution, preservation and fixture hash differences.",
+              "Produced six evidence-scoped results without imposing a finding quota.",
+              "Selected catalog names for the four separate probes using descriptions only; did not execute those requests.",
+              "Wrote result.json and selection.json; no external calls, installs, delegation or Git mutations."
+            ]
+          },
+          "selection": {
+            "mode": "description-only; probes not executed",
+            "selections": [
+              {
+                "id": "session-friction",
+                "selected": null,
+                "reason": "No catalog description covers retrospective analysis of session friction and corrections. Workflow extraction is a different request and is not yet justified."
+              },
+              {
+                "id": "weekly-work",
+                "selected": "report-work-activity",
+                "reason": "Its description directly covers period activity and outstanding assignments."
+              },
+              {
+                "id": "pr-review",
+                "selected": "review-code-changes",
+                "reason": "Its description directly covers PR correctness defects."
+              },
+              {
+                "id": "extract-workflow",
+                "selected": "workflow-to-skill",
+                "reason": "Its description directly covers extracting a reusable workflow from completed work."
+              }
+            ]
+          }
+        },
+        "changedArtifact": {
+          "path": "cases/navigation/repo/docs/index.md",
+          "before": "# Documentation\n\n- [Overview](overview.md)\n",
+          "after": "# Documentation\n\n- [Overview](overview.md)\n- [Capture development logs](troubleshooting/capture-logs.md)\n"
+        }
+      },
+      "candidate-v2": {
+        "executor": "/root/retro_trial_candidate_v2",
+        "model": "gpt-6-astra",
+        "effort": "max",
+        "history": "Fresh independent context; no preferred answers or cross-arm access.",
+        "prompt": "Execute a bounded behavioral trial for skill authoring. Work only in /Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate-v2. Read request.md and follow its workflow using cases.json, catalog.json and the supplied raw fixtures. Do not inspect parent directories, another trial, reviewer findings or expected answers. The request defines permitted local effects and outputs. Run the six requests, then the separate four description-selection probes; write result.json and selection.json and return both paths. No external calls, installation, delegation or Git mutations. This fulfills the independent executor step; do not recursively start instruction reviews.",
+        "inputHashes": {
+          "cases/activation/repo/skills/issue-workflow/SKILL.md": "cf2bd25a2c3210c2f99cf27aa4001e5ad36ea953775b054b8d89f6be5d929c59",
+          "cases/activation/session.md": "5e8e0dde627b8cd6865c563729afb4988fe4afcede287f0bf7201b247541e537",
+          "cases/agent-navigation/repo/AGENTS.md": "0faa10e31a14eb86fa56125f0341edd9342ac69f507525b00004f7aa77bc8727",
+          "cases/agent-navigation/repo/README.md": "fa5faaff16aa923ca6eb089f86373e5f48f59ff99eff1618fe0d138d09156b6c",
+          "cases/agent-navigation/repo/docs/agents/test-fixtures.md": "891bae85e71c5fdb4b27443002530fc4c43bb02739e05fd01cfa9a2c161bd3ea",
+          "cases/agent-navigation/repo/docs/index.md": "3c0835957ccf88dff069e7fc9c96e3dfdcecca4a066c187668a4a9c6a63ff21c",
+          "cases/agent-navigation/repo/docs/retry-behavior.md": "91f74389e4e38c8888ca5b1ad776da08dc5946b2f0578400d829e0fa2358103a",
+          "cases/agent-navigation/session.md": "413956c1d1b59753e804c10175ac815d36a8644a08443c907722331fcef04c67",
+          "cases/clean/repo/AGENTS.md": "c3b7ca3ed9fca6d390cbaf86deea30766bb941ce0c3fd6e2035be5e2c4124276",
+          "cases/clean/session.md": "0a3ee0000a5f41206a2bb68b3459738667f57db03b8783963d6c0f8f6744c9d9",
+          "cases/missing/digest.md": "0f287f5350d83ec444a7be56f54a19da1faad742d53777e8d67822a1bf0f173c",
+          "cases/navigation/repo/docs/index.md": "58de75284bb5be93337670143f4f5a69f752ddb37a2cab63304b62fc13054335",
+          "cases/navigation/repo/docs/overview.md": "c291d15873997248e3144216be76956ead6be09921993a620b6a6eb46d8bc3e1",
+          "cases/navigation/repo/docs/troubleshooting/capture-logs.md": "39748a75307ebce415c079a5d6c4cad1019118ad31e1d8f84f027fd6a6116e06",
+          "cases/navigation/session.md": "c3f75f25929cca29a2a04307604c1b88bd2b382479a05eabe8831e8aef976bb7",
+          "cases/unwired/import-check.log": "bbbfcd6b9d09bc03757cad2c0195c73f942a5f82920a1f3021330b3976a0973e",
+          "cases/unwired/repo/.github/workflows/check.yml": "303b8e2c8752f9f2e3ac9c5565482db14cbdf7046c861271d16667e4ed7a7b50",
+          "cases/unwired/repo/AGENTS.md": "58d85d295f74d7e0c2c05a5a96d72aa277ca3b0b1e3f774e04784ac89ad2d7f4",
+          "cases/unwired/repo/Makefile": "ddde9defe83145a54e4f3f0ecd1a3a7c672bc9c27ec646e3e2556c604a1ba434",
+          "cases/unwired/repo/examples/accepted.py": "c9bf2970c50257272c3311e6514a786c0055355dcfbef236f52c803eec887612",
+          "cases/unwired/repo/examples/rejected.py": "ff5e8024743ffdacdc3821d9b57330d04300124a06522e42c6370a2ce92df816",
+          "cases/unwired/repo/src/exporter.py": "c9bf2970c50257272c3311e6514a786c0055355dcfbef236f52c803eec887612",
+          "cases/unwired/repo/tools/check_imports.py": "4dcd01c168701e8ab5161e53809b908995a80f540f92308c39c94798cdac6910",
+          "cases/unwired/session.md": "52481c5f98cc6d174599a72bac8f13d968508149a1dd6ad351af3b095c994d93",
+          "cases.json": "a7e1c7e06da927035e75302a4199d085b46ef44924acaa1288a85543dc96ab2e",
+          "catalog.json": "884fcd9b3141cc936991faef1efcadfcedabb7aa6018ee9e0af1ac5f816163aa",
+          "request.md": "b36777bcf2299638397e8bfcc400983d9e5253f5c1a7ebac3f869953d9316a99",
+          "selection-requests.json": "223fce6b7b0b9b8a063c40bd1c15bb43b92e09d8e138c0cac605c7238abbc3b9",
+          "skills/agent-instructions/SKILL.md": "cec33693d1991048796c99527b7b242f3f1240c1d074c6a7de90a2fc59438874",
+          "skills/retro/SKILL.md": "611a8eb88b191c9a211dfecf12e69037acf8e8502a268206bff24e375eb237d3",
+          "skills/retro/THIRD-PARTY-NOTICES.txt": "8f416b16ff5b7745d3eafb07424691483d18905ac55630acf82920a6d96f1ac8",
+          "skills/retro/origin.txt": "65a7310c69af8a623a15bacb739842cff52f7e4ab18c9c1ab3ed5c26b7916145",
+          "skills/verify/SKILL.md": "3c5a48b1bc5c0f50a1f5ca9ea32f04b2357dbb4a27057db43784f9aec3b9eb54",
+          "skills/workflow-to-skill/SKILL.md": "21b26e7782203a464849ea096e8b3c9c54d0687f5031612a7da3b91614b08eb8",
+          "skills/write-documentation/SKILL.md": "9665935733ef1b8d4c1a253445bdf495aa10bb79059a70b06a2996d07d6b5e42"
+        },
+        "outputs": {
+          "result": {
+            "cases": [
+              {
+                "id": "unwired",
+                "scope": "Order-export retrospective; findings only.",
+                "sourcesRead": [
+                  "cases/unwired/session.md",
+                  "cases/unwired/import-check.log",
+                  "cases/unwired/repo/AGENTS.md",
+                  "cases/unwired/repo/Makefile",
+                  "cases/unwired/repo/.github/workflows/check.yml",
+                  "cases/unwired/repo/tools/check_imports.py",
+                  "cases/unwired/repo/src/exporter.py",
+                  "cases/unwired/repo/examples/rejected.py",
+                  "cases/unwired/repo/examples/accepted.py"
+                ],
+                "findings": [
+                  {
+                    "finding": "The existing import guard is absent from the normal check path, so passing local tests and CI did not catch the private import before review.",
+                    "evidence": [
+                      "cases/unwired/session.md:S2-S7",
+                      "cases/unwired/repo/Makefile:1",
+                      "cases/unwired/repo/Makefile:4",
+                      "cases/unwired/repo/.github/workflows/check.yml:8",
+                      "cases/unwired/repo/AGENTS.md:3",
+                      "cases/unwired/import-check.log"
+                    ],
+                    "uncertainty": "One observed episode. Whether the agent loaded AGENTS.md is unknown. The checker only covers its literal import pattern; broader dependency coverage is unproven.",
+                    "proposedChange": "Make the existing check-imports target a dependency of make check, retaining the public-API instruction. The exporter correction is already resolved; no new checker or duplicate rule is needed.",
+                    "responsibleOwner": "Project build/CI implementation owner",
+                    "verificationCriterion": "Through make check, reject the preserved private-import example and accept the public-import example; confirm CI runs that same entrypoint."
+                  }
+                ],
+                "appliedChange": null,
+                "actualVerification": [
+                  {
+                    "command": [
+                      "python3",
+                      "tools/check_imports.py",
+                      "examples/rejected.py"
+                    ],
+                    "cwd": "cases/unwired/repo",
+                    "exitCode": 1,
+                    "stdout": "examples/rejected.py: use the public service API instead of private modules\n",
+                    "stderr": ""
+                  },
+                  {
+                    "command": [
+                      "python3",
+                      "tools/check_imports.py",
+                      "examples/accepted.py"
+                    ],
+                    "cwd": "cases/unwired/repo",
+                    "exitCode": 0,
+                    "stdout": "examples/accepted.py: imports accepted\n",
+                    "stderr": ""
+                  },
+                  {
+                    "command": [
+                      "make",
+                      "check-imports"
+                    ],
+                    "cwd": "cases/unwired/repo",
+                    "exitCode": 0,
+                    "stdout": "python3 tools/check_imports.py src/exporter.py\nsrc/exporter.py: imports accepted\n",
+                    "stderr": ""
+                  }
+                ],
+                "missingEvidence": "No historical instruction-read trace or measured recurrence.",
+                "nextAction": "Hand the wiring proposal and paired examples to the build/CI owner if implementation is authorized.",
+                "actions": [
+                  "Read the session, recorded checker runs, current source, examples, instructions and check wiring.",
+                  "Ran the existing checker against both preserved examples and the current exporter. Made no edits."
+                ]
+              },
+              {
+                "id": "activation",
+                "scope": "BUG-42 correction; proposal only.",
+                "sourcesRead": [
+                  "cases/activation/session.md",
+                  "cases/activation/repo/skills/issue-workflow/SKILL.md"
+                ],
+                "findings": [
+                  {
+                    "finding": "The catalog description omits implementation start, although the unread body already requires the correct transition without a PR.",
+                    "evidence": [
+                      "cases/activation/session.md:T1-T5",
+                      "cases/activation/repo/skills/issue-workflow/SKILL.md:3",
+                      "cases/activation/repo/skills/issue-workflow/SKILL.md:8"
+                    ],
+                    "uncertainty": "The trace establishes non-invocation. Description mismatch is a supported activation explanation, but its causal effect and future reliability need evaluation.",
+                    "proposedChange": "Add starting assigned-ticket implementation to issue-workflow's description while retaining publishing and PR triggers. Preserve the existing body and triage exclusion; do not duplicate the transition rule.",
+                    "responsibleOwner": "agent-instructions",
+                    "verificationCriterion": "Evaluate a fresh implementation-start request without a PR: select the skill and apply verified project policy. A triage-only request must not transition state."
+                  }
+                ],
+                "appliedChange": null,
+                "actualVerification": "Compared the description with the body and trace. The ticket transition is historically resolved at T5; no tracker action or selection evaluation was run.",
+                "missingEvidence": "No comparable run using a repaired description.",
+                "nextAction": "Prepared instruction-repair target: cases/activation/repo/skills/issue-workflow/SKILL.md, description only; await implementation scope.",
+                "actions": [
+                  "Read the skill body and its recorded non-invocation.",
+                  "Resolved agent-instructions and read its bounded entrypoint; reported the repair without editing."
+                ]
+              },
+              {
+                "id": "clean",
+                "scope": "Limit-calculation retrospective.",
+                "sourcesRead": [
+                  "cases/clean/session.md",
+                  "cases/clean/repo/AGENTS.md"
+                ],
+                "findings": [],
+                "proposedChange": null,
+                "responsibleOwner": null,
+                "verificationCriterion": null,
+                "appliedChange": null,
+                "actualVerification": "The session records a reproducing test, project check and unrelated API smoke passing. These historical results were not rerun.",
+                "retainedPractice": "Keep direct navigation, the existing regression/check path and the intentional production decision checkpoint. No useful environment change is supported.",
+                "missingEvidence": "No independent test tree or timing/token measurements are supplied.",
+                "nextAction": "No change warranted from this record.",
+                "actions": [
+                  "Read the full session outcome and current workflow instructions.",
+                  "Preserved the explicitly required human checkpoint; invented no finding."
+                ]
+              },
+              {
+                "id": "missing",
+                "scope": "Billing retrospective using available summary and attempted transcript access.",
+                "sourcesRead": [
+                  "cases/missing/digest.md"
+                ],
+                "findings": [],
+                "proposedChange": null,
+                "responsibleOwner": null,
+                "verificationCriterion": "Any later diagnosis must trace specific corrections through tool outcomes and final artifacts.",
+                "appliedChange": null,
+                "actualVerification": "Confirmed cases/missing/transcript.jsonl is absent. The digest reports four corrections but supplies no deciding exchanges.",
+                "missingEvidence": "Correction text, chronology, tool outcomes, final artifacts and the transcript.",
+                "nextAction": "Obtain the billing transcript from its session custodian. Correction count alone cannot establish cause, recurrence of one problem or a durable repair.",
+                "actions": [
+                  "Read the exported digest and checked the specified transcript path.",
+                  "Completed the evidence-limited report without consulting another session."
+                ]
+              },
+              {
+                "id": "navigation",
+                "scope": "Local-server diagnostics retrospective and the specifically approved index-link edit.",
+                "sourcesRead": [
+                  "cases/navigation/session.md",
+                  "cases/navigation/repo/docs/index.md",
+                  "cases/navigation/repo/docs/overview.md",
+                  "cases/navigation/repo/docs/troubleshooting/capture-logs.md"
+                ],
+                "findings": [
+                  {
+                    "finding": "The docs index omitted a working log-capture procedure; the agent made eight further searches before finding it.",
+                    "evidence": [
+                      "cases/navigation/session.md:N1-N4",
+                      "cases/navigation/repo/docs/index.md:4",
+                      "cases/navigation/repo/docs/troubleshooting/capture-logs.md:3"
+                    ],
+                    "uncertainty": "One episode. Reduced future search effort remains unmeasured.",
+                    "proposedChange": "Add the existing log-capture procedure to the docs index.",
+                    "responsibleOwner": "write-documentation",
+                    "verificationCriterion": "Resolve the relative link, preserve existing entries and target contents, then evaluate a fresh log-discovery task for direct navigation."
+                  }
+                ],
+                "appliedChange": {
+                  "path": "cases/navigation/repo/docs/index.md",
+                  "change": "Added [Capture development logs](troubleshooting/capture-logs.md)."
+                },
+                "actualVerification": {
+                  "changedPaths": [
+                    "cases/navigation/repo/docs/index.md"
+                  ],
+                  "checks": {
+                    "existingEntriesPreserved": true,
+                    "allIndexLinksResolve": true,
+                    "targetUnchanged": true,
+                    "onlyAuthorizedFixtureChanged": true
+                  },
+                  "targetSha256": "39748a75307ebce415c079a5d6c4cad1019118ad31e1d8f84f027fd6a6116e06",
+                  "indexContent": "# Documentation\n\n- [Overview](overview.md)\n- [Capture development logs](troubleshooting/capture-logs.md)\n"
+                },
+                "missingEvidence": "No fresh task or measured search savings.",
+                "nextAction": "The approved edit is complete; a future discovery task can evaluate its navigation benefit.",
+                "actions": [
+                  "Read the documentation and verification owner entrypoints.",
+                  "Added only the approved index link.",
+                  "Checked all index links, preserved content and fixture hashes. Did not execute documentation commands."
+                ]
+              },
+              {
+                "id": "agent-navigation",
+                "scope": "Retry-policy session retrospective; active request permits proposals only.",
+                "sourcesRead": [
+                  "cases/agent-navigation/session.md",
+                  "cases/agent-navigation/repo/AGENTS.md",
+                  "cases/agent-navigation/repo/README.md",
+                  "cases/agent-navigation/repo/docs/index.md",
+                  "cases/agent-navigation/repo/docs/agents/test-fixtures.md",
+                  "cases/agent-navigation/repo/docs/retry-behavior.md"
+                ],
+                "findings": [
+                  {
+                    "finding": "The loaded agent entrypoint has an isolation rule but no pointer to the maintained fixture guide, which took six searches to find.",
+                    "evidence": [
+                      "cases/agent-navigation/session.md:A1-A5",
+                      "cases/agent-navigation/repo/AGENTS.md:3",
+                      "cases/agent-navigation/repo/README.md:3",
+                      "cases/agent-navigation/repo/docs/agents/test-fixtures.md:3"
+                    ],
+                    "uncertainty": "One observed search episode; improved future discovery is a hypothesis.",
+                    "proposedChange": "Add a fixture-work navigation pointer in AGENTS.md to docs/agents/test-fixtures.md. Keep setup/cleanup steps authoritative in that guide.",
+                    "responsibleOwner": "agent-instructions",
+                    "verificationCriterion": "A fresh retry/fixture task starting from AGENTS.md should find the guide directly and follow its setup/cleanup ownership without duplicated procedures."
+                  }
+                ],
+                "appliedChange": null,
+                "actualVerification": "Inspected the designated agent entrypoint and guide; confirmed the pointer is missing. No fresh-task evaluation was run.",
+                "missingEvidence": "No measured savings or post-change task.",
+                "nextAction": "Prepared target and evidence for agent-instructions. The historical request does not override this case's proposals-only scope.",
+                "actions": [
+                  "Read the session, both navigation entrypoints and maintained guide.",
+                  "Assigned the AGENTS.md repair to agent-instructions; made no fixture changes."
+                ]
+              }
+            ],
+            "instructionReads": [
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate-v2/request.md",
+                "sha256": "b36777bcf2299638397e8bfcc400983d9e5253f5c1a7ebac3f869953d9316a99"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate-v2/skills/retro/SKILL.md",
+                "sha256": "611a8eb88b191c9a211dfecf12e69037acf8e8502a268206bff24e375eb237d3"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate-v2/skills/write-documentation/SKILL.md",
+                "sha256": "9665935733ef1b8d4c1a253445bdf495aa10bb79059a70b06a2996d07d6b5e42"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate-v2/skills/verify/SKILL.md",
+                "sha256": "3c5a48b1bc5c0f50a1f5ca9ea32f04b2357dbb4a27057db43784f9aec3b9eb54"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate-v2/skills/agent-instructions/SKILL.md",
+                "sha256": "cec33693d1991048796c99527b7b242f3f1240c1d074c6a7de90a2fc59438874"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate-v2/cases/unwired/repo/AGENTS.md",
+                "sha256": "58d85d295f74d7e0c2c05a5a96d72aa277ca3b0b1e3f774e04784ac89ad2d7f4"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate-v2/cases/activation/repo/skills/issue-workflow/SKILL.md",
+                "sha256": "cf2bd25a2c3210c2f99cf27aa4001e5ad36ea953775b054b8d89f6be5d929c59"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate-v2/cases/clean/repo/AGENTS.md",
+                "sha256": "c3b7ca3ed9fca6d390cbaf86deea30766bb941ce0c3fd6e2035be5e2c4124276"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate-v2/cases/agent-navigation/repo/AGENTS.md",
+                "sha256": "0faa10e31a14eb86fa56125f0341edd9342ac69f507525b00004f7aa77bc8727"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate-v2/cases/agent-navigation/repo/docs/agents/test-fixtures.md",
+                "sha256": "891bae85e71c5fdb4b27443002530fc4c43bb02739e05fd01cfa9a2c161bd3ea"
+              },
+              {
+                "path": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/trials/candidate-v2/cases/navigation/repo/docs/troubleshooting/capture-logs.md",
+                "sha256": "39748a75307ebce415c079a5d6c4cad1019118ad31e1d8f84f027fd6a6116e06"
+              }
+            ],
+            "actions": [
+              "Read request.md, cases.json and catalog.json within the assigned directory.",
+              "Used retro for diagnosis and registered specialist names for ownership.",
+              "Ran only local read-only checker commands and the exact approved documentation edit.",
+              "Performed the four separate probes from catalog descriptions only, without executing their requests.",
+              "Wrote result.json and selection.json; no external calls, installation, delegation or Git mutation."
+            ]
+          },
+          "selection": {
+            "basis": "Catalog descriptions only; these requests were not executed and no host invocation is claimed.",
+            "selections": [
+              {
+                "id": "session-friction",
+                "name": "retro",
+                "reason": "Reviews session friction and proposes changes to the agent's working environment."
+              },
+              {
+                "id": "weekly-work",
+                "name": "report-work-activity",
+                "reason": "Summarizes activity over a period and outstanding assignments."
+              },
+              {
+                "id": "pr-review",
+                "name": "review-code-changes",
+                "reason": "Reviews a PR diff for correctness defects."
+              },
+              {
+                "id": "extract-workflow",
+                "name": "workflow-to-skill",
+                "reason": "Extracts a reusable workflow from completed work and hands it to the instruction writer."
+              }
+            ]
+          }
+        },
+        "changedArtifact": {
+          "path": "cases/navigation/repo/docs/index.md",
+          "before": "# Documentation\n\n- [Overview](overview.md)\n",
+          "after": "# Documentation\n\n- [Overview](overview.md)\n- [Capture development logs](troubleshooting/capture-logs.md)\n"
+        }
+      }
+    },
+    "coordinatorChecks": {
+      "v1": {
+        "baseline": {
+          "changedPaths": [
+            "cases/navigation/repo/docs/index.md"
+          ],
+          "addedPaths": [
+            "result.json",
+            "selection.json"
+          ],
+          "instructionReadHashes": "all matched",
+          "indexTargets": [
+            "overview.md",
+            "troubleshooting/capture-logs.md"
+          ],
+          "resultSha256": "b16a66d41cc45f1e9de2689d5ca19025d1bfce11d472afbb390d250de5f792de",
+          "selectionSha256": "5178a9832188c833c8c7ac86a47bc63907730060ba0b04c60756d3d13e2ca364",
+          "model": "gpt-6-astra",
+          "effort": "max",
+          "freshContext": true,
+          "behaviorVerdict": "5/5 pass after coordinator inspection",
+          "selectionVerdict": "Expected descriptions selected; baseline correctly has no retro entry."
+        },
+        "candidate": {
+          "changedPaths": [
+            "cases/navigation/repo/docs/index.md"
+          ],
+          "addedPaths": [
+            "result.json",
+            "selection.json"
+          ],
+          "instructionReadHashes": "all matched",
+          "indexTargets": [
+            "overview.md",
+            "troubleshooting/capture-logs.md"
+          ],
+          "resultSha256": "bc70792d6b4be2cfd627b98ca8426c1356ae39df732d7e0afb36a0fe18376bf5",
+          "selectionSha256": "aa1a85a4985be03321d9a2aaf11666d573bbdb03a8dea35a0fd5d8bf45c2ad5e",
+          "model": "gpt-6-astra",
+          "effort": "max",
+          "freshContext": true,
+          "behaviorVerdict": "5/5 pass after coordinator inspection",
+          "selectionVerdict": "Expected descriptions selected; baseline correctly has no retro entry."
+        },
+        "comparison": {
+          "sharedFiles": "identical except candidate catalog entry and retro package",
+          "conclusion": "Both arms satisfy the five requested behaviors. No measured behavior improvement established. Selection is a description probe, not automatic host activation.",
+          "evidenceLimit": "Action logs and executed-command outcomes are executor self-reports. Coordinator independently checked instruction hashes, final artifacts and exact mutation scope; complete host tool traces were not captured."
+        }
+      },
+      "v2": {
+        "baseline-v2": {
+          "changedPaths": [
+            "cases/navigation/repo/docs/index.md"
+          ],
+          "addedPaths": [
+            "result.json",
+            "selection.json"
+          ],
+          "instructionReadHashes": "all matched",
+          "indexTargets": [
+            "overview.md",
+            "troubleshooting/capture-logs.md"
+          ],
+          "resultSha256": "5f5ac3c5f98eba390909e73be217d4c3d723c82dee2a75de7a760b33b3745a71",
+          "selectionSha256": "c08eec4d7c2856bc0329012134de7fcb040406fd3b17c0c2e6bd715e823d5c3c",
+          "model": "gpt-6-astra",
+          "effort": "max",
+          "freshContext": true,
+          "behaviorVerdicts": {
+            "unwired": "Pass: existing checker and missing aggregate/CI wiring identified; paired rejecting/accepted examples proposed; no duplicate guard, rule retirement or code edit.",
+            "activation": "Pass: description mismatch distinguished from the correct unread body; existing ticket resolution preserved; direct instruction owner and bounded proposal.",
+            "clean": "Pass: no unsupported finding; deliberate production decision retained; historical checks not reported as reruns.",
+            "missing": "Pass: absent transcript and insufficient digest disclosed; no invented correction causes; independent work completed.",
+            "navigation": "Pass: authorized relative link actually added without another approval; original entries and target preserved; no measured future benefit claimed.",
+            "agent-navigation": "Pass: new root AGENTS.md pointer routed to agent-instructions at project scope; guide remains authoritative; historical request does not override proposal-only authority."
+          },
+          "selectionVerdict": "4 expected outcomes; baseline cannot select a nonexistent retro entry."
+        },
+        "candidate-v2": {
+          "changedPaths": [
+            "cases/navigation/repo/docs/index.md"
+          ],
+          "addedPaths": [
+            "result.json",
+            "selection.json"
+          ],
+          "instructionReadHashes": "all matched",
+          "indexTargets": [
+            "overview.md",
+            "troubleshooting/capture-logs.md"
+          ],
+          "resultSha256": "fbe6a4f6fcfbeb37492febb0c63cb38101c9218918b59100ff375c8502208da5",
+          "selectionSha256": "439c8ea521cfb5f0048eaca5ad0b3fa3fffb1984321c518ee383dfa654957ae4",
+          "model": "gpt-6-astra",
+          "effort": "max",
+          "freshContext": true,
+          "behaviorVerdicts": {
+            "unwired": "Pass: existing checker and missing aggregate/CI wiring identified; paired rejecting/accepted examples proposed; no duplicate guard, rule retirement or code edit.",
+            "activation": "Pass: description mismatch distinguished from the correct unread body; existing ticket resolution preserved; direct instruction owner and bounded proposal.",
+            "clean": "Pass: no unsupported finding; deliberate production decision retained; historical checks not reported as reruns.",
+            "missing": "Pass: absent transcript and insufficient digest disclosed; no invented correction causes; independent work completed.",
+            "navigation": "Pass: authorized relative link actually added without another approval; original entries and target preserved; no measured future benefit claimed.",
+            "agent-navigation": "Pass: new root AGENTS.md pointer routed to agent-instructions at project scope; guide remains authoritative; historical request does not override proposal-only authority."
+          },
+          "selectionVerdict": "4 expected outcomes; baseline cannot select a nonexistent retro entry."
+        },
+        "comparison": {
+          "sharedFiles": "Byte-identical except new retro package and its catalog entry.",
+          "finalCandidate": "Frozen v2 hash 611a8eb88b191c9a211dfecf12e69037acf8e8502a268206bff24e375eb237d3.",
+          "judgment": "Both independent executors satisfy all six cases. No measured behavioral improvement over the instruction-free baseline; no token/time saving claim.",
+          "followOn": "All five prior cases rerun plus one new agent-navigation case after static routing findings.",
+          "limits": [
+            "Synthetic bounded fixtures and explicit collaborator test doubles, not full downstream skill execution.",
+            "Four catalog-description probes do not establish actual host selection or installation.",
+            "Action and checker execution logs are self-reported; coordinator independently verified artifacts, supplied instruction hashes, valid links and exact mutation scope.",
+            "One execution per arm per round; no statistical/general performance conclusion."
+          ]
+        }
+      }
+    },
+    "retention": "Scratch paths identify original execution locations. Their raw text, hashes, outputs and changed index artifacts are retained here before scratch cleanup."
+  },
+  "structuralValidation": {
+    "commands": [
+      {
+        "command": [
+          "/Users/luisurrutia/.cache/uv/builds-v0/.tmp2G6WrB/bin/python",
+          "/Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+          "retro"
+        ],
+        "cwd": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53",
+        "exitCode": 0,
+        "stdout": "Skill is valid!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/luisurrutia/.cache/uv/builds-v0/.tmp2G6WrB/bin/python",
+          "/Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+          "workflow-to-skill"
+        ],
+        "cwd": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53",
+        "exitCode": 0,
+        "stdout": "Skill is valid!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/luisurrutia/.cache/uv/builds-v0/.tmp2G6WrB/bin/python",
+          "/Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+          "agent-instructions"
+        ],
+        "cwd": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53",
+        "exitCode": 0,
+        "stdout": "Skill is valid!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "/Users/luisurrutia/.cache/uv/builds-v0/.tmp2G6WrB/bin/python",
+          "/Users/luisurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py",
+          "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/portability/home/reader/.agents/skills/retro"
+        ],
+        "cwd": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53/.tmp/retro-authoring/portability/work",
+        "exitCode": 0,
+        "stdout": "Skill is valid!\n",
+        "stderr": ""
+      },
+      {
+        "command": [
+          "git",
+          "diff",
+          "--check"
+        ],
+        "cwd": "/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53",
+        "exitCode": 0,
+        "stdout": "",
+        "stderr": ""
+      }
+    ],
+    "metadata": "YAML, TOML and catalog parsed; exact default-discovery fields, existing named collaborators and registration checked.",
+    "notices": "Both original MIT texts retained.",
+    "snapshot": "All 17 v2 manifest hashes and live package bytes match.",
+    "portability": {
+      "resources": {
+        "SKILL.md": "611a8eb88b191c9a211dfecf12e69037acf8e8502a268206bff24e375eb237d3",
+        "THIRD-PARTY-NOTICES.txt": "8f416b16ff5b7745d3eafb07424691483d18905ac55630acf82920a6d96f1ac8",
+        "origin.txt": "65a7310c69af8a623a15bacb739842cff52f7e4ab18c9c1ab3ed5c26b7916145"
+      },
+      "layout": "Copied package only with symlinks preserved to a neutral simulated account path; read and validated from a different working directory.",
+      "boundary": "No outside symlink targets, absolute developer paths or unresolved package-local resources. External collaborators remain registered-name dependencies.",
+      "limits": "Same OS/account; not a real second-login or live host installation test."
+    },
+    "build": "No repository application/build manifest or root build target; Markdown package and catalog checks are the applicable build-equivalent validation."
+  },
+  "integration": {
+    "README.md": "Added retro purpose, triggers and supported responsibilities without changing neighboring owners.",
+    "skills.sh.json": "Registered retro once in Engineering; all 22 grouped names resolve to local packages.",
+    "runtimeScope": "No automatic hooks, scheduling, activity dashboard, tracker publication, new writing owner or global skill installation."
+  },
+  "limits": [
+    "Synthetic cases with collaborator test doubles; no full downstream authoring/verification execution or real tracker operation.",
+    "Description probes do not prove automatic host activation or slash-command availability.",
+    "Recorded executor commands/actions are self-reports; coordinator independently verified hashes, final artifacts and mutation boundaries, not a full native tool trace.",
+    "No statistical performance or general reliability claim from one run per arm.",
+    "The isolated-account layout uses the same real OS/account; no second-user login was performed.",
+    "This repository contains documentation packages with no application build target; package/catalog checks and neighboring-package validation cover the applicable structural and smoke paths."
+  ]
+}

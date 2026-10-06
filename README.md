@@ -110,6 +110,23 @@ both skills for this workflow.
 - Checks real commands and keeps private context appropriate for the destination
 - Reports source coverage, unresolved conflicts, and checks actually performed
 
+### retro
+
+Review a coding session to identify friction and propose concrete improvements to
+the agent's working environment. Each finding includes evidence, a responsible
+owner and a way to check the proposed improvement.
+
+**Triggers:** `review this session`, `what slowed us down`, `suggest improvements from this session`
+
+**Features:**
+
+- Inspects navigation, check wiring, instruction activation and tool use when the session warrants it
+- Distinguishes missing instructions from instructions the agent never loaded
+- Routes code, checks, documentation and instruction changes to their existing owners
+- Returns proposals by default and continues improvements already authorized by the caller
+- Accepts no useful finding and reports evidence gaps without inventing causes
+- Records pinned Matt Pocock and pstack sources, with conditional source maintenance
+
 ### workflow-to-skill
 
 Extract a reusable workflow from task history or repeated work, then use

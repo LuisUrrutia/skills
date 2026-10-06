@@ -1,0 +1,85 @@
+format_version = 1
+skill = "retro"
+created = "2026-10-06"
+approach = "Derive: adapt session-friction diagnosis and prevention criteria to portable evidence-backed routing, composing with existing instruction and implementation owners."
+
+[[sources]]
+id = "matt-retro"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "7a030a8b0dcaa601bb0dda9aaf174affb3d61145"
+reviewed_through = "7a030a8b0dcaa601bb0dda9aaf174affb3d61145"
+baseline_paths = ["skills/engineering/retro/SKILL.md", "LICENSE"]
+paths = ["skills/engineering/retro/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Review a session's primary evidence and prioritize improvements to the agent's working environment.", "Investigate navigation, information access, automated checks, instruction friction and tool economy.", "Inspect existing check wiring before adding a check, and prefer deterministic enforcement for mechanical violations."]
+local_choices = ["Retain normal skill discovery; do not add a mandatory retrospective after every implementation.", "Use a proposal-only default while preserving already-authorized implementation and caller continuation.", "Keep established local writing and verification owners instead of requiring writing-for-agents or a separate reviewer-only standards file.", "Treat categories as conditional prompts; report no finding when evidence does not support a useful change."]
+reviews = []
+
+[[sources]]
+id = "pstack-correct"
+author = "Lauren Tan"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "df581122cde17e6e27686b5a448bde23e4ad4318"
+reviewed_through = "df581122cde17e6e27686b5a448bde23e4ad4318"
+baseline_paths = ["pstack/skills/correct/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/correct/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Prefer eliminating an invalid path structurally, then use types and executable checks before prose-only enforcement.", "Ground proposed prevention in a real mistake and identify how the check would reject it."]
+local_choices = ["Propose and route changes within the user's scope rather than automatically repairing every class or creating commits during diagnosis.", "No fixed recurrence threshold, universal single implementation policy, mandatory rule table or required exception expiry.", "Preserve legitimate exceptions and inspect actual enforcement coverage; pair a failing example with a valid nearby example through local verification owners."]
+reviews = []
+
+[[sources]]
+id = "pstack-reflect"
+author = "Lauren Tan"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+baseline_commit = "df581122cde17e6e27686b5a448bde23e4ad4318"
+reviewed_through = "df581122cde17e6e27686b5a448bde23e4ad4318"
+baseline_paths = ["pstack/skills/reflect/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/reflect/SKILL.md", "pstack/LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Keep transcript inspection within the identified work, and disclose a digest's evidence limits.", "Distinguish a missed skill trigger from missing instructions and prefer an existing skill owner."]
+local_choices = ["Read only the entrypoint for these boundary and routing ideas; the multi-reviewer prompt templates are not part of this derivation.", "Use host-provided transcript access and registered local owners rather than Cursor-specific paths, fixed model roles or create-skill.", "Do not file backlog items automatically or add an approval gate to changes already authorized by the active request."]
+reviews = []
+
+[[dependencies]]
+kind = "local"
+name = "workflow-to-skill"
+required = false
+role = "Extract reusable workflow or skill lessons when that improvement is requested."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Own direct agent-instruction changes at their authoritative scope, instruction evaluation and requested source maintenance."
+
+[[dependencies]]
+kind = "local"
+name = "write-documentation"
+required = false
+role = "Own authorized documentation and navigation improvements for human readers."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Verify implemented improvement claims with current execution evidence."
+
+[[dependencies]]
+kind = "local"
+name = "review-code-changes"
+required = false
+role = "Handle code-change review requests outside session-retrospective scope."
+
+[[dependencies]]
+kind = "local"
+name = "report-work-activity"
+required = false
+role = "Handle period-based activity reports outside session-retrospective scope."
