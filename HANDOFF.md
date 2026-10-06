@@ -1,24 +1,29 @@
 # Handoff: continue building the development skill collection
 
-Context captured on 2026-10-04. This is continuation context, not a new source of
+Context refreshed on 2026-10-06. This is continuation context, not a new source of
 operating rules or authorization. Current user instructions, applicable project
 rules, and freshly verified repository state govern the next session.
 
 ## Resume here
 
-Continue selecting, creating, and refining focused skills before composing the
-larger development workflow. The user has not selected the next skill after the
-communication/documentation work. The future coordinator is called `work-mode`
-in the atlas; it has **not been created**.
+`wayfinder` and `planning` now exist. Wayfinder resolves connected uncertainties
+into a supported direction; planning turns a defined outcome into executable,
+verifiable work. The latest request was to review the missing gstack repository
+and add the findings here. That scoped review is recorded below; it did not change
+either skill, install gstack, or add it to the atlas as an incorporated source.
+
+The future coordinator is called `work-mode` in the atlas; it has **not been
+created**. Continue selecting and refining focused capabilities before composing
+that workflow. The gstack comparison is input to a later decision, not an approved
+implementation backlog.
 
 Start with [README.md](README.md) and the current
 [atlas data](reports/skill-atlas/sources.json), especially `repositoryInventory`,
 `sourceProgress`, and the current assessments. Then agree on the next focused
-capability with the user. The original request still has uncovered React,
-frontend-design, testing, and performance interests. A React specialist set is a
-reasonable proposed next topic, not a user-approved implementation decision.
-Planning is another recorded candidate, with Matthew Blode, Addy Osmani and
-Compound Engineering sources already assessed in the atlas.
+capability with the user. React practices/composition/testing and frontend design
+remain candidate topics. Performance, observability, teaching and planning now
+have local packages; assess any remaining source against those owners instead of
+recreating them.
 
 For the chosen capability, use the repository's
 [agent-instructions](agent-instructions/SKILL.md). Read the actual source skill
@@ -51,13 +56,12 @@ purpose, overlap, adaptation rationale, sources and actual incorporation status.
 
 | Item | Captured state |
 | --- | --- |
-| Checkout | `/Users/luisurrutia/.t3/worktrees/skills/t3code-6f322d8f` |
-| Branch | `t3code/curate-agent-workflow-skills` |
-| Implementation baseline before this handoff | `0547c6db49b7934f8826dbdfaf4825d46471e3a3` |
+| Checkout | `/Users/luisurrutia/.t3/worktrees/skills/t3code-767d9f53` |
+| Branch | `luisurrutia/review-handoff-html-1` |
+| Implementation baseline before this handoff refresh | `b4e780a5505807e5a181cf59671bc71b8af185f4` |
 | Git remote | `git@github.com:LuisUrrutia/skills.git` |
-| Index before this export | Empty |
-| Pre-existing worktree change | Deletion of `walkthrough/SKILL.md`; preserve it outside this handoff and unrelated commits |
-| Shared editing window | All announced owners released README, atlas and staging after their verified commits; no active owner was reported at capture |
+| Index and tracked worktree before this refresh | Clean |
+| Current edit boundary | `HANDOFF.md` only; preserve unrelated work if the state changes |
 
 This document is a later, separate context artifact. Use `git log -1` and
 `git status --short` for the receiving session's exact revision and residual
@@ -81,7 +85,7 @@ Orca ownership must be resolved from the receiving environment when applicable.
 
 ## Current capability inventory
 
-The atlas currently has **33 entries**, including the deprecated activity alias.
+The atlas currently has **42 entries**, including the deprecated activity alias.
 This is repository presence, not proof of installation, automatic selection or
 production effectiveness. [README.md](README.md) describes the capabilities;
 the entrypoint for a named package is `<name>/SKILL.md`.
@@ -89,23 +93,24 @@ the entrypoint for a named package is `<name>/SKILL.md`.
 | Area | Repository entries |
 | --- | --- |
 | Authoring and discovery | `agent-instructions`, `create-project-instructions`, `workflow-to-skill` |
-| Understanding and design | `how`, `why`, `analyze-change-effects`, `compare-solutions`, `prototype`, `design-code-structure` |
-| Implementation and domain rules | `debug`, `tdd`, `error-handling`, `accessibility`, `typescript-best-practices` |
+| Understanding, direction and design | `explain-code`, `explain-decisions`, `analyze-change-effects`, `compare-solutions`, `prototype`, `design-code-structure`, `wayfinder`, `planning` |
+| Implementation and domain rules | `debug`, `tdd`, `error-handling`, `observability`, `performance-optimization`, `accessibility`, `typescript-best-practices`, `deprecate-and-remove` |
 | Verification and review | `verification-authoring`, `verify`, `simplify-code`, `review-code-changes` |
-| Git and delivery | `worktrunk`, `commit`, `pr`, `pr-followup`, `stacked-pr`, `github-actions`, `ci-cd-automation` |
-| Communication and continuity | `communicate-clearly`, `write-documentation`, `handoff`, `report-work-activity`, `daily-meeting-update` (deprecated alias) |
+| Git and delivery | `worktrunk`, `commit`, `pr`, `pr-followup`, `stacked-pr`, `github-actions`, `ci-cd-automation`, `issue-workflow` |
+| Communication and continuity | `communicate-clearly`, `write-documentation`, `handoff`, `report-work-activity`, `comment-style`, `daily-meeting-update` (deprecated alias) |
+| Teaching and learning | `teach`, `learning-plan` |
 | Other retained personal capabilities | `article-processing`, `youtube-processing`, `people-memory` |
 
-`work-mode` remains the future coordinator. `teach` is an optional future skill.
-The personal capabilities do not all belong in a coding workflow.
+`work-mode` remains the future coordinator. Repository presence does not mean
+every capability belongs in every coding workflow.
 
 ## Decisions that must survive
 
 - **Clear names.** `arena` became `compare-solutions`; `blast-radius` became
   `analyze-change-effects`; `architecture` became `design-code-structure`;
   `deslop` became `simplify-code`; `review-audit` became `review-code-changes`.
-  The last name is the repository successor; a host may still expose the old
-  installed skill.
+  `how` and `why` are now `explain-code` and `explain-decisions`. A host may still
+  expose an old installed name; resolve the repository and host separately.
 - **Keep review and impact investigation distinct.** `review-code-changes`
   audits an implementation, another person's PR, a branch, commit, or local
   changes. `analyze-change-effects` investigates indirect consequences and the
@@ -132,7 +137,7 @@ The personal capabilities do not all belong in a coding workflow.
   accumulate language-specific code examples. Preserve necessary guards,
   comments explaining non-obvious constraints, error behavior and valid
   abstractions.
-- **Communication is not a teaching course.** `how` uses limited clarity guidance
+- **Communication is not a teaching course.** `explain-code` uses limited clarity guidance
   from teaching sources; the user did not want it dominated by `teach`.
   `communicate-clearly` now replaces `humanize`, preserving prose-pattern repair,
   fidelity and voice. `write-documentation` owns human-facing documentation;
@@ -144,6 +149,12 @@ The personal capabilities do not all belong in a coding workflow.
   preserves supported defects despite deferral, and makes recommendations
   concise. It deliberately excludes seven-item caps, fixed reviewer rosters,
   Cursor/Bugbot dependencies and merge verdicts.
+- **Direction and execution planning have separate owners.** Wayfinder preserves
+  the outcome, constraints, evidence, alternatives and decision history. Planning
+  consumes a settled direction when available, inspects the real implementation,
+  and defines work with acceptance evidence. Neither a Wayfinder map nor an extra
+  approval round is a prerequisite when the request is already clear and execution
+  is authorized. Changed premises reopen affected decisions, not every discussion.
 
 ## Authoring and evaluation contract
 
@@ -183,8 +194,8 @@ The current [HTML atlas](reports/skill-atlas/index.html) uses
 [sources.json](reports/skill-atlas/sources.json), mirrored exactly in
 [catalog.js](reports/skill-atlas/catalog.js), plus
 [app.js](reports/skill-atlas/app.js) and an external stylesheet. Current source
-progress is **128 ready, 44 pending, 48 optional, 43 not selected**. These are
-source decisions, not counts of installed skills.
+progress is **157 ready, 37 pending, 42 optional, 41 not selected**, across 277
+source records. These are source decisions, not counts of installed skills.
 
 The original 122 catalog records are historical snapshots. Later assessments
 provide the current decisions. Preserve that history and other agents' overlays.
@@ -222,9 +233,83 @@ updates during resume:
 - https://github.com/affaan-m/ECC
 - https://github.com/obra/superpowers
 - https://github.com/gsd-build/gsd-2
+- https://github.com/garrytan/gstack
 
 Use pinned URLs and provenance from the relevant package or report for claims
 about what was actually reviewed. Current main-branch contents can differ.
+
+## gstack review: findings and possible use
+
+Reviewed on 2026-10-06 from Garry Tan's repository, cloned over SSH from
+`git@github.com:garrytan/gstack.git`. The inspected `origin/main` revision was
+`c285d88b90d39116ccfa2b901f80ea0fce0b26eb`. Its root license is MIT, copyright
+2026 Garry Tan. This is an additional scoped review; it does not retroactively
+expand the earlier nineteen-repository studies or establish incorporation.
+
+The documented workflow runs through discovery, planning, implementation,
+review, testing, delivery and reflection. Its useful connective mechanism is
+explicit artifacts: discovery produces a design document for plan review;
+engineering review produces a test plan for QA. `autoplan` orchestrates plan
+reviews, not the entire development lifecycle. It orders CEO, applicable design
+and developer-experience reviews, then engineering review against their amended
+plan. These are documented contracts, not behavior verified by running gstack.
+
+| Component | Useful mechanism | Local owner and assessment |
+| --- | --- | --- |
+| `office-hours` | Examine the actual problem and current workaround; adapt discovery to a startup or another kind of project; preserve the chosen direction, rejected approaches and document lineage. | `wayfinder` already covers outcome, evidence, alternatives, authority and changed premises. Keep discovery proportionate to the user's goal; commercial demand is not the test for every internal, learning or hobby project. |
+| `plan-ceo-review` | Distinguish expanding, holding or reducing scope; reuse settled decisions and challenge them when premises change. | `wayfinder` already preserves scope and decision history. The four named modes are an upstream interface choice, not a missing local capability. |
+| `plan-eng-review` | Connect realistic failures to handling, user-visible behavior and test coverage; pass the resulting test plan downstream. | `planning` and `verify` are the existing owners. Planning already links acceptance to observable scenarios and material failure behavior. A useful future test would check that verification actually consumes that contract. |
+| `spec` | Read code before technical questions; make acceptance, dependencies, exclusions and recovery concrete enough for another implementer. | `planning` already covers these planning obligations; `issue-workflow` owns tracker delivery. Its issue-filing and optional worker-launch path is not a reason to add those actions to Wayfinder. |
+| `autoplan` | Review the amended plan in dependency order; repeat affected reviews after changes; keep skipped, unavailable and completed reviews distinct. | A reference for future `work-mode`. The transferable concern is freshness of inputs and evidence, not a mandatory roster or identical phase sequence for every task. |
+
+**Recommendation:** no immediate Wayfinder rewrite is justified by this reading.
+Most relevant discovery mechanisms are already present. Before adopting anything,
+use a concrete case to expose a gap in the planning-to-verification handoff or in
+how a future coordinator invalidates reviews after the plan changes. Adapt the
+smallest coherent mechanism that closes that gap; do not append a second discovery
+checklist or create a package solely because gstack has a named role.
+
+Do not carry over compulsory interview rounds, a minimum number of alternatives,
+reopening settled work to satisfy a template, repeated approval gates, fixed score
+thresholds, file-count or time-based scope heuristics, or mandatory review rosters.
+The private gstack store, dual document writes, helper binaries and host-specific
+launch commands support its own runtime; they are not dependencies of our skills.
+Any later incorporation needs its own source attribution and applicable license
+notice. No package origin or atlas adoption status changed in this review.
+
+### Reading scope and immutable sources
+
+The review read the complete `office-hours` entrypoint, its startup and builder
+discovery sections, the `plan-eng-review` entrypoint, `autoplan`'s phase-close
+section and the root license. It read selected portions of the other templates
+and overview documentation. Primary references, with the relevant read ranges:
+
+- Workflow overview, README lines 239–282:
+  https://github.com/garrytan/gstack/blob/c285d88b90d39116ccfa2b901f80ea0fce0b26eb/README.md#L239-L282
+- Discovery entrypoint and its two mode sections, read in full:
+  https://github.com/garrytan/gstack/blob/c285d88b90d39116ccfa2b901f80ea0fce0b26eb/office-hours/SKILL.md.tmpl
+  https://github.com/garrytan/gstack/blob/c285d88b90d39116ccfa2b901f80ea0fce0b26eb/office-hours/sections/phase-2a-startup-diagnostic.md.tmpl
+  https://github.com/garrytan/gstack/blob/c285d88b90d39116ccfa2b901f80ea0fce0b26eb/office-hours/sections/phase-2b-builder-brainstorm.md.tmpl
+- Design record and handoff, lines 1–180:
+  https://github.com/garrytan/gstack/blob/c285d88b90d39116ccfa2b901f80ea0fce0b26eb/office-hours/sections/design-and-handoff.md.tmpl#L1-L180
+- Product/scope review, lines 58–100, 247–290 and 389–460:
+  https://github.com/garrytan/gstack/blob/c285d88b90d39116ccfa2b901f80ea0fce0b26eb/plan-ceo-review/SKILL.md.tmpl
+- Engineering entrypoint in full; review sections lines 384–554:
+  https://github.com/garrytan/gstack/blob/c285d88b90d39116ccfa2b901f80ea0fce0b26eb/plan-eng-review/SKILL.md.tmpl
+  https://github.com/garrytan/gstack/blob/c285d88b90d39116ccfa2b901f80ea0fce0b26eb/plan-eng-review/sections/review-sections.md.tmpl#L384-L554
+- Specification, lines 81–195, 198–300 and 437–493:
+  https://github.com/garrytan/gstack/blob/c285d88b90d39116ccfa2b901f80ea0fce0b26eb/spec/SKILL.md.tmpl
+- Review orchestration, lines 1–148 and 290–465; phase-close section in full:
+  https://github.com/garrytan/gstack/blob/c285d88b90d39116ccfa2b901f80ea0fce0b26eb/autoplan/SKILL.md.tmpl
+  https://github.com/garrytan/gstack/blob/c285d88b90d39116ccfa2b901f80ea0fce0b26eb/autoplan/sections/phase-close.md.tmpl
+- License:
+  https://github.com/garrytan/gstack/blob/c285d88b90d39116ccfa2b901f80ea0fce0b26eb/LICENSE
+
+This is a comparison of selected authoring templates, not a complete audit of
+generated skills, shared preambles, helper implementations or linked review
+phases. No gstack setup, skill execution, behavioral comparison, test suite or
+independent model review ran for this research-only update. The immutable sources
+above remain the recovery path after the temporary clone is removed.
 
 ## Recent completed work and evidence
 
@@ -232,6 +317,9 @@ These are existing results, not tests rerun while writing this handoff.
 
 | Commit | Completed boundary | Evidence and limits |
 | --- | --- | --- |
+| `b4e780a` | Create `planning` for executable work, durable plans and work-unit boundaries; integrate the package into the atlas | [Planning source review](reports/skill-atlas/planning-source-review.json) and [final validation](reports/skill-atlas/planning-validation.json). Four bounded matched cases and recorded checks support the reported outcomes; global installation, implicit activation and network issue publication were not tested. |
+| `b9e6f04` | Rewrite Wayfinder around evidence, real alternatives, a maintained decision map and planning readiness | [Wayfinder source review](reports/skill-atlas/wayfinder-source-review.json) and [rewrite validation](reports/skill-atlas/wayfinder-rewrite-validation.json). Nineteen repositories screened, fifty selected reading records, four incorporated sources, independent Astra Max/Fable Max review and four bounded matched cases. Final criteria passed; no general quality gain, interrupted-checkpoint durability or host activation claimed. |
+| `5cc6610` | Create the original Wayfinder package | [Original validation](reports/skill-atlas/wayfinder-validation.json). Historical failures and corrections remain evidence; the later rewrite record owns the current assessment. |
 | `0547c6d` | Replace `humanize` with `communicate-clearly`; add `write-documentation`; migrate named callers and registry; update README/atlas | [Communication validation](reports/skill-atlas/communication-validation.json) and [source review](reports/skill-atlas/communication-source-review.html). Both Max consultations closed. Six matched cases per arm and a final reserved rewrite pair passed; no measured quality gain or host activation claimed. |
 | `63dbdf9` | Activity reports cover every configured `gh` profile | [Profile validation](reports/skill-atlas/report-work-activity-gh-profiles-validation.json). Four synthetic Luna executions and actual review profiles are retained; the default-host probe and live-auth behavior have stated limits. |
 | `7f7a837` | Integrate retune ideas into authoring/evaluation guidance | [Retune validation](reports/skill-atlas/agent-instructions-retune-validation.json). Matched artifact checks, focused regressions, independent consultation and attribution/variation requirements. |
@@ -252,10 +340,11 @@ claims across unrelated skills.
 
 ## Remaining work and acceptance for the eventual coordinator
 
-The next skill has not been chosen. The atlas retains source candidates for
-React practices/composition/testing, frontend design, measured performance,
-planning, security, observability and migrations. These are proposals of varying
-priority, not authorization to build them all. `teach` remains optional.
+The next implementation after Wayfinder and planning has not been selected in
+this request. React practices/composition/testing, frontend design and security
+remain candidate topics. Other pending sources may improve existing owners rather
+than justify new skills. The gstack opportunities above are proposals to evaluate,
+not authorization to implement its pipeline or build every candidate.
 
 Once the selected specialists and ownership boundaries are settled, design the
 coordinator around phase inputs, selection conditions, responsible skills,
@@ -279,21 +368,26 @@ this host still advertised legacy names during the work. Recent commits did not
 perform global installation. PR/remote publication state was not rechecked for
 this export, and exporting context does not request a push or PR.
 
-The preview was used at http://localhost:8765/ and the recent section at
-http://localhost:8765/#dyl-review-adoption. It is machine-local and may no longer
-be running on pickup. If it is not running and port 8765 is available, start the
-existing static atlas from the checkout root:
+The most recent Wayfinder preview was verified through Tailscale at
+https://noir.tail3e9a72.ts.net:8765/#wayfinder, with the static server on
+http://127.0.0.1:8765/. Availability was not rechecked for this documentation
+update. Preserve `.tmp/atlas-tailnet-recovery`, which retains server recovery
+state. The earlier foreground Tailscale serve command ended with `unexpected EOF`
+when T3 restarted; do not treat that cancelled process as a live server.
+
+If the local server is unavailable and port 8765 is free, its command from the
+checkout root is:
 
 ```sh
 python3 -m http.server 8765 --bind 127.0.0.1 --directory reports/skill-atlas
 ```
 
-The command's options were checked with `python3 -m http.server --help`; no server
-was started for this handoff. Preserve `.tmp/activity-preview`, an intentionally
-retained synthetic demo used by the activity report's Quick command. Earlier
-research scratch, including the dyl adoption fixtures, was removed after its
-relevant inputs and outputs were retained in permanent reports. Do not rely on
-old scratch paths still existing.
+This command serves locally; it does not establish the Tailscale proxy. Verify
+both before promising tailnet access. No server was started for this refresh.
+The older `.tmp/activity-preview` demo is absent in this checkout. Earlier
+research scratch, including the Wayfinder fixtures, was removed after its relevant
+inputs and outputs were retained in permanent reports. Do not rely on old scratch
+paths still existing.
 
 For future changed-helper checks, existing commands include:
 
@@ -310,7 +404,7 @@ these examples are not a complete suite for every skill. Fish resolves the
 configured Python, Node and uv commands. During earlier checks, the default
 shell's Python lacked `tomllib` while the Fish-configured Python supported it.
 
-For this export, verification is limited to reading back the document, checking
+For this refresh, verification is limited to reading back the document, checking
 its referenced local artifacts, comparing names/counts with the current atlas,
 and preserving the pre-existing Git state outside `HANDOFF.md`. No skill
 behavior, host activation, external service or historical test suite is rerun
