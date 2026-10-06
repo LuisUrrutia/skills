@@ -1,0 +1,49 @@
+format_version = 1
+skill = "pr-review-draft"
+created = "2026-10-06"
+approach = "Move the portable pending-review workflow to the shared collection under an explicit PR-oriented name. Private profiles remain external runtime inputs."
+
+[[local_snapshots]]
+id = "private-draft-review"
+author = "Luis Urrutia"
+repository = "https://github.com/LuisUrrutia/private-skills"
+commit = "55d9707800e7854284a435aa713e42521de4d481"
+paths = ["draft-review/"]
+entrypoint_sha256 = "d0a713773c5d5b7688bf1f2a717a21a272fb177a699d0d4dd318530c282247b6"
+verification = "Copied the 22-file package from the fetched private main revision. This is a historical migration source, not an upstream update feed."
+local_choices = [
+  "Rename the package and explicit invocation to pr-review-draft while preserving its fixed independent roster and pending-only result.",
+  "Keep private repository profiles out of the public package; the default runtime directory is XDG_CONFIG_HOME/pr-review-draft/profiles.",
+  "Preserve explicit-only invocation and the existing audit, comparison and wording owners."
+]
+
+[[dependencies]]
+name = "review-code-changes"
+required = true
+role = "Canonical audit methodology, severity, report grammar and validator, resolved by registered name."
+local_choices = [
+  "Each engine is one non-delegating comparison participant over the full frozen PR scope.",
+  "Freeze the resolved protocol and validator per run; do not maintain a copied audit core.",
+  "Keep later caller lenses in references/audit-supplement.md until a separately authorized auditor update."
+]
+
+[[dependencies]]
+name = "compare-solutions"
+required = true
+role = "Independent full-attempt and evidence-based synthesis contract."
+local_choices = [
+  "The existing pr-review-draft supervisor remains the sole orchestration owner.",
+  "Use the user-selected Codex, Claude and local CodeRabbit roster on identical scope and criteria.",
+  "The parent performs synthesis; deliberately omit an additional independent judge and recursive coordination.",
+  "Retain native CodeRabbit output without manufacturing canonical coverage."
+]
+
+[[dependencies]]
+name = "comment-style"
+required = true
+role = "Compact wording and PR-specific comment rules; placement and pending-review operations remain with pr-review-draft."
+
+[[dependencies]]
+name = "communicate-clearly"
+required = false
+role = "Optional general prose guidance through comment-style."
