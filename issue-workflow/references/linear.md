@@ -5,7 +5,7 @@ and IDs are team-specific. Discover the available tool schema, fetch the issue,
 inspect its team states and update only the configured state ID. Preserve labels,
 assignee and other fields. Re-fetch the issue to verify the result.
 Use connection metadata or the available account-identity read to verify the
-acting account and workspace under the shared actor rule before a write.
+acting account and workspace under the [shared actor rule](identity.md) before a write.
 
 Inspect the GitHub integration's event and branch rules when it owns transitions.
 Draft/open/ready/review/merge events can map differently, including by target branch.

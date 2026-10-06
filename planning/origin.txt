@@ -1,7 +1,7 @@
 format_version = 1
 skill = "planning"
 created = "2026-10-06"
-approach = "Derive: combine evidence-grounded planning, verifiable work units, explicit dependencies, and proportional detail while keeping direction finding and execution with their existing owners."
+approach = "Derive: combine evidence-grounded planning, explicit dependencies, and proportional detail. Detailed delivery-unit sizing and staged decomposition now belong to task-breakdown; ticket publication belongs to issue-workflow. Preserve the original source pins for traceability."
 
 [[sources]]
 id = "blode-planning"
@@ -30,7 +30,7 @@ baseline_paths = ["skills/engineering/to-tickets/SKILL.md", "LICENSE"]
 paths = ["skills/engineering/to-tickets/SKILL.md", "LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Split by complete observable behavior and record genuine blocking relationships.", "Use expand, migrate, contract for broad changes whose consumers cannot all move at once.", "Make the first valid integration check explicit when intermediate units cannot pass independently."]
-local_choices = ["Keep a small change together and permit one plan rather than requiring one file per ticket.", "Drafting is separate from authorized publication; use project-native tracker conventions without setup, labels, or mandatory approval ceremonies.", "Retain useful verified entry points and contract excerpts, with a freshness check when resuming."]
+local_choices = ["Keep a small change together and permit one plan rather than requiring one file per ticket.", "Detailed expand/migrate/contract and first-integration procedures moved to task-breakdown; publication recovery moved to issue-workflow. Their package records preserve direct source inspiration where applicable.", "Retain useful verified entry points and contract excerpts, with a freshness check when resuming."]
 reviews = []
 
 [[sources]]
@@ -95,3 +95,15 @@ name = "agent-instructions"
 kind = "local"
 required = false
 role = "Maintain recorded source inspiration when explicitly requested."
+
+[[dependencies]]
+name = "task-breakdown"
+kind = "local"
+required = false
+role = "Own PR-sized delivery decomposition, size budgets, dependencies and staged-delivery detail when needed."
+
+[[dependencies]]
+name = "issue-workflow"
+kind = "local"
+required = false
+role = "Own authorized publication of prepared tasks to the project tracker."

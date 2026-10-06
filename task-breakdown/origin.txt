@@ -1,0 +1,70 @@
+format_version = 1
+skill = "task-breakdown"
+created = "2026-10-06"
+approach = "Derive: extract verifiable delivery decomposition from planning, preserve its pinned inspiration, and add the user-defined human review size contract. No upstream refresh is claimed."
+
+[[sources]]
+id = "blode-planning"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+baseline_commit = "cef4cfa837ca41b50d19f54551a3939ed7460434"
+reviewed_through = "cef4cfa837ca41b50d19f54551a3939ed7460434"
+baseline_paths = ["skills/planning/SKILL.md", "skills/planning/references/handoff-plans.md", "skills/planning/references/splitting.md", "skills/planning/references/claim-verification.md", "skills/planning/references/plan-quality-rubric.md", "LICENSE.md"]
+paths = ["skills/planning/SKILL.md", "skills/planning/references/handoff-plans.md", "skills/planning/references/splitting.md", "skills/planning/references/claim-verification.md", "skills/planning/references/plan-quality-rubric.md", "LICENSE.md"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Ground work units in repository evidence and preserve context for a fresh executor.", "Carry observable acceptance checks and genuine dependencies into delivery units."]
+local_choices = ["Extract delivery decomposition into a separately invocable skill; direction and overall planning remain with their owners.", "Apply the user-defined 5,000 additions-plus-deletions ceiling with estimation headroom and actual publication checks."]
+reviews = []
+
+[[sources]]
+id = "matt-to-tickets"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+baseline_commit = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+reviewed_through = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+baseline_paths = ["skills/engineering/to-tickets/SKILL.md", "LICENSE"]
+paths = ["skills/engineering/to-tickets/SKILL.md", "LICENSE"]
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+borrowed = ["Split by complete observable behavior and record genuine blocking relationships.", "Use expand, migrate, contract for broad changes whose consumers cannot all move at once.", "Make the first valid integration check explicit when intermediate units cannot pass independently."]
+local_choices = ["Prefer small complete behaviors; permit justified backend/frontend/integration stages with explicit verification limits.", "Keep task drafting separate from issue-workflow publication, and preserve one authoritative record."]
+reviews = []
+
+[[dependencies]]
+name = "planning"
+kind = "local"
+required = false
+role = "Resolve missing implementation approach; keep the overall plan authoritative."
+
+[[dependencies]]
+name = "wayfinder"
+kind = "local"
+required = false
+role = "Resolve connected direction decisions that prevent decomposition."
+
+[[dependencies]]
+name = "issue-workflow"
+kind = "local"
+required = false
+role = "Publish prepared tasks only when that operation is authorized."
+
+[[dependencies]]
+name = "pr"
+kind = "local"
+required = false
+role = "Measure the actual PR diff against the carried size cap before publication."
+
+[[dependencies]]
+name = "stacked-pr"
+kind = "local"
+required = false
+role = "Own dependent branches and enforce each layer size cap during publication."
+
+[[dependencies]]
+name = "agent-instructions"
+kind = "local"
+required = false
+role = "Maintain sources when requested."

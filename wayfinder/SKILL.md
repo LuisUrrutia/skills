@@ -10,8 +10,9 @@ preserving decisions and context across sessions. A product, architecture, or
 migration can emerge from this work; narrowing, deferring, or abandoning the
 initiative can also be a sound outcome.
 
-Own the uncertainty that prevents good planning. Planning owns executable work
-units, their order, dependencies, and acceptance criteria. If the direction is
+Own the uncertainty that prevents good planning. `planning` owns the implementation
+approach and acceptance criteria; `task-breakdown` turns that plan into PR-sized
+delivery units with their dependencies and checks. If the direction is
 already clear enough to plan, carry its context into the authorized planning
 workflow. Resolve a single answerable question directly; a map earns its place
 when decisions connect or work must continue across sessions.

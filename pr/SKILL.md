@@ -74,6 +74,17 @@ Recommend a split when it materially helps; do not rewrite published history,
 reorder a stack or separate a behavior from its regression test just to shorten
 the diff. Necessary generated output is not automatically noise.
 
+When the request, project rules or task record sets a PR size cap, measure additions
+plus deletions in the full `<base-sha>...<head-sha>` diff, including tests, generated
+text and lockfiles. Use Git's `--shortstat` for totals and `--numstat` to identify
+binary entries; do not use net growth, sums of commits or excluded paths. Record
+the exact revisions, count, cap and any binary review burden. For a stack layer,
+the base is its immediate PR base. An unavailable diff blocks publication of the
+capped work until it can be measured. If over the cap, stop code publication and
+PR creation, and use `task-breakdown` to revise the units;
+do not silently waive the cap or rewrite published history. Draft-only and
+metadata-only work can still report the violation without shipping more code.
+
 Before composing a body, read:
 
 - Written PR rules in repository instructions and `CONTRIBUTING.md`.
@@ -125,6 +136,8 @@ screenshots and completed checklist claims before carrying them forward. Use
 For any Git or GitHub mutation, read
 [references/publication.md](references/publication.md). It owns identity checks,
 SSH publication, non-interactive commands, draft state and post-write verification.
+Recheck any review-size cap against the selected publication revisions immediately
+before pushing or creating the PR; changed base or head invalidates an earlier count.
 Complete the reviewable title/body and necessary validation before asking for a
 remaining authorization. Existing request and standing authorization take precedence
 over source workflows that require blanket confirmation.

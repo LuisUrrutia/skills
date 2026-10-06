@@ -1,6 +1,6 @@
 ---
 name: planning
-description: Use when creating, reviewing, revising, or breaking down a software implementation plan.
+description: Use when creating, reviewing, or revising a software implementation plan.
 ---
 
 # Planning
@@ -9,9 +9,10 @@ Turn a defined outcome into work another engineer or agent can execute and verif
 Preserve the reasoning, constraints, and dependencies that execution needs without
 writing the implementation in advance.
 
-Create a plan when none exists, revise the authoritative plan when asked to change
-it, or split it into work units when separate delivery warrants them. A review-only
-request returns findings and proposed corrections without editing the plan.
+Create a plan when none exists or revise the authoritative plan when asked to change
+it. `task-breakdown` owns dividing it into testable tasks sized for individual PRs.
+A review-only request returns findings and proposed corrections without editing
+the plan.
 Planning alone authorizes the requested planning artifacts, not product changes,
 tracker publication, or implementation status transitions. When planning and
 implementation are both authorized, finish planning and continue within the
@@ -76,7 +77,7 @@ plan needs a starting structure, and omit sections that add no useful informatio
 - **Approach and evidence:** the existing capability to extend, affected components
   and relevant source paths, chosen contracts, and reasons for consequential
   choices. Distinguish verified locations from proposed files and untested claims.
-- **Work units:** the result each unit delivers, changes needed, prerequisites,
+- **Implementation work:** the results to deliver, changes needed, prerequisites,
   and evidence that proves it. Include consumed and produced interfaces where
   separate implementers must agree. State settled names or signatures precisely;
   leave ordinary implementation details to the executor.
@@ -95,8 +96,13 @@ plan needs a starting structure, and omit sections that add no useful informatio
 Prefer narrow, complete behavior changes that can be checked as they land. Keep
 implementation and its behavioral tests together; setup and documentation belong
 with the outcome they enable unless they are independently useful deliverables.
-Read [references/work-units.md](references/work-units.md) when dividing a larger
-change, planning a staged migration, or preparing tickets for separate executors.
+For larger work, hand the approach, constraints, acceptance criteria and known
+dependencies to `task-breakdown` to define PR-sized delivery units, their size
+budgets and integration stages. Preserve the same authoritative plan rather than
+duplicating task records. A small plan that already fits one reviewable PR does
+not need a separate decomposition ceremony. If that skill is unavailable, retain
+the plan and identify detailed decomposition as pending instead of claiming the
+whole project is ready for one PR. Ticket publication belongs to `issue-workflow`.
 
 Plan the checks that prove the outcome; do not replace acceptance with "tests
 pass" or "run the suite". Existing project quality gates remain applicable.

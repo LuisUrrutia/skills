@@ -26,6 +26,16 @@ Merging requires the user's explicit approval for the exact PR set and merge met
 before the merge command. Preserve unrelated dirty-tree work. Before rewriting ancestry, record the
 current branch and relevant tips so every original commit remains reachable until verification.
 
+When a request, project rule or task record sets a review-size cap, carry it through
+the selected route. Before publishing new code or creating PRs, measure additions
+plus deletions for each layer's full `<base-sha>...<head-sha>` diff against its
+actual immediate PR base, including tests, generated text and lockfiles. Use
+Git's `--shortstat` totals and `--numstat` for binary entries; record revisions and
+binary review burden separately. Never count an upper layer cumulatively against
+trunk. Splitting commits does not shrink a PR. An unavailable count blocks publication;
+an over-cap layer returns to `task-breakdown` before publication. Recheck after base
+or head changes. Scope this gate to publication; read-only inspection can report it.
+
 ## Route the request
 
 Choose one primary route. Load its file, select the requested operation there, and stop when that

@@ -5,7 +5,7 @@ workflow transitions, including required field metadata. Match the policy's
 destination to an allowed transition, then pass that transition's ID and required
 values through the available connector/API. A status ID is not a transition ID.
 Verify the acting account and site through connection metadata or the available
-account-identity read before writing, under the shared actor rule.
+account-identity read before writing, under the [shared actor rule](identity.md).
 
 Different workflows can use the same status name, and more than one operation can
 reach a destination. Resolve required fields or materially different transition
