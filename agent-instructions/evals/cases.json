@@ -72,7 +72,7 @@
     {
       "id": "activation-near-misses",
       "kind": "selection",
-      "prompt": "For each request, select agent-instructions, workflow-to-skill, or neither as the entrypoint, using only their names and descriptions.",
+      "prompt": "For each request, identify the primary entrypoint and any additional applicable skills using only their names and descriptions. Choose from agent-instructions, workflow-to-skill, create-project-instructions, handoff, write-documentation, or none. Briefly explain each selection.",
       "fixture": {
         "queries": [
           "Combine these two bug-triage skills into one skill.",
@@ -84,11 +84,25 @@
           "Read these three completed task histories and extract a skill for their shared workflow.",
           "Make what we just did into a reusable skill.",
           "Fix the failing GitHub Actions build in this application.",
-          "Follow AGENTS.md and fix this React bug."
+          "Follow AGENTS.md and fix this React bug.",
+          "Implement OAuth login following CLAUDE.md.",
+          "Record today's sidebar spacing fix in the changelog under AGENTS.md's Tracked local overlays.",
+          "Update the skill atlas inventory counts.",
+          "Write a handoff that tells another AI agent how to continue this task.",
+          "Revise this system prompt so the AI asks before deleting user data.",
+          "Implement CSV export and change the AGENTS.md rule to require validation before exporting.",
+          "Add 'Fixes sidebar spacing' to AGENTS.md's Tracked local overlays section. That section is a changelog; no instructions use it to decide agent behavior.",
+          "Change the tooling fact in AGENTS.md from npm to pnpm. Agents use that section as the source of required commands.",
+          "Correct the completed test count from 17 to 18 in an existing agent handoff; preserve its continuation instructions.",
+          "Implement search and review the existing AGENTS.md search guidance for contradictions. Report findings without editing the instructions."
         ]
       },
       "expectations": [
-        "The first six requests enter agent-instructions; the seventh and eighth enter workflow-to-skill; the final two enter neither.",
+        "The first six requests enter agent-instructions; the seventh and eighth enter workflow-to-skill; requests nine through thirteen exclude agent-instructions and workflow-to-skill.",
+        "Request fourteen enters handoff with agent-instructions for continuation guidance; request fifteen enters agent-instructions; request sixteen includes agent-instructions only for the AGENTS.md rule change, not CSV implementation.",
+        "Request seventeen excludes agent-instructions because the changelog does not guide agent behavior. Request eighteen includes it because changing the required package manager changes guidance even when labeled a fact. Request nineteen excludes agent-instructions for factual handoff maintenance.",
+        "Request twenty includes agent-instructions only for the requested findings-only instruction review, not search implementation.",
+        "Selection can identify the instruction subtask, but cannot prove consultation execution or its scope at runtime.",
         "A selection probe is not reported as observed host invocation."
       ]
     },

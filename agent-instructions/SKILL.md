@@ -1,6 +1,6 @@
 ---
 name: agent-instructions
-description: Use when creating, reviewing, or improving AGENTS.md, CLAUDE.md, skills, or other agent instructions. For skill extraction from past work, start with workflow-to-skill.
+description: Use when creating, editing, or reviewing instructions for AI agents, such as AGENTS.md, CLAUDE.md, skills, prompts, and handoffs. Reading or following instructions does not activate it, nor does factual maintenance that leaves agent guidance unchanged. During implementation or other tasks, apply it only to the instruction authoring or review they contain. For skill extraction from past work, start with workflow-to-skill.
 ---
 
 # Agent instructions
@@ -9,6 +9,20 @@ Write instructions that help an agent make the intended decisions, find the
 right context, and recognize completion. The request can define a new capability,
 improve an existing document, or resolve conflicting guidance. Prior use or
 repetition is not a prerequisite.
+
+Apply this skill to creating, editing, or reviewing agent-facing guidance.
+Reading or following existing instructions during another task does not activate
+it. An instruction filename alone is not a trigger: factual status, history, or
+inventory updates that leave agent guidance unchanged stay with the task's owner.
+Treat a factual edit as instruction work when it changes what the agent is told
+to do or which instructions load, including required tools, rule scope,
+permissions, or completion criteria.
+When another task requires instruction authoring or review, scope this workflow,
+including both model consultations, to that instruction work rather than the rest
+of the task.
+
+For handoff documents, `handoff` owns capturing continuation context and saving
+the document. Apply this skill to agent guidance authored or reviewed within it.
 
 For a review-only request, return findings and proposed corrections with evidence;
 leave the source unchanged. Writing, pruning, or reorganizing instructions follows
@@ -52,8 +66,9 @@ sufficient.
 
 ## Get both model perspectives
 
-For every creation, edit, or review handled by this skill, obtain independent
-input from both profiles before finalizing the instructions or review findings:
+For each instruction creation, edit, or review within the scope above, obtain
+independent input from both profiles before finalizing the instructions or review
+findings:
 
 | Provider | Model | Reasoning effort |
 | --- | --- | --- |
