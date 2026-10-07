@@ -1,6 +1,6 @@
 ---
 name: pr-followup
-description: Inspect or repair PR feedback and CI, move settled drafts to review, and babysit PRs through approval or an authorized merge.
+description: Inspect or repair feedback and CI on your own PR, move settled drafts to review, and babysit it through approval or an authorized merge.
 ---
 
 # PR follow-up
@@ -8,6 +8,8 @@ description: Inspect or repair PR feedback and CI, move settled drafts to review
 Bring an existing PR to the requested stopping point with evidence for its current
 revision. Evaluate feedback before changing code; keep every observed item accounted
 for. Use this directly with a PR URL or as a phase of an authorized delivery task.
+When the verified `gh` actor reviewed the PR rather than authoring it, use
+`pr-review-followup` instead.
 
 ## Choose scope and establish state
 

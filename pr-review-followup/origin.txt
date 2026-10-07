@@ -1,0 +1,29 @@
+format_version = 1
+skill = "pr-review-followup"
+created = "2026-10-07"
+approach = "Reviewer-side counterpart of pr-followup: follow a PR the user reviewed, settle the reviewer's own threads, re-review new heads through pr-review, and approve through a gate enforced in code."
+
+[[local_snapshots]]
+id = "pr-1982-followup-session"
+author = "Luis Urrutia"
+repository = "local session"
+verification = "Derived from one supervised session on 2026-10-07: a 15-minute watcher that only reported thread state, then approved a head it had not reviewed. No external donor."
+local_choices = [
+  "Tick every 30 minutes by default, at the user's direction.",
+  "Settle a thread from the author's reply only after checking the claim on the current head.",
+  "Continue a topic in its existing thread; ask for a ticket on a deferral and resolve once the author supplies it.",
+  "Re-review every new head with a full pr-review before approving, because approving an unreviewed head was the observed failure.",
+  "Publish replies and resolutions directly; never touch other reviewers' threads or an unsubmitted review that belongs to the user.",
+  "Preserve explicit-only invocation, like pr-review, because the skill publishes and approves. Claude Code's disable-model-invocation is not used: this skill invokes pr-review, and scheduled ticks must be able to invoke this skill.",
+  "Enforce the approval gate, per-PR state binding, persistent uncertain-write markers and verification of threads someone else resolved in followup.py, after Codex Astra Max and Claude Fable Max reviews found the first draft relied on prose for them."
+]
+
+[[dependencies]]
+name = "pr-review"
+required = true
+role = "Full review of a new head, publication of new findings and same-topic replies."
+
+[[dependencies]]
+name = "comment-style"
+required = true
+role = "Wording of every thread reply."
