@@ -10,8 +10,9 @@ Codex, Claude and the local CodeRabbit CLI: a **Comment** review carrying the
 verified findings, or an **Approve** review when the review is complete and clean.
 Generic auditing belongs to `review-code-changes`. Following up on replies and
 new commits, resolving threads and later approval belong to `pr-review-followup`;
-repairing your own PR belongs to `pr-followup`. This workflow never requests
-changes, resolves threads or modifies the reviewed code.
+repairing your own PR belongs to `pr-followup`; when the verified `gh` actor is
+the PR's author, use that instead. This workflow never requests changes, resolves
+threads or modifies the reviewed code.
 
 Resolve dependencies by registered name through the host catalog, independently
 of the reviewed repository. Read `review-code-changes` and its complete protocol
@@ -90,11 +91,16 @@ to change permissions, scope or reviewers.
    sources. Recheck every new external point against the frozen revision. When a
    supported point continues the topic of an existing thread, such as a partial
    fix with a remaining gap or new evidence for the same issue, reply in that
-   thread instead of opening another; a settled, resolved point is not repeated.
-   Suppress a duplicate that adds nothing, with a reason. For a repeat review, review the full current
+   thread instead of opening another. A settled point is not repeated, but an
+   issue that reappears on the current head is raised again in its resolved
+   thread. A finding the author deferred with a ticket they confirmed in its
+   thread is an accepted deferral: keep it in the ledger with the ticket, do not
+   republish it, and do not count it against approval. Suppress a duplicate that
+   adds nothing, with a reason. For a repeat review, review the full current
    scope first, then compare the previous snapshot and disposition ledger. Record
    declined optional asks in Review basis; revive them only on new evidence.
-   Deferral does not resolve a supported defect. Carry decisive unknowns as questions.
+   Deferral without a confirmed ticket does not resolve a supported defect. Carry
+   decisive unknowns as questions.
 
 At any phase, snapshot or source drift invalidates reuse. Refresh the affected
 assessment before comments are written. Do not present a prior result as current.
@@ -117,15 +123,25 @@ existing authorization; suggestions grant no additional permission.
     review plan. For a finding outside the diff, choose a related changed line and
     name the counterpart in the body. A required finding with no line anchor, such
     as PR title format, goes in the review body. Choose the event:
-    - **APPROVE** only when every requested engine succeeded, no new comment carries
-      a finding, and no required finding remains unposted.
+    - **APPROVE** only when every requested engine succeeded, no supported
+      required finding still stands (new, previously posted, in the body or in
+      any thread, accepted deferrals aside), no decisive question is open, and
+      the actor has no unresolved thread on the PR. APPROVE carries no comments
+      or replies.
     - **COMMENT** otherwise, when there is anything to publish. An incomplete
-      review with nothing to publish publishes nothing.
+      review says which engine or coverage is missing in its body; with nothing
+      else to publish, it publishes nothing.
+    - When `pr-review-followup` runs this review, it owns approval: publish
+      COMMENT or nothing, and return to it whether the review was complete and
+      how many required findings stand outside the actor's threads.
     Verify intended actor and current PR base/head, then publish through
     `scripts/publish_review.py`. It builds the review at that head, binds thread
     replies to it, submits it once and reads back state, membership and exact
-    bodies. An unsubmitted review the actor already has belongs to the user: stop
-    rather than publish it. An uncertain write needs reconciliation, not a blind retry.
+    bodies. It refuses APPROVE while the actor has an unresolved thread, and stops
+    before submitting when the review holds content it did not write. An
+    unsubmitted review the actor already has belongs to the user: stop rather than
+    publish it. An uncertain write needs reconciliation, not a blind retry; a
+    definite GitHub rejection is reported as such.
 11. **Report the observed result.** Give the full PR URL and the published event,
     then one row per published site with file/side/line, a short topic, severity,
     required/optional status, sources and whether it is a reply. Include dropped or

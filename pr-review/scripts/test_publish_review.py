@@ -3,7 +3,7 @@ from __future__ import annotations
 import json
 import unittest
 
-from publish_review import PublishError, anchor_lines, apply, validate_plan
+from publish_review import PublishError, RejectedError, anchor_lines, apply, validate_plan
 from snapshot import prepare, verify
 from test_support import AUDITOR, ReviewFixture
 
@@ -20,21 +20,35 @@ class FakeGitHub:
         self.foreign_thread = False
         self.fail_after_create = False
         self.fail_after_submit = False
+        self.reject_submit = False
         self.change_head = False
+        self.base = fixture.base
+        self.merge_base = fixture.base
+        self.unresolved_mine = False
+        self.add_user_comment = False
+        self.body_override = None
+        self.lose_comment = False
 
     def call(self, endpoint, payload=None, paginate=False):
         self.calls.append((endpoint, payload, paginate))
         if endpoint == 'user':
             return {'login': self.actor}
         if endpoint.endswith('/pulls/12'):
-            return {'node_id':'PR_target', 'head':{'sha':'0'*40 if self.change_head else self.f.head}, 'base':{'sha':self.f.base}}
+            return {'node_id':'PR_target', 'head':{'sha':'0'*40 if self.change_head else self.f.head}, 'base':{'sha':self.base}}
+        if '/compare/' in endpoint:
+            return {'merge_base_commit':{'sha':self.merge_base}}
         if endpoint.endswith('/reviews?per_page=100'):
             return [self.review] if self.review else []
         if endpoint.endswith('/comments?per_page=100'):
+            if self.add_user_comment and self.review and self.review['state'] == 'PENDING' and self.comments:
+                self.comments.append({'id':99,'node_id':'USER_DRAFT','body':'user draft text','pull_request_review_id':17})
+                self.add_user_comment = False
             return self.comments.copy()
         if endpoint.endswith('/reviews/17/events'):
             assert set(payload) <= {'event', 'body'}
-            self.review.update(state=SUBMITTED[payload['event']], body=payload.get('body', ''))
+            if self.reject_submit:
+                raise RejectedError('HTTP 422: Unprocessable Entity')
+            self.review.update(state=SUBMITTED[payload['event']], body=self.body_override if self.body_override is not None else payload.get('body', ''))
             if self.fail_after_submit:
                 raise PublishError('simulated lost response after submission')
             return self.review.copy()
@@ -48,6 +62,10 @@ class FakeGitHub:
             return self.review.copy()
         if endpoint == 'graphql':
             query = payload['query']
+            if 'reviewThreads' in query:
+                author = {'login':self.actor}
+                nodes = [{'isResolved':False,'comments':{'nodes':[{'author':author}]}}] if self.unresolved_mine else []
+                return {'data':{'repository':{'pullRequest':{'reviewThreads':{'pageInfo':{'hasNextPage':False},'nodes':nodes}}}}}
             if query.startswith('query'):
                 return {'data':{'node':{'pullRequest':{'id':'PR_other' if self.foreign_thread else 'PR_target'}}}}
             data = payload['variables']['input']
@@ -55,6 +73,9 @@ class FakeGitHub:
             number = len(self.comments)+1
             comment = {'id':f'PRRC_{number}', 'body':data['body'],'pullRequestReview':{'id':'PRR_new','state':self.review['state']}}
             self.comments.append({'id':number,'node_id':comment['id'],'body':data['body'],'path':data.get('path'), 'line':data.get('line'),'side':data.get('side'),'pull_request_review_id':17})
+            if self.lose_comment:
+                self.lose_comment = False
+                raise PublishError('simulated lost response after comment')
             if 'addPullRequestReviewThreadReply' in query:
                 return {'data':{'addPullRequestReviewThreadReply':{'comment':comment}}}
             return {'data':{'addPullRequestReviewThread':{'thread':{'comments':{'nodes':[comment]}}}}}
@@ -106,6 +127,55 @@ class PublishReviewTests(unittest.TestCase):
         self.assertEqual(self.api.review['commit_id'], self.f.head)
         self.assertEqual([p for e,p in self.api.writes() if e.endswith('/events')], [{'event':'APPROVE'}])
 
+    def test_body_is_submitted_and_read_back(self):
+        self.data['body'] = 'the PR title needs the ticket format'
+        self.write_plan()
+        self.apply()
+        self.assertEqual([p for e,p in self.api.writes() if e.endswith('/events')],
+                         [{'event':'COMMENT','body':'the PR title needs the ticket format'}])
+
+        self.receipt.unlink()
+        self.api = FakeGitHub(self.f)
+        self.api.body_override = 'something else'
+        with self.assertRaisesRegex(PublishError, 'did not read back'):
+            self.apply()
+
+    def test_unexpected_user_comment_stops_submission(self):
+        self.api.add_user_comment = True
+
+        with self.assertRaisesRegex(PublishError, 'unexpected content'):
+            self.apply()
+
+        self.assertFalse(any(e.endswith('/events') for e,_ in self.api.writes()))
+
+    def test_approve_is_blocked_by_the_actors_unresolved_threads(self):
+        self.data = {'event':'APPROVE'}
+        self.write_plan()
+        self.api.unresolved_mine = True
+
+        with self.assertRaisesRegex(PublishError, 'unresolved'):
+            self.apply()
+
+        self.assertEqual(self.api.writes(), [])
+
+    def test_base_tip_may_move_while_the_merge_base_holds(self):
+        self.api.base = 'b' * 40
+        self.assertEqual(self.apply()['status'], 'COMMENTED')
+
+        self.receipt.unlink()
+        self.api = FakeGitHub(self.f)
+        self.api.base, self.api.merge_base = 'b' * 40, 'c' * 40
+        with self.assertRaisesRegex(PublishError, 'drifted'):
+            self.apply()
+
+    def test_definite_rejection_clears_the_uncertainty_marker(self):
+        self.api.reject_submit = True
+
+        with self.assertRaises(RejectedError):
+            self.apply()
+
+        self.assertNotIn('pending_operation', json.loads(self.receipt.read_text()))
+
     def test_existing_unsubmitted_review_is_never_published(self):
         self.api.review = {'id':17,'node_id':'PRR_user','state':'PENDING','user':{'login':'reviewer'},'commit_id':self.f.head,'body':'user draft'}
 
@@ -142,6 +212,23 @@ class PublishReviewTests(unittest.TestCase):
 
                 self.assertEqual(len(self.api.writes()), count)
 
+    def test_lost_comment_write_then_user_submission_is_not_overridden(self):
+        self.api.lose_comment = True
+        with self.assertRaisesRegex(PublishError, 'lost response'):
+            self.apply()
+        receipt = json.loads(self.receipt.read_text())
+        self.assertEqual(receipt['pending_operation'], 'C1-site1')
+        with self.assertRaisesRegex(PublishError, 'outcome is uncertain'):
+            self.apply()
+
+        receipt.pop('pending_operation')
+        self.receipt.write_text(json.dumps(receipt))
+        self.api.review['state'] = 'COMMENTED'
+        count = len(self.api.writes())
+        with self.assertRaisesRegex(PublishError, 'no longer pending'):
+            self.apply()
+        self.assertEqual(len(self.api.writes()), count)
+
     def test_foreign_thread_blocks_before_its_reply(self):
         self.api.foreign_thread = True
         with self.assertRaisesRegex(PublishError, 'different PR'):
@@ -155,7 +242,7 @@ class PublishReviewTests(unittest.TestCase):
         validate_plan(plan, manifest, self.f.snapshot)
         plan['comments'][0].update(start_line=1,start_side='LEFT')
         validate_plan(plan, manifest, self.f.snapshot)
-        validate_plan({'event':'APPROVE','replies':[{'key':'r','thread_id':'PRRT_x','body':'this one is done'}]}, manifest, self.f.snapshot)
+        validate_plan({'event':'APPROVE'}, manifest, self.f.snapshot)
         validate_plan({'event':'COMMENT','body':'the PR title needs the ticket format'}, manifest, self.f.snapshot)
         finding = dict(plan['comments'][0])
         plan['comments'][0]['line'] = 99
@@ -163,6 +250,7 @@ class PublishReviewTests(unittest.TestCase):
                  ({'comments':[]}, 'event'),
                  ({'event':'REQUEST_CHANGES'}, 'event'),
                  ({'event':'APPROVE','comments':[finding]}, 'APPROVE'),
+                 ({'event':'APPROVE','replies':[{'key':'r','thread_id':'PRRT_x','body':'done'}]}, 'APPROVE'),
                  ({'event':'COMMENT'}, 'nothing to publish'),
                  ({'event':'COMMENT','body':'x','resolve':['PRRT_x']}, 'unknown plan fields')]
         for invalid, message in cases:

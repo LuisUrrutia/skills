@@ -81,14 +81,17 @@ This is a write command, used only as part of an authorized pr-review run.
 Validation uses fake APIs; a real publication test requires an authorized
 disposable PR. Do not execute an example plan against a real target.
 
-The plan validator accepts `APPROVE` with replies but never with new comments,
-and rejects a `COMMENT` with no comment, reply or body. The helper creates a
+The plan validator rejects `APPROVE` with any comment or reply, and a `COMMENT`
+with no comment, reply or body. The helper creates a
 review with `commit_id` set to the frozen head, adds every new thread and reply
 to it with explicit `pullRequestReviewId` (replies also carry a
-`pullRequestReviewThreadId` verified to belong to this PR), reads back each body,
-then submits the review once with the plan's event and body. It reads back the
-submitted state (`COMMENTED` or `APPROVED`), head, ownership and every recorded
-body. Do not rely on universal claims about null line/side fields or a REST
+`pullRequestReviewThreadId` verified to belong to this PR) and reads back each
+body. Before submitting it requires the review to hold exactly the comments it
+wrote and no body, and for `APPROVE` that the actor has no unresolved thread on
+the PR. It then submits once with the plan's event and body and reads back the
+submitted state (`COMMENTED` or `APPROVED`), body, head, ownership and every
+recorded comment. A moved base tip is accepted while the merge-base with the
+frozen head is unchanged. Do not rely on universal claims about null line/side fields or a REST
 endpoint always returning 404.
 
 An unsubmitted review the actor already has, which this run did not create, is
@@ -96,7 +99,8 @@ the user's work: the helper stops instead of submitting it. Do not submit or
 discard it to bypass that boundary; report it.
 
 The receipt stores each completed key and records an operation **before** its
-write. A transport failure or ambiguous response leaves `pending_operation` set.
+write. A transport failure or ambiguous response leaves `pending_operation` set;
+a definite HTTP 4xx rejection clears it and is reported as nothing written.
 Stop automatic retries; inspect the actor's reviews and associate the actual
 returned comment or review state before reconciling that receipt. Do not clear
 the marker based on a guess or reuse it with another plan. A repeated identical

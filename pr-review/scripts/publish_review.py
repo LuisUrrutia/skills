@@ -17,6 +17,10 @@ class PublishError(RuntimeError):
     pass
 
 
+class RejectedError(PublishError):
+    """GitHub definitely refused the request (HTTP 4xx); nothing was written."""
+
+
 class GitHub:
     def __init__(self, host: str):
         self.host = host
@@ -31,6 +35,8 @@ class GitHub:
                                 capture_output=True, text=True, timeout=120,
                                 env={**os.environ, "GH_PROMPT_DISABLED": "1"})
         if result.returncode:
+            if re.search(r"HTTP 4\d\d", result.stderr):
+                raise RejectedError(f"GitHub rejected the request: {result.stderr.strip()}")
             raise PublishError(f"GitHub request failed: {result.stderr.strip()}")
         value = json.loads(result.stdout)
         if isinstance(value, dict) and value.get("errors"):
@@ -66,6 +72,8 @@ def anchor_lines(repository: Path, base: str, head: str, path: str, old_path: st
 
 
 EVENTS = {"COMMENT": "COMMENTED", "APPROVE": "APPROVED"}
+OWN_THREADS = """query($owner:String!,$repo:String!,$number:Int!){repository(owner:$owner,name:$repo){pullRequest(number:$number){
+  reviewThreads(first:100){pageInfo{hasNextPage} nodes{isResolved comments(first:1){nodes{author{login}}}}}}}}"""
 
 
 def validate_plan(plan: dict, manifest: dict, snapshot: Path) -> None:
@@ -106,8 +114,8 @@ def validate_plan(plan: dict, manifest: dict, snapshot: Path) -> None:
                 raise PublishError("line/range is outside one frozen diff hunk")
             if ("start_line" in item) != ("start_side" in item) or item.get("start_side", item["side"]) != item["side"]:
                 raise PublishError("range must specify both start_line and the same start_side")
-    if plan["event"] == "APPROVE" and plan.get("comments"):
-        raise PublishError("APPROVE cannot carry new findings; publish them as COMMENT")
+    if plan["event"] == "APPROVE" and (plan.get("comments") or plan.get("replies")):
+        raise PublishError("APPROVE carries no comments or replies; publish findings as COMMENT")
     if plan["event"] == "COMMENT" and not (plan.get("comments") or plan.get("replies") or plan.get("body", "").strip()):
         raise PublishError("COMMENT has nothing to publish")
 
@@ -140,11 +148,27 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None) 
         if api.call("user").get("login") != actor:
             raise PublishError("active GitHub actor differs from the intended actor")
         current = api.call(prefix)
-        if current.get("head", {}).get("sha") != target["head"] or current.get("base", {}).get("sha") != target["base"]:
+        base = current.get("base", {}).get("sha")
+        if current.get("head", {}).get("sha") != target["head"]:
             raise PublishError("PR base or head drifted; refresh the review before writing")
+        if base != target["base"]:
+            compare = api.call(f"repos/{target['repository']}/compare/{base}...{target['head']}")
+            if compare.get("merge_base_commit", {}).get("sha") != manifest["merge_base"]:
+                raise PublishError("PR base or head drifted; refresh the review before writing")
         return current
 
+    def check_own_threads():
+        owner, name = target["repository"].split("/")
+        threads = api.call("graphql", {"query": OWN_THREADS, "variables": {"owner": owner, "repo": name, "number": target["number"]}})
+        threads = threads["data"]["repository"]["pullRequest"]["reviewThreads"]
+        if threads["pageInfo"]["hasNextPage"] or any(
+                not node["isResolved"] and (node["comments"]["nodes"][0]["author"] or {}).get("login") == actor
+                for node in threads["nodes"] if node["comments"]["nodes"]):
+            raise PublishError("the actor has unresolved threads on this PR; approval belongs to pr-review-followup")
+
     current = preflight()
+    if plan["event"] == "APPROVE":
+        check_own_threads()
     reviews = api.call(prefix + "/reviews?per_page=100", paginate=True)
     pending = [r for r in reviews if r.get("state") == "PENDING" and r.get("user", {}).get("login") == actor]
     if len(pending) > 1:
@@ -163,7 +187,12 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None) 
                 raise PublishError("review changed before writing; read back its state before retrying")
         state["pending_operation"] = operation
         save(receipt, state)
-        return api.call(endpoint, payload)
+        try:
+            return api.call(endpoint, payload)
+        except RejectedError:
+            state.pop("pending_operation", None)
+            save(receipt, state)
+            raise
 
     if review is None:
         review = write("create-review", prefix + "/reviews", {"commit_id": target["head"]})
@@ -208,14 +237,22 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None) 
             state.pop("pending_operation", None)
             save(receipt, state)
 
-    check_recorded(api.call(prefix + f"/reviews/{review['id']}/comments?per_page=100", paginate=True))
+    members = api.call(prefix + f"/reviews/{review['id']}/comments?per_page=100", paginate=True)
+    check_recorded(members)
+    live = api.call(prefix + f"/reviews/{review['id']}")
+    expected = {saved["id"] for saved in state["comments"].values()}
+    if {comment.get("node_id") for comment in members} != expected or (live.get("body") or ""):
+        raise PublishError("the review holds unexpected content, likely the user's; stop rather than submit it")
+    if plan["event"] == "APPROVE":
+        check_own_threads()
     submission = {"event": plan["event"]}
     if plan.get("body", "").strip():
         submission["body"] = plan["body"]
     write("submit-review", prefix + f"/reviews/{review['id']}/events", submission)
     final = api.call(prefix + f"/reviews/{review['id']}")
-    if final.get("state") != final_state or final.get("commit_id") != target["head"] or final.get("user", {}).get("login") != actor:
-        raise PublishError("submitted review did not read back with the requested event at the reviewed head")
+    if (final.get("state") != final_state or final.get("commit_id") != target["head"]
+            or final.get("user", {}).get("login") != actor or (final.get("body") or "") != submission.get("body", "")):
+        raise PublishError("submitted review did not read back with the requested event, body and head")
     check_recorded(api.call(prefix + f"/reviews/{review['id']}/comments?per_page=100", paginate=True))
     state.pop("pending_operation", None)
     state["status"] = final_state

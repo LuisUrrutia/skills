@@ -15,8 +15,10 @@ Terminal does not mean successful. Empty, failed and valid-zero results differ.
 
 After the fresh pass, add earlier snapshot IDs, dispositions and rationale with
 current evidence. A declined optional ask stays in Review basis unless new evidence
-changes it. Deferring an unresolved defect does not resolve it. Mark missing prior
-artifacts as unavailable rather than inferring closure.
+changes it. Deferring an unresolved defect does not resolve it, unless the
+author confirmed a tracking ticket in its thread: record that disposition with the
+ticket as an accepted deferral, which neither republishes nor blocks approval.
+Mark missing prior artifacts as unavailable rather than inferring closure.
 
 ## Candidate entries
 
