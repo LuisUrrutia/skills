@@ -2,7 +2,7 @@
  "schemaVersion": 1,
  "date": "2026-10-07",
  "baseline": "3a3da95fad398d6fd09490d952373aa94ddb1f24",
- "status": "Validated for the stated static and selection-probe scope; all material consultation findings accounted for across three rounds.",
+ "status": "Validated for the stated static and selection-probe scope; all material consultation findings and CodeRabbit PR findings accounted for across four rounds.",
  "scope": "Make stacked-pr route selection observable after an observed misroute: an agent took the manual route (hand `git rebase --onto` and lease pushes) on a two-PR stack although `github/gh-stack` v0.2.0 was installed, then repaired with `gh stack init`, `gh stack link`, and `gh stack view`.",
  "diagnosis": "SKILL.md described the CLI route as operations \"owned by `github/gh-stack`\", which read as a precondition that the extension already tracked the branches. Untracked existing branches therefore fell to manual, whose \"user wants ordinary dependent PRs\" condition was loosely satisfied. No observable check selected the route and the routing completion criterion did not require one. The matched selection probe without the extension listing reproduced this: the HEAD version left the route undetermined until it knew whether gh-stack tracked the stack and chose manual when no native stack existed.",
  "changes": [
@@ -82,16 +82,33 @@
      "summary": "Fable 2, 3 and 4 confirmed correct. Residual: cli-create.md's adopt criterion still contradicted cli-workflow.md's prerequisite-adoption criterion. Non-blocking: migration keeps the remote grouping while manual-chain.md said no native object exists."
     },
     "reconciliation": "All adopted as proposed by the reviewers: read-only requests report GitHub's unavailability and keep tracking; manual-chain.md allows a retained grouping changed only through the API route or explicit dissolution; cli-create.md ends a prerequisite adoption at cli-workflow.md's criterion; the migration criterion records the grouping as retained or dissolved. No fourth round: these were the reviewers' own one-sentence corrections and introduce no new routing decision."
+   },
+   {
+    "round": 4,
+    "candidate": "CodeRabbit corrections on the published PR",
+    "brief": "# Round 4 of the bounded read-only consultation: CodeRabbit findings on PR 19\n\nSame rules as before (read /tmp/stacked-pr-routing/brief.md first): do not edit, do not run Git or\n`gh` mutations, do not delegate. Report findings only. Under 200 words.\n\nThe stacked-pr routing fix (candidate v4, reviewed in three earlier rounds) was published as\nhttps://github.com/LuisUrrutia/skills/pull/19. CodeRabbit posted two findings; the coordinator\njudged both correct and applied them. Review only the two resulting edits (diff relative to the\npublished PR head: /tmp/stacked-pr-routing/change-r4.patch; full files under\n/tmp/stacked-pr-routing/candidate/).\n\n1. SKILL.md \"When conditions overlap\" paragraph. Finding: a prohibited or failed install selected\n   manual even when the user explicitly requested a native stack; the explicit-request safeguard\n   covered only GitHub's availability report. Edit: an explicit native-stack request is never\n   replaced by manual; a prohibited or failed install or GitHub's report is a blocker, and the API\n   route is used only when the user authorizes it. The re-route to manual applies only without\n   that request.\n2. troubleshooting.md \"Move a tracked chain to manual\". Finding: removing only local tracking\n   while retaining the GitHub grouping leaves native merge constraints, which does not satisfy a\n   user who explicitly asked for ordinary dependent PRs. Edit: for that explicit request, also\n   remove the eligible PRs from the GitHub grouping (live help: `gh stack unstack` without\n   `--local`; GitHub keeps queued or auto-merge PRs stacked); otherwise leave the grouping as\n   found. Completion: if GitHub keeps some PRs stacked after a requested dissolution, report the\n   remaining grouping and obtain the user's decision before declaring completion.\n\nAssess: are both edits correctly expressed, do they contradict any reference file (manual-chain.md\ntolerates a retained grouping changed only via API or explicit dissolution), and does either turn a\nread into a write or widen authority? Return remaining material defects with a proposed correction,\nor state explicitly that none remain.\n",
+    "astra": {
+     "model": "gpt-6-astra",
+     "effort": "max",
+     "output": "No material defects remain in the two edits.\n\n[SKILL.md:60](/tmp/stacked-pr-routing/candidate/SKILL.md:60) correctly preserves an explicit native-stack request across installation and availability failures, requires authorization for API fallback, and preserves read-only inspection without changing tracking or ownership.\n\n[troubleshooting.md:58](/tmp/stacked-pr-routing/candidate/references/troubleshooting.md:58) limits remote dissolution to an explicit request for ordinary dependent PRs or dissolution. Other migrations retain the grouping. Remaining stacked PRs require reporting and a user decision before completion. Live `gh stack unstack --help` confirms the local/remote distinction and that partial unstacking can preserve local tracking; the existing prohibition on Git writes until tracking is removed covers that case.\n\nNeither edit contradicts [manual-chain.md:3](/tmp/stacked-pr-routing/candidate/references/manual-chain.md:3): the explicit conversion supplies dissolution authority, while retained groupings remain untouched otherwise. The shared scope rules still prohibit mutations during reviews and status checks. Neither edit turns a read into a write or widens authority beyond the requested operation."
+    },
+    "fable": {
+     "model": "claude-fable-5-1",
+     "effort": "max",
+     "taskId": "node:delegated-task:command%3Amcp%3A5188318b-4aaa-4eff-95e9-819a45e87e12%3Adelegate-task%3Astacked-pr-routing-fable-r4-20261007",
+     "summary": "Edit 1 sound. Material: partial dissolution keeps local tracking (live `gh stack unstack --help`), so the migration text must require removing local tracking before any Git write when the user proceeds. Polish: 'after either dissolution'; name the referent 'explicit native-stack request'; align manual-chain.md's dissolution trigger."
+    },
+    "reconciliation": "Codex found no defects. Fable's material correction and the three polish items were adopted as proposed; no further round because they are the reviewer's own one-sentence corrections."
    }
   ]
  },
  "checks": {
   "candidateHashes": {
-   "stacked-pr/SKILL.md": "367661ccefdff1c32cccbb4be411b1da373e4ab540e8bd15bcbdbc04af24fc0b",
+   "stacked-pr/SKILL.md": "00b52a36267a1b9c61acbefd9ab0f158339c16803dc316873aaed319847d0a55",
    "stacked-pr/references/cli-workflow.md": "7ee95a1b8e8c8040cd688d9b661f7be572423817ac38f68cdf92eed24fe9d64c",
    "stacked-pr/references/cli-create.md": "679da37d9baf0283057abedbbea6f2f4335b391316d80b779d2ddb3c5ab30042",
-   "stacked-pr/references/manual-chain.md": "4e7170d1606c48a37c5cc6225d5e59447f4b6d5b690b28364c9bd5c5165dfe3b",
-   "stacked-pr/references/troubleshooting.md": "0c587115699c58e48afe50d320956a0e56db8615b6023470f2375c760a1c000d"
+   "stacked-pr/references/manual-chain.md": "f2d943e3a269ec63faf0e186be90c0d4d624b9b4e093a5fcbebc16647994e8dd",
+   "stacked-pr/references/troubleshooting.md": "917407b389249296f0e5b184a3a035144165473564480d6124eedae778c310dd"
   },
   "static": {
    "brokenPackageRelativeLinks": 0,
@@ -136,15 +153,36 @@
     "comment-style"
    ],
    "files": {
-    "reports/skill-atlas/sources.json": "08f24649f3d90b536451a3be8cafd0653529a88be423621e7d54ce3028c17a60",
-    "reports/skill-atlas/catalog.js": "c22e6f7f9cbecea408279fe3bd44fa98599441d684b32239b36c9446ee47c44c",
-    "reports/skill-atlas/index.html": "7e4aa88866ef352294ec45a7facb6e813f07cfcf1884ee1dfe192d8659f534d1"
+    "reports/skill-atlas/sources.json": "64ef1c42eef0ed86561eb661d078669c554837e2d3b83198538fd3453bedef85",
+    "reports/skill-atlas/catalog.js": "27625d5a23d4e3c7c95da2d0471213e23b9e0f2270eaba5d2b691a47fb45f027",
+    "reports/skill-atlas/index.html": "f2076c7fa891da00f8e08f0cc3c9467d1daa2055697d2f005478689852f50c9d"
    }
   }
  },
  "limits": [
   "Selection probes are dry runs without command execution; host activation of the skill and live `gh stack` behavior were not exercised.",
-  "No fourth consultation round after the round-3 one-sentence corrections.",
+  "No further consultation round after round 4's one-sentence corrections.",
   "Line length is not a configured repository check; three added lines exceed 100 characters by one to three characters, as pre-existing lines in the same files do."
- ]
+ ],
+ "prFeedback": {
+  "pr": "https://github.com/LuisUrrutia/skills/pull/19",
+  "reviewedHead": "22a394e706922c051c5b8c386f614cdc42e26b8f",
+  "items": [
+   {
+    "url": "https://github.com/LuisUrrutia/skills/pull/19#discussion_r4210370788",
+    "decision": "Apply",
+    "change": "An explicit native-stack request is never replaced by manual: a prohibited or failed install or GitHub's unavailability report is a blocker, and the API route is used only with the user's authorization. The re-route to manual applies only without that request."
+   },
+   {
+    "url": "https://github.com/LuisUrrutia/skills/pull/19#discussion_r4210370778",
+    "decision": "Apply",
+    "change": "For an explicit ordinary-PR request, migration also removes eligible PRs from the GitHub grouping because a retained native stack keeps its merge constraints; otherwise the grouping is left as found. If GitHub keeps some PRs stacked, local tracking survives too: report, obtain the decision, and remove local tracking before any Git write."
+   },
+   {
+    "url": "https://github.com/LuisUrrutia/skills/pull/19#issuecomment-6043931057",
+    "decision": "No action",
+    "change": "Summary restates both findings; the ast-grep timeout on the generated catalog.js is an external tool limit seen on earlier PRs."
+   }
+  ]
+ }
 }
