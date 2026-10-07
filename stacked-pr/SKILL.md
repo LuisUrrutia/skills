@@ -37,52 +37,54 @@ Read-only inspection may use the same check and report its verdict without publi
 
 ## Route the request
 
-Choose one primary route. Load its file, select the requested operation there, and stop when that
+Choose one primary route, load its file, select the requested operation there, and stop when that
 operation's completion criterion is satisfied. For a request that explicitly includes several
 operations, complete them in dependency order and satisfy each criterion before loading the next.
 
-Resolve the routes in this order. Select the automation route when the fix is an automation
-artifact, and the API route when REST owns the state. Otherwise run `gh extension list`, record the
-result, and take manual when one of its conditions holds, CLI otherwise:
+Decide the route in this order:
 
-- **Stack-aware CI and integrations** — the fix changes a workflow, bot, GraphQL client, or webhook
-  because of stack state; product-code and test failures use another route. Load
-  [references/automation.md](references/automation.md).
-- **API** — a bot, integration, stateless job, or explicit REST request performs a concrete
-  native-stack operation. Load [references/api-workflow.md](references/api-workflow.md).
-- **Manual** — the user explicitly asks for ordinary dependent PRs instead of a native stack, GitHub
-  reports native stacks unavailable for the repository, or installing the absent extension is
-  prohibited or fails. Load [references/manual-chain.md](references/manual-chain.md).
-- **CLI** — `github/gh-stack` is installed, or it is absent and may be installed; the route file
-  installs it only when the requested operation requires it. Load
-  [references/cli-workflow.md](references/cli-workflow.md).
+1. **Stack-aware CI and integrations** when the fix changes a workflow, bot, GraphQL client, or
+   webhook because of stack state. Product-code and test failures use another route. Load
+   [references/automation.md](references/automation.md).
+2. **API** when REST owns the state: a bot, integration, stateless job, or explicit REST request
+   performs a native-stack operation. Load [references/api-workflow.md](references/api-workflow.md).
+3. Otherwise run `gh extension list` and record the result.
+   - **Manual** when the user explicitly asks for ordinary dependent PRs instead of a native stack,
+     when GitHub reports native stacks unavailable for the repository, or when installing the
+     absent extension is prohibited or fails. Load
+     [references/manual-chain.md](references/manual-chain.md).
+   - **CLI** otherwise: `github/gh-stack` is installed, or it is absent and may be installed.
+     The route installs it only when the operation needs it. Load
+     [references/cli-workflow.md](references/cli-workflow.md).
 
-When conditions overlap, the user's explicit choice outranks GitHub's availability report, which
-outranks the extension listing. An explicit native-stack request is never replaced by manual: report
-a prohibited or failed install or GitHub's unavailability report as a blocker, and use the API route
-only when the user authorizes it. GitHub's report comes from a failed native-stack read, link, or
-submit; routing adds no probe. When it appears during a mutation on the CLI route without an
-explicit native-stack request, record it as the selecting observation and move ownership to manual
-through the migration branch in troubleshooting.md. A read-only request reports it and continues inspecting through Git
-and PR reads, leaving tracking and ownership unchanged.
+When several conditions hold at once, the user's explicit choice outranks GitHub's report, which
+outranks the extension listing. A user who explicitly asked for a native stack never gets the manual
+route: report a prohibited or failed install, or GitHub's report, as a blocker, and use the API
+route only with the user's authorization.
 
-Existing branches and PRs that no tool tracks yet do not select the route. For a mutation on the
-CLI route, adopting them is a prerequisite step of the requested operation, not a separately
-requested operation: use the adopt step in cli-create.md and the adoption branch in
-troubleshooting.md, preserving existing tips. Branches another manager owns follow the
-interoperability branch there instead. Read-only requests inspect them without writing tracking.
+GitHub reports native stacks unavailable through a failed native-stack read, link, or submit;
+routing does not probe for it. If that report appears during a mutation on the CLI route and the
+user did not ask for a native stack, record it as the deciding observation and move the chain to
+manual through the migration section of troubleshooting.md. During a read-only request, report it
+and keep inspecting through Git and PR reads without changing tracking or ownership.
 
-Keep one mutation owner throughout an operation. Read-only inspection through another interface is
-safe; switching writers during a mutation can desynchronize local tracking and GitHub state. Once
-the stack view shows that `gh-stack` tracks a chain, a plain `git rebase` or push on its branches
-switches the writer; a user's explicit move to manual migrates ownership through the migration
-branch in troubleshooting.md first.
+Existing branches and PRs that no tool tracks yet do not decide the route. On the CLI route, a
+mutation adopts them first as part of the requested operation, through the adopt step in
+cli-create.md and the adoption section of troubleshooting.md, keeping every existing tip. Branches
+that another tool manages follow the interoperability section there instead. Read-only requests
+inspect untracked branches without writing tracking.
 
-Routing is complete when the requested operation, the primary route, and the observation that
-selected it are recorded, such as the extension listing, GitHub's availability report, the user's
-explicit choice, or the REST or automation context. For repository-bound work, also identify the
-repository, trunk, push remote, and authenticated principal; for a mutation, record the current
-branch, dirty paths, relevant branch tips, and intended remote objects before changing state.
+Keep one mutation owner throughout an operation. Reading through another interface is safe, but
+switching writers during a mutation can desynchronize local tracking and GitHub state. Once the
+stack view shows that `gh-stack` tracks a chain, a plain `git rebase` or push on its branches
+switches the writer. When the user explicitly moves such a chain to manual, migrate ownership
+through troubleshooting.md first.
+
+Routing is complete when the requested operation, the route, and the observation that decided it
+are recorded, such as the extension listing, a failed install, GitHub's report, the user's explicit
+choice, or the REST or automation context. For repository-bound work, also identify the
+repository, trunk, push remote, and authenticated principal. Before a mutation, record the current
+branch, dirty paths, relevant branch tips, and intended remote objects.
 
 ## Conditional references
 

@@ -1,12 +1,12 @@
 # Native stack through `gh stack`
 
-Selected by SKILL.md routing. On this route `github/gh-stack` owns local tracking and GitHub stack
-state for every mutation, including unmanaged branches it does not track yet; branches another
-manager owns follow the interoperability branch in [troubleshooting.md](troubleshooting.md). Adopting
-unmanaged branches is a prerequisite step of the requested mutation through the adopt step in
-[cli-create.md](cli-create.md). A prerequisite adoption is complete when the stack view lists the
-existing branches in order with their tips preserved; the requested operation's branch then owns
-any rebase need. Perform only the requested operation.
+Use this workflow when SKILL.md selects the CLI route. On this route `gh-stack` owns local tracking
+and GitHub stack state for every mutation. Branches that no tool tracks yet are adopted first, as
+part of the requested mutation, through the adopt step in [cli-create.md](cli-create.md). That
+adoption is complete when the stack view lists the existing branches in order with their tips
+unchanged; the requested operation then handles any rebase they need. Branches that another tool
+manages follow the interoperability section of [troubleshooting.md](troubleshooting.md). Perform
+only the requested operation.
 
 ## Establish the live contract
 

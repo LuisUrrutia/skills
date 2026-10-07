@@ -1,11 +1,10 @@
 # Manual dependent-PR chain
 
-Selected by SKILL.md routing: the user explicitly asked for ordinary dependent PRs instead of a
-native stack, GitHub reports native stacks unavailable, or the extension cannot be installed.
-Git and PR bases are the source of chain state. GitHub maintains no native stack object on this
-route, or a retained one is left as found; change its membership only through the API route or the
-dissolution that an explicit ordinary-PR request or the user authorizes.
-Perform only the requested operation.
+Use this workflow when SKILL.md selects the manual route. Git ancestry and PR bases are the source
+of chain state. Normally a manual chain has no native stack object on GitHub. Leave any retained one
+unchanged; change its membership only through the API route, or dissolve it when the user
+explicitly asked for ordinary dependent PRs or for dissolution. Perform only the requested
+operation.
 
 ## Inspect
 
