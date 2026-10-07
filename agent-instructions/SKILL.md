@@ -57,14 +57,27 @@ sufficient.
 
 ## Get both model perspectives
 
-For each instruction creation, edit, or review within the scope above, obtain
-independent input from both profiles before finalizing the instructions or review
-findings:
+When the user explicitly asks for instruction creation, editing, or review within
+the scope above, alone or within a larger task, obtain independent input from
+both profiles before finalizing the instructions or review findings:
 
 | Provider | Model | Reasoning effort |
 | --- | --- | --- |
 | Codex | Astra | Max |
 | Claude | Fable | Max |
+
+Instruction work that an agent takes on by its own decision within a larger task
+does not start the pair. Neither does an agent's review of its own changes, inline
+or through a subagent, even when the user requested those changes; that review
+starts the pair only when the user asks for it. A user-requested edit still keeps
+the pair it requires.
+
+The agent that receives the user's request runs the pair unless it delegates the
+work with a brief that relays that request and assigns the pair to the delegate.
+When delegating work under the user's request, state in the brief who runs the
+pair. An agent working from another agent's brief starts the pair only when that
+brief both relays the user's request and assigns the pair to it; a quoted user
+request alone does not assign it.
 
 Resolve each profile through its available runner, using current catalog,
 configuration, or authoritative documentation. Use the newest available version
@@ -130,6 +143,8 @@ require a new skill package, evaluation suite, or an interview about repeated wo
 Use host validators only for formats they actually validate.
 
 Report the changed instructions, their scope, actual checks and results, and any
-unresolved limitation. Include the actual review profiles and how material
-findings were reconciled. Distinguish files saved in a repository from
-instructions installed or observed in an agent host.
+unresolved limitation. When this agent ran the pair or assigned it to a delegate,
+report each profile's actual run or blocker and how material findings were
+reconciled; otherwise, state that this agent did not run the pair. Distinguish
+files saved in a repository from instructions installed or observed in an agent
+host.

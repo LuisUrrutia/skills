@@ -160,12 +160,17 @@ every capability belongs in every coding workflow.
 
 The current [agent-instructions entrypoint](agent-instructions/SKILL.md) requires
 independent **Codex Astra Max and Claude Fable Max** consultations for instruction
-creation, editing and review. Resolve the current model catalog and set the
-requested effort explicitly. Initial contexts must be independent of the
-coordinator and each other; retain actual run evidence and reconcile each
-material finding. Reconsult both on affected points after material semantic
-changes. Use the current contract and any explicit user override; preserve the
-actual profiles of historical runs rather than relabeling them.
+creation, editing and review that the user explicitly requests, alone or within a
+larger task. Instruction work an agent takes on by its own decision does not start
+them, nor does an agent's review of its own changes, inline or through a subagent.
+They run if the user asks for that review. The agent the user asked runs them
+unless its brief relays the request and assigns them to a delegate. Resolve the
+current model catalog and set the requested effort explicitly. Initial contexts
+must be independent of the coordinator and each other; retain actual run
+evidence and reconcile each material finding. Reconsult both on affected points
+after material semantic changes. Use the current contract and any explicit user
+override; preserve the actual profiles of historical runs rather than relabeling
+them.
 
 Read the applicable authoring references:
 [writing](agent-instructions/references/writing.md),

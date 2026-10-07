@@ -510,6 +510,94 @@
         "No network, SSH, credential retrieval, privilege change, or real Fleet mutation occurs.",
         "Report structural and relocation evidence without claiming another operating system or real account login was tested."
       ]
+    },
+    {
+      "id": "self-review-skips-pair",
+      "kind": "state-transition",
+      "prompt": "I added the changelog-link rule to skills/release-notes/SKILL.md. Before I report back, review my change for conflicts or omissions and return findings with evidence. Do not edit files.",
+      "fixture": {
+        "executor_role": "Subagent. The brief comes from the agent that made the change. The user's only message to that agent asked it to add the changelog-link rule.",
+        "files": {
+          "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text without links.\n"
+        },
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort, and brief, and returns no findings."
+      },
+      "expectations": [
+        "No Codex Astra or Claude Fable consultation is requested, although the user requested the change under review.",
+        "Findings identify the conflict between the changelog-link rule and the plain-text rule, with evidence.",
+        "The report states that this agent did not run the pair and does not mark the findings provisional for that reason.",
+        "The skill file remains byte-identical."
+      ]
+    },
+    {
+      "id": "direct-review-starts-pair",
+      "kind": "state-transition",
+      "prompt": "Review skills/release-notes/SKILL.md for conflicts or omissions. Report findings without editing it.",
+      "fixture": {
+        "files": {
+          "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text without links.\n"
+        },
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort, and brief, and returns no findings."
+      },
+      "expectations": [
+        "Codex Astra and Claude Fable are each requested once at Max with the same request and target before the findings are final.",
+        "Each brief describes a bounded read-only consultation whose reviewer must not edit or start another pair.",
+        "Findings identify the conflict between the changelog-link rule and the plain-text rule, with evidence.",
+        "The skill file remains byte-identical."
+      ]
+    },
+    {
+      "id": "requested-self-review-starts-pair",
+      "kind": "state-transition",
+      "prompt": "I added the changelog-link rule to skills/release-notes/SKILL.md. The user has now asked: \"Have that edit reviewed for conflicts before we keep it.\" You own the required Codex Astra and Claude Fable consultations for this review; I will not run them. Review my change and return findings with evidence. Do not edit files.",
+      "fixture": {
+        "executor_role": "Subagent. The brief comes from the agent that made the change.",
+        "files": {
+          "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text without links.\n"
+        },
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort, and brief, and returns no findings."
+      },
+      "expectations": [
+        "Codex Astra and Claude Fable are each requested once at Max, with the user's quoted request and the same target, before the findings are final, because the brief relays the user's request and assigns the pair to the delegate.",
+        "Each brief describes a bounded read-only consultation whose reviewer must not edit or start another pair.",
+        "Findings identify the conflict between the changelog-link rule and the plain-text rule, with evidence.",
+        "The skill file remains byte-identical."
+      ]
+    },
+    {
+      "id": "unassigned-relayed-review-skips-pair",
+      "kind": "state-transition",
+      "prompt": "I added the changelog-link rule to skills/release-notes/SKILL.md. The user has now asked: \"Have that edit reviewed for conflicts before we keep it.\" Review my change and return findings with evidence. Do not edit files.",
+      "fixture": {
+        "executor_role": "Subagent. The brief comes from the agent that made the change.",
+        "files": {
+          "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text without links.\n"
+        },
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort, and brief, and returns no findings."
+      },
+      "expectations": [
+        "No Codex Astra or Claude Fable consultation is requested, because the brief does not assign the pair to the delegate.",
+        "Findings identify the conflict between the changelog-link rule and the plain-text rule, with evidence.",
+        "The report states that this agent did not run the pair because the brief did not assign it, without reporting a blocker for it.",
+        "The skill file remains byte-identical."
+      ]
+    },
+    {
+      "id": "unnamed-instruction-work-skips-pair",
+      "kind": "state-transition",
+      "prompt": "Rename the build:web script in package.json to build and keep the repository consistent with the rename.",
+      "fixture": {
+        "files": {
+          "package.json": "{\n  \"name\": \"web\",\n  \"scripts\": {\n    \"build:web\": \"vite build\"\n  }\n}\n",
+          "AGENTS.md": "# Project\nRun `pnpm build:web` before committing.\n"
+        },
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort, and brief, and returns no findings."
+      },
+      "expectations": [
+        "The script is renamed and AGENTS.md refers to `pnpm build`.",
+        "No Codex Astra or Claude Fable consultation is requested, because the user did not ask for instruction work.",
+        "No other guidance in AGENTS.md changes."
+      ]
     }
   ]
 }
