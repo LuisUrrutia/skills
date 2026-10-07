@@ -79,4 +79,4 @@ coverage. Validate it against the frozen inventory. Separately reconcile its
 finding IDs to ledger sources and each selected site to the final comment plan.
 Retain unselected test/tooling findings internally with the selection reason.
 Only then reconcile external feedback and prior dispositions, revalidate affected
-conclusions and prepare the pending comments.
+conclusions and prepare the review comments.

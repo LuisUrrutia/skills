@@ -39,6 +39,19 @@ class ProfileTests(unittest.TestCase):
         with patch.dict(os.environ, {'XDG_CONFIG_HOME': str(self.profiles)}):
             self.assertEqual(resolve_profile('example-org/api')['status'], 'none')
 
+    def test_default_directory_falls_back_to_the_legacy_name(self):
+        legacy = self.profiles / 'pr-review-draft/profiles'
+        legacy.mkdir(parents=True)
+        (legacy / 'profile.md').write_text(BODY)
+        with patch.dict(os.environ, {'XDG_CONFIG_HOME': str(self.profiles)}):
+            fallback = resolve_profile('example-org/api')
+            current = self.profiles / 'pr-review/profiles'
+            current.mkdir(parents=True)
+            preferred = resolve_profile('example-org/api')
+
+        self.assertEqual(fallback['profile'], str((legacy / 'profile.md').resolve()))
+        self.assertEqual(preferred['status'], 'none')
+
     def test_missing_explicit_directory_is_an_error(self):
         with self.assertRaises(ProfileError):
             resolve_profile('example-org/api', self.profiles / 'missing')

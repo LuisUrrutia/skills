@@ -21,7 +21,7 @@ skill = pathlib.Path(sys.argv[1]).resolve()
 entry = (skill / 'SKILL.md').read_text()
 frontmatter = entry.split('---', 2)
 assert len(frontmatter) == 3 and not frontmatter[0].strip()
-assert re.search(r'^name: pr-review-draft$', frontmatter[1], re.M)
+assert re.search(r'^name: pr-review$', frontmatter[1], re.M)
 assert re.search(r'^description: \S.+$', frontmatter[1], re.M)
 assert 'allow_implicit_invocation: false' in (skill / 'agents/openai.yaml').read_text()
 with (skill / 'origin.txt').open('rb') as source:
@@ -44,4 +44,4 @@ for path in skill.rglob('*'):
 print('Package references, explicit-only metadata, provenance and Python syntax passed')
 PY
 python3 -m unittest discover -s "$script_dir" -p 'test_*.py' -v
-printf 'pr-review-draft validation passed\n'
+printf 'pr-review validation passed\n'

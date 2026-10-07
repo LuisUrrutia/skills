@@ -16,10 +16,10 @@ def codex_permissions(scratch: Path, inputs: Path, output: Path,
     filesystem.update({str(path.resolve()): "deny" for path in private_paths})
     table = "{" + ", ".join(json.dumps(path) + " = " + json.dumps(access)
                              for path, access in filesystem.items()) + "}"
-    return ["-c", 'default_permissions="pr-review-draft"',
-            "-c", 'permissions.pr-review-draft.extends=":read-only"',
-            "-c", "permissions.pr-review-draft.filesystem=" + table,
-            "-c", "permissions.pr-review-draft.network.enabled=false"]
+    return ["-c", 'default_permissions="pr-review"',
+            "-c", 'permissions.pr-review.extends=":read-only"',
+            "-c", "permissions.pr-review.filesystem=" + table,
+            "-c", "permissions.pr-review.network.enabled=false"]
 
 
 def guarded(command: list[str], repository: Path, scratch: Path,

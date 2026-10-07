@@ -57,7 +57,11 @@ def resolve_profile(repo: str, profiles_dir: Path | None = None) -> dict[str, An
     normalized_repo = normalize_repo(repo)
     explicit = profiles_dir is not None
     if profiles_dir is None:
-        profiles_dir = Path(os.environ.get("XDG_CONFIG_HOME", str(Path.home() / ".config"))) / "pr-review-draft/profiles"
+        config = Path(os.environ.get("XDG_CONFIG_HOME", str(Path.home() / ".config")))
+        profiles_dir = config / "pr-review/profiles"
+        legacy = config / "pr-review-draft/profiles"
+        if not profiles_dir.exists() and not profiles_dir.is_symlink() and (legacy.exists() or legacy.is_symlink()):
+            profiles_dir = legacy
     if not profiles_dir.exists() and not profiles_dir.is_symlink() and not explicit:
         return {"repo": normalized_repo, "status": "none", "profile": None}
     if not profiles_dir.is_dir():
@@ -86,13 +90,13 @@ def resolve_profile(repo: str, profiles_dir: Path | None = None) -> dict[str, An
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Resolve a pr-review-draft profile for one GitHub repository"
+        description="Resolve a pr-review profile for one GitHub repository"
     )
     parser.add_argument("repo", help="GitHub repository as owner/repo")
     parser.add_argument(
         "--profiles-dir",
         type=Path,
-        help="External private profile directory; defaults to XDG_CONFIG_HOME/pr-review-draft/profiles",
+        help="External private profile directory; defaults to XDG_CONFIG_HOME/pr-review/profiles, then the legacy pr-review-draft/profiles",
     )
     return parser
 

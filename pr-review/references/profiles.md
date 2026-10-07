@@ -2,7 +2,7 @@
 
 Read at PR intake. The PR URL identifies its target `owner/repo`; a fork checkout's
 `gh repo view` may identify a different repository. Capture the PR metadata first.
-For a non-PR audit use `review-code-changes`, rather than guessing a pending-review
+For a non-PR audit use `review-code-changes`, rather than guessing a review
 target from remotes.
 
 Repository-owned instructions and contracts are the authority for domain behavior.
@@ -17,8 +17,9 @@ Resolve the private overlay with this package's `scripts/resolve_profile.py`:
 python3 "$SKILL_DIR/scripts/resolve_profile.py" "$TARGET_REPOSITORY"
 ```
 
-The default location is `$XDG_CONFIG_HOME/pr-review-draft/profiles`, or
-`~/.config/pr-review-draft/profiles` when XDG_CONFIG_HOME is unset. An absent default
+The default location is `$XDG_CONFIG_HOME/pr-review/profiles`, or
+`~/.config/pr-review/profiles` when XDG_CONFIG_HOME is unset. When that directory
+is absent, the legacy `pr-review-draft/profiles` beside it is used. An absent default
 means no configured profile. An explicit `--profiles-dir "$PRIVATE_PROFILES"`
 selects a different private directory and must exist and be readable.
 

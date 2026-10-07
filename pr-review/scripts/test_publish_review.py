@@ -3,9 +3,11 @@ from __future__ import annotations
 import json
 import unittest
 
-from pending_review import PendingError, anchor_lines, apply, validate_plan
+from publish_review import PublishError, anchor_lines, apply, validate_plan
 from snapshot import prepare, verify
 from test_support import AUDITOR, ReviewFixture
+
+SUBMITTED = {'COMMENT': 'COMMENTED', 'APPROVE': 'APPROVED'}
 
 
 class FakeGitHub:
@@ -17,6 +19,7 @@ class FakeGitHub:
         self.calls = []
         self.foreign_thread = False
         self.fail_after_create = False
+        self.fail_after_submit = False
         self.change_head = False
 
     def call(self, endpoint, payload=None, paginate=False):
@@ -29,22 +32,28 @@ class FakeGitHub:
             return [self.review] if self.review else []
         if endpoint.endswith('/comments?per_page=100'):
             return self.comments.copy()
+        if endpoint.endswith('/reviews/17/events'):
+            assert set(payload) <= {'event', 'body'}
+            self.review.update(state=SUBMITTED[payload['event']], body=payload.get('body', ''))
+            if self.fail_after_submit:
+                raise PublishError('simulated lost response after submission')
+            return self.review.copy()
         if endpoint.endswith('/reviews/17'):
             return self.review.copy()
         if endpoint.endswith('/reviews') and payload is not None:
             assert set(payload) == {'commit_id'}
-            self.review = {'id':17,'node_id':'PRR_pending','state':'PENDING','user':{'login':self.actor},'commit_id':payload['commit_id']}
+            self.review = {'id':17,'node_id':'PRR_new','state':'PENDING','user':{'login':self.actor},'commit_id':payload['commit_id']}
             if self.fail_after_create:
-                raise PendingError('simulated lost response after write')
+                raise PublishError('simulated lost response after write')
             return self.review.copy()
         if endpoint == 'graphql':
             query = payload['query']
             if query.startswith('query'):
                 return {'data':{'node':{'pullRequest':{'id':'PR_other' if self.foreign_thread else 'PR_target'}}}}
             data = payload['variables']['input']
-            assert data['pullRequestReviewId'] == 'PRR_pending'
+            assert data['pullRequestReviewId'] == 'PRR_new'
             number = len(self.comments)+1
-            comment = {'id':f'PRRC_{number}', 'body':data['body'],'pullRequestReview':{'id':'PRR_pending','state':self.review['state']}}
+            comment = {'id':f'PRRC_{number}', 'body':data['body'],'pullRequestReview':{'id':'PRR_new','state':self.review['state']}}
             self.comments.append({'id':number,'node_id':comment['id'],'body':data['body'],'path':data.get('path'), 'line':data.get('line'),'side':data.get('side'),'pull_request_review_id':17})
             if 'addPullRequestReviewThreadReply' in query:
                 return {'data':{'addPullRequestReviewThreadReply':{'comment':comment}}}
@@ -55,110 +64,110 @@ class FakeGitHub:
         return [(endpoint,payload) for endpoint,payload,_ in self.calls if payload and not payload.get('query','').startswith('query')]
 
 
-class PendingReviewTests(unittest.TestCase):
+class PublishReviewTests(unittest.TestCase):
     def setUp(self):
         self.f = ReviewFixture()
         self.addCleanup(self.f.close)
         self.api = FakeGitHub(self.f)
         self.plan = self.f.root / 'comment-plan.json'
         self.receipt = self.f.root / 'receipt.json'
-        self.data = {'comments':[{'key':'C1-site1','path':'src/example.py','line':2,'side':'RIGHT','body':'preserve the required return value'}],
+        self.data = {'event':'COMMENT',
+                     'comments':[{'key':'C1-site1','path':'src/example.py','line':2,'side':'RIGHT','body':'preserve the required return value'}],
                      'replies':[{'key':'C2-reply','thread_id':'PRRT_existing','body':'this path also needs the guard'}]}
+        self.write_plan()
+
+    def write_plan(self):
         self.plan.write_text(json.dumps(self.data))
 
     def apply(self):
         return apply(self.f.snapshot, self.plan, 'reviewer', self.receipt, self.api)
 
-    def test_pending_commit_actor_binding_and_idempotent_retry(self):
+    def test_comments_publish_as_one_comment_review_and_rerun_writes_nothing(self):
         first = self.apply()
         before = len(self.api.writes())
         second = self.apply()
 
-        self.assertEqual(first['status'], 'PENDING')
-        self.assertEqual(second['status'], 'PENDING')
+        self.assertEqual(first['status'], 'COMMENTED')
+        self.assertEqual(second['status'], 'COMMENTED')
         self.assertEqual(len(self.api.writes()), before)
-        for endpoint, payload in self.api.writes():
-            self.assertNotIn('event', payload)
-            self.assertNotIn('submitPullRequestReview', json.dumps(payload))
-            self.assertNotIn('resolveReviewThread', json.dumps(payload))
+        submissions = [p for e,p in self.api.writes() if e.endswith('/events')]
+        self.assertEqual(submissions, [{'event':'COMMENT'}])
+        self.assertFalse(any('resolveReviewThread' in json.dumps(p) for _,p in self.api.writes()))
         reply = next(p for _,p in self.api.writes() if 'addPullRequestReviewThreadReply' in p.get('query',''))
-        self.assertEqual(reply['variables']['input']['pullRequestReviewId'], 'PRR_pending')
         self.assertEqual(reply['variables']['input']['pullRequestReviewThreadId'], 'PRRT_existing')
 
-    def test_existing_pending_review_and_user_edits_are_preserved(self):
-        self.api.review = {'id':17,'node_id':'PRR_pending','state':'PENDING','user':{'login':'reviewer'},'commit_id':self.f.head,'body':'user draft body'}
-        self.api.comments = [{'id':40,'node_id':'USER_COMMENT','body':'User text in progress','path':'src/example.py','line':1,'side':'RIGHT'}]
-        self.apply()
-        self.assertEqual(self.api.review['body'], 'user draft body')
-        self.assertEqual(self.api.comments[0]['body'], 'User text in progress')
-        self.assertFalse(any(endpoint.endswith('/reviews') for endpoint,_ in self.api.writes()))
-        self.api.comments[1]['body'] = 'User revised this finding'
-        before = len(self.api.writes())
+    def test_clean_review_approves_the_frozen_head(self):
+        self.data = {'event':'APPROVE','comments':[],'replies':[]}
+        self.write_plan()
 
-        with self.assertRaisesRegex(PendingError, 'changed or not associated'):
+        state = self.apply()
+
+        self.assertEqual(state['status'], 'APPROVED')
+        self.assertEqual(self.api.review['commit_id'], self.f.head)
+        self.assertEqual([p for e,p in self.api.writes() if e.endswith('/events')], [{'event':'APPROVE'}])
+
+    def test_existing_unsubmitted_review_is_never_published(self):
+        self.api.review = {'id':17,'node_id':'PRR_user','state':'PENDING','user':{'login':'reviewer'},'commit_id':self.f.head,'body':'user draft'}
+
+        with self.assertRaisesRegex(PublishError, 'unsubmitted review'):
             self.apply()
 
-        self.assertEqual(len(self.api.writes()), before)
-        self.assertEqual(self.api.comments[1]['body'], 'User revised this finding')
+        self.assertEqual(self.api.writes(), [])
+        self.assertEqual(self.api.review['state'], 'PENDING')
 
     def test_actor_mismatch_and_remote_drift_prevent_writes(self):
         self.api.actor = 'another-user'
-        with self.assertRaisesRegex(PendingError, 'actor differs'):
+        with self.assertRaisesRegex(PublishError, 'actor differs'):
             self.apply()
         self.assertEqual(self.api.writes(), [])
         self.api.actor = 'reviewer'
         self.api.change_head = True
-        with self.assertRaisesRegex(PendingError, 'drifted'):
+        with self.assertRaisesRegex(PublishError, 'drifted'):
             self.apply()
         self.assertEqual(self.api.writes(), [])
 
-    def test_uncertain_write_is_not_automatically_repeated(self):
-        self.api.fail_after_create = True
-        with self.assertRaisesRegex(PendingError, 'lost response'):
-            self.apply()
-        count = len(self.api.writes())
-        self.assertEqual(json.loads(self.receipt.read_text())['pending_operation'], 'create-review')
+    def test_uncertain_create_or_submission_is_not_repeated(self):
+        for flag, operation in (('fail_after_create', 'create-review'), ('fail_after_submit', 'submit-review')):
+            with self.subTest(operation=operation):
+                self.receipt.unlink(missing_ok=True)
+                self.api = FakeGitHub(self.f)
+                setattr(self.api, flag, True)
+                with self.assertRaisesRegex(PublishError, 'lost response'):
+                    self.apply()
+                count = len(self.api.writes())
+                self.assertEqual(json.loads(self.receipt.read_text())['pending_operation'], operation)
 
-        with self.assertRaisesRegex(PendingError, 'outcome is uncertain'):
-            self.apply()
+                with self.assertRaisesRegex(PublishError, 'outcome is uncertain'):
+                    self.apply()
 
-        self.assertEqual(len(self.api.writes()), count)
+                self.assertEqual(len(self.api.writes()), count)
 
-    def test_foreign_thread_and_old_head_draft_block(self):
+    def test_foreign_thread_blocks_before_its_reply(self):
         self.api.foreign_thread = True
-        with self.assertRaisesRegex(PendingError, 'different PR'):
+        with self.assertRaisesRegex(PublishError, 'different PR'):
             self.apply()
         self.assertFalse(any('addPullRequestReviewThreadReply' in p.get('query','') for _,p in self.api.writes()))
-        self.api.review['commit_id'] = self.f.base
-        with self.assertRaisesRegex(PendingError, 'another head'):
-            self.apply()
+        self.assertFalse(any(e.endswith('/events') for e,_ in self.api.writes()))
 
-    def test_deleted_side_ranges_invalid_anchors_and_submission_rejected(self):
+    def test_plan_event_rules_and_anchors(self):
         manifest = verify(self.f.snapshot)
-        plan = {'comments':[{'key':'deleted','path':'src/example.py','line':2,'side':'LEFT','body':'preserve this previous behavior'}]}
+        plan = {'event':'COMMENT','comments':[{'key':'deleted','path':'src/example.py','line':2,'side':'LEFT','body':'preserve this previous behavior'}]}
         validate_plan(plan, manifest, self.f.snapshot)
         plan['comments'][0].update(start_line=1,start_side='LEFT')
         validate_plan(plan, manifest, self.f.snapshot)
+        validate_plan({'event':'APPROVE','replies':[{'key':'r','thread_id':'PRRT_x','body':'this one is done'}]}, manifest, self.f.snapshot)
+        validate_plan({'event':'COMMENT','body':'the PR title needs the ticket format'}, manifest, self.f.snapshot)
+        finding = dict(plan['comments'][0])
         plan['comments'][0]['line'] = 99
-        with self.assertRaisesRegex(PendingError, 'outside'):
-            validate_plan(plan, manifest, self.f.snapshot)
-        with self.assertRaisesRegex(PendingError, 'submission'):
-            validate_plan({'event':'APPROVE'}, manifest, self.f.snapshot)
-
-    def test_reused_comment_identity_is_checked_on_every_readback(self):
-        self.data['replies'] = []
-        self.plan.write_text(json.dumps(self.data))
-        self.api.review = {'id':17,'node_id':'PRR_pending','state':'PENDING','user':{'login':'reviewer'},'commit_id':self.f.head}
-        self.api.comments = [{'id':40,'node_id':'USER_COMMENT',**self.data['comments'][0]}]
-        self.apply()
-        self.assertEqual(self.api.writes(), [])
-        self.api.comments[0]['body'] = 'User changed the existing comment'
-
-        with self.assertRaisesRegex(PendingError, 'changed or not associated'):
-            self.apply()
-
-        self.assertEqual(self.api.writes(), [])
-        self.assertEqual(self.api.comments[0]['body'], 'User changed the existing comment')
+        cases = [(plan, 'outside'),
+                 ({'comments':[]}, 'event'),
+                 ({'event':'REQUEST_CHANGES'}, 'event'),
+                 ({'event':'APPROVE','comments':[finding]}, 'APPROVE'),
+                 ({'event':'COMMENT'}, 'nothing to publish'),
+                 ({'event':'COMMENT','body':'x','resolve':['PRRT_x']}, 'unknown plan fields')]
+        for invalid, message in cases:
+            with self.subTest(message=message), self.assertRaisesRegex(PublishError, message):
+                validate_plan(invalid, manifest, self.f.snapshot)
 
     def test_rename_anchors_keep_both_diff_sides_and_exclude_unchanged_lines(self):
         original = self.f.repo / 'src/example.py'
@@ -187,11 +196,11 @@ class PendingReviewTests(unittest.TestCase):
                                self.f.root / ('context-' + context))
             frozen = (snapshot.parent / 'diff.patch').read_text()
             self.assertIn('@@ -12,7 +12,7 @@', frozen)
-            plan = {'comments':[{'key':'rename','path':'src/renamed.py','line':12,
+            plan = {'event':'COMMENT','comments':[{'key':'rename','path':'src/renamed.py','line':12,
                                  'side':'RIGHT','body':'Preserve the renamed contract.'}]}
             validate_plan(plan, verify(snapshot), snapshot)
             plan['comments'][0]['line'] = 8
-            with self.assertRaisesRegex(PendingError, 'outside'):
+            with self.assertRaisesRegex(PublishError, 'outside'):
                 validate_plan(plan, verify(snapshot), snapshot)
 
 
