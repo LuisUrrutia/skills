@@ -1,6 +1,6 @@
 ---
 name: agent-instructions
-description: Use when creating, reviewing, or improving AGENTS.md, CLAUDE.md, skills, or other agent instructions. For skill extraction from past work, start with workflow-to-skill.
+description: Use when writing or reviewing AI agent instructions or skills. Excludes following instructions and factual updates that leave guidance unchanged.
 ---
 
 # Agent instructions
@@ -9,6 +9,11 @@ Write instructions that help an agent make the intended decisions, find the
 right context, and recognize completion. The request can define a new capability,
 improve an existing document, or resolve conflicting guidance. Prior use or
 repetition is not a prerequisite.
+
+Limit this workflow and both model reviews to instruction authoring or review.
+Reading or following instructions does not activate it. Factual updates qualify
+only if they change agent guidance or instruction loading. `handoff` owns its
+documents; this skill covers the instructions within them.
 
 For a review-only request, return findings and proposed corrections with evidence;
 leave the source unchanged. Writing, pruning, or reorganizing instructions follows
@@ -52,8 +57,9 @@ sufficient.
 
 ## Get both model perspectives
 
-For every creation, edit, or review handled by this skill, obtain independent
-input from both profiles before finalizing the instructions or review findings:
+For each instruction creation, edit, or review within the scope above, obtain
+independent input from both profiles before finalizing the instructions or review
+findings:
 
 | Provider | Model | Reasoning effort |
 | --- | --- | --- |
