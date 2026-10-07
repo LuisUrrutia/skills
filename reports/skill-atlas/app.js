@@ -84,7 +84,7 @@ const clusters = [
   },
   {
     "title": "Implementación completa",
-    "winner": "work-mode, después de elegir las demás skills",
+    "winner": "work-mode: coordinate the existing specialist owners",
     "keys": [
       "pstack/poteto-mode",
       "pstack/figure-it-out",
@@ -93,7 +93,7 @@ const clusters = [
       "orchestrate/orchestrate"
     ],
     "text": "poteto-mode ofrece la selección de tareas más amplia. implement es deliberadamente breve. implement-spec ejecuta un grafo de tareas y orchestrate gestiona un programa en la nube de Cursor; ambos resuelven problemas mayores que una funcionalidad corriente.",
-    "why": "Diseñarlo al final, sobre las skills que hayamos elegido y verificado. Tomar procedimientos de poteto y la sencillez de implement. Escalar a grafos o coordinación en la nube solo cuando lo justifique el alcance."
+    "why": "The local work-mode package composes existing owners using selected pstack routing and Compound caller-return ideas. It preserves the requested endpoint and does not add a cloud coordinator or task scheduler."
   },
   {
     "title": "Entender y depurar",
@@ -561,7 +561,7 @@ const scenarios = {
       ],
       [
         "Después",
-        "review-code-changes, limpieza acotada, commit, pr y pr-followup en la ejecución completa autorizada. Revisar las reglas pertinentes sobre el diff final."
+        "Verify the change, review proportionately, and commit under the active rules. Use pr and its existing follow-up only when publication is included in the task."
       ]
     ],
     "note": "React Native, View Transitions y GitHub Actions se cargan solo si la tarea introduce esas necesidades."
@@ -615,10 +615,10 @@ const scenarios = {
       ],
       [
         "Comprobar de nuevo",
-        "Invalidar la preparación anterior. Leer checks y feedback del nuevo commit hasta quedar preparado, necesitar intervención o alcanzar el límite configurado."
+        "Refresh evidence for the new head. Drive waits through the host watch until current formal approval or merge; Feedback ends after its scoped findings are accounted for."
       ]
     ],
-    "note": "Esta ruta no integra el PR. Los checks antiguos, las omisiones inesperadas, los bots requeridos ausentes y las aprobaciones pendientes no son éxito."
+    "note": "No automatic merge. Green checks are not approval, keep-draft preserves Drive, and create-only ends after verified publication."
   },
   "research": {
     "title": "Explicar una decisión de arquitectura",
