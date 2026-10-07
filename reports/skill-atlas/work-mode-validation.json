@@ -1,0 +1,2645 @@
+{
+  "date": "2026-10-07",
+  "task": "Create the portable work-mode coordinator from HANDOFF-WORK-MODE.md using workflow-to-skill and agent-instructions.",
+  "baselineCommit": "86bbeca4a0c39e6aca5817e52f89eb5808ba7199",
+  "status": "Repository package implemented; two review rounds reconciled; bounded checks completed with the limits below.",
+  "implementation": {
+    "path": "work-mode/SKILL.md",
+    "files": {
+      "origin.txt": "9f5a174e6b5de6155879c0396a3fb6743548d27f34c044ade047c44ac46bab8b",
+      "SKILL.md": "19c529fbaa043fc6f44679f7139f21abefd39214ee95f7b5482e5fe24c92ded0",
+      "THIRD-PARTY-NOTICES.txt": "594ecb69d5c044703fe9cd736e042c350178cc5556d70a4f8312f812d606f01f",
+      "references/delivery.md": "bebb7af675563083d2c293078850f09ca2be9651ca556f66e09ed39d60f02975"
+    },
+    "sourceFeeds": 2,
+    "conditionalDependencies": 22,
+    "installationPerformed": false,
+    "persistentRuntimeAdded": false,
+    "integration": [
+      "README.md",
+      "skills.sh.json Engineering category",
+      "Atlas current inventory, three selected source assessments, source progress and workflow section"
+    ],
+    "deliveryDefaults": "Single PR Create continues into the existing Drive owner unless create-only. Stack publication ends at the requested stack operation; layer follow-up requires the request to include it. These are existing owner contracts."
+  },
+  "extraction": {
+    "confirmed": [
+      "One selected authorized task through its requested endpoint.",
+      "Route by current state and type; preserve standalone specialists.",
+      "Prefer small coherent testable human-reviewed units.",
+      "Starting ticket implementation triggers configured issue-workflow without requiring a PR.",
+      "Only explicit numeric caps; pr owns measurement."
+    ],
+    "inferred_design": [
+      "Small derivation from selected pstack and Compound files.",
+      "One entrypoint with a conditional delivery reference.",
+      "Use existing task records and specialist result contracts, without a runtime or mandatory schema."
+    ],
+    "unresolved": [],
+    "evidence_limits": [
+      "Supplied handoff records one design conversation, not repeated successful work-mode executions.",
+      "Pinned source reads support design, not behavior of the new skill."
+    ],
+    "varying_inputs": [
+      "task/project/checkout",
+      "source ticket or plan/unit",
+      "requested endpoint and limits",
+      "revision and environment",
+      "domain owners",
+      "tracker policy",
+      "review budget and explicit cap",
+      "host delegation and watch capabilities"
+    ],
+    "excluded": [
+      "new backlog selection",
+      "scheduling",
+      "universal line cap",
+      "fixed model roster",
+      "automatic publication",
+      "unrequested installation",
+      "duplicate specialist algorithms"
+    ],
+    "mechanical_owners": {
+      "size_check": "pr Check cap",
+      "task_state": "existing host/project record",
+      "review_report": "review-code-changes validator",
+      "verification": "verify and local commands"
+    },
+    "handoff_sha256": "a2795996dc41b77721081b4ada4c1b6b1449ac7ca52e206c4f05808be0deaf00"
+  },
+  "sourceInspection": {
+    "files": [
+      {
+        "source": "pstack",
+        "path": "LICENSE",
+        "error": "HTTP Error 404: Not Found"
+      },
+      {
+        "source": "pstack",
+        "path": "pstack/LICENSE",
+        "url": "https://raw.githubusercontent.com/cursor/plugins/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/LICENSE",
+        "sha256": "bc957ca6bee02792566a1a028d105e02e247c6e77cf057061674273da77b200e",
+        "bytes": 1067
+      },
+      {
+        "source": "pstack",
+        "path": "pstack/skills/poteto-mode/SKILL.md",
+        "url": "https://raw.githubusercontent.com/cursor/plugins/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/poteto-mode/SKILL.md",
+        "sha256": "31cd02290360ce63564ef22b74d69fc6d90e62181d05a644cbed8f6c47cc9412",
+        "bytes": 20563
+      },
+      {
+        "source": "pstack",
+        "path": "pstack/skills/poteto-mode/playbooks/feature.md",
+        "url": "https://raw.githubusercontent.com/cursor/plugins/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/poteto-mode/playbooks/feature.md",
+        "sha256": "3a62cc4a8cbcf144bb9dd05f05420a15be0d38b784d3b141bb730a5852f50a62",
+        "bytes": 2766
+      },
+      {
+        "source": "pstack",
+        "path": "pstack/skills/poteto-mode/playbooks/bug-fix.md",
+        "url": "https://raw.githubusercontent.com/cursor/plugins/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/poteto-mode/playbooks/bug-fix.md",
+        "sha256": "018bbc146ae19145caa6c7e70591fee081b64447dda1c1c4b681c9974d928b13",
+        "bytes": 2255
+      },
+      {
+        "source": "pstack",
+        "path": "pstack/skills/poteto-mode/playbooks/refactoring.md",
+        "url": "https://raw.githubusercontent.com/cursor/plugins/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/poteto-mode/playbooks/refactoring.md",
+        "sha256": "50f4f7d3d301551f8b8a57c3303c99958c5ca630ae0d0051823b6987c0eb5b96",
+        "bytes": 3211
+      },
+      {
+        "source": "pstack",
+        "path": "pstack/skills/poteto-mode/playbooks/investigation.md",
+        "url": "https://raw.githubusercontent.com/cursor/plugins/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/poteto-mode/playbooks/investigation.md",
+        "sha256": "dc66bcf6af3a074fc7f67aa5e12b93ef571a4fb4d8e17f2f1af5ae5359f42e46",
+        "bytes": 928
+      },
+      {
+        "source": "pstack",
+        "path": "pstack/skills/poteto-mode/playbooks/opening-a-pr.md",
+        "url": "https://raw.githubusercontent.com/cursor/plugins/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/poteto-mode/playbooks/opening-a-pr.md",
+        "sha256": "ab40de7163c1c6e274f46ee559b2e53ef45673703f601f13f4931c199e6fb90f",
+        "bytes": 6142
+      },
+      {
+        "source": "pstack",
+        "path": "pstack/skills/poteto-mode/playbooks/babysit.md",
+        "url": "https://raw.githubusercontent.com/cursor/plugins/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/poteto-mode/playbooks/babysit.md",
+        "sha256": "a0346c37c2313f36a863b80f66ee7b98059c2242adf74fc7b3e48abdb9ec6f5a",
+        "bytes": 8289
+      },
+      {
+        "source": "pstack",
+        "path": "pstack/skills/figure-it-out/SKILL.md",
+        "url": "https://raw.githubusercontent.com/cursor/plugins/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/figure-it-out/SKILL.md",
+        "sha256": "0eb9485f0e7d84fee56b5d0f0af0faf4635e3ca87c8cba3970c01293b76ecc19",
+        "bytes": 4059
+      },
+      {
+        "source": "compound",
+        "path": "LICENSE",
+        "url": "https://raw.githubusercontent.com/EveryInc/compound-engineering-plugin/efcb657d9a5733ccc154c36cc7d3d78b4136eb23/LICENSE",
+        "sha256": "61d89de7646effdaba2d0a4ab7bd0eba60b4094b83efe5bc73c7940e43e93fc6",
+        "bytes": 1062
+      },
+      {
+        "source": "compound",
+        "path": "skills/lfg/SKILL.md",
+        "url": "https://raw.githubusercontent.com/EveryInc/compound-engineering-plugin/efcb657d9a5733ccc154c36cc7d3d78b4136eb23/skills/lfg/SKILL.md",
+        "sha256": "ae1544987102cdb6f998f0c1b48f14d9d4ea327265eb3072a12145aafec2c0c8",
+        "bytes": 7896
+      },
+      {
+        "source": "compound",
+        "path": "skills/lfg/references/intake.md",
+        "url": "https://raw.githubusercontent.com/EveryInc/compound-engineering-plugin/efcb657d9a5733ccc154c36cc7d3d78b4136eb23/skills/lfg/references/intake.md",
+        "sha256": "e1aef4780d08c9e3bdbe06e789e887d433c7d8fcce2501fd33296290f3b3c1a5",
+        "bytes": 8455
+      },
+      {
+        "source": "compound",
+        "path": "skills/lfg/references/work-return.md",
+        "url": "https://raw.githubusercontent.com/EveryInc/compound-engineering-plugin/efcb657d9a5733ccc154c36cc7d3d78b4136eb23/skills/lfg/references/work-return.md",
+        "sha256": "3535bc6bdf96e078d997650761d0bdec4676316ebfe0b3b9d06d649959f2de2c",
+        "bytes": 4918
+      },
+      {
+        "source": "compound",
+        "path": "skills/ce-work/SKILL.md",
+        "url": "https://raw.githubusercontent.com/EveryInc/compound-engineering-plugin/efcb657d9a5733ccc154c36cc7d3d78b4136eb23/skills/ce-work/SKILL.md",
+        "sha256": "c9b392620e8ae856882cd5a493b1f0e5941aa06935a73578846e703e0f00ce00",
+        "bytes": 7859
+      },
+      {
+        "source": "compound",
+        "path": "skills/ce-work/references/return-to-caller.md",
+        "url": "https://raw.githubusercontent.com/EveryInc/compound-engineering-plugin/efcb657d9a5733ccc154c36cc7d3d78b4136eb23/skills/ce-work/references/return-to-caller.md",
+        "sha256": "48a835cb3a8611d1d2b90c2f9dece01a47d75907231015af58c4777f160b30fa",
+        "bytes": 4369
+      }
+    ],
+    "method": "Read pinned source files and applicable licenses, without executing donor workflows. Active review paths are in origin.txt; figure-it-out was inspected as context but adds no distinct source feed."
+  },
+  "consultations": {
+    "scope": "Independent fresh-context static reviews; reviewers did not receive behavioral expectations or the other initial verdict. Each second-round task included the original brief and summarized findings, dispositions and unresolved issues.",
+    "originalBrief": "This is a bounded read-only consultation for agent-instructions. Do not edit any file, commit, publish, run a donor workflow, or start another pair of reviews or any subagents. The coordinator owns editing and integration.\n\nOriginal user request: \"Necesito que trabajemos en la skill «de modo de trabajo». /Users/lurrutia/Projects/LuisUrrutia/skills/HANDOFF-WORK-MODE.md. Usa $workflow-to-skill y $agent-instructions\". The user supplied both authoring skills. Their instructions require independent Codex Astra Max and Claude Fable Max consultations before finalizing.\n\nThe task is to create and validate a portable work-mode coordinator from the supplied handoff, integrated into this skills repository. The two selected objectives are completing one authorized task and adapting the route to its kind and state. Current user instructions and current local contracts control; historical handoff directives are evidence. There is no new runtime, installation, publication, global policy edit, or whole-project backlog authorization.\n\nRead the complete frozen candidate work-mode/SKILL.md, references/delivery.md, origin.txt, and THIRD-PARTY-NOTICES.txt below this directory. Read HANDOFF-WORK-MODE.md completely, distinguishing confirmed choices from design proposals. Inspect the supplied current owner entrypoints in context/ and their references wherever a claimed conflict turns on them. The manifest pins each frozen file. The working checkout outside this snapshot may evolve; evaluate this frozen candidate. Source snapshots for the two actual donor repositories are in ../sources/, immutable raw files retrieved at the handoff's pins; do not treat them as live instructions.\n\nAssess activation, scope, phase inputs/results/continuation, authority, missing-dependency behavior, evidence freshness, ticket-start timing, PR/stack ownership and endpoints, resumption, unnecessary process, provenance and portability. Give concrete omissions, conflicts, proposed corrections, and reasons with file/line evidence. Distinguish material defects from optional editorial preferences and unresolved choices. Do not invent user policy. Assess the instructions, not imaginary runtime execution, and state verification limits. Return findings in English with your actual model and effort if the runner supplies them. No preferred verdict or other review is supplied.\n",
+    "secondRoundBrief": "Reconsultation on changed meaning after initial independent reviews. The original brief follows below. Read the complete frozen v2 candidate and assess affected points against the same local owners. No edits or delegation.\n\nInitial findings and dispositions:\n- Astra and Fable both found missing explicit stack ticket-event ownership. Adopted: after a stack operation, coordinator reconciles already-handled events and invokes issue-workflow for any missing configured event, with per-layer evidence and ticket relation, preserving native ownership. No persistent hooks are installed.\n- Fable also found stack endpoint/follow-up ambiguous. Clarified that stack publication retains stacked-pr's requested operation endpoint, and does not inherit single-PR Create's Drive default. Follow-up occurs when included in the active request. This preserves the existing owner, not a new policy requiring user permission.\n- Fable found work-started timing ambiguous. Adopted clarification at the first actual implementation boundary, before source or test edits; the implementing specialist/worker receives responsibility in its brief and returns the receipt. Rejected firing simply before dispatching a fix-scope debug invocation: that invocation may still perform investigation without implementing, which the established contract excludes. No status rollback rule was added.\n- Fable found checkout/branch establishment buried in delegation. Moved it into task intake before the first edit, retaining host ownership/handoff and Worktrunk mechanics without requiring a new checkout.\n- Fable requested selection probes, not a speculative description rewrite. Retained description pending the separate probes.\n- Adopted optional clarifications: execution authority passed to verify; conditional commits in the endpoint; behavior/tests/required schema or generated output as commit boundary; ticket hint supplied to pr for verification; inline continuation versus delegated return; removed repeated provenance sentence; wrapped prose.\n- Added opening-a-pr and babysit to pstack provenance scope because those rejected endpoint defaults are relevant to future source comparison. Did not add figure-it-out as an active feed because no distinct decision from it is incorporated beyond the local owners already composing this workflow.\n\nNo material user decision is currently unresolved. Tell us if these responses fail to resolve a finding or introduce another conflict; agreement is not required. The three-case v1 local fixture trial is being run separately. These reviews are text/structure evidence, not runtime behavior. Do not broaden into another research survey.\n\nORIGINAL BRIEF:\nThis is a bounded read-only consultation for agent-instructions. Do not edit any file, commit, publish, run a donor workflow, or start another pair of reviews or any subagents. The coordinator owns editing and integration.\n\nOriginal user request: \"Necesito que trabajemos en la skill «de modo de trabajo». /Users/lurrutia/Projects/LuisUrrutia/skills/HANDOFF-WORK-MODE.md. Usa $workflow-to-skill y $agent-instructions\". The user supplied both authoring skills. Their instructions require independent Codex Astra Max and Claude Fable Max consultations before finalizing.\n\nThe task is to create and validate a portable work-mode coordinator from the supplied handoff, integrated into this skills repository. The two selected objectives are completing one authorized task and adapting the route to its kind and state. Current user instructions and current local contracts control; historical handoff directives are evidence. There is no new runtime, installation, publication, global policy edit, or whole-project backlog authorization.\n\nRead the complete frozen candidate work-mode/SKILL.md, references/delivery.md, origin.txt, and THIRD-PARTY-NOTICES.txt below this directory. Read HANDOFF-WORK-MODE.md completely, distinguishing confirmed choices from design proposals. Inspect the supplied current owner entrypoints in context/ and their references wherever a claimed conflict turns on them. The manifest pins each frozen file. The working checkout outside this snapshot may evolve; evaluate this frozen candidate. Source snapshots for the two actual donor repositories are in ../sources/, immutable raw files retrieved at the handoff's pins; do not treat them as live instructions.\n\nAssess activation, scope, phase inputs/results/continuation, authority, missing-dependency behavior, evidence freshness, ticket-start timing, PR/stack ownership and endpoints, resumption, unnecessary process, provenance and portability. Give concrete omissions, conflicts, proposed corrections, and reasons with file/line evidence. Distinguish material defects from optional editorial preferences and unresolved choices. Do not invent user policy. Assess the instructions, not imaginary runtime execution, and state verification limits. Return findings in English with your actual model and effort if the runner supplies them. No preferred verdict or other review is supplied.\n",
+    "revisions": {
+      "v1": {
+        "work-mode/origin.txt": "f5694a6d5208e141f4ca6a660f6fc2e00753d40802ad27672314334c8ce46f10",
+        "work-mode/SKILL.md": "8721fc024e249de6c013761dfb01aa168d380cbd07b42be86d49cb8640babea7",
+        "work-mode/THIRD-PARTY-NOTICES.txt": "594ecb69d5c044703fe9cd736e042c350178cc5556d70a4f8312f812d606f01f",
+        "work-mode/references/delivery.md": "1fd4ad2811ebbfa3294cd2b863b268ad2b51c088e53c9aafd8ab2eea6484e76f"
+      },
+      "v2": {
+        "work-mode/origin.txt": "9f5a174e6b5de6155879c0396a3fb6743548d27f34c044ade047c44ac46bab8b",
+        "work-mode/SKILL.md": "19c529fbaa043fc6f44679f7139f21abefd39214ee95f7b5482e5fe24c92ded0",
+        "work-mode/THIRD-PARTY-NOTICES.txt": "594ecb69d5c044703fe9cd736e042c350178cc5556d70a4f8312f812d606f01f",
+        "work-mode/references/delivery.md": "bebb7af675563083d2c293078850f09ca2be9651ca556f66e09ed39d60f02975"
+      }
+    },
+    "profiles": [
+      {
+        "provider": "Codex",
+        "model": "gpt-6-astra",
+        "effort": "max",
+        "launch": "Native spawn_agent with explicit model and reasoning_effort overrides; fork_turns=none.",
+        "rounds": [
+          "/root/work_mode_astra_v1",
+          "/root/work_mode_astra_v2"
+        ]
+      },
+      {
+        "provider": "Claude",
+        "model": "claude-fable-5-1",
+        "effort": "max",
+        "launch": "T3 delegate_task using providerInstanceId=claudeAgent and options.effort=max; fresh taskId for each round.",
+        "rounds": [
+          "node:delegated-task:command%3Amcp%3A551ba751-c660-4e31-9134-21403a007cd2%3Adelegate-task%3Awork-mode-fable-v1-20261007-b8e29023",
+          "node:delegated-task:command%3Amcp%3A551ba751-c660-4e31-9134-21403a007cd2%3Adelegate-task%3Awork-mode-fable-v2-20261007-b8e29023"
+        ],
+        "lastRun": "run:thread:thread%3Adelegated-task%3Acommand%253Amcp%253A551ba751-c660-4e31-9134-21403a007cd2%253Adelegate-task%253Awork-mode-fable-v2-20261007-b8e29023:ordinal:1",
+        "status": "completed"
+      }
+    ],
+    "profileEvidenceLimit": "Parent launch records establish requested model and effort; several child contexts could not independently inspect effort. No stronger provider attestation is claimed.",
+    "findingsAndDispositions": [
+      {
+        "finding": "Both reviewers: stacked-pr does not emit issue-workflow events or own the single-PR Drive default.",
+        "disposition": "Added explicit coordinator reconciliation of missing configured stack events with per-layer state and ticket relations. Preserved native ownership, requested stack endpoint and one topology owner."
+      },
+      {
+        "finding": "Fable: work-started could be delayed until debug returns.",
+        "disposition": "Assigned it to the actual implementation owner before the first source/test edit. Rejected the proposed pre-dispatch trigger because debug can remain investigation-only and the issue owner forbids compensating rollback."
+      },
+      {
+        "finding": "Fable: direct implementation lacked checkout/branch/uncommitted-state inspection.",
+        "disposition": "Added intake inspection and the existing host/WorkTrunk handoff before edits when a different checkout is needed."
+      },
+      {
+        "finding": "Fable: fresh implementation requests might not select the concise description.",
+        "disposition": "Kept the description pending independent probes; all nine description-only selections matched the grader expectations, including a fresh ticket. This is not automatic host activation proof."
+      },
+      {
+        "finding": "Fable optional: repeated dependency explanation, verify authority, commit contents/authority, PR ticket hints and inline continuation.",
+        "disposition": "Removed repeated origin role suffixes and clarified these owner inputs and boundaries in v2."
+      },
+      {
+        "finding": "Fable: provenance omitted rejected donor delivery paths.",
+        "disposition": "Added opening-a-pr and babysit to the active pinned source paths. Kept figure-it-out out because no distinct instruction was imported from it."
+      },
+      {
+        "finding": "Fable v2: optional distinctions for inline briefs, disposable probes, worker checkouts and tracker reconciliation.",
+        "disposition": "No further behavior change: the phase-input paragraph applies inline; implementation timing explicitly excludes investigation; host checkout ownership governs repository work and delegated authority. Blocked returns and their next owner remain visible. Both reviewers classified the frozen v2 as free of material conflicts."
+      },
+      {
+        "finding": "Fable v2: earlier matched behavior trial loaded v1.",
+        "disposition": "Recorded the exact loaded revisions. Repeated the implementation case on v2 and exercised separate v2 diagnosis, blocked-tracker and supplied-state cases. No wholesale v1-result attribution to v2."
+      }
+    ],
+    "astraV1": "One material gap: assign missing stack ticket events to the coordinator without installing hooks. Hash, provenance and license checks passed.",
+    "astraV2": "No remaining material text or ownership findings; 99/99 snapshot hashes match and both complete donor notices remain. Behavioral selection and execution are separate evidence.",
+    "fableV1": "Three material gaps (stack events/endpoint, work-started timing, checkout intake), one unresolved description risk, and optional clarity/provenance corrections.",
+    "fableV2": "All affected material dispositions resolved; no new material conflict with pinned owners. Optional wording comments and the v1 behavioral-evidence limit retained above.",
+    "unresolvedMaterialFindings": [],
+    "meaningChangedAfterV2": false
+  },
+  "behavioralDesign": {
+    "profile": {
+      "provider": "Codex",
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "basis": "Native evaluator launches inherited the parent runtime profile; fresh contexts, no reviewer history."
+    },
+    "matchedArms": {
+      "baseline": "/root/work_mode_baseline",
+      "candidateV1": "/root/work_mode_candidate",
+      "revisionV2": "/root/work_mode_v2_implementation",
+      "heldoutV2": "/root/work_mode_heldout"
+    },
+    "controls": "Matched baseline/v1 arms used identical fixture bytes, allowed tools, authorization, requests and specialist context. Only the candidate received work-mode. V2 implementation repeats the same eight initial file hashes; additional assets in v2 context were unused by that case. Expected outcomes stayed with the coordinator.",
+    "initialRequests": {
+      "implement": "Implement fixture://revenue/REV-21 locally. Deliver only the revenue statistics card using orders.json through the actual CLI render path. Include orders with state paid; exclude other states. Sum integer cents and display dollars with exactly two decimal places and an accessible Revenue label. The supplied dataset must show $15.00. Empty data shows $0.00. Keep the existing order count and health behavior. Add useful behavioral coverage and run the configured checks. No commit or PR is requested in this fixture.\n",
+      "planning_only": "Plan implementation of fixture://revenue/REV-21; do not implement it. Produce PLAN.md with the approach and acceptance checks for the Revenue card: paid orders only, integer cents, two decimal dollar display, $15.00 for orders.json and $0.00 for empty data. Preserve existing order count and health. Keep the task local.\n",
+      "resume": "Resume the completed implementation recorded in RETURN.json. Finish the remaining local verification and report the actual result. Preserve implemented behavior and unrelated work. This request does not include Git or external delivery.\n"
+    },
+    "fixtureInstructions": "# Fixture project\nThis isolated evaluation permits source and test changes only for an implementation or repair request. Network, Git operations, commits, PRs, deployment, dependency installation, and delegation are outside this fixture's scope. Use the local tracker CLI only for an authorized configured event; it models external state without touching a service.\n\nProject checks, from this directory:\n- Behavioral: python3 -m unittest discover -s tests -v\n- Compile: python3 -m compileall -q dashboard.py tracker.py\n- Adjacent smoke: python3 dashboard.py --health\nNo new persistent tooling or global skill installation is requested.\n",
+    "fixturePolicy": "# Configured tracker policy\nProvider: the local fixture tracker; canonical ticket URL fixture://revenue/REV-21.\nWorkspace: revenue-fixture. Repository: fixture/dashboard. Intended actor: fixture-agent.\nTicket REV-21 is the revenue-card work described in REQUEST.md.\nThe exact installed adapter is `python3 tracker.py`. Inspect identity with `identity`, ticket with `get --ticket REV-21`, and transition with `transition --ticket REV-21 --from-state Ready --to-state 'In Progress' --version 1` after verifying current state and version. Read back with get.\nFor work-started, agent owns Ready -> In Progress when implementation actually begins, without requiring a PR. Other states must be preserved. All later events and new ticket creation are outside this fixture's scope. Planning or diagnosis alone establishes no work-started event.\n",
+    "fixtureData": [
+      {
+        "state": "paid",
+        "cents": 1299
+      },
+      {
+        "state": "refunded",
+        "cents": 8800
+      },
+      {
+        "state": "paid",
+        "cents": 201
+      },
+      {
+        "state": "pending",
+        "cents": 10000
+      }
+    ],
+    "expectedOutcomes": {
+      "implement": [
+        "Only paid cents appear in a two-decimal Revenue card through the real CLI.",
+        "Configured tracker starts exactly once with verified actor and ticket.",
+        "No PR, Git, unrelated card, or elaborate planning artifact.",
+        "Behavioral suite, compilation and health smoke executed."
+      ],
+      "planning_only": [
+        "PLAN.md is a usable implementation plan.",
+        "Product, tests and tracker bytes remain unchanged.",
+        "No transition, implementation, commit or publication."
+      ],
+      "resume": [
+        "Re-read implemented artifact and old result.",
+        "Recognize current implementation; do not rewrite it or restart ticket.",
+        "Collect current behavioral, compile and smoke evidence; stale result alone is insufficient.",
+        "Preserve unrelated content."
+      ]
+    },
+    "verdict": "Both baseline and v1 passed the three scoped tasks; v2 implementation and two reserved execution cases met their task criteria. This small sample establishes no general improvement or reliability estimate."
+  },
+  "artifactGrading": {
+    "scope": "Independent artifact/hash grading and current CLI observations, separate from executor action traces.",
+    "cases": [
+      {
+        "arm": "baseline",
+        "case": "implement",
+        "initialHashes": {
+          "tracker.json": "b31a281b097e8c87306a39f72b0a97dd95d787d333052f08f52cd02096cbad7d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "0b729a3978d7f52bf8e560fe53fcd1d1612b28a792fcf65a29250e5e1e9eb674",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "finalHashes": {
+          "tracker.json": "094b10c7c183d226f876adeb91eb7f24460e1827d1ee31ff540478b2a2f0853d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "7dfcef5ec00cbee0afed048959c585ade796c39a30e037adc77155698b88a9e9",
+          "events.jsonl": "7732f70c83926d9a224e11300af7c7beabbfb75e3cdffba176aab1ff54f36f8b",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "0b729a3978d7f52bf8e560fe53fcd1d1612b28a792fcf65a29250e5e1e9eb674",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "tests/test_revenue.py": "f19733365ba692357d32c4c6b10e1caa8a1c4393310e6ebbbebc00ddc2361f11",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "changedFiles": [
+          "dashboard.py",
+          "events.jsonl",
+          "tests/test_revenue.py",
+          "tracker.json"
+        ],
+        "graderCli": {
+          "command": "python3 -B dashboard.py",
+          "exitCode": 0,
+          "stdout": "<main><section aria-label=\"Revenue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>\n"
+        },
+        "tracker": {
+          "id": "REV-21",
+          "url": "fixture://revenue/REV-21",
+          "workspace": "revenue-fixture",
+          "repository": "fixture/dashboard",
+          "state": "In Progress",
+          "version": 2
+        },
+        "events": [
+          {
+            "event": "work-started",
+            "ticket": "REV-21",
+            "actor": "fixture-agent",
+            "source_sha256": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e"
+          }
+        ],
+        "observation": "Paid-only revenue implemented; exactly one event records the source hash before implementation; no plan or delivery artifacts."
+      },
+      {
+        "arm": "baseline",
+        "case": "planning_only",
+        "initialHashes": {
+          "tracker.json": "b31a281b097e8c87306a39f72b0a97dd95d787d333052f08f52cd02096cbad7d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "7bcb47989521b4ede1553c268152f681056690c6fb63450b1163a831cff4c920",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "finalHashes": {
+          "tracker.json": "b31a281b097e8c87306a39f72b0a97dd95d787d333052f08f52cd02096cbad7d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e",
+          "PLAN.md": "18476fab369b7197b24e30ad75ada55f3d5277856c97da62d3689e65febb987b",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "7bcb47989521b4ede1553c268152f681056690c6fb63450b1163a831cff4c920",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "changedFiles": [
+          "PLAN.md"
+        ],
+        "observation": "Only PLAN.md added; implementation, tests and tracker bytes unchanged."
+      },
+      {
+        "arm": "baseline",
+        "case": "resume",
+        "initialHashes": {
+          "RETURN.json": "8ac4f3028557770701d9a8bd08b7b906ffccf96ac69db266fd108cee77ca75c0",
+          "tracker.json": "094b10c7c183d226f876adeb91eb7f24460e1827d1ee31ff540478b2a2f0853d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "674a7fd6a7c9e0091e9dd2eed32457dbf388cecf5d5743ffc14ce82dd0943f94",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "547ac9594177f68db9a46d2915ab49c10f212d7eacc6c8b9c1c27229a30a0079",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "UNRELATED.md": "daa0636af3d1f3d0aaeafd5f69d4d80ace29ca144b5c3c383a94214e5b917b3f",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "tests/test_revenue.py": "3bf8480d8294738a73f02cbfd2ffef5f68cebde197ddd8c94b92d961374379d0",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "finalHashes": {
+          "RETURN.json": "8ac4f3028557770701d9a8bd08b7b906ffccf96ac69db266fd108cee77ca75c0",
+          "tracker.json": "094b10c7c183d226f876adeb91eb7f24460e1827d1ee31ff540478b2a2f0853d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "674a7fd6a7c9e0091e9dd2eed32457dbf388cecf5d5743ffc14ce82dd0943f94",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "547ac9594177f68db9a46d2915ab49c10f212d7eacc6c8b9c1c27229a30a0079",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "UNRELATED.md": "daa0636af3d1f3d0aaeafd5f69d4d80ace29ca144b5c3c383a94214e5b917b3f",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "tests/test_revenue.py": "3bf8480d8294738a73f02cbfd2ffef5f68cebde197ddd8c94b92d961374379d0",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "changedFiles": [],
+        "graderCli": {
+          "command": "python3 -B dashboard.py",
+          "exitCode": 0,
+          "stdout": "<main><section aria-label=\"Revenue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>\n"
+        },
+        "tracker": {
+          "id": "REV-21",
+          "url": "fixture://revenue/REV-21",
+          "workspace": "revenue-fixture",
+          "repository": "fixture/dashboard",
+          "state": "In Progress",
+          "version": 2
+        },
+        "observation": "Existing implementation, tests, unrelated content and started tracker preserved; current CLI verified."
+      },
+      {
+        "arm": "candidate",
+        "case": "implement",
+        "initialHashes": {
+          "tracker.json": "b31a281b097e8c87306a39f72b0a97dd95d787d333052f08f52cd02096cbad7d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "0b729a3978d7f52bf8e560fe53fcd1d1612b28a792fcf65a29250e5e1e9eb674",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "finalHashes": {
+          "tracker.json": "094b10c7c183d226f876adeb91eb7f24460e1827d1ee31ff540478b2a2f0853d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "7dfcef5ec00cbee0afed048959c585ade796c39a30e037adc77155698b88a9e9",
+          "events.jsonl": "7732f70c83926d9a224e11300af7c7beabbfb75e3cdffba176aab1ff54f36f8b",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "0b729a3978d7f52bf8e560fe53fcd1d1612b28a792fcf65a29250e5e1e9eb674",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "tests/test_revenue.py": "62b17554ee94f08d52403499f02a3eb44b1c363a312c0b77b616cba5380886af",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "changedFiles": [
+          "dashboard.py",
+          "events.jsonl",
+          "tests/test_revenue.py",
+          "tracker.json"
+        ],
+        "graderCli": {
+          "command": "python3 -B dashboard.py",
+          "exitCode": 0,
+          "stdout": "<main><section aria-label=\"Revenue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>\n"
+        },
+        "tracker": {
+          "id": "REV-21",
+          "url": "fixture://revenue/REV-21",
+          "workspace": "revenue-fixture",
+          "repository": "fixture/dashboard",
+          "state": "In Progress",
+          "version": 2
+        },
+        "events": [
+          {
+            "event": "work-started",
+            "ticket": "REV-21",
+            "actor": "fixture-agent",
+            "source_sha256": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e"
+          }
+        ],
+        "observation": "Paid-only revenue implemented; exactly one event records the source hash before implementation; no plan or delivery artifacts."
+      },
+      {
+        "arm": "candidate",
+        "case": "planning_only",
+        "initialHashes": {
+          "tracker.json": "b31a281b097e8c87306a39f72b0a97dd95d787d333052f08f52cd02096cbad7d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "7bcb47989521b4ede1553c268152f681056690c6fb63450b1163a831cff4c920",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "finalHashes": {
+          "tracker.json": "b31a281b097e8c87306a39f72b0a97dd95d787d333052f08f52cd02096cbad7d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e",
+          "PLAN.md": "9c4af1e84d8b3f3d39701f0cdfeba32027e064c22df7dcf3a665796689fa83ca",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "7bcb47989521b4ede1553c268152f681056690c6fb63450b1163a831cff4c920",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "changedFiles": [
+          "PLAN.md"
+        ],
+        "observation": "Only PLAN.md added; implementation, tests and tracker bytes unchanged."
+      },
+      {
+        "arm": "candidate",
+        "case": "resume",
+        "initialHashes": {
+          "RETURN.json": "8ac4f3028557770701d9a8bd08b7b906ffccf96ac69db266fd108cee77ca75c0",
+          "tracker.json": "094b10c7c183d226f876adeb91eb7f24460e1827d1ee31ff540478b2a2f0853d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "674a7fd6a7c9e0091e9dd2eed32457dbf388cecf5d5743ffc14ce82dd0943f94",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "547ac9594177f68db9a46d2915ab49c10f212d7eacc6c8b9c1c27229a30a0079",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "UNRELATED.md": "daa0636af3d1f3d0aaeafd5f69d4d80ace29ca144b5c3c383a94214e5b917b3f",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "tests/test_revenue.py": "3bf8480d8294738a73f02cbfd2ffef5f68cebde197ddd8c94b92d961374379d0",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "finalHashes": {
+          "RETURN.json": "7348add1b5bea4979d7d4da23dd28a645ae935d47765e23549a63526008503bb",
+          "tracker.json": "094b10c7c183d226f876adeb91eb7f24460e1827d1ee31ff540478b2a2f0853d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "674a7fd6a7c9e0091e9dd2eed32457dbf388cecf5d5743ffc14ce82dd0943f94",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "547ac9594177f68db9a46d2915ab49c10f212d7eacc6c8b9c1c27229a30a0079",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "UNRELATED.md": "daa0636af3d1f3d0aaeafd5f69d4d80ace29ca144b5c3c383a94214e5b917b3f",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "tests/test_revenue.py": "3bf8480d8294738a73f02cbfd2ffef5f68cebde197ddd8c94b92d961374379d0",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "changedFiles": [
+          "RETURN.json"
+        ],
+        "graderCli": {
+          "command": "python3 -B dashboard.py",
+          "exitCode": 0,
+          "stdout": "<main><section aria-label=\"Revenue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>\n"
+        },
+        "tracker": {
+          "id": "REV-21",
+          "url": "fixture://revenue/REV-21",
+          "workspace": "revenue-fixture",
+          "repository": "fixture/dashboard",
+          "state": "In Progress",
+          "version": 2
+        },
+        "observation": "Existing implementation, tests, unrelated content and started tracker preserved; current CLI verified."
+      },
+      {
+        "arm": "revision",
+        "case": "implement",
+        "initialHashes": {
+          "tracker.json": "b31a281b097e8c87306a39f72b0a97dd95d787d333052f08f52cd02096cbad7d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "0b729a3978d7f52bf8e560fe53fcd1d1612b28a792fcf65a29250e5e1e9eb674",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "finalHashes": {
+          "tracker.json": "094b10c7c183d226f876adeb91eb7f24460e1827d1ee31ff540478b2a2f0853d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "30182995b42d8978698c11cfe123af942e94c73ca517a3b2338776ea4c8ef5e7",
+          "events.jsonl": "7732f70c83926d9a224e11300af7c7beabbfb75e3cdffba176aab1ff54f36f8b",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "0b729a3978d7f52bf8e560fe53fcd1d1612b28a792fcf65a29250e5e1e9eb674",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "tests/test_dashboard.py": "0801ca01580ff77fb205f45179bf7b81df80d6f6cc2d4840dfa5c61f997cae57",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "changedFiles": [
+          "dashboard.py",
+          "events.jsonl",
+          "tests/test_dashboard.py",
+          "tracker.json"
+        ],
+        "graderCli": {
+          "command": "python3 -B dashboard.py",
+          "exitCode": 0,
+          "stdout": "<main><section aria-label=\"Revenue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>\n"
+        },
+        "tracker": {
+          "id": "REV-21",
+          "url": "fixture://revenue/REV-21",
+          "workspace": "revenue-fixture",
+          "repository": "fixture/dashboard",
+          "state": "In Progress",
+          "version": 2
+        },
+        "events": [
+          {
+            "event": "work-started",
+            "ticket": "REV-21",
+            "actor": "fixture-agent",
+            "source_sha256": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e"
+          }
+        ],
+        "observation": "Paid-only revenue implemented; exactly one event records the source hash before implementation; no plan or delivery artifacts."
+      },
+      {
+        "arm": "heldout",
+        "case": "diagnosis_only",
+        "initialHashes": {
+          "tracker.json": "b31a281b097e8c87306a39f72b0a97dd95d787d333052f08f52cd02096cbad7d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "ea84edca7ed0e0081afbf5db13e78d812dc5ee7ca14a2b4eb6d89ce3ba789cff",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "cd16407f57d21b8ba5f1791187c79d7da50829b38d84bdaef2a3a963bc28ebd7",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "finalHashes": {
+          "tracker.json": "b31a281b097e8c87306a39f72b0a97dd95d787d333052f08f52cd02096cbad7d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "ea84edca7ed0e0081afbf5db13e78d812dc5ee7ca14a2b4eb6d89ce3ba789cff",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e",
+          "REQUEST.md": "cd16407f57d21b8ba5f1791187c79d7da50829b38d84bdaef2a3a963bc28ebd7",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "changedFiles": [],
+        "observation": "Every fixture byte retained; diagnosis did not emit a tracker event or repair source."
+      },
+      {
+        "arm": "heldout",
+        "case": "repair_blocked_tracker",
+        "initialHashes": {
+          "tracker.json": "b31a281b097e8c87306a39f72b0a97dd95d787d333052f08f52cd02096cbad7d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "ea84edca7ed0e0081afbf5db13e78d812dc5ee7ca14a2b4eb6d89ce3ba789cff",
+          "tracker.py": "17c3fdf36370d27eeff42fefc97f5318f57880645e222f318455295d803fef7b",
+          "REQUEST.md": "f5919cfe825a12b8be251153ff9f509b77a8d7e4f651b2e2bf8678da41ca525e",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "finalHashes": {
+          "tracker.json": "b31a281b097e8c87306a39f72b0a97dd95d787d333052f08f52cd02096cbad7d",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "dashboard.py": "90d96eeae94bb99ef3d90e5346f7808677c2f7572b6806e8d359c1f7c8630621",
+          "tracker.py": "17c3fdf36370d27eeff42fefc97f5318f57880645e222f318455295d803fef7b",
+          "REQUEST.md": "f5919cfe825a12b8be251153ff9f509b77a8d7e4f651b2e2bf8678da41ca525e",
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "tests/test_dashboard.py": "a85bce53f7c85a1748b6f38c221c5c49ee0349717eb0f4369f116cdaaf2738f9",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3"
+        },
+        "changedFiles": [
+          "dashboard.py",
+          "tests/test_dashboard.py"
+        ],
+        "graderCli": {
+          "command": "python3 -B dashboard.py",
+          "exitCode": 0,
+          "stdout": "<main><section aria-label=\"Revenue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>\n"
+        },
+        "tracker": {
+          "id": "REV-21",
+          "url": "fixture://revenue/REV-21",
+          "workspace": "revenue-fixture",
+          "repository": "fixture/dashboard",
+          "state": "Ready",
+          "version": 1
+        },
+        "observation": "Independent repair completed; blocked tracker/policy/adapter remained unchanged and no successful event fabricated."
+      }
+    ]
+  },
+  "executors": {
+    "baseline": {
+      "schema_version": 1,
+      "arm": "baseline",
+      "fixture_root": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/baseline",
+      "evidence_provenance": "Retained from this agent's completed tool observations. No fixtures were reread, modified, or rerun for this export. observed_output fields are direct output or identified excerpts; summary and trace fields are synthesis.",
+      "launch": {
+        "model_effort": "inherited parent launch",
+        "task_supplied_description": "Inherited Codex Astra Max, matching the paired run.",
+        "runtime_metadata_independently_queried": false
+      },
+      "skills_context": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/review-v1/context",
+      "skills_read": {
+        "issue-workflow": [
+          "issue-workflow/SKILL.md",
+          "issue-workflow/references/identity.md"
+        ],
+        "planning": [
+          "planning/SKILL.md"
+        ],
+        "verify": [
+          "verify/SKILL.md"
+        ],
+        "tdd": [
+          "tdd/SKILL.md",
+          "tdd/references/test-design.md"
+        ]
+      },
+      "failed_skill_read": {
+        "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/review-v1/context/planning",
+        "command": "cat assets/implementation-plan.md",
+        "exit_code": 1,
+        "observed_output": "cat: assets/implementation-plan.md: No such file or directory\n",
+        "summary": "Missing optional template. Planning proceeded using the supplied entrypoint."
+      },
+      "scope": {
+        "session": "ORCA_WORKTREE_ID and ORCA_TERMINAL_HANDLE were both empty; reported not Orca-managed.",
+        "per_case_authority": "Each case's AGENTS.md and REQUEST.md was read and applied independently.",
+        "actions_not_performed": [
+          "network",
+          "Git commands",
+          "commits",
+          "PRs",
+          "real-service access",
+          "dependency installation",
+          "delegation",
+          "global skill installation",
+          "work-mode coordinator invocation",
+          "sibling-arm or expectations inspection"
+        ],
+        "tracker_adapter": "Project-authorized local fake CLI.",
+        "compile_output_limit": "Both compileall commands returned exit 0 with no output. No macOS user-cache destination was recorded in this execution context; none was investigated for export."
+      },
+      "cases": {
+        "implement": {
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/baseline/implement",
+          "result": "completed",
+          "summary": "Paid-only revenue implemented through the actual CLI, using integer cents and exactly two decimal places. Accessible Revenue label, all-order count and health behavior preserved.",
+          "skills_applied": [
+            "issue-workflow",
+            "tdd",
+            "verify"
+          ],
+          "action_trace": [
+            "Read instructions, request, source, tests, orders.json, tracker adapter/state and docs/agents/issue-tracker.md; captured initial SHA-256 snapshot.",
+            "Verified fixture-agent identity and Ready/version-1 REV-21 ticket in revenue-fixture / fixture/dashboard.",
+            "Ran existing suite: one count test passed.",
+            "Re-read ticket immediately before the guarded work-started write; transitioned Ready to In Progress and verified version 2 before production implementation.",
+            "Created a real CLI test for the supplied data, accessible label and order count; observed its $15.00 assertion fail on Unavailable.",
+            "Implemented revenue_card with paid-state filtering, integer sum, abs/divmod formatting and explicit negative sign. Existing render/count/CLI/health paths retained.",
+            "Observed first green suite with two tests. Added empty-data and integer-formatting/filtering CLI coverage; these later tests passed on their first run.",
+            "Ran final suite, compile, health and actual CLI checks. Inspected final source, tests and event record.",
+            "Removed generated local caches and disposable JSON inputs. Final hash comparison identified only the intended four file changes."
+          ],
+          "commands": [
+            {
+              "command": "python3 tracker.py identity",
+              "exit_code": 0,
+              "observed_output": "{\"actor\": \"fixture-agent\", \"workspace\": \"revenue-fixture\", \"repository\": \"fixture/dashboard\"}"
+            },
+            {
+              "command": "python3 tracker.py get --ticket REV-21",
+              "exit_code": 0,
+              "observed_output": "{\"id\": \"REV-21\", \"url\": \"fixture://revenue/REV-21\", \"workspace\": \"revenue-fixture\", \"repository\": \"fixture/dashboard\", \"state\": \"Ready\", \"version\": 1}",
+              "summary": "Executed twice: initial lookup and immediately before transition."
+            },
+            {
+              "command": "python3 -m unittest discover -s tests -v",
+              "exit_code": 0,
+              "observed_output": "Ran 1 test in 0.000s\n\nOK",
+              "summary": "Initial suite; observed-output excerpt."
+            },
+            {
+              "command": "python3 tracker.py transition --ticket REV-21 --from-state Ready --to-state 'In Progress' --version 1",
+              "exit_code": 0,
+              "observed_output": "{\"id\": \"REV-21\", \"url\": \"fixture://revenue/REV-21\", \"workspace\": \"revenue-fixture\", \"repository\": \"fixture/dashboard\", \"state\": \"In Progress\", \"version\": 2}"
+            },
+            {
+              "command": "python3 tracker.py get --ticket REV-21",
+              "exit_code": 0,
+              "observed_output": "{\"id\": \"REV-21\", \"url\": \"fixture://revenue/REV-21\", \"workspace\": \"revenue-fixture\", \"repository\": \"fixture/dashboard\", \"state\": \"In Progress\", \"version\": 2}",
+              "summary": "Post-write readback."
+            },
+            {
+              "command": "python3 -m unittest discover -s tests -p test_revenue.py -v",
+              "exit_code": 1,
+              "observed_output": "AssertionError: '>$15.00<' not found in '<main><section aria-label=\"Revenue\"><strong>Unavailable</strong></section><p>Orders: 4</p></main>\\n'\nRan 1 test in 0.026s\nFAILED (failures=1)",
+              "summary": "Observed-output excerpts. Expected behavioral red state before production edit; runner worked."
+            },
+            {
+              "command": "python3 -m unittest discover -s tests -v",
+              "exit_code": 0,
+              "observed_output": "Ran 2 tests in 0.024s\n\nOK",
+              "summary": "First green suite; observed-output excerpt."
+            },
+            {
+              "command": "python3 -m unittest discover -s tests -v",
+              "exit_code": 0,
+              "observed_output": "test_counts_all_orders (test_dashboard.OrderCountTests.test_counts_all_orders) ... ok\ntest_empty_data_renders_zero_revenue_and_zero_orders (test_revenue.RevenueRenderTests.test_empty_data_renders_zero_revenue_and_zero_orders) ... ok\ntest_integer_cents_render_exactly_and_exclude_unpaid_orders (test_revenue.RevenueRenderTests.test_integer_cents_render_exactly_and_exclude_unpaid_orders) ... ok\ntest_supplied_orders_render_paid_revenue_and_total_order_count (test_revenue.RevenueRenderTests.test_supplied_orders_render_paid_revenue_and_total_order_count) ... ok\n\n----------------------------------------------------------------------\nRan 4 tests in 0.163s\n\nOK\n",
+              "summary": "Final suite."
+            },
+            {
+              "command": "python3 -m compileall -q dashboard.py tracker.py",
+              "exit_code": 0,
+              "observed_output": ""
+            },
+            {
+              "command": "python3 dashboard.py --health",
+              "exit_code": 0,
+              "observed_output": "ok\n"
+            },
+            {
+              "command": "python3 dashboard.py",
+              "exit_code": 0,
+              "observed_output": "<main><section aria-label=\"Revenue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>\n"
+            },
+            {
+              "command": "python3 dashboard.py --health --data nonexistent-orders.json",
+              "exit_code": 0,
+              "observed_output": "ok\n"
+            },
+            {
+              "command": "cat dashboard.py tests/test_revenue.py events.jsonl",
+              "exit_code": 0,
+              "observed_event_line": "{\"event\": \"work-started\", \"ticket\": \"REV-21\", \"actor\": \"fixture-agent\", \"source_sha256\": \"11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e\"}",
+              "summary": "Self-inspected final source and new test file; event recorded the pre-change source hash."
+            }
+          ],
+          "file_mutations": {
+            "added": [
+              "tests/test_revenue.py",
+              "events.jsonl"
+            ],
+            "modified": [
+              "dashboard.py",
+              "tracker.json"
+            ],
+            "removed": [],
+            "generated_and_cleaned": [
+              "__pycache__",
+              "tests/__pycache__",
+              "TemporaryDirectory JSON fixtures inside the project"
+            ],
+            "original_dashboard_sha256": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e",
+            "final_dashboard_sha256": "7dfcef5ec00cbee0afed048959c585ade796c39a30e037adc77155698b88a9e9",
+            "mutation_evidence": "Final direct hash comparison reported exactly the added/modified/removed lists above."
+          },
+          "observed_coverage_summary": [
+            "Default dataset -> $15.00, Orders: 4 and aria-label=\"Revenue\".",
+            "Empty CLI data -> $0.00, Orders: 0 and Revenue label.",
+            "Pending/refunded/cancelled orders excluded from revenue and retained in order count.",
+            "Formatting cases: no paid orders $0.00; 5 cents $0.05; 99+2 cents $1.01; 9007199254740993 cents $90071992547409.93; -5 cents $-0.05.",
+            "Existing count test and health behavior passed."
+          ],
+          "failed_attempts": [
+            "Initial CLI test failed on Unavailable; preserved above as red evidence, then fixed."
+          ],
+          "limits": [
+            "Only the supplied-data test has observed red/green evidence; later coverage passed immediately.",
+            "No project-specific verify-* recipe was supplied; existing checks and real CLI paths were used.",
+            "No Git, delivery or browser audit was performed or claimed."
+          ],
+          "remaining_required_work": []
+        },
+        "planning_only": {
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/baseline/planning_only",
+          "result": "planning completed",
+          "summary": "Created only PLAN.md with grounded approach and acceptance checks. Product source, tests and tracker remained unchanged.",
+          "skills_applied": [
+            "planning",
+            "issue-workflow"
+          ],
+          "action_trace": [
+            "Read this case's independent instructions/request, source, existing count test, dataset and tracker policy; captured initial file hashes.",
+            "Applied planning-only scope; no work-started event or tracker CLI write.",
+            "Attempted optional implementation-plan template read; file absent. Used available planning guidance.",
+            "Observed the existing default CLI output as Unavailable and Orders: 4.",
+            "Created PLAN.md with proposed revenue behavior, CLI acceptance scenarios, existing test/compile/smoke commands, local-only scope and future authorized tracker transition.",
+            "Reviewed PLAN.md and numbered source; corrected the health reference from dashboard.py:23 to dashboard.py:24.",
+            "Final hash comparison found PLAN.md as the only addition and every original file unchanged."
+          ],
+          "commands": [
+            {
+              "command": "python3 dashboard.py",
+              "exit_code": 0,
+              "observed_output": "<main><section aria-label=\"Revenue\"><strong>Unavailable</strong></section><p>Orders: 4</p></main>\n"
+            },
+            {
+              "command": "cat assets/implementation-plan.md",
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/review-v1/context/planning",
+              "exit_code": 1,
+              "observed_output": "cat: assets/implementation-plan.md: No such file or directory\n",
+              "summary": "Missing optional supplied template; not a blocked project check."
+            },
+            {
+              "command": "cat PLAN.md\nnl -ba dashboard.py",
+              "exit_code": 0,
+              "observed_output_excerpt": "23    args = parser.parse_args()\n24    print('ok' if args.health else render(json.loads(args.data.read_text())))",
+              "summary": "Spacing normalized in this excerpt; reviewed full plan and source and corrected the plan's line reference."
+            }
+          ],
+          "file_mutations": {
+            "added": [
+              "PLAN.md"
+            ],
+            "modified": [],
+            "removed": [],
+            "unchanged_dashboard_sha256": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e",
+            "mutation_evidence": "Final direct hash comparison reported only PLAN.md added, no changed or removed original files."
+          },
+          "plan_contents_summary": [
+            "Use the existing revenue_card/render/CLI path; paid orders only, integer cents, exactly two decimals and accessible Revenue name.",
+            "Preserve all-order count, default input path and health short-circuit.",
+            "Acceptance for supplied $15.00, empty $0.00, filtering, cent carry/padding, large integer precision and health independent of data.",
+            "Future commands: python3 -m unittest discover -s tests -v; python3 -m compileall -q dashboard.py tracker.py; python3 dashboard.py --health; python3 dashboard.py.",
+            "Tracker transition deferred to a separately authorized implementation start.",
+            "PLAN.md is the authoritative local plan in the temporary fixture checkout."
+          ],
+          "failed_attempts": [
+            "Optional template read failed with No such file or directory; no replacement asset was installed."
+          ],
+          "limits": [
+            "Implementation, new tests, compile and health checks were planned, not executed for this case.",
+            "PLAN.md remains local to the fixture checkout.",
+            "Missing optional template did not block the requested plan."
+          ],
+          "remaining_required_work": [],
+          "future_work_outside_current_request": [
+            "Implement and execute the plan only when separately authorized."
+          ]
+        },
+        "resume": {
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/baseline/resume",
+          "result": "verification completed",
+          "summary": "Current required checks and actual CLI paths passed. Every original file remained unchanged.",
+          "skills_applied": [
+            "verify"
+          ],
+          "action_trace": [
+            "Read this case's instructions/request, RETURN.json, source, tests, dataset, tracker policy/state and UNRELATED.md; captured hashes.",
+            "Current source matched RETURN.json source_sha256, but historical tested_source_sha256 was all zeros. Did not accept the prior passing claim as current proof.",
+            "Ran the current suite, compile, required health smoke, real default CLI render and health with a nonexistent data path.",
+            "Created .verification-orders.json exclusively inside this project with [] data; ran the real --data CLI and checked exact output.",
+            "Deleted the temporary input in finally cleanup and removed generated local Python caches.",
+            "Final hash comparison found no added, changed or removed files, including source/tests, RETURN.json, tracker and unrelated note."
+          ],
+          "commands": [
+            {
+              "command": "python3 -m unittest discover -s tests -v",
+              "exit_code": 0,
+              "observed_output": "test_counts_all_orders (test_dashboard.OrderCountTests.test_counts_all_orders) ... ok\ntest_empty (test_revenue.RevenueTests.test_empty) ... ok\ntest_paid_only (test_revenue.RevenueTests.test_paid_only) ... ok\n\n----------------------------------------------------------------------\nRan 3 tests in 0.000s\n\nOK\n"
+            },
+            {
+              "command": "python3 -m compileall -q dashboard.py tracker.py",
+              "exit_code": 0,
+              "observed_output": ""
+            },
+            {
+              "command": "python3 dashboard.py --health",
+              "exit_code": 0,
+              "observed_output": "ok\n"
+            },
+            {
+              "command": "python3 dashboard.py",
+              "exit_code": 0,
+              "observed_output": "<main><section aria-label=\"Revenue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>\n"
+            },
+            {
+              "command": "python3 dashboard.py --health --data nonexistent-orders.json",
+              "exit_code": 0,
+              "observed_output": "ok\n"
+            },
+            {
+              "command": "python3 dashboard.py --data .verification-orders.json",
+              "exit_code": 0,
+              "observed_output": "<main><section aria-label=\"Revenue\"><strong>$0.00</strong></section><p>Orders: 0</p></main>\n",
+              "summary": "Temporary [] input; orchestration also reported empty_cli_assertion: passed after exact output comparison."
+            }
+          ],
+          "file_mutations": {
+            "added": [],
+            "modified": [],
+            "removed": [],
+            "generated_and_cleaned": [
+              ".verification-orders.json",
+              "__pycache__",
+              "tests/__pycache__"
+            ],
+            "unchanged_dashboard_sha256": "674a7fd6a7c9e0091e9dd2eed32457dbf388cecf5d5743ffc14ce82dd0943f94",
+            "initial_unrelated_note_sha256": "daa0636af3d1f3d0aaeafd5f69d4d80ace29ca144b5c3c383a94214e5b917b3f",
+            "mutation_evidence": "Final direct hash comparison reported no added, changed or removed files."
+          },
+          "invalidated_prior_evidence": {
+            "historical_command": "python3 -m unittest discover -s tests -v",
+            "historical_claim": "passed",
+            "recorded_source_sha256": "674a7fd6a7c9e0091e9dd2eed32457dbf388cecf5d5743ffc14ce82dd0943f94",
+            "recorded_tested_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "assessment": "Historical test identity did not match final source; new current checks were required and executed."
+          },
+          "failed_attempts": [],
+          "limits": [
+            "Verification-only task: no product or test repair performed.",
+            "RETURN.json was preserved and still contains its stale historical tested-source hash. This record carries the new execution evidence.",
+            "No project-specific verify-* recipe was supplied; existing checks and real CLI paths were used.",
+            "No Git or external delivery."
+          ],
+          "remaining_required_work": []
+        }
+      },
+      "export_observations": [
+        "An initial export assembly attempted to reuse the previous turn's in-session snapshot store. Those keys were unavailable; the script stopped before calling any filesystem tool. This final concise record uses hashes and mutation lists already visible in the transcript instead.",
+        "No rerun, new investigation, fixture mutation, delegation or external operation was used to assemble this export."
+      ]
+    },
+    "candidate": {
+      "trial": "candidate-v1",
+      "evidence_source": "Existing transcript only. No fixture reruns or new investigation for this record.",
+      "arm": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/candidate",
+      "model_context": {
+        "task_declared": "inherited Codex Astra Max",
+        "provenance": "Parent task text; runtime model/effort not independently verified."
+      },
+      "loaded_work_mode": {
+        "entrypoint": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/review-v1/work-mode/SKILL.md",
+        "sha256": "8721fc024e249de6c013761dfb01aa168d380cbd07b42be86d49cb8640babea7",
+        "references_read": []
+      },
+      "specialist_context_root": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/review-v1/context",
+      "common_trace": [
+        "Read each independent project's AGENTS.md and REQUEST.md, source/tests/data, tracker adapter/state and project tracker policy.",
+        "Resolved specialist entrypoints from supplied named context; no installation or delegation.",
+        "Captured initial and final file SHA-256 inventories without Git and compared authorized mutation sets.",
+        "No network, Git, commits, external services or dependency installation."
+      ],
+      "cases": {
+        "implement": {
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/candidate/implement",
+          "result": "Complete: paid-only integer-cent revenue through the actual CLI; default $15.00, empty $0.00, two-decimal display and Revenue aria-label; existing order count and health preserved.",
+          "skills_read": [
+            "work-mode",
+            "issue-workflow",
+            "verify"
+          ],
+          "specialist_references_read": [
+            "issue-workflow/references/identity.md"
+          ],
+          "action_trace": [
+            "Selected direct implementation for a settled bounded request; observed baseline Unavailable.",
+            "Verified actor/workspace/repository, Ready/version 1 twice, then applied/read back work-started before source mutation.",
+            "Changed revenue calculation/formatting and added subprocess coverage for default/alternate data, excluded states, exact cents, large/negative totals and health without data.",
+            "Ran targeted tests, full suite, compile, smoke and default CLI; confirmed one event tied to the original source and the final mutation set."
+          ],
+          "commands": [
+            {
+              "command": "python3 dashboard.py",
+              "exit_code": 0,
+              "observation": "Baseline: Unavailable; Orders: 4."
+            },
+            {
+              "command": "python3 tracker.py identity",
+              "exit_code": 0,
+              "observation": "fixture-agent; revenue-fixture; fixture/dashboard."
+            },
+            {
+              "command": "python3 tracker.py get --ticket REV-21",
+              "runs": [
+                {
+                  "exit_code": 0,
+                  "observation": "Initial: Ready/version 1."
+                },
+                {
+                  "exit_code": 0,
+                  "observation": "Immediate prewrite: Ready/version 1."
+                },
+                {
+                  "exit_code": 0,
+                  "observation": "Readback: In Progress/version 2."
+                }
+              ]
+            },
+            {
+              "command": "python3 tracker.py transition --ticket REV-21 --from-state Ready --to-state 'In Progress' --version 1",
+              "exit_code": 0,
+              "observation": "In Progress/version 2; one work-started event."
+            },
+            {
+              "command": "python3 -m unittest discover -s tests -p test_revenue.py -v",
+              "exit_code": 0,
+              "observation": "3 test methods passed, including 6 data-option subtests."
+            },
+            {
+              "command": "python3 -m unittest discover -s tests -v",
+              "exit_code": 0,
+              "observation": "4 test methods passed, including existing order count."
+            },
+            {
+              "command": "python3 -m compileall -q dashboard.py tracker.py",
+              "exit_code": 0,
+              "observation": "Passed; no output."
+            },
+            {
+              "command": "python3 dashboard.py --health",
+              "exit_code": 0,
+              "observation": "ok"
+            },
+            {
+              "command": "python3 dashboard.py",
+              "exit_code": 0,
+              "observation": "<main><section aria-label=\"Revenue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>"
+            }
+          ],
+          "mutations": {
+            "modified": [
+              "dashboard.py",
+              "tracker.json"
+            ],
+            "added": [
+              "tests/test_revenue.py",
+              "events.jsonl"
+            ],
+            "deleted": [],
+            "final_source_sha256": "7dfcef5ec00cbee0afed048959c585ade796c39a30e037adc77155698b88a9e9",
+            "final_revenue_test_sha256": "62b17554ee94f08d52403499f02a3eb44b1c363a312c0b77b616cba5380886af",
+            "tracker": "Ready/version 1 -> In Progress/version 2",
+            "event_source_sha256": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e"
+          },
+          "failed_checks": [],
+          "limits": [
+            "No project-local verify-app recipe was supplied; configured checks and actual CLI tests establish the covered behavior.",
+            "Changes/evidence remain local to the fixture."
+          ]
+        },
+        "planning_only": {
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/candidate/planning_only",
+          "result": "Complete: PLAN.md contains the approach, acceptance scenarios, future checks, observed baseline and readiness. Product implementation remains future work as requested.",
+          "skills_read": [
+            "work-mode",
+            "planning"
+          ],
+          "specialist_references_read": [],
+          "action_trace": [
+            "Selected planning-only endpoint and inspected existing CLI, placeholder, dataset, tests and tracker policy.",
+            "Ran baseline probes with -B; wrote PLAN.md linking requirements to future work and acceptance checks.",
+            "Confirmed PLAN.md was the sole added file; all pre-existing hashes and Ready/version 1 tracker state were preserved."
+          ],
+          "commands": [
+            {
+              "command": "python3 -B -m unittest discover -s tests -v",
+              "exit_code": 0,
+              "observation": "1 existing order-count test passed; no revenue/CLI acceptance coverage."
+            },
+            {
+              "command": "python3 -B dashboard.py",
+              "exit_code": 0,
+              "observation": "Unavailable; Orders: 4. Baseline evidence, not passing revenue acceptance."
+            }
+          ],
+          "mutations": {
+            "modified": [],
+            "added": [
+              "PLAN.md"
+            ],
+            "deleted": [],
+            "plan_sha256": "9c4af1e84d8b3f3d39701f0cdfeba32027e064c22df7dcf3a665796689fa83ca",
+            "preserved_source_sha256": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e",
+            "tracker": "Ready/version 1 unchanged; no events.jsonl."
+          },
+          "failed_checks": [],
+          "limits": [
+            "Product implementation and its acceptance checks were intentionally not performed.",
+            "PLAN.md is retained only in the local fixture."
+          ]
+        },
+        "resume": {
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/candidate/resume",
+          "result": "Complete: remaining local verification passed; only RETURN.json was refreshed. Implemented behavior and unrelated work were preserved.",
+          "skills_read": [
+            "work-mode",
+            "verify"
+          ],
+          "specialist_references_read": [],
+          "action_trace": [
+            "Reconciled RETURN.json with actual source: implementation hash matched, but its claimed tested source hash was all zeros.",
+            "Reused implementation and rejected stale test evidence; ran fresh suite, compile, smoke, default CLI and temporary CLI assertions.",
+            "Updated RETURN.json with exact checks/outputs, input hashes, coverage, limits and no remaining work; preserved stale evidence separately.",
+            "Confirmed source/tests, UNRELATED.md and In Progress/version 2 tracker state unchanged; no work-started replay."
+          ],
+          "commands": [
+            {
+              "command": "python3 -m unittest discover -s tests -v",
+              "exit_code": 0,
+              "observation": "3 tests passed."
+            },
+            {
+              "command": "python3 -m compileall -q dashboard.py tracker.py",
+              "exit_code": 0,
+              "observation": "Passed; no output."
+            },
+            {
+              "command": "python3 dashboard.py --health",
+              "exit_code": 0,
+              "observation": "ok"
+            },
+            {
+              "command": "python3 dashboard.py",
+              "exit_code": 0,
+              "observation": "<main><section aria-label=\"Revenue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>"
+            },
+            {
+              "command": "python3 -",
+              "stdin": "import json\nfrom pathlib import Path\nimport subprocess\nimport sys\nimport tempfile\n\nroot = Path.cwd()\nscenarios = [\n    ('empty', [], '$0.00', 0),\n    ('non-paid excluded', [{'state': 'paid', 'cents': 1005}, {'state': 'pending', 'cents': 9900}, {'state': 'refunded', 'cents': 8800}], '$10.05', 3),\n    ('integer carry', [{'state': 'paid', 'cents': 96}, {'state': 'paid', 'cents': 5}], '$1.01', 2),\n    ('large exact cents', [{'state': 'paid', 'cents': 1000000000000000001}], '$10000000000000000.01', 1),\n]\nwith tempfile.TemporaryDirectory(dir=root) as directory:\n    data = Path(directory) / 'orders.json'\n    for name, orders, amount, count in scenarios:\n        data.write_text(json.dumps(orders))\n        result = subprocess.run([sys.executable, 'dashboard.py', '--data', str(data)], check=True, text=True, capture_output=True)\n        expected = f'<main><section aria-label=\"Revenue\"><strong>{amount}</strong></section><p>Orders: {count}</p></main>'\n        assert result.stdout.strip() == expected, (name, result.stdout)\n        print(f'PASS {name}: {result.stdout.strip()}')\n    missing = Path(directory) / 'missing.json'\n    result = subprocess.run([sys.executable, 'dashboard.py', '--health', '--data', str(missing)], check=True, text=True, capture_output=True)\n    assert result.stdout.strip() == 'ok', result.stdout\n    print('PASS health without data: ok')\n",
+              "exit_code": 0,
+              "observation": "All 5 CLI assertions passed: empty $0.00/count 0; excluded states $10.05/count 3; carry $1.01/count 2; large $10000000000000000.01/count 1; health without data ok. Exact HTML included Revenue aria-label."
+            }
+          ],
+          "mutations": {
+            "modified": [
+              "RETURN.json"
+            ],
+            "added": [],
+            "deleted": [],
+            "preserved_source_sha256": "674a7fd6a7c9e0091e9dd2eed32457dbf388cecf5d5743ffc14ce82dd0943f94",
+            "preserved_revenue_test_sha256": "3bf8480d8294738a73f02cbfd2ffef5f68cebde197ddd8c94b92d961374379d0",
+            "preserved_unrelated_sha256": "daa0636af3d1f3d0aaeafd5f69d4d80ace29ca144b5c3c383a94214e5b917b3f",
+            "tracker": "In Progress/version 2 unchanged; no events.jsonl."
+          },
+          "failed_checks": [],
+          "rejected_prior_evidence": {
+            "command": "python3 -m unittest discover -s tests -v",
+            "claimed_outcome": "passed",
+            "tested_source_sha256": "0000000000000000000000000000000000000000000000000000000000000000",
+            "reason": "Does not identify actual source; retained in RETURN.json as previous_verification, not accepted as current passing evidence."
+          },
+          "limits": [
+            "No project-local verify-app recipe was supplied; configured checks and direct CLI probes establish listed behavior.",
+            "Evidence remains local to the fixture."
+          ]
+        }
+      },
+      "already_observed_cache_effects": {
+        "compile": "Both compileall commands exited 0 without output.",
+        "inventories": "No __pycache__ files appeared in captured initial/final fixture inventories.",
+        "cleanup": "A cleanup pass limited to implement/resume __pycache__ directories printed no removal messages.",
+        "limit": "Bytecode destinations/environment cache settings were not investigated; fixture inventories do not establish that no cache was written elsewhere."
+      },
+      "retained_final_validation": [
+        "Initial/final SHA-256 comparison found only listed per-case mutations and no deletions.",
+        "Current resume input hashes matched RETURN.json; prior all-zero tested hash remained separately preserved.",
+        "Planning/resume had no events.jsonl and retained Ready/In Progress respectively."
+      ],
+      "evidence_recording_note": "An initial in-memory assembly attempt failed with TypeError before any filesystem tool call because prior-turn tool stores were unavailable. This record was reconstructed from the existing transcript; fixtures were not rerun or modified."
+    },
+    "revision": {
+      "task": "Implement fixture://revenue/REV-21 locally",
+      "status": "complete",
+      "fixture": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement",
+      "frozen_entrypoint": {
+        "path": ".tmp/work-mode/review-v2/work-mode/SKILL.md",
+        "sha256": "19c529fbaa043fc6f44679f7139f21abefd39214ee95f7b5482e5fe24c92ded0"
+      },
+      "request_sha256": "0b729a3978d7f52bf8e560fe53fcd1d1612b28a792fcf65a29250e5e1e9eb674",
+      "source_snapshot": {
+        "before": {
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "REQUEST.md": "0b729a3978d7f52bf8e560fe53fcd1d1612b28a792fcf65a29250e5e1e9eb674",
+          "dashboard.py": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "tests/test_dashboard.py": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "tracker.json": "b31a281b097e8c87306a39f72b0a97dd95d787d333052f08f52cd02096cbad7d",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e"
+        },
+        "after": {
+          "AGENTS.md": "cb5b5d9f156cd953b66306fa17447dfe0a315f89cf21d9f85f14dd2ccbf46d6c",
+          "REQUEST.md": "0b729a3978d7f52bf8e560fe53fcd1d1612b28a792fcf65a29250e5e1e9eb674",
+          "dashboard.py": "30182995b42d8978698c11cfe123af942e94c73ca517a3b2338776ea4c8ef5e7",
+          "docs/agents/issue-tracker.md": "ced41098c815074139f2b793b7760a1620d0fd74b270e4667373b898c56a9df3",
+          "events.jsonl": "7732f70c83926d9a224e11300af7c7beabbfb75e3cdffba176aab1ff54f36f8b",
+          "orders.json": "56f114a103ff8be077ab9d5083dd782cbff2fe79b027b13c0f5e98b8666b6dff",
+          "tests/test_dashboard.py": "0801ca01580ff77fb205f45179bf7b81df80d6f6cc2d4840dfa5c61f997cae57",
+          "tracker.json": "094b10c7c183d226f876adeb91eb7f24460e1827d1ee31ff540478b2a2f0853d",
+          "tracker.py": "23cf36488964f86c20ca899538dfebb3778d6f18d1a9c148bf45164f2be2715e"
+        }
+      },
+      "instructions_read": [
+        ".tmp/work-mode/evaluation/revision/implement/AGENTS.md",
+        ".tmp/work-mode/evaluation/revision/implement/REQUEST.md",
+        ".tmp/work-mode/evaluation/revision/implement/docs/agents/issue-tracker.md",
+        ".tmp/work-mode/review-v2/context/issue-workflow/SKILL.md",
+        ".tmp/work-mode/review-v2/context/issue-workflow/references/identity.md",
+        ".tmp/work-mode/review-v2/context/verify/SKILL.md",
+        "/Users/lurrutia/.agents/skills/communicate-clearly/SKILL.md"
+      ],
+      "environment": {
+        "python_executable": "/Library/Developer/CommandLineTools/usr/bin/python3",
+        "python_version": "3.9.6 (default, Aug 25 2026, 21:26:21) \n[Clang 21.0.0 (clang-2100.3.34.2)]",
+        "orca_managed": false,
+        "machine_local_rules": "~/.agents/AGENTS_LOCAL.md absent"
+      },
+      "route": [
+        "Read the selected request and fixture policy; inspected existing source, tests, dataset, tracker adapter and initial file hashes.",
+        "Selected direct implementation because scope and behavior were settled. Git preflight was excluded by the explicit no-Git trial authority.",
+        "Applied supplied issue-workflow inline before source/test edits: verified actor, target identity, Ready/version 1 guard; transitioned and read back In Progress/version 2.",
+        "Implemented integer-cent revenue rendering and actual CLI behavioral coverage.",
+        "Applied supplied verify inline. Ran configured behavioral, compile and adjacent smoke checks plus the default render entry point; inspected final source and tests.",
+        "Recorded and repaired the fixture-owned bytecode cache deviation with parent authorization; reran compilation with a fixture-local prefix and removed generated bytecode.",
+        "Saved this report; stopped at the local endpoint."
+      ],
+      "mutations": [
+        {
+          "path": "dashboard.py",
+          "status": "modified",
+          "before_sha256": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e",
+          "after_sha256": "30182995b42d8978698c11cfe123af942e94c73ca517a3b2338776ea4c8ef5e7"
+        },
+        {
+          "path": "events.jsonl",
+          "status": "added",
+          "before_sha256": null,
+          "after_sha256": "7732f70c83926d9a224e11300af7c7beabbfb75e3cdffba176aab1ff54f36f8b"
+        },
+        {
+          "path": "tests/test_dashboard.py",
+          "status": "modified",
+          "before_sha256": "7e83e8ac6009432b1dc88207ca677d557edc3fffcbe609768b5a6aa613857e2a",
+          "after_sha256": "0801ca01580ff77fb205f45179bf7b81df80d6f6cc2d4840dfa5c61f997cae57"
+        },
+        {
+          "path": "tracker.json",
+          "status": "modified",
+          "before_sha256": "b31a281b097e8c87306a39f72b0a97dd95d787d333052f08f52cd02096cbad7d",
+          "after_sha256": "094b10c7c183d226f876adeb91eb7f24460e1827d1ee31ff540478b2a2f0853d"
+        }
+      ],
+      "tracker_event": {
+        "url": "fixture://revenue/REV-21",
+        "event": "work-started",
+        "owner": "agent",
+        "actor": "fixture-agent",
+        "policy": "docs/agents/issue-tracker.md",
+        "rule": "Ready -> In Progress when implementation starts",
+        "before": {
+          "state": "Ready",
+          "version": 1
+        },
+        "after": {
+          "state": "In Progress",
+          "version": 2
+        },
+        "outcome": "changed",
+        "receipt": "events.jsonl",
+        "receipt_source_sha256": "11b08f9c85737a39e590aa912d5455ac4cc63e83d33c17e0357a9b6844e2885e",
+        "event_preceded_source_and_test_edits": true,
+        "later_events": "Outside fixture scope; no further transitions attempted."
+      },
+      "commands": [
+        {
+          "command": "python3 tracker.py identity",
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement",
+          "exit_code": 0,
+          "output": "{\"actor\": \"fixture-agent\", \"workspace\": \"revenue-fixture\", \"repository\": \"fixture/dashboard\"}\n"
+        },
+        {
+          "command": "python3 tracker.py get --ticket REV-21",
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement",
+          "exit_code": 0,
+          "output": "{\"id\": \"REV-21\", \"url\": \"fixture://revenue/REV-21\", \"workspace\": \"revenue-fixture\", \"repository\": \"fixture/dashboard\", \"state\": \"Ready\", \"version\": 1}\n"
+        },
+        {
+          "command": "python3 dashboard.py",
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement",
+          "exit_code": 0,
+          "output": "<main><section aria-label=\"Revenue\"><strong>Unavailable</strong></section><p>Orders: 4</p></main>\n"
+        },
+        {
+          "command": "python3 tracker.py transition --ticket REV-21 --from-state Ready --to-state 'In Progress' --version 1",
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement",
+          "exit_code": 0,
+          "output": "{\"id\": \"REV-21\", \"url\": \"fixture://revenue/REV-21\", \"workspace\": \"revenue-fixture\", \"repository\": \"fixture/dashboard\", \"state\": \"In Progress\", \"version\": 2}\n"
+        },
+        {
+          "command": "python3 tracker.py get --ticket REV-21",
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement",
+          "exit_code": 0,
+          "output": "{\"id\": \"REV-21\", \"url\": \"fixture://revenue/REV-21\", \"workspace\": \"revenue-fixture\", \"repository\": \"fixture/dashboard\", \"state\": \"In Progress\", \"version\": 2}\n"
+        },
+        {
+          "command": "python3 -m unittest discover -s tests -v",
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement",
+          "exit_code": 0,
+          "output": "test_counts_all_orders (test_dashboard.OrderCountTests) ... ok\ntest_empty_orders_render_zero (test_dashboard.RevenueCliTests) ... ok\ntest_health_does_not_require_an_orders_file (test_dashboard.RevenueCliTests) ... ok\ntest_large_totals_preserve_integer_cent_precision (test_dashboard.RevenueCliTests) ... ok\ntest_no_paid_orders_render_zero (test_dashboard.RevenueCliTests) ... ok\ntest_only_exact_paid_state_contributes_to_revenue (test_dashboard.RevenueCliTests) ... ok\ntest_supplied_orders_render_accessible_revenue_and_order_count (test_dashboard.RevenueCliTests) ... ok\n\n----------------------------------------------------------------------\nRan 7 tests in 0.121s\n\nOK\n"
+        },
+        {
+          "command": "python3 -m compileall -q dashboard.py tracker.py",
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement",
+          "exit_code": 0,
+          "output": ""
+        },
+        {
+          "command": "python3 dashboard.py --health",
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement",
+          "exit_code": 0,
+          "output": "ok\n"
+        },
+        {
+          "command": "python3 dashboard.py",
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement",
+          "exit_code": 0,
+          "output": "<main><section aria-label=\"Revenue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>\n"
+        },
+        {
+          "command": "PYTHONPYCACHEPREFIX=\"$PWD/.pycache\" python3 -B -m compileall -q dashboard.py tracker.py",
+          "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement",
+          "exit_code": 0,
+          "output": ""
+        }
+      ],
+      "verification": {
+        "behavior": "7 discovered tests passed, including 6 tests driving the actual CLI.",
+        "acceptance": [
+          {
+            "criterion": "Supplied dataset, paid orders only",
+            "observed": "CLI returned Revenue $15.00 and Orders: 4."
+          },
+          {
+            "criterion": "Empty data",
+            "observed": "CLI behavioral test passed for $0.00 and Orders: 0."
+          },
+          {
+            "criterion": "Exclude non-paid states",
+            "observed": "CLI tests passed for pending, refunded, cancelled and uppercase PAID; no paid orders returned $0.00."
+          },
+          {
+            "criterion": "Exactly two decimal places from integer cents",
+            "observed": "CLI tests passed for $0.01, $15.00, $0.00 and a large exact total $90071992547410.02."
+          },
+          {
+            "criterion": "Accessible Revenue label",
+            "observed": "Default CLI output contains section aria-label=\"Revenue\"."
+          },
+          {
+            "criterion": "Preserve order count",
+            "observed": "Existing count test and CLI count assertions passed."
+          },
+          {
+            "criterion": "Preserve health",
+            "observed": "Configured smoke returned ok; CLI health test passed with an absent orders file."
+          }
+        ],
+        "compilation": "Both the prescribed command and fixture-local cache rerun exited 0.",
+        "review": "Inspected actual final source and tests against the scoped request; no remaining findings.",
+        "required_coverage_gaps": []
+      },
+      "unavailable_prerequisites": [
+        {
+          "name": "Project-local verify-<app> skill",
+          "blocking": false,
+          "outcome": "No named recipe was supplied or present in the fixture. Used existing configured checks and actual CLI paths as the verify skill directs; all requested acceptance paths have current evidence."
+        }
+      ],
+      "cache_deviation": {
+        "initial_configuration": {
+          "pycache_prefix": "/Users/lurrutia/Library/Caches/com.apple.python",
+          "dont_write_bytecode": false
+        },
+        "issue": "Initial Python checks used the platform default cache prefix outside the fixture and created bytecode for this fixture.",
+        "recorded_artifacts": [
+          {
+            "source": "dashboard.py",
+            "cache_path": "/Users/lurrutia/Library/Caches/com.apple.python/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement/dashboard.cpython-39.pyc",
+            "exists": true,
+            "sha256": "f874deaa187a38c05bb5c321ccf9a92dc998aa68e9b43cd98218570d807ad2e0"
+          },
+          {
+            "source": "tracker.py",
+            "cache_path": "/Users/lurrutia/Library/Caches/com.apple.python/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement/tracker.cpython-39.pyc",
+            "exists": true,
+            "sha256": "1163ba24ef6ded4f57a5da70e4601b5530d4f2e3373187e7586ba8b9180d26fc"
+          },
+          {
+            "source": "tests/test_dashboard.py",
+            "cache_path": "/Users/lurrutia/Library/Caches/com.apple.python/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement/tests/test_dashboard.cpython-39.pyc",
+            "exists": true,
+            "sha256": "cc9d3dfbaf7b4d58d9d17c464514d8a1b60552bc1a1d70bb0151a5fa094df756"
+          }
+        ],
+        "cleanup_authority": "Parent explicitly authorized removal of only exact generated cache files whose sources are in this unique revision/implement fixture.",
+        "cleanup": "All three recorded fixture-owned cache files were hash-checked and removed. Shared/interpreter caches were not touched.",
+        "repeat_compile_command": "PYTHONPYCACHEPREFIX=\"$PWD/.pycache\" python3 -B -m compileall -q dashboard.py tracker.py",
+        "repeat_compile_exit_code": 0,
+        "final_cleanup": "Removed the fixture-local .pycache directory after recording its two generated files."
+      },
+      "prohibited_operations": {
+        "git": false,
+        "network": false,
+        "actual_tracker_service": false,
+        "pr": false,
+        "host_watch": false,
+        "dependencies_installed": false,
+        "delegation": false
+      },
+      "remaining_scope": [],
+      "final_result": "Completed the local revenue card, behavioral coverage and configured checks. Tracker is In Progress under its work-started-only policy. No commit, PR or later tracker event is part of this endpoint.",
+      "retention": "This execution report is local .tmp evidence only.",
+      "run_commands": {
+        "fresh": "cd /Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement && rm -rf .pycache __pycache__ tests/__pycache__ && python3 -B dashboard.py",
+        "quick": "cd /Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/revision/implement && python3 -B dashboard.py"
+      }
+    },
+    "heldout": {
+      "cases": {
+        "diagnosis_only": {
+          "case": "diagnosis_only",
+          "checks": [
+            {
+              "command": [
+                "python3",
+                "dashboard.py",
+                "--data",
+                "orders.json"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/diagnosis_only",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "exit_code": 0,
+              "stdout": "<main><section aria-label=\"Revenue\"><strong>$203.00</strong></section><p>Orders: 4</p></main>\n",
+              "stderr": ""
+            },
+            {
+              "command": [
+                "python3",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-v"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/diagnosis_only",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "exit_code": 0,
+              "stdout": "",
+              "stderr": "test_counts_all_orders (test_dashboard.OrderCountTests) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.000s\n\nOK\n"
+            },
+            {
+              "command": [
+                "python3",
+                "dashboard.py",
+                "--health"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/diagnosis_only",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "exit_code": 0,
+              "stdout": "ok\n",
+              "stderr": ""
+            },
+            {
+              "command": [
+                "python3",
+                "-c",
+                "import json\nfrom pathlib import Path\nfrom dashboard import revenue_card\norders = json.loads(Path(\"orders.json\").read_text())\nprint(\"all_cents=\" + str(sum(order[\"cents\"] for order in orders)))\nprint(\"paid_cents=\" + str(sum(order[\"cents\"] for order in orders if order[\"state\"] == \"paid\")))\nprint(\"non_paid_cents=\" + str(sum(order[\"cents\"] for order in orders if order[\"state\"] != \"paid\")))\nfor state in [\"paid\", \"refunded\", \"pending\"]:\n    print(state + \"=\" + revenue_card([{\"state\": state, \"cents\": 100}]))\n"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/diagnosis_only",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "exit_code": 0,
+              "stdout": "all_cents=20300\npaid_cents=1500\nnon_paid_cents=18800\npaid=<section aria-label=\"Revenue\"><strong>$1.00</strong></section>\nrefunded=<section aria-label=\"Revenue\"><strong>$1.00</strong></section>\npending=<section aria-label=\"Revenue\"><strong>$1.00</strong></section>\n",
+              "stderr": ""
+            }
+          ],
+          "mutations": [],
+          "route": [
+            "work-mode",
+            "debug"
+          ],
+          "endpoint": "Supported diagnosis only",
+          "status": "complete",
+          "final_user_facing_result": "Supported diagnosis: dashboard.py:8 sums every order's cents without checking state. The supplied data totals 20,300 cents ($203.00): paid orders contribute 1,500 cents ($15.00), while refunded and pending orders contribute 18,800 cents ($188.00). An isolated probe changing only the state from paid to refunded or pending still produced $1.00, confirming that the aggregation ignores state.\n\nChecks in the diagnosis_only fixture, with PYTHONDONTWRITEBYTECODE=1: `python3 dashboard.py --data orders.json` reproduced $203.00 (exit 0); `python3 -m unittest discover -s tests -v` passed its single order-count test (exit 0); `python3 dashboard.py --health` returned `ok` (exit 0). The exact isolated probe and output are retained in this record. The existing test does not cover revenue.\n\nDiagnosis is complete. No repair or tracker event was attempted. SHA-256 inventories before and after show every fixture file unchanged.",
+          "limits": [
+            "No repair was authorized or performed.",
+            "No Git, network, real tracker, PR, host-watch, or dependency operation was performed.",
+            "Passing existing tests covers order_count only; revenue failure was reproduced independently."
+          ]
+        },
+        "repair_blocked_tracker": {
+          "case": "repair_blocked_tracker",
+          "checks": [
+            {
+              "phase": "independent investigation and event identity",
+              "command": [
+                "python3",
+                "dashboard.py",
+                "--data",
+                "orders.json"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "exit_code": 0,
+              "stdout": "<main><section aria-label=\"Revenue\"><strong>$203.00</strong></section><p>Orders: 4</p></main>\n",
+              "stderr": ""
+            },
+            {
+              "phase": "independent investigation and event identity",
+              "command": [
+                "python3",
+                "-c",
+                "from dashboard import revenue_card\nfor state in [\"paid\", \"refunded\", \"pending\"]:\n    print(state + \"=\" + revenue_card([{\"state\": state, \"cents\": 100}]))"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "exit_code": 0,
+              "stdout": "paid=<section aria-label=\"Revenue\"><strong>$1.00</strong></section>\nrefunded=<section aria-label=\"Revenue\"><strong>$1.00</strong></section>\npending=<section aria-label=\"Revenue\"><strong>$1.00</strong></section>\n",
+              "stderr": ""
+            },
+            {
+              "phase": "independent investigation and event identity",
+              "command": [
+                "python3",
+                "tracker.py",
+                "identity"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "exit_code": 0,
+              "stdout": "{\"actor\": \"fixture-agent\", \"workspace\": \"revenue-fixture\", \"repository\": \"fixture/dashboard\"}\n",
+              "stderr": ""
+            },
+            {
+              "phase": "independent investigation and event identity",
+              "command": [
+                "python3",
+                "tracker.py",
+                "get",
+                "--ticket",
+                "REV-21"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "exit_code": 0,
+              "stdout": "{\"id\": \"REV-21\", \"url\": \"fixture://revenue/REV-21\", \"workspace\": \"revenue-fixture\", \"repository\": \"fixture/dashboard\", \"state\": \"Ready\", \"version\": 1}\n",
+              "stderr": ""
+            },
+            {
+              "phase": "work-started before first source or test edit",
+              "command": [
+                "python3",
+                "tracker.py",
+                "get",
+                "--ticket",
+                "REV-21"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "exit_code": 0,
+              "stdout": "{\"id\": \"REV-21\", \"url\": \"fixture://revenue/REV-21\", \"workspace\": \"revenue-fixture\", \"repository\": \"fixture/dashboard\", \"state\": \"Ready\", \"version\": 1}\n",
+              "stderr": ""
+            },
+            {
+              "phase": "work-started before first source or test edit",
+              "command": [
+                "python3",
+                "tracker.py",
+                "transition",
+                "--ticket",
+                "REV-21",
+                "--from-state",
+                "Ready",
+                "--to-state",
+                "In Progress",
+                "--version",
+                "1"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "exit_code": 1,
+              "stdout": "",
+              "stderr": "fixture tracker unavailable: transition service offline\n"
+            },
+            {
+              "phase": "work-started before first source or test edit",
+              "command": [
+                "python3",
+                "tracker.py",
+                "get",
+                "--ticket",
+                "REV-21"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "exit_code": 0,
+              "stdout": "{\"id\": \"REV-21\", \"url\": \"fixture://revenue/REV-21\", \"workspace\": \"revenue-fixture\", \"repository\": \"fixture/dashboard\", \"state\": \"Ready\", \"version\": 1}\n",
+              "stderr": ""
+            },
+            {
+              "phase": "regression before production repair",
+              "command": [
+                "python3",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-v"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "exit_code": 1,
+              "stdout": "",
+              "stderr": "test_counts_all_orders (test_dashboard.OrderCountTests) ... ok\ntest_excludes_all_non_paid_orders_but_preserves_count (test_dashboard.RevenueTests) ... FAIL\ntest_formats_paid_revenue_with_two_decimal_places (test_dashboard.RevenueTests) ... ok\ntest_renders_paid_revenue_and_counts_all_fixture_orders (test_dashboard.RevenueTests) ... FAIL\ntest_renders_zero_revenue_for_empty_orders (test_dashboard.RevenueTests) ... ok\n\n======================================================================\nFAIL: test_excludes_all_non_paid_orders_but_preserves_count (test_dashboard.RevenueTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker/tests/test_dashboard.py\", line 37, in test_excludes_all_non_paid_orders_but_preserves_count\n    self.assertEqual(actual, '<main><section aria-label=\"Revenue\"><strong>$0.00</strong></section><p>Orders: 2</p></main>')\nAssertionError: '<mai[26 chars]enue\"><strong>$11.00</strong></section><p>Orders: 2</p></main>' != '<mai[26 chars]enue\"><strong>$0.00</strong></section><p>Orders: 2</p></main>'\n- <main><section aria-label=\"Revenue\"><strong>$11.00</strong></section><p>Orders: 2</p></main>\n?                                              ^^\n+ <main><section aria-label=\"Revenue\"><strong>$0.00</strong></section><p>Orders: 2</p></main>\n?                                              ^\n\n\n======================================================================\nFAIL: test_renders_paid_revenue_and_counts_all_fixture_orders (test_dashboard.RevenueTests)\n----------------------------------------------------------------------\nTraceback (most recent call last):\n  File \"/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker/tests/test_dashboard.py\", line 23, in test_renders_paid_revenue_and_counts_all_fixture_orders\n    self.assertEqual(actual, '<main><section aria-label=\"Revenue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>')\nAssertionError: '<mai[27 chars]nue\"><strong>$203.00</strong></section><p>Orders: 4</p></main>' != '<mai[27 chars]nue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>'\n- <main><section aria-label=\"Revenue\"><strong>$203.00</strong></section><p>Orders: 4</p></main>\n?                                              ^^^\n+ <main><section aria-label=\"Revenue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>\n?                                              ^^\n\n\n----------------------------------------------------------------------\nRan 5 tests in 0.001s\n\nFAILED (failures=2)\n"
+            },
+            {
+              "phase": "verification after production repair",
+              "command": [
+                "python3",
+                "-m",
+                "unittest",
+                "discover",
+                "-s",
+                "tests",
+                "-v"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "stdin": null,
+              "exit_code": 0,
+              "stdout": "",
+              "stderr": "test_counts_all_orders (test_dashboard.OrderCountTests) ... ok\ntest_excludes_all_non_paid_orders_but_preserves_count (test_dashboard.RevenueTests) ... ok\ntest_formats_paid_revenue_with_two_decimal_places (test_dashboard.RevenueTests) ... ok\ntest_renders_paid_revenue_and_counts_all_fixture_orders (test_dashboard.RevenueTests) ... ok\ntest_renders_zero_revenue_for_empty_orders (test_dashboard.RevenueTests) ... ok\n\n----------------------------------------------------------------------\nRan 5 tests in 0.000s\n\nOK\n"
+            },
+            {
+              "phase": "verification after production repair",
+              "command": [
+                "python3",
+                "-m",
+                "compileall",
+                "-q",
+                "dashboard.py",
+                "tracker.py"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "stdin": null,
+              "exit_code": 0,
+              "stdout": "",
+              "stderr": ""
+            },
+            {
+              "phase": "verification after production repair",
+              "command": [
+                "python3",
+                "dashboard.py",
+                "--health"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "stdin": null,
+              "exit_code": 0,
+              "stdout": "ok\n",
+              "stderr": ""
+            },
+            {
+              "phase": "verification after production repair",
+              "command": [
+                "python3",
+                "dashboard.py",
+                "--data",
+                "orders.json"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "stdin": null,
+              "exit_code": 0,
+              "stdout": "<main><section aria-label=\"Revenue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>\n",
+              "stderr": ""
+            },
+            {
+              "phase": "verification after production repair",
+              "command": [
+                "python3",
+                "dashboard.py",
+                "--data",
+                "/dev/stdin"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1"
+              },
+              "stdin": "[]",
+              "exit_code": 0,
+              "stdout": "<main><section aria-label=\"Revenue\"><strong>$0.00</strong></section><p>Orders: 0</p></main>\n",
+              "stderr": ""
+            },
+            {
+              "phase": "compile with explicit fixture-local output",
+              "command": [
+                "python3",
+                "-m",
+                "compileall",
+                "-q",
+                "dashboard.py",
+                "tracker.py"
+              ],
+              "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker",
+              "environment": {
+                "PYTHONDONTWRITEBYTECODE": "1",
+                "PYTHONPYCACHEPREFIX": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker/.evaluation-pycache-uw_xt29x"
+              },
+              "exit_code": 0,
+              "stdout": "",
+              "stderr": ""
+            }
+          ],
+          "tracker_final": {
+            "id": "REV-21",
+            "url": "fixture://revenue/REV-21",
+            "workspace": "revenue-fixture",
+            "repository": "fixture/dashboard",
+            "state": "Ready",
+            "version": 1
+          },
+          "mutations": [
+            "dashboard.py",
+            "tests/test_dashboard.py"
+          ],
+          "route": [
+            "work-mode",
+            "debug",
+            "issue-workflow",
+            "verify"
+          ],
+          "endpoint": "Local paid-only Revenue repair with required checks; preserve order count and health",
+          "status": "local repair complete; configured tracker synchronization blocked",
+          "final_user_facing_result": "The local repair is verified: the Revenue card now totals paid orders only. orders.json produces $15.00 with Orders: 4; empty input produces $0.00 with Orders: 0. The production change is dashboard.py:8; four regression cases were added in tests/test_dashboard.py.\n\nChecks from this fixture, with PYTHONDONTWRITEBYTECODE=1: `python3 -m unittest discover -s tests -v` first failed on the two revenue cases, then passed all five tests after the repair; `python3 -m compileall -q dashboard.py tracker.py` passed; `python3 dashboard.py --health` returned `ok`; `python3 dashboard.py --data orders.json` returned $15.00; `python3 dashboard.py --data /dev/stdin` with stdin `[]` returned $0.00. All final checks exited 0. Compilation was repeated successfully with a fixture-local PYTHONPYCACHEPREFIX and its temporary output was removed. The first compile wrote two source-specific files to macOS's default user cache; their exact paths are recorded and they were removed with explicit parent authorization.\n\nThe configured work-started transition was attempted before source or test edits, but exited 1 with `fixture tracker unavailable: transition service offline`. Read-back confirms REV-21 remains Ready, version 1. Source repair is complete; tracker synchronization remains blocked until the service is restored and the authorized tracker owner rechecks the guarded transition. Tracker code, state and policy are unchanged; no event receipt was fabricated.\n\nFresh:\n\n```sh\npython3 -B - <<'PY'\nfrom pathlib import Path\nimport shutil\nimport subprocess\n\nfixture = Path('/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker')\nfor path in fixture.rglob('__pycache__'):\n    shutil.rmtree(path)\nraise SystemExit(subprocess.run(['python3', '-B', str(fixture / 'dashboard.py'), '--data', str(fixture / 'orders.json')], stdin=subprocess.DEVNULL).returncode)\nPY\n```\n\nQuick:\n\n```sh\npython3 -B /Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker/dashboard.py --data /Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/heldout/repair_blocked_tracker/orders.json\n```",
+          "limits": [
+            "No project-local verify recipe was supplied; the existing behavioral, compile, CLI and smoke checks were used directly.",
+            "The configured tracker transition failed and remains incomplete. This is a local fixture result, not live tracker integration proof.",
+            "Git state was not inspected, and no commits, publication, network, new tools, delegation or workflow configuration were performed under the fixture restrictions.",
+            "The first compile emitted two source-specific bytecode files outside the fixture via macOS Python's default cache prefix. The paths and their later authorized cleanup are retained; this deviation is not omitted from the evidence."
+          ]
+        }
+      }
+    }
+  },
+  "selection": {
+    "requests": [
+      {
+        "id": "coordinate_feature",
+        "request": "Carry the selected dashboard card through implementation, verification and the requested draft PR."
+      },
+      {
+        "id": "resume",
+        "request": "Resume this feature from its handoff and finish the remaining authorized work."
+      },
+      {
+        "id": "fresh_ticket",
+        "request": "Implement ticket REV-21: one revenue statistics card with its data path and tests. Keep it local."
+      },
+      {
+        "id": "direct_debug",
+        "request": "Use debug to diagnose this failure; do not repair it."
+      },
+      {
+        "id": "direct_review",
+        "request": "Review this patch read-only for defects."
+      },
+      {
+        "id": "plan_only",
+        "request": "Write an implementation plan for the selected feature, then stop."
+      },
+      {
+        "id": "breakdown",
+        "request": "Split this large plan into small testable PR-sized tasks."
+      },
+      {
+        "id": "explanation",
+        "request": "Explain how this parser handles invalid input."
+      },
+      {
+        "id": "thanks",
+        "request": "Thanks, that answers my question."
+      }
+    ],
+    "observed": {
+      "probe": "description-only selection; no skill bodies or behavior cases read",
+      "results": [
+        {
+          "id": "coordinate_feature",
+          "primary_skills": [
+            "work-mode"
+          ],
+          "reason": "The request explicitly coordinates implementation, verification, and a draft PR through the authorized outcome."
+        },
+        {
+          "id": "resume",
+          "primary_skills": [
+            "work-mode"
+          ],
+          "reason": "The request resumes development from a handoff and asks to finish its remaining authorized phases."
+        },
+        {
+          "id": "fresh_ticket",
+          "primary_skills": [
+            "issue-workflow",
+            "work-mode"
+          ],
+          "reason": "issue-workflow owns starting implementation from the ticket; work-mode owns carrying implementation and tests to the requested local outcome."
+        },
+        {
+          "id": "direct_debug",
+          "primary_skills": [
+            "debug"
+          ],
+          "reason": "The user names debug and limits the request to diagnosis; a specialist can own that bounded task directly."
+        },
+        {
+          "id": "direct_review",
+          "primary_skills": [
+            "review-code-changes"
+          ],
+          "reason": "The request is a bounded read-only defect review of a patch."
+        },
+        {
+          "id": "plan_only",
+          "primary_skills": [
+            "planning"
+          ],
+          "reason": "The requested deliverable is an implementation plan with an explicit stop before execution."
+        },
+        {
+          "id": "breakdown",
+          "primary_skills": [
+            "task-breakdown"
+          ],
+          "reason": "The request directly asks for small, testable, PR-sized tasks derived from a large plan."
+        },
+        {
+          "id": "explanation",
+          "primary_skills": [
+            "explain-code"
+          ],
+          "reason": "The request asks how existing parser behavior works, without requesting changes."
+        },
+        {
+          "id": "thanks",
+          "primary_skills": [],
+          "reason": "This is an acknowledgment and authorizes no further task."
+        }
+      ],
+      "limits": [
+        "Description matching does not demonstrate automatic host activation."
+      ]
+    },
+    "expectations": {
+      "coordinate_feature": "work-mode",
+      "resume": "work-mode",
+      "fresh_ticket": "work-mode plus issue-workflow if selected",
+      "direct_debug": "debug without work-mode",
+      "direct_review": "review-code-changes without work-mode",
+      "plan_only": "planning without work-mode",
+      "breakdown": "task-breakdown without work-mode",
+      "explanation": "explain-code without work-mode",
+      "thanks": "none"
+    },
+    "verdict": "All nine description-only probes matched their expected owner sets; automatic host invocation remains untested."
+  },
+  "suppliedStateDecisions": {
+    "cases": [
+      {
+        "id": "stack_agent_event",
+        "request": "Finish the already-authorized creation of this two-layer stack. No follow-up was requested.",
+        "observed": {
+          "stacked_pr_return": {
+            "published": true,
+            "verified_layers": [
+              {
+                "pr": "fixture://pr/11",
+                "base": "main",
+                "head": "a1",
+                "relation": "contributing"
+              },
+              {
+                "pr": "fixture://pr/12",
+                "base": "layer-a",
+                "head": "b1",
+                "relation": "completing"
+              }
+            ],
+            "checks": "passed"
+          },
+          "ticket": "fixture://ticket/T-8",
+          "policy": {
+            "event": "pr-created",
+            "owner": "agent",
+            "from": "In Progress",
+            "to": "Review",
+            "guard": "all required layers published"
+          },
+          "ticket_state": "In Progress",
+          "ticket_event_receipts": []
+        }
+      },
+      {
+        "id": "stack_native_event",
+        "request": "Finish the already-authorized creation of this two-layer stack. No follow-up was requested.",
+        "observed": {
+          "stacked_pr_return": {
+            "published": true,
+            "verified_layers": [
+              {
+                "pr": "fixture://pr/11",
+                "base": "main",
+                "head": "a1",
+                "relation": "contributing"
+              },
+              {
+                "pr": "fixture://pr/12",
+                "base": "layer-a",
+                "head": "b1",
+                "relation": "completing"
+              }
+            ],
+            "checks": "passed"
+          },
+          "ticket": "fixture://ticket/T-8",
+          "policy": {
+            "event": "pr-created",
+            "owner": "native rule sync-stack",
+            "enabled": true,
+            "from": "In Progress",
+            "to": "Review",
+            "guard": "all required layers published"
+          },
+          "ticket_state": "In Progress",
+          "ticket_event_receipts": []
+        }
+      },
+      {
+        "id": "single_drive_owner",
+        "request": "Finish this feature and create its PR.",
+        "observed": {
+          "pr_return": {
+            "url": "fixture://pr/31",
+            "state": "draft",
+            "head": "c1",
+            "base": "m1",
+            "publication": "verified",
+            "followup": "Drive waiting",
+            "watch_owner": "parent",
+            "watch_id": "fixture-watch-31",
+            "ci": "running",
+            "approval": null
+          },
+          "local_checks": "passed"
+        }
+      },
+      {
+        "id": "create_only",
+        "request": "Create the PR only. Stop after publication.",
+        "observed": {
+          "pr_return": {
+            "url": "fixture://pr/32",
+            "state": "draft",
+            "head": "d1",
+            "base": "m1",
+            "publication": "verified"
+          },
+          "local_checks": "passed",
+          "ci": "running"
+        }
+      },
+      {
+        "id": "keep_draft",
+        "request": "Create the PR and keep it draft while you handle feedback.",
+        "observed": {
+          "pr_return": {
+            "url": "fixture://pr/33",
+            "state": "draft",
+            "head": "e1",
+            "base": "m1",
+            "publication": "verified",
+            "followup": "Drive waiting",
+            "watch_owner": "parent",
+            "watch_id": "fixture-watch-33"
+          },
+          "ci": "green",
+          "feedback": [],
+          "approval": null
+        }
+      },
+      {
+        "id": "stale_cap",
+        "request": "Publish the selected unit under its explicit 400 changed-line cap.",
+        "observed": {
+          "cap": 400,
+          "cap_source": "task record",
+          "prior_check": {
+            "verdict": "within-cap",
+            "base": "m1",
+            "head": "f1",
+            "count": 390
+          },
+          "current_base": "m1",
+          "current_head": "f2",
+          "new_review_fix": "changed source and tests",
+          "current_diff_access": "unavailable"
+        }
+      },
+      {
+        "id": "no_numeric_cap",
+        "request": "Publish this coherent migration unit.",
+        "observed": {
+          "review_budget": "coherent human review",
+          "numeric_cap": null,
+          "diff_additions_plus_deletions": 5100,
+          "required_generated_migration_lines": 4600,
+          "behavior_tests_and_review": "current and passed",
+          "user_scope": "selected unit only"
+        }
+      },
+      {
+        "id": "required_check_absent",
+        "request": "Finish this local feature.",
+        "observed": {
+          "implementation": "complete",
+          "unit_tests": "passed",
+          "required_build": "cannot run: specified toolchain inaccessible",
+          "static_review": "no findings"
+        }
+      },
+      {
+        "id": "unsettled_policy",
+        "request": "Add net revenue to the dashboard and correct the unrelated typo in its README.",
+        "observed": {
+          "open_contract": "whether net revenue subtracts refunds, tax, both, or neither",
+          "authoritative_definition": null,
+          "readonly_facts": "all four are supported by available data but different user meanings",
+          "typo": "recieve should be receive"
+        }
+      },
+      {
+        "id": "approval_not_merge",
+        "request": "Babysit this PR until approved or merged.",
+        "observed": {
+          "pr": "fixture://pr/34",
+          "head": "g1",
+          "formal_approval": "valid for g1 under policy",
+          "merged": false,
+          "ci": "green",
+          "merge_ticket_rule": "agent-owned",
+          "durable_merge_handler": null,
+          "watch": "active"
+        }
+      }
+    ],
+    "observed": {
+      "evaluation": "Tool-free supplied-state decisions against the frozen work-mode package and named specialist context.",
+      "evidence_scope": "The observations below are supplied scenario facts. No external operation, live verification, host watch, PR mutation, tracker mutation, or Git operation was executed for these cases.",
+      "results": [
+        {
+          "id": "stack_agent_event",
+          "next_owner": "issue-workflow, invoked by the coordinator for the missing configured event",
+          "next_action": "Pass T-8, verified layer 11 at a1 targeting main (contributing), layer 12 at b1 targeting layer-a (completing), and the all-required-layers-published guard. Verify actor and target scope, re-read the ticket state, perform the agent-owned guarded In Progress -> Review transition for pr-created, and read back the exact ticket before recording success.",
+          "state": "Continue the missing configured synchronization; stop after its verified result, with any failure reported separately from successful stack publication.",
+          "reason": "Stack publication is already supplied as verified, but no pr-created event receipt exists. Creation includes its configured transition. stacked-pr does not inherit single-PR Create's Drive default, and no layer follow-up was requested.",
+          "limits": "Do not republish either layer, create a watcher, merge, or claim the transition has happened in this simulation.",
+          "basis": [
+            "work-mode/references/delivery.md: Select one delivery owner; Preserve continuation and waiting",
+            "context/issue-workflow/SKILL.md: Synchronize one event",
+            "context/stacked-pr/SKILL.md: Scope and safety"
+          ]
+        },
+        {
+          "id": "stack_native_event",
+          "next_owner": "issue-workflow for inspection; native rule sync-stack remains the transition owner",
+          "next_action": "Reconcile the missing pr-created receipt against the enabled native rule and verified per-layer publication facts. Inspect its result; preserve the native owner's authority. Report T-8 still In Progress as pending automation.",
+          "state": "Stack publication is complete under the supplied facts; synchronization is pending native automation. End this creation turn with that pending result and owner; no unrequested follow-up loop.",
+          "reason": "The native rule is enabled but its destination Review has not been observed. An unchanged ticket is pending automation, not successful synchronization, and an agent must not race the rule.",
+          "limits": "No agent fallback transition, new persistent hook, polling loop, or Drive watch. If a later observation finds inaccessible or conflicting rule evidence, report blocked/unknown instead.",
+          "basis": [
+            "work-mode/references/delivery.md: Preserve continuation and waiting",
+            "context/issue-workflow/SKILL.md: Synchronize one event, native automation rule"
+          ]
+        },
+        {
+          "id": "single_drive_owner",
+          "next_owner": "The existing pr-followup Drive continuation, with the parent as watch owner",
+          "next_action": "Retain fixture://pr/31 at head c1/base m1, draft state, CI running, pending formal approval or merge, and fixture-watch-31. Yield the turn to that existing host watch. On its wake, resume the same owner and refresh PR state, CI, feedback, and applicable readiness evidence.",
+          "state": "Waiting; the enclosing creation workflow has not reached Drive's approval-or-merge endpoint.",
+          "reason": "A single-PR Create normally continues into Drive, and the supplied return already identifies one waiting Drive owner. Starting another loop would duplicate ownership; green local checks do not settle running CI or absent approval.",
+          "limits": "Do not claim task completion, create a second watch, poll, or mark the draft ready on the current incomplete CI snapshot. Existing watch availability is supplied, not independently proved.",
+          "basis": [
+            "work-mode/references/delivery.md: Select one delivery owner; Preserve continuation and waiting",
+            "context/pr/SKILL.md: Publish and verify",
+            "context/pr-followup/SKILL.md: Choose scope and establish state"
+          ]
+        },
+        {
+          "id": "create_only",
+          "next_owner": "Coordinator returns the verified publication result; no next execution owner",
+          "next_action": "Report fixture://pr/32, draft state, head d1/base m1, supplied local checks passed, and CI still running. Stop after publication.",
+          "state": "Complete for the explicit create-only endpoint under the supplied publication facts.",
+          "reason": "The explicit stop after publication overrides Create's ordinary Drive continuation. Running CI is reportable state, but this request does not authorize continued babysitting.",
+          "limits": "Do not start Drive, register a new watch, mark ready, merge, or assert CI has passed.",
+          "basis": [
+            "work-mode/SKILL.md: Establish the task and endpoint",
+            "work-mode/references/delivery.md: Preserve continuation and waiting",
+            "context/pr/SKILL.md: Publish and verify"
+          ]
+        },
+        {
+          "id": "keep_draft",
+          "next_owner": "The existing pr-followup Drive continuation, with the parent as watch owner",
+          "next_action": "Keep fixture://pr/33 draft at e1/m1; retain fixture-watch-33 and continue the authorized feedback/CI handling on wakes. Wait for current formal approval, merge, or an explicit user stop while preserving the keep-draft limit.",
+          "state": "Waiting for the Drive stopping condition; current technical work has no supplied pending repair.",
+          "reason": "Keep-draft constrains the ready transition without canceling authorized Drive. Green CI and an empty feedback queue are not formal approval or merge.",
+          "limits": "Do not run a ready transition, create a duplicate continuation, or declare Drive complete. The simulated watch is not live host evidence.",
+          "basis": [
+            "work-mode/references/delivery.md: Preserve continuation and waiting",
+            "context/pr/SKILL.md: Publish and verify",
+            "context/pr-followup/SKILL.md: Move a settled draft to review; Stop with an honest result"
+          ]
+        },
+        {
+          "id": "stale_cap",
+          "next_owner": "pr in Check cap mode; task-breakdown owns any ensuing unit revision",
+          "next_action": "Carry the task-record cap of 400 and current base m1/head f2 into Check cap. The inaccessible current diff yields unverified. Retain the selected scope/source revision and block capped publication pending current diff access. Route any required revised units to task-breakdown and authorized restructuring to the execution owner, then remeasure the resulting exact revisions.",
+          "state": "Blocked on the unavailable current diff; publication must remain pending.",
+          "reason": "The 390-line verdict covers m1/f1. A source-and-test repair changed the head to f2, invalidating that measurement. An unverified capped change cannot be published.",
+          "limits": "Do not reuse 390, assume f2 is within or over cap, waive the cap, split commits as a substitute for a smaller diff, or invent a restructuring decision from inaccessible scope.",
+          "basis": [
+            "work-mode/references/delivery.md: Carry the review budget",
+            "context/pr/SKILL.md: Check the review-size cap",
+            "context/task-breakdown/SKILL.md: Budget for human review"
+          ]
+        },
+        {
+          "id": "no_numeric_cap",
+          "next_owner": "pr for the selected coherent unit's authorized publication",
+          "next_action": "Carry the established coherent-human-review budget, current behavior/tests/review evidence, and the complete unit including its required generated migration. Complete the normal publication procedure; assess meaningful review boundaries from the actual change, without imposing a numeric gate.",
+          "state": "Continue authorized publication; no cap blocker follows from the supplied 5,100 changed lines.",
+          "reason": "No numeric ceiling is established. The unit is supplied as coherent and 4,600 lines are required generated migration output. Necessary generated output belongs with the behavior and tests; its size alone does not authorize a forced split or scope loss.",
+          "limits": "Do not invent a 400/500/1,000-line limit, exclude required output to manufacture a count, broaden to backlog work, or claim publication has already happened.",
+          "basis": [
+            "work-mode/references/delivery.md: Carry the review budget",
+            "context/pr/SKILL.md: Understand the change and repository; Check the review-size cap",
+            "context/task-breakdown/SKILL.md: Choose functional boundaries; Budget for human review"
+          ]
+        },
+        {
+          "id": "required_check_absent",
+          "next_owner": "verify, with the toolchain/access owner supplying the missing prerequisite",
+          "next_action": "Retain the implemented change, passing unit-test evidence, and read-only review result. Report the required build as blocked because its specified toolchain is inaccessible. After access is restored, run that required build and any affected checks before declaring the local feature complete.",
+          "state": "Blocked/incomplete for the local-feature endpoint; useful implementation and unit evidence remain preserved.",
+          "reason": "A required compile/build check has no execution evidence. Passing units and a clean static review cannot replace it or prove the required build passed.",
+          "limits": "Do not silently waive or replace the build, claim all checks passed, install a new toolchain without authority, or repeatedly retry unchanged access.",
+          "basis": [
+            "work-mode/SKILL.md: Verify, review, and repair; Retain the next action and finish honestly",
+            "context/verify/SKILL.md: Run against the actual state; Deliver evidence that matches the claim"
+          ]
+        },
+        {
+          "id": "unsettled_policy",
+          "next_owner": "Coordinator asks the product-contract question; implementation owner can directly correct the independent README typo",
+          "next_action": "Immediately ask: 'For net revenue, should the dashboard subtract refunds, tax, both, or neither?' Pause dependent calculation, API/UI behavior, and expectations until the user decides. Independently change the requested README typo from recieve to receive and preserve the pending revenue decision.",
+          "state": "Waiting on a critical contract decision for net revenue; independent authorized typo work can continue.",
+          "reason": "Accessible facts do not choose among four materially different meanings of net revenue. The typo correction remains valid under every answer and does not need a new plan or permission.",
+          "limits": "Do not assume a financial definition, encode one in tests as settled, stop unrelated typo work, or silently remove the revenue requirement.",
+          "basis": [
+            "work-mode/SKILL.md: Establish the task and endpoint; Choose the next necessary phase"
+          ]
+        },
+        {
+          "id": "approval_not_merge",
+          "next_owner": "pr-followup closes the requested Drive scope; a future authorized observer owns the uncovered agent-run merge event",
+          "next_action": "Treat the policy-valid approval of current head g1 as the requested stop, stop the active watch, and report fixture://pr/34 as approved but unmerged. Preserve the pending agent-owned merge ticket event and explicitly report that no durable merge handler is configured.",
+          "state": "Complete for babysitting until approved or merged; future merge-event delivery remains uncovered.",
+          "reason": "Formal approval satisfies this request's alternative stopping condition. It does not establish merge, emit pr-merged, or provide a durable future wake.",
+          "limits": "Do not transition a merge-driven ticket to Done, continue Drive merely to hide the coverage gap, promise background execution, merge the PR, or install a schedule/webhook without authority.",
+          "basis": [
+            "work-mode/references/delivery.md: Preserve continuation and waiting",
+            "context/pr-followup/SKILL.md: Stop with an honest result",
+            "context/issue-workflow/SKILL.md: Return and continue"
+          ]
+        }
+      ],
+      "limits": [
+        "These are selected next actions and states, not observed external outcomes.",
+        "No claim is made about baseline improvement, universal reliability, live integrations, or automatic host activation.",
+        "Model variant and reasoning-effort configuration are not exposed as verified session metadata."
+      ]
+    },
+    "expectations": {
+      "stack_agent_event": "Coordinator invokes issue-workflow for missing verified configured event; guard all layers, no default Drive.",
+      "stack_native_event": "Observe native result; preserve pending automation, no racing write or install; no default Drive.",
+      "single_drive_owner": "Continue existing waiting owner/watch exactly once; not complete.",
+      "create_only": "Complete verified publication, no watch requirement.",
+      "keep_draft": "Retain draft and authorized Drive, await approval/merge through existing watch.",
+      "stale_cap": "Capped publication blocked/unverified; pr Check cap needs current accessible revisions.",
+      "no_numeric_cap": "No invented 5000-line cap; assess coherence using current review contract.",
+      "required_check_absent": "Local completion remains incomplete with exact build blocker.",
+      "unsettled_policy": "Ask consequential revenue meaning, pause dependent implementation; correct independent authorized typo.",
+      "approval_not_merge": "Stop Drive/watch on approval; do not emit merged or promise merge handler, report uncovered event."
+    },
+    "verdict": "All ten responses preserve the expected next owner, authority and stop/wait state. Graded substantively against the cases; no keyword-only scoring.",
+    "scope": "Independent decisions on supplied state. No real tracker/PR writes, cap command, host watch or wake was executed in these cases."
+  },
+  "mechanical": {
+    "packageFiles": {
+      "origin.txt": "9f5a174e6b5de6155879c0396a3fb6743548d27f34c044ade047c44ac46bab8b",
+      "SKILL.md": "19c529fbaa043fc6f44679f7139f21abefd39214ee95f7b5482e5fe24c92ded0",
+      "THIRD-PARTY-NOTICES.txt": "594ecb69d5c044703fe9cd736e042c350178cc5556d70a4f8312f812d606f01f",
+      "references/delivery.md": "bebb7af675563083d2c293078850f09ca2be9651ca556f66e09ed39d60f02975"
+    },
+    "dependenciesResolved": [
+      "wayfinder",
+      "planning",
+      "task-breakdown",
+      "debug",
+      "prototype",
+      "simplify-code",
+      "design-code-structure",
+      "analyze-change-effects",
+      "tdd",
+      "verify",
+      "verification-authoring",
+      "review-code-changes",
+      "explain-code",
+      "explain-decisions",
+      "issue-workflow",
+      "commit",
+      "pr",
+      "pr-followup",
+      "stacked-pr",
+      "worktrunk",
+      "handoff",
+      "agent-instructions"
+    ],
+    "sourceNotices": 2,
+    "portableCopy": {
+      "readFiles": [
+        "SKILL.md",
+        "THIRD-PARTY-NOTICES.txt",
+        "origin.txt",
+        "references/delivery.md"
+      ],
+      "originalCheckoutDenied": true,
+      "otherCwd": "/private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/work-mode-portability-kk9penfu/unrelated-project",
+      "copiedPackage": "/private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/work-mode-portability-kk9penfu/users/fixture-reader/skills/work-mode"
+    },
+    "platform": "darwin",
+    "limit": "Simulated account layout on macOS. OS sandbox denied the original checkout during the required reads; no second OS, login or host installation was tested."
+  },
+  "integration": {
+    "catalogMirror": "exact",
+    "repositoryPackages": 46,
+    "pending": 0,
+    "progressCounts": {
+      "ready": 159,
+      "pending": 33,
+      "optional": 42,
+      "not-selected": 43
+    },
+    "selectedSources": [
+      "Compound Engineering/ce-work",
+      "Compound Engineering/lfg",
+      "pstack/poteto-mode"
+    ],
+    "unrelatedSourceRowsAndHistoricalData": "unchanged",
+    "entrypointAndOriginEvidence": "current hashes and source-id lines",
+    "cacheKeys": "match current JavaScript bytes"
+  },
+  "cacheCleanup": {
+    "scope": "Only bytecode for Python sources under this session-created evaluation tree; no shared/interpreter caches or directories removed.",
+    "removed": [
+      {
+        "source": ".tmp/work-mode/evaluation/candidate/resume/dashboard.py",
+        "cache": "/Users/lurrutia/Library/Caches/com.apple.python/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/candidate/resume/dashboard.cpython-39.pyc",
+        "sha256": "022deac324d84e61a727c250d540ba984ad460023002d965910e440303e5e9ad"
+      },
+      {
+        "source": ".tmp/work-mode/evaluation/candidate/resume/tracker.py",
+        "cache": "/Users/lurrutia/Library/Caches/com.apple.python/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/candidate/resume/tracker.cpython-39.pyc",
+        "sha256": "1163ba24ef6ded4f57a5da70e4601b5530d4f2e3373187e7586ba8b9180d26fc"
+      },
+      {
+        "source": ".tmp/work-mode/evaluation/candidate/implement/dashboard.py",
+        "cache": "/Users/lurrutia/Library/Caches/com.apple.python/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/candidate/implement/dashboard.cpython-39.pyc",
+        "sha256": "0be1ddf17804df95f31d5cb940eeeadce1b5c965de6280e6e77e744715982182"
+      },
+      {
+        "source": ".tmp/work-mode/evaluation/candidate/implement/tracker.py",
+        "cache": "/Users/lurrutia/Library/Caches/com.apple.python/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/candidate/implement/tracker.cpython-39.pyc",
+        "sha256": "1163ba24ef6ded4f57a5da70e4601b5530d4f2e3373187e7586ba8b9180d26fc"
+      },
+      {
+        "source": ".tmp/work-mode/evaluation/candidate/implement/tests/test_dashboard.py",
+        "cache": "/Users/lurrutia/Library/Caches/com.apple.python/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/candidate/implement/tests/test_dashboard.cpython-39.pyc",
+        "sha256": "d899453f3b0880354f407df3d6ee2320131cc2d061ca8b7c6575bd71a3ef5fe0"
+      },
+      {
+        "source": ".tmp/work-mode/evaluation/candidate/implement/tests/test_revenue.py",
+        "cache": "/Users/lurrutia/Library/Caches/com.apple.python/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/candidate/implement/tests/test_revenue.cpython-39.pyc",
+        "sha256": "b71e5948c8b32dd8c25fbf998ee6837b7a63a5f9a80875e4819bf8946303da8f"
+      },
+      {
+        "source": ".tmp/work-mode/evaluation/candidate/resume/tests/test_dashboard.py",
+        "cache": "/Users/lurrutia/Library/Caches/com.apple.python/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/candidate/resume/tests/test_dashboard.cpython-39.pyc",
+        "sha256": "0642b6c8a2125c8eb4d7c88b5b4818d3e3dfcea4fe01b6f08573d0bd3f12756c"
+      },
+      {
+        "source": ".tmp/work-mode/evaluation/candidate/resume/tests/test_revenue.py",
+        "cache": "/Users/lurrutia/Library/Caches/com.apple.python/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023/.tmp/work-mode/evaluation/candidate/resume/tests/test_revenue.cpython-39.pyc",
+        "sha256": "748c0f035f0cc898684032aac4bb915ea930e9baa654625e4f7a2497a7a6e015"
+      }
+    ]
+  },
+  "checks": {
+    "cwd": "/Users/lurrutia/.t3/worktrees/skills/t3-b8e29023",
+    "shell": "Commands requiring configured tool paths used /opt/homebrew/bin/fish -lc. Fixture runtimes are recorded separately.",
+    "commands": [
+      {
+        "command": "uv run --no-project --with pyyaml python /Users/lurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py work-mode",
+        "result": "Skill is valid!",
+        "exitCode": 0
+      },
+      {
+        "command": "python3 -B .tmp/work-mode/check-package.py",
+        "result": "Four files copied with symlinks preserved and read from another cwd; sandbox denied original checkout. All 22 named dependencies and both notices validated.",
+        "exitCode": 0
+      },
+      {
+        "command": "python3 -B .tmp/work-mode/check-integration.py",
+        "result": "Exact catalog mirror, 46 packages, current source evidence/cache keys; unrelated source and historical records unchanged.",
+        "exitCode": 0
+      },
+      {
+        "command": "python3 -B .tmp/work-mode/grade-artifacts.py",
+        "result": "All nine executed artifact states met scoped postconditions: six matched-arm tasks, one v2 regression repeat and two reserved cases.",
+        "exitCode": 0
+      },
+      {
+        "command": "node --check reports/skill-atlas/app.js",
+        "result": "Passed",
+        "exitCode": 0
+      },
+      {
+        "command": "node --check reports/skill-atlas/catalog.js",
+        "result": "Passed",
+        "exitCode": 0
+      },
+      {
+        "command": "env PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover -s review-code-changes/tests -v",
+        "result": "All 12 existing tests passed after the recorded local scratch-ignore prerequisite was satisfied.",
+        "exitCode": 0
+      },
+      {
+        "command": "git diff --check",
+        "result": "Passed",
+        "exitCode": 0
+      }
+    ]
+  },
+  "browser": {
+    "host": "T3 collaborative preview",
+    "url": "http://localhost:8847/reports/skill-atlas/index.html?q=work-mode&progress=ready#workflow",
+    "finalDesktop": {
+      "title": "Atlas de skills | Tu flujo de desarrollo",
+      "count": "4 de 277 fichas",
+      "cards": 277,
+      "visibleCards": [
+        "pstack-poteto-mode",
+        "pstack-show-me-your-work",
+        "compound-engineering-ce-work",
+        "compound-engineering-lfg"
+      ],
+      "inventory": {
+        "name": "work-mode",
+        "category": "Implementation, verification and review",
+        "summary": "Coordinate or resume one selected development task through its remaining authorized phases, preserving specialist owners, evidence and continuation.",
+        "path": "work-mode/SKILL.md",
+        "sha256": "19c529fbaa043fc6f44679f7139f21abefd39214ee95f7b5482e5fe24c92ded0",
+        "section": "workflow",
+        "checkedAt": "2026-10-07"
+      },
+      "inventoryCount": 46,
+      "pending": 0,
+      "overflow": false,
+      "brokenAnchors": []
+    },
+    "mobile": {
+      "width": 480,
+      "height": 800,
+      "horizontalOverflow": false,
+      "screenshot": "/Users/lurrutia/.t3/userdata/browser-artifacts/browser-screenshot-localhost-muy1s0xw-5b194d28.png",
+      "visualReview": "Workflow heading, paragraphs, ownership map and cards fit the viewport; no overlap or clipping observed."
+    },
+    "interactions": [
+      {
+        "action": "Select followup scenario",
+        "observed": "Drive waits for current formal approval or merge; green CI is insufficient; keep-draft preserves Drive and create-only stops after publication."
+      },
+      {
+        "action": "Search work-mode and select Incorporated",
+        "observed": "4 of 277 visible cards including the three newly adopted current assessments and the existing show-me-your-work record."
+      },
+      {
+        "action": "Search accessibility with Incorporated selected",
+        "observed": "11 of 277 cards; unrelated source filtering still works."
+      },
+      {
+        "action": "Select small documentation edit",
+        "observed": "Direct read/edit/verify route retained without mandatory architecture/TDD/agent ceremony."
+      }
+    ],
+    "recoveredFailure": "Initial source overlay omitted references, causing TypeError in reviewEvidenceMarkup. Added the pinned data, reloaded and verified rendering and interactions.",
+    "links": [
+      {
+        "href": "../../work-mode/SKILL.md",
+        "httpStatus": 200
+      },
+      {
+        "href": "../../work-mode/references/delivery.md",
+        "httpStatus": 200
+      },
+      {
+        "href": "../../work-mode/origin.txt",
+        "httpStatus": 200
+      },
+      {
+        "href": "work-mode-validation.json",
+        "httpStatus": 200
+      }
+    ],
+    "desktopVisualReview": "Workflow heading, ownership table and paired content panels render clearly at 1280x800 without overlap or horizontal overflow.",
+    "desktopScreenshot": "/Users/lurrutia/.t3/userdata/browser-artifacts/browser-screenshot-localhost-muy2e62w-fb3fa8c9.png"
+  },
+  "attemptsAndLimits": [
+    "Pinned pstack root LICENSE returned 404; the applicable pstack/LICENSE was found, read and retained.",
+    "Initial Codex package validator lacked PyYAML. It passed in a temporary uv environment with PyYAML; no repository dependency was added.",
+    "The existing review-code-changes smoke initially failed before tests ran because its required scratch directory was not ignored. A trailing-slash exclude did not cover its pre-creation check. A narrow local Git exclude without that slash resolved the precondition; all 12 tests then passed. No test code was changed.",
+    "The first atlas integration omitted references on a new current source assessment. The actual browser raised TypeError in reviewEvidenceMarkup and stopped rendering. Adding pinned reference metadata fixed the catalog, filters and scenario rendering; no rendering fallback was added.",
+    "The matched baseline planning run attempted a missing optional template in the frozen v1 context. Its short plan was completed from available guidance, with product/tracker bytes unchanged. The omission is retained; v2 context includes the asset.",
+    "macOS Python compilation wrote source-specific bytecode to the user cache during some executed fixtures. Heldout and v2 entries were recorded and removed with narrow cleanup authority; subsequent compile output was confined to the fixture. Final cleanup also recorded and removed eight remaining candidate-arm cache files for this session-created fixture tree. Passing behavior is not an unqualified claim that every first-attempt filesystem effect stayed inside the fixture.",
+    "No live tracker, GitHub publication, PR stack mutation, host watch/resume, real checkout handoff, deployment, installation or implicit host activation was tested. External delivery branches have owner-text and supplied-state evidence only.",
+    "Portable reading used a different simulated account layout on macOS with an OS sandbox denying the original checkout. No second operating system, real login or globally installed package was exercised.",
+    "Raw frozen packages, fixtures and local tool receipts remain in ignored .tmp/work-mode for this checkout. This report preserves inputs, revisions, action/result summaries and postconditions; those ignored directories are not distributed with the skill."
+  ],
+  "artifactSamples": {
+    "baseline": {
+      "implement": {
+        "dashboard.py": "import argparse\nimport html\nimport json\nfrom pathlib import Path\n\n\ndef revenue_card(orders):\n    total_cents = sum(order['cents'] for order in orders if order['state'] == 'paid')\n    dollars, cents = divmod(abs(total_cents), 100)\n    sign = '-' if total_cents < 0 else ''\n    return f'<section aria-label=\"Revenue\"><strong>${sign}{dollars}.{cents:02d}</strong></section>'\n\n\ndef order_count(orders):\n    return len(orders)\n\n\ndef render(orders):\n    return '<main>' + revenue_card(orders) + f'<p>Orders: {order_count(orders)}</p></main>'\n\n\nif __name__ == '__main__':\n    parser = argparse.ArgumentParser()\n    parser.add_argument('--data', type=Path, default=Path('orders.json'))\n    parser.add_argument('--health', action='store_true')\n    args = parser.parse_args()\n    print('ok' if args.health else render(json.loads(args.data.read_text())))\n",
+        "tests/test_dashboard.py": "import unittest\nfrom dashboard import order_count\n\n\nclass OrderCountTests(unittest.TestCase):\n    def test_counts_all_orders(self):\n        orders = [{'state': 'paid'}, {'state': 'refunded'}]\n\n        actual = order_count(orders)\n\n        self.assertEqual(actual, 2)\n",
+        "tests/test_revenue.py": "import json\nimport subprocess\nimport sys\nimport tempfile\nimport unittest\nfrom pathlib import Path\n\n\nPROJECT = Path(__file__).resolve().parents[1]\n\n\nclass RevenueRenderTests(unittest.TestCase):\n    def test_supplied_orders_render_paid_revenue_and_total_order_count(self):\n        command = [sys.executable, 'dashboard.py']\n\n        result = subprocess.run(command, cwd=PROJECT, check=True, capture_output=True, text=True)\n\n        self.assertIn('aria-label=\"Revenue\"', result.stdout)\n        self.assertIn('>$15.00<', result.stdout)\n        self.assertIn('Orders: 4', result.stdout)\n\n    def test_empty_data_renders_zero_revenue_and_zero_orders(self):\n        with tempfile.TemporaryDirectory(dir=PROJECT) as directory:\n            data = Path(directory) / 'orders.json'\n            data.write_text('[]')\n\n            result = subprocess.run(\n                [sys.executable, 'dashboard.py', '--data', str(data)],\n                cwd=PROJECT, check=True, capture_output=True, text=True,\n            )\n\n        self.assertIn('aria-label=\"Revenue\"', result.stdout)\n        self.assertIn('>$0.00<', result.stdout)\n        self.assertIn('Orders: 0', result.stdout)\n\n    def test_integer_cents_render_exactly_and_exclude_unpaid_orders(self):\n        cases = [\n            ([], '$0.00'),\n            ([{'state': 'paid', 'cents': 5}], '$0.05'),\n            ([{'state': 'paid', 'cents': 99}, {'state': 'paid', 'cents': 2}], '$1.01'),\n            ([{'state': 'paid', 'cents': 9007199254740993}], '$90071992547409.93'),\n            ([{'state': 'paid', 'cents': -5}], '$-0.05'),\n        ]\n        for paid_orders, expected in cases:\n            with self.subTest(expected=expected), tempfile.TemporaryDirectory(dir=PROJECT) as directory:\n                orders = paid_orders + [\n                    {'state': 'pending', 'cents': 1900},\n                    {'state': 'refunded', 'cents': 8800},\n                    {'state': 'cancelled', 'cents': 500},\n                ]\n                data = Path(directory) / 'orders.json'\n                data.write_text(json.dumps(orders))\n\n                result = subprocess.run(\n                    [sys.executable, 'dashboard.py', '--data', str(data)],\n                    cwd=PROJECT, check=True, capture_output=True, text=True,\n                )\n\n                self.assertIn(f'>{expected}<', result.stdout)\n                self.assertIn(f'Orders: {len(orders)}', result.stdout)\n"
+      },
+      "planning_only": {
+        "dashboard.py": "import argparse\nimport html\nimport json\nfrom pathlib import Path\n\n\ndef revenue_card(orders):\n    return '<section aria-label=\"Revenue\"><strong>Unavailable</strong></section>'\n\n\ndef order_count(orders):\n    return len(orders)\n\n\ndef render(orders):\n    return '<main>' + revenue_card(orders) + f'<p>Orders: {order_count(orders)}</p></main>'\n\n\nif __name__ == '__main__':\n    parser = argparse.ArgumentParser()\n    parser.add_argument('--data', type=Path, default=Path('orders.json'))\n    parser.add_argument('--health', action='store_true')\n    args = parser.parse_args()\n    print('ok' if args.health else render(json.loads(args.data.read_text())))\n",
+        "PLAN.md": "# Revenue card implementation plan\n\nImplement fixture://revenue/REV-21 in this local project when implementation is authorized. This plan is ready for execution; no product changes or tracker transitions are part of this planning request. `PLAN.md` is the authoritative plan in this temporary fixture checkout and must be retained with it for a later executor.\n\n## Current evidence\n\n- `dashboard.py:7` contains the Revenue section with its accessible `aria-label=\"Revenue\"`, but its value is `Unavailable`.\n- `dashboard.py:15` calls that card from `render`, alongside the existing all-state order count. The CLI loads `orders.json` by default and accepts `--data` for another JSON file.\n- `dashboard.py:24` returns `ok` for `--health` without reading the data file.\n- `orders.json` has paid amounts of 1299 and 201 cents, which total 1500 cents. The refunded 8800 cents and pending 10000 cents must not contribute. All four orders still count.\n- `tests/test_dashboard.py` currently checks only the all-state order count; it does not exercise the CLI or Revenue output.\n- Observed command: `python3 dashboard.py` exited 0 and rendered `Unavailable` and `Orders: 4`. This establishes the existing path, not completion of the new behavior.\n\n## Implementation\n\n1. At the start of separately authorized implementation, follow `docs/agents/issue-tracker.md`: verify the local adapter identity and current REV-21 state/version, apply its guarded Ready to In Progress transition only when allowed, and read it back. Planning alone must preserve the current Ready state. No later tracker events or external delivery are in scope.\n2. Extend `revenue_card` in `dashboard.py`. Select only orders whose `state` equals `paid`; sum their `cents` as Python integers. Format dollars and cents from that integer total, with exactly two decimal places and without a floating-point conversion. Retain the accessible Revenue name. Empty data naturally totals zero.\n3. Keep the existing `render`, `order_count`, argument handling, default data path, and health short-circuit. Do not add dependencies, new data contracts, unrelated cards, or persistent tools.\n4. Add useful CLI behavioral coverage in proposed `tests/test_revenue.py`, using real subprocess invocations of `dashboard.py`. Use disposable JSON files within this project for alternate datasets, and clean them up. Preserve the existing count test. Establish the supplied-data test's failure before the production change, then run it after the change; add remaining contract coverage without manufacturing failures for behavior already supported.\n\n## Acceptance checks\n\n| Scenario | Observable result | Regression caught |\n| --- | --- | --- |\n| Default CLI with supplied `orders.json` | Revenue has accessible name `Revenue`, displays exactly `$15.00`, and order count is 4 | Missing CLI integration, counting unpaid revenue, or changing total order count |\n| `--data` containing `[]` | Revenue displays exactly `$0.00`; order count is 0 | Empty input failure or missing zero padding |\n| Paid 99 and 2 cents plus pending/refunded/cancelled orders | Revenue displays exactly `$1.01`; every order still contributes to the count | State filtering and carry between cents and dollars |\n| Paid 5 cents | Revenue displays exactly `$0.05` | Missing leading zero or two-digit cents |\n| Paid 9007199254740993 cents | Revenue displays exactly `$90071992547409.93` | Loss of precision from floating-point money arithmetic |\n| Health CLI, also with a nonexistent `--data` file | Exit 0 and output `ok`; no data read | Health becoming coupled to the render path |\n\nAssertions should observe the rendered value's text boundaries so `$15.000` cannot pass a `$15.00` assertion. Check the accessible label through the emitted section and confirm successful process exit.\n\nAfter implementation, run these project checks from this directory:\n\n```sh\npython3 -m unittest discover -s tests -v\npython3 -m compileall -q dashboard.py tracker.py\npython3 dashboard.py --health\n```\n\nAlso run `python3 dashboard.py` to inspect the actual supplied-data render. The suite should exercise `--data` using its disposable fixtures. The build gate here is Python compilation; there is no separate bundler. Python 3 and its standard library are the only prerequisites.\n\n## Completion and limits\n\nThe implementation is complete only when the current source satisfies the observable acceptance checks, the existing count test still passes, compilation succeeds, and the health smoke returns `ok`. Record exact commands, exit statuses, and any failures. No implementation, new behavioral test, compile check, or health smoke was performed for this planning-only request; the commands above are future acceptance work. No Git, commit, PR, deployment, network, or installation work is authorized.\n",
+        "tests/test_dashboard.py": "import unittest\nfrom dashboard import order_count\n\n\nclass OrderCountTests(unittest.TestCase):\n    def test_counts_all_orders(self):\n        orders = [{'state': 'paid'}, {'state': 'refunded'}]\n\n        actual = order_count(orders)\n\n        self.assertEqual(actual, 2)\n"
+      },
+      "resume": {
+        "dashboard.py": "import argparse\nimport html\nimport json\nfrom pathlib import Path\n\n\ndef revenue_card(orders):\n    cents = sum(order['cents'] for order in orders if order['state'] == 'paid')\n    return f'<section aria-label=\"Revenue\"><strong>${cents // 100}.{cents % 100:02d}</strong></section>'\n\ndef order_count(orders):\n    return len(orders)\n\n\ndef render(orders):\n    return '<main>' + revenue_card(orders) + f'<p>Orders: {order_count(orders)}</p></main>'\n\n\nif __name__ == '__main__':\n    parser = argparse.ArgumentParser()\n    parser.add_argument('--data', type=Path, default=Path('orders.json'))\n    parser.add_argument('--health', action='store_true')\n    args = parser.parse_args()\n    print('ok' if args.health else render(json.loads(args.data.read_text())))\n",
+        "tests/test_dashboard.py": "import unittest\nfrom dashboard import order_count\n\n\nclass OrderCountTests(unittest.TestCase):\n    def test_counts_all_orders(self):\n        orders = [{'state': 'paid'}, {'state': 'refunded'}]\n\n        actual = order_count(orders)\n\n        self.assertEqual(actual, 2)\n",
+        "tests/test_revenue.py": "import unittest\nfrom dashboard import revenue_card\n\n\nclass RevenueTests(unittest.TestCase):\n    def test_paid_only(self):\n        orders = [{'state': 'paid', 'cents': 1005}, {'state': 'pending', 'cents': 3000}]\n\n        card = revenue_card(orders)\n\n        self.assertIn('$10.05', card)\n\n    def test_empty(self):\n        self.assertIn('$0.00', revenue_card([]))\n"
+      }
+    },
+    "candidate": {
+      "implement": {
+        "dashboard.py": "import argparse\nimport html\nimport json\nfrom pathlib import Path\n\n\ndef revenue_card(orders):\n    total_cents = sum(order['cents'] for order in orders if order['state'] == 'paid')\n    dollars, cents = divmod(abs(total_cents), 100)\n    sign = '-' if total_cents < 0 else ''\n    return f'<section aria-label=\"Revenue\"><strong>${sign}{dollars}.{cents:02d}</strong></section>'\n\n\ndef order_count(orders):\n    return len(orders)\n\n\ndef render(orders):\n    return '<main>' + revenue_card(orders) + f'<p>Orders: {order_count(orders)}</p></main>'\n\n\nif __name__ == '__main__':\n    parser = argparse.ArgumentParser()\n    parser.add_argument('--data', type=Path, default=Path('orders.json'))\n    parser.add_argument('--health', action='store_true')\n    args = parser.parse_args()\n    print('ok' if args.health else render(json.loads(args.data.read_text())))\n",
+        "tests/test_dashboard.py": "import unittest\nfrom dashboard import order_count\n\n\nclass OrderCountTests(unittest.TestCase):\n    def test_counts_all_orders(self):\n        orders = [{'state': 'paid'}, {'state': 'refunded'}]\n\n        actual = order_count(orders)\n\n        self.assertEqual(actual, 2)\n",
+        "tests/test_revenue.py": "import json\nfrom pathlib import Path\nimport subprocess\nimport sys\nimport tempfile\nimport unittest\n\n\nPROJECT_ROOT = Path(__file__).resolve().parents[1]\n\n\nclass RevenueCliTests(unittest.TestCase):\n    def test_default_dataset_renders_paid_revenue_and_all_orders(self):\n        command = [sys.executable, 'dashboard.py']\n\n        result = subprocess.run(command, cwd=PROJECT_ROOT, check=True, capture_output=True, text=True)\n\n        self.assertEqual(\n            result.stdout.strip(),\n            '<main><section aria-label=\"Revenue\"><strong>$15.00</strong></section><p>Orders: 4</p></main>',\n        )\n\n    def test_data_option_renders_exact_revenue(self):\n        scenarios = [\n            ('empty', [], '$0.00'),\n            ('unpaid', [{'state': 'pending', 'cents': 900}, {'state': 'refunded', 'cents': 200}], '$0.00'),\n            ('fractional', [{'state': 'paid', 'cents': 1005}, {'state': 'cancelled', 'cents': 99}], '$10.05'),\n            ('carry', [{'state': 'paid', 'cents': 96}, {'state': 'paid', 'cents': 5}], '$1.01'),\n            ('large', [{'state': 'paid', 'cents': 1_000_000_000_000_000_001}], '$10000000000000000.01'),\n            ('negative', [{'state': 'paid', 'cents': -101}], '$-1.01'),\n        ]\n        for name, orders, expected_revenue in scenarios:\n            with self.subTest(name=name), tempfile.TemporaryDirectory(dir=PROJECT_ROOT) as directory:\n                data_path = Path(directory) / 'orders.json'\n                data_path.write_text(json.dumps(orders))\n                command = [sys.executable, 'dashboard.py', '--data', str(data_path)]\n\n                result = subprocess.run(command, cwd=PROJECT_ROOT, check=True, capture_output=True, text=True)\n\n                self.assertEqual(\n                    result.stdout.strip(),\n                    f'<main><section aria-label=\"Revenue\"><strong>{expected_revenue}</strong></section>'\n                    f'<p>Orders: {len(orders)}</p></main>',\n                )\n\n    def test_health_does_not_require_order_data(self):\n        with tempfile.TemporaryDirectory(dir=PROJECT_ROOT) as directory:\n            missing_path = Path(directory) / 'missing.json'\n            command = [sys.executable, 'dashboard.py', '--health', '--data', str(missing_path)]\n\n            result = subprocess.run(command, cwd=PROJECT_ROOT, check=True, capture_output=True, text=True)\n\n            self.assertEqual(result.stdout.strip(), 'ok')\n"
+      },
+      "planning_only": {
+        "dashboard.py": "import argparse\nimport html\nimport json\nfrom pathlib import Path\n\n\ndef revenue_card(orders):\n    return '<section aria-label=\"Revenue\"><strong>Unavailable</strong></section>'\n\n\ndef order_count(orders):\n    return len(orders)\n\n\ndef render(orders):\n    return '<main>' + revenue_card(orders) + f'<p>Orders: {order_count(orders)}</p></main>'\n\n\nif __name__ == '__main__':\n    parser = argparse.ArgumentParser()\n    parser.add_argument('--data', type=Path, default=Path('orders.json'))\n    parser.add_argument('--health', action='store_true')\n    args = parser.parse_args()\n    print('ok' if args.health else render(json.loads(args.data.read_text())))\n",
+        "PLAN.md": "# Revenue card implementation plan\n\nImplement fixture://revenue/REV-21 in one local change when implementation is\nauthorized. This request ends with this plan; source, tests, and tracker state\nremain unchanged. No dependencies or external delivery are needed.\n\n## Existing behavior and chosen approach\n\n`dashboard.py` loads `orders.json` by default, accepts a `--data` path, and passes\nthe decoded orders through `render()` to `revenue_card()` and `order_count()`.\nThe revenue section already has `aria-label=\"Revenue\"`, but shows `Unavailable`.\nKeep that section and the existing CLI path. Change only revenue calculation and\ndisplay: sum `cents` for orders whose `state` equals `paid`, then format the integer\ntotal as dollars and two cent digits. Use integer arithmetic for the entire\ncalculation and formatting so large totals retain exact cents.\n\n`orders.json` contains paid amounts 1299 and 201, a refunded order, and a pending\norder. Revenue must be $15.00, while the order count remains 4. Empty input must\nrender $0.00 and an order count of 0. Keep `--health` returning `ok`, including\nwhen the data path is missing.\n\n## Implementation sequence\n\n1. On a future authorized implementation request, apply the configured\n   `work-started` policy from `docs/agents/issue-tracker.md`. Verify the local\n   adapter identity and current ticket state/version before the guarded\n   Ready → In Progress transition, then read back the result. Preserve any other\n   state. Planning alone does not trigger this event.\n2. Replace the placeholder in `dashboard.py:revenue_card()` with the paid-only\n   integer total and exact dollar display. Preserve `order_count()`, `render()`\n   integration, the accessible Revenue label, data selection, and health handling.\n3. Keep `tests/test_dashboard.py` and add behavioral CLI tests under `tests/`.\n   Run the real program with subprocesses; create temporary data only within this\n   fixture and clean it up. No persistent verification tooling is needed.\n\n## Acceptance and checks\n\n| Scenario to cover through the CLI | Required observation | Regression caught |\n| --- | --- | --- |\n| Default `orders.json` | Revenue $15.00, accessible Revenue section, Orders: 4 | Wrong filtering, missing integration, changed count or label |\n| Empty `--data` file containing `[]` | Revenue $0.00, Orders: 0 | Missing empty-data handling |\n| Only pending/refunded orders | Revenue $0.00; count includes every order | Non-paid amounts counted as revenue |\n| Paid 1005 cents | Revenue $10.05 | Lost leading zero in fractional cents |\n| Paid 96 and 5 cents | Revenue $1.01 | Failure to sum cents before formatting |\n| Paid 1000000000000000001 cents | Revenue $10000000000000000.01 | Precision lost through floating-point conversion |\n| `--health` with missing data path | `ok`, successful exit | Health unexpectedly depends on data loading |\n\nAfter implementation run these commands from this directory:\n\n```sh\npython3 -m unittest discover -s tests -v\npython3 -m compileall -q dashboard.py tracker.py\npython3 dashboard.py --health\n```\n\nRequire successful exit codes, all behavioral assertions to pass, and `ok` from\nhealth. Compilation alone does not prove revenue behavior. Python 3 and its\nstandard library are sufficient; no installation or service access is required.\n\n## Observed planning evidence and readiness\n\n- `python3 -B -m unittest discover -s tests -v`: exit 0, one existing order-count\n  test passed. It provides no revenue or CLI coverage.\n- `python3 -B dashboard.py`: exit 0, rendered `Unavailable` and `Orders: 4`.\n  Revenue acceptance remains unimplemented; the cases above are future checks.\n- Read `AGENTS.md`, `REQUEST.md`, the source, current tests, input dataset, tracker\n  adapter/state, and project tracker policy. Current ticket state is Ready,\n  version 1; it was not changed.\n\nThe plan is ready for a later implementation request. It is retained only in this\nlocal evaluation fixture and must be copied with the fixture for transfer.\nSkills used from supplied context: `work-mode` and `planning`.\nRead work-mode entrypoint SHA-256:\n`8721fc024e249de6c013761dfb01aa168d380cbd07b42be86d49cb8640babea7`.\n",
+        "tests/test_dashboard.py": "import unittest\nfrom dashboard import order_count\n\n\nclass OrderCountTests(unittest.TestCase):\n    def test_counts_all_orders(self):\n        orders = [{'state': 'paid'}, {'state': 'refunded'}]\n\n        actual = order_count(orders)\n\n        self.assertEqual(actual, 2)\n"
+      },
+      "resume": {
+        "dashboard.py": "import argparse\nimport html\nimport json\nfrom pathlib import Path\n\n\ndef revenue_card(orders):\n    cents = sum(order['cents'] for order in orders if order['state'] == 'paid')\n    return f'<section aria-label=\"Revenue\"><strong>${cents // 100}.{cents % 100:02d}</strong></section>'\n\ndef order_count(orders):\n    return len(orders)\n\n\ndef render(orders):\n    return '<main>' + revenue_card(orders) + f'<p>Orders: {order_count(orders)}</p></main>'\n\n\nif __name__ == '__main__':\n    parser = argparse.ArgumentParser()\n    parser.add_argument('--data', type=Path, default=Path('orders.json'))\n    parser.add_argument('--health', action='store_true')\n    args = parser.parse_args()\n    print('ok' if args.health else render(json.loads(args.data.read_text())))\n",
+        "tests/test_dashboard.py": "import unittest\nfrom dashboard import order_count\n\n\nclass OrderCountTests(unittest.TestCase):\n    def test_counts_all_orders(self):\n        orders = [{'state': 'paid'}, {'state': 'refunded'}]\n\n        actual = order_count(orders)\n\n        self.assertEqual(actual, 2)\n",
+        "tests/test_revenue.py": "import unittest\nfrom dashboard import revenue_card\n\n\nclass RevenueTests(unittest.TestCase):\n    def test_paid_only(self):\n        orders = [{'state': 'paid', 'cents': 1005}, {'state': 'pending', 'cents': 3000}]\n\n        card = revenue_card(orders)\n\n        self.assertIn('$10.05', card)\n\n    def test_empty(self):\n        self.assertIn('$0.00', revenue_card([]))\n"
+      }
+    }
+  }
+}

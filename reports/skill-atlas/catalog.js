@@ -4366,6 +4366,15 @@ window.SKILL_ATLAS = {
         "section": "design-code-structure"
       },
       {
+        "name": "work-mode",
+        "category": "Implementation, verification and review",
+        "summary": "Coordinate or resume one selected development task through its remaining authorized phases, preserving specialist owners, evidence and continuation.",
+        "path": "work-mode/SKILL.md",
+        "sha256": "19c529fbaa043fc6f44679f7139f21abefd39214ee95f7b5482e5fe24c92ded0",
+        "section": "workflow",
+        "checkedAt": "2026-10-07"
+      },
+      {
         "name": "debug",
         "category": "Implementation, verification and review",
         "summary": "Diagnose observed failures and resource regressions; use verify for measurement assessment and repair within active authority.",
@@ -4661,14 +4670,7 @@ window.SKILL_ATLAS = {
         "sha256": "611a8eb88b191c9a211dfecf12e69037acf8e8502a268206bff24e375eb237d3"
       }
     ],
-    "pending": [
-      {
-        "name": "work-mode",
-        "status": "Coordinator not created",
-        "summary": "Compose the selected skills after their responsibilities and remaining choices are settled.",
-        "section": "workflow"
-      }
-    ],
+    "pending": [],
     "initialLocalNamesNotInRepository": [
       "walkthrough",
       "review-audit",
@@ -7732,8 +7734,8 @@ window.SKILL_ATLAS = {
     "repositoryCommit": "f4e7a1f732c039cfeb2c217eea1954f3f308cccf (base; current evidence hashes below)",
     "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
-      "ready": 157,
-      "pending": 35,
+      "ready": 159,
+      "pending": 33,
       "optional": 42,
       "not-selected": 43
     },
@@ -8876,7 +8878,8 @@ window.SKILL_ATLAS = {
         "status": "ready",
         "label": "Incorporated",
         "owners": [
-          "handoff"
+          "handoff",
+          "work-mode"
         ],
         "evidence": [
           {
@@ -8894,9 +8897,18 @@ window.SKILL_ATLAS = {
               "Keep artifact creation distinct from an explicit pause and from reconstructing history.",
               "No automatic WIP commit, nested-agent cancellation, Cursor transcript discovery or routing machinery."
             ]
+          },
+          {
+            "owner": "work-mode",
+            "path": "work-mode/origin.txt",
+            "line": 7,
+            "sha256": "9f5a174e6b5de6155879c0396a3fb6743548d27f34c044ade047c44ac46bab8b",
+            "sourceId": "pstack-routing",
+            "baselineCommit": "df581122cde17e6e27686b5a448bde23e4ad4318",
+            "reviewedThrough": "df581122cde17e6e27686b5a448bde23e4ad4318"
           }
         ],
-        "note": "Only resume-point and evidence ideas from pause-safely and session-pickup are incorporated in handoff. The work-mode coordinator, automatic WIP commits, cancellation and transcript machinery are not implemented by this check."
+        "note": "Selected routing ideas are incorporated in work-mode; handoff retains its separate continuity source. Cursor runtime, mandatory agents, broad write authority, and donor publication defaults are not adopted."
       },
       "pstack/prototype": {
         "status": "ready",
@@ -12491,11 +12503,23 @@ window.SKILL_ATLAS = {
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Compound Engineering/ce-work": {
-        "status": "pending",
-        "label": "Not incorporated",
-        "owners": [],
-        "evidence": [],
-        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "work-mode"
+        ],
+        "evidence": [
+          {
+            "owner": "work-mode",
+            "path": "work-mode/origin.txt",
+            "line": 22,
+            "sha256": "9f5a174e6b5de6155879c0396a3fb6743548d27f34c044ade047c44ac46bab8b",
+            "sourceId": "compound-coordination",
+            "baselineCommit": "efcb657d9a5733ccc154c36cc7d3d78b4136eb23",
+            "reviewedThrough": "efcb657d9a5733ccc154c36cc7d3d78b4136eb23"
+          }
+        ],
+        "note": "Selected phase-return and evidence-recovery ideas are incorporated in work-mode. The engine/controller implementation and standalone shipping tail are not adopted."
       },
       "Compound Engineering/ce-worktree": {
         "status": "not-selected",
@@ -12505,11 +12529,23 @@ window.SKILL_ATLAS = {
         "note": "No completed incorporation is established by current repository provenance. The recommendation is separate from completion."
       },
       "Compound Engineering/lfg": {
-        "status": "pending",
-        "label": "Not incorporated",
-        "owners": [],
-        "evidence": [],
-        "note": "This source has no recorded incorporation. Related local skills may already exist; an unincorporated source does not imply that a new skill must be built."
+        "status": "ready",
+        "label": "Incorporated",
+        "owners": [
+          "work-mode"
+        ],
+        "evidence": [
+          {
+            "owner": "work-mode",
+            "path": "work-mode/origin.txt",
+            "line": 22,
+            "sha256": "9f5a174e6b5de6155879c0396a3fb6743548d27f34c044ade047c44ac46bab8b",
+            "sourceId": "compound-coordination",
+            "baselineCommit": "efcb657d9a5733ccc154c36cc7d3d78b4136eb23",
+            "reviewedThrough": "efcb657d9a5733ccc154c36cc7d3d78b4136eb23"
+          }
+        ],
+        "note": "Selected request routing and caller continuation ideas are incorporated in work-mode. Local authority, specialist contracts and requested endpoints govern the result."
       },
       "Compound Engineering/wtf": {
         "status": "not-selected",
@@ -19238,11 +19274,70 @@ window.SKILL_ATLAS = {
       },
       {
         "key": "Compound Engineering/ce-work",
-        "action": "Assess for the proposed coordinator"
+        "action": "Use the local work-mode coordinator",
+        "owner": "work-mode",
+        "decision": "Blend",
+        "priority": "Implemented in repository",
+        "reason": "Selected phase-return and evidence-recovery ideas are incorporated in work-mode. The engine/controller implementation and standalone shipping tail are not adopted.",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/efcb657d9a5733ccc154c36cc7d3d78b4136eb23/skills/ce-work/SKILL.md",
+        "sha": "efcb657d9a5733ccc154c36cc7d3d78b4136eb23",
+        "sha256": "c9b392620e8ae856882cd5a493b1f0e5941aa06935a73578846e703e0f00ce00",
+        "lines": 62,
+        "chars": 7853,
+        "inspection": "Selected entrypoint and listed references read in full for work-mode on 2026-10-07; no donor runtime executed.",
+        "references": [
+          {
+            "path": "skills/ce-work/references/return-to-caller.md",
+            "coverage": "Complete source read; selected coordination ideas or applicable license, not wholesale adoption.",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/efcb657d9a5733ccc154c36cc7d3d78b4136eb23/skills/ce-work/references/return-to-caller.md"
+          },
+          {
+            "path": "LICENSE",
+            "coverage": "Complete source read; selected coordination ideas or applicable license, not wholesale adoption.",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/efcb657d9a5733ccc154c36cc7d3d78b4136eb23/LICENSE"
+          }
+        ]
       },
       {
         "key": "Compound Engineering/lfg",
-        "action": "Assess for the proposed coordinator"
+        "action": "Use the local work-mode coordinator",
+        "owner": "work-mode",
+        "decision": "Blend",
+        "priority": "Implemented in repository",
+        "reason": "Selected request routing and caller continuation ideas are incorporated in work-mode. Local authority, specialist contracts and requested endpoints govern the result.",
+        "source": "https://github.com/EveryInc/compound-engineering-plugin/blob/efcb657d9a5733ccc154c36cc7d3d78b4136eb23/skills/lfg/SKILL.md",
+        "sha": "efcb657d9a5733ccc154c36cc7d3d78b4136eb23",
+        "sha256": "ae1544987102cdb6f998f0c1b48f14d9d4ea327265eb3072a12145aafec2c0c8",
+        "lines": 59,
+        "chars": 7896,
+        "inspection": "Selected entrypoint and listed references read in full for work-mode on 2026-10-07; no donor runtime executed.",
+        "references": [
+          {
+            "path": "skills/lfg/references/intake.md",
+            "coverage": "Complete source read; selected coordination ideas or applicable license, not wholesale adoption.",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/efcb657d9a5733ccc154c36cc7d3d78b4136eb23/skills/lfg/references/intake.md"
+          },
+          {
+            "path": "skills/lfg/references/work-return.md",
+            "coverage": "Complete source read; selected coordination ideas or applicable license, not wholesale adoption.",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/efcb657d9a5733ccc154c36cc7d3d78b4136eb23/skills/lfg/references/work-return.md"
+          },
+          {
+            "path": "skills/ce-work/SKILL.md",
+            "coverage": "Complete source read; selected coordination ideas or applicable license, not wholesale adoption.",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/efcb657d9a5733ccc154c36cc7d3d78b4136eb23/skills/ce-work/SKILL.md"
+          },
+          {
+            "path": "skills/ce-work/references/return-to-caller.md",
+            "coverage": "Complete source read; selected coordination ideas or applicable license, not wholesale adoption.",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/efcb657d9a5733ccc154c36cc7d3d78b4136eb23/skills/ce-work/references/return-to-caller.md"
+          },
+          {
+            "path": "LICENSE",
+            "coverage": "Complete source read; selected coordination ideas or applicable license, not wholesale adoption.",
+            "url": "https://github.com/EveryInc/compound-engineering-plugin/blob/efcb657d9a5733ccc154c36cc7d3d78b4136eb23/LICENSE"
+          }
+        ]
       },
       {
         "key": "Addy Osmani/incremental-implementation",
@@ -19258,7 +19353,67 @@ window.SKILL_ATLAS = {
         "key": "Matt Pocock/to-tickets",
         "owner": "planning; task-breakdown",
         "reason": "Task-breakdown now owns detailed delivery-unit sizing, dependencies and migration stages. Planning hands over the approach and acceptance criteria; issue-workflow owns authorized ticket publication."
+      },
+      {
+        "key": "pstack/poteto-mode",
+        "owner": "handoff; work-mode",
+        "decision": "Blend",
+        "action": "Use the local work-mode coordinator",
+        "priority": "Implemented in repository",
+        "reason": "Selected routing ideas are incorporated in work-mode; handoff retains its separate continuity source. Cursor runtime, mandatory agents, broad write authority, and donor publication defaults are not adopted.",
+        "source": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/poteto-mode/SKILL.md",
+        "sha": "df581122cde17e6e27686b5a448bde23e4ad4318",
+        "sha256": "31cd02290360ce63564ef22b74d69fc6d90e62181d05a644cbed8f6c47cc9412",
+        "lines": 147,
+        "chars": 20525,
+        "inspection": "Selected entrypoint and listed references read in full for work-mode on 2026-10-07; no donor runtime executed.",
+        "references": [
+          {
+            "path": "pstack/skills/poteto-mode/playbooks/feature.md",
+            "coverage": "Complete source read; selected coordination ideas or applicable license, not wholesale adoption.",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/poteto-mode/playbooks/feature.md"
+          },
+          {
+            "path": "pstack/skills/poteto-mode/playbooks/bug-fix.md",
+            "coverage": "Complete source read; selected coordination ideas or applicable license, not wholesale adoption.",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/poteto-mode/playbooks/bug-fix.md"
+          },
+          {
+            "path": "pstack/skills/poteto-mode/playbooks/refactoring.md",
+            "coverage": "Complete source read; selected coordination ideas or applicable license, not wholesale adoption.",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/poteto-mode/playbooks/refactoring.md"
+          },
+          {
+            "path": "pstack/skills/poteto-mode/playbooks/investigation.md",
+            "coverage": "Complete source read; selected coordination ideas or applicable license, not wholesale adoption.",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/poteto-mode/playbooks/investigation.md"
+          },
+          {
+            "path": "pstack/LICENSE",
+            "coverage": "Complete source read; selected coordination ideas or applicable license, not wholesale adoption.",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/LICENSE"
+          },
+          {
+            "path": "pstack/skills/poteto-mode/playbooks/opening-a-pr.md",
+            "coverage": "Complete source read; local delivery endpoints deliberately replace donor defaults.",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/poteto-mode/playbooks/opening-a-pr.md"
+          },
+          {
+            "path": "pstack/skills/poteto-mode/playbooks/babysit.md",
+            "coverage": "Complete source read; local delivery endpoints deliberately replace donor defaults.",
+            "url": "https://github.com/cursor/plugins/blob/df581122cde17e6e27686b5a448bde23e4ad4318/pstack/skills/poteto-mode/playbooks/babysit.md"
+          }
+        ]
       }
     ]
+  },
+  "workModeReview": {
+    "date": "2026-10-07",
+    "sourceCommits": {
+      "cursor/plugins": "df581122cde17e6e27686b5a448bde23e4ad4318",
+      "EveryInc/compound-engineering-plugin": "efcb657d9a5733ccc154c36cc7d3d78b4136eb23"
+    },
+    "validation": "work-mode-validation.json",
+    "scope": "New portable coordinator, selected-source provenance, README/registry and targeted atlas integration. Repository package; no global installation, live PR delivery or automatic host selection claim."
   }
 };

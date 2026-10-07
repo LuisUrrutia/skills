@@ -80,6 +80,23 @@ dependencies, context and the applicable review budget to each executor.
 The flow is `wayfinder` → `planning` → `task-breakdown` → authorized ticket publication
 and implementation. `stacked-pr` handles branch dependencies when a stack is useful.
 
+### work-mode
+
+Coordinate one development task from its current state through the remaining
+authorized work. Reuse completed work and choose the next phase from the actual
+gap: a defect, unresolved direction, missing approach, or ready implementation.
+
+**Triggers:** `carry this task through to completion`, `resume this implementation`, `coordinate this feature through delivery`
+
+Uses the existing planning, implementation, verification, review, and delivery
+owners. Small settled changes keep a direct route. Specialist-only requests keep
+their own endpoint, and PR publication follows the task's actual authority.
+Ticket implementation triggers its configured workflow even without a PR;
+follow-up retains one owner and the host's resumable watch. The package records
+selected pstack and Compound Engineering sources in `work-mode/origin.txt`.
+
+This is a repository package, not a global installation or a background runtime.
+
 ### agent-instructions
 
 Write and improve instructions for agents in `AGENTS.md`, `CLAUDE.md`, skills,
