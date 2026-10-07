@@ -124,7 +124,6 @@ Read [references/review-packet.md](references/review-packet.md) for every title
 or body. Read [references/visual-evidence.md](references/visual-evidence.md) when
 a changed interface, flow or structure would be easier to assess visually.
 Use the smallest useful diagram, genuine screenshots or measured comparison.
-Ordinary small changes can be explained in a sentence.
 
 For visible UI changes, capture and attach the relevant app states when the app,
 capture tool and upload route are available. Use existing verified captures when

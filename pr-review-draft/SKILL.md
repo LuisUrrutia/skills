@@ -100,8 +100,7 @@ existing authorization; suggestions grant no additional permission.
 ## Prepare and write the pending comments
 
 9. **Word and select comments.** Use `comment-style` with explicit personal
-   Comment bindings when provided. Aim for one short sentence; retain a second
-   when evidence or a qualification needs it. Preserve required versus optional
+   Comment bindings when provided. Preserve required versus optional
    status, consequence and certainty when shortening or phrasing a question.
    A fix in another repository asks its owner rather than demanding an unrelated
    change in this PR. Keep every supported finding internally. Test-only or tooling

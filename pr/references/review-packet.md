@@ -16,9 +16,21 @@ helps when it makes a trigger or boundary concrete. Explain the mechanism only
 as far as it helps evaluate correctness or a consequential tradeoff.
 
 Use the selected template's meaningful sections and required checklists. Without
-a template, use a short explanation plus relevant verification; add headings only
-when they aid scanning. Cover these questions where they matter, without turning
-each into a mandatory section:
+a template, use short named sections when the body covers distinct purposes such
+as motivation, changes and validation. `Summary`, `Changes` and `Validation` are
+a useful starting point; combine or omit sections that would be empty or repeat
+the same point. An unsectioned body fits only when the explanation and verification
+remain easy to scan in a few lines. A small diff alone does not justify dense
+paragraphs.
+
+Use bullets for parallel changes or checks so the reviewer can find each result
+without unpacking a paragraph. Keep the opening brief and explanations cohesive;
+do not turn every sentence into a separate bullet or repeat the summary in the
+change list. State each command's outcome and any limit on what it proved next
+to that command.
+
+Cover these questions where they matter, without turning each into a mandatory
+section:
 
 - What changed for the caller or user, and which gates still limit it?
 - Why this approach, where that reason is known? What material alternative or
@@ -61,5 +73,7 @@ state the remaining scope. Do not imply human approval, add promotional footers,
 or invent author intent.
 
 Before delivery, read it as a reviewer: can each claim be traced to evidence, can
-the important decision be found quickly, and does every paragraph change what the
-reader understands or checks? Remove repetition and unsupported reassurance.
+the purpose, changes, consequential decisions and validation be found at a glance,
+and does every paragraph change what the reader understands or checks? Reorganize
+dense blocks rather than merely adding headings above them. Remove repetition and
+unsupported reassurance.

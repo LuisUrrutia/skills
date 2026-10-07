@@ -1,0 +1,129 @@
+{
+  "date": "2026-10-06",
+  "change": "Use direct review openings and natural sentence boundaries without a sentence-count target.",
+  "baseline": "1a8cceb953b3346661fddb766be592532b17a902",
+  "source_thread": "a1ee4d2b-3ee2-4746-9b42-edb0f05d4e2b",
+  "trace_evidence": {
+    "23": "Complete comment-style entrypoint read.",
+    "32": "Complete PR wording reference read.",
+    "140": "Coordinator writes both screenshot bodies into comment-plan.json.",
+    "144,146": "Pending-review read-back preserves exact wording."
+  },
+  "diagnosis": "Neither source requires please or semicolons. Both prefer one sentence. This is a plausible wording pressure, not proof of the model decision process.",
+  "checks": [
+    {
+      "command": "git diff --check",
+      "result": "pass"
+    },
+    {
+      "command": "TMPDIR=\"$PWD/.agents/review-wording-tmp\" bash pr-review-draft/scripts/validate.sh \"$PWD/review-code-changes\"",
+      "result": "Initial Zsh environment failed: Python lacks tomllib. Rerun through fish -lc used Python 3.14.8 and passed package references, metadata, provenance, Python syntax and all 33 tests. Final revision rerun: all 33 tests passed in 18.335s."
+    },
+    {
+      "command": "python3 (inline pathlib/re local Markdown link check)",
+      "result": "All comment-style local Markdown references resolve inside package."
+    }
+  ],
+  "behavioral_comparison": {
+    "runner": "Two fresh native Codex gpt-6-astra subagents, inherited medium effort, same available tools and case prompt.",
+    "baseline_agent": "/root/baseline_wording",
+    "candidate_agent": "/root/candidate_wording",
+    "cases": [
+      "Retry affiliate aggregation after post-insert failure, retaining isStored and incomplete affiliate-day consequence.",
+      "Reconcile reassigned merchant totals for both affiliates when missingDays is empty.",
+      "Optional shared Button suggestion with diagnosis already known."
+    ],
+    "baseline_output": [
+      "retry affiliate aggregation even when the merchant row already exists. If aggregation fails after the insert, redelivery hits `isStored` and acknowledges the message without completing the affiliate day",
+      "reconcile both affiliates when a merchant is reassigned. If all merchant days are already stored, `missingDays` is empty, so the old affiliate retains the totals and the new affiliate never receives them",
+      "suggestion: use the shared `Button` here"
+    ],
+    "candidate_output": [
+      "if affiliate aggregation fails after the merchant row is inserted, redelivery hits `isStored` and acknowledges the message without completing the affiliate day. Retry affiliate aggregation even when the merchant row already exists",
+      "when a merchant is reassigned and all its days are already stored, `missingDays` is empty. The old affiliate retains the totals, and the new affiliate never receives them. Reconcile both affiliates on reassignment",
+      "suggestion: use the shared `Button` here"
+    ],
+    "result": "Both arms preserve supplied claims and optional status, with no please openings or semicolons. No measured improvement claimed. Candidate allows a three-sentence finding without expanding the simple suggestion.",
+    "final_delta": "After trials, removed redundant caller length sentence and added any before requested change. Static reviews cover these two meaning-preserving clarifications; behavioral trials used tested_candidate_sha256."
+  },
+  "consultations": [
+    {
+      "profile": "Codex gpt-6-astra / max",
+      "runner": "native fresh-context subagent /root/wording_review",
+      "rounds": 3,
+      "result": "Final three-file diff has no material issues.",
+      "adopted": [
+        "Scope generic sentence preference to non-review messages.",
+        "Use factual, direct wording without requiring an explicit request in every finding.",
+        "Retain ever and explicit causality in supplied comment rewrites.",
+        "Delete caller sentence-length guidance so wording has one owner.",
+        "Say any requested change to keep remedies optional where appropriate."
+      ]
+    },
+    {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "T3 delegated fresh context",
+      "initial_task_id": "node:delegated-task:command%3Amcp%3A81af02ff-19e3-46c4-9004-5d4e2057c257%3Adelegate-task%3Areview-wording-fable-1",
+      "final_task_id": "node:delegated-task:command%3Amcp%3A81af02ff-19e3-46c4-9004-5d4e2057c257%3Adelegate-task%3Areview-wording-fable-2",
+      "result": "Final read-only consultation found no unresolved material issues in the complete final texts.",
+      "adopted": [
+        "Scope generic sentence aim to non-review messages.",
+        "Delete caller length sentence.",
+        "Keep factual/direct wording and optional remedy.",
+        "Preserve ever and so in rewrites."
+      ],
+      "not_adopted": [
+        "Renaming review findings: no selection ambiguity in context.",
+        "Replacing punctuation guidance: current text already directs sentence splitting or causal connectors.",
+        "Claim that baseline requires one sentence: baseline allows second sentence and baseline execution used it."
+      ],
+      "new_evidence": "Historical thread now proves loading and exact comment authorship/read-back; final consultation receives this evidence.",
+      "rounds": 2
+    }
+  ],
+  "limits": [
+    "Instruction sources edited in this checkout, not installed into agent hosts.",
+    "No application behavior re-review or GitHub comment edit.",
+    "No build command applies to the Markdown-only edits. Python package syntax and broader workflow tests passed.",
+    "Bounded wording trials do not establish reliability or host activation."
+  ],
+  "tested_candidate_sha256": {
+    "comment-style/SKILL.md": "ab691d8fa7c18fb3ffca52d92dfcb695018491be7c3d138f3f925fa745b72d3f",
+    "comment-style/references/review.md": "76cc363adcec8df07eb0b00b2ba970da102fd3e06e3b5950900a6f1cc3f1d4e7",
+    "pr-review-draft/SKILL.md": "3c6903b7cf2cce5d1b572b71de8cd620fdb3c7cfe47d88679ffb1e9d0691bcf4"
+  },
+  "final_sha256": {
+    "comment-style/SKILL.md": "ab691d8fa7c18fb3ffca52d92dfcb695018491be7c3d138f3f925fa745b72d3f",
+    "comment-style/references/review.md": "7fcc113c4858c946493c0a522cdc8da2d9a0c8d343cbf29bc363446eebc90861",
+    "pr-review-draft/SKILL.md": "ea2646f39bea431b9e48a9136b9f0e604f89b77328d1139e3f62ed8d4a754e48"
+  },
+  "cohesion_followup": {
+    "baseline": "09e353163d56904d83de27f60deb0ddc475ad51b",
+    "user_preference": "Keep request and reason cohesive instead of splitting them into detached statements.",
+    "approved_examples": [
+      "retry affiliate aggregation even when the merchant row already exists, because if it fails after the insert, redelivery hits `isStored` and acknowledges the message without ever completing the affiliate day",
+      "when a merchant is reassigned, reconcile both affiliates even if all merchant days are already stored, since an empty `missingDays` leaves the totals with the old affiliate and the new one never receives them"
+    ],
+    "change": "Replace the short-sentence-first paragraph with explicit request/reason cohesion, causal connectors, and sentence breaks only when they improve readability. No fixed sentence count.",
+    "reference_sha256": "418bcdf132b0f1fc7999518aac5b4acca5fc1def6831c5d13cbfc27284401e6b",
+    "checks": [
+      "Fidelity review against user-approved examples.",
+      "Inline Python comparison: surrounding instruction text remains byte-identical; all local Markdown links stay inside package and resolve.",
+      "git diff --check passed.",
+      "fish -lc with TMPDIR=\"$PWD/.agents/review-wording-tmp\" bash pr-review-draft/scripts/validate.sh \"$PWD/review-code-changes\": package and Python syntax passed; 33 tests passed in 18.156s."
+    ],
+    "consultations": [
+      {
+        "profile": "Codex gpt-6-astra / max",
+        "runner": "fresh native subagent /root/cohesion_review",
+        "result": "No material findings; accept frozen diff."
+      },
+      {
+        "profile": "Claude claude-fable-5-1 / max",
+        "task_id": "node:delegated-task:command%3Amcp%3A81af02ff-19e3-46c4-9004-5d4e2057c257%3Adelegate-task%3Areview-cohesion-fable-1",
+        "result": "Approve frozen candidate; no material omission or conflict. No further changes requested."
+      }
+    ],
+    "limits": "Narrow wording correction checked for fidelity, not a new matched behavioral trial. Source checkout only, not installed."
+  }
+}

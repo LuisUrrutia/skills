@@ -36,11 +36,22 @@ genuine question starts with its point. Do not downgrade a supported defect to a
 nit. Skip isolated taste objections; a documented rule or repeated inconsistency
 can justify a minor comment.
 
-Describe the observable problem, or name an established straightforward change.
-One finding gets one point. Preserve exact identifiers and reachable
-example values when they are necessary; shorten the explanation, not its evidence.
-Point to an existing pattern when that helps the author act. Describe what a
-commit changed rather than inserting its hash, unless revision evidence is needed.
+Start with the observable problem, a genuine question, or an established
+straightforward change. Omit formulaic politeness such as an opening "please".
+Keep the tone respectful through factual, direct wording.
+
+Build each finding around one connected idea. When a request needs a reason,
+weave its condition and consequence into the same thought with links such as
+"because", "since", "if" or "when". Prefer that connection over a detached
+explanation or a standalone instruction tacked onto the end. Avoid using a
+semicolon to join the request and its explanation. Split sentences when that
+improves readability, keeping their causal connection explicit. Preserve necessary
+conditions without forcing a sentence count or the same structure on every comment.
+
+Preserve exact identifiers and reachable example values when they are necessary;
+shorten the explanation, not its evidence. Point to an existing pattern when that
+helps the author act. Describe what a commit changed rather than inserting its
+hash, unless revision evidence is needed.
 
 The review workflow owns which findings to post, their locations, deduplication,
 and resolution. For an authorized inline reply, use its existing thread. Keep

@@ -43,7 +43,9 @@ For an established straightforward change, say the ask and stop: "suggestion:
 use the shared `Button` here". Do not retell the diagnosis the recipient already
 has or describe the obvious benefits of the requested change.
 
-Aim for one short sentence; use a second when it saves the reader from guessing.
+For review findings, follow the sentence guidance in [references/review.md](references/review.md).
+For other messages, aim for one short sentence; use a second when it saves the
+reader from guessing.
 Remove repeated context and implementation narration before cutting useful facts.
 Do not squeeze a paragraph into one clause-heavy sentence. One message should
 carry one point; when the request has several required points, preserve them in
