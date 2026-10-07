@@ -5,7 +5,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from followup import FollowupError, RejectedError, apply, begin, record, state
+from followup import FollowupError, RejectedError, apply, begin, record, settle, state
 
 PR = 'https://github.com/example-org/api/pull/12'
 HEAD = 'a' * 40
@@ -91,8 +91,8 @@ class FollowupTests(unittest.TestCase):
         self.api = FakeGitHub()
         self.ticks = 0
 
-    def record(self, complete=True, standing=0):
-        return record(PR, 'reviewer', self.state_file, self.snapshot, complete, standing)
+    def record(self, complete=True, standing=0, questions=0):
+        return record(PR, 'reviewer', self.state_file, self.snapshot, complete, standing, questions)
 
     def apply(self, **data):
         self.ticks += 1
@@ -147,9 +147,12 @@ class FollowupTests(unittest.TestCase):
         writes = len(self.api.writes())
         self.apply(replies=[{'thread_id': 'T1', 'body': 'this one is done'}], resolve=['T1'])
 
+        second = self.apply(replies=[{'thread_id': 'T1', 'body': 'this one is done'}], resolve=['T1'])
+
         self.assertEqual(self.api.writes()[0][0], 'repos/example-org/api/pulls/12/comments/100/replies')
         self.assertTrue(self.api.threads[0]['isResolved'])
         self.assertEqual(len(self.api.writes()), writes)
+        self.assertEqual((second['replied'], second['skipped']), ([], ['T1']))
 
     def test_other_reviewers_threads_are_never_touched(self):
         self.record()
@@ -161,14 +164,15 @@ class FollowupTests(unittest.TestCase):
     def test_malformed_plans_write_nothing(self):
         self.record()
         for data in ({'approve': 'false'}, {'resolve': 'T1'}, {'replies': [{'thread_id': 'T1', 'body': 3}]},
-                     {'verified': [1]}, {'merge': True}):
+                     {'verified': [1]}, {'merge': True}, {'resolve': ['T1'], 'unresolve': ['T1']},
+                     {'verified': ['T1']}):
             with self.subTest(data=data), self.assertRaisesRegex(FollowupError, 'plan'):
                 self.apply(**data)
         self.assertEqual(self.api.writes(), [])
 
     def test_approval_requires_every_gate(self):
-        cases = [(None, 'not been reviewed'), ((False, 0), 'incomplete'), ((True, 1), 'required findings'),
-                 ((True, 0), 'unresolved')]
+        cases = [(None, 'not been reviewed'), ((False, 0, 0), 'incomplete'), ((True, 1, 0), 'required findings'),
+                 ((True, 0, 1), 'questions'), ((True, 0, 0), 'unresolved')]
         for recorded, message in cases:
             with self.subTest(message=message):
                 self.state_file.unlink(missing_ok=True)
@@ -184,7 +188,7 @@ class FollowupTests(unittest.TestCase):
 
         with self.assertRaisesRegex(FollowupError, 'verified'):
             self.apply(approve=True)
-        result = self.apply(verified=['T1'], approve=True)
+        result = self.apply(verified=['T1', 'T2'], approve=True)
 
         self.assertEqual(result['approved'], HEAD)
 
@@ -195,12 +199,12 @@ class FollowupTests(unittest.TestCase):
         self.apply(unresolve=['T1'], replies=[{'thread_id': 'T1', 'body': 'the retry path still writes twice'}])
 
         self.assertFalse(self.api.threads[0]['isResolved'])
-        self.assertEqual(state(PR, 'reviewer', self.state_file, self.api)['needs_verification'], [])
+        self.assertNotIn('T1', state(PR, 'reviewer', self.state_file, self.api)['needs_verification'])
 
     def test_approval_after_the_last_thread_resolves_and_end_state(self):
         self.record()
 
-        result = self.apply(resolve=['T1'], approve=True)
+        result = self.apply(resolve=['T1'], verified=['T2'], approve=True)
         again = self.apply(approve=True)
 
         self.assertEqual(result['approved'], HEAD)
@@ -249,6 +253,38 @@ class FollowupTests(unittest.TestCase):
         with self.assertRaises(RejectedError):
             self.apply(resolve=['T1'])
         self.assertNotIn('pending_operation', json.loads(self.state_file.read_text()))
+
+    def test_verification_holds_only_for_the_head_it_checked(self):
+        self.record()
+        self.apply(resolve=['T1'], verified=['T2'])
+        self.assertEqual(state(PR, 'reviewer', self.state_file, self.api)['needs_verification'], [])
+
+        newer = 'c' * 40
+        self.api.head = newer
+        self.snapshot.write_text(json.dumps({'target': {'url': PR, 'head': newer, 'base_name': 'main'}}))
+        self.record()
+        result = state(PR, 'reviewer', self.state_file, self.api)
+
+        self.assertEqual(result['needs_verification'], ['T1', 'T2'])
+        self.assertIn('verified', ' '.join(result['approval_blockers']))
+
+    def test_done_uses_the_whole_gate(self):
+        self.record()
+        self.apply(resolve=['T1'], verified=['T2'], approve=True)
+        self.assertTrue(state(PR, 'reviewer', self.state_file, self.api)['done'])
+
+        self.api.base_ref = 'release/1.2'
+        self.assertFalse(state(PR, 'reviewer', self.state_file, self.api)['done'])
+
+    def test_settle_updates_only_the_current_review(self):
+        self.record(standing=1, questions=1)
+        settle(PR, 'reviewer', self.state_file, 0, 0, self.api)
+        result = self.apply(resolve=['T1'], verified=['T2'], approve=True)
+        self.assertEqual(result['approved'], HEAD)
+
+        self.api.head = 'd' * 40
+        with self.assertRaisesRegex(FollowupError, 'current head'):
+            settle(PR, 'reviewer', self.state_file, 0, 0, self.api)
 
 
 if __name__ == '__main__':

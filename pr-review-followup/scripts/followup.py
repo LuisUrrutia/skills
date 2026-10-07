@@ -111,31 +111,56 @@ def read_pr(target: dict, actor: str, api) -> dict:
                                  for r in reviews)}
 
 
-def summarize(pr: dict, data: dict, actor: str) -> dict:
+def review_key(pr: dict) -> str:
+    return f"{pr['head']}@{pr['base_ref']}"
+
+
+def summarize(pr: dict, data: dict, plan: dict | None = None) -> dict:
+    """The approval gate: one predicate for approving and for declaring the follow-up done."""
+    plan = plan or {}
     reviewed = data.get("reviewed") or {}
     current = reviewed.get("head") == pr["head"] and reviewed.get("base_ref") == pr["base_ref"]
     reviewing = data.get("reviewing") or {}
     started = datetime.fromisoformat(reviewing["started_at"]) if reviewing else None
-    unresolved = [t["id"] for t in pr["threads"] if not t["resolved"]]
-    unverified = [t["id"] for t in pr["threads"] if t["resolved"] and t["resolved_by"] != actor
-                  and t["id"] not in data.get("verified", [])]
+    verified = data.get("verified") if isinstance(data.get("verified"), dict) else {}
+    resolve, unresolve = set(plan.get("resolve", [])), set(plan.get("unresolve", []))
+    checked = resolve | set(plan.get("verified", []))
+    closed = {t["id"] for t in pr["threads"] if (t["resolved"] or t["id"] in resolve) and t["id"] not in unresolve}
+    unresolved = [t["id"] for t in pr["threads"] if t["id"] not in closed]
+    unverified = [i for i in sorted(closed) if verified.get(i) != review_key(pr) and i not in checked]
+    blockers = []
+    if not current:
+        blockers.append("the current head has not been reviewed")
+    elif reviewed.get("complete") is not True:
+        blockers.append("the review of the current head is incomplete")
+    else:
+        if reviewed.get("standing"):
+            blockers.append("required findings outside reviewer threads still stand")
+        if reviewed.get("questions"):
+            blockers.append("decisive questions remain open")
+    if unresolved:
+        blockers.append("reviewer threads remain unresolved")
+    if unverified:
+        blockers.append("resolved threads have not been verified on the current head")
     return {"current": current, "complete": current and reviewed.get("complete") is True,
             "standing": reviewed.get("standing") if current else None,
+            "questions": reviewed.get("questions") if current else None,
             "in_progress": reviewing.get("head") == pr["head"] and started is not None
             and datetime.now(timezone.utc) - started < REVIEW_IN_PROGRESS,
-            "unresolved": unresolved, "unverified": unverified}
+            "unresolved": unresolved, "unverified": unverified, "blockers": blockers}
 
 
 def state(url: str, actor: str, state_file: Path, api=None) -> dict:
     target = parse_pr(url)
     data = load_state(state_file, target, actor)
     pr = read_pr(target, actor, api or GitHub(target["host"]))
-    view = summarize(pr, data, actor)
+    view = summarize(pr, data)
     return {"pr": target["url"], "author": pr["author"], "state": pr["state"], "head": pr["head"],
             "base_ref": pr["base_ref"], "reviewed": data.get("reviewed"), "review_current": view["current"],
             "review_complete": view["complete"], "standing_required": view["standing"],
-            "review_in_progress": view["in_progress"], "pending_review": pr["pending_review"],
-            "approved_head": pr["approved_head"], "done": pr["approved_head"] and not view["unresolved"],
+            "open_questions": view["questions"], "review_in_progress": view["in_progress"],
+            "pending_review": pr["pending_review"], "approved_head": pr["approved_head"],
+            "done": pr["approved_head"] and not view["blockers"], "approval_blockers": view["blockers"],
             "pending_operation": data.get("pending_operation"), "unresolved": len(view["unresolved"]),
             "needs_verification": view["unverified"], "threads": pr["threads"]}
 
@@ -148,17 +173,36 @@ def begin(url: str, actor: str, state_file: Path, head: str) -> dict:
     return data
 
 
-def record(url: str, actor: str, state_file: Path, snapshot: Path, complete: bool, standing: int) -> dict:
+def counts(standing: int, questions: int) -> None:
+    for name, value in (("standing", standing), ("questions", questions)):
+        if type(value) is not int or value < 0:
+            raise FollowupError(f"{name} must be a non-negative count")
+
+
+def record(url: str, actor: str, state_file: Path, snapshot: Path, complete: bool, standing: int,
+           questions: int) -> dict:
     target = parse_pr(url)
     data = load_state(state_file, target, actor)
     frozen = json.loads(snapshot.read_text())["target"]
     if parse_pr(frozen["url"])["url"] != target["url"]:
         raise FollowupError("the review snapshot belongs to another PR")
-    if type(standing) is not int or standing < 0:
-        raise FollowupError("standing must be a non-negative count of required findings outside reviewer threads")
+    counts(standing, questions)
     data["reviewed"] = {"head": frozen["head"], "base_ref": frozen["base_name"], "complete": complete,
-                        "standing": standing, "snapshot_sha256": hashlib.sha256(snapshot.read_bytes()).hexdigest()}
+                        "standing": standing, "questions": questions,
+                        "snapshot_sha256": hashlib.sha256(snapshot.read_bytes()).hexdigest()}
     data.pop("reviewing", None)
+    save(state_file, data)
+    return data
+
+
+def settle(url: str, actor: str, state_file: Path, standing: int, questions: int, api=None) -> dict:
+    target = parse_pr(url)
+    data = load_state(state_file, target, actor)
+    counts(standing, questions)
+    pr = read_pr(target, actor, api or GitHub(target["host"]))
+    if not summarize(pr, data)["current"]:
+        raise FollowupError("settle applies only to the review of the current head; review it first")
+    data["reviewed"].update(standing=standing, questions=questions)
     save(state_file, data)
     return data
 
@@ -177,6 +221,8 @@ def validate_plan(plan: object) -> dict:
         raise FollowupError("plan replies need only a string thread_id and a non-empty string body")
     if not isinstance(plan.get("approve", False), bool):
         raise FollowupError("plan field approve must be a boolean")
+    if set(plan.get("resolve", [])) & set(plan.get("unresolve", [])):
+        raise FollowupError("plan cannot resolve and reopen the same thread")
     return plan
 
 
@@ -217,19 +263,11 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
     for thread_id in unresolve:
         if mine[thread_id]["resolved"] and not mine[thread_id]["can_unresolve"]:
             raise FollowupError(f"the reviewer cannot reopen {thread_id}; report it instead")
-    if plan.get("approve"):
-        data["verified"] = sorted(set(data.get("verified", [])) | set(plan.get("verified", [])))
-        view = summarize(pr, data, actor)
-        if not view["current"]:
-            raise FollowupError("the current head has not been reviewed")
-        if not view["complete"]:
-            raise FollowupError("the review of the current head is incomplete")
-        if view["standing"]:
-            raise FollowupError("required findings outside reviewer threads still stand")
-        if set(view["unresolved"]) - set(resolve) or set(unresolve):
-            raise FollowupError("reviewer threads remain unresolved")
-        if view["unverified"]:
-            raise FollowupError("threads resolved by someone else have not been verified")
+    for thread_id in plan.get("verified", []):
+        if not mine[thread_id]["resolved"] and thread_id not in resolve:
+            raise FollowupError(f"plan verifies {thread_id}, which is not resolved")
+    if plan.get("approve") and (blockers := summarize(pr, data, plan)["blockers"]):
+        raise FollowupError(blockers[0])
 
     def write(key: str, endpoint: str, payload: dict):
         if key in done["completed"]:
@@ -250,7 +288,10 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
         save(receipt, done)
         save(state_file, data)
 
-    result = {"replied": [], "resolved": [], "reopened": [], "approved": None}
+    key_now = review_key(pr)
+    verified = data["verified"] if isinstance(data.get("verified"), dict) else {}
+    data["verified"] = verified
+    result = {"replied": [], "skipped": [], "resolved": [], "reopened": [], "approved": None}
     for thread_id in unresolve:
         if mine[thread_id]["resolved"]:
             thread = write(f"unresolve:{thread_id}", "graphql",
@@ -258,18 +299,21 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
             if thread and thread["data"]["unresolveReviewThread"]["thread"] != {"id": thread_id, "isResolved": False}:
                 raise FollowupError("thread did not read back as reopened")
             finish(f"unresolve:{thread_id}")
+        verified.pop(thread_id, None)
         result["reopened"].append(thread_id)
     for reply in replies:
         thread_id = reply["thread_id"]
         key = f"reply:{thread_id}:{hashlib.sha256(reply['body'].encode()).hexdigest()[:12]}"
-        if mine[thread_id]["last_reviewer_body"] != reply["body"]:
-            comment = write(key, target["prefix"] + f"/comments/{mine[thread_id]['root_comment']}/replies",
-                            {"body": reply["body"]})
-            if comment:
-                review = api.call(target["prefix"] + f"/reviews/{comment.get('pull_request_review_id')}")
-                if comment.get("body") != reply["body"] or review.get("state") == "PENDING":
-                    raise FollowupError("reply did not read back as a published comment; inspect the thread")
-                finish(key)
+        if mine[thread_id]["last_reviewer_body"] == reply["body"]:
+            result["skipped"].append(thread_id)
+            continue
+        comment = write(key, target["prefix"] + f"/comments/{mine[thread_id]['root_comment']}/replies",
+                        {"body": reply["body"]})
+        if comment:
+            review = api.call(target["prefix"] + f"/reviews/{comment.get('pull_request_review_id')}")
+            if comment.get("body") != reply["body"] or review.get("state") == "PENDING":
+                raise FollowupError("reply did not read back as a published comment; inspect the thread")
+            finish(key)
         result["replied"].append(thread_id)
     for thread_id in resolve:
         if not mine[thread_id]["resolved"]:
@@ -278,14 +322,15 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
             if thread and thread["data"]["resolveReviewThread"]["thread"] != {"id": thread_id, "isResolved": True}:
                 raise FollowupError("thread did not read back as resolved")
             finish(f"resolve:{thread_id}")
+        verified[thread_id] = key_now
         result["resolved"].append(thread_id)
-    data["verified"] = sorted(set(data.get("verified", [])) | set(plan.get("verified", [])))
-    data["verified"] = [i for i in data["verified"] if i not in unresolve]
+    for thread_id in plan.get("verified", []):
+        verified[thread_id] = key_now
     save(state_file, data)
     if plan.get("approve"):
         current = preflight()
-        if summarize(current, data, actor)["unresolved"]:
-            raise FollowupError("reviewer threads remain unresolved")
+        if blockers := summarize(current, data)["blockers"]:
+            raise FollowupError(blockers[0])
         if not current["approved_head"]:
             review = write("approve", target["prefix"] + "/reviews", {"commit_id": current["head"], "event": "APPROVE"})
             if review.get("state") != "APPROVED" or review.get("commit_id") != current["head"]:
@@ -298,18 +343,21 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
-    read = commands.add_parser("state", help="report the PR, the recorded review and the reviewer's threads")
+    read = commands.add_parser("state", help="report the PR, the recorded review, the approval gate and the reviewer's threads")
     start = commands.add_parser("begin", help="mark a full review of a head as in progress")
     mark = commands.add_parser("record", help="record the review a pr-review snapshot covered")
+    close = commands.add_parser("settle", help="update the standing findings and open questions of the current review")
     write = commands.add_parser("apply", help="publish replies, settle threads and approve through the gate")
-    for command in (read, start, mark, write):
+    for command in (read, start, mark, close, write):
         command.add_argument("--pr", required=True)
         command.add_argument("--actor", required=True)
         command.add_argument("--state-file", required=True, type=Path)
     start.add_argument("--head", required=True)
     mark.add_argument("--snapshot", required=True, type=Path)
     mark.add_argument("--complete", choices=("true", "false"), required=True)
-    mark.add_argument("--standing", required=True, type=int)
+    for command in (mark, close):
+        command.add_argument("--standing", required=True, type=int)
+        command.add_argument("--questions", required=True, type=int)
     write.add_argument("--plan", required=True, type=Path)
     write.add_argument("--receipt", required=True, type=Path)
     args = parser.parse_args()
@@ -321,7 +369,9 @@ def main() -> int:
             output = begin(args.pr, args.actor, state_file, args.head)
         elif args.command == "record":
             output = record(args.pr, args.actor, state_file, args.snapshot.resolve(),
-                            args.complete == "true", args.standing)
+                            args.complete == "true", args.standing, args.questions)
+        elif args.command == "settle":
+            output = settle(args.pr, args.actor, state_file, args.standing, args.questions)
         else:
             output = apply(args.pr, args.actor, state_file, args.plan.resolve(), args.receipt.resolve())
         print(json.dumps(output, indent=2))
