@@ -128,11 +128,12 @@ def summarize(pr: dict, data: dict, plan: dict | None = None) -> dict:
     closed = {t["id"] for t in pr["threads"] if (t["resolved"] or t["id"] in resolve) and t["id"] not in unresolve}
     unresolved = [t["id"] for t in pr["threads"] if t["id"] not in closed]
     unverified = [i for i in sorted(closed) if verified.get(i) != review_key(pr) and i not in checked]
+    complete = current and reviewed.get("complete") is True and all(
+        type(reviewed.get(field)) is int for field in ("standing", "questions"))
     blockers = []
     if not current:
         blockers.append("the current head has not been reviewed")
-    elif reviewed.get("complete") is not True or not all(
-            type(reviewed.get(field)) is int for field in ("standing", "questions")):
+    elif not complete:
         blockers.append("the review of the current head is incomplete")
     else:
         if reviewed.get("standing"):
@@ -143,7 +144,7 @@ def summarize(pr: dict, data: dict, plan: dict | None = None) -> dict:
         blockers.append("reviewer threads remain unresolved")
     if unverified:
         blockers.append("resolved threads have not been verified on the current head")
-    return {"current": current, "complete": current and reviewed.get("complete") is True,
+    return {"current": current, "complete": complete,
             "standing": reviewed.get("standing") if current else None,
             "questions": reviewed.get("questions") if current else None,
             "in_progress": reviewing.get("head") == pr["head"] and started is not None
@@ -345,6 +346,9 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
         if not current["approved_head"]:
             review = write("approve", target["prefix"] + "/reviews", {"commit_id": current["head"], "event": "APPROVE"},
                            check=gate)
+            if review is None:
+                raise FollowupError("the receipt records an approval GitHub no longer shows at this head; "
+                                    "make a new plan and receipt")
             if review.get("state") != "APPROVED" or review.get("commit_id") != current["head"]:
                 raise FollowupError("approval did not read back at the current head")
             finish("approve")

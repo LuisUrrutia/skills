@@ -15,8 +15,8 @@ reviewer started.
 | The author deferred it as out of scope | The issue still exists | Ask for a ticket to track it; keep it open. |
 | The author gave a ticket key or link, or confirmed the ticket exists | — | Resolve. When the tracker is accessible, confirm the ticket exists first. |
 | The author promised a ticket later, or refused one | — | Wait on a promise; report a refusal to the user. Keep it open. |
-| A resolved thread awaits verification on this head, whoever resolved it | The issue no longer exists, or the thread was settled by a confirmed ticket | Mark it `verified`. |
-| A resolved thread awaits verification on this head | The finding still stands | Reopen it with `unresolve` and reply with the deciding fact. |
+| A resolved thread awaits verification on this head and base, whoever resolved it | The issue no longer exists, or the thread was settled by a confirmed ticket | Mark it `verified`. |
+| A resolved thread awaits verification on this head and base | The finding still stands | Reopen it with `unresolve` and reply with the deciding fact. |
 | A resolved issue reappears in a new head | The issue is back | Reopen it and say what came back; `pr-review` raises the same point there. |
 | Anything that needs the user's judgment | — | Report it; do not reply. |
 

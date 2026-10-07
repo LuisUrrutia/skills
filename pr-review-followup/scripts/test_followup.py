@@ -306,7 +306,21 @@ class FollowupTests(unittest.TestCase):
         del data['reviewed']['questions']
         self.state_file.write_text(json.dumps(data))
 
-        self.assertIn('incomplete', ' '.join(state(PR, 'reviewer', self.state_file, self.api)['approval_blockers']))
+        result = state(PR, 'reviewer', self.state_file, self.api)
+
+        self.assertIn('incomplete', ' '.join(result['approval_blockers']))
+        self.assertFalse(result['review_complete'])
+
+    def test_rerun_after_a_dismissed_approval_asks_for_a_new_plan(self):
+        self.record()
+        plan, receipt = self.root / 'approve.json', self.root / 'approve-receipt.json'
+        plan.write_text(json.dumps({'expected_head': HEAD, 'expected_base_ref': 'main',
+                                    'resolve': ['T1'], 'verified': ['T2'], 'approve': True}))
+        apply(PR, 'reviewer', self.state_file, plan, receipt, self.api)
+        self.api.reviews[-1]['state'] = 'DISMISSED'
+
+        with self.assertRaisesRegex(FollowupError, 'new plan and receipt'):
+            apply(PR, 'reviewer', self.state_file, plan, receipt, self.api)
 
 
 if __name__ == '__main__':
