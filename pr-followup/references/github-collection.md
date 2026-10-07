@@ -66,6 +66,9 @@ head or assume a stable comment count means no new feedback.
 
 ## Verify an approval stop
 
+Use this stop only outside the entrypoint's personal-repository merge policy.
+That policy requires verified merge even when a formal approval already exists.
+
 Read GitHub's current review decision and published reviews, not the host badge or
 notification text. Identify the approving reviewer, review ID and reviewed commit;
 check that the approval is not pending, dismissed, superseded or stale under the

@@ -1,7 +1,7 @@
 format_version = 1
 skill = "pr-followup"
 created = "2026-10-03"
-approach = "Follow current-head feedback and CI through approval or merge using resumable host observation and existing local owners."
+approach = "Follow current-head feedback and CI using resumable host observation. Merge settled PRs in LuisUrrutia's personal repositories; elsewhere stop on approval or merge."
 
 [[sources]]
 id = "pstack-pr-followup"
@@ -15,7 +15,7 @@ baseline_paths = ["pstack/skills/poteto-mode/playbooks/babysit.md", "pstack/skil
 paths = ["pstack/skills/poteto-mode/playbooks/babysit.md", "pstack/skills/poteto-mode/references/bugbot-triage.md", "pstack/LICENSE"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Separate check, feedback and drive scopes; evaluate bot claims through current invariants; batch repair waves and retain one mutation owner."]
-local_choices = ["No default merge commits, automatic replies or dismissals, fixed-round authority, or assumption that failures outside the diff are stale-base issues. Current policy and exact-head evidence decide readiness."]
+local_choices = ["Outside the entrypoint's personal-repository policy, no default merge or reviewer communication authority. No automatic dismissals, fixed-round authority, or assumption that failures outside the diff are stale-base issues. Current policy and exact-head evidence decide readiness."]
 reviews = [
   { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
 ]
@@ -62,7 +62,7 @@ baseline_paths = ["skills/ce-babysit-pr/SKILL.md", "skills/ce-babysit-pr/referen
 paths = ["skills/ce-babysit-pr/SKILL.md", "skills/ce-babysit-pr/references/settle.md", "skills/ce-resolve-pr-feedback/SKILL.md", "skills/ce-resolve-pr-feedback/references/evaluation-rubric.md", "LICENSE"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Keep feedback and CI progressing independently, track per-item outcomes, reobserve after publication and distinguish settled checks from merge authorization."]
-local_choices = ["The user requires host-managed babysitting until merge or current formal approval, with no default time cutoff. No agent polling loop, auto-merge, stale-head success, automatic posting or assumption that most feedback must be applied. Uncertainty needs investigation or a scoped decision."]
+local_choices = ["The user's 2026-10-07 policy authorizes direct merge and necessary feedback settlement in LuisUrrutia's personal repositories after all comments are resolved, enabled reviewers finish and CI/CD passes, without waiting for approvals. Elsewhere, host-managed babysitting stops on merge or current formal approval. No default time cutoff, agent polling loop, stale-head success or assumption that most feedback must be applied. Uncertainty needs investigation or a scoped decision."]
 reviews = []
 
 [[sources]]
@@ -175,5 +175,5 @@ baseline_paths = [".codex/skills/babysit-pr/SKILL.md", "LICENSE"]
 paths = [".codex/skills/babysit-pr/SKILL.md", "LICENSE"]
 license = "Apache-2.0; concepts restated locally, no upstream files or code copied."
 borrowed = ["Keep pending review feedback unprocessed until published; retain one observation owner across fix/push cycles."]
-local_choices = ["Historical pinned reference: the skill was removed from main in 18131270fe82ef947830840eb5d6923d4b82609f; not a live installation recommendation.", "Host event notifications replace continuous model polling. Stop on current formal approval or merge per user policy. No copied watcher, author allowlist, automatic replies, merge authority or fixed three-retry budget."]
+local_choices = ["Historical pinned reference: the skill was removed from main in 18131270fe82ef947830840eb5d6923d4b82609f; not a live installation recommendation.", "Host event notifications replace continuous model polling. Apply the entrypoint's personal-repository merge policy; otherwise stop on current formal approval or merge. No copied watcher, author allowlist, fixed three-retry budget or reviewer communication and merge authority beyond the user's policy."]
 reviews = []

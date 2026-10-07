@@ -1,6 +1,6 @@
 ---
 name: pr-followup
-description: Babysit a pull request until merged or formally approved; inspect or repair feedback and CI, and move settled drafts to ready for review.
+description: Inspect or repair PR feedback and CI, move settled drafts to review, and babysit PRs through approval or an authorized merge.
 ---
 
 # PR follow-up
@@ -16,7 +16,8 @@ for. Use this directly with a PR URL or as a phase of an authorized delivery tas
   improvements within the request, and verify the resulting change. A request to
   review PR comments includes acting on correct observations unless it says read-only.
 - **Drive:** repair feedback, CI and necessary base conflicts, publish when authorized,
-  and follow the PR until merged or a current formal approval is verified.
+  and follow the PR until merged or, outside the personal-repository merge policy
+  below, a current formal approval is verified.
   Use this for requested babysitting and the continuation of a PR creation request.
 
 Resolve scope from the request and standing instructions. Record whether commits,
@@ -157,7 +158,61 @@ report an inaccessible snapshot as blocked rather than claiming completion.
 
 Human feedback arriving during observation or on host resumption enters the same
 loop. If human review is still pending when the agent yields, report that fact
-separately from completed technical work; never claim approval or merge readiness.
+separately from completed technical work; never claim approval. Establish merge
+readiness through the applicable policy, including the personal-repository rule below.
+
+## Merge settled PRs in Luis Urrutia's personal repositories
+
+In Feedback or Drive scope, merge an eligible PR directly without asking again or
+waiting for human or bot approvals when its target repository belongs to Luis
+Urrutia's personal GitHub account, `LuisUrrutia`. Verify the target repository's
+owner login and `User` account type; PR authorship, a personal source fork or access
+to an organization repository does not establish personal ownership. Unknown
+ownership blocks this policy. Explicit read-only, create-only, keep-draft or
+do-not-merge instructions take precedence. Check scope remains read-only.
+
+This standing policy authorizes the merge and the replies and thread resolutions
+needed to settle feedback under `references/feedback.md`. Before merging, obtain
+a fresh snapshot of the current head/base and establish all of these:
+
+- The PR is open, non-draft and mergeable without conflicts. For a draft, complete
+  the ready transition and its fresh observation phase first.
+- Every enabled automated reviewer expected for this revision has finished,
+  including CodeRabbit, Greptile, Codex or any other configured agent. Verify
+  expected reviews actually ran; an empty comment list or a successful reviewer
+  check alone does not prove all feedback is settled. Unknown reviewer enablement
+  or completion blocks merge.
+- All observed feedback across every collection channel is settled, including
+  human comments: accepted fixes are verified and published, questions and
+  decisions are settled, required replies are visible, and review threads are resolved.
+  Recheck new content in resolved or outdated threads. An unapplied item merely
+  listed in a report, a deferred finding or a disputed disposition blocks merge.
+- All applicable CI/CD has passed for this revision, including required and
+  optional checks. Pending, failed, cancelled, unexplained skipped or unknown
+  results block merge. Account for legitimate policy-based skips and workflows
+  triggered by the ready transition; inaccessible evidence is a blocker.
+
+For a stacked PR, let `stacked-pr` own bottom-up landing under this same standing
+authorization, applying these gates to each in-scope layer and rebuilding evidence
+after restacking or retargeting. Do not merge an upper layer into an unmerged parent
+or require another approval for work covered by this policy.
+
+Use `pr`'s publication identity checks, then recheck head/base, feedback and checks
+immediately before the merge. Use the user or repository's established merge method;
+otherwise prefer GitHub's `viewerDefaultMergeMethod` when allowed. Pass the chosen
+allowed method as an explicit flag to
+`gh pr merge <url> --match-head-commit <verified-sha>`. If the revision or relevant
+base changed, rebuild the snapshot. Do not use
+`--admin`, relax repository protections or approve a gated workflow to bypass a
+requirement. If GitHub requires approvals despite this policy, report the enforced
+requirement as a blocker. Do not substitute auto-merge for checking these gates.
+
+Verify the remote merged state and merge revision before reporting success or
+emitting `pr-merged`. If the command enabled auto-merge instead, disable that request,
+verify its removal and rebuild the snapshot. A required merge queue is pending until
+merge is verified. In Drive, keep the host watch until then; a formal approval alone does
+not end this personal-repository task. Feedback scope attempts this merge when
+eligible, otherwise reports the remaining gates without starting indefinite observation.
 
 ## Stop with an honest result
 
@@ -166,8 +221,9 @@ with its reason for remaining unapplied and any required decision. Distinguish
 locally fixed, verified, published, replied and resolved; none implies the next.
 
 On each Drive wake, refresh PR state and reconcile an observed ready event as
-above, then check for merge or a current formal approval. Either
-ends babysitting. On verified merge with a linked ticket, invoke `issue-workflow`
+above, then check for merge. Apply the personal-repository policy before considering
+an approval stop; outside that policy, a current formal approval also ends
+babysitting. On verified merge with a linked ticket, invoke `issue-workflow`
 for `pr-merged` before returning, passing the ticket, exact PR/head, actual merge
 branch/revision/time and completing or contributing relation. Use Inspect in
 Check scope; otherwise carry the task's existing transition authority. Respect
@@ -182,10 +238,12 @@ a wake. Report that outcome when next invoked. Approval does
 not establish merge readiness; report any remaining checks, feedback or conflicts
 without claiming they passed. Otherwise collect a fresh coherent snapshot of the
 head/base, checks and feedback, repair authorized issues, and yield to the host
-watch. Technical completion alone does not end Drive before approval or merge.
+watch. Technical completion triggers the authorized personal-repository merge;
+otherwise it does not end Drive before approval or merge.
 Honor an explicit stop or user time limit, and report closed-unmerged state or
-access blockers separately. Never merge, enable auto-merge or approve a gated
-workflow merely to make the loop finish.
+access blockers separately. Outside the personal-repository policy or another
+explicit merge authorization, never merge or enable auto-merge merely to make the
+loop finish. Never approve a gated workflow merely to end observation.
 
 Return the PR URL and current head, applied work summary with relevant commits,
 actual verification commands/results, current checks, and remaining items. For
@@ -194,7 +252,8 @@ choices and recommendation. State `complete for requested scope`, `waiting`, or
 `blocked` and what would allow continuation. Retain the ledger only while needed
 for resumption, then remove owned scratch. Stop local watchers owned by this run;
 retain this run's host watch only while Drive is waiting for its stopping condition.
-Other pending reviews do not override an already verified approval stop.
+Outside the personal-repository policy, other pending reviews do not override an
+already verified approval stop.
 
 For requested source maintenance, use `agent-instructions` with `origin.txt` and
 [references/upstream-updates.md](references/upstream-updates.md).

@@ -104,8 +104,10 @@ On resume, inspect remote state before acting. Preserve others' watchers and scr
 stop and remove only resources owned by this run.
 
 A fresh pass must cover current channels and show whether known work is complete.
-Drive remains waiting for merge or a current formal approval after technical work
-finishes. A user-imposed deadline returns waiting with outstanding IDs/URLs, not
-success. If required evidence is inaccessible, report the exact blocker and completed
-independent work. No quiet interval, fixed pass count or lack of new comments proves
+Apply the entrypoint's personal-repository merge policy when it matches: technical
+completion triggers a verified merge, and approval alone does not end Drive.
+Otherwise Drive remains waiting for merge or a current formal approval after
+technical work finishes. A user-imposed deadline returns waiting with outstanding
+IDs/URLs, not success. If required evidence is inaccessible, report the exact blocker
+and completed independent work. No quiet interval, fixed pass count or lack of new comments proves
 approval. Stop this PR's watch when the stopping condition is verified.
