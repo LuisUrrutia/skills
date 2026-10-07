@@ -1,6 +1,7 @@
 # Create or submit a native CLI stack
 
-Use this branch only for the requested creation operation. The CLI route's live-contract checks are
+Use this branch only for the requested creation operation or for the adoption that a mutation on
+this route requires. The CLI route's live-contract checks are
 preconditions.
 
 ## Plan
@@ -24,7 +25,9 @@ For adoption, preserve existing tips and verify ancestry before writing local st
 
 Build or adoption is complete when the CLI's JSON view shows the planned order, each adjacent parent
 is an ancestor of its child, every incremental change and commit belongs to one concern,
-layer checks pass, and no branch needs a rebase. Stop here when the request is local-only.
+layer checks pass, and no branch needs a rebase. Stop here when the request is local-only. A
+prerequisite adoption ends at the criterion in [cli-workflow.md](cli-workflow.md); the requested
+operation owns the rebase need.
 
 ## Submit
 
