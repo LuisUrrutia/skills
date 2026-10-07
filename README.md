@@ -600,13 +600,14 @@ Evaluate feedback on an existing PR and resolve authorized code, CI and base pro
 
 **Features:**
 
-- Separates read-only checks, feedback repairs and host-managed babysitting until merge or formal approval
+- Separates read-only checks, feedback repairs and host-managed babysitting under the applicable stopping policy
 - Collects threads, reviews, conversation, check annotations and reviewer logs
 - Reevaluates edited comments and new replies in resolved or outdated threads
 - Tests claims against current code and keeps independent repairs progressing
 - Uses `commit` and `pr` for their phases; requires those local owners when those phases are reached
 - Distinguishes fixed, verified, published, replied and resolved states
-- Rechecks new heads and reports pending checks or decisions without automatic merge or scheduling
+- Merges settled PRs in LuisUrrutia's personal repositories without waiting for approvals, after all feedback is resolved and CI/CD passes
+- Elsewhere, follows PRs until merge or formal approval; rechecks new heads and reports pending work without automatic scheduling
 - Reconciles observed ready/merge events through `issue-workflow`, preserving Check scope and existing authority
 
 These Git and ticket workflow skills record pinned sources and local decisions in `origin.txt`, with requested
