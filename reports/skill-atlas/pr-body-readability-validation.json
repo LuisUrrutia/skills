@@ -1,0 +1,64 @@
+{
+  "date": "2026-10-07",
+  "baseline": "3d9ac6e92766e57e381d8c2f15d02e91759b1a64",
+  "request": "User approved Summary/Changes/Validation body with short opening and bullets after rejecting three dense paragraphs, and asked to update pr to prevent recurrence.",
+  "scope": "Default to named sections for distinct body purposes, even with small diffs; keep compact unsectioned exception and template precedence.",
+  "checks": [
+    "git diff --check passed.",
+    "Inline Python check: all local links in changed Markdown files resolve inside pr; entrypoint differs only by removal of competing sentence.",
+    "fish -lc with TMPDIR=\"$PWD/.agents/review-wording-tmp\" bash pr-review-draft/scripts/validate.sh \"$PWD/review-code-changes\": package/Python syntax passed and 33 tests passed in 17.972s on final instruction files."
+  ],
+  "failed_probe": "An initial whole-package link regex treated an existing example output path .tmp/pr/before.png in attachments.md as a required resource. Corrected the check scope to changed instruction files; no source repair needed.",
+  "consultations": [
+    {
+      "profile": "Codex gpt-6-astra / max",
+      "run": "fresh native agent /root/pr_sections_review",
+      "result": "Initial and final affected-point reviews: no material issues; preserve decision visibility and command-outcome placement; no duplicate precedence rule needed."
+    },
+    {
+      "profile": "Claude claude-fable-5-1 / max",
+      "task_id": "node:delegated-task:command%3Amcp%3A59e17e7a-dfe8-4f52-b18d-fca07d2dad49%3Adelegate-task%3Apr-sections-fable-1",
+      "result": "Final verdict: accept, no unresolved material issues. Restored consequential-decision visibility and clarified command-outcome adjacency. Existing rule precedence is sufficient. Optional last phrase reordering omitted because placement is already clear in context.",
+      "final_task_id": "node:delegated-task:command%3Amcp%3A59e17e7a-dfe8-4f52-b18d-fca07d2dad49%3Adelegate-task%3Apr-sections-fable-2"
+    }
+  ],
+  "trials": {
+    "runner": "Two fresh native Codex gpt-6-astra agents, inherited medium effort. Same verified facts, tools and output task; baseline loaded HEAD reference/claims, candidate loaded working-tree reference/claims.",
+    "baseline_agent": "/root/pr_sections_baseline",
+    "candidate_agent": "/root/pr_sections_candidate",
+    "cases": [
+      {
+        "case": "A: small instruction change with several changes and checks, no template",
+        "facts": "Review-comment causal cohesion, no automatic please or fixed count, comment-style wording ownership, preserved severity/optional/evidence/permissions. Package/syntax and 33 tests passed; links/diff passed; model consultations; bounded trials, no measured reliability gain; no build.",
+        "baseline_output": "Review comments could open with a formulaic “please,” connect a request and its explanation with a semicolon, or separate the remedy from its reason. The wording guidance now favors natural causal links without automatic “please” or a fixed sentence count.\n\n`comment-style` owns the wording guidance; `pr-review-draft` drops its duplicate length rule. Severity, optional advice, evidence requirements, and posting permission remain unchanged.\n\nValidation passed: package and Python syntax checks, 33 tests, Markdown link checks, and `git diff --check`. No build applies. Bounded wording trials do not establish a measured reliability improvement.",
+        "candidate_output": "## Summary\n\nReview comments could open with formulaic “please,” join a request and its explanation with a semicolon, or detach the remedy from its reason. The wording guidance now favors natural causal links without automatic “please” or a fixed sentence count.\n\n## Changes\n\n- Keep wording guidance in `comment-style` and remove the duplicate length rule from `pr-review-draft`.\n- Preserve severity, optional advice, evidence requirements, and posting permission.\n\n## Validation\n\n- Validator package and Python syntax checks passed, along with 33 tests.\n- Markdown link checks and `git diff --check` passed.\n- Astra Max and Fable Max were consulted. Bounded wording trials do not establish a measured reliability improvement.\n- No build applies to this instruction change.",
+        "verdict": "Baseline reproduces dense unsectioned structure. Candidate separates purposes with headings and parallel checks with bullets while preserving material claims and limitations."
+      },
+      {
+        "case": "B: README instal -> install typo; diff check passed; no other changes or template",
+        "baseline_output": "Corrects “instal” to “install” in the README. No other changes.\n\nValidation: `git diff --check` passed.",
+        "candidate_output": "Correct `instal` to `install` in the README. No other changes.\n\nValidation: `git diff --check` passed.",
+        "verdict": "Both remain compact without headings."
+      },
+      {
+        "case": "C: same facts as A with mandatory headings Context and Verification only",
+        "baseline_shape": "Exactly Context and Verification, prose paragraphs under both.",
+        "candidate_shape": "Exactly Context and Verification, cohesive opening then parallel change/check bullets. All material caveats preserved.",
+        "verdict": "Both preserve mandatory template; candidate improves item scanning inside it."
+      }
+    ],
+    "limits": "One bounded paired execution per case, not a statistical reliability claim or host activation test. Trials authored bodies only; no GitHub writes.",
+    "final_delta": "Final static review restored consequential-decision visibility and clarified command/outcome adjacency after trials."
+  },
+  "build": "No project build applies to Markdown instruction edits; broader PR draft package validation checks Python syntax and workflow smoke behavior.",
+  "trial_hashes": {
+    "pr/SKILL.md": "0f1bd25f333e8d295879849012a5047abbfb37a8faf54c208429252cda433f0c",
+    "pr/references/review-packet.md": "1928a867df76d117cc7a2d3d4b8e47c8d439ab890d592195b5fe560dfe1194b6",
+    "pr/references/claims.md": "292fb0d6a493158600d5054e5931ac4f91f634981dff79620003f6eb5c652d69"
+  },
+  "final_hashes": {
+    "pr/SKILL.md": "0f1bd25f333e8d295879849012a5047abbfb37a8faf54c208429252cda433f0c",
+    "pr/references/review-packet.md": "a9d3f985087f1cacc1aca57f7ce991917474c991d9f517a0c3547b196291ed5b",
+    "pr/references/claims.md": "292fb0d6a493158600d5054e5931ac4f91f634981dff79620003f6eb5c652d69"
+  }
+}
