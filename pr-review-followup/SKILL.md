@@ -40,8 +40,8 @@ step to report, never a success.
 
 1. **Read the state** with `state`. It reports the PR author, state, head and
    base branch; whether the recorded review covers this head and base, was
-   complete, and left required findings outside the reviewer's threads; whether a
-   review is in progress; the reviewer's unsubmitted or approving reviews; any
+   complete, and left required findings outside the reviewer's threads or open
+   decisive questions; the `approval_blockers`; whether a review is in progress; the reviewer's unsubmitted or approving reviews; any
    uncertain write; and every thread the reviewer started, with each comment's
    role (`author`, `reviewer` or `other`), who resolved it and whether the
    reviewer can resolve or reopen it. It writes nothing and refuses a partial
@@ -72,30 +72,32 @@ step to report, never a success.
    decides. A review that fails before recording is reported once; the next tick
    retries it after the in-progress window. Re-read the state before settling threads.
 4. **Settle the reviewer's threads.** Act on each thread where the author or
-   another participant spoke last, and on each resolved thread listed in
+   another participant spoke last, on every unresolved thread after a new head or
+   base (a push can fix it without a reply), and on each resolved thread listed in
    `needs_verification`: a resolution counts only once it is confirmed on the
    current head and base, so every resolved thread is checked again after a new
-   head. Read the whole thread, check its claims on the current head, and choose
+   head or base. Read the whole thread, check its claims on the current head, and choose
    the action in [thread-settlement.md](references/thread-settlement.md).
    Reassess the review's standing findings and open questions too: a fixed PR
    title, an answered question or a ticket confirmed elsewhere lowers them with
    `settle --standing N --questions N`, which only updates the review of the
    current head.
 5. **Apply** with `apply --plan "$PLAN" --receipt "$RECEIPT"`, a new plan and
-   receipt per tick. The plan is `{"expected_head": SHA, "replies": [{"thread_id",
-   "body"}], "resolve": [ids], "unresolve": [ids], "verified": [ids], "approve":
-   bool}`; `verified` marks resolved threads the current head confirms. Before any write the helper validates the whole plan, rejects
+   receipt per tick. The plan is `{"expected_head": SHA, "expected_base_ref":
+   BRANCH, "replies": [{"thread_id", "body"}], "resolve": [ids], "unresolve":
+   [ids], "verified": [ids], "approve": bool}`, with the head and base `state`
+   reported; `verified` marks resolved threads the current head confirms. Before any write the helper validates the whole plan, rejects
    threads the reviewer did not start or cannot resolve, and rechecks the actor,
-   open state, head and unsubmitted reviews before each write. It skips a reply
+   open state, head, base branch and unsubmitted reviews before each write. It skips a reply
    identical to the reviewer's last comment and a resolution already in place,
    reads back every write, and keeps an uncertain write in the state file so no
    later tick repeats it.
 6. **Approve through the gate.** `state` lists `approval_blockers`: an
    unreviewed or incomplete review of this head and base, standing required
    findings, open decisive questions, unresolved threads, or resolved threads not
-   verified on this head. Set `approve` when this plan clears them. The helper
-   checks the same gate before any write and again just before approving, and
-   `done` uses it too. After a verified approval, delete the schedule.
+   verified on this head. Set `approve` when this plan clears them. For an
+   approving plan the helper checks the same gate before any write and again on
+   the read that immediately precedes the approval; `done` uses it too. After a verified approval, delete the schedule.
 7. **Report the tick** in the user's language: resolved/total, each reply,
    resolution or reopening with its reason, a new review's outcome, and blockers.
    A tick with no change is one line.

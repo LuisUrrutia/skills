@@ -36,6 +36,7 @@ class FakeGitHub:
         self.lose_reply = False
         self.reject_resolve = False
         self.more_comments = False
+        self.reopen_after_reads = None
 
     def call(self, endpoint, payload=None):
         self.calls.append((endpoint, payload))
@@ -44,6 +45,10 @@ class FakeGitHub:
         if endpoint == 'graphql' and payload['query'].startswith('query'):
             if self.more_comments:
                 self.threads[0]['comments']['pageInfo']['hasNextPage'] = True
+            if self.reopen_after_reads is not None:
+                self.reopen_after_reads -= 1
+                if self.reopen_after_reads < 0:
+                    self.threads[0].update(isResolved=False, resolvedBy=None)
             return {'data': {'repository': {'pullRequest': {
                 'id': 'PR_node', 'state': self.pr_state, 'headRefOid': self.head, 'baseRefName': self.base_ref,
                 'author': {'login': self.author},
@@ -97,7 +102,7 @@ class FollowupTests(unittest.TestCase):
     def apply(self, **data):
         self.ticks += 1
         plan = self.root / f'plan-{self.ticks}.json'
-        plan.write_text(json.dumps({'expected_head': HEAD, **data}))
+        plan.write_text(json.dumps({'expected_head': HEAD, 'expected_base_ref': 'main', **data}))
         return apply(PR, 'reviewer', self.state_file, plan, self.root / f'receipt-{self.ticks}.json', self.api)
 
     def test_state_lists_reviewer_threads_with_speaker_roles(self):
@@ -145,8 +150,6 @@ class FollowupTests(unittest.TestCase):
 
         self.apply(replies=[{'thread_id': 'T1', 'body': 'this one is done'}], resolve=['T1'])
         writes = len(self.api.writes())
-        self.apply(replies=[{'thread_id': 'T1', 'body': 'this one is done'}], resolve=['T1'])
-
         second = self.apply(replies=[{'thread_id': 'T1', 'body': 'this one is done'}], resolve=['T1'])
 
         self.assertEqual(self.api.writes()[0][0], 'repos/example-org/api/pulls/12/comments/100/replies')
@@ -165,7 +168,7 @@ class FollowupTests(unittest.TestCase):
         self.record()
         for data in ({'approve': 'false'}, {'resolve': 'T1'}, {'replies': [{'thread_id': 'T1', 'body': 3}]},
                      {'verified': [1]}, {'merge': True}, {'resolve': ['T1'], 'unresolve': ['T1']},
-                     {'verified': ['T1']}):
+                     {'verified': ['T1']}, {'unresolve': ['T2'], 'verified': ['T2']}, {'expected_base_ref': 3}):
             with self.subTest(data=data), self.assertRaisesRegex(FollowupError, 'plan'):
                 self.apply(**data)
         self.assertEqual(self.api.writes(), [])
@@ -219,6 +222,7 @@ class FollowupTests(unittest.TestCase):
             ('head', 'b' * 40, 'head moved'),
             ('actor', 'someone-else', 'actor differs'),
             ('pr_state', 'MERGED', 'not open'),
+            ('base_ref', 'release/1.2', 'base branch'),
         ]
         for field, value, message in blockers:
             with self.subTest(message=message):
@@ -285,6 +289,24 @@ class FollowupTests(unittest.TestCase):
         self.api.head = 'd' * 40
         with self.assertRaisesRegex(FollowupError, 'current head'):
             settle(PR, 'reviewer', self.state_file, 0, 0, self.api)
+
+    def test_final_approval_rechecks_the_gate_on_its_own_read(self):
+        self.record()
+        self.apply(resolve=['T1'], verified=['T2'])
+        self.api.reopen_after_reads = 2
+
+        with self.assertRaisesRegex(FollowupError, 'unresolved'):
+            self.apply(approve=True)
+
+        self.assertFalse(any(e.endswith('/reviews') for e, _ in self.api.writes()))
+
+    def test_a_record_without_counts_fails_closed(self):
+        self.record()
+        data = json.loads(self.state_file.read_text())
+        del data['reviewed']['questions']
+        self.state_file.write_text(json.dumps(data))
+
+        self.assertIn('incomplete', ' '.join(state(PR, 'reviewer', self.state_file, self.api)['approval_blockers']))
 
 
 if __name__ == '__main__':

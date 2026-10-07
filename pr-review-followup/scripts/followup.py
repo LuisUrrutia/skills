@@ -131,7 +131,8 @@ def summarize(pr: dict, data: dict, plan: dict | None = None) -> dict:
     blockers = []
     if not current:
         blockers.append("the current head has not been reviewed")
-    elif reviewed.get("complete") is not True:
+    elif reviewed.get("complete") is not True or not all(
+            type(reviewed.get(field)) is int for field in ("standing", "questions")):
         blockers.append("the review of the current head is incomplete")
     else:
         if reviewed.get("standing"):
@@ -208,9 +209,10 @@ def settle(url: str, actor: str, state_file: Path, standing: int, questions: int
 
 
 def validate_plan(plan: object) -> dict:
-    fields = {"expected_head", "replies", "resolve", "unresolve", "verified", "approve"}
-    if not isinstance(plan, dict) or set(plan) - fields or not isinstance(plan.get("expected_head"), str):
-        raise FollowupError(f"plan accepts {', '.join(sorted(fields))}, with expected_head required")
+    fields = {"expected_head", "expected_base_ref", "replies", "resolve", "unresolve", "verified", "approve"}
+    if (not isinstance(plan, dict) or set(plan) - fields or not isinstance(plan.get("expected_head"), str)
+            or not isinstance(plan.get("expected_base_ref"), str)):
+        raise FollowupError(f"plan accepts {', '.join(sorted(fields))}, with expected_head and expected_base_ref required")
     for field in ("resolve", "unresolve", "verified"):
         if not isinstance(plan.get(field, []), list) or not all(isinstance(i, str) for i in plan.get(field, [])):
             raise FollowupError(f"plan field {field} must be a list of thread IDs")
@@ -223,6 +225,8 @@ def validate_plan(plan: object) -> dict:
         raise FollowupError("plan field approve must be a boolean")
     if set(plan.get("resolve", [])) & set(plan.get("unresolve", [])):
         raise FollowupError("plan cannot resolve and reopen the same thread")
+    if set(plan.get("verified", [])) & set(plan.get("unresolve", [])):
+        raise FollowupError("plan cannot reopen and verify the same thread")
     return plan
 
 
@@ -247,6 +251,8 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
             raise FollowupError(f"PR is not open ({pr['state']})")
         if pr["head"] != plan["expected_head"]:
             raise FollowupError("PR head moved since the plan was made; reassess on the new head")
+        if pr["base_ref"] != plan["expected_base_ref"]:
+            raise FollowupError("PR base branch changed since the plan was made; reassess on the new base")
         if pr["pending_review"]:
             raise FollowupError("the reviewer has an unsubmitted review; it belongs to the user")
         return pr
@@ -269,10 +275,12 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
     if plan.get("approve") and (blockers := summarize(pr, data, plan)["blockers"]):
         raise FollowupError(blockers[0])
 
-    def write(key: str, endpoint: str, payload: dict):
+    def write(key: str, endpoint: str, payload: dict, check=None):
         if key in done["completed"]:
             return None
-        preflight()
+        live = preflight()
+        if check:
+            check(live)
         data["pending_operation"] = key
         save(state_file, data)
         try:
@@ -327,12 +335,16 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
     for thread_id in plan.get("verified", []):
         verified[thread_id] = key_now
     save(state_file, data)
+    def gate(live: dict) -> None:
+        if blockers := summarize(live, data)["blockers"]:
+            raise FollowupError(blockers[0])
+
     if plan.get("approve"):
         current = preflight()
-        if blockers := summarize(current, data)["blockers"]:
-            raise FollowupError(blockers[0])
+        gate(current)
         if not current["approved_head"]:
-            review = write("approve", target["prefix"] + "/reviews", {"commit_id": current["head"], "event": "APPROVE"})
+            review = write("approve", target["prefix"] + "/reviews", {"commit_id": current["head"], "event": "APPROVE"},
+                           check=gate)
             if review.get("state") != "APPROVED" or review.get("commit_id") != current["head"]:
                 raise FollowupError("approval did not read back at the current head")
             finish("approve")
