@@ -18,6 +18,12 @@ args = sys.argv[1:]
 if args == ['--version']:
     print(name + ' fixture-1')
     raise SystemExit()
+if name == 'coderabbit' and args == ['review', '--help']:
+    if os.environ.get('FAKE_HELP_FAIL'): raise SystemExit(2)
+    print('  --agent\n  --committed\n  --base\n  --base-commit\n  -c, --config' + ('' if os.environ.get('FAKE_OLD_CODERABBIT') else '\n  --fresh'))
+    raise SystemExit()
+if name == 'coderabbit' and os.environ.get('FAKE_OLD_CODERABBIT') and '--fresh' in args:
+    raise SystemExit('unknown option --fresh')
 packet = ''
 if name in ('claude', 'codex'):
     packet = sys.stdin.read()
@@ -42,7 +48,10 @@ if name in ('codex','claude','coderabbit'):
             print('synthetic failure',file=sys.stderr)
             raise SystemExit(7)
 if name == 'claude':
-    print(os.environ['FAKE_REPORT'],end='')
+    if os.environ.get('FAKE_BAD_FORMAT') and (os.environ.get('FAKE_STILL_BAD') or '## Format correction' not in packet):
+        print('Here is my report:\n' + os.environ['FAKE_REPORT'], end='')
+    else:
+        print(os.environ['FAKE_REPORT'],end='')
 elif name == 'codex':
     Path(args[args.index('-o')+1]).write_text(os.environ['FAKE_REPORT'])
 elif name == 'coderabbit':
@@ -106,6 +115,72 @@ class ReviewerTests(unittest.TestCase):
 
     def calls(self):
         return [json.loads(line) for line in self.log.read_text().splitlines()]
+
+    def test_legacy_coderabbit_does_not_receive_unsupported_fresh(self):
+        self.env['FAKE_OLD_CODERABBIT'] = '1'
+        result = self.run_review()
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        call = next(c for c in self.calls() if c['name'] == 'coderabbit')
+        self.assertNotIn('--fresh', call['args'])
+        self.assertIn('checkpoint reuse is not excluded', self.state()['workers']['coderabbit']['detail'])
+
+    def test_local_subset_does_not_launch_delegated_reviewers(self):
+        result = self.run_review('--workers', 'coderabbit', 'feedback')
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(set(self.state()['workers']), {'coderabbit', 'feedback'})
+        self.assertEqual({c['name'] for c in self.calls()}, {'coderabbit', 'gh'})
+        self.assertEqual(self.state()['status'], 'subset_completed')
+
+    def test_coderabbit_help_failure_does_not_stop_other_seats(self):
+        self.env['FAKE_HELP_FAIL'] = '1'
+        result = self.run_review()
+
+        self.assertEqual(result.returncode, 1)
+        self.assertEqual(self.state()['workers']['claude']['state'], 'completed')
+        self.assertEqual(self.state()['workers']['codex']['state'], 'completed')
+        self.assertEqual(self.state()['workers']['coderabbit']['state'], 'failed')
+        self.assertIn('review --help failed', self.state()['workers']['coderabbit']['detail'])
+        self.assertNotIn('coderabbit', {c['name'] for c in self.calls()})
+
+    def test_single_coderabbit_seat_retains_fresh_when_supported(self):
+        result = self.run_review('--workers', 'coderabbit')
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertEqual(set(self.state()['workers']), {'coderabbit'})
+        self.assertEqual(len(self.calls()), 1)
+        self.assertIn('--fresh', self.calls()[0]['args'])
+        self.assertEqual(self.state()['status'], 'subset_completed')
+
+    def test_format_retry_supplies_original_report_and_validator_diagnostics(self):
+        self.env['FAKE_BAD_FORMAT'] = '1'
+        self.assertEqual(self.run_review().returncode, 1)
+        failed = self.state()['workers']['claude']
+        original = (self.f.run / 'claude/review.md').read_text()
+        packet = (self.f.snapshot.parent / 'packet.md').read_bytes()
+
+        result = self.run_review()
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        correction = (self.f.run / 'claude/correction-prompt.md').read_text()
+        self.assertIn(original, correction)
+        self.assertIn(failed['detail'], correction)
+        self.assertIn('never a line range', correction)
+        self.assertIn('one backtick span', correction)
+        self.assertEqual((self.f.snapshot.parent / 'packet.md').read_bytes(), packet)
+        self.assertEqual((self.f.run / 'attempts/claude/1/review.md').read_text(), original)
+        self.assertEqual(self.state()['workers']['claude']['attempts'], 2)
+
+    def test_format_correction_failure_exhausts_the_existing_budget(self):
+        self.env.update(FAKE_BAD_FORMAT='1', FAKE_STILL_BAD='1')
+        for _ in range(3):
+            self.assertEqual(self.run_review().returncode, 1)
+
+        self.assertEqual(self.state()['workers']['claude']['attempts'], 2)
+        self.assertEqual(self.state()['workers']['claude']['state'], 'failed')
+        self.assertEqual(sum(c['name'] == 'claude' for c in self.calls()), 2)
+        self.assertEqual(sum(c['name'] == 'codex' for c in self.calls()), 1)
 
     def test_parallel_identical_inputs_fork_feedback_and_cache(self):
         self.env['FAKE_BARRIER'] = '1'
@@ -207,6 +282,20 @@ class ReviewerTests(unittest.TestCase):
         self.assertEqual(result.returncode, 1)
         self.assertEqual(self.state()['workers']['codex']['state'], 'failed')
         self.assertEqual(sum(c['name']=='codex' for c in self.calls()), 1)
+
+    def test_tampered_cached_report_is_not_used_as_format_correction_input(self):
+        self.assertEqual(self.run_review().returncode, 0)
+        report = self.f.run / 'claude/review.md'
+        report.write_text(self.f.report.replace('The new value differs', 'TAMPERED_CONTENT differs'))
+
+        result = self.run_review()
+
+        self.assertEqual(result.returncode, 0, result.stderr)
+        self.assertFalse((self.f.run / 'claude/correction-prompt.md').exists())
+        self.assertNotIn('TAMPERED_CONTENT', report.read_text())
+        claude_calls = [c for c in self.calls() if c['name'] == 'claude']
+        self.assertEqual(len(claude_calls), 2)
+        self.assertEqual(claude_calls[0]['packet_sha256'], claude_calls[1]['packet_sha256'])
 
     def test_dead_supervisor_status_and_wait_preserve_saved_evidence(self):
         self.assertEqual(self.run_review().returncode, 0)

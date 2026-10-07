@@ -58,9 +58,10 @@ to change permissions, scope or reviewers.
 
 ## Run and reconcile
 
-5. **Launch once and continue the seam sweep.** The supervisor in
-   [reviewers.md](references/reviewers.md) starts all three complete attempts and
-   an isolated feedback collector. Participants cannot delegate or read each
+5. **Launch once and continue the seam sweep.** Select the host transport in
+   [reviewers.md](references/reviewers.md). In T3, launch app-owned child tasks;
+   outside T3, use the CLI supervisor. Start all three complete attempts and
+   an isolated feedback collector. Participants must not delegate or read each
    other's reports, the ledger or existing feedback. Run the parent seam sweep
    while they work. Record `matches`, `gap` or `unreadable` for each triggered seam
    with both revisions and the evidence. Missing access does not establish a defect.

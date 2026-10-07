@@ -117,6 +117,34 @@ class SnapshotTests(unittest.TestCase):
         report.write_text(self.f.report.replace('Action: required', 'Action: optional').replace('Recommendation: Required:', 'Recommendation: Optional:'))
         self.assertTrue(validate_report(report, self.f.snapshot)[0])
 
+    def test_report_scope_must_match_the_frozen_comparison(self):
+        report = self.f.root / 'report.md'
+        report.write_text(self.f.report.replace(f'{self.f.base}..{self.f.head}', 'different-review'))
+
+        valid, detail = validate_report(report, self.f.snapshot)
+
+        self.assertFalse(valid)
+        self.assertIn('Scope', detail)
+
+    def test_delegated_report_validation_checks_format_scope_and_drift(self):
+        report = self.f.root / 'report.md'
+        report.write_text(self.f.report)
+        command = [sys.executable, str(Path(__file__).with_name('reviewers.py')),
+                   'validate-report', '--snapshot', str(self.f.snapshot), '--report', str(report)]
+        valid = subprocess.run(command, capture_output=True, text=True)
+        self.assertEqual(valid.returncode, 0, valid.stderr)
+
+        report.write_text(self.f.report.replace(f'{self.f.base}..{self.f.head}', 'different-review'))
+        wrong_scope = subprocess.run(command, capture_output=True, text=True)
+        self.assertEqual(wrong_scope.returncode, 1)
+        self.assertIn('Scope differs', wrong_scope.stdout)
+
+        report.write_text(self.f.report)
+        (self.f.repo / 'src/example.py').write_text('changed after review')
+        stale = subprocess.run(command, capture_output=True, text=True)
+        self.assertEqual(stale.returncode, 1)
+        self.assertIn('drifted', stale.stderr)
+
     def test_native_completion_errors_malformed_and_zero(self):
         report = self.f.root / 'native.jsonl'
         context = {'type': 'review_context', 'reviewType': 'committed', 'baseCommit': self.f.base}
@@ -126,7 +154,10 @@ class SnapshotTests(unittest.TestCase):
                  ('\n'.join(map(json.dumps, success)), True),
                  ('\n'.join(map(json.dumps, [context, {**success[1], 'message':'No fresh detailed file review was performed in this run.'}])), False),
                  ('\n'.join(map(json.dumps, [context, {'type': 'complete', 'status': 'review_completed', 'findings': 1}])), False),
-                 ('\n'.join(map(json.dumps, [context, {'type': 'complete', 'status': 'review_skipped', 'findings': 0}])), False)]
+                 ('\n'.join(map(json.dumps, [context, {'type': 'complete', 'status': 'review_skipped', 'findings': 0}])), False),
+                 ('\n'.join(map(json.dumps, [context, {**success[1], 'outcome': 'failed'}])), False),
+                 ('\n'.join(map(json.dumps, [context, {**success[1], 'unreviewedFileCount': 1}])), False),
+                 ('\n'.join(map(json.dumps, [context, {**success[1], 'reviewedFiles': []}])), False)]
         for value, expected in cases:
             report.write_text(value)
             self.assertEqual(validate_jsonl(report, self.f.snapshot)[0], expected, value)

@@ -1,0 +1,119 @@
+{
+  "task": "Repair PR review transport and report recovery",
+  "baseline": "1a8cceb953b3346661fddb766be592532b17a902",
+  "status": "verified-with-stated-limits",
+  "candidate_sha256": {
+    "SKILL.md": "c05175d8657206188b98010c04bdfdb02b9af8211277ff40a73e0b2fd2f42a8d",
+    "agents/openai.yaml": "a1499d95abd8447558c535fe5554adcc3c9b988a0a39264a6283d430effe1e94",
+    "origin.txt": "91f35f5fba939ff6d7fe258e88b1f05600d562d9d9689ccc47aa92cf66454b57",
+    "references/audit-supplement.md": "50f47b2ed58f35b653aeda65e2a4222cd935c7804ac4da4ee411f5ef4c50467c",
+    "references/github.md": "503a0199c7293cbb519937e0c221045ea3aa4a215938df052786f34a5486bd48",
+    "references/ledger.md": "8f7698078f5a5a595bbddf1681949ceeb68e0269e4a1ff3b4581b849d7bf7eb7",
+    "references/profile-schema.md": "0841c242ba34abbffa981324719b90179af586e308a904ebf12e1a5a22c39f0a",
+    "references/profiles.md": "811e6bc80a94ce65140ca6b2533b5b017edd132d673e65fa63b9bb287af7e735",
+    "references/reviewers.md": "fcb7e6409eff5aa1b94bb6f7f7293aaa3a83e6d853b17b3096a8bc09e4f6db20",
+    "references/seams.md": "68ecba9f830a00ebfef59353492869b51bb5917306e33faf7048137631f144b7",
+    "references/t3-subagents.md": "eb0a36f72dec027669c1d62b6fff6680065f44ad890bf157be8429f4fc5195e3",
+    "scripts/adapters.py": "3b2f4d914d8b7f04b8c11d2ee73e40ea3d56b1274f407f9217b687434d13ccc2",
+    "scripts/pending_review.py": "9c666d942eade10c7fee12432c2e752ad111b9dcc7863a6c31bc50715fd525f8",
+    "scripts/read_only.py": "e28b6e505d814443ec8bee0d98cfa6d94d239aedfce25e5baeb34952f695b8be",
+    "scripts/resolve_profile.py": "6404e28a2cceec8a681c414c13cc3cf7a605f282ca70d77955fae650e3c03ec2",
+    "scripts/reviewers.py": "38c2c1e41dbf5e5eb041e2293c34fde1578bc317a2516d709fa379399f37dbd7",
+    "scripts/snapshot.py": "35dceb60fafac99beed83dd8d6c18bce8a78c3f4388307f903e2e5e725e78466",
+    "scripts/test_pending_review.py": "ded9972c7358dd4b004816286c5a896cc64b61bdae288621e51c897a8dccb70b",
+    "scripts/test_profiles.py": "ab0a3e85ff6eb60e82e7cccb6f7dd460de9af8c936cdc896bcdfe5d2d7ad0121",
+    "scripts/test_reviewers.py": "c4dfd1e1388f15554178f1a6ec83c4cb80262c5bc7c0dfce46afda0039bd0f46",
+    "scripts/test_snapshot.py": "76021136851bec6e9601b8e78f4d4e6488a6c1f0e6480b183520a4d041ec1e92",
+    "scripts/test_support.py": "0aba7d1200521fe76ad3a899d066573eac036b0422b2927604b7275a6c8fb7d1",
+    "scripts/validate.sh": "682c8389e427ccb5da67ea7df518bf82367612f9afff62bf2cf2c5d4bb771dda"
+  },
+  "checks": [
+    {
+      "command": "fish -c 'env TMPDIR=$PWD/.agents/reviewer-fix-tmp bash pr-review-draft/scripts/validate.sh $PWD/review-code-changes'",
+      "result": "passed; 42 tests, package references, metadata, provenance and Python syntax"
+    },
+    {
+      "command": "git diff --check",
+      "result": "passed"
+    },
+    {
+      "command": "fish -c 'coderabbit --version; coderabbit review --help'",
+      "result": "installed 0.7.6 advertises --agent and committed comparison options, not --fresh"
+    },
+    {
+      "check": "original failed Claude report",
+      "result": "read original failure evidence; isolated copy fixing line-range locations and multi-span Checks entry passed the original frozen validator; original unchanged"
+    },
+    {
+      "check": "red/green regressions",
+      "result": "legacy --fresh rejection, unavailable worker subset, format retry without diagnostics, wrong Scope and incomplete native outcome each failed before its corresponding correction"
+    }
+  ],
+  "consultations": {
+    "codex": {
+      "model": "gpt-6-astra",
+      "effort": "max",
+      "initial": "completed",
+      "final": "no material objections; candidate hashes verified",
+      "task_ids": [
+        "node:delegated-task:command%3Amcp%3Ad0452965-0046-4c99-a6d3-888d6276e155%3Adelegate-task%3Areviewer-flow-initial-astra",
+        "node:delegated-task:command%3Amcp%3Ad0452965-0046-4c99-a6d3-888d6276e155%3Adelegate-task%3Areviewer-flow-final-astra"
+      ]
+    },
+    "claude": {
+      "model": "claude-fable-5-1",
+      "effort": "max",
+      "initial": "completed",
+      "final": "no material objections; original failure shapes exercised with frozen validator",
+      "task_ids": [
+        "node:delegated-task:command%3Amcp%3Ad0452965-0046-4c99-a6d3-888d6276e155%3Adelegate-task%3Areviewer-flow-initial-fable",
+        "node:delegated-task:command%3Amcp%3Ad0452965-0046-4c99-a6d3-888d6276e155%3Adelegate-task%3Areviewer-flow-final-fable"
+      ]
+    },
+    "transport": "T3 delegate_task; independent initial contexts and new task IDs for final round"
+  },
+  "reconciliation": [
+    "Adopted native child routing, explicit task identity, bounded new-task retries, local subset status, cancellation and artifact-based handoff.",
+    "Adopted conditional CodeRabbit flag support, recorded freshness limitation, and explicit incomplete-completion rejection.",
+    "Adopted correction prompts with the original report, validator diagnostic and full grammar pass; retained canonical validator and added frozen Scope binding.",
+    "Retained visible execution-only CodeRabbit child to satisfy the requested subagent visibility; it contributes no additional model review.",
+    "Did not add a generic delegated-seat record command or merge task state into CLI state; existing T3 IDs and a separate native ledger own those concerns.",
+    "Documented native host permissions instead of claiming CLI sandbox parity; stricter host/project isolation requirements still block unsupported seats.",
+    "Adopted final Fable suggestions: bounded background execution for the CLI runner, explicit inherited host modes, and instruction wording that does not imply enforced native isolation.",
+    "Added a digest gate so modified cached output is never fed back as an authentic format-correction input; its regression failed before the gate and passed afterward.",
+    "Kept the canonical grammar as the owner of all location rules rather than copying an additional list into the correction prompt.",
+    "Retained stdout help parsing because the installed 0.7.6 help was directly observed there; unsupported output still fails the seat visibly."
+  ],
+  "limits": [
+    "No full live three-engine review of the original PR was rerun.",
+    "T3 delegation was observed for the consultations; the entire revised review skill has not been exercised end to end with real engines.",
+    "CodeRabbit 0.7.6 live checkpoint behavior and full native event compatibility remain unverified.",
+    "Native child filesystem isolation is instruction-based under current full-access T3 permissions.",
+    "Repository changes are not evidence of installed skill activation."
+  ],
+  "final_sha256": {
+    "SKILL.md": "9b8dffcbfe0ddad84a3c4137dc6b272dea65a981edf92e2af9aa212bc57db477",
+    "agents/openai.yaml": "a1499d95abd8447558c535fe5554adcc3c9b988a0a39264a6283d430effe1e94",
+    "origin.txt": "91f35f5fba939ff6d7fe258e88b1f05600d562d9d9689ccc47aa92cf66454b57",
+    "references/audit-supplement.md": "50f47b2ed58f35b653aeda65e2a4222cd935c7804ac4da4ee411f5ef4c50467c",
+    "references/github.md": "503a0199c7293cbb519937e0c221045ea3aa4a215938df052786f34a5486bd48",
+    "references/ledger.md": "8f7698078f5a5a595bbddf1681949ceeb68e0269e4a1ff3b4581b849d7bf7eb7",
+    "references/profile-schema.md": "0841c242ba34abbffa981324719b90179af586e308a904ebf12e1a5a22c39f0a",
+    "references/profiles.md": "811e6bc80a94ce65140ca6b2533b5b017edd132d673e65fa63b9bb287af7e735",
+    "references/reviewers.md": "fcb7e6409eff5aa1b94bb6f7f7293aaa3a83e6d853b17b3096a8bc09e4f6db20",
+    "references/seams.md": "68ecba9f830a00ebfef59353492869b51bb5917306e33faf7048137631f144b7",
+    "references/t3-subagents.md": "6632aa3f2cf40143302d7eaf597a074a305431aee8cda9cd3dba84ffad6aa06e",
+    "scripts/adapters.py": "3b2f4d914d8b7f04b8c11d2ee73e40ea3d56b1274f407f9217b687434d13ccc2",
+    "scripts/pending_review.py": "9c666d942eade10c7fee12432c2e752ad111b9dcc7863a6c31bc50715fd525f8",
+    "scripts/read_only.py": "e28b6e505d814443ec8bee0d98cfa6d94d239aedfce25e5baeb34952f695b8be",
+    "scripts/resolve_profile.py": "6404e28a2cceec8a681c414c13cc3cf7a605f282ca70d77955fae650e3c03ec2",
+    "scripts/reviewers.py": "d9be595c3e0d83333350eb3ae5f183c93f93524aa850944cf24402ce77c0332b",
+    "scripts/snapshot.py": "35dceb60fafac99beed83dd8d6c18bce8a78c3f4388307f903e2e5e725e78466",
+    "scripts/test_pending_review.py": "ded9972c7358dd4b004816286c5a896cc64b61bdae288621e51c897a8dccb70b",
+    "scripts/test_profiles.py": "ab0a3e85ff6eb60e82e7cccb6f7dd460de9af8c936cdc896bcdfe5d2d7ad0121",
+    "scripts/test_reviewers.py": "b8f61ce1670ffe63b4a1c2aed2fa14a77dcbd6b1c73bede7bc8f2592ba3983d4",
+    "scripts/test_snapshot.py": "76021136851bec6e9601b8e78f4d4e6488a6c1f0e6480b183520a4d041ec1e92",
+    "scripts/test_support.py": "0aba7d1200521fe76ad3a899d066573eac036b0422b2927604b7275a6c8fb7d1",
+    "scripts/validate.sh": "682c8389e427ccb5da67ea7df518bf82367612f9afff62bf2cf2c5d4bb771dda"
+  }
+}

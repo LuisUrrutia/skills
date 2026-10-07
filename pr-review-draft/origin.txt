@@ -32,10 +32,11 @@ name = "compare-solutions"
 required = true
 role = "Independent full-attempt and evidence-based synthesis contract."
 local_choices = [
-  "The existing pr-review-draft supervisor remains the sole orchestration owner.",
+  "The parent remains the sole synthesis owner; T3 uses app-owned child tasks and other hosts use the CLI supervisor.",
   "Use the user-selected Codex, Claude and local CodeRabbit roster on identical scope and criteria.",
   "The parent performs synthesis; deliberately omit an additional independent judge and recursive coordination.",
-  "Retain native CodeRabbit output without manufacturing canonical coverage."
+  "Retain native CodeRabbit output without manufacturing canonical coverage.",
+  "T3 native reviewers use the host permission boundary; CLI guards apply only to CLI workers. Report that difference and honor stricter project isolation requirements."
 ]
 
 [[dependencies]]
