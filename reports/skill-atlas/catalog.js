@@ -4456,11 +4456,19 @@ window.SKILL_ATLAS = {
         "section": "review-code-changes"
       },
       {
-        "name": "pr-review-draft",
+        "name": "pr-review",
         "category": "Implementation, verification and review",
-        "summary": "Prepare an editable pending GitHub review from independent Codex, Claude and CodeRabbit attempts over one frozen PR scope.",
-        "path": "pr-review-draft/SKILL.md",
-        "sha256": "c308ba2ae5d5c693c2c404862fbcc1a42239ec6e332c45c4bfcb55bac6a1a34d",
+        "summary": "Review another author's PR with independent Codex, Claude and CodeRabbit attempts over one frozen scope, then publish one Comment or Approve review.",
+        "path": "pr-review/SKILL.md",
+        "sha256": "14b570d1ad7df5a2abd17a2ad07be9d34a52b815c2812fcb40dc5c4cce038e1e",
+        "checkedAt": "2026-10-07"
+      },
+      {
+        "name": "pr-review-followup",
+        "category": "Implementation, verification and review",
+        "summary": "Follow a PR you reviewed: settle your threads, re-review new heads with pr-review and approve through an enforced gate.",
+        "path": "pr-review-followup/SKILL.md",
+        "sha256": "0659b9e98ed81ca7163f277e546b9b28460748890f9b3b2d3849171d101ef1c7",
         "checkedAt": "2026-10-07"
       },
       {
@@ -4493,9 +4501,9 @@ window.SKILL_ATLAS = {
         "category": "Git, pull requests and CI",
         "summary": "Evaluate human and AI feedback, repair authorized CI failures or conflicts and report the current PR state.",
         "path": "pr-followup/SKILL.md",
-        "sha256": "3d73b3e79c3bddd4ae6cb0e8049414e037ed24d67f3992c460fc1a81d64102f8",
+        "sha256": "c72e5539ceb97d72daf3c0697a9b8cc6bc8d5b183538840d999539f6c98b09d6",
         "section": "followup",
-        "checkedAt": "2026-10-07"
+        "checkedAt": "2026-10-08"
       },
       {
         "name": "stacked-pr",
@@ -4686,7 +4694,8 @@ window.SKILL_ATLAS = {
       "humanize": "communicate-clearly",
       "how": "explain-code",
       "why": "explain-decisions",
-      "draft-review": "pr-review-draft"
+      "draft-review": "pr-review",
+      "pr-review-draft": "pr-review"
     },
     "validationScope": "Package presence, declared names and entrypoint hashes checked. TypeScript has 22 technical compiler/runtime/configuration probes and package validation; independent agent behavior and host activation are not tested. Other skills retain their separate dated evidence. Presence is not installation. CI/CD has separate package, atlas, dual-review and three matched design-case records. Provider execution and implicit activation remain untested. Handoff has independent Astra/Fable Max static reviews, a matched document-creation pair, a non-repository trial and a cold-recipient diagnostic. Supplied context does not establish implicit activation or real cross-host transfer."
   },

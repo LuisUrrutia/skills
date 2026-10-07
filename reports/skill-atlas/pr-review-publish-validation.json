@@ -1,0 +1,28 @@
+{
+  "date": "2026-10-07",
+  "scope": "Rename pr-review-draft to pr-review with direct publication, and add pr-review-followup.",
+  "userDecisions": [
+    "Publish reviews directly instead of leaving a PENDING draft; name the skill pr-review.",
+    "Publish as Comment with findings, Approve when clean; never Request changes.",
+    "Follow reviewed PRs every 30 minutes; continue same-topic points in their thread; ask for a ticket on a deferral and resolve once confirmed; run the full review on every new head; approve once everything is settled."
+  ],
+  "checks": [
+    {"command": "TMPDIR=<scratch> bash pr-review/scripts/validate.sh <review-code-changes>", "result": "passed: package checks and 52 tests"},
+    {"command": "bash pr-review-followup/scripts/validate.sh", "result": "passed: package checks and 21 tests"},
+    {"command": "git diff --check", "result": "passed"},
+    {"command": "followup.py state against aurora-payments/monorepo#1982", "result": "read-only probe returned threads, author, base branch and verification state; no writes"}
+  ],
+  "reviews": [
+    {"round": 1, "profiles": ["Codex gpt-6-astra max", "Claude claude-fable-5-1 max"], "outcome": "11 and about 20 findings; approval, idempotency, identity, pagination and ticket-settlement findings adopted; Claude disable-model-invocation rejected because pr-review-followup invokes pr-review and scheduled ticks invoke pr-review-followup."},
+    {"round": 2, "profiles": ["Codex gpt-6-astra max", "Claude claude-fable-5-1 max"], "outcome": "5 and 5 findings adopted: one approval predicate, head-scoped verification, open questions, settle, base-branch binding, --max-event COMMENT."},
+    {"round": 3, "profiles": ["Codex gpt-6-astra max", "Claude claude-fable-5-1 max"], "outcome": "4 and 2 findings adopted: gate on the approval's own read, expected_base_ref, no reopen-and-verify, reassessment after a new head."},
+    {"round": 4, "profiles": ["Codex gpt-6-astra max", "Claude claude-fable-5-1 max"], "outcome": "No material defect; two minor items fixed: one completeness predicate, stale-approval rerun error."}
+  ],
+  "behavioralTrial": {
+    "executor": "Claude claude-sonnet-5-5 high, supplied-context trial without expectations",
+    "cases": "8 thread-settlement scenarios, 6 routing requests, 1 approval decision",
+    "result": "15 of 15 matched the expected actions",
+    "limits": "One trial on one model with supplied instructions; it does not establish host selection, installation or live GitHub behavior."
+  },
+  "untested": ["Live GitHub publication, reply, resolution and approval writes", "Host scheduling of ticks", "Implicit or explicit host invocation"]
+}
