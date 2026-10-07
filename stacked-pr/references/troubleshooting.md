@@ -56,14 +56,20 @@ chain, local metadata exists only where requested, and no PR was duplicated.
 ## Move a tracked chain to manual
 
 Use this branch when routing or the user moves a chain that `gh-stack` tracks to the manual route.
-Record every branch tip and PR base from the stack view first. Read live help for the current form
-that removes only local tracking; leave the PRs, branches, and GitHub grouping unchanged unless the
-request includes dissolving the remote stack. Make no Git write until the local tracking is gone.
+Record every branch tip and PR base from the stack view first. Read live help for the current forms
+that remove local tracking and that unstack PRs on GitHub. When the user explicitly asked for
+ordinary dependent PRs, remove the eligible PRs from the GitHub grouping as well, because a retained
+native stack keeps its merge constraints; otherwise leave the PRs, branches, and GitHub grouping
+unchanged unless the request includes dissolving the remote stack. Make no Git write until the
+local tracking is gone.
 
 Migration is complete when the stack view no longer reports the chain, every recorded tip and PR
 base is unchanged, the remote grouping is in the requested state and recorded as retained or
 dissolved, and the manual-chain inspection reports the same bottom-to-top order from Git ancestry
-and PR bases.
+and PR bases. If GitHub keeps some PRs stacked after either dissolution, it also keeps the local
+tracking: report the remaining grouping and obtain the user's decision before declaring the
+migration complete. If the user proceeds, remove local tracking with the local-only form and confirm
+the stack view no longer reports the chain before any Git write.
 
 ## Rebuild an oversized branch
 

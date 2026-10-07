@@ -58,12 +58,13 @@ result, and take manual when one of its conditions holds, CLI otherwise:
   [references/cli-workflow.md](references/cli-workflow.md).
 
 When conditions overlap, the user's explicit choice outranks GitHub's availability report, which
-outranks the extension listing. GitHub's report comes from a failed native-stack read, link, or
-submit; routing adds no probe. When it appears during a mutation on the CLI route, record it as
-the selecting observation and move ownership to manual through the migration branch in
-troubleshooting.md; if the user explicitly asked for a native stack, report the failure instead.
-A read-only request reports it and continues inspecting through Git and PR reads, leaving tracking
-and ownership unchanged.
+outranks the extension listing. An explicit native-stack request is never replaced by manual: report
+a prohibited or failed install or GitHub's unavailability report as a blocker, and use the API route
+only when the user authorizes it. GitHub's report comes from a failed native-stack read, link, or
+submit; routing adds no probe. When it appears during a mutation on the CLI route without an
+explicit native-stack request, record it as the selecting observation and move ownership to manual
+through the migration branch in troubleshooting.md. A read-only request reports it and continues inspecting through Git
+and PR reads, leaving tracking and ownership unchanged.
 
 Existing branches and PRs that no tool tracks yet do not select the route. For a mutation on the
 CLI route, adopting them is a prerequisite step of the requested operation, not a separately

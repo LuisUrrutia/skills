@@ -3,8 +3,8 @@
 Selected by SKILL.md routing: the user explicitly asked for ordinary dependent PRs instead of a
 native stack, GitHub reports native stacks unavailable, or the extension cannot be installed.
 Git and PR bases are the source of chain state. GitHub maintains no native stack object on this
-route, or a retained one is left as found; change its membership only through the API route or an
-explicitly requested dissolution.
+route, or a retained one is left as found; change its membership only through the API route or the
+dissolution that an explicit ordinary-PR request or the user authorizes.
 Perform only the requested operation.
 
 ## Inspect
