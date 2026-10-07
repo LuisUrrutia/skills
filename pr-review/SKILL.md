@@ -128,12 +128,14 @@ existing authorization; suggestions grant no additional permission.
       any thread, accepted deferrals aside), no decisive question is open, and
       the actor has no unresolved thread on the PR. APPROVE carries no comments
       or replies.
-    - **COMMENT** otherwise, when there is anything to publish. An incomplete
-      review says which engine or coverage is missing in its body; with nothing
-      else to publish, it publishes nothing.
-    - When `pr-review-followup` runs this review, it owns approval: publish
-      COMMENT or nothing, and return to it whether the review was complete and
-      how many required findings stand outside the actor's threads.
+    - **COMMENT** otherwise, when there is a finding, reply or question to
+      publish; an incomplete review also names the missing engine or coverage in
+      its body. An incomplete review with nothing else to publish publishes
+      nothing and reports the gap to the user.
+    - When `pr-review-followup` runs this review, it owns approval: publish with
+      `--max-event COMMENT`, and return whether every engine succeeded, how many
+      supported required findings stand outside the actor's threads, and how many
+      decisive questions remain open.
     Verify intended actor and current PR base/head, then publish through
     `scripts/publish_review.py`. It builds the review at that head, binds thread
     replies to it, submits it once and reads back state, membership and exact

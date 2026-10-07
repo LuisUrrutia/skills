@@ -77,6 +77,9 @@ python3 "$SKILL_DIR/scripts/publish_review.py" \
   --receipt "$SCRATCHPAD/review-receipt.json"
 ```
 
+Add `--max-event COMMENT` when `pr-review-followup` runs the review; the helper
+then rejects an `APPROVE` plan before any write.
+
 This is a write command, used only as part of an authorized pr-review run.
 Validation uses fake APIs; a real publication test requires an authorized
 disposable PR. Do not execute an example plan against a real target.
@@ -90,8 +93,10 @@ body. Before submitting it requires the review to hold exactly the comments it
 wrote and no body, and for `APPROVE` that the actor has no unresolved thread on
 the PR. It then submits once with the plan's event and body and reads back the
 submitted state (`COMMENTED` or `APPROVED`), body, head, ownership and every
-recorded comment. A moved base tip is accepted while the merge-base with the
-frozen head is unchanged. Do not rely on universal claims about null line/side fields or a REST
+recorded comment. A moved base tip is accepted while the base branch name and
+the merge-base with the frozen head are unchanged; a retarget stops the write.
+It refuses to publish when the actor authored the PR, and refuses `APPROVE` on a
+PR with more than 100 review threads rather than judge a partial view. Do not rely on universal claims about null line/side fields or a REST
 endpoint always returning 404.
 
 An unsubmitted review the actor already has, which this run did not create, is

@@ -126,11 +126,13 @@ def save(path: Path, state: dict) -> None:
     temporary.replace(path)
 
 
-def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None) -> dict:
+def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None, max_event: str = "APPROVE") -> dict:
     manifest = verify(snapshot)
     target = manifest["target"]
     plan = json.loads(plan_path.read_text())
     validate_plan(plan, manifest, snapshot)
+    if max_event == "COMMENT" and plan["event"] != "COMMENT":
+        raise PublishError("this caller allows only COMMENT; approval belongs to pr-review-followup")
     api = api or GitHub(target["host"])
     prefix = f"repos/{target['repository']}/pulls/{target['number']}"
     identity = {"target": target, "actor": actor, "plan_sha256": digest(plan_path)}
@@ -148,7 +150,11 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None) 
         if api.call("user").get("login") != actor:
             raise PublishError("active GitHub actor differs from the intended actor")
         current = api.call(prefix)
+        if current.get("user", {}).get("login") == actor:
+            raise PublishError("the actor authored this PR; follow it with pr-followup instead")
         base = current.get("base", {}).get("sha")
+        if current.get("base", {}).get("ref") != target["base_name"]:
+            raise PublishError("PR base branch changed since the snapshot; refresh the review before writing")
         if current.get("head", {}).get("sha") != target["head"]:
             raise PublishError("PR base or head drifted; refresh the review before writing")
         if base != target["base"]:
@@ -161,7 +167,9 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None) 
         owner, name = target["repository"].split("/")
         threads = api.call("graphql", {"query": OWN_THREADS, "variables": {"owner": owner, "repo": name, "number": target["number"]}})
         threads = threads["data"]["repository"]["pullRequest"]["reviewThreads"]
-        if threads["pageInfo"]["hasNextPage"] or any(
+        if threads["pageInfo"]["hasNextPage"]:
+            raise PublishError("the PR has more than 100 review threads; refusing to approve on a partial view")
+        if any(
                 not node["isResolved"] and (node["comments"]["nodes"][0]["author"] or {}).get("login") == actor
                 for node in threads["nodes"] if node["comments"]["nodes"]):
             raise PublishError("the actor has unresolved threads on this PR; approval belongs to pr-review-followup")
@@ -265,9 +273,12 @@ def main() -> int:
     for flag in ("snapshot", "plan", "receipt"):
         parser.add_argument("--" + flag, required=True, type=Path)
     parser.add_argument("--actor", required=True)
+    parser.add_argument("--max-event", choices=sorted(EVENTS), default="APPROVE",
+                        help="pass COMMENT when pr-review-followup owns approval")
     args = parser.parse_args()
     try:
-        state = apply(args.snapshot.resolve(), args.plan.resolve(), args.actor, args.receipt.resolve())
+        state = apply(args.snapshot.resolve(), args.plan.resolve(), args.actor, args.receipt.resolve(),
+                      max_event=args.max_event)
         print(json.dumps({"status": state["status"], "review_id": state.get("review_id")}))
         return 0
     except (PublishError, SnapshotError, OSError, ValueError, KeyError, TypeError, subprocess.TimeoutExpired) as error:

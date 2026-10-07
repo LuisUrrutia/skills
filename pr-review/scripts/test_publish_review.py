@@ -28,13 +28,17 @@ class FakeGitHub:
         self.add_user_comment = False
         self.body_override = None
         self.lose_comment = False
+        self.base_ref = 'baseline'
+        self.author = 'author'
+        self.many_threads = False
 
     def call(self, endpoint, payload=None, paginate=False):
         self.calls.append((endpoint, payload, paginate))
         if endpoint == 'user':
             return {'login': self.actor}
         if endpoint.endswith('/pulls/12'):
-            return {'node_id':'PR_target', 'head':{'sha':'0'*40 if self.change_head else self.f.head}, 'base':{'sha':self.base}}
+            return {'node_id':'PR_target', 'user':{'login':self.author}, 'head':{'sha':'0'*40 if self.change_head else self.f.head},
+                    'base':{'sha':self.base, 'ref':self.base_ref}}
         if '/compare/' in endpoint:
             return {'merge_base_commit':{'sha':self.merge_base}}
         if endpoint.endswith('/reviews?per_page=100'):
@@ -65,7 +69,7 @@ class FakeGitHub:
             if 'reviewThreads' in query:
                 author = {'login':self.actor}
                 nodes = [{'isResolved':False,'comments':{'nodes':[{'author':author}]}}] if self.unresolved_mine else []
-                return {'data':{'repository':{'pullRequest':{'reviewThreads':{'pageInfo':{'hasNextPage':False},'nodes':nodes}}}}}
+                return {'data':{'repository':{'pullRequest':{'reviewThreads':{'pageInfo':{'hasNextPage':self.many_threads},'nodes':nodes}}}}}
             if query.startswith('query'):
                 return {'data':{'node':{'pullRequest':{'id':'PR_other' if self.foreign_thread else 'PR_target'}}}}
             data = payload['variables']['input']
@@ -100,8 +104,8 @@ class PublishReviewTests(unittest.TestCase):
     def write_plan(self):
         self.plan.write_text(json.dumps(self.data))
 
-    def apply(self):
-        return apply(self.f.snapshot, self.plan, 'reviewer', self.receipt, self.api)
+    def apply(self, max_event='APPROVE'):
+        return apply(self.f.snapshot, self.plan, 'reviewer', self.receipt, self.api, max_event)
 
     def test_comments_publish_as_one_comment_review_and_rerun_writes_nothing(self):
         first = self.apply()
@@ -175,6 +179,40 @@ class PublishReviewTests(unittest.TestCase):
             self.apply()
 
         self.assertNotIn('pending_operation', json.loads(self.receipt.read_text()))
+
+    def test_followup_caller_can_forbid_approval(self):
+        self.data = {'event':'APPROVE'}
+        self.write_plan()
+        with self.assertRaisesRegex(PublishError, 'only COMMENT'):
+            self.apply(max_event='COMMENT')
+        self.assertEqual(self.api.writes(), [])
+
+    def test_retarget_author_and_thread_limit_block_before_writing(self):
+        cases = [('base_ref', 'release/other', 'base branch'), ('author', 'reviewer', 'authored'),
+                 ('many_threads', True, '100 review threads')]
+        self.data = {'event':'APPROVE'}
+        self.write_plan()
+        for field, value, message in cases:
+            with self.subTest(message=message):
+                self.receipt.unlink(missing_ok=True)
+                self.api = FakeGitHub(self.f)
+                setattr(self.api, field, value)
+                with self.assertRaisesRegex(PublishError, message):
+                    self.apply()
+                self.assertEqual(self.api.writes(), [])
+
+    def test_changed_recorded_comment_stops_submission(self):
+        original = self.api.call
+
+        def edit_then_read(endpoint, payload=None, paginate=False):
+            if endpoint.endswith('/comments?per_page=100') and self.api.comments:
+                self.api.comments[0]['body'] = 'user rewrote this'
+            return original(endpoint, payload, paginate)
+
+        self.api.call = edit_then_read
+        with self.assertRaisesRegex(PublishError, 'changed or not associated'):
+            self.apply()
+        self.assertFalse(any(e.endswith('/events') for e,_ in self.api.writes()))
 
     def test_existing_unsubmitted_review_is_never_published(self):
         self.api.review = {'id':17,'node_id':'PRR_user','state':'PENDING','user':{'login':'reviewer'},'commit_id':self.f.head,'body':'user draft'}
