@@ -2,7 +2,7 @@
  "schemaVersion": 1,
  "date": "2026-10-07",
  "baseline": "3a3da95fad398d6fd09490d952373aa94ddb1f24",
- "status": "Validated for the stated static and selection-probe scope; all material consultation findings and CodeRabbit PR findings accounted for across four rounds.",
+ "status": "Validated for the stated static and selection-probe scope; all material consultation findings, CodeRabbit PR findings and the user's readability objection accounted for across five rounds.",
  "scope": "Make stacked-pr route selection observable after an observed misroute: an agent took the manual route (hand `git rebase --onto` and lease pushes) on a two-PR stack although `github/gh-stack` v0.2.0 was installed, then repaired with `gh stack init`, `gh stack link`, and `gh stack view`.",
  "diagnosis": "SKILL.md described the CLI route as operations \"owned by `github/gh-stack`\", which read as a precondition that the extension already tracked the branches. Untracked existing branches therefore fell to manual, whose \"user wants ordinary dependent PRs\" condition was loosely satisfied. No observable check selected the route and the routing completion criterion did not require one. The matched selection probe without the extension listing reproduced this: the HEAD version left the route undetermined until it knew whether gh-stack tracked the stack and chose manual when no native stack existed.",
  "changes": [
@@ -99,16 +99,33 @@
      "summary": "Edit 1 sound. Material: partial dissolution keeps local tracking (live `gh stack unstack --help`), so the migration text must require removing local tracking before any Git write when the user proceeds. Polish: 'after either dissolution'; name the referent 'explicit native-stack request'; align manual-chain.md's dissolution trigger."
     },
     "reconciliation": "Codex found no defects. Fable's material correction and the three polish items were adopted as proposed; no further round because they are the reviewer's own one-sentence corrections."
+   },
+   {
+    "round": 5,
+    "candidate": "Readability rewrite of every touched passage after the user objected to fragments such as 'Selected by SKILL.md routing'",
+    "brief": "# Round 5 of the bounded read-only consultation: readability rewrite\n\nSame rules as before (read /tmp/stacked-pr-routing/brief.md first): do not edit, do not run Git or\n`gh` mutations, do not delegate. Report findings only. Under 250 words.\n\nThe user read the published skill (https://github.com/LuisUrrutia/skills/pull/19, head c57df28)\nand objected that some added text makes no sense to a reader, for example the fragment\n\"Selected by SKILL.md routing\" that opened cli-workflow.md and manual-chain.md. Four rounds of\none-sentence patches had left telegraphic, jargon-heavy prose. The coordinator rewrote every\npassage this branch touched for a human reader while keeping the reviewed meaning:\n\n- SKILL.md \"Route the request\": the decision is now an ordered list (automation, API, then the\n  extension listing deciding Manual vs CLI), with the precedence rule, the explicit-native-request\n  blocker, GitHub's report handling, untracked-branch adoption, single-writer rule and completion\n  criterion each in their own short paragraph.\n- cli-workflow.md and manual-chain.md openings: full sentences stating when SKILL.md routes here and\n  what the route owns.\n- cli-create.md scope and adoption criterion; troubleshooting.md \"Move a tracked chain to manual\"\n  rewritten as steps.\n\nFiles: candidate /tmp/stacked-pr-routing/candidate/ (SKILL.md and references/), diff versus the\npublished head /tmp/stacked-pr-routing/change-r5.patch, original HEAD~4 under\n/tmp/stacked-pr-routing/original/.\n\nAssess two things only: (1) does the rewrite preserve the previously reviewed meaning (route\nprecedence, explicit native-stack request never replaced by manual, GitHub's report produced by a\nfailed read/link/submit and not probed, prerequisite adoption bounded to mutations with its\ncompletion criterion, single writer, migration behaviour including partial dissolution keeping\nlocal tracking, read-only requests never writing tracking); (2) does any sentence remain unclear,\nfragmentary, or ambiguous to a reader who opens the file cold. Quote each problem sentence and\npropose the replacement, or state explicitly that none remain.\n",
+    "astra": {
+     "model": "gpt-6-astra",
+     "effort": "max",
+     "output": "SKILL.md preserves the reviewed rules; these reference passages need correction:\n\n- [troubleshooting.md:62](/tmp/stacked-pr-routing/candidate/references/troubleshooting.md:62): \"Remove the local tracking.\"\n  Premature removal conflicts with partial dissolution. Replace: \"Remove only local tracking when retaining the GitHub stack; otherwise run dissolution and follow the handling of partial dissolution below.\"\n\n- [troubleshooting.md:67](/tmp/stacked-pr-routing/candidate/references/troubleshooting.md:67): \"GitHub may keep some PRs stacked, for example while they are queued for merge, and then keeps the local tracking too.\"\n  Replace: \"If GitHub keeps some PRs stacked, `gh-stack` retains local tracking.\"\n\n- [cli-workflow.md:3](/tmp/stacked-pr-routing/candidate/references/cli-workflow.md:3): \"SKILL.md routes a request here when `github/gh-stack` is installed or can be installed.\"\n  [manual-chain.md:3](/tmp/stacked-pr-routing/candidate/references/manual-chain.md:3): \"SKILL.md routes a request here when the user explicitly asked for ordinary dependent PRs instead of a native stack, when GitHub reports native stacks unavailable, or when the extension cannot be installed.\"\n  Both omit routing exceptions. Replace respectively: \"Use this workflow when SKILL.md selects the CLI route.\" / \"Use this workflow when SKILL.md selects the manual route.\"\n\n- [manual-chain.md:5](/tmp/stacked-pr-routing/candidate/references/manual-chain.md:5): \"Normally GitHub maintains no native stack object for the chain; if one remains from an earlier migration, leave it as found and change its membership only through the API route or a dissolution the user asked for.\"\n  This excludes other retained stacks and obscures ordinary-PR authorization. Replace: \"Normally, a manual chain has no native stack object. Leave any retained object unchanged unless the API route owns membership changes or the user authorizes dissolution, including by explicitly requesting ordinary dependent PRs.\""
+    },
+    "fable": {
+     "model": "claude-fable-5-1",
+     "effort": "max",
+     "taskId": "node:delegated-task:command%3Amcp%3A5c000cb2-fb4d-40ed-aa80-6d67325a1f5b%3Adelegate-task%3Astacked-pr-routing-fable-r5-20261007",
+     "summary": "Meaning preserved. Four drifts: migration ordered local-tracking removal before the GitHub unstack although the no-argument unstack form removes both together; the partial-dissolution sentence lost its scope and named GitHub instead of the CLI as the keeper of local tracking; manual-chain.md dropped the ordinary-PR dissolution authority; cli-workflow.md 'branches it does not track yet' also covered branches another tool manages. Minor: SKILL.md completion examples closed by a colon and omitted a failed install; cli-create.md dropped 'only'."
+    },
+    "reconciliation": "Both reviewers agreed the SKILL.md rewrite preserves the reviewed rules. All corrections adopted: the migration step unstacks on GitHub and removes local tracking together for an explicit ordinary-PR request and otherwise removes only local tracking; partial dissolution is scoped to a requested dissolution with the CLI keeping local tracking; the route files open with 'Use this workflow when SKILL.md selects the CLI/manual route' so the conditions keep one home in SKILL.md; manual-chain.md names the ordinary-PR dissolution authority; 'branches that no tool tracks yet'; completion examples reopened with 'such as' including a failed install; 'only' restored in cli-create.md. No further round: the reviewers' own sentence-level corrections."
    }
   ]
  },
  "checks": {
   "candidateHashes": {
-   "stacked-pr/SKILL.md": "00b52a36267a1b9c61acbefd9ab0f158339c16803dc316873aaed319847d0a55",
-   "stacked-pr/references/cli-workflow.md": "7ee95a1b8e8c8040cd688d9b661f7be572423817ac38f68cdf92eed24fe9d64c",
-   "stacked-pr/references/cli-create.md": "679da37d9baf0283057abedbbea6f2f4335b391316d80b779d2ddb3c5ab30042",
-   "stacked-pr/references/manual-chain.md": "f2d943e3a269ec63faf0e186be90c0d4d624b9b4e093a5fcbebc16647994e8dd",
-   "stacked-pr/references/troubleshooting.md": "917407b389249296f0e5b184a3a035144165473564480d6124eedae778c310dd"
+   "stacked-pr/SKILL.md": "78607a50756f7f6705cd4c30f02ddc7da73db772c3d08c68a7daed90dda1a863",
+   "stacked-pr/references/cli-workflow.md": "282f940d9be73cfca181bbf5655140835f65b0d7d762970025cdc06aa57e9a8e",
+   "stacked-pr/references/cli-create.md": "d6f33682aca21836d94650490321dae00cad9e2044acaa178e58464b3356ebb2",
+   "stacked-pr/references/manual-chain.md": "1dc70cdc4d6ebd77dc20a70dd9e1c19e2c710ac4b558e639f93be1ea38478106",
+   "stacked-pr/references/troubleshooting.md": "3c2723c47792b40f74b1e1a7ee5ca5a79d644f1c2e7c451b0e456e2c3a6a005c"
   },
   "static": {
    "brokenPackageRelativeLinks": 0,
@@ -153,15 +170,15 @@
     "comment-style"
    ],
    "files": {
-    "reports/skill-atlas/sources.json": "64ef1c42eef0ed86561eb661d078669c554837e2d3b83198538fd3453bedef85",
-    "reports/skill-atlas/catalog.js": "27625d5a23d4e3c7c95da2d0471213e23b9e0f2270eaba5d2b691a47fb45f027",
-    "reports/skill-atlas/index.html": "f2076c7fa891da00f8e08f0cc3c9467d1daa2055697d2f005478689852f50c9d"
+    "reports/skill-atlas/sources.json": "7a056f1106905a3fb6122febea37bc685ce458830ee2333243116245622000e4",
+    "reports/skill-atlas/catalog.js": "0a53dab0a4283f5052ff7305e8678678b1210aebb2c02cdac6de7da12ba97717",
+    "reports/skill-atlas/index.html": "21b93a071f6d368ac978fdeaffdab491827e6572b3991db93cc4683e24f7aace"
    }
   }
  },
  "limits": [
   "Selection probes are dry runs without command execution; host activation of the skill and live `gh stack` behavior were not exercised.",
-  "No further consultation round after round 4's one-sentence corrections.",
+  "No further consultation round after round 5's sentence-level corrections.",
   "Line length is not a configured repository check; three added lines exceed 100 characters by one to three characters, as pre-existing lines in the same files do."
  ],
  "prFeedback": {
