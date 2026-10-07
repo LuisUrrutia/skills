@@ -4296,9 +4296,9 @@ window.SKILL_ATLAS = {
         "category": "Instruction authoring",
         "summary": "Write and evaluate agent instructions and skills, reconciling independent Codex Astra and Claude Fable reviews at Max.",
         "path": "agent-instructions/SKILL.md",
-        "sha256": "fee06125e55bf8359953170972a88782a24a68665dcfe67adc62daf79850f8f8",
+        "sha256": "d9870e29d4bf636791b97e77cde7661a66742db41cb71c5e5f428251e3bc2b5f",
         "section": "authoring",
-        "checkedAt": "2026-10-06"
+        "checkedAt": "2026-10-07"
       },
       {
         "name": "create-project-instructions",
@@ -4460,8 +4460,8 @@ window.SKILL_ATLAS = {
         "category": "Implementation, verification and review",
         "summary": "Prepare an editable pending GitHub review from independent Codex, Claude and CodeRabbit attempts over one frozen PR scope.",
         "path": "pr-review-draft/SKILL.md",
-        "sha256": "e94e11ae14cd9d4083e410202ef67869d3235105d80d0bc2e81fc2805b7e375d",
-        "checkedAt": "2026-10-06"
+        "sha256": "c308ba2ae5d5c693c2c404862fbcc1a42239ec6e332c45c4bfcb55bac6a1a34d",
+        "checkedAt": "2026-10-07"
       },
       {
         "name": "worktrunk",
@@ -4484,27 +4484,27 @@ window.SKILL_ATLAS = {
         "category": "Git, pull requests and CI",
         "summary": "Create or update a reviewable PR, including real screenshots, attachment recovery and useful diagrams.",
         "path": "pr/SKILL.md",
-        "sha256": "082a524447d992d9272083dafd4a17f6ee1785f5f4c8d1ad0d787925d33e6242",
+        "sha256": "0f1bd25f333e8d295879849012a5047abbfb37a8faf54c208429252cda433f0c",
         "section": "pr-attachments",
-        "checkedAt": "2026-10-06"
+        "checkedAt": "2026-10-07"
       },
       {
         "name": "pr-followup",
         "category": "Git, pull requests and CI",
         "summary": "Evaluate human and AI feedback, repair authorized CI failures or conflicts and report the current PR state.",
         "path": "pr-followup/SKILL.md",
-        "sha256": "6678c4c1a69581cab21863fe2a2a130b2a8ca99361a1dabdb6b71917239e6dbf",
+        "sha256": "3d73b3e79c3bddd4ae6cb0e8049414e037ed24d67f3992c460fc1a81d64102f8",
         "section": "followup",
-        "checkedAt": "2026-10-05"
+        "checkedAt": "2026-10-07"
       },
       {
         "name": "stacked-pr",
         "category": "Git, pull requests and CI",
         "summary": "Manage dependent PR chains, their topology, updates and integration order.",
         "path": "stacked-pr/SKILL.md",
-        "sha256": "c3cdf91d8e08abf60a1e324a322b324cece0e36b90ec57f2f2c030fbe2f5f643",
+        "sha256": "367661ccefdff1c32cccbb4be411b1da373e4ab540e8bd15bcbdbc04af24fc0b",
         "section": "personal",
-        "checkedAt": "2026-10-06"
+        "checkedAt": "2026-10-07"
       },
       {
         "name": "github-actions",
@@ -4615,8 +4615,9 @@ window.SKILL_ATLAS = {
         "category": "Writing and personal workflows",
         "summary": "Write concise chat messages, PR comments and social replies with essential facts, fitting emotion, contextual humor and useful questions.",
         "path": "comment-style/SKILL.md",
-        "sha256": "4d17831c0de43bfbc4ff05157d0ac9ca10700f8db4753d4e818c0edc7c563c6e",
-        "section": "comment-style"
+        "sha256": "ab691d8fa7c18fb3ffca52d92dfcb695018491be7c3d138f3f925fa745b72d3f",
+        "section": "comment-style",
+        "checkedAt": "2026-10-07"
       },
       {
         "name": "deprecate-and-remove",
@@ -10874,7 +10875,7 @@ window.SKILL_ATLAS = {
             "owner": "pr",
             "path": "pr/SKILL.md",
             "line": 1,
-            "sha256": "082a524447d992d9272083dafd4a17f6ee1785f5f4c8d1ad0d787925d33e6242"
+            "sha256": "0f1bd25f333e8d295879849012a5047abbfb37a8faf54c208429252cda433f0c"
           }
         ]
       },
@@ -10961,7 +10962,7 @@ window.SKILL_ATLAS = {
             "owner": "stacked-pr",
             "path": "stacked-pr/SKILL.md",
             "line": 1,
-            "sha256": "c3cdf91d8e08abf60a1e324a322b324cece0e36b90ec57f2f2c030fbe2f5f643"
+            "sha256": "367661ccefdff1c32cccbb4be411b1da373e4ab540e8bd15bcbdbc04af24fc0b"
           }
         ]
       },
@@ -13950,6 +13951,13 @@ window.SKILL_ATLAS = {
         "repositoryCommit": "f4e7a1f732c039cfeb2c217eea1954f3f308cccf",
         "validation": "catalog-reconciliation-validation.json",
         "scope": "Reconcile recorded non-selections, current owner names, eight missing recipient relationships, provenance hashes and recommendations. Preserve original source assessments and dated validation reports; no skills installed or authored."
+      },
+      {
+        "checkedAt": "2026-10-07",
+        "source": "stacked-pr routing correction after an observed misroute",
+        "repositoryCommit": "3a3da95fad398d6fd09490d952373aa94ddb1f24",
+        "validation": "stacked-pr-routing-validation.json",
+        "scope": "Make stacked-pr route selection observable: run `gh extension list` before choosing CLI or manual, adopt untracked branches as a prerequisite of a CLI mutation, and record the selecting observation. Refresh its entrypoint hash and reconcile the other entrypoint hashes that drifted since 2026-10-06 (agent-instructions, pr-review-draft, pr, pr-followup, comment-style). Preserve source pins and earlier dated update scopes."
       }
     ]
   },
