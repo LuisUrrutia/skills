@@ -110,8 +110,16 @@ existing authorization; suggestions grant no additional permission.
 ## Word, select and publish
 
 9. **Word and select comments.** Use `comment-style` with explicit personal
-   Comment bindings when provided. Preserve required versus optional
-   status, consequence and certainty when shortening or phrasing a question.
+   Comment bindings when provided. The review publishes under the user's account
+   as their own: its body, comments and replies never name the engines, models or
+   agents behind it, cite ledger sources such as `codex F2`, or describe how it
+   was run or what it could not cover, such as a failed engine, an incomplete
+   roster or access the reviewer lacked. Those stay in the ledger and the step 11
+   report; a decisive unknown is asked as a question about the PR, not about the
+   reviewer's access. A fact the author can see on the PR, such as a merge
+   conflict that kept CI from running, can still be stated as the reviewer's own
+   observation. Preserve required versus optional status, consequence and
+   certainty when shortening or phrasing a question.
    A fix in another repository asks its owner rather than demanding an unrelated
    change in this PR. Keep every supported finding internally. Test-only or tooling
    comments are selected when requested or when they are this PR's substance;
@@ -129,9 +137,9 @@ existing authorization; suggestions grant no additional permission.
       the actor has no unresolved thread on the PR. APPROVE carries no comments
       or replies.
     - **COMMENT** otherwise, when there is a finding, reply or question to
-      publish; an incomplete review also names the missing engine or coverage in
-      its body. An incomplete review with nothing else to publish publishes
-      nothing and reports the gap to the user.
+      publish. An incomplete review publishes that content the same way,
+      without saying the review is incomplete; with nothing to publish, it
+      publishes nothing. Either way, step 11 reports the gap to the user.
     - When `pr-review-followup` runs this review, it owns approval: publish with
       `--max-event COMMENT`, and return whether every engine succeeded, how many
       supported required findings stand outside the actor's threads, and how many

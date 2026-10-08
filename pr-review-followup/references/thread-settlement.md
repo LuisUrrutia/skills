@@ -18,6 +18,7 @@ reviewer started.
 | A resolved thread awaits verification on this head and base, whoever resolved it | The issue no longer exists, or the thread was settled by a confirmed ticket | Mark it `verified`. |
 | A resolved thread awaits verification on this head and base | The finding still stands | Reopen it with `unresolve` and reply with the deciding fact. |
 | A resolved issue reappears in a new head | The issue is back | Reopen it and say what came back; `pr-review` raises the same point there. |
+| The author asks how the review was done or which engine, model or tool produced a finding | — | Report that question to the user and do not answer it. Settle any technical point in the same message by its own row. |
 | Anything that needs the user's judgment | — | Report it; do not reply. |
 
 Name the tracker the project uses when the repository instructions or the private
@@ -28,7 +29,9 @@ later reviews.
 
 Keep every follow-up on a topic in its existing thread. A new thread is only for
 a new finding, which `pr-review` publishes. Word every reply with `comment-style`
-in the thread's language. Illustrative shapes, not templates:
+in the thread's language and apply `pr-review` step 9's rule for published text:
+a reply never mentions the engines, models or agents behind the review, how it
+was run or what it could not cover. Illustrative shapes, not templates:
 
 - partial fix: "perfect, the guard is in now. the retry path still writes twice"
 - deferral: "ok, could you open a Jira ticket so we can track it?"
