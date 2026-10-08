@@ -618,6 +618,7 @@ Create or update a GitHub PR with a concise explanation and useful review eviden
 - Checks claims against implementation, requirements and current verification
 - Checks a task's review-size cap against the actual PR diff before publishing code or creating the PR
 - Follows repository conventions while allowing useful additions where the format permits
+- Keeps the body to what helps review the diff and returns project coordination, such as flag timing or other tickets' scope, to the user
 - Captures visible UI changes and attaches real images through supported `gh --attach` operations
 - Preserves uploaded URLs on rewrites and recovers partial uploads without duplicate PRs
 - Uses diagrams and measured comparisons when they aid review
