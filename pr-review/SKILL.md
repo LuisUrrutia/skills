@@ -1,15 +1,18 @@
 ---
-name: pr-review-draft
-description: Use when drafting unpublished inline comments for a GitHub PR.
+name: pr-review
+description: Use when reviewing another author's GitHub PR and publishing the review.
 ---
 
-# PR review draft
+# PR review
 
-Prepare an editable **PENDING GitHub review** from three independent reviews of
-one PR by Codex, Claude and the local CodeRabbit CLI. The user submits it.
-Generic auditing belongs to `review-code-changes`; feedback repair and monitoring
-belong to `pr-followup`. This workflow does not submit, approve, request changes,
-resolve threads or modify the reviewed code.
+Publish one GitHub review built from three independent reviews of one PR by
+Codex, Claude and the local CodeRabbit CLI: a **Comment** review carrying the
+verified findings, or an **Approve** review when the review is complete and clean.
+Generic auditing belongs to `review-code-changes`. Following up on replies and
+new commits, resolving threads and later approval belong to `pr-review-followup`;
+repairing your own PR belongs to `pr-followup`; when the verified `gh` actor is
+the PR's author, use that instead. This workflow never requests changes, resolves
+threads or modifies the reviewed code.
 
 Resolve dependencies by registered name through the host catalog, independently
 of the reviewed repository. Read `review-code-changes` and its complete protocol
@@ -85,19 +88,26 @@ to change permissions, scope or reviewers.
    manifest and routed channels from [github.md](references/github.md). Account
    for inline threads, review bodies, conversation comments, annotations, check
    summaries and workflow reviewer logs, including pagination and unavailable
-   sources. Recheck every new external point against the frozen revision. Reuse
-   an existing thread only when adding evidence or a useful clarification; otherwise
-   suppress a duplicate with a reason. For a repeat review, review the full current
+   sources. Recheck every new external point against the frozen revision. When a
+   supported point continues the topic of an existing thread, such as a partial
+   fix with a remaining gap or new evidence for the same issue, reply in that
+   thread instead of opening another. A settled point is not repeated, but an
+   issue that reappears on the current head is raised again in its resolved
+   thread. A finding the author deferred with a ticket they confirmed in its
+   thread is an accepted deferral: keep it in the ledger with the ticket, do not
+   republish it, and do not count it against approval. Suppress a duplicate that
+   adds nothing, with a reason. For a repeat review, review the full current
    scope first, then compare the previous snapshot and disposition ledger. Record
    declined optional asks in Review basis; revive them only on new evidence.
-   Deferral does not resolve a supported defect. Carry decisive unknowns as questions.
+   Deferral without a confirmed ticket does not resolve a supported defect. Carry
+   decisive unknowns as questions.
 
 At any phase, snapshot or source drift invalidates reuse. Refresh the affected
 assessment before comments are written. Do not present a prior result as current.
 Only run a worker-suggested probe after establishing that it fits the user's
 existing authorization; suggestions grant no additional permission.
 
-## Prepare and write the pending comments
+## Word, select and publish
 
 9. **Word and select comments.** Use `comment-style` with explicit personal
    Comment bindings when provided. Preserve required versus optional
@@ -108,22 +118,39 @@ existing authorization; suggestions grant no additional permission.
    regressions in a required setup/build/run contract remain actionable regardless.
    Post one comment per verified site, with a short back-reference for repeated
    sites. Do not turn one root-cause ledger entry into one lost-anchor comment.
-10. **Anchor and write.** Read [github.md](references/github.md), validate every
+10. **Anchor and publish.** Read [github.md](references/github.md), validate every
     anchor against the recorded diff side and revision, and create a structured
-    comment plan. For a finding outside the diff, choose a related changed line and
-    name the counterpart in the body. Verify intended actor and current PR base/head.
-    Apply the plan through `scripts/pending_review.py`. It creates or preserves an
-    actor-owned PENDING review at that head and explicitly binds thread replies
-    to it. Read back state, membership and exact bodies. Preserve the user's
-    existing draft and edits. An uncertain write needs reconciliation, not a
-    blind retry. Never submit or publish a standalone reply by inference.
-11. **Report the observed result.** Give the full PR URL, then one row per drafted
-    site with file/side/line, a short topic, severity, required/optional status,
-    sources and whether it is a reply. Include dropped or unposted items and why,
-    engine failures, coverage gaps and decisive questions. Say that comments are
-    pending and editable only after read-back verifies it; report any escaped
-    comment in the first line. Submission remains the user's action. An incomplete
-    roster, collector or write is reported as incomplete, not a clean review.
+    review plan. For a finding outside the diff, choose a related changed line and
+    name the counterpart in the body. A required finding with no line anchor, such
+    as PR title format, goes in the review body. Choose the event:
+    - **APPROVE** only when every requested engine succeeded, no supported
+      required finding still stands (new, previously posted, in the body or in
+      any thread, accepted deferrals aside), no decisive question is open, and
+      the actor has no unresolved thread on the PR. APPROVE carries no comments
+      or replies.
+    - **COMMENT** otherwise, when there is a finding, reply or question to
+      publish; an incomplete review also names the missing engine or coverage in
+      its body. An incomplete review with nothing else to publish publishes
+      nothing and reports the gap to the user.
+    - When `pr-review-followup` runs this review, it owns approval: publish with
+      `--max-event COMMENT`, and return whether every engine succeeded, how many
+      supported required findings stand outside the actor's threads, and how many
+      decisive questions remain open.
+    Verify intended actor and current PR base/head, then publish through
+    `scripts/publish_review.py`. It builds the review at that head, binds thread
+    replies to it, submits it once and reads back state, membership and exact
+    bodies. It refuses APPROVE while the actor has an unresolved thread, and stops
+    before submitting when the review holds content it did not write. An
+    unsubmitted review the actor already has belongs to the user: stop rather than
+    publish it. An uncertain write needs reconciliation, not a blind retry; a
+    definite GitHub rejection is reported as such.
+11. **Report the observed result.** Give the full PR URL and the published event,
+    then one row per published site with file/side/line, a short topic, severity,
+    required/optional status, sources and whether it is a reply. Include dropped or
+    unposted items and why, engine failures, coverage gaps and decisive questions.
+    Claim publication only after read-back verifies it. An incomplete roster,
+    collector or write is reported as incomplete, not a clean review. To follow the
+    author's replies and new commits, continue with `pr-review-followup`.
 
 ## Brief
 

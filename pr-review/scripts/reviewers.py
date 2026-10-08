@@ -908,7 +908,7 @@ def show_status(args: argparse.Namespace) -> int:
 
 def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(
-        description="Run and observe the pr-review-draft worker roster"
+        description="Run and observe the pr-review worker roster"
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 

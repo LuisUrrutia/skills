@@ -502,25 +502,41 @@ review-audit skill; it preserves a read-only review phase and local reports.
 - Validates Markdown coverage against a path inventory and renders HTML with an external stylesheet
 - Records local snapshots and pinned review sources, including Compound Engineering, OpenClaw, and Alireza Rezvani
 
-### pr-review-draft
+### pr-review
 
-Prepare an editable pending GitHub review from independent Codex, Claude and
-CodeRabbit attempts over the same frozen PR scope. The user submits the review.
+Review another author's GitHub PR with independent Codex, Claude and CodeRabbit
+attempts over the same frozen scope, then publish one review: Comment with the
+verified findings, or Approve when the review is complete and clean.
 
-**Triggers:** explicitly invoke `$pr-review-draft` to draft unpublished inline PR comments.
+**Triggers:** explicitly invoke `$pr-review` to review and publish on a PR you were asked to review.
 
 Uses `review-code-changes` for the audit protocol, `compare-solutions` for independent
 attempts and `comment-style` for wording. The parent verifies findings, checks
-cross-repository seams and reconciles existing feedback before writing pending
-comments. Read-only review controls, bounded retries and exact actor/head binding
-remain part of the workflow.
+cross-repository seams and reconciles existing feedback, continuing a same-topic
+point in its existing thread. It never requests changes, never submits a review
+the user started, and approves only when no required finding or reviewer thread
+remains open. Read-only review controls, bounded retries and exact actor/head
+binding remain part of the workflow.
 
-This replaces the former private `draft-review` skill. Update installed links and
-explicit invocations to `pr-review-draft`; no alias package is included. Private
-profiles stay outside the package, in `$XDG_CONFIG_HOME/pr-review-draft/profiles`
-(or `~/.config/pr-review-draft/profiles`) or a directory passed with `--profiles-dir`.
-Existing `~/.config/draft-review/profiles` users must link or move that directory
-to the new location, or select it explicitly. Generic reviews need no profile.
+This replaces `pr-review-draft`, which left a pending review for the user to
+submit. Update installed links and explicit invocations to `pr-review`; no alias
+package is included. Private profiles stay outside the package, in
+`$XDG_CONFIG_HOME/pr-review/profiles` (or `~/.config/pr-review/profiles`), with the
+legacy `pr-review-draft/profiles` used when the new directory is absent, or a
+directory passed with `--profiles-dir`. Generic reviews need no profile.
+
+### pr-review-followup
+
+Follow a PR you reviewed until your threads are settled and it is approved.
+
+**Triggers:** explicitly invoke `$pr-review-followup` with the PR URL after a `pr-review`.
+
+Every 30 minutes by default, it re-reviews each new head with `pr-review`, replies
+in your own threads, resolves what the current head or a confirmed ticket settles,
+reopens a thread whose finding still stands, and approves only through a gate its
+helper enforces: a complete review of the current head, no standing required
+finding and every reviewer thread resolved and verified. Your own PRs belong to
+`pr-followup`.
 
 ### verification-authoring
 

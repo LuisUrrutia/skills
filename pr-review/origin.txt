@@ -1,7 +1,7 @@
 format_version = 1
-skill = "pr-review-draft"
+skill = "pr-review"
 created = "2026-10-06"
-approach = "Move the portable pending-review workflow to the shared collection under an explicit PR-oriented name. Private profiles remain external runtime inputs."
+approach = "Run the portable three-engine PR review and publish it directly, as Comment or as Approve when clean, under the reviewer-side pr-review name. Private profiles remain external runtime inputs."
 
 [[local_snapshots]]
 id = "private-draft-review"
@@ -13,7 +13,8 @@ entrypoint_sha256 = "d0a713773c5d5b7688bf1f2a717a21a272fb177a699d0d4dd318530c282
 verification = "Copied the 22-file package from the fetched private main revision. This is a historical migration source, not an upstream update feed."
 local_choices = [
   "Rename the package and explicit invocation to pr-review-draft while preserving its fixed independent roster and pending-only result.",
-  "Keep private repository profiles out of the public package; the default runtime directory is XDG_CONFIG_HOME/pr-review-draft/profiles.",
+  "Keep private repository profiles out of the public package; the default runtime directory is XDG_CONFIG_HOME/pr-review/profiles, falling back to the legacy pr-review-draft/profiles.",
+  "2026-10-07, at the user's direction: publish reviews directly instead of leaving a PENDING draft, rename pr-review-draft to pr-review, approve only a complete and clean review, never request changes, and continue a same-topic point in its existing thread. Follow-up, thread resolution and later approval moved to pr-review-followup.",
   "Preserve explicit-only invocation and the existing audit, comparison and wording owners."
 ]
 
@@ -42,7 +43,7 @@ local_choices = [
 [[dependencies]]
 name = "comment-style"
 required = true
-role = "Compact wording and PR-specific comment rules; placement and pending-review operations remain with pr-review-draft."
+role = "Compact wording and PR-specific comment rules; placement and review publication remain with pr-review."
 
 [[dependencies]]
 name = "communicate-clearly"

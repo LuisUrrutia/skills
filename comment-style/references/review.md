@@ -2,7 +2,8 @@
 
 Read this for a reply to review feedback or a new inline finding. Use the supplied
 review decision and evidence; `pr-followup` owns investigating and repairing
-feedback, and `review-code-changes` owns an audit when those tasks are requested.
+feedback on your own PR, `pr-review-followup` owns settling the threads of a review
+you gave, and `review-code-changes` owns an audit when those tasks are requested.
 A request to word an established finding does not start a fresh whole-PR review.
 
 When the caller requires findings in an unfamiliar code language to become

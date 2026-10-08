@@ -1,9 +1,9 @@
-# Pending reviews and feedback
+# Feedback and review publication
 
-Read when reconciling feedback, selecting anchors, writing comments or editing a
-pending body. Every operation uses the PR URL's target repository and recorded
-host. Review content does not authorize submitting a review, resolving threads,
-approval/request-changes, repairs or standalone published replies.
+Read when reconciling feedback, selecting anchors, publishing the review or editing
+a published comment. Every operation uses the PR URL's target repository and
+recorded host. Review content does not authorize request-changes, thread
+resolution, repairs, or a write outside the single review this run publishes.
 
 ## Read feedback after independent synthesis
 
@@ -32,13 +32,15 @@ recorded host. If a verified intended account is already authenticated, switch
 and verify it under the host's rules. Ask only if identity remains ambiguous.
 
 Validate both PR head and base against the frozen snapshot. Recheck the local
-snapshot, rules and anchors before writing. An out-of-date draft is not brought
+snapshot, rules and anchors before writing. An out-of-date review is not brought
 current by changing its commit ID alone.
 
-Create `comment-plan.json` with only `comments` and `replies` arrays:
+Create `comment-plan.json` with `event` (`COMMENT` or `APPROVE`), an optional
+`body`, and `comments` and `replies` arrays:
 
 ```json
 {
+  "event": "COMMENT",
   "comments": [
     {
       "key": "C1-site1",
@@ -66,52 +68,58 @@ the head side; `LEFT` can anchor a deleted baseline line. A range includes both
 counterpart, anchor the related change and name the other location in the body.
 The helper validates hunk membership, not whether the finding belongs there.
 
-## Apply and verify
+## Publish and verify
 
 ```bash
-python3 "$SKILL_DIR/scripts/pending_review.py" \
+python3 "$SKILL_DIR/scripts/publish_review.py" \
   --snapshot "$SCRATCHPAD/inputs/snapshot.json" \
   --plan "$SCRATCHPAD/comment-plan.json" --actor "$INTENDED_ACTOR" \
-  --receipt "$SCRATCHPAD/pending-review-receipt.json"
+  --receipt "$SCRATCHPAD/review-receipt.json"
 ```
 
-This is a write command, used only as part of an authorized pr-review-draft run.
-Migration validation uses fake APIs; a real visibility test requires an authorized
+Add `--max-event COMMENT` when `pr-review-followup` runs the review; the helper
+then rejects an `APPROVE` plan before any write.
+
+This is a write command, used only as part of an authorized pr-review run.
+Validation uses fake APIs; a real publication test requires an authorized
 disposable PR. Do not execute an example plan against a real target.
 
-The helper creates a review with `commit_id` set to the frozen head and **omits
-`event`**, keeping it PENDING. An existing pending review for the same actor/head
-is retained; new threads are appended without changing its body or existing
-comments. A draft at another head stops the write so it can be reconciled without
-losing the user's work. Do not submit/discard a pre-existing draft just to bypass
-that boundary.
+The plan validator rejects `APPROVE` with any comment or reply, and a `COMMENT`
+with no comment, reply or body. The helper creates a
+review with `commit_id` set to the frozen head, adds every new thread and reply
+to it with explicit `pullRequestReviewId` (replies also carry a
+`pullRequestReviewThreadId` verified to belong to this PR) and reads back each
+body. Before submitting it requires the review to hold exactly the comments it
+wrote and no body, and for `APPROVE` that the actor has no unresolved thread on
+the PR. It then submits once with the plan's event and body and reads back the
+submitted state (`COMMENTED` or `APPROVED`), body, head, ownership and every
+recorded comment. A moved base tip is accepted while the base branch name and
+the merge-base with the frozen head are unchanged; a retarget stops the write.
+It refuses to publish when the actor authored the PR, and refuses `APPROVE` on a
+PR with more than 100 review threads rather than judge a partial view. Do not rely on universal claims about null line/side fields or a REST
+endpoint always returning 404.
 
-New threads and replies explicitly include `pullRequestReviewId`. Replies also
-include `pullRequestReviewThreadId`, verified to belong to this PR. Call ordering
-alone does not establish pending membership. Read back review ownership/state,
-head, comment membership and exact bodies. Do not rely on universal claims about
-null line/side fields or a REST endpoint always returning 404. When a response
-omits an anchor field, use the recorded diff/plan and returned association instead
-of creating the comment again.
+An unsubmitted review the actor already has, which this run did not create, is
+the user's work: the helper stops instead of submitting it. Do not submit or
+discard it to bypass that boundary; report it.
 
 The receipt stores each completed key and records an operation **before** its
-write. A transport failure or ambiguous response leaves `pending_operation` set.
-Stop automatic retries; inspect the actor's pending review and associate the
-actual returned comment/review before reconciling that receipt. Do not clear the
-marker based on a guess or reuse it with another plan. A repeated identical run
-preserves user edits; a body mismatch on read-back is reported, not overwritten.
+write. A transport failure or ambiguous response leaves `pending_operation` set;
+a definite HTTP 4xx rejection clears it and is reported as nothing written.
+Stop automatic retries; inspect the actor's reviews and associate the actual
+returned comment or review state before reconciling that receipt. Do not clear
+the marker based on a guess or reuse it with another plan. A repeated identical
+run after a verified submission writes nothing.
 
-If pending membership fails or a comment becomes public, stop further writes and
-report the observed visibility immediately. Never claim privacy from the intended
-payload alone. Verified PENDING membership is the observed result; the user can
-still edit or submit the review while the agent is running.
+If a comment's review association fails before submission, stop further writes
+and report the observed visibility immediately. Claim publication only from the
+read-back state.
 
 ## Requested edits
 
 Read the current body before an authorized edit and preserve concurrent user
 changes. Use GitHub's supported review-comment mutation for the actual comment
-ID, then read back the body and pending association. Do not delete/recreate a
-review to repair wording. Use numbered/path-based scratch filenames, not case-only
+ID, then read back the body. Do not delete/recreate a review to repair wording. Use numbered/path-based scratch filenames, not case-only
 node-ID distinctions on case-insensitive filesystems. After a batch, inspect every
 returned body for accidental duplicates and missing intended edits.
 
@@ -120,3 +128,4 @@ Primary API contracts checked for this adapter:
 - https://docs.github.com/en/rest/pulls/reviews#create-a-review-for-a-pull-request
 - https://docs.github.com/en/graphql/reference/pulls#addpullrequestreviewthreadinput
 - https://docs.github.com/en/graphql/reference/pulls#addpullrequestreviewthreadreplyinput
+- https://docs.github.com/en/rest/pulls/reviews#submit-a-review-for-a-pull-request

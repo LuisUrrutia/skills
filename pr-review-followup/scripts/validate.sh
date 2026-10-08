@@ -3,30 +3,23 @@ set -euo pipefail
 
 script_dir="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 skill_dir="$(cd -- "$script_dir/.." && pwd)"
-export AUDIT_SKILL_DIR="${1:?Pass the catalog-resolved review-code-changes directory}"
 export PYTHONDONTWRITEBYTECODE=1
-: "${TMPDIR:?Set TMPDIR to an ignored task scratch directory before validation}"
-test -d "$TMPDIR"
-test -f "$AUDIT_SKILL_DIR/references/protocol.md"
-test -f "$AUDIT_SKILL_DIR/scripts/report.py"
 
 python3 - "$skill_dir" <<'PY'
-import json
 import pathlib
 import re
 import sys
 import tomllib
 
 skill = pathlib.Path(sys.argv[1]).resolve()
-entry = (skill / 'SKILL.md').read_text()
-frontmatter = entry.split('---', 2)
+frontmatter = (skill / 'SKILL.md').read_text().split('---', 2)
 assert len(frontmatter) == 3 and not frontmatter[0].strip()
-assert re.search(r'^name: pr-review-draft$', frontmatter[1], re.M)
+assert re.search(r'^name: pr-review-followup$', frontmatter[1], re.M)
 assert re.search(r'^description: \S.+$', frontmatter[1], re.M)
 assert 'allow_implicit_invocation: false' in (skill / 'agents/openai.yaml').read_text()
 with (skill / 'origin.txt').open('rb') as source:
     dependencies = tomllib.load(source)['dependencies']
-assert {d['name'] for d in dependencies if d['required']} == {'review-code-changes','compare-solutions','comment-style'}
+assert {d['name'] for d in dependencies if d['required']} == {'pr-review', 'comment-style'}
 for path in skill.rglob('*'):
     if path.is_symlink():
         assert path.resolve().is_relative_to(skill), f'escaping package symlink: {path}'
@@ -44,4 +37,4 @@ for path in skill.rglob('*'):
 print('Package references, explicit-only metadata, provenance and Python syntax passed')
 PY
 python3 -m unittest discover -s "$script_dir" -p 'test_*.py' -v
-printf 'pr-review-draft validation passed\n'
+printf 'pr-review-followup validation passed\n'
