@@ -1,0 +1,205 @@
+{
+ "schemaVersion": 1,
+ "date": "2026-10-07",
+ "baseline": "3a3da95fad398d6fd09490d952373aa94ddb1f24",
+ "status": "Validated for the stated static and selection-probe scope; all material consultation findings, CodeRabbit PR findings and the user's readability objection accounted for across five rounds.",
+ "scope": "Make stacked-pr route selection observable after an observed misroute: an agent took the manual route (hand `git rebase --onto` and lease pushes) on a two-PR stack although `github/gh-stack` v0.2.0 was installed, then repaired with `gh stack init`, `gh stack link`, and `gh stack view`.",
+ "diagnosis": "SKILL.md described the CLI route as operations \"owned by `github/gh-stack`\", which read as a precondition that the extension already tracked the branches. Untracked existing branches therefore fell to manual, whose \"user wants ordinary dependent PRs\" condition was loosely satisfied. No observable check selected the route and the routing completion criterion did not require one. The matched selection probe without the extension listing reproduced this: the HEAD version left the route undetermined until it knew whether gh-stack tracked the stack and chose manual when no native stack existed.",
+ "changes": [
+  {
+   "file": "stacked-pr/SKILL.md",
+   "change": "Route the request: resolve automation, then API, then run `gh extension list`; manual only on the user's explicit choice, GitHub's unavailability report, or a prohibited or failed install; CLI otherwise. Precedence among overlapping conditions. GitHub's report comes from a failed native-stack read, link, or submit, routing adds no probe; during a CLI mutation it triggers migration to manual unless the user asked for a native stack; read-only requests keep tracking. Untracked branches do not select the route and are adopted as a prerequisite of a CLI mutation; managed branches follow the interoperability branch. Tracked-chain writer rule names the stack view and the migration branch. Routing completion records the selecting observation."
+  },
+  {
+   "file": "stacked-pr/references/cli-workflow.md",
+   "change": "Opening paragraph points to SKILL.md routing, scopes ownership to unmanaged branches, and defines when a prerequisite adoption is complete."
+  },
+  {
+   "file": "stacked-pr/references/cli-create.md",
+   "change": "Admits the adoption a mutation requires; prerequisite adoption ends at cli-workflow.md's criterion."
+  },
+  {
+   "file": "stacked-pr/references/manual-chain.md",
+   "change": "Selection sentence points to SKILL.md routing with the tightened conditions; a retained native grouping is left as found and changed only through the API route or explicit dissolution."
+  },
+  {
+   "file": "stacked-pr/references/troubleshooting.md",
+   "change": "New branch: Move a tracked chain to manual, with completion criterion recording the retained or dissolved remote grouping."
+  }
+ ],
+ "consultations": {
+  "brief": "# Bounded read-only consultation (agent-instructions dual review)\n\nYou are one of two independent reviewers. Do not edit any file, do not run Git or `gh` mutations,\ndo not start another review or delegate. Report findings only; the coordinator owns edits.\n\n## User request (verbatim intent)\n\nThe user reported this failure and asked to fix it in the `stacked-pr` skill: an agent operating a\ntwo-PR stack with the `stacked-pr` skill loaded took the **manual** route (hand `git rebase --onto`\nplus `--force-with-lease` pushes, PR bases set by hand) even though the `github/gh-stack` extension\nwas installed (v0.2.0). The agent later acknowledged: \"the skill prioritizes `gh stack` when the\nextension is installed, and I took the manual route without checking.\" It then repaired by running\n`gh stack init --base main <branch1> <branch2>`, `gh stack link <pr1> <pr2>`, and `gh stack view`.\nA screenshot of that report is at /tmp/stacked-pr-routing/screenshot.png (Spanish).\n\nDiagnosis by the coordinator: the routing section of SKILL.md described the CLI route as operations\n\"owned by `github/gh-stack`\", which reads as a precondition that the extension already tracks the\nbranches; untracked existing branches therefore fell to Manual, whose condition (\"user wants ordinary\ndependent PRs\") was loosely satisfied. No observable check selected the route, and the routing\ncompletion criterion did not require one.\n\n## Files\n\n- Original entrypoint (HEAD): /tmp/stacked-pr-routing/original/SKILL.md\n- Frozen candidate entrypoint: /tmp/stacked-pr-routing/candidate/SKILL.md\n- Unchanged references loaded by the routes: /tmp/stacked-pr-routing/candidate/references/\n  (cli-workflow.md, cli-create.md, cli-maintain.md, manual-chain.md, manual-create.md,\n  manual-maintain.md, troubleshooting.md, api-workflow.md, ...)\n- Diff: /tmp/stacked-pr-routing/change.patch\n\nOnly the \"Route the request\" section of SKILL.md changed. The edit scope is routing; reference files\nare context and may be flagged for a follow-up but are not in the authorized edit scope unless a\nrouting contradiction requires it.\n\n## What to assess\n\n1. Does the candidate make the route selection observable and correct for the reported case\n   (extension installed, existing untracked branches and PRs, cascading rebase requested)?\n2. Does it preserve the existing meanings: API route for REST/bots, Manual when native stacks are\n   genuinely unavailable or the user explicitly wants ordinary dependent PRs, automation route,\n   one mutation owner, read-only inspection safety, scope and safety rules above the section?\n3. Conflicts or omissions versus the reference files (e.g. cli-workflow.md already runs\n   `gh extension list` and installs only when the operation requires it; troubleshooting.md owns\n   adoption; manual-chain.md's own \"Use this route when...\" sentence).\n4. Wording defects: ambiguity, a read turned into a write, a suggestion turned into a universal\n   rule, or over-specification that could misroute a legitimate manual request.\n\nReturn: concrete omissions, conflicts, and proposed corrections with reasons, each tied to a line\nor sentence. State explicitly if you find no material defect. Keep it concise.\n",
+  "rounds": [
+   {
+    "round": 1,
+    "candidate": "v1 (routing section only)",
+    "astra": {
+     "model": "gpt-6-astra",
+     "effort": "max",
+     "runner": "codex exec -s read-only",
+     "output": "The reported case now selects CLI through an observable extension check. Three routing issues remain:\n\n1. **Route precedence is ambiguous.** [SKILL.md:49](/private/tmp/stacked-pr-routing/candidate/SKILL.md:49) selects CLI whenever the extension is installed, including when the user explicitly requests Manual or REST, or the task concerns automation. Those conditions can all match simultaneously. Make CLI the default **for local operations after the explicit Manual, API, and automation conditions are resolved**.\n\n2. **Extension absence does not establish native-stack unavailability.** [SKILL.md:53](/private/tmp/stacked-pr-routing/candidate/SKILL.md:53) introduces Manual when the extension cannot be installed. Native stacks might still be available through REST, and an existing native stack might need maintenance. This also conflicts with [manual-chain.md:3](/private/tmp/stacked-pr-routing/candidate/references/manual-chain.md:3), whose route assumes unavailable native stacks or an ordinary chain. Remove extension absence as an independent Manual condition; use API where appropriate or report the CLI prerequisite as blocked. Keep conditional installation governed by `cli-workflow.md`.\n\n3. **The original ownership ambiguity survives in the CLI reference.** [cli-workflow.md:3](/private/tmp/stacked-pr-routing/candidate/references/cli-workflow.md:3) still says to use CLI when the extension “owns local tracking and GitHub stack state.” The candidate selects CLI for untracked branches, then loads this apparent precondition. Clarify in the routing section that selection **assigns ownership for the operation; existing tracking is not required**. Direct operations needing tracking to the adoption procedure in [troubleshooting.md:40](/private/tmp/stacked-pr-routing/candidate/references/troubleshooting.md:40), while preserving read-only inspection.\n\nThese are instruction-level findings; no behavioral execution was performed."
+    },
+    "fable": {
+     "model": "claude-fable-5-1",
+     "effort": "max",
+     "runner": "t3 delegate_task",
+     "taskId": "node:delegated-task:command%3Amcp%3A0c2fab0f-af7c-4907-a3dd-2b8f8e777a00%3Adelegate-task%3Astacked-pr-routing-fable-r1b-20261007",
+     "note": "A first launch with runtimeMode approval-required stalled on permission prompts and was cancelled; relaunched with runtimeMode auto.",
+     "summary": "Five material findings: adoption asserted but unloadable and not bounded to mutations; absent-extension gap conflicting with cli-workflow.md's install rule; extension check scoped to a closed operation list; no precedence among overlapping conditions and no producing step for GitHub's unavailability report; route files still carried the old selection sentences. Wording items on 'without a native stack', exhaustive observation list, and the tracked-chain writer rule."
+    },
+    "reconciliation": "All material findings adopted. Codex's alternative for the absent-extension case (report the CLI prerequisite as blocked without routing) was not adopted because it leaves the requested operation without a route; the failed prerequisite is recorded as the selecting observation instead. Fable's scope note that `gh stack sync` links open PRs into a GitHub stack object was not acted on: users who do not want the native object have the explicit manual condition."
+   },
+   {
+    "round": 2,
+    "candidate": "v2",
+    "brief": "# Round 2 of the bounded read-only consultation\n\nSame rules as round 1 (read /tmp/stacked-pr-routing/brief.md first): do not edit, do not run Git\nor `gh` mutations, do not delegate. Report findings only.\n\n## What happened since round 1\n\nTwo independent reviewers (Codex Astra and Claude Fable) reviewed candidate v1. Their findings and\nthe coordinator's reconciliation:\n\n- Precedence among overlapping route conditions was undefined (both reviewers) → ADOPTED. The\n  section now resolves automation, then API, then runs `gh extension list` for CLI vs manual, and\n  states: user's explicit choice > GitHub's availability report > extension listing.\n- \"Extension absent\" as an independent Manual condition conflicted with cli-workflow.md's\n  install-when-required rule, and the silent \"absent but installable\" case was unrouted (both) →\n  ADOPTED Fable's wording preserving the original authority: CLI when installed or absent-and-\n  installable; Manual when installing is prohibited or fails, GitHub reports native stacks\n  unavailable, or the user explicitly asks for ordinary dependent PRs instead of a native stack.\n  Codex's alternative (\"report the CLI prerequisite as blocked, do not route\") was NOT adopted:\n  it leaves the requested operation without a route; the failed prerequisite is still recorded as\n  the selecting observation.\n- Adoption was asserted in routing but unloadable under the route files' \"only when explicitly\n  requested\" rule, and it read as a write for read-only requests (Fable) → ADOPTED: adoption is a\n  prerequisite step of a CLI mutation, read-only requests inspect without writing tracking;\n  cli-workflow.md's opening paragraph now says the same.\n- Closed operation list on the extension check (Fable) → ADOPTED: the check applies to every\n  CLI-vs-manual choice.\n- \"GitHub reports native stacks unavailable\" had no producing step (Fable) → ADOPTED: it comes\n  from a failed native-stack read, link, or submit, not a routine probe, and re-routes to manual.\n- cli-workflow.md:3 \"owns local tracking\" and manual-chain.md:3 still carried the old selection\n  sentences (both) → ADOPTED: both now point to SKILL.md routing.\n- Wording: \"instead of a native stack\"; completion observations are examples, including REST or\n  automation context; the tracked-chain writer rule names the stack view as proof and allows an\n  explicit user move to manual via troubleshooting.md (Fable) → ADOPTED.\n- Fable's scope note that `gh stack sync` links open PRs into a GitHub stack object: NOT changed.\n  A user who does not want the native object has the explicit manual condition; the CLI route's\n  nature is the native stack.\n\n## Files\n\n- Original (HEAD): /tmp/stacked-pr-routing/original/SKILL.md and original/references/\n- Candidate v2: /tmp/stacked-pr-routing/candidate/SKILL.md, candidate/references/cli-workflow.md,\n  candidate/references/manual-chain.md (other references unchanged)\n- Diff v2 vs HEAD: /tmp/stacked-pr-routing/change-v2.patch\n- Round-1 Codex findings: /tmp/stacked-pr-routing/round1-astra.md\n\n## Ask\n\nAssess candidate v2 only on the affected points: is every adopted finding correctly expressed, does\nthe new precedence or adoption wording introduce a contradiction with any reference file, and does\nany of your round-1 material findings remain unresolved? Return concrete remaining defects with\nproposed corrections, or state explicitly that none remain. Under 300 words.\n",
+    "astra": {
+     "model": "gpt-6-astra",
+     "effort": "max",
+     "output": "Five defects remain:\n\n1. **Fallback reverses stated precedence.** [SKILL.md:60](/tmp/stacked-pr-routing/candidate/SKILL.md:60) prioritizes explicit choice, then unconditionally reroutes on unavailability. Preserve an explicit REST/native requirement; permit Manual fallback only when compatible with the requested outcome.\n\n2. **Probe instructions conflict.** [SKILL.md:61](/tmp/stacked-pr-routing/candidate/SKILL.md:61) excludes routine probes as availability evidence, while [api-workflow.md:17](/tmp/stacked-pr-routing/candidate/references/api-workflow.md:17) requires that probe. Scope the restriction to CLI/manual selection and preserve API setup.\n\n3. **Adoption has a circular completion condition.** [SKILL.md:64](/tmp/stacked-pr-routing/candidate/SKILL.md:64) makes adoption a maintenance prerequisite, but [cli-create.md:25](/tmp/stacked-pr-routing/candidate/references/cli-create.md:25) requires correct ancestry and no rebase need. Untracked branches needing a cascade cannot satisfy that first. Record existing divergence during prerequisite adoption; defer repaired ancestry and no-rebase checks until the requested cascade finishes.\n\n4. **Universal CLI ownership conflicts with interoperability.** [cli-workflow.md:3](/tmp/stacked-pr-routing/candidate/references/cli-workflow.md:3) assigns local tracking to `gh-stack` for every mutation, including branches it does not track. [troubleshooting.md:80](/tmp/stacked-pr-routing/candidate/references/troubleshooting.md:80) retains other managers' local ownership and permits remote-only CLI linking. Limit automatic local adoption to unmanaged branches and preserve that exception explicitly.\n\n5. **Manual migration has no procedure.** [SKILL.md:73](/tmp/stacked-pr-routing/candidate/SKILL.md:73) requires migration through [troubleshooting.md](/tmp/stacked-pr-routing/candidate/references/troubleshooting.md), whose divergence/restructure branches reacquire or recreate native tracking. Add a Manual migration branch covering release of local tracking, existing remote grouping, preserved refs/PRs, and verified ownership before Git writes. Apply it to automatic fallback too.\n\nOther round-1 findings are resolved under the coordinator's stated policy decisions; precedence remains partly unresolved. This was a static instruction review only."
+    },
+    "fable": {
+     "model": "claude-fable-5-1",
+     "effort": "max",
+     "taskId": "node:delegated-task:command%3Amcp%3A0c2fab0f-af7c-4907-a3dd-2b8f8e777a00%3Adelegate-task%3Astacked-pr-routing-fable-r2-20261007",
+     "summary": "Prerequisite adoption still gated by cli-create.md's scope and its no-rebase-need criterion; re-route on GitHub's report conflicted with the writer rule and an explicit native-stack request, and 'not from a routine probe' conflicted with api-workflow.md; manual-chain.md 'unavailable' read as absent; bullet order listed CLI before manual."
+    },
+    "reconciliation": "All adopted: cli-workflow.md defines prerequisite-adoption completion and cli-create.md admits it; GitHub's report during a CLI mutation migrates ownership through a new troubleshooting.md branch unless the user asked for a native stack; 'routing adds no probe'; ownership limited to unmanaged branches with the interoperability exception; manual-chain.md says 'cannot be installed'; manual listed before CLI as the exception."
+   },
+   {
+    "round": 3,
+    "candidate": "v3",
+    "brief": "# Round 3 (confirmation) of the bounded read-only consultation\n\nSame rules as before (read /tmp/stacked-pr-routing/brief.md and brief-r2.md first): do not edit,\ndo not run Git or `gh` mutations, do not delegate. Report findings only.\n\n## Round-2 findings and the coordinator's reconciliation (all adopted)\n\n- Re-route on GitHub's unavailability report ignored an explicit native-stack request and the\n  writer rule (Codex 1, Fable 2) → on the CLI route it is recorded as the selecting observation and\n  ownership moves to manual through a new migration branch in troubleshooting.md; an explicit\n  native-stack request reports the failure instead.\n- \"not from a routine probe\" conflicted with api-workflow.md's probe (Codex 2, Fable 2) →\n  \"routing adds no probe\".\n- Prerequisite adoption was gated by cli-create.md's scope and its \"no rebase need\" criterion\n  (Codex 3, Fable 1) → cli-workflow.md's opening paragraph defines when a prerequisite adoption is\n  complete (stack view lists the branches in order, tips preserved; the requested operation owns the\n  rebase need); cli-create.md:3 now admits the adoption a mutation requires.\n- Universal CLI ownership conflicted with other branch managers (Codex 4) → ownership covers\n  unmanaged branches; managed branches follow the interoperability branch in troubleshooting.md,\n  stated in SKILL.md and cli-workflow.md.\n- No manual-migration procedure (Codex 5) → new \"Move a tracked chain to manual\" branch in\n  troubleshooting.md: record tips and bases, remove only local tracking via the current live-help\n  form, no Git write until tracking is gone, completion criterion stated.\n- manual-chain.md:3 \"unavailable\" read as \"absent\" (Fable 3) → \"cannot be installed\".\n- Bullet order listed CLI before Manual (Fable 4) → Manual is listed first as the exception, CLI\n  otherwise, and the lead-in says so.\n\n## Files\n\n- Candidate v3: /tmp/stacked-pr-routing/candidate/ (SKILL.md, references/cli-workflow.md,\n  cli-create.md, manual-chain.md, troubleshooting.md changed; others unchanged)\n- Diff v3 vs HEAD: /tmp/stacked-pr-routing/change-v3.patch\n- Original: /tmp/stacked-pr-routing/original/\n\n## Ask\n\nConfirm whether each round-2 finding is now correctly expressed and whether the new text introduces\nany contradiction with the reference files. Report only remaining material defects with a proposed\ncorrection, or state explicitly that none remain. Under 200 words.\n",
+    "astra": {
+     "model": "gpt-6-astra",
+     "effort": "max",
+     "output": "Two material defects remain:\n\n- [SKILL.md:61](/private/tmp/stacked-pr-routing/candidate/SKILL.md:61) routes a failed native-stack **read** into migration, whose [procedure removes local tracking](/private/tmp/stacked-pr-routing/candidate/references/troubleshooting.md:58). For a status or review request, this conflicts with the read-only scope. **Correction:** require migration only before an authorized manual mutation; read-only fallback should inspect through Git/PR reads while preserving tracking and ownership.\n\n- [troubleshooting.md:60](/private/tmp/stacked-pr-routing/candidate/references/troubleshooting.md:60) preserves existing GitHub grouping during migration, but [manual-chain.md:5](/private/tmp/stacked-pr-routing/candidate/references/manual-chain.md:5) declares that no native stack object exists. The resulting state violates the destination route’s premise. **Correction:** distinguish local untracking from remote dissolution. Explicitly allow retained native grouping in the manual route, preserve its native constraints, and direct membership changes through the API workflow or explicitly authorized dissolution."
+    },
+    "fable": {
+     "model": "claude-fable-5-1",
+     "effort": "max",
+     "taskId": "node:delegated-task:command%3Amcp%3A0c2fab0f-af7c-4907-a3dd-2b8f8e777a00%3Adelegate-task%3Astacked-pr-routing-fable-r3-20261007",
+     "summary": "Fable 2, 3 and 4 confirmed correct. Residual: cli-create.md's adopt criterion still contradicted cli-workflow.md's prerequisite-adoption criterion. Non-blocking: migration keeps the remote grouping while manual-chain.md said no native object exists."
+    },
+    "reconciliation": "All adopted as proposed by the reviewers: read-only requests report GitHub's unavailability and keep tracking; manual-chain.md allows a retained grouping changed only through the API route or explicit dissolution; cli-create.md ends a prerequisite adoption at cli-workflow.md's criterion; the migration criterion records the grouping as retained or dissolved. No fourth round: these were the reviewers' own one-sentence corrections and introduce no new routing decision."
+   },
+   {
+    "round": 4,
+    "candidate": "CodeRabbit corrections on the published PR",
+    "brief": "# Round 4 of the bounded read-only consultation: CodeRabbit findings on PR 19\n\nSame rules as before (read /tmp/stacked-pr-routing/brief.md first): do not edit, do not run Git or\n`gh` mutations, do not delegate. Report findings only. Under 200 words.\n\nThe stacked-pr routing fix (candidate v4, reviewed in three earlier rounds) was published as\nhttps://github.com/LuisUrrutia/skills/pull/19. CodeRabbit posted two findings; the coordinator\njudged both correct and applied them. Review only the two resulting edits (diff relative to the\npublished PR head: /tmp/stacked-pr-routing/change-r4.patch; full files under\n/tmp/stacked-pr-routing/candidate/).\n\n1. SKILL.md \"When conditions overlap\" paragraph. Finding: a prohibited or failed install selected\n   manual even when the user explicitly requested a native stack; the explicit-request safeguard\n   covered only GitHub's availability report. Edit: an explicit native-stack request is never\n   replaced by manual; a prohibited or failed install or GitHub's report is a blocker, and the API\n   route is used only when the user authorizes it. The re-route to manual applies only without\n   that request.\n2. troubleshooting.md \"Move a tracked chain to manual\". Finding: removing only local tracking\n   while retaining the GitHub grouping leaves native merge constraints, which does not satisfy a\n   user who explicitly asked for ordinary dependent PRs. Edit: for that explicit request, also\n   remove the eligible PRs from the GitHub grouping (live help: `gh stack unstack` without\n   `--local`; GitHub keeps queued or auto-merge PRs stacked); otherwise leave the grouping as\n   found. Completion: if GitHub keeps some PRs stacked after a requested dissolution, report the\n   remaining grouping and obtain the user's decision before declaring completion.\n\nAssess: are both edits correctly expressed, do they contradict any reference file (manual-chain.md\ntolerates a retained grouping changed only via API or explicit dissolution), and does either turn a\nread into a write or widen authority? Return remaining material defects with a proposed correction,\nor state explicitly that none remain.\n",
+    "astra": {
+     "model": "gpt-6-astra",
+     "effort": "max",
+     "output": "No material defects remain in the two edits.\n\n[SKILL.md:60](/tmp/stacked-pr-routing/candidate/SKILL.md:60) correctly preserves an explicit native-stack request across installation and availability failures, requires authorization for API fallback, and preserves read-only inspection without changing tracking or ownership.\n\n[troubleshooting.md:58](/tmp/stacked-pr-routing/candidate/references/troubleshooting.md:58) limits remote dissolution to an explicit request for ordinary dependent PRs or dissolution. Other migrations retain the grouping. Remaining stacked PRs require reporting and a user decision before completion. Live `gh stack unstack --help` confirms the local/remote distinction and that partial unstacking can preserve local tracking; the existing prohibition on Git writes until tracking is removed covers that case.\n\nNeither edit contradicts [manual-chain.md:3](/tmp/stacked-pr-routing/candidate/references/manual-chain.md:3): the explicit conversion supplies dissolution authority, while retained groupings remain untouched otherwise. The shared scope rules still prohibit mutations during reviews and status checks. Neither edit turns a read into a write or widens authority beyond the requested operation."
+    },
+    "fable": {
+     "model": "claude-fable-5-1",
+     "effort": "max",
+     "taskId": "node:delegated-task:command%3Amcp%3A5188318b-4aaa-4eff-95e9-819a45e87e12%3Adelegate-task%3Astacked-pr-routing-fable-r4-20261007",
+     "summary": "Edit 1 sound. Material: partial dissolution keeps local tracking (live `gh stack unstack --help`), so the migration text must require removing local tracking before any Git write when the user proceeds. Polish: 'after either dissolution'; name the referent 'explicit native-stack request'; align manual-chain.md's dissolution trigger."
+    },
+    "reconciliation": "Codex found no defects. Fable's material correction and the three polish items were adopted as proposed; no further round because they are the reviewer's own one-sentence corrections."
+   },
+   {
+    "round": 5,
+    "candidate": "Readability rewrite of every touched passage after the user objected to fragments such as 'Selected by SKILL.md routing'",
+    "brief": "# Round 5 of the bounded read-only consultation: readability rewrite\n\nSame rules as before (read /tmp/stacked-pr-routing/brief.md first): do not edit, do not run Git or\n`gh` mutations, do not delegate. Report findings only. Under 250 words.\n\nThe user read the published skill (https://github.com/LuisUrrutia/skills/pull/19, head c57df28)\nand objected that some added text makes no sense to a reader, for example the fragment\n\"Selected by SKILL.md routing\" that opened cli-workflow.md and manual-chain.md. Four rounds of\none-sentence patches had left telegraphic, jargon-heavy prose. The coordinator rewrote every\npassage this branch touched for a human reader while keeping the reviewed meaning:\n\n- SKILL.md \"Route the request\": the decision is now an ordered list (automation, API, then the\n  extension listing deciding Manual vs CLI), with the precedence rule, the explicit-native-request\n  blocker, GitHub's report handling, untracked-branch adoption, single-writer rule and completion\n  criterion each in their own short paragraph.\n- cli-workflow.md and manual-chain.md openings: full sentences stating when SKILL.md routes here and\n  what the route owns.\n- cli-create.md scope and adoption criterion; troubleshooting.md \"Move a tracked chain to manual\"\n  rewritten as steps.\n\nFiles: candidate /tmp/stacked-pr-routing/candidate/ (SKILL.md and references/), diff versus the\npublished head /tmp/stacked-pr-routing/change-r5.patch, original HEAD~4 under\n/tmp/stacked-pr-routing/original/.\n\nAssess two things only: (1) does the rewrite preserve the previously reviewed meaning (route\nprecedence, explicit native-stack request never replaced by manual, GitHub's report produced by a\nfailed read/link/submit and not probed, prerequisite adoption bounded to mutations with its\ncompletion criterion, single writer, migration behaviour including partial dissolution keeping\nlocal tracking, read-only requests never writing tracking); (2) does any sentence remain unclear,\nfragmentary, or ambiguous to a reader who opens the file cold. Quote each problem sentence and\npropose the replacement, or state explicitly that none remain.\n",
+    "astra": {
+     "model": "gpt-6-astra",
+     "effort": "max",
+     "output": "SKILL.md preserves the reviewed rules; these reference passages need correction:\n\n- [troubleshooting.md:62](/tmp/stacked-pr-routing/candidate/references/troubleshooting.md:62): \"Remove the local tracking.\"\n  Premature removal conflicts with partial dissolution. Replace: \"Remove only local tracking when retaining the GitHub stack; otherwise run dissolution and follow the handling of partial dissolution below.\"\n\n- [troubleshooting.md:67](/tmp/stacked-pr-routing/candidate/references/troubleshooting.md:67): \"GitHub may keep some PRs stacked, for example while they are queued for merge, and then keeps the local tracking too.\"\n  Replace: \"If GitHub keeps some PRs stacked, `gh-stack` retains local tracking.\"\n\n- [cli-workflow.md:3](/tmp/stacked-pr-routing/candidate/references/cli-workflow.md:3): \"SKILL.md routes a request here when `github/gh-stack` is installed or can be installed.\"\n  [manual-chain.md:3](/tmp/stacked-pr-routing/candidate/references/manual-chain.md:3): \"SKILL.md routes a request here when the user explicitly asked for ordinary dependent PRs instead of a native stack, when GitHub reports native stacks unavailable, or when the extension cannot be installed.\"\n  Both omit routing exceptions. Replace respectively: \"Use this workflow when SKILL.md selects the CLI route.\" / \"Use this workflow when SKILL.md selects the manual route.\"\n\n- [manual-chain.md:5](/tmp/stacked-pr-routing/candidate/references/manual-chain.md:5): \"Normally GitHub maintains no native stack object for the chain; if one remains from an earlier migration, leave it as found and change its membership only through the API route or a dissolution the user asked for.\"\n  This excludes other retained stacks and obscures ordinary-PR authorization. Replace: \"Normally, a manual chain has no native stack object. Leave any retained object unchanged unless the API route owns membership changes or the user authorizes dissolution, including by explicitly requesting ordinary dependent PRs.\""
+    },
+    "fable": {
+     "model": "claude-fable-5-1",
+     "effort": "max",
+     "taskId": "node:delegated-task:command%3Amcp%3A5c000cb2-fb4d-40ed-aa80-6d67325a1f5b%3Adelegate-task%3Astacked-pr-routing-fable-r5-20261007",
+     "summary": "Meaning preserved. Four drifts: migration ordered local-tracking removal before the GitHub unstack although the no-argument unstack form removes both together; the partial-dissolution sentence lost its scope and named GitHub instead of the CLI as the keeper of local tracking; manual-chain.md dropped the ordinary-PR dissolution authority; cli-workflow.md 'branches it does not track yet' also covered branches another tool manages. Minor: SKILL.md completion examples closed by a colon and omitted a failed install; cli-create.md dropped 'only'."
+    },
+    "reconciliation": "Both reviewers agreed the SKILL.md rewrite preserves the reviewed rules. All corrections adopted: the migration step unstacks on GitHub and removes local tracking together for an explicit ordinary-PR request and otherwise removes only local tracking; partial dissolution is scoped to a requested dissolution with the CLI keeping local tracking; the route files open with 'Use this workflow when SKILL.md selects the CLI/manual route' so the conditions keep one home in SKILL.md; manual-chain.md names the ordinary-PR dissolution authority; 'branches that no tool tracks yet'; completion examples reopened with 'such as' including a failed install; 'only' restored in cli-create.md. No further round: the reviewers' own sentence-level corrections."
+   }
+  ]
+ },
+ "checks": {
+  "candidateHashes": {
+   "stacked-pr/SKILL.md": "78607a50756f7f6705cd4c30f02ddc7da73db772c3d08c68a7daed90dda1a863",
+   "stacked-pr/references/cli-workflow.md": "282f940d9be73cfca181bbf5655140835f65b0d7d762970025cdc06aa57e9a8e",
+   "stacked-pr/references/cli-create.md": "d6f33682aca21836d94650490321dae00cad9e2044acaa178e58464b3356ebb2",
+   "stacked-pr/references/manual-chain.md": "1dc70cdc4d6ebd77dc20a70dd9e1c19e2c710ac4b558e639f93be1ea38478106",
+   "stacked-pr/references/troubleshooting.md": "3c2723c47792b40f74b1e1a7ee5ca5a79d644f1c2e7c451b0e456e2c3a6a005c"
+  },
+  "static": {
+   "brokenPackageRelativeLinks": 0,
+   "frontmatterUnchanged": true,
+   "filesChanged": 5
+  },
+  "selectionProbes": {
+   "method": "Tool-free dry-run selection probe: a fresh general-purpose agent (claude-opus-5-5, default effort) reads the skill folder and routes three requests. Matched pairs read the HEAD snapshot and the candidate from identical fixtures. This observes instruction reading and decisions, not host activation or command execution.",
+   "fixtures": {
+    "scenario1": "You are an agent operating in a Git repository. The `stacked-pr` skill is installed at the folder given\nbelow. Read its SKILL.md and follow its instructions to ROUTE the following requests. Do not execute\nany command; this is a dry run. For each case, answer only:\n\n- route: CLI | API | Manual | Automation\n- files loaded: the reference files you would open, in order\n- observation used: the fact that selected the route\n- first mutation commands you would plan (names only, e.g. `gh stack ...` or `git rebase ...`)\n\nFacts available in every case (treat them as already observed, do not re-run them):\n\n```\n$ git status --short --branch\n## mms-1838-stats-module...origin/mms-1838-stats-module\n$ git branch\n  main\n  mms-1838-stats-client\n* mms-1838-stats-module\n$ gh pr list --json number,headRefName,baseRefName,isDraft\n[{\"number\":2019,\"headRefName\":\"mms-1838-stats-client\",\"baseRefName\":\"main\",\"isDraft\":false},\n {\"number\":2020,\"headRefName\":\"mms-1838-stats-module\",\"baseRefName\":\"mms-1838-stats-client\",\"isDraft\":true}]\n$ gh extension list\ngh stack\tgithub/gh-stack\tv0.2.0\n$ ls .git/stack 2>/dev/null\n(no output: no local gh-stack tracking exists for these branches)\n```\n\nCase A: the user says \"main moved; rebase the stack onto the latest main and push both branches.\"\n\nCase B: the user says \"I do not want GitHub's native stack feature; keep these as two ordinary\ndependent PRs and rebase them onto main.\"\n\nCase C: the user says \"the stack-status GitHub Actions workflow is failing because PR 2020's base\nchanged; fix the workflow.\"\n\nAnswer in under 250 words total. Do not quote the skill; report your decisions.\n",
+    "scenario2": "You are an agent operating in a Git repository. The `stacked-pr` skill is installed at the folder given\nbelow. Read its SKILL.md and follow its instructions to ROUTE the following requests. Do not execute\nany command; this is a dry run. For each case, answer only:\n\n- observations still required before you can choose the route: the exact read-only commands you\n  would run first (or \"none\")\n- route: CLI | API | Manual | Automation, or \"undetermined until <observation>\"\n- files loaded: the reference files you would open, in order\n- first mutation commands you would plan (names only, e.g. `gh stack ...` or `git rebase ...`)\n\nFacts already observed in every case (do not re-run these; anything else is not yet known):\n\n```\n$ git status --short --branch\n## mms-1838-stats-module...origin/mms-1838-stats-module\n$ git branch\n  main\n  mms-1838-stats-client\n* mms-1838-stats-module\n$ gh pr list --json number,headRefName,baseRefName,isDraft\n[{\"number\":2019,\"headRefName\":\"mms-1838-stats-client\",\"baseRefName\":\"main\",\"isDraft\":false},\n {\"number\":2020,\"headRefName\":\"mms-1838-stats-module\",\"baseRefName\":\"mms-1838-stats-client\",\"isDraft\":true}]\n```\n\nCase A: the user says \"main moved; rebase the stack onto the latest main and push both branches.\"\n\nCase B: the user says \"I do not want GitHub's native stack feature; keep these as two ordinary\ndependent PRs and rebase them onto main.\"\n\nCase C: the user says \"the stack-status GitHub Actions workflow is failing because PR 2020's base\nchanged; fix the workflow.\"\n\nAnswer in under 250 words total. Do not quote the skill; report your decisions.\n"
+   },
+   "results": [
+    {
+     "fixture": "scenario1 (extension listing supplied)",
+     "head": "A: CLI, B: Manual, C: Automation",
+     "candidate v1": "A: CLI, B: Manual, C: Automation",
+     "verdict": "Both pass; the supplied listing hides the failure."
+    },
+    {
+     "fixture": "scenario2 (extension listing not supplied)",
+     "head": "A: undetermined until it knows whether gh-stack tracks the stack; CLI if tracked, Manual if no native stack exists. B: Manual. C: Automation.",
+     "candidate v1": "A: requires `gh extension list`; CLI if installed; untracked PRs do not decide the route. B: Manual. C: Automation.",
+     "candidate v2": "Same as v1 with adoption via cli-create.md and troubleshooting.md.",
+     "candidate v3": "Same, and B loads the move-to-manual branch when gh-stack tracks the chain.",
+     "candidate final": "A: `gh extension list` required; CLI unless install prohibited/fails or GitHub reports unavailable; adopt only if untracked. B: Manual by explicit choice, migration branch only if tracked. C: Automation.",
+     "verdict": "HEAD reproduces the observed misroute (tracking state selects the route); every candidate requires the listing and routes A to CLI while B and C are preserved."
+    }
+   ]
+  },
+  "atlas": {
+   "inventoryPackages": 46,
+   "allEntrypointHashesMatch": true,
+   "catalogMirrorExact": true,
+   "catalogCacheVersionUpdated": true,
+   "refreshedEntrypoints": [
+    "stacked-pr",
+    "agent-instructions",
+    "pr-review-draft",
+    "pr",
+    "pr-followup",
+    "comment-style"
+   ],
+   "files": {
+    "reports/skill-atlas/sources.json": "7a056f1106905a3fb6122febea37bc685ce458830ee2333243116245622000e4",
+    "reports/skill-atlas/catalog.js": "0a53dab0a4283f5052ff7305e8678678b1210aebb2c02cdac6de7da12ba97717",
+    "reports/skill-atlas/index.html": "21b93a071f6d368ac978fdeaffdab491827e6572b3991db93cc4683e24f7aace"
+   }
+  }
+ },
+ "limits": [
+  "Selection probes are dry runs without command execution; host activation of the skill and live `gh stack` behavior were not exercised.",
+  "No further consultation round after round 5's sentence-level corrections.",
+  "Line length is not a configured repository check; three added lines exceed 100 characters by one to three characters, as pre-existing lines in the same files do."
+ ],
+ "prFeedback": {
+  "pr": "https://github.com/LuisUrrutia/skills/pull/19",
+  "reviewedHead": "22a394e706922c051c5b8c386f614cdc42e26b8f",
+  "items": [
+   {
+    "url": "https://github.com/LuisUrrutia/skills/pull/19#discussion_r4210370788",
+    "decision": "Apply",
+    "change": "An explicit native-stack request is never replaced by manual: a prohibited or failed install or GitHub's unavailability report is a blocker, and the API route is used only with the user's authorization. The re-route to manual applies only without that request."
+   },
+   {
+    "url": "https://github.com/LuisUrrutia/skills/pull/19#discussion_r4210370778",
+    "decision": "Apply",
+    "change": "For an explicit ordinary-PR request, migration also removes eligible PRs from the GitHub grouping because a retained native stack keeps its merge constraints; otherwise the grouping is left as found. If GitHub keeps some PRs stacked, local tracking survives too: report, obtain the decision, and remove local tracking before any Git write."
+   },
+   {
+    "url": "https://github.com/LuisUrrutia/skills/pull/19#issuecomment-6043931057",
+    "decision": "No action",
+    "change": "Summary restates both findings; the ast-grep timeout on the generated catalog.js is an external tool limit seen on earlier PRs."
+   }
+  ]
+ }
+}

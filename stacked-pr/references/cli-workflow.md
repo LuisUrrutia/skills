@@ -1,7 +1,12 @@
 # Native stack through `gh stack`
 
-Use this route when the `github/gh-stack` extension owns local tracking and GitHub stack state.
-Perform only the requested operation.
+Use this workflow when SKILL.md selects the CLI route. On this route `gh-stack` owns local tracking
+and GitHub stack state for every mutation. Branches that no tool tracks yet are adopted first, as
+part of the requested mutation, through the adopt step in [cli-create.md](cli-create.md). That
+adoption is complete when the stack view lists the existing branches in order with their tips
+unchanged; the requested operation then handles any rebase they need. Branches that another tool
+manages follow the interoperability section of [troubleshooting.md](troubleshooting.md). Perform
+only the requested operation.
 
 ## Establish the live contract
 

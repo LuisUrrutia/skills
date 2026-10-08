@@ -53,6 +53,27 @@ otherwise; verify every PR base and resulting position after the operation.
 Adoption is complete when the chosen owner is unambiguous, ancestry and PR bases form the intended
 chain, local metadata exists only where requested, and no PR was duplicated.
 
+## Move a tracked chain to manual
+
+Use this section when routing or the user moves a chain that `gh-stack` tracks to the manual route.
+First record every branch tip and PR base from the stack view. Then read live help for the commands
+that remove local tracking and that unstack PRs on GitHub.
+
+When the user explicitly asked for ordinary dependent PRs, unstack the eligible PRs on GitHub and
+remove the local tracking together, because a retained native stack keeps its merge constraints.
+Otherwise remove only the local tracking and leave the PRs, branches, and GitHub stack unchanged,
+unless the request includes dissolving it. Make no Git write while local tracking remains.
+
+After a requested dissolution, GitHub may keep some PRs stacked, for example while they are queued
+for merge. The CLI then leaves local tracking in place. Report the remaining stack and obtain the
+user's decision before continuing. If the user proceeds, remove local tracking with the local-only
+form and confirm that the stack view no longer reports the chain before any Git write.
+
+Migration is complete when the stack view no longer reports the chain, every recorded tip and PR
+base is unchanged, the GitHub stack is in the requested state and recorded as retained or
+dissolved, and the manual-chain inspection reports the same bottom-to-top order from Git ancestry
+and PR bases.
+
 ## Rebuild an oversized branch
 
 Preserve its name and tip SHA. Load [stack-design.md](stack-design.md), create the planned bottom
