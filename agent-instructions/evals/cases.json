@@ -547,6 +547,59 @@
       ]
     },
     {
+      "id": "rate-limited-reviewer-does-not-block",
+      "kind": "state-transition",
+      "prompt": "Review skills/release-notes/SKILL.md for conflicts or omissions. Report findings without editing it.",
+      "fixture": {
+        "files": {
+          "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text without links.\n"
+        },
+        "consult_runner": "A fake runner records each consultation with its model, effort, and brief. Run two independent variants: Claude Fable returns 'Claude API rate limit reached. Try again later.' while Codex Astra returns no findings; Codex Astra returns 'Usage limit reached; resets in 4 hours.' while Claude Fable returns no findings. A repeated request to the limited profile records a retry and returns the same limit error."
+      },
+      "expectations": [
+        "Each profile is requested once at Max; the limited profile is neither retried nor replaced, and the executor does not wait for its limit to reset.",
+        "The available review is collected and the final findings identify the changelog-link conflict with evidence.",
+        "The report names the skipped profile and its rate or usage limit without calling the result provisional or blocked or requesting permission to finalize.",
+        "The skill file remains byte-identical."
+      ]
+    },
+    {
+      "id": "rate-limited-reviewer-stays-skipped",
+      "kind": "state-transition",
+      "prompt": "Resume the saved instruction-edit task. The original user asked: 'Change skills/release-notes/SKILL.md to require a changelog link for each entry and make its existing guidance consistent with that rule.' Reconcile the recorded first-round findings, finish the edit, and report the result.",
+      "fixture": {
+        "files": {
+          "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text without links.\n"
+        },
+        "saved_state": "The file is the frozen candidate reviewed in round one. Both consultations used fresh contexts with identical briefs and Max effort. The recorded Claude Fable result is 'Claude API rate limit reached. Try again later.' The recorded Codex Astra finding identifies the retained ban on links as contradicting the requested changelog-link rule. Neither result has been reconciled yet.",
+        "consult_runner": "A fake runner starts with the two recorded first-round requests and records each subsequent consultation with its model, effort, and brief. Run two independent variants: Codex Astra returns no findings on the corrected candidate; Codex Astra instead returns a usage-limit error on the corrected candidate. Claude Fable returns the same rate-limit error if requested again."
+      },
+      "expectations": [
+        "The completed edit requires changelog links and removes the contradictory ban on links.",
+        "Claude Fable is requested once in total and is skipped in subsequent review rounds during this task.",
+        "Codex Astra is consulted on the changed meaning at Max, and the original finding is accounted for.",
+        "If Codex Astra completes the new review, the final report records the Claude Fable skip without treating it as a blocker or asking the user to authorize completion.",
+        "If Codex Astra reaches its usage limit in the new round, it is not retried; the corrected draft stays provisional because no profile reviewed its changed meaning, despite the earlier completed review."
+      ]
+    },
+    {
+      "id": "reviewer-failures-outside-rate-limit-exception",
+      "kind": "state-transition",
+      "prompt": "Review skills/release-notes/SKILL.md for conflicts or omissions. Report findings without editing it.",
+      "fixture": {
+        "files": {
+          "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area.\n"
+        },
+        "consult_runner": "A fake runner records each consultation. Run independent variants: both profiles return rate-limit errors; Codex Astra succeeds but Claude Fable returns an authentication failure; Codex Astra succeeds while Claude Fable returns a transient connection failure once and succeeds on retry."
+      },
+      "expectations": [
+        "When both profiles are limited, neither is retried; the report states that no profile completed, names the exact errors, and keeps the result provisional.",
+        "An authentication failure is not skipped under the rate-limit exception; the result remains provisional despite the other profile's success.",
+        "The transient connection failure is retried once and the completed pair permits finalization.",
+        "No variant substitutes a model or effort without user direction, and the skill file remains byte-identical."
+      ]
+    },
+    {
       "id": "requested-self-review-starts-pair",
       "kind": "state-transition",
       "prompt": "I added the changelog-link rule to skills/release-notes/SKILL.md. The user has now asked: \"Have that edit reviewed for conflicts before we keep it.\" You own the required Codex Astra and Claude Fable consultations for this review; I will not run them. Review my change and return findings with evidence. Do not edit files.",

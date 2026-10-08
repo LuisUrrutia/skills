@@ -59,7 +59,8 @@ sufficient.
 
 When the user explicitly asks for instruction creation, editing, or review within
 the scope above, alone or within a larger task, obtain independent input from
-both profiles before finalizing the instructions or review findings:
+both profiles before finalizing the instructions or review findings, subject to
+the rate-limit exception below:
 
 | Provider | Model | Reasoning effort |
 | --- | --- | --- |
@@ -82,10 +83,16 @@ request alone does not assign it.
 Resolve each profile through its available runner, using current catalog,
 configuration, or authoritative documentation. Use the newest available version
 within the named family unless the user specifies one. Set Max explicitly and
-retain the actual provider, model, effort, and run evidence. Retry a transient
-failure once. If either profile cannot complete, report the exact blocker and
-keep the draft or findings provisional. Continue independent work, but do not
-finalize the result or substitute a model or effort without the user's direction.
+retain the actual provider, model, effort, and run evidence. If a profile reaches
+a rate or usage limit, skip it for the rest of this task without retrying or
+waiting for its limit to reset. Continue and finalize with the other profile's
+completed review; report the skip without treating it as a blocker or making the
+result provisional. At least one profile must complete each required review
+round. Retry other transient failures once. If a non-skipped profile cannot
+complete, or neither profile completes the required round, report the exact
+blocker and keep the draft or findings provisional.
+Continue independent work, but do not finalize that result or substitute a model
+or effort without the user's direction.
 
 Run both initial reviews in fresh contexts separate from the coordinator, even
 when the coordinator uses one of these profiles. Scope both briefs to the request
@@ -102,9 +109,10 @@ scope and resolve disagreements with an explicit reason; agreement alone does no
 establish correctness. Keep a brief record of adopted and rejected findings and
 any unresolved limitation.
 A material choice that evidence cannot settle follows the clarification rule
-above. Reconsult both profiles on affected points if later edits change the
-reviewed meaning. Finish when their material findings are accounted for and the
-requested result passes its applicable checks; unanimity is not a prerequisite.
+above. Reconsult both profiles, except any skipped for a rate or usage limit, on
+affected points if later edits change the reviewed meaning. Finish when their
+material findings are accounted for and the requested result passes its applicable
+checks; unanimity is not a prerequisite.
 
 ## Choose the document and write
 
@@ -144,7 +152,7 @@ Use host validators only for formats they actually validate.
 
 Report the changed instructions, their scope, actual checks and results, and any
 unresolved limitation. When this agent ran the pair or assigned it to a delegate,
-report each profile's actual run or blocker and how material findings were
-reconciled; otherwise, state that this agent did not run the pair. Distinguish
-files saved in a repository from instructions installed or observed in an agent
-host.
+report each profile's actual run, rate-limit skip, or blocker and how material
+findings were reconciled; otherwise, state that this agent did not run the pair.
+Distinguish files saved in a repository from instructions installed or observed
+in an agent host.
