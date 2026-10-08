@@ -131,10 +131,11 @@ they match the revision. Follow [references/attachments.md](references/attachmen
 to upload them into the PR body; a local screenshot path is not an attachment.
 If a prerequisite is inaccessible, report which one and the evidence retained.
 
-Follow repository requirements and preserve meaningful template fields. When a
-style convention leaves useful context out, a small addition is appropriate;
-explain a material departure. An exact enforced format still applies unless the
-user explicitly overrides it. Keep the body proportional to the review decision.
+Follow repository requirements, including the template's written guidance, and
+preserve meaningful template fields. When a style convention leaves useful context
+out, a small addition is appropriate; explain a material departure. An exact
+enforced format still applies unless the user explicitly overrides it. Keep the
+body proportional to the review decision.
 
 For Update, draft from the complete published change and replace obsolete claims,
 rather than appending a history of successive fixes. Revalidate useful links,
@@ -184,8 +185,9 @@ publication result and the missing skill as a blocker to continuation.
 ## Return
 
 Report `created`, `updated`, `draft-only` or `blocked`, with the PR URL when known,
-head/base, draft state, relevant validation and remaining work. Include actual
-commands and outcomes, distinguishing current execution from historical evidence.
+head/base, draft state, relevant validation, remaining work and any coordination
+notes kept out of the body. Include actual commands and outcomes, distinguishing
+current execution from historical evidence.
 For draft-only, provide the requested copy and state that no mutation occurred.
 For a blocker, name its failed prerequisite or decision and retain completed work.
 Hand verified identity, revision and publication state back to an authorized caller.
