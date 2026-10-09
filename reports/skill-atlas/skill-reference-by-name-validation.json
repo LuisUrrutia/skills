@@ -1,0 +1,83 @@
+{
+ "schemaVersion": 1,
+ "date": "2026-10-09",
+ "baseline": "f4450a3f6ddf282dcaa7867943a05ce39d595d54",
+ "status": "Validated for the stated static scope and two matched trials; all material findings from three consultation rounds accounted for.",
+ "request": "Review comments on https://github.com/LuisUrrutia/skills/pull/25: (1) the 'capital and final period' clause in comment-style's reply rule is unnecessary; (2) 'whether posted or retained as a draft' in pr-followup is unnecessary because the agent cannot see draft comments; (3) a skill should not reference another skill's references, and agent-instructions should enforce that when working on a skill.",
+ "changes": [
+  {
+   "file": "comment-style/references/review.md",
+   "change": "Drop the capital-and-period clause; comment-style/SKILL.md still gives the set reply form precedence over the casual voice."
+  },
+  {
+   "file": "pr-followup/references/feedback.md, pr-followup/SKILL.md",
+   "change": "Route reply wording to comment-style by name only; the draft clause was already removed on main by https://github.com/LuisUrrutia/skills/pull/27."
+  },
+  {
+   "file": "pr-review/SKILL.md, pr-review-followup/SKILL.md, compare-solutions/references/specialists.md",
+   "change": "Name comment-style and review-code-changes without pointing at their PR review reference or protocol."
+  },
+  {
+   "file": "agent-instructions/references/hosts.md",
+   "change": "When routing to another skill, name it and its inputs; do not point at a resource inside it by path or description. A resource the dependency's entrypoint documents for callers is used only through that contract."
+  },
+  {
+   "file": "review-code-changes/SKILL.md",
+   "change": "Documents the existing caller contract pr-review relies on: an engine unable to load skills may receive the frozen protocol and scripts/report.py, with the caller's own single-auditor role replacing the entrypoint's orchestration."
+  },
+  {
+   "file": "agent-instructions/evals/cases.json",
+   "change": "Case cross-skill-reference-by-name: a teammate's suggested patch points pr-followup at comment-style's internal reference; the edit must name the skill only and explain why."
+  }
+ ],
+ "consultations": {
+  "profiles": [
+   "Codex gpt-6-astra / max (xref-astra-r1..r3)",
+   "Claude claude-fable-5-1 / max (xref-fable-r1..r3)"
+  ],
+  "adopted": [
+   "Remove the remaining protocol pointers in pr-review and compare-solutions.",
+   "Reword the hosts.md rule to cover descriptions and allow documented caller contracts.",
+   "Document review-code-changes' caller contract for frozen engine packets, limited to the protocol and validator (round 3).",
+   "Move eval pressure from the user request into a fixture file so the grader does not penalize following the user.",
+   "Grade the explanation, the surviving own-skill link and the consultation pair.",
+   "Refresh atlas entrypoint hashes, including pr-review and agent-instructions entries already stale on main."
+  ],
+  "rejected": [],
+  "final": "Astra round 3: no material issues. Fable round 3: one wording issue in the review-code-changes sentence, adopted verbatim from its proposal."
+ },
+ "trials": {
+  "runner": "Fresh Claude Code general-purpose subagents, inherited claude-opus-5-5, one run per arm; agent-instructions copied without evals; fake consultation runner.",
+  "results": [
+   {
+    "case": "cross-skill-reference-by-name, user request without pressure",
+    "baseline": "pass",
+    "candidate": "pass"
+   },
+   {
+    "case": "same, with the user asking for the internal pointer (later moved to a fixture file)",
+    "baseline": "refused the path but wrote 'its PR-reply rules', the description form the new rule forbids",
+    "candidate": "refused the path and named comment-style only"
+   }
+  ],
+  "limits": "Small sample; the baseline already avoids filesystem paths, so no measured improvement is claimed. The final fixture-pressure variant was not rerun."
+ },
+ "checks": [
+  "git diff --check passed.",
+  "fish -lc 'bash pr-review-followup/scripts/validate.sh': passed.",
+  "fish -lc 'bash pr-review/scripts/validate.sh $PWD/review-code-changes': passed (52 tests).",
+  "cases.json parses with 31 unique ids; local Markdown links in the six touched packages resolve; sources.json parses; node --check catalog.js passed.",
+  "Rebased onto main f2a2e91 (https://github.com/LuisUrrutia/skills/pull/27); the feedback.md conflict kept main's disposition table and dropped only the pointer to comment-style's PR review reference."
+ ],
+ "final_hashes": {
+  "agent-instructions/references/hosts.md": "8a6d6e21d86badbad2215c3ef76f157354b84e7b5d8e3c213fe79db8d3b9067b",
+  "agent-instructions/evals/cases.json": "7d6283e8d4876c62fe42135ce2c01c98781c1f8c1d3be1ce0ff17e9b5a74ad50",
+  "comment-style/references/review.md": "4611a39cfe2ced4c3a1ca646e1e1ec448fd39372241b35453750e9f48c08b1f0",
+  "compare-solutions/references/specialists.md": "8d39551dbb355e0f751c163e887816033294224ef7d4376a6b851ba54c5728d9",
+  "pr-followup/SKILL.md": "4139f857a455fce09dc5a20152dcc5ef52e2bbd96871d0140bc8f2247ade37d5",
+  "pr-followup/references/feedback.md": "c66b96fa26ca085ed17224b6619d705a4b5b7e3e7f7da4c9de60b80d730ff7dd",
+  "pr-review/SKILL.md": "8fa071398d17bdf112a79e989c42e31b8db2a720b9886961d9dad9b55c966565",
+  "pr-review-followup/SKILL.md": "881db2ab1f16195228e8662ba4bb7a119591665e7f77fca8fb682aabdde1caa1",
+  "review-code-changes/SKILL.md": "c93a230256fc383802d83a6af71a699d8d0226e2370e6be428e0387351998494"
+ }
+}

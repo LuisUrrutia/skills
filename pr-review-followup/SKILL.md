@@ -11,10 +11,9 @@ verified `gh` actor is the PR's author, use `pr-followup` instead; producing a
 review belongs to `pr-review`. This skill never edits the reviewed code, requests
 changes, or touches other reviewers' threads.
 
-Resolve `pr-review` and `comment-style` by registered name, and read
-`comment-style`'s PR review reference before wording any reply. A missing
-dependency blocks the phase that needs it. Every write below is published
-immediately; none waits as a draft.
+Resolve `pr-review` and `comment-style` by registered name, and use
+`comment-style` before wording any reply. A missing dependency blocks the phase
+that needs it. Every write below is published immediately; none waits as a draft.
 
 All helper commands run from any directory as
 `python3 "$SKILL_DIR/scripts/followup.py" <command> --pr "$PR_URL" --actor "$REVIEWER" --state-file "$STATE_FILE"`,

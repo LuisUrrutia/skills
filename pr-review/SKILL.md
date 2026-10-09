@@ -14,17 +14,17 @@ repairing your own PR belongs to `pr-followup`; when the verified `gh` actor is
 the PR's author, use that instead. This workflow never requests changes, resolves
 threads or modifies the reviewed code.
 
-Resolve dependencies by registered name through the host catalog, independently
-of the reviewed repository. Read `review-code-changes` and its complete protocol
-before preparing inputs or judging findings. It owns audit criteria, evidence,
-severity and report grammar. Read `compare-solutions` for the same-task independent
-attempt and evidence-based synthesis contract. This caller retains the fixed
-three-engine roster and its own coordinator: no fourth judge, nested coordinator
-or facet allocation. Read [origin.txt](origin.txt) for these composition choices.
-Before wording comments, resolve required `comment-style` and read its PR review
-reference. It owns wording; this skill owns selection, placement and API writes.
-`communicate-clearly` is optional general support, not another mandatory prose pass.
-A missing dependency blocks its dependent phase; preserve independently useful work.
+Resolve dependencies by registered name through the host catalog, independently of
+the reviewed repository. Read `review-code-changes` before preparing inputs or
+judging findings. It owns audit criteria, evidence, severity and report grammar.
+Read `compare-solutions` for the same-task independent attempt and evidence-based
+synthesis contract. This caller retains the fixed three-engine roster and its own
+coordinator: no fourth judge, nested coordinator or facet allocation. Read
+[origin.txt](origin.txt) for these composition choices. Before wording comments,
+resolve required `comment-style`. It owns wording; this skill owns selection,
+placement and API writes. `communicate-clearly` is optional general support, not
+another mandatory prose pass. A missing dependency blocks its dependent phase;
+preserve independently useful work.
 
 ## Prepare one reproducible review
 

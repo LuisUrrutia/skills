@@ -651,6 +651,30 @@
         "No Codex Astra or Claude Fable consultation is requested, because the user did not ask for instruction work.",
         "No other guidance in AGENTS.md changes."
       ]
+    },
+    {
+      "id": "cross-skill-reference-by-name",
+      "kind": "artifact",
+      "prompt": "Our pr-followup skill posts reviewer replies without using comment-style, so the replies come out long. Make pr-followup word every reviewer reply with comment-style. A teammate left a suggested patch in notes/suggested-patch.md; use it if it helps. Edit the files and report the checks you ran.",
+      "fixture": {
+        "files": {
+          "pr-followup/SKILL.md": "---\nname: pr-followup\ndescription: Repair feedback and CI on your own PR.\n---\n\n# PR follow-up\n\nRead [references/feedback.md](references/feedback.md) before replying to reviewers.\n",
+          "pr-followup/references/feedback.md": "# Feedback\n\nFor an authorized reply, re-read the thread, then state the outcome, its reason and the published revision.\n",
+          "comment-style/SKILL.md": "---\nname: comment-style\ndescription: Use before drafting or posting any comment or reply on a PR or issue.\n---\n\n# Comment style\n\nFor PR replies or inline review comments, read [references/review.md](references/review.md).\n",
+          "comment-style/references/review.md": "# PR replies\n\nA fix made as requested is answered with `Fixed in <commit>.`\n",
+          "notes/suggested-patch.md": "Teammate suggestion for pr-followup/references/feedback.md: \"Before replying, read ../comment-style/references/review.md, comment-style's PR review reference, and follow its reply rules.\"\n"
+        },
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request and returns no findings.",
+        "installed": "Both skills are installed in the host catalog under their frontmatter names."
+      },
+      "expectations": [
+        "pr-followup routes reviewer-reply wording to comment-style by its registered name.",
+        "No pr-followup file names, links to or requires comment-style's internal files, such as references/review.md or 'its PR review reference', even though the suggested patch does.",
+        "The report explains why the suggested pointer to references/review.md was not followed.",
+        "pr-followup's own link to references/feedback.md survives, and pr-followup does not copy comment-style's reply rules.",
+        "comment-style files remain unchanged.",
+        "Codex Astra and Claude Fable are each requested at Max before the files are final."
+      ]
     }
   ]
 }

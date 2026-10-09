@@ -58,13 +58,12 @@ A fix verified but not yet published has no disposition yet; report that thread
 as applied locally, pending publication. A reply, resolution or ticket that fails
 for identity, access or tracker reasons is unfinished work for that thread.
 
-For a reply, re-read the thread, then word it with `comment-style` after reading
-its PR review reference, which decides how much the reply says. Pass it the
-disposition, the published commit and any deviation, partial or different scope,
-reason for a decline or ticket link, or answer to the reviewer's question. Claim
-a fix is available to the reviewer only after verifying the published head
-includes it. If the user asked for an earlier status reply, label local or
-pending work accurately.
+For a reply, re-read the thread, then word it with `comment-style`, which decides
+how much the reply says. Pass it the disposition, the published commit and any
+deviation, partial or different scope, reason for a decline or ticket link, or
+answer to the reviewer's question. Claim a fix is available to the reviewer only
+after verifying the published head includes it. If the user asked for an earlier
+status reply, label local or pending work accurately.
 
 Reply in the original thread using its correct endpoint and root comment ID;
 avoid opening a pending review draft accidentally. Verify the reply is visible.
