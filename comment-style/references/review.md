@@ -17,10 +17,9 @@ that preference from the code language alone.
 
 Read enough of the thread to avoid repeating an answered question. When a
 published fix does what the reviewer asked or suggested, the whole reply is
-`Fixed in <commit>.`, kept in that form with its capital and final period and
-translated only for a thread in another language. The reviewer already knows
-the problem, and the commit shows the change. Add a short sentence in the same
-form only for one of these:
+`Fixed in <commit>.`, translated only for a thread in another language. The
+reviewer already knows the problem, and the commit shows the change. Add a short
+sentence in the same form only for one of these:
 
 - a deviation from the suggestion, or a choice among offered options when you
   took one other than the reviewer's first or its reason could change their view;
