@@ -15,7 +15,7 @@ baseline_paths = ["pstack/skills/poteto-mode/playbooks/babysit.md", "pstack/skil
 paths = ["pstack/skills/poteto-mode/playbooks/babysit.md", "pstack/skills/poteto-mode/references/bugbot-triage.md", "pstack/LICENSE"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Separate check, feedback and drive scopes; evaluate bot claims through current invariants; batch repair waves and retain one mutation owner."]
-local_choices = ["Outside the entrypoint's personal-repository policy, no default merge or reviewer communication authority. No automatic dismissals, fixed-round authority, or assumption that failures outside the diff are stale-base issues. Current policy and exact-head evidence decide readiness."]
+local_choices = ["Outside the entrypoint's personal-repository policy, no default merge authority. Under the user's 2026-10-09 policy, Feedback and Drive scope classify every review thread and reply or resolve by disposition (applied, not applicable, outside the PR with a tracking ticket, or needs a confirmation reported to the user) without a separate reviewer-communication authorization; Check scope stays read-only. No automatic dismissals, fixed-round authority, or assumption that failures outside the diff are stale-base issues. Current policy and exact-head evidence decide readiness."]
 reviews = [
   { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
 ]
@@ -62,7 +62,7 @@ baseline_paths = ["skills/ce-babysit-pr/SKILL.md", "skills/ce-babysit-pr/referen
 paths = ["skills/ce-babysit-pr/SKILL.md", "skills/ce-babysit-pr/references/settle.md", "skills/ce-resolve-pr-feedback/SKILL.md", "skills/ce-resolve-pr-feedback/references/evaluation-rubric.md", "LICENSE"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Keep feedback and CI progressing independently, track per-item outcomes, reobserve after publication and distinguish settled checks from merge authorization."]
-local_choices = ["The user's 2026-10-07 policy authorizes direct merge and necessary feedback settlement in LuisUrrutia's personal repositories after all comments are resolved, enabled reviewers finish and CI/CD passes, without waiting for approvals. Elsewhere, host-managed babysitting stops on merge or current formal approval. No default time cutoff, agent polling loop, stale-head success or assumption that most feedback must be applied. Uncertainty needs investigation or a scoped decision."]
+local_choices = ["The user's 2026-10-07 policy authorizes direct merge and necessary feedback settlement in LuisUrrutia's personal repositories after all comments are resolved, enabled reviewers finish and CI/CD passes, without waiting for approvals. Elsewhere, host-managed babysitting stops on merge or current formal approval. No default time cutoff, agent polling loop, stale-head success or assumption that most feedback must be applied. Uncertainty needs investigation or a scoped decision. Reply and thread resolution now follow the 2026-10-09 disposition policy recorded above."]
 reviews = []
 
 [[sources]]
@@ -76,7 +76,7 @@ reviewed_through = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
 baseline_paths = ["skills/pr-babysitter/SKILL.md", "skills/pr-babysitter/references/github-api.md", "LICENSE.md"]
 paths = ["skills/pr-babysitter/SKILL.md", "skills/pr-babysitter/references/github-api.md", "LICENSE.md"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Separate monitoring and repair, collect every feedback channel with pagination, revisit edited/resolved-thread content and distinguish reply permission from code repair."]
+borrowed = ["Separate monitoring and repair, collect every feedback channel with pagination, revisit edited/resolved-thread content and distinguish reply and resolution state from code repair."]
 local_choices = ["No blind update of every behind branch, pending-CI barrier to independent fixes, bot-authority heuristic or automatic cron. REST replies use a root comment ID as verified in GitHub documentation."]
 reviews = []
 
@@ -149,7 +149,7 @@ role = "Conditional support; preserve the called skill scope and existing author
 kind = "local"
 name = "issue-workflow"
 required = false
-role = "Required for linked-ticket ready/merge synchronization when reached; Check scope stays read-only and formal approval does not emit merge."
+role = "Required for linked-ticket ready/merge synchronization and outside-scope tracking tickets when reached; Check scope stays read-only and formal approval does not emit merge."
 
 [[dependencies]]
 kind = "local"

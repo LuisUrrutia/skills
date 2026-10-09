@@ -22,12 +22,14 @@ When the verified `gh` actor reviewed the PR rather than authoring it, use
   below, a current formal approval is verified.
   Use this for requested babysitting and the continuation of a PR creation request.
 
-Resolve scope from the request and standing instructions. Record whether commits,
-publication, replies and thread resolution are authorized. Code repair alone does
-not authorize messages to reviewers. A PR creation request covers Drive repairs,
-verification, commits, publication and the conditional ready transition below;
-explicit read-only, create-only or keep-draft instructions constrain that scope.
-Do not require approval again for covered work.
+Resolve scope from the request and standing instructions. In Feedback and Drive
+scope, classify every review thread and bring it to one of the dispositions in
+`references/feedback.md`: applied, not applicable, outside this PR with a tracking
+ticket, or needs a confirmation from the user or from someone the user must ask.
+The task is incomplete until each thread has one. A PR creation request covers Drive
+repairs, verification, commits, publication and the conditional ready transition
+below; explicit read-only, create-only or keep-draft instructions constrain that
+scope. Do not require approval again for covered work.
 Drive has no default elapsed-time cutoff. The user can set a time limit or stop
 it explicitly. A formal approval must still be valid for the current revision
 under repository policy; green checks and a bot's success comment are not approval.
@@ -51,8 +53,9 @@ for repair work unless the user requested a specific historical operation. For
 a verified merged target with a linked ticket, first handle the authorized
 `pr-merged` synchronization below; Check scope remains read-only.
 For a standalone request limited to feedback inspection or repair, use Inspect
-unless the request or standing project instructions also authorize lifecycle
-synchronization. An active delivery/Drive task retains its existing authority.
+for linked-ticket transitions unless the request or standing project instructions
+also authorize lifecycle synchronization; the outside-scope tracking ticket still
+uses Publish. An active delivery/Drive task retains its existing authority.
 
 When first observing an open non-draft PR, or observing that another actor readied
 it, reconcile `pr-ready` through `issue-workflow` if the linked ticket's policy
@@ -71,7 +74,8 @@ A green job can still contain feedback. Record inaccessible channels as unknown.
 
 Keep a small local ledger when multiple items or cycles need continuity: source
 IDs/URLs, updated version, claim, evidence, decision, correction, verification,
-published revision and any pending reply/resolution. Use ignored task storage.
+published revision, disposition, tracking-ticket URL and any pending
+reply/resolution. Use ignored task storage.
 Deduplicate one causal issue while retaining all its source IDs. Re-read edited
 comments and new replies, including resolved or outdated threads; prior disposition
 does not settle new content. Remote state remains authoritative on resume.
@@ -105,7 +109,7 @@ Load support only at the boundary that needs it:
 | Push and complete PR description refresh | `pr`; pass exact identity and verified revision. |
 | Wording any reviewer reply, before drafting or posting it | `comment-style` and its PR review reference; if missing, block the reply, not the repair. |
 | Dependent PR topology or cascading rebase | `stacked-pr`, retaining one writer. |
-| Linked-ticket transitions | `issue-workflow`, using the project's policy and current remote evidence. |
+| Linked-ticket transitions, and one tracking ticket per outside-scope thread | `issue-workflow`, using the project's policy and current remote evidence; Publish for the ticket. |
 
 For CI, base updates and observation, read
 [references/ci-and-observation.md](references/ci-and-observation.md). Before GitHub
@@ -130,12 +134,14 @@ prompt when a fresh snapshot of the current head/base establishes all of these:
   unless the user explicitly accepts an exception. Explain legitimate policy-based
   skips; jobs skipped only because the PR is a draft must be checked after the
   transition.
-- Observed feedback has been resolved: accepted fixes are verified and published,
-  reviewer questions are answered visibly or settled by the user, decisions are
-  settled, and required thread resolutions are complete
-  under the authority in `references/feedback.md`. Merely listing an unresolved
-  item in the final report does not satisfy this gate. If a required reply or
-  thread resolution lacks authorization, keep the draft and report that prerequisite.
+- All observed feedback is settled: every review thread has reached its
+  disposition under `references/feedback.md`, reviewer questions across every
+  collected channel are answered visibly or settled by the user, accepted fixes
+  are verified and published, decisions are settled, and the resolutions each
+  disposition requires are complete. Merely listing an unresolved item in the
+  final report does not satisfy this gate. If a thread still needs a confirmation,
+  or its reply, resolution or tracking ticket failed, keep the draft and report
+  that prerequisite.
 - No known repair, conflict, active automated reviewer or other actionable work
   remains. Inaccessible evidence blocks the transition. A future human review or
   missing approval alone does not: ready for review is distinct from ready to merge.
@@ -174,8 +180,8 @@ to an organization repository does not establish personal ownership. Unknown
 ownership blocks this policy. Explicit read-only, create-only, keep-draft or
 do-not-merge instructions take precedence. Check scope remains read-only.
 
-This standing policy authorizes the merge and the replies and thread resolutions
-needed to settle feedback under `references/feedback.md`. Before merging, obtain
+This standing policy authorizes the merge; replies and thread resolutions follow
+the disposition rules in `references/feedback.md`. Before merging, obtain
 a fresh snapshot of the current head/base and establish all of these:
 
 - The PR is open, non-draft and mergeable without conflicts. For a draft, complete
@@ -187,9 +193,11 @@ a fresh snapshot of the current head/base and establish all of these:
   or completion blocks merge.
 - All observed feedback across every collection channel is settled, including
   human comments: accepted fixes are verified and published, questions and
-  decisions are settled, required replies are visible, and review threads are resolved.
+  decisions are settled, each thread's reply is visible, and every thread is
+  resolved by its disposition, the reviewer or the user.
   Recheck new content in resolved or outdated threads. An unapplied item merely
-  listed in a report, a deferred finding or a disputed disposition blocks merge.
+  listed in a report, a finding deferred without its tracking ticket or a
+  disputed disposition blocks merge.
 - All applicable CI/CD has passed for this revision, including required and
   optional checks. Pending, failed, cancelled, unexplained skipped or unknown
   results block merge. Account for legitimate policy-based skips and workflows
@@ -220,15 +228,21 @@ eligible, otherwise reports the remaining gates without starting indefinite obse
 ## Stop with an honest result
 
 Feedback work is accounted for when every observed item is applied or reported
-with its reason for remaining unapplied and any required decision. Distinguish
-locally fixed, verified, published, replied and resolved; none implies the next.
+with its reason for remaining unapplied and any required decision, and, in Feedback
+or Drive scope, every thread has its disposition and any reply it requires is
+visible. Distinguish locally fixed, verified, published, replied and resolved;
+none implies the next. Report a thread awaiting confirmation with the question
+and who must answer it; report a thread still missing a reply, resolution or
+ticket its disposition requires as unfinished work.
 
 On each Drive wake, refresh PR state and reconcile an observed ready event as
 above, then check for merge. Apply the personal-repository policy before considering
 an approval stop; outside that policy, a current formal approval also ends
-babysitting. On verified merge with a linked ticket, invoke `issue-workflow`
-for `pr-merged` before returning, passing the ticket, exact PR/head, actual merge
-branch/revision/time and completing or contributing relation. Use Inspect in
+babysitting, after the unblocked disposition actions for observed threads are
+complete and thread-specific blockers are reported. On verified merge with a
+linked ticket, invoke `issue-workflow` for `pr-merged` before returning, passing
+the ticket, exact PR/head, actual merge branch/revision/time and completing or
+contributing relation. Use Inspect in
 Check scope; otherwise carry the task's existing transition authority. Respect
 the policy's single owner and completion guards. Report its result separately
 from the PR outcome, including a missing skill or blocked tracker operation.

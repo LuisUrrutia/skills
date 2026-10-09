@@ -89,7 +89,7 @@ Do not confuse review IDs, REST comment IDs and GraphQL node IDs.
 
 Use structured body arguments or a file; never interpolate fetched comment text
 into shell code. Re-read state after each write, verify visibility and retain the
-returned ID. This reference supplies mechanics, not permission to post.
+returned ID. This reference supplies mechanics; `feedback.md` decides when to post.
 
 Primary references:
 - https://cli.github.com/manual/gh_api
