@@ -15,9 +15,23 @@ that preference from the code language alone.
 
 ## Reply to the actual point
 
-Read enough of the thread to avoid repeating an answered question. State what
-changed, the answer, or the concrete reason for disagreeing, then stop. Keep only
-the evidence the reviewer needs to assess that response.
+Read enough of the thread to avoid repeating an answered question. When a
+published fix does what the reviewer asked or suggested, the whole reply is
+`Fixed in <commit>.`, kept in that form with its capital and final period and
+translated only for a thread in another language. The reviewer already knows
+the problem, and the commit shows the change. Add a short sentence in the same
+form only for one of these:
+
+- a deviation from the suggestion, or a choice among offered options when you
+  took one other than the reviewer's first or its reason could change their view;
+- a partial fix or a scope that differs from the request;
+- a declined or deferred item, with its concrete reason;
+- the answer to a question the fix does not settle.
+
+State only that difference, reason, or answer. Never restate what the reviewer
+said, including their diagnosis or suggestion, and never narrate the
+implementation, its tests, or other additions; the commit shows them. Without a
+fix, give the answer or the concrete reason for disagreeing, then stop.
 
 Distinguish proposed, changed locally, checked, published, and deployed. Say
 "fixed" only when the evidence supports the implied scope. Do not invent a test
@@ -51,8 +65,9 @@ conditions without forcing a sentence count or the same structure on every comme
 
 Preserve exact identifiers and reachable example values when they are necessary;
 shorten the explanation, not its evidence. Point to an existing pattern when that
-helps the author act. Describe what a commit changed rather than inserting its
-hash, unless revision evidence is needed.
+helps the author act. In a new finding, describe what a commit changed rather
+than inserting its hash, unless revision evidence is needed; a reply about your
+own fix cites the hash as that evidence.
 
 The review workflow owns which findings to post, their locations, deduplication,
 and resolution. For an authorized inline reply, use its existing thread. Keep

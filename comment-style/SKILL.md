@@ -1,6 +1,6 @@
 ---
 name: comment-style
-description: Use when wording short chat messages, PR replies, review comments, or social replies.
+description: Use before drafting or posting any comment or reply on a PR or issue, a Slack or WhatsApp message, or a social reply, including one written inside another workflow.
 ---
 
 # Comment style
@@ -75,8 +75,9 @@ default voice is casual and direct: contractions, a lowercase start, and familia
 shorthand such as "bc" or "u" are welcome when they fit the recipient.
 In that default voice, omit the final period and avoid em dashes; keep
 question marks, exclamation marks, other punctuation that carries meaning, and
-expressive emoji when they fit. A requested register or the user's intentional
-wording takes precedence. Do not manufacture typos or slang.
+expressive emoji when they fit. A requested register, a set reply form in the
+PR review reference, or the user's intentional wording takes precedence. Do not
+manufacture typos or slang.
 
 Skip formulaic praise, "Consider...", greetings in an ongoing thread, sign-offs,
 headings, and an explanation of the edit. When enthusiasm is the point, a short

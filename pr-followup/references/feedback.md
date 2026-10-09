@@ -49,10 +49,13 @@ and preparing a reply are distinct operations. Without posting authority, retain
 the concrete reply draft and report pending communication; do not ask redundantly
 when the user only requested local repair.
 
-For an authorized reply, re-read the thread before writing. State the outcome,
-its reason and relevant published revision or evidence. Claim a fix is available
-to the reviewer only after verifying the published head includes it. If the user
-authorized an earlier status reply, label local or pending work accurately.
+For a reply, whether posted or retained as a draft, re-read the thread, then
+word it with `comment-style` after reading its PR review reference, which decides
+how much the reply says. Pass it the decision, the published commit and any
+deviation, partial or different scope, reason for a decline or deferral, or
+answer to the reviewer's question. Claim a fix is available to the reviewer only
+after verifying the published head includes it. If the user authorized an
+earlier status reply, label local or pending work accurately.
 
 Reply in the original thread using its correct endpoint and root comment ID;
 avoid opening a pending review draft accidentally. Verify the reply is visible.

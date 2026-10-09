@@ -1,0 +1,164 @@
+{
+ "schemaVersion": 1,
+ "date": "2026-10-09",
+ "baseline": "c341eb04237c6629337e7d41d4ef160d4d4f3451",
+ "status": "Validated for the stated trial and static scope; all material findings from two consultation rounds accounted for.",
+ "request": "While pr-followup ran on https://github.com/aurora-payments/monorepo/pull/2023, an agent replied to an addressed review comment without loading comment-style and retold the reviewer's diagnosis, the implementation and its tests. The user's rule: a fix that does exactly what the reviewer asked or suggested gets 'Fixed in <commit>.'; add detail only for a tradeoff or deviation, a partial or different scope, a decline or deferral with its reason, or a question the fix does not answer. Never restate what the reviewer said or narrate the implementation and tests their request covered.",
+ "diagnosis": "pr-followup/references/feedback.md asked every reply to state 'the outcome, its reason and relevant published revision or evidence', and pr-followup never routed reply wording to comment-style, unlike pr-review-followup. comment-style's PR review reference had no rule for a fix made as requested and told the writer to describe what a commit changed rather than cite its hash. Its description named wording, not drafting or posting, and nothing tied it to replies written inside another workflow. Loading in the original session was not observed. In the offline baseline trials the agent did load comment-style and still narrated the fix, so the wording rule, not only routing, was missing.",
+ "changes": [
+  {
+   "file": "comment-style/SKILL.md",
+   "change": "Description triggers before drafting or posting any comment or reply on a PR or issue, a Slack or WhatsApp message or a social reply, including one written inside another workflow. A set reply form from the PR review reference takes precedence over the casual voice default."
+  },
+  {
+   "file": "comment-style/references/review.md",
+   "change": "A fix made as asked is answered with exactly 'Fixed in <commit>.'. One short sentence in the same form only for a deviation or an offered option other than the reviewer's first (or whose reason could change their view), a partial or different scope, a decline or deferral with its reason, or the answer to a question the fix does not settle. Never restate the reviewer or narrate the implementation, tests or other additions. The commit-hash rule is scoped to new findings; replies cite the hash."
+  },
+  {
+   "file": "pr-followup/SKILL.md",
+   "change": "Support table routes every reviewer reply, before drafting or posting, to comment-style and its PR review reference; a missing package blocks the reply, not the repair."
+  },
+  {
+   "file": "pr-followup/references/feedback.md",
+   "change": "Every reply, posted or retained as a draft, is worded with comment-style; the handoff passes the decision, published commit and only the deviation, scope, decline or deferral reason, or answer. The verbose outcome-and-reason sentence is removed."
+  },
+  {
+   "file": "pr-followup/origin.txt",
+   "change": "comment-style declared as a required dependency, following pr-review-followup's declaration."
+  },
+  {
+   "file": "comment-style/origin.txt",
+   "change": "Dated user direction recorded in local_choices."
+  },
+  {
+   "file": "reports/skill-atlas/catalog.js, sources.json, index.html",
+   "change": "Refreshed entrypoint hashes for comment-style and pr-followup and the catalog cache key."
+  }
+ ],
+ "consultations": {
+  "brief": ".agents/reply-brevity/brief.md (scratch, not committed): user request, incident, rule, suspected causes and the complete targets; read-only, no delegation.",
+  "rounds": [
+   {
+    "round": 1,
+    "profiles": [
+     {
+      "profile": "Codex gpt-6-astra / max",
+      "runner": "T3 delegate_task, clientRequestId reply-brevity-astra-r1",
+      "findings": [
+       "Drop 'for what that commit cannot tell them' as an extra restriction on the exceptions.",
+       "Make the literal form explicitly override the casual lowercase, no-final-period default."
+      ],
+      "verdicts": "required=true and no new validator judged appropriate."
+     },
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "T3 delegate_task, clientRequestId reply-brevity-fable-r1",
+      "findings": [
+       "Voice precedence for the literal form.",
+       "Broaden 'never restate' to everything the reviewer said and forbid narrating implementation, tests or other additions.",
+       "pr-followup handoff passed a rationale for a plain fix.",
+       "Define which offered-option choice needs a sentence.",
+       "Set required=false to match sibling entries; trim narrative from the role.",
+       "Narrow chat scope to Slack and WhatsApp and cover any PR or issue comment.",
+       "Route retained drafts through comment-style."
+      ]
+     }
+    ],
+    "adopted": "All findings except required=false.",
+    "rejected": [
+     {
+      "finding": "required=false for comment-style in pr-followup/origin.txt",
+      "reason": "The user asked to follow pr-review-followup's declaration (required=true); the other reviewer agreed, and the SKILL.md row already limits a missing package to blocking the reply. Fable withdrew the objection in round 2."
+     }
+    ]
+   },
+   {
+    "round": 2,
+    "profiles": [
+     {
+      "profile": "Codex gpt-6-astra / max",
+      "runner": "reply-brevity-astra-r2",
+      "result": "No material issues."
+     },
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "reply-brevity-fable-r2",
+      "result": "No regressions; the incident reply is no longer permitted.",
+      "findings": [
+       "The added sentence's voice was undefined (confirmed in v2 trials: mixed final periods).",
+       "The handoff omitted the answer to a reviewer question.",
+       "Optional: extra work beyond the request is not a scope difference."
+      ]
+     }
+    ],
+    "adopted": "Same-form sentence and the question answer in the handoff.",
+    "rejected": [
+     {
+      "finding": "Extra work is not a scope difference",
+      "reason": "The explicit prohibition on narrating other additions already covers it, and every trial omitted the unrequested story."
+     }
+    ]
+   }
+  ]
+ },
+ "trials": {
+  "runner": "Fresh Claude Code general-purpose subagents, inherited model claude-opus-5-5, default effort. Each arm read only its frozen copy of pr-followup and comment-style plus a task file; the task started at pr-followup/SKILL.md and allowed other skills only when instructions or description-based selection called for them. No git, gh or network commands.",
+  "fixtures": {
+   "incident": "Reviewer on an inline thread: 'When a merchant has no sales in the current range, averageSale returns 0, so this badge reads \"down 100%\" in amber. That reads as a sharp drop rather than \"no data\". Could the badge be skipped (or shown flat) when stats.current.saleCount is 0, with a spec case pinning it? Non-blocking.' Scenarios: (1) commit a8018dac4c skips the badge, adds the spec case and a NoSales story; (2) commit b51c0e2f7a shows it flat because the grid needs a badge in every cell; (3) no change, declined because the product owner confirmed in SHOP-88 that merchants use the drop to spot outages.",
+   "unseen": "Three threads: (1) clamp a negative refund amount and add a test, done exactly in 3c9d01ab77; (2) add exponential backoff and a 5-attempt cap, only the cap added in 7e21aa0c4d because the queue library already backs off; (3) conversation comment asking whether a rename was done and whether it changes the partner webhook payload, rename in 91fe3b2a10 and the payload is unchanged."
+  },
+  "results": [
+   {
+    "arm": "baseline HEAD c341eb0",
+    "case": "incident",
+    "runs": 2,
+    "outcome": "Both loaded comment-style and still narrated scenario 1 ('done in a8018dac4c: the average sale cell now skips the badge when `saleCount` is 0, with a spec case and a `NoSales` story'). Scenarios 2 and 3 kept their reasons but also retold the change."
+   },
+   {
+    "arm": "candidate v1",
+    "case": "incident",
+    "runs": 2,
+    "outcome": "Both: scenario 1 exactly 'Fixed in a8018dac4c.'; scenario 2 'Fixed in b51c0e2f7a.' plus the layout reason; scenario 3 the product-owner reason."
+   },
+   {
+    "arm": "candidate v2",
+    "case": "incident",
+    "runs": 2,
+    "outcome": "Scenario 1 exact in both; the added sentence in scenario 2 dropped its final period, mixing forms. Led to the same-form rule."
+   },
+   {
+    "arm": "candidate v2",
+    "case": "unseen",
+    "runs": 1,
+    "outcome": "'Fixed in 3c9d01ab77.'; partial fix named the cap and the backoff reason; rename plus the payload answer."
+   },
+   {
+    "arm": "final",
+    "case": "incident",
+    "runs": 1,
+    "outcome": "'Fixed in a8018dac4c.' / 'Fixed in b51c0e2f7a. I chose flat over skipping because the grid layout needs a badge in every cell, and removing it shifts the row height.' / decline with the SHOP-88 reason."
+   },
+   {
+    "arm": "final",
+    "case": "unseen",
+    "runs": 1,
+    "outcome": "'Fixed in 3c9d01ab77.' / 'Fixed in 7e21aa0c4d. I left out the backoff because `QueueOptions.backoff` in `queue.ts` already backs off exponentially between deliveries, so adding it here would double the delay.' / 'Fixed in 91fe3b2a10. The webhook payload shape doesn't change because the method name is internal and never serialized.'"
+   }
+  ],
+  "limits": "Host skill selection was not observed: the trial task pointed at pr-followup, so the description change is supported by static review only. Small sample; no improvement claim beyond the tested cases."
+ },
+ "checks": [
+  "git diff --check passed.",
+  "fish -lc python3 (3.14.8): both origin.txt files parse as TOML; pr-followup now requires comment-style; local Markdown links in comment-style and pr-followup resolve inside each package; sources.json parses.",
+  "fish -lc 'env TMPDIR=... bash pr-review-followup/scripts/validate.sh': 21 tests OK, 'pr-review-followup validation passed'.",
+  "fish -lc 'env TMPDIR=... bash pr-review/scripts/validate.sh $PWD/review-code-changes': 52 tests OK, 'pr-review validation passed' (smoke path; comment-style and pr-followup have no validator)."
+ ],
+ "final_hashes": {
+  "comment-style/SKILL.md": "c5cf45ac264f47e658dbc4b7c1a9240b6383c96555e57a61a1248ea519dd827d",
+  "comment-style/references/review.md": "5783cd6fc750f818e0356f7d0081bc2eef1cb4f0a082842902b92baaa1118094",
+  "comment-style/origin.txt": "083d37b44aecad68f7919be894c56279bec53ca01f10a72dd50432a78440d4fc",
+  "pr-followup/SKILL.md": "5dc7ded8e5eaa4347dc9c987bf9663c9d98b2eb08e37520e651a7ca0a2deb064",
+  "pr-followup/references/feedback.md": "93669138b0fea46e21d790af49625bebfb34613c025bcc3e4501ac98803cd9ae",
+  "pr-followup/origin.txt": "c4daf56c540775d7c2ac55915abd253523a39ef3642411eb26c10cb020816e12"
+ }
+}
