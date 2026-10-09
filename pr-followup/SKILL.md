@@ -103,6 +103,7 @@ Load support only at the boundary that needs it:
 | Applicable execution evidence | `verify` and the local application recipe. |
 | Atomic commits | `commit`; carry existing authorization and preserved work. |
 | Push and complete PR description refresh | `pr`; pass exact identity and verified revision. |
+| Wording any reviewer reply, before drafting or posting it | `comment-style` and its PR review reference; if missing, block the reply, not the repair. |
 | Dependent PR topology or cascading rebase | `stacked-pr`, retaining one writer. |
 | Linked-ticket transitions | `issue-workflow`, using the project's policy and current remote evidence. |
 
