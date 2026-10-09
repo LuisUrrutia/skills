@@ -51,7 +51,7 @@ scope stays read-only.
 | --- | --- | --- |
 | Applied (Apply, Already fixed, a Question that led to a change) | After verifying the published head includes the fix, cite that commit or revision. | Resolve it. |
 | Not applicable (Disproved, Question answered without a change) | Give the evidence, tradeoff, contract or answer that decides it. | Leave it open; the reviewer decides. |
-| Outside this PR (Outside scope: a correct finding whose fix belongs elsewhere) | Create one tracking ticket through `issue-workflow`'s Publish operation, or directly in the project's configured tracker when that skill is unavailable; then say the work is outside this PR and link the ticket. | Resolve it. |
+| Outside this PR (Outside scope: a correct finding whose fix belongs elsewhere) | Create one tracking ticket through `issue-workflow`'s Publish operation, then say the work is outside this PR and link the ticket. If that skill is unavailable, do not create the ticket directly; report the ticket as unfinished. | Resolve it once the ticket exists; otherwise leave it open. |
 | Needs confirmation (Needs decision) | None yet. Tell the user what must be confirmed and by whom, and continue the other threads. | Leave it open; classify it again when the answer arrives. |
 
 A fix verified but not yet published has no disposition yet; report that thread
