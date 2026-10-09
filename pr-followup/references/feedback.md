@@ -27,7 +27,7 @@ cause and remedy, not line proximity or similar wording alone.
 | Already fixed | Trace the current behavior and identify the fixing revision and applicable verification. Recheck new replies before retaining this decision. |
 | Disproved | Identify the actual guard, caller contract, lifecycle or evidence that contradicts the claim. Preserve the reason; no speculative defensive code. |
 | Question | Answer from evidence where possible. A reviewer question is not automatically a code-change request. |
-| Needs decision | Investigation cannot resolve a consequential contract choice. Ask the user immediately; pause only dependent work. |
+| Needs decision | Investigation cannot resolve a consequential contract choice, or someone outside the conversation (PM, EM, PO or another person) must confirm it. Tell the user immediately what must be confirmed and by whom; pause only that thread's work. A question only the reviewer can answer goes in the thread instead; that thread stays open and is classified again when the reviewer answers. |
 | Outside scope | Explain the relevant boundary and concrete remaining work. Do not silently drop a correct finding because it is inconvenient. |
 
 Separate certainty from consequence. Reproduce important uncertain claims or trace
@@ -43,27 +43,36 @@ to audit. Readiness is not decided by counting approving agents.
 
 ## Replies and thread resolution
 
-Post only when the user explicitly authorized reviewer communication or an
-explicitly invoked workflow authorizes that action. Repairing code, pushing a fix
-and preparing a reply are distinct operations. Without posting authority, retain
-the concrete reply draft and report pending communication; do not ask redundantly
-when the user only requested local repair.
+In Feedback and Drive scope, replying and resolving are part of the work: it is
+incomplete until every review thread has exactly one of these dispositions. Check
+scope stays read-only.
 
-For a reply, whether posted or retained as a draft, re-read the thread, then
-word it with `comment-style` after reading its PR review reference, which decides
-how much the reply says. Pass it the decision, the published commit and any
-deviation, partial or different scope, reason for a decline or deferral, or
-answer to the reviewer's question. Claim a fix is available to the reviewer only
-after verifying the published head includes it. If the user authorized an
-earlier status reply, label local or pending work accurately.
+| Disposition | Reply in the thread | Thread state |
+| --- | --- | --- |
+| Applied (Apply, Already fixed, a Question that led to a change) | After verifying the published head includes the fix, cite that commit or revision. | Resolve it. |
+| Not applicable (Disproved, Question answered without a change) | Give the evidence, tradeoff, contract or answer that decides it. | Leave it open; the reviewer decides. |
+| Outside this PR (Outside scope: a correct finding whose fix belongs elsewhere) | Create one tracking ticket through `issue-workflow`'s Publish operation, or directly in the project's configured tracker when that skill is unavailable; then say the work is outside this PR and link the ticket. | Resolve it. |
+| Needs confirmation (Needs decision) | None yet. Tell the user what must be confirmed and by whom, and continue the other threads. | Leave it open; classify it again when the answer arrives. |
+
+A fix verified but not yet published has no disposition yet; report that thread
+as applied locally, pending publication. A reply, resolution or ticket that fails
+for identity, access or tracker reasons is unfinished work for that thread.
+
+For a reply, re-read the thread, then word it with `comment-style` after reading
+its PR review reference, which decides how much the reply says. Pass it the
+disposition, the published commit and any deviation, partial or different scope,
+reason for a decline or ticket link, or answer to the reviewer's question. Claim
+a fix is available to the reviewer only after verifying the published head
+includes it. If the user asked for an earlier status reply, label local or
+pending work accurately.
 
 Reply in the original thread using its correct endpoint and root comment ID;
 avoid opening a pending review draft accidentally. Verify the reply is visible.
 After a timeout, inspect for the intended reply before retrying. On resume,
 reuse the ledger and remote evidence to avoid duplicate messages.
 
-Resolve a thread only within explicit resolution authority and after its actionable
-points are satisfied or the reviewer/user accepted the disposition. A reply, code
-change, dismissal rationale, deleted line or passing CI does not alone settle an
-unanswered question. Never resolve threads to hide remaining work. Report any
-failed reply/resolution separately from a successfully published code repair.
+Resolve a thread only under its disposition above and after completing the
+actions it requires. A reply, code change, dismissal rationale, deleted line or passing
+CI does not alone settle an unanswered question. Never resolve threads to hide
+remaining work. Report any failed reply/resolution separately from a successfully
+published code repair.
