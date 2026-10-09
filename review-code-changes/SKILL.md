@@ -13,6 +13,9 @@ An enclosing implementation task can act on the findings after this review ends.
 
 Read [references/protocol.md](references/protocol.md) before reviewing. It owns
 the review criteria, evidence rules, severity, and canonical report grammar.
+A caller that runs this audit in an engine unable to load skills may freeze that
+protocol and `scripts/report.py` unchanged into its run packet, supplying its own
+single-auditor role in place of this entrypoint's orchestration.
 
 ## Establish a reproducible scope
 

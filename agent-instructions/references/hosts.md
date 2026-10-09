@@ -20,9 +20,14 @@ portable merely because another agent accepts it.
 - Treat Claude-style frontmatter and Codex invocation policy as separate host
   features. Verify their current behavior rather than copying one into the other.
 - Reference other skills by their registered names, never by filesystem paths to
-  their entrypoints or internal resources. Resolve each name through the installed
-  catalog and the host's supported invocation mechanism. File links within the
-  current skill may address its own resources.
+  their entrypoints or internal resources. When routing work to another skill,
+  name the skill and its inputs; do not point the reader at a resource inside it,
+  by path or by description such as "its PR review reference". That skill's
+  entrypoint decides what it loads. Use a resource its entrypoint documents for
+  callers, such as a validator to run or a protocol to freeze, only through that
+  documented contract. Resolve each name through the installed catalog and the
+  host's supported invocation mechanism. File links within the current skill may
+  address its own resources.
 - Loading a Markdown file and invoking a skill are not interchangeable on every
   host. Detect missing required dependencies before dependent work.
 - Prefer available host tooling. A reference to a donor's CLI, task manager,

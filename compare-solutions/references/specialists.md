@@ -16,10 +16,10 @@ domain.
 ## Review code changes
 
 Use `review-code-changes` for independent local audits of the same declared diff.
-Read its entrypoint and authoritative protocol before writing the candidate prompt.
-Supply the exact comparison, changed-path inventory, intent, applicable standards,
-caller-owned seams, and separate canonical report destinations. Every worker
-remains one auditor: it does not spawn reviewers, repair code, or publish feedback.
+Read it before writing the candidate prompt. Supply the exact comparison,
+changed-path inventory, intent, applicable standards, caller-owned seams, and
+separate canonical report destinations. Every worker remains one auditor: it does
+not spawn reviewers, repair code, or publish feedback.
 Identify it as a comparison participant so the skill's adaptive facet delegation
 stays disabled. Each candidate reviews the complete assigned change. Preserve its
 required validation and handoff.
