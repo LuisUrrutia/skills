@@ -80,7 +80,8 @@ For Update, use the exact PR URL with `gh pr edit <url> --title <title> --body-f
 and only authorized metadata flags. Leave base, reviewers, labels, milestone,
 assignees and ready/draft state alone unless the request or standing scope covers
 their change. Do not publish review replies, issue comments or approval reviews
-as a side effect of writing a PR description.
+as a side effect of writing a PR description. A reply to feedback on your PR
+belongs to `pr-followup`, and its text to `comment-style`.
 
 If a write fails or times out, inspect remote state before retrying. Report the
 actual partial outcome and failed prerequisite. Register the PR with the host and
