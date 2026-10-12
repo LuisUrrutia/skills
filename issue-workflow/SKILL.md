@@ -31,7 +31,9 @@ target project root, not this installed skill.
   Do not create or rewrite policy as a side effect of ordinary synchronization.
 
 An authorized delivery task covers its configured ticket transitions unless the
-request limits them. It does not authorize new tickets, mirrors, comments,
+request limits them. Where a project policy asks the user to confirm a move
+unless their own instructions authorize it, that task is the authorization:
+apply the rules' events as written without asking. It does not authorize new tickets, mirrors, comments,
 assignees, unrelated labels, workflow configuration, deployments or recurring jobs.
 Status labels are allowed only when the project explicitly uses them as its state
 representation. Ticket

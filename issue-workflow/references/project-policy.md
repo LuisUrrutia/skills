@@ -67,8 +67,7 @@ instructions. For example:
 
 > When you start implementing a ticket, or a PR linked to it is open, ready for
 > review or merged, apply `docs/agents/issue-tracker.md`, whoever caused the
-> event. Never open, mark ready or merge a PR to move a ticket. Reading, planning
-> or triaging a ticket alone does not change its state.
+> event. Reading, planning or triaging a ticket alone does not change its state.
 
 Creating this document does not enable provider automation. Configure external
 rules only within separately authorized setup work, then verify their actual
