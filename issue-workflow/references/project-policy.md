@@ -65,9 +65,10 @@ that activation depends on the installed catalog or explicit invocation. Preserv
 its existing import arrangement; do not create both host files or edit global
 instructions. For example:
 
-> When starting implementation from a ticket, creating a linked PR, or observing
-> its merge, apply `docs/agents/issue-tracker.md`. Reading or triaging a ticket
-> alone does not change its state.
+> When you start implementing a ticket, or a PR linked to it is open, ready for
+> review or merged, apply `docs/agents/issue-tracker.md`, whoever caused the
+> event. Never open, mark ready or merge a PR to move a ticket. Reading, planning
+> or triaging a ticket alone does not change its state.
 
 Creating this document does not enable provider automation. Configure external
 rules only within separately authorized setup work, then verify their actual
