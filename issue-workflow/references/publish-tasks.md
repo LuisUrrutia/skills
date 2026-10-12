@@ -17,7 +17,8 @@ Do not substitute a different tracker when lookup or publication fails.
 A request to prepare tasks produces drafts. A request to create tickets authorizes
 those tickets and the specified breakdown's relationships, not arbitrary backlog
 changes, new projects, workflow configuration, assignments or comments. Before
-any write, read [identity.md](identity.md) and verify the actor and target scope.
+any write, read [identity.md](identity.md) and verify the actor and the target
+site, workspace or repository.
 
 Inspect the available connector or CLI schema and actual required creation/update
 fields. For Linear, verify the workspace/team and permitted fields; for Jira, the

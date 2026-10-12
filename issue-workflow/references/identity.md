@@ -12,4 +12,5 @@ API or CLI write. Follow the active account-switch policy when a switch is neede
 do not expand credential or integration scope. Keep secrets out of output.
 
 Identity verification does not add permission for other fields, tickets or
-operations. Preserve the caller's established authorization and verified scope.
+operations. Preserve the caller's established authorization and verified
+permission scope.

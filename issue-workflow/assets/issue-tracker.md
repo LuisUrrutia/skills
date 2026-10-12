@@ -1,25 +1,33 @@
 # Issue tracker
 
 Policy status: **Unconfigured**. This template authorizes no transition until
-the relevant row and scope are filled from project decisions and verified service
+the relevant scope and row are filled from project decisions and verified service
 data. Save the configured document in the consuming project's
-`docs/agents/issue-tracker.md`, or maintain its existing canonical policy path.
+`docs/agents/issue-tracker.md`, or maintain its existing canonical policy path,
+and drop fields and guidance that change no decision there.
 
-## Tracker and scope
+## Tracker
 
 - Provider and canonical URL: unresolved.
-- Workspace, team or Jira project: unresolved.
 - Code repository and final integration branch: unresolved.
-- GitHub Project URL/ID and Status field, if used: unresolved.
 - Ticket lookup and branch/PR linking convention: unresolved.
 - Completing versus contributing PR relation: unresolved.
-- Closing keywords and their permitted effects: unresolved.
+- Closing keywords and their effects, for GitHub issues: unresolved.
+- Default project and issue type for published tasks, if any: unresolved.
 
-## Transition rules
+## Workflow scopes
 
-Use exact states from this scope. `Any` below means any verified branch in this
-repository; it does not cross repository or ticket scope. Name allowed source
-states explicitly and remove unused rows.
+| Scope | Selector (fields of the fetched ticket) |
+| --- | --- |
+| Unresolved | Unresolved: Jira project key and issue type IDs; Linear team; or GitHub issue repository, plus Project when used |
+
+Excluded scopes: unresolved.
+
+## Scope: unresolved
+
+Copy this section for each scope. Record each state with its provider ID where
+one exists; the ID governs. `Any` means any verified branch in this repository.
+Name allowed source states explicitly and remove unused rows.
 
 | Rule | Event | Target branch | Allowed source states | Destination | Conditions | Owner | Active |
 | --- | --- | --- | --- | --- | --- | --- | --- |
@@ -37,6 +45,9 @@ can have different rules. These examples do not choose this project's destinatio
 
 ## Completion and exceptions
 
+These apply to every scope unless a scope section states its own value for an
+item.
+
 - Evidence that this PR completes the ticket: unresolved.
 - Other required PRs/subtasks and how their completion is checked: unresolved.
 - Partial contributions and intermediate stack merges: unresolved.
@@ -47,10 +58,5 @@ can have different rules. These examples do not choose this project's destinatio
 
 ## Delivery ownership
 
-- Automation rule URL/ID, event filters, branches and enabled/configuration
-  evidence for each automation-owned event: unresolved.
+- Identity of each automation rule that owns a transition: unresolved.
 - For agent-owned merge events, how an agent is invoked after merge: unresolved.
-- If no durable merge handler is configured, record: "Merge synchronization runs
-  only when an agent observes the merged PR. Unattended delivery is not configured."
-
-Execution procedure: use `issue-workflow` with this policy.

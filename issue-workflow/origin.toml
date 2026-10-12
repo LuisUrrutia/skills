@@ -14,6 +14,26 @@ where = [
 ]
 
 [[invariants]]
+rule = "One policy can hold several workflow scopes. The skill selects a ticket's scope from fields of the fetched ticket, never from the board, the key prefix or the caller's description, and matches states by provider ID rather than by name. A ticket in an unlisted or unmatched scope gets no transition, and an explicitly excluded scope returns skipped."
+reason = "One tracker can hold several workflows: Jira assigns a workflow per project and issue type, and teams can follow different rules on a shared one. Boards are filters, not workflows. Jira localizes status names, and several workflows reuse site-wide statuses."
+where = [
+  "SKILL.md#establish-identity-policy-and-event",
+  "SKILL.md#synchronize-one-event",
+  "references/project-policy.md#establish-the-policy",
+  "references/project-policy.md#interpret-an-existing-policy",
+  "assets/issue-tracker.md#workflow-scopes",
+]
+
+[[invariants]]
+rule = "The project policy records only the decisions an agent acts on and the facts it needs to act on them, and names no skill, agent tool or connector. Discovery and verification evidence belongs in the commit or PR that adds the policy."
+reason = "The policy stays valid whatever tooling applies it."
+where = [
+  "references/project-policy.md#project-transition-policy",
+  "references/project-policy.md#establish-the-policy",
+  "assets/issue-tracker.md#issue-tracker",
+]
+
+[[invariants]]
 rule = "Events come from current evidence, not from the caller's label. A PR event needs the exact PR verified remotely, and a merge event needs the remote merged state and the actual target branch."
 where = ["SKILL.md#establish-identity-policy-and-event"]
 
