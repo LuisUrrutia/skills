@@ -3,9 +3,10 @@
 `docs/agents/issue-tracker.md` belongs to the consuming repository. It describes
 that project's tracker and decisions, not generic API instructions. It names no
 skill, agent tool or connector, so it stays valid whatever tooling applies it.
-Respect an
-existing canonical tracker document referenced by project instructions. Keep one
-owner and link to it rather than creating a second mapping.
+Respect an existing canonical tracker document referenced by project
+instructions, or a user-level policy that the user's own instructions designate
+for the repositories it covers; when both exist, the project's governs. Keep one owner
+and link to it rather than creating a second mapping.
 
 ## Establish the policy
 
@@ -58,12 +59,13 @@ inactive/unresolved row must never authorize a guessed transition. A rule that
 omits source guards, ownership or the provider ID of a state that has one is
 incomplete, even if its destination exists.
 
-When configuring policy, recommend the conditional route below so work-start
-selection is explicit. Add it when project instruction edits are included in the
-request, using the repository's canonical AGENTS.md or CLAUDE.md. Otherwise report
-that activation depends on the installed catalog or explicit invocation. Preserve
-its existing import arrangement; do not create both host files or edit global
-instructions. For example:
+When configuring policy, preserve any existing route in the instructions that
+designate it. If none exists, recommend the conditional route below in the
+repository's canonical AGENTS.md or CLAUDE.md, or in user-level instructions for
+a user-level policy the user asked for, using the selected policy path. Add it
+only when edits to those instructions are authorized; otherwise report that
+activation depends on the installed catalog or explicit invocation. Preserve the
+existing import arrangement and do not create both host files. For example:
 
 > When you start implementing a ticket, or a PR linked to it is open, ready for
 > review or merged, apply `docs/agents/issue-tracker.md`, whoever caused the
@@ -80,7 +82,7 @@ Select the scope as [../SKILL.md](../SKILL.md) describes. Never carry one scope'
 states or rules to a ticket from another, even when status names match. Specific
 branch rules take precedence only when the document says
 so; otherwise overlapping matches are ambiguous. `Any` as a target branch means
-any verified branch of the repository that holds the policy, and a resolved row
+any verified branch of the target code repository the policy was selected for, and a resolved row
 is active unless the policy marks it inactive. Explicit source states protect
 manual progress without inventing a universal "higher state" ordering.
 

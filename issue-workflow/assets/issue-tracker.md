@@ -2,9 +2,10 @@
 
 Policy status: **Unconfigured**. This template authorizes no transition until
 the relevant scope and row are filled from project decisions and verified service
-data. Save the configured document in the consuming project's
-`docs/agents/issue-tracker.md`, or maintain its existing canonical policy path,
-and drop fields and guidance that change no decision there.
+data. Save the configured document at the policy path the applicable
+instructions designate, defaulting to the consuming project's
+`docs/agents/issue-tracker.md`, and drop fields and guidance that change no
+decision there.
 
 ## Tracker
 
@@ -26,8 +27,9 @@ Excluded scopes: unresolved.
 ## Scope: unresolved
 
 Copy this section for each scope. Record each state with its provider ID where
-one exists; the ID governs. `Any` means any verified branch in this repository.
-Name allowed source states explicitly and remove unused rows.
+one exists; the ID governs. `Any` means any verified branch of the target code
+repository the policy was selected for. Name allowed source states explicitly
+and remove unused rows.
 
 | Rule | Event | Target branch | Allowed source states | Destination | Conditions | Owner | Active |
 | --- | --- | --- | --- | --- | --- | --- | --- |

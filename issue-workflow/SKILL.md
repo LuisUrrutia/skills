@@ -6,10 +6,11 @@ description: Use when starting implementation from a ticket, synchronizing its w
 # Issue workflow
 
 Synchronize the original ticket when implementation starts and at later configured
-events. Also publish prepared tasks when requested. The consuming project's
-`docs/agents/issue-tracker.md` owns destinations and transition rules; this skill
-owns discovery, guarded execution and evidence. That path is relative to the
-target project root, not this installed skill.
+events. Also publish prepared tasks when requested. The designated tracker
+policy, by default the consuming project's `docs/agents/issue-tracker.md`, owns
+destinations and transition rules; this skill owns discovery, guarded execution
+and evidence. That default path is relative to the target project root, not this
+installed skill.
 
 ## Resolve the operation
 
@@ -31,7 +32,7 @@ target project root, not this installed skill.
   Do not create or rewrite policy as a side effect of ordinary synchronization.
 
 An authorized delivery task covers its configured ticket transitions unless the
-request limits them. Where a project policy asks the user to confirm a move
+request limits them. Where a policy asks the user to confirm a move
 unless their own instructions authorize it, that task is the authorization:
 apply the rules' events as written without asking. It does not authorize new tickets, mirrors, comments,
 assignees, unrelated labels, workflow configuration, deployments or recurring jobs.
@@ -48,9 +49,12 @@ requested work or the user's explicit ticket identity. Never substitute another
 tracker when the original lookup or write fails. If no ticket is linked, return
 `not applicable`.
 
-Read effective project instructions and their designated tracker policy; default
-to `docs/agents/issue-tracker.md` when no existing canonical path is designated.
-Use one policy owner. Do not migrate an existing convention merely to match the
+Read the instructions in effect for the repository, including user-level rules
+scoped to it, and their designated tracker policy; default to
+`docs/agents/issue-tracker.md` when no existing canonical path is designated.
+Use one policy owner: when project instructions and a user-level rule each
+designate a policy for the same repository, the project's is that owner and the
+user-level rule supplies only authorization. Do not migrate an existing convention merely to match the
 default filename. Read [references/project-policy.md](references/project-policy.md)
 when interpreting missing fields or configuring policy.
 
@@ -75,13 +79,13 @@ Resolve the event from current evidence, not the caller's label alone:
 | Event | Required evidence |
 | --- | --- |
 | `work-started` | The active request authorizes implementation and work is actually starting on this ticket. |
-| `pr-created` | Exact existing PR URL, target/head repositories, head SHA, base and draft state verified remotely. Drafts count unless the project explicitly chooses `pr-ready` instead. |
+| `pr-created` | Exact existing PR URL, target/head repositories, head SHA, base and draft state verified remotely. Drafts count unless the policy explicitly chooses `pr-ready` instead. |
 | `pr-ready` | Verified non-draft PR and a policy that selects ready-for-review as its review event. |
 | `pr-merged` | Remote merged state, merge time/revision and actual target branch. Approval, closure without merge and green checks do not qualify. |
 
 Before PR publication, return the permitted ticket-link form to `pr`. Confirm
 whether the PR completes the ticket or contributes partial work. Use closing
-keywords only when their provider effects agree with the project policy; a
+keywords only when their provider effects agree with the designated policy; a
 plain link can preserve the relationship without premature closure.
 
 For merge, check the policy's completion conditions and relevant linked work.
