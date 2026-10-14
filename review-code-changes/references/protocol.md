@@ -102,7 +102,8 @@ reviewed tree, expectations, or dependencies to make a review check work.
 
 Read every relevant leg of a behavioral claim:
 
-- **writer**: where input or state can acquire the value;
+- **writer**: where input or state can acquire the value, including the caller
+  that sends a triggering request;
 - **producer**: where a payload or call carries it forward;
 - **consumer**: where an observable failure or changed obligation occurs;
 - **schema**: constraints on values, shapes, and relations;
@@ -119,12 +120,27 @@ Claims about every writer, caller, or handler require a census starting from the
 mutation, call, or contract that defines that population. Record its size and the
 members affected. Feature vocabulary is not a complete inventory. When a selection
 chooses one record from several, inspect a case where candidate values differ.
+A failure that only a particular caller, host, mode, or configuration triggers
+needs evidence that something runs that way. A deployment in that mode settles a
+failure the mode itself causes, such as a startup failure or one every request
+triggers; a failure that also needs a particular request or payload needs a
+caller found by a census of the entry point's clients, consumers, jobs,
+subscriptions, stacked or linked changes, the rollout the change exists to enable,
+and documented integrations. A public or partner contract published to parties
+outside the repository is itself that evidence for any request it permits, and a
+security exposure is judged by who can reach the entry point, not by whether a
+cooperating caller exists; neither needs observed traffic. A route, deployment,
+flag, or authorization rule that would accept the request does not show that
+anything sends it, and a description of how the code branches does not promise
+support for that branch.
 
 Follow accessible in-scope counterparts. At a caller-owned or unreadable seam,
 record the exact premise and missing path, revision, permission, or check. If that
-premise decides whether an issue exists, keep it in Open questions. A remaining
-premise in a supported finding must qualify its extent rather than substitute for
-proof of the core issue.
+premise decides whether an issue exists, keep it in Open questions; whether
+anything runs the triggering path is such a premise, and a lower severity does not
+settle it. Drop the claim when a complete census finds nothing that runs it. A
+remaining premise in a supported finding must qualify its extent rather than
+substitute for proof of the core issue.
 
 ## Calibrate and challenge findings
 
@@ -211,6 +227,8 @@ None.
 Each finding is self-contained. Put ID, severity, anchor, and title only in its
 heading. Evidence entries use `<role> | path:line | <claim>` with the location
 in backticks; `requirement`, `standard`, `code`, and `probe` are also valid roles.
+A `requirement` cites a request, ticket, or specification. An author's description
+of how the code behaves is a claim: cite the `code` line that establishes it.
 Document an execution's command, input, and result under Checks or in its evidence
 artifact. Use `None.` under Findings when no supported findings remain.
 

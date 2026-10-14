@@ -37,6 +37,20 @@ Matches are case-insensitive exact `owner/repo` values; related repositories get
 separate bindings. A malformed candidate profile is an error even if no match can
 be determined. Do not silently choose a filename or partial organization match.
 
+A profile's Rules name the guides to pass through `--rules` and each file's
+authority; the brief records every passed file's class and the paths it covers:
+
+- **standard**: a repository instruction; a slip is a `standards` finding.
+- **team standard**: a team document the repository does not cite; a finding
+  quotes the rule it breaks.
+- **owner convention**: rules the reviewer who owns the touched paths enforces,
+  shown by how authors resolved that reviewer's comments on those paths. A match
+  at the reviewed revision is an optional finding of the subject's class, unless
+  a standard or a traced consequence makes it required; the convention's recorded
+  exceptions and any reversing repository rule still apply.
+- **team history**: rules mined from review threads; a lead until a standard or a
+  traced consequence backs it.
+
 Read a resolved profile's Halves and Seams while opening boundaries; Checkouts
 when crossing repositories; Blind spots for schemas and generated/vendored files;
 Tracker for ticket identity/access; Operational scope for reachability; Findings

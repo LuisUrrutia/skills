@@ -18,6 +18,11 @@ still owns evidence, severity, Class, Action and report grammar.
   a workaround with a feasible change at that owner, using actual ownership,
   authorization, failure modes and maintenance cost. An alternative alone is
   not a required architecture change.
+- For an event, webhook, notification or other side effect that a change emits
+  for a domain change, establish from its contract, consumers or ticket which
+  entry points must emit it, including other services and a system of record's
+  own public API that make the same change. Report a required entry point that
+  skips it or one that duplicates it.
 - Trace suggested remedies with the same care as diagnoses. Census all members
   when a change applies a rule to a family of fields, handlers or call sites;
   preserve the affected members and distinct consequences through synthesis.
