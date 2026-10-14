@@ -46,6 +46,10 @@ The full vocabulary is:
   Trigger on paths; the sweep decides whether a contract actually changed.
 - **Blind spots**: unreadable/generated sources, authoritative proxies and the
   evidence behind calibration claims. They guide tracing, not blanket dismissal.
+- **Rules**: domain guides the parent passes through `--rules`, chosen by changed
+  path, with each file's authority class from [profiles.md](profiles.md) and the
+  evidence for an owner convention. Keep this section with the parent; the brief
+  carries each passed file's class and scope to the engines.
 - **Tracker**: valid project prefixes, retrieval method and where decisions live.
   Keep access details with the parent; sanitize retrieved requirements for workers.
 - **Operational scope**: evidenced populations and workflows. Personal tolerance
