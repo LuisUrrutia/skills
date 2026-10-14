@@ -175,7 +175,12 @@ missing information would materially change the review.
 Name the affected stack and each opened seam. Generated or vendored contracts are
 review evidence whose provenance can itself be the issue. Identify which user,
 row population, environment or workflow a claim reaches. Derive that scope from
-code and accessible contracts when no profile exists. Do not invent populations,
-waive requirements based on personal preference, or dismiss evidenced growth cost
-merely because today's table is small. A decisive missing premise belongs in Open
-questions; structure and requirements findings do not need an invented runtime bug.
+code and accessible contracts when no profile exists. For each population or
+workflow named as reachable, record its triggering request or execution, its
+host, environment and mode, and the evidence the auditor's tracing rule accepts.
+Name one that is only admitted, such as an internal host granted every
+permission with no evidenced caller, separately with the evidence it lacks. Do
+not invent populations, waive requirements based on personal preference, or
+dismiss evidenced growth cost merely because today's table is small. A decisive
+missing premise belongs in Open questions; structure and requirements findings do
+not need an invented runtime bug.
