@@ -166,9 +166,12 @@ Include the PR body verbatim as the author's scope claims, alongside requirement
 and standards with their actual authority. For a subject ticket, examine branch
 name, title and then body in that order. Validate a candidate prefix against the
 profile's live project keys: strings such as `UTF-8` are not automatically tickets.
-Later keys are related context, not additional acceptance criteria for this PR.
-Read the subject's description, acceptance criteria, parent context and comments
-through the authorized tracker. Record unavailable content rather than inferring it.
+Later keys are related context and do not by themselves add acceptance criteria.
+Read the subject's description, acceptance criteria, comments and linked designs,
+and its parent's description, acceptance criteria and comments, through the
+authorized tracker. A parent requirement for the behavior this PR implements, such
+as whether a delete is soft or hard, applies to this PR unless the subject or a
+recorded decision supersedes it. Record unavailable content rather than inferring it.
 With no identifiable ticket, continue from accessible intent; ask only when the
 missing information would materially change the review.
 

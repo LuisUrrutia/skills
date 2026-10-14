@@ -19,7 +19,9 @@ recorded SHA. A 404 can mean access failure, a wrong revision or a missing path;
 it does not by itself identify which. Preserve authentication and distinguish
 unknown from absent.
 
-For each opened row, record:
+For an operation both sides perform, such as a delete or a status change, compare
+its semantics as well as its shapes: soft or hard, reversible or not, and what
+each side keeps. For each opened row, record:
 
 - `matches`: the contract, revisions and evidence on both sides; a path-triggered
   change with no contract effect can explain that finding here.
