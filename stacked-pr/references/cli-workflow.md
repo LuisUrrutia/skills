@@ -28,9 +28,11 @@ availability, and non-interactive form of every planned command are recorded.
 
 ## Inspect
 
-Use the current JSON view command from live help. For a remote stack without local tracking, inspect
-it by PR or stack identifier through the supported read-only command or the API route. Treat a
-missing local stack as observed state, then check remote state when the request requires it.
+Use the current JSON view command from live help. It takes no target and reads only the current
+local stack, and checkout writes local tracking, so inspect a remote stack without local tracking
+through the API route's read endpoints. `gh pr view` reports each PR's head, base, and state, but
+not stack membership. Treat a missing local stack as observed state, then check remote state when
+the request requires it.
 
 Inspection is complete when the report identifies:
 

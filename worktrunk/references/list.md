@@ -13,7 +13,7 @@ wt list --full
 
 - `--branches` includes local branches without worktrees.
 - `--remotes` includes remote-only branches.
-- `--full` includes additional forge and branch status. It may require network access and authentication.
+- `--full` adds CI status and configured LLM branch summaries. It may require network access and authentication.
 
 Use the default local view for routine navigation. Add wider or remote data only when the task needs it.
 
@@ -35,7 +35,7 @@ When scripting, select entries by explicit branch or path fields and handle abse
 
 ## Safety checks
 
-Before removal or cleanup, inspect the target row's branch, path, working-tree status, and integration state. A dimmed or integrated row can still contain uncommitted files; `wt remove` performs its own final safety checks.
+Before removal or cleanup, inspect the target row's branch, path, working-tree status, and integration state. A dimmed row was integrated with a clean working tree when the list was collected, and that state can change before removal; `wt remove` performs its own final safety checks.
 
 If collection hangs or times out, identify the named worktree and run `git status --porcelain` inside it. Continue with [troubleshooting.md](troubleshooting.md) if that command also hangs.
 

@@ -31,8 +31,12 @@ show the differences and obtain the user's choice of source before mutation.
 
 - To keep GitHub's chain, remove only stale local tracking and reacquire the remote stack through the
   current supported checkout operation.
-- To keep the verified local chain, remove the conflicting grouping through the current supported
-  operation, then resubmit the local order.
+- To keep the verified local chain, dissolve the conflicting GitHub grouping, then resubmit the
+  local order. No non-interactive CLI command removes only that grouping: `gh stack unstack` also
+  removes the local tracking of a stack it tracks. Once the stack view no longer reports the chain,
+  re-adopt the recorded bottom-to-top branches through the current init operation before
+  submitting. If GitHub keeps some PRs stacked, follow the decision step in
+  [Move a tracked chain to manual](#move-a-tracked-chain-to-manual).
 
 Divergence is resolved when local and GitHub order, heads, bases, and trunk agree and every original
 commit remains reachable in the chosen chain or a preserved ref.
@@ -48,7 +52,12 @@ Choose ownership first:
 - Existing stack extension: append only above the verified current top.
 
 Read live help before writing metadata. Linking is additive unless current documentation proves
-otherwise; verify every PR base and resulting position after the operation.
+otherwise; verify every PR base and resulting position after the operation. On the link path,
+publish missing PRs with the `pr` skill first, pushing through the branch owner where it owns remote
+publication; then pass existing PRs to `gh stack link` by URL to keep it membership-only: it pushes
+a branch-name argument and creates a PR when none exists, treats a numeric first argument as a stack
+number when one matches, and treats any other number that matches no PR as a branch name. Its
+`--open` flag also marks existing PRs ready for review.
 
 Adoption is complete when the chosen owner is unambiguous, ancestry and PR bases form the intended
 chain, local metadata exists only where requested, and no PR was duplicated.
@@ -99,9 +108,11 @@ verification finishes.
 ## Worktrees and other branch managers
 
 When worktrees, Jujutsu, Sapling, git-town, or another tool owns branches, keep navigation and
-rebasing in that owner. Use the CLI link operation or API route only to publish remote stack
-membership. Branches checked out in another worktree require explicit replay because Git cannot
-silently move those refs.
+rebasing in that owner. Use the membership-only link form from the adoption section or the API route
+only to publish remote stack membership. On the manual and API routes, branches checked out in
+another worktree require explicit replay there because Git cannot silently move those refs. On the
+CLI route, `gh stack modify` applies changes in each branch's clean owning worktree; confirm in live
+help before relying on another command to do the same.
 
 Interoperability is complete when exactly one tool owns local ancestry, GitHub membership matches
 that ancestry, every worktree points at its intended layer, and the operating procedure names the
