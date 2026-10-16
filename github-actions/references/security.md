@@ -33,7 +33,7 @@ jobs:
       id-token: write
 ```
 
-Specifying one permission sets every unspecified permission to `none`. Map current permission keys from the APIs and actions in use; examples include `contents`, `pull-requests`, `packages`, `actions`, `attestations`, and `artifact-metadata`. Scope `id-token: write` to the job that exchanges the OIDC token; it does not grant repository write access by itself.
+Specifying one permission sets every unspecified permission to `none`. Map current permission keys from the APIs and actions in use; examples include `contents`, `pull-requests`, `packages`, `actions`, `attestations`, `artifact-metadata`, and `vulnerability-alerts` for reading Dependabot alerts. Scope `id-token: write` to the job that exchanges the OIDC token; it does not grant repository write access by itself.
 
 Every action in a job can access `github.token`; inspect action behavior before placing it in a job with authority.
 
@@ -64,6 +64,8 @@ Trace every interpolation from its source to the generated program and resulting
 
 `pull_request_target`, `workflow_run`, `issue_comment`, and other default-branch workflows can combine untrusted influence with base-repository authority. Keep privileged jobs metadata-only, or split untrusted build and test work into an unprivileged `pull_request` workflow and a narrowly privileged follow-up.
 
+In a public repository with no applicable Actions event policy, GitHub's default policy blocks `pull_request_target`. For a repository that used the default before general availability (2026-09-17), it runs in evaluate mode until enforcement on 2026-11-02; verify the current enforcement state for any other repository. Prefer `pull_request` where it supplies the required context. A workflow that must keep `pull_request_target` needs an event policy that explicitly allows the trigger, preferably scoped to that workflow file; check policy insights for runs the default would block.
+
 For a privileged follow-up:
 
 - verify the originating repository, workflow, event, conclusion, expected branch, and commit
@@ -75,7 +77,7 @@ A direct path from contributor-controlled code or generated source to a write to
 
 Current `actions/checkout` releases include guardrails against common fork pull-request checkouts in privileged events. Full-SHA, minor, and patch pins do not receive backports automatically. For every affected checkout, verify the selected commit contains the current guard, satisfies the runner floor, and has no unsafe opt-out. Treat the guard as defense in depth: it does not cover manual `git` or `gh` fetches, every trigger, unrelated repositories, or execution of untrusted artifacts.
 
-Sources: [secure use of `pull_request_target`](https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target) and the [safer checkout defaults release note](https://github.blog/changelog/2026-06-18-safer-pull_request_target-defaults-for-github-actions-checkout/).
+Sources: [secure use of `pull_request_target`](https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target), its [default policy](https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target#default-policy-for-pull_request_target), and the [safer checkout defaults release note](https://github.blog/changelog/2026-06-18-safer-pull_request_target-defaults-for-github-actions-checkout/).
 
 ## Dependencies and workflow governance
 
@@ -84,7 +86,10 @@ Sources: [secure use of `pull_request_target`](https://docs.github.com/en/action
 - On GitHub.com, `$/path` resolves a local action from the repository of the running workflow or action at its running commit and needs no checkout. A `./path` reference instead executes files from the checked-out job workspace and inherits that checkout's repository and ref. `$/` is unavailable on GHES. Map the exact source before invoking local code from a privileged job. For same-repository reusable workflows, apply the [reusable-workflow contract](reliability.md#reusable-workflows). See [local-action reference semantics](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#jobsjob_idstepsuses).
 - Set `persist-credentials: false` on checkout by default; enable persisted credentials only for authenticated Git operations later in the job.
 - Pin container images by digest when they execute in a privileged or reproducible path.
-- Account for allowed-actions policies, required full-SHA policies, dependency updates, dependency review, and ownership of workflow files. Report missing governance separately unless changing it is in scope.
+- A workflow lockfile (`.github/workflows/actions.lock`, public preview) records the commit and source-repository identity of every action, including transitive actions, for each workflow listed in its `workflows` section. Onboarding is per workflow, singly or all at once, and the lockfile supersedes SHA pinning only for listed workflows. A fix run without `--no-migrate-local-actions` rewrites a `./` action reference that resolves to an in-repo action file to `$/`, in workflows and in-repo `action.yml` files. The documentation says a workflow not yet onboarded that keeps a `./` action reference is skipped; in an onboarded workflow it is a blocking error and the run writes nothing. A called reusable workflow's dependencies follow the lockfile of the repository that defines it. After onboarding, allowed-actions and full-SHA policies evaluate locked SHAs, so tag-based allowlist entries stop matching.
+- Account for allowed-actions policies, required full-SHA policies, workflow lockfiles and the Require lockfile policy, dependency updates, dependency review, and ownership of workflow files. Report missing governance separately unless changing it is in scope.
+
+Sources: [workflow dependency lockfiles](https://docs.github.com/en/actions/concepts/security/workflow-dependency-lockfiles), [locking workflow dependencies](https://docs.github.com/en/actions/how-tos/secure-your-work/lock-workflow-dependencies), and [enforcing lockfiles](https://docs.github.com/en/actions/how-tos/administer/enforce-workflow-lockfiles).
 
 ## Secrets, OIDC, and environments
 
@@ -108,9 +113,9 @@ An artifact is a data channel. Establish trust from its producer, source run, co
 - At a privilege boundary, verify the digest and an attestation or signature whose authority is unavailable to the producing low-trust job.
 - Scope attestation generation to release software users will verify. Provenance becomes a control when the consumer verifies it against an explicit repository, workflow, ref or environment, and signer policy.
 - Keep release and deployment authority out of the untrusted build job.
-- Set the shortest retention that satisfies debugging, audit, and promotion.
+- Set the shortest retention that satisfies debugging, audit, and promotion. Use an artifact's `retention-days` to shorten one artifact; the repository, organization, or enterprise retention setting also deletes checks, workflow runs, and statuses, including third-party ones.
 
-Source: [artifact attestations](https://docs.github.com/en/actions/concepts/security/artifact-attestations).
+Sources: [artifact attestations](https://docs.github.com/en/actions/concepts/security/artifact-attestations) and the [expanded retention release note](https://github.blog/changelog/2026-10-01-actions-retention-now-covers-checks-runs-and-statuses).
 
 ## Cache-poisoning chain
 
@@ -120,13 +125,13 @@ Break both ends of the chain:
 
 - Run contributor-controlled code in isolated pull-request scope; keep shared default-branch caches writable only by trusted workflows.
 - Let only trusted code write shared caches; save only rebuildable, non-sensitive paths.
-- Keep release and deployment workflows cache-free. When a privileged workflow must restore executable content, verify independent provenance or rebuild it before execution.
+- Keep release and deployment workflows cache-free with `cache-mode: none`. When a privileged workflow must restore executable content, verify independent provenance or rebuild it before execution.
 - After breaking a writer edge, delete affected entries or rotate keys before a privileged consumer restores them.
 - A cache key supplies namespace; independent verification supplies provenance.
 
-GitHub's low-trust cache write restrictions close some producer edges. Verify the current event allowlist and repository or enterprise cache policy. Use restore-only operations where the service grants read-only access, and treat every restored entry as untrusted rebuildable state.
+GitHub's low-trust cache write restrictions close some producer edges. Verify the current event allowlist and repository or enterprise cache policy. Set `cache-mode` (`read`, `write`, `write-only`, or `none`) at workflow or job level to the least access each job needs; the cache service enforces it. An explicit `write` or `write-only` overrides the read-only default for low-trust triggers. A called reusable workflow can request `write` unless its calling job sets or inherits an explicit `cache-mode`, so cap a low-trust caller with `cache-mode: read`. A called workflow that requests more than the caller's explicit mode, including `write-only` under a `read` caller, fails validation and the run does not start. Treat every restored entry as untrusted rebuildable state.
 
-Sources: [dependency caching security](https://docs.github.com/en/actions/concepts/workflows-and-actions/dependency-caching) and the [read-only cache release note](https://github.blog/changelog/2026-06-26-read-only-actions-cache-for-untrusted-triggers/).
+Sources: [dependency caching security](https://docs.github.com/en/actions/concepts/workflows-and-actions/dependency-caching), [`cache-mode` access control](https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching#controlling-cache-access-with-cache-mode), and the [read-only cache release note](https://github.blog/changelog/2026-06-26-read-only-actions-cache-for-untrusted-triggers/).
 
 ## Runners and network reach
 
@@ -138,18 +143,19 @@ For every self-hosted label:
 
 - identify which repositories can target the runner group and which actors can trigger those workflows
 - inventory host secrets, network routes, metadata services, shared volumes, and sibling workloads
-- verify the live runner version and update policy against current GitHub.com or GHES requirements
+- verify the live runner version and update policy against current GitHub.com or GHES requirements; the runner `deprecations/{version}` REST endpoint returns a version's registration and runtime deprecation dates
+- on GitHub.com, a runner below 2.329.0 cannot register, and a runner that misses any runner release for more than 30 days after its publication stops receiving jobs
 - rebuild stale images and templates; auto-update is effective only when runners can reach the update service
 
-Sources: [self-hosted runner REST API](https://docs.github.com/en/rest/actions/self-hosted-runners) and the [minimum runner version timeline](https://github.blog/changelog/2026-06-12-github-actions-minimum-version-enforcement-timeline-for-self-hosted-runners/).
+Sources: [self-hosted runner REST API](https://docs.github.com/en/rest/actions/self-hosted-runners), the [minimum runner version requirements](https://github.blog/changelog/2026-06-12-github-actions-minimum-version-enforcement-timeline-for-self-hosted-runners/), and the [enforcement date change](https://github.blog/changelog/2026-09-28-self-hosted-runner-version-enforcement-date-has-moved).
 
 ## Platform execution protections
 
-Inspect repository, organization, and enterprise settings that govern workflow execution: trigger and actor rules, fork approval, default token permissions, allowed actions, SHA-pinning policy, environment protection, and runner-group access. Where workflow-execution rulesets are available, evaluate them before enforcement and scope centralized rules with repository properties.
+Inspect repository, organization, and enterprise settings that govern workflow execution: trigger and actor rules, fork approval, default token permissions, allowed actions, SHA-pinning policy, environment protection, and runner-group access. Where evaluate mode is available, evaluate workflow execution protections before enforcement. Scope centralized rules with repository properties or individual workflow files, and use the Actions policies REST API when policy is managed as code.
 
 Platform policy forms an outer trust boundary. Pair it with least privilege and safe data handling inside every allowed workflow, and verify its enforcement state against the repository's GitHub.com plan or GHES version.
 
-Source: [workflow execution protections](https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/actions-policies/workflow-execution-protections).
+Sources: [workflow execution protections](https://docs.github.com/en/actions/how-tos/administer/control-workflow-execution) and the [general availability release note](https://github.blog/changelog/2026-09-17-workflow-execution-protections-in-github-actions-generally-available).
 
 ## Finding calibration
 

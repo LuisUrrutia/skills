@@ -12,12 +12,12 @@ Every interface still needs explicit `GITHUB_TOKEN` permissions in the job.
 
 ## Structured API access with `github-script`
 
-Pin the action to a verified commit SHA. Retries fit reads and idempotent operations; reconcile non-idempotent writes before retrying them.
+Pin the action to a verified commit SHA or workflow-lockfile entry. Retries fit reads and idempotent operations; reconcile non-idempotent writes before retrying them.
 
 ```yaml
 - name: Count open pull requests
   id: pulls
-  uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
+  uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
   with:
     retries: 3
     script: |
@@ -32,11 +32,11 @@ Pin the action to a verified commit SHA. Retries fit reads and idempotent operat
 
 The action's default terminal status codes are `400,401,403,404,422`. Handle a rate-limit `403` with response-aware delay rather than making every authorization failure retryable.
 
-Version 8 runs on Node 24 and requires Actions Runner `v2.327.1` or newer. Verify that floor before using this example on self-hosted runners.
+Like version 8, version 9 runs on Node 24, which requires Actions Runner `v2.327.1` or newer. Verify that floor before using this example on self-hosted runners. Version 9 injects `getOctokit` into the script context: `require('@actions/github')` fails, and a script that declares `const getOctokit` or `let getOctokit` throws a `SyntaxError`. When upgrading, replace those patterns with the injected `getOctokit`.
 
 Pass dynamic expressions through step-level `env` and read them from `process.env`; direct `${{ ... }}` inside `script:` is evaluated as JavaScript source before execution.
 
-Source: [actions/github-script documentation](https://github.com/actions/github-script).
+Sources: [actions/github-script documentation](https://github.com/actions/github-script) and the [v9.0.0 release notes](https://github.com/actions/github-script/releases/tag/v9.0.0).
 
 ## Shell API access with `gh`
 

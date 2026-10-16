@@ -41,7 +41,7 @@ Load the anchored reference as soon as its observed context matches:
 | A privileged or default-branch event handles contributor influence | [Privileged events](references/security.md#privileged-events) |
 | An external dependency, checkout, local `./` or `$/` action, or workflow policy matters | [Dependencies and workflow governance](references/security.md#dependencies-and-workflow-governance) |
 | Secrets, OIDC, environments, or cloud credentials matter | [Secrets, OIDC, and environments](references/security.md#secrets-oidc-and-environments) |
-| Artifacts or caches cross jobs, workflows, refs, or trust levels | [Artifact promotion](references/security.md#artifact-promotion) or [cache-poisoning chain](references/security.md#cache-poisoning-chain) |
+| Artifacts or caches cross jobs, workflows, refs, or trust levels, or Actions retention settings change | [Artifact promotion](references/security.md#artifact-promotion) or [cache-poisoning chain](references/security.md#cache-poisoning-chain) |
 | A self-hosted runner or Actions policy matters | [Runners and network reach](references/security.md#runners-and-network-reach) or [platform execution protections](references/security.md#platform-execution-protections) |
 | A run is held, awaits approval, or is blocked before a job starts | [Approval gates and held runs](references/reliability.md#approval-gates-and-held-runs) and, for policy denials, [platform execution protections](references/security.md#platform-execution-protections) |
 | A `run:` block is created, changed, or reviewed | [Shell semantics](references/shell.md#select-shell-semantics-explicitly), [expression boundary](references/shell.md#cross-the-expression-boundary-through-env), [failure handling](references/shell.md#handle-failure-as-data-only-when-expected), and [workflow data](references/shell.md#write-workflow-data-safely) |
@@ -110,8 +110,9 @@ Treat a new action, reusable workflow, container image, or explicit upgrade as a
    gh api "repos/$repo/releases/tags/$tag" --jq '{tag_name,html_url,body}'
    ```
 
-3. Verify the SHA belongs to that repository; inspect source behavior, action metadata, runtime and runner floors, permissions, and input handling relevant to this workflow.
-4. Update the immutable reference and human-readable release comment together. Pin container images by digest.
+3. Verify the SHA belongs to that repository; inspect source behavior, action metadata, runtime and runner floors, permissions, and input handling relevant to this workflow. On GitHub.com, JavaScript actions run only on Node 24 and the Node 20 opt-out is gone: replace a release that still declares `runs.using: node20` with a Node 24-compatible one, and treat self-hosted runners on macOS 13.4 or earlier or on ARM32 as unsupported.
+4. Pin container images by digest. Outside a workflow onboarded to a lockfile, set `uses:` to the reviewed SHA; wherever `uses:` holds a SHA, update it and its human-readable release comment together.
+5. When the repository tracks `.github/workflows/actions.lock`, check whether the affected workflow appears in its `workflows` section. For an onboarded workflow, change `uses:` in the repository's existing form and regenerate its entries with `gh actions-lock <workflow-path>` instead of editing the lockfile; a run without paths also prunes entries and rewrites every workflow it scans. Onboard a new workflow the same way. A normal run keeps existing entries, so a branch or partial-version pin such as `@main` or `@v4` advances only with `--relock`. If a locked commit is no longer reachable upstream, `--relock` reports an error and writes nothing; verify the upstream history before adding `--accept-moved`. Keep the tool's `uses:` rewrites: it can replace a floating tag with the exact release it locked and convert a resolvable `./` action to `$/`, which changes the code's source (see [local action references](references/security.md#dependencies-and-workflow-governance)). Before onboarding, fix any `./` action reference the run would keep (migrate it to `$/`, correct its path, or remove the step), or pass only the other workflow paths. The documentation says such a workflow is skipped, but check the `workflows` section afterwards: an empty entry onboards a workflow with no dependencies, and GitHub then rejects its remote actions. Until a workflow is onboarded with its entries, step 4 applies to it. In an onboarded workflow a remaining `./` action reference is a blocking error: the run writes nothing, so migrate it to `$/`, fix its path, or remove the step before regenerating. Review the full diff, confirm each changed `commit` is the reviewed SHA, investigate a changed `owner_id` or `repo_id` as a possible transfer or substitution before accepting it, then run `gh actions-lock --verify`.
 
 An explicit upgrade authorizes the compatible upgrades it names. During unrelated work, preserve existing versions unless one blocks the requested behavior or has a relevant security defect.
 
@@ -120,13 +121,13 @@ An explicit upgrade authorizes the compatible upgrades it names. During unrelate
 - **Audit:** every mapped edge and loaded rule is assessed, producing evidence-backed findings or an explicit no-findings result.
 - **Modify:** every requested behavior is corrected at its source, affected callers are updated, and the resulting graph is remapped.
 - **Create:** every requested behavior is present in the smallest conforming graph, and the generated graph is remapped.
-- **Dependency change:** every changed reference resolves to the reviewed immutable object and its runtime contract remains compatible.
+- **Dependency change:** every changed reference and lockfile entry resolves to the reviewed immutable object, and its runtime contract remains compatible.
 - **Dependabot:** every affected dependency surface and automation plane satisfies the [Dependabot criterion](references/dependabot.md#dependabot-criterion).
 
 ### 4. Prove the workflow
 
-1. Run the repository's configured workflow lint command; otherwise run `actionlint` against every affected workflow.
-2. For a modified local action, validate its metadata with the configured schema tool and exercise its declared inputs, outputs, entrypoint, post behavior, and representative caller.
+1. Run the repository's configured workflow lint command; otherwise run `actionlint` against every affected workflow. A linter can lag current syntax: actionlint 1.7.12 rejects valid `$/` references, `parallel`, `background`, `wait`, `wait-all`, `cancel`, `queue: max`, `cache-mode`, the `vulnerability-alerts` permission, `job.workflow_*` contexts, and new runner labels such as `ubuntu-26.04`. Confirm each such error against current GitHub Docs, keep the valid syntax, and report the linter version and gap; fix every other finding.
+2. For a modified local action, validate its metadata with the configured schema tool (on GitHub.com, a JavaScript action declares `runs.using: node24`) and exercise its declared inputs, outputs, entrypoint, post behavior, and representative caller.
 3. Run each configured Actions security analyzer and reconcile its output with the trust-boundary map; static analysis supplements path tracing.
 4. Run safe underlying commands from changed `run:` steps with the repository's locked dependency state. Use a documented dry-run for release or deployment commands.
 5. For performance changes, satisfy the [performance criterion](references/performance.md#performance-criterion). Report inaccessible remote execution as the exact measurement gap.
