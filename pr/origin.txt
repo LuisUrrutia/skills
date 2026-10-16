@@ -10,7 +10,7 @@ repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
 baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
-reviewed_through = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+reviewed_through = "49dd158d1076134a641b33efb035946536778336"
 baseline_paths = ["skills/engineering/pr/SKILL.md", "LICENSE"]
 paths = ["skills/engineering/pr/SKILL.md", "LICENSE"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
@@ -18,6 +18,7 @@ borrowed = ["Choose compact structural views, before/after evidence and concrete
 local_choices = ["Repository conventions and actual review need determine the format; no mandatory Summary/Evidence/Merge Danger skeleton or invented baseline."]
 reviews = [
   { from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60", to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+  { from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", to_commit = "49dd158d1076134a641b33efb035946536778336", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 24fe0ef7737e..49dd158d1076 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
 ]
 
 [[sources]]
@@ -27,13 +28,15 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["cursor-team-kit/skills/new-branch-and-pr/SKILL.md", "cursor-team-kit/skills/make-pr-easy-to-review/SKILL.md", "cursor-team-kit/LICENSE"]
 paths = ["cursor-team-kit/skills/new-branch-and-pr/SKILL.md", "cursor-team-kit/skills/make-pr-easy-to-review/SKILL.md", "cursor-team-kit/LICENSE"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Keep a reviewable purpose, useful verification and reviewer entry points; assess history by reader effort."]
 local_choices = ["Reuse checkout ownership and local publication owners. Keep behavior with required tests. No automatic rewrite, origin/main assumption or split by file type.", "Rollout reaches the body only as a gate with its default state or a merge or deploy prerequisite; when to enable a gate and release plans across tickets go to the user, after the user rejected release sequencing in a PR body on 2026-10-08."]
-reviews = []
+reviews = [
+  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 23e4138daa01..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "pstack-decision-evidence"
@@ -42,7 +45,7 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["pstack/skills/show-me-your-work/SKILL.md", "pstack/LICENSE"]
 paths = ["pstack/skills/show-me-your-work/SKILL.md", "pstack/LICENSE"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
@@ -50,6 +53,7 @@ borrowed = ["Retain consequential decisions, reasons, evidence and outcomes for 
 local_choices = ["Use concise local ignored evidence when useful; no mandatory TSV artifact, transcription archive, cross-model audit or extra source-skill invocation."]
 reviews = [
   { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/show-me-your-work/SKILL.md: Commit ce649c0 adds picking each subagent's reasoning level to the cross-model trail review. Donor orchestration excluded by pr/origin.txt:50 (no cross-model audit or extra source-skill invocation)."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
 ]
 
 [[sources]]
@@ -59,13 +63,15 @@ repository = "https://github.com/EveryInc/compound-engineering-plugin"
 remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
 ref = "refs/heads/main"
 baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
-reviewed_through = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
 baseline_paths = ["skills/ce-commit-push-pr/SKILL.md", "skills/ce-commit-push-pr/references/pr-description-writing.md", "skills/ce-commit-push-pr/references/compose.md", "skills/ce-commit-push-pr/references/apply-and-handoff.md", "LICENSE"]
 paths = ["skills/ce-commit-push-pr/SKILL.md", "skills/ce-commit-push-pr/references/pr-description-writing.md", "skills/ce-commit-push-pr/references/compose.md", "skills/ce-commit-push-pr/references/apply-and-handoff.md", "LICENSE"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Explain the outcome from the whole change, treat lookup failures as unknown, and verify exact existing PR identity before creating."]
 local_choices = ["Separate commit, publication and follow-up owners; existing authorization avoids repeated approval. PR creation continues into event-driven pr-followup Drive under the user's 2026-10-05 policy. No branded footer, teaching archive or mandatory new branch.", "No program-altitude lead-out: the body names another ticket only as a merge or deploy prerequisite, and sibling or follow-up scope goes to the user, after the user rejected sibling-ticket scope in a PR body on 2026-10-08."]
-reviews = []
+reviews = [
+  { from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb", to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 9af474a70e7f..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "mblode-pr"
@@ -74,13 +80,15 @@ repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
 baseline_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
-reviewed_through = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
 baseline_paths = ["skills/pr-creator/SKILL.md", "skills/pr-creator/references/pr-polish.md", "LICENSE.md"]
 paths = ["skills/pr-creator/SKILL.md", "skills/pr-creator/references/pr-polish.md", "LICENSE.md"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Keep current PR copy coherent, retain verified issue coverage, and avoid duplicate creation or unsupported history claims."]
 local_choices = ["Keep local draft preference and useful validation evidence. Do not impose a one-paragraph body, automatic history polish, fixed line quotas or commit-triggered PR creation."]
-reviews = []
+reviews = [
+  { from_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = [], skipped = ["skills/pr-creator/SKILL.md: New UI change section on attaching visuals covers --attach ordering, read-back, partial-failure retry, user-attachments URLs, video rendering, gh 2.99.0 or newer, no ghs_ tokens, push access and no GHES. Already covered by pr/references/attachments.md:11-17, :56-61, :63-67, :72-83 and :92-95, and optional visuals are weaker than the local capture rule at pr/SKILL.md:128-132.", "skills/pr-creator/SKILL.md: The description drops its commit triggers. Matches the local choice of no commit-triggered PR creation (pr/origin.txt:82).", "skills/pr-creator/SKILL.md: The heredoc gotcha is reworded and restated gotchas and tables are cut. Wording only; local bodies go through --body-file (pr/references/publication.md:55)."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 51e9ae4fd21f..872bc83bdb6d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "humanlayer-visual-pr"
@@ -89,13 +97,15 @@ repository = "https://github.com/humanlayer/skills"
 remote = "git@github.com:humanlayer/skills.git"
 ref = "refs/heads/main"
 baseline_commit = "ca7c8088db69e315a8b2deea43820270457f8f3c"
-reviewed_through = "ca7c8088db69e315a8b2deea43820270457f8f3c"
+reviewed_through = "653b6411c1f70c275a18e37673b042ff99f67ceb"
 baseline_paths = ["plugins/visual-pr/skills/visual-pr/SKILL.md", "plugins/visual-pr/skills/visual-pr/references/pr_description_template.md", "plugins/visual-pr/skills/visual-pr/references/show-me.md", "plugins/visual-pr/skills/visual-pr/references/describe_pr_final_answer.md", "LICENSE"]
 paths = ["plugins/visual-pr/skills/visual-pr/SKILL.md", "plugins/visual-pr/skills/visual-pr/references/pr_description_template.md", "plugins/visual-pr/skills/visual-pr/references/show-me.md", "plugins/visual-pr/skills/visual-pr/references/describe_pr_final_answer.md", "LICENSE"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Use focused flow, call, dependency or before/after views to make the change understandable."]
 local_choices = ["Use the repository template and smallest useful view, not the donor fixed template, full file inventory or automatic artifact commits. Screenshots must be observed and accessible."]
-reviews = []
+reviews = [
+  { from_commit = "ca7c8088db69e315a8b2deea43820270457f8f3c", to_commit = "653b6411c1f70c275a18e37673b042ff99f67ceb", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames ca7c8088db69..653b6411c1f7 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "github-cli-attachments"
@@ -104,13 +114,15 @@ repository = "https://github.com/cli/cli"
 remote = "git@github.com:cli/cli.git"
 ref = "refs/heads/trunk"
 baseline_commit = "6fc1c29d5477bfe71da7af290eb481c0df7811f1"
-reviewed_through = "6fc1c29d5477bfe71da7af290eb481c0df7811f1"
+reviewed_through = "59e9f78eacdf2554f8534d166808c3e9b8c7ebcb"
 baseline_paths = ["skills/gh/SKILL.md", "internal/attachments/attach.go", "internal/attachments/attach_test.go", "pkg/cmd/pr/create/create.go", "pkg/cmd/pr/edit/edit.go", "LICENSE"]
 paths = ["skills/gh/SKILL.md", "internal/attachments/attach.go", "internal/attachments/attach_test.go", "pkg/cmd/pr/create/create.go", "pkg/cmd/pr/edit/edit.go", "LICENSE"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Use supported gh --attach operations to upload files and rewrite matching local Markdown references.", "Check installed command capabilities, exact target, structured state and partial-write outcomes."]
 local_choices = ["Keep capture provenance, current-head claims, repository templates and existing publication authorization with pr.", "Prefer direct PR-body attachments; preserve successful remote URLs, retry missing files only and verify rendering.", "No new gh skill dependency, skill installation, release publishing, automatic tool upgrades or alternate worktree lifecycle owner."]
-reviews = []
+reviews = [
+  { from_commit = "6fc1c29d5477bfe71da7af290eb481c0df7811f1", to_commit = "59e9f78eacdf2554f8534d166808c3e9b8c7ebcb", incorporated = [], skipped = ["skills/gh/SKILL.md: Documents that gh pr view and gh issue view reject --comments together with --json, so comments come through the json comments field. The pr skill never combines them, and pr-followup/references/feedback.md:6 mentions gh pr view --comments only as an incomplete inbox, so nothing breaks."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 6fc1c29d5477..59e9f78eacdf and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[local_snapshots]]
 id = "pr-SKILL.md"

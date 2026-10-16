@@ -23,13 +23,15 @@ repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
 baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
-reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
 baseline_paths = ["skills/ghostwriter/SKILL.md", "skills/ghostwriter/references/surfaces.md", "skills/ghostwriter/references/strategy.md", "skills/ghostwriter/references/tells.md", "LICENSE.md"]
 paths = ["skills/ghostwriter/SKILL.md", "skills/ghostwriter/references/surfaces.md", "skills/ghostwriter/references/strategy.md", "skills/ghostwriter/references/tells.md", "LICENSE.md"]
 borrowed = ["Return finished text without editing commentary; adapt the message to its conversation and recipient.", "Shorten without dropping distinct facts, uncertainty, necessary grammar or the user's voice."]
 local_choices = ["No persistent voice profiles, sample requests, automatic preference storage, private brief ritual, or broad long-form writing ownership.", "Do not import hypothetical deadlines, approval by silence, blanket emotional-message exclusions, or automatic multi-message bursts."]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt."
-reviews = []
+reviews = [
+  { from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "superpowers-review-reception"
@@ -38,13 +40,15 @@ repository = "https://github.com/obra/superpowers"
 remote = "git@github.com:obra/superpowers.git"
 ref = "refs/heads/main"
 baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
-reviewed_through = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+reviewed_through = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
 baseline_paths = ["skills/receiving-code-review/SKILL.md", "LICENSE"]
 paths = ["skills/receiving-code-review/SKILL.md", "LICENSE"]
 borrowed = ["Answer review feedback with a supported change, answer or reason for disagreement instead of performative agreement.", "Correct an earlier mistaken response briefly and keep an inline reply in its existing thread."]
 local_choices = ["No new implementation authority, source-based trust hierarchy, blanket ban on intentional gratitude, or stop-all-work rule for one unclear item.", "The caller owns code repair, external posting and thread resolution; this skill supplies wording."]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt."
-reviews = []
+reviews = [
+  { from_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d", to_commit = "bb92a77741419a4ab5f06e711a283343f1ada0c3", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 8ca22dba9a94..bb92a7774141 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[dependencies]]
 kind = "local"

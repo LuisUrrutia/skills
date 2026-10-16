@@ -10,13 +10,15 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
-reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["pstack/skills/technical-writing/SKILL.md", "pstack/skills/teach/SKILL.md", "pstack/skills/unslop/SKILL.md", "pstack/LICENSE"]
 paths = ["pstack/skills/technical-writing/SKILL.md", "pstack/skills/teach/SKILL.md", "pstack/skills/unslop/SKILL.md", "pstack/LICENSE"]
 borrowed = ["Stable terminology, reader prerequisites, conditions before actions and reader-task documentation structure."]
 local_choices = ["Adapt English-specific grammar and punctuation to the target language; no sentence caps, word blacklist or STE compliance claim.", "No mandatory teaching, image generation, or unslop invocation. Existing local prose and investigation owners remain responsible."]
 license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
-reviews = []
+reviews = [
+  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/technical-writing/SKILL.md and pstack/skills/unslop/SKILL.md: Commits 00b14f1 and bc697d0 shorten the wording and drop Must always apply from the unslop description. No new rule, and the description change matches the local choice of no mandatory unslop invocation (write-documentation/origin.txt:17)."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "mblode"
@@ -25,13 +27,15 @@ repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
 baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
-reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
 baseline_paths = ["skills/ghostwriter/SKILL.md", "skills/ghostwriter/references/docs.md", "skills/ghostwriter/references/readme.md", "skills/ghostwriter/references/templates.md", "LICENSE.md"]
 paths = ["skills/ghostwriter/SKILL.md", "skills/ghostwriter/references/docs.md", "skills/ghostwriter/references/readme.md", "skills/ghostwriter/references/templates.md", "LICENSE.md"]
 borrowed = ["Reader-task structure, useful first-use paths, source accuracy, and documentation-specific checks."]
 local_choices = ["Keep existing documentation conventions and mixed pages where useful; no imposed US English, technology stack, directory or mandatory CI.", "Preserve legitimate internal/contributor README audiences. No profile or publishing workflow."]
 license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
-reviews = []
+reviews = [
+  { from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "addy"
@@ -40,13 +44,15 @@ repository = "https://github.com/addyosmani/agent-skills"
 remote = "git@github.com:addyosmani/agent-skills.git"
 ref = "refs/heads/main"
 baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
-reviewed_through = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
 baseline_paths = ["skills/documentation-and-adrs/SKILL.md", "LICENSE"]
 paths = ["skills/documentation-and-adrs/SKILL.md", "LICENSE"]
 borrowed = ["Evidence-backed documentation, project conventions, decision status and preserved historical rationale."]
 local_choices = ["No copied technology-specific examples, mandatory public-API doc coverage or automatic ADR creation."]
 license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
-reviews = []
+reviews = [
+  { from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026", to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d", incorporated = [], skipped = ["skills/documentation-and-adrs/SKILL.md: New Prose Review section asks to protect key details, avoid inventing guarantees, compare with the original and recheck examples. Already covered by communicate-clearly/FIDELITY.md:19-47, communicate-clearly/SKILL.md:31-33 and write-documentation/SKILL.md:9-11, :26-31 and :57-64."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 1401c8b8030e..aeac41d4d005 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "anthropic"
@@ -55,13 +61,15 @@ repository = "https://github.com/anthropics/skills"
 remote = "git@github.com:anthropics/skills.git"
 ref = "refs/heads/main"
 baseline_commit = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
-reviewed_through = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+reviewed_through = "dbd4588f9e1033efb41dad4bef2f7947c8993d44"
 baseline_paths = ["skills/doc-coauthoring/SKILL.md", "README.md"]
 paths = ["skills/doc-coauthoring/SKILL.md", "README.md"]
 borrowed = ["Read a document without author context; use a proportionate independent reader check to expose missing assumptions."]
 local_choices = ["Ideas only, in original local wording. The repository README says many skills use Apache 2.0, but this skill has no license declaration or adjacent license file; do not infer its license from a sibling.", "No mandatory three-stage interview, section approval ritual, nested review panel, or Claude-specific runner."]
 license = "Ideas only, expressed in local wording. No source text copied; no skill-specific license was present at the reviewed path."
-reviews = []
+reviews = [
+  { from_commit = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4", to_commit = "dbd4588f9e1033efb41dad4bef2f7947c8993d44", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 8a1541c4a3ff..dbd4588f9e10 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[reference_documents]]
 id = "iso-plain-language"

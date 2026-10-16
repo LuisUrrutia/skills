@@ -10,13 +10,15 @@ repository = "https://github.com/addyosmani/agent-skills"
 remote = "git@github.com:addyosmani/agent-skills.git"
 ref = "refs/heads/main"
 baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
-reviewed_through = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
 baseline_paths = ["skills/observability-and-instrumentation/SKILL.md", "references/observability-checklist.md", "LICENSE"]
 paths = ["skills/observability-and-instrumentation/SKILL.md", "references/observability-checklist.md", "LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Start from operational questions and match logs, metrics and traces to their purpose.", "Propagate correlation and entry-point identity; keep metric dimensions bounded and inspect actual emitted data.", "Use actionable alerts and verify instrumentation at the destination with controlled failures."]
 local_choices = ["Assess architecture and workflows to prioritize concrete instrumentation additions; no existing incident is required. Incident investigation remains with debug.", "Reuse suitable project tooling; when absent or insufficient, establish the necessary collection and inspection path. No mandatory OpenTelemetry, dashboard, alert or instrumentation of every endpoint.", "Include useful instrumentation in authorized feature work, with unrelated project-wide expansion reported separately. Assessment-only requests remain recommendations.", "Resolve routine setup locally, while material vendor, cost or external-service decisions follow the user's constraints and task authority.", "Preserve useful project severity and threshold conventions, resource alerts with a concrete action, and legitimate aggregate statistics; no fixed quotas or blanket prohibitions.", "Apply privacy to raw errors and all signal sinks, define sampling limits, and distinguish missing data from verified health.", "Use isolated notification sinks unless the active task authorizes real delivery; no automatic deployment, paging or monitoring.", "Keep diagnostic context trustworthy and telemetry overhead or failures from silently changing business behavior."]
-reviews = []
+reviews = [
+  { from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026", to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 1401c8b8030e..aeac41d4d005 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "gsd-observability"

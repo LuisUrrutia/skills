@@ -10,13 +10,15 @@ repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
 baseline_commit = "7a030a8b0dcaa601bb0dda9aaf174affb3d61145"
-reviewed_through = "7a030a8b0dcaa601bb0dda9aaf174affb3d61145"
+reviewed_through = "49dd158d1076134a641b33efb035946536778336"
 baseline_paths = ["skills/engineering/retro/SKILL.md", "LICENSE"]
 paths = ["skills/engineering/retro/SKILL.md", "LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Review a session's primary evidence and prioritize improvements to the agent's working environment.", "Investigate navigation, information access, automated checks, instruction friction and tool economy.", "Inspect existing check wiring before adding a check, and prefer deterministic enforcement for mechanical violations."]
 local_choices = ["Retain normal skill discovery; do not add a mandatory retrospective after every implementation.", "Use a proposal-only default while preserving already-authorized implementation and caller continuation.", "Keep established local writing and verification owners instead of requiring writing-for-agents or a separate reviewer-only standards file.", "Treat categories as conditional prompts; report no finding when evidence does not support a useful change."]
-reviews = []
+reviews = [
+  { from_commit = "7a030a8b0dcaa601bb0dda9aaf174affb3d61145", to_commit = "49dd158d1076134a641b33efb035946536778336", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 7a030a8b0dca..49dd158d1076 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "pstack-correct"
@@ -25,13 +27,15 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "df581122cde17e6e27686b5a448bde23e4ad4318"
-reviewed_through = "df581122cde17e6e27686b5a448bde23e4ad4318"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["pstack/skills/correct/SKILL.md", "pstack/LICENSE"]
 paths = ["pstack/skills/correct/SKILL.md", "pstack/LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Prefer eliminating an invalid path structurally, then use types and executable checks before prose-only enforcement.", "Ground proposed prevention in a real mistake and identify how the check would reject it."]
 local_choices = ["Propose and route changes within the user's scope rather than automatically repairing every class or creating commits during diagnosis.", "No fixed recurrence threshold, universal single implementation policy, mandatory rule table or required exception expiry.", "Preserve legitimate exceptions and inspect actual enforcement coverage; pair a failing example with a valid nearby example through local verification owners."]
-reviews = []
+reviews = [
+  { from_commit = "df581122cde17e6e27686b5a448bde23e4ad4318", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/correct/SKILL.md: The test rule widens to a test that still passes when the behavior breaks or fails when only the internals change. Not applied because retro/SKILL.md:40-41 already covers checks that are unwired, bypassed or broken, and naming internals-coupled tests would push retro toward auditing test quality that implementation owners hold."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff df581122cde1..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "pstack-reflect"
@@ -40,13 +44,15 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "df581122cde17e6e27686b5a448bde23e4ad4318"
-reviewed_through = "df581122cde17e6e27686b5a448bde23e4ad4318"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["pstack/skills/reflect/SKILL.md", "pstack/LICENSE"]
 paths = ["pstack/skills/reflect/SKILL.md", "pstack/LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Keep transcript inspection within the identified work, and disclose a digest's evidence limits.", "Distinguish a missed skill trigger from missing instructions and prefer an existing skill owner."]
 local_choices = ["Read only the entrypoint for these boundary and routing ideas; the multi-reviewer prompt templates are not part of this derivation.", "Use host-provided transcript access and registered local owners rather than Cursor-specific paths, fixed model roles or create-skill.", "Do not file backlog items automatically or add an approval gate to changes already authorized by the active request."]
-reviews = []
+reviews = [
+  { from_commit = "df581122cde17e6e27686b5a448bde23e4ad4318", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/reflect/SKILL.md: Prompt compression and a line to pick each subagent's reasoning level per poteto-mode. Rewording and donor orchestration excluded by retro/origin.txt:48."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff df581122cde1..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[dependencies]]
 kind = "local"

@@ -10,7 +10,7 @@ repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
 baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
-reviewed_through = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+reviewed_through = "49dd158d1076134a641b33efb035946536778336"
 baseline_paths = ["skills/engineering/tdd/SKILL.md", "skills/engineering/tdd/tests.md", "skills/engineering/tdd/mocking.md", "LICENSE"]
 paths = ["skills/engineering/tdd/SKILL.md", "skills/engineering/tdd/tests.md", "skills/engineering/tdd/mocking.md", "LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
@@ -33,6 +33,7 @@ local_choices = [
 ]
 reviews = [
   { from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60", to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+  { from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", to_commit = "49dd158d1076134a641b33efb035946536778336", incorporated = [], skipped = ["skills/engineering/tdd/SKILL.md: Each proposed seam gets a one-line note on what it catches and misses. Upstream attaches it to user confirmation of seams, which the local choice to reuse established boundaries without routine approval excludes (tdd/SKILL.md:20), and tdd/references/test-design.md:8-11 already explains what a narrow test cannot prove."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 24fe0ef7737e..49dd158d1076 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
 ]
 
 [[dependencies]]

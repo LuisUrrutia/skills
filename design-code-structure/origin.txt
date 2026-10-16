@@ -10,7 +10,7 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["pstack/skills/architect/SKILL.md", "pstack/skills/architect/references/runner-prompt.md", "pstack/skills/architect/references/rationale-template.md", "pstack/skills/architect/references/design-red-flags.md", "pstack/skills/principle-exhaust-the-design-space/SKILL.md", "pstack/skills/principle-foundational-thinking/SKILL.md", "pstack/skills/principle-model-the-domain/SKILL.md", "pstack/skills/principle-minimize-reader-load/SKILL.md", "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md", "pstack/skills/principle-boundary-discipline/SKILL.md", "pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-redesign-from-first-principles/SKILL.md", "pstack/skills/principle-subtract-before-you-add/SKILL.md", "pstack/LICENSE"]
 paths = ["pstack/skills/architect/SKILL.md", "pstack/skills/architect/references/runner-prompt.md", "pstack/skills/architect/references/rationale-template.md", "pstack/skills/architect/references/design-red-flags.md", "pstack/skills/principle-exhaust-the-design-space/SKILL.md", "pstack/skills/principle-foundational-thinking/SKILL.md", "pstack/skills/principle-model-the-domain/SKILL.md", "pstack/skills/principle-minimize-reader-load/SKILL.md", "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md", "pstack/skills/principle-boundary-discipline/SKILL.md", "pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-redesign-from-first-principles/SKILL.md", "pstack/skills/principle-subtract-before-you-add/SKILL.md", "pstack/LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
@@ -32,6 +32,7 @@ local_choices = [
 ]
 reviews = [
   { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = ["Adapted the agent-contributor design screen: enforceable boundaries, authoritative registries, maintained routes, and correctness under partial context."], skipped = ["No single-writer mandate, identical-list mandate, delete-in-the-same-change requirement, universal build-must-fail rule, or enforcement implementation during a design-only request. Existing invariant, migration and authority rules remain."], deferred = [], validation = ["Complete changed architect and linked design-context reads; matched design executions preserve registry, import, state, protocol and scope behavior.", "reports/skill-atlas/design-upstream-adoption-validation.json"] },
+  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/architect/SKILL.md and pstack/skills/architect/references/runner-prompt.md: New runner model slugs and folded Phase A and D wording. Fixed model slugs are excluded by design-code-structure/origin.txt:25, and the rest is token cutting.", "pstack/skills/principle-exhaust-the-design-space/SKILL.md: Commits 00b14f1 and 08bd59b cut it to one dangling sentence. This looks like an upstream editing defect; the local exception for established or forced designs stays at design-code-structure/SKILL.md:104-108.", "pstack/skills/principle-make-operations-idempotent/SKILL.md: Reworded to read current state and apply only the difference, and to make leftovers recognizable as stale. Reconciliation is covered by design-code-structure/references/state-and-boundaries.md:30-33, and the stale-leftover point is adopted once in error-handling.", "pstack/skills/principle-model-the-domain/SKILL.md, pstack/skills/principle-minimize-reader-load/SKILL.md, pstack/skills/principle-redesign-from-first-principles/SKILL.md and pstack/skills/principle-subtract-before-you-add/SKILL.md: Paragraphs are merged or reworded. Wording only."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
 ]
 
 [[sources]]
@@ -41,7 +42,7 @@ repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
 baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
-reviewed_through = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+reviewed_through = "49dd158d1076134a641b33efb035946536778336"
 baseline_paths = ["skills/engineering/codebase-design/SKILL.md", "skills/engineering/codebase-design/DEEPENING.md", "skills/engineering/codebase-design/DESIGN-IT-TWICE.md", "skills/engineering/domain-modeling/SKILL.md", "skills/engineering/domain-modeling/GLOSSARY-FORMAT.md", "skills/engineering/domain-modeling/ADR-FORMAT.md", "LICENSE"]
 paths = ["skills/engineering/codebase-design/SKILL.md", "skills/engineering/codebase-design/DEEPENING.md", "skills/engineering/codebase-design/DESIGN-IT-TWICE.md", "skills/engineering/domain-modeling/SKILL.md", "skills/engineering/domain-modeling/GLOSSARY-FORMAT.md", "skills/engineering/domain-modeling/ADR-FORMAT.md", "LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
@@ -59,6 +60,7 @@ local_choices = [
 ]
 reviews = [
   { from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60", to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/design-upstream-adoption-validation.json"] },
+  { from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", to_commit = "49dd158d1076134a641b33efb035946536778336", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 24fe0ef7737e..49dd158d1076 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
 ]
 
 [[sources]]
@@ -68,7 +70,7 @@ repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
 baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
-reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
 baseline_paths = ["skills/codebase-architecture/SKILL.md", "skills/codebase-architecture/references/deepening-existing.md", "skills/codebase-architecture/references/enforcement-ladder.md", "skills/codebase-architecture/references/guardrail-tooling.md", "skills/codebase-architecture/references/verification-tiers.md", "skills/codebase-architecture/references/vocabulary.md", "LICENSE.md"]
 paths = ["skills/codebase-architecture/SKILL.md", "skills/codebase-architecture/references/deepening-existing.md", "skills/codebase-architecture/references/enforcement-ladder.md", "skills/codebase-architecture/references/guardrail-tooling.md", "skills/codebase-architecture/references/verification-tiers.md", "skills/codebase-architecture/references/vocabulary.md", "LICENSE.md"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
@@ -87,7 +89,9 @@ local_choices = [
   "Do not adopt fixed TypeScript layers, AsyncLocalStorage, framework choices, vocabulary, adapter or consumer quotas, mandatory glossary or universal design-to-implementation transitions.",
   "Route workflow, project-instruction and application verification work to their existing skills when needed; a local check does not establish unexecuted remote enforcement."
 ]
-reviews = []
+reviews = [
+  { from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = [], skipped = ["skills/codebase-architecture/SKILL.md and skills/codebase-architecture/references/enforcement-ladder.md: Every incident or repeated mistake becomes a missing check. The local skill is bounded to one design decision (design-code-structure/SKILL.md:18-19), and debug owns regression checks (debug/SKILL.md:75).", "skills/codebase-architecture/references/enforcement-ladder.md: Blast-radius rubric additions (lint config, allowlists, new env vars), a new gate starting in shadow mode, and a grown allowlist needing a human. design-code-structure/origin.txt:86 forbids an approval rubric, report-only staging is at design-code-structure/references/structural-checks.md:31-33, and narrow exceptions with retirement conditions are at :25-30.", "skills/codebase-architecture/SKILL.md: Alert-triage routing and fingerprint deduplication wording. The behavior lives in agent-runtime.md, outside the recorded paths."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 012e6e5208f5..872bc83bdb6d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[dependencies]]
 kind = "local"
