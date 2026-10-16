@@ -21,14 +21,14 @@ Source: [events that trigger workflows](https://docs.github.com/en/actions/refer
 
 Classify the gate before diagnosing a run that has not started:
 
-- **Contributor or bot pull-request approval:** repository, organization, or enterprise policy can require a maintainer with write access to approve a fork or generated pull-request workflow. Inspect the actor and effective policy; a fork run awaiting approval for more than 30 days is deleted. Use the documented fork-run REST approval endpoint only for the gate it covers.
+- **Contributor or bot pull-request approval:** repository, organization, or enterprise policy can require a maintainer with write access to approve a fork or generated pull-request workflow. Inspect the actor and effective policy; a fork run awaiting approval for more than 30 days expires and is marked as failed, with an annotation that explains the expiry. Use the documented fork-run REST approval endpoint only for the gate it covers.
 - **Automatic malicious-workflow hold:** GitHub can hold a run it identifies as potentially malicious in a public GitHub.com repository. A collaborator with write access must approve it through an authenticated web session; no repository setting or REST approval substitutes for that review. The run then continues normally. This automatic hold does not apply to GitHub Enterprise Server.
 - **Environment protection:** required reviewers, wait timers, and custom protection apps gate a job that references the environment. Environment secrets remain unavailable until the applicable rules pass; apply the [`deployment` decision](security.md#secrets-oidc-and-environments) before assuming every environment gate creates a deployment.
-- **Workflow execution protection:** actor and event rulesets can deny execution before a workflow runs. Treat that outcome as a policy denial rather than an approval queue, and verify the effective repository, organization, or enterprise ruleset.
+- **Workflow execution protection:** actor and event rulesets, including the [default `pull_request_target` policy](security.md#privileged-events) for public repositories, can deny execution before a workflow runs. Treat that outcome as a policy denial rather than an approval queue, and verify the effective repository, organization, or enterprise ruleset.
 
 For each gate, record its scope, owner, approval or bypass channel, expiration, and behavior after approval. Treat a held or awaiting-approval run as an external manual gate, not a job failure or runner-queue bottleneck. Keep least privilege and trust-boundary controls inside every workflow that the platform permits to run.
 
-Sources: [approving workflow runs from forks](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/approve-runs-from-forks), [fork-run approval API](https://docs.github.com/en/rest/actions/workflow-runs#approve-a-workflow-run-for-a-fork-pull-request), [bot-created pull-request approval](https://github.blog/changelog/2026-06-11-bot-created-pull-requests-can-run-workflows-if-approved/), [automatic malicious-workflow holds](https://github.blog/changelog/2026-07-28-github-actions-holds-potentially-malicious-workflows-for-approval/), [deployments and environments](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments), and [workflow execution protections](https://docs.github.com/en/enterprise-cloud@latest/admin/enforcing-policies/enforcing-policies-for-your-enterprise/actions-policies/workflow-execution-protections).
+Sources: [approving workflow runs from forks](https://docs.github.com/en/actions/how-tos/manage-workflow-runs/approve-runs-from-forks), [fork-run approval API](https://docs.github.com/en/rest/actions/workflow-runs#approve-a-workflow-run-for-a-fork-pull-request), [bot-created pull-request approval](https://github.blog/changelog/2026-06-11-bot-created-pull-requests-can-run-workflows-if-approved/), [automatic malicious-workflow holds](https://github.blog/changelog/2026-07-28-github-actions-holds-potentially-malicious-workflows-for-approval/), [deployments and environments](https://docs.github.com/en/actions/reference/workflows-and-actions/deployments-and-environments), and [workflow execution protections](https://docs.github.com/en/actions/how-tos/administer/control-workflow-execution).
 
 ## Expressions and conditions
 
@@ -91,7 +91,7 @@ strategy:
   fail-fast: false
   matrix:
     os: [ubuntu-latest, macos-latest]
-    node: [20, 22]
+    node: [22, 24]
 ```
 
 - Keep the default fail-fast behavior when an early failure makes remaining combinations valueless; set `fail-fast: false` when every compatibility result is required.
@@ -109,10 +109,12 @@ Treat `workflow_call` as a versioned contract with an explicit API:
 - Prefer named secrets; use `secrets: inherit` only when the contract genuinely needs the caller's secret set.
 - Environment secrets originate from the environment declared by a job in the called workflow; `workflow_call` passes inputs and declared secrets through separate channels.
 - Apply the [dependency verification procedure](../SKILL.md#when-an-external-reference-changes) to external reusable workflows. Same-repository `$/.github/workflows/name.yml` and `./.github/workflows/name.yml` references resolve from the caller's commit; neither accepts an `@ref`. Prefer `$/` on GitHub.com; it is unavailable on GHES.
+- An explicit caller `cache-mode` caps the called workflow; see the [cache-poisoning chain](security.md#cache-poisoning-chain) for the validation rule.
+- To read files from its own repository, a called workflow checks out `job.workflow_repository` at `job.workflow_sha`; `github.workflow_ref` and `github.workflow_sha` identify the top-level caller. The `job.workflow_*` properties are unavailable on GHES.
 - Update every caller when inputs, secrets, permissions, outputs, runner requirements, or failure semantics change.
 - Keep nesting and matrix fan-out within the limits of the repository's GitHub.com or GHES version.
 
-Source: [reusing workflows](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows).
+Sources: [reusing workflows](https://docs.github.com/en/actions/how-tos/reuse-automations/reuse-workflows) and the [`job` context](https://docs.github.com/en/actions/reference/workflows-and-actions/contexts#job-context).
 
 ## Reliability criterion
 

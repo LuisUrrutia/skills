@@ -76,7 +76,7 @@ steps:
 - Native background and parallel syntax is unavailable inside composite actions; the composite itself can run in the background.
 - Prefer the native graph to shell `&`, which hides lifecycle, output, and failure semantics.
 
-Verify `parallel`, `background`, `wait`, `cancel`, and concurrency-queue availability against the repository's GitHub.com or GHES version. If a configured linter lags current server syntax, report its version and the source-backed compatibility gap rather than weakening valid semantics.
+Verify `parallel`, `background`, `wait`, `cancel`, and concurrency-queue availability against the repository's GitHub.com or GHES version.
 
 Sources: [GitHub Actions workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax) and the [parallel-steps release note](https://github.blog/changelog/2026-06-25-actions-steps-can-now-be-run-in-parallel/).
 
@@ -111,11 +111,11 @@ A cache should save more time and cost than restore, validation, and save consum
 - Use restore prefixes only when a partial match remains correct after the normal locked install or rebuild.
 - Cache only dependencies or expensive rebuildable intermediates. Keep secrets, credentials, release artifacts, and opaque executable state in their authoritative stores.
 - Keep cache key cardinality and paths bounded to prevent eviction churn. Review hit rate, restore and save duration, entry size, retention, repository limits, and read-only cache warnings.
-- Use restore-only behavior for consumers that should not publish shared state.
+- Give consumers that should not publish shared state `cache-mode: read` and a restore-only cache step so no save is attempted.
 
 For any untrusted producer or privileged consumer, also apply the [cache-poisoning chain](security.md#cache-poisoning-chain).
 
-Source: [GitHub Actions dependency caching](https://docs.github.com/en/actions/using-workflows/caching-dependencies-to-speed-up-workflows).
+Source: [GitHub Actions dependency caching](https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching).
 
 ## Artifacts
 
