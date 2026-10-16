@@ -18,11 +18,12 @@ For each planned head branch, query open PRs by exact repository and head before
 Reuse an existing matching PR; inspect and correct its base only when the requested chain requires
 it. Create missing PRs bottom-to-top against their direct parent branches.
 
-Load the `pr` skill for titles, bodies, templates, and the shared bottom-to-top map. New PRs use the
+Load the `pr` skill for titles, bodies, and templates; bodies carry no stack map. New PRs use the
 requested draft state; existing PRs retain theirs unless the request changes it.
 
 This step is complete when each planned layer has exactly one recorded PR, every head/base pair
-forms the intended chain, and titles, bodies, maps, and draft states are verified from fresh reads.
+forms the intended chain, and titles, bodies without a stack map, and draft states are verified from
+fresh reads.
 
 ## Create the stack object
 
@@ -40,5 +41,6 @@ For an extend request, start the new branch from the verified current top, creat
 against that top branch, then call the current documented append operation with only the new PRs in
 bottom-to-top order. Refetch on concurrent state before deciding whether a retry is still needed.
 
-Extension is complete when a fresh read shows the previous order unchanged and every requested PR
-appended exactly once with the expected base. Stop after reporting the resulting order.
+Extension is complete when a fresh read shows the previous order unchanged, every requested PR
+appended exactly once with the expected base, and no appended PR body carries a stack map. Stop
+after reporting the resulting order.

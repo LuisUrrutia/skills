@@ -47,7 +47,7 @@ billing/monthly-total
 billing/monthly-comparison
 ```
 
-Explicit branch names keep the layer map stable across CLI, API, and manual routes.
+Explicit branch names keep the layer plan stable across CLI, API, and manual routes.
 
 ## Stage deliberately
 

@@ -35,10 +35,9 @@ requested draft state. Its `--open` flag also marks existing PRs ready for revie
 drafts must stay drafts, submit without it and mark only the intended new PRs ready with
 `gh pr ready`. Submit only the built or adopted layers in scope.
 
-Load the `pr` skill. Give every PR a repository-conformant title and body plus the same compact
-bottom-to-top map, marking the current layer. Preserve the stage of existing PRs unless the request
-changes it.
+Load the `pr` skill. Give every PR a repository-conformant title and body without a stack map.
+Preserve the stage of existing PRs unless the request changes it.
 
 Submission is complete when a fresh GitHub read proves that every requested PR has the intended
-head, base, title, body, stack map, and draft state. Report created and reused PR identifiers, then
-stop.
+head, base, title, body without a stack map, and draft state. Report created and reused PR
+identifiers, then stop.

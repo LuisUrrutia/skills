@@ -16,6 +16,11 @@ main <- data-model <- api-routes <- ui
 Dependencies point toward the trunk, changes to a lower layer cascade upward, and merges proceed
 bottom-up.
 
+A stack map is a line in a PR body that lists the chain's PRs bottom-to-top and marks the current
+one. GitHub shows a native stack's order and navigation on every member PR, so a PR in a native
+stack carries no map; remove any map that a PR brings into one. Every other open PR in a dependent
+chain carries the map, because GitHub shows no chain for it.
+
 ## Scope and safety
 
 Bound the work to the requested operation. Explanations, reviews, and status checks are read-only.

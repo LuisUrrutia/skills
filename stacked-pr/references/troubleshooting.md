@@ -57,10 +57,12 @@ publish missing PRs with the `pr` skill first, pushing through the branch owner 
 publication; then pass existing PRs to `gh stack link` by URL to keep it membership-only: it pushes
 a branch-name argument and creates a PR when none exists, treats a numeric first argument as a stack
 number when one matches, and treats any other number that matches no PR as a branch name. Its
-`--open` flag also marks existing PRs ready for review.
+`--open` flag also marks existing PRs ready for review. Linking leaves PR bodies unchanged, so
+remove any stack map from the linked PRs afterward.
 
 Adoption is complete when the chosen owner is unambiguous, ancestry and PR bases form the intended
-chain, local metadata exists only where requested, and no PR was duplicated.
+chain, local metadata exists only where requested, no PR was duplicated, and no PR body in the
+native stack carries a stack map.
 
 ## Move a tracked chain to manual
 
@@ -78,10 +80,12 @@ for merge. The CLI then leaves local tracking in place. Report the remaining sta
 user's decision before continuing. If the user proceeds, remove local tracking with the local-only
 form and confirm that the stack view no longer reports the chain before any Git write.
 
+Add the bottom-to-top map to the body of every open PR that GitHub no longer stacks.
+
 Migration is complete when the stack view no longer reports the chain, every recorded tip and PR
 base is unchanged, the GitHub stack is in the requested state and recorded as retained or
-dissolved, and the manual-chain inspection reports the same bottom-to-top order from Git ancestry
-and PR bases.
+dissolved, every open PR that GitHub no longer stacks carries the map, and the manual-chain
+inspection reports the same bottom-to-top order from Git ancestry and PR bases.
 
 ## Rebuild an oversized branch
 

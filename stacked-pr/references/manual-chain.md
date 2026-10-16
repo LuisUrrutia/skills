@@ -33,4 +33,6 @@ and the current operation's completion criterion is satisfied:
 - [manual-merge.md](manual-merge.md) — merge one approved bottom layer and repair the remainder.
 - [troubleshooting.md](troubleshooting.md) — recover or migrate the chain.
 
-Keep the PR-body map accurate because it is operational orientation, not server-enforced state.
+The map steps in these operations write a map only on a PR that GitHub does not stack; a PR that a
+retained native stack still groups carries none. Keep those maps accurate: they are not
+server-enforced state.

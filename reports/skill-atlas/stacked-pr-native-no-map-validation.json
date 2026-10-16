@@ -1,0 +1,166 @@
+{
+ "schemaVersion": 1,
+ "date": "2026-10-16",
+ "baseline": "1a8703b8ee3af8939f2c2095ce470d6908c00d66",
+ "status": "Validated for the stated static scope and one matched trial per arm; all material findings from three Claude consultation rounds and the CodeRabbit review accounted for. The Codex profile was skipped at its usage limit.",
+ "request": "Stop stacked-pr from adding the bottom-to-top \"Stack\" line to PR bodies when the stack is native (gh-stack CLI or REST API), because GitHub already shows a native stack's order and navigation on every member PR; ordinary dependent-PR chains keep the map.",
+ "diagnosis": "cli-create.md Submit and api-create.md Open PRs told the agent to add the same compact bottom-to-top map to every body and verified it at completion. The pr skill has no stack-map rule.",
+ "changes": [
+  {
+   "file": "stacked-pr/SKILL.md",
+   "change": "Defines the stack map once: a PR in a native stack carries none and loses any map it brings into one; every other open PR in a dependent chain carries it, because GitHub shows no chain for it."
+  },
+  {
+   "file": "stacked-pr/references/cli-create.md, api-create.md",
+   "change": "Submit, PR creation and extension produce and verify bodies without a stack map, including a reused PR appended to the top."
+  },
+  {
+   "file": "stacked-pr/references/troubleshooting.md",
+   "change": "The gh stack link path removes maps from linked PRs and its criterion checks it. Migration to manual adds the map to every open PR that GitHub no longer stacks, in its own paragraph after the decision step that divergence handling borrows."
+  },
+  {
+   "file": "stacked-pr/references/api-maintain.md",
+   "change": "A requested dissolution, unlike the dissolve step inside a restructure, adds the map to every open PR that GitHub no longer stacks, and its criterion checks it."
+  },
+  {
+   "file": "stacked-pr/references/manual-chain.md",
+   "change": "Map steps in the manual operations write a map only on a PR that GitHub does not stack; a PR that a retained native stack still groups carries none."
+  },
+  {
+   "file": "stacked-pr/references/stack-design.md",
+   "change": "\"layer map\" becomes \"layer plan\", the term the file already uses, so it no longer reads as the PR-body map."
+  },
+  {
+   "file": "reports/skill-atlas/catalog.js, sources.json, index.html",
+   "change": "Refreshed both stacked-pr entrypoint hashes, its checkedAt date and the catalog cache key."
+  }
+ ],
+ "consultations": {
+  "brief": "User request, complete stacked-pr target, frozen candidate diff, baseline/candidate probe evidence; bounded read-only consultation with no delegation.",
+  "rounds": [
+   {
+    "round": 1,
+    "profiles": [
+     {
+      "profile": "Codex gpt-6-astra / max",
+      "runner": "T3 delegate_task",
+      "result": "Skipped for the rest of the task: the run failed with 429 Too Many Requests (usage limit)."
+     },
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "T3 delegate_task mode=wait, clientRequestId stackmap-fable-review-r1-attempt3",
+      "result": "Two earlier asynchronous attempts were cancelled by session restarts; after the user said to continue, the blocking attempt completed with seven findings: link-path adoption without map removal, a chain-level manual condition that conflicted with per-PR migration, no definition of a stack map, the map-add sentence inside the borrowed decision paragraph, API dissolution leaving a mapless chain, API extension reusing a PR unchecked, and the \"layer map\" term collision."
+     }
+    ],
+    "adopted": "All seven findings, some reworded.",
+    "rejected": [
+     {
+      "finding": "Add a native-stack sentence to pr/SKILL.md",
+      "reason": "Outside this change by the reviewer's own assessment; reported to the user as a possible follow-up."
+     }
+    ]
+   },
+   {
+    "round": 2,
+    "profiles": [
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "T3 delegate_task mode=wait, clientRequestId stackmap-fable-review-r2",
+      "result": "No material issues; every adopted correction resolves its finding. Three optional tweaks."
+     }
+    ],
+    "adopted": "\"open\" in the SKILL.md rule to match the migration and dissolution rules; manual-chain.md drops the reason it repeated from SKILL.md.",
+    "rejected": [
+     {
+      "finding": "A sentence for PRs that one operation ungroups and regroups",
+      "reason": "The reviewer rated it not material: every regroup path ends in a criterion that requires mapless bodies, and the probe agent added none."
+     },
+     {
+      "finding": "Narrow manual-create.md's map sentence to PRs GitHub does not stack",
+      "reason": "SKILL.md and manual-chain.md govern; the file is outside the touched set."
+     }
+    ]
+   },
+   {
+    "round": 3,
+    "profiles": [
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "T3 delegate_task mode=wait, clientRequestId stackmap-fable-review-r3",
+      "result": "Assessed the CodeRabbit findings: the manual-chain.md scope fix resolves finding A for every manual operation without conflicting with the link-path removal; the rejection of finding B is sound because no non-legacy path puts a map on a retained native-stack PR. One optional tightening."
+     }
+    ],
+    "adopted": "The tightening: a direct write restriction instead of a state sentence the agent had to infer it from."
+   }
+  ]
+ },
+ "trials": {
+  "runner": "Fresh Claude Code general-purpose subagents, inherited claude-opus-5-5, one run per arm, same prompt. Each arm read only a frozen copy of stacked-pr (baseline = origin/main 1a8703b, candidate = round-1-adopted text) and ran no commands. User-level instruction files loaded in both arms as a fixed condition.",
+  "results": [
+   {
+    "case": "Create a draft stack with gh-stack installed",
+    "baseline": "adds the map to every body (cli-create.md Submit)",
+    "candidate": "no map; a fresh read verifies none"
+   },
+   {
+    "case": "Ordinary dependent PRs requested",
+    "baseline": "map in every body",
+    "candidate": "map in every body"
+   },
+   {
+    "case": "Link a mapped manual chain into a native stack",
+    "baseline": "keeps the old maps",
+    "candidate": "removes them after the link is verified"
+   },
+   {
+    "case": "Move a native stack to manual while one PR stays stacked",
+    "baseline": "adds no map as written (only by inference)",
+    "candidate": "retained PR stays mapless; the unstacked PRs get the map"
+   },
+   {
+    "case": "REST dissolution of a native stack",
+    "baseline": "no map",
+    "candidate": "map on every open PR"
+   },
+   {
+    "case": "Divergence: dissolve and resubmit the local chain",
+    "baseline": "adds maps on resubmit",
+    "candidate": "no map"
+   },
+   {
+    "case": "REST extension that reuses a mapped PR",
+    "baseline": "keeps its map",
+    "candidate": "removes it"
+   }
+  ],
+  "limits": "One run per arm; supplied-context answers without executing gh or the API. Host skill selection was not observed. The round-2 and round-3 wording changes were not re-probed."
+ },
+ "checks": [
+  "git diff --check passed.",
+  "Relative Markdown links and anchors in stacked-pr/: 31 checked, 0 broken.",
+  "sources.json and this report parse as JSON; node --check reports/skill-atlas/catalog.js passed; catalog.js equals the prefixed sources.json.",
+  "Smoke path: fish -lc 'env TMPDIR=/tmp bash pr-review-followup/scripts/validate.sh' passed (21 tests); fish -lc 'env TMPDIR=/tmp bash pr-review/scripts/validate.sh $PWD/review-code-changes' passed (52 tests). stacked-pr has no validator."
+ ],
+ "final_hashes": {
+  "stacked-pr/SKILL.md": "af73110c2444dde12d5b51eab84ec89c03b3b72f8645a68e97f01a16ebb21a4f",
+  "stacked-pr/references/api-create.md": "1dc2da82bfb9af054f95e2e9cdcc2d37fa0800d3554f68e83bf902677fe3314e",
+  "stacked-pr/references/api-maintain.md": "fce2fae8ae1d02ffe737c6dbe7169d95941bf1f08553be5f13d4163b9fb7a403",
+  "stacked-pr/references/cli-create.md": "b000c6753d569b8c178244e4e6fd19c72d0fe474419199518a39c33b0cd68f52",
+  "stacked-pr/references/manual-chain.md": "681ff224884c2b59c7983be0e0f00c2079164acb5fde2bb96d15e2d6289cb21e",
+  "stacked-pr/references/stack-design.md": "4dc656cb108938648912629f46146c3d3fa5f3a8683a89a243c6c1e6a3456296",
+  "stacked-pr/references/troubleshooting.md": "7d48b0a1ee62b9221704a8645c6094c5b546053e573feca870dc1c31bac20679"
+ },
+ "botReview": {
+  "reviewer": "CodeRabbit, review 5550927589 on ec492fc",
+  "findings": [
+   {
+    "finding": "Manual maintain and merge steps (update all maps, every remaining PR map) could write a map on a PR that a retained native stack still groups.",
+    "disposition": "Applied in one place: manual-chain.md limits the map steps of every manual operation, instead of qualifying each sentence in manual-maintain.md and manual-merge.md."
+   },
+   {
+    "finding": "Migration that retains the native stack should remove maps from retained PRs and check it at completion.",
+    "disposition": "Not applied. No route writes a map on a native-stack PR and a PR adopted into one loses its map, so only a map that predates this change could remain; the retain branch leaves the PRs unchanged by design, and the proposed criterion would require body edits outside the migration."
+   }
+  ]
+ }
+}
