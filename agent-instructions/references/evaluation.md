@@ -24,7 +24,10 @@ their own contracts.
 
 For persistent instructions, test effective scope: global, repository and nested
 rules can reach different work. Include imports or adapters that affect loading.
-A focused edit need not acquire a permanent evaluation suite.
+When the question is whether the repository's own instructions suffice, exclude
+user-level instruction files or record them as a fixed condition of the result;
+they can supply rules that other contributors lack. A focused edit need not
+acquire a permanent evaluation suite.
 
 ## Compare the right instructions
 
