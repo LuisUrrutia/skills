@@ -31,7 +31,9 @@ adoption only prepares another operation, it is complete under the criterion in
 ## Submit
 
 Read live help for the current non-interactive submit form and determine how it represents the
-requested draft state. Submit only the built or adopted layers in scope.
+requested draft state. Its `--open` flag also marks existing PRs ready for review; when existing
+drafts must stay drafts, submit without it and mark only the intended new PRs ready with
+`gh pr ready`. Submit only the built or adopted layers in scope.
 
 Load the `pr` skill. Give every PR a repository-conformant title and body plus the same compact
 bottom-to-top map, marking the current layer. Preserve the stage of existing PRs unless the request

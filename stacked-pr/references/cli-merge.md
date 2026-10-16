@@ -9,7 +9,8 @@ Immediately before the merge command:
 2. Verify that the current set, head SHAs, draft states, checks, reviews, and merge method still
    match the approval.
 3. Read live merge help and select its non-interactive invocation for the repository-approved
-   method.
+   method. Pass the approved target and method explicitly: without them, the non-interactive form
+   merges the whole current stack with the last-used method.
 4. Run one merge command for the approved scope, then observe GitHub until it reports a terminal
    result or an explicit queued state.
 

@@ -27,7 +27,9 @@ unrelated local ref and dirty path remains preserved.
 ## Push an already verified stack
 
 Refetch remote heads immediately before pushing. Use the CLI's current safe push form and retain
-lease protection for rewritten branches.
+lease protection for rewritten branches. `gh stack push` leases each branch separately and is not
+atomic: after a rejection, refetch and record which remote refs changed before fixing the rejected
+branch and pushing again.
 
 Push is complete when every intended remote ref equals its verified local tip, no unintended ref
 changed, and a fresh stack read reports the expected order and bases.
