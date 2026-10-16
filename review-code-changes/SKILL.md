@@ -46,10 +46,12 @@ report that the result covers the earlier snapshot.
 ## Gather intent and review
 
 Read effective repository instructions, the supplied request, relevant tests,
-and accessible specifications. A PR body, ticket, author summary, and existing
-test describe claims to check; they do not prove correctness. Mark a missing
-specification as a limit while continuing the supported review. Do not invent
-product requirements to fill it.
+and accessible specifications. Search the repository for documents that state
+coding standards, such as `CONTRIBUTING.md`, `CODING_STANDARDS.md`, or style
+guides, and read those that govern the changed paths. A PR body, ticket, author
+summary, and existing test describe claims to check; they do not prove
+correctness. Mark a missing specification as a limit while continuing the
+supported review. Do not invent product requirements to fill it.
 
 Review both intended behavior and applicable standards. Then apply the protocol
 to every changed path and follow relevant callers, producers, consumers, schemas,
