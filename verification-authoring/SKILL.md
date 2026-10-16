@@ -66,9 +66,13 @@ representative success and failure inputs.
 
 Creation requires one mapped feature driven end to end using the generated
 instructions. Maintenance requires source and live coverage of every feature.
-Both require evidence to remain readable after cleanup. Report the actual paths,
-commands, coverage, corrections, product gaps, and blockers. A recipe that could
-not be executed is a draft, even when its Markdown and scripts are valid.
+Both require evidence to remain readable after cleanup. If a proof ran in a
+stand-in for the target environment, such as a container in place of a fresh VM
+or a local stack in place of a remote one, list the setup the stand-in supplied
+that the target environment will not; that setup remains unverified until a run
+in the target environment covers it. Report the actual paths, commands, coverage,
+corrections, product gaps, and blockers. A recipe that could not be executed is a
+draft, even when its Markdown and scripts are valid.
 
 The caller and repository rules own commits, PRs, and scheduling. Do not infer a
 periodic job or PR from maintenance alone. For a requested check or update of

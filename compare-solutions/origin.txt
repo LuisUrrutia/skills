@@ -10,7 +10,7 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["pstack/skills/arena/SKILL.md", "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md", "pstack/skills/principle-redesign-from-first-principles/SKILL.md", "pstack/skills/principle-prove-it-works/SKILL.md", "pstack/skills/principle-laziness-protocol/SKILL.md", "pstack/LICENSE"]
 paths = ["pstack/skills/arena/SKILL.md", "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md", "pstack/skills/principle-redesign-from-first-principles/SKILL.md", "pstack/skills/principle-prove-it-works/SKILL.md", "pstack/skills/principle-laziness-protocol/SKILL.md", "pstack/LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
@@ -38,6 +38,7 @@ local_choices = [
 ]
 reviews = [
   { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/arena/SKILL.md: The default runners and cross-judge pool drop the GPT model and become Opus xhigh plus Grok, and subagent effort selection is added. Fixed model slugs are excluded by compare-solutions/origin.txt:26.", "pstack/skills/arena/SKILL.md: Phases A to F and the synthesis-note contents are condensed, folding the alternatives-in-rationale and cross-judge-verdict requirements into fewer sentences. No new behavior; local coverage is compare-solutions/SKILL.md:56-58 and :126-132.", "pstack/skills/arena/SKILL.md: Ship the consensus shape on convergence and reframe on wild divergence, now reworded. Unchanged in substance, and it conflicts with the bounded reframing at compare-solutions/SKILL.md:112-115 and the rule that consensus does not establish correctness at compare-solutions/SKILL.md:107-110.", "pstack/skills/principle-laziness-protocol/SKILL.md: The prefer-deletion, flat call hierarchy, threading and small-leaks bullets are deleted. compare-solutions does not import the donor deletion rules under its local choice, so the removal changes nothing locally.", "pstack/skills/principle-redesign-from-first-principles/SKILL.md: The description is shortened and the body now says foundational assumption. Wording only."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
 ]
 
 [[dependencies]]

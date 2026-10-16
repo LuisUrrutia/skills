@@ -1,0 +1,226 @@
+{
+ "schemaVersion": 1,
+ "date": "2026-10-16",
+ "baseline": "c7ef69fc040aa1f080240f673b4f46a691b45dcc",
+ "mode": "Update",
+ "status": "Every changed and unchanged tracked source range is resolved; 15 adoptions validated by three consultation rounds and matched trials.",
+ "request": "Review the skills and decide whether they need updating; apply the approved updates and open a PR from origin/main. This change adopts the recommended upstream improvements and records the review of every tracked source.",
+ "sources": {
+  "total": 148,
+  "advanced": 139,
+  "withScopedChanges": 64,
+  "withoutScopedChanges": 75,
+  "alreadyCurrent": 8,
+  "pinnedCommitRef": 1,
+  "candidateHeads": {
+   "EveryInc/compound-engineering-plugin": "bdc53d034ccfa5baf01b6139cd46082145ff95cc",
+   "HoangNguyen0403/agent-skills-standard": "c72ce6d4afd3ce73420613921cb3fa871e5411d9",
+   "addyosmani/agent-skills": "aeac41d4d005999432bb7312f7ff06383a91d59d",
+   "affaan-m/ECC": "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29",
+   "alleneubank/agent-profile": "b6e1ea07d83819057524954dff018ed86ba67daf",
+   "anthropics/skills": "dbd4588f9e1033efb41dad4bef2f7947c8993d44",
+   "blader/humanizer": "225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8",
+   "cli/cli": "59e9f78eacdf2554f8534d166808c3e9b8c7ebcb",
+   "cursor/plugins": "e5136d82418d2db3165ea1050d17577cd618cc05",
+   "garrytan/gstack": "47d639abffa882b8cbb641d7d1dedf08ecada9ec",
+   "humanlayer/skills": "653b6411c1f70c275a18e37673b042ff99f67ceb",
+   "mattpocock/skills": "49dd158d1076134a641b33efb035946536778336",
+   "mblode/agent-skills": "872bc83bdb6dd54a9ff456fbf1181beea6db7875",
+   "obra/superpowers": "bb92a77741419a4ab5f06e711a283343f1ada0c3",
+   "openclaw/agent-skills": "3008b58824c9acbdc9a2fe2b79f8b3567c3db8ac",
+   "sentimony/skills": "1c70204aa780528dafbe491a4841a9f1abb24480",
+   "wshobson/agents": "044b4b21f083948e69ec878a7b07c8d0951a6ffa"
+  },
+  "decisions": {
+   "incorporated": 15,
+   "skipped": 153,
+   "deferred": 0
+  },
+  "pathMoves": [
+   "planning/sentimony-scope-triage: skills/scope-triage/* moved to plugins/devflow/skills/scope-triage/* in sentimony/skills 2adc8d8.",
+   "typescript-best-practices/sentimony-compiler-and-modules: skills/typescript/* moved to plugins/skills/skills/typescript/* in the same commit."
+  ],
+  "pathsAdded": [
+   "agent-instructions/mblode-agents-md: skills/agents-md/references/repo-evals.md, the upstream file the evaluation adoption draws on."
+  ],
+  "method": "Each cursor, baseline and candidate was verified for ancestry in an SSH clone; scoped diffs were read with renames followed; changed files were compared at both commits; decisions were judged against each source's borrowed and local_choices entries. Per-source decisions live in each origin.txt reviews record."
+ },
+ "changes": [
+  {
+   "file": "debug/SKILL.md",
+   "change": "Handle a legitimate triggering state where the code broke; correct the producer of a state that should never exist instead of masking it. After a costly investigation, propose without implementing a cheap always-on signal."
+  },
+  {
+   "file": "verification-authoring/references/create.md, verification-authoring/SKILL.md",
+   "change": "Launch readiness proves a usable state from empty run-owned data through migrations and seed data. A proof in a stand-in environment lists the setup the target environment will not supply as unverified (shared by creation and maintenance)."
+  },
+  {
+   "file": "error-handling/references/recovery.md, error-handling/SKILL.md",
+   "change": "Leftovers of an interrupted attempt must be recognizable as stale from evidence valid at every interruption point. Tests assert the classification, code or type callers branch on, and message text only where consumed."
+  },
+  {
+   "file": "create-project-instructions/SKILL.md",
+   "change": "Discovery includes project-local skills and records which facts they own and where instructions restate them."
+  },
+  {
+   "file": "agent-instructions/references/evaluation.md",
+   "change": "When judging whether repository instructions suffice, exclude user-level instruction files or record them as a fixed condition."
+  },
+  {
+   "file": "review-code-changes/SKILL.md",
+   "change": "Find and read the coding-standards documents that govern the changed paths."
+  },
+  {
+   "file": "planning/SKILL.md",
+   "change": "Name the current documentation the change makes wrong; historical records such as changelogs and ADRs are excluded."
+  },
+  {
+   "file": "communicate-clearly/SKILL.md, communicate-clearly/REFERENCE.md",
+   "change": "Self-describing text (section 8), layout announcements (section 16) and the split contrast with its keep test (section 4); the final check rescans tells rewrites introduce."
+  },
+  {
+   "file": "teach/references/practice.md",
+   "change": "Multiple-choice practice avoids position clues and varies the correct option's position."
+  },
+  {
+   "file": "handoff/SKILL.md",
+   "change": "Default destination resolves the same way every run: $TMPDIR, else /tmp; %TEMP% on Windows."
+  },
+  {
+   "file": "38 origin.txt files",
+   "change": "139 reviewed_through cursors advanced with a review record each; two sentimony path sets moved; one path added."
+  },
+  {
+   "file": "reports/skill-atlas/catalog.js, sources.json, index.html",
+   "change": "Refreshed eight entrypoint hashes (including a stale review-code-changes hash already on main) and the catalog cache key."
+  }
+ ],
+ "consultations": {
+  "brief": ".agents/skill-refresh/adoptions-brief.md, -r2.md, -r3.md (scratch, not committed): user request, frozen candidate diff, upstream reports and diffs, local_choices; read-only, no delegation.",
+  "rounds": [
+   {
+    "round": 1,
+    "profiles": [
+     {
+      "profile": "Codex gpt-6-astra / max",
+      "runner": "T3 delegate_task, upstream-adoptions-astra-r1",
+      "result": "No material issues; no corrections."
+     },
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "upstream-adoptions-fable-r1",
+      "result": "No material issues; eight minor findings."
+     }
+    ],
+    "adopted": "Clearer debug reference; run-owned scope for empty-data startup; stand-in rule moved to the shared completion paragraph; discovery wording that does not presume an instruction file; evaluation scope and 'user-level' wording; planning historical-records clause; layout announcement moved to section 16 with a weak-evidence guard.",
+    "rejected": [
+     {
+      "finding": "Move the debug signal sentence after the outcome-classification sentence",
+      "reason": "It already sits in the report paragraph; the move adds churn without changing meaning."
+     }
+    ]
+   },
+   {
+    "round": 2,
+    "profiles": [
+     {
+      "profile": "Codex gpt-6-astra / max",
+      "runner": "upstream-adoptions-astra-r2",
+      "result": "No material issues."
+     },
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "upstream-adoptions-fable-r2",
+      "result": "No material issues; three minor wording points."
+     }
+    ],
+    "adopted": "Planning clause made explicit; 'target environment' wording; section 16 widened to layout descriptions the reader can see; reflow of edited paragraphs."
+   },
+   {
+    "round": 3,
+    "profiles": [
+     {
+      "profile": "Codex gpt-6-astra / max",
+      "runner": "upstream-adoptions-astra-r3",
+      "result": "No material issues."
+     },
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "upstream-adoptions-fable-r3",
+      "result": "No material issues; optional 'target environment' consistency, adopted."
+     }
+    ]
+   }
+  ]
+ },
+ "trials": {
+  "runner": "Fresh Claude Code general-purpose subagents, inherited claude-opus-5-5, one run per arm; each arm read only frozen copies of the affected skills (origin.txt and evals removed) and a task file.",
+  "results": [
+   {
+    "case": "debug: required field missing from one creation path, two-day investigation",
+    "baseline": "fixed the importer, no signal proposed",
+    "candidate": "fixed the importer and proposed, without implementing, a write-boundary check naming the creation path"
+   },
+   {
+    "case": "debug regression: legitimate empty state",
+    "baseline": "handled at the break site",
+    "candidate": "handled at the break site"
+   },
+   {
+    "case": "error-handling: payment error contract tests",
+    "baseline": "asserted type and code; message only at log and UI consumers",
+    "candidate": "same"
+   },
+   {
+    "case": "communicate-clearly: self-describing intro, layout announcement and empty split contrast (r1 and r2 candidates)",
+    "baseline": "kept every self-describing sentence and the contrast",
+    "candidate": "removed them and kept the source credit; recast 'reshuffle' as moving or relocating jobs (a fidelity concern noted, not a rule defect)"
+   },
+   {
+    "case": "communicate-clearly unseen false positive: contrast that corrects a held belief, plus a source credit",
+    "baseline": "kept both",
+    "candidate": "kept both"
+   },
+   {
+    "case": "teach: four multiple-choice questions",
+    "baseline": "B, D, C, A",
+    "candidate": "C, A, D, B"
+   },
+   {
+    "case": "handoff: no destination, TMPDIR set",
+    "baseline": "$TMPDIR path",
+    "candidate": "$TMPDIR path"
+   },
+   {
+    "case": "planning: flag rename with README, docs, CHANGELOG and ADR",
+    "baseline": "updated README and docs; added a CHANGELOG entry; kept the ADR",
+    "candidate": "updated README and docs; kept CHANGELOG and ADR as historical records"
+   }
+  ],
+  "limits": "One run per arm; the error-handling, teach, handoff and planning cases showed no measurable difference, so no improvement is claimed there. verification-authoring, create-project-instructions, agent-instructions and review-code-changes adoptions are supported by static review and consultations only."
+ },
+ "checks": [
+  "git diff --check passed.",
+  "Relative Markdown links and anchors in the ten adopted skills: 61 checked, 0 broken.",
+  "All 40 origin.txt files parse as TOML; every baseline_commit and baseline_paths is unchanged; 139 cursors equal their candidate heads and each new review starts at the previous cursor; the 9 other sources are unchanged.",
+  "sources.json and this report parse as JSON; node --check reports/skill-atlas/catalog.js passed; catalog.js equals the prefixed sources.json; the eight refreshed hashes match disk.",
+  "fish -lc 'env TMPDIR=/tmp bash pr-review/scripts/validate.sh $PWD/review-code-changes': passed (covers the changed review-code-changes package).",
+  "fish -lc 'python3 -m unittest discover -s review-code-changes/tests': 12 tests passed.",
+  "fish -lc 'env TMPDIR=/tmp bash pr-review-followup/scripts/validate.sh': passed (smoke path)."
+ ],
+ "final_hashes": {
+  "agent-instructions/references/evaluation.md": "a31d474cddbd2f105aa8196a42764519f24d83803c1fd91935a21b2b62284c42",
+  "communicate-clearly/REFERENCE.md": "0406439476cbf43f5b8a05a2bcab33e9ab64737a8a16e41a2bd439462b0ac2ff",
+  "communicate-clearly/SKILL.md": "c7357cea6fc5df4154f2c582c5e15f1b62d8d896fd24fd7e076222fb9e55572d",
+  "create-project-instructions/SKILL.md": "6a8f07ba9fd1517e6c61224bd1bfc4652f4a22853d9cd3d497704748e29c0a43",
+  "debug/SKILL.md": "193e825f6d17a7535a8b98a5f711ee99e8d50f38b880d6eb7f1da8f26b8c923d",
+  "error-handling/SKILL.md": "60d19931af2081bc8b214dd7e464d01d071ccec1bf9462b09825829fb55a08cc",
+  "error-handling/references/recovery.md": "bddbec697e3813223aa15146a25bf1e153e5f68803afffdcc0bd7fc5206ff80b",
+  "handoff/SKILL.md": "8f2ab32169ec642e6c90cc1f21f9bac0a2f7ee7a3a987ae0c4dc19d50fce6f08",
+  "planning/SKILL.md": "b6de85aeab793036f300639f750b52f3549683074e878e8cd89daca480e945fc",
+  "review-code-changes/SKILL.md": "31467f02c5b37a4c313094d83527b2bda73ebf0e6c990270b8ffa3fbda64d0c5",
+  "teach/references/practice.md": "ed88fcc51d54029ae9ab9e3effcc87523bded6193dbef220e375c962d127c4d9",
+  "verification-authoring/SKILL.md": "9151e1e50a2cc2fc2a27ee9fa86c57699194be6b155d978c125ee70043a87c3b",
+  "verification-authoring/references/create.md": "26e33e0dbd6093c3d627f5bb97ab469501e18d4cb2bc713570968db096d692ed"
+ }
+}

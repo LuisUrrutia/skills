@@ -21,11 +21,14 @@ canonical owners, intended readers, and repository visibility. Preserve existing
 host entrypoints, imports, and nested exceptions. Use accessible context to resolve
 routine choices; ask only when a material decision remains open.
 
-Inspect the repository's existing instructions, overview, manifests, task runners,
-CI, architecture and domain documentation, representative implementation, and
-tests. Follow relevant history, issues, or PRs when they explain a consequential
-decision. Build a map of where different kinds of answers live; reading every
-file is not a completion criterion.
+Inspect the repository's existing instructions, project-local skills (for example
+under `.claude/skills/`, `.agents/skills/`, or `skills/`), overview, manifests,
+task runners, CI, architecture and domain documentation, representative
+implementation, and tests. Record which facts and procedures project-local skills
+already own, and where existing instructions restate them, so the writer keeps one
+owner and a pointer. Follow relevant history, issues, or PRs when they explain a
+consequential decision. Build a map of where different kinds of answers live;
+reading every file is not a completion criterion.
 
 Inventory the relevant sources actually available through the current tools,
 provided exports, and project links. These can include Notion, Confluence, Jira,

@@ -87,10 +87,13 @@ coverage gap. A user's explicit testing request and project requirements still
 apply; this fallback does not silently waive them.
 
 Fix the mechanism with the smallest coherent change that preserves nearby
-contracts. Keep valid input checks, recovery behavior, and boundary guards; remove
-one only when evidence shows it is wrong or redundant. Inspect related instances
-when they share the mechanism, and change only those supported by evidence within
-the authorized scope. Separate emergency mitigation from a root-cause correction.
+contracts. If the state that triggered the failure is legitimate, handle that state
+where the code broke on it. If that state should never exist, correct what produced
+it; a guard, retry, catch, clamp, or default where it surfaced hides the cause.
+Keep valid input checks, recovery behavior, and boundary guards; remove one only
+when evidence shows it is wrong or redundant. Inspect related instances when they
+share the mechanism, and change only those supported by evidence within the
+authorized scope. Separate emergency mitigation from a root-cause correction.
 
 Run the regression check again, then the original scenario and relevant adjacent
 behavior. Complete the project's required checks. Remove disposable instrumentation
@@ -100,10 +103,12 @@ prove an unexercised production symptom is fixed.
 ## Finish with evidence
 
 Report the cause and confidence, changes if any, exact checks and outcomes,
-remaining gaps, and the next observation needed for any unresolved hypothesis.
-Distinguish a verified repair, a supported diagnosis, and work blocked on specific
-evidence. Stop a stalled loop when the next useful probe needs inaccessible input
-or new authority; report what is missing rather than repeating the same attempt.
+remaining gaps, and the next observation needed for any unresolved hypothesis. When
+finding the cause took a costly investigation, propose without implementing a cheap
+always-on signal that would have exposed it at first look. Distinguish a verified
+repair, a supported diagnosis, and work blocked on specific evidence. Stop a
+stalled loop when the next useful probe needs inaccessible input or new authority;
+report what is missing rather than repeating the same attempt.
 
 This skill owns diagnosis and authorized repair. Repository instructions and the
 active caller own commits, worktrees, PRs, and further delivery. A wider authorized

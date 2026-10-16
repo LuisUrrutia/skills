@@ -49,7 +49,10 @@ Use rollback only for effects the transaction can actually undo. Compensation
 is a separate operation that can fail or race with other work; apply only an
 established, authorized compensation policy. Do not invent refunds, deletion,
 message acknowledgement, skipped records or reduced durability as error handling.
-Keep recoverable state and the next reconciliation step explicit.
+Keep recoverable state and the next reconciliation step explicit. A later attempt
+must be able to tell whether a lock, lease, claim, temporary file or partial
+record left by an interrupted attempt is stale, from evidence that holds at every
+point where that attempt could have stopped.
 
 Use fallback only when it preserves the required guarantees or an approved
 degraded contract. Identify stale, incomplete or unavailable data. Failures in

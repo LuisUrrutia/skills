@@ -37,9 +37,10 @@ than pretending there is one hidden correct choice. For code, preserve relevant
 edge cases and distinguish a read-through prediction from executed evidence.
 
 If using multiple-choice questions, make distractors plausible and avoid accidental
-answer clues from wording or formatting. Do not force identical word counts at
-the expense of clarity. Ensure the question has the intended number of defensible
-answers and that explanations address why alternatives fail or depend on context.
+answer clues from wording, formatting, or position; vary where the correct option
+appears across questions. Do not force identical word counts at the expense of
+clarity. Ensure the question has the intended number of defensible answers and
+that explanations address why alternatives fail or depend on context.
 
 ## Carry evidence forward
 

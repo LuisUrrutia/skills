@@ -38,7 +38,8 @@ leave resolution and invocation to the receiving environment.
 ## Save and return
 
 Use the requested destination. Otherwise, use the operating system's temporary
-directory within the environment's write constraints; `/tmp` is acceptable.
+directory within the environment's write constraints, resolved the same way on
+every run: `$TMPDIR` when set, else `/tmp`; `%TEMP%` on Windows.
 Choose a destination whose access and lifetime fit the intended pickup. If those
 cannot be established, state the limitation and what must be transferred or
 preserved. A local path alone does not make an artifact accessible elsewhere.

@@ -10,7 +10,7 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["pstack/skills/how/SKILL.md", "pstack/skills/how/references/explorer-prompt.md", "pstack/skills/how/references/explainer-prompt.md", "pstack/skills/teach/SKILL.md", "pstack/LICENSE"]
 paths = ["pstack/skills/how/SKILL.md", "pstack/skills/how/references/explorer-prompt.md", "pstack/skills/how/references/explainer-prompt.md", "pstack/skills/teach/SKILL.md", "pstack/LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
@@ -35,6 +35,7 @@ local_choices = [
 ]
 reviews = [
   { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/how/SKILL.md: Steps are renumbered and merged, model defaults change and the poteto-mode effort rule is added. Donor orchestration excluded by the local choice of no Task API or model table (explain-code/origin.txt:26).", "pstack/skills/how/references/explorer-prompt.md: The exploration instructions (entry point, flow, abstractions, boundaries, say what you could not trace) are deleted. An upstream removal; the local skill keeps them at explain-code/SKILL.md:30-33 and :43-44."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
 ]
 
 [[dependencies]]

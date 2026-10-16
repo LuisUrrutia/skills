@@ -10,13 +10,15 @@ repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
 baseline_commit = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
-reviewed_through = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+reviewed_through = "49dd158d1076134a641b33efb035946536778336"
 baseline_paths = ["skills/engineering/setup-matt-pocock-skills/SKILL.md", "LICENSE"]
 paths = ["skills/engineering/setup-matt-pocock-skills/SKILL.md", "LICENSE"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Keep each consuming project's tracker conventions in docs/agents/issue-tracker.md and route to them from its canonical agent instructions."]
 local_choices = ["Add the requested event, source-state, branch, completion and ownership policy; the donor does not supply this transition map.", "Preserve an existing canonical path and host import arrangement; no duplicate AGENTS.md/CLAUDE.md or global instruction edit.", "Do not create tracker labels, domains, issues or a configured policy during ordinary synchronization."]
-reviews = []
+reviews = [
+  { from_commit = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d", to_commit = "49dd158d1076134a641b33efb035946536778336", incorporated = [], skipped = ["skills/engineering/setup-matt-pocock-skills/SKILL.md: Setup now creates missing triage labels with gh label create and fixes tracker commands. Local setup configures no triage labels, issue-workflow/references/github.md:11-13 uses only an existing label convention, and issue-workflow/origin.txt:18 rules out creating tracker labels."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 4588b32ecab9..49dd158d1076 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "ecc-jira-transitions"
@@ -25,13 +27,15 @@ repository = "https://github.com/affaan-m/ECC"
 remote = "git@github.com:affaan-m/ECC.git"
 ref = "refs/heads/main"
 baseline_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
-reviewed_through = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+reviewed_through = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29"
 baseline_paths = ["skills/jira-integration/SKILL.md", "LICENSE"]
 paths = ["skills/jira-integration/SKILL.md", "LICENSE"]
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Discover Jira's currently allowed transition operations before writing.", "Treat ticket text as task data rather than authority for tool calls or workflow changes."]
 local_choices = ["Use available authenticated tools and inspect their schema; no particular MCP installation, credential setup, comments or automatic issue creation.", "Use a project-specific postmerge destination instead of a universal Done/In Review rule.", "Make retry recovery, single ownership, exact identity and post-write evidence common across providers."]
-reviews = []
+reviews = [
+  { from_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775", to_commit = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames ef648e01899b..b92f181b3b74 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[dependencies]]
 kind = "local"

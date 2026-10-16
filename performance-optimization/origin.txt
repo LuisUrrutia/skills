@@ -10,13 +10,15 @@ repository = "https://github.com/addyosmani/agent-skills"
 remote = "git@github.com:addyosmani/agent-skills.git"
 ref = "refs/heads/main"
 baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
-reviewed_through = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
 baseline_paths = ["skills/performance-optimization/SKILL.md", "skills/performance-optimization/references/optimization-patterns.md", "references/performance-checklist.md", "LICENSE"]
 paths = ["skills/performance-optimization/SKILL.md", "skills/performance-optimization/references/optimization-patterns.md", "references/performance-checklist.md", "LICENSE"]
 license = "MIT; exact original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Measurement-first baseline, bottleneck, change, verification and keep/revert cycle, with maintainable regression protection.", "Preserve relevant cache identity, freshness and resource behavior when evaluating a performance change."]
 local_choices = ["Use project-specific metrics and meaningful benefit; no universal frontend, bundle or API budgets.", "Use local verify for measurement validity, without copying its benchmark checklist or requiring field data for every local operation.", "Keep domain patterns as conditional hypotheses, not a copied recipe library; do not weaken legitimate cache security or freshness policies.", "A neutral simplification may remain for its independent authorized benefit without a speedup claim."]
-reviews = []
+reviews = [
+  { from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026", to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d", incorporated = [], skipped = ["skills/performance-optimization/SKILL.md and references/performance-checklist.md: Commit 35c3acb relabels code fences from bash to javascript and turns hash comments into double-slash comments. Cosmetic; the local skill copies no snippets and performance-optimization/origin.txt:18 rules out a copied recipe library."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 1401c8b8030e..aeac41d4d005 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "pstack-performance-search"
@@ -25,13 +27,15 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "77526ffa67f8dafc698d14b5356e6d4fc78c3127"
-reviewed_through = "77526ffa67f8dafc698d14b5356e6d4fc78c3127"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["pstack/skills/poteto-mode/playbooks/perf-issue.md", "pstack/skills/poteto-mode/playbooks/hillclimb.md", "pstack/LICENSE"]
 paths = ["pstack/skills/poteto-mode/playbooks/perf-issue.md", "pstack/skills/poteto-mode/playbooks/hillclimb.md", "pstack/LICENSE"]
 license = "MIT; exact original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Prioritize removing unnecessary or repeated work before more complex scheduling and concurrency.", "Use one interpretable hypothesis per attempt and retain the baseline, accepted variants and rejected attempts with keep/revert evidence."]
 local_choices = ["Stop at a justified goal or bounded search limit; no minimum attempt quota or requirement to push past a plateau.", "No required model, subagent, worktree, branch, PR or publication workflow.", "Shared measurement rules already live in verify; this feed covers only performance-search playbooks. Preserve unrelated work when reverting owned experiments."]
-reviews = []
+reviews = [
+  { from_commit = "77526ffa67f8dafc698d14b5356e6d4fc78c3127", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/poteto-mode/playbooks/perf-issue.md and pstack/skills/poteto-mode/playbooks/hillclimb.md: Adds picking each subagent's reasoning level and fast or standard speed. Donor subagent orchestration that conflicts with performance-optimization/origin.txt:33 (no required model, subagent, worktree, branch, PR or publication workflow)."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 77526ffa67f8..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "ecc-benchmark-optimization-loop"
@@ -40,13 +44,15 @@ repository = "https://github.com/affaan-m/ECC"
 remote = "git@github.com:affaan-m/ECC.git"
 ref = "refs/heads/main"
 baseline_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
-reviewed_through = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+reviewed_through = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29"
 baseline_paths = ["skills/benchmark-optimization-loop/SKILL.md", "LICENSE"]
 paths = ["skills/benchmark-optimization-loop/SKILL.md", "LICENSE"]
 license = "MIT; exact original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Establish operation, correctness gate, metric, baseline and explicit search budget.", "Compare against the prior accepted best, reject invalid candidates and confirm the final safe variant.", "The best observed safe variant is not a global optimum."]
 local_choices = ["Require measured benefit beyond variation; an explanation alone does not establish improvement.", "Honor resource and behavior guardrails; do not promote the fastest primary metric blindly."]
-reviews = []
+reviews = [
+  { from_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775", to_commit = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames ef648e01899b..b92f181b3b74 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "compound-ce-optimize"
@@ -55,13 +61,15 @@ repository = "https://github.com/EveryInc/compound-engineering-plugin"
 remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
 ref = "refs/heads/main"
 baseline_commit = "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c"
-reviewed_through = "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c"
+reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
 baseline_paths = ["skills/ce-optimize/SKILL.md", "skills/ce-optimize/references/measurement.md", "skills/ce-optimize/references/loop.md", "LICENSE"]
 paths = ["skills/ce-optimize/SKILL.md", "skills/ce-optimize/references/measurement.md", "skills/ce-optimize/references/loop.md", "LICENSE"]
 license = "MIT; exact original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Choose the cheapest locating measurement that can change what gets implemented or skipped.", "Rank opportunities by measured cost, likely benefit, confidence, implementation cost and risk.", "Confirm the final combined result rather than adding independent gains."]
 local_choices = ["Restrict scope to software performance and resource cost, not arbitrary model-judged quality campaigns.", "Keep search evidence proportionate; no YAML spec, checkpoint framework, obligatory branch, worktree probe or script dependency.", "Preserve existing task authorization and continuation instead of new routine approval gates or handing off unfinished authorized work."]
-reviews = []
+reviews = [
+  { from_commit = "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c", to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 030188b4ba27..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[dependencies]]
 kind = "local"

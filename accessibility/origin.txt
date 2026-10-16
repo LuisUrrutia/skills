@@ -10,13 +10,15 @@ repository = "https://github.com/affaan-m/ECC"
 remote = "git@github.com:affaan-m/ECC.git"
 ref = "refs/heads/main"
 baseline_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
-reviewed_through = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+reviewed_through = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29"
 baseline_paths = ["skills/accessibility/SKILL.md", "skills/frontend-a11y/SKILL.md", "agents/a11y-architect.md", "rules/react-native/accessibility.md", "LICENSE"]
 paths = ["skills/accessibility/SKILL.md", "skills/frontend-a11y/SKILL.md", "agents/a11y-architect.md", "rules/react-native/accessibility.md", "LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Cross-platform semantics, keyboard and assistive-technology coverage; connect fields and errors and check real native settings."]
 local_choices = ["Use platform-specific references and existing components, with no React-only examples or fixed accessibility API mapping.", "Correct AA/AAA focus classification and target-size scope against primary standards; do not turn every error into an alert."]
-reviews = []
+reviews = [
+  { from_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775", to_commit = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames ef648e01899b..b92f181b3b74 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "mblode-product-design"
@@ -25,13 +27,15 @@ repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
 baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
-reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
 baseline_paths = ["skills/product-design/SKILL.md", "skills/product-design/references/interface-quality.md", "LICENSE.md"]
 paths = ["skills/product-design/SKILL.md", "skills/product-design/references/interface-quality.md", "LICENSE.md"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Treat accessibility as completing the task, including reachable states, consequences, errors and recovery."]
 local_choices = ["Keep an accessibility specialist rather than the donor product-design router, rule registry, severity rubric or aesthetics scope."]
-reviews = []
+reviews = [
+  { from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "mblode-ui-verification"
@@ -40,13 +44,15 @@ repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
 baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
-reviewed_through = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
 baseline_paths = ["skills/ui-verification/SKILL.md", "skills/ui-verification/probes/focus-walk.md", "skills/ui-verification/probes/axe-scan.md", "skills/ui-verification/probes/target-size.md", "skills/ui-verification/probes/viewport-stress.md", "LICENSE.md"]
 paths = ["skills/ui-verification/SKILL.md", "skills/ui-verification/probes/focus-walk.md", "skills/ui-verification/probes/axe-scan.md", "skills/ui-verification/probes/target-size.md", "skills/ui-verification/probes/viewport-stress.md", "LICENSE.md"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Use observed keyboard and focus paths, real hit regions, scoped automated scans and explicit missing evidence."]
 local_choices = ["verify and the local recipe retain environment and execution ownership. No fixed browser CLI or mandatory probe matrix.", "Reject blanket third-party exclusion, pixel-difference focus verdicts, 44px as a universal AA floor, and viewport-only zoom claims."]
-reviews = []
+reviews = [
+  { from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "gsd-accessibility"
@@ -70,13 +76,15 @@ repository = "https://github.com/addyosmani/agent-skills"
 remote = "git@github.com:addyosmani/agent-skills.git"
 ref = "refs/heads/main"
 baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
-reviewed_through = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
 baseline_paths = ["skills/frontend-ui-engineering/SKILL.md", "references/accessibility-checklist.md", "LICENSE"]
 paths = ["skills/frontend-ui-engineering/SKILL.md", "references/accessibility-checklist.md", "LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Select keyboard, screen reader, visual and form checks; preserve design-system context and meaningful error and loading states."]
 local_choices = ["Reuse selected accessibility coverage only, not the UI-building workflow, aesthetic rules or component-size limits.", "Correct large-text units and keyboard/target-size exceptions; avoid the incomplete dialog snippet, mandatory focus movement on any content change and automatic legal claims."]
-reviews = []
+reviews = [
+  { from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026", to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d", incorporated = [], skipped = ["skills/frontend-ui-engineering/SKILL.md: The error-state container example now destructures refetch before passing it as the retry callback. It fixes a snippet in the UI-building workflow that accessibility/origin.txt:78 excludes, and no accessibility guidance changed."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 1401c8b8030e..aeac41d4d005 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "github-cli-accessibility"
@@ -85,13 +93,15 @@ repository = "https://github.com/cli/cli"
 remote = "git@github.com:cli/cli.git"
 ref = "refs/heads/trunk"
 baseline_commit = "6fc1c29d5477bfe71da7af290eb481c0df7811f1"
-reviewed_through = "6fc1c29d5477bfe71da7af290eb481c0df7811f1"
+reviewed_through = "59e9f78eacdf2554f8534d166808c3e9b8c7ebcb"
 baseline_paths = ["pkg/cmd/accessibility/accessibility.go", "LICENSE"]
 paths = ["pkg/cmd/accessibility/accessibility.go", "LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Terminal accessibility can require stable prompts, readable progress and configurable color rather than cursor redraws and animation."]
 local_choices = ["Use as a conditional design reference for terminal work; do not prescribe GitHub CLI settings or mutate user configuration."]
-reviews = []
+reviews = [
+  { from_commit = "6fc1c29d5477bfe71da7af290eb481c0df7811f1", to_commit = "59e9f78eacdf2554f8534d166808c3e9b8c7ebcb", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 6fc1c29d5477..59e9f78eacdf over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[dependencies]]
 kind = "local"

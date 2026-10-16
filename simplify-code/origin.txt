@@ -10,13 +10,15 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["cursor-team-kit/skills/deslop/SKILL.md", "cursor-team-kit/LICENSE"]
 paths = ["cursor-team-kit/skills/deslop/SKILL.md", "cursor-team-kit/LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Clean changed code through small edits to comments, defenses, type escapes, nesting and local style."]
 local_choices = ["Resolve the actual caller scope and base, including only relevant uncommitted work.", "Preserve behavior; bug fixes require existing task authority and distinct verification.", "Require evidence for removing checks and catches, and preserve async and resource-lifetime contracts."]
-reviews = []
+reviews = [
+  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 23e4138daa01..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "pstack-comments"
@@ -25,7 +27,7 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["pstack/skills/no-comments/SKILL.md", "pstack/agents/comment-sicko.md", "pstack/LICENSE"]
 paths = ["pstack/skills/no-comments/SKILL.md", "pstack/agents/comment-sicko.md", "pstack/LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
@@ -33,6 +35,7 @@ borrowed = ["Inspect comments against surrounding code and trace consequential c
 local_choices = ["Keep necessary internal invariants and uncertain constraints; do not delete because an exception is unproven.", "No mandatory Comment Sicko, architect call, deletion quota or approval ritual for routine authorized cleanup.", "Inspect suppression meaning; remove only when its underlying reason is resolved and checks still pass."]
 reviews = [
   { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/agents/comment-sicko.md: The agent id is renamed from Comment Sicko to comment-sicko so Grok can spawn it. Donor orchestration; simplify-code/origin.txt:33 excludes a mandatory Comment Sicko.", "pstack/skills/no-comments/SKILL.md: Uses the new agent id and adds picking the subagent's reasoning level and speed. Donor orchestration excluded by simplify-code/origin.txt:33."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
 ]
 
 [[sources]]
@@ -42,13 +45,15 @@ repository = "https://github.com/addyosmani/agent-skills"
 remote = "git@github.com:addyosmani/agent-skills.git"
 ref = "refs/heads/main"
 baseline_commit = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
-reviewed_through = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
+reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
 baseline_paths = ["skills/code-simplification/SKILL.md", "LICENSE"]
 paths = ["skills/code-simplification/SKILL.md", "LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
 borrowed = ["Preserve helpers that name useful concepts and boundaries that isolate cohesive responsibilities.", "Judge clarity rather than line counts; retain relevant performance constraints when simplifying sensitive paths."]
 local_choices = ["Use language-neutral criteria without language-specific code examples or syntax prescriptions.", "Do not adopt numeric refactoring thresholds, mandatory separate PRs, or automatic removal of single-use abstractions.", "Preserve data representation, failure delivery and resource timing even when a shorter source example changes them.", "Keep verification proportional to the changed behavior and the repository's checks; do not require the full suite after every small edit."]
-reviews = []
+reviews = [
+  { from_commit = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092", to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames a06bc63b3f8b..aeac41d4d005 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[dependencies]]
 kind = "local"

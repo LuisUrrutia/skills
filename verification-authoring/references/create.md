@@ -31,7 +31,7 @@ following operating contract, filled with real project commands and paths:
 
 | Section | Required content |
 | --- | --- |
-| Launch | Exact build/start command and working directory; prerequisites; bounded readiness check; how the run identifies its build, instance, and owned resources. |
+| Launch | Exact build/start command and working directory; prerequisites; for a run-owned instance, startup from empty data through any migrations and seed data; a bounded readiness check that proves a usable state, not only an answering process or port; how the run identifies its build, instance, and owned resources. |
 | Doctor | A read-only check of whether this specific instance is worth driving: identity/version, readiness, expected data/profile/port, and relevant auth state. Explain failures without exposing credentials. |
 | Drive | The actual harness and selectors, routes, commands, public API calls, or device actions. Explain reset to a known state and reference the feature index. |
 | Evidence | Required action and result artifacts, independent side-effect checks, build/input identity, and the exact output location outside disposable state. |

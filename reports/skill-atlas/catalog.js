@@ -4305,7 +4305,7 @@ window.SKILL_ATLAS = {
         "category": "Instruction authoring",
         "summary": "Investigate a project and its knowledge sources to create evidence-based AGENTS.md or CLAUDE.md instructions.",
         "path": "create-project-instructions/SKILL.md",
-        "sha256": "ef1c6d1c4bea69cc3df9a498777a0b53166e6bdabf17c1d6acc17370873419da",
+        "sha256": "6a8f07ba9fd1517e6c61224bd1bfc4652f4a22853d9cd3d497704748e29c0a43",
         "section": "authoring"
       },
       {
@@ -4379,7 +4379,7 @@ window.SKILL_ATLAS = {
         "category": "Implementation, verification and review",
         "summary": "Diagnose observed failures and resource regressions; use verify for measurement assessment and repair within active authority.",
         "path": "debug/SKILL.md",
-        "sha256": "12b71134c4d795478950975a14327d2b81dc4c164e46fede943b655b92fafc8e",
+        "sha256": "193e825f6d17a7535a8b98a5f711ee99e8d50f38b880d6eb7f1da8f26b8c923d",
         "section": "debug"
       },
       {
@@ -4395,7 +4395,7 @@ window.SKILL_ATLAS = {
         "category": "Implementation, verification and review",
         "summary": "Design, implement or review failure contracts and bounded recovery, preserving caller semantics and avoiding repeated effects.",
         "path": "error-handling/SKILL.md",
-        "sha256": "369d6f7d56b46ed6ac5e1be9ff60d7f3ae4924338056c94e3e63778bc044a63e",
+        "sha256": "60d19931af2081bc8b214dd7e464d01d071ccec1bf9462b09825829fb55a08cc",
         "section": "error-handling"
       },
       {
@@ -4428,7 +4428,7 @@ window.SKILL_ATLAS = {
         "category": "Implementation, verification and review",
         "summary": "Create and maintain project-local verify-<app> recipes and feature maps.",
         "path": "verification-authoring/SKILL.md",
-        "sha256": "99bfd215723213a514a0312365f2270b51d1f8c361c4d818af02eecbf57f2836",
+        "sha256": "9151e1e50a2cc2fc2a27ee9fa86c57699194be6b155d978c125ee70043a87c3b",
         "section": "verification"
       },
       {
@@ -4452,7 +4452,7 @@ window.SKILL_ATLAS = {
         "category": "Implementation, verification and review",
         "summary": "Review a declared change with evidence, delegating independent risk questions when useful and authorized.",
         "path": "review-code-changes/SKILL.md",
-        "sha256": "c93a230256fc383802d83a6af71a699d8d0226e2370e6be428e0387351998494",
+        "sha256": "31467f02c5b37a4c313094d83527b2bda73ebf0e6c990270b8ffa3fbda64d0c5",
         "section": "review-code-changes"
       },
       {
@@ -4527,7 +4527,7 @@ window.SKILL_ATLAS = {
         "category": "Writing and personal workflows",
         "summary": "Default prose guidance across languages: clear explanations, audience and channel adaptation, faithful rewrites and natural author voice.",
         "path": "communicate-clearly/SKILL.md",
-        "sha256": "fe58262c58101a4cd0f30031094bf845495ef24a66131e9aa6ea152d238c79bb",
+        "sha256": "c7357cea6fc5df4154f2c582c5e15f1b62d8d896fd24fd7e076222fb9e55572d",
         "section": "communication"
       },
       {
@@ -4583,7 +4583,7 @@ window.SKILL_ATLAS = {
         "category": "Writing and personal workflows",
         "summary": "Write portable continuation context with the next action, decisions, evidence and access limits; creating the document does not transfer execution.",
         "path": "handoff/SKILL.md",
-        "sha256": "6ffcea0aad01d82e1493543e41c319eccf656d9291de47c4217f115ebd0628b2",
+        "sha256": "8f2ab32169ec642e6c90cc1f21f9bac0a2f7ee7a3a987ae0c4dc19d50fce6f08",
         "section": "handoff"
       },
       {
@@ -4659,8 +4659,8 @@ window.SKILL_ATLAS = {
         "summary": "Create, review or revise implementation plans with verifiable outcomes, dependencies and acceptance checks; task-breakdown owns PR-sized decomposition.",
         "path": "planning/SKILL.md",
         "section": "planning",
-        "checkedAt": "2026-10-06",
-        "sha256": "a39ff4b65ebe0d3e41254b2afe757b42a0008dc65436cb0bdfebfa96781f853a"
+        "checkedAt": "2026-10-16",
+        "sha256": "b6de85aeab793036f300639f750b52f3549683074e878e8cd89daca480e945fc"
       },
       {
         "name": "task-breakdown",

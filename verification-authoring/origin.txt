@@ -10,7 +10,7 @@ repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["pstack/skills/create-verification-skill/SKILL.md", "pstack/skills/maintain-verification-skill/SKILL.md", "pstack/skills/create-verification-skill/references/feature-map-example/README.md", "pstack/skills/create-verification-skill/references/feature-map-example/create-note.md", "pstack/skills/create-verification-skill/references/feature-map-example/search.md", "pstack/LICENSE"]
 paths = ["pstack/skills/create-verification-skill/SKILL.md", "pstack/skills/maintain-verification-skill/SKILL.md", "pstack/skills/create-verification-skill/references/feature-map-example/README.md", "pstack/skills/create-verification-skill/references/feature-map-example/create-note.md", "pstack/skills/create-verification-skill/references/feature-map-example/search.md", "pstack/LICENSE"]
 license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
@@ -32,6 +32,7 @@ local_choices = [
 ]
 reviews = [
   { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = ["Adapted from pstack/skills/create-verification-skill/SKILL.md (c49b37a): the Launch row requires, for a run-owned instance, startup from empty data through any migrations and seed data, and a readiness check that proves a usable state rather than an answering process or port (verification-authoring/references/create.md).", "Incorporated from the same commit: a proof run in a stand-in environment lists the setup the stand-in supplied that the target will not, and that setup stays unverified; placed in the shared completion paragraph of verification-authoring/SKILL.md so creation and maintenance both apply it."], skipped = ["pstack/skills/create-verification-skill/SKILL.md: A journey whose seed data lacks a precondition reports a failure with the reason in that feature's Gotchas, and the journey is never weakened to pass. Not weakening the journey is covered at verification-authoring/references/create.md:87-88 and preconditions at verification-authoring/references/feature-map.md:19-24, while calling an unreachable prerequisite a failure conflicts with the blocked-coverage local choice at verification-authoring/origin.txt:29."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
 ]
 
 [[dependencies]]
