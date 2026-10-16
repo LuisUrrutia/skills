@@ -25,9 +25,11 @@ unchanged stages for all other stack members.
 Preserve every branch tip and record the combined top diff. Read the current documentation to
 determine whether the requested membership change is supported in place. When it is not, use the
 documented dissolve operation, rewrite ancestry, patch PR bases, and recreate the stack in the new
-bottom-to-top order. A partial or locked response is state to resolve before recreation.
+bottom-to-top order. A partial or locked response is state to resolve before recreation. When the
+request dissolves the stack rather than restructuring it, add the bottom-to-top map to the body of
+every open PR that GitHub no longer stacks.
 
 Restructuring is complete when fresh stack and PR reads prove the requested order and bases, the
 combined top diff changed only as requested, and the preserved tips keep the previous state
-recoverable. Dissolution is complete when no eligible PR remains grouped and branch and PR state is
-reported explicitly.
+recoverable. Dissolution is complete when no eligible PR remains grouped, every open PR that GitHub
+no longer stacks carries the map, and branch and PR state is reported explicitly.
