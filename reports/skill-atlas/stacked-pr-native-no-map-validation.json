@@ -2,7 +2,7 @@
  "schemaVersion": 1,
  "date": "2026-10-16",
  "baseline": "1a8703b8ee3af8939f2c2095ce470d6908c00d66",
- "status": "Validated for the stated static scope and one matched trial per arm; all material findings from two Claude consultation rounds accounted for. The Codex profile was skipped at its usage limit.",
+ "status": "Validated for the stated static scope and one matched trial per arm; all material findings from three Claude consultation rounds and the CodeRabbit review accounted for. The Codex profile was skipped at its usage limit.",
  "request": "Stop stacked-pr from adding the bottom-to-top \"Stack\" line to PR bodies when the stack is native (gh-stack CLI or REST API), because GitHub already shows a native stack's order and navigation on every member PR; ordinary dependent-PR chains keep the map.",
  "diagnosis": "cli-create.md Submit and api-create.md Open PRs told the agent to add the same compact bottom-to-top map to every body and verified it at completion. The pr skill has no stack-map rule.",
  "changes": [
@@ -24,7 +24,7 @@
   },
   {
    "file": "stacked-pr/references/manual-chain.md",
-   "change": "The map stays accurate per PR that GitHub does not stack; a PR that a retained native stack still groups carries none."
+   "change": "Map steps in the manual operations write a map only on a PR that GitHub does not stack; a PR that a retained native stack still groups carries none."
   },
   {
    "file": "stacked-pr/references/stack-design.md",
@@ -80,6 +80,17 @@
       "reason": "SKILL.md and manual-chain.md govern; the file is outside the touched set."
      }
     ]
+   },
+   {
+    "round": 3,
+    "profiles": [
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "T3 delegate_task mode=wait, clientRequestId stackmap-fable-review-r3",
+      "result": "Assessed the CodeRabbit findings: the manual-chain.md scope fix resolves finding A for every manual operation without conflicting with the link-path removal; the rejection of finding B is sound because no non-legacy path puts a map on a retained native-stack PR. One optional tightening."
+     }
+    ],
+    "adopted": "The tightening: a direct write restriction instead of a state sentence the agent had to infer it from."
    }
   ]
  },
@@ -122,7 +133,7 @@
     "candidate": "removes it"
    }
   ],
-  "limits": "One run per arm; supplied-context answers without executing gh or the API. Host skill selection was not observed. The round-2 wording tweaks were not re-probed."
+  "limits": "One run per arm; supplied-context answers without executing gh or the API. Host skill selection was not observed. The round-2 and round-3 wording changes were not re-probed."
  },
  "checks": [
   "git diff --check passed.",
@@ -135,8 +146,21 @@
   "stacked-pr/references/api-create.md": "1dc2da82bfb9af054f95e2e9cdcc2d37fa0800d3554f68e83bf902677fe3314e",
   "stacked-pr/references/api-maintain.md": "fce2fae8ae1d02ffe737c6dbe7169d95941bf1f08553be5f13d4163b9fb7a403",
   "stacked-pr/references/cli-create.md": "b000c6753d569b8c178244e4e6fd19c72d0fe474419199518a39c33b0cd68f52",
-  "stacked-pr/references/manual-chain.md": "31d306d432534a6335fdecd86ed6eec015bdbc8deaca069781099f273e205c0d",
+  "stacked-pr/references/manual-chain.md": "681ff224884c2b59c7983be0e0f00c2079164acb5fde2bb96d15e2d6289cb21e",
   "stacked-pr/references/stack-design.md": "4dc656cb108938648912629f46146c3d3fa5f3a8683a89a243c6c1e6a3456296",
   "stacked-pr/references/troubleshooting.md": "7d48b0a1ee62b9221704a8645c6094c5b546053e573feca870dc1c31bac20679"
+ },
+ "botReview": {
+  "reviewer": "CodeRabbit, review 5550927589 on ec492fc",
+  "findings": [
+   {
+    "finding": "Manual maintain and merge steps (update all maps, every remaining PR map) could write a map on a PR that a retained native stack still groups.",
+    "disposition": "Applied in one place: manual-chain.md limits the map steps of every manual operation, instead of qualifying each sentence in manual-maintain.md and manual-merge.md."
+   },
+   {
+    "finding": "Migration that retains the native stack should remove maps from retained PRs and check it at completion.",
+    "disposition": "Not applied. No route writes a map on a native-stack PR and a PR adopted into one loses its map, so only a map that predates this change could remain; the retain branch leaves the PRs unchanged by design, and the proposed criterion would require body edits outside the migration."
+   }
+  ]
  }
 }
