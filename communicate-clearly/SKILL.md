@@ -88,8 +88,9 @@ Read the result without the source in view, as the intended reader: can they fol
 the thought without reconstructing missing links or rereading to decode it? Then
 check facts, scope, attribution, certainty, conditions, voice, and protected
 material against the evidence. For rewrites and edits, use the claim-by-claim
-fidelity pass. Rescan diagnosed patterns and repeat both checks after a substantive
-repair.
+fidelity pass. Rescan the diagnosed patterns and the tells that rewrites most often
+introduce or leave behind: contrasts, closers, triads, dashes, and bold labels.
+Repeat both checks after a substantive repair.
 
 Return the answer or revised text first. Explain changes only when requested or
 needed to understand a material restructuring. Reviews give passage, reader impact,

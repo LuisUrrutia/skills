@@ -4,7 +4,7 @@ Use this reference to diagnose prose that feels generated, generic, or unnatural
 
 ## Route map
 
-For a writing-pattern review, inspect every family and apply the false-positive guardrails. For drafting or targeted rewriting and file edits, load the families that match the initial scan, then rescan the result against those same families.
+For a writing-pattern review, inspect every family and apply the false-positive guardrails. For drafting or targeted rewriting and file edits, load the families that match the initial scan, then rescan the result as `SKILL.md` directs.
 
 - **Generic wording and syntax:** [1. Lexical tells](#1-language-and-lexical-tells), [2. Significance padding](#2-significance-and-notability-padding), [3. Promotional and positioning fog](#3-promotional-tone-and-product-positioning-fog), [4. Formulaic syntax and stock metaphors](#4-formulaic-syntax-and-stock-metaphors), [11. Content economy](#11-content-economy-and-treadmill-restatement), [17. Hedging and filler](#17-hedging-filler-and-sycophancy)
 - **Organization and surface style:** [5. Outline artifacts](#5-structure-and-outline-artifacts), [6. Formatting and punctuation](#6-formatting-and-punctuation-tells), [12. Rhythm](#12-rhythm-and-sentence-boundary-tells), [13. Whole-text cohesion](#13-whole-text-cohesion-and-referential-continuity), [16. Openings and closings](#16-openings-closings-and-transition-residue)
@@ -68,11 +68,11 @@ For a writing-pattern review, inspect every family and apply the false-positive 
 
 ## 4. Formulaic syntax and stock metaphors
 
-**Watch for:** Formulaic syntax that makes a claim sound more polished or profound than its content. Patterns include copula avoidance and ornate substitutions such as "serves as," "stands as," "represents," "boasts," or "features" where "is" or "has" is clearer; forced parallelism, including repeated rule-of-three constructions in which the third item completes a cadence rather than a real category; "not only...but also" and "it's not just X, it's Y" constructions; false "from X to Y" ranges; and sentence-ending `-ing` clauses such as "highlighting," "showcasing," "underscoring," "ensuring," or "reflecting." Repeated runs of three adjectives, abstract nouns, clauses, or bullets can make thin material feel comprehensive. Also watch stock metaphors that cast a claim as a maxim, including "X is the Y of Z," "X is not a tool but a mirror," and "X becomes a trap," especially when abstract words such as "language," "currency," or "architecture" stand in for an unnamed relationship.
+**Watch for:** Formulaic syntax that makes a claim sound more polished or profound than its content. Patterns include copula avoidance and ornate substitutions such as "serves as," "stands as," "represents," "boasts," or "features" where "is" or "has" is clearer; forced parallelism, including repeated rule-of-three constructions in which the third item completes a cadence rather than a real category; "not only...but also" and "it's not just X, it's Y" constructions, including the contrast split across sentences ("This does not mean X. It means Y."); false "from X to Y" ranges; and sentence-ending `-ing` clauses such as "highlighting," "showcasing," "underscoring," "ensuring," or "reflecting." Repeated runs of three adjectives, abstract nouns, clauses, or bullets can make thin material feel comprehensive. Also watch stock metaphors that cast a claim as a maxim, including "X is the Y of Z," "X is not a tool but a mirror," and "X becomes a trap," especially when abstract words such as "language," "currency," or "architecture" stand in for an unnamed relationship.
 
 **Why suspicious:** These structures can replace a direct relationship with an ornate predicate, a balanced slogan, or an underdefined metaphor. Repeated triads can make thin material feel complete and force unrelated items into matching grammar. Trailing clauses can also pretend to analyze rather than add facts.
 
-**False positives:** Academic and legal prose may use nominal style. Essays, speeches, fiction, advertising, and an established authorial voice may use metaphor deliberately. "Language," "currency," and "architecture" can be literal domain terms, and some `-ing` clauses are normal and precise. Three items may form an exact count, a natural classification, or a deliberate rhetorical pattern. A single triad is weak evidence; repetition and low-information items make the pattern meaningful.
+**False positives:** Academic and legal prose may use nominal style. Essays, speeches, fiction, advertising, and an established authorial voice may use metaphor deliberately. "Language," "currency," and "architecture" can be literal domain terms, and some `-ing` clauses are normal and precise. Three items may form an exact count, a natural classification, or a deliberate rhetorical pattern. A single triad is weak evidence; repetition and low-information items make the pattern meaningful. Keep a contrast when its negative half corrects a belief the reader actually holds or when both halves carry information.
 
 **Rewrite or detection tactic:** Recover the underlying proposition before changing its form. Prefer a direct verb when it preserves the claim. Translate a stock metaphor into a literal relationship only when the source supplies that relationship; preserve a deliberate or underdefined metaphor rather than inventing its meaning. For a triad, map each item to distinct source information. Keep the three-part structure when every item is real and parallel; remove padding, merge overlap, or abandon the shape when an item exists only to complete the rhythm. If a trailing clause is fake analysis, cut it, fold it into the sentence, or start a new sentence when that is the clearest connection. Split false ranges into a list of actual topics.
 
@@ -139,18 +139,20 @@ For a writing-pattern review, inspect every family and apply the false-positive 
 
 ## 8. Context contamination and prompt leakage
 
-**Watch for:** Text refers to instructions, roles, files, or constraints that should not be visible to the reader: "as requested," "following your prompt," "the user wants," "this section should," "TODO: verify," "maintain a professional tone," "do not mention," "make it sound human," or unrelated context from another task.
+**Watch for:** Text refers to instructions, roles, files, or constraints that should not be visible to the reader: "as requested," "following your prompt," "the user wants," "this section should," "TODO: verify," "maintain a professional tone," "do not mention," "make it sound human," or unrelated context from another task. Also watch text that describes how it was made instead of its subject: "generated from," "compiled from," or "anything unconfirmed is flagged rather than guessed."
 
-**Why suspicious:** AI outputs can blend the task prompt, hidden instructions, earlier messages, or examples into the final prose.
+**Why suspicious:** AI outputs can blend the task prompt, hidden instructions, earlier messages, or examples into the final prose. An account of the writer's method gives the reader nothing about the subject.
 
-**False positives:** Draft notes, editorial comments, and changelogs may intentionally mention requirements.
+**False positives:** Draft notes, editorial comments, and changelogs may intentionally mention requirements. Keep a source credit the reader can follow and a caveat that changes what the reader does. A single description of how the text was made is weak evidence on its own.
 
-**Rewrite or detection tactic:** Remove production instructions from reader-facing copy. If the note is useful, move it to a comment, issue, or editorial checklist.
+**Rewrite or detection tactic:** Remove production instructions from reader-facing copy. If the note is useful, move it to a comment, issue, or editorial checklist. Replace a description of how the text was produced with the content it describes.
 
-**Example:**
+**Examples:**
 
 - Before: "This section should reassure users that the migration is simple because most teams can finish it in one afternoon."
 - After: "Most teams can finish the migration in one afternoon."
+- Before: "The figures below are drawn from each vendor's published pricing; anything we could not confirm is flagged rather than guessed. Vendor A charges $20 per seat. Vendor B does not publish a price."
+- After: "Vendor A's published price is $20 per seat. Vendor B does not publish a price."
 
 ## 9. Attribution, evidence, and citation patterns
 
@@ -272,7 +274,7 @@ For a writing-pattern review, inspect every family and apply the false-positive 
 
 ## 16. Openings, closings, and transition residue
 
-**Watch for:** Formulaic openings such as "In today's fast-paced world," "As technology continues to evolve," "In an era where," or "It goes without saying." Watch fake-candid hooks and pause-and-reveal fragments, including the standalone question "Honestly?" and phrases such as "Look," "Here's the thing," "The thing is," "Let's be honest," or "Real talk," when they precede an ordinary claim without changing its stance or meaning. Meta-announcements such as "Let's dive in," "Let's explore," "Let's break this down," "Here's what you need to know," "Now let's look at," and "Without further ado" announce the next point instead of presenting it. Treat "a deep dive into" as the same pattern when it promises depth instead of establishing useful scope. Casual recastings such as "Heads up," "Quick note," and "Before I forget" have the same defect when they serve only as introductions. Formulaic closings include "The future looks bright," "Only time will tell," "This is just the beginning," and "Exciting times lie ahead." Overused transitions include "Moving forward," "Furthermore," "Additionally," "Moreover," and "In conclusion."
+**Watch for:** Formulaic openings such as "In today's fast-paced world," "As technology continues to evolve," "In an era where," or "It goes without saying." Watch fake-candid hooks and pause-and-reveal fragments, including the standalone question "Honestly?" and phrases such as "Look," "Here's the thing," "The thing is," "Let's be honest," or "Real talk," when they precede an ordinary claim without changing its stance or meaning. Meta-announcements such as "Let's dive in," "Let's explore," "Let's break this down," "Here's what you need to know," "Now let's look at," "Without further ado," and descriptions of a layout the reader can already see, such as "The table below compares," announce the next point instead of presenting it. Treat "a deep dive into" as the same pattern when it promises depth instead of establishing useful scope. Casual recastings such as "Heads up," "Quick note," and "Before I forget" have the same defect when they serve only as introductions. Formulaic closings include "The future looks bright," "Only time will tell," "This is just the beginning," and "Exciting times lie ahead." Overused transitions include "Moving forward," "Furthermore," "Additionally," "Moreover," and "In conclusion."
 
 **Why suspicious:** These phrases can buy time, simulate candor, make an ordinary point sound consequential, or replace content with commentary about the content. A casual register does not repair an announcement whose only job is to introduce the next point.
 
