@@ -83,7 +83,9 @@ failure, successful or permitted recovery path, and effects that must not repeat
 Use controllable dependencies and time where needed to exercise partial progress,
 exhaustion, cancellation and cleanup. Verify result/state as well as reporting;
 absence of a side effect is meaningful when tied to the observed failure contract.
-Do not replace the behavior under test with a mock or use elapsed waiting as proof.
+Assert the classification, code or type that callers branch on; assert message
+text only where a user or caller consumes it. Do not replace the behavior under
+test with a mock or use elapsed waiting as proof.
 
 Run the project's applicable checks after implementation. Use available `verify`
 for application-level evidence when the change needs it; existing direct checks
