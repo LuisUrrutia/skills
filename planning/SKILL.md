@@ -77,6 +77,8 @@ plan needs a starting structure, and omit sections that add no useful informatio
 - **Approach and evidence:** the existing capability to extend, affected components
   and relevant source paths, chosen contracts, and reasons for consequential
   choices. Distinguish verified locations from proposed files and untested claims.
+  Name current project documentation that the change would make wrong; this
+  excludes historical records such as changelogs or ADRs.
 - **Implementation work:** the results to deliver, changes needed, prerequisites,
   and evidence that proves it. Include consumed and produced interfaces where
   separate implementers must agree. State settled names or signatures precisely;
