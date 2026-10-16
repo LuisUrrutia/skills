@@ -1,0 +1,147 @@
+{
+ "schemaVersion": 1,
+ "date": "2026-10-16",
+ "baseline": "c7ef69fc040aa1f080240f673b4f46a691b45dcc",
+ "status": "Validated for the stated static scope and one matched trial per arm; all material findings from three consultation rounds accounted for.",
+ "request": "Review the skills and decide whether they need updating; apply the approved updates and open a PR from origin/main. This change aligns worktrunk and stacked-pr with the installed wt v0.80.0 and gh stack v0.2.0 (gh 2.102.0).",
+ "changes": [
+  {
+   "file": "worktrunk/SKILL.md",
+   "change": "wt owns every worktree operation; raw git worktree only on explicit user request, and an unavailable wt is a blocker. wt merge commits uncommitted and untracked changes, squashes, rebases, fast-forwards the local target without fetching and removes the worktree and branch; run it only when the user asks, after confirming the worktree holds only intended changes."
+  },
+  {
+   "file": "worktrunk/references/remove.md",
+   "change": "Removal runs in the background unless --foreground; completion reads branch_outcome from --foreground --format=json (deleted, retained_*, not_attempted, deferred). New bulk-cleanup section for wt step prune with its skips (main, locked, dirty, younger than --min-age, unapproved hooks) and a --dry-run preview."
+  },
+  {
+   "file": "worktrunk/references/project-config.md",
+   "change": "pre-merge and post-merge hooks; pre-commit runs only before Worktrunk's own commits; wt step copy-ignored and .worktreeinclude for caches; experimental wt step tether for dev servers; wt config approvals list --format=json reads approval state without prompting."
+  },
+  {
+   "file": "worktrunk/references/switch.md, list.md, user-config.md, troubleshooting.md",
+   "change": "Read the new path from wt switch --format=json and run one program with -x (explicit shell for shell syntax); --full means CI status and LLM summaries; dimmed rows were clean when listed; user pre-* hooks run first while post-* hooks start together; fish shell integration and wt hook <type> --foreground for post-hook debugging."
+  },
+  {
+   "file": "stacked-pr/references/troubleshooting.md",
+   "change": "No CLI command removes only the GitHub grouping: unstack also drops local tracking, re-adopt with init once the stack view no longer reports the chain, otherwise follow the migration decision step. On the link path publish missing PRs through the pr skill first and pass existing PRs by URL. gh stack modify uses clean owning worktrees; manual and API routes still replay explicitly."
+  },
+  {
+   "file": "stacked-pr/references/cli-create.md, cli-maintain.md, cli-merge.md, cli-workflow.md",
+   "change": "--open also marks existing PRs ready; gh stack push leases per branch and is not atomic; pass the approved target and method to non-interactive merge; no read-only CLI command inspects a remote stack, and gh pr view does not report membership."
+  },
+  {
+   "file": "reports/skill-atlas/catalog.js, sources.json, index.html",
+   "change": "Refreshed the worktrunk entrypoint hash and the catalog cache key. stacked-pr/SKILL.md is unchanged."
+  }
+ ],
+ "consultations": {
+  "brief": ".agents/skill-refresh/cli-brief.md, cli-brief-r2.md, cli-brief-r3.md (scratch, not committed): user request, frozen candidate diff, audit evidence, global worktree rule; read-only, no delegation.",
+  "rounds": [
+   {
+    "round": 1,
+    "profiles": [
+     {
+      "profile": "Codex gpt-6-astra / max",
+      "runner": "T3 delegate_task, clientRequestId cli-drift-astra-r1",
+      "result": "No material issues; minor: wt merge stages and commits uncommitted changes by default."
+     },
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "T3 delegate_task, clientRequestId cli-drift-fable-r1",
+      "result": "One material (wt merge side effects and gate) and seven minor findings: flags where removal is chosen, not_attempted, prune approval skips and --min-age default, -x without a shell, unstack partial dissolution, publishing missing PRs before link, wt hook --foreground."
+     }
+    ],
+    "adopted": "All findings, including dropping the PR-repository condition on wt merge in favor of a user request in any repository."
+   },
+   {
+    "round": 2,
+    "profiles": [
+     {
+      "profile": "Codex gpt-6-astra / max",
+      "runner": "cli-drift-astra-r2",
+      "result": "No material or minor issues."
+     },
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "cli-drift-fable-r2",
+      "result": "No material issues; seven minor findings."
+     }
+    ],
+    "adopted": "deferred outcome, impersonal wording, unstack scoped to a tracked stack, pointer instead of a restated migration rule, pr skill for publishing missing PRs on the link path, numeric-argument behavior.",
+    "rejected": [
+     {
+      "finding": "Note that -x expands templates before the shell parses them",
+      "reason": "The skill defers command details to live help; the added sentence already states the shell requirement."
+     }
+    ]
+   },
+   {
+    "round": 3,
+    "profiles": [
+     {
+      "profile": "Codex gpt-6-astra / max",
+      "runner": "cli-drift-astra-r3",
+      "result": "No material issues."
+     },
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "cli-drift-fable-r3",
+      "result": "No material issues; every changed hunk matches installed help."
+     }
+    ]
+   }
+  ]
+ },
+ "trials": {
+  "runner": "Fresh Claude Code general-purpose subagents, inherited claude-opus-5-5, one run per arm. Each arm read only a frozen copy of worktrunk and stacked-pr (origin.txt and evals removed) and a task file; no commands, including --help. Candidate = round-2 text; round-3 edits were wording and help-verified details.",
+  "results": [
+   {
+    "case": "Remove a merged worktree and verify",
+    "baseline": "plain wt remove, then wt list immediately (races background removal)",
+    "candidate": "wt remove --foreground --format=json, branch_outcome check, then wt list and git branch --list"
+   },
+   {
+    "case": "wt not installed",
+    "baseline": "created the worktree with raw git worktree add",
+    "candidate": "reported a blocker and offered install or an explicit git worktree request"
+   },
+   {
+    "case": "wt switch from a script without TTY",
+    "baseline": "inspected hooks; read the path from wt list --format=json",
+    "candidate": "checked wt config approvals list --format=json; read the path from wt switch --format=json; noted the dev server outlives the worktree"
+   },
+   {
+    "case": "Merge only the approved bottom PR with squash",
+    "baseline": "computed the PR set; no explicit-target requirement",
+    "candidate": "passes target and method explicitly, naming the whole-stack default"
+   },
+   {
+    "case": "Submit new layers while an existing PR stays draft",
+    "baseline": "safe generic reasoning about unknown draft behavior",
+    "candidate": "submit without --open and gh pr ready only on new PRs"
+   }
+  ],
+  "limits": "One run per arm; supplied-context answers without executing wt or gh. Host skill selection was not observed."
+ },
+ "checks": [
+  "git diff --check passed.",
+  "Relative Markdown links and anchors in worktrunk/ and stacked-pr/: 42 checked, 0 broken.",
+  "Every changed claim was checked against installed help: wt v0.80.0 (remove, step prune, merge, hook, switch, list, config approvals), gh stack v0.2.0 (submit, link, unstack, modify, merge, push, view, checkout) and gh 2.102.0 (pr view --json fields).",
+  "sources.json and this report parse as JSON; node --check reports/skill-atlas/catalog.js passed; catalog.js equals the prefixed sources.json.",
+  "Smoke path: fish -lc 'env TMPDIR=/tmp bash pr-review-followup/scripts/validate.sh' passed; fish -lc 'env TMPDIR=/tmp bash pr-review/scripts/validate.sh $PWD/review-code-changes' passed (worktrunk and stacked-pr have no validator)."
+ ],
+ "final_hashes": {
+  "worktrunk/SKILL.md": "aba8d9fd202de9144b8ef0a7f945c8db487aeac53c3aaf7ad1341013a0e5bf94",
+  "worktrunk/references/list.md": "8dfadabc77106e345a481e98e7292dd72f9f52de65340d7fee94f13c5750a9f4",
+  "worktrunk/references/project-config.md": "da044c37f492b1118102a53d8eb0a000992aea653188e71946c2945256384b6a",
+  "worktrunk/references/remove.md": "ea467514a1495891674bbb1cc1a15e8334fa8a87c5d708fe7bf429ee739d67ff",
+  "worktrunk/references/switch.md": "a94d75dc3e23c3f41aafc7e6775f7b86380bd11dc9d06e6e7f1293e92621b8a2",
+  "worktrunk/references/troubleshooting.md": "9807b6aedee94d051647ca66bdbf3df69963d9d54ff1711652eeac53bd4d06b5",
+  "worktrunk/references/user-config.md": "ba3a5399694a86516f0bab07d70c165e885bd2d30368319d84f04de56ba6a9d1",
+  "stacked-pr/references/cli-create.md": "3bfd8b9b94eac52c514d267d239aeb48af1619dd67f71f550a10eb888e5136ba",
+  "stacked-pr/references/cli-maintain.md": "13154d6f90aa6da641a84b7bd17dc2fd88d0b8675218c39855381b99dcee6ab1",
+  "stacked-pr/references/cli-merge.md": "4334162023ad203edebf15ee114db343e97b86283bf184666638a4beb071de85",
+  "stacked-pr/references/cli-workflow.md": "adf4771999b785b5bb134602f3d8a5eb3a915880721c230240f2d94481ef5764",
+  "stacked-pr/references/troubleshooting.md": "93d0b7d117c27587e1f13d22b69a64f41d078053ac3d860203d694401aa93ece"
+ }
+}
