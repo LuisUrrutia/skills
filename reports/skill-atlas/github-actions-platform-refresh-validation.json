@@ -1,0 +1,189 @@
+{
+ "schemaVersion": 1,
+ "date": "2026-10-16",
+ "baseline": "c7ef69fc040aa1f080240f673b4f46a691b45dcc",
+ "status": "Validated against primary sources current on 2026-10-16, five consultation rounds and one matched trial per arm.",
+ "request": "Review the skills and decide whether they need updating; apply the approved updates and open a PR from origin/main. This change corrects github-actions claims GitHub changed after 2026-08-22 and adds platform changes that alter what an agent should do.",
+ "changes": [
+  {
+   "file": "github-actions/SKILL.md",
+   "change": "Dependency procedure: Node 24 is the only JavaScript runtime on GitHub.com (replace node20 releases; macOS <= 13.4 and ARM32 self-hosted runners unsupported); SHA pins outside onboarded workflows; workflow lockfile handling per workflow (scoped gh actions-lock regeneration, --relock and --accept-moved, keep tool rewrites, fix kept ./ action references before onboarding and check the workflows section for empty entries, since they block an onboarded workflow, owner_id and repo_id investigation, --verify). actionlint 1.7.12 rejects valid current syntax, so confirm such errors against GitHub Docs. Retention changes route to the artifact section."
+  },
+  {
+   "file": "github-actions/references/security.md",
+   "change": "Default pull_request_target policy for public repositories (evaluate mode until 2026-11-02 only for repositories on the default before GA); lockfile coverage, local-action migration and allowlist effects; vulnerability-alerts permission; cache-mode access levels and the reusable-workflow validation failure; retention now deletes checks, runs and statuses; self-hosted runner version enforcement since 2026-09-29; execution protections GA."
+  },
+  {
+   "file": "github-actions/references/api.md",
+   "change": "actions/github-script v9.0.0 pinned at 3a2844b7e9c422d3c10d287c895573f7108da1b3 with its two breaking changes; a lockfile entry also counts as a pin."
+  },
+  {
+   "file": "github-actions/references/reliability.md",
+   "change": "Fork runs awaiting approval for more than 30 days expire and are marked failed; the default pull_request_target policy in the execution-protection gate; matrix example node: [22, 24]; job.workflow_repository and job.workflow_sha for a called workflow's own checkout; caller cache-mode caps a called workflow."
+  },
+  {
+   "file": "github-actions/references/dependabot.md",
+   "change": "Egress allowlist blocks registries defined only in package-manager files; Anonymous organization registries; GitHub Packages and ghcr.io through the package's Actions access grant; Dependabot regenerates lockfile entries for onboarded workflows; egress log lines in diagnosis."
+  },
+  {
+   "file": "github-actions/references/performance.md",
+   "change": "Cache consumers use cache-mode: read; the linter-lag rule lives only in SKILL.md; current source URLs."
+  },
+  {
+   "file": "reports/skill-atlas/catalog.js, sources.json, index.html",
+   "change": "Refreshed the github-actions entrypoint hash and the catalog cache key."
+  }
+ ],
+ "sources": [
+  "https://docs.github.com/en/actions/concepts/security/workflow-dependency-lockfiles",
+  "https://docs.github.com/en/actions/how-tos/secure-your-work/lock-workflow-dependencies",
+  "https://github.com/github/gh-actions-lock (README; internal/pipeline/diagnose.go localActionFinding; cmd/gh-actions-lock/run.go)",
+  "https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching",
+  "https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target",
+  "https://github.blog/changelog/2026-09-23-node-20-is-no-longer-available-in-github-actions",
+  "https://github.blog/changelog/2026-09-08-automatic-dependabot-access-to-github-hosted-registries",
+  "https://github.blog/changelog/2026-10-01-actions-retention-now-covers-checks-runs-and-statuses",
+  "https://github.blog/changelog/2026-09-28-self-hosted-runner-version-enforcement-date-has-moved",
+  "https://github.com/actions/github-script/releases/tag/v9.0.0",
+  "https://docs.github.com/en/actions/how-tos/manage-workflow-runs/approve-runs-from-forks",
+  "https://docs.github.com/en/code-security/how-tos/secure-your-supply-chain/manage-your-dependency-security/resolve-a-blocked-host"
+ ],
+ "consultations": {
+  "brief": ".agents/skill-refresh/gha-brief.md and -r2 to -r5 (scratch, not committed): user request, frozen candidate diff, audit evidence; read-only, no delegation.",
+  "rounds": [
+   {
+    "round": 1,
+    "profiles": [
+     {
+      "profile": "Codex gpt-6-astra / max",
+      "runner": "T3 delegate_task, gha-refresh-astra-r1",
+      "result": "Three material (per-workflow lockfile coverage, --relock for floating pins, Node 20 runtime removal uncovered) and two minor (GitHub Packages declaration exemption, retention routing)."
+     },
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "gha-refresh-fable-r1",
+      "result": "No material issues; seven minor (tool rewrites, owner_id/repo_id as a signal, SHA comment rule, pull_request_target grace scope, Node 20 runtime, cache-mode validation failure, duplicate lockfile definition)."
+     }
+    ],
+    "adopted": "All, merged where they overlapped.",
+    "rejected": [
+     {
+      "finding": "--no-migrate-local-actions is required to stay GHES-compatible",
+      "reason": "gh-actions-lock does not support GHES at all."
+     }
+    ]
+   },
+   {
+    "round": 2,
+    "profiles": [
+     {
+      "profile": "Codex gpt-6-astra / max",
+      "runner": "gha-refresh-astra-r2",
+      "result": "No material issues; two minor (scope node24 to GitHub.com, onboarding is not only one at a time)."
+     },
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "gha-refresh-fable-r2",
+      "result": "One material (local-path actions misstated) and six minor (--relock unreachable commits, scoped regeneration, explicit SHA-pin rule restored, cache-mode pointer)."
+     }
+    ],
+    "adopted": "All."
+   },
+   {
+    "round": 3,
+    "profiles": [
+     {
+      "profile": "Codex gpt-6-astra / max",
+      "runner": "gha-refresh-astra-r3",
+      "result": "No material issues."
+     },
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "gha-refresh-fable-r3",
+      "result": "One material: a remaining ./ reference skips only a not-yet-onboarded workflow and is a blocking error in an onboarded one (verified in gh-actions-lock source)."
+     }
+    ],
+    "adopted": "Fable's proposed wording in SKILL.md step 5 and security.md."
+   },
+   {
+    "round": 4,
+    "profiles": [
+     {
+      "profile": "Codex gpt-6-astra / max",
+      "runner": "gha-refresh-astra-r4",
+      "result": "No material issues."
+     },
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "gha-refresh-fable-r4",
+      "result": "One material: a code trace of gh-actions-lock v0.2.0 (PR 124) shows a skipped not-yet-onboarded workflow can still get an empty workflows entry, which onboards it with no dependencies; minor: say './ action reference' and qualify the migration flag."
+     }
+    ],
+    "adopted": "Not stated as tool internals because the trace was not executed and contradicts the README and docs; step 5 instead fixes kept ./ action references before onboarding or passes only the other paths, and checks the workflows section afterwards. Minor wording adopted."
+   },
+   {
+    "round": 5,
+    "profiles": [
+     {
+      "profile": "Codex gpt-6-astra / max",
+      "runner": "gha-refresh-astra-r5",
+      "result": "No material issues."
+     },
+     {
+      "profile": "Claude claude-fable-5-1 / max",
+      "runner": "gha-refresh-fable-r5",
+      "result": "No material issues; confirmed the hedged wording is the right level of claim; optional clearer remediation list, adopted."
+     }
+    ]
+   }
+  ]
+ },
+ "trials": {
+  "runner": "Fresh Claude Code general-purpose subagents, inherited claude-opus-5-5, one run per arm; each arm read only a frozen copy of github-actions (round-2 candidate) and a task file; no commands or browsing.",
+  "results": [
+   {
+    "case": "github-script step in a SHA-pinned repository",
+    "baseline": "pinned v8.0.0",
+    "candidate": "pinned v9.0.0 at 3a2844b7e9c4"
+   },
+   {
+    "case": "public pull_request_target workflow through November 2026",
+    "baseline": "hardened the workflow; said the skill gives no enforcement dates",
+    "candidate": "named the default policy, its 2026-11-02 enforcement and scope, and the explicit event-policy fix"
+   },
+   {
+    "case": "checkout v6 in a repository with actions.lock",
+    "baseline": "treated actions.lock as an unknown convention",
+    "candidate": "checked onboarding, regenerated with gh actions-lock, ran --verify, required node24"
+   },
+   {
+    "case": "cache hardening for fork pull requests and a reusable workflow",
+    "baseline": "no cache-mode",
+    "candidate": "cache-mode read on the low-trust caller and none on release paths"
+   },
+   {
+    "case": "Node.js matrix",
+    "baseline": "[22, 24, 26]",
+    "candidate": "[22, 24, 26]"
+   }
+  ],
+  "limits": "One run per arm; supplied-context answers without executing workflows. Round-3 to round-5 wording changes to the local-action rule were not re-trialed; they are supported by the tool source and consultations."
+ },
+ "checks": [
+  "git diff --check origin/main...HEAD passed.",
+  "Relative Markdown links and anchors in github-actions/: 56 checked, 0 broken.",
+  "All 15 YAML snippets in the skill parse with Ruby YAML.safe_load.",
+  "actionlint 1.7.12 on a probe workflow containing the changed github-script step and matrix: exit 0.",
+  "Every time-sensitive claim was checked on 2026-10-15/16 against the cited GitHub Docs, changelog entries, release API data or gh-actions-lock source.",
+  "sources.json and this report parse as JSON; node --check reports/skill-atlas/catalog.js passed; catalog.js equals the prefixed sources.json.",
+  "Smoke path: fish -lc env TMPDIR=/tmp bash pr-review/scripts/validate.sh $PWD/review-code-changes passed; bash pr-review-followup/scripts/validate.sh passed (github-actions has no validator)."
+ ],
+ "final_hashes": {
+  "github-actions/SKILL.md": "6c984998d39076182c3953f48076f6c504354a5e3204b86ed48e15deb8dbd7ff",
+  "github-actions/references/api.md": "d493675437b67ec7ba9350c5ce185d99ff1c1276b5487bb26d4262e95ba9d453",
+  "github-actions/references/dependabot.md": "54d7edce97183a4d3ff439845efdb007eec725a1107f3e88c42b57e2573327ad",
+  "github-actions/references/performance.md": "e83160b2818c7f248123d41e406a8152d623b06a97fe080f1926e1ff6762486e",
+  "github-actions/references/reliability.md": "4ba25507c93eebd6c46a010cf5ec472c5b5f281a2b81c990598a8ed37fab1739",
+  "github-actions/references/security.md": "d88a0c4527ffa555f35e0fac86d941f4d2ffa616792be99f9b934256f555e46f"
+ }
+}
