@@ -10,7 +10,7 @@ repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
 baseline_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
-reviewed_through = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
 baseline_paths = ["skills/agents-md/SKILL.md", "skills/agents-md/references/root-content-guidance.md", "skills/agents-md/references/quick-checklist.md", "skills/agents-md/references/project-setup.md", "skills/agents-md/references/templates.md", "skills/agents-md/references/refactor-workflow.md", "LICENSE.md"]
 paths = ["skills/agents-md/SKILL.md", "skills/agents-md/references/root-content-guidance.md", "skills/agents-md/references/quick-checklist.md", "skills/agents-md/references/project-setup.md", "skills/agents-md/references/templates.md", "skills/agents-md/references/refactor-workflow.md", "LICENSE.md"]
 license = "MIT; see LICENSE.md at the baseline commit"
@@ -23,7 +23,9 @@ local_choices = [
   "Preserve canonical owners and working adapters; use agent-instructions for the writing phase.",
   "No prescribed host migration, arbitrary scoring, or fixed root-file size."
 ]
-reviews = []
+reviews = [
+  { from_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = ["Adapted from skills/agents-md/SKILL.md (Step 5): discovery inventories project-local skills such as .claude/skills/, .agents/skills/ or skills/ and records which facts and procedures they own and where existing instructions restate them (create-project-instructions/SKILL.md); merging the copies stays with agent-instructions."], skipped = ["skills/agents-md/SKILL.md: New Make Drift a Gate section adds a check script that fails on stale script names, links, paths and identifiers. Not applied because it adds repository tooling outside the investigation and writing scope and upstream admits the identifier check proves existence rather than visibility; at most it fits as a recommendation in the finish report at create-project-instructions/SKILL.md:102-104.", "skills/agents-md/SKILL.md (linked references/repo-evals.md): The new repository eval guide. Eval isolation is adopted in agent-instructions, which owns the writing and evaluation phase under the local choice to use agent-instructions for writing.", "skills/agents-md/references/root-content-guidance.md: Adds an exclusion for rules that managed policy or the user-level file already state, and removes the placement hierarchy. A user-level file is per person, so cutting a shared rule it restates would hide that rule from teammates; the rest is removal.", "skills/agents-md/references/templates.md: The multi-language monorepo skeleton is merged into the monorepo skeleton. Template changes do not apply under the local choice of no prescribed host migration, arbitrary scoring or fixed root-file size.", "skills/agents-md/references/project-setup.md and skills/agents-md/references/refactor-workflow.md: The @import guidance is condensed, the enforcement ladder is delegated to codebase-architecture and harness-specific skills may name their dependency. Condensation or relocation that does not change how create-project-instructions investigates a project."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 51e9ae4fd21f..872bc83bdb6d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[sources]]
 id = "mattpocock-research"
@@ -32,7 +34,7 @@ repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
 baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
-reviewed_through = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+reviewed_through = "49dd158d1076134a641b33efb035946536778336"
 baseline_paths = ["skills/engineering/research/SKILL.md", "LICENSE"]
 paths = ["skills/engineering/research/SKILL.md", "LICENSE"]
 license = "MIT; see LICENSE at the baseline commit"
@@ -45,6 +47,7 @@ local_choices = [
 ]
 reviews = [
   { from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60", to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
+  { from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", to_commit = "49dd158d1076134a641b33efb035946536778336", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 24fe0ef7737e..49dd158d1076 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
 ]
 
 [[sources]]
@@ -54,7 +57,7 @@ repository = "https://github.com/addyosmani/agent-skills"
 remote = "git@github.com:addyosmani/agent-skills.git"
 ref = "refs/heads/main"
 baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
-reviewed_through = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
 baseline_paths = ["skills/context-engineering/SKILL.md", "LICENSE"]
 paths = ["skills/context-engineering/SKILL.md", "LICENSE"]
 license = "MIT; see LICENSE at the baseline commit"
@@ -66,7 +69,9 @@ local_choices = [
   "No universal context-budget percentage, code-as-policy ranking, framework template, or mandatory context file set.",
   "Use current tools and preserve existing layout; authoring instructions does not authorize product or account changes."
 ]
-reviews = []
+reviews = [
+  { from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026", to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 1401c8b8030e..aeac41d4d005 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+]
 
 [[dependencies]]
 kind = "local"
