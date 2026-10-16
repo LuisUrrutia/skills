@@ -16,8 +16,8 @@ Then run the failing command with `-v`. Use `-vv` only when normal diagnostics a
 
 Subprocesses cannot change a parent shell. Worktrunk installs a shell wrapper to propagate the destination.
 
-1. Run `type wt`. In bash or zsh it should report a function, not only a binary path.
-2. Run `wt config show` and inspect shell integration status.
+1. Run `type wt`. In bash, zsh, or fish it should report a function, not only a binary path.
+2. Run `wt config show` and inspect shell integration status, including any outdated shell extension.
 3. Install or refresh integration:
 
    ```bash
@@ -45,7 +45,7 @@ wt hook show
 2. Inspect expansion with `wt hook show --expanded`.
 3. Preview it with `wt hook <type> --dry-run`.
 4. Run the underlying shell command directly in the worktree.
-5. For a post-hook, inspect paths reported by `wt config state logs`.
+5. For a post-hook, run it inline with `wt hook <type> --foreground`, or inspect paths reported by `wt config state logs`.
 
 Move long, non-blocking work from a pre-hook to the corresponding post-hook. Keep a pre-hook when later work depends on its success.
 

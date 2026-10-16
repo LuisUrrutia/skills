@@ -40,12 +40,14 @@ Pre-hooks block the operation and abort on failure. Post-hooks run in the backgr
 | `post-switch` | Terminal or editor updates after every switch |
 | `pre-start` | Dependencies or generated files required before a new worktree is usable |
 | `post-start` | Dev servers, watchers, long builds, and cache copying |
-| `pre-commit` | Formatting, linting, and type checks |
+| `pre-commit` | Formatting, linting, and type checks, only before commits that Worktrunk makes: `wt step commit`, `wt step squash`, and `wt merge` |
 | `post-commit` | Notifications or background checks |
+| `pre-merge` | Tests and build verification after `wt merge` rebases and before it updates the target |
+| `post-merge` | Deployment or notifications after `wt merge` |
 | `pre-remove` | Saving artifacts or state before deletion |
 | `post-remove` | Stopping services or deleting external resources |
 
-Prefer `post-start` for work that may continue in the background. Use `pre-start` only when subsequent work depends on its result.
+Prefer `post-start` for work that may continue in the background. Use `pre-start` only when subsequent work depends on its result. For cache copying, `wt step copy-ignored` copies gitignored files from the primary worktree; a `.worktreeinclude` file limits the copy to its patterns.
 
 ## Hook forms
 
@@ -101,11 +103,21 @@ dev = "pnpm dev --port {{ branch | hash_port }}"
 url = "http://localhost:{{ branch | hash_port }}"
 ```
 
+This server keeps running after its worktree is removed unless a remove hook stops it. The experimental `wt step tether -- <command>` wrapper instead kills the command's process group when the worktree is removed.
+
 Use `wt -v <command>` or `wt hook show --expanded` to inspect resolved variables. Consult `wt hook --help` and https://worktrunk.dev/hook/ before using less common variables or filters.
 
 ## Approval boundary
 
 Worktrunk asks the user to approve project commands on first execution and whenever a command template changes. Approvals live outside the repository in `~/.config/worktrunk/approvals.toml`.
+
+Read the approval state without prompting or writing it:
+
+```bash
+wt config approvals list --format=json
+```
+
+Its `state` is `approved`, `approval_required`, or `no_commands`. Check it before a non-interactive run that executes project commands.
 
 In an interactive user session, ask the user to review and approve with:
 

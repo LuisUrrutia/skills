@@ -54,7 +54,7 @@ wt config shell install
 
 Restart or reload the shell after installation. Use the bare `wt` command so the wrapper can intercept it; an absolute binary path and `git wt` bypass the wrapper.
 
-In an execution environment where each command starts a fresh shell, do not rely on `cd` propagation. Read the destination from `wt list`, then set the next command's working directory explicitly. `wt switch --no-cd` is appropriate when navigation is managed by the caller.
+In an execution environment where each command starts a fresh shell, do not rely on `cd` propagation. Read the destination path from the structured result of `wt switch --format=json`, then set the next command's working directory explicitly. To run one program in the selected worktree, pass it with `-x`/`--execute`; it starts there even with `--no-cd`. It runs the program directly, so shell syntax needs an explicit shell, such as `-x sh -- -c '<commands>'`. `wt switch --no-cd` is appropriate when navigation is managed by the caller.
 
 ## Lifecycle effects
 

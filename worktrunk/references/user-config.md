@@ -42,7 +42,7 @@ When worktrees live inside the repository, ensure the chosen parent directory is
 
 ## Personal hooks
 
-User hooks use the same forms and template variables as project hooks, but they apply across repositories and run before project hooks.
+User hooks use the same forms and template variables as project hooks, but they apply across repositories. A user `pre-*` hook runs before the project's. User and project `post-*` hooks start together and can race, so keep commands that depend on each other in one source.
 
 Before adding one, confirm that broad scope is intended. Prefer `.config/wt.toml` when behavior belongs to one repository or should be shared with the team.
 
