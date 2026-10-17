@@ -7,7 +7,7 @@ it does not schedule background work.
 ## Choose the requested mode
 
 - **Check:** inspect sources and report candidates. Leave the skill and its
-  `origin.txt` unchanged. "Check for updates" selects this mode.
+  `origin.toml` unchanged. "Check for updates" selects this mode.
 - **Update:** inspect, classify, incorporate changes that preserve the local
   contract, and validate them. "Update this skill from upstream" authorizes this
   work without another routine approval. Ask only when a candidate needs a
@@ -23,7 +23,7 @@ donor's whole implementation.
 
 ## Provenance format
 
-`origin.txt` is UTF-8 TOML. Use [../origin.txt](../origin.txt) as a concrete example. Record
+`origin.toml` is UTF-8 TOML. Use [../origin.toml](../origin.toml) as a concrete example. Record
 each repository actually used as inspiration, the verified full commit ID, relevant paths, borrowed
 ideas, and intentional local choices. Record supplied or installed material with
 unknown Git provenance as a local snapshot with its SHA-256; never invent a
@@ -32,7 +32,7 @@ known, distinguishing it from a commit confirmed on a remote. Local snapshots ar
 historical evidence, not automatically remote update feeds. A target with no
 tracked repository sources has no automatic upstream range to fetch.
 
-Keep the skill's own obsolete drafts and renames in Git history. `origin.txt`
+Keep the skill's own obsolete drafts and renames in Git history. `origin.toml`
 records external inspiration and dependencies, not a second local changelog.
 
 Each repository source has:
@@ -59,7 +59,7 @@ response or requested report, so inspection cannot silently consume updates.
 
 ## Acquire evidence
 
-1. Read the local skill, `origin.txt`, effective instructions, and the recorded
+1. Read the local skill, `origin.toml`, effective instructions, and the recorded
    choices. Snapshot the local state for comparison. Preserve unrelated edits.
 2. Use task scratch storage permitted by the repository. Clone or fetch each
    recorded SSH remote non-interactively. Verify cached remotes before reuse.

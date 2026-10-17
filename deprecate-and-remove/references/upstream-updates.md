@@ -7,7 +7,7 @@ leave source pins unchanged; ordinary retirement work remains usable.
 
 "Check deprecate-and-remove for upstream changes" selects Check mode without
 edits. "Update deprecate-and-remove from upstream" authorizes compatible changes
-and validation. Neither creates a schedule. Read `../origin.txt` for revisions,
+and validation. Neither creates a schedule. Read `../origin.toml` for revisions,
 review cursors, borrowed ideas, and local choices.
 
 Preserve retirement with or without a replacement, coordinated and staged paths,

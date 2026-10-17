@@ -178,4 +178,4 @@ Proposed Commit Message: message, when available
 
 Invoking this skill alone ends with the commit result. When the current request or an applicable standing user instruction also requires a PR, hand the verified commit state to the `pr` skill as a separate phase; that skill owns PR creation, push requirements, and initial PR state.
 
-For requested source maintenance, use `agent-instructions` with `origin.txt` and [references/upstream-updates.md](references/upstream-updates.md).
+For requested source maintenance, use `agent-instructions` with `origin.toml` and [references/upstream-updates.md](references/upstream-updates.md).

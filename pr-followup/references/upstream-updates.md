@@ -2,7 +2,7 @@
 
 Read only when asked to check or update this skill from its recorded sources.
 Resolve `agent-instructions` by registered name and use its maintenance procedure
-with this skill as target. Read `../origin.txt` for exact revisions and choices.
+with this skill as target. Read `../origin.toml` for exact revisions and choices.
 Check mode leaves files and pins unchanged; Update mode incorporates compatible
 changes and validates them. Neither mode creates a schedule.
 

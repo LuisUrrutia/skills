@@ -7,7 +7,7 @@ source pins unchanged; ordinary optimization remains usable.
 
 "Check performance-optimization for upstream changes" selects Check mode without
 edits. "Update performance-optimization from upstream" authorizes compatible
-changes and validation. Neither request creates a schedule. Read `../origin.txt`
+changes and validation. Neither request creates a schedule. Read `../origin.toml`
 for source identities, immutable baselines, cursors and local choices.
 
 Preserve the user-relevant operation, required behavior, bounded search, evidence

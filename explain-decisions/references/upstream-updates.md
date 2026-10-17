@@ -12,7 +12,7 @@ preserve the source pins. Ordinary use remains available.
 pins. "Update explain-decisions from upstream" authorizes compatible changes and validation
 in Update mode. Neither request creates a background schedule.
 
-Read `../origin.txt` for the baseline, review cursor, source paths, borrowed
+Read `../origin.toml` for the baseline, review cursor, source paths, borrowed
 ideas, and local choices. Preserve independent invocation, read-only research,
 question-driven source selection, attribution, and the distinction between
 historical intent, inference, and current necessity. New donor agents, models,

@@ -13,7 +13,7 @@ changing files or pins. "Update analyze-change-effects from upstream" authorizes
 compatible changes and validation in Update mode. Neither request schedules
 background work.
 
-Read `../origin.txt` for the baseline, review cursor, source paths, borrowed ideas,
+Read `../origin.toml` for the baseline, review cursor, source paths, borrowed ideas,
 and local choices. Preserve the independent task of finding indirect breakage and
 testing the deciding assumptions with real code. Keep independent hazards separate,
 respect inspection-only limits, and distinguish proposed-change scenarios from

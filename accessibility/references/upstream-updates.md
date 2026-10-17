@@ -7,7 +7,7 @@ leave source pins unchanged; ordinary accessibility work remains usable.
 
 "Check accessibility for upstream changes" selects Check mode without edits.
 "Update accessibility from upstream" authorizes compatible changes and validation.
-Neither request creates a schedule. Read `../origin.txt` for source revisions,
+Neither request creates a schedule. Read `../origin.toml` for source revisions,
 review cursors, borrowed ideas, local decisions, and external reference documents.
 
 Preserve complete-task coverage, caller authority, platform distinctions, exact

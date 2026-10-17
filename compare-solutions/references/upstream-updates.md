@@ -12,7 +12,7 @@ preserve the source pins. Ordinary use remains available.
 files or pins. "Update compare-solutions from upstream" authorizes compatible
 changes and validation in Update mode. Neither request schedules background work.
 
-Read `../origin.txt` for source paths, baseline, review cursor, borrowed ideas, and
+Read `../origin.toml` for source paths, baseline, review cursor, borrowed ideas, and
 local choices. Preserve independent complete attempts, settled artifacts before
 judging, selective integration, and verification of the final result. Keep host
 capability discovery, workspace ownership, bounded failure handling, and specialist

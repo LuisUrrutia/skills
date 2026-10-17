@@ -21,7 +21,7 @@ Before choosing metadata, invocation controls, tool calls, or dependencies, read
 
 For composition, inspect donor files and dependencies. Decide which behavior to
 retain, adapt, or exclude against the user's contract. Record actual inspirations,
-verified revisions, and intentional deviations in `origin.txt` using
+verified revisions, and intentional deviations in `origin.toml` using
 [upstream-updates.md](upstream-updates.md). Keep unknown provenance explicit.
 
 ## Write the selection description

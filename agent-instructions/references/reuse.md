@@ -41,7 +41,7 @@ request; use the host's supported selection and dependency controls.
 
 ## Record sources and dependencies separately
 
-Use `origin.txt` for actual external inspiration and dependencies. The skill's own
+Use `origin.toml` for actual external inspiration and dependencies. The skill's own
 renames and superseded drafts belong in Git history. Record rejected candidates
 in the decision report, not as active source feeds.
 

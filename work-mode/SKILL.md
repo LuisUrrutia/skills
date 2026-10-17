@@ -157,4 +157,4 @@ watch can end this turn while the task remains waiting; it is not completion.
 Stop with the requested result when its endpoint is met. Retrospectives, new
 backlog work, skill rewrites, and recurring jobs are separate tasks.
 
-For requested source maintenance, use `agent-instructions` with `origin.txt`.
+For requested source maintenance, use `agent-instructions` with `origin.toml`.

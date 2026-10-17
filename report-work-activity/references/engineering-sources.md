@@ -128,5 +128,5 @@ commands or mutate tickets to produce the report.
   https://cli.github.com/manual/gh_auth_status
   https://cli.github.com/manual/gh_auth_token
   https://cli.github.com/manual/gh_help_environment
-- Source skills and immutable revisions are recorded in `origin.txt`; runtime
+- Source skills and immutable revisions are recorded in `origin.toml`; runtime
   access, query limits and provider-specific fields must be checked on the host.

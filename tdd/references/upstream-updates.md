@@ -12,7 +12,7 @@ preserve the source pins. Ordinary use remains available.
 pins. "Update tdd from upstream" authorizes compatible changes and validation
 in Update mode. Neither request creates a background schedule.
 
-Read `../origin.txt` for the immutable baseline, review cursor, source paths,
+Read `../origin.toml` for the immutable baseline, review cursor, source paths,
 borrowed ideas, and local choices. Preserve independent invocation, meaningful
 red-before-green evidence, independent expectations, proportionate refactoring,
 and existing user authority. New donor approval gates, dependencies, or delivery

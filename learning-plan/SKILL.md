@@ -102,5 +102,5 @@ default. Follow the active output-language rules.
 
 ## Source maintenance
 
-For requested source checks or updates, use `agent-instructions` with `origin.txt`.
+For requested source checks or updates, use `agent-instructions` with `origin.toml`.
 Ordinary planning does not fetch donor skills or require authoring consultations.

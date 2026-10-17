@@ -9,7 +9,7 @@ leave source pins unchanged; ordinary cleanup remains usable.
 the skill or pins. "Update simplify-code from upstream" authorizes compatible
 changes and validation. Neither request creates a schedule.
 
-Read `../origin.txt` for exact sources, baselines, cursors, and local choices.
+Read `../origin.toml` for exact sources, baselines, cursors, and local choices.
 Preserve actual diff scope, current behavior, necessary constraints and tooling
 directives, conditional specialist use, and the caller's mutation authority.
 Cursor owns the cleanup focus; pstack supplies comment inspection and constraint

@@ -12,7 +12,7 @@ preserve the source pins. Ordinary use remains available.
 pins. "Update explain-code from upstream" authorizes compatible changes and validation
 in Update mode. Neither request creates a background schedule.
 
-Read `../origin.txt` for immutable baselines, review cursors, source paths,
+Read `../origin.toml` for immutable baselines, review cursors, source paths,
 borrowed ideas, and local choices. Preserve independent invocation, read-only
 explanation, requested depth, source-backed claims, and the distinction between
 present behavior, documented reasons, and inference. Donor delegation rules,

@@ -2,7 +2,7 @@
 
 Read only for a requested source check or update. Resolve `agent-instructions`
 by registered name and use its maintenance procedure with this skill and
-`../origin.txt`. If unavailable, report that dependency and leave pins unchanged;
+`../origin.toml`. If unavailable, report that dependency and leave pins unchanged;
 ordinary ticket synchronization does not depend on it.
 
 Checking leaves instructions and source cursors unchanged. Updating authorizes

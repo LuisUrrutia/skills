@@ -137,4 +137,4 @@ requested and permitted, continue the ready work through the existing developmen
 workflow, preserving required host approvals and real blockers. This skill does
 not choose a worker topology or require another planning session.
 
-For requested source maintenance, use `agent-instructions` with `origin.txt`.
+For requested source maintenance, use `agent-instructions` with `origin.toml`.

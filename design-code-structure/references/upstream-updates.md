@@ -10,7 +10,7 @@ files and pins unchanged. "Update design-code-structure from upstream" selects
 Update mode and authorizes compatible changes with validation. Neither creates
 a background schedule.
 
-Read `../origin.txt` for the immutable baselines, reviewed-through cursors,
+Read `../origin.toml` for the immutable baselines, reviewed-through cursors,
 relevant paths, and intentional choices. Preserve caller-first sketches,
 meaningful alternatives, explicit invariants, conditional specialist use, and
 the active task's implementation authority. Review pstack's architect references
