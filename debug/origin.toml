@@ -1,7 +1,50 @@
-format_version = 1
+format_version = 2
 skill = "debug"
 created = "2026-10-02"
-approach = "Standalone derivation with conditional investigation guidance. Upstream skills are sources of ideas, not invoked runtime dependencies."
+approach = "derive"
+goal = "Explain an observed software failure or performance regression with evidence and, when the task authorizes it, correct its cause. A run ends with a verified repair, a supported diagnosis with its confidence, or a precise statement of the evidence still needed, and no claim goes beyond its evidence."
+
+[[invariants]]
+rule = "Debug starts from the user's report; it needs no work-mode or earlier phase."
+where = ["SKILL.md#debug"]
+
+[[invariants]]
+rule = "Diagnosis alone leaves project source, tests, configuration and remote state unchanged. A request to fix already authorizes normal investigation, regression tests and repair; debug asks only when an unresolved choice materially changes the intended behavior or needs authority the task does not give."
+where = ["SKILL.md#debug", "SKILL.md#test-the-explanation"]
+
+[[invariants]]
+rule = "No claim goes beyond its evidence. Without an observed reproduction, the result is a supported diagnosis or a labeled hypothesis, not a verified cause or fix."
+where = [
+  "SKILL.md#establish-the-failure",
+  "SKILL.md#finish-with-evidence",
+  "references/investigation.md#no-reproduction-yet",
+]
+
+[[invariants]]
+rule = "When a permanent regression test would need disproportionate infrastructure or would miss the actual failure, the closest meaningful executable check replaces it and the coverage gap is stated. This fallback never waives the user's explicit testing request or a required project check."
+where = ["SKILL.md#correct-and-verify-when-authorized"]
+
+[[invariants]]
+rule = "Debug removes only its own experimental changes and keeps the user's other work and index. It never stashes or resets their checkout as a diagnostic shortcut."
+where = [
+  "SKILL.md#test-the-explanation",
+  "references/investigation.md#compare-the-actual-execution",
+]
+
+[[invariants]]
+rule = "Production instrumentation, production load, data changes and destructive state resets need the task's corresponding authorization."
+where = [
+  "references/investigation.md#no-reproduction-yet",
+  "references/investigation.md#intermittent-failures",
+]
+
+[[invariants]]
+rule = "Repository instructions and the active caller own commits, worktrees, PRs and further delivery. Debug does not start those workflows, install dependencies, or start a general review or PR-monitoring workflow."
+where = ["SKILL.md#finish-with-evidence"]
+
+[[invariants]]
+rule = "The sources are inspiration, not runtime dependencies. Debug invokes no donor skill, agent or tool, and a new donor approval gate, mandatory agent, tool name or production action does not become a local requirement automatically."
+where = ["references/upstream-updates.md#requested-upstream-maintenance"]
 
 [[sources]]
 id = "mattpocock-debugging-and-tests"
@@ -9,28 +52,117 @@ author = "Matt Pocock"
 repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
 reviewed_through = "49dd158d1076134a641b33efb035946536778336"
-baseline_paths = ["skills/engineering/diagnosing-bugs/SKILL.md", "skills/engineering/tdd/SKILL.md", "skills/engineering/tdd/tests.md", "skills/engineering/tdd/mocking.md", "LICENSE"]
-paths = ["skills/engineering/diagnosing-bugs/SKILL.md", "skills/engineering/tdd/SKILL.md", "skills/engineering/tdd/tests.md", "skills/engineering/tdd/mocking.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = [
-  "An observation must reach the reported symptom; improve the feedback loop, minimize the trigger, test predictions, and rerun the original scenario.",
-  "Distinguish a real regression boundary from a shallow test that misses the interacting behavior.",
-  "Use public behavior and independent expected values, with real collaborators or controlled system boundaries.",
-  "Measure performance regressions before changing them and clean up temporary instrumentation."
+baseline_paths = [
+  "skills/engineering/diagnosing-bugs/SKILL.md",
+  "skills/engineering/tdd/SKILL.md",
+  "skills/engineering/tdd/tests.md",
+  "skills/engineering/tdd/mocking.md",
+  "LICENSE",
 ]
-local_choices = [
-  "Diagnosis alone is read-only; repair follows existing task authorization, without a new routine confirmation gate.",
-  "Reading code and developing labeled hypotheses remain useful without a runnable reproduction; lack of evidence limits claims.",
-  "No fixed hypothesis count, exhaustive minimization gate, universal speed target, mandatory stress count, or interactive shell template.",
-  "Intermittent evidence uses a bounded sample and reports uncertainty; production load and instrumentation follow task authority.",
-  "No mandatory seam approval or blanket ban on a refactor needed for the authorized correction.",
-  "Repository and caller rules own commits, worktrees, PRs, and delivery; debug does not initiate those workflows."
+paths = [
+  "skills/engineering/diagnosing-bugs/SKILL.md",
+  "skills/engineering/tdd/SKILL.md",
+  "skills/engineering/tdd/tests.md",
+  "skills/engineering/tdd/mocking.md",
+  "LICENSE",
 ]
-reviews = [
-  { from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60", to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/performance-upstream-adoption-validation.json"] },
-  { from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", to_commit = "49dd158d1076134a641b33efb035946536778336", incorporated = [], skipped = ["skills/engineering/diagnosing-bugs/SKILL.md: After forcing a red by mutating code or a fixture, diff against a pristine copy to prove the mutation landed. Narrow value for an uncommon failure, because debug/SKILL.md:75-76 already requires the check to fail for the reported reason, which catches most false reds.", "skills/engineering/tdd/SKILL.md: Each proposed seam gets a one-line note on what it catches and misses. Upstream ties it to user approval of seams, which the local choice of no mandatory seam approval rejects (debug/origin.txt:28)."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 24fe0ef7737e..49dd158d1076 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "Diagnosis rests on a feedback loop: the cheapest observation that reaches the user's reported symptom, not merely an exit code or a nearby failure. The loop is reduced while it still shows the same failure, and the original, unreduced scenario is kept and rerun as the final check."
+serves = "Prevents fixing a different failure, or a reduced case that no longer matches what the user saw."
+where = [
+  "SKILL.md#establish-the-failure",
+  "SKILL.md#correct-and-verify-when-authorized",
+  "references/investigation.md#no-reproduction-yet",
+  "references/investigation.md#intermittent-failures",
+]
+shapes = "Building and reducing the observation is the first section, before any explanation is tested, and the verification paragraph reruns the original scenario after the regression check. The investigation reference adds separate branches for a missing reproduction and for intermittent failures."
+adapted = "Reduction stops once the scenario can distinguish causes. A missing reproduction allows bounded investigation instead of stopping the work, and an intermittent failure gets a bounded repetition budget with its remaining uncertainty reported, because the skill keeps working under limited evidence and states the limits."
+
+[[sources.ideas]]
+idea = "Each unresolved cause states a prediction, and each probe is chosen to tell that cause apart from the alternatives. One relevant condition changes at a time, and the result confirms, rejects or narrows the explanation."
+serves = "Turns each probe into evidence instead of trial and error."
+where = ["SKILL.md#test-the-explanation"]
+shapes = "The section opens by pairing each unresolved cause with a prediction and a distinguishing probe, before its rules on instrumentation and revision."
+adapted = "No fixed number of hypotheses is required; a simple failure may need only one."
+
+[[sources.ideas]]
+idea = "A regression test counts only at a boundary that reproduces the real failure. It drives public behavior with real collaborators or controlled system boundaries, includes the interacting callers or state transitions that cause the bug, and takes its expected values from the contract or an independently worked example. A shallow test that misses the interaction gives false confidence."
+serves = "Prevents a passing test from claiming coverage of a failure it never exercised."
+where = ["SKILL.md#correct-and-verify-when-authorized"]
+shapes = "The regression-test paragraph sets these conditions before any production change, and the next paragraph gives the fallback when no such boundary is practical."
+adapted = "The test boundary is chosen without asking the user to approve seams, and the authorized correction may include a refactor that it needs, because a request to fix already authorizes regression tests and repair."
+
+[[sources.ideas]]
+idea = "A performance regression is measured before it is changed. The current behavior and an available known-good version or target are measured first, and a profiler, query plan or resource observations distinguish the causes."
+serves = "Prevents choosing a fix from a guess about where the time goes."
+where = ["references/investigation.md#performance-regressions"]
+shapes = "The performance branch requires both measurements before a fix is chosen and keeps intrusive diagnostics apart from scored timings."
+adapted = "The verify skill assesses the measurement evidence, and version or configuration bisection runs only with a meaningful signal and an authorized checkout strategy."
+
+[[sources.ideas]]
+idea = "Temporary instrumentation and experimental edits are tracked while debugging and removed before the work ends, and the final diff is inspected for accidental changes."
+serves = "Keeps diagnostic edits out of the delivered change."
+where = ["SKILL.md#test-the-explanation", "SKILL.md#correct-and-verify-when-authorized"]
+shapes = "The probe paragraph requires tracking temporary changes, and the verification paragraph ends with their removal and a review of the final diff."
+
+[[sources.declined]]
+feature = "Three to five ranked hypotheses before any of them is tested."
+reason = "A simple failure need not acquire a fixed number of hypotheses."
+
+[[sources.declined]]
+feature = "Minimizing until every remaining element is needed for the failure, as a gate before forming hypotheses."
+reason = "Reduction stops once the scenario can distinguish causes; exhaustive minimization is not a prerequisite."
+
+[[sources.declined]]
+feature = "A feedback loop that must run in seconds, and raising a flaky failure's reproduction rate by looping the trigger 100 times or adding stress."
+reason = "No universal speed target applies. An intermittent failure gets a bounded repetition budget that can reveal the reported failure rate, and the result states the remaining uncertainty."
+
+[[sources.declined]]
+feature = "A human-in-the-loop shell script template for steps that a person must perform."
+reason = "Any test, command, request or interaction that reaches the symptom can serve as the observation; the skill prescribes no interactive template."
+
+[[sources.declined]]
+feature = "Refusing to read code for a theory or to form hypotheses until a reproduction command exists."
+reason = "Reading code and forming labeled hypotheses stays useful without a reproduction; the missing evidence limits what the result can claim."
+
+[[sources.declined]]
+feature = "Confirming test seams with the user before writing any test, and keeping refactoring out of the fix."
+reason = "A request to fix already authorizes regression tests, and a refactor that the authorized correction needs is part of that correction."
+
+[[sources.declined]]
+feature = "Stating the confirmed hypothesis in a commit or PR message during cleanup."
+reason = "Repository instructions and the active caller own commits and PRs; debug reports the cause in its own result."
+
+[[sources.reviews]]
+from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/performance-upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+to_commit = "49dd158d1076134a641b33efb035946536778336"
+incorporated = []
+skipped = [
+  "skills/engineering/diagnosing-bugs/SKILL.md: After forcing a red by mutating code or a fixture, diff against a pristine copy to prove the mutation landed. Narrow value for an uncommon failure, because debug/SKILL.md:75-76 already requires the check to fail for the reported reason, which catches most false reds.",
+  "skills/engineering/tdd/SKILL.md: Each proposed seam gets a one-line note on what it catches and misses. Upstream ties it to user approval of seams, which the declined confirmation of test seams with the user rules out.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 24fe0ef7737e..49dd158d1076 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -39,29 +171,138 @@ author = "Lauren Tan / pstack"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "7022c81efb48d8b5eb15498ce6043a3bd74b694c"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
-baseline_paths = ["pstack/skills/tdd/SKILL.md", "pstack/skills/principle-fix-root-causes/SKILL.md", "pstack/skills/how/SKILL.md", "pstack/skills/how/references/explorer-prompt.md", "pstack/skills/why/SKILL.md", "pstack/skills/why/references/epistemics.md", "pstack/skills/why/references/sources/code-archaeology.md", "pstack/skills/why/references/sources/incident-postmortem.md", "pstack/skills/blast-radius/SKILL.md", "pstack/LICENSE"]
-paths = ["pstack/skills/tdd/SKILL.md", "pstack/skills/principle-fix-root-causes/SKILL.md", "pstack/skills/how/SKILL.md", "pstack/skills/how/references/explorer-prompt.md", "pstack/skills/why/SKILL.md", "pstack/skills/why/references/epistemics.md", "pstack/skills/why/references/sources/code-archaeology.md", "pstack/skills/why/references/sources/incident-postmortem.md", "pstack/skills/blast-radius/SKILL.md", "pstack/LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = [
-  "Prefer a focused failing-before, passing-after regression test when a meaningful local test path exists; explain a practical fallback.",
-  "Repair the mechanism, investigate related patterns, and inspect persistent state when restart behavior suggests it.",
-  "Trace entrypoints, transformations, state ownership, and boundaries rather than guessing from names.",
-  "Separate mechanics from historical intent, qualify claims by evidence, and retain unknowns and contradictions.",
-  "Follow non-symbol consumers such as serialized formats and ordering, then exercise the assumptions that matter."
+baseline_paths = [
+  "pstack/skills/tdd/SKILL.md",
+  "pstack/skills/principle-fix-root-causes/SKILL.md",
+  "pstack/skills/how/SKILL.md",
+  "pstack/skills/how/references/explorer-prompt.md",
+  "pstack/skills/why/SKILL.md",
+  "pstack/skills/why/references/epistemics.md",
+  "pstack/skills/why/references/sources/code-archaeology.md",
+  "pstack/skills/why/references/sources/incident-postmortem.md",
+  "pstack/skills/blast-radius/SKILL.md",
+  "pstack/LICENSE",
 ]
-local_choices = [
-  "Keep legitimate guards and recovery behavior; do not fix every similar occurrence without evidence and scope.",
-  "A disproportionate new test does not waive explicit testing requests or required project checks.",
-  "Adapt how, why, and blast-radius criteria into one conditional reference; do not invoke their orchestration or take over their broader tasks.",
-  "Search sources relevant to the current uncertainty rather than every available MCP category.",
-  "No fixed agents, model slugs, Cursor tools, donor invocation flags, or unslop dependency.",
-  "One verified safety assumption does not dismiss independent risks."
+paths = [
+  "pstack/skills/tdd/SKILL.md",
+  "pstack/skills/principle-fix-root-causes/SKILL.md",
+  "pstack/skills/how/SKILL.md",
+  "pstack/skills/how/references/explorer-prompt.md",
+  "pstack/skills/why/SKILL.md",
+  "pstack/skills/why/references/epistemics.md",
+  "pstack/skills/why/references/sources/code-archaeology.md",
+  "pstack/skills/why/references/sources/incident-postmortem.md",
+  "pstack/skills/blast-radius/SKILL.md",
+  "pstack/LICENSE",
 ]
-reviews = [
-  { from_commit = "7022c81efb48d8b5eb15498ce6043a3bd74b694c", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/performance-upstream-adoption-validation.json"] },
-  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = ["Adapted from pstack/skills/principle-fix-root-causes/SKILL.md: a legitimate triggering state is handled where the code broke on it, and a state that should never exist is corrected at its producer instead of masked by a guard, retry, catch, clamp or default; existing valid guards and recovery stay protected (debug/SKILL.md, fix paragraph).", "Adapted from the same file (36cecbf): after a costly investigation the final report proposes, without implementing, a cheap always-on signal that would have exposed the cause (debug/SKILL.md, Finish with evidence)."], skipped = ["pstack/skills/principle-fix-root-causes/SKILL.md: Check for the pattern and fix every instance, carried over from the old text. Conflicts with the local choice not to fix every similar occurrence without evidence and scope (debug/origin.txt:54, debug/SKILL.md:91-93).", "pstack/skills/principle-fix-root-causes/SKILL.md: Ask why until the answer is a wrong decision rather than a consequence, and the reworded restart and persisted-state advice. Already covered by debug/SKILL.md:68 and debug/references/investigation.md:10-12, :22-23 and :53-55.", "pstack/skills/how/SKILL.md and pstack/skills/how/references/explorer-prompt.md: Model slugs and readonly flags are restated and the explorer's exploration steps are deleted. Donor orchestration and removal excluded by debug/origin.txt:58; the local substance stays at debug/references/investigation.md:96-109.", "pstack/skills/why/SKILL.md, pstack/skills/why/references/epistemics.md, pstack/skills/why/references/sources/code-archaeology.md and pstack/skills/why/references/sources/incident-postmortem.md: Prompts are compressed, model defaults change, and the code-archaeology pitfalls and most incident checks are deleted. Token cuts and removals with no new behavior; the borrowed separation of mechanics from intent is unchanged.", "pstack/skills/blast-radius/SKILL.md: Step 6 says more than one model instead of several models. Cosmetic."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "When a meaningful local test path exists, a focused regression test is observed failing for the reported reason before the production change and passing after it. When such a test would need disproportionate infrastructure or would miss the actual failure, the closest meaningful executable check replaces it and the report explains the gap."
+serves = "Proves that the fix addresses the reported failure without forcing a bad or costly test."
+where = ["SKILL.md#correct-and-verify-when-authorized"]
+shapes = "The section requires seeing the check fail before production edits and adds a separate fallback paragraph for an impractical test."
+adapted = "The fallback never waives the user's explicit testing request or a required project check."
+
+[[sources.ideas]]
+idea = "Fix the mechanism that produced the failure. A legitimate triggering state is handled where the code broke on it; a state that should never exist is corrected where it was produced, not masked by a guard, retry, catch, clamp or default where it surfaced. Related instances change only when evidence shows that they share the mechanism."
+serves = "Prevents symptom patches that leave the cause in place."
+where = ["SKILL.md#correct-and-verify-when-authorized"]
+shapes = "The fix paragraph splits the triggering state into the legitimate and the impossible case, names the masking patches to avoid, and limits related changes to evidence and the authorized scope."
+adapted = "Valid input checks, recovery behavior and boundary guards stay unless evidence shows that one is wrong or redundant, and the donor's rule to fix every instance of a pattern is not taken."
+
+[[sources.ideas]]
+idea = "Persisted state, such as configuration, caches and generated artifacts, is part of what actually ran, and it is a suspect when behavior changes after a restart or a cleared cache. Evidence is preserved before an authorized reset, because clearing state can hide the trigger without repairing its mechanism."
+serves = "Prevents blaming code for stale state, and prevents a reset that destroys the evidence."
+where = [
+  "references/investigation.md#compare-the-actual-execution",
+  "references/investigation.md#no-reproduction-yet",
+]
+shapes = "The comparison paragraph lists persisted state among what actually ran, and the paragraph on production actions requires preserving evidence before a reset."
+
+[[sources.ideas]]
+idea = "After a costly investigation, the report proposes, without implementing it, a cheap always-on signal that would have exposed the cause at first look."
+serves = "Shortens the next investigation of the same kind without widening the current task."
+where = ["SKILL.md#finish-with-evidence"]
+shapes = "The report paragraph adds this proposal after the cause, checks and remaining gaps."
+
+[[sources.ideas]]
+idea = "To explain how a failing path executes, follow its entrypoint, data transformations, state ownership and failing boundary by reading the implementations rather than inferring behavior from names, and name any connection that remains untraced."
+serves = "Keeps the explanation of the failure grounded in the code that actually runs."
+where = [
+  "references/investigation.md#behavior-history-and-affected-consumers",
+  "SKILL.md#test-the-explanation",
+]
+shapes = "This is the 'How it executes' branch of the uncertainty list, and the main skill starts the explanation by tracing the failing path."
+adapted = "Taken from the how skill's explorer steps into one branch of a conditional reference, used only for the current uncertainty and without its explorer and explainer agents."
+
+[[sources.ideas]]
+idea = "Code proves mechanics, not historical intent. A question about what changed or why code exists uses diffs, blame, tests, ADRs and relevant issue or incident records. Each claim is qualified by its evidence, an unavailable source is kept apart from a searched source with no result, and contradictory evidence is preserved."
+serves = "Prevents presenting a guessed motive or history as fact."
+where = [
+  "references/investigation.md#behavior-history-and-affected-consumers",
+  "references/investigation.md#no-reproduction-yet",
+]
+shapes = "This is the 'What changed or why it exists' branch of the uncertainty list, and the no-reproduction branch separates observed facts, supported inferences and untested hypotheses."
+adapted = "Taken from the why skill into one branch of the same reference. Searches cover only the sources relevant to the current uncertainty, not every available connector category."
+
+[[sources.ideas]]
+idea = "What a fix can affect reaches beyond direct symbol matches: shared state, serialization, ordering and downstream consumers. The assumptions that keep their contracts are identified, and the important ones are exercised through real code where practical."
+serves = "Catches breakage that a symbol search would miss before a fix is called safe."
+where = ["references/investigation.md#behavior-history-and-affected-consumers"]
+shapes = "This is the 'What a fix can affect' branch of the uncertainty list."
+adapted = "Taken from the blast-radius skill into one branch of the same reference. The donor's single safety fact that clears most risks is not taken: one proven assumption does not clear independent risks."
+
+[[sources.declined]]
+feature = "Fixing every instance of a pattern found by search."
+reason = "Only the related instances that evidence shows share the mechanism change, within the authorized scope."
+
+[[sources.declined]]
+feature = "Running the agent orchestration of the how, why or blast-radius skills, or taking over their broader explanation, history-research and change-audit tasks."
+reason = "Debug applies their criteria to the current uncertainty only; those tasks stay separate when they are requested in their own right."
+
+[[sources.declined]]
+feature = "Discovering every available MCP server and querying each evidence category in parallel."
+reason = "Searches stay scoped to the current uncertainty; the availability of a connector is not a reason to search it."
+
+[[sources.declined]]
+feature = "Fixed agents, model slugs, Cursor tool names, donor invocation flags such as readonly, and the unslop skill as a writing dependency."
+reason = "Debug runs with the host's own tools; donor orchestration is not a local requirement."
+
+[[sources.reviews]]
+from_commit = "7022c81efb48d8b5eb15498ce6043a3bd74b694c"
+to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/performance-upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = [
+  "Adapted from pstack/skills/principle-fix-root-causes/SKILL.md: a legitimate triggering state is handled where the code broke on it, and a state that should never exist is corrected at its producer instead of masked by a guard, retry, catch, clamp or default; existing valid guards and recovery stay protected (debug/SKILL.md, fix paragraph).",
+  "Adapted from the same file (36cecbf): after a costly investigation the final report proposes, without implementing, a cheap always-on signal that would have exposed the cause (debug/SKILL.md, Finish with evidence).",
+]
+skipped = [
+  "pstack/skills/principle-fix-root-causes/SKILL.md: Check for the pattern and fix every instance, carried over from the old text. Conflicts with the declined fixing of every instance of a pattern found by search (debug/SKILL.md:91-93).",
+  "pstack/skills/principle-fix-root-causes/SKILL.md: Ask why until the answer is a wrong decision rather than a consequence, and the reworded restart and persisted-state advice. Already covered by debug/SKILL.md:68 and debug/references/investigation.md:10-12, :22-23 and :53-55.",
+  "pstack/skills/how/SKILL.md and pstack/skills/how/references/explorer-prompt.md: Model slugs and readonly flags are restated and the explorer's exploration steps are deleted. Donor orchestration and removal excluded by the declined fixed agents, model slugs, Cursor tool names and donor invocation flags; the local substance stays at debug/references/investigation.md:96-109.",
+  "pstack/skills/why/SKILL.md, pstack/skills/why/references/epistemics.md, pstack/skills/why/references/sources/code-archaeology.md and pstack/skills/why/references/sources/incident-postmortem.md: Prompts are compressed, model defaults change, and the code-archaeology pitfalls and most incident checks are deleted. Token cuts and removals with no new behavior; the borrowed separation of mechanics from intent is unchanged.",
+  "pstack/skills/blast-radius/SKILL.md: Step 6 says more than one model instead of several models. Cosmetic.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -70,15 +311,108 @@ author = "Every / Compound Engineering"
 repository = "https://github.com/EveryInc/compound-engineering-plugin"
 remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
 reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
-baseline_paths = ["skills/ce-debug/SKILL.md", "skills/ce-debug/references/investigate.md", "skills/ce-debug/references/fix.md", "skills/ce-debug/references/anti-patterns.md", "skills/ce-debug/references/investigation-techniques.md", "LICENSE"]
-paths = ["skills/ce-debug/SKILL.md", "skills/ce-debug/references/investigate.md", "skills/ce-debug/references/fix.md", "skills/ce-debug/references/anti-patterns.md", "skills/ce-debug/references/investigation-techniques.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Use supplied issue history and failed attempts to identify the current symptom and avoid repeated dead ends.", "Compare actual execution environments, trace observed values across component boundaries, and distinguish predictions from restated symptoms.", "Reassess verified and assumed premises when attempts stop adding evidence; use the existing test owner and preserve the actual contract.", "Account for observation effects and protect secrets before tool output is displayed."]
-local_choices = ["Preserve diagnosis-only authority and an already-authorized repair; no routine fix-choice gate, fixed hypothesis or failed-attempt quota, or automatic architecture conclusion.", "Preserve the current checkout and index; no automatic stash/reset experiment, branch creation, commit, push, PR, ticket, or learning capture.", "Use bounded evidence and state limits rather than require a gap-free reproduction before any useful investigation.", "Use targeted instrumentation and correlation, not mandatory logging at every boundary or full environment dumps.", "Delivery and review retain their existing local owners; donor pipeline status schemas and post-fix orchestration are not imported."]
-reviews = [
-  { from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb", to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 9af474a70e7f..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/ce-debug/SKILL.md",
+  "skills/ce-debug/references/investigate.md",
+  "skills/ce-debug/references/fix.md",
+  "skills/ce-debug/references/anti-patterns.md",
+  "skills/ce-debug/references/investigation-techniques.md",
+  "LICENSE",
+]
+paths = [
+  "skills/ce-debug/SKILL.md",
+  "skills/ce-debug/references/investigate.md",
+  "skills/ce-debug/references/fix.md",
+  "skills/ce-debug/references/anti-patterns.md",
+  "skills/ce-debug/references/investigation-techniques.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Supplied issue threads and earlier attempts establish the current symptom and what was already ruled out, so the investigation does not repeat a dead end. Missing history is requested only when it would change the next step."
+serves = "Starts from the latest known state of the failure instead of the first report."
+where = ["SKILL.md#establish-the-failure"]
+shapes = "The first section reads the supplied thread and prior attempts before it chooses the first observation."
+
+[[sources.ideas]]
+idea = "Establish which code, runtime, dependencies, configuration and state actually ran, and compare the failing run with a working one. Across components, follow one operation through its boundaries and compare observed values, not assumed ones, to find where the expected contract first diverges."
+serves = "Prevents blaming committed code for a failure caused by local changes, the environment or another component."
+where = ["references/investigation.md#compare-the-actual-execution"]
+shapes = "The comparison section first fixes what actually ran, then walks one operation across its boundaries to the first divergence."
+adapted = "Instrumentation stays targeted at the deciding boundary and correlates events by request or event identity; the skill neither logs every boundary nor dumps whole environments or payloads."
+
+[[sources.ideas]]
+idea = "A prediction names a contrasting input, environment or path that should behave differently. Restating or repeating the symptom does not distinguish explanations."
+serves = "Prevents mistaking a repeated observation for a test of the explanation."
+where = ["SKILL.md#test-the-explanation"]
+shapes = "The section requires a contrasting prediction wherever a working comparison exists and states that an unchanged retry adds no causal evidence."
+
+[[sources.ideas]]
+idea = "When attempts stop adding evidence, review the attempted explanations, their predictions and their actual outcomes, and separate verified premises from assumptions before another edit."
+serves = "Breaks a loop of patches built on a wrong premise."
+where = ["references/investigation.md#when-attempts-stop-adding-evidence"]
+shapes = "A dedicated branch of the investigation reference handles stalled attempts by rechecking premises and the observation method before any further edit."
+adapted = "Repeated failures can reveal missing evidence, a wrong model, a partial correction or a shared design constraint; their count alone does not lead to an architecture conclusion."
+
+[[sources.ideas]]
+idea = "The regression check uses or strengthens the existing test that owns the behavior when there is one. An existing expectation changes only when evidence shows that it conflicts with the established contract or that the authorized change supersedes it."
+serves = "Keeps the fix inside the real contract instead of rewriting a test to match the code."
+where = ["SKILL.md#correct-and-verify-when-authorized"]
+shapes = "The regression paragraph names the owning test as the first choice and adds the rule for changing an existing expectation."
+
+[[sources.ideas]]
+idea = "Observation can change a failure. When logging or a debugger hides it, that change is evidence about observation effects, so a less disruptive probe or a controlled schedule follows, and the correction is verified after the instrumentation is removed."
+serves = "Prevents declaring a fix when the instrumentation only hid the failure."
+where = ["references/investigation.md#intermittent-failures"]
+shapes = "The intermittent-failure branch treats a failure that vanishes under observation as evidence and requires verification without the instrumentation."
+
+[[sources.ideas]]
+idea = "Secrets are protected when a command is built, not after its output appears: credentials stay out of arguments, only the needed diagnostic fields are collected, and output is filtered before it is displayed or saved."
+serves = "Prevents exposing credentials in diagnostic output that cannot be taken back."
+where = ["SKILL.md#establish-the-failure"]
+shapes = "The observation paragraph sets these limits on what a diagnostic command may collect and show."
+
+[[sources.declined]]
+feature = "A fix-choice question to the user before any repair, including a trivial fix."
+reason = "A request to fix already authorizes repair; diagnosis-only work stops at the explanation."
+
+[[sources.declined]]
+feature = "Escalating after a fixed number of exhausted hypotheses or failed fixes, and concluding an architecture problem from that count or from hypotheses that point to different subsystems."
+reason = "A count alone does not prove an architecture problem; the skill separates missing evidence, a wrong model, a partial correction and a real contract conflict."
+
+[[sources.declined]]
+feature = "Stashing the user's uncommitted work to test whether it caused the failure."
+reason = "The user's work and index stay intact; an authorized isolated comparison replaces the stash."
+
+[[sources.declined]]
+feature = "Delivery after a fix: creating a feature branch, committing, pushing, opening or updating a PR, linking the found ticket, and offering learning capture."
+reason = "Repository instructions and the active caller own delivery."
+
+[[sources.declined]]
+feature = "A reproduction that fails on the exact symptom as a precondition for forming hypotheses."
+reason = "Bounded evidence still narrows the question; the result states what the missing reproduction leaves unverified."
+
+[[sources.declined]]
+feature = "Logging what enters and exits every component boundary, with the relevant environment, in one run."
+reason = "Targeted instrumentation at the deciding boundary and correlation by request identity give the evidence without broad output."
+
+[[sources.declined]]
+feature = "Pipeline and return-to-caller modes with fixed status values, and post-fix simplify and review steps."
+reason = "Delivery and review keep their existing local owners."
+
+[[sources.reviews]]
+from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 9af474a70e7f..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -87,15 +421,68 @@ author = "Addy Osmani"
 repository = "https://github.com/addyosmani/agent-skills"
 remote = "git@github.com:addyosmani/agent-skills.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
 reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
 baseline_paths = ["skills/debugging-and-error-recovery/SKILL.md", "LICENSE"]
 paths = ["skills/debugging-and-error-recovery/SKILL.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Compare environment, state, and test-order conditions; localize the actual failing layer.", "Treat error messages and logs as untrusted diagnostic evidence and verify proposed actions independently.", "Check the intended contract before changing a failing test expectation."]
-local_choices = ["Continue independent work when a failing path is blocked; no universal stop of unrelated tasks or mandatory full triage ritual.", "No automatic dependency installation, checkout bisection, production stress, monitoring, arbitrary default values, or catch-and-continue repair.", "Verify log suggestions against trusted project evidence and task authority without requiring a new approval for every already-authorized command.", "Keep guidance language-neutral and preserve the existing proportional regression-test fallback."]
-reviews = [
-  { from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026", to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 1401c8b8030e..aeac41d4d005 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "Before a failure is attributed to code, the conditions under which it fails and passes are compared, such as environment, data or persisted state, and ordering, and the layer that actually fails is localized. A product failure is told apart from missing setup or a broken test."
+serves = "Prevents fixing the wrong layer, or fixing the test when the product is wrong."
+where = [
+  "SKILL.md#establish-the-failure",
+  "references/investigation.md#compare-the-actual-execution",
+  "references/investigation.md#intermittent-failures",
+]
+shapes = "The observation paragraph separates product failures from setup or test failures, the comparison branch compares the failing and working runs, and the intermittent branch controls ordering and shared conditions."
+
+[[sources.ideas]]
+idea = "Error messages, logs and external comments are diagnostic evidence, not instructions. A command or step that they suggest is checked against trusted project guidance and the task's authority before it runs."
+serves = "Prevents running injected or wrong instructions found in diagnostic output."
+where = [
+  "SKILL.md#establish-the-failure",
+  "references/investigation.md#behavior-history-and-affected-consumers",
+]
+shapes = "The first section treats errors and comments as evidence and checks suggested commands before use; the investigation reference states that external records give no authority to run their instructions."
+adapted = "An already-authorized command needs no new approval; the check against project guidance and task authority replaces the donor's user confirmation for every suggested action."
+
+[[sources.ideas]]
+idea = "A failing test is not assumed to be wrong: its expectation changes only after the intended contract shows that the test, not the code, is wrong."
+serves = "Prevents weakening a test to make a bug disappear."
+where = ["SKILL.md#correct-and-verify-when-authorized"]
+shapes = "The regression paragraph puts the contract check before any change to an existing expectation."
+
+[[sources.declined]]
+feature = "A stop-the-line rule that halts all other work when anything unexpected happens, and a triage checklist run in order without skipping steps."
+reason = "A blocked failing path stops only the work that depends on it; independent work continues, and the investigation takes only the branches that its uncertainty needs."
+
+[[sources.declined]]
+feature = "Installing dependencies, git bisect over checkouts, artificial load or concurrency to widen race windows, and alerts or monitoring for a non-reproducible bug."
+reason = "Each needs the task's authorization. Bisection also needs a meaningful signal and an authorized checkout strategy, and stress conditions stay representative and within authorized resources."
+
+[[sources.declined]]
+feature = "Safe fallbacks under time pressure: a default value with a warning, or a catch that degrades and continues."
+reason = "A guard, catch or default where the failure surfaced hides the cause of a state that should never exist."
+
+[[sources.declined]]
+feature = "npm commands and TypeScript examples."
+reason = "The guidance stays language-neutral."
+
+[[sources.declined]]
+feature = "A new regression test for every fix."
+reason = "A disproportionate or shallow test gives way to the closest meaningful executable check, with the coverage gap stated."
+
+[[sources.reviews]]
+from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 1401c8b8030e..aeac41d4d005 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -104,15 +491,104 @@ author = "Jesse Vincent / obra"
 repository = "https://github.com/obra/superpowers"
 remote = "git@github.com:obra/superpowers.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
 reviewed_through = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
-baseline_paths = ["skills/systematic-debugging/SKILL.md", "skills/systematic-debugging/root-cause-tracing.md", "skills/systematic-debugging/condition-based-waiting.md", "LICENSE"]
-paths = ["skills/systematic-debugging/SKILL.md", "skills/systematic-debugging/root-cause-tracing.md", "skills/systematic-debugging/condition-based-waiting.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Trace the origin of invalid state and compare working and failing paths before accepting a cause.", "Observe effective inputs, outputs, and configuration across component boundaries.", "Wait on the actual completion condition with a deadline, using controlled time when timing itself is the contract.", "Revisit unsupported explanations instead of stacking speculative patches."]
-local_choices = ["Failed-attempt counts do not establish architecture defects; distinguish missing evidence, wrong premises, incomplete fixes, and real contract conflicts.", "No absolute ban on useful static investigation or emergency mitigation already authorized by the task.", "No validation at every layer, fixed polling interval, broad environment output, required donor skills, or claims that finite tests make a bug impossible.", "Session forensics in diagnosing-superpowers is a separate reviewed candidate, not part of debug or an active source feed."]
-reviews = [
-  { from_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d", to_commit = "bb92a77741419a4ab5f06e711a283343f1ada0c3", incorporated = [], skipped = ["skills/systematic-debugging/SKILL.md: The multi-layer example no longer echoes secret values, replacing a parameter expansion and env piped to grep with presence checks. The local skill has no such snippet, and secret filtering and no whole-environment dumps are already at debug/SKILL.md:34-36 and debug/references/investigation.md:21-22."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 8ca22dba9a94..bb92a7774141 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/systematic-debugging/SKILL.md",
+  "skills/systematic-debugging/root-cause-tracing.md",
+  "skills/systematic-debugging/condition-based-waiting.md",
+  "LICENSE",
+]
+paths = [
+  "skills/systematic-debugging/SKILL.md",
+  "skills/systematic-debugging/root-cause-tracing.md",
+  "skills/systematic-debugging/condition-based-waiting.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Invalid state is traced backward to the point where it first became invalid, and it is corrected there when that state should never exist."
+serves = "Puts the fix at the origin instead of at the frame where the symptom appeared."
+where = [
+  "references/investigation.md#compare-the-actual-execution",
+  "SKILL.md#correct-and-verify-when-authorized",
+]
+shapes = "The comparison branch ends by tracing backward inside the localized component, and the fix paragraph corrects an impossible state at its producer."
+
+[[sources.ideas]]
+idea = "A cause is accepted only after the failing path is compared with a working one: the explanation must predict the difference between them."
+serves = "Prevents accepting a plausible cause that the working case would contradict."
+where = [
+  "SKILL.md#test-the-explanation",
+  "references/investigation.md#compare-the-actual-execution",
+]
+shapes = "The explanation section asks for a contrasting prediction wherever a working comparison exists, and the comparison branch starts from the working case."
+
+[[sources.ideas]]
+idea = "At each component boundary on the failing path, the effective inputs, outputs and configuration are observed instead of assumed."
+serves = "Locates the failing layer from evidence."
+where = ["references/investigation.md#compare-the-actual-execution"]
+shapes = "The multi-component paragraph compares the observed inputs, outputs and effective configuration at each boundary."
+adapted = "Observation stays at the boundaries that matter; the skill neither adds validation at every layer nor prints broad environment output."
+
+[[sources.ideas]]
+idea = "A check waits for the actual completion event or state with a bounded deadline instead of a sleep that happens to pass, and uses controlled time when elapsed time itself is the contract."
+serves = "Removes timing guesses that make tests and probes flaky."
+where = ["references/investigation.md#intermittent-failures"]
+shapes = "The intermittent-failure branch prefers deterministic schedules and condition waits over sleeps."
+adapted = "No polling interval is prescribed."
+
+[[sources.ideas]]
+idea = "When a fix or probe contradicts its prediction, the explanation is revised before another patch is added; a disappearing symptom alone does not confirm the proposed cause."
+serves = "Prevents stacking speculative patches on an unsupported explanation."
+where = [
+  "SKILL.md#test-the-explanation",
+  "references/investigation.md#when-attempts-stop-adding-evidence",
+]
+shapes = "The explanation section requires a revision after a failed prediction, and the stalled-attempts branch reviews predictions against outcomes."
+adapted = "A count of failed attempts does not establish an architecture defect. The skill distinguishes missing evidence, wrong premises, incomplete fixes and real contract conflicts, and asks only when a conflict needs a product decision outside the task."
+
+[[sources.declined]]
+feature = "Questioning the architecture after three or more failed fixes."
+reason = "A count alone does not prove an architecture problem."
+
+[[sources.declined]]
+feature = "An iron law that allows no fix before root-cause investigation is complete, even in an emergency."
+reason = "Useful static investigation and an emergency mitigation that the task already authorizes stay allowed; the mitigation is kept separate from the root-cause correction."
+
+[[sources.declined]]
+feature = "Defense-in-depth validation added at every layer after the root cause is found."
+reason = "The fix is the smallest coherent change that preserves nearby contracts."
+
+[[sources.declined]]
+feature = "Printing environment variables to check their propagation across layers."
+reason = "Only the needed diagnostic fields are collected and secrets are filtered before display; whole environments are never dumped."
+
+[[sources.declined]]
+feature = "Required use of the superpowers test-driven-development and verification-before-completion skills."
+reason = "The sources are inspiration, not runtime dependencies."
+
+[[sources.declined]]
+feature = "Claiming that a fix with layered validation makes the bug impossible."
+reason = "Finite checks show only that the exercised cases pass; the report states the remaining gaps."
+
+[[sources.declined]]
+feature = "Session forensics from the diagnosing-superpowers skill."
+reason = "It is a separate reviewed candidate, not part of debug and not an active source feed; session forensics stays a separate task rather than a new trigger for debug."
+
+[[sources.reviews]]
+from_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+to_commit = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
+incorporated = []
+skipped = [
+  "skills/systematic-debugging/SKILL.md: The multi-layer example no longer echoes secret values, replacing a parameter expansion and env piped to grep with presence checks. The local skill has no such snippet, and secret filtering and no whole-environment dumps are already at debug/SKILL.md:34-36 and debug/references/investigation.md:21-22.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 8ca22dba9a94..bb92a7774141 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[dependencies]]

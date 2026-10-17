@@ -1,7 +1,33 @@
-format_version = 1
+format_version = 2
 skill = "write-documentation"
 created = "2026-10-04"
-approach = "Derive portable prose instructions; no upstream runtime, scripts or network dependency."
+approach = "derive"
+goal = "Create, update or review human-facing documentation, such as guides, READMEs, API references, runbooks and decision records, so that its intended reader can understand or complete a task from accurate, findable information. Success is content that serves the reader's task, source claims that are supported or explicitly qualified, applicable checks that pass, and a report that names any validation that could not run."
+
+[[invariants]]
+rule = "This skill owns documentation structure, source accuracy, examples and validation. The communicate-clearly skill owns prose and voice, the agent-instructions skill owns instructions for agents, and the explain-decisions skill investigates missing decision rationale."
+where = ["SKILL.md#write-documentation", "references/document-types.md#decision-records"]
+
+[[invariants]]
+rule = "A documentation request does not authorize a production migration, deployment, message or destructive operation because a guide contains its command. Documentation maintenance does not by itself create a docs platform, glossary, CI workflow, policy file or publication step."
+where = ["SKILL.md#verify-what-the-reader-will-use", "SKILL.md#integrate-and-finish"]
+
+[[invariants]]
+rule = "The project's existing documentation conventions, useful structure and mixed pages, generated-file ownership and user edits are preserved, and examples follow the project's language and framework. A page is not moved or split only to impose a preferred taxonomy."
+where = [
+  "SKILL.md#find-the-reader-source-and-destination",
+  "SKILL.md#organize-for-the-task",
+  "SKILL.md#integrate-and-finish",
+  "references/document-types.md#document-types",
+]
+
+[[invariants]]
+rule = "Clarity principles apply in every output language, but English-specific grammar, punctuation and controlled vocabulary are adapted to the target language, and the skill claims no ASD-STE100 compliance."
+where = ["SKILL.md#integrate-and-finish"]
+
+[[invariants]]
+rule = "The skill is portable prose instructions with no upstream runtime, script or network dependency."
+where = ["SKILL.md"]
 
 [[sources]]
 id = "cursor"
@@ -9,15 +35,68 @@ author = "Lauren Tan / pstack"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
-baseline_paths = ["pstack/skills/technical-writing/SKILL.md", "pstack/skills/teach/SKILL.md", "pstack/skills/unslop/SKILL.md", "pstack/LICENSE"]
-paths = ["pstack/skills/technical-writing/SKILL.md", "pstack/skills/teach/SKILL.md", "pstack/skills/unslop/SKILL.md", "pstack/LICENSE"]
-borrowed = ["Stable terminology, reader prerequisites, conditions before actions and reader-task documentation structure."]
-local_choices = ["Adapt English-specific grammar and punctuation to the target language; no sentence caps, word blacklist or STE compliance claim.", "No mandatory teaching, image generation, or unslop invocation. Existing local prose and investigation owners remain responsible."]
-license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
-reviews = [
-  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/technical-writing/SKILL.md and pstack/skills/unslop/SKILL.md: Commits 00b14f1 and bc697d0 shorten the wording and drop Must always apply from the unslop description. No new rule, and the description change matches the local choice of no mandatory unslop invocation (write-documentation/origin.txt:17)."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "pstack/skills/technical-writing/SKILL.md",
+  "pstack/skills/teach/SKILL.md",
+  "pstack/skills/unslop/SKILL.md",
+  "pstack/LICENSE",
+]
+paths = [
+  "pstack/skills/technical-writing/SKILL.md",
+  "pstack/skills/teach/SKILL.md",
+  "pstack/skills/unslop/SKILL.md",
+  "pstack/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Structure follows what the reader needs: guided learning, completing a known task, looking up a fact, or understanding an explanation. These Diataxis distinctions choose the structure of a page or a section."
+serves = "Lets each reader find the kind of help they came for without wading through the other kinds."
+where = ["SKILL.md#organize-for-the-task", "references/document-types.md"]
+shapes = "Makes the reader's need the first decision of the organizing step and keys the content checks to these document types."
+adapted = "The distinctions can apply to sections, so a useful mixed README or existing page stays intact instead of being split into one document per mode as the donor requires."
+
+[[sources.ideas]]
+idea = "Prerequisites and consequential conditions come before the actions they govern, and side effects are described before a consequential action."
+serves = "Prevents a reader from acting before learning what the action needs or what it will change."
+where = [
+  "SKILL.md#organize-for-the-task",
+  "references/document-types.md#task-guides-runbooks-and-troubleshooting",
+]
+shapes = "Fixes the order inside guides: conditions and side effects precede the steps they affect."
+
+[[sources.ideas]]
+idea = "Terminology stays stable and exact: identifiers, placeholders, required markup and units are preserved, and terms are checked against the relevant code and configuration."
+serves = "Prevents a reader from searching for a synonym that does not exist in the product."
+where = ["SKILL.md#find-the-reader-source-and-destination", "SKILL.md#organize-for-the-task"]
+shapes = "Adds terminology to the source-accuracy check and adds preservation of identifiers and placeholders to the rules for examples."
+
+[[sources.declined]]
+feature = "Sentence-length limits, a list of banned words and the STE instruction rules applied as fixed constraints."
+reason = "Clarity principles transfer across languages, while English-specific rules are adapted to the target language."
+
+[[sources.declined]]
+feature = "Mandatory invocation of the unslop skill on every text."
+reason = "The communicate-clearly skill owns prose and voice."
+
+[[sources.declined]]
+feature = "Teaching through the how and why skills with build-up diagram series and generated whiteboard images."
+reason = "A tutorial teaches only what its path requires, visuals are used when they clarify, and missing rationale goes to the explain-decisions skill."
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/technical-writing/SKILL.md and pstack/skills/unslop/SKILL.md: Commits 00b14f1 and bc697d0 shorten the wording and drop Must always apply from the unslop description. No new rule, and the description change matches the declined mandatory invocation of the unslop skill.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -26,15 +105,71 @@ author = "Matthew Blode"
 repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
+license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
 reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
-baseline_paths = ["skills/ghostwriter/SKILL.md", "skills/ghostwriter/references/docs.md", "skills/ghostwriter/references/readme.md", "skills/ghostwriter/references/templates.md", "LICENSE.md"]
-paths = ["skills/ghostwriter/SKILL.md", "skills/ghostwriter/references/docs.md", "skills/ghostwriter/references/readme.md", "skills/ghostwriter/references/templates.md", "LICENSE.md"]
-borrowed = ["Reader-task structure, useful first-use paths, source accuracy, and documentation-specific checks."]
-local_choices = ["Keep existing documentation conventions and mixed pages where useful; no imposed US English, technology stack, directory or mandatory CI.", "Preserve legitimate internal/contributor README audiences. No profile or publishing workflow."]
-license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
-reviews = [
-  { from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/ghostwriter/SKILL.md",
+  "skills/ghostwriter/references/docs.md",
+  "skills/ghostwriter/references/readme.md",
+  "skills/ghostwriter/references/templates.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/ghostwriter/SKILL.md",
+  "skills/ghostwriter/references/docs.md",
+  "skills/ghostwriter/references/readme.md",
+  "skills/ghostwriter/references/templates.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "Content checks depend on the document type instead of a universal list. A README or entry page explains what the project does, who the page is for and where to start, with a working first-use path when relevant; task guides, tutorials, references and decision records have their own checks."
+serves = "Applies the checks that matter for each document without demanding irrelevant sections."
+where = [
+  "references/document-types.md#document-types",
+  "references/document-types.md#readme-and-entry-pages",
+]
+shapes = "Adds a reference of content checks per document type that are explicitly not mandatory headings."
+adapted = "A README matches the repository's actual audience: an internal or contributor README stays one and need not become a public page."
+
+[[sources.ideas]]
+idea = "Behavior, defaults, commands, limits and examples are checked against code, configuration, tests or current primary documentation, and the documented path that the change affects is followed in order with its expected output."
+serves = "Prevents documentation that describes behavior the product does not have."
+where = [
+  "SKILL.md#find-the-reader-source-and-destination",
+  "SKILL.md#verify-what-the-reader-will-use",
+]
+shapes = "Puts a source check before writing and an execution check of the documented path before finishing."
+
+[[sources.ideas]]
+idea = "Documentation-specific checks run before finishing: the project's documentation build, link, schema and example checks, and its established generator for generated documentation instead of edits to derived output."
+serves = "Catches broken links, builds and examples before readers find them."
+where = ["SKILL.md#verify-what-the-reader-will-use", "SKILL.md#integrate-and-finish"]
+shapes = "Adds the project's documentation checks to verification and requires affected navigation and links to be updated."
+
+[[sources.declined]]
+feature = "Fixed conventions such as US English as the default spelling, a docs/ directory organized by type, one documentation type per file, and prose lint in CI for every docs change."
+reason = "The project's existing conventions apply, and documentation maintenance does not create a CI workflow by itself."
+
+[[sources.declined]]
+feature = "Moving build, workspace, release and coding-standard content out of the README into CONTRIBUTING.md or AGENTS.md by default."
+reason = "An internal or contributor README serves a legitimate audience."
+
+[[sources.declined]]
+feature = "Writing in a private voice profile and preparing text ready to publish to a registry or site."
+reason = "The communicate-clearly skill owns voice, and documentation maintenance does not create a publication step."
+
+[[sources.reviews]]
+from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -43,15 +178,52 @@ author = "Addy Osmani"
 repository = "https://github.com/addyosmani/agent-skills"
 remote = "git@github.com:addyosmani/agent-skills.git"
 ref = "refs/heads/main"
+license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
 reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
 baseline_paths = ["skills/documentation-and-adrs/SKILL.md", "LICENSE"]
 paths = ["skills/documentation-and-adrs/SKILL.md", "LICENSE"]
-borrowed = ["Evidence-backed documentation, project conventions, decision status and preserved historical rationale."]
-local_choices = ["No copied technology-specific examples, mandatory public-API doc coverage or automatic ADR creation."]
-license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
-reviews = [
-  { from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026", to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d", incorporated = [], skipped = ["skills/documentation-and-adrs/SKILL.md: New Prose Review section asks to protect key details, avoid inventing guarantees, compare with the original and recheck examples. Already covered by communicate-clearly/FIDELITY.md:19-47, communicate-clearly/SKILL.md:31-33 and write-documentation/SKILL.md:9-11, :26-31 and :57-64."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 1401c8b8030e..aeac41d4d005 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "Decision records follow the project's record format and status conventions and separate context, considered alternatives, the decision and its consequences. Accepted history is preserved: a superseding decision or dated correction is added instead of rewriting the past to match today's code."
+serves = "Keeps the reasoning behind past decisions trustworthy as the code changes."
+where = ["references/document-types.md#decision-records"]
+shapes = "Adds a decision-record section that requires the project's format and a superseding record instead of an edit of history."
+
+[[sources.ideas]]
+idea = "Documentation keeps current behavior distinct from proposals, planned releases, historical decisions and unknowns. Code establishes behavior but not why it was chosen or whether it is approved policy, and missing rationale stays unknown."
+serves = "Prevents a document from presenting a guess or a plan as fact."
+where = [
+  "SKILL.md#find-the-reader-source-and-destination",
+  "references/document-types.md#decision-records",
+]
+shapes = "Adds an evidence rule to the source step and requires consequential contradictions to be surfaced instead of resolved silently."
+adapted = "Missing rationale goes to the explain-decisions skill when available instead of being invented, and a documentation edit does not itself approve an architectural decision."
+
+[[sources.declined]]
+feature = "Copied technology-specific examples, such as TypeScript and JSDoc API documentation snippets."
+reason = "Examples follow the project's own language and framework."
+
+[[sources.declined]]
+feature = "Documentation of every public API as a mandatory rule."
+reason = "Reference coverage follows the dimensions that actually apply to the interface the reader looks up."
+
+[[sources.declined]]
+feature = "Creating an ADR automatically for each significant decision."
+reason = "A documentation edit does not approve an architectural decision; decision records follow the request and the project's conventions."
+
+[[sources.reviews]]
+from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+incorporated = []
+skipped = [
+  "skills/documentation-and-adrs/SKILL.md: New Prose Review section asks to protect key details, avoid inventing guarantees, compare with the original and recheck examples. Already covered by communicate-clearly/FIDELITY.md:19-47, communicate-clearly/SKILL.md:31-33 and write-documentation/SKILL.md:9-11, :26-31 and :57-64.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 1401c8b8030e..aeac41d4d005 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -60,15 +232,37 @@ author = "Anthropic"
 repository = "https://github.com/anthropics/skills"
 remote = "git@github.com:anthropics/skills.git"
 ref = "refs/heads/main"
+license = "Ideas only, expressed in local wording. No source text copied; no skill-specific license was present at the reviewed path."
+role = "ideas"
 baseline_commit = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
 reviewed_through = "dbd4588f9e1033efb41dad4bef2f7947c8993d44"
 baseline_paths = ["skills/doc-coauthoring/SKILL.md", "README.md"]
 paths = ["skills/doc-coauthoring/SKILL.md", "README.md"]
-borrowed = ["Read a document without author context; use a proportionate independent reader check to expose missing assumptions."]
-local_choices = ["Ideas only, in original local wording. The repository README says many skills use Apache 2.0, but this skill has no license declaration or adjacent license file; do not infer its license from a sibling.", "No mandatory three-stage interview, section approval ritual, nested review panel, or Claude-specific runner."]
-license = "Ideas only, expressed in local wording. No source text copied; no skill-specific license was present at the reviewed path."
-reviews = [
-  { from_commit = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4", to_commit = "dbd4588f9e1033efb41dad4bef2f7947c8993d44", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 8a1541c4a3ff..dbd4588f9e10 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "The result is read without private conversation context: can a reader with the stated prerequisites find the entry point, supply the required inputs, follow the path and recognize the outcome? For a complex or high-consequence guide, an independent reader check can expose hidden assumptions when it is available and authorized."
+serves = "Finds gaps that the author cannot see because the author already knows the missing context."
+where = ["SKILL.md#verify-what-the-reader-will-use"]
+shapes = "Closes verification with a cold read, then repair and a rerun of the affected checks."
+adapted = "The independent check is proportionate and optional, and model feedback counts as a check of one sample, not proof of universal comprehension."
+
+[[sources.declined]]
+feature = "A three-stage co-authoring workflow (context gathering, refinement with section-by-section approval, reader testing) as the default path."
+reason = "The skill infers the reader and task from the request and existing documentation and asks only about a material unresolved choice; a small correction needs no planning interview."
+
+[[sources.declined]]
+feature = "A nested review panel or a Claude-specific runner for reader testing."
+reason = "The reader check stays proportionate and works with whatever independent reviewer the host provides."
+
+[[sources.reviews]]
+from_commit = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+to_commit = "dbd4588f9e1033efb41dad4bef2f7947c8993d44"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 8a1541c4a3ff..dbd4588f9e10 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[reference_documents]]

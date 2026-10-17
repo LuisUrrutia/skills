@@ -1,7 +1,21 @@
-format_version = 1
+format_version = 2
 skill = "explain-decisions"
 created = "2026-10-03"
-approach = "Standalone derivation of historical investigation. Source skills supply ideas, not installed or invoked runtime dependencies."
+approach = "derive"
+goal = "Explain to the asker what the available evidence establishes about why existing code or a design decision took its shape: its origin, constraints and tradeoffs. A good answer attaches each claim to its evidence at the confidence that evidence supports, keeps contradictions and unknowns visible, and states the search limits when part of the question stays unanswered."
+
+[[invariants]]
+rule = "Ordinary investigation is read-only: it keeps source, tests, configuration and external state unchanged, makes no repairs, contacts no authors, publishes nothing and creates no permanent records or teaching material. A requested explanatory artifact is written only at its agreed destination and within its agreed scope."
+where = ["SKILL.md#follow-relevant-evidence"]
+
+[[invariants]]
+rule = "Historical motivation stays separate from present validity. Current documents or measurements establish today's constraints, not what an author knew then, and a retired original constraint alone does not make code redundant."
+reason = "Current callers and contracts can depend on code after its original reason has lapsed, so removal advice checks them first."
+where = ["SKILL.md#locate-the-decision", "SKILL.md#weigh-the-record"]
+
+[[invariants]]
+rule = "The investigation stays inside the target's evidence boundary: a supplied snapshot inside another checkout does not grant access to that checkout's index or history."
+where = ["references/git-history.md#trace-the-relevant-history"]
 
 [[sources]]
 id = "pstack-why"
@@ -9,38 +23,132 @@ author = "Lauren Tan / pstack"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
-baseline_paths = ["pstack/skills/why/SKILL.md", "pstack/skills/why/references/epistemics.md", "pstack/skills/why/references/investigator-prompt.md", "pstack/skills/why/references/synthesizer-prompt.md", "pstack/skills/why/references/source-playbook.md", "pstack/skills/why/references/sources/code-archaeology.md", "pstack/skills/why/references/sources/incident-postmortem.md", "pstack/LICENSE"]
-paths = ["pstack/skills/why/SKILL.md", "pstack/skills/why/references/epistemics.md", "pstack/skills/why/references/investigator-prompt.md", "pstack/skills/why/references/synthesizer-prompt.md", "pstack/skills/why/references/source-playbook.md", "pstack/skills/why/references/sources/code-archaeology.md", "pstack/skills/why/references/sources/incident-postmortem.md", "pstack/LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = [
-  "Anchor the question in actual code, then follow history and relevant linked records.",
-  "Distinguish documented motivation, indirect evidence, speculation, and unknowns; test the user's hypothesis independently.",
-  "Trace introduction through later edits and renames instead of treating the last-touch commit as the origin.",
-  "Preserve contradictions, precise citations, meaningful search coverage, and missing evidence.",
-  "Consider incident and measurement history when it bears on the decision.",
-  "Carry supported constraints into planning when the question prepares an authorized change."
+baseline_paths = [
+  "pstack/skills/why/SKILL.md",
+  "pstack/skills/why/references/epistemics.md",
+  "pstack/skills/why/references/investigator-prompt.md",
+  "pstack/skills/why/references/synthesizer-prompt.md",
+  "pstack/skills/why/references/source-playbook.md",
+  "pstack/skills/why/references/sources/code-archaeology.md",
+  "pstack/skills/why/references/sources/incident-postmortem.md",
+  "pstack/LICENSE",
 ]
-local_choices = [
-  "Investigate directly with optional authorized delegation; no required agents, model table, Cursor Task API, or forced write-capable execution mode.",
-  "Keep a brief activation description and default discoverability; no Cursor-only invocation flag.",
-  "Select sources by the question and concrete leads; no seven-category sweep, vendor-specific connector dependency, or proof of irrelevance to skip a category.",
-  "Treat Git and remote access as capabilities to verify, not guaranteed prerequisites.",
-  "Use a recorded reason, supported inference, or unknown for each claim without requiring the donor's five tiers or fixed report sections.",
-  "An explicit statement establishes an attributed historical account, not present necessity, team consensus, or successful results.",
-  "Resolve conflicting sources when dates and scope establish a changed decision; retain unresolved contradictions rather than forcing either a winner or permanent ambiguity.",
-  "Do not treat tests, replicated statements, code shape, or a post-release metric change as independent proof of original intent or causation.",
-  "Keep historical rationale distinct from current validity; removing an old constraint does not establish that code is redundant.",
-  "Ground replacement advice in verified caller contracts, including asynchronous returns; an internal mechanism change need not change the public interface.",
-  "Keep ordinary use read-only, with no repairs, teaching records, author contact, or publication; requested explanatory artifacts retain their agreed scope.",
-  "Use conditional Git guidance for last-touch edits, renames, inline review coverage, explicit repository context, and incomplete history.",
-  "A supplied snapshot does not inherit access to an enclosing repository's index or history; honor the target's evidence boundary.",
-  "Stop when the question and material contrary evidence are resolved or remaining leads cannot be pursued within scope; report the actual limit."
+paths = [
+  "pstack/skills/why/SKILL.md",
+  "pstack/skills/why/references/epistemics.md",
+  "pstack/skills/why/references/investigator-prompt.md",
+  "pstack/skills/why/references/synthesizer-prompt.md",
+  "pstack/skills/why/references/source-playbook.md",
+  "pstack/skills/why/references/sources/code-archaeology.md",
+  "pstack/skills/why/references/sources/incident-postmortem.md",
+  "pstack/LICENSE",
 ]
-reviews = [
-  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
-  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/why/SKILL.md: Steps are condensed, the inline git and gh command block and the reference-file list are removed, and model defaults change. Donor orchestration and removals; explain-decisions/origin.txt:26 excludes required agents and a model table, and Git guidance stays in explain-decisions/references/git-history.md.", "pstack/skills/why/references/epistemics.md, pstack/skills/why/references/investigator-prompt.md and pstack/skills/why/references/synthesizer-prompt.md: Compressed wording for the confidence tiers, the sycophancy trap, contradictions, the counterfactual check and staying within one source. Unchanged in substance and covered at explain-decisions/SKILL.md:15, :42-45 and :54-70.", "pstack/skills/why/references/sources/code-archaeology.md and pstack/skills/why/references/sources/incident-postmortem.md: The code-archaeology pitfalls and gh PR commands are deleted, and incident-postmortem is reduced to three vendor bullets. Upstream removals; local guidance stays at explain-decisions/references/git-history.md:10-34 and explain-decisions/SKILL.md:33-35."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "An investigation starts from the actual code. It identifies the code, choice and period that the question concerns, and reads enough of the implementation, callers, configuration and tests to check the premise. It then follows history and linked records, such as PRs, tickets, documents and team conversations, and reads their discussion and outcome rather than a title or search snippet."
+serves = "Ties the answer to the decision that was actually asked about, not a nearby or imagined one."
+where = ["SKILL.md#locate-the-decision", "SKILL.md#follow-relevant-evidence"]
+shapes = "Locating the decision comes before any search; the evidence section starts with the closest useful records and then follows concrete leads."
+adapted = "The donor sweeps seven evidence categories with parallel investigators. Locally, sources are chosen to resolve the question or to distinguish live explanations, and the search expands only when a link, contradiction or missing decision context warrants it."
+
+[[sources.ideas]]
+idea = "Each substantive claim carries its confidence: a recorded reason that a source states explicitly, a supported inference with its observations and the step that connects them, or an unknown or competing explanation with the missing evidence named. Code alone is not a record of author intent."
+serves = "Prevents a plausible guess from reading as documented history."
+where = ["SKILL.md#weigh-the-record", "SKILL.md#follow-relevant-evidence"]
+shapes = "The weigh section defines the three categories; the evidence section limits what code and tests can show."
+adapted = "The donor uses five tiers tied to fixed report sections; locally three categories attach to each claim, with no fixed report. An explicit statement establishes an account attributed to its record and time, not present necessity, team consensus or a successful result. Tests record expected behavior rather than why it was chosen, copies of one statement are not independent corroboration, and code shape does not prove intent."
+
+[[sources.ideas]]
+idea = "A reason that the user suggests is a hypothesis to test against the evidence, not a conclusion to confirm."
+serves = "Prevents the answer from simply agreeing with the asker's guess."
+where = ["SKILL.md#locate-the-decision"]
+shapes = "Locating the decision treats the suggested reason as a hypothesis while the premise is checked."
+
+[[sources.ideas]]
+idea = "A decision originates where its behavior entered the system and where its rationale changed, not in the last commit that touched a line. Blame finds the last edit, which can be a move, formatter run or copied pattern; patches, earlier versions and renames lead back to the introducing change."
+serves = "Prevents attributing a motive to a formatting, move or copy commit."
+where = ["references/git-history.md#trace-the-relevant-history"]
+shapes = "The reference locates the decision before assigning a motive, lists the history searches, and explains how `--follow` and path-limited searches can miss a previous path."
+adapted = "The Git guidance is a reference that is read only when Git history is available. It also covers inline review threads that a review summary omits, explicit repository arguments for remote reads, and the coverage limits of shallow clones, squashes, imported snapshots and failed lookups."
+
+[[sources.ideas]]
+idea = "When records conflict, each one stays visible with its source. Neither the latest edit nor a tidy narrative wins automatically."
+serves = "Keeps the answer honest when the record disagrees with itself."
+where = ["SKILL.md#weigh-the-record"]
+shapes = "The comparison paragraph weighs conflicting records by date, scope and relation to the implemented decision."
+adapted = "The donor always presents both sides and leaves the call to the user. Locally, a superseded proposal is resolved when dates and scope establish a changed decision, and only an unresolved contradiction stays open. A later recollection is evidence of that person's account, with its timing kept."
+
+[[sources.ideas]]
+idea = "Each claim has its source location, commit ID or URL beside it, and the investigation tracks which records and queries support the answer. A search with no relevant results, unavailable evidence and sources outside the chosen scope are reported as different results; an inaccessible linked discussion stays unknown."
+serves = "Lets the reader check each claim and judge what remains unsearched."
+where = ["SKILL.md#follow-relevant-evidence", "SKILL.md#answer-and-stop"]
+shapes = "The evidence section tracks support and separates empty searches from unavailable sources; the answer places citations beside claims and names the evidence that could resolve each unanswered part."
+adapted = "The donor aims for a complete coverage map with one line per evidence category. Locally, the search ends when the question is supported and material contrary evidence is accounted for, or when the remaining leads are exhausted, inaccessible or out of scope; the answer reports that limit."
+
+[[sources.ideas]]
+idea = "For a guard, retry or threshold, a linked incident or measurement can explain the decision. The investigation looks for one when the evidence suggests that origin."
+serves = "Finds operational causes that code and commit messages often leave out."
+where = ["SKILL.md#follow-relevant-evidence"]
+shapes = "The lead-following paragraph adds incident and measurement records for defensive code and thresholds."
+adapted = "The donor adds an incident search whenever code looks defensive. Locally, the defensive shape alone does not establish an incident origin, and a metric change after a release alone proves neither causation nor the reason for an exact value."
+
+[[sources.ideas]]
+idea = "When the investigation prepares a requested change, evidenced constraints and unresolved risks become planning inputs, with current requirements kept apart from obsolete historical constraints."
+serves = "Lets a later change respect the constraints that the history established."
+where = ["SKILL.md#answer-and-stop"]
+shapes = "The last paragraph of the answer section carries constraints forward as advice; the skill itself does not start implementation or delivery."
+adapted = "The donor turns findings into a Preserve, Change, Avoid and Risk set. Locally, advice about a replacement rests on the verified caller contract, including return types and asynchronous behavior, and a changed internal mechanism need not change that contract."
+
+[[sources.declined]]
+feature = "Parallel investigator and synthesizer subagents with a model table, the Cursor Task API and a forced write-capable execution mode."
+reason = "The skill investigates directly; delegation is optional and only when the host and task authorize it."
+
+[[sources.declined]]
+feature = "A Cursor-only flag that disables model invocation, and a long description that lists the evidence categories."
+reason = "The skill keeps a brief activation description and default discoverability."
+
+[[sources.declined]]
+feature = "A sweep of seven evidence categories through vendor-specific connectors, with written proof of irrelevance required to skip a category."
+reason = "Sources are chosen by the question and concrete leads; there is no mandatory sweep of every connector."
+
+[[sources.declined]]
+feature = "Treating Git and `gh` as always available."
+reason = "Git and remote access are capabilities to verify. When history is missing or limited, the answer describes the available range and continues with independent evidence."
+
+[[sources.declined]]
+feature = "Five fixed confidence tiers and a fixed report structure that ends with one Sources Consulted line per category and a confidence summary."
+reason = "Each claim carries a recorded reason, a supported inference or an unknown; the answer has no fixed report, confidence score, diagram or list of empty source categories."
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/why/SKILL.md: Steps are condensed, the inline git and gh command block and the reference-file list are removed, and model defaults change. Donor orchestration and removals; the declined parallel investigator and synthesizer subagents with a model table exclude them, and Git guidance stays in explain-decisions/references/git-history.md.",
+  "pstack/skills/why/references/epistemics.md, pstack/skills/why/references/investigator-prompt.md and pstack/skills/why/references/synthesizer-prompt.md: Compressed wording for the confidence tiers, the sycophancy trap, contradictions, the counterfactual check and staying within one source. Unchanged in substance and covered at explain-decisions/SKILL.md:15, :42-45 and :54-70.",
+  "pstack/skills/why/references/sources/code-archaeology.md and pstack/skills/why/references/sources/incident-postmortem.md: The code-archaeology pitfalls and gh PR commands are deleted, and incident-postmortem is reduced to three vendor bullets. Upstream removals; local guidance stays at explain-decisions/references/git-history.md:10-34 and explain-decisions/SKILL.md:33-35.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[dependencies]]

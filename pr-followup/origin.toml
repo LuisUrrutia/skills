@@ -1,7 +1,51 @@
-format_version = 1
+format_version = 2
 skill = "pr-followup"
 created = "2026-10-03"
-approach = "Follow current-head feedback and CI using resumable host observation. Merge settled PRs in LuisUrrutia's personal repositories; elsewhere stop on approval or merge."
+approach = "derive"
+goal = "Bring the user's own open PR to the requested stopping point, from a read-only inspection through repaired feedback and CI, a draft moved to review, a verified approval or an authorized merge, with evidence for its current revision. Success means every observed feedback item and review thread is accounted for, readiness rests on the exact current head, and the result states honestly whether the requested scope is complete, waiting or blocked."
+
+[[invariants]]
+rule = "Check scope is read-only: no edits, reruns, replies, publication or state changes."
+where = ["SKILL.md#choose-scope-and-establish-state"]
+
+[[invariants]]
+rule = "In Feedback and Drive scope, every review thread is classified and brought to one disposition: applied, not applicable, outside this PR with a tracking ticket, or needing a confirmation that is reported to the user. The skill replies or resolves as that disposition requires, without a separate authorization for reviewer communication, and never resolves a thread to hide remaining work."
+reason = "The user's 2026-10-09 policy makes replying to and resolving review threads part of the feedback work."
+where = [
+  "SKILL.md#choose-scope-and-establish-state",
+  "references/feedback.md#replies-and-thread-resolution",
+]
+
+[[invariants]]
+rule = "In Feedback or Drive scope, a settled PR whose target repository belongs to the LuisUrrutia personal account is merged directly, without waiting for human or bot approvals, once all feedback is settled and its threads resolved, every enabled automated reviewer has finished and all applicable CI/CD has passed. Ownership is verified from the owner login and User account type, and explicit read-only, create-only, keep-draft or do-not-merge instructions take precedence."
+reason = "The user's 2026-10-07 policy authorizes direct merges in the user's personal repositories without approvals."
+where = ["SKILL.md#merge-settled-prs-in-luis-urrutias-personal-repositories"]
+
+[[invariants]]
+rule = "Outside the personal-repository policy or another explicit merge authorization, the skill has no merge authority. It never merges or enables auto-merge to finish the loop, and Drive ends on a verified merge or a current formal approval."
+where = [
+  "SKILL.md#stop-with-an-honest-result",
+  "references/github-collection.md#verify-an-approval-stop",
+]
+
+[[invariants]]
+rule = "In Feedback or Drive scope, an eligible draft is marked ready for review without another permission prompt, and the transition starts fresh CI and review observation even when the SHA is unchanged."
+reason = "The user's 2026-10-05 policy requires eligible drafts to become ready, followed by fresh CI and review observation."
+where = ["SKILL.md#move-a-settled-draft-to-review"]
+
+[[invariants]]
+rule = "Current repository policy and evidence for the exact current head decide readiness. Earlier green checks, a bot's success comment, a quiet interval or a stable comment count never do."
+where = [
+  "SKILL.md#move-a-settled-draft-to-review",
+  "references/ci-and-observation.md#observe-resume-and-stop",
+]
+
+[[invariants]]
+rule = "Waiting uses a resumable host-managed watch, and the agent turn ends while it waits. Drive has no default elapsed-time cutoff, a missing resumable watch is reported as a coverage gap, and a recurring schedule needs an explicit request."
+where = [
+  "SKILL.md#choose-scope-and-establish-state",
+  "references/ci-and-observation.md#observe-resume-and-stop",
+]
 
 [[sources]]
 id = "pstack-pr-followup"
@@ -9,16 +53,81 @@ author = "Lauren Tan / pstack"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
-baseline_paths = ["pstack/skills/poteto-mode/playbooks/babysit.md", "pstack/skills/poteto-mode/references/bugbot-triage.md", "pstack/LICENSE"]
-paths = ["pstack/skills/poteto-mode/playbooks/babysit.md", "pstack/skills/poteto-mode/references/bugbot-triage.md", "pstack/LICENSE"]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Separate check, feedback and drive scopes; evaluate bot claims through current invariants; batch repair waves and retain one mutation owner."]
-local_choices = ["Outside the entrypoint's personal-repository policy, no default merge authority. Under the user's 2026-10-09 policy, Feedback and Drive scope classify every review thread and reply or resolve by disposition (applied, not applicable, outside the PR with a tracking ticket, or needs a confirmation reported to the user) without a separate reviewer-communication authorization; Check scope stays read-only. No automatic dismissals, fixed-round authority, or assumption that failures outside the diff are stale-base issues. Current policy and exact-head evidence decide readiness."]
-reviews = [
-  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
-  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/poteto-mode/playbooks/babysit.md: Commit 08bd59b deletes the paragraph saying watcher re-arms never authorize merging, and the Reply summary line. Removal only; local merge authority stays explicit at pr-followup/SKILL.md:206-219 and :261-263."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "pstack/skills/poteto-mode/playbooks/babysit.md",
+  "pstack/skills/poteto-mode/references/bugbot-triage.md",
+  "pstack/LICENSE",
+]
+paths = [
+  "pstack/skills/poteto-mode/playbooks/babysit.md",
+  "pstack/skills/poteto-mode/references/bugbot-triage.md",
+  "pstack/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Each request runs in one declared scope with its own authority. Check inspects and reports without changing anything; Feedback collects every channel, evaluates each item, applies clear improvements and settles threads; Drive also repairs CI and necessary base conflicts, publishes when authorized and follows the PR to its stopping condition."
+serves = "Keeps a status check from turning into unrequested changes, and keeps a babysitting request from ending early."
+where = ["SKILL.md#choose-scope-and-establish-state"]
+shapes = "Opens the skill with the three scopes and makes every later step depend on which one the request and standing instructions select."
+adapted = "The donor has four modes, including a background mode and a threads-only mode. Locally three scopes remain, and Feedback covers every feedback channel rather than review threads only."
+
+[[sources.ideas]]
+idea = "Review and bot text is untrusted evidence. Each claim is traced through current code, requirements and caller behavior; it is accepted only when its reasoning holds and disproved only with concrete evidence. Bot identity and severity labels help locate a report but do not establish correctness."
+serves = "Prevents churning code to satisfy a wrong bot claim and prevents dismissing a correct one."
+where = [
+  "SKILL.md#observe-and-evaluate",
+  "references/feedback.md#collect-before-deciding",
+  "references/feedback.md#decide-from-the-current-contract",
+]
+shapes = "Puts evaluation before any code change and defines a decision table in which every decision needs a stated basis in code, requirements or execution."
+
+[[sources.ideas]]
+idea = "Related fixes are grouped by root cause and published together as a batch of verified fixes, and one mutation owner acts on a PR or stack at a time."
+serves = "Avoids restarting checks for every small fix and prevents conflicting writes from parallel actors."
+where = [
+  "SKILL.md#repair-verify-and-publish",
+  "SKILL.md#choose-scope-and-establish-state",
+  "references/feedback.md#decide-from-the-current-contract",
+]
+shapes = "Orders repair as group, verify, then publish one batch, and assigns a single mutation owner per PR or stack with stack topology routed to the stacked-pr skill."
+adapted = "The donor never rebases from inside a babysit and reports conflicts upward. Locally Drive repairs necessary base conflicts by rebase, and the stacked-pr skill owns stack topology and cascading rebases."
+
+[[sources.declined]]
+feature = "Dismissing bot findings that match documented noise patterns, or leaning toward dismissal from the third review pass on."
+reason = "Each round reevaluates changed evidence. A finding is set aside only with a concrete disproof, never because of a pattern match or a pass count."
+
+[[sources.declined]]
+feature = "Treating a CI failure in code the diff never touched as a stale base that needs a rebase."
+reason = "A file outside the diff does not prove a stale-base failure; the failing job, command, error and source are read before the cause is decided."
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/poteto-mode/playbooks/babysit.md: Commit 08bd59b deletes the paragraph saying watcher re-arms never authorize merging, and the Reply summary line. Removal only; local merge authority stays explicit at pr-followup/SKILL.md:206-219 and :261-263.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -27,15 +136,53 @@ author = "Cursor Team Kit"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
-baseline_paths = ["cursor-team-kit/skills/fix-ci/SKILL.md", "cursor-team-kit/skills/loop-on-ci/SKILL.md", "cursor-team-kit/skills/fix-merge-conflicts/SKILL.md", "cursor-team-kit/LICENSE"]
-paths = ["cursor-team-kit/skills/fix-ci/SKILL.md", "cursor-team-kit/skills/loop-on-ci/SKILL.md", "cursor-team-kit/skills/fix-merge-conflicts/SKILL.md", "cursor-team-kit/LICENSE"]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Inspect failed jobs before fixing causes, observe new revisions, and regenerate project-derived files when resolving conflicts."]
-local_choices = ["Rebase under local policy; compilation is insufficient to prove conflict intent. No endless reruns, blind base merges or disabling checks."]
-reviews = [
-  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 23e4138daa01..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "cursor-team-kit/skills/fix-ci/SKILL.md",
+  "cursor-team-kit/skills/loop-on-ci/SKILL.md",
+  "cursor-team-kit/skills/fix-merge-conflicts/SKILL.md",
+  "cursor-team-kit/LICENSE",
+]
+paths = [
+  "cursor-team-kit/skills/fix-ci/SKILL.md",
+  "cursor-team-kit/skills/loop-on-ci/SKILL.md",
+  "cursor-team-kit/skills/fix-merge-conflicts/SKILL.md",
+  "cursor-team-kit/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "A CI failure is diagnosed before it is fixed. The failing job, command, error and relevant source are read, including an external provider's check link, and the failure is classified as a product defect, workflow configuration, environment failure or observed flaky behavior. After each push the full check set for the new head is read again, because the set can change."
+serves = "Prevents guessed fixes and conclusions drawn from an outdated check set."
+where = [
+  "references/ci-and-observation.md#investigate-failures-without-blocking-independent-feedback",
+  "references/github-collection.md#ci-and-external-reviewers",
+]
+shapes = "Makes reading and classifying the failure the first step of CI work, before any edit or rerun."
+adapted = "Locally repair targets the root cause: no disabled check, weakened assertion or blanket retry. A transient failure gets one rerun when evidence supports it and the request authorizes reruns, and a recurrence is investigated or reported instead of retried without bound. gh pr checks is a summary, not the full evidence."
+
+[[sources.ideas]]
+idea = "Conflict resolution regenerates derived files such as lockfiles with the project's tools instead of hand-editing them, and the resulting revision is verified before publication."
+serves = "Prevents corrupted generated files and unverified conflict resolutions."
+where = ["references/ci-and-observation.md#update-the-base-when-necessary"]
+shapes = "Adds the regeneration rule to the conflict paragraph and puts verification of the result before the exact-lease publication."
+adapted = "Locally an ordinary PR is updated by rebase under the user's standing policy, and both sides' intended behavior is read, because compilation alone does not prove a correct resolution."
+
+[[sources.declined]]
+feature = "Merging the latest main into the PR branch when a failure looks unrelated and already fixed on main."
+reason = "The base is updated by rebase, and only when the user asks, conflicts block integration, repository policy requires it, or evidence connects a failure to a needed base change."
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 23e4138daa01..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -44,15 +191,40 @@ author = "Dylan Gattey / dyl-stack"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["dyl-stack/skills/dyl-ready-pr/SKILL.md", "dyl-stack/LICENSE"]
 paths = ["dyl-stack/skills/dyl-ready-pr/SKILL.md", "dyl-stack/LICENSE"]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Recheck current CI, review feedback and integration state after repair."]
-local_choices = ["The user's 2026-10-05 policy requires eligible drafts to become ready, followed by fresh CI and review observation even at the same SHA. No mandatory skill roster, forced deep-review phase, fixed bot wait or thread resolution to hide remaining work."]
-reviews = [
-  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 23e4138daa01..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "After a repair push or the ready transition, CI, review feedback and integration state are established again for the current head. Some workflows and automated reviewers run only on non-draft PRs, so marking a draft ready starts a new observation phase even when the SHA is unchanged."
+serves = "Prevents a readiness claim based on checks and reviews that predate the latest change or the ready state."
+where = [
+  "SKILL.md#move-a-settled-draft-to-review",
+  "references/ci-and-observation.md#observe-resume-and-stop",
+]
+shapes = "Adds a post-ready phase that invalidates the draft-era snapshot, discovers newly triggered workflows and reviewers, and collects every channel again."
+adapted = "The donor marks the draft ready as soon as its review skill reports green. Locally the draft becomes ready only when a fresh snapshot shows CI passed, feedback settled and no known work left."
+
+[[sources.declined]]
+feature = "A required roster of companion plugins and a forced deep-review phase repeated until green before the PR is marked ready."
+reason = "Support skills load only at the boundary that needs them; a bounded review claim can go to the review-code-changes skill in read-only mode."
+
+[[sources.declined]]
+feature = "A fixed wait for a bot to register on the current SHA that ends as a stop after 30 minutes."
+reason = "Expected reviewers are identified from configuration and current run state; unknown reviewer completion keeps the PR waiting or blocked rather than ending on a timer."
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 23e4138daa01..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -61,15 +233,79 @@ author = "Every"
 repository = "https://github.com/EveryInc/compound-engineering-plugin"
 remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
 reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
-baseline_paths = ["skills/ce-babysit-pr/SKILL.md", "skills/ce-babysit-pr/references/settle.md", "skills/ce-resolve-pr-feedback/SKILL.md", "skills/ce-resolve-pr-feedback/references/evaluation-rubric.md", "LICENSE"]
-paths = ["skills/ce-babysit-pr/SKILL.md", "skills/ce-babysit-pr/references/settle.md", "skills/ce-resolve-pr-feedback/SKILL.md", "skills/ce-resolve-pr-feedback/references/evaluation-rubric.md", "LICENSE"]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Keep feedback and CI progressing independently, track per-item outcomes, reobserve after publication and distinguish settled checks from merge authorization."]
-local_choices = ["The user's 2026-10-07 policy authorizes direct merge and necessary feedback settlement in LuisUrrutia's personal repositories after all comments are resolved, enabled reviewers finish and CI/CD passes, without waiting for approvals. Elsewhere, host-managed babysitting stops on merge or current formal approval. No default time cutoff, agent polling loop, stale-head success or assumption that most feedback must be applied. Uncertainty needs investigation or a scoped decision. Reply and thread resolution now follow the 2026-10-09 disposition policy recorded above."]
-reviews = [
-  { from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb", to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 9af474a70e7f..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/ce-babysit-pr/SKILL.md",
+  "skills/ce-babysit-pr/references/settle.md",
+  "skills/ce-resolve-pr-feedback/SKILL.md",
+  "skills/ce-resolve-pr-feedback/references/evaluation-rubric.md",
+  "LICENSE",
+]
+paths = [
+  "skills/ce-babysit-pr/SKILL.md",
+  "skills/ce-babysit-pr/references/settle.md",
+  "skills/ce-resolve-pr-feedback/SKILL.md",
+  "skills/ce-resolve-pr-feedback/references/evaluation-rubric.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Feedback and CI progress independently. Pending CI, an inaccessible channel or one disputed item never freezes unrelated supported fixes, and feedback collection continues while jobs run."
+serves = "Prevents serializing all work behind the slowest signal."
+where = [
+  "SKILL.md#observe-and-evaluate",
+  "references/ci-and-observation.md#investigate-failures-without-blocking-independent-feedback",
+  "references/ci-and-observation.md#observe-resume-and-stop",
+]
+shapes = "Separates feedback collection from CI waiting, so repairs continue while unrelated jobs run."
+
+[[sources.ideas]]
+idea = "Every observed item has a tracked outcome. An item is finished only when it has its decision and the actions that decision requires, and the final report accounts for each one."
+serves = "Prevents silently dropped feedback."
+where = ["SKILL.md#observe-and-evaluate", "SKILL.md#stop-with-an-honest-result"]
+shapes = "Defines completion of feedback work per item and makes the final report list each unapplied item with its reason."
+
+[[sources.ideas]]
+idea = "Publication invalidates earlier CI and readiness evidence. After a push the remote head is read again and a fresh snapshot of checks and feedback is collected for it; results from an older head explain history but never prove that the new revision passed."
+serves = "Prevents reporting a stale green state for a new head."
+where = [
+  "SKILL.md#repair-verify-and-publish",
+  "references/ci-and-observation.md#observe-resume-and-stop",
+  "references/github-collection.md#ci-and-external-reviewers",
+]
+shapes = "Adds a re-read of the head after each publication and a rule that rebuilds the analysis when the head or base moves."
+
+[[sources.ideas]]
+idea = "Settled checks and readiness are not merge authorization. Ready for review differs from ready to merge, and approval does not establish merge readiness."
+serves = "Keeps merging a decision that the user's policy owns."
+where = ["SKILL.md#move-a-settled-draft-to-review", "SKILL.md#stop-with-an-honest-result"]
+shapes = "Separates the ready gate, the approval stop and the merge into distinct states with their own conditions."
+adapted = "In the donor only a stack-land posture authorizes merging. Locally the user's personal-repository policy or another explicit authorization does."
+
+[[sources.declined]]
+feature = "A default invocation budget, such as 8 hours of active watch time with a 3-day backstop."
+reason = "Drive has no default elapsed-time cutoff; the user can set a time limit or stop it."
+
+[[sources.declined]]
+feature = "A self-sustaining in-session watch loop that keeps the agent running between ticks."
+reason = "Host-managed event notifications resume the task and the agent turn ends while waiting; without a resumable watch the gap is reported."
+
+[[sources.declined]]
+feature = "Defaulting to fixing feedback because most review feedback is correct."
+reason = "Each claim is judged on its evidence. Uncertainty is a question to investigate or a scoped decision, not permission to change behavior."
+
+[[sources.reviews]]
+from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 9af474a70e7f..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -78,15 +314,88 @@ author = "Matthew Blode"
 repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
 reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
-baseline_paths = ["skills/pr-babysitter/SKILL.md", "skills/pr-babysitter/references/github-api.md", "LICENSE.md"]
-paths = ["skills/pr-babysitter/SKILL.md", "skills/pr-babysitter/references/github-api.md", "LICENSE.md"]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Separate monitoring and repair, collect every feedback channel with pagination, revisit edited/resolved-thread content and distinguish reply and resolution state from code repair."]
-local_choices = ["No blind update of every behind branch, pending-CI barrier to independent fixes, bot-authority heuristic or automatic cron. REST replies use a root comment ID as verified in GitHub documentation."]
-reviews = [
-  { from_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = [], skipped = ["skills/pr-babysitter/SKILL.md: After a merge, wait for watch statuses on the merge commit (finding the real base after a rebase merge) and run a read-only production smoke test. Not applied because the watch convention is the donor's, the smoke test reaches into production, host watches may stop silently on merge (pr-followup/references/ci-and-observation.md:90-91), and the local skill deliberately ends at a verified merge (pr-followup/SKILL.md:221-226).", "skills/pr-babysitter/SKILL.md: Notifications count only non-noise comments. The local skill already returns compact status deltas (pr-followup/references/ci-and-observation.md:66).", "skills/pr-babysitter/references/github-api.md: The hand-written GraphQL and REST fallback is removed in favor of fetch-comments.sh. The script is donor-specific; local collection is at pr-followup/references/github-collection.md:7-33.", "skills/pr-babysitter/SKILL.md and skills/pr-babysitter/references/github-api.md: The staleReviews re-verification rule moves, and the watch ladder and CI platform tables move to monitoring-setup.md and ci-platforms.md. Relocation; the rule is covered at pr-followup/references/github-collection.md:72-74 and pr-followup/references/feedback.md:11-15, the new files are outside the recorded paths, and polling and cron are excluded by pr-followup/origin.txt:80."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 51e9ae4fd21f..872bc83bdb6d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/pr-babysitter/SKILL.md",
+  "skills/pr-babysitter/references/github-api.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/pr-babysitter/SKILL.md",
+  "skills/pr-babysitter/references/github-api.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "Monitoring and repair are separate. An inspection pass reports state without editing, rerunning, replying or publishing; repairs, replies and publication happen only in a scope that covers them."
+serves = "Lets the user ask what blocks a PR without authorizing changes."
+where = ["SKILL.md#choose-scope-and-establish-state"]
+shapes = "Makes Check a scope of its own with no state changes, and leaves repair to Feedback and Drive."
+
+[[sources.ideas]]
+idea = "Collection reads every feedback channel: inline comments with replies, formal review bodies, conversation comments, thread status, check runs and annotations, status contexts and Actions logs. It follows every REST page and every GraphQL cursor, including each thread's own comments cursor. A display limit or a single unresolved-thread query is not a complete inbox."
+serves = "Prevents missing feedback that sits on a later page, in a resolved thread or in a successful job's log."
+where = [
+  "references/github-collection.md#channels-and-pagination",
+  "references/feedback.md#collect-before-deciding",
+  "SKILL.md#observe-and-evaluate",
+]
+shapes = "Adds a channel table and pagination rules that collection must satisfy before any decision."
+
+[[sources.ideas]]
+idea = "Edited comments and resolved or outdated threads are read again. A body digest or update time is tracked as well as the ID, because bots edit comments in place and reviewers reply after a thread is resolved; a prior disposition does not settle new content."
+serves = "Catches feedback that arrives under an old ID or in a thread that looks closed."
+where = [
+  "SKILL.md#observe-and-evaluate",
+  "references/github-collection.md#channels-and-pagination",
+  "references/feedback.md#collect-before-deciding",
+]
+shapes = "Keeps resolved and outdated threads in every collection and makes new content under an old ID trigger reevaluation."
+
+[[sources.ideas]]
+idea = "Reply and resolution state is tracked apart from code repair. Locally fixed, verified, published, replied and resolved are distinct states, and none implies the next."
+serves = "Prevents reporting a thread as settled because its code changed."
+where = [
+  "SKILL.md#stop-with-an-honest-result",
+  "references/feedback.md#replies-and-thread-resolution",
+  "references/github-collection.md#authorized-write-mechanics",
+]
+shapes = "Splits the final accounting into these states and gives replies and resolutions their own verification steps."
+adapted = "The donor replies to the ID of the thread's last comment. Locally the REST reply uses the thread's root comment ID, as GitHub's documentation for review-comment replies requires."
+
+[[sources.declined]]
+feature = "Updating the branch whenever GitHub reports it BEHIND."
+reason = "The base is updated only when the user asks, conflicts prevent integration, repository policy requires it, or evidence connects a failure to a needed base change."
+
+[[sources.declined]]
+feature = "Waiting for pending checks before acting on other work."
+reason = "Pending CI does not freeze unrelated supported fixes; feedback repairs continue while jobs run."
+
+[[sources.declined]]
+feature = "Deciding how much weight a comment carries from its bot identity or severity markers."
+reason = "Bot identity and severity labels help locate a report; they do not establish correctness."
+
+[[sources.declined]]
+feature = "A cron or scheduler fallback that polls the PR when no event subscription exists."
+reason = "Without a resumable host watch the skill reports the coverage gap; a recurring schedule needs an explicit request."
+
+[[sources.reviews]]
+from_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = [
+  "skills/pr-babysitter/SKILL.md: After a merge, wait for watch statuses on the merge commit (finding the real base after a rebase merge) and run a read-only production smoke test. Not applied because the watch convention is the donor's, the smoke test reaches into production, host watches may stop silently on merge (pr-followup/references/ci-and-observation.md:90-91), and the local skill deliberately ends at a verified merge (pr-followup/SKILL.md:221-226).",
+  "skills/pr-babysitter/SKILL.md: Notifications count only non-noise comments. The local skill already returns compact status deltas (pr-followup/references/ci-and-observation.md:66).",
+  "skills/pr-babysitter/references/github-api.md: The hand-written GraphQL and REST fallback is removed in favor of fetch-comments.sh. The script is donor-specific; local collection is at pr-followup/references/github-collection.md:7-33.",
+  "skills/pr-babysitter/SKILL.md and skills/pr-babysitter/references/github-api.md: The staleReviews re-verification rule moves, and the watch ladder and CI platform tables move to monitoring-setup.md and ci-platforms.md. Relocation; the rule is covered at pr-followup/references/github-collection.md:72-74 and pr-followup/references/feedback.md:11-15, the new files are outside the recorded paths, and polling and cron are excluded by the declined cron or scheduler fallback.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 51e9ae4fd21f..872bc83bdb6d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -95,17 +404,102 @@ author = "Lauren Tan / pstack"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["pstack/skills/show-me-your-work/SKILL.md", "pstack/LICENSE"]
 paths = ["pstack/skills/show-me-your-work/SKILL.md", "pstack/LICENSE"]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Retain consequential decisions, reasons, evidence and outcomes for long tasks."]
-local_choices = ["Use concise local ignored evidence when useful; no mandatory TSV artifact, transcription archive, cross-model audit or extra source-skill invocation."]
-reviews = [
-  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
-  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/show-me-your-work/SKILL.md: Commit ce649c0 adds picking each subagent's reasoning level to the cross-model trail review. Donor orchestration excluded by pr-followup/origin.txt:95 (no cross-model audit or extra source-skill invocation)."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "Long follow-up work keeps a record of each consequential decision: the item, its claim, evidence, decision, verification, published revision and outcome. The record lets a later wake resume without repeating work or messages."
+serves = "Keeps multi-cycle work resumable and auditable."
+where = [
+  "SKILL.md#observe-and-evaluate",
+  "references/ci-and-observation.md#observe-resume-and-stop",
 ]
+shapes = "Adds a ledger to evaluation and a list of state to retain at each meaningful change."
+adapted = "Locally the ledger is optional, concise and kept in ignored task storage, used only when several items or cycles need continuity, and removed when resumption no longer needs it."
+
+[[sources.declined]]
+feature = "A mandatory append-only TSV decision log with an audit against the run's transcript."
+reason = "A concise ledger in ignored task storage is enough when continuity needs it."
+
+[[sources.declined]]
+feature = "A cross-model review of the decision trail before handing back."
+reason = "Follow-up requires no cross-model audit and no invocation of the donor's trail skill."
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/show-me-your-work/SKILL.md: Commit ce649c0 adds picking each subagent's reasoning level to the cross-model trail review. Donor orchestration excluded by the declined cross-model review of the decision trail (no cross-model audit or extra source-skill invocation).",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "codex-babysit-historical"
+author = "OpenAI"
+repository = "https://github.com/openai/codex"
+remote = "git@github.com:openai/codex.git"
+ref = "a770e5b8470d3320eb53a56a286ea4a0a70a1f59"
+license = "Apache-2.0; concepts restated locally, no upstream files or code copied."
+role = "ideas"
+baseline_commit = "a770e5b8470d3320eb53a56a286ea4a0a70a1f59"
+reviewed_through = "a770e5b8470d3320eb53a56a286ea4a0a70a1f59"
+baseline_paths = [".codex/skills/babysit-pr/SKILL.md", "LICENSE"]
+paths = [".codex/skills/babysit-pr/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "Only published feedback is processed. A PENDING review and its comments stay unprocessed and unmarked, so they are considered when the reviewer submits them."
+serves = "Prevents acting on a draft review or losing it after it is published."
+where = ["references/github-collection.md#channels-and-pagination"]
+shapes = "Adds a collection rule that correlates inline comments with their parent review and skips pending ones."
+
+[[sources.ideas]]
+idea = "One observation owner per PR persists across fix and push cycles; an active watch is reused instead of restarted after every message or push."
+serves = "Prevents duplicate watchers and lost events between cycles."
+where = ["references/ci-and-observation.md#observe-resume-and-stop"]
+shapes = "Sets one watch per PR and thread and keeps it across pushes and wakes."
+adapted = "The donor keeps the model in a continuous polling loop with its watcher script. Locally a host-managed watch resumes the task on events, and the agent turn ends while waiting."
+
+[[sources.declined]]
+feature = "Following openai/codex main for this skill or installing the skill from there."
+reason = "Commit 18131270fe82ef947830840eb5d6923d4b82609f removed the skill from main. This source is a historical pin, kept for its ideas only, and not a live installation recommendation."
+
+[[sources.declined]]
+feature = "Continuous model polling through the donor's watcher script."
+reason = "Host event notifications replace polling by the model."
+
+[[sources.declined]]
+feature = "Surfacing review feedback only from an allowlist of trusted authors and approved bots."
+reason = "Every channel and author is collected; review text is untrusted evidence judged on its merits."
+
+[[sources.declined]]
+feature = "Retrying likely flaky failures up to three times."
+reason = "One rerun is allowed when evidence supports a transient failure and the request authorizes reruns; a recurrence is investigated or reported."
+
+[[sources.declined]]
+feature = "The donor's GitHub mutation policy: no replies to human reviewers without the user's confirmation, and thread resolution only for the requester's own threads."
+reason = "Reviewer replies and thread resolution follow the user's disposition policy, and merge authority follows the personal-repository policy."
 
 [[dependencies]]
 kind = "local"
@@ -178,18 +572,3 @@ kind = "local"
 name = "worktrunk"
 required = false
 role = "Conditional support; preserve the called skill scope and existing authorization."
-
-[[sources]]
-id = "codex-babysit-historical"
-author = "OpenAI"
-repository = "https://github.com/openai/codex"
-remote = "git@github.com:openai/codex.git"
-ref = "a770e5b8470d3320eb53a56a286ea4a0a70a1f59"
-baseline_commit = "a770e5b8470d3320eb53a56a286ea4a0a70a1f59"
-reviewed_through = "a770e5b8470d3320eb53a56a286ea4a0a70a1f59"
-baseline_paths = [".codex/skills/babysit-pr/SKILL.md", "LICENSE"]
-paths = [".codex/skills/babysit-pr/SKILL.md", "LICENSE"]
-license = "Apache-2.0; concepts restated locally, no upstream files or code copied."
-borrowed = ["Keep pending review feedback unprocessed until published; retain one observation owner across fix/push cycles."]
-local_choices = ["Historical pinned reference: the skill was removed from main in 18131270fe82ef947830840eb5d6923d4b82609f; not a live installation recommendation.", "Host event notifications replace continuous model polling. Apply the entrypoint's personal-repository merge policy; otherwise stop on current formal approval or merge. No copied watcher, author allowlist, fixed three-retry budget or reviewer communication and merge authority beyond the user's policy."]
-reviews = []

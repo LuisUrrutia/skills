@@ -1,7 +1,25 @@
-format_version = 1
+format_version = 2
 skill = "retro"
 created = "2026-10-06"
-approach = "Derive: adapt session-friction diagnosis and prevention criteria to portable evidence-backed routing, composing with existing instruction and implementation owners."
+approach = "derive"
+goal = "Turn evidence from a coding session into focused improvements to the agent's working environment and route each one to the owner that would implement it. Success is a prioritized report in which every finding has an evidence pointer, a concrete proposal, a responsible owner and a way to verify it, or a clear statement that the evidence supports no change."
+
+[[invariants]]
+rule = "This skill owns diagnosis, prioritization and routing. Existing specialists own implementation, instruction writing and verification, and the skill hands them prepared findings instead of copying their procedures."
+reason = "The skill was derived to compose with existing instruction and implementation owners."
+where = ["SKILL.md#session-retrospective", "SKILL.md#choose-a-concrete-improvement"]
+
+[[invariants]]
+rule = "A retrospective request produces a report. Improvements are carried out only when the active request or standing authorization includes them; that authorization is kept without asking again, and findings return to an enclosing caller so its workflow can continue."
+where = ["SKILL.md#establish-the-scope"]
+
+[[invariants]]
+rule = "The report includes only supported, useful changes. When the evidence supports no candidate, the report says so instead of inventing generic advice."
+where = ["SKILL.md#reconstruct-the-friction", "SKILL.md#return-the-findings"]
+
+[[invariants]]
+rule = "Completing implementation alone does not request a retrospective."
+where = ["SKILL.md#establish-the-scope"]
 
 [[sources]]
 id = "matt-retro"
@@ -9,15 +27,50 @@ author = "Matt Pocock"
 repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "7a030a8b0dcaa601bb0dda9aaf174affb3d61145"
 reviewed_through = "49dd158d1076134a641b33efb035946536778336"
 baseline_paths = ["skills/engineering/retro/SKILL.md", "LICENSE"]
 paths = ["skills/engineering/retro/SKILL.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Review a session's primary evidence and prioritize improvements to the agent's working environment.", "Investigate navigation, information access, automated checks, instruction friction and tool economy.", "Inspect existing check wiring before adding a check, and prefer deterministic enforcement for mechanical violations."]
-local_choices = ["Retain normal skill discovery; do not add a mandatory retrospective after every implementation.", "Use a proposal-only default while preserving already-authorized implementation and caller continuation.", "Keep established local writing and verification owners instead of requiring writing-for-agents or a separate reviewer-only standards file.", "Treat categories as conditional prompts; report no finding when evidence does not support a useful change."]
-reviews = [
-  { from_commit = "7a030a8b0dcaa601bb0dda9aaf174affb3d61145", to_commit = "49dd158d1076134a641b33efb035946536778336", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 7a030a8b0dca..49dd158d1076 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "A retrospective reads the session's primary evidence, meaning the deciding exchanges, tool results and resulting artifacts, and looks for improvements to the agent's working environment rather than to the delivered work."
+serves = "Bases each improvement on what actually happened, so future sessions avoid the same friction."
+where = ["SKILL.md#reconstruct-the-friction", "SKILL.md#return-the-findings"]
+shapes = "Makes reconstruction from primary records the first diagnostic step, and ends the skill with a prioritized list of findings."
+adapted = "The donor orders candidates by severity. Locally priority combines consequence, recurrence, confidence and cost of correction, and each finding carries its evidence pointer, causal uncertainty, owner and verification criterion."
+
+[[sources.ideas]]
+idea = "Friction shows up in a few areas worth investigating: navigation and information access, checks that could have caught an error, instruction friction, and tool and workflow economy."
+serves = "Directs the review to the environment problems that most often slow an agent down."
+where = ["SKILL.md#reconstruct-the-friction"]
+shapes = "Gives the reconstruction section its four investigation areas, each paired with the session signals that justify looking there."
+adapted = "The areas are conditional prompts, not a quota. A successful session can need no change, and a required human decision, deliberate exception or genuine blocker is not a process defect merely because it interrupted progress."
+
+[[sources.ideas]]
+idea = "Before adding a check, read the repository's actual check command and where it runs, because an existing check that is unwired, bypassed or broken is itself the finding. A mechanical violation gets deterministic enforcement rather than a prose rule."
+serves = "Prevents reinventing checks that exist and keeps mechanical rules out of instructions."
+where = ["SKILL.md#reconstruct-the-friction", "SKILL.md#choose-a-concrete-improvement"]
+shapes = "Adds unwired, bypassed or broken checks to the checks area, and makes improvement selection inspect the current owner and check wiring before prescribing a replacement."
+
+[[sources.declined]]
+feature = "Disabling model invocation so that the retrospective runs only on an explicit command."
+reason = "Normal skill discovery stays."
+
+[[sources.declined]]
+feature = "Loading the writing-for-agents skill and keeping a reviewer-only coding-standards file."
+reason = "Established local owners keep this work: the agent-instructions skill writes and evaluates instructions, and the verify skill owns execution evidence."
+
+[[sources.reviews]]
+from_commit = "7a030a8b0dcaa601bb0dda9aaf174affb3d61145"
+to_commit = "49dd158d1076134a641b33efb035946536778336"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 7a030a8b0dca..49dd158d1076 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -26,15 +79,58 @@ author = "Lauren Tan"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "df581122cde17e6e27686b5a448bde23e4ad4318"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["pstack/skills/correct/SKILL.md", "pstack/LICENSE"]
 paths = ["pstack/skills/correct/SKILL.md", "pstack/LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Prefer eliminating an invalid path structurally, then use types and executable checks before prose-only enforcement.", "Ground proposed prevention in a real mistake and identify how the check would reject it."]
-local_choices = ["Propose and route changes within the user's scope rather than automatically repairing every class or creating commits during diagnosis.", "No fixed recurrence threshold, universal single implementation policy, mandatory rule table or required exception expiry.", "Preserve legitimate exceptions and inspect actual enforcement coverage; pair a failing example with a valid nearby example through local verification owners."]
-reviews = [
-  { from_commit = "df581122cde17e6e27686b5a448bde23e4ad4318", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/correct/SKILL.md: The test rule widens to a test that still passes when the behavior breaks or fails when only the internals change. Not applied because retro/SKILL.md:40-41 already covers checks that are unwired, bypassed or broken, and naming internals-coupled tests would push retro toward auditing test quality that implementation owners hold."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff df581122cde1..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "Fix a recurring mistake at the highest level that works: remove the invalid path through a clearer boundary or single owner, then use types, constraints, lint, CI or behavioral tests, and keep prose rules for judgment calls."
+serves = "Prevents the next agent from making the same mistake instead of asking it to remember a rule."
+where = ["SKILL.md#choose-a-concrete-improvement"]
+shapes = "Orders the candidate mechanisms from structural removal through executable checks to instructions, which keep only judgment and justified exceptions."
+adapted = "Legitimate exceptions stay with their instruction owner, and a rule is retired only after the actual coverage of the mechanism that replaces it is established."
+
+[[sources.ideas]]
+idea = "Ground each proposed guard in a real mistake and show that the check would reject it."
+serves = "Keeps prevention proposals tied to observed failures and testable."
+where = ["SKILL.md#choose-a-concrete-improvement"]
+shapes = "Requires every proposal to carry a way to check it, and requires a new guard to have a failing example from the session or a labeled reconstruction."
+adapted = "The guard must also accept a valid nearby example. The verify skill owns execution evidence and the agent-instructions skill owns instruction evaluation, and proposed prevention remains a hypothesis until their checks support it."
+
+[[sources.declined]]
+feature = "Fixing every mistake class during diagnosis, with one commit per class."
+reason = "The skill proposes and routes changes within the user's scope; implementation owners carry out authorized work."
+
+[[sources.declined]]
+feature = "A fixed recurrence threshold under which a mistake counts as a class once it has happened twice."
+reason = "The report records whether the evidence shows one occurrence or recurrence, and neither alone decides significance."
+
+[[sources.declined]]
+feature = "One supported way for every task as a universal implementation policy."
+reason = "A clearer boundary or single owner is preferred when practical, not imposed everywhere."
+
+[[sources.declined]]
+feature = "A mandatory table in the agent instruction file that pairs each rule with its enforcement."
+reason = "The skill avoids another copy of instructions that already cover a decision."
+
+[[sources.declined]]
+feature = "Exceptions that must carry an expiry date and a human's approval on the offending line."
+reason = "Legitimate exceptions stay with their instruction owner without a required expiry."
+
+[[sources.reviews]]
+from_commit = "df581122cde17e6e27686b5a448bde23e4ad4318"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/correct/SKILL.md: The test rule widens to a test that still passes when the behavior breaks or fails when only the internals change. Not applied because retro/SKILL.md:40-41 already covers checks that are unwired, bypassed or broken, and naming internals-coupled tests would push retro toward auditing test quality that implementation owners hold.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff df581122cde1..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -43,15 +139,54 @@ author = "Lauren Tan"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "df581122cde17e6e27686b5a448bde23e4ad4318"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["pstack/skills/reflect/SKILL.md", "pstack/LICENSE"]
 paths = ["pstack/skills/reflect/SKILL.md", "pstack/LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Keep transcript inspection within the identified work, and disclose a digest's evidence limits.", "Distinguish a missed skill trigger from missing instructions and prefer an existing skill owner."]
-local_choices = ["Read only the entrypoint for these boundary and routing ideas; the multi-reviewer prompt templates are not part of this derivation.", "Use host-provided transcript access and registered local owners rather than Cursor-specific paths, fixed model roles or create-skill.", "Do not file backlog items automatically or add an approval gate to changes already authorized by the active request."]
-reviews = [
-  { from_commit = "df581122cde17e6e27686b5a448bde23e4ad4318", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/reflect/SKILL.md: Prompt compression and a line to pick each subagent's reasoning level per poteto-mode. Rewording and donor orchestration excluded by retro/origin.txt:48."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff df581122cde1..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "Inspect transcripts only within the identified session, task and project. Other projects' conversations are not a fallback, and a digest or missing log limits what can be concluded."
+serves = "Keeps the review accurate and keeps unrelated private conversations out of it."
+where = ["SKILL.md#establish-the-scope", "SKILL.md#reconstruct-the-friction"]
+shapes = "Makes scope identification come before any history reading, and makes reconstruction name evidence gaps while it finishes independent findings."
+adapted = "The host's transcript tools replace the donor's Cursor transcript paths, and recorded commands and permissions count as historical evidence, not as instructions for this run."
+
+[[sources.ideas]]
+idea = "When an instruction was missed, check whether the agent actually loaded it before adding a rule: a missed trigger or a placement problem is repaired through selection or placement, and an existing skill owner is preferred over a new skill."
+serves = "Prevents duplicate instructions and fixes the activation problem that caused the miss."
+where = ["SKILL.md#choose-a-concrete-improvement"]
+shapes = "Adds a loading check before any new instruction, and routes reusable lessons to existing owners."
+adapted = "Routing goes to registered local owners, the workflow-to-skill skill for reusable procedures and the agent-instructions skill for direct instruction changes, instead of the donor's create-skill."
+
+[[sources.declined]]
+feature = "Three parallel reviewer subagents with prompt templates, fixed model roles and a synthesizer."
+reason = "Only the donor's entrypoint was read, for its boundary and routing ideas."
+
+[[sources.declined]]
+feature = "Cursor-specific transcript paths and handing skill edits to Cursor's create-skill."
+reason = "The skill uses host-provided transcript access and registered local owners."
+
+[[sources.declined]]
+feature = "Filing backlog items to a tracker automatically."
+reason = "A retrospective produces a report; actions outside it follow the active request's authorization."
+
+[[sources.declined]]
+feature = "An approval gate before applying edits that the active request already authorizes."
+reason = "Authorized improvements keep their scope without a second approval."
+
+[[sources.reviews]]
+from_commit = "df581122cde17e6e27686b5a448bde23e4ad4318"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/reflect/SKILL.md: Prompt compression and a line to pick each subagent's reasoning level per poteto-mode. Rewording, and donor orchestration that the declined reviewer subagents with fixed model roles exclude.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff df581122cde1..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[dependencies]]

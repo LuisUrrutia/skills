@@ -1,56 +1,135 @@
-format_version = 1
+format_version = 2
 skill = "pr-review"
 created = "2026-10-06"
-approach = "Run the portable three-engine PR review and publish it directly, as Comment or as Approve when clean, under the reviewer-side pr-review name. Private profiles remain external runtime inputs."
+approach = "base"
+goal = "Publish one GitHub review of another author's PR under the user's own account, built from independent Codex, Claude and CodeRabbit reviews that the parent verifies and synthesizes. Success is a Comment review that carries only verified, correctly anchored findings, or an Approve review when the review is complete and clean, with read-back confirming what was published and every gap reported to the user."
+
+[[invariants]]
+rule = "The skill runs only on explicit invocation."
+where = ["agents/openai.yaml"]
+
+[[invariants]]
+rule = "The review-code-changes skill owns audit criteria, evidence, severity and report grammar; the compare-solutions skill owns the independent-attempt and synthesis contract; the comment-style skill owns wording. This skill owns the fixed roster, its coordination, comment selection, placement and GitHub writes."
+where = ["SKILL.md#pr-review"]
+
+[[invariants]]
+rule = "Private repository profiles stay outside the package as external runtime inputs. A profile supplies local context, never permission to waive required repository behavior."
+reason = "Profiles hold checkout and access details, tracker setup, personal wording bindings and historical calibration that the portable package must not bundle."
+where = ["references/profiles.md", "SKILL.md#prepare-one-reproducible-review"]
+
+[[invariants]]
+rule = "The workflow never requests changes, resolves threads or modifies the reviewed code."
+reason = "User decision of 2026-10-07; thread resolution belongs to the pr-review-followup skill."
+where = ["SKILL.md#pr-review", "references/github.md#feedback-and-review-publication"]
 
 [[local_snapshots]]
 id = "private-draft-review"
+kind = "repository-commit"
+role = "base"
 author = "Luis Urrutia"
 repository = "https://github.com/LuisUrrutia/private-skills"
-commit = "55d9707800e7854284a435aa713e42521de4d481"
 paths = ["draft-review/"]
 entrypoint_sha256 = "d0a713773c5d5b7688bf1f2a717a21a272fb177a699d0d4dd318530c282247b6"
+commit = "55d9707800e7854284a435aa713e42521de4d481"
 verification = "Copied the 22-file package from the fetched private main revision. This is a historical migration source, not an upstream update feed."
-local_choices = [
-  "Rename the package and explicit invocation to pr-review-draft while preserving its fixed independent roster and pending-only result.",
-  "Keep private repository profiles out of the public package; the default runtime directory is XDG_CONFIG_HOME/pr-review/profiles, falling back to the legacy pr-review-draft/profiles.",
-  "2026-10-07, at the user's direction: publish reviews directly instead of leaving a PENDING draft, rename pr-review-draft to pr-review, approve only a complete and clean review, never request changes, and continue a same-topic point in its existing thread. Follow-up, thread resolution and later approval moved to pr-review-followup.",
-  "2026-10-08, at the user's direction: the published review speaks as the user. It never names the engines, models or agents behind it, says the review is incomplete or describes what it could not cover; engine status and coverage gaps stay in the ledger and the report to the user, and a fact the author can see on the PR may still be stated. The earlier rule to name the missing engine in an incomplete review's body published 'reviewed with Codex and Claude' under the user's account.",
-  "2026-10-13, at the user's direction: for each population it names as reachable, the brief records the triggering request or execution, host, environment and mode, and the evidence review-code-changes accepts, naming an only-admitted population separately. A review had published a required finding for an internal host on a route with no evidenced caller through that host: the brief listed the host as reachable because it grants every permission, the engine cited the PR body's description of the branch as a requirement, and the coordinator answered the missing caller by lowering the severity. The reviewer who owns those paths confirmed the route is not called that way.",
-  "2026-10-13, at the user's direction, from the human review of the same PR: read the parent ticket's description, acceptance criteria and comments and the subject's linked designs, since the owning reviewer cited the parent epic as asking for the soft delete the PR lacked, which the brief had named but not read; compare the semantics of an operation both sides of a seam perform, such as soft or hard delete; and establish which entry points of a domain change must emit its events, since partners also change those records through the system of record's public API.",
-  "2026-10-13, at the user's direction: profiles.md defines the rule authority classes, adding owner convention for rules the owning reviewer of the touched paths enforces, as an optional finding of the subject's class. On that PR the engines received that reviewer's mined conventions as leads and dropped them, while the author applied 23 of the reviewer's 29 threads; over six months up to 86% of the reviewer's comments on those paths were applied, counting changed or resolved lines.",
-  "Preserve explicit-only invocation and the existing audit, comparison and wording owners."
+
+[[local_snapshots.deviations]]
+change = "Renamed the package and its explicit invocation from draft-review to pr-review, by way of the interim name pr-review-draft."
+reason = "User decision of 2026-10-07: the skill publishes reviews under the reviewer-side pr-review name."
+where = ["SKILL.md#pr-review"]
+
+[[local_snapshots.deviations]]
+change = "Replaced the default profile directory `$XDG_CONFIG_HOME/draft-review/profiles` with `$XDG_CONFIG_HOME/pr-review/profiles`, falling back to the legacy `pr-review-draft/profiles` beside it when the new directory is absent."
+reason = "Private repository profiles stay out of the public package, and profiles set up under the interim name keep resolving after the rename."
+where = ["references/profiles.md", "scripts/resolve_profile.py"]
+
+[[local_snapshots.deviations]]
+change = "Replaced preparing an editable PENDING review for the user to submit with publishing the review directly: a Comment review with the verified findings, or an Approve review only when every engine succeeded and no supported required finding, open decisive question or unresolved thread of the actor remains."
+reason = "User decision of 2026-10-07: publish reviews directly and approve only a complete and clean review."
+where = [
+  "SKILL.md#pr-review",
+  "SKILL.md#word-select-and-publish",
+  "references/github.md#publish-and-verify",
+  "scripts/publish_review.py",
 ]
 
+[[local_snapshots.deviations]]
+change = "Replaced reusing an existing thread only to add evidence or a clarification with continuing a supported same-topic point, such as a partial fix with a remaining gap or new evidence for the same issue, as a reply in its existing thread."
+reason = "User decision of 2026-10-07: a same-topic point continues in its existing thread."
+where = ["SKILL.md#run-and-reconcile"]
+
+[[local_snapshots.deviations]]
+change = "Replaced handing feedback repair and monitoring to the pr-followup skill with handing follow-up on replies and new commits, thread resolution and later approval to the pr-review-followup skill. When that skill runs this review, the event is capped at COMMENT and approval stays with it."
+reason = "User decision of 2026-10-07: follow-up, thread resolution and later approval moved to the pr-review-followup skill."
+where = [
+  "SKILL.md#pr-review",
+  "SKILL.md#word-select-and-publish",
+  "references/github.md#publish-and-verify",
+]
+
+[[local_snapshots.deviations]]
+change = "Added the rule that the published review speaks as the user: its body, comments and replies never name the engines, models or agents behind it, cite ledger sources, say that the review is incomplete or describe what it could not cover. Engine status and coverage gaps stay in the ledger and the report to the user, and a fact the author can see on the PR may still be stated."
+reason = "User decision of 2026-10-08, after an earlier rule to name the missing engine in an incomplete review's body published 'reviewed with Codex and Claude' under the user's account."
+where = ["SKILL.md#word-select-and-publish"]
+
+[[local_snapshots.deviations]]
+change = "Added to the brief, for each population or workflow named as reachable, its triggering request or execution, host, environment and mode, and the evidence that the auditor's tracing rule accepts; a population that is only admitted is named separately with the evidence it lacks."
+reason = "User decision of 2026-10-13. A review had published a required finding for an internal host on a route with no evidenced caller through that host: the brief listed the host as reachable because it grants every permission, the engine cited the PR body's description of the branch as a requirement, and the coordinator answered the missing caller by lowering the severity. The reviewer who owns those paths confirmed the route is not called that way."
+where = ["SKILL.md#brief"]
+
+[[local_snapshots.deviations]]
+change = "Added reading the subject ticket's linked designs and the parent ticket's description, acceptance criteria and comments to the brief; a parent requirement for the behavior the PR implements applies unless the subject or a recorded decision supersedes it."
+reason = "User decision of 2026-10-13 from the human review of the same PR: the owning reviewer cited the parent epic as asking for the soft delete the PR lacked, and the brief had named that epic without reading it."
+where = ["SKILL.md#brief"]
+
+[[local_snapshots.deviations]]
+change = "Added to the seam sweep a comparison of the semantics of an operation that both sides of a seam perform, such as a soft or hard delete, as well as its shape."
+reason = "User decision of 2026-10-13 from the human review of the same PR, where the missing soft delete was a semantic mismatch across the seam."
+where = ["references/seams.md"]
+
+[[local_snapshots.deviations]]
+change = "Added a caller lens that establishes which entry points of a domain change must emit its events, webhooks or notifications, including other services and a system of record's own public API."
+reason = "User decision of 2026-10-13 from the human review of the same PR: partners also change those records through the system of record's public API."
+where = ["references/audit-supplement.md"]
+
+[[local_snapshots.deviations]]
+change = "Added rule authority classes to the profile reference, including owner convention: rules that the owning reviewer of the touched paths enforces, reported as an optional finding of the subject's class unless a standard or a traced consequence makes it required."
+reason = "User decision of 2026-10-13. On that PR the engines received that reviewer's mined conventions as leads and dropped them, while the author applied 23 of the reviewer's 29 threads; over six months up to 86% of the reviewer's comments on those paths were applied, counting changed or resolved lines."
+where = ["references/profiles.md"]
+
 [[dependencies]]
+kind = "local"
 name = "review-code-changes"
 required = true
 role = "Canonical audit methodology, severity, report grammar and validator, resolved by registered name."
-local_choices = [
+decisions = [
   "Each engine is one non-delegating comparison participant over the full frozen PR scope.",
-  "Freeze the resolved protocol and validator per run; do not maintain a copied audit core.",
-  "Keep later caller lenses in references/audit-supplement.md until a separately authorized auditor update.",
-  "2026-10-13, at the user's direction: the caller-evidence rule for caller-, host- and mode-specific failures went into the auditor protocol as an authorized auditor update, because it governs every audit and both the engines and this coordinator judge with it."
+  "Each run freezes the resolved auditor protocol and its validator; the skill maintains no copied audit core.",
+  "Later caller lenses stay in references/audit-supplement.md until a separately authorized auditor update.",
+  "2026-10-13, at the user's direction: the caller-evidence rule for caller-, host- and mode-specific failures went into the auditor protocol as an authorized auditor update, because it governs every audit and both the engines and this coordinator judge with it.",
 ]
 
 [[dependencies]]
+kind = "local"
 name = "compare-solutions"
 required = true
 role = "Independent full-attempt and evidence-based synthesis contract."
-local_choices = [
-  "The parent remains the sole synthesis owner; T3 uses app-owned child tasks and other hosts use the CLI supervisor.",
-  "Use the user-selected Codex, Claude and local CodeRabbit roster on identical scope and criteria.",
-  "The parent performs synthesis; deliberately omit an additional independent judge and recursive coordination.",
-  "Retain native CodeRabbit output without manufacturing canonical coverage.",
-  "T3 native reviewers use the host permission boundary; CLI guards apply only to CLI workers. Report that difference and honor stricter project isolation requirements."
+decisions = [
+  "The parent remains the sole synthesis owner; in T3 it uses app-owned child tasks, and on other hosts it uses the CLI supervisor.",
+  "The roster is the user-selected Codex, Claude and local CodeRabbit engines on identical scope and criteria.",
+  "The parent performs the synthesis; the skill deliberately omits an additional independent judge and recursive coordination.",
+  "CodeRabbit's native output is retained without manufacturing canonical coverage for it.",
+  "T3 native reviewers run inside the host permission boundary, and CLI guards apply only to CLI workers. The report states that difference, and stricter project isolation requirements are honored.",
 ]
 
 [[dependencies]]
+kind = "local"
 name = "comment-style"
 required = true
 role = "Compact wording and PR-specific comment rules; placement and review publication remain with pr-review."
 
 [[dependencies]]
+kind = "local"
 name = "communicate-clearly"
 required = false
 role = "Optional general prose guidance through comment-style."

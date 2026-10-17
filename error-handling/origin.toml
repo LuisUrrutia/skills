@@ -1,7 +1,17 @@
-format_version = 1
+format_version = 2
 skill = "error-handling"
 created = "2026-10-03"
-approach = "Derive: retain ECC's error-contract coverage and pstack's boundary, reconciliation and behavioral-testing criteria while replacing language-specific recipes and unsafe general defaults."
+approach = "derive"
+goal = "Help developers design, implement or review how software reports and recovers from failures across its boundaries, in the language and with the error representations the project already uses. Success is a failure contract that callers can observe and act on, recovery only where the operation's semantics support it, and evidence that effects were neither duplicated nor concealed."
+
+[[invariants]]
+rule = "The skill stays language-independent: it applies the language, runtime and framework already in use and preserves caller-visible behavior such as public codes, response shapes, exit status, queue acknowledgement and exception identity unless the requested change revises that contract."
+reason = "The skill was derived to keep the donors' contract, boundary and testing criteria while replacing their language-specific recipes and unsafe general defaults."
+where = ["SKILL.md#error-handling", "SKILL.md#establish-the-contract"]
+
+[[invariants]]
+rule = "The skill keeps the caller's requested boundary: a review or design request produces findings or a proposal, implementation needs the active task's authority, and an undecided fallback, data-loss or retry policy is resolved before the affected behavior is implemented while independent work continues. The skill starts no publication or PR monitoring."
+where = ["SKILL.md#error-handling", "SKILL.md#establish-the-contract", "SKILL.md#return-the-result"]
 
 [[sources]]
 id = "ecc-error-handling"
@@ -9,15 +19,78 @@ author = "Affaan Mustafa and ECC contributors"
 repository = "https://github.com/affaan-m/ECC"
 remote = "git@github.com:affaan-m/ECC.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
 reviewed_through = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29"
 baseline_paths = ["skills/error-handling/SKILL.md", "LICENSE"]
 paths = ["skills/error-handling/SKILL.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Treat errors as a caller-visible contract with useful classification and propagation.", "Separate user-facing failure messages from diagnostic context; inspect asynchronous boundaries and recovery policies."]
-local_choices = ["Use the project's language and existing representations without prescribing AppError, Result, a JSON envelope or language-specific code examples.", "Logging alone is not recovery; preserve causal evidence while filtering sensitive data before it is recorded.", "Replace retry-all defaults and blanket status-range rules with operation-specific replay safety, transient classification, cancellation and budgets.", "Circuit breakers are conditional design work, not a mandatory new dependency or a capability proved by the donor's examples."]
-reviews = [
-  { from_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775", to_commit = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames ef648e01899b..b92f181b3b74 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "Errors are a caller-visible contract. For each material failure, establish what the caller can observe, which effects may already have happened and who can decide the next action, and classify failures that need different handling: expected domain outcomes, invalid input or denied access, dependency failures, broken internal invariants, and cancellation or deadline expiry."
+serves = "Gives every failure a defined meaning that callers can branch on."
+where = ["SKILL.md#establish-the-contract"]
+shapes = "Makes the contract and its classification the first section, ahead of every propagation or recovery decision."
+adapted = "Classification follows the actual operation and runtime semantics instead of message matching or a blanket rule for a whole status range, and a known failure is kept separate from an unknown outcome after a lost response."
+
+[[sources.ideas]]
+idea = "Handle a failure where code can recover, add useful context, translate its representation or perform required cleanup; otherwise let it propagate, and keep the cause and useful classification when wrapping."
+serves = "Delivers each failure to an owner that can act on it without losing its cause."
+where = ["SKILL.md#propagate-to-an-owner-that-can-act"]
+shapes = "Limits catching to the four reasons listed and makes propagation the default otherwise."
+adapted = "A catch that only logs does not establish recovery, and an empty value, default result or successful exit must not conceal an unfulfilled operation."
+
+[[sources.ideas]]
+idea = "Keep the message a user or caller sees separate from diagnostic context: the user gets an accurate outcome and a next action that is actually available, without technical causes, while appropriate internal evidence stays available for investigation."
+serves = "Prevents leaking internals to users and prevents losing the evidence needed to investigate."
+where = [
+  "SKILL.md#propagate-to-an-owner-that-can-act",
+  "SKILL.md#make-failures-understandable-and-testable",
+]
+shapes = "Splits each failure into a public response and a diagnostic record, and gives the reporting paragraph one owner per failure."
+adapted = "Secrets, payloads and personal data are filtered before they are recorded, including raw exception text and cause chains, and a generic public message does not justify logging unrestricted internal data. One reporting owner keeps a failure traceable without duplicate alerts at every layer."
+
+[[sources.ideas]]
+idea = "Inspect asynchronous boundaries: every piece of asynchronous work has an owner that observes its completion and failures, including work outside a request or UI render boundary."
+serves = "Prevents failures that disappear because no caller awaits the work."
+where = ["SKILL.md#propagate-to-an-owner-that-can-act"]
+shapes = "Closes the propagation section with an ownership rule for asynchronous work."
+
+[[sources.ideas]]
+idea = "Retry only failures classified as transient for this operation, with one layer owning the retries, bounded attempts and elapsed time, and backoff with a delay cap and jitter."
+serves = "Prevents retry storms, nested retry loops and repeated failures that cannot succeed."
+where = [
+  "SKILL.md#choose-recovery-from-the-operations-semantics",
+  "references/recovery.md#bound-retries-and-respect-control-flow",
+]
+shapes = "Moves retry decisions into the recovery reference, where they follow the replay-safety check."
+adapted = "Replay must be safe for the operation, server retry guidance and a server's minimum wait are respected, rate limits, conflicts, authentication, malformed input and programming failures are distinguished by their contracts, cancellation and deadlines are checked before and during waits, and the budget follows the caller's deadline."
+
+[[sources.declined]]
+feature = "A fixed AppError hierarchy, a Result type, a standard JSON error envelope and language-specific code examples."
+reason = "The skill reuses the project's language and existing error representation and adds no universal type or dependency to follow the skill."
+
+[[sources.declined]]
+feature = "Counting a catch block that only logs as handling, and logging full error context server-side."
+reason = "Logging alone is not recovery, and causal evidence is kept while sensitive data is filtered before it is recorded."
+
+[[sources.declined]]
+feature = "A retry helper that retries every error by default, and a blanket rule that excludes all 4xx responses from retries."
+reason = "Retries depend on operation-specific replay safety, transient classification, cancellation and budgets."
+
+[[sources.declined]]
+feature = "Circuit breakers as a standard pattern for unreliable dependencies."
+reason = "A circuit breaker is conditional design work for a demonstrated need to contain dependency failure, not a mandatory new dependency; the donor names circuit breakers, but its examples do not demonstrate one."
+
+[[sources.reviews]]
+from_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+to_commit = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames ef648e01899b..b92f181b3b74 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -26,16 +99,97 @@ author = "Lauren Tan / pstack"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "9511e60321f7e533a187d62854a3d53a53752874"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
-baseline_paths = ["pstack/skills/principle-boundary-discipline/SKILL.md", "pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-test-behavior-not-implementation/SKILL.md", "pstack/.cursor-plugin/plugin.json", "pstack/LICENSE"]
-paths = ["pstack/skills/principle-boundary-discipline/SKILL.md", "pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-test-behavior-not-implementation/SKILL.md", "pstack/.cursor-plugin/plugin.json", "pstack/LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Assign validation and translation to their boundaries and preserve domain contracts.", "Examine duplicate execution, interrupted work and reconciliation before replaying state changes.", "Exercise caller-visible results and effects against independent expectations."]
-local_choices = ["Internal trust depends on an invariant that still holds across persistence, concurrency and lifecycle changes.", "An idempotency key requires verified server-side guarantees; local flags or read-before-write do not prove deduplication.", "Do not import lifecycle-specific cleanup recipes or assume every operation can be replayed safely.", "Keep meaningful absence, status and interaction assertions when they establish a failure contract; no universal test-deletion rule.", "Preserve the caller's design, review or implementation scope, including unresolved business recovery policy."]
-reviews = [
-  { from_commit = "9511e60321f7e533a187d62854a3d53a53752874", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Only pstack/.cursor-plugin/plugin.json changes version 0.15.7 to 0.15.9; the recorded behavioral files and MIT license are unchanged. No local instruction change."], deferred = [], validation = ["Verified immutable baseline and cursor ancestry; read the complete scoped diff and compared every scoped old/new blob.", "reports/skill-atlas/upstream-adoption-validation.json"] },
-  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = ["Adapted from pstack/skills/principle-make-operations-idempotent/SKILL.md: a later attempt must be able to tell whether a lock, lease, claim, temporary file or partial record left by an interrupted attempt is stale, from evidence that holds at every interruption point (error-handling/references/recovery.md); the upstream temp-file-and-rename recipe stays out under the local choice against lifecycle-specific cleanup recipes.", "Incorporated from pstack/skills/principle-test-behavior-not-implementation/SKILL.md: tests assert the classification, code or type callers branch on, and message text only where a user or caller consumes it (error-handling/SKILL.md, testing paragraph)."], skipped = ["pstack/skills/principle-test-behavior-not-implementation/SKILL.md: The rest of the rewrite frames a test as failing when behavior breaks and passing when only internals change, and pairs an absence assertion with a presence case. General testing guidance or already in the reviewed upstream, and it now agrees with the local choice to keep meaningful absence assertions (error-handling/SKILL.md:85).", "pstack/skills/principle-make-operations-idempotent/SKILL.md: The PID-lock advice is removed and the reconciliation wording is tightened. This moves upstream toward the local choice against lifecycle-specific cleanup recipes and adds nothing else.", "pstack/.cursor-plugin/plugin.json: Version bumps through 0.15.25. Metadata only."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "pstack/skills/principle-boundary-discipline/SKILL.md",
+  "pstack/skills/principle-make-operations-idempotent/SKILL.md",
+  "pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+  "pstack/.cursor-plugin/plugin.json",
+  "pstack/LICENSE",
+]
+paths = [
+  "pstack/skills/principle-boundary-discipline/SKILL.md",
+  "pstack/skills/principle-make-operations-idempotent/SKILL.md",
+  "pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+  "pstack/.cursor-plugin/plugin.json",
+  "pstack/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Place validation and translation at the boundary that owns them, and keep domain behavior independent of transport details where the existing structure permits."
+serves = "Keeps domain rules free of transport representations and keeps checks where their input enters."
+where = ["SKILL.md#propagate-to-an-owner-that-can-act"]
+shapes = "Opens the propagation section by assigning validation and translation to their boundaries."
+adapted = "Internal code relies on an established invariant only while its evidence still holds, because persisted data, concurrent changes and lifecycle transitions can invalidate an earlier check."
+
+[[sources.ideas]]
+idea = "Before replaying a state change, determine whether the operation was rejected, completed, partly completed or remains unknown. Query or reconcile the existing state when that can establish the outcome; otherwise preserve the uncertainty for the caller. Trace every effect of a retried transaction or workflow, including those outside its atomic boundary."
+serves = "Prevents duplicate effects and false success after a lost response or an interrupted run."
+where = ["references/recovery.md#establish-whether-repeating-work-is-safe"]
+shapes = "Puts the replay-safety check before every retry, fallback or restart decision in the recovery reference."
+adapted = "An idempotency key protects replay only when the receiving system enforces it; its operation scope, payload binding, retention, atomic recording with the effect and behavior under concurrent attempts are checked. A new key per attempt, an in-memory flag or a read-before-write check does not prove durable deduplication, and no operation is assumed safe to replay."
+
+[[sources.ideas]]
+idea = "A later attempt must be able to tell whether a lock, lease, claim, temporary file or partial record left by an interrupted attempt is stale, from evidence that holds at every point where that attempt could have stopped."
+serves = "Keeps an interruption from turning into manual cleanup or a wrong recovery."
+where = ["references/recovery.md#preserve-state-through-recovery"]
+shapes = "Adds a staleness requirement for leftovers to the state-preservation rules."
+adapted = "Stated as a property that recovery must have; the upstream temp-file-and-rename recipe and other lifecycle-specific cleanup recipes stay out."
+
+[[sources.ideas]]
+idea = "Exercise the real error boundary through caller-visible results and effects against independent expectations: cover the failure, the permitted recovery path and the effects that must not repeat, and assert the classification, code or type that callers branch on, with message text only where a user or caller consumes it."
+serves = "Gives tests that fail when the failure contract breaks, not when internals change."
+where = [
+  "SKILL.md#make-failures-understandable-and-testable",
+  "references/recovery.md#verify-the-recovery-decision",
+]
+shapes = "Makes the testing paragraph and the recovery verification drive the real boundary with controllable dependencies and time instead of replacing the behavior under test with a mock."
+adapted = "Absence of a side effect, a status or an interaction is a meaningful assertion when it is tied to the observed failure contract."
+
+[[sources.declined]]
+feature = "Trusting internal code unconditionally once a boundary has validated it."
+reason = "An invariant holds only while its evidence holds across persistence, concurrency and lifecycle changes."
+
+[[sources.declined]]
+feature = "Lifecycle cleanup recipes such as convergent startup, PID-based stale-lock detection and temp-file-and-rename."
+reason = "Recovery follows the operation's contract, and the skill states what a later attempt must be able to tell instead of prescribing a recipe."
+
+[[sources.declined]]
+feature = "A universal rule to rewrite or delete tests whose only assertions are about absence, interactions or status."
+reason = "Such assertions stay when they establish a failure contract, such as an effect that must not repeat."
+
+[[sources.reviews]]
+from_commit = "9511e60321f7e533a187d62854a3d53a53752874"
+to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+incorporated = []
+skipped = [
+  "Only pstack/.cursor-plugin/plugin.json changes version 0.15.7 to 0.15.9; the recorded behavioral files and MIT license are unchanged. No local instruction change.",
+]
+deferred = []
+validation = [
+  "Verified immutable baseline and cursor ancestry; read the complete scoped diff and compared every scoped old/new blob.",
+  "reports/skill-atlas/upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = [
+  "Adapted from pstack/skills/principle-make-operations-idempotent/SKILL.md: a later attempt must be able to tell whether a lock, lease, claim, temporary file or partial record left by an interrupted attempt is stale, from evidence that holds at every interruption point (error-handling/references/recovery.md); the upstream temp-file-and-rename recipe stays out under the local choice against lifecycle-specific cleanup recipes.",
+  "Incorporated from pstack/skills/principle-test-behavior-not-implementation/SKILL.md: tests assert the classification, code or type callers branch on, and message text only where a user or caller consumes it (error-handling/SKILL.md, testing paragraph).",
+]
+skipped = [
+  "pstack/skills/principle-test-behavior-not-implementation/SKILL.md: The rest of the rewrite frames a test as failing when behavior breaks and passing when only internals change, and pairs an absence assertion with a presence case. General testing guidance or already in the reviewed upstream, and it now agrees with the local choice to keep meaningful absence assertions (error-handling/SKILL.md:85).",
+  "pstack/skills/principle-make-operations-idempotent/SKILL.md: The PID-lock advice is removed and the reconciliation wording is tightened. This moves upstream toward the local choice against lifecycle-specific cleanup recipes and adds nothing else.",
+  "pstack/.cursor-plugin/plugin.json: Version bumps through 0.15.25. Metadata only.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[dependencies]]

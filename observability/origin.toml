@@ -1,7 +1,54 @@
-format_version = 1
+format_version = 2
 skill = "observability"
 created = "2026-10-05"
-approach = "Derive: combine Addy Osmani's operational signal design with GSD-2's decision and unattended-process evidence. The user's local scope is to assess and build project observability, bootstrap missing collection facilities, and add instrumentation during feature work; debug retains incident investigation."
+approach = "derive"
+goal = "Equip a project with the logs, metrics, traces and health signals it needs to understand its operation, through an assessment, an initial setup or instrumentation added during feature work. Success is prioritized coverage that a reader without the original context can inspect at its destination, with safe and bounded signals and with the project's behavior and error contracts unchanged."
+
+[[invariants]]
+rule = "The debug skill owns investigating an observed failure. This skill owns lasting instrumentation and its collection, storage and inspection setup, and its work needs no prior incident or existing monitoring stack."
+reason = "The user set the skill's scope to assessing and building project observability, with incident investigation left to the debug skill."
+where = ["SKILL.md#observability"]
+
+[[invariants]]
+rule = "Scope comes from the active request. An assessment, review or design request produces recommendations without changing the project; authorized feature work includes useful instrumentation, and unrelated project-wide improvements are reported as separate recommendations."
+reason = "The user made instrumentation during feature work part of the skill's scope, and a small change should not acquire an entire stack."
+where = ["SKILL.md#choose-the-scope-of-the-addition"]
+
+[[invariants]]
+rule = "Suitable project tooling is reused. When it is absent or insufficient, the skill establishes the smallest collection and inspection path that the requested coverage needs."
+reason = "The user's scope for the skill includes bootstrapping missing collection facilities."
+where = ["SKILL.md#establish-or-extend-the-collection-path"]
+
+[[invariants]]
+rule = "Routine local setup choices are resolved within the task. A material backend, billing, data-residency or external-service decision follows the user's constraints or decision."
+where = ["SKILL.md#establish-or-extend-the-collection-path"]
+
+[[invariants]]
+rule = "Every diagnostic surface, including logs, spans, metrics, persisted failure records and status responses, emits only allowlisted fields under the project's access and retention policy. Raw exception messages, stacks, URLs and payloads are never copied unrestricted."
+reason = "Raw error details and payloads can contain secrets or personal data even when the public error is generic."
+where = [
+  "SKILL.md#keep-diagnostic-data-safe-and-affordable",
+  "SKILL.md#preserve-evidence-for-unattended-work",
+]
+
+[[invariants]]
+rule = "Missing or sampled-away data is unknown. It is never reported as a zero error rate or as verified health."
+reason = "Sampling and collection gaps mean that an absent record proves nothing."
+where = [
+  "SKILL.md#verify-the-signals-at-their-destination",
+  "SKILL.md#add-actionable-alerts-when-needed",
+]
+
+[[invariants]]
+rule = "The skill grants no authority for production disruption, threshold changes, real notifications, deployment, paging or ongoing monitoring; these follow the active task's existing authority."
+where = ["SKILL.md#verify-the-signals-at-their-destination"]
+
+[[invariants]]
+rule = "Instrumentation preserves results, exceptions, cancellation, effects, retry ownership and the caller's error contract unless the task also changes them. Telemetry overhead or exporter failure never silently changes business behavior."
+where = [
+  "SKILL.md#instrument-the-deciding-boundaries",
+  "SKILL.md#keep-diagnostic-data-safe-and-affordable",
+]
 
 [[sources]]
 id = "addy-observability"
@@ -9,15 +56,92 @@ author = "Addy Osmani"
 repository = "https://github.com/addyosmani/agent-skills"
 remote = "git@github.com:addyosmani/agent-skills.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
 reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
-baseline_paths = ["skills/observability-and-instrumentation/SKILL.md", "references/observability-checklist.md", "LICENSE"]
-paths = ["skills/observability-and-instrumentation/SKILL.md", "references/observability-checklist.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Start from operational questions and match logs, metrics and traces to their purpose.", "Propagate correlation and entry-point identity; keep metric dimensions bounded and inspect actual emitted data.", "Use actionable alerts and verify instrumentation at the destination with controlled failures."]
-local_choices = ["Assess architecture and workflows to prioritize concrete instrumentation additions; no existing incident is required. Incident investigation remains with debug.", "Reuse suitable project tooling; when absent or insufficient, establish the necessary collection and inspection path. No mandatory OpenTelemetry, dashboard, alert or instrumentation of every endpoint.", "Include useful instrumentation in authorized feature work, with unrelated project-wide expansion reported separately. Assessment-only requests remain recommendations.", "Resolve routine setup locally, while material vendor, cost or external-service decisions follow the user's constraints and task authority.", "Preserve useful project severity and threshold conventions, resource alerts with a concrete action, and legitimate aggregate statistics; no fixed quotas or blanket prohibitions.", "Apply privacy to raw errors and all signal sinks, define sampling limits, and distinguish missing data from verified health.", "Use isolated notification sinks unless the active task authorizes real delivery; no automatic deployment, paging or monitoring.", "Keep diagnostic context trustworthy and telemetry overhead or failures from silently changing business behavior."]
-reviews = [
-  { from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026", to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 1401c8b8030e..aeac41d4d005 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/observability-and-instrumentation/SKILL.md",
+  "references/observability-checklist.md",
+  "LICENSE",
+]
+paths = [
+  "skills/observability-and-instrumentation/SKILL.md",
+  "references/observability-checklist.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Every instrumentation addition starts from an operational question. For each one, name the operation or boundary, the information missing there, the signal to add, where someone will inspect it and what an operator should learn from it."
+serves = "Prevents telemetry that is emitted but answers nothing."
+where = ["SKILL.md#find-and-prioritize-instrumentation-points"]
+shapes = "Makes the section turn the architecture and workflow review into a prioritized list of additions, each tied to the question it answers."
+adapted = "The donor asks for two to four on-call questions per feature. Here the questions come from assessing the project's architecture and critical workflows, additions are prioritized by user impact, operational uncertainty and cost, and no observed incident is needed to justify coverage."
+
+[[sources.ideas]]
+idea = "Match each signal type to the question it answers: a structured log or event for what happened in one operation and why, a metric for how much, how often, how slow or how saturated, and a trace for where an operation spent time across components."
+serves = "Puts each question on the signal that can answer it at a reasonable cost."
+where = ["SKILL.md#instrument-the-deciding-boundaries"]
+shapes = "Organizes signal choice as a table of signal types, the question each answers and what each must preserve."
+adapted = "The donor samples traces at a low default rate. Here sampling and retention are chosen against diagnostic need and cost, and the skill states that sampled traces cannot establish complete event counts or prove that an unrecorded failure never happened."
+
+[[sources.ideas]]
+idea = "Create or validate correlation context at the trusted entry point and propagate it through the affected calls, queues and workers. When several entry points write to one sink, record which entry point started the work next to its run identity, because a correlation ID identifies a run but not the path that started it."
+serves = "Lets a reader reconstruct one operation, and attribute it to its starting path, from interleaved records."
+where = ["SKILL.md#instrument-the-deciding-boundaries"]
+shapes = "Adds a correlation step after signal choice that sets context at the trusted entry point and records the starting entry point for shared sinks."
+adapted = "Incoming identifiers are treated as untrusted, bounded input so that diagnostic context stays trustworthy. Retries and child operations stay associated without merging separate executions, and the project's propagation format is reused."
+
+[[sources.ideas]]
+idea = "Metric dimensions come from a small bounded vocabulary, such as operation, route template or outcome class. Request IDs, user IDs, raw URLs and arbitrary error text belong in logs or traces, and tail-latency questions need a histogram or an existing distribution."
+serves = "Prevents cardinality growth that overloads the metrics backend, and averages that hide slow requests."
+where = ["SKILL.md#instrument-the-deciding-boundaries"]
+shapes = "Gives the metrics paragraph a bounded-dimension rule and requires confirming what an instrument counts, including retries, partial results and zero traffic, before deriving a rate."
+adapted = "The donor forbids averages outright. Locally an average alone does not answer a tail-latency question, but legitimate aggregate statistics stay."
+
+[[sources.ideas]]
+idea = "Add an alert only when its condition justifies an action, usually user-visible errors, latency or delayed work. Derive its threshold, duration and recovery condition from service objectives, observed behavior or an explicit requirement, name the responder, and link the first useful query, mitigation or runbook."
+serves = "Prevents noisy alerts that train responders to ignore them."
+where = ["SKILL.md#add-actionable-alerts-when-needed"]
+shapes = "Makes alerting a conditional section that states each alert's action, threshold derivation, responder and first step."
+adapted = "Existing ownership, severity, threshold and delivery conventions stay. A resource alert stays when it predicts a concrete operational consequence, and when ownership or the information for an actionable condition is missing, the alert is proposed with the observations or decisions it still needs instead of being enabled."
+
+[[sources.ideas]]
+idea = "Instrumentation is code and can be wrong. Trigger the affected success and representative failure paths, confirm the trigger occurred, and read the resulting events, metric series, traces or status at the consumer; a configured exporter or a passing test command does not prove that a signal arrived."
+serves = "Prevents reporting coverage that never reaches the place where someone reads it."
+where = ["SKILL.md#verify-the-signals-at-their-destination"]
+shapes = "Makes verification read the signals at the consumer and check correlation, safe fields, counts, units and state lifecycle instead of trusting configuration."
+adapted = "Failure injection and alert tests use an isolated environment, test collectors and notification sinks. Real delivery, threshold changes and production disruption need the active task's authority, and unavailable destinations are reported separately."
+
+[[sources.declined]]
+feature = "Mandatory OpenTelemetry for tracing and metrics."
+reason = "OpenTelemetry is an option, not a required migration; suitable project tooling is reused."
+
+[[sources.declined]]
+feature = "RED metrics on every endpoint and dependency, USE metrics on every resource, and a pre-launch gate that requires dashboards and a test-fired alert for every feature."
+reason = "Coverage is prioritized by user impact, operational uncertainty and cost; dashboards and alerts are added where they serve the requested coverage."
+
+[[sources.declined]]
+feature = "Fixed quotas and schemes: two to four on-call questions per feature, exactly two alert severities (page and ticket), and universal thresholds such as an error rate above 1% for 5 minutes."
+reason = "The project's severity and threshold conventions stay, and thresholds come from service objectives, observed behavior or an explicit requirement."
+
+[[sources.declined]]
+feature = "Blanket rules such as never tracking averages and keeping every cause or resource signal off the pager."
+reason = "Legitimate aggregate statistics stay, and a resource alert stays when it predicts a concrete consequence that needs an action."
+
+[[sources.declined]]
+feature = "Forcing errors in staging and test-firing each new alert to its real channel as a completion step."
+reason = "Failure and alert tests use isolated environments and sinks; real delivery or disruption needs the active task's authority."
+
+[[sources.reviews]]
+from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 1401c8b8030e..aeac41d4d005 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -26,14 +150,49 @@ author = "Lex Christopherson / GSD-2"
 repository = "https://github.com/gsd-build/gsd-2"
 remote = "git@github.com:gsd-build/gsd-2.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
 reviewed_through = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
 baseline_paths = ["src/resources/skills/observability/SKILL.md", "LICENSE"]
 paths = ["src/resources/skills/observability/SKILL.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Record the decision and its reason rather than undifferentiated activity.", "Keep failure evidence accessible after process loss and expose meaningful status for unattended work.", "Remove temporary diagnostic noise and simulate a plausible failure to verify the signals."]
-local_choices = ["Reuse existing durable telemetry rather than requiring a new file for every failure; no GSD runtime or repository-path dependency.", "Define concurrency, freshness and recovery for persisted state; distinguish liveness, readiness and progress.", "Preserve the caller's error contract: observability does not authorize replacing a return value with an exception.", "Keep failure records and status surfaces minimal and subject to access, privacy and retention constraints."]
-reviews = []
+
+[[sources.ideas]]
+idea = "Record decisions, not activity: a structured event names a meaningful outcome or decision and carries the safe values or classifications that drove it. Function entry and exit chatter rarely answers an operational question."
+serves = "Lets a later reader learn why the code acted as it did without rerunning it with extra logging."
+where = ["SKILL.md#instrument-the-deciding-boundaries"]
+shapes = "Opens the instrumentation section with structured decision and outcome records, and gives duplicate reports of one failure a clear owner."
+
+[[sources.ideas]]
+idea = "Failure evidence from background jobs, watchers and long-running processes must stay available after a crash or restart. Keep a record with safe operation identity, phase, time, attempt and failure classification."
+serves = "Lets a reader without the original session find what failed in unattended work."
+where = ["SKILL.md#preserve-evidence-for-unattended-work"]
+shapes = "Adds a section for unattended work that starts from what survives a crash or restart and then sets the fields of a failure record."
+adapted = "The donor writes a last-error file under its own runtime directory. Here the existing durable sink or state store is reused, and a failure record is added only where the diagnostic question needs one. State is scoped to its run or work item, the store's atomicity and concurrency controls protect it, and a freshness rule defines how success, recovery, restart or expiration updates it, so one job's success cannot erase another job's failure."
+
+[[sources.ideas]]
+idea = "A long-running process exposes a cheap status surface that has no business side effects and shows its current state."
+serves = "Lets a reader tell whether unattended work is running, ready and progressing."
+where = [
+  "SKILL.md#preserve-evidence-for-unattended-work",
+  "SKILL.md#instrument-the-deciding-boundaries",
+]
+shapes = "Adds the health or status row to the signal table and closes the unattended-work section with status-surface rules."
+adapted = "The donor reports one healthy, degraded or down status. Locally liveness, readiness and progress stay distinct under the project's existing contract, a dependency outage does not by itself justify declaring the process dead, and the surface exposes only the detail its reader is authorized to see."
+
+[[sources.ideas]]
+idea = "Before finishing, remove temporary diagnostic probes and keep instrumentation with lasting diagnostic value. Then simulate a plausible failure and confirm that the signals tell a reader without the original context what happened."
+serves = "Leaves durable signals instead of debugging noise, and proves they answer the question they were added for."
+where = ["SKILL.md#verify-the-signals-at-their-destination"]
+shapes = "Ends verification with a test that the emitted data alone explains each addition, records a coverage gap when it does not, and removes only temporary probes and fault controls owned by the task."
+
+[[sources.declined]]
+feature = "Writing a failure-state file to a fixed runtime path for every failure, with the GSD runtime directories and atomic-write helpers."
+reason = "The skill reuses the project's existing durable telemetry and has no dependency on the GSD runtime or its repository paths."
+
+[[sources.declined]]
+feature = "Replacing silent error handling with a log line plus a thrown typed error."
+reason = "Instrumentation records an otherwise silent failure with safe classification and operation identity but keeps the caller's error contract. Replacing a return value with an exception is a change for the error-handling skill and must be in scope on its own."
 
 [[dependencies]]
 kind = "local"

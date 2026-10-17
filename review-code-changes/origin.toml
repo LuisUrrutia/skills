@@ -1,7 +1,56 @@
-format_version = 1
+format_version = 2
 skill = "review-code-changes"
 created = "2026-10-03"
-approach = "Derive from the user-owned review-audit snapshot, retaining causal evidence and read-only reporting while adding requirements, structural quality and focused support."
+approach = "derive"
+goal = "Review one declared change (a PR, branch, commit or local changes) for defects, unmet requirements and code-quality regressions, and deliver a validated canonical report whose findings rest on the actual code, requirements and contracts. Success is that every changed path is accounted for, every retained finding has its required evidence, and unresolved boundaries and checks stay explicit."
+
+[[invariants]]
+rule = "The review phase is read-only. It preserves product files, tests, the index, HEAD and remote state, and it never repairs, replies, resolves threads or publishes; an enclosing task can act on the findings after the review ends."
+reason = "Read-only reporting was kept from the user's installed review-audit skill, the predecessor this skill was derived from, which did not create reviews, publish comments or edit code (reports/review-code-changes-validation.json)."
+where = ["SKILL.md#review-code-changes", "SKILL.md#gather-intent-and-review"]
+
+[[invariants]]
+rule = "The compare-solutions skill owns the comparison of complete independent audits. This skill's coordinator owns complementary facets of one review, with full coverage and source validation. Facet workers and participants of the compare-solutions skill never delegate, and neither mode starts the other."
+where = ["SKILL.md#use-focused-support", "references/delegation.md#assign-a-bounded-investigation"]
+
+[[invariants]]
+rule = "Specification silence leaves a gap unknown. A claim of missing or wrong behavior needs an explicit requirement or established behavior, and the review never invents product requirements."
+where = ["SKILL.md#gather-intent-and-review", "references/protocol.md#requirements-and-standards"]
+
+[[invariants]]
+rule = "The local review mechanics stay authoritative: diff causality, trace legs, population census, caller-owned seams, coverage, the canonical Markdown report grammar with its validator, the exact declared scope, and the actual precedence of effective repository instructions. A donor's analyzers, report generator, schema or tracing rules do not replace them."
+reason = "These mechanics are the causal evidence kept from the review-audit predecessor (see the local snapshots)."
+where = ["references/protocol.md", "scripts/report.py"]
+
+[[invariants]]
+rule = "Severity describes consequence, not confidence or agreement. Reviewer consensus and uncertainty do not raise it, no reviewer or persona has a finding quota or cap, and no findings is not an approval."
+where = ["references/protocol.md#calibrate-and-challenge-findings", "SKILL.md#deliver-the-report"]
+
+[[invariants]]
+rule = "Sequential passes or personas in one context are perspectives, not independent agents, and are never cited as evidence of independent subagents."
+where = ["references/delegation.md#select-work-from-the-risks"]
+
+[[invariants]]
+rule = "Criteria apply through the project's language, runtime semantics and actual risk. Numeric size thresholds and ecosystem-specific checklists are never universal policy."
+where = [
+  "SKILL.md#review-code-changes",
+  "references/protocol.md#structure-and-maintainability",
+  "references/specialists.md",
+]
+
+[[invariants]]
+rule = "Beyond the predecessor's causal audit, the review also checks conformance to requirements and documented standards and the quality of the resulting structure, and it can use focused specialist skills and subagents selected from the change's risks."
+reason = "These were the additions recorded when the skill was derived from the user's installed review-audit skill, which did not spawn other reviewers."
+where = [
+  "SKILL.md#gather-intent-and-review",
+  "references/protocol.md#review-lenses",
+  "SKILL.md#use-focused-support",
+]
+
+[[invariants]]
+rule = "A failure that only a particular caller, host, mode or configuration triggers needs evidence that something runs that way. A route, flag or authorization rule that admits the request is not use, while a published contract or a reachable security exposure is that evidence without observed traffic. Whether such a caller exists decides whether the issue exists, not its severity. The writer leg includes the caller that sends the triggering request, and an author's description of how the code behaves is cited as code, not as a requirement."
+reason = "User direction on 2026-10-13, after a PR review published a required finding for an internal host on a route with no evidenced caller."
+where = ["references/protocol.md#trace-candidates", "references/protocol.md#report-grammar"]
 
 [[sources]]
 id = "addy-review"
@@ -9,16 +58,85 @@ author = "Addy Osmani"
 repository = "https://github.com/addyosmani/agent-skills"
 remote = "git@github.com:addyosmani/agent-skills.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
 reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
-baseline_paths = ["skills/code-review-and-quality/SKILL.md", "references/security-checklist.md", "references/performance-checklist.md", "LICENSE"]
-paths = ["skills/code-review-and-quality/SKILL.md", "references/security-checklist.md", "references/performance-checklist.md", "LICENSE"]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Separate correctness, readability, structure, security and performance concerns; review the verification story and dependency contracts."]
-local_choices = ["Adapt principles to the project language and actual risk; no numeric thresholds, live source mutation, automatic dependency changes, or mandatory cleanup/publication.", "Do not import ecosystem-specific checklists as universal policy."]
-reviews = [
-  { from_commit = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092", to_commit = "1401c8b8030e023baeebb31781a6653fe8e93026", incorporated = [], skipped = ["No changes to the recorded review entrypoint, security/performance references or license; repository-wide documentation changes are outside this source scope."], deferred = [], validation = ["Verified commit ancestry, repository-wide changes and identical contents of all four scoped files; baseline fields and snapshots preserved; TOML, relative references and retained licenses checked."] },
-  { from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026", to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d", incorporated = [], skipped = ["references/performance-checklist.md: Commit 35c3acb relabels a code fence as JavaScript. Cosmetic."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 1401c8b8030e..aeac41d4d005 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/code-review-and-quality/SKILL.md",
+  "references/security-checklist.md",
+  "references/performance-checklist.md",
+  "LICENSE",
+]
+paths = [
+  "skills/code-review-and-quality/SKILL.md",
+  "references/security-checklist.md",
+  "references/performance-checklist.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "The review applies separate lenses, each with its own questions: correctness, compatibility and security; structure and maintainability; performance and operational workflow; and verification quality. Effort goes deeper where the evidence shows a risk instead of being spread evenly."
+serves = "Keeps one kind of concern from hiding another, so a correct but unmaintainable change or a clean but insecure one is still caught."
+where = ["references/protocol.md#review-lenses", "references/protocol.md#review-sequence"]
+shapes = "The protocol's Review lenses section has one subsection per concern, and step 3 of the review sequence applies them across the changed paths by risk."
+adapted = "The lenses apply through the project's language, runtime semantics and actual risk, not as a universal checklist with numeric thresholds."
+
+[[sources.ideas]]
+idea = "Review the author's verification story: whether the assertions exercise the changed behavior, including the failure or boundary that motivates the change, and whether the claimed commands, revision and results hold for this snapshot."
+serves = "Prevents passing tests or claimed checks from standing in for evidence that the changed behavior works."
+where = ["references/protocol.md#verification-quality"]
+shapes = "The Verification quality lens checks assertions against the changed behavior and checks the author's claimed commands and results, keeping inspection, reproduction, observation and unrun checks distinct."
+
+[[sources.ideas]]
+idea = "A dependency change is a code change. Review dependency and lockfile changes, release notes, migrations and deployed-version interactions against the actual supported versions and contracts. An installed package, a compatible signature or a version label does not prove compatible runtime behavior."
+serves = "Catches breakage that enters through dependencies rather than through the edited source."
+where = ["references/protocol.md#correctness-compatibility-and-security"]
+shapes = "Adds a dependency paragraph to the correctness, compatibility and security lens that treats installation, signatures and version labels as insufficient proof of runtime compatibility."
+
+[[sources.declined]]
+feature = "Numeric change-size and file-size thresholds, such as splitting a change near 1000 changed lines or flagging a file that passes about 1000 lines."
+reason = "A structural finding needs a demonstrable cost or a violated standard; length alone does not justify a required change."
+
+[[sources.declined]]
+feature = "Mutating the reviewed source, for example inverting a condition, to test whether the suite catches a regression."
+reason = "The review never alters the reviewed code to test a theory; experimental mutations run only in an authorized isolated copy."
+
+[[sources.declined]]
+feature = "Changing dependencies as part of the review."
+reason = "The review reads dependency changes; it does not modify the reviewed tree, expectations or dependencies, even to make a check work."
+
+[[sources.declined]]
+feature = "Requiring cleanup before submission or a filed bug for deferred cleanup, and other mandatory cleanup or publication steps."
+reason = "The review reports findings; repairs, issue filing and publication belong to the enclosing task."
+
+[[sources.declined]]
+feature = "The donor's ecosystem-specific security and performance checklists as universal policy."
+reason = "Domain advice must match the actual language, framework, version and project conventions; a specialist checklist does not turn an irrelevant recommendation into a defect."
+
+[[sources.reviews]]
+from_commit = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
+to_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+incorporated = []
+skipped = [
+  "No changes to the recorded review entrypoint, security/performance references or license; repository-wide documentation changes are outside this source scope.",
+]
+deferred = []
+validation = [
+  "Verified commit ancestry, repository-wide changes and identical contents of all four scoped files; baseline fields and snapshots preserved; TOML, relative references and retained licenses checked.",
+]
+
+[[sources.reviews]]
+from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+incorporated = []
+skipped = [
+  "references/performance-checklist.md: Commit 35c3acb relabels a code fence as JavaScript. Cosmetic.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 1401c8b8030e..aeac41d4d005 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -27,15 +145,58 @@ author = "Jesse Vincent / obra"
 repository = "https://github.com/obra/superpowers"
 remote = "git@github.com:obra/superpowers.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
 reviewed_through = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
-baseline_paths = ["skills/requesting-code-review/SKILL.md", "skills/requesting-code-review/code-reviewer.md", "skills/receiving-code-review/SKILL.md", "LICENSE"]
-paths = ["skills/requesting-code-review/SKILL.md", "skills/requesting-code-review/code-reviewer.md", "skills/receiving-code-review/SKILL.md", "LICENSE"]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Supply a bounded review scope, requirements, and output contract without the implementer's full reasoning history.", "Verify external feedback against current code and supported contracts before accepting it."]
-local_choices = ["The review phase stays read-only; compare-solutions owns complete independent audits while review-code-changes may coordinate complementary facets.", "Feedback reception contributes evaluation criteria, not repair, reply, thread-resolution, or global pause authority.", "Specification gaps remain unknown unless established behavior or an explicit requirement supports the claim."]
-reviews = [
-  { from_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d", to_commit = "bb92a77741419a4ab5f06e711a283343f1ada0c3", incorporated = [], skipped = ["skills/requesting-code-review/SKILL.md: One awk call in an example becomes cut. Cosmetic example change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 8ca22dba9a94..bb92a7774141 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/requesting-code-review/SKILL.md",
+  "skills/requesting-code-review/code-reviewer.md",
+  "skills/receiving-code-review/SKILL.md",
+  "LICENSE",
+]
+paths = [
+  "skills/requesting-code-review/SKILL.md",
+  "skills/requesting-code-review/code-reviewer.md",
+  "skills/receiving-code-review/SKILL.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "A reviewer receives a bounded handoff: the exact scope, the applicable requirements and an output contract, but not the implementer's full reasoning history. It then judges the work product instead of the author's thought process."
+serves = "Keeps the review independent of the reasoning that produced the change."
+where = ["references/delegation.md#assign-a-bounded-investigation"]
+shapes = "The worker contract lists exactly what each worker receives, and first-pass workers stay independent of the implementer's reasoning and of emerging review conclusions."
+
+[[sources.ideas]]
+idea = "External review feedback is a claim to check against the reviewed revision and the supported contracts before it is accepted. Stale comments, agreement among reviewers and author confidence are not proof."
+serves = "Prevents adopting wrong or outdated feedback as a finding."
+where = [
+  "SKILL.md#gather-intent-and-review",
+  "references/protocol.md#calibrate-and-challenge-findings",
+]
+shapes = "Gather intent and review validates each feedback claim against the reviewed revision after the independent assessment, and the challenge section requires an outdated comment to be rechecked on the reviewed snapshot."
+adapted = "Only the donor's evaluation criteria are taken. Reading feedback gives no authority to repair, reply, resolve threads, or pause other work."
+
+[[sources.declined]]
+feature = "Acting on review findings inside the review: fixing critical issues at once and important ones before proceeding."
+reason = "The review phase is read-only; an enclosing implementation task can act on the findings after the review ends."
+
+[[sources.declined]]
+feature = "Implementing, replying to or resolving received feedback, and stopping all work until unclear feedback items are clarified."
+reason = "Feedback reception supplies evaluation criteria only; this skill has no repair, reply, thread-resolution or global pause authority."
+
+[[sources.reviews]]
+from_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+to_commit = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
+incorporated = []
+skipped = [
+  "skills/requesting-code-review/SKILL.md: One awk call in an example becomes cut. Cosmetic example change.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 8ca22dba9a94..bb92a7774141 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -44,15 +205,95 @@ author = "Cursor / Thermos"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
-baseline_paths = ["thermos/skills/thermo-nuclear-review/SKILL.md", "thermos/skills/thermo-nuclear-code-quality-review/SKILL.md", "thermos/skills/thermos/SKILL.md", "thermos/agents/thermo-nuclear-review-subagent.md", "thermos/agents/thermo-nuclear-code-quality-review-subagent.md", "thermos/.cursor-plugin/plugin.json", "thermos/LICENSE"]
-paths = ["thermos/skills/thermo-nuclear-review/SKILL.md", "thermos/skills/thermo-nuclear-code-quality-review/SKILL.md", "thermos/skills/thermos/SKILL.md", "thermos/agents/thermo-nuclear-review-subagent.md", "thermos/agents/thermo-nuclear-code-quality-review-subagent.md", "thermos/.cursor-plugin/plugin.json", "thermos/LICENSE"]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Trace diff-caused breakage, developer workflow, feature gates and intended changes; assess structural cost and bounded remedies.", "Form an independent assessment before checking external review claims and synthesize without duplicate causes."]
-local_choices = ["Preserve the local trace protocol and read-only boundary; structural suggestions do not automatically block a change.", "No fixed line-count limits, mandatory parallel seats, approval verdict, or consensus-based severity."]
-reviews = [
-  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 23e4138daa01..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "thermos/skills/thermo-nuclear-review/SKILL.md",
+  "thermos/skills/thermo-nuclear-code-quality-review/SKILL.md",
+  "thermos/skills/thermos/SKILL.md",
+  "thermos/agents/thermo-nuclear-review-subagent.md",
+  "thermos/agents/thermo-nuclear-code-quality-review-subagent.md",
+  "thermos/.cursor-plugin/plugin.json",
+  "thermos/LICENSE",
+]
+paths = [
+  "thermos/skills/thermo-nuclear-review/SKILL.md",
+  "thermos/skills/thermo-nuclear-code-quality-review/SKILL.md",
+  "thermos/skills/thermos/SKILL.md",
+  "thermos/agents/thermo-nuclear-review-subagent.md",
+  "thermos/agents/thermo-nuclear-code-quality-review-subagent.md",
+  "thermos/.cursor-plugin/plugin.json",
+  "thermos/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "A small change can break behavior in other modules, so the review follows callers, producers, consumers, schemas, configuration and dependencies beyond the diff, through normal, boundary, failure, cancellation, retry and concurrent paths when they apply."
+serves = "Catches breakage whose observable failure is outside the changed lines."
+where = [
+  "SKILL.md#gather-intent-and-review",
+  "references/protocol.md#correctness-compatibility-and-security",
+]
+shapes = "Gather intent and review extends the protocol beyond the diff; the correctness lens lists the paths to follow."
+
+[[sources.ideas]]
+idea = "Changes to setup, build, deployment or run contracts can break the developers' established workflow: new mandatory secrets, environment variables, ports, manual tools or generation steps. An optional path or an ordinary configured dependency alone is not such a regression."
+serves = "Catches regressions in how people build and run the project, which tests rarely cover."
+where = ["references/protocol.md#performance-and-operational-workflow"]
+shapes = "Gives the performance and operational workflow lens a second half that traces setup, build, deployment and run contracts and limits what counts as a workflow regression."
+
+[[sources.ideas]]
+idea = "Trace feature gates across the UI, the API, background work and data mutations. A visual gate does not protect an endpoint that can be reached on its own."
+serves = "Catches gated features that leak through a path the gate does not cover."
+where = ["references/protocol.md#correctness-compatibility-and-security"]
+shapes = "Makes feature-gate tracing across every reachable surface part of the correctness lens."
+
+[[sources.ideas]]
+idea = "A change may intend to break or remove behavior. That breakage is authorized only as far as the request establishes it, and consequences beyond the stated intent are still traced."
+serves = "Avoids reporting intended changes as defects without missing their unintended consequences."
+where = ["references/protocol.md#requirements-and-standards"]
+shapes = "The requirements lens treats intentional removals or breakage as authorized only to the extent of the request."
+adapted = "The donor skips an intended high-risk finding when the change is well constrained, unless the author seems unaware of its effects. Here the request sets the authorized extent, and every consequence beyond it is traced."
+
+[[sources.ideas]]
+idea = "A structural finding names its concrete maintenance cost and proposes a bounded move that removes that cost while preserving behavior."
+serves = "Makes structural feedback actionable and tied to a real cost."
+where = ["references/protocol.md#structure-and-maintainability"]
+shapes = "Requires each structural finding in the structure lens to state its maintenance cost and a bounded, behavior-preserving remedy."
+adapted = "Structural suggestions do not automatically block a change. A useful alternative with no established regression is an optional recommendation, not a presumptive blocker."
+
+[[sources.ideas]]
+idea = "Form the independent assessment first, then read external review comments, validate each claim, merge duplicate causes and attribute the external findings that survive."
+serves = "Keeps external comments from anchoring the review and keeps one cause from being reported twice."
+where = ["SKILL.md#gather-intent-and-review", "references/protocol.md#review-sequence"]
+shapes = "External feedback is considered after the independent assessment, and the review sequence validates external feedback last."
+
+[[sources.declined]]
+feature = "Fixed line-count limits, such as treating a file that grows past 1000 lines as a presumptive blocker."
+reason = "Length does not by itself justify a required change; a structural finding needs a demonstrable cost or a violated standard."
+
+[[sources.declined]]
+feature = "Mandatory parallel review seats: one bug and security subagent and one code-quality subagent on every review."
+reason = "Facets are chosen from the change's actual risks, and a straightforward change is reviewed directly."
+
+[[sources.declined]]
+feature = "An approval verdict or approval bar, with structural issues treated as presumptive blockers."
+reason = "No findings means none were supported in this scope, not an approval; structural suggestions do not automatically block a change."
+
+[[sources.declined]]
+feature = "Weighting a finding more heavily because several reviewers report it."
+reason = "Severity describes consequence, and agreement does not establish correctness or severity."
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 23e4138daa01..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -61,15 +302,39 @@ author = "Cursor Team Kit"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
-baseline_paths = ["cursor-team-kit/skills/thermo-nuclear-code-quality-review/SKILL.md", "cursor-team-kit/LICENSE"]
-paths = ["cursor-team-kit/skills/thermo-nuclear-code-quality-review/SKILL.md", "cursor-team-kit/LICENSE"]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Inspect ownership, duplicated invariants, abstraction value and complexity introduced by the resulting structure."]
-local_choices = ["The source entrypoint is byte-identical to the Thermos quality entrypoint at this pin; it is not independent corroboration.", "Keep useful abstractions and project conventions; require a concrete cost for structural findings."]
-reviews = [
-  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 23e4138daa01..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "cursor-team-kit/skills/thermo-nuclear-code-quality-review/SKILL.md",
+  "cursor-team-kit/LICENSE",
+]
+paths = [
+  "cursor-team-kit/skills/thermo-nuclear-code-quality-review/SKILL.md",
+  "cursor-team-kit/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Examine the resulting structure, including the surrounding module, not only the changed lines: ownership, duplicated invariants, scattered decisions about the same state, feature logic leaking across boundaries, avoidable coupling, and indirection that adds reader effort without protecting a contract."
+serves = "Catches maintainability regressions that each changed line hides on its own."
+where = ["references/protocol.md#structure-and-maintainability"]
+shapes = "Sets the structure lens's list of regressions to look for across the resulting module, not only the changed lines."
+adapted = "Useful abstractions and project conventions are kept: abstractions that name concepts, isolate ownership or protect testable contracts stay, and a structural finding needs a concrete cost. The donor instead pushes for ambitious restructuring and flags thin abstractions aggressively. Its entrypoint is byte-identical to the Thermos quality entrypoint at the baseline pin, so it never counts as corroboration independent of the Thermos quality review."
+
+[[sources.declined]]
+feature = "Ambitious restructuring as the default bar, with aggressive removal of thin abstractions."
+reason = "Useful abstractions and project conventions are kept, and a structural finding requires a concrete cost."
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 23e4138daa01..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -78,16 +343,74 @@ author = "Matt Pocock"
 repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
 reviewed_through = "49dd158d1076134a641b33efb035946536778336"
 baseline_paths = ["skills/engineering/code-review/SKILL.md", "LICENSE"]
 paths = ["skills/engineering/code-review/SKILL.md", "LICENSE"]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Review specification conformance separately from applicable documented standards.", "Treat structural smells as judgment calls, with documented project conventions taking precedence."]
-local_choices = ["Preserve both dimensions in Review basis and finding evidence, then prioritize the combined report by consequences.", "No mandatory issue-tracker setup, fresh subagent pair, missing-spec pause, or assumption that every fixed point is a branch merge-base."]
-reviews = [
-  { from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60", to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
-  { from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", to_commit = "49dd158d1076134a641b33efb035946536778336", incorporated = ["Adapted from skills/engineering/code-review/SKILL.md: gathering intent searches for coding-standards documents such as CONTRIBUTING.md, CODING_STANDARDS.md or style guides and reads those that govern the changed paths (review-code-changes/SKILL.md); citing them is already required by the Review basis in references/protocol.md."], skipped = ["skills/engineering/code-review/SKILL.md: Issue both sub-agent calls together in the foreground. Already covered by review-code-changes/references/delegation.md:59-63, and review-code-changes/origin.txt:80 excludes a fixed subagent pair.", "skills/engineering/code-review/SKILL.md: Tracker documentation wording. Issue-tracker setup is excluded by review-code-changes/origin.txt:80."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 24fe0ef7737e..49dd158d1076 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "Review conformance to the specification separately from conformance to the applicable documented standards, because a change can pass one and fail the other."
+serves = "Prevents good style from masking wrong behavior, and correct behavior from masking broken conventions."
+where = [
+  "SKILL.md#gather-intent-and-review",
+  "references/protocol.md#review-sequence",
+  "references/protocol.md#requirements-and-standards",
+  "references/protocol.md#report-grammar",
+]
+shapes = "Gather intent searches for and reads the coding-standards documents that govern the changed paths; the review sequence identifies requirements and standards separately; the requirements lens tracks each; Review basis keeps them distinguishable."
+adapted = "The donor reports the two axes side by side without merging or reranking. Here both dimensions stay distinguishable in Review basis and in finding evidence, and the combined report is prioritized by consequence."
+
+[[sources.ideas]]
+idea = "Structural smells are judgment calls, not violations, and a documented project convention takes precedence over a generic smell."
+serves = "Keeps heuristics from becoming false required findings."
+where = ["references/protocol.md#requirements-and-standards"]
+shapes = "The second paragraph of the requirements lens separates documented standards from judgment calls and treats heuristics as leads."
+
+[[sources.declined]]
+feature = "Mandatory issue-tracker setup before a review."
+reason = "The review reads the accessible request, tickets and specifications; it needs no tracker setup."
+
+[[sources.declined]]
+feature = "A fixed pair of fresh subagents, one per axis, on every review."
+reason = "Delegation is chosen from the change's actual risks, and a straightforward change is reviewed directly."
+
+[[sources.declined]]
+feature = "Pausing to ask for the specification when none is found."
+reason = "A missing specification is recorded as a limit while the supported review continues."
+
+[[sources.declined]]
+feature = "Assuming that every fixed point is a branch merge-base."
+reason = "The scope follows the supplied comparison: the merge-base with the actual target base for a branch or PR, a commit's own patch, or the staged, unstaged and relevant untracked local changes."
+
+[[sources.reviews]]
+from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+to_commit = "49dd158d1076134a641b33efb035946536778336"
+incorporated = [
+  "Adapted from skills/engineering/code-review/SKILL.md: gathering intent searches for coding-standards documents such as CONTRIBUTING.md, CODING_STANDARDS.md or style guides and reads those that govern the changed paths (review-code-changes/SKILL.md); citing them is already required by the Review basis in references/protocol.md.",
+]
+skipped = [
+  "skills/engineering/code-review/SKILL.md: Issue both sub-agent calls together in the foreground. Already covered by review-code-changes/references/delegation.md:59-63, and the declined fixed pair of fresh subagents excludes it.",
+  "skills/engineering/code-review/SKILL.md: Tracker documentation wording. The declined mandatory issue-tracker setup excludes it.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 24fe0ef7737e..49dd158d1076 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -96,15 +419,99 @@ author = "Every / Compound Engineering"
 repository = "https://github.com/EveryInc/compound-engineering-plugin"
 remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
 reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
-baseline_paths = ["skills/ce-code-review/SKILL.md", "skills/ce-code-review/references/persona-catalog.md", "skills/ce-code-review/references/select-and-route.md", "skills/ce-code-review/references/modes-and-output.md", "skills/ce-code-review/references/dispatch-reviewers.md", "skills/ce-code-review/references/subagent-template.md", "skills/ce-code-review/references/finish-review.md", "skills/ce-code-review/references/validator-batch-template.md", "skills/ce-code-review/references/personas/adversarial-reviewer.md", "LICENSE"]
-paths = ["skills/ce-code-review/SKILL.md", "skills/ce-code-review/references/persona-catalog.md", "skills/ce-code-review/references/select-and-route.md", "skills/ce-code-review/references/modes-and-output.md", "skills/ce-code-review/references/dispatch-reviewers.md", "skills/ce-code-review/references/subagent-template.md", "skills/ce-code-review/references/finish-review.md", "skills/ce-code-review/references/validator-batch-template.md", "skills/ce-code-review/references/personas/adversarial-reviewer.md", "LICENSE"]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Select complementary review facets from actual risks; pass bounded worker contracts and collect terminal results.", "Preserve evidence during synthesis and challenge cross-component assumptions and checks that can falsely pass."]
-local_choices = ["One coordinator owns full coverage and source validation; facet and compare-solutions workers never delegate.", "No fixed roster, numerical depth floor, consensus confidence bonus, validator bypass, uncertainty-based severity inflation, or merge approval.", "Use native host delegation within existing authority, not donor CLI routes, inferred code-sharing authority, apply/commit modes or mandatory merge/report leaves.", "Preserve the local Markdown grammar, exact scope and effective instruction precedence."]
-reviews = [
-  { from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb", to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc", incorporated = [], skipped = ["skills/ce-code-review/references/dispatch-reviewers.md: Commit 62ff8a71 says to read each persona and reference asset with its own read call. Donor persona assets and tool micro-procedure."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 9af474a70e7f..bdc53d034ccf and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/ce-code-review/SKILL.md",
+  "skills/ce-code-review/references/persona-catalog.md",
+  "skills/ce-code-review/references/select-and-route.md",
+  "skills/ce-code-review/references/modes-and-output.md",
+  "skills/ce-code-review/references/dispatch-reviewers.md",
+  "skills/ce-code-review/references/subagent-template.md",
+  "skills/ce-code-review/references/finish-review.md",
+  "skills/ce-code-review/references/validator-batch-template.md",
+  "skills/ce-code-review/references/personas/adversarial-reviewer.md",
+  "LICENSE",
+]
+paths = [
+  "skills/ce-code-review/SKILL.md",
+  "skills/ce-code-review/references/persona-catalog.md",
+  "skills/ce-code-review/references/select-and-route.md",
+  "skills/ce-code-review/references/modes-and-output.md",
+  "skills/ce-code-review/references/dispatch-reviewers.md",
+  "skills/ce-code-review/references/subagent-template.md",
+  "skills/ce-code-review/references/finish-review.md",
+  "skills/ce-code-review/references/validator-batch-template.md",
+  "skills/ce-code-review/references/personas/adversarial-reviewer.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Choose review facets from the change's actual risks, not from a fixed roster. Keep straightforward work in one context, and delegate only when distinct consequential questions need substantial independent tracing or domain knowledge."
+serves = "Spends separate investigation only where it adds independent evidence."
+where = ["SKILL.md#use-focused-support", "references/delegation.md#select-work-from-the-risks"]
+shapes = "Use focused support delegates only for distinct consequential risks; the delegation reference selects the smallest useful set of facets from the risks."
+adapted = "Delegation uses the host's native mechanism within the caller's existing authority and constraints; the skill grants no additional external-service or code-sharing authority."
+
+[[sources.ideas]]
+idea = "Each worker receives a bounded contract: the exact snapshot, the intent, one risk question, its assigned paths, its non-delegating role, the permitted checks and a separate report destination. The coordinator collects every launched worker's terminal result before it integrates; a launch acknowledgement or progress message is not a completed review."
+serves = "Makes each worker's result attributable and prevents integrating before the work is done."
+where = ["references/delegation.md#assign-a-bounded-investigation"]
+shapes = "The section lists the contract items and ends with recording and collecting every launch."
+
+[[sources.ideas]]
+idea = "Synthesis keeps the evidence: each retained claim is rechecked against source evidence, supported minority findings survive, shared false positives are rejected, and duplicate causes are merged without losing distinct consequences."
+serves = "Prevents synthesis from dropping real findings or keeping agreed but false ones."
+where = ["references/delegation.md#integrate-evidence-and-coverage"]
+shapes = "The integration section rechecks claims, preserves minority findings and merges causes while keeping distinct failure paths."
+
+[[sources.ideas]]
+idea = "Challenge assumptions that cross component boundaries. For changes to tests, CI or review tools, check whether a failed or missing check can be reported as success."
+serves = "Catches defects that live between components and checks that pass falsely."
+where = [
+  "references/protocol.md#calibrate-and-challenge-findings",
+  "references/delegation.md#select-work-from-the-risks",
+  "references/delegation.md#integrate-evidence-and-coverage",
+]
+shapes = "The challenge section asks about checks that can falsely pass; the coordinator keeps cross-facet interactions and checks them during integration."
+
+[[sources.declined]]
+feature = "A fixed reviewer roster or a numerical review-depth floor."
+reason = "Facets come from the change's actual risks, and a straightforward change is reviewed directly."
+
+[[sources.declined]]
+feature = "A confidence bonus when reviewers agree, or skipping validation for some findings."
+reason = "Agreement between workers never bypasses validation; each retained claim is rechecked against source evidence."
+
+[[sources.declined]]
+feature = "Raising severity because a finding is uncertain."
+reason = "Severity describes consequence, not confidence; a missing premise that decides whether a defect exists goes to Open questions."
+
+[[sources.declined]]
+feature = "A merge-approval verdict."
+reason = "No findings means none were supported in this scope, not an approval."
+
+[[sources.declined]]
+feature = "Donor CLI routes to other models, and treating the review invocation as authority to share code with an external reviewer."
+reason = "Delegation uses the host's native mechanism within existing authority; the skill grants no code-sharing authority."
+
+[[sources.declined]]
+feature = "Apply and commit modes, and mandatory merge and report leaf subagents."
+reason = "The review is read-only, and the coordinator integrates and reports the result itself."
+
+[[sources.reviews]]
+from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+incorporated = []
+skipped = [
+  "skills/ce-code-review/references/dispatch-reviewers.md: Commit 62ff8a71 says to read each persona and reference asset with its own read call. Donor persona assets and tool micro-procedure.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 9af474a70e7f..bdc53d034ccf and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -113,15 +520,60 @@ author = "openclaw"
 repository = "https://github.com/openclaw/agent-skills"
 remote = "git@github.com:openclaw/agent-skills.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "edf1e2f436fa2a5375c98052180a090a57223f9e"
 reviewed_through = "3008b58824c9acbdc9a2fe2b79f8b3567c3db8ac"
-baseline_paths = ["skills/autoreview/SKILL.md", "skills/autoreview/references/diagnostics-and-results.md", "skills/autoreview/scripts/autoreview", "LICENSE"]
-paths = ["skills/autoreview/SKILL.md", "skills/autoreview/references/diagnostics-and-results.md", "skills/autoreview/scripts/autoreview", "LICENSE"]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Explicit completion of every assigned pass; invalid final or later failed results cannot become an earlier clean result."]
-local_choices = ["Adapt completion semantics to native facet workers and the existing Coverage/Checks sections.", "The donor executes sequential passes through one reviewer; do not cite it as proof of independent subagents.", "No external runner, empty-sandbox tracing limits, P0-only defaults, confidence score, foreign schema or provider preferences.", "Implementation evidence covers the recorded completion, attribution and execution ranges; no donor runtime is copied or executed."]
-reviews = [
-  { from_commit = "edf1e2f436fa2a5375c98052180a090a57223f9e", to_commit = "3008b58824c9acbdc9a2fe2b79f8b3567c3db8ac", incorporated = [], skipped = ["skills/autoreview/SKILL.md and skills/autoreview/scripts/autoreview: Commit 38b67bc tells the reviewer to weigh likelihood, impact and fix complexity and to drop theoretical races or rare recoverable edge cases unless they risk data loss, security or money. Suppressing findings conflicts with the borrowed rule to preserve every supported issue (review-code-changes/origin.txt:141), and review-code-changes/references/protocol.md:119-143 and :163-172 already require reachability evidence and consequence-based severity.", "skills/autoreview/SKILL.md: New Copilot subagent fallback that treats missing context, truncation or an unfinished assessment as incomplete. Already covered by review-code-changes/references/delegation.md:22-28 and :67-72.", "skills/autoreview/SKILL.md and skills/autoreview/scripts/autoreview: ClawSweeper hosted-review opt-in, preflight summary export, helper source hash, Codex auth and Ultrafast defaults, model retries, the OpenClaw native collector, auth routing and output-path checks. Donor runtime, provider and tooling details excluded by review-code-changes/origin.txt:112.", "skills/autoreview/references/diagnostics-and-results.md: Mostly compressed into bullets, and a dry run no longer deletes an existing status file. Runner-specific; the last-terminal-event semantics are already borrowed at review-code-changes/references/delegation.md:69-70."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff edf1e2f436fa..3008b58824c9 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/autoreview/SKILL.md",
+  "skills/autoreview/references/diagnostics-and-results.md",
+  "skills/autoreview/scripts/autoreview",
+  "LICENSE",
+]
+paths = [
+  "skills/autoreview/SKILL.md",
+  "skills/autoreview/references/diagnostics-and-results.md",
+  "skills/autoreview/scripts/autoreview",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "A review run is complete only when every assigned pass has a terminal result. A missing, malformed, failed or unfinished result is incomplete work, and a later failure cannot be replaced by an earlier clean result."
+serves = "Prevents reporting a clean review when part of it did not finish or failed."
+where = ["references/delegation.md#integrate-evidence-and-coverage"]
+shapes = "The integration section treats incomplete reports as incomplete work and forbids replacing a later failure with an earlier clean result."
+adapted = "Applied to native facet workers and the report's Coverage and Checks sections: an incomplete facet is investigated directly, retried for a concrete recoverable cause, or carried as a coverage gap; a failure never counts as zero findings. The donor runs its passes sequentially through one reviewer, so it is not evidence for independent subagents."
+
+[[sources.declined]]
+feature = "The donor's external review runner, with its provider preferences and its result schema."
+reason = "Workers use the host's native delegation and return the local canonical report."
+
+[[sources.declined]]
+feature = "Tracing limits that come from running the reviewer in an empty sandbox."
+reason = "Workers may trace relevant surrounding code within the parent's boundary."
+
+[[sources.declined]]
+feature = "Reporting only P0 issues by default, and a confidence score."
+reason = "The review keeps every supported finding and states severity as consequence, not confidence."
+
+[[sources.declined]]
+feature = "Copying or running the donor's runtime."
+reason = "The evidence for the local implementation covers only the donor's completion, attribution and execution rules."
+
+[[sources.reviews]]
+from_commit = "edf1e2f436fa2a5375c98052180a090a57223f9e"
+to_commit = "3008b58824c9acbdc9a2fe2b79f8b3567c3db8ac"
+incorporated = []
+skipped = [
+  "skills/autoreview/SKILL.md and skills/autoreview/scripts/autoreview: Commit 38b67bc tells the reviewer to weigh likelihood, impact and fix complexity and to drop theoretical races or rare recoverable edge cases unless they risk data loss, security or money. Suppressing findings conflicts with the dyl-review idea that concise recommendations never drop a supported issue, and review-code-changes/references/protocol.md:119-143 and :163-172 already require reachability evidence and consequence-based severity.",
+  "skills/autoreview/SKILL.md: New Copilot subagent fallback that treats missing context, truncation or an unfinished assessment as incomplete. Already covered by review-code-changes/references/delegation.md:22-28 and :67-72.",
+  "skills/autoreview/SKILL.md and skills/autoreview/scripts/autoreview: ClawSweeper hosted-review opt-in, preflight summary export, helper source hash, Codex auth and Ultrafast defaults, model retries, the OpenClaw native collector, auth routing and output-path checks. Donor runtime, provider and tooling details excluded by the declined external review runner and the declined copying or running of the donor's runtime.",
+  "skills/autoreview/references/diagnostics-and-results.md: Mostly compressed into bullets, and a dry run no longer deletes an existing status file. Runner-specific; the last-terminal-event semantics are already borrowed at review-code-changes/references/delegation.md:69-70.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff edf1e2f436fa..3008b58824c9 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -130,14 +582,64 @@ author = "ekreloff (adversarial-reviewer); Alireza Rezvani (repository and code-
 repository = "https://github.com/alirezarezvani/claude-skills"
 remote = "git@github.com:alirezarezvani/claude-skills.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "19392f7a08264ed00486a251f5b2098321771f94"
 reviewed_through = "19392f7a08264ed00486a251f5b2098321771f94"
-baseline_paths = ["engineering-team/skills/adversarial-reviewer/SKILL.md", "engineering-team/skills/code-reviewer/SKILL.md", "engineering-team/skills/code-reviewer/rules/universal.md", "LICENSE"]
-paths = ["engineering-team/skills/adversarial-reviewer/SKILL.md", "engineering-team/skills/code-reviewer/SKILL.md", "engineering-team/skills/code-reviewer/rules/universal.md", "LICENSE"]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Challenge expected contracts with reachable failure, duplicate-execution and ordering cases.", "Load applicable language guidance conditionally; mixed-language changes can require multiple guides."]
-local_choices = ["No mandatory findings, theatrical hostility, consensus severity promotion, size quotas, universal test-gap defects, or approval score.", "Sequential personas are perspectives, not independent agents.", "Retain the existing causal protocol and source-aware validator; do not adopt the donor analyzers or report generator."]
-reviews = []
+baseline_paths = [
+  "engineering-team/skills/adversarial-reviewer/SKILL.md",
+  "engineering-team/skills/code-reviewer/SKILL.md",
+  "engineering-team/skills/code-reviewer/rules/universal.md",
+  "LICENSE",
+]
+paths = [
+  "engineering-team/skills/adversarial-reviewer/SKILL.md",
+  "engineering-team/skills/code-reviewer/SKILL.md",
+  "engineering-team/skills/code-reviewer/rules/universal.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Challenge the implementation against its expected contract with failure, duplicate-execution and ordering cases where those inputs are reachable."
+serves = "Finds defects that appear only when an operation fails, runs twice or runs out of order."
+where = ["references/protocol.md#calibrate-and-challenge-findings"]
+shapes = "Adds failure, duplicate-execution and ordering cases to the challenge step that every candidate finding passes before it is kept."
+adapted = "This is one challenge step in the protocol, limited to reachable inputs, not a set of hostile reviewer personas."
+
+[[sources.ideas]]
+idea = "Load language and framework guidance only when the change reaches it. A mixed-language change can need more than one guide."
+serves = "Applies the right domain rules without loading irrelevant ones."
+where = ["references/specialists.md", "references/delegation.md#select-work-from-the-risks"]
+shapes = "The specialist router loads a domain skill only for a matching question, and its closing paragraph allows several guides for a mixed-language change."
+adapted = "Guidance comes from installed specialist skills chosen by the actual language, framework version and project conventions, not from a fixed file per file extension."
+
+[[sources.declined]]
+feature = "Mandatory findings: each persona must report at least one issue."
+reason = "A change may support zero findings; no persona or agent has a finding quota."
+
+[[sources.declined]]
+feature = "Theatrical hostility: hostile reviewer personas that must not hedge."
+reason = "Findings rest on traced evidence, and a missing premise that decides a defect goes to Open questions instead of a confident finding."
+
+[[sources.declined]]
+feature = "Promoting severity when several personas catch the same issue."
+reason = "Severity describes consequence, not agreement."
+
+[[sources.declined]]
+feature = "Size quotas, such as flagging functions over 50 lines or files over 500 lines."
+reason = "Length does not by itself justify a required change."
+
+[[sources.declined]]
+feature = "Treating all new code without tests as a defect."
+reason = "A relevant coverage gap is a finding; a request to add tests for their own sake is not."
+
+[[sources.declined]]
+feature = "An approval score, or a block, concerns or clean verdict."
+reason = "No findings is not an approval or a guarantee that the change is ready to merge."
+
+[[sources.declined]]
+feature = "The donor's PR analyzer, quality checker and report generator scripts."
+reason = "The local causal protocol and the source-aware report validator stay authoritative."
 
 [[sources]]
 id = "dyl-review"
@@ -145,44 +647,173 @@ author = "Dylan Gattey / dyl-stack"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
-baseline_paths = ["dyl-stack/skills/dyl-review/SKILL.md", "dyl-stack/skills/dyl-mode/SKILL.md", "dyl-stack/skills/dyl-mode/references/requirements.md", "dyl-stack/.cursor-plugin/plugin.json", "dyl-stack/LICENSE"]
-paths = ["dyl-stack/skills/dyl-review/SKILL.md", "dyl-stack/skills/dyl-mode/SKILL.md", "dyl-stack/skills/dyl-mode/references/requirements.md", "dyl-stack/.cursor-plugin/plugin.json", "dyl-stack/LICENSE"]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Reconcile a repeat review against the previous snapshot, intervening changes and the reasons for earlier skipped asks.", "Write concise, actionable recommendations grounded in the finding while preserving every supported issue."]
-local_choices = ["Keep the declared comparison, fresh assessment, causal evidence, canonical report and read-only boundary; a since-last-pass delta does not silently narrow the audit.", "Record prior finding outcomes in Review basis, surviving in-scope findings in Findings and decisive unknowns in Open questions; deferral does not establish resolution.", "Retain risk-based focused delegation and caller model constraints rather than mandatory quick/deep rosters, inherited-only models, Cursor plugins or Bugbot.", "No seven-comment cap, forced question phrasing, merge-ready emoji verdict, style persona, plugin installation, worktree lifecycle or remote-write authority.", "The source entrypoint is unchanged from the original atlas snapshot c47b12849e43f18d5c374c7069c744cc55b0ea00. Referenced pstack and Thermos instructions were inspected as context; pre-existing source pins are unchanged."]
-reviews = [
-  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames e43c7ee26e00..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "dyl-stack/skills/dyl-review/SKILL.md",
+  "dyl-stack/skills/dyl-mode/SKILL.md",
+  "dyl-stack/skills/dyl-mode/references/requirements.md",
+  "dyl-stack/.cursor-plugin/plugin.json",
+  "dyl-stack/LICENSE",
+]
+paths = [
+  "dyl-stack/skills/dyl-review/SKILL.md",
+  "dyl-stack/skills/dyl-mode/SKILL.md",
+  "dyl-stack/skills/dyl-mode/references/requirements.md",
+  "dyl-stack/.cursor-plugin/plugin.json",
+  "dyl-stack/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "A repeat review of the same change resolves the previous reviewed snapshot, compares it with the current one, and reconciles earlier findings and the reasons for earlier skipped asks with current evidence."
+serves = "Prevents repeating settled asks and prevents losing earlier findings that still apply."
+where = [
+  "SKILL.md#gather-intent-and-review",
+  "references/delegation.md#assign-a-bounded-investigation",
+  "references/protocol.md#report-grammar",
+]
+shapes = "The last paragraph of Gather intent and review defines the repeat-review flow; delegation gives prior findings to workers only during reconciliation; Review basis records prior dispositions."
+adapted = "The declared scope, the fresh assessment, causal evidence, the canonical report and the read-only boundary stay: the since-last-pass delta is context and does not narrow the audit, and reconciliation happens after the fresh assessment. Prior finding outcomes go in Review basis, surviving in-scope findings in Findings and deciding unknowns in Open questions. Deferring a supported defect does not resolve it."
+
+[[sources.ideas]]
+idea = "Each recommendation is one concise, actionable request or decision grounded in its finding, and compression never drops a supported issue."
+serves = "Makes findings easy to act on without losing any of them."
+where = ["references/protocol.md#calibrate-and-challenge-findings"]
+shapes = "Fixes the recommendation form at the end of the challenge section: one concise request or decision per finding that names the behavior to preserve."
+adapted = "Compression keeps the substantiation and sets no numeric limit on findings, and required remedies stay distinguishable from optional suggestions when a recommendation line is copied alone."
+
+[[sources.declined]]
+feature = "Fixed quick and deep worker rosters, with Thermos subagents and Bugbot added at deep depth."
+reason = "Focused delegation follows the change's actual risks."
+
+[[sources.declined]]
+feature = "Requiring every worker to inherit the parent's model."
+reason = "The caller's model, effort, budget and agent constraints decide."
+
+[[sources.declined]]
+feature = "Required Cursor plugins and Bugbot, with plugin installation checks."
+reason = "The skill uses the host's own delegation and the installed local skills."
+
+[[sources.declined]]
+feature = "A cap of seven comments per review."
+reason = "Every supported finding is kept; repetition is compressed without a numeric limit."
+
+[[sources.declined]]
+feature = "Forced question-led phrasing and a personal style persona."
+reason = "Each recommendation is one concise request or decision that names the behavior to preserve."
+
+[[sources.declined]]
+feature = "A green, yellow or red merge-readiness verdict."
+reason = "No findings is not an approval or a guarantee that the change is ready to merge."
+
+[[sources.declined]]
+feature = "Creating and removing a worktree to check out the PR head."
+reason = "Worktree lifecycle is outside this read-only review."
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames e43c7ee26e00..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[local_snapshots]]
 id = "review-audit-SKILL.md"
+kind = "installed-file"
+role = "ideas"
 path = "~/.agents/skills/review-audit/SKILL.md"
 sha256 = "7567bbe256a3965ee552f49aeb2733196a1655f44a6388c2794673b23741b580"
 local_repository_commit = "c6b9f857b81cdbb16ad68001f1d8331e8217f401"
 repository_commit_status = "Installed working snapshot; scripts/report.py has uncommitted changes and this hash, not HEAD, identifies the source."
-borrowed = ["Diff causality, trace legs, population census, boundaries, coverage and canonical report mechanics."]
 update_policy = "Compare installed content by hash; no remote update feed is inferred."
+
+[[local_snapshots.ideas]]
+idea = "Fix one reproducible scope before reviewing. A caller-supplied scope is honored exactly; otherwise one scope is resolved from the request (current changes, a commit, a branch's merge-base, or a supplied diff), so that one reproducible diff command names every path under review."
+serves = "Makes the review repeatable and defines the set of paths the report must cover."
+where = ["SKILL.md#establish-a-reproducible-scope"]
+shapes = "The scope section resolves the comparison for each kind of change and records it before any review work starts."
+adapted = "The local skill resolves the actual target base from the caller or PR metadata, resolves refs to commit IDs, saves a JSON changed-path inventory and captures Git state to detect concurrent edits."
+
+[[local_snapshots.ideas]]
+idea = "The review is complete only when every changed path appears in Coverage and every finding carries the trace the protocol requires."
+serves = "Prevents a report that silently skips paths or keeps findings without their evidence."
+where = ["SKILL.md#deliver-the-report"]
+shapes = "The finish rule closes the skill: each changed path is accounted for and each retained finding has its required evidence, and no findings is a limited result, not an approval."
+
+[[local_snapshots.ideas]]
+idea = "Markdown is the canonical report. The bundled script validates it before delivery, and a validation failure means the review is incomplete. A caller handoff returns one line with the finding count and the report path; a standalone review also renders HTML as derived output, and revisions start from the Markdown."
+serves = "Gives every review one checkable artifact and a predictable return to the caller."
+where = ["SKILL.md#deliver-the-report"]
+shapes = "The delivery section writes, validates and, for a standalone review, renders the report, and returns the paths in a fixed order."
+adapted = "The local validation also checks Coverage against the saved changed-path inventory."
 
 [[local_snapshots]]
 id = "review-audit-references-protocol.md"
+kind = "installed-file"
+role = "ideas"
 path = "~/.agents/skills/review-audit/references/protocol.md"
 sha256 = "6eba8b3b12585c29dc6dbdefe2aa391c44f11afda53d86172b006d45c0805e09"
 local_repository_commit = "c6b9f857b81cdbb16ad68001f1d8331e8217f401"
 repository_commit_status = "Installed working snapshot; scripts/report.py has uncommitted changes and this hash, not HEAD, identifies the source."
-borrowed = ["Diff causality, trace legs, population census, boundaries, coverage and canonical report mechanics."]
 update_policy = "Compare installed content by hash; no remote update feed is inferred."
-local_choices = ["2026-10-13, at the user's direction: a failure that only a particular caller, host, mode or configuration triggers needs evidence that something runs that way; admission by a route, flag or authorization rule is not use, a published contract or a reachable security exposure is evidence without observed traffic, and the existence of that caller decides existence rather than severity. The writer leg includes the sending caller, and an author's description of behavior is cited as code, not as a requirement. A PR review had published a required finding for an internal host on a route with no evidenced caller."]
+
+[[local_snapshots.ideas]]
+idea = "Keep a defect only when the declared change causes or newly exposes it, and name the changed line or contract that starts the failure, even when the observable failure happens in unchanged code. Unrelated pre-existing defects are excluded."
+serves = "Ties every finding to the reviewed change."
+where = ["references/protocol.md#diff-causality", "references/protocol.md#report-grammar"]
+shapes = "Diff causality is the first lens, and every finding carries a Diff cause line."
+
+[[local_snapshots.ideas]]
+idea = "Trace a behavioral claim through each leg that exists for it: the writer that can give the value, the producer that carries it, the consumer where the failure occurs, the schema that constrains it, the final send after later mutations, and the counterpart of a generated, external or cross-module contract."
+serves = "Prevents findings built on an incomplete or imagined path."
+where = ["references/protocol.md#trace-candidates"]
+shapes = "The trace section lists the legs and makes the remaining chain explicit; evidence entries in the report use these leg names as roles."
+
+[[local_snapshots.ideas]]
+idea = "A claim about every writer, caller or handler needs a census that starts from the mutation, call or contract that defines the population, and records its size and the affected members. Feature vocabulary is not a complete inventory. When code chooses one record from several, a case where the candidate values differ is traced."
+serves = "Prevents claims about a whole population from resting on a sample."
+where = ["references/protocol.md#trace-candidates"]
+shapes = "The census paragraph defines how a population is counted, and the later caller-evidence rule builds on it."
+
+[[local_snapshots.ideas]]
+idea = "Follow accessible in-scope counterparts. At a caller-owned or unreadable seam, record the exact premise and the missing path, repository, revision, permission or check. A premise that decides whether an issue exists stays an open question; a premise that only qualifies the extent of a supported finding stays inside that finding."
+serves = "Keeps unknowns visible without guessing across unreadable boundaries, and without suppressing findings the accessible evidence already supports."
+where = [
+  "references/protocol.md#trace-candidates",
+  "references/protocol.md#report-grammar",
+  "SKILL.md#gather-intent-and-review",
+]
+shapes = "The last paragraph of the trace section defines seam handling, and the report grammar gives Open questions a fixed form with the evidence each one needs."
+
+[[local_snapshots.ideas]]
+idea = "The report is one Markdown document with fixed sections in a fixed order. Each finding is indexed by a heading with its ID, severity, changed-line anchor and title, and its self-contained body holds the affected population, the diff cause, the impact, leg-tagged evidence and any unresolved premise. Open questions state the evidence each one needs, and Coverage has one entry per changed path."
+serves = "Makes every review complete, comparable and machine-checkable."
+where = ["references/protocol.md#report-grammar"]
+shapes = "The report grammar section defines the sections, the finding form, the evidence entries, Open questions and Coverage."
+adapted = "The local grammar adds Review basis and Checks sections, Class and Action fields, requirement, standard, code and probe evidence roles, and partial or unreadable Coverage states."
 
 [[local_snapshots]]
 id = "review-audit-scripts-report.py"
+kind = "installed-file"
+role = "ideas"
 path = "~/.agents/skills/review-audit/scripts/report.py"
 sha256 = "08258a3ed9c6f586a688567ef78dba9768c4182438853a54cf7a3085a294ef82"
 local_repository_commit = "c6b9f857b81cdbb16ad68001f1d8331e8217f401"
 repository_commit_status = "Installed working snapshot; scripts/report.py has uncommitted changes and this hash, not HEAD, identifies the source."
-borrowed = ["Diff causality, trace legs, population census, boundaries, coverage and canonical report mechanics."]
 update_policy = "Compare installed content by hash; no remote update feed is inferred."
+
+[[local_snapshots.ideas]]
+idea = "A bundled script validates the canonical report's structure (the sections in order, a single Scope line, finding headings, required fields in order, evidence lines, question headings and one Coverage entry per path without duplicates) and renders a validated report to HTML."
+serves = "Catches format and coverage errors before a report is delivered."
+where = ["scripts/report.py", "SKILL.md#deliver-the-report"]
+shapes = "The delivery step runs the script's validate command, repairs errors before returning, and runs its render command for a standalone review."
+adapted = "The local script also checks Coverage against the saved changed-path inventory and validates the added Review basis and Checks sections."
 
 [[dependencies]]
 kind = "local"

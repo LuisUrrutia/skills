@@ -1,7 +1,28 @@
-format_version = 1
+format_version = 2
 skill = "communicate-clearly"
 created = "2026-10-04"
-approach = "Derive portable prose instructions; no upstream runtime, scripts or network dependency."
+approach = "derive"
+goal = "Help a reader understand, decide or act through prose in any language: answers, explanations, drafts, rewrites and reviews. Success is text that the intended reader follows on the first read, with its meaning, the author's voice and protected material intact and without generic or mechanical patterns."
+
+[[invariants]]
+rule = "The guidance applies by default to prose in any language."
+reason = "The user explicitly chose default communication guidance in any language."
+where = ["SKILL.md#communicate-clearly"]
+
+[[invariants]]
+rule = "Writing controls expression only. Drafting or adapting text to a channel does not authorize posting, sending or publication; those happen only when the active request covers them."
+where = [
+  "SKILL.md#establish-the-task",
+  "SKILL.md#check-and-deliver",
+  "references/explanations-and-channels.md#match-the-destination",
+]
+
+[[invariants]]
+rule = "Neighboring owners keep their work: the write-documentation skill owns documentation structure and evidence, the explain-code and explain-decisions skills own code-mechanism and rationale investigation, the commit and pr skills own their artifacts, and the agent-instructions skill owns agent instructions. This skill continues to govern the prose."
+where = ["SKILL.md#check-and-deliver"]
+
+[[invariants]]
+rule = "The skill is portable prose instructions with no upstream runtime, script or network dependency."
 
 [[sources]]
 id = "blader"
@@ -9,15 +30,85 @@ author = "Siqi Chen"
 repository = "https://github.com/blader/humanizer"
 remote = "git@github.com:blader/humanizer.git"
 ref = "refs/heads/main"
+license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5"
 reviewed_through = "225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8"
 baseline_paths = ["SKILL.md", "LICENSE"]
 paths = ["SKILL.md", "LICENSE"]
-borrowed = ["Inherited writing-pattern catalog, voice calibration, false-positive safeguards and draft/read/fidelity checks from the existing local humanize package."]
-local_choices = ["Preserve the established local fidelity contract and conditional catalog; do not infer authorship or guarantee detector evasion.", "Retain the previously approved source pin; no claim of a current upstream update."]
-license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
-reviews = [
-  { from_commit = "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5", to_commit = "225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8", incorporated = ["Adapted from SKILL.md pattern 25: REFERENCE.md section 8 flags text that describes how it was made (generated from, compiled from, flagged rather than guessed), keeps followable source credits and caveats that change what the reader does, and treats one instance as weak evidence; the layout announcement 'the table below compares' joins section 16's meta-announcements.", "Adapted from SKILL.md pattern 1: REFERENCE.md section 4 flags a contrast split across sentences ('This does not mean X. It means Y.') and keeps a contrast when its negative half corrects a belief the reader holds or both halves carry information; upstream's 'only when' became a false-positive guard.", "Adapted from SKILL.md step 3: the final check in communicate-clearly/SKILL.md rescans the diagnosed patterns and the tells rewrites most often introduce or leave behind (contrasts, closers, triads, dashes, bold labels); the REFERENCE.md route map now defers to SKILL.md for the rescan."], skipped = ["SKILL.md: Ranks patterns by strength so that patterns 1 to 5 justify an edit on one sighting and the others are weak alone. Conflicts with the local density rule at communicate-clearly/REFERENCE.md:17 and communicate-clearly/SKILL.md:78-79 and with the conditional-catalog local choice.", "SKILL.md: Pattern 20 adds decorative headings, rules between every section, a top heading that repeats the title and arrows. Low value because many Markdown documents use rules on purpose, so local section 6 at communicate-clearly/REFERENCE.md:105 stays unchanged.", "SKILL.md: One-line closers, example morals and recycled closers are regrouped. Already covered at communicate-clearly/REFERENCE.md:90, :187, :204 and :281.", "SKILL.md: New pattern 26 flags replies that re-explain context the reader already has. Already covered by comment-style/SKILL.md:38-49 and communicate-clearly/references/explanations-and-channels.md:9.", "SKILL.md: Commit c8e1872 preserves ranking and simultaneity claims during rewrites. Already covered at communicate-clearly/FIDELITY.md:24, :26 and :87.", "SKILL.md: Commit 07884e5 treats a lost claim as an error unless a pattern requires the cut. Conflicts with the local fidelity rule at communicate-clearly/FIDELITY.md:7.", "SKILL.md: Adds a hard ban on dashes, including the spaced double hyphen. Conflicts with communicate-clearly/SKILL.md:78-79 and communicate-clearly/REFERENCE.md:111.", "SKILL.md: Adds flagged words such as quietly, gating, key and Actually. Word-list churn that upstream says changes with each model release; local judgment uses clusters (communicate-clearly/REFERENCE.md:26) and communicate-clearly/origin.txt:32 rules out a word blacklist.", "SKILL.md: Return modes, the voice-sample override, inline-code protection, the detector non-goal and treating input text as material. Already covered at communicate-clearly/SKILL.md:16-17, :29, :32-35 and :94.", "SKILL.md: The rest of the 2.11.2 to 3.1.0 rewrite reorders patterns, aligns them with the current Wikipedia article and moves history to CHANGELOG.md. Reordering and wording with no new behavior; patterns that already existed at the reviewed baseline were earlier local decisions and are not re-raised."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e2e92e7b4b82..225a6f39ac85 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "Prose that feels generated is diagnosed against a catalog of pattern families, such as lexical tells, significance padding, formulaic syntax, outline artifacts, punctuation tells and chatbot residue. Each family states why the pattern is suspicious, its false positives, and a concrete repair that replaces the pattern with the actual claim, actor or evidence."
+serves = "Removes generic, mechanical writing with repairs that add clarity instead of swapping words."
+where = ["REFERENCE.md", "SKILL.md#make-it-natural-in-the-target-language"]
+shapes = "The catalog is a separate reference with a route map: a writing-pattern review reads all of it, while drafting or targeted repair loads only the families that match."
+adapted = "The catalog is loaded conditionally and judged by clusters and density; a single word, dash or tidy sentence is not a defect."
+
+[[sources.ideas]]
+idea = "Supplied voice samples set rhythm, vocabulary and register without mechanical imitation, and personality, warmth, humor and deliberate style stay where they fit the writer and the genre."
+serves = "Keeps the author's voice while generic phrasing goes."
+where = [
+  "SKILL.md#establish-the-task",
+  "SKILL.md#make-it-natural-in-the-target-language",
+  "references/explanations-and-channels.md#match-the-destination",
+]
+shapes = "Task setup reads voice samples before writing, and the channel guidance forbids flattening personal writing into corporate prose."
+adapted = "The voice never supplies invented experiences, opinions or facts, whereas the donor lets a rewrite add an opinion when the writer's voice calls for one."
+
+[[sources.ideas]]
+idea = "Before a pattern is flagged, check whether it appears alone, follows house style or a genre convention, sits in quoted or discussed text, or carries concrete detail or the writer's real voice; if so, soften the finding to a targeted edit. These guardrails protect human choices and do not license adding tells during a rewrite."
+serves = "Prevents rewriting legitimate human prose because it resembles a pattern."
+where = [
+  "REFERENCE.md#detection-principles",
+  "REFERENCE.md#19-false-positive-guardrails",
+  "REFERENCE.md#review-rubric",
+]
+shapes = "Each family carries its own false positives, and the catalog ends with the guardrail checklist and a rubric that weighs counterevidence."
+adapted = "A concern level describes the prose, never its authorship, and the skill promises no detector evasion."
+
+[[sources.ideas]]
+idea = "After drafting, the result is read as the intended reader without the source in view. A rewrite then gets a claim-by-claim fidelity pass that confirms each unique claim keeps its certainty, scope, polarity, conditions, causality, attribution and support. A rescan covers the diagnosed patterns and the tells that rewrites most often add, and both checks repeat after a substantive repair."
+serves = "Catches meaning drift and newly introduced tells before the text is returned."
+where = [
+  "SKILL.md#check-and-deliver",
+  "FIDELITY.md#meaning-contract",
+  "FIDELITY.md#claim-by-claim-fidelity-pass",
+]
+shapes = "The final section orders the reader pass, the fidelity pass and the rescan, and FIDELITY.md holds the meaning contract and the ordered steps of the pass."
+adapted = "Rewriting is recomposition: every unique substantive claim stays unless the user authorizes cuts, and an unsupported promotional wrapper may be replaced when the author's material point, stance and support survive."
+
+[[sources.declined]]
+feature = "Judging whether a person or a model wrote the text, for example from the date of an edit."
+reason = "Prose alone cannot establish authorship; findings describe the writing, and the skill promises no detector evasion."
+
+[[sources.declined]]
+feature = "Removing every em and en dash from the final rewrite unless a writer's sample uses them."
+reason = "A single dash is not a defect; the catalog judges punctuation in clusters and keeps deliberate style."
+
+[[sources.reviews]]
+from_commit = "e2e92e7b4b8229253ed5c8e81dc65463fdeddda5"
+to_commit = "225a6f39ac85f76ee48dbad772ea4abe4ed6c9d8"
+incorporated = [
+  "Adapted from SKILL.md pattern 25: REFERENCE.md section 8 flags text that describes how it was made (generated from, compiled from, flagged rather than guessed), keeps followable source credits and caveats that change what the reader does, and treats one instance as weak evidence; the layout announcement 'the table below compares' joins section 16's meta-announcements.",
+  "Adapted from SKILL.md pattern 1: REFERENCE.md section 4 flags a contrast split across sentences ('This does not mean X. It means Y.') and keeps a contrast when its negative half corrects a belief the reader holds or both halves carry information; upstream's 'only when' became a false-positive guard.",
+  "Adapted from SKILL.md step 3: the final check in communicate-clearly/SKILL.md rescans the diagnosed patterns and the tells rewrites most often introduce or leave behind (contrasts, closers, triads, dashes, bold labels); the REFERENCE.md route map now defers to SKILL.md for the rescan.",
+]
+skipped = [
+  "SKILL.md: Ranks patterns by strength so that patterns 1 to 5 justify an edit on one sighting and the others are weak alone. Conflicts with the local density rule at communicate-clearly/REFERENCE.md:17 and communicate-clearly/SKILL.md:78-79 and with the conditional-catalog local choice.",
+  "SKILL.md: Pattern 20 adds decorative headings, rules between every section, a top heading that repeats the title and arrows. Low value because many Markdown documents use rules on purpose, so local section 6 at communicate-clearly/REFERENCE.md:105 stays unchanged.",
+  "SKILL.md: One-line closers, example morals and recycled closers are regrouped. Already covered at communicate-clearly/REFERENCE.md:90, :187, :204 and :281.",
+  "SKILL.md: New pattern 26 flags replies that re-explain context the reader already has. Already covered by comment-style/SKILL.md:38-49 and communicate-clearly/references/explanations-and-channels.md:9.",
+  "SKILL.md: Commit c8e1872 preserves ranking and simultaneity claims during rewrites. Already covered at communicate-clearly/FIDELITY.md:24, :26 and :87.",
+  "SKILL.md: Commit 07884e5 treats a lost claim as an error unless a pattern requires the cut. Conflicts with the local fidelity rule at communicate-clearly/FIDELITY.md:7.",
+  "SKILL.md: Adds a hard ban on dashes, including the spaced double hyphen. Conflicts with communicate-clearly/SKILL.md:78-79 and communicate-clearly/REFERENCE.md:111.",
+  "SKILL.md: Adds flagged words such as quietly, gating, key and Actually. Word-list churn that upstream says changes with each model release; local judgment uses clusters (communicate-clearly/REFERENCE.md:26) and the declined fixed blacklist of AI words rules it out.",
+  "SKILL.md: Return modes, the voice-sample override, inline-code protection, the detector non-goal and treating input text as material. Already covered at communicate-clearly/SKILL.md:16-17, :29, :32-35 and :94.",
+  "SKILL.md: The rest of the 2.11.2 to 3.1.0 rewrite reorders patterns, aligns them with the current Wikipedia article and moves history to CHANGELOG.md. Reordering and wording with no new behavior; patterns that already existed at the reviewed baseline were earlier local decisions and are not re-raised.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e2e92e7b4b82..225a6f39ac85 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -26,15 +117,84 @@ author = "Lauren Tan / pstack"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
-baseline_paths = ["pstack/skills/technical-writing/SKILL.md", "pstack/skills/teach/SKILL.md", "pstack/skills/unslop/SKILL.md", "pstack/LICENSE"]
-paths = ["pstack/skills/technical-writing/SKILL.md", "pstack/skills/teach/SKILL.md", "pstack/skills/unslop/SKILL.md", "pstack/LICENSE"]
-borrowed = ["Stable terminology, clear relationships, reader prerequisites, conditions before actions, and a final naturalness pass."]
-local_choices = ["Adapt English-specific grammar and punctuation to the target language; no sentence caps, word blacklist or STE compliance claim.", "No mandatory teaching, image generation, or unslop invocation. Existing local prose and investigation owners remain responsible."]
-license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
-reviews = [
-  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/unslop/SKILL.md: Commit bc697d0 drops Must always apply from the description and commit 00b14f1 shortens the wording. This matches the local choice of no mandatory unslop invocation and adds no rule.", "pstack/skills/technical-writing/SKILL.md: Commit 00b14f1 shortens the wording to cut tokens. No new rule."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "pstack/skills/technical-writing/SKILL.md",
+  "pstack/skills/teach/SKILL.md",
+  "pstack/skills/unslop/SKILL.md",
+  "pstack/LICENSE",
+]
+paths = [
+  "pstack/skills/technical-writing/SKILL.md",
+  "pstack/skills/teach/SKILL.md",
+  "pstack/skills/unslop/SKILL.md",
+  "pstack/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Each concept keeps one stable term with clear referents, instead of cycling synonyms to avoid repetition."
+serves = "Prevents the reader from taking one thing for several."
+where = [
+  "SKILL.md#build-the-readers-route",
+  "references/explanations-and-channels.md#make-the-explanation-usable",
+]
+shapes = "The recomposition paragraph requires one term per concept and clear referents, and the explanation guidance puts stable naming above variety."
+
+[[sources.ideas]]
+idea = "The syntax shows how ideas relate, such as cause, condition, contrast or sequence, and punctuation expresses that relationship instead of serving as an all-purpose connector."
+serves = "Lets the reader follow the logic without reconstructing missing links."
+where = ["SKILL.md#build-the-readers-route", "SKILL.md#make-it-natural-in-the-target-language"]
+shapes = "Recomposition moves support beside its claim and states relationships in the syntax, and the language section stops using a colon or dash as an all-purpose connector."
+
+[[sources.ideas]]
+idea = "Writing starts from what the reader already knows and supplies the missing prerequisite. Expert terminology stays where it makes an expert's task easier, and a precise term is explained rather than replaced with a different concept."
+serves = "Gives each reader the gap they lack without losing precision."
+where = [
+  "SKILL.md#build-the-readers-route",
+  "references/explanations-and-channels.md#make-the-explanation-usable",
+]
+shapes = "The route section introduces unfamiliar concepts before relying on them, and the explanation guidance starts from the reader's existing knowledge."
+
+[[sources.ideas]]
+idea = "Conditions come before the actions they govern, and the actor is clear: active voice when the actor matters, passive voice when the actor is unknown or the object deserves the focus."
+serves = "Makes instructions safe to follow in reading order."
+where = ["SKILL.md#make-it-natural-in-the-target-language", "SKILL.md#build-the-readers-route"]
+shapes = "The language section names stable terminology, clear actors and conditions before actions as the ASD-STE100 principles to transfer, and the route section sets the rule for active and passive voice."
+adapted = "Only the principles transfer, adapted to each language's grammar and punctuation; the controlled dictionary, tense rules and word limits are not imposed, and no STE compliance is claimed."
+
+[[sources.ideas]]
+idea = "Before delivery, the text is read once more as the intended reader for naturalness: the reader must follow the thought without reconstructing missing links or rereading to decode it."
+serves = "Prevents text that obeys every rule and still reads as machine-written."
+where = ["SKILL.md#check-and-deliver"]
+shapes = "The check section opens with this reader pass, before the evidence and fidelity checks."
+
+[[sources.declined]]
+feature = "Sentence-length caps of about 20 or 25 words, and a fixed blacklist of AI words to replace."
+reason = "The catalog judges clusters rather than single words, and shorter is better only while the reader can still understand the point and act correctly."
+
+[[sources.declined]]
+feature = "Applying STE's controlled rules, and English punctuation rules such as avoiding em dashes entirely, in every language."
+reason = "Only clarity principles transfer; grammar and punctuation adapt to the target language, and the skill claims no STE compliance."
+
+[[sources.declined]]
+feature = "Mandatory teaching workflows, generated images, and applying the unslop skill to every text."
+reason = "Everyday clarity does not become a lesson plan, visuals appear only when requested or materially helpful with supported tools, and this skill governs its own prose."
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/unslop/SKILL.md: Commit bc697d0 drops Must always apply from the description and commit 00b14f1 shortens the wording. This matches the local choice of no mandatory unslop invocation and adds no rule.",
+  "pstack/skills/technical-writing/SKILL.md: Commit 00b14f1 shortens the wording to cut tokens. No new rule.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -43,15 +203,84 @@ author = "Matthew Blode"
 repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
+license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
 reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
-baseline_paths = ["skills/eli5/SKILL.md", "skills/eli5/references/formats.md", "skills/ghostwriter/SKILL.md", "skills/ghostwriter/references/surfaces.md", "skills/ghostwriter/references/tells.md", "LICENSE.md"]
-paths = ["skills/eli5/SKILL.md", "skills/eli5/references/formats.md", "skills/ghostwriter/SKILL.md", "skills/ghostwriter/references/surfaces.md", "skills/ghostwriter/references/tells.md", "LICENSE.md"]
-borrowed = ["Audience and channel adaptation, exact protected tokens, non-condescending explanations, reframing failed explanations, and useful examples with limits."]
-local_choices = ["User explicitly chose default communication guidance in any language.", "No mandatory author profiles, persistent style storage, paid APIs, fixed output lengths or video toolchain.", "Posting and sending follow the active request; clarity does not authorize external effects."]
-license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
-reviews = [
-  { from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/eli5/SKILL.md",
+  "skills/eli5/references/formats.md",
+  "skills/ghostwriter/SKILL.md",
+  "skills/ghostwriter/references/surfaces.md",
+  "skills/ghostwriter/references/tells.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/eli5/SKILL.md",
+  "skills/eli5/references/formats.md",
+  "skills/ghostwriter/SKILL.md",
+  "skills/ghostwriter/references/surfaces.md",
+  "skills/ghostwriter/references/tells.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "The reader, purpose, language, channel and expected detail are inferred first, and the content is adapted to its destination: a conversation answers directly, team chat makes the needed response easy to find with the context recipients lack, email states its purpose early, a status note separates completed work from uncertainty, and personal writing keeps its voice."
+serves = "Delivers the same substance in the form each audience and channel needs."
+where = [
+  "SKILL.md#establish-the-task",
+  "references/explanations-and-channels.md#match-the-destination",
+]
+shapes = "Task setup infers the audience and channel first, and the reference gives one entry per destination."
+adapted = "No universal one-line limit applies to chat, and private source details are checked against the destination's audience before broader distribution."
+
+[[sources.ideas]]
+idea = "Protected material stays exact: quotations, titles, proper names, identifiers, paths, commands, numbers, units, citations, placeholders and language-specific quotation forms. The explanation is written around it."
+serves = "Prevents a clearer sentence from breaking a command, a name or a quotation."
+where = ["SKILL.md#establish-the-task", "SKILL.md#make-it-natural-in-the-target-language"]
+shapes = "Task setup lists the protected material, and the punctuation rule keeps protected text and native quotation marks exact."
+
+[[sources.ideas]]
+idea = "An explanation does not condescend: a request for plain language does not imply low intelligence, and technical detail that an expert needs stays."
+serves = "Keeps plain explanations respectful and complete."
+where = [
+  "references/explanations-and-channels.md#make-the-explanation-usable",
+  "SKILL.md#make-it-natural-in-the-target-language",
+]
+shapes = "The explanation guidance states this limit right after starting from what the reader knows, and the language section lists condescension among the habits to avoid."
+
+[[sources.ideas]]
+idea = "When an explanation fails, the route changes rather than the volume: a smaller case, an intermediate step or a named missing prerequisite, with a focused question when the point of confusion cannot be inferred."
+serves = "Resolves the actual gap instead of repeating the same jargon with more words."
+where = ["references/explanations-and-channels.md#make-the-explanation-usable"]
+shapes = "A dedicated paragraph of the explanation guidance handles the failed explanation."
+
+[[sources.ideas]]
+idea = "Examples and analogies clarify only the relevant relationship. A material limit is explained before the reader could use the analogy to decide wrongly, and an invented example is labeled as illustrative and never becomes evidence, a product capability or the author's history."
+serves = "Prevents an illustration from being read as fact."
+where = [
+  "references/explanations-and-channels.md#make-the-explanation-usable",
+  "SKILL.md#build-the-readers-route",
+]
+shapes = "The explanation guidance sets when an analogy helps and how examples are labeled, and the route section forbids turning illustrations into evidence."
+
+[[sources.declined]]
+feature = "Mandatory author voice profiles and persistent storage of style preferences."
+reason = "Supplied voice samples guide a single task; the skill requires no profile and stores none without a request."
+
+[[sources.declined]]
+feature = "Paid voice APIs, a video toolchain, and fixed output lengths such as a one-to-three-minute explainer."
+reason = "Visuals are used when requested or materially helpful with tools the environment supports, and length follows what the reader needs."
+
+[[sources.reviews]]
+from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -60,16 +289,67 @@ author = "Matt Pocock"
 repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
+license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
 reviewed_through = "49dd158d1076134a641b33efb035946536778336"
-baseline_paths = ["skills/in-progress/writing-shape/SKILL.md", "skills/in-progress/writing-beats/SKILL.md", "skills/productivity/wait-what/SKILL.md", "LICENSE"]
-paths = ["skills/in-progress/writing-shape/SKILL.md", "skills/in-progress/writing-beats/SKILL.md", "skills/productivity/wait-what/SKILL.md", "LICENSE"]
-borrowed = ["Ground concepts before later material relies on them; shape a coherent reader journey from evidence."]
-local_choices = ["No paragraph-by-paragraph approval, forced interview, persistent course or automatic article files."]
-license = "Original notice retained in THIRD-PARTY-NOTICES.txt"
-reviews = [
-  { from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60", to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
-  { from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", to_commit = "49dd158d1076134a641b33efb035946536778336", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 24fe0ef7737e..49dd158d1076 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/in-progress/writing-shape/SKILL.md",
+  "skills/in-progress/writing-beats/SKILL.md",
+  "skills/productivity/wait-what/SKILL.md",
+  "LICENSE",
+]
+paths = [
+  "skills/in-progress/writing-shape/SKILL.md",
+  "skills/in-progress/writing-beats/SKILL.md",
+  "skills/productivity/wait-what/SKILL.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "A concept is grounded before later material relies on it: the reader either brings it or meets it earlier in the text, and a term arrives together with its idea, defined close to its first use."
+serves = "Prevents passages that lean on an idea the reader does not have yet."
+where = [
+  "SKILL.md#build-the-readers-route",
+  "references/explanations-and-channels.md#make-the-explanation-usable",
+]
+shapes = "The route section introduces unfamiliar concepts before relying on them, and the explanation guidance defines terms close to their first use."
+
+[[sources.ideas]]
+idea = "The text is recomposed around a throughline that orders points as the reader needs them, built from the supplied material, and each part takes the form that fits its information: prose for a relationship, a list for parallel items or steps, a table for a comparison, a diagram for a flow."
+serves = "Gives the reader one coherent route instead of a sequence of separately polished sentences."
+where = [
+  "SKILL.md#build-the-readers-route",
+  "references/explanations-and-channels.md#make-the-explanation-usable",
+]
+shapes = "The route section recomposes around the throughline instead of polishing sentences in place, and the explanation guidance matches each form to its information."
+
+[[sources.declined]]
+feature = "Settling prerequisites with the user first, offering candidate openings or beats for the user to pick, approving the piece paragraph by paragraph, and writing each block to an article file as it lands."
+reason = "The skill composes the requested content directly. It asks only when a missing choice would materially change the result, writes no article file on its own, and does not turn clarity into a persistent course."
+
+[[sources.reviews]]
+from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+to_commit = "49dd158d1076134a641b33efb035946536778336"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 24fe0ef7737e..49dd158d1076 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[reference_documents]]

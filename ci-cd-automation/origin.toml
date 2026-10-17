@@ -1,7 +1,28 @@
-format_version = 1
+format_version = 2
 skill = "ci-cd-automation"
 created = "2026-10-04"
-approach = "Derive: selected pipeline, delivery, efficiency and state-management decisions require changes throughout the donors; keep provider implementation in specialist skills."
+approach = "derive"
+goal = "Design, review or improve a project's CI/CD so that each stage has a stated purpose and evidence, and a candidate advances only on evidence bound to its exact identity. Success is a stage graph with concise stage contracts, deployments with defined acceptance signals and recovery, and speed or cost changes that keep required coverage, reported with the observed checks and the remaining gaps."
+
+[[invariants]]
+rule = "Provider syntax and configuration stay with the platform specialist, the github-actions skill for GitHub Actions; this skill keeps no provider rules. Without a specialist, authorized implementation uses current primary provider documentation and reports that gap."
+where = [
+  "SKILL.md#cicd-automation",
+  "SKILL.md#implement-and-verify-the-contract",
+  "references/upstream-updates.md",
+]
+
+[[invariants]]
+rule = "The verify skill owns execution evidence, the verification-authoring skill owns project verification recipes, and the pr-followup skill owns an existing PR's failing checks and feedback. This skill defines the stage contract they serve."
+where = ["SKILL.md#implement-and-verify-the-contract", "references/upstream-updates.md"]
+
+[[invariants]]
+rule = "Designing automation grants no additional authority to publish, deploy or change protection settings, and existing authorization governs deployment and recovery. A design or review request produces recommendations; a setup request includes implementation within the user's existing authorization."
+where = ["SKILL.md#cicd-automation", "SKILL.md#implement-and-verify-the-contract"]
+
+[[invariants]]
+rule = "The project's established approval policy, availability requirements and cost limits are preserved, and the skill asks only about an unresolved choice that materially changes the design. It does not invent environments, coverage quotas or manual approvals for a project."
+where = ["SKILL.md#establish-the-delivery-contract"]
 
 [[sources]]
 id = "addy-ci-cd-gates"
@@ -9,15 +30,59 @@ author = "Addy Osmani"
 repository = "https://github.com/addyosmani/agent-skills"
 remote = "git@github.com:addyosmani/agent-skills.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
 reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
 baseline_paths = ["skills/ci-cd-and-automation/SKILL.md", "LICENSE"]
 paths = ["skills/ci-cd-and-automation/SKILL.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Place automated checks before the decisions they protect and make failures actionable.", "Separate deployment from feature exposure; keep delivery feedback short."]
-local_choices = ["Choose applicable checks from the product contract instead of a universal JavaScript gate list, fixed environment chain, time target, review count or merge policy.", "Keep GitHub YAML, dependency bots, PR repair and credentials mechanics with their existing owners.", "Replace the claim that every deployment is reversible with explicit data and external-effect recovery."]
-reviews = [
-  { from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026", to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 1401c8b8030e..aeac41d4d005 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "Each automated check is chosen for a concrete failure mode and runs before the decision it protects. A required failure blocks that decision, and a failure reaches someone who can act on it."
+serves = "Stops a candidate from advancing past a check that failed or never ran, without running checks that protect nothing."
+where = ["SKILL.md#choose-stages-by-their-purpose"]
+shapes = "Organizes the stages as a table that pairs each phase's selected checks with the evidence that permits progress, and sends periodic failures to a responsible owner instead of a gate."
+adapted = "The check set comes from the product contract and its failure modes, not from a fixed gate list."
+
+[[sources.ideas]]
+idea = "Deployment and exposure are separate. A feature flag can ship code without enabling it, but turning the flag off does not reverse the writes, messages or payments that the exposed code caused. A temporary flag has an owner and a removal condition."
+serves = "Lets risky code reach production unexposed without treating a flag as a full recovery path."
+where = ["references/delivery-boundaries.md#specify-advancement-and-recovery"]
+shapes = "Limits the flag guidance: flags separate deployment from exposure but do not count as recovery of writes or external effects, and each temporary flag gets an owner and a removal condition."
+adapted = "The donor presents turning a flag off as a rollback without redeploying and calls every deployment reversible. Locally a flag only limits exposure, because data changes and external effects need their own recovery."
+
+[[sources.ideas]]
+idea = "Delivery feedback stays short: independent stages run in parallel, and expensive broader suites can move to periodic maintenance. Scheduled work never replaces a required release gate."
+serves = "Keeps developers waiting only on the checks that protect the current decision."
+where = ["SKILL.md#choose-stages-by-their-purpose"]
+shapes = "Turns the pipeline into a dependency graph that runs independent stages in parallel, and adds a periodic maintenance phase for expensive suites that cannot replace a release gate."
+adapted = "There is no fixed duration target; speed changes follow the measured approach in references/pipeline-efficiency.md."
+
+[[sources.declined]]
+feature = "A universal gate list (lint, type check, unit tests, build, integration, E2E, npm audit, bundle size) in which no gate can be skipped."
+reason = "Checks are selected from the product contract and concrete failure modes, and a justified exclusion is stated explicitly."
+
+[[sources.declined]]
+feature = "A fixed staging-then-production chain, a ten-minute pipeline target, a required review count and an auto-merge policy."
+reason = "These come from the project's established policy and requirements, not from a universal template."
+
+[[sources.declined]]
+feature = "GitHub Actions workflow YAML, Dependabot or Renovate configuration, secrets-storage layout, and the loop that feeds CI failures back to an agent for repair."
+reason = "Provider mechanics belong to the platform specialist, and an existing PR's failing checks belong to the pr-followup skill."
+
+[[sources.declined]]
+feature = "The claim that every deployment is reversible, with a rollback workflow as the recovery plan."
+reason = "Reverting code cannot undo every data change or external effect, so recovery is defined explicitly for data and external effects."
+
+[[sources.reviews]]
+from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 1401c8b8030e..aeac41d4d005 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -26,15 +91,79 @@ author = "Seth Hobson / wshobson"
 repository = "https://github.com/wshobson/agents"
 remote = "git@github.com:wshobson/agents.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "156b7a5e7a8b93642628a339ee4039c925b34c7f"
 reviewed_through = "044b4b21f083948e69ec878a7b07c8d0951a6ffa"
-baseline_paths = ["plugins/cicd-automation/skills/deployment-pipeline-design/SKILL.md", "plugins/cicd-automation/skills/deployment-pipeline-design/references/details.md", "plugins/cicd-automation/skills/deployment-pipeline-design/references/advanced-strategies.md", "LICENSE"]
-paths = ["plugins/cicd-automation/skills/deployment-pipeline-design/SKILL.md", "plugins/cicd-automation/skills/deployment-pipeline-design/references/details.md", "plugins/cicd-automation/skills/deployment-pipeline-design/references/advanced-strategies.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Design stage dependencies, artifact promotion, rollout criteria and post-deployment verification together.", "Account for old and new consumers during schema transitions and choose rollout patterns from product constraints."]
-local_choices = ["Keep provider examples, Kubernetes commands and platform-specific troubleshooting outside the general skill.", "Do not promise automatic rollback, instant recovery, zero downtime, mandatory staging or fixed DORA thresholds.", "Treat inconclusive telemetry explicitly; an Argo inconclusive result pauses and is not equivalent to a failed analysis.", "Verify any target-specific rebuild as its own artifact and bind promotion evidence to the actual candidate."]
-reviews = [
-  { from_commit = "156b7a5e7a8b93642628a339ee4039c925b34c7f", to_commit = "044b4b21f083948e69ec878a7b07c8d0951a6ffa", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 156b7a5e7a8b..044b4b21f083 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "plugins/cicd-automation/skills/deployment-pipeline-design/SKILL.md",
+  "plugins/cicd-automation/skills/deployment-pipeline-design/references/details.md",
+  "plugins/cicd-automation/skills/deployment-pipeline-design/references/advanced-strategies.md",
+  "LICENSE",
+]
+paths = [
+  "plugins/cicd-automation/skills/deployment-pipeline-design/SKILL.md",
+  "plugins/cicd-automation/skills/deployment-pipeline-design/references/details.md",
+  "plugins/cicd-automation/skills/deployment-pipeline-design/references/advanced-strategies.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "A pipeline is a dependency graph of stages from change validation through release candidate to delivery. The artifact verified in an earlier stage is the one promoted to later stages, without a rebuild."
+serves = "Makes the deployed artifact the one that passed the checks."
+where = ["SKILL.md#choose-stages-by-their-purpose", "SKILL.md#preserve-evidence-across-stages"]
+shapes = "Sets the phase order from change validation to delivery and makes promotion reuse the verified artifact, with its identity recorded."
+adapted = "When a target requires a distinct build, that output is verified as its own artifact and its relationship to the source candidate is recorded. Promotion evidence and approvals bind to the exact artifact identity, never to a branch, job name or mutable tag."
+
+[[sources.ideas]]
+idea = "Rollout criteria exist before rollout: acceptance and abort signals, observation bounds and a recovery owner. After deployment, the candidate is verified at the consumer boundary through meaningful requests or jobs; process liveness or a successful deployment API response proves less than functional readiness."
+serves = "Prevents declaring a release healthy from a deployment that only started."
+where = [
+  "SKILL.md#make-deployment-recoverable",
+  "references/delivery-boundaries.md#match-the-release-unit-to-its-consumer",
+  "references/delivery-boundaries.md#specify-advancement-and-recovery",
+]
+shapes = "Moves acceptance and abort signals, observation bounds and the recovery owner ahead of rollout, and adds consumer-specific verification for each release unit after it."
+adapted = "Success, failure and inconclusive telemetry stay separate. No telemetry is an unknown outcome, not a healthy release. An inconclusive result, which pauses an Argo rollout, is not treated as a failed analysis: someone is named to investigate it and the rollout stays bounded meanwhile. Liveness, readiness and rollout acceptance also stay distinct, because making every dependency a liveness requirement can turn a dependency outage into restart churn."
+
+[[sources.ideas]]
+idea = "During a schema or data transition, old and new producers and consumers run together. The deploy order and compatibility window cover in-flight work and a possible return to the prior application, and staged migrations use expansion, backfill, reader and writer transition, and eventual removal."
+serves = "Prevents a deploy or rollback from breaking the consumers that still use the old contract."
+where = ["references/delivery-boundaries.md#protect-state-during-mixed-version-operation"]
+shapes = "Makes mixed-version operation its own section and orders a staged migration as expansion, backfill, reader and writer transition, and removal."
+adapted = "Each transition names what proves it safe. Elapsed time or a fixed number of releases alone does not prove that old consumers have retired, unlike the donor's three-release expand and contract schedule."
+
+[[sources.ideas]]
+idea = "The rollout pattern and observation depth follow from the product's compatibility, traffic and recovery cost, and each pattern has its own precondition: rolling needs mixed-version compatibility and capacity, blue-green needs shared-data and cutover checks, and a canary needs representative exposure and candidate-specific signals."
+serves = "Picks a rollout whose safety assumptions actually hold for the product."
+where = [
+  "SKILL.md#make-deployment-recoverable",
+  "references/delivery-boundaries.md#specify-advancement-and-recovery",
+]
+shapes = "Replaces a menu of strategies with a precondition for each pattern, and derives rollout and observation depth from product factors."
+adapted = "No pattern carries a promise of automatic rollback, instant recovery or zero downtime. Thresholds and windows come from the service's requirements and baseline."
+
+[[sources.declined]]
+feature = "Provider pipeline examples (GitHub Actions, GitLab CI, Azure Pipelines), Kubernetes and Argo Rollouts commands, and platform-specific troubleshooting."
+reason = "Provider syntax and platform behavior belong to the platform specialist or current primary provider documentation."
+
+[[sources.declined]]
+feature = "Promises of automatic rollback, instant rollback or zero downtime for a deployment strategy."
+reason = "Recovery speed and downtime depend on shared data, compatibility and external effects, so the skill states each strategy's conditions instead."
+
+[[sources.declined]]
+feature = "A mandatory staging environment and fixed DORA metric targets."
+reason = "Environments and thresholds come from the project's own requirements."
+
+[[sources.reviews]]
+from_commit = "156b7a5e7a8b93642628a339ee4039c925b34c7f"
+to_commit = "044b4b21f083948e69ec878a7b07c8d0951a6ffa"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 156b7a5e7a8b..044b4b21f083 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -43,15 +172,83 @@ author = "Matthew Blode"
 repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
 reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
-baseline_paths = ["skills/ci-speedup/SKILL.md", "skills/ci-speedup/references/measuring.md", "skills/ci-speedup/references/levers.md", "skills/ci-speedup/references/ledger.md", "LICENSE.md"]
-paths = ["skills/ci-speedup/SKILL.md", "skills/ci-speedup/references/measuring.md", "skills/ci-speedup/references/levers.md", "skills/ci-speedup/references/ledger.md", "LICENSE.md"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Measure the critical path using real run timing, including setup, queue time, variance and runner cost.", "Preserve coverage when filtering, sharding or caching; cover unverified changes and detect silently missing workspace tasks.", "Separate safely cancellable validation from deployment with shared mutable state."]
-local_choices = ["Load efficiency guidance only for topology, filtering, caching or performance changes.", "Do not import timing scripts, hosted-runner prices, published speedup numbers, fixed timing targets, test-runner flags, mandatory ledger or automatic pushes.", "Check all relevant cache inputs and trust domains; no universal cache or cancellation recipe."]
-reviews = [
-  { from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = [], skipped = ["skills/ci-speedup/references/levers.md: Adds one ci-ok aggregate check that fails on any failure or cancellation. Covered by ci-cd-automation/references/pipeline-efficiency.md:33-35, and the workflow YAML belongs to the platform specialist (ci-cd-automation/SKILL.md:9).", "skills/ci-speedup/references/levers.md: Splits the change-detection comparison base by event and checks that a gated job still runs when its paths change. Covered by ci-cd-automation/references/pipeline-efficiency.md:27-29 and :31-35.", "skills/ci-speedup/SKILL.md: The paths-ignore gotcha now points at the Gating lever, warning that workflow-level path filters leave a required check pending. Already owned by github-actions/references/reliability.md:11."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 012e6e5208f5..872bc83bdb6d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/ci-speedup/SKILL.md",
+  "skills/ci-speedup/references/measuring.md",
+  "skills/ci-speedup/references/levers.md",
+  "skills/ci-speedup/references/ledger.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/ci-speedup/SKILL.md",
+  "skills/ci-speedup/references/measuring.md",
+  "skills/ci-speedup/references/levers.md",
+  "skills/ci-speedup/references/ledger.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "Pipeline speed is measured on the critical path from real run, job and step timestamps. Queue and approval waits, setup, execution and artifact transfer are separated, developer wait and runner cost are measured separately, and spread and cold or warm cache state are compared across several runs."
+serves = "Directs a speed or cost change at the part that actually limits completion time."
+where = ["references/pipeline-efficiency.md#measure-the-waiting-path"]
+shapes = "Makes measurement the first step of any efficiency change and limits credit to comparable executed work at the changed revision."
+adapted = "The guidance is a reference that loads only for path filters, caching, sharding, topology or speed and cost changes, not the skill's main workflow. Without a measured baseline, the skill gives a hypothesis and the runs needed to test it."
+
+[[sources.ideas]]
+idea = "Change-based selection stays conservative. Changed-path detection includes dependent packages and shared build inputs, and the comparison range covers every unverified change, including work skipped by a superseded run. Expected coverage is defined independently of discovered tasks, so a workspace or shard that silently skipped its checks is detected."
+serves = "Prevents a filter or shard plan from turning a skipped check into a green result."
+where = ["references/pipeline-efficiency.md#make-selection-conservative"]
+shapes = "Makes the broader checks the fallback when the comparison range or dependency graph is unknown, and requires the final required result to propagate failed, cancelled or missing prerequisites."
+
+[[sources.ideas]]
+idea = "Disposable validation is separate from publishing and deployment. Obsolete validation can be cancelled when its effects are safe to discard; a cancelled deployment can continue remotely or leave partial state, so target serialization and a supersession policy cover it."
+serves = "Prevents a speed setting from cancelling a deployment halfway."
+where = ["references/pipeline-efficiency.md#preserve-state-and-cache-boundaries"]
+shapes = "Splits the cancellation policy by effect: disposable validation can be cancelled, while deployment needs target serialization and a supersession policy."
+
+[[sources.ideas]]
+idea = "A cache accelerates work but never establishes eligibility. Cached results are keyed by every input that changes their meaning, a miss performs the work, and a broad fallback cache or stale artifact cannot stand in for a different candidate."
+serves = "Keeps coverage and release evidence intact when caching is added."
+where = [
+  "references/pipeline-efficiency.md#preserve-state-and-cache-boundaries",
+  "SKILL.md#preserve-evidence-across-stages",
+]
+shapes = "Replaces cache recipes with validity conditions and removes caches from the evidence that can permit promotion."
+adapted = "Stated as conditions on every cache, including isolated writers and trust domains and integrity checks where cached output crosses a release boundary, instead of a universal cache or cancellation recipe."
+
+[[sources.declined]]
+feature = "A bundled timing script, hosted-runner prices, published speedup numbers and a fixed push-to-green duration target."
+reason = "Gains are credited only from comparable runs at the changed revision, and the project sets its own targets."
+
+[[sources.declined]]
+feature = "A mandatory before-and-after timing ledger and prescribed test-runner flags."
+reason = "The skill imposes neither; durable decisions go to the project's existing CI/CD documentation when file changes are authorized, otherwise to the response."
+
+[[sources.declined]]
+feature = "Pushing to the working branch without a check-in in order to measure the change."
+reason = "Implementation stays within the user's existing authorization."
+
+[[sources.declined]]
+feature = "Universal cache and cancellation recipes, such as cancelling in-progress runs only on pull requests or fixed Docker cache tags."
+reason = "Cache keys and cancellation follow from each pipeline's inputs, trust domains and side effects."
+
+[[sources.reviews]]
+from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = [
+  "skills/ci-speedup/references/levers.md: Adds one ci-ok aggregate check that fails on any failure or cancellation. Covered by ci-cd-automation/references/pipeline-efficiency.md:33-35, and the workflow YAML belongs to the platform specialist (ci-cd-automation/SKILL.md:9).",
+  "skills/ci-speedup/references/levers.md: Splits the change-detection comparison base by event and checks that a gated job still runs when its paths change. Covered by ci-cd-automation/references/pipeline-efficiency.md:27-29 and :31-35.",
+  "skills/ci-speedup/SKILL.md: The paths-ignore gotcha now points at the Gating lever, warning that workflow-level path filters leave a required check pending. Already owned by github-actions/references/reliability.md:11.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 012e6e5208f5..872bc83bdb6d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -60,15 +257,54 @@ author = "Every / Compound Engineering"
 repository = "https://github.com/EveryInc/compound-engineering-plugin"
 remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
 reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
-baseline_paths = ["skills/ce-code-review/references/personas/deployment-verification-agent.md", "LICENSE"]
+baseline_paths = [
+  "skills/ce-code-review/references/personas/deployment-verification-agent.md",
+  "LICENSE",
+]
 paths = ["skills/ce-code-review/references/personas/deployment-verification-agent.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Name data invariants, concrete pre/post-deployment observations, recovery limits and the operational owner.", "Distinguish code rollback from data restoration and irreversible effects."]
-local_choices = ["Use conditional delivery guidance rather than a second code-review persona or mandatory SQL checklist.", "Choose observation windows and thresholds from service requirements, not the example five-minute/24-hour schedule.", "Verify restore feasibility and allowed data loss; a backup alone does not prove recovery."]
-reviews = [
-  { from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb", to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 9af474a70e7f..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "A delivery that changes data names its invariants, read-only checks before and after the change with expected results, the recovery limits and the owner of a failure."
+serves = "Turns 'the deploy looked fine' into observations that show whether the data contract held."
+where = [
+  "references/delivery-boundaries.md#protect-state-during-mixed-version-operation",
+  "references/delivery-boundaries.md#specify-advancement-and-recovery",
+  "SKILL.md#make-deployment-recoverable",
+]
+shapes = "Adds a record of invariants and before-and-after checks to data-changing deliveries, separates repository evidence from live-state prerequisites, and names the recovery owner before rollout and in the release record."
+adapted = "Observation windows and thresholds come from the service's requirements and baseline, not from a fixed schedule."
+
+[[sources.ideas]]
+idea = "Rolling back code differs from restoring data and from effects that cannot be undone. Completed effects are inspected before choosing rollback, roll-forward or repair, and the resulting state is verified after recovery."
+serves = "Prevents a code rollback from being reported as recovery while data or external effects remain changed."
+where = [
+  "SKILL.md#make-deployment-recoverable",
+  "references/delivery-boundaries.md#specify-advancement-and-recovery",
+]
+shapes = "Replaces a single rollback step with a choice among rollback, roll-forward and repair, made after inspecting completed effects and followed by a check of the resulting state."
+adapted = "The donor accepts a pre-migration backup as a way to roll back. Locally, restoration access and allowed data loss are verified, because the existence of a backup is not a tested restore."
+
+[[sources.declined]]
+feature = "A deployment-verification reviewer persona that produces a mandatory go/no-go SQL checklist."
+reason = "Data-state guidance is a conditional reference for deliveries that change state, and checks are chosen for the data contract instead of a fixed SQL template."
+
+[[sources.declined]]
+feature = "Fixed observation windows, such as verification within five minutes and monitoring for the first 24 hours."
+reason = "Windows and thresholds come from the service's requirements and baseline."
+
+[[sources.reviews]]
+from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 9af474a70e7f..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -77,15 +313,57 @@ author = "Lauren Tan / pstack"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
-baseline_paths = ["pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md", "pstack/LICENSE"]
-paths = ["pstack/skills/principle-make-operations-idempotent/SKILL.md", "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md", "pstack/LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Reconcile partial prior effects before retries; define the outcome of repeated or interrupted operations.", "Isolate independent mutable targets and enforce serialization structurally when one shared target is a real invariant."]
-local_choices = ["Apply the principles to deployment targets, migrations and shared build resources; do not import PID-lock recipes or universal self-healing.", "Reject obsolete candidates as well as overlapping writes. Existing authorization still governs deployment and recovery.", "Keep pstack shipping, code verification and CI babysitting procedures with the corresponding local owners."]
-reviews = [
-  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["pstack/skills/principle-make-operations-idempotent/SKILL.md: Restated as reconciling from current state and recognizing stale leftovers, with the PID-lock advice removed. Reconciliation is covered at ci-cd-automation/SKILL.md:66-69 and ci-cd-automation/references/delivery-boundaries.md:61-64, dropping PID locks matches ci-cd-automation/origin.txt:78, and the stale-leftover point is adopted once in error-handling."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "pstack/skills/principle-make-operations-idempotent/SKILL.md",
+  "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md",
+  "pstack/LICENSE",
+]
+paths = [
+  "pstack/skills/principle-make-operations-idempotent/SKILL.md",
+  "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md",
+  "pstack/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Before a mutating step is retried or cancelled, its actual state is established, including partial effects of an interrupted run. The delivery design states which operations can repeat safely."
+serves = "Prevents a retry from doubling an effect or building on unknown partial state."
+where = [
+  "SKILL.md#make-deployment-recoverable",
+  "references/delivery-boundaries.md#specify-advancement-and-recovery",
+]
+shapes = "Adds a state check before any retry or cancellation of a mutating step, and a definition of which operations can retry and how partial progress is found."
+adapted = "Applied to deployment steps and migrations: a timed-out request is reconciled before another attempt, and the state after recovery is verified."
+
+[[sources.ideas]]
+idea = "Independent mutable targets are isolated first. Serialization is enforced only where one shared target is a real invariant, and then structurally rather than by convention."
+serves = "Avoids races between deployments without serializing work that never shares state."
+where = [
+  "SKILL.md#make-deployment-recoverable",
+  "references/delivery-boundaries.md#protect-state-during-mixed-version-operation",
+  "references/pipeline-efficiency.md#preserve-state-and-cache-boundaries",
+]
+shapes = "Orders isolation before serialization for targets, migrations and shared build resources, and extends serialization to retries, manual reruns and recovery."
+adapted = "Applied to deployment targets, migrations and shared build resources. Beyond serializing overlapping writes, an obsolete candidate is rejected."
+
+[[sources.declined]]
+feature = "PID-based stale-lock detection and universal self-healing startup."
+reason = "The skill applies the principles to deployment targets, migrations and shared build resources, not to process lock recipes."
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/principle-make-operations-idempotent/SKILL.md: Restated as reconciling from current state and recognizing stale leftovers, with the PID-lock advice removed. Reconciliation is covered at ci-cd-automation/SKILL.md:66-69 and ci-cd-automation/references/delivery-boundaries.md:61-64, dropping PID locks matches the declined PID-based stale-lock detection, and the stale-leftover point is adopted once in error-handling.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[dependencies]]

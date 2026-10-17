@@ -1,7 +1,27 @@
-format_version = 1
+format_version = 2
 skill = "verification-authoring"
 created = "2026-10-03"
-approach = "Derive pstack creation and maintenance into one authoring owner, with agent-instructions composition and host-local packaging."
+approach = "derive"
+goal = "Create and maintain a project-local verify-<app> skill that another agent can use cold to start the real application, confirm which instance it drives, exercise user behavior, keep proof and clean up its own resources. Success is a recipe proven by live execution, one mapped feature at creation and every feature from source and live at maintenance, with recipe drift, harness gaps and product defects reported separately."
+
+[[invariants]]
+rule = "The verify skill owns selection, scope and result claims; each project-local verify-<app> skill owns its application's executable procedures; this skill owns their creation and maintenance. A request for verification evidence alone goes to the verify skill."
+where = ["SKILL.md#verification-authoring", "SKILL.md#establish-the-target"]
+
+[[invariants]]
+rule = "The agent-instructions skill, resolved by registered name, owns instruction writing and host packaging. This skill supplies only the application-verification contract and keeps no copy of general writing rules. A missing agent-instructions skill blocks writing, not repository inspection."
+where = [
+  "SKILL.md#verification-authoring",
+  "references/create.md#write-instructions-for-the-next-agent",
+]
+
+[[invariants]]
+rule = "Product repair, dependency installation, commits, PRs and scheduling follow the active caller and repository rules. A failed check alone never expands the authoring scope."
+where = [
+  "SKILL.md#establish-the-target",
+  "SKILL.md#check-the-package-and-the-live-result",
+  "references/maintain.md#correct-the-right-layer",
+]
 
 [[sources]]
 id = "pstack-verification"
@@ -9,30 +29,146 @@ author = "Lauren Tan / pstack"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
-baseline_paths = ["pstack/skills/create-verification-skill/SKILL.md", "pstack/skills/maintain-verification-skill/SKILL.md", "pstack/skills/create-verification-skill/references/feature-map-example/README.md", "pstack/skills/create-verification-skill/references/feature-map-example/create-note.md", "pstack/skills/create-verification-skill/references/feature-map-example/search.md", "pstack/LICENSE"]
-paths = ["pstack/skills/create-verification-skill/SKILL.md", "pstack/skills/maintain-verification-skill/SKILL.md", "pstack/skills/create-verification-skill/references/feature-map-example/README.md", "pstack/skills/create-verification-skill/references/feature-map-example/create-note.md", "pstack/skills/create-verification-skill/references/feature-map-example/search.md", "pstack/LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = [
-  "Discover Surface, Run, Drive, Observe and Isolate from the repository before writing commands.",
-  "Project-local verify-<app> with Launch, Doctor, Drive, Evidence, Cleanup and Helpers.",
-  "Feature map with source-grounded user entry points, real action and result proof, independently observed side effects, and evidence that survives cleanup.",
-  "Creation proves one mapped feature; maintenance covers every feature from source and live, with separate readers and one mutable driver.",
-  "Distinguish recipe drift, harness gaps and product defects; bounded doctor repair and ownership-aware cleanup on every attempt."
+baseline_paths = [
+  "pstack/skills/create-verification-skill/SKILL.md",
+  "pstack/skills/maintain-verification-skill/SKILL.md",
+  "pstack/skills/create-verification-skill/references/feature-map-example/README.md",
+  "pstack/skills/create-verification-skill/references/feature-map-example/create-note.md",
+  "pstack/skills/create-verification-skill/references/feature-map-example/search.md",
+  "pstack/LICENSE",
 ]
-local_choices = [
-  "Common verify owns selection, scope and result claims; project-local verify-<app> owns executable application procedures. verification-authoring owns creation and maintenance.",
-  "Resolve the target host and local skill location; do not require Cursor, tmux, a fixed browser tool or a global installation.",
-  "Use agent-instructions by registered name for authoring. Keep general writing rules with that owner.",
-  "Product repair, dependency installation, commits, PRs and scheduling follow the active caller and repository rules; maintenance does not automatically publish.",
-  "Unreachable routes are blocked behavior coverage, with the attempted route and concrete missing prerequisite; they are not a behavioral pass.",
-  "Direct source review is an explicit disclosed fallback when independent workers cannot run and the caller permits it.",
-  "A bundled read-only map validator checks links and section structure; source and live proof still establish correctness."
+paths = [
+  "pstack/skills/create-verification-skill/SKILL.md",
+  "pstack/skills/maintain-verification-skill/SKILL.md",
+  "pstack/skills/create-verification-skill/references/feature-map-example/README.md",
+  "pstack/skills/create-verification-skill/references/feature-map-example/create-note.md",
+  "pstack/skills/create-verification-skill/references/feature-map-example/search.md",
+  "pstack/LICENSE",
 ]
-reviews = [
-  { from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798", to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", incorporated = [], skipped = ["Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply."], deferred = [], validation = ["Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.", "reports/skill-atlas/upstream-adoption-validation.json"] },
-  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = ["Adapted from pstack/skills/create-verification-skill/SKILL.md (c49b37a): the Launch row requires, for a run-owned instance, startup from empty data through any migrations and seed data, and a readiness check that proves a usable state rather than an answering process or port (verification-authoring/references/create.md).", "Incorporated from the same commit: a proof run in a stand-in environment lists the setup the stand-in supplied that the target will not, and that setup stays unverified; placed in the shared completion paragraph of verification-authoring/SKILL.md so creation and maintenance both apply it."], skipped = ["pstack/skills/create-verification-skill/SKILL.md: A journey whose seed data lacks a precondition reports a failure with the reason in that feature's Gotchas, and the journey is never weakened to pass. Not weakening the journey is covered at verification-authoring/references/create.md:87-88 and preconditions at verification-authoring/references/feature-map.md:19-24, while calling an unreachable prerequisite a failure conflicts with the blocked-coverage local choice at verification-authoring/origin.txt:29."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "Before any command is written, the repository is interviewed for five facts: the surface a user exercises, how to run it, how to drive it, what can be observed as evidence, and how to isolate an instance. The facts come from project files and actual execution, and the user is asked only for what cannot be discovered."
+serves = "Grounds the recipe in commands that work in this project instead of a generic harness."
+where = ["references/create.md#interview-the-repository"]
+shapes = "Makes the five-fact interview and a real build and start of the application the first stage of creation, before any instructions are written."
+
+[[sources.ideas]]
+idea = "The generated skill is a project-local verify-<app> skill whose instructions follow a six-part operating contract: Launch, Doctor, Drive, Evidence, Cleanup and Helpers, filled with the project's real commands and paths so that an agent reading it cold can run it. For a run-owned instance, Launch starts from empty data through any migrations and seed data, and readiness means a usable state, not only an answering process or port."
+serves = "Gives every later verification run the same launch, health check, driving, proof and teardown steps."
+where = [
+  "references/create.md#write-instructions-for-the-next-agent",
+  "SKILL.md#establish-the-target",
+]
+shapes = "Defines the generated skill's required sections as a table of required content per part, and fixes the verify-<app> name and project-local placement."
+adapted = "The donor writes .cursor/skills/verify-<app>/ and suggests tmux or browser/CDP recipes. Locally the target host's supported project-local skill location is resolved, the project's existing harnesses or host-supported tools drive the application, and the agent-instructions skill writes the instructions."
+
+[[sources.ideas]]
+idea = "The generated skill keeps a feature map: an index at features/README.md that links one sibling file per user-facing feature, each with sub-features, user entry points, a driving recipe with preconditions and observable results, and gotchas. Creation seeds the top three to five features and lists the rest as unmapped coverage."
+serves = "Lets later runs cover features one at a time and shows which behavior is not yet mapped."
+where = ["references/feature-map.md", "references/create.md#seed-the-feature-map"]
+shapes = "Adds a feature-map contract with an index and four ordered sections per feature file, and a seeding step that sets the initial scope."
+adapted = "The donor's manual index hygiene becomes a bundled read-only checker for index links and section structure. It cannot prove that a command exists, a requirement is correct or an outcome was observed, so source review and live proof still establish correctness. The donor's example commands are not copied."
+
+[[sources.ideas]]
+idea = "Proof exercises the real public path, captures both the action and the resulting state, checks side effects through an independent second view, and stays readable after cleanup. Internal setters and test-only endpoints prove nothing about a user path, and a dry-run mode is observed rather than trusted by its name."
+serves = "Prevents a recipe from claiming behavior it never observed or deleting its own proof."
+where = [
+  "references/create.md#seed-the-feature-map",
+  "references/feature-map.md",
+  "references/create.md#write-instructions-for-the-next-agent",
+  "SKILL.md#check-the-package-and-the-live-result",
+]
+shapes = "Sets the proof rules for every feature recipe, and makes evidence that survives cleanup a requirement of the Evidence and Cleanup parts and of completion."
+
+[[sources.ideas]]
+idea = "Creation is done only when the generated instructions have driven one mapped feature end to end as written: launch, doctor, drive, capture evidence and clean up, with the evidence still readable afterwards. A recipe that was never executed is a draft."
+serves = "Catches broken instructions before handover."
+where = [
+  "references/create.md#prove-the-generated-instructions",
+  "SKILL.md#check-the-package-and-the-live-result",
+]
+shapes = "Ends creation with a live run of the recipe that names the feature and entry points exercised, and makes that run the condition for delivery."
+
+[[sources.ideas]]
+idea = "Maintenance reads every feature against source through one read-only worker per feature, run concurrently. Each worker returns the user-visible behavior, source entry points, suspected drift with citations, and one live recipe; workers never drive the application or edit files. The coordinator reconciles every returned assessment, spot-checks drift citations and looks for unmapped features with a concrete source path."
+serves = "Covers every feature from source while keeping readers away from shared state."
+where = ["references/maintain.md#source-wave"]
+shapes = "Adds a source wave before the live pass, with a fixed worker brief, return shape and reconciliation step."
+adapted = "Delegation happens only when it is available and authorized. If independent readers cannot run, the coordinator reviews source directly when the caller permits and discloses that no independent review took place."
+
+[[sources.ideas]]
+idea = "In maintenance the coordinator alone drives the mutable application, follows the target's launch model, and exercises every feature live at least once, even when source review looks clean. It records which entry points and sub-features the evidence covers; a proof through one entry point does not verify another."
+serves = "Proves that each feature still works for users and keeps a single writer on shared state."
+where = ["references/maintain.md#drive-every-feature", "references/maintain.md"]
+shapes = "Makes the live pass of every feature mandatory and requires per-entry-point coverage records."
+adapted = "The donor's verified-unreachable result becomes blocked coverage. An unreachable route is recorded with the attempted route and the concrete missing auth, entitlement, OS or external state, which verifies only that it could not be reached, never that its behavior works."
+
+[[sources.ideas]]
+idea = "Each observation is assigned to its layer. A wrong or missing description is recipe drift and the map is corrected; working behavior the harness cannot drive is a harness gap and the owned harness is fixed; broken application behavior is a product defect that is reported, never written into the map as intended. The clean, changed and blocked outcomes describe the recipe, and product failures are reported separately."
+serves = "Keeps the map from endorsing regressions and keeps recipe fixes apart from product repair."
+where = [
+  "references/maintain.md#correct-the-right-layer",
+  "references/maintain.md#report-the-outcome",
+  "SKILL.md#establish-the-target",
+]
+shapes = "Adds a table that maps each kind of observation to its action, and separates recipe outcomes from product results in the report."
+adapted = "The donor forbids product edits during a run. Locally product repair happens only when the active task already authorizes it, and recipe corrections and product defects stay distinguishable either way."
+
+[[sources.ideas]]
+idea = "Every attempt is bounded and cleans up after itself. Doctor runs before the first drive, on each fresh session and after any failed or surprising drive; a doctor failure caused by recipe drift gets one in-scope correction and one retry that restarts only what the correction invalidated. Owned processes, sessions and fixtures are removed after each failed iteration and at final teardown, never by process name or by claiming whatever answers on a port, and a shared instance loses only the residue this run created."
+serves = "Prevents stranded processes, killed user instances and unbounded retry loops."
+where = [
+  "references/maintain.md#drive-every-feature",
+  "references/create.md#prove-the-generated-instructions",
+  "references/create.md#write-instructions-for-the-next-agent",
+]
+shapes = "Sets three invariants and a single-retry rule for the live pass, cleanup before every retry in the creation proof, and ownership rules for instances after the contract table."
+
+[[sources.ideas]]
+idea = "A proof that ran in a stand-in for the target environment, such as a container in place of a fresh VM or a local stack in place of a remote one, lists the setup that the stand-in supplied and the target will not. That setup stays unverified until a run in the target environment covers it."
+serves = "Prevents a stand-in run from being reported as proof for the real environment."
+where = ["SKILL.md#check-the-package-and-the-live-result"]
+shapes = "Adds the rule to the shared completion paragraph so that creation and maintenance both apply it."
+
+[[sources.declined]]
+feature = "Generating into .cursor/skills/verify-<app>/ with fixed harness choices, such as tmux for CLIs or a browser/CDP recipe for web apps, or installing the generated skill globally."
+reason = "The target host's supported project-local skill location and the project's own harnesses or host-supported tools decide; the request never becomes a global installation."
+
+[[sources.declined]]
+feature = "Ending a changed maintenance pass with one PR of proven corrections."
+reason = "A maintenance pass does not itself require a PR; publication follows the caller and the commit and pr skills when they apply."
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = [
+  "Adapted from pstack/skills/create-verification-skill/SKILL.md (c49b37a): the Launch row requires, for a run-owned instance, startup from empty data through any migrations and seed data, and a readiness check that proves a usable state rather than an answering process or port (verification-authoring/references/create.md).",
+  "Incorporated from the same commit: a proof run in a stand-in environment lists the setup the stand-in supplied that the target will not, and that setup stays unverified; placed in the shared completion paragraph of verification-authoring/SKILL.md so creation and maintenance both apply it.",
+]
+skipped = [
+  "pstack/skills/create-verification-skill/SKILL.md: A journey whose seed data lacks a precondition reports a failure with the reason in that feature's Gotchas, and the journey is never weakened to pass. Not weakening the journey is covered at verification-authoring/references/create.md:87-88 and preconditions at verification-authoring/references/feature-map.md:19-24, while calling an unreachable prerequisite a failure conflicts with the local rule that an unreachable route is blocked coverage, not a behavioral result.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[dependencies]]

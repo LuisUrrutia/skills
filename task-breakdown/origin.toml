@@ -1,7 +1,31 @@
-format_version = 1
+format_version = 2
 skill = "task-breakdown"
 created = "2026-10-06"
-approach = "Derive: combine verifiable delivery decomposition with selected review-boundary, risk-ordering and context-freshness guidance, preserving the user-defined human review size contract."
+approach = "derive"
+goal = "Divide a defined feature or implementation plan into delivery units that a person can review as one PR and an executor can implement and verify, each with its acceptance checks and real dependencies. A ready unit fits its review budget and any explicit size cap and demonstrates its stated result; work that is not ready stays a draft or blocked unit with its unknowns recorded."
+
+[[invariants]]
+rule = "This skill owns delivery boundaries, acceptance checks and dependencies. The wayfinder skill owns direction, the planning skill the overall approach, the issue-workflow skill ticket publication, the pr skill individual PR publication, and the stacked-pr skill dependent branches."
+reason = "Delivery decomposition was extracted from the planning skill into its own skill so that it can be invoked on its own."
+where = ["SKILL.md#task-breakdown"]
+
+[[invariants]]
+rule = "A breakdown request authorizes only its requested artifact. Implementation, ticket publication, branch creation and deployment continue only when they are already authorized."
+where = ["SKILL.md#task-breakdown", "SKILL.md#check-the-breakdown-and-continue"]
+
+[[invariants]]
+rule = "A numeric line count or rough target is review guidance, not a hard cap, and the skill invents no default ceiling. A numeric cap applies only when the user, project rules or the authoritative task record explicitly establishes it, and only that authority can change it."
+reason = "The user defined this human review size contract and gave a line count as an illustration, not as a default ceiling."
+where = ["SKILL.md#budget-for-human-review"]
+
+[[invariants]]
+rule = "When an explicit cap applies, a unit is ready only when the credible upper bound of its estimate fits the cap with room for fixes, and the publishing owner measures the actual PR diff, additions plus deletions between the intended base and head, before publication."
+reason = "The user defined this human review size contract; an estimate alone does not prove that a PR fits it."
+where = ["SKILL.md#budget-for-human-review"]
+
+[[invariants]]
+rule = "The breakdown keeps one authoritative task record in the requested format. A table in the plan or in chat can be enough; no separate document or ticket per unit is required."
+where = ["SKILL.md#establish-the-input", "SKILL.md#make-each-unit-executable"]
 
 [[sources]]
 id = "blode-planning"
@@ -9,15 +33,56 @@ author = "Matthew Blode"
 repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "cef4cfa837ca41b50d19f54551a3939ed7460434"
 reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
-baseline_paths = ["skills/planning/SKILL.md", "skills/planning/references/handoff-plans.md", "skills/planning/references/splitting.md", "skills/planning/references/claim-verification.md", "skills/planning/references/plan-quality-rubric.md", "LICENSE.md"]
-paths = ["skills/planning/SKILL.md", "skills/planning/references/handoff-plans.md", "skills/planning/references/splitting.md", "skills/planning/references/claim-verification.md", "skills/planning/references/plan-quality-rubric.md", "LICENSE.md"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Ground work units in repository evidence and preserve context for a fresh executor.", "Carry observable acceptance checks and genuine dependencies into delivery units."]
-local_choices = ["Extract delivery decomposition into a separately invocable skill; direction and overall planning remain with their owners.", "Treat the user's illustrative line count as guidance, not a default ceiling. Preserve small, testable review units and enforce explicitly established caps with estimation headroom and actual publication checks."]
-reviews = [
-  { from_commit = "cef4cfa837ca41b50d19f54551a3939ed7460434", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = [], skipped = ["skills/planning/SKILL.md: Adds a Docs item naming the current docs a change makes wrong. Redundant here because planning adopts the item and task-breakdown units inherit the plan's work, which task-breakdown/SKILL.md:65 keeps together."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff cef4cfa837ca..872bc83bdb6d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/planning/SKILL.md",
+  "skills/planning/references/handoff-plans.md",
+  "skills/planning/references/splitting.md",
+  "skills/planning/references/claim-verification.md",
+  "skills/planning/references/plan-quality-rubric.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/planning/SKILL.md",
+  "skills/planning/references/handoff-plans.md",
+  "skills/planning/references/splitting.md",
+  "skills/planning/references/claim-verification.md",
+  "skills/planning/references/plan-quality-rubric.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "Units rest on repository evidence: the request, the authoritative plan, decisions, existing tasks and project instructions, plus the affected code, callers, tests and configured checks. Settled scope and contracts stay settled, so decomposition does not become a new design exercise."
+serves = "Prevents boundaries drawn on assumed structure, and prevents the breakdown from reopening decisions the plan already made."
+where = ["SKILL.md#establish-the-input"]
+shapes = "Makes reading the authoritative inputs and the affected code the first section, before any boundary is drawn, and forbids reopening settled contracts there."
+
+[[sources.ideas]]
+idea = "Enough context travels with each unit for an executor who never saw the conversation: relevant source paths, authoritative decisions, consumed and produced contracts, and contract excerpts when links alone are not enough."
+serves = "Lets a fresh executor implement a unit without reconstructing the planning discussion."
+where = ["SKILL.md#make-each-unit-executable"]
+shapes = "Sets the source, decision and contract line of the unit field list and the closing rule that context travels with each unit."
+
+[[sources.ideas]]
+idea = "Each unit carries observable acceptance scenarios with their deciding commands or interactions, and its true prerequisites by unit ID, kept apart from coordination or release constraints."
+serves = "Each unit can be checked on its own, and its start condition is clear."
+where = ["SKILL.md#make-each-unit-executable", "SKILL.md#check-the-breakdown-and-continue"]
+shapes = "Adds acceptance-scenario and prerequisite lines to every unit, and makes the final check trace each requirement to a unit and its acceptance evidence."
+
+[[sources.reviews]]
+from_commit = "cef4cfa837ca41b50d19f54551a3939ed7460434"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = [
+  "skills/planning/SKILL.md: Adds a Docs item naming the current docs a change makes wrong. Redundant here because planning adopts the item and task-breakdown units inherit the plan's work, which task-breakdown/SKILL.md:65 keeps together.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff cef4cfa837ca..872bc83bdb6d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -26,15 +91,63 @@ author = "Matt Pocock"
 repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
 reviewed_through = "49dd158d1076134a641b33efb035946536778336"
 baseline_paths = ["skills/engineering/to-tickets/SKILL.md", "LICENSE"]
 paths = ["skills/engineering/to-tickets/SKILL.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Split by complete observable behavior and record genuine blocking relationships.", "Use expand, migrate, contract for broad changes whose consumers cannot all move at once.", "Make the first valid integration check explicit when intermediate units cannot pass independently."]
-local_choices = ["Prefer small complete behaviors; permit justified backend/frontend/integration stages with explicit verification limits.", "Keep task drafting separate from issue-workflow publication, and preserve one authoritative record."]
-reviews = [
-  { from_commit = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d", to_commit = "49dd158d1076134a641b33efb035946536778336", incorporated = [], skipped = ["skills/engineering/to-tickets/SKILL.md: Makes each new ticket a sub-issue of the source issue. Not applied because it changes the source issue's structure beyond the specified breakdown's relationships (issue-workflow/references/publish-tasks.md:18-19), and issue-workflow, the real owner, creates a parent only when requested (issue-workflow/references/publish-tasks.md:48-50).", "skills/engineering/to-tickets/SKILL.md: Omits the Blocked-by body when native dependency edges are set. issue-workflow/references/publish-tasks.md:49-52 already writes body blockers only as the fallback."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 4588b32ecab9..49dd158d1076 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "A delivery unit is the smallest useful behavior that can be demonstrated once its real prerequisites land. It includes every layer that behavior needs, such as data access, backend, frontend and behavioral tests. Further capabilities become separate units, each named after what it delivers rather than a file or widget."
+serves = "Each PR shows working behavior that a reviewer can check."
+where = [
+  "SKILL.md#choose-functional-boundaries",
+  "references/staged-delivery.md#separate-layers-only-for-a-concrete-reason",
+]
+shapes = "Opens Choose functional boundaries with this rule and the statistics-dashboard example, and makes a split by technical layer the exception that needs a named reason."
+adapted = "A backend prerequisite, frontend contract or integration unit is allowed when a complete vertical slice is impractical for a concrete reason, with its verification limits stated."
+
+[[sources.ideas]]
+idea = "A dependency records the exact capability or contract a unit consumes. Shared files or environments may need coordination but do not create a functional blocker, and neither is the same as a preferred execution order."
+serves = "Prevents false blockers that serialize independent work, and hidden ones that break a unit."
+where = ["SKILL.md#choose-functional-boundaries"]
+shapes = "Adds a dependency paragraph that separates functional blockers, coordination constraints and preferred order, resolves cycles through a smaller shared contract or a cohesive unit, and forbids forcing independent units into a stack."
+
+[[sources.ideas]]
+idea = "For a change whose consumers cannot move together, the breakdown considers expand, migrate, contract: introduce a compatible form, migrate bounded groups of consumers, then retire the old form after checking that every required consumer has moved. Each stage has its supported behavior and deciding check."
+serves = "Keeps every stage working while a broad change moves through its consumers."
+where = ["references/staged-delivery.md#stage-compatibility-changes"]
+shapes = "Gives the staged-delivery reference a section for compatibility changes built on these three stages."
+adapted = "It applies to any change whose consumers cannot move together, including deployed clients and data, not only a mechanical wide refactor. An empty repository search does not prove an external contract unused."
+
+[[sources.ideas]]
+idea = "When units cannot pass independently, the breakdown identifies the coupled group and the first point where its combined checks can pass, and it assigns the first real end-to-end check to an explicit unit with its prerequisites and expected result."
+serves = "Prevents a sequence of units that each report success while the connected feature is never exercised."
+where = [
+  "references/staged-delivery.md#separate-layers-only-for-a-concrete-reason",
+  "references/staged-delivery.md#stage-compatibility-changes",
+  "SKILL.md#check-the-breakdown-and-continue",
+]
+shapes = "Makes the integration unit the last step of the backend, frontend and integration split, places the combined check at the first stage that can exercise the real connection, and requires the final check to name where the combined capability is verified."
+adapted = "The integration unit stays within its own review budget and must not hide most of the feature; buildable, behavior-preserving intermediate states are preferred."
+
+[[sources.declined]]
+feature = "Publishing the approved tickets to the configured tracker as part of the breakdown."
+reason = "Drafting stays in this skill; publication goes to the issue-workflow skill only when it is requested."
+
+[[sources.reviews]]
+from_commit = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+to_commit = "49dd158d1076134a641b33efb035946536778336"
+incorporated = []
+skipped = [
+  "skills/engineering/to-tickets/SKILL.md: Makes each new ticket a sub-issue of the source issue. Not applied because it changes the source issue's structure beyond the specified breakdown's relationships (issue-workflow/references/publish-tasks.md:18-19), and issue-workflow, the real owner, creates a parent only when requested (issue-workflow/references/publish-tasks.md:48-50).",
+  "skills/engineering/to-tickets/SKILL.md: Omits the Blocked-by body when native dependency edges are set. issue-workflow/references/publish-tasks.md:49-52 already writes body blockers only as the fallback.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 4588b32ecab9..49dd158d1076 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -43,15 +156,33 @@ author = "Jesse Vincent"
 repository = "https://github.com/obra/superpowers"
 remote = "git@github.com:obra/superpowers.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
 reviewed_through = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
 baseline_paths = ["skills/writing-plans/SKILL.md", "LICENSE"]
 paths = ["skills/writing-plans/SKILL.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Use a meaningful independent review decision to distinguish a delivery boundary from internal implementation steps."]
-local_choices = ["Apply the heuristic to PR-sized deliveries without importing commit-sized tasks, mandatory TDD steps or execution-method selection.", "Preserve justified enabling changes and real dependencies; keep a cohesive small delivery together."]
-reviews = [
-  { from_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d", to_commit = "bb92a77741419a4ab5f06e711a283343f1ada0c3", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 8ca22dba9a94..bb92a7774141 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "A delivery boundary falls where a reviewer can make a meaningful acceptance decision of its own. Parts that only serve the same decision and fit comfortably within the review budget stay together in one unit."
+serves = "Separates real review boundaries from internal implementation steps, so each PR is worth reviewing on its own."
+where = ["SKILL.md#choose-functional-boundaries"]
+shapes = "Adds the rule that each proposed PR needs its own acceptance decision directly after the smallest-behavior rule."
+adapted = "The heuristic applies to PR-sized deliveries, not commit-sized tasks. A justified enabling change and a real dependency stay separate units, while a cohesive small delivery stays together."
+
+[[sources.declined]]
+feature = "Commit-sized tasks with mandatory TDD steps and a choice of execution method."
+reason = "Units are PR-sized deliveries; implementation steps and execution follow the existing workflow."
+
+[[sources.reviews]]
+from_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+to_commit = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 8ca22dba9a94..bb92a7774141 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -60,14 +191,40 @@ author = "Lex Christopherson and GSD contributors"
 repository = "https://github.com/gsd-build/gsd-2"
 remote = "git@github.com:gsd-build/gsd-2.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
 reviewed_through = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
-baseline_paths = ["src/resources/skills/decompose-into-slices/SKILL.md", "src/resources/extensions/gsd/templates/roadmap.md", "src/resources/extensions/gsd/prompts/plan-slice.md", "LICENSE"]
-paths = ["src/resources/skills/decompose-into-slices/SKILL.md", "src/resources/extensions/gsd/templates/roadmap.md", "src/resources/extensions/gsd/prompts/plan-slice.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Map material risks to the delivery units and evidence that resolve them.", "For large plans, distinguish a delivery map from detailed execution contracts for the next units."]
-local_choices = ["Carry inherited planning risks without reopening settled design decisions.", "Keep progressive detail optional and later units explicitly drafted until the existing readiness and size requirements are met.", "Do not import parser formats, tool-owned state, approval gates, worker topology or mandatory fragmentation into many slices."]
-reviews = []
+baseline_paths = [
+  "src/resources/skills/decompose-into-slices/SKILL.md",
+  "src/resources/extensions/gsd/templates/roadmap.md",
+  "src/resources/extensions/gsd/prompts/plan-slice.md",
+  "LICENSE",
+]
+paths = [
+  "src/resources/skills/decompose-into-slices/SKILL.md",
+  "src/resources/extensions/gsd/templates/roadmap.md",
+  "src/resources/extensions/gsd/prompts/plan-slice.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Material uncertainties already identified in the plan map to the delivery units and the evidence that resolve them, and the plan's risk-reduction order is kept where dependencies permit."
+serves = "Retires the riskiest unknowns early instead of discovering them in the last unit."
+where = ["SKILL.md#choose-functional-boundaries"]
+shapes = "Adds a closing paragraph to Choose functional boundaries that ties each material uncertainty to a unit and keeps the plan's risk order."
+adapted = "The risks come from the plan, and decomposition does not reopen settled design decisions."
+
+[[sources.ideas]]
+idea = "For a large plan, a delivery map of all units can come before the detailed execution contracts. Later units stay drafts with a stable ID, outcome, known dependencies, explicit unknowns and the review budget until their scope, dependencies, acceptance checks and sizing meet the readiness requirements."
+serves = "Lets a large plan start with the next ready units without inventing detail for later ones."
+where = ["SKILL.md#establish-the-input", "SKILL.md#check-the-breakdown-and-continue"]
+shapes = "Adds the draft-unit paragraph to Establish the input, and makes the final check and the return separate ready, draft and blocked units."
+adapted = "Progressive detail is optional, and a draft is never treated as ready work, including when it is published."
+
+[[sources.declined]]
+feature = "The roadmap parser format, tool-owned slice state, user approval before the roadmap is written, parallel worker dispatch, and splitting into as many thin slices as possible."
+reason = "Units use the project's task format and one authoritative record. A cohesive change stays in one unit when it fits the review budget, and the execution workflow chooses the worker topology."
 
 [[sources]]
 id = "gstack-spec-context"
@@ -75,49 +232,71 @@ author = "Garry Tan"
 repository = "https://github.com/garrytan/gstack"
 remote = "git@github.com:garrytan/gstack.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "c285d88b90d39116ccfa2b901f80ea0fce0b26eb"
 reviewed_through = "47d639abffa882b8cbb641d7d1dedf08ecada9ec"
 baseline_paths = ["spec/SKILL.md", "LICENSE"]
 paths = ["spec/SKILL.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Record when current-state evidence was verified if it can become stale before implementation."]
-local_choices = ["For deferred execution, carry the inspected revision or date with source and contract references and require revalidation at pickup.", "Keep ordinary implementation choices with the executor and ticket publication with issue-workflow; do not import spec filing, time-based sizing or execution dispatch."]
-reviews = [
-  { from_commit = "c285d88b90d39116ccfa2b901f80ea0fce0b26eb", to_commit = "47d639abffa882b8cbb641d7d1dedf08ecada9ec", incorporated = [], skipped = ["spec/SKILL.md: Unattended session kind, question tuning, voice, artifact sync and implementation model settings. Donor runtime.", "spec/SKILL.md: Per-test protects, fails_when and no_claim acceptance criteria. Covered by task-breakdown/SKILL.md:130-134 and task-breakdown/references/staged-delivery.md:18-19.", "spec/SKILL.md: Rules for the implementing agent and a Claims Need Evidence section. Execution-time rules owned elsewhere, at task-breakdown/SKILL.md:65 and :132, work-mode/SKILL.md:91-94, verify/SKILL.md:69 and :92, and tdd/SKILL.md:55."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff c285d88b90d3..47d639abffa8 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "A unit that will be executed later carries the inspected revision or verification date with its source and contract references, and the executor rechecks those references at pickup before relying on them."
+serves = "Prevents an executor from building on code facts that changed after the breakdown."
+where = ["SKILL.md#make-each-unit-executable"]
+shapes = "Adds the deferred-execution rule to the source and contract line of the unit field list."
+adapted = "The local rule records the inspected revision as well as a date, and it requires revalidation at pickup."
+
+[[sources.declined]]
+feature = "Filing the spec as an issue, sizing issues by days of work, and spawning an agent to execute it."
+reason = "Ticket publication belongs to the issue-workflow skill, and units are sized for human review. Ordinary implementation choices stay with the executor, and execution follows the existing workflow."
+
+[[sources.reviews]]
+from_commit = "c285d88b90d39116ccfa2b901f80ea0fce0b26eb"
+to_commit = "47d639abffa882b8cbb641d7d1dedf08ecada9ec"
+incorporated = []
+skipped = [
+  "spec/SKILL.md: Unattended session kind, question tuning, voice, artifact sync and implementation model settings. Donor runtime.",
+  "spec/SKILL.md: Per-test protects, fails_when and no_claim acceptance criteria. Covered by task-breakdown/SKILL.md:130-134 and task-breakdown/references/staged-delivery.md:18-19.",
+  "spec/SKILL.md: Rules for the implementing agent and a Claims Need Evidence section. Execution-time rules owned elsewhere, at task-breakdown/SKILL.md:65 and :132, work-mode/SKILL.md:91-94, verify/SKILL.md:69 and :92, and tdd/SKILL.md:55.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff c285d88b90d3..47d639abffa8 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[dependencies]]
-name = "planning"
 kind = "local"
+name = "planning"
 required = false
 role = "Resolve missing implementation approach; keep the overall plan authoritative."
 
 [[dependencies]]
-name = "wayfinder"
 kind = "local"
+name = "wayfinder"
 required = false
 role = "Resolve connected direction decisions that prevent decomposition."
 
 [[dependencies]]
-name = "issue-workflow"
 kind = "local"
+name = "issue-workflow"
 required = false
 role = "Publish prepared tasks only when that operation is authorized."
 
 [[dependencies]]
-name = "pr"
 kind = "local"
+name = "pr"
 required = false
 role = "Measure the actual PR diff against an explicitly established size cap before publication."
 
 [[dependencies]]
-name = "stacked-pr"
 kind = "local"
+name = "stacked-pr"
 required = false
 role = "Own dependent branches and enforce any explicitly established layer size cap during publication."
 
 [[dependencies]]
-name = "agent-instructions"
 kind = "local"
+name = "agent-instructions"
 required = false
 role = "Maintain sources when requested."

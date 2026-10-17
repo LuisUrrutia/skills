@@ -1,7 +1,29 @@
-format_version = 1
+format_version = 2
 skill = "learning-plan"
 created = "2026-10-04"
-approach = "Standalone derivation of selected teaching and learning-design mechanisms; donor skills are not runtime dependencies."
+approach = "derive"
+goal = "Design or revise a study plan or course that takes a specific learner from what they know to an outcome they want, in a technical or nontechnical subject and within their known constraints. Success is the requested plan or complete course, with objectives ordered by prerequisites, practice with feedback criteria, observable checkpoints and a clear starting point, revised from the learner's observed progress."
+
+[[invariants]]
+rule = "This skill owns the sequence, scope, workload and adjustments of a plan; the teach skill owns the content and feedback of individual lessons and is used for requested lesson content when it is available."
+where = ["SKILL.md#learning-plan", "SKILL.md#connect-plans-to-lessons"]
+
+[[invariants]]
+rule = "No donor skill is a runtime dependency. Planning and teaching require no plugin installation or new workspace, and ordinary planning does not fetch donor skills."
+reason = "The record began as a standalone derivation of selected teaching and learning-design mechanisms."
+where = ["SKILL.md#connect-plans-to-lessons", "SKILL.md#source-maintenance"]
+
+[[invariants]]
+rule = "A plan uses an existing learning record only when it clearly belongs to this learner and topic; a shared installation or workspace does not make another person's profile this learner's."
+where = ["SKILL.md#establish-the-outcome", "references/progress.md#resume-the-right-context"]
+
+[[invariants]]
+rule = "Files and progress are saved only when requested, at the designated destination under existing conventions; ordinary planning creates no learning database."
+where = ["SKILL.md#deliver", "references/progress.md#save-only-useful-continuity"]
+
+[[invariants]]
+rule = "A request for a schedule or calendar never authorizes creating calendar events, reminders, enrollments or recurring tasks."
+where = ["SKILL.md#review-and-adjust"]
 
 [[sources]]
 id = "learning-plan-cursor"
@@ -9,15 +31,51 @@ author = "Cursor"
 repository = "https://github.com/cursor/plugins"
 remote = "git@github.com:cursor/plugins.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
 reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
-baseline_paths = ["teaching/skills/create-learning-path/SKILL.md", "teaching/skills/run-learning-retrospective/SKILL.md", "teaching/LICENSE"]
-paths = ["teaching/skills/create-learning-path/SKILL.md", "teaching/skills/run-learning-retrospective/SKILL.md", "teaching/LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Order objectives from foundations to application, with achievable milestones and feedback criteria.", "Review actual progress, reinforce weak concepts, and adjust the next milestone."]
-local_choices = ["No mandatory question tool, fixed week count, or automatic scheduling; respect known time constraints."]
-reviews = [
-  { from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a", to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames e43c7ee26e00..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "teaching/skills/create-learning-path/SKILL.md",
+  "teaching/skills/run-learning-retrospective/SKILL.md",
+  "teaching/LICENSE",
+]
+paths = [
+  "teaching/skills/create-learning-path/SKILL.md",
+  "teaching/skills/run-learning-retrospective/SKILL.md",
+  "teaching/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "A plan orders objectives from the foundations the learner needs to applied practice, groups them into milestones the learner can reach in the available time, and gives each milestone practice with feedback criteria."
+serves = "The learner reaches the outcome through achievable steps and knows what good work looks like at each one."
+where = ["SKILL.md#sequence-the-learning"]
+shapes = "Sets the section's order: work backward from the outcome, order objectives by prerequisites, then give each chapter or milestone an objective, a worked example, a practice task with feedback criteria and a checkpoint."
+adapted = "Only the foundation needed for the next meaningful application comes first. An explicit request for no exercises or assessment replaces practice with worked examples and optional self-review."
+
+[[sources.ideas]]
+idea = "At a milestone, the plan compares the learner's actual work with the target outcome, reinforces the weak concepts, and revises the pacing, the upcoming practice and the next milestone with its checkpoint."
+serves = "Keeps the plan matched to the learner's real progress instead of its original schedule."
+where = ["SKILL.md#review-and-adjust", "references/progress.md#evaluate-the-next-step"]
+shapes = "Makes review a separate step that feeds observed difficulty back into the example, prerequisite, workload or next task, and ends the progress reference with a revision of the next milestone and its criteria."
+
+[[sources.declined]]
+feature = "Asking the learner for information through a mandatory question tool."
+reason = "The skill asks for missing constraints only when they materially change the plan."
+
+[[sources.declined]]
+feature = "A week-by-week plan with a fixed number of weeks."
+reason = "The plan follows the learner's known time constraints; when available time is unknown, it uses milestones with an adjustable workload instead of an invented weekly commitment."
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames e43c7ee26e00..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -26,15 +84,78 @@ author = "Matt Pocock"
 repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
 reviewed_through = "49dd158d1076134a641b33efb035946536778336"
-baseline_paths = ["skills/productivity/teach/SKILL.md", "skills/productivity/teach/MISSION-FORMAT.md", "skills/productivity/teach/RESOURCES-FORMAT.md", "skills/productivity/teach/LEARNING-RECORD-FORMAT.md", "skills/productivity/teach/GLOSSARY-FORMAT.md", "LICENSE"]
-paths = ["skills/productivity/teach/SKILL.md", "skills/productivity/teach/MISSION-FORMAT.md", "skills/productivity/teach/RESOURCES-FORMAT.md", "skills/productivity/teach/LEARNING-RECORD-FORMAT.md", "skills/productivity/teach/GLOSSARY-FORMAT.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Ground learning in an observable goal, curate useful resources, and use progress to choose the next lesson.", "Keep evidenced and reported knowledge distinct; revisit and correct records as understanding changes."]
-local_choices = ["A lightweight plan works without a course workspace; save progress only when requested.", "Separate learner records, avoid assumed mastery and fixed schemas, and use teach for requested lesson content."]
-reviews = [
-  { from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888", to_commit = "49dd158d1076134a641b33efb035946536778336", incorporated = [], skipped = ["skills/productivity/teach/SKILL.md: Anchors workspace paths and varies the quiz answer position. learning-plan hands lesson content and quizzes to teach (learning-plan/SKILL.md:59-60), where the answer-position item is adopted, and workspace paths conflict with the lightweight-plan local choice (learning-plan/SKILL.md:67)."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 24fe0ef7737e..49dd158d1076 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/productivity/teach/SKILL.md",
+  "skills/productivity/teach/MISSION-FORMAT.md",
+  "skills/productivity/teach/RESOURCES-FORMAT.md",
+  "skills/productivity/teach/LEARNING-RECORD-FORMAT.md",
+  "skills/productivity/teach/GLOSSARY-FORMAT.md",
+  "LICENSE",
+]
+paths = [
+  "skills/productivity/teach/SKILL.md",
+  "skills/productivity/teach/MISSION-FORMAT.md",
+  "skills/productivity/teach/RESOURCES-FORMAT.md",
+  "skills/productivity/teach/LEARNING-RECORD-FORMAT.md",
+  "skills/productivity/teach/GLOSSARY-FORMAT.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "The plan starts from the learner's real goal, stated as something they can explain, perform or evaluate. That goal decides what to teach, which resources to use and when to advance."
+serves = "Keeps every objective tied to an outcome the learner can demonstrate, so the plan does not drift into abstract coverage."
+where = ["SKILL.md#establish-the-outcome"]
+shapes = "Puts goal-setting first: the opening section identifies the learner, outcome, prior knowledge and constraints before any sequencing, and expresses success as an observable ability."
+adapted = "The goal lives in the plan itself, not in a separate mission file, and the skill asks for missing details only when they materially change the plan."
+
+[[sources.ideas]]
+idea = "A plan uses a small number of reliable, level-appropriate resources and says what each contributes. Titles, availability, access requirements and changing facts are verified before a resource is recommended, and gaps that no resource covers are stated."
+serves = "Prevents resource overload, invented links and false confidence that the materials cover the whole outcome."
+where = ["SKILL.md#sequence-the-learning"]
+shapes = "Adds a closing paragraph to the sequencing section that limits, annotates and verifies the recommended materials and states their gaps."
+adapted = "Resources are listed in the plan rather than in a resources file. Paid materials and communities are recommended only when the request needs them, while the donor sends questions that need practitioner experience to a community by default."
+
+[[sources.ideas]]
+idea = "The next task challenges the learner just beyond what they have shown they can do: a difficult checkpoint reduces or changes the task and reinforces the prerequisite that matters, and a comfortable one skips redundant practice or adds a useful variation."
+serves = "Keeps practice at a useful level of difficulty instead of repeating mastered material or outrunning the learner."
+where = ["references/progress.md#evaluate-the-next-step"]
+shapes = "Splits the next-step decision into a branch for difficult checkpoints and a branch for comfortable ones."
+
+[[sources.ideas]]
+idea = "Progress evidence has distinct levels: material the learner only saw, knowledge they report, application that succeeded with support, and application without support. Only an attempt, explanation or application reveals understanding; a completed chapter or a confident self-report does not."
+serves = "Prevents treating coverage or claimed knowledge as learning when deciding whether to advance."
+where = ["references/progress.md#evaluate-the-next-step", "SKILL.md#review-and-adjust"]
+shapes = "Opens the next-step evaluation with the four evidence levels, and makes every checkpoint use an attempt, explanation or application."
+adapted = "Self-reported knowledge stays reported, not assumed mastery, and the skill uses no mastery percentages or permanent ability labels."
+
+[[sources.ideas]]
+idea = "When a later attempt contradicts what a saved record says the learner understands, the plan reassesses that prerequisite and keeps the correction visible instead of treating the old record as fact."
+serves = "Stops stale or wrong progress records from steering the next steps."
+where = [
+  "references/progress.md#resume-the-right-context",
+  "references/progress.md#save-only-useful-continuity",
+]
+shapes = "Makes resumption check saved understanding against current attempts before reuse, and makes saved records keep material corrections and dates where stale facts matter."
+
+[[sources.declined]]
+feature = "A teaching workspace with fixed files and formats as the state of every plan: a mission file, a resources file, a glossary, numbered learning records, HTML lessons and shared assets."
+reason = "A lightweight plan works without a course workspace; a single plan with a short progress section can be enough, and separate files are optional structures for a need."
+
+[[sources.reviews]]
+from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+to_commit = "49dd158d1076134a641b33efb035946536778336"
+incorporated = []
+skipped = [
+  "skills/productivity/teach/SKILL.md: Anchors workspace paths and varies the quiz answer position. learning-plan hands lesson content and quizzes to teach (learning-plan/SKILL.md:59-60), where the answer-position item is adopted, and workspace paths conflict with the declined teaching workspace (learning-plan/SKILL.md:67).",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 24fe0ef7737e..49dd158d1076 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[dependencies]]

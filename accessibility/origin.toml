@@ -1,7 +1,30 @@
-format_version = 1
+format_version = 2
 skill = "accessibility"
 created = "2026-10-04"
-approach = "Derive: combine task completion and platform coverage with primary standards; retain verify as execution owner."
+approach = "derive"
+goal = "Help someone who designs, implements or audits a web, native or terminal interface make the intended task perceivable, operable and understandable through every supported way of accessing it. Success is evidence that users can complete the whole flow, including state changes, errors, recovery and the resulting destination, with each claim backed by checks that match it and untested coverage stated."
+
+[[invariants]]
+rule = "The verify skill and the matching local verification recipe own startup, health, fixtures, driving and cleanup; this skill supplies the flow and its accessibility criteria."
+reason = "The skill was derived to retain the verify skill as the execution owner."
+where = ["SKILL.md#collect-evidence-that-matches-the-claim"]
+
+[[invariants]]
+rule = "Technical requirements come from primary standards and platform documentation. The exact criterion and its exceptions are confirmed before a preference, pattern recommendation or enhanced target is treated as a requirement, and web attributes, CSS pixels and platform units are not interchangeable."
+reason = "Several donors misstate conformance levels, units or target sizes, so the skill takes requirements from primary sources and rechecks them when a technical requirement changes."
+where = [
+  "SKILL.md#establish-the-task-and-authority",
+  "references/web.md#web-accessibility-checks",
+  "references/platforms.md#native-and-terminal-interfaces",
+]
+
+[[invariants]]
+rule = "For web work the baseline is the project's accessibility target, or WCAG 2.2 Level AA when the project sets none. It is a scoped engineering target, never a claim of legal compliance or whole-product conformance."
+where = ["SKILL.md#establish-the-task-and-authority"]
+
+[[invariants]]
+rule = "Work stays within the request's authority: an audit produces findings and coverage, corrections happen only when the active task authorizes them, and a user's global settings are never changed to make a test pass."
+where = ["SKILL.md#establish-the-task-and-authority", "references/platforms.md#terminal-interfaces"]
 
 [[sources]]
 id = "ecc-accessibility"
@@ -9,15 +32,73 @@ author = "Affaan Mustafa / ECC"
 repository = "https://github.com/affaan-m/ECC"
 remote = "git@github.com:affaan-m/ECC.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
 reviewed_through = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29"
-baseline_paths = ["skills/accessibility/SKILL.md", "skills/frontend-a11y/SKILL.md", "agents/a11y-architect.md", "rules/react-native/accessibility.md", "LICENSE"]
-paths = ["skills/accessibility/SKILL.md", "skills/frontend-a11y/SKILL.md", "agents/a11y-architect.md", "rules/react-native/accessibility.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Cross-platform semantics, keyboard and assistive-technology coverage; connect fields and errors and check real native settings."]
-local_choices = ["Use platform-specific references and existing components, with no React-only examples or fixed accessibility API mapping.", "Correct AA/AAA focus classification and target-size scope against primary standards; do not turn every error into an alert."]
-reviews = [
-  { from_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775", to_commit = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames ef648e01899b..b92f181b3b74 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/accessibility/SKILL.md",
+  "skills/frontend-a11y/SKILL.md",
+  "agents/a11y-architect.md",
+  "rules/react-native/accessibility.md",
+  "LICENSE",
+]
+paths = [
+  "skills/accessibility/SKILL.md",
+  "skills/frontend-a11y/SKILL.md",
+  "agents/a11y-architect.md",
+  "rules/react-native/accessibility.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Accessibility covers each supported platform through its own semantics and assistive technologies: web roles, names and states, and native traits, values and actions. Each platform is checked through its own accessibility tree and its keyboard, switch, voice or screen-reader access."
+serves = "Prevents treating one platform's checks as proof for another."
+where = ["SKILL.md#establish-the-task-and-authority", "references/platforms.md#native-applications"]
+shapes = "Separates web guidance from native-platform guidance in their own references, and makes the skill choose between them by platform before it selects checks."
+adapted = "Platform-specific references and the project's existing components replace the donor's React-only examples and its fixed web, iOS and Android attribute mapping."
+
+[[sources.ideas]]
+idea = "Connect instructions and errors to their fields and expose required, invalid and similar states, so users can identify the field, understand the error and reach the correction."
+serves = "Lets assistive-technology users find and fix what blocks a submission."
+where = [
+  "references/web.md#semantics-and-content",
+  "references/web.md#forms-authentication-and-recovery",
+]
+shapes = "Adds field-to-error association to the semantics checks and makes the form section follow a submission through invalid input, correction and outcome."
+adapted = "Status changes use live regions or alerts chosen by their actual urgency; field errors do not all become assertive alerts."
+
+[[sources.ideas]]
+idea = "Check native apps under the real system settings that users change: text scaling at the supported accessibility sizes, themes, increased contrast and reduced motion."
+serves = "Finds layouts and controls that fail only under the settings users actually rely on."
+where = ["references/platforms.md#native-applications"]
+shapes = "Adds a settings pass to the native checks that covers controls, long content and failure states."
+
+[[sources.declined]]
+feature = "React-only code examples and a fixed web, iOS and Android attribute mapping table."
+reason = "Platform references and the project's existing components decide the actual APIs."
+
+[[sources.declined]]
+feature = "Citing 2.4.11 as the visible-focus criterion and presenting Focus Appearance as a core WCAG 2.2 AA requirement."
+reason = "Visible focus (2.4.7) and focus not entirely obscured (2.4.11) are AA; Focus Appearance (2.4.13) is AAA."
+
+[[sources.declined]]
+feature = "A fixed 44 by 44 point minimum for native touch targets."
+reason = "Android recommends at least 48 by 48 dp, and Apple distinguishes a 44 pt default from a 28 pt minimum on iOS and iPadOS; the current platform table and input context decide."
+
+[[sources.declined]]
+feature = "Marking every field error with role=alert."
+reason = "Urgency decides between a live region and an alert; not every field error interrupts the user."
+
+[[sources.reviews]]
+from_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+to_commit = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames ef648e01899b..b92f181b3b74 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -26,15 +107,44 @@ author = "Matthew Blode"
 repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
 reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
-baseline_paths = ["skills/product-design/SKILL.md", "skills/product-design/references/interface-quality.md", "LICENSE.md"]
-paths = ["skills/product-design/SKILL.md", "skills/product-design/references/interface-quality.md", "LICENSE.md"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Treat accessibility as completing the task, including reachable states, consequences, errors and recovery."]
-local_choices = ["Keep an accessibility specialist rather than the donor product-design router, rule registry, severity rubric or aesthetics scope."]
-reviews = [
-  { from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/product-design/SKILL.md",
+  "skills/product-design/references/interface-quality.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/product-design/SKILL.md",
+  "skills/product-design/references/interface-quality.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "Accessibility means a user can complete the whole task with each supported input method and assistive technology: entry, state changes, consequences, errors, recovery and the resulting destination. A component with the right attributes can still prevent someone from finishing."
+serves = "Prevents passing a flow because its first control is correctly labeled."
+where = [
+  "SKILL.md#accessibility",
+  "SKILL.md#define-the-interaction-before-changing-it",
+  "SKILL.md#report-barriers-and-coverage",
+]
+shapes = "Makes the complete flow the unit of work: the skill traces it through its reachable states before any change, and the report forbids judging a whole flow from its first screen."
+
+[[sources.declined]]
+feature = "A product-design router with request modes, a rule-ID registry that every finding cites, a P0 to P2 severity rubric and visual-design scope."
+reason = "The skill stays an accessibility specialist and prioritizes findings by blocked tasks, impact, reach and available alternatives."
+
+[[sources.reviews]]
+from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -43,15 +153,96 @@ author = "Matthew Blode"
 repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
 reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
-baseline_paths = ["skills/ui-verification/SKILL.md", "skills/ui-verification/probes/focus-walk.md", "skills/ui-verification/probes/axe-scan.md", "skills/ui-verification/probes/target-size.md", "skills/ui-verification/probes/viewport-stress.md", "LICENSE.md"]
-paths = ["skills/ui-verification/SKILL.md", "skills/ui-verification/probes/focus-walk.md", "skills/ui-verification/probes/axe-scan.md", "skills/ui-verification/probes/target-size.md", "skills/ui-verification/probes/viewport-stress.md", "LICENSE.md"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Use observed keyboard and focus paths, real hit regions, scoped automated scans and explicit missing evidence."]
-local_choices = ["verify and the local recipe retain environment and execution ownership. No fixed browser CLI or mandatory probe matrix.", "Reject blanket third-party exclusion, pixel-difference focus verdicts, 44px as a universal AA floor, and viewport-only zoom claims."]
-reviews = [
-  { from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/ui-verification/SKILL.md",
+  "skills/ui-verification/probes/focus-walk.md",
+  "skills/ui-verification/probes/axe-scan.md",
+  "skills/ui-verification/probes/target-size.md",
+  "skills/ui-verification/probes/viewport-stress.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/ui-verification/SKILL.md",
+  "skills/ui-verification/probes/focus-walk.md",
+  "skills/ui-verification/probes/axe-scan.md",
+  "skills/ui-verification/probes/target-size.md",
+  "skills/ui-verification/probes/viewport-stress.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "Drive the real keyboard or platform input path through the task and observe focus entry, movement, visibility, dismissal and return, instead of inferring them from source."
+serves = "Finds focus losses, traps and hidden focus that markup review cannot show."
+where = [
+  "SKILL.md#collect-evidence-that-matches-the-claim",
+  "references/web.md#keyboard-focus-and-dynamic-interfaces",
+]
+shapes = "Adds a driven keyboard walk to the evidence list and a focus check after each route change, removal, validation, update and overlay closure."
+
+[[sources.ideas]]
+idea = "Measure a control's effective hit region, including expanded hit areas, occlusion and nearby targets, instead of its drawn size."
+serves = "Prevents false findings on controls whose real target is larger, and missed findings on targets that neighbors cover."
+where = [
+  "SKILL.md#collect-evidence-that-matches-the-claim",
+  "references/web.md#visual-conditions-and-input-alternatives",
+  "references/platforms.md#native-applications",
+]
+shapes = "Replaces size-by-appearance with measurement of the effective clickable region in the visual-condition and native checks."
+adapted = "The threshold comes from the applicable criterion: WCAG 2.5.8 AA uses 24 by 24 CSS px or its spacing and other exceptions, and 44 by 44 CSS px belongs to the enhanced AAA criterion 2.5.5."
+
+[[sources.ideas]]
+idea = "Run automated scans on the reachable states that matter, such as dialogs and errors, and report their engine, rules, scope, exclusions, inconclusive results and false positives. An empty violation list proves only what that run could check."
+serves = "Keeps an automated result from claiming more coverage than it had."
+where = [
+  "SKILL.md#collect-evidence-that-matches-the-claim",
+  "references/web.md#evidence-limits-and-primary-references",
+]
+shapes = "Makes scan scope and inconclusive results part of the evidence a scan contributes."
+adapted = "Required embedded third-party steps, such as payments, identity or consent, stay in the task coverage. Cross-origin content that cannot be inspected remains unverified or a demonstrated barrier, and attribution to a vendor is a remediation decision, not an exemption."
+
+[[sources.ideas]]
+idea = "Record missing evidence explicitly: a check that could not run, an unavailable device or assistive technology, or a blocked step is a limitation with the next check named, never a pass."
+serves = "Prevents a partial run from being reported as a complete result."
+where = [
+  "SKILL.md#collect-evidence-that-matches-the-claim",
+  "SKILL.md#report-barriers-and-coverage",
+  "references/platforms.md#native-applications",
+]
+shapes = "Adds untested, blocked and inconclusive states to the report beside passed and failed, and keeps required missing checks from completing the result."
+
+[[sources.declined]]
+feature = "A fixed browser automation tool with Playwright-only recipes and a mandatory battery of probes."
+reason = "The verify skill and the local recipe own the environment, and checks are chosen from the affected interaction."
+
+[[sources.declined]]
+feature = "Excluding third-party iframes and consent banners from scans as a blanket rule."
+reason = "Essential embedded steps stay in the task coverage; third-party ownership does not turn a blocked task into a pass."
+
+[[sources.declined]]
+feature = "Deciding focus visibility by a changed-pixel threshold."
+reason = "Visible focus is judged against the applicable criterion, which a pixel ratio does not measure."
+
+[[sources.declined]]
+feature = "44 by 44 CSS px as the conformance floor for target size."
+reason = "The AA criterion is 24 by 24 CSS px with exceptions; 44 by 44 CSS px is the enhanced AAA criterion."
+
+[[sources.declined]]
+feature = "Treating a clean pass at a 320 px viewport as browser zoom or as the full reflow result."
+reason = "Viewport narrowing, text-only resizing and browser zoom exercise different conditions, and the report names the one actually tested."
+
+[[sources.reviews]]
+from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -60,14 +251,60 @@ author = "web-quality-skills, distributed by GSD (Lex Christopherson)"
 repository = "https://github.com/gsd-build/gsd-2"
 remote = "git@github.com:gsd-build/gsd-2.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
 reviewed_through = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
-baseline_paths = ["src/resources/skills/accessibility/SKILL.md", "src/resources/skills/accessibility/references/WCAG.md", "src/resources/extensions/gsd/workflow-templates/accessibility-audit.md", "LICENSE"]
-paths = ["src/resources/skills/accessibility/SKILL.md", "src/resources/skills/accessibility/references/WCAG.md", "src/resources/extensions/gsd/workflow-templates/accessibility-audit.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Cover content alternatives, input, timing, understandable forms, and the limits of automated and source-only audits."]
-local_choices = ["Use WCAG 2.2 with precise exceptions, not the donor abbreviated 2.1 checklist or its obsolete Parsing criterion.", "Correct pt versus px large-text thresholds; omit language-specific snippets, global package installation, fixed severity and zero-score certification."]
-reviews = []
+baseline_paths = [
+  "src/resources/skills/accessibility/SKILL.md",
+  "src/resources/skills/accessibility/references/WCAG.md",
+  "src/resources/extensions/gsd/workflow-templates/accessibility-audit.md",
+  "LICENSE",
+]
+paths = [
+  "src/resources/skills/accessibility/SKILL.md",
+  "src/resources/skills/accessibility/references/WCAG.md",
+  "src/resources/extensions/gsd/workflow-templates/accessibility-audit.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Coverage reaches beyond controls to content alternatives (images, charts, captions, transcripts and audio description), page language, input alternatives, timing and moving content, and understandable forms, each judged by meaning and accuracy rather than presence."
+serves = "Finds barriers in content and timing that a control-only review misses."
+where = [
+  "references/web.md#semantics-and-content",
+  "references/web.md#visual-conditions-and-input-alternatives",
+  "references/web.md#forms-authentication-and-recovery",
+]
+shapes = "Adds content-alternative, language, timing, motion and form checks to the web reference, each judged by meaning and accuracy rather than presence."
+adapted = "The checks follow WCAG 2.2 with each criterion's precise exceptions instead of the donor's abbreviated WCAG 2.1 checklist."
+
+[[sources.ideas]]
+idea = "Automated and source-only audits have limits: a screenshot does not establish keyboard behavior, accessible names or spoken output, and a tree, synthetic event or automated scan cannot replace the assistive-technology interaction."
+serves = "Keeps manual keyboard and screen-reader checks in scope where the claim needs them."
+where = [
+  "SKILL.md#establish-the-task-and-authority",
+  "SKILL.md#collect-evidence-that-matches-the-claim",
+  "SKILL.md#report-barriers-and-coverage",
+]
+shapes = "Limits what each kind of evidence can prove, and makes the report reject a whole-flow verdict built on a screenshot, source patch or automated score."
+adapted = "No automated score or empty result certifies conformance, and an unavailable manual check is never replaced with a passing automation score."
+
+[[sources.declined]]
+feature = "The abbreviated WCAG 2.1 checklist, including the obsolete 4.1.1 Parsing criterion."
+reason = "The skill uses WCAG 2.2 with each criterion's exact exceptions."
+
+[[sources.declined]]
+feature = "Large text defined as at least 18 px, or 14 px bold."
+reason = "Large text is at least 18 pt regular or 14 pt bold, about 24 or 18.67 CSS px."
+
+[[sources.declined]]
+feature = "Language-specific code snippets and global installation of audit packages."
+reason = "The skill uses the host's tools and the project's existing harness."
+
+[[sources.declined]]
+feature = "Fixed severity tiers for every finding."
+reason = "Findings are prioritized by blocked tasks, impact, reach and available alternatives."
 
 [[sources]]
 id = "addy-accessibility"
@@ -75,15 +312,74 @@ author = "Addy Osmani"
 repository = "https://github.com/addyosmani/agent-skills"
 remote = "git@github.com:addyosmani/agent-skills.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
 reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
-baseline_paths = ["skills/frontend-ui-engineering/SKILL.md", "references/accessibility-checklist.md", "LICENSE"]
-paths = ["skills/frontend-ui-engineering/SKILL.md", "references/accessibility-checklist.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Select keyboard, screen reader, visual and form checks; preserve design-system context and meaningful error and loading states."]
-local_choices = ["Reuse selected accessibility coverage only, not the UI-building workflow, aesthetic rules or component-size limits.", "Correct large-text units and keyboard/target-size exceptions; avoid the incomplete dialog snippet, mandatory focus movement on any content change and automatic legal claims."]
-reviews = [
-  { from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026", to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d", incorporated = [], skipped = ["skills/frontend-ui-engineering/SKILL.md: The error-state container example now destructures refetch before passing it as the retry callback. It fixes a snippet in the UI-building workflow that accessibility/origin.txt:78 excludes, and no accessibility guidance changed."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 1401c8b8030e..aeac41d4d005 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/frontend-ui-engineering/SKILL.md",
+  "references/accessibility-checklist.md",
+  "LICENSE",
+]
+paths = [
+  "skills/frontend-ui-engineering/SKILL.md",
+  "references/accessibility-checklist.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Choose keyboard, screen-reader, visual and form checks from the affected interaction and the coverage the claim needs, not from a fixed number of screens or a tool's default scan."
+serves = "Spends checking effort where the changed interaction can fail."
+where = ["SKILL.md#collect-evidence-that-matches-the-claim"]
+shapes = "Turns the evidence section into a set of check kinds from which the claim selects."
+
+[[sources.ideas]]
+idea = "Prefer native controls and the project's established design-system components, keep the product's behavior and visual identity unless a barrier requires a change, and repair at the responsible component or shared primitive."
+serves = "Fixes barriers without fragmenting the design system or changing unrelated behavior."
+where = ["SKILL.md#define-the-interaction-before-changing-it"]
+shapes = "Orders repairs from native controls to established components to custom patterns, and requires checking affected callers when a shared control changes."
+
+[[sources.ideas]]
+idea = "Trace the loading, empty, invalid, denied, interrupted and success states that exist in the flow, and make each one perceivable with an outcome the user can discover."
+serves = "Prevents state changes that sighted mouse users notice and others miss."
+where = ["SKILL.md#define-the-interaction-before-changing-it"]
+shapes = "Makes the state list the first step before any change to the interaction."
+
+[[sources.declined]]
+feature = "The UI-building workflow, its aesthetic rules and its 200-line component limit."
+reason = "The skill takes only the accessibility coverage."
+
+[[sources.declined]]
+feature = "Large text from 18 px and 44 by 44 px touch targets as the general minimum."
+reason = "Large text is 18 pt regular or 14 pt bold, and the AA target size is 24 by 24 CSS px with exceptions."
+
+[[sources.declined]]
+feature = "Universal keyboard rules: every interactive element as its own Tab stop, and Enter and Escape on every custom widget."
+reason = "The applicable APG pattern decides the keys; a composite widget can use one Tab stop with arrow keys inside, and controls that already handle a key get no redundant handler."
+
+[[sources.declined]]
+feature = "A dialog example that sets aria-modal without making the background unavailable."
+reason = "aria-modal alone does not implement modal behavior; the modal pattern is tested through opening, containment, dismissal and focus return."
+
+[[sources.declined]]
+feature = "Moving focus whenever content changes."
+reason = "Not every content update warrants moving focus; status changes are exposed without unnecessary interruption."
+
+[[sources.declined]]
+feature = "Presenting accessibility work as meeting a legal requirement."
+reason = "The baseline is a scoped engineering target, not a legal compliance claim."
+
+[[sources.reviews]]
+from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+incorporated = []
+skipped = [
+  "skills/frontend-ui-engineering/SKILL.md: The error-state container example now destructures refetch before passing it as the retry callback. It fixes a snippet in the declined UI-building workflow, and no accessibility guidance changed.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 1401c8b8030e..aeac41d4d005 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -92,52 +388,34 @@ author = "GitHub CLI maintainers"
 repository = "https://github.com/cli/cli"
 remote = "git@github.com:cli/cli.git"
 ref = "refs/heads/trunk"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "6fc1c29d5477bfe71da7af290eb481c0df7811f1"
 reviewed_through = "59e9f78eacdf2554f8534d166808c3e9b8c7ebcb"
 baseline_paths = ["pkg/cmd/accessibility/accessibility.go", "LICENSE"]
 paths = ["pkg/cmd/accessibility/accessibility.go", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Terminal accessibility can require stable prompts, readable progress and configurable color rather than cursor redraws and animation."]
-local_choices = ["Use as a conditional design reference for terminal work; do not prescribe GitHub CLI settings or mutate user configuration."]
-reviews = [
-  { from_commit = "6fc1c29d5477bfe71da7af290eb481c0df7811f1", to_commit = "59e9f78eacdf2554f8534d166808c3e9b8c7ebcb", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 6fc1c29d5477..59e9f78eacdf over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "A terminal interface can need a stable line-oriented prompt or a supported noninteractive equivalent, readable text progress instead of animated spinners, and configurable colors with meaning that does not depend on color, because cursor redraws and animation are hard for speech and braille output to follow."
+serves = "Lets terminal users with assistive technology perceive the prompt, answer it, correct it, cancel and understand the result."
+where = ["references/platforms.md#terminal-interfaces"]
+shapes = "Adds a terminal section that checks the prompt, answer, correction, cancellation and result through the relevant terminal and assistive technology."
+adapted = "GitHub CLI's implementation is a conditional design reference for terminal work; its particular flags and settings are not requirements for other programs."
+
+[[sources.declined]]
+feature = "Requiring GitHub CLI's accessible-colors, accessible-prompter and spinner settings, or changing a user's global terminal or CLI configuration to test."
+reason = "The program's own conventions apply, and the test names the actual environment instead of changing the user's settings."
+
+[[sources.reviews]]
+from_commit = "6fc1c29d5477bfe71da7af290eb481c0df7811f1"
+to_commit = "59e9f78eacdf2554f8534d166808c3e9b8c7ebcb"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 6fc1c29d5477..59e9f78eacdf over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
-
-[[dependencies]]
-kind = "local"
-name = "agent-instructions"
-required = false
-role = "Requested authoring or source maintenance."
-
-[[dependencies]]
-kind = "local"
-name = "verify"
-required = false
-role = "Select and execute current checks through the local recipe."
-
-[[dependencies]]
-kind = "local"
-name = "verification-authoring"
-required = false
-role = "Maintain durable local verification instructions when requested."
-
-[[dependencies]]
-kind = "local"
-name = "review-code-changes"
-required = false
-role = "Own the active change review and final findings."
-
-[[dependencies]]
-kind = "local"
-name = "error-handling"
-required = false
-role = "Own failure and recovery semantics."
-
-[[dependencies]]
-kind = "local"
-name = "design-code-structure"
-required = false
-role = "Resolve structural boundaries when required for a repair."
 
 [[reference_documents]]
 url = "https://www.w3.org/TR/WCAG22/"
@@ -208,3 +486,39 @@ role = "Primary standards or platform guidance; consult current content for exac
 url = "https://developer.android.com/guide/topics/ui/accessibility/testing"
 checked = "2026-10-04"
 role = "Primary standards or platform guidance; consult current content for exact requirements and exceptions."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Requested authoring or source maintenance."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Select and execute current checks through the local recipe."
+
+[[dependencies]]
+kind = "local"
+name = "verification-authoring"
+required = false
+role = "Maintain durable local verification instructions when requested."
+
+[[dependencies]]
+kind = "local"
+name = "review-code-changes"
+required = false
+role = "Own the active change review and final findings."
+
+[[dependencies]]
+kind = "local"
+name = "error-handling"
+required = false
+role = "Own failure and recovery semantics."
+
+[[dependencies]]
+kind = "local"
+name = "design-code-structure"
+required = false
+role = "Resolve structural boundaries when required for a repair."

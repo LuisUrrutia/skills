@@ -1,30 +1,68 @@
-format_version = 1
+format_version = 2
 skill = "pr-review-followup"
 created = "2026-10-07"
-approach = "Reviewer-side counterpart of pr-followup: follow a PR the user reviewed, settle the reviewer's own threads, re-review new heads through pr-review, and approve through a gate enforced in code."
+approach = "create"
+goal = "Carry a GitHub PR the user reviewed to approval on the reviewer's behalf: answer the author in the reviewer's own threads, settle what the current head confirms, re-review each new head through the pr-review skill, and approve once nothing remains. Success is an approval of a fully reviewed head through the gate enforced in code, or a report of the blocker that needs the user."
+
+[[invariants]]
+rule = "The skill is the reviewer-side counterpart of the pr-followup skill. When the verified gh actor is the PR's author, the pr-followup skill applies instead, and producing a review belongs to the pr-review skill. This skill never edits the reviewed code or requests changes."
+where = ["SKILL.md#pr-review-follow-up"]
+
+[[invariants]]
+rule = "Run one follow-up tick every 30 minutes unless the user names another interval."
+reason = "Set at the user's direction when the skill was derived from the supervised PR 1982 follow-up session on 2026-10-07 (local snapshot pr-1982-followup-session)."
+where = ["references/cadence.md", "SKILL.md#start-the-follow-up"]
+
+[[invariants]]
+rule = "An author's reply, or a resolution by someone else, is a claim. A thread is settled only after its claim is checked on the current head, and a resolved thread counts only once the current head and base confirm it."
+reason = "Set when the skill was derived from the supervised PR 1982 follow-up session on 2026-10-07 (local snapshot pr-1982-followup-session)."
+where = ["references/thread-settlement.md", "SKILL.md#run-one-tick"]
+
+[[invariants]]
+rule = "Every follow-up on a topic stays in its existing thread. A deferral as out of scope gets a request for a ticket, and the thread is resolved once the author supplies the ticket."
+reason = "Set when the skill was derived from the supervised PR 1982 follow-up session on 2026-10-07 (local snapshot pr-1982-followup-session)."
+where = ["references/thread-settlement.md"]
+
+[[invariants]]
+rule = "Every new head gets a full review through the pr-review skill before the skill approves it."
+reason = "In the supervised PR 1982 follow-up session on 2026-10-07, a 15-minute watcher that only reported thread state approved a head it had not reviewed (local snapshot pr-1982-followup-session)."
+where = ["SKILL.md#run-one-tick"]
+
+[[invariants]]
+rule = "Replies and resolutions are published directly, not kept as drafts. The skill never acts on other reviewers' threads or on an unsubmitted review that belongs to the user."
+reason = "Set when the skill was derived from the supervised PR 1982 follow-up session on 2026-10-07 (local snapshot pr-1982-followup-session)."
+where = ["SKILL.md#pr-review-follow-up", "SKILL.md#run-one-tick", "references/thread-settlement.md"]
+
+[[invariants]]
+rule = "The skill is invoked only explicitly, like the pr-review skill, through allow_implicit_invocation false in agents/openai.yaml. It does not use Claude Code's disable-model-invocation."
+reason = "The skill publishes and approves, so it must not start implicitly. disable-model-invocation would also stop it from invoking the pr-review skill and stop scheduled ticks from invoking it."
+where = ["agents/openai.yaml"]
+
+[[invariants]]
+rule = "scripts/followup.py enforces the approval gate, binds each state file to one PR and reviewer, keeps uncertain-write markers across ticks, and requires verification of threads that someone else resolved. Prose instructions do not carry these guarantees."
+reason = "Codex Astra Max and Claude Fable Max reviews found that the first draft relied on prose for them."
+where = ["scripts/followup.py", "SKILL.md#run-one-tick"]
+
+[[invariants]]
+rule = "Thread replies follow the pr-review skill's rule for published text: they never mention the engines, models or agents behind the review, how it was run, or what it could not cover. An author's question about how the review was done goes to the user."
+reason = "User decision on 2026-10-08."
+where = ["references/thread-settlement.md"]
 
 [[local_snapshots]]
 id = "pr-1982-followup-session"
+kind = "session"
 author = "Luis Urrutia"
 repository = "local session"
 verification = "Derived from one supervised session on 2026-10-07: a 15-minute watcher that only reported thread state, then approved a head it had not reviewed. No external donor."
-local_choices = [
-  "Tick every 30 minutes by default, at the user's direction.",
-  "Settle a thread from the author's reply only after checking the claim on the current head.",
-  "Continue a topic in its existing thread; ask for a ticket on a deferral and resolve once the author supplies it.",
-  "Re-review every new head with a full pr-review before approving, because approving an unreviewed head was the observed failure.",
-  "Publish replies and resolutions directly; never touch other reviewers' threads or an unsubmitted review that belongs to the user.",
-  "Preserve explicit-only invocation, like pr-review, because the skill publishes and approves. Claude Code's disable-model-invocation is not used: this skill invokes pr-review, and scheduled ticks must be able to invoke this skill.",
-  "Enforce the approval gate, per-PR state binding, persistent uncertain-write markers and verification of threads someone else resolved in followup.py, after Codex Astra Max and Claude Fable Max reviews found the first draft relied on prose for them.",
-  "2026-10-08, at the user's direction: thread replies follow pr-review's rule for published text and never mention the engines, models or agents behind the review, how it was run or what it could not cover; an author's question about how the review was done goes to the user."
-]
 
 [[dependencies]]
+kind = "local"
 name = "pr-review"
 required = true
 role = "Full review of a new head, publication of new findings and same-topic replies."
 
 [[dependencies]]
+kind = "local"
 name = "comment-style"
 required = true
 role = "Wording of every thread reply."

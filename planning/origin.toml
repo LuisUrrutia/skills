@@ -1,7 +1,29 @@
-format_version = 1
+format_version = 2
 skill = "planning"
 created = "2026-10-06"
-approach = "Derive: combine evidence-grounded planning, explicit dependencies, and proportional detail. Detailed delivery-unit sizing and staged decomposition now belong to task-breakdown; ticket publication belongs to issue-workflow. Preserve the original source pins for traceability."
+approach = "derive"
+goal = "Turn a defined outcome into a plan that another engineer or agent can execute and verify without this conversation, carrying the reasoning, constraints and dependencies that execution needs without writing the implementation in advance. A plan is ready when its scoped work can proceed without inventing a consequential decision and its completion can be checked."
+
+[[invariants]]
+rule = "Planning alone authorizes the requested planning artifacts, not product changes, tracker publication or implementation status transitions."
+where = ["SKILL.md#planning"]
+
+[[invariants]]
+rule = "A review-only request returns findings and proposed corrections without editing the plan; the plan changes only when writing or revision is authorized."
+where = ["SKILL.md#planning", "SKILL.md#check-readiness-and-continue"]
+
+[[invariants]]
+rule = "Planning turns a defined outcome into executable work. Connected direction decisions go to the wayfinder skill, PR-sized delivery decomposition to the task-breakdown skill and ticket publication to the issue-workflow skill."
+reason = "The plan reuses the decisions of those skills instead of duplicating their procedures."
+where = ["SKILL.md#planning", "SKILL.md#ground-the-work", "SKILL.md#describe-executable-work"]
+
+[[invariants]]
+rule = "Planned checks are not observed evidence: future tests, proposed code and another agent's confidence are never reported as passing results, and proxies such as file counts do not prove a plan's quality."
+where = ["SKILL.md#describe-executable-work", "SKILL.md#choose-the-plans-size-and-home"]
+
+[[invariants]]
+rule = "Authorization already given in the task carries across turns. A pending material choice blocks only the work it affects, and independent work continues."
+where = ["SKILL.md#ground-the-work"]
 
 [[sources]]
 id = "blode-planning"
@@ -9,15 +31,98 @@ author = "Matthew Blode"
 repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "cef4cfa837ca41b50d19f54551a3939ed7460434"
 reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
-baseline_paths = ["skills/planning/SKILL.md", "skills/planning/references/handoff-plans.md", "skills/planning/references/splitting.md", "skills/planning/references/claim-verification.md", "skills/planning/references/plan-quality-rubric.md", "LICENSE.md"]
-paths = ["skills/planning/SKILL.md", "skills/planning/references/handoff-plans.md", "skills/planning/references/splitting.md", "skills/planning/references/claim-verification.md", "skills/planning/references/plan-quality-rubric.md", "LICENSE.md"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Ground executable plans in repository evidence and material acceptance scenarios.", "Preserve an authoritative plan, a self-contained handoff, and reasons to replan when premises change.", "Verify consequential claims and stop reviewing when evidenced gaps are resolved.", "Ask only for consequential unresolved choices and preserve existing host approval authority without a second gate."]
-local_choices = ["Keep review-only requests read-only; revise the plan only when writing or revision is authorized.", "Use Wayfinder for connected direction decisions, and keep planning focused on executable work.", "Honor existing output and approval conventions without fixed question counts, score targets, or a mandatory notes file.", "Keep verification plans distinct from observed evidence and avoid treating proxies such as file counts as quality proof."]
-reviews = [
-  { from_commit = "cef4cfa837ca41b50d19f54551a3939ed7460434", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = ["Adapted from skills/planning/SKILL.md: Approach and evidence names current project documentation the change would make wrong, excluding historical records such as changelogs or ADRs (planning/SKILL.md); keeping that update with the change already follows the existing rule that documentation belongs with the outcome it enables."], skipped = [], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff cef4cfa837ca..872bc83bdb6d and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/planning/SKILL.md",
+  "skills/planning/references/handoff-plans.md",
+  "skills/planning/references/splitting.md",
+  "skills/planning/references/claim-verification.md",
+  "skills/planning/references/plan-quality-rubric.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/planning/SKILL.md",
+  "skills/planning/references/handoff-plans.md",
+  "skills/planning/references/splitting.md",
+  "skills/planning/references/claim-verification.md",
+  "skills/planning/references/plan-quality-rubric.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "A plan is grounded in the real code path. The planner reads the request, any existing plan and the project instructions, then inspects the affected implementation, callers, tests and configured commands far enough to see where the change belongs and what already provides part of it. Existing behavior stays distinct from intended behavior, and a conflict between code and docs is a finding to resolve."
+serves = "Prevents plans built on assumed structure or on a stale description of the code."
+where = ["SKILL.md#ground-the-work"]
+shapes = "Makes evidence gathering the first section, before the plan's size or content is chosen."
+
+[[sources.ideas]]
+idea = "Each material acceptance criterion maps to an observable scenario with an expected result and the command or interaction that checks it, including failure behavior where the requirement makes it material. \"Tests pass\" or \"run the suite\" does not replace that mapping."
+serves = "Lets the executor and the reviewer check that the outcome works, not only that the build passes."
+where = [
+  "SKILL.md#describe-executable-work",
+  "assets/implementation-plan.md#id-verifiable-result",
+  "assets/implementation-plan.md#combined-verification",
+]
+shapes = "Defines the Verification item of the plan contents and the paragraph that rejects suite-level acceptance, and gives each work entry an acceptance line and the template a combined verification section."
+
+[[sources.ideas]]
+idea = "Each piece of work has one authoritative plan. The plan names its location, checks that the next executor can reach it, and states the retention limit and how to preserve the plan when the only copy is host-private, ignored, temporary or checkout-local. Work on the same effort reuses that plan instead of starting a competing record."
+serves = "Prevents an executor from working from a lost copy or from competing plans."
+where = ["SKILL.md#choose-the-plans-size-and-home"]
+shapes = "Joins the home and access rules to the sizing section, so a plan's location is decided together with its level of detail."
+adapted = "The plan uses the requested output and the project's artifact convention; `docs/plans/<topic>.md` is only the fallback for a durable handoff. A map from the wayfinder skill, or a spec, keeps its own authority, and the plan links its decisions instead of keeping a second decision history."
+
+[[sources.ideas]]
+idea = "A handoff plan works without the conversation: it carries the relevant decisions, source pointers, prerequisites and the evidence that would require replanning. A resumed plan first reconciles actual work and changed premises, reopens affected decisions instead of reversing them silently, and keeps real progress distinct from planned checkboxes."
+serves = "Lets a fresh executor continue without guessing and stops work that rests on premises that no longer hold."
+where = [
+  "SKILL.md#check-readiness-and-continue",
+  "assets/implementation-plan.md#readiness-and-continuation",
+]
+shapes = "Gives the readiness section a handoff paragraph and a resumption rule, and gives the template a readiness section that names replanning triggers and access limits."
+adapted = "Replanning triggers travel inside the plan; there is no separate implementation-notes file beside it."
+
+[[sources.ideas]]
+idea = "Consequential claims about interfaces, dependencies, compatibility and verification are checked against accessible evidence. The readiness review corrects evidenced gaps and repeats only after material changes or new evidence."
+serves = "Prevents both unverified claims and endless review loops."
+where = ["SKILL.md#ground-the-work", "SKILL.md#check-readiness-and-continue"]
+shapes = "Puts claim checks into grounding and makes the readiness review stop once the evidenced gaps are resolved."
+adapted = "The review traces requirements to work and evidence without rubric scores or a target score."
+
+[[sources.ideas]]
+idea = "Repository questions are answered by investigation, and routine choices are made within delegated judgment. The user is asked only when an unresolved choice materially changes scope, behavior, a contract or a hard-to-reverse action and neither evidence nor existing authority settles it; the question states the consequence and a supported recommendation."
+serves = "Saves the user's attention for the choices that change the work."
+where = ["SKILL.md#ground-the-work"]
+shapes = "Places the questioning rule after investigation in Ground the work, so a question comes only after the evidence runs out."
+
+[[sources.ideas]]
+idea = "When planning and implementation are both authorized, the skill finishes the plan and continues in the host's active mode. It keeps the host's required approvals and adds no second approval gate."
+serves = "Prevents a plan review from stalling work that is already authorized."
+where = ["SKILL.md#planning", "SKILL.md#check-readiness-and-continue"]
+shapes = "Closes the opening scope paragraph with this rule and sets the continuation paragraph at the end of the readiness section."
+
+[[sources.declined]]
+feature = "An interview mode that grills the user to explore decisions interactively."
+reason = "Exploring the direction with the user is the wayfinder skill's work; this skill asks only about consequential unresolved choices in executable work."
+
+[[sources.declined]]
+feature = "A fixed question-count threshold, rubric score targets and a required implementation-notes file beside the plan."
+reason = "The plan follows the project's existing output and approval conventions, and review stops when the evidenced gaps are resolved."
+
+[[sources.reviews]]
+from_commit = "cef4cfa837ca41b50d19f54551a3939ed7460434"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = [
+  "Adapted from skills/planning/SKILL.md: Approach and evidence names current project documentation the change would make wrong, excluding historical records such as changelogs or ADRs (planning/SKILL.md); keeping that update with the change already follows the existing rule that documentation belongs with the outcome it enables.",
+]
+skipped = []
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff cef4cfa837ca..872bc83bdb6d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -26,15 +131,63 @@ author = "Matt Pocock"
 repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
 reviewed_through = "49dd158d1076134a641b33efb035946536778336"
 baseline_paths = ["skills/engineering/to-tickets/SKILL.md", "LICENSE"]
 paths = ["skills/engineering/to-tickets/SKILL.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Split by complete observable behavior and record genuine blocking relationships.", "Use expand, migrate, contract for broad changes whose consumers cannot all move at once.", "Make the first valid integration check explicit when intermediate units cannot pass independently."]
-local_choices = ["Keep a small change together and permit one plan rather than requiring one file per ticket.", "Detailed expand/migrate/contract and first-integration procedures moved to task-breakdown; publication recovery moved to issue-workflow. Their package records preserve direct source inspiration where applicable.", "Retain useful verified entry points and contract excerpts, with a freshness check when resuming."]
-reviews = [
-  { from_commit = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d", to_commit = "49dd158d1076134a641b33efb035946536778336", incorporated = [], skipped = ["skills/engineering/to-tickets/SKILL.md: Attaches new tickets to the source issue as sub-issues and drops the Blocked-by body when native edges exist. Ticket publication belongs to issue-workflow (planning/SKILL.md:105, planning/origin.txt:33)."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 4588b32ecab9..49dd158d1076 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "Work is divided into narrow, complete behavior changes that can be checked as they land. Implementation stays with its behavioral tests, and setup and documentation stay with the outcome they enable unless they are useful on their own. A dependency records a real prerequisite."
+serves = "Each landed change shows working behavior instead of an unverifiable layer."
+where = ["SKILL.md#describe-executable-work", "assets/implementation-plan.md#id-verifiable-result"]
+shapes = "Sets the paragraph after the plan contents list that prefers narrow complete changes, and gives each work entry a prerequisites line."
+adapted = "Detailed delivery units, their size budgets and integration stages belong to the task-breakdown skill. A small change stays together, and one plan can hold all the work."
+
+[[sources.ideas]]
+idea = "A change whose consumers cannot all move at once is planned through supported transition states. The plan names the intermediate states, release prerequisites, rollback or forward recovery, and the observation that permits retiring the old behavior."
+serves = "Prevents a migration that breaks consumers between steps or has no way back."
+where = [
+  "SKILL.md#describe-executable-work",
+  "assets/implementation-plan.md#transition-and-recovery",
+]
+shapes = "Defines the Risk and recovery item of the plan contents and the template's transition and recovery section."
+adapted = "Planning keeps the transition states and recovery; the detailed expand, migrate and contract procedure lives in the task-breakdown skill."
+
+[[sources.ideas]]
+idea = "The plan states how the complete changed behavior is checked as a whole, because separate checks of each piece do not prove the combined result."
+serves = "Prevents claiming that the outcome works when only its parts were checked."
+where = [
+  "SKILL.md#check-readiness-and-continue",
+  "assets/implementation-plan.md#combined-verification",
+]
+shapes = "Adds the combined result to the readiness review's checks and gives the template a combined verification section."
+adapted = "Placing the first integration check when intermediate units cannot pass alone is detailed in the task-breakdown skill."
+
+[[sources.declined]]
+feature = "One file per ticket for every breakdown."
+reason = "A small change stays together, and one plan can hold the whole work."
+
+[[sources.declined]]
+feature = "Publishing the approved tickets to the tracker with native blocking links and triage labels."
+reason = "Ticket publication belongs to the issue-workflow skill, whose record keeps the related source ideas."
+
+[[sources.declined]]
+feature = "Leaving file paths and code snippets out of tickets because they go stale."
+reason = "Verified entry points and contract excerpts help the executor. The plan separates verified locations from proposed files, and a resumed plan reconciles changed premises before relying on them."
+
+[[sources.reviews]]
+from_commit = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+to_commit = "49dd158d1076134a641b33efb035946536778336"
+incorporated = []
+skipped = [
+  "skills/engineering/to-tickets/SKILL.md: Attaches new tickets to the source issue as sub-issues and drops the Blocked-by body when native edges exist. Ticket publication belongs to issue-workflow (planning/SKILL.md:105, the declined ticket publication).",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 4588b32ecab9..49dd158d1076 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -43,15 +196,61 @@ author = "Ihor Orlovskyi / Sentimony"
 repository = "https://github.com/sentimony/skills"
 remote = "git@github.com:sentimony/skills.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "53d0630136d6e1d7ee70e3744bc250683b6c57f9"
 reviewed_through = "1c70204aa780528dafbe491a4841a9f1abb24480"
-baseline_paths = ["skills/scope-triage/SKILL.md", "skills/scope-triage/references/attribution.md", "skills/scope-triage/LICENSE"]
-paths = ["plugins/devflow/skills/scope-triage/SKILL.md", "plugins/devflow/skills/scope-triage/references/attribution.md", "plugins/devflow/skills/scope-triage/LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Scale process to whether the outcome, contract, and decisions are settled rather than the number of files.", "Resolve accessible facts before asking for user choices; keep consequential unknowns explicit."]
-local_choices = ["A direct planning request still receives a proportionate plan.", "Use no confidence percentages, classification ritual, approval loop, or forced full-design route.", "Preserve authorization across turns and continue independent work while a material choice is pending.", "Leave direction finding with Wayfinder instead of incorporating the donor design workflow."]
-reviews = [
-  { from_commit = "53d0630136d6e1d7ee70e3744bc250683b6c57f9", to_commit = "1c70204aa780528dafbe491a4841a9f1abb24480", incorporated = [], skipped = ["plugins/devflow/skills/scope-triage/SKILL.md (formerly skills/scope-triage/SKILL.md): Steps 7 and 8 hand the saved spec to the scope-check skill for an HTML preview, repeat it after edits, and delegate the preview's security model to that skill. A donor tool and review loop excluded by planning/origin.txt:48 (no approval loop; leave direction finding with Wayfinder).", "plugins/devflow/skills/scope-triage/SKILL.md: Metadata drops the author and internal fields and bumps the version from 1.0.7 to 1.1.2. Metadata only.", "plugins/devflow/skills/scope-triage/references/attribution.md (formerly skills/scope-triage/references/attribution.md): Adds a note that version 1.1.2 delegates the HTML preview to scope-check. Provenance text for the excluded preview, with no behavior to adopt.", "skills/scope-triage/LICENSE: Moved to plugins/devflow/skills/scope-triage/LICENSE with an identical blob. No content change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff 53d0630136d6..1c70204aa780 and the changed files at both commits.", "Followed the upstream file moves with git diff --find-renames and compared the old paths at the cursor with the new paths at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/scope-triage/SKILL.md",
+  "skills/scope-triage/references/attribution.md",
+  "skills/scope-triage/LICENSE",
+]
+paths = [
+  "plugins/devflow/skills/scope-triage/SKILL.md",
+  "plugins/devflow/skills/scope-triage/references/attribution.md",
+  "plugins/devflow/skills/scope-triage/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "The plan's detail follows how settled the outcome, contract and decisions are, together with dependencies and the executor's context. A small, settled change may need only a short ordered plan with its deciding check; file counts, minute estimates and task counts do not set the size."
+serves = "Gives uncertain work enough detail to expose integration risk without loading a settled change with ceremony."
+where = ["SKILL.md#choose-the-plans-size-and-home"]
+shapes = "Opens the sizing section with this rule, which replaces size proxies as the measure of detail."
+adapted = "No route skips the plan: a direct planning request still gets a proportionate plan."
+
+[[sources.ideas]]
+idea = "Facts that the repository or other accessible sources can answer are found by investigation, not asked. A consequential unknown stays explicit and keeps the affected work blocked, because calling a guess an assumption does not make it executable."
+serves = "Prevents asking the user for facts and prevents execution on hidden guesses."
+where = ["SKILL.md#ground-the-work"]
+shapes = "Makes investigation precede questions in Ground the work and ends the questioning paragraph with the blocked-work rule."
+
+[[sources.declined]]
+feature = "Skipping the plan when a request is classified as a direct change."
+reason = "A direct planning request still gets a proportionate plan."
+
+[[sources.declined]]
+feature = "A confidence percentage, an assumption-ledger route classification, a section-by-section design approval loop and a forced full-design route under any uncertainty."
+reason = "Detail scales with what is unsettled, and existing host approval governs; this skill adds no classification ritual or approval loop."
+
+[[sources.declined]]
+feature = "The donor's full design workflow before planning: clarifying questions, two or three approaches, a coverage check and a saved, reviewed spec."
+reason = "Direction finding belongs to the wayfinder skill; this skill starts from a defined outcome."
+
+[[sources.reviews]]
+from_commit = "53d0630136d6e1d7ee70e3744bc250683b6c57f9"
+to_commit = "1c70204aa780528dafbe491a4841a9f1abb24480"
+incorporated = []
+skipped = [
+  "plugins/devflow/skills/scope-triage/SKILL.md (formerly skills/scope-triage/SKILL.md): Steps 7 and 8 hand the saved spec to the scope-check skill for an HTML preview, repeat it after edits, and delegate the preview's security model to that skill. A donor tool and review loop excluded by the declined design approval loop and the declined donor design workflow, since direction finding stays with the wayfinder skill.",
+  "plugins/devflow/skills/scope-triage/SKILL.md: Metadata drops the author and internal fields and bumps the version from 1.0.7 to 1.1.2. Metadata only.",
+  "plugins/devflow/skills/scope-triage/references/attribution.md (formerly skills/scope-triage/references/attribution.md): Adds a note that version 1.1.2 delegates the HTML preview to scope-check. Provenance text for the excluded preview, with no behavior to adopt.",
+  "skills/scope-triage/LICENSE: Moved to plugins/devflow/skills/scope-triage/LICENSE with an identical blob. No content change.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 53d0630136d6..1c70204aa780 and the changed files at both commits.",
+  "Followed the upstream file moves with git diff --find-renames and compared the old paths at the cursor with the new paths at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -60,15 +259,57 @@ author = "Jesse Vincent / Superpowers"
 repository = "https://github.com/obra/superpowers"
 remote = "git@github.com:obra/superpowers.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
 reviewed_through = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
 baseline_paths = ["skills/writing-plans/SKILL.md", "LICENSE"]
 paths = ["skills/writing-plans/SKILL.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Size work around independently testable results, carrying the decisions an executor cannot infer.", "State consumed and produced interfaces when separate workers must agree, and check that contracts connect.", "Keep relevant global constraints and failure cases visible without transcribing the implementation."]
-local_choices = ["No mandatory executor, subagent topology, worktree, TDD micro-step template, or repeated approval.", "Use project conventions and task-relevant detail rather than a fixed header, directory, or number of review cases.", "Treat source paths and ordinary implementation choices proportionately to the handoff."]
-reviews = [
-  { from_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d", to_commit = "bb92a77741419a4ab5f06e711a283343f1ada0c3", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 8ca22dba9a94..bb92a7774141 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "Each work item delivers an independently testable result and carries the decisions the executor cannot infer: settled names, signatures, values and the checks that prove the result. Ordinary implementation details stay with the executor."
+serves = "The executor can work without guessing what was decided, and the plan does not become a transcript of the code."
+where = ["SKILL.md#describe-executable-work", "assets/implementation-plan.md#id-verifiable-result"]
+shapes = "Defines the Implementation work item of the plan contents and the template's work entry, which is titled by its verifiable result."
+adapted = "Source paths and other detail appear in proportion to the handoff, not as exact files and line ranges for every task."
+
+[[sources.ideas]]
+idea = "When separate implementers must agree, each work item states the interfaces it consumes and produces, and the readiness review checks that those contracts connect across items."
+serves = "Prevents mismatched names or types between pieces that are built separately."
+where = [
+  "SKILL.md#describe-executable-work",
+  "SKILL.md#check-readiness-and-continue",
+  "assets/implementation-plan.md#id-verifiable-result",
+]
+shapes = "Adds a consumes and produces line to work entries and interface consistency to the readiness checks."
+
+[[sources.ideas]]
+idea = "Fixed constraints and the failure cases that the requirement makes material stay visible in the plan, while the plan stays a set of decisions rather than a transcript of the implementation. Steps that decide nothing are removed."
+serves = "Prevents the executor from missing a global constraint or an important failure case, and keeps the plan short."
+where = [
+  "SKILL.md#describe-executable-work",
+  "SKILL.md#check-readiness-and-continue",
+  "assets/implementation-plan.md#outcome-and-constraints",
+]
+shapes = "Puts fixed constraints into the Outcome and scope item and failure behavior into Verification, and makes the readiness review remove speculative scope and steps that decide nothing."
+
+[[sources.declined]]
+feature = "A required choice between subagent-driven and native execution, worktree setup, a TDD micro-step template and a plan review before implementation."
+reason = "The active host mode and the existing development workflow decide how work runs; this skill chooses no worker topology and adds no repeated approval."
+
+[[sources.declined]]
+feature = "A mandatory plan header, a fixed plan directory and five Review Focus cases per plan."
+reason = "The plan follows the project's format and artifact conventions with task-relevant detail; `docs/plans/<topic>.md` is only the fallback location."
+
+[[sources.reviews]]
+from_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+to_commit = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 8ca22dba9a94..bb92a7774141 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -77,43 +318,66 @@ author = "Garry Tan / gstack"
 repository = "https://github.com/garrytan/gstack"
 remote = "git@github.com:garrytan/gstack.git"
 ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
 baseline_commit = "c285d88b90d39116ccfa2b901f80ea0fce0b26eb"
 reviewed_through = "47d639abffa882b8cbb641d7d1dedf08ecada9ec"
 baseline_paths = ["plan-eng-review/sections/review-sections.md", "LICENSE"]
 paths = ["plan-eng-review/sections/review-sections.md", "LICENSE"]
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-borrowed = ["Identify the credible regression a proposed test detects and the gap in existing coverage.", "Prefer extending a test of the same contract over adding a near-duplicate."]
-local_choices = ["Keep the rule in planning's existing verification guidance; test implementation remains with the project's test workflow.", "Do not require value cards, scores, coverage percentages, a separate test-plan artifact, or gstack's review sequence.", "Planning describes future checks without claiming they have passed."]
-reviews = [
-  { from_commit = "c285d88b90d39116ccfa2b901f80ea0fce0b26eb", to_commit = "47d639abffa882b8cbb641d7d1dedf08ecada9ec", incorporated = [], skipped = ["plan-eng-review/sections/review-sections.md: Adds no_claim to the test value card, stating what a green run does not prove and which fixtures or mocks stand in for what. verify/SKILL.md:69 already blocks mocks standing in for a claimed behavior, and planning/origin.txt:78 excludes the value-card format.", "plan-eng-review/sections/review-sections.md: Adds plan reality rows (premise table, already-done, surface check, binding decisions, deferred asks). A gstack review ritual with its own binary excluded by planning/origin.txt:78; the substance is at planning/SKILL.md:28-31, :87-88, :114-124 and :129-131.", "plan-eng-review/sections/review-sections.md: Adds a report-back outcome for read-only reviews. Covered by planning/SKILL.md:14-15 and :117-118.", "plan-eng-review/sections/review-sections.md: Codex and Aside outside voice, model tier policy, dashboard freshness and branch variables. Donor tooling."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; read the complete scoped diff c285d88b90d3..47d639abffa8 and the changed files at both commits.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "A proposed test earns its place by naming the credible regression it would catch and the gap in existing coverage. When an existing test already exercises the same contract, extending it is preferred over adding a near-duplicate."
+serves = "Prevents tests that catch nothing new and duplicate coverage."
+where = ["SKILL.md#describe-executable-work"]
+shapes = "Closes the Verification item of the plan contents with these two questions for each proposed test."
+adapted = "The rule is two questions inside the plan's verification guidance; writing the tests stays with the project's test workflow."
+
+[[sources.declined]]
+feature = "Test value cards, coverage ratings and percentages, a separate test-plan artifact and the gstack plan-review sequence."
+reason = "Two questions per proposed test in the plan's verification guidance carry the rule; this skill adds no separate test artifact or review ritual."
+
+[[sources.reviews]]
+from_commit = "c285d88b90d39116ccfa2b901f80ea0fce0b26eb"
+to_commit = "47d639abffa882b8cbb641d7d1dedf08ecada9ec"
+incorporated = []
+skipped = [
+  "plan-eng-review/sections/review-sections.md: Adds no_claim to the test value card, stating what a green run does not prove and which fixtures or mocks stand in for what. verify/SKILL.md:69 already blocks mocks standing in for a claimed behavior, and the declined test value cards exclude that format.",
+  "plan-eng-review/sections/review-sections.md: Adds plan reality rows (premise table, already-done, surface check, binding decisions, deferred asks). A gstack review ritual with its own binary excluded by the declined gstack plan-review sequence; the substance is at planning/SKILL.md:28-31, :87-88, :114-124 and :129-131.",
+  "plan-eng-review/sections/review-sections.md: Adds a report-back outcome for read-only reviews. Covered by planning/SKILL.md:14-15 and :117-118.",
+  "plan-eng-review/sections/review-sections.md: Codex and Aside outside voice, model tier policy, dashboard freshness and branch variables. Donor tooling.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff c285d88b90d3..47d639abffa8 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[dependencies]]
-name = "wayfinder"
 kind = "local"
+name = "wayfinder"
 required = false
 role = "Resolve connected decisions that prevent choosing an implementation direction."
 
 [[dependencies]]
-name = "design-code-structure"
 kind = "local"
+name = "design-code-structure"
 required = false
 role = "Resolve an unsettled software model, interface, or module boundary in design-only scope."
 
 [[dependencies]]
-name = "agent-instructions"
 kind = "local"
+name = "agent-instructions"
 required = false
 role = "Maintain recorded source inspiration when explicitly requested."
 
 [[dependencies]]
-name = "task-breakdown"
 kind = "local"
+name = "task-breakdown"
 required = false
 role = "Own PR-sized delivery decomposition, size budgets, dependencies and staged-delivery detail when needed."
 
 [[dependencies]]
-name = "issue-workflow"
 kind = "local"
+name = "issue-workflow"
 required = false
 role = "Own authorized publication of prepared tasks to the project tracker."

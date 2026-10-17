@@ -1,20 +1,21 @@
-format_version = 1
+format_version = 2
 skill = "comment-style"
 created = "2026-10-05"
-approach = "Migrate the user's focused message-writing skill and derive small channel and PR-reply improvements. No upstream runtime dependency."
+approach = "base"
+goal = "Produce a message that its recipient takes in at a glance and that fits the conversation and the user's intent: a PR or issue reply, an inline review comment, a Slack or WhatsApp message, or a social reply. Success is the ready-to-use text alone, point first, with every essential fact, condition and caveat intact."
 
-[[local_snapshots]]
-id = "private-comment-style"
-author = "Luis Urrutia"
-repository = "https://github.com/LuisUrrutia/private-skills"
-commit = "0b1bd82c0229daf5a4c62f77f9bab45852666935"
-verification = "Commit and matching files verified in the local private repository; not verified against a fresh remote fetch. Historical migration source, not an upstream update feed."
-paths = ["comment-style/SKILL.md", "comment-style/references/review.md", "comment-style/scripts/validate.sh"]
-entrypoint_sha256 = "7ff9f925cd4abe63c7b83ca7606ddd7e0d22b2f478bed7e222d2bcbd738af1de"
-review_sha256 = "9fd75bff03baf16de220c799930eb9dea7f82d92d718604ca70e98861cfe7855"
-validator_sha256 = "431640cf2e2fafcc6b2ff03b4f65d3c6642d801015001910399e4695b6400255"
-borrowed = ["A plain, short ping with the point first, one useful thought and only necessary identifiers.", "Optional review prefixes, genuine questions, exact claims, and the user's casual English default."]
-local_choices = ["Extend the explicit scope to PR replies and WhatsApp without requiring a repository for personal messages.", "Preserve essential facts and conditions instead of enforcing an absolute sentence or identifier ceiling.", "Keep posting placement and per-site review markers with the private review workflow.", "Keep source-specific examples and private context out of the shared package.", "Replace the source validator, which requires a sibling repository script and exact headings, with host format validation and actual drafting trials during authoring.", "2026-10-09, at the user's direction: a fix made as the reviewer asked is answered with `Fixed in <commit>.` alone; detail only for a deviation or consequential choice, a partial or different scope, a decline or deferral with its reason, or an unsettled question. The description names posting and other workflows after pr-followup posted a reply without loading this skill."]
+[[invariants]]
+rule = "This skill supplies wording only. Sending or posting needs the user's instruction or an already authorized caller, and that caller owns code repair, posting, placement, thread resolution and any additional message."
+where = ["SKILL.md#deliver-within-the-request", "references/review.md#word-a-new-finding"]
+
+[[invariants]]
+rule = "A reply to a published fix that does what the reviewer asked is `Fixed in <commit>.` alone. One short added sentence appears only for a deviation or consequential choice, a partial or different scope, a decline or deferral with its reason, or a question that the fix does not settle."
+reason = "User decision of 2026-10-09."
+where = ["references/review.md#reply-to-the-actual-point"]
+
+[[invariants]]
+rule = "The skill runs alone: it needs no upstream package at runtime, and the communicate-clearly skill is optional general prose guidance."
+where = ["SKILL.md#match-the-conversation"]
 
 [[sources]]
 id = "mblode-ghostwriter"
@@ -22,15 +23,77 @@ author = "Matthew Blode"
 repository = "https://github.com/mblode/agent-skills"
 remote = "git@github.com:mblode/agent-skills.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt."
+role = "ideas"
 baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
 reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
-baseline_paths = ["skills/ghostwriter/SKILL.md", "skills/ghostwriter/references/surfaces.md", "skills/ghostwriter/references/strategy.md", "skills/ghostwriter/references/tells.md", "LICENSE.md"]
-paths = ["skills/ghostwriter/SKILL.md", "skills/ghostwriter/references/surfaces.md", "skills/ghostwriter/references/strategy.md", "skills/ghostwriter/references/tells.md", "LICENSE.md"]
-borrowed = ["Return finished text without editing commentary; adapt the message to its conversation and recipient.", "Shorten without dropping distinct facts, uncertainty, necessary grammar or the user's voice."]
-local_choices = ["No persistent voice profiles, sample requests, automatic preference storage, private brief ritual, or broad long-form writing ownership.", "Do not import hypothetical deadlines, approval by silence, blanket emotional-message exclusions, or automatic multi-message bursts."]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt."
-reviews = [
-  { from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340", to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+baseline_paths = [
+  "skills/ghostwriter/SKILL.md",
+  "skills/ghostwriter/references/surfaces.md",
+  "skills/ghostwriter/references/strategy.md",
+  "skills/ghostwriter/references/tells.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/ghostwriter/SKILL.md",
+  "skills/ghostwriter/references/surfaces.md",
+  "skills/ghostwriter/references/strategy.md",
+  "skills/ghostwriter/references/tells.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "The output is the finished message, ready to use, with no introduction, editing notes or alternatives unless they are requested."
+serves = "Lets the user send the text as returned."
+where = [
+  "SKILL.md#comment-style",
+  "SKILL.md#match-the-conversation",
+  "SKILL.md#deliver-within-the-request",
+]
+shapes = "The opening fixes the return shape, the tone rules drop any explanation of the edit, and a request to draft or shorten ends with the text."
+
+[[sources.ideas]]
+idea = "The message fits its conversation and recipient. Audience and destination come from context, the thread's language and register are matched, and the tone matches the event, keeping warmth, humor, an apology or thanks that fits the user's intent."
+serves = "Prevents a correct message that reads wrong for its thread or recipient."
+where = ["SKILL.md#find-the-point", "SKILL.md#match-the-conversation"]
+shapes = "The point is resolved from the thread first, and a separate section matches language, register and tone to the conversation."
+adapted = "The conversation and a default casual register take the place of the donor's per-platform voice profiles; a simple message needs no interview or profile."
+
+[[sources.ideas]]
+idea = "Shortening selects what the recipient needs and cuts incidental detail, but it keeps distinct facts, uncertainty, conditions, necessary grammar and the user's voice. An explicitly faithful rewrite keeps every distinct supplied fact, and nothing is invented to make the message neat."
+serves = "Keeps a short message true to what the user meant."
+where = ["SKILL.md#write-the-shortest-complete-message"]
+shapes = "The shortening paragraph lists what must survive a cut and forbids an invented deadline, reason, promise or completed action."
+
+[[sources.declined]]
+feature = "Persistent voice profiles built from requested writing samples, automatic storage of learned preferences, and a private brief written before drafting."
+reason = "A simple message needs no interview, profile or brief; the conversation and the supplied facts set its shape."
+
+[[sources.declined]]
+feature = "Ownership of long-form writing such as PRDs, design docs, READMEs, documentation and product copy."
+reason = "PR bodies and commit messages stay with the pr and commit skills, and long-form writing stays with its existing owner."
+
+[[sources.declined]]
+feature = "Replacing a vague ask with a date, or with a default that takes effect if the reader stays silent."
+reason = "The skill does not invent a deadline, promise or approval to make a message neat."
+
+[[sources.declined]]
+feature = "Declining every emotionally weighted message to a partner."
+reason = "Warmth, an apology or thanks that fits the user's intent stays in scope; no blanket exclusion applies."
+
+[[sources.declined]]
+feature = "Bursts of several short messages."
+reason = "One message carries one point, and wording a reply does not authorize additional messages."
+
+[[sources.reviews]]
+from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
 [[sources]]
@@ -39,16 +102,127 @@ author = "Jesse Vincent"
 repository = "https://github.com/obra/superpowers"
 remote = "git@github.com:obra/superpowers.git"
 ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt."
+role = "ideas"
 baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
 reviewed_through = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
 baseline_paths = ["skills/receiving-code-review/SKILL.md", "LICENSE"]
 paths = ["skills/receiving-code-review/SKILL.md", "LICENSE"]
-borrowed = ["Answer review feedback with a supported change, answer or reason for disagreement instead of performative agreement.", "Correct an earlier mistaken response briefly and keep an inline reply in its existing thread."]
-local_choices = ["No new implementation authority, source-based trust hierarchy, blanket ban on intentional gratitude, or stop-all-work rule for one unclear item.", "The caller owns code repair, external posting and thread resolution; this skill supplies wording."]
-license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt."
-reviews = [
-  { from_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d", to_commit = "bb92a77741419a4ab5f06e711a283343f1ada0c3", incorporated = [], skipped = ["No change to the recorded paths in this range; no local instruction change."], deferred = [], validation = ["Verified baseline, cursor and candidate ancestry; git diff --find-renames 8ca22dba9a94..bb92a7774141 over the recorded paths is empty and every recorded path exists at the candidate.", "reports/skill-atlas/upstream-refresh-validation.json"] },
+
+[[sources.ideas]]
+idea = "A reply to review feedback gives the supported change, the answer, or the concrete reason for disagreeing, then stops. It does not perform agreement or restate the reviewer's point."
+serves = "Keeps replies about the substance instead of social performance."
+where = ["references/review.md#reply-to-the-actual-point"]
+shapes = "The reply section defines the allowed reply forms and forbids restating the reviewer's diagnosis or narrating the implementation."
+adapted = "A fix made as the reviewer asked gets the fixed `Fixed in <commit>.` reply instead of the donor's 'Fixed.' with a description of the change, by the user's decision of 2026-10-09."
+
+[[sources.ideas]]
+idea = "When an earlier answer was wrong, the reply gives the correction and its deciding fact without a defensive preamble."
+serves = "Corrects the record quickly without making the correction the topic."
+where = ["references/review.md#reply-to-the-actual-point"]
+shapes = "A paragraph of the reply section sets the form of a correction next to the rule on stating only supported outcomes."
+
+[[sources.ideas]]
+idea = "An inline reply stays in its existing review thread and is kept separate from new findings."
+serves = "Keeps each discussion where the reviewer will see it."
+where = ["references/review.md#word-a-new-finding"]
+shapes = "The closing paragraph of the section places an authorized inline reply in its thread and separates replies from new findings."
+
+[[sources.declined]]
+feature = "Treating review feedback as a trigger to verify and implement each item."
+reason = "Wording a reply does not authorize code changes, PR publication, thread resolution or more messages; the pr-followup skill owns investigating and repairing feedback."
+
+[[sources.declined]]
+feature = "Trusting feedback by its source: the user's feedback is trusted, and external reviewers' feedback is treated with skepticism."
+reason = "Replies rest on the supplied review decision and evidence, whoever gave the feedback."
+
+[[sources.declined]]
+feature = "A ban on every expression of gratitude in replies."
+reason = "Thanks that fits the user's intent stays; only formulaic praise goes."
+
+[[sources.declined]]
+feature = "Stopping work on every item until each unclear item is clarified."
+reason = "An unclear item gets its own genuine question and does not stop the other replies."
+
+[[sources.declined]]
+feature = "Posting the inline reply through the GitHub API."
+reason = "The caller owns posting; this skill supplies the wording."
+
+[[sources.reviews]]
+from_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+to_commit = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 8ca22dba9a94..bb92a7774141 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
 ]
+
+[[local_snapshots]]
+id = "private-comment-style"
+kind = "repository-commit"
+role = "base"
+author = "Luis Urrutia"
+repository = "https://github.com/LuisUrrutia/private-skills"
+paths = [
+  "comment-style/SKILL.md",
+  "comment-style/references/review.md",
+  "comment-style/scripts/validate.sh",
+]
+entrypoint_sha256 = "7ff9f925cd4abe63c7b83ca7606ddd7e0d22b2f478bed7e222d2bcbd738af1de"
+review_sha256 = "9fd75bff03baf16de220c799930eb9dea7f82d92d718604ca70e98861cfe7855"
+validator_sha256 = "431640cf2e2fafcc6b2ff03b4f65d3c6642d801015001910399e4695b6400255"
+commit = "0b1bd82c0229daf5a4c62f77f9bab45852666935"
+verification = "Commit and matching files verified in the local private repository; not verified against a fresh remote fetch. Historical migration source, not an upstream update feed."
+
+[[local_snapshots.deviations]]
+change = "Extended the scope from Slack messages, review comments and teammate replies to PR and issue replies, WhatsApp messages and social replies, and replaced reading the repository's instructions before wording any message with using repository context only for code claims."
+reason = "Personal messages have no repository, so repository context applies only where a claim concerns code."
+where = ["SKILL.md#comment-style", "SKILL.md#find-the-point"]
+
+[[local_snapshots.deviations]]
+change = "Replaced the one-sentence target with its two-sentence ceiling, the one-symbol ceiling and the ban on bullet lists with an aim of one short sentence and usually one identifier. Required points, meaning-changing conditions and essential caveats stay even when the message gets longer, and several required points may use short sentences or a compact list."
+reason = "The goal keeps every essential fact, condition and caveat, which an absolute ceiling would drop."
+where = ["SKILL.md#write-the-shortest-complete-message", "references/review.md#word-a-new-finding"]
+
+[[local_snapshots.deviations]]
+change = "Removed the rule to post a systemic point at each site with a short back-reference, and other guidance on where findings are posted."
+reason = "The review workflow owns which findings to post, their locations, deduplication and resolution; this skill supplies the wording."
+where = ["references/review.md#word-a-new-finding"]
+
+[[local_snapshots.deviations]]
+change = "Removed the examples quoted from one private codebase and the user's quoted reactions to them."
+reason = "The shared package carries no source-specific examples or private context."
+where = ["SKILL.md", "references/review.md"]
+
+[[local_snapshots.deviations]]
+change = "Replaced turning every finding in a language the user does not work in into a question with doing so only when the caller requires it; the question keeps the supported concern, the certainty of the evidence and the severity."
+reason = "The code language alone does not show the user's familiarity with it, so the caller supplies that preference."
+where = ["references/review.md#pr-replies-and-review-comments"]
+
+[[local_snapshots.deviations]]
+change = "Removed scripts/validate.sh, which needed a sibling repository script and exact section headings."
+reason = "Authoring checks use host format validation and actual drafting trials instead."
+where = ["SKILL.md"]
+
+[[local_snapshots.deviations]]
+change = "Replaced keeping commit hashes out of messages with a fixed reply to a fix made as the reviewer asked: `Fixed in <commit>.` alone, plus one short sentence only for a deviation or consequential choice, a partial or different scope, a decline or deferral with its reason, or a question that the fix does not settle. A new finding still describes what a commit changed unless revision evidence is needed."
+reason = "User decision of 2026-10-09, kept as the fixed-reply invariant."
+where = [
+  "references/review.md#reply-to-the-actual-point",
+  "references/review.md#word-a-new-finding",
+]
+
+[[local_snapshots.deviations]]
+change = "Widened the description from wording a Slack message, review comment or teammate reply to drafting or posting any comment or reply, including one written inside another workflow."
+reason = "Recorded on 2026-10-09: the pr-followup skill had posted a reply without loading this skill."
+where = ["SKILL.md"]
+
+[[local_snapshots.deviations]]
+change = "Replaced the fixed English default with the caller's language requirements, then the thread's language, with English as the fallback when the language is unknown."
+reason = "The goal is a message that fits its conversation, and a reply in the thread's language fits it."
+where = ["SKILL.md#match-the-conversation"]
 
 [[dependencies]]
 kind = "local"
