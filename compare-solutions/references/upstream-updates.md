@@ -12,10 +12,10 @@ preserve the source pins. Ordinary use remains available.
 files or pins. "Update compare-solutions from upstream" authorizes compatible
 changes and validation in Update mode. Neither request schedules background work.
 
-Read `../origin.toml` for source paths, baseline, review cursor, borrowed ideas, and
-local choices. Preserve independent complete attempts, settled artifacts before
-judging, selective integration, and verification of the final result. Keep host
-capability discovery, workspace ownership, bounded failure handling, and specialist
-contracts. A donor's model roster, additional skill calls, or publication actions
-do not become local requirements automatically. The shared procedure owns fetching,
-path changes, classification, validation, and cursor updates.
+Read `../origin.toml` for the source pins, goal, ideas, declines and invariants.
+Preserve independent complete attempts, settled artifacts before judging, selective
+integration, and verification of the final result. Keep host capability discovery,
+workspace ownership, bounded failure handling, and specialist contracts. A donor's
+model roster, additional skill calls, or publication actions do not become local
+requirements automatically. The shared procedure owns fetching, path changes,
+classification, validation, and cursor updates.

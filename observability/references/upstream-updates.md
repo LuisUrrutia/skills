@@ -7,8 +7,8 @@ leave source pins unchanged; ordinary instrumentation work remains usable.
 
 "Check observability for upstream changes" selects Check mode without edits.
 "Update observability from upstream" authorizes compatible changes and validation.
-Neither request creates a schedule. Read `../origin.toml` for source revisions,
-review cursors, borrowed ideas and local decisions.
+Neither request creates a schedule. Read `../origin.toml` for the source pins,
+goal, ideas, declines and invariants.
 
 Preserve project assessment, initial setup and instrumentation during feature
 work as the local scope; debug retains incident investigation. Reuse suitable

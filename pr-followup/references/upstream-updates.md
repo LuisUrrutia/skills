@@ -2,9 +2,10 @@
 
 Read only when asked to check or update this skill from its recorded sources.
 Resolve `agent-instructions` by registered name and use its maintenance procedure
-with this skill as target. Read `../origin.toml` for exact revisions and choices.
-Check mode leaves files and pins unchanged; Update mode incorporates compatible
-changes and validates them. Neither mode creates a schedule.
+with this skill as target. Read `../origin.toml` for the source pins, goal,
+ideas, declines and invariants. Check mode leaves files and pins unchanged;
+Update mode incorporates compatible changes and validates them. Neither mode
+creates a schedule.
 
 Preserve current-head evidence, complete feedback channels, skeptical triage,
 conditional owners and event-driven observation under the entrypoint's stopping

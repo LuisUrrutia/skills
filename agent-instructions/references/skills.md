@@ -20,9 +20,10 @@ Before choosing metadata, invocation controls, tool calls, or dependencies, read
 [hosts.md](hosts.md). Preserve supported existing metadata and invocation policy.
 
 For composition, inspect donor files and dependencies. Decide which behavior to
-retain, adapt, or exclude against the user's contract. Record actual inspirations,
-verified revisions, and intentional deviations in `origin.toml` using
-[upstream-updates.md](upstream-updates.md). Keep unknown provenance explicit.
+retain, adapt, or exclude against the user's contract. Record the base and its
+deviations, or the ideas taken and declined, with verified revisions in
+`origin.toml` using [origin-format.md](origin-format.md). Keep unknown provenance
+explicit.
 
 ## Write the selection description
 
@@ -104,6 +105,9 @@ selection is ambiguous.
 
 Run the available host validator, resolve local references and dependencies, and
 execute added or changed helpers on representative success and failure inputs.
+When the skill has an `origin.toml`, run the checker named in
+[origin-format.md](origin-format.md); renamed headings and moved files break its
+locations.
 For a new package or changed resource paths, inspect resolved targets in the
 source package, then copy only the skill folder with symlinks preserved to a
 neutral directory under a different account layout. Exercise required reads from

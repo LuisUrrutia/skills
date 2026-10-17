@@ -7,8 +7,8 @@ source pins unchanged; ordinary optimization remains usable.
 
 "Check performance-optimization for upstream changes" selects Check mode without
 edits. "Update performance-optimization from upstream" authorizes compatible
-changes and validation. Neither request creates a schedule. Read `../origin.toml`
-for source identities, immutable baselines, cursors and local choices.
+changes and validation. Neither request creates a schedule. Read
+`../origin.toml` for the source pins, goal, ideas, declines and invariants.
 
 Preserve the user-relevant operation, required behavior, bounded search, evidence
 assessment through `verify`, and justified keep/revert decisions. Addy supplies

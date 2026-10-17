@@ -7,8 +7,8 @@ leave source pins unchanged; ordinary error-contract work remains usable.
 
 "Check error-handling for upstream changes" selects Check mode without edits.
 "Update error-handling from upstream" authorizes compatible changes and validation.
-Neither request creates a schedule. Read `../origin.toml` for source revisions,
-review cursors, borrowed ideas and local decisions.
+Neither request creates a schedule. Read `../origin.toml` for the source pins,
+goal, ideas, declines and invariants.
 
 Preserve project error contracts, language independence, causal evidence, explicit
 partial or unknown outcomes, cancellation, bounded recovery and replay safety.

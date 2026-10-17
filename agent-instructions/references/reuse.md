@@ -11,13 +11,15 @@ choosing; similar descriptions do not establish equivalent behavior.
 | --- | --- | --- |
 | Install unchanged | An existing skill fits the task, host, and authority | Select and validate the installed version |
 | Wrap | The upstream procedure fits and needs only a small adapter | Invocation, inputs, local additions, and result checks |
+| Base | One upstream skill fits the goal and stays recognizable after local corrections | The deviations and their reasons; upstream changes are adopted by default |
 | Derive | Useful ideas require changes throughout the procedure | The local implementation and relevant source changes |
 | Create | No suitable implementation covers the requested capability | The new behavior and its validation |
 
 Prefer the option with the least local behavior to maintain that still meets the
 contract. An installed skill needs no wrapper merely to give it another name.
 If a wrapper must replace the donor's scope, tools, ordering, authoring owner, or
-external actions across several steps, compare a small derivation instead.
+external actions across several steps, compare a base or a small derivation
+instead.
 
 Record the choice and its concrete reason. Distinguish the skill's author or team
 from the repository hosting it. Inspect licensing and notices before distributing
@@ -41,12 +43,14 @@ request; use the host's supported selection and dependency controls.
 
 ## Record sources and dependencies separately
 
-Use `origin.toml` for actual external inspiration and dependencies. The skill's own
-renames and superseded drafts belong in Git history. Record rejected candidates
-in the decision report, not as active source feeds.
+Use `origin.toml`, described in [origin-format.md](origin-format.md), for actual
+external material and dependencies. The skill's own renames and superseded drafts
+belong in Git history. Record rejected candidates in the decision report, not as
+active source feeds.
 
-Use `[[sources]]` from [upstream-updates.md](upstream-updates.md) for ideas adapted
-into local instructions. Use `[[dependencies]]` for runtime dependencies: a local
+Record a base or idea source under `[[sources]]`, or `[[local_snapshots]]` when it
+has no tracked feed, with its `role`. Use
+`[[dependencies]]` for runtime dependencies: a local
 dependency records its registered name, role, and whether it is required; the host
 resolves the name.
 An installed upstream also records its repository, SSH remote, relevant paths,
