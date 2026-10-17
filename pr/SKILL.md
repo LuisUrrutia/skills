@@ -192,5 +192,5 @@ For draft-only, provide the requested copy and state that no mutation occurred.
 For a blocker, name its failed prerequisite or decision and retain completed work.
 Hand verified identity, revision and publication state back to an authorized caller.
 
-For requested source maintenance, use `agent-instructions` with `origin.txt` and
+For requested source maintenance, use `agent-instructions` with `origin.toml` and
 [references/upstream-updates.md](references/upstream-updates.md).

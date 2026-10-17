@@ -61,5 +61,5 @@ authorization and owners; a request to export context does not imply them.
 
 ## Source maintenance
 
-For requested source checks or updates, use `agent-instructions` with `origin.txt`.
+For requested source checks or updates, use `agent-instructions` with `origin.toml`.
 Ordinary handoff creation neither fetches nor invokes the donor skills.

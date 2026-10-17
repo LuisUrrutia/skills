@@ -1,0 +1,134 @@
+format_version = 2
+skill = "analyze-change-effects"
+created = "2026-10-03"
+approach = "derive"
+goal = "Find what an existing or proposed change could break beyond the changed code, and test the assumptions that would make it safe against the actual implementation. Success is a bounded account that keeps confirmed breakage, cleared risks and unproven conditions apart, ties each to source locations or observed execution, and names the next useful check."
+
+[[invariants]]
+rule = "The skill runs directly, with no coordinator or upstream skill. It and the review-audit skill are independent: neither is a donor, wrapper, extension or prerequisite for the other."
+where = ["SKILL.md#analyze-change-effects"]
+
+[[invariants]]
+rule = "Existing changes are the core use. Proposed-change analysis is a local extension, not the reason the skill exists: it investigates current consumers and contracts without implementing the proposal, and a probe that uses a proposed value tests only that scenario, never an implementation that does not exist yet."
+where = ["SKILL.md#establish-the-change"]
+
+[[invariants]]
+rule = "Investigation leaves product source, committed tests, dependency pins, configuration and remote state unchanged. Disposable probes and generated output go in scratch storage that the caller permits, and the skill does not install, upgrade, repair, publish or call a live mutating service to obtain proof."
+where = ["SKILL.md#test-the-deciding-assumptions"]
+
+[[invariants]]
+rule = "Execution is the central evidence, but an explicit inspection-only request or execution restriction takes precedence. When execution or the real dependency is unavailable, the analysis marks the affected claim unproven, names the smallest missing check and never quietly substitutes another version."
+where = ["SKILL.md#test-the-deciding-assumptions"]
+
+[[invariants]]
+rule = "The skill analyzes and reports; an analysis request never becomes repair or delivery. A caller with a wider authorized task chooses the next action from the result."
+where = ["SKILL.md#deliver-the-impact-and-evidence"]
+
+[[sources]]
+id = "pstack-blast-radius"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = ["pstack/skills/blast-radius/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/blast-radius/SKILL.md", "pstack/LICENSE"]
+
+[[sources.ideas]]
+idea = "The analysis looks for breakage outside the visible diff. It traces how the changed behavior reaches a consumer or observable outcome across calls, generated or serialized data, persisted state, runtime configuration and other processes or languages, and names what each recipient assumes. A symbol search only supplies leads."
+serves = "Catches breakage that the diff or a symbol search alone would miss."
+where = ["SKILL.md#follow-effects-beyond-the-diff"]
+shapes = "Orders the section to start from the path between the change and each consumer, with search results demoted to leads and each recipient's assumption named."
+
+[[sources.ideas]]
+idea = "When their semantics decide the outcome, the analysis inspects the dependency version and local patches that the project actually uses, and follows execution order, callbacks, task scheduling, cleanup, shared state and rollout versions. A compatible type signature does not establish compatible timing or serialized behavior."
+serves = "Prevents clearing a change because its types match while its runtime behavior differs."
+where = ["SKILL.md#follow-effects-beyond-the-diff"]
+shapes = "Adds a paragraph that extends the trace into dependency versions, local patches and runtime ordering when they affect the path."
+
+[[sources.ideas]]
+idea = "A change's safety rests on a few concrete assumptions. The analysis names the assumptions that each plausible risk depends on, puts first those that decide the most consequential paths, and tests each material one with the smallest observation that could refute it."
+serves = "Spends effort on the facts that decide safety instead of a long list of possible failures."
+where = ["SKILL.md#follow-effects-beyond-the-diff", "SKILL.md#test-the-deciding-assumptions"]
+shapes = "Puts deciding assumptions at the center of the analysis: the assumptions paragraph sets their priority, and the test section starts each material path with a falsifiable claim and its smallest refuting observation."
+adapted = "The donor looks for the one fact that clears most risks and proves only that. Locally every material independent assumption is tested, because proving one property clears only the risks that depend on it."
+
+[[sources.ideas]]
+idea = "A safety claim is tested by running the actual code: an existing focused test, or a disposable probe that imports and calls the real implementation and the resolved dependency and fails visibly when the claim is wrong."
+serves = "Replaces a convincing write-up with an observation that could have shown the claim false."
+where = ["SKILL.md#test-the-deciding-assumptions"]
+shapes = "Makes execution of the real code the default test, and requires the record of each check to hold the command, input, observed output and what that output supports."
+adapted = "Locally the probe must exercise the actual changed boundary. A reimplementation, a dependency substitute, a test of only the new producer, or a successful exit without an assertion is not equivalent proof; a fake is allowed only at a boundary outside the claim, with that limit stated."
+
+[[sources.ideas]]
+idea = "Evidence for a conclusion comes in distinct kinds: source inspection, a traced path that shows the failure cannot be reached, a local execution, and reproduction in the application. The report names the kind that supports each conclusion instead of calling everything verified."
+serves = "Shows the reader how far each conclusion was actually proven."
+where = ["SKILL.md#deliver-the-impact-and-evidence"]
+shapes = "Adds the rule that the report names the evidence kind behind each conclusion instead of collapsing the kinds into \"verified\"."
+adapted = "The donor ranks these as a numbered certainty ladder that starts at an unsupported statement. Locally they are named kinds of evidence, and a proposed scenario stays separate from both inspected source and observed execution."
+
+[[sources.ideas]]
+idea = "The report keeps confirmed breakage, risks cleared under stated conditions, and unproven paths apart. It names the deciding assumptions, the evidence reached for each, and the next useful check or integration prerequisite."
+serves = "Gives the caller a decision-ready account in which an unresolved risk is never presented as an observed failure or as cleared."
+where = ["SKILL.md#deliver-the-impact-and-evidence"]
+shapes = "Structures the report around these categories and extends the same evidence standard to alternative versions and suggested remedies."
+adapted = "Locally the report also states the scope examined, and the analysis stops when every material path has evidence or an explicit limit and the next useful check is clear."
+
+[[sources.declined]]
+feature = "The Cursor plugin's frontmatter flag that disables model invocation, so the skill runs only when called by name."
+reason = "The skill keeps default discoverability with a short activation description, so a host can select it when a task matches."
+
+[[sources.declined]]
+feature = "Running the companion why skill to pull the PR and commits before tracing effects."
+reason = "The analysis first resolves the actual base and target of the change, and reads history only when it answers a specific constraint."
+
+[[sources.declined]]
+feature = "Reducing a change's safety to the one fact that it is safe because of."
+reason = "Independent hazards stay separate; proving one property clears only the risks that depend on it."
+
+[[sources.declined]]
+feature = "Rating how likely each risk is."
+reason = "The analysis describes reachability and consequences and invents no probabilities that the evidence does not support."
+
+[[sources.declined]]
+feature = "Running a big or wide change past several models as an arena and merging their answers."
+reason = "Investigation is direct. Independent exploration is optional when both the host and the task authorize it, its findings are reconciled against source and execution evidence, and agreement among agents is not proof. No run of the compare-solutions skill, fixed model, model roster or worktree is required."
+
+[[sources.declined]]
+feature = "Writing the result through the unslop skill and preparing it for public posting."
+reason = "The analysis requires no writing skill and produces no public report; the result returns to the requester at the requested length."
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/blast-radius/SKILL.md: Step 6 now says to ask more than one model instead of several models. Cosmetic; analyze-change-effects/SKILL.md:78-80 already makes delegation optional and requires no model roster.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested skill-source maintenance and authoring; ordinary investigation has no skill dependency."

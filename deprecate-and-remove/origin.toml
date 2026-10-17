@@ -1,0 +1,269 @@
+format_version = 2
+skill = "deprecate-and-remove"
+created = "2026-10-05"
+approach = "derive"
+goal = "Retire a dependency, API or feature that the project no longer wants to maintain, with or without a replacement, while the behavior that must remain keeps working. A run ends at the stage that evidence and authority allow, with the affected consumers addressed, obsolete artifacts removed, and any outstanding stage named with its condition and owner."
+
+[[invariants]]
+rule = "Notice delivery, changes to live resources and future scheduling follow the active task's authorization. Preparing a notice is not delivering it, and retiring something grants no additional publication authority."
+where = [
+  "SKILL.md#replace-or-close-access",
+  "references/retirement-boundaries.md#external-resources",
+]
+
+[[invariants]]
+rule = "Retirement removes only obsolete artifacts. Shared contracts, required records and history, legal notices, supported-version guidance, deployed migration history, and tests that protect continuing behavior or the denial of retired entry points stay."
+where = ["SKILL.md#remove-obsolete-artifacts-and-verify"]
+
+[[invariants]]
+rule = "Ending a feature is separate from disposing of its data. Required access, exports, retention and audit history are settled before any destructive data removal, and the affected records stay while those requirements are unresolved."
+where = ["references/retirement-boundaries.md#persistent-data"]
+
+[[invariants]]
+rule = "Safety and recovery claims rest on the actual deployment, data and recovery evidence of each stage, not on a rule that additive changes are safe or that every change can be reversed."
+where = ["references/retirement-boundaries.md#persistent-data"]
+
+[[invariants]]
+rule = "A stage advances on evidence. Elapsed time, an arbitrary rollout percentage or a fixed number of releases or deployment cycles is not proof."
+where = [
+  "SKILL.md#choose-the-path-and-order-the-work",
+  "references/retirement-boundaries.md#versions-and-consumers",
+]
+
+[[invariants]]
+rule = "Indirect-consumer investigation, replacement design, delivery ordering, guides, verification and review keep their existing local owners. This skill gives them the retirement conditions and continues with their results."
+reason = "Copying their full procedures would create a second workflow."
+where = [
+  "SKILL.md#choose-the-path-and-order-the-work",
+  "SKILL.md#remove-obsolete-artifacts-and-verify",
+]
+
+[[invariants]]
+rule = "Completion is reported at the stage actually reached. Notice prepared, notice delivered, access disabled, consumers transitioned, code removed and removal deployed stay distinct, and full retirement is claimed only when every required consumer and removal condition has evidence."
+where = ["SKILL.md#close-at-the-state-actually-reached"]
+
+[[sources]]
+id = "addy-deprecation"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+baseline_paths = ["skills/deprecation-and-migration/SKILL.md", "LICENSE"]
+paths = ["skills/deprecation-and-migration/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "The retirement is owned from the decision through closure, including the move of each affected consumer off the target. A record tracks each consumer's remaining change, its responsible owner and the evidence that permits retirement; announcing an end and leaving consumers to cope is not a transition."
+serves = "Prevents a deprecation that announces an end and leaves consumers stranded."
+where = [
+  "SKILL.md#deprecate-and-remove",
+  "SKILL.md#establish-the-retirement",
+  "SKILL.md#find-consumers-and-retirement-conditions",
+]
+shapes = "The sections run from establishing the retirement through closure, and the consumer section keeps a proportionate record of each consumer's remaining change, owner and evidence."
+adapted = "A replacement is optional, and the user's chosen replacement and product decision are kept; alternatives are investigated only while those choices remain open."
+
+[[sources.ideas]]
+idea = "A deprecation notice, the migration of consumers and the evidence that permits removal are separate steps. A notice announces the change, migration moves consumers, and the old implementation is removed only when evidence shows that no required consumer remains."
+serves = "Prevents removing code that a consumer still needs, or treating a notice as a finished retirement."
+where = [
+  "SKILL.md#find-consumers-and-retirement-conditions",
+  "SKILL.md#replace-or-close-access",
+  "SKILL.md#remove-obsolete-artifacts-and-verify",
+  "SKILL.md#close-at-the-state-actually-reached",
+]
+shapes = "Notices are prepared in the access section, removal waits for evidence in the removal section, and the closing report keeps each state distinct."
+adapted = "An empty search or a lack of recent requests does not prove that an offline client, scheduled job, stored payload or external caller has stopped depending on the target; an inaccessible consumer leaves its removal condition unproven."
+
+[[sources.declined]]
+feature = "Building a production-proven replacement before deprecating anything."
+reason = "Ending a feature can be the intended outcome, so a replacement is optional."
+
+[[sources.declined]]
+feature = "Defaulting to advisory deprecation, migrating consumers one at a time, and routing traffic through fixed percentage phases."
+reason = "The coordinated or staged path, and each stage, follow from the real consumers, support obligations and state."
+
+[[sources.declined]]
+feature = "Treating additive schema changes as safe in any deploy, and requiring a tested down path so that every migration can be reversed."
+reason = "Safety and recovery come from the actual deployment, data and recovery evidence; a down command, a feature flag or a backup does not prove recovery."
+
+[[sources.declined]]
+feature = "Removing every reference, test, document and deprecation notice of the old system."
+reason = "Only obsolete artifacts go; a string that matches the old name is a lead to classify, not an instruction to delete its file."
+
+[[sources.reviews]]
+from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 1401c8b8030e..aeac41d4d005 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "pstack-internal-retirement"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "2cbf58508f40de470d7490b55c51d71241928fa2"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = [
+  "pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md",
+  "pstack/LICENSE",
+]
+paths = [
+  "pstack/skills/principle-migrate-callers-then-delete-legacy-apis/SKILL.md",
+  "pstack/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "When every consumer of an internal API is under the task's control and can move together, with no incompatible persisted or deployed version left behind, the callers are inventoried and migrated, the required behavior is verified, and the old API is removed in the same change instead of keeping a compatibility layer."
+serves = "Ends dual-path maintenance as soon as the conditions allow it."
+where = ["SKILL.md#choose-the-path-and-order-the-work"]
+shapes = "The path section opens with the coordinated change and its conditions, and the staged retirement covers every case that fails them."
+adapted = "The donor's conditions (no external user depends on compatibility, and the project can absorb a coordinated breaking change) also cover stored data, in-flight work and independently deployed versions, which can rule out an atomic change."
+
+[[sources.declined]]
+feature = "Deleting the old API at once rather than keeping any compatibility layer, with adapters allowed only as time-boxed exceptions."
+reason = "Same-change removal applies only when its external-consumer and coordinated-change conditions hold; otherwise a staged retirement may keep a temporary adapter or flag with a compatibility window and a removal condition."
+
+[[sources.reviews]]
+from_commit = "2cbf58508f40de470d7490b55c51d71241928fa2"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 2cbf58508f40..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "hoang-data-transition"
+author = "Hoang Nguyen / Agent Skills Standard"
+repository = "https://github.com/HoangNguyen0403/agent-skills-standard"
+remote = "git@github.com:HoangNguyen0403/agent-skills-standard.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "1fb0537c339c1e135167f4c15ba603b8849da5bc"
+reviewed_through = "c72ce6d4afd3ce73420613921cb3fa871e5411d9"
+baseline_paths = [
+  "skills/database/database-migrations/SKILL.md",
+  "skills/database/database-migrations/references/migration-safety-checklist.md",
+  "LICENSE",
+]
+paths = [
+  "skills/database/database-migrations/SKILL.md",
+  "skills/database/database-migrations/references/migration-safety-checklist.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "For a changing data contract, the transition is ordered so that the versions running at each step can read and write every intermediate shape: expand the schema, keep new writes compatible, migrate existing data, verify that old and new data converge, switch consumers, and contract only when old consumers and recovery requirements permit it."
+serves = "Keeps old and new versions working during the transition and prevents removing a shape that something still reads."
+where = ["references/retirement-boundaries.md#persistent-data"]
+shapes = "The persistent-data section sets this order for a changing data contract."
+adapted = "The order applies only where coexistence requires it, in a reference that is read only when the retirement reaches stored data."
+
+[[sources.ideas]]
+idea = "A long data move is bounded, its partial progress is observable, and it can resume after an interruption; the plan defines how concurrent writes stay consistent during the move."
+serves = "Prevents a backfill that blocks live traffic, cannot resume, or leaves the data inconsistent."
+where = ["references/retirement-boundaries.md#persistent-data"]
+shapes = "A paragraph of the persistent-data section sets these requirements for any long data move."
+adapted = "Writing to both shapes does not by itself establish atomicity or recovery after one of the writes fails."
+
+[[sources.ideas]]
+idea = "Locking, transaction and tool behavior come from the actual database or service documentation, because a change that looks additive can still block live traffic on some engines."
+serves = "Prevents a schema change from taking a lock that stops production traffic."
+where = ["references/retirement-boundaries.md#persistent-data"]
+shapes = "The persistent-data section requires the engine's documentation before a change and states that an additive change is not automatically safe."
+adapted = "The donor treats additive migrations as trivially reversible; locally, an additive change is not automatically safe for live traffic."
+
+[[sources.ideas]]
+idea = "Recovery is defined for each stage from its completed effects. Reverting code, reversing a schema operation, restoring records and correcting forward are different actions, and a code rollback cannot undo a destructive data change."
+serves = "Prevents assuming that a code rollback recovers a destructive data change."
+where = ["references/retirement-boundaries.md#persistent-data"]
+shapes = "The last paragraph of the persistent-data section defines recovery per stage and sends the actual restore evidence to the delivery and verification owners."
+adapted = "A command named down, a feature flag or an existing backup does not prove recovery; the delivery and verification owners supply the restore or compatibility evidence."
+
+[[sources.declined]]
+feature = "Treating additive migrations as reversible by ceasing to write the new shape, and waiting a full deployment cycle before the contract step."
+reason = "Recovery and safety come from the actual deployment, data and recovery evidence, and a stage advances on evidence rather than on a fixed number of deployment cycles."
+
+[[sources.declined]]
+feature = "Prescribing database procedure in the skill, such as key-range batching, throttling between batches and progress dashboards."
+reason = "Data guidance stays conditional; project tools and delivery specialists own the implementation details."
+
+[[sources.reviews]]
+from_commit = "1fb0537c339c1e135167f4c15ba603b8849da5bc"
+to_commit = "c72ce6d4afd3ce73420613921cb3fa871e5411d9"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 1fb0537c339c..c72ce6d4afd3 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[dependencies]]
+kind = "local"
+name = "analyze-change-effects"
+required = false
+role = "Conditional investigation of indirect consumers and deciding compatibility assumptions."
+
+[[dependencies]]
+kind = "local"
+name = "design-code-structure"
+required = false
+role = "Conditional replacement-interface or ownership design."
+
+[[dependencies]]
+kind = "local"
+name = "ci-cd-automation"
+required = false
+role = "Conditional delivery ordering, mixed-version operation and recovery."
+
+[[dependencies]]
+kind = "local"
+name = "write-documentation"
+required = false
+role = "Conditional preparation of substantial migration or sunset guides; no new sending authority."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Conditional application verification and current execution evidence."
+
+[[dependencies]]
+kind = "local"
+name = "review-code-changes"
+required = false
+role = "Conditional review of the resulting change."
+
+[[dependencies]]
+kind = "local"
+name = "commit"
+required = false
+role = "Commits when authorized or required by the active task and repository rules."
+
+[[dependencies]]
+kind = "local"
+name = "pr"
+required = false
+role = "Pull-request work within existing publication authority."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested skill authoring or source maintenance."

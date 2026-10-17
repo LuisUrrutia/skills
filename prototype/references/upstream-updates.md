@@ -14,10 +14,10 @@ and pins unchanged. "Update prototype from upstream" selects Update mode and
 authorizes incorporating compatible changes with validation. These runs are
 automatic once requested; this reference does not create a background schedule.
 
-Read `../origin.txt` for the immutable baselines, reviewed-through cursors, paths,
-and intentional deviations. Preserve direct invocation, bounded experiments,
-observable evidence, and the separate production handoff. Compare changes to
-Matt's branch references as well as his entrypoint. For pstack, follow the recorded
-prototype playbook even if poteto-mode moves it; its parent is not a runtime
-dependency. The shared maintenance procedure owns fetching, rename tracking,
-classification, validation, and cursor advancement.
+Read `../origin.toml` for the source pins, goal, ideas, declines and invariants.
+Preserve direct invocation, bounded experiments, observable evidence, and the
+separate production handoff. Compare changes to Matt's branch references as well as
+his entrypoint. For pstack, follow the recorded prototype playbook even if
+poteto-mode moves it; its parent is not a runtime dependency. The shared
+maintenance procedure owns fetching, rename tracking, classification, validation,
+and cursor advancement.

@@ -1,0 +1,353 @@
+format_version = 2
+skill = "teach"
+created = "2026-10-04"
+approach = "derive"
+goal = "Teach the intended learner a concept, skill, system or business through a lesson adapted to their purpose and prior knowledge, with concrete examples and optional practice, in the conversation or as a requested artifact. Success is that the learner can explain, predict or do what the lesson targeted, with the lesson's evidence limits stated and no mastery claimed without evidence."
+
+[[invariants]]
+rule = "Donor skills are not runtime dependencies. Local skills support teaching when they are available, and the skill uses accessible evidence directly when they are not."
+reason = "The skill is a standalone derivation of selected teaching and learning-design mechanisms."
+where = ["SKILL.md#ground-the-subject", "SKILL.md#source-maintenance"]
+
+[[invariants]]
+rule = "Teaching does not create profiles, change project instructions, enroll the learner or publish material. Files are created only when the request calls for a saved artifact or a continuing learning record, at the requested destination."
+where = ["SKILL.md#deliver-and-continue"]
+
+[[invariants]]
+rule = "A lesson never claims mastery, long-term retention or a measured learning gain without evidence."
+where = ["SKILL.md#deliver-and-continue", "references/practice.md#carry-evidence-forward"]
+
+[[sources]]
+id = "teach-pstack"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = ["pstack/skills/teach/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/teach/SKILL.md", "pstack/LICENSE"]
+
+[[sources.ideas]]
+idea = "Start from why the learner asks and what they already know. Read the purpose, prior knowledge and desired depth from the request and conversation instead of quizzing the learner, and skip what they plainly know."
+serves = "Puts the lesson's depth where the learner's question is and avoids reteaching known material."
+where = ["SKILL.md#establish-the-lesson"]
+shapes = "Puts the learner's purpose, prior knowledge and depth first in the lesson setup, so stated knowledge is used without retesting and questions are limited to information that changes the lesson."
+
+[[sources.ideas]]
+idea = "Teach the mechanism, not a reference list. Give a plain definition first, tie it to the learner's case, and walk one concrete example through how it works; a glossary or list of parts is reference, not teaching."
+serves = "Lets the learner see why the steps relate instead of memorizing names."
+where = ["SKILL.md#build-understanding"]
+shapes = "Orders the explanation from definition to the learner's purpose to one worked example, with a contrasting case or limit when it changes the answer."
+adapted = "The donor gives a one- or two-sentence first answer and then stops. Here the response matches the requested depth: a live lesson uses manageable chunks that adapt to replies, and a one-shot artifact or non-interactive caller gets the requested content without waiting."
+
+[[sources.ideas]]
+idea = "When investigators supply a code mechanism and its history, combine their findings into one explanation and keep their confidence language, because their hedges are findings, not style. The reply is the explanation itself, not a report about the work."
+serves = "Keeps the lesson as certain as its evidence and no more."
+where = ["SKILL.md#ground-the-subject", "SKILL.md#deliver-and-continue"]
+shapes = "Makes the codebase bullet preserve the investigators' evidence and uncertainty, and makes delivery return the explanation, lesson or feedback itself."
+adapted = "The donor always runs its how and why skills. Here the explain-code skill establishes mechanism and ownership for an existing codebase, the explain-decisions skill runs only when historical reasons affect the lesson, and a general concept needs neither. When they are unavailable, the skill uses accessible evidence directly and names any material limit."
+
+[[sources.declined]]
+feature = "A fixed short first answer of one or two sentences followed by a stop."
+reason = "Depth follows the request; the skill does not stop after a fixed number of sentences."
+
+[[sources.declined]]
+feature = "Redrawing a diagram once per added part for anything with three or more moving parts."
+reason = "Progressive reveal is used when it aids understanding, without a fixed number of diagrams."
+
+[[sources.declined]]
+feature = "Generating whiteboard-style images for spatial ideas."
+reason = "The smallest useful representation and the host's available tools decide the medium."
+
+[[sources.declined]]
+feature = "Writing every response in plain spoken English through the donor's prose skill."
+reason = "The active output-language rules govern conversation and artifacts, and the communicate-clearly skill handles prose when available."
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames e43c7ee26e00..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "teach-matt"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+reviewed_through = "49dd158d1076134a641b33efb035946536778336"
+baseline_paths = [
+  "skills/productivity/teach/SKILL.md",
+  "skills/productivity/teach/MISSION-FORMAT.md",
+  "skills/productivity/teach/RESOURCES-FORMAT.md",
+  "skills/productivity/teach/LEARNING-RECORD-FORMAT.md",
+  "skills/productivity/teach/GLOSSARY-FORMAT.md",
+  "LICENSE",
+]
+paths = [
+  "skills/productivity/teach/SKILL.md",
+  "skills/productivity/teach/MISSION-FORMAT.md",
+  "skills/productivity/teach/RESOURCES-FORMAT.md",
+  "skills/productivity/teach/LEARNING-RECORD-FORMAT.md",
+  "skills/productivity/teach/GLOSSARY-FORMAT.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Tie each lesson to the learner's real goal and bound it to the few things the learner should be able to explain, predict or do afterward."
+serves = "Keeps lessons concrete and small enough to complete."
+where = ["SKILL.md#establish-the-lesson"]
+shapes = "Adds a step that chooses the lesson's few targets after the learner's purpose is established."
+adapted = "The donor keeps the goal in a mission file and interviews the learner when it is unclear. Here the purpose comes from the request and conversation, a lesson can finish in one session, and the learning-plan skill owns a multi-session roadmap."
+
+[[sources.ideas]]
+idea = "Knowledge becomes a usable skill through practice with feedback: the learner applies the idea and receives diagnostic feedback on the attempt."
+serves = "Turns an explanation the learner followed into something they can do."
+where = ["SKILL.md#practice-and-feedback", "references/practice.md#give-diagnostic-feedback"]
+shapes = "Adds a practice step after the explanation that loads the practice reference, whose feedback compares the attempt with an evidence-backed solution and names the specific gap."
+adapted = "Practice is optional here. It runs when the learner asks for it or it is part of the agreed lesson, an explanation alone needs no test, and the skill never withholds an answer to enforce a technique."
+
+[[sources.ideas]]
+idea = "Presented material is not evidence of understanding. Distinguish material presented, self-reported familiarity, success with hints and independent application, and choose the next step from what the learner actually does. In-the-moment success does not establish long-term retention; recall later in a changed context can check it."
+serves = "Prevents an illusion of mastery from steering the next lesson."
+where = ["SKILL.md#practice-and-feedback", "references/practice.md#carry-evidence-forward"]
+shapes = "Makes the next step depend on the kind of evidence observed, and makes the practice reference pass that evidence forward for ongoing study."
+adapted = "Ongoing study hands the observed attempt, support used and remaining gap to the learning-plan skill or an authorized learning record, which keeps demonstrated and self-reported knowledge distinct. The record does not compute a zone of proximal development."
+
+[[sources.ideas]]
+idea = "Multiple-choice questions give no answer clues through wording, formatting or position, and the position of the correct option varies across questions."
+serves = "Makes a correct answer reflect understanding rather than pattern spotting."
+where = ["references/practice.md#give-diagnostic-feedback"]
+shapes = "Adds a multiple-choice rule to the feedback section that removes clues from wording, formatting and position."
+adapted = "The donor also makes every option the same length. Locally clarity takes priority over identical word counts."
+
+[[sources.declined]]
+feature = "Treating the current directory as a teaching workspace with a mission file, resources list, notes, learning records, glossary, and HTML lessons and assets."
+reason = "One-session teaching is supported, and files are created only when a saved artifact or continuing learning record is requested."
+
+[[sources.declined]]
+feature = "Making every quiz answer exactly the same number of words and characters."
+reason = "Clarity comes first; wording, formatting and position avoid clues instead."
+
+[[sources.declined]]
+feature = "Delegating questions that need real-world wisdom to a community the learner should join."
+reason = "Teaching does not enroll the learner in anything."
+
+[[sources.declined]]
+feature = "Using learning records to calculate the learner's zone of proximal development."
+reason = "A record holds observed evidence; it does not compute a psychological measure."
+
+[[sources.reviews]]
+from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+to_commit = "49dd158d1076134a641b33efb035946536778336"
+incorporated = [
+  "Incorporated from skills/productivity/teach/SKILL.md: multiple-choice practice avoids answer clues from position and varies where the correct option appears (teach/references/practice.md).",
+]
+skipped = [
+  "skills/productivity/teach/SKILL.md: Anchors course workspace paths. The declined automatic course workspace rules this out (teach/SKILL.md:99).",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 24fe0ef7737e..49dd158d1076 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "teach-humanlayer"
+author = "HumanLayer"
+repository = "https://github.com/humanlayer/skills"
+remote = "git@github.com:humanlayer/skills.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "ca7c8088db69e315a8b2deea43820270457f8f3c"
+reviewed_through = "653b6411c1f70c275a18e37673b042ff99f67ceb"
+baseline_paths = ["plugins/show-me/skills/show-me/SKILL.md", "LICENSE"]
+paths = ["plugins/show-me/skills/show-me/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "Choose the smallest view that makes the current point clear, keep only the parts the question needs, and place the short explanation next to the visual it supports."
+serves = "Lets a visual clarify one mechanism without overwhelming the learner."
+where = ["SKILL.md#build-understanding", "references/lesson-artifacts.md"]
+shapes = "Makes the representation choice start from the smallest useful form, and makes the artifact reference tie each view to the objective with its explanation beside it."
+
+[[sources.declined]]
+feature = "Opening HTML files with macOS `open` and relying on the donor's host invocation metadata."
+reason = "The skill uses the host's available artifact and visualization tools."
+
+[[sources.reviews]]
+from_commit = "ca7c8088db69e315a8b2deea43820270457f8f3c"
+to_commit = "653b6411c1f70c275a18e37673b042ff99f67ceb"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames ca7c8088db69..653b6411c1f7 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "teach-mblode"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+baseline_paths = ["skills/eli5/SKILL.md", "skills/eli5/references/formats.md", "LICENSE.md"]
+paths = ["skills/eli5/SKILL.md", "skills/eli5/references/formats.md", "LICENSE.md"]
+
+[[sources.ideas]]
+idea = "Choose the explanation medium by what the learner must see or manipulate: prose for an idea, a diagram for relationships, and an interactive view for changing an input and observing its effect. An interactive control must drive the mechanism; a decorative slider or animation adds nothing."
+serves = "Matches the medium to the shape of the idea instead of to habit."
+where = ["SKILL.md#build-understanding", "references/lesson-artifacts.md"]
+shapes = "Maps content shapes to forms in the representation paragraph, and requires interactive views in the artifact reference to expose the controlling input and its consequences."
+
+[[sources.ideas]]
+idea = "Before delivery, inspect the rendered visual and use each interactive control, because a diagram that does not render or a control that misbehaves fails the learner."
+serves = "Prevents delivering a broken or inconsistent artifact."
+where = ["references/lesson-artifacts.md"]
+shapes = "Adds an inspection of the rendered artifact and its controls as the final step before delivery."
+adapted = "The donor prescribes specific renderers and a headless-browser screenshot. Locally the relevant available tools do the check, the report separates syntax checks, execution, visual inspection and unverified behavior, and a render proves only that the artifact displays."
+
+[[sources.ideas]]
+idea = "When an explanation fails, change the example, framing or medium instead of repeating the same words. An analogy may introduce an idea, but its limits are stated."
+serves = "Gives a stuck learner a new path to the idea."
+where = ["SKILL.md#build-understanding"]
+shapes = "Replaces repetition with a diagnosis of the missing prerequisite or misconception, followed by a new example, framing or medium."
+adapted = "The local rule first identifies the missing prerequisite or misconception and returns from the analogy to the real mechanism."
+
+[[sources.declined]]
+feature = "Asking the learner before choosing a representation beyond a diagram."
+reason = "A useful representation needs no separate permission; the requested format or the smallest useful one decides."
+
+[[sources.declined]]
+feature = "A fixed media stack: self-contained HTML pages, Manim explainer videos, narration services and a headless-browser screenshot step."
+reason = "The host's available tools are used, and local specialists such as the write-documentation skill own presentation mechanics."
+
+[[sources.reviews]]
+from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "teach-ce"
+author = "Every / Compound Engineering"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+baseline_paths = [
+  "skills/ce-explain/SKILL.md",
+  "skills/ce-explain/references/intake.md",
+  "skills/ce-explain/references/check-in.md",
+  "skills/ce-explain/references/orchestration.md",
+  "LICENSE",
+]
+paths = [
+  "skills/ce-explain/SKILL.md",
+  "skills/ce-explain/references/intake.md",
+  "skills/ce-explain/references/check-in.md",
+  "skills/ce-explain/references/orchestration.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "The learner is whoever will use the lesson, which can differ from the caller. Use only the current learner's context, and when a workflow such as a learning plan calls the skill, return the requested lesson, observed difficulty and any suggested adjustment to it and leave continuation to that workflow."
+serves = "Prevents teaching the wrong person, applying another person's records, or taking over a caller's workflow."
+where = ["SKILL.md#establish-the-lesson", "SKILL.md#deliver-and-continue"]
+shapes = "Separates the current learner from shared installation and from plan callers, and makes delivery return results to a plan that owns continuation."
+
+[[sources.ideas]]
+idea = "A delivered lesson states its material limits. Claims whose evidence was unavailable stay marked as unknown, and a standalone lesson is complete when it covers the requested objective, examples and those limits."
+serves = "Lets the learner use the lesson accurately without separate notes."
+where = ["SKILL.md#ground-the-subject", "SKILL.md#deliver-and-continue"]
+shapes = "Makes grounding name unknowns and material limits, and defines a standalone lesson's completion by its objective, examples and limits."
+
+[[sources.ideas]]
+idea = "Practice tests applying the mechanism or recognizing its limits, not recalling the explanation's wording, and its answers address the gap a plausible wrong answer exposes. Tasks in a standalone lesson come with answer guidance kept apart from the prompts."
+serves = "Exposes real misconceptions and keeps saved lessons usable on their own."
+where = [
+  "references/practice.md#choose-the-task",
+  "references/practice.md#give-diagnostic-feedback",
+  "references/lesson-artifacts.md",
+]
+shapes = "Makes the practice reference test application first and keep answer guidance apart from prompts in standalone tasks, and makes the artifact reference require answer guidance for requested exercises."
+adapted = "The donor's check-in is static text that never waits for a reply. Locally a live learner attempts the task before the solution appears and gets feedback, and interactive artifacts are made when requested."
+
+[[sources.declined]]
+feature = "Static-only check-ins that never pose a question in the conversation."
+reason = "Live feedback and interactive artifacts are supported when requested."
+
+[[sources.declined]]
+feature = "The CE configuration file, its artifact root, model tiers and its publishing service."
+reason = "Lessons use the requested destination and the host's tools, and teaching does not publish material."
+
+[[sources.reviews]]
+from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 9af474a70e7f..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[dependencies]]
+kind = "local"
+name = "explain-code"
+required = false
+role = "Evidence for existing code mechanisms."
+
+[[dependencies]]
+kind = "local"
+name = "explain-decisions"
+required = false
+role = "Evidence for historical rationale."
+
+[[dependencies]]
+kind = "local"
+name = "learning-plan"
+required = false
+role = "Multi-session learning progression."
+
+[[dependencies]]
+kind = "local"
+name = "communicate-clearly"
+required = false
+role = "Prose and audience adaptation."
+
+[[dependencies]]
+kind = "local"
+name = "write-documentation"
+required = false
+role = "Saved lesson structure and reader-path checks."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Requested source maintenance and instruction authoring only."

@@ -1,0 +1,194 @@
+format_version = 2
+skill = "prototype"
+created = "2026-10-02"
+approach = "derive"
+goal = "Resolve one open question about a UI, a state model or uncertain behavior before implementation, with a disposable experiment. Success is a runnable artifact with exact rerun instructions, observed evidence with its limits, and a recommendation with tradeoffs or the specific uncertainty that remains."
+
+[[invariants]]
+rule = "A prototype request does not authorize changing the live application. Production implementation, promotion of prototype code, archive branches, issue updates and PRs are separate work that this skill does not start automatically."
+where = ["SKILL.md#build-and-observe", "SKILL.md#deliver-and-stop"]
+
+[[invariants]]
+rule = "When the wider task already authorizes the next phase, the skill returns to the caller and adds no new approval gate."
+where = ["SKILL.md#deliver-and-stop"]
+
+[[invariants]]
+rule = "The skill runs standalone from the user's request: it invokes no upstream runtime skill and needs no state from the work-mode skill."
+where = ["SKILL.md#prototype"]
+
+[[sources]]
+id = "mattpocock-prototype"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "49dd158d1076134a641b33efb035946536778336"
+baseline_paths = [
+  "skills/engineering/prototype/SKILL.md",
+  "skills/engineering/prototype/LOGIC.md",
+  "skills/engineering/prototype/UI.md",
+  "LICENSE",
+]
+paths = [
+  "skills/engineering/prototype/SKILL.md",
+  "skills/engineering/prototype/LOGIC.md",
+  "skills/engineering/prototype/UI.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "The question decides the artifact. A question about states and transitions and a question about layout or interaction need different artifacts, so each kind of question has its own guidance file, and only the file that matches the question is loaded."
+serves = "Prevents building the wrong kind of artifact, which wastes the whole experiment."
+where = ["SKILL.md#frame-the-experiment", "references/logic.md", "references/ui.md"]
+shapes = "The table in Frame the experiment routes each kind of question to one reference file, so logic and interface guidance live in separate files that are combined only when the question needs both surfaces."
+adapted = "Behavior and timing questions are a third conditional branch, references/experiment.md. The activation description stays short and names UI, state model and uncertain behavior."
+
+[[sources.ideas]]
+idea = "A state model demo shows all state relevant to the decision after each action, with readable labels. It allows free exploration of the actions in any order, and each guided walkthrough resets to known initial conditions and runs real model actions instead of a separate scripted story."
+serves = "Lets a domain expert see how the model behaves on sequences that are hard to reason about on paper."
+where = ["references/logic.md"]
+shapes = "The logic reference requires visible state after each action, free exploration, a reset, and walkthroughs built from real model actions, in place of a scripted demonstration."
+
+[[sources.ideas]]
+idea = "Interface alternatives differ in the structure or interaction being decided, not in cosmetic details. Each alternative has a clear label and, when several share one artifact, a visible selector."
+serves = "Makes the comparison answer the design question instead of comparing small variations of one idea."
+where = ["references/ui.md"]
+shapes = "The comparison paragraph limits the number of alternatives to what the question needs, requires structural differences with comparable data and tasks, and asks for labels, a selector and, when useful, a shareable variant URL that survives a reload."
+
+[[sources.ideas]]
+idea = "Judge interface alternatives inside enough application context to expose design problems: surrounding navigation, realistic data density, loading and empty states, and the relevant viewport sizes. Unrelated data fetching, authentication and production behavior stay intact, and the prototype's mutations are stubbed."
+serves = "Prevents a design that looks fine in isolation but fails next to the rest of the application."
+where = ["references/ui.md", "SKILL.md#build-and-observe"]
+shapes = "ui.md opens with the context the design needs and the rules for a local route; Build and observe stubs mutations that are not part of the question."
+adapted = "The donor prefers rendering variants on the existing production route. Here, fixtures or an isolated preview that keeps the context come first; a local application route is used only when necessary, and then the whole experimental surface is isolated from production and the isolation is verified."
+
+[[sources.declined]]
+feature = "Placing prototype code next to the production module or page it prototypes."
+reason = "Disposable work goes in the repository's permitted scratch location, here the ignored .tmp/<task>/, and a requested deliverable keeps its requested or established destination."
+
+[[sources.declined]]
+feature = "A single self-contained HTML file with inline styles and scripts for every logic demo."
+reason = "Plain HTML uses semantic markup and an external stylesheet unless the requested deliverable calls for another format; a script is enough when only the computed result matters."
+
+[[sources.declined]]
+feature = "Forbidding tests, error handling and frameworks in every prototype."
+reason = "Frameworks, assertions and project checks are conditional: existing components and frameworks are used when their behavior matters to the decision, and checks stay when they are needed to trust the result or the project requires them."
+
+[[sources.declined]]
+feature = "Capturing the result after the decision: folding the winner into production code, committing the prototype to a throwaway archive branch, and leaving a pointer on the implementation issue."
+reason = "The skill reports evidence and uncertainty. Production promotion, archive branches, issue updates and other delivery work are separate and do not start automatically."
+
+[[sources.declined]]
+feature = "Hiding only the variant switcher in production builds while the variants stay on a production route."
+reason = "The entire experimental UI must be isolated from production; hiding its selector is not sufficient."
+
+[[sources.reviews]]
+from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/performance-upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+to_commit = "49dd158d1076134a641b33efb035946536778336"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 24fe0ef7737e..49dd158d1076 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "pstack-prototype-playbook"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "7022c81efb48d8b5eb15498ce6043a3bd74b694c"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = ["pstack/skills/poteto-mode/playbooks/prototype.md", "pstack/LICENSE"]
+paths = ["pstack/skills/poteto-mode/playbooks/prototype.md", "pstack/LICENSE"]
+
+[[sources.ideas]]
+idea = "A prototype exists to resolve one concrete decision. It is a disposable experiment, kept separate from production source. When the request already settles the choice, no prototype is built and the work follows its normal workflow."
+serves = "Keeps experiments cheap and focused, and prevents them from replacing settled implementation work."
+where = ["SKILL.md#prototype", "SKILL.md#frame-the-experiment", "SKILL.md#build-and-observe"]
+shapes = "The opening defines the skill as one disposable experiment for one question; Frame the experiment sends a specified implementation or bug fix to its normal workflow; Build and observe keeps experiments separate from production behavior."
+
+[[sources.ideas]]
+idea = "Besides visual alternatives, a question about behavior, an algorithm, an API, an integration, resource use or timing can be settled by the smallest script or harness that exercises it."
+serves = "Answers empirical questions with an observation instead of speculation."
+where = ["references/experiment.md", "SKILL.md#frame-the-experiment"]
+shapes = "The routing table gains a third row that sends behavior and timing questions to experiment.md, which builds the smallest harness for the conditions that could change the decision."
+adapted = "The donor treats the observation itself as the test. Here, compared approaches must first produce the required behavior, and a performance claim goes to the verify skill for assessment. When the verify skill is unavailable, this skill still keeps inputs, workload, environment, warm-up, cache state and measurement boundary comparable, reports repetitions, units and a range, and states which conclusions stay unverified."
+
+[[sources.ideas]]
+idea = "Observe the result on the surface that matches the question: render and drive the interface for a visual decision, and run the harness and read its output for a behavioral one. Deliver the evidence, the tradeoffs, a recommendation and the artifact."
+serves = "Bases the recommendation on what the experiment actually showed."
+where = ["SKILL.md#build-and-observe", "SKILL.md#deliver-and-stop", "references/ui.md"]
+shapes = "Build and observe ends with running the experiment and inspecting the matching surface; Deliver and stop lists the evidence, recommendation, tradeoffs and artifact to return; ui.md requires rendering every alternative and driving the decisive interaction."
+
+[[sources.declined]]
+feature = "Running as a playbook inside the parent poteto-mode."
+reason = "The source is a playbook inside poteto-mode, not an independently installable skill. This skill works directly from the user's request and needs no parent mode."
+
+[[sources.declined]]
+feature = "Cursor tool names."
+reason = "The skill uses the tools of the host it runs in."
+
+[[sources.declined]]
+feature = "Handing the chosen direction automatically to the donor's Feature playbook or architect skill for the real build."
+reason = "Production implementation is separate work. The skill returns to the caller, which continues only when the wider task already authorizes the next phase."
+
+[[sources.declined]]
+feature = "Proposing variations the user did not ask for, and a reference and moodboard step in which the user picks directions before building."
+reason = "References and alternatives are gathered only when the question needs them: references when the direction is open and they would change the options, and alternatives only for a choice that is not settled."
+
+[[sources.reviews]]
+from_commit = "7022c81efb48d8b5eb15498ce6043a3bd74b694c"
+to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/performance-upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames e43c7ee26e00..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested source maintenance and skill authoring."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Assess measurement evidence for a performance experiment; return the verdict to prototype for its bounded recommendation. If unavailable, retain the stated assessment gap."

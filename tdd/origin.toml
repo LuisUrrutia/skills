@@ -1,0 +1,136 @@
+format_version = 2
+skill = "tdd"
+created = "2026-10-03"
+approach = "derive"
+goal = "Build requested behavior test-first, when the user or caller selects test-driven development, through short red, green and optional refactor cycles at the boundary that callers use. A run ends with the requested contract implemented and covered, real red and green observations, and the exact final checks, their outcomes and any remaining gaps reported."
+
+[[invariants]]
+rule = "Test-first work starts only when the user or caller selects it. Diagnosis, running existing checks and adding coverage for working code are separate work with other completion criteria."
+reason = "Diagnosis-only requests, running existing checks and adding coverage for working code have different completion criteria."
+where = [
+  "SKILL.md#test-driven-development",
+  "SKILL.md#establish-the-behavior",
+  "SKILL.md#finish-with-evidence",
+]
+
+[[invariants]]
+rule = "When evidence leaves a material behavior or interface choice unresolved, its tests and implementation pause for the answer. Only work that stays valid under any plausible answer continues, and the open decision never becomes an assumed default, a new parameter or a callback."
+reason = "Turning the missing decision into a default, a parameter or a callback also changes the contract."
+where = ["SKILL.md#establish-the-behavior"]
+
+[[invariants]]
+rule = "When a test cannot run because a prerequisite is inaccessible or needs new authority, the affected cycle stops with the exact blocker. Requested TDD never silently becomes unverified implementation-first work."
+where = ["SKILL.md#work-one-behavior-at-a-time"]
+
+[[invariants]]
+rule = "Repository instructions and the caller own worktrees, commits, PRs and further delivery. This skill neither starts those tasks nor cancels an existing requirement to perform them."
+where = ["SKILL.md#finish-with-evidence"]
+
+[[sources]]
+id = "mattpocock-tdd"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "49dd158d1076134a641b33efb035946536778336"
+baseline_paths = [
+  "skills/engineering/tdd/SKILL.md",
+  "skills/engineering/tdd/tests.md",
+  "skills/engineering/tdd/mocking.md",
+  "LICENSE",
+]
+paths = [
+  "skills/engineering/tdd/SKILL.md",
+  "skills/engineering/tdd/tests.md",
+  "skills/engineering/tdd/mocking.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Work proceeds in vertical slices. Each cycle adds one focused test for one observable behavior, sees it fail before the behavior exists, then makes the smallest coherent change that passes it. The next scenario comes from what the completed cycle established; a list of scenarios is a plan, not a batch of tests written up front."
+serves = "Keeps tests tied to real behavior instead of an imagined structure, and makes each red state evidence that the test detects the missing behavior."
+where = ["SKILL.md#establish-the-behavior", "SKILL.md#work-one-behavior-at-a-time"]
+shapes = "The numbered cycle orders write the check, observe red, make it green, refactor when useful and choose the next scenario; the scenario-list paragraph rules out speculative tests written in advance."
+adapted = "A red state counts only when the test fails for the missing behavior. A setup failure, behavior that already works, or a test written after the production change is reported as such and never described as test-first. An optional mutation probe runs in a disposable copy, and its evidence stays separate from test-first ordering."
+
+[[sources.ideas]]
+idea = "A test observes behavior through the boundary that callers use, such as a module function, domain service, endpoint, command or user interaction, at the narrowest layer that includes the interaction responsible for the behavior. It asserts results, retrievable state and externally visible effects rather than private fields or incidental calls."
+serves = "Tests survive refactoring and fail when caller-visible behavior breaks."
+where = ["SKILL.md#establish-the-behavior", "references/test-design.md#observe-the-contract"]
+shapes = "The behavior step chooses the public boundary and the closest test layer; the reference defines a public boundary and what to observe there."
+adapted = "The donor has the user confirm every seam before any test; locally an established boundary is reused without routine approval. The donor lists call counts, call order and direct storage checks as red flags; locally they are valid observations when the public contract makes them meaningful."
+
+[[sources.ideas]]
+idea = "An expected result comes from a source independent of the code under test: the contract, a literal worked example or another oracle. A test that recomputes the expectation with the production algorithm, or accepts an unchecked snapshot, passes by construction."
+serves = "Prevents tautological tests that can never disagree with the code."
+where = ["SKILL.md#work-one-behavior-at-a-time", "references/test-design.md#observe-the-contract"]
+shapes = "Step 1 derives the expectation from an independent source; the reference adds that the chosen input must distinguish the required behavior from a plausible mistake."
+
+[[sources.ideas]]
+idea = "Tests prefer real in-process collaborators and lightweight fakes, and control only what the test cannot own: external services, time, randomness or storage, when a reliable local check needs it. A fake implements the relevant external contract so that the real code makes the decisions under test."
+serves = "Keeps a test honest about the behavior it claims, and exposes a boundary or design problem when internal mocking grows."
+where = ["references/test-design.md#control-what-the-test-cannot-own"]
+shapes = "The reference section moves from real collaborators to controlled external boundaries and treats extensive mocking of internal pieces as a reason to reconsider the test boundary or production design."
+adapted = "The donor recommends dependency injection and SDK-style interfaces so that boundaries are easy to mock. Locally, the project's existing boundary provides the control, and a new interface is added only when it protects a real boundary, not to satisfy a mocking library. Contacting live services or installing test infrastructure follows the task's authority and the project's established setup."
+
+[[sources.ideas]]
+idea = "Tests use the project's own vocabulary and contracts: each test is named after its observable behavior in the project's terms."
+serves = "Makes a test read as a specification of the project's behavior."
+where = ["SKILL.md#establish-the-behavior", "SKILL.md#work-one-behavior-at-a-time"]
+shapes = "The behavior step reads the relevant implementation, tests and project contracts first; step 1 names the test in the project's terms."
+adapted = "The donor reads a GLOSSARY.md file and ADRs when they exist. Locally, the relevant implementation, tests and project contracts supply the terms, and the current implementation alone does not define correctness."
+
+[[sources.declined]]
+feature = "Activating whenever a user asks for integration tests."
+reason = "The skill applies when the user or caller selects test-first development; adding coverage for working code has other completion criteria."
+
+[[sources.declined]]
+feature = "Confirming every test seam with the user before any test is written."
+reason = "Established boundaries are reused without routine approval; the skill asks only when evidence leaves a material behavior or interface choice unresolved."
+
+[[sources.declined]]
+feature = "Moving all refactoring out of the cycle into a separate code-review stage."
+reason = "Focused refactoring while the relevant tests pass is an optional step of each cycle. A broader redesign is a separate decision, and a broad code review is a separate caller-owned task."
+
+[[sources.declined]]
+feature = "Treating assertions on call counts, call order or persisted state as red flags in every case."
+reason = "They are valid observations when the public contract makes them meaningful."
+
+[[sources.declined]]
+feature = "A dependency on the codebase-design or code-review skill, the Skill tool, or a host-specific model."
+reason = "Ordinary test-driven development requires no other skill."
+
+[[sources.reviews]]
+from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+to_commit = "49dd158d1076134a641b33efb035946536778336"
+incorporated = []
+skipped = [
+  "skills/engineering/tdd/SKILL.md: Each proposed seam gets a one-line note on what it catches and misses. Upstream attaches it to user confirmation of seams, which the local choice to reuse established boundaries without routine approval excludes (tdd/SKILL.md:20), and tdd/references/test-design.md:8-11 already explains what a narrow test cannot prove.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 24fe0ef7737e..49dd158d1076 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested source maintenance and skill authoring; ordinary TDD has no skill dependency."

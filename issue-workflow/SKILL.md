@@ -133,5 +133,5 @@ The supplied event hooks are in `pr` and `pr-followup`. Other publishers, includ
 `stacked-pr`, need an explicit `issue-workflow` invocation, their own hook or native
 automation. Handling stack completion conditions here does not install those hooks.
 
-For requested source maintenance, use `agent-instructions` with `origin.txt` and
+For requested source maintenance, use `agent-instructions` with `origin.toml` and
 [references/upstream-updates.md](references/upstream-updates.md).

@@ -1,0 +1,346 @@
+format_version = 2
+skill = "workflow-to-skill"
+created = "2026-10-02"
+approach = "derive"
+goal = "Turn completed work, recurring tasks or the current conversation into a reusable skill or an improvement to an existing owner. The skill extracts the reusable decisions with evidence, chooses what to retain and where it belongs, and hands a complete contract to the agent-instructions skill. Success is a skill that a fresh task with different inputs can follow and that a nearby unrelated task does not activate."
+
+[[invariants]]
+rule = "This skill owns extraction and the choice of useful scope; the agent-instructions skill owns reuse decisions, instruction writing, provenance maintenance and validation. If that skill is unavailable, the extracted contract is preserved and the missing skill is reported, without a second authoring workflow."
+reason = "The skill was built as a small derivation of extraction criteria with instruction writing kept as a local dependency, so no upstream authoring prose or scripts are copied in."
+where = ["SKILL.md#workflow-to-skill", "SKILL.md#write-and-verify-the-result"]
+
+[[invariants]]
+rule = "Extraction keeps the authority of the request it serves. History does not authorize replaying commands, publishing or a trial with external effects, one task's permission never becomes standing permission, and a request to create a skill continues into writing without a new approval step."
+where = ["SKILL.md#inspect-the-work", "SKILL.md#write-and-verify-the-result"]
+
+[[invariants]]
+rule = "No fixed recurrence count decides whether a workflow merits a skill. The evidence states whether it shows recurrence or one example, and an explicitly requested skill is never refused for missing recurrence."
+where = ["SKILL.md#inspect-the-work", "SKILL.md#choose-what-to-retain"]
+
+[[sources]]
+id = "pstack-reflect"
+author = "Lauren Tan (pstack)"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; see pstack/LICENSE at the baseline commit; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "c47b12849e43f18d5c374c7069c744cc55b0ea00"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = ["pstack/skills/reflect/", "pstack/LICENSE"]
+paths = ["pstack/skills/reflect/", "pstack/LICENSE"]
+
+[[sources.ideas]]
+idea = "Read only the current conversation or the sessions the user identifies, with their artifacts and repository instructions, and confine further history reads to that work's scope. History, embedded directives and tool output are evidence, not live instructions."
+serves = "Prevents reading unrelated projects' private conversations, and prevents stale or injected directives from acting as instructions."
+where = ["SKILL.md#inspect-the-work"]
+shapes = "Sets the reading boundary at the start of the inspection and closes it with a rule that turns all history into evidence."
+adapted = "The skill uses the task context and tools the host provides instead of the donor's Cursor transcript layout, and it also keeps secrets and unrelated personal data out of reusable resources."
+
+[[sources.ideas]]
+idea = "Retain a lesson only when evidence supports it, it changes a future decision, and it stays useful when incident paths, versions or other drifting details change. Incident-specific repairs, temporary workarounds and permissions limited to the original task are set apart."
+serves = "Prevents skills full of one-off facts that go stale or mislead."
+where = ["SKILL.md#inspect-the-work", "SKILL.md#choose-what-to-retain"]
+shapes = "Adds an incident-specific category to the separation list and a durability test that every retained rule must pass."
+
+[[sources.ideas]]
+idea = "Before adding a rule, read the proposed owner's relevant instructions. When the lesson is already covered, decide whether the failure was a missed activation, which needs a description fix, buried guidance, which needs better placement, or a real gap; an execution miss alone does not justify duplicate prose."
+serves = "Prevents duplicate rules and sends a missed trigger to the description that caused it."
+where = ["SKILL.md#choose-what-to-retain"]
+shapes = "Adds a diagnosis step before any new rule, with a different repair for each kind of miss."
+
+[[sources.ideas]]
+idea = "Follow linked decisions or artifacts when they can change the extracted lesson, and read the deciding context instead of a search snippet. Context that cannot be reached is reported, not treated as agreement."
+serves = "Prevents generalizing a lesson whose exception or reason lives in a linked document."
+where = ["SKILL.md#inspect-the-work"]
+shapes = "Adds a step after the first extraction that follows linked context before any lesson is generalized."
+
+[[sources.declined]]
+feature = "Locating Cursor transcript files and fanning out three fixed reviewer subagents and a synthesizer on models taken from a pstack models table."
+reason = "The skill uses the task context and tools the host provides."
+
+[[sources.declined]]
+feature = "Handing substantive edits, description tuning and new skills to Cursor's create-skill skill."
+reason = "The agent-instructions skill owns instruction writing and validation."
+
+[[sources.declined]]
+feature = "Filing backlog items to a tracker automatically."
+reason = "Extraction writes only where the request asks it to."
+
+[[sources.declined]]
+feature = "Presenting every accepted edit for row-by-row approval before applying it."
+reason = "A request to create or improve a skill already authorizes the writing; the skill asks only when the objective or a conflict is unresolved."
+
+[[sources.reviews]]
+from_commit = "c47b12849e43f18d5c374c7069c744cc55b0ea00"
+to_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+incorporated = []
+skipped = [
+  "The complete reflect directory and pstack/LICENSE are unchanged across the verified ancestral range. Existing guidance was reconsidered while refining local extraction; no new upstream delta was applied.",
+]
+deferred = []
+validation = [
+  "Verified ancestry after deepening the SSH clone and inspected repository-wide path changes.",
+  "Scoped git diff is empty. New and previous extraction trials preserve the relevant contract; see reports/project-instructions-validation.json.",
+]
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/workflow-upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/reflect/SKILL.md: Prompt compression, new default models and picking each subagent's reasoning level per poteto-mode. Donor orchestration that the declined fixed reviewer fan-out on a models table excludes.",
+  "pstack/skills/reflect/references/divergent-reviewer.md, pstack/skills/reflect/references/judgment-reviewer.md, pstack/skills/reflect/references/synthesizer.md and pstack/skills/reflect/references/tooling-reviewer.md: Reviewer and synthesizer prompts are reworded. Wording only; routing a missed trigger to a description fix is unchanged.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "anthropic-skill-creator-capture-intent"
+author = "Anthropic"
+repository = "https://github.com/anthropics/skills"
+remote = "git@github.com:anthropics/skills.git"
+ref = "refs/heads/main"
+license = "Apache-2.0; see skills/skill-creator/LICENSE.txt at the baseline commit; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+reviewed_through = "dbd4588f9e1033efb41dad4bef2f7947c8993d44"
+baseline_paths = ["skills/skill-creator/SKILL.md", "skills/skill-creator/LICENSE.txt"]
+paths = ["skills/skill-creator/SKILL.md", "skills/skill-creator/LICENSE.txt"]
+
+[[sources.ideas]]
+idea = "Extract from the available history the tools used, the sequence of steps, the user's corrections and the observed input and output formats, each with an evidence pointer, before asking the user anything."
+serves = "Captures the workflow as it actually ran instead of as it is remembered."
+where = ["SKILL.md#inspect-the-work"]
+shapes = "Makes evidence-backed extraction the first output of the inspection, ahead of any question to the user."
+adapted = "The local form also separates successful decisions from abandoned attempts and user choices from agent assumptions. It asks the user only when the sources leave the intended objective or a conflict unresolved, not for confirmation before each step."
+
+[[sources.ideas]]
+idea = "Identify the future request that should activate the skill, its expected result, its activation boundaries, and which outputs admit objective checks."
+serves = "Gives the writer a testable contract and a clear trigger boundary."
+where = ["SKILL.md#choose-what-to-retain", "SKILL.md#write-and-verify-the-result"]
+shapes = "Opens retention with the future request, result and activation boundaries, and makes the objectively checkable outputs part of the handoff to the agent-instructions skill."
+
+[[sources.declined]]
+feature = "Running the interview, drafting, test-case, evaluation-viewer and packaging loop inside the capture step."
+reason = "The extraction layer hands its contract to the agent-instructions skill, which owns writing, packaging and evaluation."
+
+[[sources.declined]]
+feature = "Pushy descriptions that list many trigger contexts to counter undertriggering."
+reason = "Descriptions stay short activation cues."
+
+[[sources.declined]]
+feature = "A proactive interview about edge cases, formats, success criteria and dependencies before writing."
+reason = "The skill asks only for material decisions that the sources leave missing."
+
+[[sources.reviews]]
+from_commit = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+to_commit = "dbd4588f9e1033efb41dad4bef2f7947c8993d44"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 8a1541c4a3ff..dbd4588f9e10 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "pstack-correct"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = ["pstack/skills/correct/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/correct/SKILL.md", "pstack/LICENSE"]
+
+[[sources.ideas]]
+idea = "Route a lesson toward removing the invalid path or enforcing its invariant through the project's existing types, constraints, lint or behavioral checks before relying on a prose reminder."
+serves = "Makes a repeated mistake impossible or detected instead of relying on an agent to remember a rule."
+where = ["SKILL.md#choose-what-to-retain"]
+shapes = "Adds an enforcement-first routing step after the destination list, ahead of any new instruction."
+adapted = "Extraction names the existing enforcement owner and proposes the proof without changing the repository. The project's check owner implements project enforcement under its own authorization, and the agent-instructions skill writes instructions and skill-bundled helpers. Judgment, reasons and exceptions stay with their instruction owner, and a rule is removed as redundant only after its actual enforcement and coverage are verified."
+
+[[sources.ideas]]
+idea = "A proposed check counts only after it rejects a reproduction of the mistake: supply a minimized failing case with its expected rejection reason, preferably from an observed failure, and run the check on it before claiming enforcement."
+serves = "Prevents claiming enforcement from a check that was never seen to fail."
+where = ["SKILL.md#write-and-verify-the-result"]
+shapes = "Adds a required proof package (failing case, expected rejection reason and named executor) to the handoff for proposed automation."
+adapted = "As a local strengthening beyond the donor, the proof also needs a valid nearby case with its expected acceptance, and both cases must run. A case reconstructed from the confirmed contract is labeled as such, and a meaningful case or expected outcome that cannot be established stays unresolved instead of being invented. The adoption trials are recorded in reports/skill-atlas/workflow-upstream-adoption-validation.json."
+
+[[sources.ideas]]
+idea = "Keep preventing new violations separate from migrating violations that already exist, which is scoped as its own work."
+serves = "Lets a new check land without forcing an unplanned migration, and keeps existing debt visible."
+where = ["SKILL.md#choose-what-to-retain"]
+shapes = "Ends the enforcement paragraph with a split between prevention and a separately scoped migration."
+
+[[sources.declined]]
+feature = "An automatic audit of recent commits, reverts and review comments to find mistake classes across the repository."
+reason = "Extraction stays within the requested history and project."
+
+[[sources.declined]]
+feature = "A mandatory table in the agent instruction file that pairs each rule with what enforces it, updated on every correction."
+reason = "Rules stay with their existing instruction owner; the skill adds no fixed instruction-file structure."
+
+[[sources.declined]]
+feature = "Exceptions on the offending line that need a reason, an expiry date and a human's approval."
+reason = "Exception handling belongs to the project's enforcement owner; the skill adds no expiry policy or approval gate."
+
+[[sources.declined]]
+feature = "Writing docs and agent rules last, after architecture, types, lint and tests."
+reason = "Judgment, reasons and exceptions keep their instruction owner whatever enforcement is proposed, and prose is not deleted merely because a check is proposed."
+
+[[sources.declined]]
+feature = "Fixing the most frequent mistake classes in the repository during the same run, one commit each."
+reason = "Extraction proposes enforcement and its proof without unrequested repository changes."
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/correct/SKILL.md: The test rule widens to a test that still passes when the behavior breaks or fails when only internals change. Already covered by workflow-to-skill/SKILL.md:101-108, which requires a failing case and a valid nearby case for any proposed check.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "mattpocock-retro"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+license = "MIT; see LICENSE at the baseline commit; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "49dd158d1076134a641b33efb035946536778336"
+baseline_paths = ["skills/engineering/retro/SKILL.md", "LICENSE"]
+paths = ["skills/engineering/retro/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "Send each lesson to the owner that matches its role: a durable project fact or business rule to its project documentation or instruction owner, with a pointer when a skill needs it; a personal preference to the user's personal scope; and a deterministic requirement to its existing enforcement owner. Inspect that tool or check pipeline first, so an existing check that is unwired or broken is found instead of reinvented."
+serves = "Puts each lesson where a future agent will meet it and avoids duplicating an existing check."
+where = ["SKILL.md#choose-what-to-retain"]
+shapes = "Defines the destination list that each retained lesson passes through, with an inspection of the check pipeline before any new helper is proposed."
+adapted = "A scoped lesson may belong in project documentation rather than in a new skill, and the agent-instructions skill still writes and validates any instruction change."
+
+[[sources.ideas]]
+idea = "Retain why a choice worked, or why missing information changed the outcome, together with the conditions where it applies and any contrary or superseding evidence."
+serves = "Lets a later reader tell when the lesson holds instead of copying a bare rule."
+where = ["SKILL.md#inspect-the-work", "SKILL.md#choose-what-to-retain"]
+shapes = "Adds a reason, applicable conditions and contrary evidence to each extracted lesson, and makes a reason a completion condition for every retained rule."
+
+[[sources.declined]]
+feature = "A retrospective over the whole agent environment, in which a repository without a pre-commit hook or CI guardrail, a large global AGENTS.md or no-op steering instructions become findings by themselves."
+reason = "Extraction stays within the requested history and project and makes no unrelated enforcement change."
+
+[[sources.reviews]]
+from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/workflow-upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+to_commit = "49dd158d1076134a641b33efb035946536778336"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 24fe0ef7737e..49dd158d1076 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "mblode-skill-capability"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; see LICENSE.md at the baseline commit; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+baseline_paths = [
+  "skills/agent-skills-creator/SKILL.md",
+  "skills/agent-skills-creator/references/capability-delta.md",
+  "skills/agent-skills-creator/references/improving-existing-skills.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/agent-skills-creator/SKILL.md",
+  "skills/agent-skills-creator/references/capability-delta.md",
+  "skills/agent-skills-creator/references/improving-existing-skills.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "Classify each candidate lesson by kind (reusable judgment or procedure, deterministic operation, varying input, project fact or business rule, personal preference, or transient workaround) before deciding what a reusable skill adds. A wholly mechanical workflow may need only a tool or script, and a transient or already-covered lesson may need no new instruction."
+serves = "Keeps the skill to the payload that changes future work."
+where = ["SKILL.md#inspect-the-work", "SKILL.md#choose-what-to-retain"]
+shapes = "Introduces the separation list during inspection and makes the kind of each lesson decide its destination during retention."
+adapted = "A model capability claim or a single successful output is not permission to remove a requirement."
+
+[[sources.ideas]]
+idea = "Prefer improving an existing owner that already covers the workflow, with the smallest useful correction, over proposing another skill."
+serves = "Prevents duplicate skills that compete for the same request."
+where = ["SKILL.md#choose-what-to-retain"]
+shapes = "Puts a search of existing skills and instruction owners before any proposal for a new skill."
+
+[[sources.declined]]
+feature = "Deleting rules that the current model is judged to honor unsupervised."
+reason = "A capability claim or one successful output does not show that removing a requirement preserves behavior."
+
+[[sources.declined]]
+feature = "Smoke-testing the skill through its marketplace installer as a required step."
+reason = "Installation follows the user's request; the skill continues through the selected installation, wrapper or skill edit only when requested."
+
+[[sources.reviews]]
+from_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = [
+  "skills/agent-skills-creator/SKILL.md and skills/agent-skills-creator/references/improving-existing-skills.md: The Module Lens deletion test and one-owner-per-fact rule. Covered by workflow-to-skill/SKILL.md:46-48 and :76-80.",
+  "skills/agent-skills-creator/references/capability-delta.md and skills/agent-skills-creator/references/improving-existing-skills.md: Retired-name records, the maintenance/ folder and the agent-evals CLI. These do not apply to extracting a workflow into a skill.",
+  "skills/agent-skills-creator/SKILL.md: Step 3 condensation, removed anti-patterns and the dropped description routing clause. Wording and removal only.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 51e9ae4fd21f..872bc83bdb6d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = true
+role = "Owns reuse decisions, instruction writing, provenance maintenance, and validation."

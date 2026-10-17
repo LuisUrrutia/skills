@@ -59,7 +59,7 @@ implementation continues without a new approval gate.
 
 Uses Wayfinder when connected direction decisions remain unresolved. Selected
 ideas from Matthew Blode, Matt Pocock, Sentimony, and Superpowers are recorded in
-`planning/origin.txt`; reviewed alternatives are in the atlas source review.
+`planning/origin.toml`; reviewed alternatives are in the atlas source review.
 
 ### task-breakdown
 
@@ -93,7 +93,7 @@ owners. Small settled changes keep a direct route. Specialist-only requests keep
 their own endpoint, and PR publication follows the task's actual authority.
 Ticket implementation triggers its configured workflow even without a PR;
 follow-up retains one owner and the host's resumable watch. The package records
-selected pstack and Compound Engineering sources in `work-mode/origin.txt`.
+selected pstack and Compound Engineering sources in `work-mode/origin.toml`.
 
 This is a repository package, not a global installation or a background runtime.
 
@@ -644,7 +644,7 @@ Evaluate feedback on an existing PR and resolve authorized code, CI and base pro
 - Elsewhere, follows PRs until merge or formal approval; rechecks new heads and reports pending work without automatic scheduling
 - Reconciles observed ready/merge events through `issue-workflow`, preserving Check scope and existing authority
 
-These Git and ticket workflow skills record pinned sources and local decisions in `origin.txt`, with requested
+These Git and ticket workflow skills record pinned sources and local decisions in `origin.toml`, with requested
 source maintenance through `agent-instructions`. Repository files are distinct from
 installed copies.
 

@@ -6,9 +6,10 @@ and does not fetch donor repositories.
 
 Resolve `agent-instructions` by registered name. Give it this skill as the target
 and the requested Check or Update mode; it owns the shared source-maintenance
-procedure. Read this skill's `origin.txt` for source pins and local choices.
-Check mode leaves files and pins unchanged; Update mode validates compatible
-changes before advancing the reviewed range. Neither schedules background work.
+procedure. Read this skill's `origin.toml` for the source pins, goal, ideas,
+declines and invariants. Check mode leaves files and pins unchanged; Update mode
+validates compatible changes before advancing the reviewed range. Neither
+schedules background work.
 
 Preserve repository discovery, the local launch/doctor/drive/evidence/cleanup
 contract, the feature map, creation's live proof, maintenance's source and live

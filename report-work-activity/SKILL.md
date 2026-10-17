@@ -111,4 +111,4 @@ historical questions from the snapshot. Refresh only the necessary source when
 the question requires current state, and retain the previous report unchanged.
 
 For requested maintenance of this skill's sources, use `agent-instructions` with
-this package and its `origin.txt`.
+this package and its `origin.toml`.

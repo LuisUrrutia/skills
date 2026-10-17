@@ -13,10 +13,10 @@ changing files or pins. "Update analyze-change-effects from upstream" authorizes
 compatible changes and validation in Update mode. Neither request schedules
 background work.
 
-Read `../origin.txt` for the baseline, review cursor, source paths, borrowed ideas,
-and local choices. Preserve the independent task of finding indirect breakage and
-testing the deciding assumptions with real code. Keep independent hazards separate,
-respect inspection-only limits, and distinguish proposed-change scenarios from
-implemented behavior. New donor dependencies, model rosters, repair authority,
-or broad safety claims do not become local requirements automatically. The shared
-procedure owns fetching, path changes, classification, validation, and cursor updates.
+Read `../origin.toml` for the source pins, goal, ideas, declines and invariants.
+Preserve the independent task of finding indirect breakage and testing the deciding
+assumptions with real code. Keep independent hazards separate, respect inspection-only
+limits, and distinguish proposed-change scenarios from implemented behavior. New donor
+dependencies, model rosters, repair authority, or broad safety claims do not become
+local requirements automatically. The shared procedure owns fetching, path changes,
+classification, validation, and cursor updates.

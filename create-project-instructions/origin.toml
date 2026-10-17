@@ -1,0 +1,237 @@
+format_version = 2
+skill = "create-project-instructions"
+created = "2026-10-03"
+approach = "derive"
+goal = "Investigate a project's code and available knowledge sources to establish what an agent needs to know, then create or update evidence-based AGENTS.md or CLAUDE.md instructions for the agents that work on it. Success is instructions whose commands and constraints trace to verified evidence, with business intent kept apart from implementation and remaining questions or blocked claims stated explicitly."
+
+[[invariants]]
+rule = "The investigation covers relevant available organizational knowledge as well as code, using the access that the current tools provide. It requires no particular connector and does not crawl an account exhaustively; access to an account does not make unrelated content relevant."
+reason = "Code alone may not explain the intended behavior."
+where = [
+  "SKILL.md#establish-the-project-and-available-context",
+  "references/project-evidence.md#find-the-right-sources",
+]
+
+[[invariants]]
+rule = "This skill owns project discovery and the evidence handoff; the agent-instructions skill, a required dependency, writes and validates the instructions. When that skill is unavailable, the research is kept and the missing owner is reported instead of a parallel writer being invented."
+where = ["SKILL.md#create-project-instructions", "SKILL.md#write-the-project-instructions"]
+
+[[invariants]]
+rule = "Existing canonical owners, host entrypoints, imports, nested exceptions, working adapters and the project's layout are preserved."
+where = [
+  "SKILL.md#establish-the-project-and-available-context",
+  "SKILL.md#write-the-project-instructions",
+]
+
+[[invariants]]
+rule = "Authoring instructions does not authorize product changes, deployment, production mutation, destructive setup or account changes. Consulting a service is a read task: the skill does not post questions, edit tickets or change remote documents without the user's request."
+where = [
+  "SKILL.md#establish-the-instruction-contract",
+  "references/project-evidence.md#use-context-without-expanding-authority",
+]
+
+[[invariants]]
+rule = "Written instructions carry the minimum publishable context. Private access is not permission to copy internal discussions, customer data or restricted decision links into a public repository; restricted context enters as an approved summary or an authorized access instruction, or the needed publication decision is reported."
+reason = "The user's contract sets the publication boundaries."
+where = [
+  "SKILL.md#write-the-project-instructions",
+  "references/project-evidence.md#use-context-without-expanding-authority",
+]
+
+[[sources]]
+id = "mblode-agents-md"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; see LICENSE.md at the baseline commit; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+baseline_paths = [
+  "skills/agents-md/SKILL.md",
+  "skills/agents-md/references/root-content-guidance.md",
+  "skills/agents-md/references/quick-checklist.md",
+  "skills/agents-md/references/project-setup.md",
+  "skills/agents-md/references/templates.md",
+  "skills/agents-md/references/refactor-workflow.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/agents-md/SKILL.md",
+  "skills/agents-md/references/root-content-guidance.md",
+  "skills/agents-md/references/quick-checklist.md",
+  "skills/agents-md/references/project-setup.md",
+  "skills/agents-md/references/templates.md",
+  "skills/agents-md/references/refactor-workflow.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "Instructions rest on what the project actually contains. Discovery reads existing instructions, project-local skills, manifests, task runners, CI, architecture and domain documentation, representative code and tests to establish real commands, architecture boundaries, domain constraints and where each kind of answer lives. It records which facts and procedures project-local skills already own and where existing instructions restate them, so the written instructions keep one owner and a pointer."
+serves = "Prevents instructions built from invented commands or generic stack assumptions, and duplicated rules that drift apart."
+where = [
+  "SKILL.md#establish-the-project-and-available-context",
+  "SKILL.md#establish-the-instruction-contract",
+]
+shapes = "Makes a project inventory the first stage, adds an ownership record for project-local skills, and requires command definitions to be inspected before bounded checks run, with each command marked inspected, executed, passed, failed or blocked."
+adapted = "Merging restated copies into one owner stays with the agent-instructions skill; this skill only records the owner and where the copies are."
+
+[[sources.ideas]]
+idea = "The root instruction file stays focused on guidance that is useful across the project, and conditional detail goes where the configured host can load it when needed. Validation checks command accuracy, references and imports, and whether the running host actually loads the files, because creating a file does not prove that it loads."
+serves = "Keeps entrypoints short enough to follow and catches moved rules, stale commands or files that the host never reads."
+where = ["SKILL.md#write-the-project-instructions", "SKILL.md#check-and-finish"]
+shapes = "Splits writing into project-wide root guidance and host-reachable conditional detail, and adds a check stage that validates commands, references, imports, scope and representative tasks."
+adapted = "Writing and validation run through the agent-instructions skill with the established contract. This skill supplies the evidence and representative tasks, including one that needs a business constraint when the instructions contain one."
+
+[[sources.declined]]
+feature = "Migrating a repository to AGENTS.md as the single shared source and removing CLAUDE.md wrappers or symlinks."
+reason = "The project's existing layout, canonical owners and working adapters decide which files exist; no host migration is prescribed."
+
+[[sources.declined]]
+feature = "Scoring instruction files against a 12-check or 49-check rubric with pass targets."
+reason = "Validation checks commands, references, imports, scope and representative tasks rather than an arbitrary score."
+
+[[sources.declined]]
+feature = "A fixed root-file size, such as refactoring a root file that exceeds about 150 lines."
+reason = "Root content is judged by its usefulness across the project and by host reachability, not by a line count."
+
+[[sources.reviews]]
+from_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = [
+  "Adapted from skills/agents-md/SKILL.md (Step 5): discovery inventories project-local skills such as .claude/skills/, .agents/skills/ or skills/ and records which facts and procedures they own and where existing instructions restate them (create-project-instructions/SKILL.md); merging the copies stays with agent-instructions.",
+]
+skipped = [
+  "skills/agents-md/SKILL.md: New Make Drift a Gate section adds a check script that fails on stale script names, links, paths and identifiers. Not applied because it adds repository tooling outside the investigation and writing scope and upstream admits the identifier check proves existence rather than visibility; at most it fits as a recommendation in the finish report at create-project-instructions/SKILL.md:102-104.",
+  "skills/agents-md/SKILL.md (linked references/repo-evals.md): The new repository eval guide. Eval isolation is adopted in agent-instructions, which owns the writing and evaluation phase under the local choice to use agent-instructions for writing.",
+  "skills/agents-md/references/root-content-guidance.md: Adds an exclusion for rules that managed policy or the user-level file already state, and removes the placement hierarchy. A user-level file is per person, so cutting a shared rule it restates would hide that rule from teammates; the rest is removal.",
+  "skills/agents-md/references/templates.md: The multi-language monorepo skeleton is merged into the monorepo skeleton. Template changes do not apply under the local choice of no prescribed host migration, arbitrary scoring or fixed root-file size.",
+  "skills/agents-md/references/project-setup.md and skills/agents-md/references/refactor-workflow.md: The @import guidance is condensed, the enforcement ladder is delegated to codebase-architecture and harness-specific skills may name their dependency. Condensation or relocation that does not change how create-project-instructions investigates a project.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 51e9ae4fd21f..872bc83bdb6d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "mattpocock-research"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+license = "MIT; see LICENSE at the baseline commit; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "49dd158d1076134a641b33efb035946536778336"
+baseline_paths = ["skills/engineering/research/SKILL.md", "LICENSE"]
+paths = ["skills/engineering/research/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "Each consequential rule traces back to the source that owns the claim. The record keeps its exact location, revision or observation date, status and scope so that a reader can verify it. Search snippets and isolated messages are leads; the deciding document, issue or thread is fetched."
+serves = "Lets a maintainer check why a rule exists instead of trusting an unsupported summary."
+where = [
+  "SKILL.md#establish-the-instruction-contract",
+  "references/project-evidence.md#find-the-right-sources",
+  "references/project-evidence.md#track-claims-and-disagreements",
+  "SKILL.md#write-the-project-instructions",
+]
+shapes = "Requires an evidence pointer for every consequential rule, defines the fields of the claim record, and keeps written commands and constraints traceable through approved links or durable project documentation."
+adapted = "The donor's primary sources are official docs, source code, specs and first-party APIs. Locally they are the repository and the project's available knowledge sources, and code proves implementation, not business authority."
+
+[[sources.declined]]
+feature = "Delegating the research to a background agent."
+reason = "Delegation and model choice follow the active environment and task."
+
+[[sources.reviews]]
+from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+to_commit = "49dd158d1076134a641b33efb035946536778336"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 24fe0ef7737e..49dd158d1076 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "addy-context-engineering"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; see LICENSE at the baseline commit; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+baseline_paths = ["skills/context-engineering/SKILL.md", "LICENSE"]
+paths = ["skills/context-engineering/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "Durable project guidance is kept apart from task and transient context. Root instructions carry what matters across tasks, conditional procedures and detailed rationale stay retrievable where the host can reach them, and transient rollout state enters durable instructions only when it prevents a mistake, with a condition for revisiting it."
+serves = "Keeps the always-loaded context small and stable while detail stays available on demand."
+where = [
+  "SKILL.md#establish-the-instruction-contract",
+  "SKILL.md#write-the-project-instructions",
+  "references/project-evidence.md#track-claims-and-disagreements",
+  "references/project-evidence.md#close-the-investigation",
+]
+shapes = "Adds a contract question about where conditional procedures and rationale live, limits durable instructions about rollout state, and stops the entrypoint from becoming a project encyclopedia."
+
+[[sources.ideas]]
+idea = "Evidence boundaries stay explicit. Current implementation, approved intent, proposals, obsolete decisions and inference are labeled separately, and fetched content is evidence, not instruction. When sources conflict, the conflict is surfaced and resolved by the source's authority over the claim and evidence of supersession; it is never blended silently."
+serves = "Prevents encoding an outdated or inferred rule as policy and stops embedded text from steering the agent."
+where = [
+  "SKILL.md#establish-the-instruction-contract",
+  "references/project-evidence.md#track-claims-and-disagreements",
+  "references/project-evidence.md#use-context-without-expanding-authority",
+]
+shapes = "Adds status labels to every claim and a conflict rule that ranks authority and supersession above recency or storage platform."
+adapted = "The donor presents each conflict as options and asks. Locally authority and supersession decide first, and only a material conflict that they leave open goes to the user, with the affected rule kept out of the mandatory contract until it is resolved."
+
+[[sources.declined]]
+feature = "A universal context budget, such as trimming at 75% of the context window or a line limit per task."
+reason = "The investigation stops at supported material guidance with explicit limits, not at a number of lines, sources or files."
+
+[[sources.declined]]
+feature = "A trust ranking that treats project source code as trusted authority."
+reason = "Code proves implementation, not policy; a source's authority over the specific claim decides."
+
+[[sources.declined]]
+feature = "A framework rules-file template and a mandatory set of context files for each tool."
+reason = "The project's existing layout and confirmed overrides decide which files exist, and their content comes from the investigation."
+
+[[sources.declined]]
+feature = "Adding MCP servers such as Context7 or GitHub for richer context."
+reason = "Installing a connector or obtaining credentials is a separate action, not a prerequisite of the investigation."
+
+[[sources.reviews]]
+from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 1401c8b8030e..aeac41d4d005 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = true
+role = "Writes and validates the established project instruction contract, including canonical scope and host loading. The handoff does not restart research."

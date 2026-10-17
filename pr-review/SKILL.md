@@ -20,7 +20,7 @@ judging findings. It owns audit criteria, evidence, severity and report grammar.
 Read `compare-solutions` for the same-task independent attempt and evidence-based
 synthesis contract. This caller retains the fixed three-engine roster and its own
 coordinator: no fourth judge, nested coordinator or facet allocation. Read
-[origin.txt](origin.txt) for these composition choices. Before wording comments,
+[origin.toml](origin.toml) for these composition choices. Before wording comments,
 resolve required `comment-style`. It owns wording; this skill owns selection,
 placement and API writes. `communicate-clearly` is optional general support, not
 another mandatory prose pass. A missing dependency blocks its dependent phase;

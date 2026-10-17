@@ -1,0 +1,601 @@
+format_version = 2
+skill = "pr"
+created = "2026-10-03"
+approach = "derive"
+goal = "Publish, update or inspect one pull request so that a human reviewer understands the problem, the delivered behavior, the consequential decisions and the evidence needed to assess the change. Success is a PR with verified identity, head and base, a title and body whose every claim rests on evidence for that class of claim, the intended draft state and only the requested metadata, with a creation request continuing into follow-up."
+
+[[invariants]]
+rule = "This skill owns publication and PR presentation. The commit skill owns atomic commits, the stacked-pr skill owns stack topology, submit and cascading rebases, the pr-followup skill owns feedback, CI repair and the transition from draft to ready, and the issue-workflow skill owns linked-ticket synchronization. Checkout switches follow the host's checkout ownership and the worktrunk skill."
+where = ["SKILL.md#pull-request", "SKILL.md#establish-identity-and-scope"]
+
+[[invariants]]
+rule = "An existing request or standing authorization covers its operation, including a full-body update and the relevant attachments. The skill asks only for unresolved material decisions, never for an action already authorized."
+where = [
+  "SKILL.md#resolve-the-operation",
+  "SKILL.md#publish-and-verify",
+  "references/publication.md#publication-and-identity",
+  "references/attachments.md#attach-screenshots-and-recordings",
+]
+
+[[invariants]]
+rule = "A request to create a PR continues into the event-driven Drive mode of the pr-followup skill after publication, including when an exact open PR already satisfies creation. Only an explicit create-only instruction returns after publication."
+reason = "The user set this continuation policy on 2026-10-05."
+where = ["SKILL.md#resolve-the-operation", "SKILL.md#publish-and-verify"]
+
+[[invariants]]
+rule = "The body includes a statement only when it helps assess this diff. Rollout appears only as a gate with its default state or as a merge or deploy prerequisite, and another ticket only as a merge or deploy prerequisite. When to enable a gate, release plans across tickets, and sibling or follow-up scope go to the user in the return."
+reason = "On 2026-10-08 the user rejected release sequencing and sibling-ticket scope in a PR body."
+where = ["references/review-packet.md#write-for-the-reviewer"]
+
+[[invariants]]
+rule = "A new PR opens as a draft unless the user's preference says ready, and publication never merges as a side effect."
+where = [
+  "SKILL.md#resolve-the-operation",
+  "SKILL.md#publish-and-verify",
+  "references/publication.md#create-or-update-metadata",
+]
+
+[[invariants]]
+rule = "Written repository rules and the template on the resolved base govern the body's format. An exact enforced format applies unless the user explicitly overrides it."
+where = ["SKILL.md#understand-the-change-and-repository", "SKILL.md#compose-for-review"]
+
+[[invariants]]
+rule = "Visual evidence is genuine: a screenshot is an observed capture of the stated revision, uploaded where the intended reviewers can access it. A generated or reconstructed image never stands in for runtime evidence."
+where = [
+  "references/visual-evidence.md#screenshots-and-recordings",
+  "references/attachments.md#verify-and-recover",
+]
+
+[[sources]]
+id = "matt-reviewable-pr"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "49dd158d1076134a641b33efb035946536778336"
+baseline_paths = ["skills/engineering/pr/SKILL.md", "LICENSE"]
+paths = ["skills/engineering/pr/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "A visual is chosen for a concrete review question, and the smallest view that answers it is used: a flow or sequence for what happens to a request, a before-and-after dependency view or call tree for moved ownership, genuine screenshots for a visible change, and a measured comparison for cost or performance."
+serves = "Makes the change faster to assess without burying the reviewer in diagrams."
+where = ["references/visual-evidence.md#visual-evidence-for-a-pr", "SKILL.md#compose-for-review"]
+shapes = "Organizes visual evidence as a table from review question to the smallest useful view, and makes a visual conditional on answering such a question."
+adapted = "The view is chosen by the review question, not offered as a menu of formats; a trivial change gets no diagram."
+
+[[sources.ideas]]
+idea = "Evidence that the change works is shown as a before and after of the same scenario: genuine screenshots for a visible change, or commands and results from the current head for behavior."
+serves = "Lets the reviewer see the effect of the change instead of trusting a description of it."
+where = [
+  "references/visual-evidence.md#screenshots-and-recordings",
+  "references/review-packet.md#title-and-body",
+]
+shapes = "Requires matched scenario, data, viewport and revisions for before-and-after captures, and adds a before-and-after example to the body opening when it makes a trigger or boundary concrete."
+adapted = "When no honest baseline exists, a labeled current-state capture replaces the before view; a baseline is never invented."
+
+[[sources.ideas]]
+idea = "The body assesses what needs care when merging or deploying the diff: migration, compatibility, deploy order, rollback, or an irreversible external effect, stated as concrete consequences rather than a generic risk label."
+serves = "Tells the reviewer whether the change can be walked back and who it can break."
+where = ["references/review-packet.md#title-and-body", "references/claims.md"]
+shapes = "Adds a merge-and-deploy question to the list of questions the body covers where they matter, and a claim class that requires facts for risk and impact."
+adapted = "Asked as a question where it matters, not as a mandatory Merge Danger section with door and blast-radius labels."
+
+[[sources.declined]]
+feature = "A mandatory Summary, Evidence and Merge Danger body skeleton."
+reason = "Repository rules, templates and the actual review need set the format."
+
+[[sources.reviews]]
+from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+to_commit = "49dd158d1076134a641b33efb035946536778336"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 24fe0ef7737e..49dd158d1076 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "cursor-reviewable-pr"
+author = "Cursor Team Kit"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = [
+  "cursor-team-kit/skills/new-branch-and-pr/SKILL.md",
+  "cursor-team-kit/skills/make-pr-easy-to-review/SKILL.md",
+  "cursor-team-kit/LICENSE",
+]
+paths = [
+  "cursor-team-kit/skills/new-branch-and-pr/SKILL.md",
+  "cursor-team-kit/skills/make-pr-easy-to-review/SKILL.md",
+  "cursor-team-kit/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "The body gives the reviewer the change's purpose, what ran against which revision and what it proved, and where review should begin: the owning module, invariant or critical path rather than every changed file."
+serves = "Gives the reviewer an entry point and a basis for trusting the result."
+where = ["references/review-packet.md#title-and-body"]
+shapes = "Turns purpose, validation and review entry point into questions the body answers, with each command's outcome placed next to the command."
+
+[[sources.ideas]]
+idea = "History is judged by reviewer effort. When independent concerns could be reviewed and reverted separately, the skill recommends a split; it does not rewrite published history, reorder a stack, or separate a behavior from its regression test only to shorten the diff."
+serves = "Keeps the PR reviewable without breaking published history or the link between behavior and test."
+where = ["SKILL.md#understand-the-change-and-repository"]
+shapes = "Adds a split check after the diff is understood and limits its outcome to a recommendation."
+adapted = "There is no automatic rewrite and no grouping of commits by file type; a behavior stays with its required tests."
+
+[[sources.declined]]
+feature = "Regrouping commit history by layer (schema, core logic, wiring, UI, tests) and force-pushing the rewritten branch."
+reason = "The skill only recommends a split when it helps review, and a behavior stays with its regression test."
+
+[[sources.declined]]
+feature = "Branching from and comparing against origin/main."
+reason = "The base is an explicit verified base or the target repository's default, fetched through the target's SSH remote; local main is not trusted."
+
+[[sources.declined]]
+feature = "Calling out the rollout plan in the reviewer guidance."
+reason = "Rollout reaches the body only as a gate with its default state or a merge or deploy prerequisite; on 2026-10-08 the user rejected release sequencing in a PR body."
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 23e4138daa01..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "pstack-decision-evidence"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = ["pstack/skills/show-me-your-work/SKILL.md", "pstack/LICENSE"]
+paths = ["pstack/skills/show-me-your-work/SKILL.md", "pstack/LICENSE"]
+
+[[sources.ideas]]
+idea = "A long task can keep a local decision record of phase, decision, reason, evidence and result. It holds consequential choices and corrections, not a transcript of tool calls, and the PR carries the resulting explanation."
+serves = "Keeps the reasons and evidence for consequential decisions available when the PR is written at the end of a long task."
+where = ["references/review-packet.md#evidence-and-continuity"]
+shapes = "Adds an optional decision record whose conclusions feed the body rather than being published themselves."
+adapted = "The record is optional and concise, kept as ignored local evidence when useful, and stays out of commits unless repository convention or the user requests a maintained artifact."
+
+[[sources.declined]]
+feature = "A mandatory append-only TSV decision log that is audited against the run transcript."
+reason = "A decision record is optional and concise, kept as ignored local evidence when useful."
+
+[[sources.declined]]
+feature = "A cross-model review of the trail and the invocation of other source skills."
+reason = "PR preparation needs no extra model or skill for its decision record."
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/show-me-your-work/SKILL.md: Commit ce649c0 adds picking each subagent's reasoning level to the cross-model trail review. Donor orchestration excluded by the declined cross-model review of the trail and invocation of other source skills.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "compound-pr"
+author = "Every"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+baseline_paths = [
+  "skills/ce-commit-push-pr/SKILL.md",
+  "skills/ce-commit-push-pr/references/pr-description-writing.md",
+  "skills/ce-commit-push-pr/references/compose.md",
+  "skills/ce-commit-push-pr/references/apply-and-handoff.md",
+  "LICENSE",
+]
+paths = [
+  "skills/ce-commit-push-pr/SKILL.md",
+  "skills/ce-commit-push-pr/references/pr-description-writing.md",
+  "skills/ce-commit-push-pr/references/compose.md",
+  "skills/ce-commit-push-pr/references/apply-and-handoff.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "The title and body describe the outcome of the whole change at the scope the branch delivers. The outcome comes from every commit and the full base-to-head diff, not from the latest commit, the branch name or an issue title."
+serves = "Prevents a title or opening that describes one commit or the original ask instead of what the PR delivers."
+where = [
+  "SKILL.md#understand-the-change-and-repository",
+  "references/review-packet.md#title-and-body",
+]
+shapes = "Requires reading every commit and the full diff before composing, and makes the delivered outcome the subject of the title and the body opening."
+
+[[sources.ideas]]
+idea = "A failed or incomplete lookup is unknown, never an empty result. The exact PR is matched by branch and head repository and rechecked immediately before creation, and a failed write is inspected before any retry."
+serves = "Prevents duplicate PRs and false success reports after a failed query or a timeout."
+where = [
+  "SKILL.md#establish-identity-and-scope",
+  "SKILL.md#publish-and-verify",
+  "references/publication.md#create-or-update-metadata",
+]
+shapes = "Makes exact-PR resolution a numbered identity step and adds a recheck immediately before creation."
+
+[[sources.declined]]
+feature = "Previewing a rewritten description and asking for confirmation before editing an existing PR."
+reason = "An existing request or standing authorization covers the update, so it needs no second approval."
+
+[[sources.declined]]
+feature = "A Compound Engineering branding footer and a concept-teaching section with an archived explainer document."
+reason = "The body holds only what helps assess the diff and carries no promotional footer."
+
+[[sources.declined]]
+feature = "Creating a new branch whenever work sits on the default branch or a detached HEAD."
+reason = "The skill publishes the intended commits to a verified destination; a new branch is not mandatory."
+
+[[sources.declined]]
+feature = "Program-altitude framing that places the PR in a multi-PR series with lead-in and lead-out neighbors."
+reason = "The body names another ticket only as a merge or deploy prerequisite; on 2026-10-08 the user rejected sibling-ticket scope in a PR body."
+
+[[sources.reviews]]
+from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 9af474a70e7f..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "mblode-pr"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+baseline_paths = [
+  "skills/pr-creator/SKILL.md",
+  "skills/pr-creator/references/pr-polish.md",
+  "LICENSE.md",
+]
+paths = ["skills/pr-creator/SKILL.md", "skills/pr-creator/references/pr-polish.md", "LICENSE.md"]
+
+[[sources.ideas]]
+idea = "An update rewrites the whole body from the final published diff and replaces obsolete claims instead of appending a history of successive fixes. Still-valid evidence, links and required template content carry forward after they are revalidated."
+serves = "Keeps the PR copy coherent with what the branch now does."
+where = [
+  "SKILL.md#resolve-the-operation",
+  "SKILL.md#compose-for-review",
+  "references/review-packet.md#evidence-and-continuity",
+  "references/claims.md",
+]
+shapes = "Defines Update as a full rewrite and adds a stale-claim check for the existing body."
+
+[[sources.ideas]]
+idea = "Issue coverage is claimed only when verified. A closing keyword requires coverage of every explicit ask and the authority to close the work item; otherwise a neutral reference states the remaining scope."
+serves = "Prevents a merge from closing a ticket that the branch only partly delivers."
+where = ["references/review-packet.md#evidence-and-continuity", "references/claims.md"]
+shapes = "Adds the closing-keyword condition and a requirement to name unimplemented asks of the PR's own ticket."
+
+[[sources.ideas]]
+idea = "A reason or decision appears in the body only when a source establishes it; a rationale invented from the diff is left out rather than presented as the author's intent."
+serves = "Prevents unsupported history and motivation claims."
+where = ["references/claims.md", "references/review-packet.md#evidence-and-continuity"]
+shapes = "Adds a claim class for design decisions that requires a user decision or document for the rationale."
+
+[[sources.declined]]
+feature = "A one-paragraph body with no test plan or validation section."
+reason = "Repository rules and the review need set the structure, and useful validation evidence stays in the body."
+
+[[sources.declined]]
+feature = "Automatic history polish (squashing or restructuring noisy commits or a large diff) before pushing."
+reason = "The skill recommends a split when it helps review and does not rewrite history on its own."
+
+[[sources.declined]]
+feature = "Fixed length quotas, such as a title under 60 characters."
+reason = "The repository's title convention applies, and the body stays proportional to the review decision."
+
+[[sources.declined]]
+feature = "PR creation triggered by a request to commit."
+reason = "A PR is created only on a PR request; the commit skill owns commits."
+
+[[sources.reviews]]
+from_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = [
+  "skills/pr-creator/SKILL.md: New UI change section on attaching visuals covers --attach ordering, read-back, partial-failure retry, user-attachments URLs, video rendering, gh 2.99.0 or newer, no ghs_ tokens, push access and no GHES. Already covered by pr/references/attachments.md:11-17, :56-61, :63-67, :72-83 and :92-95, and optional visuals are weaker than the local capture rule at pr/SKILL.md:128-132.",
+  "skills/pr-creator/SKILL.md: The description drops its commit triggers. Matches the declined PR creation triggered by a request to commit.",
+  "skills/pr-creator/SKILL.md: The heredoc gotcha is reworded and restated gotchas and tables are cut. Wording only; local bodies go through --body-file (pr/references/publication.md:55).",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 51e9ae4fd21f..872bc83bdb6d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "humanlayer-visual-pr"
+author = "HumanLayer"
+repository = "https://github.com/humanlayer/skills"
+remote = "git@github.com:humanlayer/skills.git"
+ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "ca7c8088db69e315a8b2deea43820270457f8f3c"
+reviewed_through = "653b6411c1f70c275a18e37673b042ff99f67ceb"
+baseline_paths = [
+  "plugins/visual-pr/skills/visual-pr/SKILL.md",
+  "plugins/visual-pr/skills/visual-pr/references/pr_description_template.md",
+  "plugins/visual-pr/skills/visual-pr/references/show-me.md",
+  "plugins/visual-pr/skills/visual-pr/references/describe_pr_final_answer.md",
+  "LICENSE",
+]
+paths = [
+  "plugins/visual-pr/skills/visual-pr/SKILL.md",
+  "plugins/visual-pr/skills/visual-pr/references/pr_description_template.md",
+  "plugins/visual-pr/skills/visual-pr/references/show-me.md",
+  "plugins/visual-pr/skills/visual-pr/references/describe_pr_final_answer.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Structural diagrams are derived from inspected code and limited to the decision under review. They show actual owners, gates and important failure paths, distinguish an existing path from a proposed one, and never stand in for execution evidence."
+serves = "Makes the shape of a change understandable without implying that it ran or works."
+where = ["references/visual-evidence.md#diagrams"]
+shapes = "Adds a diagram section that ties edges and labels to inspected code and keeps execution evidence separately identified."
+adapted = "Diagrams use native GitHub Mermaid inside the repository template's sections, as the smallest useful view, instead of the donor's fixed change-outline section."
+
+[[sources.declined]]
+feature = "A fixed body template with a one-sentence Why section, one to three notes and a change outline."
+reason = "Written repository rules and the template on the resolved base govern the body."
+
+[[sources.declined]]
+feature = "A final answer that lists every changed file."
+reason = "The review entry point names the owning module, invariant or critical path instead of a file inventory."
+
+[[sources.declined]]
+feature = "Committing task changes and saving the description under .humanlayer/tasks while describing the PR."
+reason = "Scratch evidence stays out of commits unless convention or the user asks, and the commit skill owns commits."
+
+[[sources.reviews]]
+from_commit = "ca7c8088db69e315a8b2deea43820270457f8f3c"
+to_commit = "653b6411c1f70c275a18e37673b042ff99f67ceb"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames ca7c8088db69..653b6411c1f7 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "github-cli-attachments"
+author = "GitHub CLI / GitHub Inc."
+repository = "https://github.com/cli/cli"
+remote = "git@github.com:cli/cli.git"
+ref = "refs/heads/trunk"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "6fc1c29d5477bfe71da7af290eb481c0df7811f1"
+reviewed_through = "59e9f78eacdf2554f8534d166808c3e9b8c7ebcb"
+baseline_paths = [
+  "skills/gh/SKILL.md",
+  "internal/attachments/attach.go",
+  "internal/attachments/attach_test.go",
+  "pkg/cmd/pr/create/create.go",
+  "pkg/cmd/pr/edit/edit.go",
+  "LICENSE",
+]
+paths = [
+  "skills/gh/SKILL.md",
+  "internal/attachments/attach.go",
+  "internal/attachments/attach_test.go",
+  "pkg/cmd/pr/create/create.go",
+  "pkg/cmd/pr/edit/edit.go",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Screenshots and recordings reach the PR body through gh pr create or gh pr edit with --attach, which uploads each file and rewrites matching local Markdown references to the uploaded URLs. A local screenshot path is not an attachment."
+serves = "Puts real visual evidence where reviewers can see it."
+where = ["references/attachments.md#place-and-upload", "SKILL.md#compose-for-review"]
+shapes = "Makes upload part of the same create or edit operation, with local references placed in the body file first."
+adapted = "Only the upload route comes from gh. What to capture, its provenance, current-head claims, the repository template and the publication authorization stay with this skill. Direct attachment to the PR body is preferred over a comment or another route."
+
+[[sources.ideas]]
+idea = "The installed command's help establishes which flags exist. After any upload attempt, even a nonzero exit or timeout, the exact PR body is read back as structured state, because uploads stop at the first failure and earlier files, a pushed branch or other metadata can already have changed."
+serves = "Prevents retries that duplicate uploads or a report of success that did not happen."
+where = [
+  "references/attachments.md#select-the-available-route",
+  "references/attachments.md#verify-and-recover",
+  "references/publication.md#create-or-update-metadata",
+]
+shapes = "Starts the attachment route with a capability check and adds a read-back and recovery section after every upload."
+adapted = "Recovery keeps already uploaded URLs, retries only the missing files, and checks rendering in an authorized view, because upload success alone is not a visual check."
+
+[[sources.declined]]
+feature = "A dependency on the gh agent skill, skill installation with gh skill, and release publishing."
+reason = "PR attachments need only the installed gh command; gh skill manages agent skills, not PR images."
+
+[[sources.declined]]
+feature = "Installing or upgrading gh automatically when --attach is missing."
+reason = "Tools are not installed or updated as a side effect of drafting a PR; another available route is used or the gap is reported."
+
+[[sources.declined]]
+feature = "Checking out a PR into a worktree with gh pr checkout --worktree."
+reason = "The worktrunk skill owns the worktree lifecycle."
+
+[[sources.reviews]]
+from_commit = "6fc1c29d5477bfe71da7af290eb481c0df7811f1"
+to_commit = "59e9f78eacdf2554f8534d166808c3e9b8c7ebcb"
+incorporated = []
+skipped = [
+  "skills/gh/SKILL.md: Documents that gh pr view and gh issue view reject --comments together with --json, so comments come through the json comments field. The pr skill never combines them, and pr-followup/references/feedback.md:6 mentions gh pr view --comments only as an incomplete inbox, so nothing breaks.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 6fc1c29d5477..59e9f78eacdf and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[local_snapshots]]
+id = "pr-SKILL.md"
+kind = "installed-file"
+role = "ideas"
+path = "~/.agents/skills/pr/SKILL.md"
+sha256 = "6a4449e2a2e1b93334b8a48443176747a1b495cfddd60f3f90b8a04b749fe5b4"
+local_repository_commit = "298ca54897912921b7a052d5dd1e6f327f3a3ff1"
+repository_commit_status = "Checkout content matched the installed snapshot at task start; the hash identifies the source."
+update_policy = "Compare installed content by hash; no remote update feed is inferred."
+
+[[local_snapshots.ideas]]
+idea = "The earlier local pr skill's workflow, evidence and authority rules stay where they still apply: claim classes with the evidence that can establish each, exact PR identity by target and head repository, the draft default with a state check after creation, and the ban on interactive creation paths."
+serves = "Keeps proven local rules for identity, claims and draft state through the rebuild."
+where = [
+  "references/claims.md",
+  "SKILL.md#establish-identity-and-scope",
+  "references/publication.md#create-or-update-metadata",
+]
+shapes = "Moved the earlier claims matrix into its own reference that is read before substantive claims, and kept the identity and initial-state rules in the identity and publication steps."
+adapted = "The earlier version asked before editing an existing PR and ended the turn at a terminal state. The current skill updates under existing authorization and continues a creation request into the pr-followup skill."
+
+[[local_snapshots]]
+id = "pr-evals-evals.json"
+kind = "installed-file"
+role = "ideas"
+path = "~/.agents/skills/pr/evals/evals.json"
+sha256 = "a34bdaff4b545415b141a3735b67eccd6eaf2e6db4c0f7363f58e56867ca4eb0"
+local_repository_commit = "298ca54897912921b7a052d5dd1e6f327f3a3ff1"
+repository_commit_status = "Checkout content matched the installed snapshot at task start; the hash identifies the source."
+update_policy = "Compare installed content by hash; no remote update feed is inferred."
+
+[[local_snapshots.ideas]]
+idea = "The earlier evaluation cases for PR command preparation, upstream contributions from a fork, auditing an open PR and classifying PR snapshots stay in the evaluation set as regression checks for local workflow, evidence and authority behavior."
+serves = "Detects a rebuild that loses identity, claim or draft-state behavior."
+where = ["evals/evals.json"]
+shapes = "Kept the four earlier cases as the first cases of the set and added later cases after them."
+
+[[local_snapshots]]
+id = "pr-references-review-packet.md"
+kind = "installed-file"
+role = "ideas"
+path = "~/.agents/skills/pr/references/review-packet.md"
+sha256 = "dfed89dbe75ea90f2a03111573ddda8213bedf2e37d1ff1d588ee9218dfafbd4"
+local_repository_commit = "298ca54897912921b7a052d5dd1e6f327f3a3ff1"
+repository_commit_status = "Checkout content matched the installed snapshot at task start; the hash identifies the source."
+update_policy = "Compare installed content by hash; no remote update feed is inferred."
+
+[[local_snapshots.ideas]]
+idea = "The earlier review-packet guidance organized the body around what the reviewer should understand after reading it, and let the template's checklist items be completed only when evidence proves them."
+serves = "Keeps the body focused on the reviewer's understanding rather than a summary of the work."
+where = [
+  "references/review-packet.md#write-for-the-reviewer",
+  "references/review-packet.md#evidence-and-continuity",
+]
+shapes = "Kept the reviewer-understanding test as the opening of the reference and the evidence condition for checklist items."
+adapted = "The earlier fixed fallback headings and the rule that a template's headings are the complete set gave way to sections chosen for the review decision, with a small extra section allowed when it substantially reduces review effort."
+
+[[dependencies]]
+kind = "local"
+name = "commit"
+required = false
+role = "Required for its routed operation when reached; ordinary use loads only relevant owners. Source maintenance uses agent-instructions."
+
+[[dependencies]]
+kind = "local"
+name = "issue-workflow"
+required = false
+role = "Required for linked-ticket policy inspection and authorized creation-event synchronization when that phase is reached."
+
+[[dependencies]]
+kind = "local"
+name = "stacked-pr"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "pr-followup"
+required = true
+role = "Required after a PR creation request; Update returns to an existing authorized follow-up loop."
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "communicate-clearly"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "worktrunk"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "task-breakdown"
+required = false
+role = "Revise delivery units when the measured PR exceeds its task or project review-size cap."

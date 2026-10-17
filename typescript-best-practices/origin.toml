@@ -1,0 +1,381 @@
+format_version = 2
+skill = "typescript-best-practices"
+created = "2026-10-04"
+approach = "derive"
+goal = "Help an agent implement or review TypeScript code with the simplest types that make the required operations safe and that claim no more than they prove. Success is a change whose type contracts pass the repository's real compiler setup and consumer checks, whose runtime boundaries are validated or tested separately, and whose task scope and public contracts stay intact."
+
+[[invariants]]
+rule = "A type annotation, assertion, generated type, `satisfies` check or `readonly` view is static evidence only and never creates a runtime invariant; a runtime guarantee needs runtime validation or a test."
+reason = "Donor examples overclaimed what durations, mutable tuples, readonly views, satisfies and trusted internal code guarantee at runtime, and the skill corrects that class of claim for every source."
+where = ["SKILL.md#keep-types-honest"]
+
+[[invariants]]
+rule = "The skill holds only TypeScript-specific judgment rules; general engineering principles stay with the skills that own them."
+reason = "All 24 pstack principle skills were reviewed, and only their TypeScript-relevant decisions were kept."
+where = ["SKILL.md#typescript-best-practices", "references/upstream-updates.md"]
+
+[[invariants]]
+rule = "The error-handling skill owns recovery policy, the review-code-changes skill owns review coordination and finding format, and the project's conventions or specialist skills own style, naming, layout and framework architecture."
+where = ["SKILL.md#keep-types-honest", "SKILL.md#verify-the-contract"]
+
+[[invariants]]
+rule = "Work stays within the task's implementation or inspection scope and keeps the repository's public contracts. Strictness, dependency versions, module formats and build architecture change only when the task needs it."
+where = ["SKILL.md#typescript-best-practices", "references/compiler-and-modules.md"]
+
+[[sources]]
+id = "pstack-typescript-and-principles"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = [
+  "pstack/skills/typescript-best-practices/SKILL.md",
+  "pstack/skills/typescript-best-practices/references/patterns.md",
+  "pstack/skills/principle-type-system-discipline/SKILL.md",
+  "pstack/skills/principle-boundary-discipline/SKILL.md",
+  "pstack/skills/principle-model-the-domain/SKILL.md",
+  "pstack/skills/principle-encode-lessons-in-structure/SKILL.md",
+  "pstack/skills/principle-subtract-before-you-add/SKILL.md",
+  "pstack/skills/principle-minimize-reader-load/SKILL.md",
+  "pstack/skills/principle-prove-it-works/SKILL.md",
+  "pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+  "pstack/LICENSE",
+]
+paths = [
+  "pstack/skills/typescript-best-practices/SKILL.md",
+  "pstack/skills/typescript-best-practices/references/patterns.md",
+  "pstack/skills/principle-type-system-discipline/SKILL.md",
+  "pstack/skills/principle-boundary-discipline/SKILL.md",
+  "pstack/skills/principle-model-the-domain/SKILL.md",
+  "pstack/skills/principle-encode-lessons-in-structure/SKILL.md",
+  "pstack/skills/principle-subtract-before-you-add/SKILL.md",
+  "pstack/skills/principle-minimize-reader-load/SKILL.md",
+  "pstack/skills/principle-prove-it-works/SKILL.md",
+  "pstack/skills/principle-test-behavior-not-implementation/SKILL.md",
+  "pstack/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Strengthen a type only where a required operation would otherwise be partial, such as where code needs `!`, a cast or a 'should never happen' throw. Keep the plain type, such as `T[]`, while every operation on it stays total."
+serves = "Keeps types as simple as the code allows while removing the assertions that hide runtime failures."
+where = ["SKILL.md#typescript-best-practices", "SKILL.md#keep-types-honest"]
+shapes = "Sets the skill's opening rule, and makes the first bullet add a stronger representation only where an operation or contract needs it."
+adapted = "Meaningful absence stays a valid answer: an empty collection can have a valid result or explicit absence, and a non-empty representation is introduced only when the contract requires one."
+
+[[sources.ideas]]
+idea = "Model the domain so that invalid combinations do not compile: a discriminated union for fields that depend on a state, compiler-checked exhaustiveness for closed variants, and a brand for primitives whose identities or units must not mix."
+serves = "Moves errors from impossible states, mixed identifiers and unhandled variants to compile time."
+where = ["SKILL.md#keep-types-honest"]
+shapes = "Gives the first bullet its list of representations, each paired with the condition that justifies it."
+adapted = "Independently optional fields stay optional, and a brand is added only where mixing identities or units causes a concrete error. The skill states that a brand alone proves no runtime constraint."
+
+[[sources.ideas]]
+idea = "When a schema or generated source already owns a contract, derive the type from it instead of writing a parallel type that can drift."
+serves = "Keeps types consistent with the contract that the data actually follows."
+where = ["SKILL.md#keep-types-honest"]
+shapes = "Opens the authoritative-contract bullet, so inference from an owning schema comes before any hand-written type."
+
+[[sources.ideas]]
+idea = "External data is untyped until parsed. Treat it as `unknown`, validate it with the project's existing validator at the boundary that owns its contract, and do not silence a real type mismatch with `any`, `!`, double casts, suppression comments or weaker compiler settings."
+serves = "Prevents unvalidated data and hidden mismatches from reaching code that trusts its types."
+where = ["SKILL.md#keep-types-honest"]
+shapes = "Makes boundary parsing the default for untyped data and lists the silencing shortcuts it replaces; a necessary assertion is confined to a justified boundary with a test of the invariant it relies on."
+adapted = "The donor trusts internal code unconditionally after the boundary. Here a guarantee holds only until mutation through an alias or callback, or an `await`, can invalidate it; the code then keeps ownership, captures a stable value or rechecks. `satisfies` checks static compatibility only and does not repair a mismatch."
+
+[[sources.ideas]]
+idea = "A type guard or assertion function must justify its whole claim. For `value is T`, true must mean `T` and false must exclude `T`; property presence or one checked field rarely proves a whole object."
+serves = "Prevents unsafe narrowing that hides behind a name that sounds safe."
+where = ["SKILL.md#keep-types-honest"]
+shapes = "Adds a separate bullet that checks both branches of a type predicate and the guarantee an assertion function claims after it returns."
+adapted = "The donor asks that a guard verify its claim; the local rule extends this to the false branch and to assertion functions."
+
+[[sources.ideas]]
+idea = "A claimed type guarantee needs evidence that can fail. Run the repository's checker on the changed files and the affected consumers, and test valid and invalid uses of a changed contract with assertions that fail on regression; transpilation, or a type alias that evaluates to `false`, proves nothing."
+serves = "Prevents reporting a contract as checked when nothing could have caught a regression."
+where = ["SKILL.md#verify-the-contract"]
+shapes = "Makes the verification section require a checker run over changed files and consumers, type-level tests that fail on regression, and separate runtime boundary tests."
+
+[[sources.ideas]]
+idea = "A rule that a formatter, linter or compiler can enforce belongs in that tooling, not in instructions; the skill keeps only decisions that need judgment."
+serves = "Keeps the skill short and stops it from repeating or contradicting checks that tools already enforce."
+where = ["SKILL.md#verify-the-contract"]
+shapes = "Closes the verification section by handing formatting and enforceable style to existing tooling, which keeps style rules out of the skill."
+
+[[sources.declined]]
+feature = "Branding semantic primitives, such as user and order IDs, as a general rule."
+reason = "A brand is added only where mixing identities or units causes a concrete error."
+
+[[sources.declined]]
+feature = "Representing a time range as a start plus a plain-number duration and presenting it as making a negative range impossible."
+reason = "A plain number can still be negative or use the wrong unit, so the representation does not create the invariant it claims."
+
+[[sources.declined]]
+feature = "Treating a mutable non-empty tuple such as `[T, ...T[]]` as a lasting non-empty guarantee."
+reason = "Mutation through aliases, callbacks or across an `await` can empty it."
+
+[[sources.declined]]
+feature = "Describing `satisfies` as validating a value."
+reason = "`satisfies` checks static compatibility only; it does not validate runtime data."
+
+[[sources.declined]]
+feature = "Trusting internal code unconditionally once a boundary has validated the data."
+reason = "Narrowing and other guarantees can stop holding after a mutation or an `await`, so the skill rechecks at the relevant transition."
+
+[[sources.declined]]
+feature = "A fixed argument style (one object parameter instead of positional parameters) and a structured-logger rule that bans `console.log` in shipped code."
+reason = "Argument style and logging policy are project conventions, not TypeScript type judgments."
+
+[[sources.declined]]
+feature = "Broad agent autonomy, required verification scripts, repository-wide rewrites and host activation metadata from the general principle skills."
+reason = "The skill keeps only TypeScript-relevant decisions within the task's scope, and the host's skill format sets activation."
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/principle-type-system-discipline/SKILL.md: Folds its tests into the bullets. Same content, already covered at typescript-best-practices/SKILL.md:13-18 and :25-32.",
+  "pstack/skills/principle-encode-lessons-in-structure/SKILL.md: Mostly deleted. A removal; the borrowed idea remains covered at typescript-best-practices/SKILL.md:58.",
+  "pstack/skills/principle-test-behavior-not-implementation/SKILL.md: Rewritten around tests that fail when behavior breaks and pass when only internals change. Not TypeScript-specific; compile-time invariant tests are covered at typescript-best-practices/SKILL.md:55-57, and the error-type point is adopted in error-handling.",
+  "pstack/skills/principle-model-the-domain/SKILL.md, pstack/skills/principle-subtract-before-you-add/SKILL.md and pstack/skills/principle-minimize-reader-load/SKILL.md: Paragraphs are reworded or merged. Wording only.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "mkosir-types-and-contracts"
+author = "mkosir and contributors"
+repository = "https://github.com/mkosir/typescript-style-guide"
+remote = "git@github.com:mkosir/typescript-style-guide.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "170074a0df9b07f4a4a78e3596ec1edf06a14da7"
+reviewed_through = "170074a0df9b07f4a4a78e3596ec1edf06a14da7"
+baseline_paths = [
+  "skills/typescript-types/SKILL.md",
+  "skills/typescript-discriminated-unions/SKILL.md",
+  "skills/typescript-functions/SKILL.md",
+  "skills/typescript-variables/SKILL.md",
+  "LICENSE",
+]
+paths = [
+  "skills/typescript-types/SKILL.md",
+  "skills/typescript-discriminated-unions/SKILL.md",
+  "skills/typescript-functions/SKILL.md",
+  "skills/typescript-variables/SKILL.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "A static type does not act at runtime: a generated client type or an assertion does not validate data received from outside, and a `readonly` view or `as const` does not freeze an object."
+serves = "Prevents treating compile-time descriptions as runtime protection."
+where = ["SKILL.md#keep-types-honest"]
+shapes = "Places each limit next to the rule it qualifies: generated types in the boundary bullet, and readonly views in the bullet about keeping guarantees valid until use."
+
+[[sources.ideas]]
+idea = "Let inference carry types inside the code, and keep public contracts deliberate: a stable public interface does not depend on private implementation details and keeps its legitimate callers and documented states."
+serves = "Avoids redundant annotations inside the code and accidental breaking changes at its public surface."
+where = ["SKILL.md#keep-types-honest"]
+shapes = "Makes the authoritative-contract bullet protect public interfaces and end with a preference for inference over redundant annotations or elaborate type machinery."
+adapted = "The donor types every API explicitly. The local rule instead keeps public interfaces independent of private details, preserves existing callers and documented states, and requires a generic to express a real relationship."
+
+[[sources.ideas]]
+idea = "Use a discriminated union when the presence of fields depends on a variant, and keep a field optional when it can be absent independently of the other fields."
+serves = "Prevents invalid state combinations without forcing unrelated optional data into variants."
+where = ["SKILL.md#keep-types-honest"]
+shapes = "Pairs discriminated unions for dependent fields with optional fields for independent absence in the first bullet."
+
+[[sources.declined]]
+feature = "Copying the tutorials and worked examples of the guide's nine skills."
+reason = "The skill keeps concise judgment rules selected from them."
+
+[[sources.declined]]
+feature = "Preferences on enums versus unions, interfaces versus types, naming, export style, folder layout, React architecture, test coverage and formatting."
+reason = "The project's conventions or an existing specialist skill own these choices."
+
+[[sources]]
+id = "ecc-typescript-reviewer"
+author = "Affaan Mustafa and ECC contributors"
+repository = "https://github.com/affaan-m/ECC"
+remote = "git@github.com:affaan-m/ECC.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+reviewed_through = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29"
+baseline_paths = ["agents/typescript-reviewer.md", "LICENSE"]
+paths = ["agents/typescript-reviewer.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "Code that type-checks can still lose a promise. An `async` function fits a `void` callback whose caller ignores the returned promise, so check that completion and rejection reach the intended owner."
+serves = "Catches floating promises and unhandled rejections that the compiler accepts."
+where = ["SKILL.md#keep-types-honest"]
+shapes = "Adds the asynchronous-completion bullet, which checks who owns completion and rejection rather than whether the types line up."
+adapted = "The donor fixes such code with `await` or `.catch()`. Here the check is about ownership: `void promise` only discards the value and is not rejection handling, and the error-handling skill designs recovery policy when it is needed."
+
+[[sources.ideas]]
+idea = "Keep compiler strictness intact: weakening a compiler setting to reach a passing check hides real mismatches, and a configuration change that relaxes strictness needs attention."
+serves = "Keeps the checker's guarantees from eroding to produce a green result."
+where = ["SKILL.md#keep-types-honest", "references/compiler-and-modules.md"]
+shapes = "Adds weaker compiler settings to the list of forbidden ways to silence a mismatch, and limits strictness changes in the reference to the task's scope."
+
+[[sources.ideas]]
+idea = "Report which checks actually ran. A type-check script that was absent or skipped, or transpile-only output, is not a clean type check."
+serves = "Prevents a skipped or partial check from being reported as a pass."
+where = ["SKILL.md#verify-the-contract", "references/compiler-and-modules.md"]
+shapes = "Makes the verification section state that transpilation is not type checking, and makes the reference end by reporting the checked programs, execution paths and unavailable checks."
+
+[[sources.declined]]
+feature = "The reviewer agent's severity levels and approve, warning or block output template."
+reason = "The review-code-changes skill coordinates reviews and their findings; this skill supplies TypeScript judgment."
+
+[[sources.declined]]
+feature = "Fixed error rules such as always wrapping `JSON.parse` in try/catch or adding `.catch()` to every unawaited promise."
+reason = "The error-handling skill owns recovery policy. This skill does not prescribe catch-and-log or wrapping every error; it only checks that completion and rejection reach their owner."
+
+[[sources.reviews]]
+from_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+to_commit = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames ef648e01899b..b92f181b3b74 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "sentimony-compiler-and-modules"
+author = "Ihor Orlovskyi / Sentimony"
+repository = "https://github.com/sentimony/skills"
+remote = "git@github.com:sentimony/skills.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "e7ee0fff668e9ebd74a279635f1d04e66446eeec"
+reviewed_through = "1c70204aa780528dafbe491a4841a9f1abb24480"
+baseline_paths = [
+  "skills/typescript/SKILL.md",
+  "skills/typescript/references/module-resolution.md",
+  "skills/typescript/references/monorepo.md",
+  "skills/typescript/LICENSE",
+]
+paths = [
+  "plugins/skills/skills/typescript/SKILL.md",
+  "plugins/skills/skills/typescript/references/module-resolution.md",
+  "plugins/skills/skills/typescript/references/monorepo.md",
+  "plugins/skills/skills/typescript/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Type-check with the repository's installed compiler, its package scripts and the effective leaf configuration, including inherited options and included files. A solution root with `files: []` can pass without checking any implementation file, so confirm that the changed file belongs to a checked program before trusting a green result."
+serves = "Prevents a green result from a program that never checked the change."
+where = ["references/compiler-and-modules.md"]
+shapes = "Opens the reference with a check that the changed file belongs to a checked program before a green result counts."
+adapted = "The donor is a standalone configuration workflow. Here its detail sits in a reference that SKILL.md loads only for compiler, import/export or package changes, so ordinary type work stays short."
+
+[[sources.ideas]]
+idea = "Choose module settings that match the actual runtime or bundler and the published contract, and never switch resolution modes only to remove an error. TypeScript `paths` informs the type checker only; emitted specifiers and runtime resolution need their own configuration."
+serves = "Prevents code that type-checks but fails to resolve imports when it runs."
+where = ["references/compiler-and-modules.md"]
+shapes = "Makes the reference's module paragraph separate compile-time effects from runtime resolution, including erased type-only imports and `lib` entries that add no polyfill."
+
+[[sources.declined]]
+feature = "Compiler version migration procedures, such as the TypeScript 7 migration path."
+reason = "Version changes stay within the task's scope, and dated migration steps do not belong in a judgment skill."
+
+[[sources.declined]]
+feature = "A table of framework-specific checker commands."
+reason = "The reference requires including the project's framework checker without fixing the commands."
+
+[[sources.declined]]
+feature = "A default compiler-flag bundle, such as `strict` with `noUncheckedIndexedAccess` and `skipLibCheck` enabled."
+reason = "The project keeps its compiler policy, and a small change does not become a configuration migration."
+
+[[sources.declined]]
+feature = "Allowing `mock as unknown as Service` casts in test files."
+reason = "Tests get no cast exemption; a necessary assertion stays isolated at a justified boundary with a test of its invariant."
+
+[[sources.declined]]
+feature = "Blanket ESM and CommonJS interoperability claims, such as keeping `esModuleInterop` on because it matches bundler and Node behavior."
+reason = "Such claims date quickly and depend on the host; the skill checks the actual host and a consumer of the built artifact."
+
+[[sources.reviews]]
+from_commit = "e7ee0fff668e9ebd74a279635f1d04e66446eeec"
+to_commit = "1c70204aa780528dafbe491a4841a9f1abb24480"
+incorporated = []
+skipped = [
+  "plugins/skills/skills/typescript/SKILL.md (formerly skills/typescript/SKILL.md): The test-mock cast exception is removed and replaced by a rule to justify, narrow and document any assertion. Upstream now matches the local choice rejecting unsafe mock casts, already covered at typescript-best-practices/SKILL.md:29-32.",
+  "plugins/skills/skills/typescript/SKILL.md: skipLibCheck becomes a performance and compatibility tradeoff that keeps the project's existing policy instead of a default. Local already keeps the project's policy (typescript-best-practices/references/compiler-and-modules.md:26-27), and the possible clause at :21-23 that a consumer check with skipLibCheck does not type-check published declarations is accurate but narrow.",
+  "plugins/skills/skills/typescript/SKILL.md: Coverage now means the files inside the compiler and framework-checker programs that scripts and CI actually execute. Already covered at typescript-best-practices/references/compiler-and-modules.md:6-11 and :27-28.",
+  "plugins/skills/skills/typescript/SKILL.md: The description is broadened, and the metadata drops the author and internal fields and bumps the version from 1.4.3 to 1.6.0. Description and metadata only.",
+  "skills/typescript/LICENSE, skills/typescript/references/module-resolution.md and skills/typescript/references/monorepo.md: Moved under plugins/skills/skills/typescript/ with identical blobs. No content change.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e7ee0fff668e..1c70204aa780 and the changed files at both commits.",
+  "Followed the upstream file moves with git diff --find-renames and compared the old paths at the cursor with the new paths at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "mblode-package-consumer-checks"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+baseline_paths = ["skills/dx-audit/rules/onboard-exports-resolve-typed.md", "LICENSE.md"]
+paths = ["skills/dx-audit/rules/onboard-exports-resolve-typed.md", "LICENSE.md"]
+
+[[sources.ideas]]
+idea = "Verify a package's exports from a consumer of the built or packed artifact, through its advertised entrypoints and each module format it supports, including declaration resolution. A passing producer build or source aliases can hide broken consumer imports."
+serves = "Catches packages that build but fail to import, or import without types, for their consumers."
+where = ["references/compiler-and-modules.md"]
+shapes = "Adds a consumer-side package check to the reference, which also adds no other module format without a need."
+
+[[sources.declined]]
+feature = "Prescribing dual ESM and CommonJS publishing, a root export in every package, or a CLI bin."
+reason = "The check covers the entrypoints and module formats that a package actually advertises."
+
+[[sources.declined]]
+feature = "Additional audit dependencies, such as publint and @arethetypeswrong/cli."
+reason = "A consumer of the built or packed artifact is the check; the skill adds no dependency for it."
+
+[[sources.declined]]
+feature = "The broader developer-experience audit rules around this export rule."
+reason = "This is a TypeScript language skill; developer-experience auditing stays outside it."
+
+[[sources.reviews]]
+from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[dependencies]]
+kind = "local"
+name = "error-handling"
+required = false
+role = "Conditional recovery-policy design; ordinary TypeScript checks do not require it."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested skill authoring or upstream maintenance."

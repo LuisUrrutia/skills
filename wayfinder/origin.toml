@@ -1,0 +1,359 @@
+format_version = 2
+skill = "wayfinder"
+created = "2026-10-06"
+approach = "derive"
+goal = "Turn an ambiguous initiative into an evidence-backed direction that can be planned, keeping its connected decisions and their context in a durable map that later sessions and contributors can resume. Success is a direction whose outcome, boundaries, material choices and constraints permit planning without guessing a consequential decision; narrowing, deferring or abandoning the initiative, or an exact blocker with the action that clears it, can also be the result."
+
+[[invariants]]
+rule = "Settled choices stand unless new evidence or scope affects their basis. Judgment the user already delegated is exercised within its bounds and recorded; the skill asks only for a consequential choice that evidence and delegated judgment do not settle."
+where = ["SKILL.md#ground-the-destination"]
+
+[[invariants]]
+rule = "A recommendation to narrow, defer or abandon the initiative stays distinct from an authorized decision. Each decision, deferral and exclusion records who or what authorized it."
+where = ["SKILL.md#keep-the-map-current", "SKILL.md#hand-over-a-direction"]
+
+[[invariants]]
+rule = "When planning was already requested, the skill continues into the available planning workflow; it requires no particular planning skill, planning package or extra approval."
+where = ["SKILL.md#hand-over-a-direction"]
+
+[[invariants]]
+rule = "The skill owns product, architecture and migration direction. The implementation approach belongs to the planning skill, and delivery decomposition belongs to the task-breakdown skill."
+reason = "The skill exists to resolve the uncertainty that prevents good planning, not to plan or decompose the work itself."
+where = ["SKILL.md#wayfinder"]
+
+[[invariants]]
+rule = "Tracker writes, publication, delegation and other external writes need the active task's authority; a local map grants none of them."
+where = ["SKILL.md#chart-the-map", "SKILL.md#resolve-what-matters-next"]
+
+[[sources]]
+id = "matt-wayfinder"
+author = "Matt Pocock"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+reviewed_through = "49dd158d1076134a641b33efb035946536778336"
+baseline_paths = ["skills/engineering/wayfinder/SKILL.md", "LICENSE"]
+paths = ["skills/engineering/wayfinder/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "The work starts by naming the destination: who needs what outcome, how success shows, and what must be known before planning. One canonical decision map then carries the initiative across sessions. Each session reads it first, compares its recorded premises with current evidence, and updates it after each answer."
+serves = "Lets an initiative larger than one session resume from recorded state instead of private recollection or repeated discussion."
+where = [
+  "SKILL.md#ground-the-destination",
+  "SKILL.md#chart-the-map",
+  "assets/decision-map.md#destination",
+]
+shapes = "Puts grounding the destination first and makes a resumed session start by reading the existing map. The map template opens with the destination, its planning-readiness condition and the current next action."
+adapted = "The map lives in the requested or existing authoritative document or tracker, or follows the project's artifact conventions, so local Markdown is enough. The skill checks that the next session can find and access the map, and states the retention limit and the action that preserves it when storage is temporary or checkout-local. A read-only run returns the map and says it was not saved."
+
+[[sources.ideas]]
+idea = "The map keeps three kinds of item apart. A decision question is recorded once it can be stated precisely, even while it is blocked. An area that matters but cannot yet be phrased as a precise question stays visible as not yet specified, and no speculative question is invented for it. An exclusion records its reason and authority and does not count as an answered question."
+serves = "Keeps the map honest about what is decided, what is still vague and what is out of scope."
+where = [
+  "SKILL.md#chart-the-map",
+  "SKILL.md#keep-the-map-current",
+  "assets/decision-map.md#decisions",
+  "assets/decision-map.md#not-yet-specified",
+  "assets/decision-map.md#destination",
+]
+shapes = "Splits the map template into a decisions table, a Not yet specified section and an out-of-scope line, and adds a step to Keep the map current that promotes a vague area once its question becomes precise."
+adapted = "An exclusion can come back through an authorized scope change; the donor lets it back only as a fresh effort with a redrawn destination. Deferral is a separate state that records its authority and a condition for reconsideration."
+
+[[sources.ideas]]
+idea = "Each question is resolved through the kind of evidence that can settle it: inspection for facts, a prototype or small experiment for behavior, and the user for preferences or private context. The answer is recorded with its authority, rationale and evidence, and the questions that depend on it are updated in the same pass."
+serves = "Answers rest on evidence that can settle them, and dependent decisions do not go stale."
+where = ["SKILL.md#resolve-what-matters-next", "SKILL.md#keep-the-map-current"]
+shapes = "Organizes Resolve what matters next around a list that matches each kind of missing answer to a method, and makes Keep the map current record each answer and update dependent questions and the next action in one pass."
+adapted = "Behavior questions go to the local prototype skill and software-structure questions to the local design-code-structure skill when they are available, resolved by registered name, and their results come back to the map. Prototype code stays experimental unless integration is authorized, and no implementation step or approval gate comes with these skills. Where the donor updates or deletes tickets that an answer invalidates, the local skill reopens the affected decisions when a premise changes, blocks dependent planning and keeps the superseded rationale."
+
+[[sources.ideas]]
+idea = "Each decision has one authoritative detail record. The map holds a compact index of IDs, questions, states, dependencies and links, and its summaries point to those records."
+serves = "Prevents conflicting copies of a decision and keeps the map small enough to read at the start of each session."
+where = [
+  "SKILL.md#chart-the-map",
+  "assets/decision-map.md#decisions",
+  "assets/decision-map.md#decision-record-id-and-question",
+]
+shapes = "Pairs the template's decisions table with one decision record per ID, and makes the chart section require stable IDs and links when a map is created or restructured."
+adapted = "Small maps keep the index and the records in one file; details move to separate records only when that helps resumption."
+
+[[sources.declined]]
+feature = "A map that must be a labelled issue on the issue tracker, with decision tickets as child issues that sessions claim by assignment, and research findings pushed to branches."
+reason = "The map lives in the requested, existing or project-conventional record, which can be local Markdown. Tracker writes, labels, branches, assignments and delegation happen only when the task authorizes them."
+
+[[sources.declined]]
+feature = "The `disable-model-invocation` setting, which stops a model from selecting the skill on its own."
+reason = "The skill stays discoverable so a model can select it when an ambiguous initiative needs it."
+
+[[sources.declined]]
+feature = "A fixed ticket size of one 100K-token session, a limit of one resolved ticket per session, and required specialists: the grilling, domain-modeling and research skills, research subagents, and setup through the setup-matt-pocock-skills skill."
+reason = "Investigation scales to each question's uncertainty and reversibility. Specialists are optional and resolved by registered name."
+
+[[sources.reviews]]
+from_commit = "4588b32ecab9ecc9fc8cc6b6c5e7d675b6004b0d"
+to_commit = "49dd158d1076134a641b33efb035946536778336"
+incorporated = []
+skipped = [
+  "skills/engineering/wayfinder/SKILL.md: Decision tickets get no triage labels and are resolved by their type label. The local skill uses no labels (see the declined labelled tracker map), the type-label taxonomy is the donor's, and implementation backlog follows the planning handoff (wayfinder/SKILL.md:113-114).",
+  "skills/engineering/wayfinder/SKILL.md: Cross-references use real ticket ids instead of placeholder numbers. The local map uses D-numbered ids (wayfinder/assets/decision-map.md:16), and issue-workflow/references/publish-tasks.md:67 waits for verified identities.",
+  "skills/engineering/wayfinder/SKILL.md: A research branch is pushed with no PR. Branches are conditional and prototypes stay experimental (wayfinder/SKILL.md:112).",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 4588b32ecab9..49dd158d1076 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "compound-wayfinder"
+author = "Every / Compound Engineering"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c"
+reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+baseline_paths = [
+  "skills/ce-brainstorm/SKILL.md",
+  "skills/ce-brainstorm/references/product-pressure-test.md",
+  "skills/ce-brainstorm/references/approaches.md",
+  "skills/ce-brainstorm/references/blindspot-pass.md",
+  "skills/ce-brainstorm/references/interaction-rules.md",
+  "skills/ce-pov/SKILL.md",
+  "skills/ce-pov/references/method.md",
+  "LICENSE",
+]
+paths = [
+  "skills/ce-brainstorm/SKILL.md",
+  "skills/ce-brainstorm/references/product-pressure-test.md",
+  "skills/ce-brainstorm/references/approaches.md",
+  "skills/ce-brainstorm/references/blindspot-pass.md",
+  "skills/ce-brainstorm/references/interaction-rules.md",
+  "skills/ce-pov/SKILL.md",
+  "skills/ce-pov/references/method.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "A suggested solution is a candidate until the user chooses it. The skill checks whether it addresses the underlying problem, duplicates an existing capability or commits more scope than the outcome needs, using evidence of current behavior, workarounds and pain. Implementation feasibility alone does not show user value."
+serves = "Prevents committing the direction to a solution that does not solve the real problem."
+where = ["SKILL.md#ground-the-destination", "assets/decision-map.md#destination"]
+shapes = "Adds a check of a suggested solution to the grounding step, before the map is charted, and gives the template's destination a line for current behavior, workarounds and evidence of the problem."
+
+[[sources.ideas]]
+idea = "For a question that changes the direction, the comparison includes materially different ways to meet the outcome, such as keeping or extending what exists, a smaller intervention, or doing nothing when that is credible. No alternative is invented to fill a menu, and no settled choice is reopened to create one."
+serves = "Prevents a choice between variants of one idea while a simpler or existing path is ignored."
+where = ["SKILL.md#resolve-what-matters-next"]
+shapes = "Makes the comparison step for a direction-changing question start by widening the options to these real alternatives, and forbids padding the menu."
+
+[[sources.ideas]]
+idea = "When the user cannot assess an unfamiliar area, the skill first explains the relevant options and hazards from evidence, then asks. The explanation and the question stay tied to decisions in this initiative."
+serves = "Turns guesses into informed choices in territory the user does not know."
+where = ["SKILL.md#ground-the-destination"]
+shapes = "Inserts an explanation step before a question about an unfamiliar area in the questioning paragraph."
+adapted = "The skill explains directly when the need shows; it does not first offer a separate teaching pass for the user to accept or decline."
+
+[[sources.ideas]]
+idea = "The investigation looks for evidence that could disconfirm the leading direction and keeps conflicting evidence and its limits visible. Its depth follows how costly a wrong choice would be and how hard the choice is to reverse."
+serves = "Prevents framing or momentum from carrying a direction that the evidence does not support."
+where = ["SKILL.md#resolve-what-matters-next"]
+shapes = "Makes the opening of Resolve what matters next weigh the impact of being wrong against the cost of learning, and makes the Facts method keep conflicting evidence and its limits visible."
+
+[[sources.declined]]
+feature = "Compound Engineering configuration files, the unified-plan artifact contract, model-tier dispatch and a prescribed artifact folder."
+reason = "One portable decision map in the requested or project-conventional location carries the work."
+
+[[sources.declined]]
+feature = "Mandatory challenge, confirmation and teaching-offer gates, such as a confirmation question after the scoping synthesis and an offer before mapping unfamiliar territory."
+reason = "Settled choices and already delegated authority stand; the skill asks only for a consequential choice that evidence and delegated judgment do not settle."
+
+[[sources.declined]]
+feature = "Fixed research floors and counts, such as required project and external evidence floors, two or three approaches, or three to seven blindspot items."
+reason = "The skill gathers the evidence the decision needs and stops when more detail would not change the choice or its readiness."
+
+[[sources.reviews]]
+from_commit = "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c"
+to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 030188b4ba27..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "blode-decision-briefs"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+baseline_paths = [
+  "skills/planning/SKILL.md",
+  "skills/planning/references/decision-briefs.md",
+  "skills/planning/references/doc-grounding.md",
+  "skills/planning/references/claim-verification.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/planning/SKILL.md",
+  "skills/planning/references/decision-briefs.md",
+  "skills/planning/references/doc-grounding.md",
+  "skills/planning/references/claim-verification.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "Options are compared through concrete differences: who benefits, what changes, relevant costs and failure modes, and how hard the choice is to reverse. Consequential claims are inspected or measured where practical, and estimates and unknowns are labelled as such."
+serves = "Lets the user judge options from facts instead of prose impressions."
+where = [
+  "SKILL.md#resolve-what-matters-next",
+  "assets/decision-map.md#decision-record-id-and-question",
+]
+shapes = "Sets the criteria that the option-judging paragraph applies to every option, and gives the decision record a line for real alternatives, tradeoffs and the cost of reversal."
+adapted = "A sketch, example or comparison table is used only where it makes a choice easier to assess. There is no word budget, and a numerical cost estimate is not required for every option."
+
+[[sources.ideas]]
+idea = "The recommendation names the assumption or missing fact it turns on and the evidence that would change it. When that fact is a preference or private context that only the user has, the question asks about that fact instead of asking the user to pick among options."
+serves = "Gets a fast, informed answer and makes the weak point of the recommendation explicit."
+where = [
+  "SKILL.md#resolve-what-matters-next",
+  "assets/decision-map.md#decision-record-id-and-question",
+]
+shapes = "Closes option comparison with the decisive assumption, turns the Human judgment method into a question about that fact, and gives the decision record a line for what would change the recommendation."
+
+[[sources.ideas]]
+idea = "Each recorded answer keeps what would change it. When a premise changes, the affected decisions are reopened and revalidated instead of being kept as if their basis still held."
+serves = "Prevents planning on decisions whose basis no longer holds."
+where = ["SKILL.md#ground-the-destination", "SKILL.md#keep-the-map-current"]
+shapes = "Makes Keep the map current record what would change each answer and reopen affected decisions on a premise change, and makes a resumed session compare recorded premises with current evidence before it chooses the next question."
+
+[[sources.ideas]]
+idea = "A consequential claim is tested through the smallest relevant evidence surface. The actual observations, inputs and limits are recorded, and each claim is marked supported, contradicted or inconclusive; an inconclusive result is not counted as support."
+serves = "Prevents a plausible design, a proposed experiment or mixed evidence from passing as a tested result."
+where = [
+  "SKILL.md#resolve-what-matters-next",
+  "assets/decision-map.md#decision-record-id-and-question",
+]
+shapes = "Adds a recording rule after the method list for observations, inputs, limits and the three outcomes, and an investigation line in the decision record for the deciding observation, the actual result and its limits."
+
+[[sources.declined]]
+feature = "Implementation plans, ticket splitting and plan-review scorecards."
+reason = "The skill reaches a direction before execution planning; the planning skill owns the implementation plan and the task-breakdown skill owns delivery units."
+
+[[sources.declined]]
+feature = "A word budget per decision, a preview for every option and a measured cost for each option."
+reason = "Previews appear where they clarify a decision; claims are measured where practical, and estimates are labelled."
+
+[[sources.declined]]
+feature = "A decision log written into a plan file, and an offer to write decision context into AGENTS.md, a roadmap or the agent's memory."
+reason = "Durable context stays in the existing authoritative map; the skill does not create another plan or propose memory writes on its own."
+
+[[sources.reviews]]
+from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = [
+  "skills/planning/SKILL.md: Adds a Docs item naming the current docs a change makes wrong. Implementation-plan content that the declined implementation plans, ticket splitting and plan-review scorecards exclude; it is adopted in planning.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 012e6e5208f5..872bc83bdb6d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "pstack-wayfinder"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "df581122cde17e6e27686b5a448bde23e4ad4318"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = [
+  "pstack/skills/figure-it-out/SKILL.md",
+  "pstack/skills/principle-exhaust-the-design-space/SKILL.md",
+  "pstack/skills/principle-prove-it-works/SKILL.md",
+  "pstack/LICENSE",
+]
+paths = [
+  "pstack/skills/figure-it-out/SKILL.md",
+  "pstack/skills/principle-exhaust-the-design-space/SKILL.md",
+  "pstack/skills/principle-prove-it-works/SKILL.md",
+  "pstack/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Rigor scales with the impact of being wrong and how reversible the decision is: a one-way or high-impact choice gets deeper investigation, and a cheap, reversible one gets less."
+serves = "Spends investigation where a wrong direction would cost the most."
+where = ["SKILL.md#resolve-what-matters-next"]
+shapes = "Ties the depth of each investigation to uncertainty and reversibility in the opening of Resolve what matters next, and limits what cheap reversal can justify in the recommendation paragraph."
+adapted = "Cheap reversal can justify a bounded experiment, but it never makes an option that violates a hard constraint acceptable."
+
+[[sources.ideas]]
+idea = "When a choice is genuinely open, the options compared differ in structure, not as variants of one shape. When constraints leave one viable path, the skill states it and why instead of exploring further."
+serves = "Prevents settling on the first shape when a materially different one could serve the outcome better."
+where = ["SKILL.md#resolve-what-matters-next"]
+shapes = "Requires materially different options in the comparison paragraph and adds a rule to state a single viable path and its reason instead of inventing alternatives."
+adapted = "There is no required number of options or prototypes."
+
+[[sources.ideas]]
+idea = "Before an experiment, the skill states the observation that would support or reject the option, runs the smallest experiment that distinguishes it, and judges the actual result against the original question. A finished subtask or a report of success does not answer the question."
+serves = "Prevents a completion report or a passing proxy from standing in for evidence."
+where = ["SKILL.md#resolve-what-matters-next"]
+shapes = "Makes the Behavior or feasibility method define the deciding observation before the experiment, and adds a rule that specialist results are assessed against the original question."
+adapted = "An experiment or prototype runs only when it resolves a decision and is authorized, and prototype code stays experimental unless integration is authorized."
+
+[[sources.declined]]
+feature = "The full figure-it-out pipeline: a designed execution workflow, the implementation loop, delivery of landed units, a committed audit log and judge review of delegated work."
+reason = "This skill stops at a direction ready for planning; execution, delivery and review belong to later workflows."
+
+[[sources.declined]]
+feature = "Building two or three competing prototypes before committing to a novel design."
+reason = "A prototype runs only when it resolves a decision and is authorized; the number of options follows the decision."
+
+[[sources.declined]]
+feature = "A separate decision-trail log through the show-me-your-work skill, and fan-out to workers on their own worktrees or branches."
+reason = "The existing decision map is the audit trail; delegation and external writes follow the active task's permissions."
+
+[[sources.reviews]]
+from_commit = "df581122cde17e6e27686b5a448bde23e4ad4318"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/figure-it-out/SKILL.md: Adds per-subagent effort and speed selection and trims wording. Donor model tiers.",
+  "pstack/skills/principle-exhaust-the-design-space/SKILL.md: Trimmed to its description. Cosmetic; the cases where it does not apply are covered at wayfinder/SKILL.md:76-79 and :91.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff df581122cde1..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[dependencies]]
+kind = "local"
+name = "prototype"
+required = false
+role = "Investigate uncertain UI, state, or behavioral questions through an authorized experiment."
+
+[[dependencies]]
+kind = "local"
+name = "design-code-structure"
+required = false
+role = "Investigate data models, interfaces, and module boundaries that affect the direction."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested skill authoring or source maintenance."

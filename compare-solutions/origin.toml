@@ -1,0 +1,176 @@
+format_version = 2
+skill = "compare-solutions"
+created = "2026-10-03"
+approach = "derive"
+goal = "When alternative approaches or independent investigations justify the extra work, run independent complete attempts at one task, compare them, choose a base, incorporate useful parts and verify the result. Success is the requested artifact, checked against the acceptance requirements, with a synthesis note that shows what actually ran, the chosen base, the grafts and the remaining limits."
+
+[[invariants]]
+rule = "A comparison counts only attempts that actually ran. The record keeps real task IDs, models, status and artifact paths, and child work is settled or cancelled before the run closes. Prepared prompts or several answers written by the coordinator are not an executed comparison."
+where = ["SKILL.md#frame", "SKILL.md#fan-out", "SKILL.md#verify-and-deliver"]
+
+[[invariants]]
+rule = "The report claims no more comparison than ran. With one usable candidate, the run verifies it and labels it a single attempt with no winner, judge or graft; with none, it reports the blocker. An unavailable judge is disclosed as \"no independent judge\", a request that requires that judge stays incomplete, and any unmet explicit requirement is disclosed."
+where = ["SKILL.md#fan-out", "SKILL.md#cross-judge-and-pick"]
+
+[[invariants]]
+rule = "A selected specialist keeps its procedure and output contract. A strict report grammar stays intact, with provenance and scores in a separate synthesis note, and each candidate of the review-code-changes skill remains one complete reviewer with its facet delegation disabled."
+where = [
+  "references/specialists.md#specialist-candidates",
+  "references/specialists.md#review-code-changes",
+  "SKILL.md#fan-out",
+]
+
+[[invariants]]
+rule = "The analyze-change-effects and review-code-changes skills stay distinct procedures, and no candidate or judge invokes the compare-solutions skill or starts further attempts."
+where = ["SKILL.md#fan-out", "references/specialists.md#other-supporting-skills"]
+
+[[invariants]]
+rule = "A comparison grants no extra repair, publication or deployment authority, and it requires no installation or extra prose-cleanup skill."
+where = ["SKILL.md#verify-and-deliver"]
+
+[[sources]]
+id = "pstack-arena"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = [
+  "pstack/skills/arena/SKILL.md",
+  "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md",
+  "pstack/skills/principle-redesign-from-first-principles/SKILL.md",
+  "pstack/skills/principle-prove-it-works/SKILL.md",
+  "pstack/skills/principle-laziness-protocol/SKILL.md",
+  "pstack/LICENSE",
+]
+paths = [
+  "pstack/skills/arena/SKILL.md",
+  "pstack/skills/principle-separate-before-serializing-shared-state/SKILL.md",
+  "pstack/skills/principle-redesign-from-first-principles/SKILL.md",
+  "pstack/skills/principle-prove-it-works/SKILL.md",
+  "pstack/skills/principle-laziness-protocol/SKILL.md",
+  "pstack/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "A comparison runs as one cycle: frame a shared contract, fan out independent complete attempts, have an independent judge assess them while the coordinator reads each one, pick the strongest as the base, graft useful parts from the others, and verify the integrated result."
+serves = "Avoids locking in the shape of a single attempt when alternatives could produce a better result."
+where = [
+  "SKILL.md#frame",
+  "SKILL.md#fan-out",
+  "SKILL.md#cross-judge-and-pick",
+  "SKILL.md#graft",
+  "SKILL.md#verify-and-deliver",
+]
+shapes = "Sets the skill's five sections and their order; the judge starts only after candidates stop writing."
+adapted = "Candidates and the judge run through the host's delegation mechanism and available model catalog, and requested models, effort, count and budget are honored. Without a request, the run starts with two candidates; different model families broaden the comparison but are not required."
+
+[[sources.ideas]]
+idea = "Before seeing candidates, the coordinator writes a small rubric of observable criteria that distinguish a good result for this task, and the judge and coordinator score candidates criterion by criterion against it."
+serves = "Makes the pick depend on what matters for this task instead of a general impression."
+where = ["SKILL.md#frame", "SKILL.md#cross-judge-and-pick"]
+shapes = "Makes the rubric part of framing, before fan-out, and gives the judge the rubric with neutral candidate labels."
+adapted = "Every candidate receives every acceptance requirement; a private rubric must not hide a requirement, and the coordinator's comparison notes and emerging preferences stay out of candidate prompts. Hard constraints trace to the caller's requirements or applicable rules; desirable qualities stay scored preferences, and behavior outside the stated input domain is a documented tradeoff, not a contract failure."
+
+[[sources.ideas]]
+idea = "The coordinator reads every candidate end to end before picking, and it records the chosen base, the source candidate of each graft and the reasons for significant rejections."
+serves = "Lets a reader check why the result looks as it does and which attempt each part came from."
+where = ["SKILL.md#cross-judge-and-pick", "SKILL.md#graft", "SKILL.md#verify-and-deliver"]
+shapes = "Opens the pick with a full reading of each candidate, closes the graft step with provenance records, and makes the synthesis note carry the base, grafts and rejections."
+
+[[sources.ideas]]
+idea = "Before concurrent work, each candidate gets its own mutable target instead of sharing one, and only the coordinator writes the integrated target."
+serves = "Prevents candidates from overwriting each other or the integrated result."
+where = ["SKILL.md#frame", "SKILL.md#fan-out"]
+shapes = "Adds an output-location step to framing that arranges isolation before any mutation, and makes settling all writers a condition for comparison and integration."
+adapted = "Isolation follows the host's scratch, workspace and ownership rules: isolated copies, patches against the snapshot, or workspaces provisioned through the authorized lifecycle. A worktree is one option, not a requirement, and separate filenames do not isolate a shared checkout, database, cache or service."
+
+[[sources.ideas]]
+idea = "Among suitable bases, prefer coherent boundaries and the smaller sufficient API over extra machinery, and fold each graft in so the result stays coherent instead of pasting parts together."
+serves = "Produces a result a maintainer can extend, not a patchwork of incompatible attempts."
+where = ["SKILL.md#cross-judge-and-pick", "SKILL.md#graft"]
+shapes = "Ends the pick with the base preference, and makes the graft step reject incompatible architectures, contradictory claims and duplicate findings."
+adapted = "Only the parts of the donor's principle skills that decide a base or a graft are stated inline."
+
+[[sources.ideas]]
+idea = "The integrated artifact itself is verified against the acceptance requirements, because candidate test results do not show that grafts work together."
+serves = "Prevents delivering a synthesis whose combined parts were never checked."
+where = ["SKILL.md#verify-and-deliver"]
+shapes = "Makes verification of the integrated artifact the last step before delivery."
+adapted = "An observed integration defect is fixed and the affected checks are repeated; the whole comparison runs again only on evidence that the framing failed."
+
+[[sources.declined]]
+feature = "Fixed model slugs and runner defaults read from a pstack-models rule file, and Cursor-only skill metadata."
+reason = "The skill uses the host's delegation mechanism and available model catalog, does not guess model identifiers, and reports what actually ran."
+
+[[sources.declined]]
+feature = "Opening a todo list with one entry per phase before launching anything."
+reason = "The phases are the skill's own sections; the skill forces no task-manager call."
+
+[[sources.declined]]
+feature = "Reframing and rerunning the full contest whenever candidates diverge widely or verification finds a problem the comparison missed."
+reason = "Retries and reframing are bounded: a failed seat is retried at most once when its cause is recoverable, and reframing happens only for a material ambiguity, with at most one new round within the authorized budget."
+
+[[sources.declined]]
+feature = "Treating candidate convergence as a signal to ship the consensus shape, and judge agreement as confirmation of the pick."
+reason = "Agreement does not establish correctness; material claims are resolved against sources or execution, a supported minority finding stays, and unresolved premises are preserved."
+
+[[sources.declined]]
+feature = "The donor principle skills in full: the laziness protocol's deletion and call-depth rules, the propagation rules of the redesign-from-first-principles principle, and the scripted-check rules of the prove-it-works principle."
+reason = "Only the principles that decide a base, a graft or verification apply to a comparison."
+
+[[sources.declined]]
+feature = "Committing the verification trail through the show-me-your-work skill."
+reason = "Verification evidence goes into the synthesis note, and a comparison grants no publication authority."
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/arena/SKILL.md: The default runners and cross-judge pool drop the GPT model and become Opus xhigh plus Grok, and subagent effort selection is added. The declined fixed model slugs and rule-file runner defaults exclude this.",
+  "pstack/skills/arena/SKILL.md: Phases A to F and the synthesis-note contents are condensed, folding the alternatives-in-rationale and cross-judge-verdict requirements into fewer sentences. No new behavior; local coverage is compare-solutions/SKILL.md:56-58 and :126-132.",
+  "pstack/skills/arena/SKILL.md: Ship the consensus shape on convergence and reframe on wild divergence, now reworded. Unchanged in substance, and it conflicts with the bounded reframing at compare-solutions/SKILL.md:112-115 and the rule that consensus does not establish correctness at compare-solutions/SKILL.md:107-110.",
+  "pstack/skills/principle-laziness-protocol/SKILL.md: The prefer-deletion, flat call hierarchy, threading and small-leaks bullets are deleted. compare-solutions declines the full donor principle rules, including the deletion rules, so the removal changes nothing locally.",
+  "pstack/skills/principle-redesign-from-first-principles/SKILL.md: The description is shortened and the body now says foundational assumption. Wording only.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested source maintenance and skill authoring."
+
+[[dependencies]]
+kind = "local"
+name = "analyze-change-effects"
+required = false
+role = "Required only when selected as the candidate's indirect-impact investigation procedure."
+
+[[dependencies]]
+kind = "local"
+name = "review-code-changes"
+required = false
+role = "Required only when selected as the candidate's local audit procedure; its installed protocol and validator remain authoritative."
+resolution = "Installed skill catalog; not bundled in this repository."

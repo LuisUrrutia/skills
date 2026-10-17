@@ -1,0 +1,247 @@
+format_version = 2
+skill = "commit"
+created = "2026-10-03"
+approach = "derive"
+goal = "Turn working-tree changes into verified Conventional Commits, one atomic boundary at a time, with messages grounded in the verified index and the supplied context. A run ends with each boundary committed, amended, proposed, blocked or refused with evidence, unrelated work preserved in its original staged and unstaged state, and any push limited to the authorized scope."
+
+[[invariants]]
+rule = "Each boundary runs the narrowest check that covers it, or the report states why none exists. A commit is reported only after its HEAD, parent, message, committed boundary and residual state are verified."
+reason = "Branch names, staged state, validation results, commit success and earlier claims are untrusted until Git verifies them."
+where = ["SKILL.md#commit", "SKILL.md#workflow", "SKILL.md#output"]
+
+[[invariants]]
+rule = "A behavior change stays in the same commit as its regression tests and the schema or generated output it requires."
+reason = "Together they establish one working change that can be understood and checked at its own revision."
+where = ["SKILL.md#workflow"]
+
+[[invariants]]
+rule = "The skill uses the existing checkout and branch. Committing never starts PR work: the `pr` skill owns it, and the `pr` or `stacked-pr` skill owns a lease push after an authorized rebase."
+reason = "Routine commit publication does not rewrite remote history."
+where = ["SKILL.md#commit", "SKILL.md#workflow", "SKILL.md#output"]
+
+[[sources]]
+id = "addy-git"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+baseline_paths = ["skills/git-workflow-and-versioning/SKILL.md", "LICENSE"]
+paths = ["skills/git-workflow-and-versioning/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "A commit boundary follows independently understandable intent and reversibility. Mechanical cleanup stays separate from behavior when each part remains coherent, and dependent commits are ordered so that each one can be understood and checked at its own revision."
+serves = "Keeps history reviewable and revertable one purpose at a time, without broken intermediate commits."
+where = ["SKILL.md#workflow"]
+shapes = "Step 1 chooses the boundary by intent and reversibility, separates cleanup from behavior and orders dependent commits."
+adapted = "The donor puts each type of change, such as tests or a refactor, in its own commit. Locally, a behavior stays with its regression tests and required schema or generated output when together they form one working change."
+
+[[sources.ideas]]
+idea = "A commit message explains a consequential reason. A body is added for breaking changes, migrations, non-obvious fixes, tradeoffs or multi-file behavior whose relation the subject cannot hold, and it states the reason before the change."
+serves = "Lets a future reader understand a decision that the diff alone does not show."
+where = ["SKILL.md#workflow"]
+shapes = "The body rules in step 5 make the body optional for an obvious small commit and put the reason first when one is needed."
+adapted = "The reason must come from the user's request, a linked issue or supplied project context; recent commits supply only format and tone. The subject names the concrete result that becomes true, not the act of editing."
+
+[[sources.declined]]
+feature = "Commit size targets, such as about 100 lines per commit and a split above about 1000 lines."
+reason = "Boundaries follow intent and reversibility; the skill avoids arbitrary file or line quotas."
+
+[[sources.declined]]
+feature = "Trunk-based development with short-lived feature branches as the required branching model."
+reason = "The skill commits on the existing branch. Committing on `main` or `master` is a condition to resolve unless the user explicitly wants to commit there."
+
+[[sources.declined]]
+feature = "Runtime-specific tooling: npm check commands before every commit, and a release flow that tags versions and writes a changelog."
+reason = "Validation runs the narrowest check that covers the staged boundary, and the skill never publishes tags without authorization."
+
+[[sources.declined]]
+feature = "Installing commit hooks with husky and lint-staged."
+reason = "The skill works with the hooks that the repository already runs, through its hook decision table, and never bypasses them."
+
+[[sources.declined]]
+feature = "Recovering from a failed change with `git reset --hard HEAD`."
+reason = "Excluded and unrelated work must stay recoverable, and a destructive Git action outside the task is a condition to resolve with the user."
+
+[[sources.reviews]]
+from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 1401c8b8030e..aeac41d4d005 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "compound-commit"
+author = "Every"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+baseline_paths = ["skills/ce-commit/SKILL.md", "LICENSE"]
+paths = ["skills/ce-commit/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "A commit contains only its selected intent. Every change outside that boundary stays uncommitted and keeps its original state, including entries that were already staged before the run."
+serves = "Prevents unrelated or user-staged work from riding into a commit or being lost."
+where = ["SKILL.md#resolve-boundaries-before-writing", "SKILL.md#workflow"]
+shapes = "Steps 2 and 3 account for every hunk, classify the rest as preserved work, and save and restore unrelated staged entries around the commit."
+adapted = "The donor stages whole files and commits a named path list so that other index entries stay out. Locally, hunks are patch-staged and the verified index is committed, because a path list after hunk staging can commit unstaged content from those paths."
+
+[[sources.ideas]]
+idea = "Publishing needs its own permission. A commit request alone does not authorize a push, and a push happens only within the scope resolved at entry, after the commit is verified."
+serves = "Prevents unrequested publication of local work."
+where = ["SKILL.md#commit", "SKILL.md#modes", "SKILL.md#workflow"]
+shapes = "The opening resolves commit and push permission; commit-and-push mode and step 7 publish only within that scope."
+adapted = "The donor never pushes. Locally, a push is allowed when the request, a standing user instruction or an authorized caller such as the `pr` skill grants it."
+
+[[sources.declined]]
+feature = "Committing with a trailing path list (`git commit -F <file> -- <paths>`)."
+reason = "After hunk staging, a path list can commit unstaged content from those paths; the skill commits the verified index."
+
+[[sources.declined]]
+feature = "Creating a feature branch without asking when the checkout is on the default branch or a detached HEAD."
+reason = "The skill uses the existing checkout. Committing on `main` or `master` is a condition to resolve unless the user explicitly wants to commit there."
+
+[[sources.declined]]
+feature = "File-level splitting capped at two or three commits, with no hunk staging."
+reason = "The skill handles every clear boundary in sequence and patch-stages hunks when the boundary is clear."
+
+[[sources.reviews]]
+from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 9af474a70e7f..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "cursor-reviewable-pr"
+author = "Cursor Team Kit"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = [
+  "cursor-team-kit/skills/new-branch-and-pr/SKILL.md",
+  "cursor-team-kit/skills/make-pr-easy-to-review/SKILL.md",
+  "cursor-team-kit/LICENSE",
+]
+paths = [
+  "cursor-team-kit/skills/new-branch-and-pr/SKILL.md",
+  "cursor-team-kit/skills/make-pr-easy-to-review/SKILL.md",
+  "cursor-team-kit/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Commit history is judged by the effort a reader needs to understand it. Each commit has one coherent purpose and a reviewable size, and its subject names the concrete result, so a reader who scans the log understands why the change matters without opening the diff."
+serves = "Makes the history quick to review and to search."
+where = ["SKILL.md#workflow"]
+shapes = "Step 1 confirms one coherent purpose and reviewable size before staging; step 5 rejects a subject that could describe several unrelated diffs."
+
+[[sources.ideas]]
+idea = "A reviewer needs to know how a change was verified. Each boundary is validated before the commit, and the command and its result are reported with the commit."
+serves = "Lets a reader trust the commit without repeating the check, and shows when no check ran."
+where = ["SKILL.md#workflow", "SKILL.md#output"]
+shapes = "Step 4 runs the narrowest covering check or records why none exists; both output forms carry a Validation field."
+adapted = "The donor writes verification and risk notes into the PR description. Locally, they stay in the assistant's report and out of the commit message, and PR descriptions belong to the `pr` skill."
+
+[[sources.declined]]
+feature = "Creating a fresh branch from the latest `main` and opening a PR as part of the commit workflow."
+reason = "The skill uses the existing checkout, and the `pr` skill owns PR work as a separate phase."
+
+[[sources.declined]]
+feature = "Grouping commits by layer in a fixed order, with tests in a separate final commit."
+reason = "Boundaries follow intent, and changes are never split merely by file type or by production versus test code."
+
+[[sources.declined]]
+feature = "Rewriting branch history and force-pushing to tidy commits for review."
+reason = "A rebase or history rewrite belongs to its authorized branch workflow, not routine commit preparation."
+
+[[sources.declined]]
+feature = "Assuming `origin` as the remote and `main` as the base branch."
+reason = "The push destination comes from the request or verified branch configuration; neither `origin` nor an upstream proves the intended repository."
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 23e4138daa01..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[local_snapshots]]
+id = "commit-SKILL.md"
+kind = "installed-file"
+role = "ideas"
+path = "~/.agents/skills/commit/SKILL.md"
+sha256 = "2166778b493372dd8da0c5d011e58e0825b81a5ca9c0031cfd28e734cd27d562"
+local_repository_commit = "298ca54897912921b7a052d5dd1e6f327f3a3ff1"
+repository_commit_status = "Checkout content matched the installed snapshot at task start; the hash identifies the source."
+update_policy = "Compare installed content by hash; no remote update feed is inferred."
+
+[[local_snapshots.ideas]]
+idea = "A run handles one atomic boundary at a time through a fixed sequence: choose the boundary, inspect its diffs, stage it, validate it, write the message, then commit or propose, and publish only when authorized. Each boundary ends in a terminal state, and the next boundary starts from a fresh baseline."
+serves = "Keeps separate intents from merging into one commit and makes each boundary's outcome explicit."
+where = ["SKILL.md#modes", "SKILL.md#workflow"]
+shapes = "The seven numbered steps run in order for each boundary and each ends on a completion condition; split mode repeats them per boundary, and a terminal state stops further changes to a finished boundary."
+
+[[local_snapshots.ideas]]
+idea = "Git state and earlier claims are evidence to verify, not facts. Branch names, staged state, validation results and earlier claims count only after fresh Git checks, and every commit attempt is compared with a recorded baseline of HEAD, status, message and staged diff before a terminal state is reported; hook rewrites, retries and amendments follow fixed rules."
+serves = "Prevents reporting a commit, amendment or push that Git does not show."
+where = ["SKILL.md#commit", "SKILL.md#workflow", "SKILL.md#output"]
+shapes = "The opening treats unverified state as untrusted; step 6 records the baseline before each attempt and resolves the result through the hook decision table and the safe amend conditions; the output reports only verified terminal states."
+
+[[local_snapshots.ideas]]
+idea = "Commit and push permission come from the user's authority. A commit request alone does not authorize a push, PR work is a separate phase owned by the `pr` skill, and secrets, mixed concerns, `main` or `master`, and destructive or unrequested actions are conditions to resolve before staging."
+serves = "Keeps the run's side effects inside the authorization the user gave."
+where = [
+  "SKILL.md#commit",
+  "SKILL.md#modes",
+  "SKILL.md#resolve-boundaries-before-writing",
+  "SKILL.md#output",
+]
+shapes = "The modes and the boundary conditions decide what the run may do before anything is staged; the closing paragraph hands PR work to the `pr` skill as a separate phase."
+adapted = "The snapshot pushed only on an explicit request in the same message and stopped to ask at every listed condition. A later local change made the skill honor existing publication authorization: it also accepts a standing user instruction or an authorized caller such as the `pr` or `pr-followup` skill, applies existing authorization first, and asks only about a material decision that the task and repository leave unresolved."
+
+[[dependencies]]
+kind = "local"
+name = "communicate-clearly"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "pr"
+required = false
+role = "Required for its routed operation when reached; ordinary use loads only relevant owners. Source maintenance uses agent-instructions."
+
+[[dependencies]]
+kind = "local"
+name = "stacked-pr"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Conditional support; preserve the called skill scope and existing authorization."

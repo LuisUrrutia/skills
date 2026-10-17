@@ -1,0 +1,149 @@
+format_version = 2
+skill = "explain-code"
+created = "2026-10-03"
+approach = "derive"
+goal = "Explain how existing code works or which component owns a behavior, from the actual source, for a reader who wants to get oriented, understand a mechanism or find an owner. Success is an answer at the requested depth that follows the real path, puts source locations beside its claims, and states what remains unknown and which evidence would resolve it."
+
+[[invariants]]
+rule = "Upstream skills supply ideas only. The skill is used directly, and ordinary explanation needs no coordinator, upstream skill or other skill."
+reason = "The record began as a standalone derivation of source tracing with limited presentation guidance, in which upstream skills are not installed or invoked runtime dependencies."
+where = ["SKILL.md#explain-code", "SKILL.md#source-maintenance"]
+
+[[invariants]]
+rule = "The skill explains current mechanics and ownership. Guided teaching and exercises belong to the teach skill and study plans to the learning-plan skill; they are used when requested, not for every explanation."
+where = ["SKILL.md#make-the-explanation-usable"]
+
+[[invariants]]
+rule = "Neighboring tasks keep their owners: diagnosis of an observed failure belongs to the debug skill, historical decisions to the explain-decisions skill, and diff audits, activity reports and implementation to their own tasks. For a requested branch or commit, the skill explains the before and after mechanism from the resolved revision."
+where = ["SKILL.md#establish-the-question"]
+
+[[invariants]]
+rule = "What the code establishes, what a test or execution actually demonstrated, and what is inferred stay separate. Reading a test does not mean it passed, and read-only inspection does not establish production configuration, external guarantees or runtime success."
+where = ["SKILL.md#trace-the-mechanism"]
+
+[[invariants]]
+rule = "A guarantee stays at the boundary the evidence covers: an internal status or a provider's acknowledgement does not establish later delivery or user-visible success, and the explanation names the condition that a later worker or external system must meet."
+where = ["SKILL.md#trace-the-mechanism"]
+
+[[invariants]]
+rule = "Source, tests, configuration and remote state stay unchanged. A requested explanatory artifact is written only at its agreed destination, and answering a question creates no lesson files, learning records or other persistent infrastructure."
+where = ["SKILL.md#trace-the-mechanism"]
+
+[[sources]]
+id = "pstack-how-and-teach"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = [
+  "pstack/skills/how/SKILL.md",
+  "pstack/skills/how/references/explorer-prompt.md",
+  "pstack/skills/how/references/explainer-prompt.md",
+  "pstack/skills/teach/SKILL.md",
+  "pstack/LICENSE",
+]
+paths = [
+  "pstack/skills/how/SKILL.md",
+  "pstack/skills/how/references/explorer-prompt.md",
+  "pstack/skills/how/references/explainer-prompt.md",
+  "pstack/skills/teach/SKILL.md",
+  "pstack/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "An explanation comes from the actual implementation: start at the entry point and follow the calls, data transformations, state changes and boundaries until the requested behavior is accounted for. Names or one isolated function do not show which path is active; callers, configuration and tests decide that."
+serves = "Prevents explanations guessed from names or from code that never runs on the requested path."
+where = ["SKILL.md#trace-the-mechanism"]
+shapes = "Makes tracing from the entry point the first step of the section and sets the evidence needed before a path counts as active."
+
+[[sources.ideas]]
+idea = "Exploration scales with the question: a narrow question needs one pass, and a cross-component question splits into a few angles such as request handling, state ownership and background work. Findings are reconciled against the source, and a connection that cannot be traced is named as a gap instead of guessed."
+serves = "Covers broad questions without padding narrow ones, and keeps conflicting or missing evidence visible."
+where = ["SKILL.md#trace-the-mechanism"]
+shapes = "Adds the split into exploration angles after the basic trace, and ends evidence gathering with reconciliation against the source and named gaps."
+adapted = "The skill investigates directly. Parallel exploration is optional, needs host and task authorization, and keeps the same scope and read-only authority; the donor spawns explorer and explainer subagents."
+
+[[sources.ideas]]
+idea = "The explanation gives the reader a working mental model: it answers first, follows a representative input or user action through the real components, puts source locations beside the claims they support, and uses a diagram when components or data stages relate in a way prose does not make clear."
+serves = "The reader can follow the mechanism and find the code that implements each part."
+where = ["SKILL.md#make-the-explanation-usable"]
+shapes = "Orders the section as answer first, then the walk through a representative input, then supporting visuals and source locations."
+adapted = "Visual aids are chosen by usefulness and kept consistent with the real path, illustrative inputs are labeled, and the format scales to the question with no fixed sections."
+
+[[sources.ideas]]
+idea = "Presentation follows the reader: their purpose and question set the technical depth, needed terms are defined in place, and the explanation walks through what happens instead of listing functions. A list of functions is a navigation aid, not an explanation."
+serves = "Makes the explanation usable for the reader in front of it instead of a generic audience."
+where = ["SKILL.md#establish-the-question", "SKILL.md#make-the-explanation-usable"]
+shapes = "Moves the depth decision into establishing the question, and replaces function inventories with an in-place walk through the flow."
+adapted = "Only these presentation criteria come from the teach donor. The requested depth and length set the level, not a fixed senior-engineer audience or a short first answer that waits for follow-up."
+
+[[sources.ideas]]
+idea = "Making an explanation easier to read never changes its confidence or attribution. A documented reason keeps its source and uncertainty, and the component's present function stays separate from its authors' historical reasons."
+serves = "Prevents simplification from turning a hedged or attributed finding into an unsupported claim."
+where = ["SKILL.md#make-the-explanation-usable"]
+shapes = "Adds the paragraph that separates present function from historical reasons, keeps attribution and uncertainty, and labels placement recommendations as advice."
+
+[[sources.declined]]
+feature = "Required explorer and explainer subagents for every question."
+reason = "The skill investigates directly; parallel exploration is optional and needs host and task authorization."
+
+[[sources.declined]]
+feature = "Cursor-only skill metadata such as disable-model-invocation, the Task API and a model table that sets each subagent's model."
+reason = "The skill activates through a short description and normal host discovery, and it does not require particular models or tools."
+
+[[sources.declined]]
+feature = "Writing every explanation for a senior engineer onboarding onto the subsystem."
+reason = "The reader's question and purpose set the technical depth."
+
+[[sources.declined]]
+feature = "A first answer of one or two sentences that stops until the reader asks for more."
+reason = "The answer matches the depth and length requested in the current response."
+
+[[sources.declined]]
+feature = "Running a separate why skill alongside the explanation to find the reasons behind the code."
+reason = "A relevant documented reason is included with its attribution; the skill does not need to run the explain-decisions skill or an exhaustive historical sweep."
+
+[[sources.declined]]
+feature = "A series of diagrams that each add one part for any flow with three or more moving parts, and generated whiteboard-style images for spatial ideas."
+reason = "A diagram, example or excerpt is used only when it clarifies a relationship."
+
+[[sources.declined]]
+feature = "Writing every response through the unslop skill in plain spoken English."
+reason = "Ordinary explanation requires no other skill, and the skill sets no output language."
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/how/SKILL.md: Steps are renumbered and merged, model defaults change and the poteto-mode effort rule is added. Donor orchestration excluded by the declined Task API and model table.",
+  "pstack/skills/how/references/explorer-prompt.md: The exploration instructions (entry point, flow, abstractions, boundaries, say what you could not trace) are deleted. An upstream removal; the local skill keeps them at explain-code/SKILL.md:30-33 and :43-44.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested source maintenance and skill authoring; ordinary explanation has no skill dependency."

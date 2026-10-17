@@ -17,7 +17,7 @@ assert len(frontmatter) == 3 and not frontmatter[0].strip()
 assert re.search(r'^name: pr-review-followup$', frontmatter[1], re.M)
 assert re.search(r'^description: \S.+$', frontmatter[1], re.M)
 assert 'allow_implicit_invocation: false' in (skill / 'agents/openai.yaml').read_text()
-with (skill / 'origin.txt').open('rb') as source:
+with (skill / 'origin.toml').open('rb') as source:
     dependencies = tomllib.load(source)['dependencies']
 assert {d['name'] for d in dependencies if d['required']} == {'pr-review', 'comment-style'}
 for path in skill.rglob('*'):

@@ -1,0 +1,567 @@
+format_version = 2
+skill = "verify"
+created = "2026-10-03"
+approach = "derive"
+goal = "Establish whether a software change or completion claim holds by running the checks that can support it against the current state, including real user paths through the project's own verification recipe for application behavior. Success is a report whose claims each rest on current execution evidence, with failures and skipped or blocked checks named, and no completion claimed beyond that evidence."
+
+[[invariants]]
+rule = "This skill owns scope, selection and whether the evidence supports a claim. The project-local verify-<app> skill owns launch, doctor, driving, evidence capture and cleanup, and the verification-authoring skill owns creating and maintaining that recipe."
+reason = "The record began as a common evidence and selection entrypoint over project-local pstack-style verification recipes."
+where = [
+  "SKILL.md#verify",
+  "SKILL.md#match-scope-to-the-claim",
+  "references/browser-evidence.md#browser-evidence",
+]
+
+[[invariants]]
+rule = "Verification grants no new authority. A verification-only task reports failures without repairing product code, adding tests or weakening expectations. Product repair, dependency or tool installation, production load, commits, PRs, scheduling and learned-rule publication follow the active caller and repository rules."
+where = [
+  "SKILL.md#resolve-failures-within-authority",
+  "SKILL.md#deliver-evidence-that-matches-the-claim",
+  "references/performance-evidence.md#make-the-comparison-meaningful",
+]
+
+[[invariants]]
+rule = "A required check that is blocked, skipped, inconclusive or unrun leaves the claim incomplete, even when another check of the same path passed. An unreachable route counts as blocked coverage, reported with the attempted route and the concrete missing prerequisite, never as a pass."
+where = ["SKILL.md#deliver-evidence-that-matches-the-claim"]
+
+[[invariants]]
+rule = "Performance evidence criteria live in a reference that this skill reads only for performance claims; ordinary functional verification needs no benchmark. When the debug or prototype skill supplies a claim, that skill keeps the measurement, diagnosis or experiment and receives the verdict back without a recursive handoff."
+where = [
+  "SKILL.md#match-scope-to-the-claim",
+  "references/performance-evidence.md#performance-evidence",
+  "references/performance-evidence.md#report-and-return",
+]
+
+[[invariants]]
+rule = "A supplied harness, benchmark or results packet can be assessed without a project recipe. Its functional checks still apply, and missing application coverage is reported separately."
+where = ["references/performance-evidence.md#performance-evidence"]
+
+[[sources]]
+id = "pstack-verification"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = [
+  "pstack/skills/create-verification-skill/SKILL.md",
+  "pstack/skills/maintain-verification-skill/SKILL.md",
+  "pstack/LICENSE",
+]
+paths = [
+  "pstack/skills/create-verification-skill/SKILL.md",
+  "pstack/skills/maintain-verification-skill/SKILL.md",
+  "pstack/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Application behavior is verified through a project-local verify-<app> recipe whose launch, doctor, drive, evidence and cleanup sections give the exact procedure for that app."
+serves = "Every run drives the app the same proven way instead of an improvised script."
+where = ["SKILL.md#verify", "SKILL.md#match-scope-to-the-claim"]
+shapes = "Splits ownership between this skill and the recipe in the opening paragraph, and adds a recipe-resolution step to scoping before any driving."
+adapted = "The recipe is resolved by registered name from the installed catalog or from skills the caller supplies, on any host. A supplied recipe guides execution without a global installation and is described as supplied context, not as an invoked skill."
+
+[[sources.ideas]]
+idea = "The project's feature map lists each user-facing feature with its source-grounded entry points. A change selects its affected mapped features and entry points, and a full-application request covers the whole map."
+serves = "Scope follows what users can actually reach instead of a convenient sample."
+where = ["SKILL.md#match-scope-to-the-claim"]
+shapes = "Makes the affected mapped features and entry points the unit of scope, and requires reading the map before driving."
+
+[[sources.ideas]]
+idea = "Proof drives the real user entry point, captures the action and the resulting state, and checks side effects through an independent observation. Internal setters, test-only endpoints or mocks of the claimed behavior cannot substitute, a dry-run is checked for what it actually does, and proof is kept apart from disposable state so it survives teardown."
+serves = "Prevents passing results that never exercised what a user does, and evidence lost in cleanup."
+where = ["SKILL.md#run-against-the-actual-state"]
+shapes = "Adds the paragraph that requires real entry points, action and result, and independent side-effect checks, and ends the cleanup paragraph with a check that proof survives teardown."
+
+[[sources.ideas]]
+idea = "Failures are classified from source and execution evidence as a product failure, recipe or harness drift, or an unavailable prerequisite. Doctor runs again after a failure or surprise, the instance is reset or relaunched when its state cannot be shown usable, and owned resources are cleaned up on every failed attempt and after the final run."
+serves = "Prevents blaming the product for harness faults, collecting green results from a corrupted instance, and leaving stray processes."
+where = ["SKILL.md#run-against-the-actual-state", "SKILL.md#resolve-failures-within-authority"]
+shapes = "Adds the doctor, reset and cleanup paragraph to the run section, and opens the failure section with the three-way classification."
+adapted = "This skill classifies and reports recipe drift but does not repair the recipe: recipe corrections go to the verification-authoring skill and requested diagnosis or repair to the debug skill. An unchanged retry needs a stated reason, and the original failed result stays visible."
+
+[[sources.declined]]
+feature = "A Cursor-specific recipe location under .cursor/skills/, and tmux or a fixed browser tool as the way to drive the app."
+reason = "The skill resolves the recipe by registered name on the current host and uses the host's supported tools."
+
+[[sources.reviews]]
+from_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
+to_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/performance-upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/create-verification-skill/SKILL.md: Launch readiness means a usable state, not a port answering. Recipe creation belongs to verification-authoring (the ownership invariant), where this is adopted, and verify/SKILL.md:54-55 and :72-74 already defer to the launch and doctor contract and relaunch when state is not usable.",
+  "pstack/skills/create-verification-skill/SKILL.md: A missing seed precondition reports a failure, and the journey is never weakened. Already covered by verify/SKILL.md:91-92 and :108-109.",
+  "pstack/skills/create-verification-skill/SKILL.md: A proof in a stand-in environment must list the setup the real target will not get. Adopted in verification-authoring, which owns recipe proof; a matching clause at verify/SKILL.md:100-104 would add text to a dense entrypoint for a gap that mainly affects provisioning or deploy claims.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "superpowers-verification"
+author = "Jesse Vincent / obra"
+repository = "https://github.com/obra/superpowers"
+remote = "git@github.com:obra/superpowers.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+reviewed_through = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
+baseline_paths = ["skills/verification-before-completion/SKILL.md", "LICENSE"]
+paths = ["skills/verification-before-completion/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "A completion claim is matched to the exact check that proves it and rests on that check's current output and exit status, read in full, including failures, skips, timeouts and missing prerequisites. An exit 0 with no relevant assertions or no discovered tests does not prove the requested behavior."
+serves = "Prevents reporting success that the executed checks do not show."
+where = [
+  "SKILL.md#run-against-the-actual-state",
+  "SKILL.md#deliver-evidence-that-matches-the-claim",
+]
+shapes = "Ties evidence to its revision or input, command, environment and outputs in the run section, and makes the final claim depend on current evidence for every required check."
+adapted = "Current means the evidence's inputs, code and environment are unchanged, not that it appeared in the current message; a relevant change triggers a rerun of the affected checks only. A partial pass is kept and reported with the passing subset, failures and blocked checks named; it never becomes \"tests pass\" or \"done\"."
+
+[[sources.ideas]]
+idea = "Earlier logs, another agent's summary, lint or typechecking, and confident reasoning do not replace current behavioral or build evidence. A delegated artifact is useful input, but its decisive claims are checked against the actual artifacts and execution."
+serves = "Prevents secondhand or inferred success from standing in for observed results."
+where = [
+  "SKILL.md#run-against-the-actual-state",
+  "SKILL.md#resolve-failures-within-authority",
+  "SKILL.md#deliver-evidence-that-matches-the-claim",
+]
+shapes = "Rules out old logs and other agents' summaries as current results, keeps missing execution access a blocker instead of a reason for source inspection, and makes the final check recheck a delegated artifact's decisive claims."
+
+[[sources.declined]]
+feature = "Requiring that the verification command ran in the current message before any claim."
+reason = "Evidence stays valid while its inputs and conditions are unchanged; a relevant edit, build, data reset or environment change requires a rerun, and a new chat message alone does not."
+
+[[sources.reviews]]
+from_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+to_commit = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 8ca22dba9a94..bb92a7774141 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "gsd-verification"
+author = "Lex Christopherson / gsd-build"
+repository = "https://github.com/gsd-build/gsd-2"
+remote = "git@github.com:gsd-build/gsd-2.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+reviewed_through = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
+baseline_paths = ["src/resources/skills/verify-before-complete/SKILL.md", "LICENSE"]
+paths = ["src/resources/skills/verify-before-complete/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "Before choosing checks, inventory what the claim covers: the original symptom, acceptance criteria, compilation or build, test coverage and user-visible behavior, plus the project's applicable checks."
+serves = "Each part of the claim gets a check that can prove it, instead of one check standing for all of them."
+where = ["SKILL.md#match-scope-to-the-claim"]
+shapes = "Opens the skill with an inventory step that separates the kinds of claim before any check is chosen."
+
+[[sources.ideas]]
+idea = "Some claims need one specific observation: a bug claim needs its original reproduction, and a build claim needs the project's real build when the project bundles; lint or typechecking is not that build."
+serves = "Prevents a fix or build from being declared good on evidence that never touched the failure or the shipped artifact."
+where = ["SKILL.md#run-against-the-actual-state"]
+shapes = "Adds the real-build and original-reproduction requirements to the paragraph on reading results."
+adapted = "A bug claim needs its original reproduction, not a new test suite, and a red/green cycle is never claimed from a test that only ran after the fix."
+
+[[sources.ideas]]
+idea = "The report names incomplete checks and remaining blockers instead of inferring that passing adjacent checks prove the requested behavior."
+serves = "Keeps gaps visible so a reader does not mistake neighboring evidence for proof."
+where = ["SKILL.md#deliver-evidence-that-matches-the-claim"]
+shapes = "Makes the report list skipped or blocked coverage and the next missing check, and states that a passing suite does not prove an unexercised user path."
+
+[[sources.declined]]
+feature = "GSD's slice framework and its fixed tools for marking progress, running commands and asserting browser state."
+reason = "The skill uses the project's checks and the host's tools."
+
+[[sources]]
+id = "addy-browser-verification"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
+reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+baseline_paths = ["skills/browser-testing-with-devtools/SKILL.md", "LICENSE"]
+paths = ["skills/browser-testing-with-devtools/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "A browser claim is checked in the real rendered UI, and the claim decides the evidence: rendering, DOM, console, network and persisted state for behavior, and relevant measurements and observed errors for accessibility or performance questions."
+serves = "Browser claims rest on runtime observation of the specific property claimed, not on reading code or a single screenshot."
+where = ["references/browser-evidence.md#drive-and-observe"]
+shapes = "Organizes browser checking as a table that pairs each claim or risk with its probe and deciding evidence, followed by limits on what screenshots and DOM inspection establish."
+
+[[sources.declined]]
+feature = "Installing and configuring the Chrome DevTools MCP server as a prerequisite for browser verification."
+reason = "The skill uses the host's supported browser tools and the project's existing harness."
+
+[[sources.declined]]
+feature = "Asking the user to confirm before modifying the page or triggering a side effect through script execution, such as a programmatic click."
+reason = "Normal in-scope interactions keep the caller's authorization; external or destructive effects still need the appropriate authority."
+
+[[sources.declined]]
+feature = "A universal standard of zero console errors and warnings, and fixed numeric accessibility and performance thresholds."
+reason = "Thresholds come from the task or project contract."
+
+[[sources.reviews]]
+from_commit = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
+to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames a06bc63b3f8b..aeac41d4d005 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "mblode-ui-verification"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+baseline_paths = [
+  "skills/ui-verification/SKILL.md",
+  "skills/ui-verification/references/session-setup.md",
+  "skills/ui-verification/references/evidence-output.md",
+  "skills/ui-verification/probes/focus-walk.md",
+  "skills/ui-verification/probes/target-size.md",
+  "skills/ui-verification/probes/viewport-stress.md",
+  "skills/ui-verification/probes/theme-locale-matrix.md",
+  "skills/ui-verification/probes/failure-injection.md",
+  "skills/ui-verification/probes/console-network.md",
+  "skills/ui-verification/probes/axe-scan.md",
+  "skills/ui-verification/probes/layout-shift.md",
+  "skills/ui-verification/probes/web-vitals.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/ui-verification/SKILL.md",
+  "skills/ui-verification/references/session-setup.md",
+  "skills/ui-verification/references/evidence-output.md",
+  "skills/ui-verification/probes/focus-walk.md",
+  "skills/ui-verification/probes/target-size.md",
+  "skills/ui-verification/probes/viewport-stress.md",
+  "skills/ui-verification/probes/theme-locale-matrix.md",
+  "skills/ui-verification/probes/failure-injection.md",
+  "skills/ui-verification/probes/console-network.md",
+  "skills/ui-verification/probes/axe-scan.md",
+  "skills/ui-verification/probes/layout-shift.md",
+  "skills/ui-verification/probes/web-vitals.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "Only the probes and conditions that can decide the claim run, and the session under them is recorded: build or input identity, URL, fixture and role, viewport, and the theme, locale, motion, cache or network conditions, each confirmed to have taken effect."
+serves = "Keeps browser work proportionate and makes each observation reproducible under known conditions."
+where = ["references/browser-evidence.md#select-the-journeys-and-conditions"]
+shapes = "Makes probe choice depend on the claim, and adds a conditions record with a check that each selected state took effect before driving starts."
+adapted = "Required coverage from the caller and the feature map stays, sampling is explained, and the selection is never a mandatory full audit or a cross product of viewports, themes, locales and states. A probe is repeated only when repetition can resolve uncertainty."
+
+[[sources.ideas]]
+idea = "Each UI probe decides from the effective runtime state and guards against its typical false positive: keyboard access is driven with real keys and observed focus, a target's hit area includes padding, pseudo-elements, delegated handlers and overlays, page overflow is separated from an intentional scroll region, and a theme, locale or motion state counts only after the app shows it applied."
+serves = "Prevents confident findings from proxies such as icon size, emulated media or programmatic focus."
+where = ["references/browser-evidence.md#drive-and-observe"]
+shapes = "Gives the keyboard and focus, pointer or touch target, reflow and content bounds, and theme, locale, direction and motion rows of the probe table their deciding evidence and false-positive guard."
+adapted = "Synthetic or narrower observations are labeled with their actual coverage; they do not establish native keyboard, touch, clipboard or composition input, localization, accessibility or field performance."
+
+[[sources.ideas]]
+idea = "An injected fault counts only after it is observed to reach the intended request or boundary. The probe observes the failure, then exercises the recovery control and confirms its new request or action and the final state."
+serves = "Prevents error-handling claims from an interceptor that never matched or a retry that happened automatically."
+where = ["references/browser-evidence.md#control-probes-without-replacing-the-behavior"]
+shapes = "Adds a section that confirms the fault reached its boundary, observes the failure, then exercises recovery and restores owned conditions."
+adapted = "A safe server fixture can supply the fault boundary when the browser cannot intercept requests; without any suitable mechanism, the check is recorded as blocked. Setup that reaches a test condition is labeled as setup and never bypasses the action being claimed, and owned probe changes are restored, also after a failed attempt."
+
+[[sources.ideas]]
+idea = "A suspected defect ends as reproduced, not reproduced under the tested conditions, or inconclusive or blocked. A missing trigger, route, permission or measurement never clears the product, and a harness that drove or measured the wrong thing is not a product failure."
+serves = "Keeps both false alarms and false all-clears out of the report."
+where = [
+  "references/browser-evidence.md#decide-and-report",
+  "references/browser-evidence.md#drive-and-observe",
+]
+shapes = "Opens the decision section with the three outcomes and the condition for withdrawing a claim, and makes missing samples in the layout and performance row an open result rather than a pass."
+
+[[sources.declined]]
+feature = "Playwright as the default browser driver, with probe recipes written against its page API."
+reason = "The skill uses the host's supported browser tools and the project's harness, and inspects their actual capabilities before choosing a probe."
+
+[[sources.declined]]
+feature = "Fixed viewport widths and minimum target sizes as pass thresholds."
+reason = "Thresholds and supported states come from the project, not the donor's numeric defaults."
+
+[[sources.declined]]
+feature = "Running the full probe battery on every resolved route when no earlier audit narrowed the scope, or a capture matrix across viewports, themes and locales."
+reason = "The claim decides the probes; required coverage stays without a mandatory full-site audit."
+
+[[sources.declined]]
+feature = "Findings keyed to UI rule IDs in a fixed evidence schema."
+reason = "Results use the project's existing proof format, and a short task needs a short record."
+
+[[sources.declined]]
+feature = "At least two runs before any failure is reported."
+reason = "Uncertain or timing-sensitive observations are repeated when that can resolve them; a deterministic captured failure needs no fixed repeat count."
+
+[[sources.reviews]]
+from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "mblode-app-verification"
+author = "Matthew Blode; derived from Lauren Tan / pstack"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+baseline_paths = [
+  "skills/app-verification/SKILL.md",
+  "skills/app-verification/references/maintain-mode.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/app-verification/SKILL.md",
+  "skills/app-verification/references/maintain-mode.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "Coverage is accounted per required user path: each path in scope, including alternate entry points to the same action, gets its expected result, actual execution and evidence, or a named reason it was not checked. One passing way in does not prove the feature."
+serves = "Prevents inferring full coverage from one passing check."
+where = ["SKILL.md#deliver-evidence-that-matches-the-claim"]
+shapes = "Adds the paragraph that accounts for each required path and criterion, including alternate entry points, with expected and observed results kept apart."
+
+[[sources.ideas]]
+idea = "When a tool consumes the results, the run writes them in the project's existing proof format, lists omitted or unavailable checks there, and keeps the record's overall success consistent with that coverage."
+serves = "Machine consumers see the same gaps as a human reader."
+where = ["SKILL.md#deliver-evidence-that-matches-the-claim"]
+shapes = "Makes the project's existing proof format the destination for tool-consumed results and requires its overall success to agree with the recorded coverage."
+
+[[sources.declined]]
+feature = "A repository harness of verify, doctor and seed commands with a JSON proof record at a fixed path and source-file exemptions, in place of the pstack recipe contract."
+reason = "This donor derives from pstack; the pstack ownership split and recipe contract stay authoritative locally, and results use the project's existing proof format."
+
+[[sources.declined]]
+feature = "Running the skill only when it is called by name."
+reason = "The skill activates whenever a change or completion claim needs verification."
+
+[[sources.reviews]]
+from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "compound-dogfood"
+author = "Every / Compound Engineering"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+baseline_paths = [
+  "skills/ce-dogfood/SKILL.md",
+  "skills/ce-dogfood/references/test-matrix-taxonomy.md",
+  "skills/ce-dogfood/references/phases.md",
+  "LICENSE",
+]
+paths = [
+  "skills/ce-dogfood/SKILL.md",
+  "skills/ce-dogfood/references/test-matrix-taxonomy.md",
+  "skills/ce-dogfood/references/phases.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Each selected journey is traced from its entry through the user action and destination to its downstream effect. A created record, notification link or queued operation is followed far enough to check the correct item and recipient through an authorized independent observation."
+serves = "Catches journeys that look right on screen but deliver the wrong item, recipient or effect."
+where = ["references/browser-evidence.md#select-the-journeys-and-conditions"]
+shapes = "Defines each selected journey by entry, user action, expected result, destination and downstream effect before any probe is chosen."
+
+[[sources.ideas]]
+idea = "The affected behavior decides which branch conditions join a journey: re-entry, permission, empty, validation, cancellation or failure states, and adjacent regressions through shared components."
+serves = "Covers the states a change can break besides the happy path."
+where = [
+  "references/browser-evidence.md#select-the-journeys-and-conditions",
+  "SKILL.md#match-scope-to-the-claim",
+]
+shapes = "Adds the branch conditions to journey selection and adjacent regressions to the scope of a change."
+
+[[sources.declined]]
+feature = "The donor's runtime and artifacts: an agent-browser-only driver, its worktree flow, mandatory Mermaid flow diagrams, Compound Packs and a fixed dogfood report template."
+reason = "The skill uses the host browser and the project-local recipe, and a short task needs a short record."
+
+[[sources.declined]]
+feature = "Judging every scenario for how it feels to product personas and treating friction as a failure to fix."
+reason = "Established product requirements and personas decide expected behavior where relevant; a usability observation creates no new product policy or redesign task."
+
+[[sources.reviews]]
+from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 9af474a70e7f..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "pstack-performance-evidence"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = [
+  "pstack/skills/benchmark-checklist/SKILL.md",
+  "pstack/skills/principle-explain-the-number/SKILL.md",
+  "pstack/LICENSE",
+]
+paths = [
+  "pstack/skills/benchmark-checklist/SKILL.md",
+  "pstack/skills/principle-explain-the-number/SKILL.md",
+  "pstack/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "A performance number counts only for work that completed correctly inside the measured region: asynchronous work is awaited, lazy results are consumed, the intended path runs, and outputs or side effects match the contract. Successes, errors, timeouts and retries are counted separately, because a faster rejection or skipped work is not a speedup."
+serves = "Prevents speedups that come from work that failed or never happened."
+where = ["references/performance-evidence.md#define-what-the-number-must-prove"]
+shapes = "Adds an inspection of the harness boundary before any number is accepted, and makes missing work or correctness evidence leave the claim unproved."
+adapted = "Caching is judged against the claimed workload, not treated as an automatic defect."
+
+[[sources.ideas]]
+idea = "A comparison records the build, runtime, data, workload, concurrency, warm-up, cache state and environment, matches the conditions the claim holds constant, and names intentional differences."
+serves = "Prevents a difference in setup from being reported as a difference in implementation."
+where = ["references/performance-evidence.md#make-the-comparison-meaningful"]
+shapes = "Opens the comparison section with the recorded and matched conditions, and separates a deployed-configuration claim from an adoption decision."
+adapted = "A comparison of configurations as deployed stays a valid narrower claim. An adoption choice must resolve material configuration differences or justify them from the user's actual constraints; otherwise it stays unresolved."
+
+[[sources.ideas]]
+idea = "A comparison defines a meaningful difference, run budget and stopping rule before running, then uses enough repetitions for the decision, interleaves runs when drift could bias one side, and reports sample counts and variation with failures and exclusions kept."
+serves = "Prevents noise, favorable run selection or a short streak from being read as a real difference."
+where = [
+  "references/performance-evidence.md#define-what-the-number-must-prove",
+  "references/performance-evidence.md#make-the-comparison-meaningful",
+]
+shapes = "Puts the decision criteria before any run and adds the repetition paragraph to the comparison section."
+adapted = "Repetitions and thresholds come from the decision and the project's conventions, not a universal count. A requested single run is labeled as one observation; it still needs completed-work and correctness checks and cannot select a winner or establish a durable regression."
+
+[[sources.ideas]]
+idea = "Explaining a number is separate from scoring it. Profiling and intrusive tracing run in a diagnostic run whose timings are not scored, the load generator and measurement overhead are watched because a saturated driver limits the result, and a claimed bottleneck needs runtime evidence linked to the code path."
+serves = "Prevents instrumented or driver-bound timings and guessed causes from passing as findings."
+where = [
+  "references/performance-evidence.md#check-relevance-and-explanation",
+  "references/performance-evidence.md#report-and-return",
+]
+shapes = "Opens the relevance section with the separation of diagnostic and scored runs, and makes the report distinguish a measured effect from an established cause."
+adapted = "An honest bounded observation may report a measured difference and leave its mechanism unresolved."
+
+[[sources.ideas]]
+idea = "A result is checked against what the changed part and the available resources can explain: a gain beyond known workload, resource or time budgets points to wrong units, counters, boundaries, skipped work or changed conditions, and a micro-benchmark gain stays local until the end-to-end path a user waits on is measured."
+serves = "Prevents impossible gains and unmeasured application-level claims."
+where = ["references/performance-evidence.md#check-relevance-and-explanation"]
+shapes = "Adds the budget check and the end-to-end requirement for user-facing claims to the relevance section."
+
+[[sources.declined]]
+feature = "Calling a measured difference inconclusive until its limiter is named."
+reason = "A bounded observed effect does not need a proven limiter; only a causal claim needs runtime evidence linked to the path."
+
+[[sources.declined]]
+feature = "Fixed procedure steps: uptime and nproc before every run, at least five alternating runs per side, and a rank-sum test for close calls."
+reason = "Repetition and statistics follow the decision and the project's benchmark conventions."
+
+[[sources.declined]]
+feature = "A PR body limited to one primary number."
+reason = "Raw results are linked in the project's existing evidence format, and verification grants no publication."
+
+[[sources.declined]]
+feature = "Automatic profiling, tuning an untuned side and measuring again before a verdict, and hillclimb loops."
+reason = "Verification does not authorize tuning; the verdict returns to the caller, and broader optimization follows its own authorized task."
+
+[[sources.declined]]
+feature = "The orchestration and PR procedures of pstack's prove-it-works principle and its perf-issue, hillclimb and opening-a-pr playbooks, or tracking those files as sources."
+reason = "They were read only as context for the evidence criteria; this source covers the benchmark checklist and the explain-the-number principle."
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/benchmark-checklist/SKILL.md: Commit 00b14f1 rewords questions 1 to 7 and shortens the section on other perf material. Wording only; covered by verify/references/performance-evidence.md:21-27, :52-57 and :59-64.",
+  "pstack/skills/principle-explain-the-number/SKILL.md: The Why paragraph is removed, and code that never ran and the untuned side move into the suspects list. Wording only; covered by verify/references/performance-evidence.md:21-27 and :31-40.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "General instruction writing, packaging and requested upstream maintenance."
+
+[[dependencies]]
+kind = "local"
+name = "verification-authoring"
+required = false
+role = "Create or maintain a project recipe only when that work is authorized."
+
+[[dependencies]]
+kind = "local"
+name = "debug"
+required = false
+role = "Diagnose a failure only when the active task requests or authorizes diagnosis."

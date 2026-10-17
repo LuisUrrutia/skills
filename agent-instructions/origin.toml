@@ -1,0 +1,688 @@
+format_version = 2
+skill = "agent-instructions"
+created = "2026-10-02"
+approach = "derive"
+goal = "Help agents make the intended decisions, find the right context and recognize completion, by writing or reviewing the instruction files, prompts and skills they consume at a user's request. Success is a revision that keeps the intended meaning and authority, places each rule where it reaches the tasks that need it, and carries checks proportionate to the change."
+
+[[invariants]]
+rule = "The skill writes and reviews agent-facing instruction files, prompts and skills. A request can define a new capability, and prior use or repetition is not a prerequisite. Reading or following instructions does not activate the skill, and a factual update qualifies only when it changes agent guidance or instruction loading."
+where = ["SKILL.md#agent-instructions", "references/skills.md#skill-instructions-and-packaging"]
+
+[[invariants]]
+rule = "The workflow-to-skill skill extracts a contract from completed work or conversation history, and the create-project-instructions skill investigates a project's code and knowledge sources. This skill writes from their evidence handoff, or from a fully supplied capability, without repeating their discovery."
+where = [
+  "SKILL.md#agent-instructions",
+  "references/skills.md#skill-instructions-and-packaging",
+  "references/skills.md#write-the-selection-description",
+]
+
+[[invariants]]
+rule = "When the host supplies a skill creator, that creator owns current packaging mechanics and validators. This skill owns composition and evaluation, reconciles the applicable instructions explicitly, and neither restates the creator's whole workflow nor installs a second creator with the same name."
+where = ["references/hosts.md#host-compatibility"]
+
+[[invariants]]
+rule = "A skill package stays host-neutral and self-contained: its resources resolve inside the skill folder, other skills are named by their registered names, and host-specific adapters stay separate. Its origin.toml records the base and its deviations, or the ideas taken and declined, with verified revisions."
+reason = "The package must work after only the skill folder is copied to another account layout, with the author's checkout unavailable."
+where = [
+  "references/skills.md#define-activation-and-responsibility",
+  "references/skills.md#package-the-instructions",
+  "references/skills.md#validate",
+  "references/hosts.md#host-compatibility",
+]
+
+[[invariants]]
+rule = "Checks scale to the change. A narrow wording correction needs a fidelity check; substantive behavior changes, new skills, routing changes and observed failures need relevant behavioral checks."
+where = ["SKILL.md#verify-the-change", "references/evaluation.md#define-the-checks"]
+
+[[invariants]]
+rule = "Instruction work keeps the user's authorization and the requested scope. A review-only request leaves the source unchanged, and commits, publication, installation and scheduling follow the active request and repository instructions. A donor's checklist, interview or approval loop grants no authority and adds no routine gate."
+where = [
+  "SKILL.md#agent-instructions",
+  "SKILL.md#choose-the-document-and-write",
+  "references/skills.md#validate",
+  "references/upstream-updates.md#decide-and-incorporate",
+]
+
+[[invariants]]
+rule = "Approved business policy, team preferences and rare consequential constraints survive pruning. A rule is removed as enforced elsewhere only after the actual configuration, execution path and coverage show it, and brevity, a donor's score or a model's apparent knowledge cannot establish that a rule is redundant."
+reason = "Policy and preferences can be valuable even when they differ from a model's default, and code, tests or tools may not enforce them."
+where = ["references/writing.md#prune-without-weakening-the-contract"]
+
+[[invariants]]
+rule = "The required independent consultation with both model profiles, with its reconciliation and authority rules, stays as written; a donor's review layer does not replace it."
+where = ["SKILL.md#get-both-model-perspectives"]
+
+[[sources]]
+id = "mattpocock-writing-for-agents"
+repository = "https://github.com/mattpocock/skills"
+remote = "git@github.com:mattpocock/skills.git"
+ref = "refs/heads/main"
+license = "MIT; see LICENSE at the baseline commit; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+reviewed_through = "49dd158d1076134a641b33efb035946536778336"
+baseline_paths = ["skills/productivity/writing-for-agents/", "LICENSE"]
+paths = ["skills/productivity/writing-for-agents/", "LICENSE"]
+
+[[sources.ideas]]
+idea = "A pointer to out-of-context material, such as a skill description, a persistent-file line or a reference link, decides when that material is reached, so it names the material and the conditions that select it. Guidance that every branch needs stays in the entrypoint; substantial detail that only some branches need moves behind a reference with an explicit loading condition."
+serves = "Puts each rule in front of the agent on the tasks that need it, without loading every branch on every run."
+where = [
+  "references/writing.md#put-decisions-where-they-apply",
+  "SKILL.md#choose-the-document-and-write",
+  "references/skills.md#package-the-instructions",
+]
+shapes = "The entrypoint loads writing.md and then only the branch reference that applies; writing.md rejects a bare 'see references' as a loading decision; the packaging section keeps shared steps in SKILL.md and conditional detail in linked references."
+
+[[sources.ideas]]
+idea = "Every step or phase ends on a completion criterion that lets the agent tell done from not done: evidence that distinguishes completion from an attempt. A loop also needs a progress signal, an end condition and a response to a recurring blocker."
+serves = "Prevents premature completion and steps that end on a vague sense of being finished."
+where = [
+  "references/writing.md#make-progress-observable",
+  "SKILL.md#choose-the-document-and-write",
+  "SKILL.md#verify-the-change",
+]
+shapes = "The progress section requires evidence at each phase end and an end condition for each loop; the entrypoint's writing and verification sections each close on a completion condition."
+
+[[sources.ideas]]
+idea = "Each rule, with its reason and exceptions, has one authoritative home. A meaning repeated in several places is removed, so that changing a behavior is a one-place edit."
+serves = "Prevents drifting copies and rules that gain false prominence through repetition."
+where = [
+  "references/writing.md#put-decisions-where-they-apply",
+  "references/writing.md#prune-without-weakening-the-contract",
+  "SKILL.md#choose-the-document-and-write",
+]
+shapes = "Writing.md keeps each rule with its reason and exceptions together, and its pruning section removes duplicate meanings; the entrypoint states the one-home rule."
+
+[[sources.ideas]]
+idea = "Configuration, scripts, CLI help and the directory layout are sources of truth. Instructions that copy them go stale, so instructions keep only what the agent cannot find by looking: the reason, the unwritten convention or the gotcha."
+serves = "Keeps instructions short and current."
+where = [
+  "references/writing.md#prune-without-weakening-the-contract",
+  "references/instruction-files.md#make-the-requested-change",
+]
+shapes = "The pruning section sends discoverable facts back to configuration and CLI help and keeps what they cannot supply; the instruction-file section grounds commands and paths in the repository."
+
+[[sources.declined]]
+feature = "Making a skill user-invoked (`disable-model-invocation: true`) whenever only a person fires it, to save context load."
+reason = "New skills stay discoverable unless the user requests another mode; changing invocation is a product decision, separate from permission for a particular action."
+
+[[sources.declined]]
+feature = "Treating the donor's skill mechanics, such as description-based model invocation, `disable-model-invocation` and router skills, as true on every host."
+reason = "Invocation controls are host features; the skill verifies their current behavior on the intended host before choosing them."
+
+[[sources.declined]]
+feature = "Leading words as a required technique: collapsing repeated phrases into one pretrained or coined term."
+reason = "Instructions use familiar, precise words; a coined or jargon term is not needed to anchor behavior."
+
+[[sources.declined]]
+feature = "Fixed rules for splitting a document by sequence or by invocation."
+reason = "A separate skill is created only for a distinct task or an independent invocation; otherwise the existing owner or a conditional reference holds the guidance."
+
+[[sources.reviews]]
+from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+incorporated = []
+skipped = [
+  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
+]
+deferred = []
+validation = [
+  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
+  "reports/skill-atlas/upstream-adoption-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
+to_commit = "49dd158d1076134a641b33efb035946536778336"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 24fe0ef7737e..49dd158d1076 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "anthropic-skill-creator"
+repository = "https://github.com/anthropics/skills"
+remote = "git@github.com:anthropics/skills.git"
+ref = "refs/heads/main"
+license = "Apache-2.0; see skills/skill-creator/LICENSE.txt at the baseline commit; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+reviewed_through = "dbd4588f9e1033efb41dad4bef2f7947c8993d44"
+baseline_paths = ["skills/skill-creator/"]
+paths = ["skills/skill-creator/"]
+
+[[sources.ideas]]
+idea = "Instructions are judged by matched trials: a new skill against the same task without it, and a revision against the previous version. Each pair keeps the model, effort, tools, fixtures, authorization and output format equal and runs in independent clean contexts, and the judgment reads the actual artifacts, actions and resulting state."
+serves = "Separates the effect of the instructions from changes in the model, task or setup."
+where = [
+  "references/evaluation.md#compare-the-right-instructions",
+  "references/evaluation.md#define-the-checks",
+]
+shapes = "The comparison section defines the two arms and what stays equal within each pair; the checks section observes artifacts, actions and resulting state."
+adapted = "The donor runs both arms through its own subagent, workspace and viewer layout. Locally, any available and authorized runner executes the arms; when none is available, the missing behavioral evidence is reported, and the author's simulated answer never stands in for an execution."
+
+[[sources.ideas]]
+idea = "Activation is tested with requests that should select the skill and with near misses that share its terms but need something else. Some cases stay unseen; a reserved case used to revise the instructions becomes a regression case, and a new unseen case is needed before another generalization claim."
+serves = "Catches over- and under-triggering, and prevents tuning to the cases that judge the result."
+where = [
+  "references/evaluation.md#define-the-checks",
+  "references/skills.md#write-the-selection-description",
+  "references/skills.md#validate",
+]
+shapes = "The checks section requires positive, near-miss and reserved cases; the description and validation sections test the name and description against intended and nearby requests."
+adapted = "The donor uses a fixed set of about 20 trigger queries with a train and test split and repeated runs. Locally, cases come from the target's own contract, and a focused edit need not acquire a permanent evaluation suite."
+
+[[sources.ideas]]
+idea = "A verdict rests on observable evidence: objective checks for formats and postconditions, and a reading of the substantive output for scope, decisions, unnecessary questions and unjustified claims. Keywords and confident self-reports do not count, and a small passing sample supports only its tested cases."
+serves = "Prevents overclaiming from a few passes or from the agent's own account."
+where = [
+  "references/evaluation.md#judge-the-evidence",
+  "references/evaluation.md#iterate-proportionately",
+]
+shapes = "The evidence table ties each claim to the evidence it needs; the iteration section limits a small sample to its tested cases and reports a result where both versions pass without claiming improvement."
+
+[[sources.declined]]
+feature = "Descriptions that list many trigger contexts to counter undertriggering."
+reason = "The description is the shortest clear answer to when the skill applies; a qualifier stays only when a concrete request or neighboring skill shows the ambiguity it resolves."
+
+[[sources.declined]]
+feature = "The donor's eval scripts, HTML review viewer, benchmark schema and sibling workspace layout as required tooling."
+reason = "The skill uses the evaluators and runners available on the host; a reference to a donor's tool does not install it or make it necessary."
+
+[[sources.declined]]
+feature = "A mandatory user interview before drafting, and a loop that waits for the user to review every iteration in a viewer."
+reason = "Evaluation scales to the change, and existing authorization carries the work; the skill asks only when the objective or the needed meaning stays uncertain."
+
+[[sources.reviews]]
+from_commit = "8a1541c4a3ffa5a20a5a91de0dcf3f0bab1d1ef4"
+to_commit = "dbd4588f9e1033efb41dad4bef2f7947c8993d44"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 8a1541c4a3ff..dbd4588f9e10 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "openai-public-skill-creator"
+repository = "https://github.com/openai/skills"
+remote = "git@github.com:openai/skills.git"
+ref = "refs/heads/main"
+license = "Apache-2.0; see skills/.system/skill-creator/LICENSE.txt at the baseline commit; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "49f948faa9258a0c61caceaf225e179651397431"
+reviewed_through = "49f948faa9258a0c61caceaf225e179651397431"
+baseline_paths = ["skills/.system/skill-creator/"]
+paths = ["skills/.system/skill-creator/"]
+
+[[sources.ideas]]
+idea = "A skill package keeps SKILL.md for the decisions and steps that every run needs, and moves substantial conditional detail into references that the entrypoint links with a reading condition. A script, reference or template is bundled only when the skill's work needs it."
+serves = "Keeps the entrypoint legible and justifies each resource by use."
+where = ["references/skills.md#package-the-instructions"]
+shapes = "The packaging section separates shared steps, conditional references, output templates and helpers, and requires a reading condition for each linked reference."
+
+[[sources.ideas]]
+idea = "Specificity follows fragility. Fragile, deterministic or order-sensitive work gets code or a fixed sequence; work with several valid approaches gets a result and decision criteria."
+serves = "Prevents both brittle over-prescription and loose instructions for error-prone steps."
+where = [
+  "references/skills.md#package-the-instructions",
+  "references/writing.md#make-progress-observable",
+]
+shapes = "The packaging section moves stable, deterministic work into code and keeps judgment in prose; the progress section keeps a fixed sequence only where order protects an invariant."
+
+[[sources.ideas]]
+idea = "A package validator shows only that the package is well formed. Useful decisions and successful host invocation need behavioral evidence."
+serves = "Prevents reporting a structural pass as proof that the skill works."
+where = [
+  "references/skills.md#validate",
+  "SKILL.md#verify-the-change",
+  "references/evaluation.md#judge-the-evidence",
+]
+shapes = "Validation runs the host validator only for the formats it checks and sends new behavior and activation changes to the evaluation reference; the evidence table separates valid structure from correct selection and useful behavior."
+
+[[sources.declined]]
+feature = "Running `init_skill.py` for every new skill and generating `agents/openai.yaml` UI metadata as a standard part of every skill."
+reason = "Initializers and UI metadata are host features; in Codex, the host's `skill-creator` skill supplies them when the intended host requires them."
+
+[[sources.declined]]
+feature = "Regenerating `agents/openai.yaml` from scratch, and allowing no frontmatter fields other than `name` and `description`."
+reason = "Supported existing metadata and invocation policy are preserved; a generator may replace the whole file, so unrelated policy and dependency settings are kept."
+
+[[sources]]
+id = "superpowers-writing-skills"
+author = "Jesse Vincent (obra)"
+repository = "https://github.com/obra/superpowers"
+remote = "git@github.com:obra/superpowers.git"
+ref = "refs/heads/main"
+license = "MIT; see LICENSE at the baseline commit; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+reviewed_through = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
+baseline_paths = [
+  "skills/writing-skills/SKILL.md",
+  "skills/writing-skills/testing-skills-with-subagents.md",
+  "LICENSE",
+]
+paths = [
+  "skills/writing-skills/SKILL.md",
+  "skills/writing-skills/testing-skills-with-subagents.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "The form of a correction follows the observed failure. Wrong structure or order gets the required parts in reading order; a missing element gets a field or slot in the existing output; a rule applied in the wrong circumstances gets an observable condition and action for each branch; a bypassed requirement gets a counter to the observed shortcut, tested under relevant pressure."
+serves = "Prevents corrections that backfire, such as a prohibition list for a shape problem."
+where = ["references/writing.md#diagnose-before-prescribing"]
+shapes = "The section inspects the output, action trace and loading evidence first, then maps each observed failure to its correction in a table."
+adapted = "The donor bans nuance and exemption clauses. Locally, material exceptions are preserved as explicit conditions, and only observed workarounds are countered."
+
+[[sources.ideas]]
+idea = "A requirement that competes with a deadline, prior effort or pressure to skip it is exercised with a realistic task that makes the executor act. The judgment reads the actions taken, the checks omitted and the justifications stated, to tell missed, misunderstood and bypassed instructions apart."
+serves = "Finds requirements that hold in a quiet test but fail under real pressure."
+where = [
+  "references/evaluation.md#define-the-checks",
+  "references/evaluation.md#judge-the-evidence",
+]
+shapes = "The checks section adds a pressure case where a requirement competes with other goals; the evidence section uses omitted checks and stated justifications to classify the failure."
+adapted = "Pressure scenarios run when a requirement actually faces such pressure, with no required number of combined pressures. Agent explanations are hypotheses, not established causes, and compliance is judged from artifacts and actions, never from rule recitation or a claim of perfect compliance."
+
+[[sources.declined]]
+feature = "A universal ban on nuance and exemption clauses."
+reason = "Material exceptions are part of the intended meaning; they stay as explicit conditions."
+
+[[sources.declined]]
+feature = "An iron law of no skill or edit without a failing test first, with untested work deleted."
+reason = "Checks scale to the change; a narrow wording correction needs a fidelity check, and existing work is not deleted for lack of a prior test."
+
+[[sources.declined]]
+feature = "Pressure scenarios that always combine three or more pressures."
+reason = "A pressure case is used when a requirement competes with other goals, and its form follows that requirement."
+
+[[sources.declined]]
+feature = "Declaring a skill bulletproof once an agent follows the rule in the tested scenarios."
+reason = "A small passing sample supports only its tested cases."
+
+[[sources.declined]]
+feature = "A mandatory deployment checklist that commits the skill and pushes it to a fork."
+reason = "Commits, publication and installation follow the active request and repository instructions."
+
+[[sources.reviews]]
+from_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+to_commit = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 8ca22dba9a94..bb92a7774141 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "humanlayer-improve-claude-md"
+author = "HumanLayer"
+repository = "https://github.com/humanlayer/skills"
+remote = "git@github.com:humanlayer/skills.git"
+ref = "refs/heads/main"
+license = "MIT; see LICENSE at the baseline commit; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "ca7c8088db69e315a8b2deea43820270457f8f3c"
+reviewed_through = "653b6411c1f70c275a18e37673b042ff99f67ceb"
+baseline_paths = ["plugins/improve-claude-md/skills/improve-claude-md/SKILL.md", "LICENSE"]
+paths = ["plugins/improve-claude-md/skills/improve-claude-md/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "Guidance that matters only for certain work carries an explicit condition of relevance, while context that almost every task needs, such as project purpose, verified commands and routes to specialized context, stays in the entrypoint."
+serves = "Helps the agent apply conditional rules when they matter without burying the context that every task needs."
+where = [
+  "references/instruction-files.md#make-the-requested-change",
+  "references/writing.md#put-decisions-where-they-apply",
+]
+shapes = "The instruction-file section lists what the entrypoint keeps and links other detail with a concrete reading condition; writing.md names the task and distinguishing conditions in each pointer."
+adapted = "The donor wraps conditional sections in `<important if>` XML blocks to raise attention. Locally, conditions are written in ordinary prose that the host supports, because a conditional heading or XML attribute neither loads text nor gives it higher priority."
+
+[[sources.ideas]]
+idea = "Text can be removed as covered elsewhere only when the surviving owner, such as a linter, formatter, hook, configuration or existing code, actually enforces or supplies the rule. The reason or gotcha that the owner cannot supply stays."
+serves = "Prevents pruning that silently drops a rule that nothing enforces."
+where = ["references/writing.md#prune-without-weakening-the-contract"]
+shapes = "The pruning section requires inspecting the actual configuration, execution path and coverage before a rule is deleted as enforced elsewhere."
+adapted = "The donor keeps every command from the original file and cuts style rules that tooling could enforce. Locally, commands are checked against the repository and corrected when stale, and domain constraints that tools do not enforce stay."
+
+[[sources.declined]]
+feature = "Wrapping conditional guidance in `<important if=\"...\">` XML blocks to raise its priority."
+reason = "A conditional heading or XML attribute guides the reader; it is not a loader or a higher instruction priority."
+
+[[sources.declined]]
+feature = "Keeping every command from the original file."
+reason = "Commands are checked against their definition, working directory and effects, and a stale command is corrected from current evidence."
+
+[[sources.declined]]
+feature = "A single-file layout that avoids references, and a universal limit on instruction count or length."
+reason = "A branch that needs substantial detail gets a reference with a loading condition in the entrypoint."
+
+[[sources.declined]]
+feature = "Rewriting every CLAUDE.md into one fixed output structure."
+reason = "Edits follow the requested change; the existing filename, working adapters and unrelated rules are preserved."
+
+[[sources.reviews]]
+from_commit = "ca7c8088db69e315a8b2deea43820270457f8f3c"
+to_commit = "653b6411c1f70c275a18e37673b042ff99f67ceb"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames ca7c8088db69..653b6411c1f7 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "mblode-agents-md"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; see LICENSE.md at the baseline commit; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+baseline_paths = [
+  "skills/agents-md/SKILL.md",
+  "skills/agents-md/references/root-content-guidance.md",
+  "skills/agents-md/references/quick-checklist.md",
+  "skills/agents-md/references/project-setup.md",
+  "skills/agents-md/references/templates.md",
+  "skills/agents-md/references/refactor-workflow.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/agents-md/SKILL.md",
+  "skills/agents-md/references/root-content-guidance.md",
+  "skills/agents-md/references/quick-checklist.md",
+  "skills/agents-md/references/project-setup.md",
+  "skills/agents-md/references/templates.md",
+  "skills/agents-md/references/refactor-workflow.md",
+  "LICENSE.md",
+  "skills/agents-md/references/repo-evals.md",
+]
+
+[[sources.ideas]]
+idea = "A persistent instruction file is a working contract. Its entrypoint keeps the project purpose, verified commands, material domain constraints, local conventions and routes to specialized context, plus the reasons and gotchas that configuration cannot reveal; extensive rationale and background go to the project's documentation."
+serves = "Keeps the always-loaded file focused on decisions that prevent mistakes."
+where = [
+  "references/instruction-files.md#make-the-requested-change",
+  "references/writing.md#prune-without-weakening-the-contract",
+]
+shapes = "The instruction-file section lists what the entrypoint keeps and where background and conditional detail go; the pruning section keeps the reason or gotcha that discoverable facts lack."
+
+[[sources.ideas]]
+idea = "After text is pruned or moved, the result is checked in context: commands still match their definitions, links and imports resolve, the moved rule still reaches the tasks that need it, and rare consequential constraints survived."
+serves = "Prevents a reorganization from silently dropping or hiding a rule."
+where = [
+  "references/instruction-files.md#find-the-source-and-its-scope",
+  "references/instruction-files.md#check-the-result",
+  "references/writing.md#prune-without-weakening-the-contract",
+]
+shapes = "The check section reads the resulting instruction with its callers and scope and verifies imports and adapters; the scope section requires that a moved rule still reach its tasks."
+
+[[sources.ideas]]
+idea = "A smaller file does not mean less loaded context: an import may expand at startup, and hosts load nested files differently, so a reduction or a move is verified against the host's actual loading."
+serves = "Prevents claiming a context saving or a scoped rule that the host does not deliver."
+where = [
+  "references/instruction-files.md#find-the-source-and-its-scope",
+  "references/evaluation.md#define-the-checks",
+]
+shapes = "The scope section resolves loading and precedence from the configured host and treats imports and nested files as host-specific; the evaluation checks test effective scope, including imports and adapters."
+
+[[sources.declined]]
+feature = "Migrating every repository to `AGENTS.md` as the single shared source and removing `CLAUDE.md` wrappers and symlinks."
+reason = "The existing filename, its case and working adapters are kept unless changing the host arrangement is part of the request."
+
+[[sources.declined]]
+feature = "Assuming a particular host version or loader mode, such as a built-in AGENTS.md mode."
+reason = "Uncertain loading or precedence is resolved from the configured host."
+
+[[sources.declined]]
+feature = "Audit scores with point targets, root-file line-count triggers and a task-frequency percentage for moving detail."
+reason = "Placement follows the rule's scope and the host's loading, and findings rest on evidence rather than a score."
+
+[[sources.declined]]
+feature = "Auditing user-level home-directory instruction files during every repository audit."
+reason = "Inspection covers the target and the ancestor, nested and imported files that affect its scope."
+
+[[sources.reviews]]
+from_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = [
+  "Adapted from skills/agents-md/references/repo-evals.md: when the question is whether the repository's own instructions suffice, evaluations exclude user-level instruction files or record them as a fixed condition of the result (agent-instructions/references/evaluation.md); upstream's 'never' is softened because some hosts cannot exclude those files.",
+]
+skipped = [
+  "skills/agents-md/SKILL.md (linked references/repo-evals.md): The eval guide's budget header, slow verdict, JSONL scoreboard and manual dispatch. Covered by agent-instructions/references/evaluation.md:62-63 and :81-92, and they conflict with the declined fixed run counts and prescribed statistics recorded for compound-engineering-ce-retune.",
+  "skills/agents-md/SKILL.md: New Make Drift a Gate section adds a check script that fails on stale script names, links, paths and identifiers. Not applied because it adds repository tooling outside the writing scope and upstream admits the identifier check proves existence rather than visibility; agent-instructions/references/instruction-files.md:43-49 verifies commands at authoring time.",
+  "skills/agents-md/SKILL.md: Step 5 item 3 now diffs each project skill against the root file and keeps one copy. agent-instructions/SKILL.md:27-28 deliberately keeps direct edits narrow and one-home deduplication is already in agent-instructions/references/writing.md:16-17 and :95-96; the gap is adopted in create-project-instructions instead.",
+  "skills/agents-md/SKILL.md: The @import gotchas are merged into one bullet, the AGENTS.override.md gotcha moves into Gotchas, the harness-restatement gotcha is removed and the description drops its sibling routing clause. Consolidation, relocation or removal with no new behavior.",
+  "skills/agents-md/references/root-content-guidance.md: Adds rules that managed policy or the user-level file already state to the exclusion list, and removes the file placement hierarchy and the external-import note. A user-level file is per person, so cutting a shared rule it restates would hide that rule from teammates and conflicts with the invariant that approved business policy and team preferences survive pruning; the rest is removal.",
+  "skills/agents-md/references/project-setup.md: Harness-specific shared skills may name their dependency in the description, the enforcement ladder is delegated to codebase-architecture and the external-import approval note is removed. agent-instructions/references/hosts.md:31-32 already detects missing dependencies before dependent work and agent-instructions/references/skills.md:42-46 keeps tool choices out of descriptions; the rest is relocation.",
+  "skills/agents-md/references/templates.md: The multi-language monorepo skeleton is merged into the monorepo skeleton as bracketed optional lines. Template consolidation with no new behavior.",
+  "skills/agents-md/references/refactor-workflow.md: The @import warning is shortened and the matching pitfall bullet is removed. Wording condensation only.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 51e9ae4fd21f..872bc83bdb6d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "mblode-agent-skills-creator"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; see LICENSE.md at the baseline commit; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+baseline_paths = [
+  "skills/agent-skills-creator/SKILL.md",
+  "skills/agent-skills-creator/references/capability-delta.md",
+  "skills/agent-skills-creator/references/adopt-adapt-author.md",
+  "skills/agent-skills-creator/references/improving-existing-skills.md",
+  "skills/agent-skills-creator/references/authoring-tips.md",
+  "skills/agent-skills-creator/references/evaluation-and-iteration.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/agent-skills-creator/SKILL.md",
+  "skills/agent-skills-creator/references/capability-delta.md",
+  "skills/agent-skills-creator/references/adopt-adapt-author.md",
+  "skills/agent-skills-creator/references/improving-existing-skills.md",
+  "skills/agent-skills-creator/references/authoring-tips.md",
+  "skills/agent-skills-creator/references/evaluation-and-iteration.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "Instructions separate general technique and reusable procedure from project constraints, team preferences and organizational policy. Policy and preferences can be valuable even when they differ from a model's default, and their authority and scope come from their owner, not from a public default."
+serves = "Prevents pruning a team's decisions as if they were generic advice, and inventing policy where the team has none."
+where = [
+  "SKILL.md#establish-meaning-and-scope",
+  "references/writing.md#preserve-the-intended-meaning",
+  "references/writing.md#prune-without-weakening-the-contract",
+]
+shapes = "Scope work classifies statements as observed behavior, approved policy, team preference or proposed change; writing.md resolves domain decisions from an authoritative contract and keeps policy reachable during pruning."
+
+[[sources.ideas]]
+idea = "Whether guidance earns its place is judged by relevant behavior. A no-instruction or rule-removal trial can supplement the previous-version comparison, and it must exercise the rule's protected behavior, exceptions and any stated team preference."
+serves = "Keeps or removes guidance on evidence instead of on brevity or a model's apparent knowledge."
+where = [
+  "references/evaluation.md#compare-the-right-instructions",
+  "references/writing.md#prune-without-weakening-the-contract",
+]
+shapes = "The comparison section adds the removal trial as a supplement to the previous-version comparison; the pruning section uses behavioral evidence when value is uncertain."
+adapted = "Matched trials against the previous version stay the regression baseline. Rule ablation is optional, unrelated passes cannot justify deletion, and a small passing sample does not justify retiring guidance or a skill."
+
+[[sources.ideas]]
+idea = "A description is checked beside the neighboring skills' descriptions, not only alone. Each description names the distinct task that selects its owner, and a shared writer can serve several investigating skills without repeating their work."
+serves = "Prevents two skills from claiming the same request and keeps routing across the collection clear."
+where = [
+  "references/skills.md#write-the-selection-description",
+  "references/skills.md#define-activation-and-responsibility",
+]
+shapes = "The description section ends with the collection check and the handoff rule; activation reads neighboring descriptions before a skill is created or extended."
+
+[[sources.declined]]
+feature = "Ablating every suspected dead rule and keeping it only if a scenario regresses."
+reason = "A removal trial supplements the previous-version comparison, and unrelated passes cannot justify deletion."
+
+[[sources.declined]]
+feature = "Retiring and deleting a skill automatically when its measured benefit disappears."
+reason = "A small passing sample does not justify retirement."
+
+[[sources.declined]]
+feature = "Fixed evaluation counts, such as two or three scenarios per skill, and a hillclimb loop that iterates toward a target score."
+reason = "Cases come from the contract, and a claim that needs repeated trials first sets its metric, meaningful effect, run budget and stopping rule."
+
+[[sources.declined]]
+feature = "Claims about model behavior, such as current frontier models ending a task at any review checkpoint, adopted as facts without a local run."
+reason = "An explanation is a hypothesis, and a model's apparent knowledge cannot establish that a rule is redundant."
+
+[[sources.reviews]]
+from_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = [
+  "skills/agent-skills-creator/references/improving-existing-skills.md: New Module Lens rules 1, 2 and 4 (deletion test, gotcha placement, one owner per fact). Already covered by agent-instructions/SKILL.md:131-132, agent-instructions/references/writing.md:95-108 and agent-instructions/references/hosts.md:22-30.",
+  "skills/agent-skills-creator/references/improving-existing-skills.md: Module Lens rule 3 moves files that never load during a task into evals/ or a maintenance/ folder. This is the donor's repository layout; the local collection already keeps evals/ and origin.txt outside references.",
+  "skills/agent-skills-creator/references/improving-existing-skills.md: Module Lens rule 5 keeps a sibling edge in a description only where routing shows a collision, and an uncertain cut is kept and recorded as deferred. Already covered by agent-instructions/references/skills.md:43-51 and agent-instructions/references/writing.md:104-108.",
+  "skills/agent-skills-creator/references/capability-delta.md: Retirement now records the retired name and replacement in a maintenance file checked by a validator. Donor tooling that conflicts with the local choice of no automatic skill deletion; agent-instructions/references/skills.md:72-73 already covers updating readers.",
+  "skills/agent-skills-creator/references/evaluation-and-iteration.md: The hillclimb loop now runs through the agent-evals CLI, and the two-Claudes and adoption sections are condensed. The CLI is a vendor tool and the remaining edits are condensation.",
+  "skills/agent-skills-creator/SKILL.md: Step 3 collapses into a pointer to authoring-tips.md, several anti-patterns and two validator gotchas are removed, and the description drops its sibling routing clause. Removal and condensation with no new behavior.",
+  "skills/agent-skills-creator/references/authoring-tips.md: Two sections merge into Cut Constraints, Keep Opinions, and sibling routing moves from descriptions to the IS-NOT line. Reorganization of guidance already covered locally; the routing point is covered by agent-instructions/references/skills.md:43-51.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 51e9ae4fd21f..872bc83bdb6d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "compound-engineering-ce-retune"
+author = "Every / Compound Engineering"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+license = "MIT; see LICENSE at the baseline commit; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+baseline_paths = [
+  "skills/ce-retune/SKILL.md",
+  "skills/ce-retune/references/noise-floor.md",
+  "skills/ce-retune/references/halt-taxonomy.md",
+  "skills/ce-retune/references/baseline-mining.md",
+  "skills/ce-retune/references/corpus-audit.md",
+  "skills/ce-retune/references/cut-passes.md",
+  "skills/ce-retune/references/workflow-shapes.md",
+  "LICENSE",
+]
+paths = [
+  "skills/ce-retune/SKILL.md",
+  "skills/ce-retune/references/noise-floor.md",
+  "skills/ce-retune/references/halt-taxonomy.md",
+  "skills/ce-retune/references/baseline-mining.md",
+  "skills/ce-retune/references/corpus-audit.md",
+  "skills/ce-retune/references/cut-passes.md",
+  "skills/ce-retune/references/workflow-shapes.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "A host-run result is attributed to a revision only when durable run evidence shows which revision the runner actually loaded; a requested path alone does not prove it."
+serves = "Prevents crediting or blaming instructions that the run never used."
+where = ["references/evaluation.md#compare-the-right-instructions"]
+shapes = "The comparison section requires durable load evidence before any attribution."
+
+[[sources.ideas]]
+idea = "Cases and expected outcomes come from the contract before tuning. When a claim needs repeated trials, the metric, meaningful effect, run budget and stopping rule are set first; identical-version controls investigate unexplained variation or runner integrity, and arms are interleaved when changing conditions could bias the comparison."
+serves = "Keeps a tuning loop from mistaking noise or run order for improvement."
+where = [
+  "references/evaluation.md#define-the-checks",
+  "references/evaluation.md#iterate-proportionately",
+]
+shapes = "Checks are defined before tuning; the iteration section adds repeated-trial planning, identical-version controls and interleaving only when the claim needs them."
+adapted = "The donor requires an A/A noise floor of 12 or more runs and prescribed statistics. Locally, controls and repetition are proportionate to the claim, and a short streak or observed range cannot by itself establish a gain."
+
+[[sources.ideas]]
+idea = "Premature stopping is diagnosed from the actual next actor and continuation mechanism: a phase in the same conversation, a real child-agent return, a user decision and a host-supported pause with later resumption are different seams. Where the same agent continues, the repair states the next required action."
+serves = "Fixes authorized work that stops at a phase boundary without deleting a real return or decision point."
+where = ["references/writing.md#diagnose-before-prescribing"]
+shapes = "The failure table routes unfinished work at a phase boundary to tracing the next actor and resumption path, and the handoff paragraph separates the four kinds of seam."
+adapted = "User decisions, real blockers, real child returns and host-supported asynchronous resumption are preserved. A pause is not itself a failure, and the repair neither widens authorization nor makes required work optional."
+
+[[sources.ideas]]
+idea = "Reading or dispatching a phase proves entry, not completion, so the phase's required result is checked. Failed attempts and exclusions are retained, an infrastructure failure is classified from cause evidence, and the report states which paths were exercised and which stay unmeasured."
+serves = "Prevents counting a started phase as done or quietly dropping inconvenient failures."
+where = [
+  "references/evaluation.md#judge-the-evidence",
+  "references/evaluation.md#iterate-proportionately",
+]
+shapes = "The evidence section separates phase entry from completion; the iteration section keeps failures and exclusions and limits claims to the exercised paths."
+
+[[sources.declined]]
+feature = "A measurement gate that refuses to work without a run archive, a build selector and a benchmark harness."
+reason = "Evaluation uses an available runner or reports the missing behavioral evidence, and a focused edit need not acquire a permanent evaluation suite."
+
+[[sources.declined]]
+feature = "Fixed run counts, such as 12 or more A/A runs, token-spread heuristics, and prescribed statistics such as Wilson intervals, Fisher's exact test and power formulas."
+reason = "A claim that needs repeated trials defines its own metric, meaningful effect, run budget and stopping rule."
+
+[[sources.declined]]
+feature = "A corpus-wide retuning campaign for a new model."
+reason = "Writing, pruning or reorganizing instructions follows the requested edit scope."
+
+[[sources.declined]]
+feature = "An adversarial audit in which one agent per skill proposes cuts, a second agent defends the text, and a line is cut when no provenance is found for it."
+reason = "The required consultation with both model profiles supplies independent review, and missing historical provenance alone does not justify deleting a rule."
+
+[[sources.reviews]]
+from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 9af474a70e7f..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[local_snapshots]]
+id = "installed-codex-skill-creator"
+kind = "installed-file"
+role = "ideas"
+path = "~/.codex/skills/.system/skill-creator/SKILL.md"
+sha256 = "6656e54755638e8efcf275a472b9672eaa8a9a1b9e59dc210e275b03b59e1e66"
+repository_commit_status = "Unverified; this content differs from the public OpenAI baseline above."
+update_policy = "Compare a future installed snapshot by hash and content; do not assign an upstream commit without matching evidence."
+license = "Unknown for this installed copy; ideas only, no source text copied"
+
+[[local_snapshots.ideas]]
+idea = "Instruction work keeps the user's intent and scope: it does not widen the assignment, imply permission for more external actions, or turn a single example, failure or preference into a universal requirement. New skills stay discoverable unless the user requests another invocation mode, and an existing invocation policy is preserved."
+serves = "Prevents instructions that quietly expand what an agent may do or change when a skill loads."
+where = [
+  "SKILL.md#establish-meaning-and-scope",
+  "references/instruction-files.md#make-the-requested-change",
+  "references/hosts.md#host-compatibility",
+]
+shapes = "Scope and authority are established before drafting; the instruction-file section refuses to promote a single incident or task permission into a global rule; the host section keeps the existing invocation policy and default discoverability."
+
+[[local_snapshots.ideas]]
+idea = "Behavioral checks verify observable behavior or meaningful invariants, not generated wording. An independent executor receives the request, the instructions and the raw artifacts, without the expected answer, suspected defects or proposed fixes."
+serves = "Keeps an evaluation from leaking its answer or rewarding matching text."
+where = [
+  "references/evaluation.md#compare-the-right-instructions",
+  "references/evaluation.md#judge-the-evidence",
+]
+shapes = "The comparison section sets what an independent executor receives and what it is not given; the evidence section rejects keywords and self-reports as proof."

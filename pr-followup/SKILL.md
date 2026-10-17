@@ -272,5 +272,5 @@ retain this run's host watch only while Drive is waiting for its stopping condit
 Outside the personal-repository policy, other pending reviews do not override an
 already verified approval stop.
 
-For requested source maintenance, use `agent-instructions` with `origin.txt` and
+For requested source maintenance, use `agent-instructions` with `origin.toml` and
 [references/upstream-updates.md](references/upstream-updates.md).

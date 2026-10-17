@@ -1,0 +1,284 @@
+format_version = 2
+skill = "performance-optimization"
+created = "2026-10-05"
+approach = "derive"
+goal = "Improve the latency, throughput, resource use or cost of an operation the user cares about through measured changes whose benefit justifies their complexity. A run ends with a verified improvement, evidence that the tried changes are not worthwhile, or the specific missing evidence that blocks the decision."
+
+[[invariants]]
+rule = "Local experiments never authorize production load, deployments, new spending, publication or recurring monitoring."
+reason = "A performance search runs under the active task's authorization, which covers local work only."
+where = ["SKILL.md#performance-optimization"]
+
+[[invariants]]
+rule = "Reverting a rejected experiment removes only this task's edits and keeps unrelated work and independently justified changes."
+where = ["SKILL.md#keep-only-justified-changes"]
+
+[[invariants]]
+rule = "A neutral simplification may stay for its own authorized benefit, but it is never reported as a performance win."
+where = ["SKILL.md#keep-only-justified-changes"]
+
+[[invariants]]
+rule = "The verify skill judges whether a measurement supports a claim; this skill keeps no copy of verify's benchmark checklist."
+reason = "One owner for measurement validity keeps the two skills from drifting apart."
+where = ["SKILL.md#establish-evidence-and-find-the-limiting-work"]
+
+[[sources]]
+id = "addy-performance-optimization"
+author = "Addy Osmani"
+repository = "https://github.com/addyosmani/agent-skills"
+remote = "git@github.com:addyosmani/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; exact original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+baseline_paths = [
+  "skills/performance-optimization/SKILL.md",
+  "skills/performance-optimization/references/optimization-patterns.md",
+  "references/performance-checklist.md",
+  "LICENSE",
+]
+paths = [
+  "skills/performance-optimization/SKILL.md",
+  "skills/performance-optimization/references/optimization-patterns.md",
+  "references/performance-checklist.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Optimization is a measured cycle: capture a baseline, locate the bottleneck, change one thing, check correctness and the metric, then keep or revert the change. A retained gain gets regression protection that stays maintainable."
+serves = "Every retained change rests on a measurement instead of a plausible edit."
+where = [
+  "SKILL.md#establish-evidence-and-find-the-limiting-work",
+  "SKILL.md#run-bounded-experiments",
+  "SKILL.md#keep-only-justified-changes",
+]
+shapes = "The cycle sets the order of these three sections; the rule on adding a regression benchmark or budget closes the last one."
+
+[[sources.ideas]]
+idea = "A reuse or caching change is valid only when it preserves the identity, authorization, freshness and resource bounds of what it reuses."
+serves = "Prevents speedups that serve stale data, leak across tenants or grow without bound."
+where = ["SKILL.md#run-bounded-experiments"]
+shapes = "The reuse and caching paragraph states these as validity conditions for a candidate."
+adapted = "Stated as a condition on any reuse rather than a list of cache techniques; a legitimate cache security or freshness policy is never weakened to gain speed."
+
+[[sources.declined]]
+feature = "Universal frontend, bundle-size and API latency budgets."
+reason = "The worthwhile improvement depends on the operation and the project."
+
+[[sources.declined]]
+feature = "A copied library of domain optimization recipes."
+reason = "Domain patterns stay conditional hypotheses; existing domain skills own their mechanisms."
+
+[[sources.declined]]
+feature = "Checking field data before optimizing every operation."
+reason = "Many operations are local; the verify skill judges which evidence a claim needs, and local measurements are reported as local."
+
+[[sources.reviews]]
+from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
+to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+incorporated = []
+skipped = [
+  "skills/performance-optimization/SKILL.md and references/performance-checklist.md: Commit 35c3acb relabels code fences from bash to javascript and turns hash comments into double-slash comments. Cosmetic; the local skill copies no snippets and the declined copied recipe library rules this out.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 1401c8b8030e..aeac41d4d005 and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "pstack-performance-search"
+author = "Lauren Tan / pstack (hosted in cursor/plugins)"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; exact original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "77526ffa67f8dafc698d14b5356e6d4fc78c3127"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = [
+  "pstack/skills/poteto-mode/playbooks/perf-issue.md",
+  "pstack/skills/poteto-mode/playbooks/hillclimb.md",
+  "pstack/LICENSE",
+]
+paths = [
+  "pstack/skills/poteto-mode/playbooks/perf-issue.md",
+  "pstack/skills/poteto-mode/playbooks/hillclimb.md",
+  "pstack/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Prefer removing unnecessary or repeated work before adding scheduling or concurrency."
+serves = "Tries simpler changes before ones that add coordination, contention and new failure modes."
+where = ["SKILL.md#establish-evidence-and-find-the-limiting-work"]
+shapes = "The ranking paragraph places this preference after ranking by measured cost, benefit, confidence and risk, so removal candidates are tried first among comparable options."
+
+[[sources.ideas]]
+idea = "Each attempt tests one interpretable hypothesis. The baseline, the best accepted variant and every rejected attempt stay reproducible with their keep or revert evidence."
+serves = "Makes each result attributable and keeps later work from repeating or hiding failed attempts."
+where = ["SKILL.md#run-bounded-experiments"]
+shapes = "The section changes one coherent cause at a time, keeps the baseline and best variant reproducible, and records every tried variant."
+
+[[sources.declined]]
+feature = "A minimum attempt quota or a requirement to push past a plateau."
+reason = "The search stops at a justified goal or at its bounded budget."
+
+[[sources.declined]]
+feature = "A required model, subagent, worktree, branch, PR or publication workflow."
+reason = "The active task's tools and authorization decide how experiments run."
+
+[[sources.declined]]
+feature = "Tracking pstack's shared measurement rules through this skill's source record."
+reason = "The verify skill owns measurement validity; this source covers only the performance-search playbooks."
+
+[[sources.reviews]]
+from_commit = "77526ffa67f8dafc698d14b5356e6d4fc78c3127"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/poteto-mode/playbooks/perf-issue.md and pstack/skills/poteto-mode/playbooks/hillclimb.md: Adds picking each subagent's reasoning level and fast or standard speed. Donor subagent orchestration that conflicts with the declined required model, subagent, worktree, branch, PR or publication workflow.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 77526ffa67f8..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "ecc-benchmark-optimization-loop"
+author = "Affaan Mustafa / ECC"
+repository = "https://github.com/affaan-m/ECC"
+remote = "git@github.com:affaan-m/ECC.git"
+ref = "refs/heads/main"
+license = "MIT; exact original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+reviewed_through = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29"
+baseline_paths = ["skills/benchmark-optimization-loop/SKILL.md", "LICENSE"]
+paths = ["skills/benchmark-optimization-loop/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "Before tuning, fix the operation, a correctness gate, the primary metric with its guardrails, the baseline and an explicit search budget."
+serves = "Gives every experiment the same yardstick and a stopping point, so a primary-metric gain cannot hide a regression elsewhere."
+where = ["SKILL.md#define-the-operation-and-decision"]
+shapes = "The skill starts by defining the operation, its guardrails, the decision criterion and the search budget."
+adapted = "Resource and behavior guardrails are part of the yardstick; the fastest primary metric is never promoted on its own."
+
+[[sources.ideas]]
+idea = "Reject candidates that fail correctness, compare the rest with the best accepted variant as well as the original when those answer different decisions, and confirm the final variant. The best variant observed is not a proven optimum."
+serves = "Prevents keeping a broken variant or claiming that no further improvement exists."
+where = ["SKILL.md#keep-only-justified-changes"]
+shapes = "The section holds the comparison rule and the report's limit on optimality claims."
+adapted = "A retained claim needs a measured benefit beyond normal variation; a causal explanation guides the next test but does not replace measurement."
+
+[[sources.reviews]]
+from_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+to_commit = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames ef648e01899b..b92f181b3b74 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "compound-ce-optimize"
+author = "Every / Compound Engineering"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+license = "MIT; exact original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c"
+reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+baseline_paths = [
+  "skills/ce-optimize/SKILL.md",
+  "skills/ce-optimize/references/measurement.md",
+  "skills/ce-optimize/references/loop.md",
+  "LICENSE",
+]
+paths = [
+  "skills/ce-optimize/SKILL.md",
+  "skills/ce-optimize/references/measurement.md",
+  "skills/ce-optimize/references/loop.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Locate the limiting work with the cheapest measurement that could change what gets tried or skipped."
+serves = "Spends diagnostic effort only where it changes a decision."
+where = ["SKILL.md#establish-evidence-and-find-the-limiting-work"]
+shapes = "The paragraph on locating expensive or repeated work picks the cheapest evidence that can change what to try or skip, and treats static patterns as hypotheses only."
+
+[[sources.ideas]]
+idea = "Rank opportunities by the measured cost of the limiting work, likely user benefit, confidence, implementation cost and risk."
+serves = "Puts effort where the operation actually spends time, not where a microbenchmark looks impressive."
+where = ["SKILL.md#establish-evidence-and-find-the-limiting-work"]
+shapes = "The ranking paragraph orders candidates by these factors and warns that a large microbenchmark gain in an insignificant part of the operation may not be worth it."
+
+[[sources.ideas]]
+idea = "Changes that each helped can interact, so the final combined change is measured again against the original operation instead of adding the isolated gains."
+serves = "Prevents reporting a total gain that was never measured."
+where = ["SKILL.md#keep-only-justified-changes"]
+shapes = "The section ends with a recheck of the final integrated change against the original operation and its guardrails."
+
+[[sources.declined]]
+feature = "Optimization campaigns for arbitrary model-judged quality."
+reason = "The skill covers software performance and resource cost."
+
+[[sources.declined]]
+feature = "A YAML spec, checkpoint framework, mandatory branch, worktree probe or script dependency."
+reason = "Search evidence stays proportionate to the task."
+
+[[sources.declined]]
+feature = "New routine approval gates, or handing unfinished authorized work back to the user."
+reason = "The active task's authorization and continuation govern the run."
+
+[[sources.reviews]]
+from_commit = "030188b4ba27f2dc33fbc4d5a112d3c8cc893e8c"
+to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 030188b4ba27..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[dependencies]]
+kind = "local"
+name = "verify"
+required = false
+role = "Performance-evidence assessment and relevant execution checks; explicit bounded fallback when unavailable."
+
+[[dependencies]]
+kind = "local"
+name = "debug"
+required = false
+role = "Conditional owner of observed regressions and failures before broader optimization."
+
+[[dependencies]]
+kind = "local"
+name = "prototype"
+required = false
+role = "Conditional disposable experiment to settle a mechanism; return to the active optimization."
+
+[[dependencies]]
+kind = "local"
+name = "observability"
+required = false
+role = "Conditional durable diagnostic coverage that outlives the experiment."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested authoring or upstream source maintenance."
+
+[[dependencies]]
+kind = "local"
+name = "ci-cd-automation"
+required = false
+role = "Conditional owner of pipeline efficiency and delivery gates; can call this skill for a constituent operation."

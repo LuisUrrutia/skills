@@ -1,0 +1,412 @@
+format_version = 2
+skill = "report-work-activity"
+created = "2026-10-04"
+approach = "derive"
+goal = "Produce a concise, private HTML report of the user's activity over a requested period from every connected source, with work separated from open source, and a separate as-of snapshot of outstanding commitments and assignments. Success is a report whose numbers come from accepted, attributed records, whose coverage gaps are visible instead of looking like zero activity, and whose retained evidence answers follow-up questions without repeating collection."
+
+[[invariants]]
+rule = "Reporting is read-only. Workers and the primary make no source mutations, such as sending, drafting, triage, acknowledgments, ticket changes or incident commands, and generating the bundle does not authorize sharing, sending, committing its personal data or scheduling future reports."
+where = [
+  "SKILL.md#extract-each-source-with-luna",
+  "SKILL.md#save-and-inspect-the-html",
+  "references/engineering-sources.md#jsm-pagerduty-and-equivalent-incident-systems",
+]
+
+[[invariants]]
+rule = "Existing tools and connectors own retrieval. The skill vendors no history adapter or universal client; the chat-history skill, when it is already installed, can own agent-history retrieval."
+where = [
+  "SKILL.md#extract-each-source-with-luna",
+  "references/agent-history.md#agent-conversations",
+]
+
+[[invariants]]
+rule = "Every selected source or workstream gets a first-pass extraction by a Codex Luna child, including sources collected with a CLI. Another model or primary-only extraction needs an explicit user change. The primary owns all shared output, and workers write to isolated paths."
+reason = "It is part of the user-defined multi-source reporting contract."
+where = [
+  "SKILL.md#extract-each-source-with-luna",
+  "references/extraction.md#source-extraction-with-codex-luna",
+]
+
+[[invariants]]
+rule = "A report period is a calendar interval [start, end) in the user's timezone, resolved once by the bundled helper, and a historical event belongs to it by its action time."
+where = ["SKILL.md#establish-the-report", "references/evidence.md#time-and-attribution"]
+
+[[invariants]]
+rule = "A count credits the user only for actions that a verified identity of the user performed in the stated role; assignment, on-call duty or a team result alone does not credit the user."
+where = [
+  "references/evidence.md#time-and-attribution",
+  "references/engineering-sources.md#jsm-pagerduty-and-equivalent-incident-systems",
+]
+
+[[sources]]
+id = "cursor-period-summary"
+author = "Cursor team"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = [
+  "cursor-team-kit/skills/what-did-i-get-done/SKILL.md",
+  "cursor-team-kit/skills/weekly-review/SKILL.md",
+  "cursor-team-kit/LICENSE",
+]
+paths = [
+  "cursor-team-kit/skills/what-did-i-get-done/SKILL.md",
+  "cursor-team-kit/skills/weekly-review/SKILL.md",
+  "cursor-team-kit/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Every report names its exact period. The period is resolved once and kept with its inclusive start, exclusive end, timezone and snapshot time."
+serves = "Makes it clear which work the report covers and lets later questions use the same window."
+where = ["SKILL.md#establish-the-report"]
+shapes = "Makes period resolution the first step of the report, before any collection."
+adapted = "The period is a calendar interval (yesterday, the previous week, the previous month or an explicit interval) instead of a rolling window, and it applies to every connected source, not only commits."
+
+[[sources.ideas]]
+idea = "Work is summarized as concise stories of the observed result, without invented impact or motivation."
+serves = "Keeps the report factual and short enough to use."
+where = ["SKILL.md#verify-and-synthesize", "SKILL.md#save-and-inspect-the-html"]
+shapes = "Turns linked PRs, tickets, messages, meetings and chats into work stories whose wording is limited to the observed result."
+adapted = "A commit does not prove shipment: commits, merges and deployment stay distinct events."
+
+[[sources.declined]]
+feature = "A report built only from authored commits over a rolling 7–10-day window."
+reason = "The report covers all connected sources over calendar intervals."
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames e43c7ee26e00..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "pstack-source-context"
+author = "Lauren Tan / pstack"
+repository = "https://github.com/cursor/plugins"
+remote = "git@github.com:cursor/plugins.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+baseline_paths = [
+  "pstack/skills/why/references/sources/slack.md",
+  "pstack/skills/why/references/sources/linear.md",
+  "pstack/skills/why/references/sources/notion.md",
+  "pstack/skills/why/references/sources/incident-postmortem.md",
+  "pstack/LICENSE",
+]
+paths = [
+  "pstack/skills/why/references/sources/slack.md",
+  "pstack/skills/why/references/sources/linear.md",
+  "pstack/skills/why/references/sources/notion.md",
+  "pstack/skills/why/references/sources/incident-postmortem.md",
+  "pstack/LICENSE",
+]
+
+[[sources.ideas]]
+idea = "For a message or ticket that matters, the surrounding thread or ticket history is read to find the outcome, promises, requests and later corrections, including in-period replies to older parent messages."
+serves = "Prevents a single message from being reported without the context that decides its outcome."
+where = [
+  "references/collaboration-sources.md#slack-and-documentdesign-work",
+  "references/engineering-sources.md#jira-linear-and-reviews-of-tickets",
+]
+shapes = "Adds a context read after the authored-message search and keeps reopened or reassigned tickets traceable."
+adapted = "Context establishes the user's work and current obligations, not the motivation behind code, which is what the donor reads it for."
+
+[[sources.ideas]]
+idea = "Each source records its search visibility, private-channel or direct-message permissions, retention and page limits, and when each status was checked, so access gaps and stale state appear in coverage."
+serves = "Prevents an inaccessible or outdated source from looking like no activity or a current fact."
+where = [
+  "references/evidence.md#coverage-and-obligations",
+  "references/collaboration-sources.md#slack-and-documentdesign-work",
+  "SKILL.md#verify-and-synthesize",
+]
+shapes = "Adds per-source coverage fields and a printed check time for each obligation status."
+
+[[sources.declined]]
+feature = "Quoting deciding threads in full as standard evidence."
+reason = "The bundle keeps minimal relevant excerpts with native IDs."
+
+[[sources.reviews]]
+from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
+to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+incorporated = []
+skipped = [
+  "pstack/skills/why/references/sources/slack.md: Commit 08bd59b deletes the source description, channel list, good-evidence list and What to return section. Removal only; the borrowed idea (read the deciding thread, report retention and access gaps) remains in the upstream Common pitfalls section.",
+  "pstack/skills/why/references/sources/incident-postmortem.md: The Notion, Datadog, Sentry and Databricks incident checks and the closing guidance are deleted. Removal only, with no new behavior.",
+]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "mblode-chat-history"
+author = "Matthew Blode"
+repository = "https://github.com/mblode/agent-skills"
+remote = "git@github.com:mblode/agent-skills.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+baseline_paths = [
+  "skills/chat-history/SKILL.md",
+  "skills/chat-history/references/sources.md",
+  "skills/chat-history/references/verification.md",
+  "LICENSE.md",
+]
+paths = [
+  "skills/chat-history/SKILL.md",
+  "skills/chat-history/references/sources.md",
+  "skills/chat-history/references/verification.md",
+  "LICENSE.md",
+]
+
+[[sources.ideas]]
+idea = "Agent history is read in bounded, decoded reads of supported record shapes, with full session and message IDs or exact file, line or database locators. An unsupported source is recorded as a gap instead of being exported whole."
+serves = "Keeps history reads safe and traceable and makes partial coverage explicit."
+where = ["references/agent-history.md#agent-conversations"]
+shapes = "Orders agent-history collection as cheap enumeration, then bounded reads of selected messages with retained locators."
+adapted = "Messages are selected by their own timestamps, including sessions created before the period; session creation, modification and directory dates are only discovery hints."
+
+[[sources.ideas]]
+idea = "Mirrored messages, export branches, resumed sessions and child or parent summaries are deduplicated by stable identity or explicit lineage, and a later correction that changes a completion claim is kept."
+serves = "Prevents double counting and prevents a superseded claim of completion from reaching the report."
+where = [
+  "references/agent-history.md#agent-conversations",
+  "references/extraction.md#self-contained-worker-brief",
+]
+shapes = "Adds a deduplication step by identity or lineage, and requires workers to preserve corrections."
+
+[[sources.declined]]
+feature = "Bundling the chat-history adapter or its retrieval scripts."
+reason = "Host history tools, supported local reads or the chat-history skill, when it is already installed, own retrieval, and the skill does not install it implicitly."
+
+[[sources.reviews]]
+from_commit = "012e6e5208f512151bdea0e2965dafd01ff61340"
+to_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 012e6e5208f5..872bc83bdb6d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "compound-extraction"
+author = "Every / Compound Engineering"
+repository = "https://github.com/EveryInc/compound-engineering-plugin"
+remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+baseline_paths = [
+  "skills/ce-compound/references/session-history.md",
+  "skills/ce-compound/references/agents/session-historian.md",
+  "skills/ce-sweep/references/sources/email.md",
+  "skills/ce-sweep/references/sources/slack.md",
+  "LICENSE",
+]
+paths = [
+  "skills/ce-compound/references/session-history.md",
+  "skills/ce-compound/references/agents/session-historian.md",
+  "skills/ce-sweep/references/sources/email.md",
+  "skills/ce-sweep/references/sources/slack.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Collection runs in two stages: cheap deterministic metadata collection, then a bounded child extraction for each source that reads the selected content. The complete countable inventory stays separate from the short relevance summary, so filtering prose never removes items from metrics."
+serves = "Keeps collection affordable without losing items from the counts."
+where = [
+  "SKILL.md#extract-each-source-with-luna",
+  "references/extraction.md#source-extraction-with-codex-luna",
+]
+shapes = "Splits extraction into metadata collection and child extraction, and separates the metric inventory from the story summary."
+adapted = "Every selected source gets a Codex Luna child, whether its data comes from a connector or a CLI. When a child lacks a connector, the primary fetches a bounded batch for it; the primary owns shared output and workers write to isolated paths."
+
+[[sources.ideas]]
+idea = "Each extracted item keeps its native ID, source link and the thread context that decides it, and truncated or unfinished retrieval is recorded explicitly."
+serves = "Lets the primary verify items and report partial coverage honestly."
+where = [
+  "references/extraction.md#self-contained-worker-brief",
+  "references/evidence.md#coverage-and-obligations",
+]
+shapes = "Puts native IDs, locators, coverage and unfinished portions into the required worker output."
+
+[[sources.declined]]
+feature = "A cap of five sessions and filtering of session history by the current branch."
+reason = "A complete period needs every relevant session; a relevance cap may limit deep reads but not coverage."
+
+[[sources.declined]]
+feature = "Sweep acknowledgments, source writes and a received-mail cursor."
+reason = "Reporting is read-only and selects mail by sent time within the period."
+
+[[sources.reviews]]
+from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
+to_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 9af474a70e7f..bdc53d034ccf over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "ecc-sent-mail"
+author = "affaan-m / ECC"
+repository = "https://github.com/affaan-m/ECC"
+remote = "git@github.com:affaan-m/ECC.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+reviewed_through = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29"
+baseline_paths = ["skills/email-ops/SKILL.md", "LICENSE"]
+paths = ["skills/email-ops/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "Sent work is proven from the Sent copy. Sent messages with their timestamps, message IDs and sender semantics count; drafts, scheduled messages, received mail, quoted text and automated sends do not."
+serves = "Prevents crediting the user with mail they did not send."
+where = ["references/collaboration-sources.md#gmail-and-outlook"]
+shapes = "Makes the Sent folder the enumerated surface and lists the message kinds that do not count."
+
+[[sources.ideas]]
+idea = "Bounded surrounding messages are read to see whether a promise or deadline was accepted, fulfilled or cancelled, and relative due dates are normalized against the original message and timezone."
+serves = "Keeps commitments in the report accurate instead of listing every mentioned task."
+where = [
+  "references/collaboration-sources.md#gmail-and-outlook",
+  "references/evidence.md#coverage-and-obligations",
+]
+shapes = "Adds a thread check after sent-mail enumeration and a date normalization rule for obligations."
+
+[[sources.declined]]
+feature = "Mailbox triage, drafting, replying and sending."
+reason = "Reporting only reads sent mail and outstanding requests."
+
+[[sources.declined]]
+feature = "A dependency on the brand-voice skill."
+reason = "The report drafts no outbound mail."
+
+[[sources.reviews]]
+from_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
+to_commit = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames ef648e01899b..b92f181b3b74 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "wshobson-incidents"
+author = "Seth Hobson / wshobson"
+repository = "https://github.com/wshobson/agents"
+remote = "git@github.com:wshobson/agents.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "156b7a5e7a8b93642628a339ee4039c925b34c7f"
+reviewed_through = "044b4b21f083948e69ec878a7b07c8d0951a6ffa"
+baseline_paths = [
+  "plugins/incident-response/skills/on-call-handoff-patterns/SKILL.md",
+  "plugins/incident-response/skills/on-call-handoff-patterns/references/details.md",
+  "LICENSE",
+]
+paths = [
+  "plugins/incident-response/skills/on-call-handoff-patterns/SKILL.md",
+  "plugins/incident-response/skills/on-call-handoff-patterns/references/details.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "Incident work is separated by state and role, with source links: scheduled on-call duty, notification, acknowledgment, active response and resolution are distinct, and linked follow-up actions are kept."
+serves = "Shows what the user actually did in an incident instead of what they were scheduled for."
+where = [
+  "references/engineering-sources.md#jsm-pagerduty-and-equivalent-incident-systems",
+  "SKILL.md#save-and-inspect-the-html",
+]
+shapes = "Adds an incident section that distinguishes these roles and gives incidents a non-repository row in the report."
+adapted = "Personal response or resolution counts only with actor evidence; a team resolution does not credit the user."
+
+[[sources.declined]]
+feature = "Shift-handoff timing rituals and alert tests."
+reason = "The skill reports incident activity; it does not run on-call operations."
+
+[[sources.reviews]]
+from_commit = "156b7a5e7a8b93642628a339ee4039c925b34c7f"
+to_commit = "044b4b21f083948e69ec878a7b07c8d0951a6ffa"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 156b7a5e7a8b..044b4b21f083 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "superpowers-session-evidence"
+author = "Jesse Vincent / obra"
+repository = "https://github.com/obra/superpowers"
+remote = "git@github.com:obra/superpowers.git"
+ref = "refs/heads/main"
+license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+reviewed_through = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
+baseline_paths = ["skills/diagnosing-superpowers/references/session-discovery.md", "LICENSE"]
+paths = ["skills/diagnosing-superpowers/references/session-discovery.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "The meaning of each history record is verified, not guessed: the store's schema is checked before reading, and human messages, injected context such as handoffs and parent dispatches, and tool results are kept distinct, with source locators."
+serves = "Prevents injected or tool text from being reported as the user's request or as completed work."
+where = ["references/agent-history.md#agent-conversations"]
+shapes = "Adds a schema check before database reads and a required distinction between record kinds in the worker summary."
+
+[[sources.declined]]
+feature = "A workflow for diagnosing the agent harness from its sessions."
+reason = "The skill reads sessions only to report work in a period."
+
+[[sources.declined]]
+feature = "Asking the user to choose among identified sessions before reading them."
+reason = "Records already identified by stable IDs and timestamps are read without a selection step."
+
+[[sources.reviews]]
+from_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
+to_commit = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 8ca22dba9a94..bb92a7774141 over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[dependencies]]
+kind = "local"
+name = "chat-history"
+required = false
+role = "Optional source retrieval specialist when already installed. Host history tools or supported local/export reads are alternatives."
+
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Required only for requested authoring or upstream maintenance."

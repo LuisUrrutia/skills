@@ -7,8 +7,8 @@ leave source pins unchanged; ordinary TypeScript work remains usable.
 
 "Check typescript-best-practices for upstream changes" selects Check mode without
 edits. "Update typescript-best-practices from upstream" authorizes compatible
-changes and validation. Neither request creates a schedule. Read `../origin.txt`
-for source revisions, review cursors, borrowed ideas, and local choices.
+changes and validation. Neither request creates a schedule. Read `../origin.toml`
+for the source pins, goal, ideas, declines and invariants.
 
 Preserve the small set of TypeScript judgment rules, existing contract owners,
 and distinction between static proof and runtime evidence. Do not import whole

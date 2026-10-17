@@ -12,10 +12,10 @@ preserve the source pins. Ordinary use remains available.
 pins. "Update explain-code from upstream" authorizes compatible changes and validation
 in Update mode. Neither request creates a background schedule.
 
-Read `../origin.txt` for immutable baselines, review cursors, source paths,
-borrowed ideas, and local choices. Preserve independent invocation, read-only
-explanation, requested depth, source-backed claims, and the distinction between
-present behavior, documented reasons, and inference. Donor delegation rules,
-teaching infrastructure, new dependencies, or output policies do not become local
-requirements automatically. The shared procedure owns fetching, moved paths,
-classification, validation, and cursor advancement.
+Read `../origin.toml` for the source pins, goal, ideas, declines and invariants.
+Preserve independent invocation, read-only explanation, requested depth,
+source-backed claims, and the distinction between present behavior, documented
+reasons, and inference. Donor delegation rules, teaching infrastructure, new
+dependencies, or output policies do not become local requirements automatically.
+The shared procedure owns fetching, moved paths, classification, validation, and
+cursor advancement.
