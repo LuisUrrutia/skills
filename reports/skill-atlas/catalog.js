@@ -4370,9 +4370,9 @@ window.SKILL_ATLAS = {
         "category": "Implementation, verification and review",
         "summary": "Coordinate or resume one selected development task through its remaining authorized phases, preserving specialist owners, evidence and continuation.",
         "path": "work-mode/SKILL.md",
-        "sha256": "19c529fbaa043fc6f44679f7139f21abefd39214ee95f7b5482e5fe24c92ded0",
+        "sha256": "5fcf017d49a16fb25faeaff0825357cc13dd9f9be6490fcabec3914981d757e5",
         "section": "workflow",
-        "checkedAt": "2026-10-07"
+        "checkedAt": "2026-10-17"
       },
       {
         "name": "debug",
@@ -4460,8 +4460,8 @@ window.SKILL_ATLAS = {
         "category": "Implementation, verification and review",
         "summary": "Review another author's PR with independent Codex, Claude and CodeRabbit attempts over one frozen scope, then publish one Comment or Approve review.",
         "path": "pr-review/SKILL.md",
-        "sha256": "341e59469887c1e943b1a7d9f592111ff8f71e03ad86476a2dcd2b9b5239d6b3",
-        "checkedAt": "2026-10-14"
+        "sha256": "f57574e20812ca70a6e339f8dae631afccd61ec0facf1504d3e6db8a059a60ff",
+        "checkedAt": "2026-10-17"
       },
       {
         "name": "pr-review-followup",
@@ -4484,26 +4484,27 @@ window.SKILL_ATLAS = {
         "category": "Git, pull requests and CI",
         "summary": "Prepare and verify atomic commits while preserving unrelated staged and working-tree changes.",
         "path": "commit/SKILL.md",
-        "sha256": "fb02823ecd1b20a5ca44609857c0f4b1ef8ac057b8fc2f89df31272f9d824be9",
-        "section": "commit-pr"
+        "sha256": "a340fba881a0e02dba81a72a0685ef742b37b2c10aba56f45997b8562efc4197",
+        "section": "commit-pr",
+        "checkedAt": "2026-10-17"
       },
       {
         "name": "pr",
         "category": "Git, pull requests and CI",
         "summary": "Create or update a reviewable PR, including real screenshots, attachment recovery and useful diagrams.",
         "path": "pr/SKILL.md",
-        "sha256": "d2ce2c5d6b0e536b8c01bf54c569d6f33e7f7dccb7acb092f03845ad367b7e43",
+        "sha256": "692d6bc5f553740e07eb7abaa6d59637b860c970e907a2f1b5eb160c9cab80bd",
         "section": "pr-attachments",
-        "checkedAt": "2026-10-08"
+        "checkedAt": "2026-10-17"
       },
       {
         "name": "pr-followup",
         "category": "Git, pull requests and CI",
         "summary": "Evaluate human and AI feedback, repair authorized CI failures or conflicts and report the current PR state.",
         "path": "pr-followup/SKILL.md",
-        "sha256": "4139f857a455fce09dc5a20152dcc5ef52e2bbd96871d0140bc8f2247ade37d5",
+        "sha256": "d8185b339a2da05c752dc5ef8f734ea1140092341f3ca227e7fc1f0528b495b2",
         "section": "followup",
-        "checkedAt": "2026-10-09"
+        "checkedAt": "2026-10-17"
       },
       {
         "name": "stacked-pr",
@@ -4583,16 +4584,18 @@ window.SKILL_ATLAS = {
         "category": "Writing and personal workflows",
         "summary": "Write portable continuation context with the next action, decisions, evidence and access limits; creating the document does not transfer execution.",
         "path": "handoff/SKILL.md",
-        "sha256": "8f2ab32169ec642e6c90cc1f21f9bac0a2f7ee7a3a987ae0c4dc19d50fce6f08",
-        "section": "handoff"
+        "sha256": "d6fe45059286875017f51f88dcff6048b03fd495a0fa3c4d95e7183011d1499b",
+        "section": "handoff",
+        "checkedAt": "2026-10-17"
       },
       {
         "name": "report-work-activity",
         "category": "Writing and personal workflows",
         "summary": "Explain activity and current obligations with work/open-source metrics, all configured GitHub CLI profiles, Luna extraction and a private HTML evidence bundle.",
         "path": "report-work-activity/SKILL.md",
-        "sha256": "f428fd3c2149eef348f73d0c8808a92255f9002710a359f2414e029477bdcca1",
-        "section": "report-work-activity"
+        "sha256": "ebc6870ab569948ccff3b1f78cb59d3a08746ce3cc682917ac0092cd1c58bb2f",
+        "section": "report-work-activity",
+        "checkedAt": "2026-10-17"
       },
       {
         "name": "write-documentation",
@@ -4607,16 +4610,18 @@ window.SKILL_ATLAS = {
         "category": "Learning",
         "summary": "Teach a concept, codebase, system, or business with adapted examples and optional practice.",
         "path": "teach/SKILL.md",
-        "sha256": "0d298e4f953c9f8550830853c16fafc95dccfe5441dee69af1421fa7e2c9076f",
-        "section": "teaching"
+        "sha256": "41b637a2b5b0f8f64b3037351e4e07d97ebbc08fe94b81af0c52d1275cd95758",
+        "section": "teaching",
+        "checkedAt": "2026-10-17"
       },
       {
         "name": "learning-plan",
         "category": "Learning",
         "summary": "Build or revise a learning progression or complete course with usable lessons and progress checkpoints.",
         "path": "learning-plan/SKILL.md",
-        "sha256": "1cbb1f9415a3ef8ecc48ebc1b89d5401966af214df7e234df099921ce199901d",
-        "section": "teaching"
+        "sha256": "0d73f6a266bf2bb38e498388124aaebcbb9aa307947b83b5c8cfd4ef6ec13b80",
+        "section": "teaching",
+        "checkedAt": "2026-10-17"
       },
       {
         "name": "comment-style",
@@ -4641,8 +4646,8 @@ window.SKILL_ATLAS = {
         "summary": "Synchronize source tickets at work start, PR creation and observed merge under per-project transition rules.",
         "path": "issue-workflow/SKILL.md",
         "section": "issue-workflow",
-        "checkedAt": "2026-10-06",
-        "sha256": "dc965c8ad9a0b743bc295cc82341358aef3339e06f5e4f68a37219cc07a256f8"
+        "checkedAt": "2026-10-17",
+        "sha256": "6e5d9449f5a4742cd4754f9dca1cfbc8bdc1e0a880e9b2337d8cd99b41ad2672"
       },
       {
         "name": "wayfinder",
@@ -4650,8 +4655,8 @@ window.SKILL_ATLAS = {
         "summary": "Ground the problem, compare real options and resolve decisive uncertainty before planning, preserving decisions across sessions.",
         "path": "wayfinder/SKILL.md",
         "section": "wayfinder",
-        "checkedAt": "2026-10-06",
-        "sha256": "81c8523c30b032dac7aef258ebb20468d7ad475c9d9e4cf4cf920d5e34e074f2"
+        "checkedAt": "2026-10-17",
+        "sha256": "890793e30a966b68d2ac042c3d8ee0d61e6d30b1ee3d2526646fb237caa48fe3"
       },
       {
         "name": "planning",
@@ -4659,24 +4664,24 @@ window.SKILL_ATLAS = {
         "summary": "Create, review or revise implementation plans with verifiable outcomes, dependencies and acceptance checks; task-breakdown owns PR-sized decomposition.",
         "path": "planning/SKILL.md",
         "section": "planning",
-        "checkedAt": "2026-10-16",
-        "sha256": "b6de85aeab793036f300639f750b52f3549683074e878e8cd89daca480e945fc"
+        "checkedAt": "2026-10-17",
+        "sha256": "045afc60a212e5322891d12846a1d6836199289f7b016290d1ccdc08fd45ecec"
       },
       {
         "name": "task-breakdown",
         "category": "Understanding and design",
         "summary": "Divide implementation plans into cohesive, testable delivery units with real dependencies and explicit review budgets.",
         "path": "task-breakdown/SKILL.md",
-        "checkedAt": "2026-10-06",
-        "sha256": "6d172424179c38c5d3b550e1c1b82b8f20972b2929643e617b4bf6d4a20560ba"
+        "checkedAt": "2026-10-17",
+        "sha256": "74792780199e67ca8157bdf3e2175cdf11092f77fc096eeb7309256e4969eafd"
       },
       {
         "name": "retro",
         "category": "Implementation, verification and review",
         "summary": "Diagnose coding-session friction from evidence and route supported improvements to their existing owners.",
         "path": "retro/SKILL.md",
-        "checkedAt": "2026-10-06",
-        "sha256": "611a8eb88b191c9a211dfecf12e69037acf8e8502a268206bff24e375eb237d3"
+        "checkedAt": "2026-10-17",
+        "sha256": "e6c5a93dce60d5de6446a5214e0cc59a80892db538832eaeca552e50e85b9a92"
       }
     ],
     "pending": [],
@@ -4872,7 +4877,7 @@ window.SKILL_ATLAS = {
         "owner": "agent-instructions",
         "category": "Instruction authoring",
         "summary": "Reorganizes agent instructions around explicit reading conditions and operational context.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -4953,7 +4958,7 @@ window.SKILL_ATLAS = {
         "owner": "pr",
         "category": "Git, pull requests and CI",
         "summary": "Explains a pull request through its purpose and useful visual representations of the change.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -5007,7 +5012,7 @@ window.SKILL_ATLAS = {
         "owner": "agent-instructions; workflow-to-skill",
         "category": "Instruction authoring",
         "summary": "Chooses skill reuse or authoring, writes scoped procedures and evaluates their behavior.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -5034,7 +5039,7 @@ window.SKILL_ATLAS = {
         "owner": "agent-instructions; create-project-instructions",
         "category": "Instruction authoring",
         "summary": "Builds and maintains project instruction files grounded in repository evidence.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -5421,7 +5426,7 @@ window.SKILL_ATLAS = {
         "owner": "pr-followup",
         "category": "Git, pull requests and CI",
         "summary": "Follows CI and review feedback on a pull request and resolves eligible work.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -5448,7 +5453,7 @@ window.SKILL_ATLAS = {
         "owner": "pr",
         "category": "Git, pull requests and CI",
         "summary": "Prepares a human-reviewable pull request from the actual change and its validation.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -5918,7 +5923,7 @@ window.SKILL_ATLAS = {
         "owner": "verify",
         "category": "Implementation, verification and review",
         "summary": "Uses browser observations to support claims about interaction, rendering and runtime behavior.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -5972,7 +5977,7 @@ window.SKILL_ATLAS = {
         "owner": "review-code-changes",
         "category": "Implementation, verification and review",
         "summary": "Reviews changes for correctness and relevant quality risks with concrete evidence.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -5999,7 +6004,7 @@ window.SKILL_ATLAS = {
         "owner": "simplify-code",
         "category": "Implementation, verification and review",
         "summary": "Simplifies changed code while preserving its behavior and constraints.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -6053,7 +6058,7 @@ window.SKILL_ATLAS = {
         "owner": "create-project-instructions",
         "category": "Instruction authoring",
         "summary": "Selects relevant repository context and durable instructions for an agent task.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -6080,7 +6085,7 @@ window.SKILL_ATLAS = {
         "owner": "debug",
         "category": "Implementation, verification and review",
         "summary": "Reproduces a failure, tests causes and verifies a bounded repair.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -6215,7 +6220,7 @@ window.SKILL_ATLAS = {
         "owner": "commit",
         "category": "Git, pull requests and CI",
         "summary": "Organizes changes into understandable commits and a reviewable Git workflow.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -6580,7 +6585,7 @@ window.SKILL_ATLAS = {
         "owner": "pr-followup",
         "category": "Git, pull requests and CI",
         "summary": "Monitors a PR through changing checks and feedback until its requested end state.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -6661,7 +6666,7 @@ window.SKILL_ATLAS = {
         "owner": "review-code-changes",
         "category": "Implementation, verification and review",
         "summary": "Selects review lenses, evaluates findings and reports evidence and coverage.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -6688,7 +6693,7 @@ window.SKILL_ATLAS = {
         "owner": "commit",
         "category": "Git, pull requests and CI",
         "summary": "Builds atomic commits from the intended changes and checks the resulting artifact.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -6715,7 +6720,7 @@ window.SKILL_ATLAS = {
         "owner": "pr",
         "category": "Git, pull requests and CI",
         "summary": "Publishes a branch and composes a PR from its actual behavior and evidence.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -6796,7 +6801,7 @@ window.SKILL_ATLAS = {
         "owner": "debug",
         "category": "Implementation, verification and review",
         "summary": "Investigates a reported failure with explicit hypotheses and verified corrections.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -7220,7 +7225,7 @@ window.SKILL_ATLAS = {
         "owner": "pr-followup",
         "category": "Git, pull requests and CI",
         "summary": "Evaluates review feedback before applying supported corrections.",
-        "reason": "Selected material is already recorded in local origin.txt files. Keep the current local owner instead of installing another competing entrypoint.",
+        "reason": "Selected material is already recorded in local origin.toml files. Keep the current local owner instead of installing another competing entrypoint.",
         "caution": "The check applies to the selected material and recorded baseline, not every upstream instruction or the latest revision. Existing local adaptations and host rules remain authoritative.",
         "decision": "Keep",
         "inspection": "Local provenance matched; current entrypoint inventoried. This pass did not audit changes since the adopted baseline.",
@@ -7250,7 +7255,7 @@ window.SKILL_ATLAS = {
         "reason": "Selected evaluation and continuation guidance is incorporated in agent-instructions: verify the loaded revision, retain failures, distinguish phase entry from completion, and trace the actor that must continue.",
         "caution": "Use repeated matched trials and report variation when the claim needs that evidence. Controls address an actual investigation; no fixed campaign, hard range threshold or deletion based on missing history. Legitimate child returns, user decisions, blockers and asynchronous resumption remain intact.",
         "decision": "Blend",
-        "inspection": "Entrypoint, all six references and the MIT license read at the pinned revision. Selected ideas are recorded in agent-instructions/origin.txt; the donor is not installed or required at runtime.",
+        "inspection": "Entrypoint, all six references and the MIT license read at the pinned revision. Selected ideas are recorded in agent-instructions/origin.toml; the donor is not installed or required at runtime.",
         "references": [
           {
             "path": "skills/ce-retune/references/baseline-mining.md",
@@ -7742,7 +7747,7 @@ window.SKILL_ATLAS = {
   "sourceProgress": {
     "checkedAt": "2026-10-06",
     "repositoryCommit": "f4e7a1f732c039cfeb2c217eea1954f3f308cccf (base; current evidence hashes below)",
-    "meaning": "Ready records actual selected incorporation from origin.txt, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
+    "meaning": "Ready records actual selected incorporation from origin.toml, a present retained/replacement repository package, or the explicitly checked bundled creator. Recommendations alone never produce a check.",
     "counts": {
       "ready": 159,
       "pending": 33,
@@ -7760,7 +7765,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "review-code-changes",
-            "path": "review-code-changes/origin.txt",
+            "path": "review-code-changes/origin.toml",
             "line": 69,
             "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "matt-code-review",
@@ -7787,7 +7792,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "design-code-structure",
-            "path": "design-code-structure/origin.txt",
+            "path": "design-code-structure/origin.toml",
             "line": 38,
             "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "matt-design",
@@ -7818,7 +7823,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "debug",
-            "path": "debug/origin.txt",
+            "path": "debug/origin.toml",
             "line": 7,
             "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "mattpocock-debugging-and-tests",
@@ -7851,7 +7856,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "design-code-structure",
-            "path": "design-code-structure/origin.txt",
+            "path": "design-code-structure/origin.toml",
             "line": 38,
             "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "matt-design",
@@ -7910,7 +7915,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "prototype",
-            "path": "prototype/origin.txt",
+            "path": "prototype/origin.toml",
             "line": 7,
             "sha256": "2816d9cb46740acaea71c9bd9ee870c80e87ba0a55b7bd4882df5faeedad898e",
             "sourceId": "mattpocock-prototype",
@@ -7941,7 +7946,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "create-project-instructions",
-            "path": "create-project-instructions/origin.txt",
+            "path": "create-project-instructions/origin.toml",
             "line": 29,
             "sha256": "74653e75c2b1e5c41b6cd272538e888809e64a0ee8b05f9a8948eb2432ac7fe1",
             "sourceId": "mattpocock-research",
@@ -7968,7 +7973,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "workflow-to-skill",
-            "path": "workflow-to-skill/origin.txt",
+            "path": "workflow-to-skill/origin.toml",
             "line": 78,
             "sha256": "3b38a8ac54a9410c3162c125949e8019be65eec24f719aabca4df9afc55725c0",
             "sourceId": "mattpocock-retro",
@@ -7985,7 +7990,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "retro",
-            "path": "retro/origin.txt",
+            "path": "retro/origin.toml",
             "line": 7,
             "sha256": "65a7310c69af8a623a15bacb739842cff52f7e4ab18c9c1ab3ed5c26b7916145",
             "sourceId": "matt-retro",
@@ -8016,7 +8021,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "debug",
-            "path": "debug/origin.txt",
+            "path": "debug/origin.toml",
             "line": 7,
             "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "mattpocock-debugging-and-tests",
@@ -8039,7 +8044,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "tdd",
-            "path": "tdd/origin.txt",
+            "path": "tdd/origin.toml",
             "line": 7,
             "sha256": "439f5bf985721e33c2236fbc109ac07814f7eca14210d6c751cd6d5e3654af25",
             "sourceId": "mattpocock-tdd",
@@ -8082,7 +8087,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "planning",
-            "path": "planning/origin.txt",
+            "path": "planning/origin.toml",
             "line": 22,
             "sha256": "58d99039850006c28b04859a0fbae2287c59e920b3e329def0e692dd73955039",
             "sourceId": "matt-to-tickets",
@@ -8101,7 +8106,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "task-breakdown",
-            "path": "task-breakdown/origin.txt",
+            "path": "task-breakdown/origin.toml",
             "line": 22,
             "sha256": "088a671b992cf531ff32127504d8f477df76ac3e1f243fb5c076ca049e9108e9",
             "sourceId": "matt-to-tickets",
@@ -8136,7 +8141,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "wayfinder",
-            "path": "wayfinder/origin.txt",
+            "path": "wayfinder/origin.toml",
             "line": 7,
             "sha256": "e0e7a45773bdcab03cca70ec7deb8874a0f51a896fca418d7463ae2284c8931a",
             "sourceId": "matt-wayfinder",
@@ -8192,7 +8197,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "handoff",
-            "path": "handoff/origin.txt",
+            "path": "handoff/origin.toml",
             "line": 7,
             "sha256": "8f3b25447d8381591f54ed7d1b76dbd4a1dac29c158d2eed502110fb87ecce20",
             "sourceId": "matt-handoff",
@@ -8220,7 +8225,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "teach",
-            "path": "teach/origin.txt",
+            "path": "teach/origin.toml",
             "line": 21,
             "sha256": "f9d770c797c8e3549459e3ecb429a1ef2cf12fa9738da8c51751cdc08f6dfdde",
             "sourceId": "teach-matt",
@@ -8237,7 +8242,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "learning-plan",
-            "path": "learning-plan/origin.txt",
+            "path": "learning-plan/origin.toml",
             "line": 21,
             "sha256": "83de81cbf8fbaff152fd5d853d3ea4a41ea5c9ceb5df028ffbff91499c1f7c79",
             "sourceId": "learning-plan-matt",
@@ -8272,7 +8277,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "agent-instructions",
-            "path": "agent-instructions/origin.txt",
+            "path": "agent-instructions/origin.toml",
             "line": 7,
             "sha256": "8361b9e4cac942f936628bf15a4c76f5e316b655fd4b949f1b72097ed746dafc",
             "sourceId": "mattpocock-writing-for-agents",
@@ -8303,7 +8308,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "simplify-code",
-            "path": "simplify-code/origin.txt",
+            "path": "simplify-code/origin.toml",
             "line": 7,
             "sha256": "83623fa1ab345b636d1f7c7463a852f6e7a44c8ebb7c35b53268357cdde6cde9",
             "sourceId": "cursor-deslop",
@@ -8330,7 +8335,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "pr-followup",
-            "path": "pr-followup/origin.txt",
+            "path": "pr-followup/origin.toml",
             "line": 24,
             "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "cursor-ci-followup",
@@ -8355,7 +8360,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "pr-followup",
-            "path": "pr-followup/origin.txt",
+            "path": "pr-followup/origin.toml",
             "line": 24,
             "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "cursor-ci-followup",
@@ -8381,7 +8386,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "commit",
-            "path": "commit/origin.txt",
+            "path": "commit/origin.toml",
             "line": 37,
             "sha256": "dc077e6582888c7f9201c5ada83db003185ff72af036879ceec99669650c527e",
             "sourceId": "cursor-reviewable-pr",
@@ -8396,7 +8401,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "pr",
-            "path": "pr/origin.txt",
+            "path": "pr/origin.toml",
             "line": 24,
             "sha256": "1fbdcc5fa64bc03edf1dcd176e0ca1cd4b77c7e845e3f59b0d485269bf9027e4",
             "sourceId": "cursor-reviewable-pr",
@@ -8421,7 +8426,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "review-code-changes",
-            "path": "review-code-changes/origin.txt",
+            "path": "review-code-changes/origin.toml",
             "line": 54,
             "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "cursor-quality-review",
@@ -8446,7 +8451,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "report-work-activity",
-            "path": "report-work-activity/origin.txt",
+            "path": "report-work-activity/origin.toml",
             "line": 7,
             "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
             "sourceId": "cursor-period-summary",
@@ -8472,7 +8477,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "pr-followup",
-            "path": "pr-followup/origin.txt",
+            "path": "pr-followup/origin.toml",
             "line": 24,
             "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "cursor-ci-followup",
@@ -8497,7 +8502,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "design-code-structure",
-            "path": "design-code-structure/origin.txt",
+            "path": "design-code-structure/origin.toml",
             "line": 7,
             "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
@@ -8532,7 +8537,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "compare-solutions",
-            "path": "compare-solutions/origin.txt",
+            "path": "compare-solutions/origin.toml",
             "line": 7,
             "sha256": "a2bee91db16df1d48fdbb3a959f9619530a43b21259838d2f7061f34b13b8d03",
             "sourceId": "pstack-arena",
@@ -8581,7 +8586,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "analyze-change-effects",
-            "path": "analyze-change-effects/origin.txt",
+            "path": "analyze-change-effects/origin.toml",
             "line": 7,
             "sha256": "f4a85e70523a0148d8558daef51206b430541ad91ce84fd19849d1b9d8e30633",
             "sourceId": "pstack-blast-radius",
@@ -8611,7 +8616,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "debug",
-            "path": "debug/origin.txt",
+            "path": "debug/origin.toml",
             "line": 36,
             "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "pstack-debugging-principles",
@@ -8646,7 +8651,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "verification-authoring",
-            "path": "verification-authoring/origin.txt",
+            "path": "verification-authoring/origin.toml",
             "line": 7,
             "sha256": "644950adab94aedd347fa671cfe48be455a482d0694523498b7a230a81c394b0",
             "sourceId": "pstack-verification",
@@ -8671,7 +8676,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "verify",
-            "path": "verify/origin.txt",
+            "path": "verify/origin.toml",
             "line": 7,
             "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
             "sourceId": "pstack-verification",
@@ -8705,7 +8710,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "wayfinder",
-            "path": "wayfinder/origin.txt",
+            "path": "wayfinder/origin.toml",
             "line": 52,
             "sha256": "e0e7a45773bdcab03cca70ec7deb8874a0f51a896fca418d7463ae2284c8931a",
             "sourceId": "pstack-wayfinder",
@@ -8736,7 +8741,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "debug",
-            "path": "debug/origin.txt",
+            "path": "debug/origin.toml",
             "line": 36,
             "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "pstack-debugging-principles",
@@ -8760,7 +8765,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "explain-code",
-            "path": "explain-code/origin.txt",
+            "path": "explain-code/origin.toml",
             "line": 7,
             "sha256": "ff2e55f2eed1e029eb9118b46cde2012b7e9a63a8b07d89938642436ddf8704c",
             "sourceId": "pstack-how-and-teach",
@@ -8806,7 +8811,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "verification-authoring",
-            "path": "verification-authoring/origin.txt",
+            "path": "verification-authoring/origin.toml",
             "line": 7,
             "sha256": "644950adab94aedd347fa671cfe48be455a482d0694523498b7a230a81c394b0",
             "sourceId": "pstack-verification",
@@ -8831,7 +8836,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "verify",
-            "path": "verify/origin.txt",
+            "path": "verify/origin.toml",
             "line": 7,
             "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
             "sourceId": "pstack-verification",
@@ -8866,7 +8871,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "simplify-code",
-            "path": "simplify-code/origin.txt",
+            "path": "simplify-code/origin.toml",
             "line": 22,
             "sha256": "83623fa1ab345b636d1f7c7463a852f6e7a44c8ebb7c35b53268357cdde6cde9",
             "sourceId": "pstack-comments",
@@ -8894,7 +8899,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "handoff",
-            "path": "handoff/origin.txt",
+            "path": "handoff/origin.toml",
             "line": 69,
             "sha256": "8f3b25447d8381591f54ed7d1b76dbd4a1dac29c158d2eed502110fb87ecce20",
             "sourceId": "cursor-handoff",
@@ -8910,7 +8915,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "work-mode",
-            "path": "work-mode/origin.txt",
+            "path": "work-mode/origin.toml",
             "line": 7,
             "sha256": "9f5a174e6b5de6155879c0396a3fb6743548d27f34c044ade047c44ac46bab8b",
             "sourceId": "pstack-routing",
@@ -8930,7 +8935,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "prototype",
-            "path": "prototype/origin.txt",
+            "path": "prototype/origin.toml",
             "line": 34,
             "sha256": "2816d9cb46740acaea71c9bd9ee870c80e87ba0a55b7bd4882df5faeedad898e",
             "sourceId": "pstack-prototype-playbook",
@@ -8970,7 +8975,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "design-code-structure",
-            "path": "design-code-structure/origin.txt",
+            "path": "design-code-structure/origin.toml",
             "line": 7,
             "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
@@ -8995,7 +9000,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "error-handling",
-            "path": "error-handling/origin.txt",
+            "path": "error-handling/origin.toml",
             "line": 22,
             "sha256": "c07372e9c0ac8a471ce71fab6f2315527bdfbf78ec2b99de594db4880d390406",
             "sourceId": "pstack-boundaries-and-recovery",
@@ -9016,7 +9021,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 7,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "pstack-typescript-and-principles",
@@ -9051,7 +9056,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 7,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "pstack-typescript-and-principles",
@@ -9081,7 +9086,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "design-code-structure",
-            "path": "design-code-structure/origin.txt",
+            "path": "design-code-structure/origin.toml",
             "line": 7,
             "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
@@ -9106,7 +9111,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "wayfinder",
-            "path": "wayfinder/origin.txt",
+            "path": "wayfinder/origin.toml",
             "line": 52,
             "sha256": "e0e7a45773bdcab03cca70ec7deb8874a0f51a896fca418d7463ae2284c8931a",
             "sourceId": "pstack-wayfinder",
@@ -9143,7 +9148,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "debug",
-            "path": "debug/origin.txt",
+            "path": "debug/origin.toml",
             "line": 36,
             "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "pstack-debugging-principles",
@@ -9177,7 +9182,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "design-code-structure",
-            "path": "design-code-structure/origin.txt",
+            "path": "design-code-structure/origin.toml",
             "line": 7,
             "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
@@ -9219,7 +9224,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "compare-solutions",
-            "path": "compare-solutions/origin.txt",
+            "path": "compare-solutions/origin.toml",
             "line": 7,
             "sha256": "a2bee91db16df1d48fdbb3a959f9619530a43b21259838d2f7061f34b13b8d03",
             "sourceId": "pstack-arena",
@@ -9262,7 +9267,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "design-code-structure",
-            "path": "design-code-structure/origin.txt",
+            "path": "design-code-structure/origin.toml",
             "line": 7,
             "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
@@ -9287,7 +9292,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "error-handling",
-            "path": "error-handling/origin.txt",
+            "path": "error-handling/origin.toml",
             "line": 22,
             "sha256": "c07372e9c0ac8a471ce71fab6f2315527bdfbf78ec2b99de594db4880d390406",
             "sourceId": "pstack-boundaries-and-recovery",
@@ -9308,7 +9313,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "ci-cd-automation",
-            "path": "ci-cd-automation/origin.txt",
+            "path": "ci-cd-automation/origin.toml",
             "line": 67,
             "sha256": "4ca6f9e3eae86f45da59cb07d43875d5c89ba1b0b11aa9f411721e6e56d84c57",
             "sourceId": "pstack-idempotency-and-shared-state",
@@ -9336,7 +9341,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "deprecate-and-remove",
-            "path": "deprecate-and-remove/origin.txt",
+            "path": "deprecate-and-remove/origin.toml",
             "line": 22,
             "sha256": "42ce96a152816987646c77483fa9884509504d1999db167c85d2e03e455ca338",
             "sourceId": "pstack-internal-retirement",
@@ -9364,7 +9369,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "design-code-structure",
-            "path": "design-code-structure/origin.txt",
+            "path": "design-code-structure/origin.toml",
             "line": 7,
             "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
@@ -9389,7 +9394,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 7,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "pstack-typescript-and-principles",
@@ -9419,7 +9424,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "design-code-structure",
-            "path": "design-code-structure/origin.txt",
+            "path": "design-code-structure/origin.toml",
             "line": 7,
             "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
@@ -9444,7 +9449,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 7,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "pstack-typescript-and-principles",
@@ -9488,7 +9493,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "compare-solutions",
-            "path": "compare-solutions/origin.txt",
+            "path": "compare-solutions/origin.toml",
             "line": 7,
             "sha256": "a2bee91db16df1d48fdbb3a959f9619530a43b21259838d2f7061f34b13b8d03",
             "sourceId": "pstack-arena",
@@ -9519,7 +9524,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 7,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "pstack-typescript-and-principles",
@@ -9538,7 +9543,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "wayfinder",
-            "path": "wayfinder/origin.txt",
+            "path": "wayfinder/origin.toml",
             "line": 52,
             "sha256": "e0e7a45773bdcab03cca70ec7deb8874a0f51a896fca418d7463ae2284c8931a",
             "sourceId": "pstack-wayfinder",
@@ -9569,7 +9574,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "compare-solutions",
-            "path": "compare-solutions/origin.txt",
+            "path": "compare-solutions/origin.toml",
             "line": 7,
             "sha256": "a2bee91db16df1d48fdbb3a959f9619530a43b21259838d2f7061f34b13b8d03",
             "sourceId": "pstack-arena",
@@ -9600,7 +9605,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "design-code-structure",
-            "path": "design-code-structure/origin.txt",
+            "path": "design-code-structure/origin.toml",
             "line": 7,
             "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
@@ -9637,7 +9642,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "compare-solutions",
-            "path": "compare-solutions/origin.txt",
+            "path": "compare-solutions/origin.toml",
             "line": 7,
             "sha256": "a2bee91db16df1d48fdbb3a959f9619530a43b21259838d2f7061f34b13b8d03",
             "sourceId": "pstack-arena",
@@ -9668,7 +9673,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "design-code-structure",
-            "path": "design-code-structure/origin.txt",
+            "path": "design-code-structure/origin.toml",
             "line": 7,
             "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
@@ -9693,7 +9698,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "ci-cd-automation",
-            "path": "ci-cd-automation/origin.txt",
+            "path": "ci-cd-automation/origin.toml",
             "line": 67,
             "sha256": "4ca6f9e3eae86f45da59cb07d43875d5c89ba1b0b11aa9f411721e6e56d84c57",
             "sourceId": "pstack-idempotency-and-shared-state",
@@ -9729,7 +9734,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "design-code-structure",
-            "path": "design-code-structure/origin.txt",
+            "path": "design-code-structure/origin.toml",
             "line": 7,
             "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "pstack-architect",
@@ -9754,7 +9759,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 7,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "pstack-typescript-and-principles",
@@ -9784,7 +9789,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "error-handling",
-            "path": "error-handling/origin.txt",
+            "path": "error-handling/origin.toml",
             "line": 22,
             "sha256": "c07372e9c0ac8a471ce71fab6f2315527bdfbf78ec2b99de594db4880d390406",
             "sourceId": "pstack-boundaries-and-recovery",
@@ -9805,7 +9810,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 7,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "pstack-typescript-and-principles",
@@ -9833,7 +9838,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 7,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "pstack-typescript-and-principles",
@@ -9871,7 +9876,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "workflow-to-skill",
-            "path": "workflow-to-skill/origin.txt",
+            "path": "workflow-to-skill/origin.toml",
             "line": 7,
             "sha256": "3b38a8ac54a9410c3162c125949e8019be65eec24f719aabca4df9afc55725c0",
             "sourceId": "pstack-reflect",
@@ -9892,7 +9897,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "retro",
-            "path": "retro/origin.txt",
+            "path": "retro/origin.toml",
             "line": 37,
             "sha256": "65a7310c69af8a623a15bacb739842cff52f7e4ab18c9c1ab3ed5c26b7916145",
             "sourceId": "pstack-reflect",
@@ -9921,7 +9926,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "pr",
-            "path": "pr/origin.txt",
+            "path": "pr/origin.toml",
             "line": 39,
             "sha256": "1fbdcc5fa64bc03edf1dcd176e0ca1cd4b77c7e845e3f59b0d485269bf9027e4",
             "sourceId": "pstack-decision-evidence",
@@ -9936,7 +9941,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "pr-followup",
-            "path": "pr-followup/origin.txt",
+            "path": "pr-followup/origin.toml",
             "line": 84,
             "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "pstack-decision-evidence",
@@ -9968,7 +9973,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "debug",
-            "path": "debug/origin.txt",
+            "path": "debug/origin.toml",
             "line": 36,
             "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "pstack-debugging-principles",
@@ -10005,7 +10010,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "explain-code",
-            "path": "explain-code/origin.txt",
+            "path": "explain-code/origin.toml",
             "line": 7,
             "sha256": "ff2e55f2eed1e029eb9118b46cde2012b7e9a63a8b07d89938642436ddf8704c",
             "sourceId": "pstack-how-and-teach",
@@ -10033,7 +10038,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "communicate-clearly",
-            "path": "communicate-clearly/origin.txt",
+            "path": "communicate-clearly/origin.toml",
             "line": 22,
             "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "cursor",
@@ -10049,7 +10054,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "teach",
-            "path": "teach/origin.txt",
+            "path": "teach/origin.toml",
             "line": 7,
             "sha256": "f9d770c797c8e3549459e3ecb429a1ef2cf12fa9738da8c51751cdc08f6dfdde",
             "sourceId": "teach-pstack",
@@ -10066,7 +10071,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "write-documentation",
-            "path": "write-documentation/origin.txt",
+            "path": "write-documentation/origin.toml",
             "line": 7,
             "sha256": "e4254a005605437c9988a0b1ed15145eb486c1e356fc372fd74ef85135377e66",
             "sourceId": "cursor",
@@ -10093,7 +10098,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "communicate-clearly",
-            "path": "communicate-clearly/origin.txt",
+            "path": "communicate-clearly/origin.toml",
             "line": 22,
             "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "cursor",
@@ -10109,7 +10114,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "write-documentation",
-            "path": "write-documentation/origin.txt",
+            "path": "write-documentation/origin.toml",
             "line": 7,
             "sha256": "e4254a005605437c9988a0b1ed15145eb486c1e356fc372fd74ef85135377e66",
             "sourceId": "cursor",
@@ -10134,7 +10139,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 7,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "pstack-typescript-and-principles",
@@ -10165,7 +10170,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "communicate-clearly",
-            "path": "communicate-clearly/origin.txt",
+            "path": "communicate-clearly/origin.toml",
             "line": 22,
             "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "cursor",
@@ -10181,7 +10186,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "write-documentation",
-            "path": "write-documentation/origin.txt",
+            "path": "write-documentation/origin.toml",
             "line": 7,
             "sha256": "e4254a005605437c9988a0b1ed15145eb486c1e356fc372fd74ef85135377e66",
             "sourceId": "cursor",
@@ -10208,7 +10213,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "debug",
-            "path": "debug/origin.txt",
+            "path": "debug/origin.toml",
             "line": 36,
             "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "pstack-debugging-principles",
@@ -10232,7 +10237,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "explain-decisions",
-            "path": "explain-decisions/origin.txt",
+            "path": "explain-decisions/origin.toml",
             "line": 7,
             "sha256": "b6ce3355595f03148e3504f0c28cbe2f9110bff7a6296f9500aba25970ec5f9b",
             "sourceId": "pstack-why",
@@ -10282,7 +10287,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "review-code-changes",
-            "path": "review-code-changes/origin.txt",
+            "path": "review-code-changes/origin.toml",
             "line": 39,
             "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "thermos-review",
@@ -10309,7 +10314,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "review-code-changes",
-            "path": "review-code-changes/origin.txt",
+            "path": "review-code-changes/origin.toml",
             "line": 39,
             "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "thermos-review",
@@ -10336,7 +10341,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "review-code-changes",
-            "path": "review-code-changes/origin.txt",
+            "path": "review-code-changes/origin.toml",
             "line": 39,
             "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "thermos-review",
@@ -10363,7 +10368,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "review-code-changes",
-            "path": "review-code-changes/origin.txt",
+            "path": "review-code-changes/origin.toml",
             "line": 131,
             "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "dyl-review",
@@ -10393,7 +10398,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "pr-followup",
-            "path": "pr-followup/origin.txt",
+            "path": "pr-followup/origin.toml",
             "line": 39,
             "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "dyl-pr-readiness",
@@ -10418,7 +10423,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "pr",
-            "path": "pr/origin.txt",
+            "path": "pr/origin.toml",
             "line": 86,
             "sha256": "1fbdcc5fa64bc03edf1dcd176e0ca1cd4b77c7e845e3f59b0d485269bf9027e4",
             "sourceId": "humanlayer-visual-pr",
@@ -10442,7 +10447,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "teach",
-            "path": "teach/origin.txt",
+            "path": "teach/origin.toml",
             "line": 35,
             "sha256": "f9d770c797c8e3549459e3ecb429a1ef2cf12fa9738da8c51751cdc08f6dfdde",
             "sourceId": "teach-humanlayer",
@@ -10468,7 +10473,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "agent-instructions",
-            "path": "agent-instructions/origin.txt",
+            "path": "agent-instructions/origin.toml",
             "line": 112,
             "sha256": "8361b9e4cac942f936628bf15a4c76f5e316b655fd4b949f1b72097ed746dafc",
             "sourceId": "humanlayer-improve-claude-md",
@@ -10511,7 +10516,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "agent-instructions",
-            "path": "agent-instructions/origin.txt",
+            "path": "agent-instructions/origin.toml",
             "line": 33,
             "sha256": "8361b9e4cac942f936628bf15a4c76f5e316b655fd4b949f1b72097ed746dafc",
             "sourceId": "anthropic-skill-creator",
@@ -10530,7 +10535,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "workflow-to-skill",
-            "path": "workflow-to-skill/origin.txt",
+            "path": "workflow-to-skill/origin.toml",
             "line": 35,
             "sha256": "3b38a8ac54a9410c3162c125949e8019be65eec24f719aabca4df9afc55725c0",
             "sourceId": "anthropic-skill-creator-capture-intent",
@@ -10558,7 +10563,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "verify",
-            "path": "verify/origin.txt",
+            "path": "verify/origin.toml",
             "line": 80,
             "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
             "sourceId": "addy-browser-verification",
@@ -10586,7 +10591,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "review-code-changes",
-            "path": "review-code-changes/origin.txt",
+            "path": "review-code-changes/origin.toml",
             "line": 7,
             "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "addy-review",
@@ -10612,7 +10617,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "performance-optimization",
-            "path": "performance-optimization/origin.txt",
+            "path": "performance-optimization/origin.toml",
             "line": 7,
             "sha256": "e5a7e0882ec9ac41db22ff235ee969debfed55561af96d035785258efcf136db",
             "sourceId": "addy-performance-optimization",
@@ -10642,7 +10647,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "create-project-instructions",
-            "path": "create-project-instructions/origin.txt",
+            "path": "create-project-instructions/origin.toml",
             "line": 51,
             "sha256": "74653e75c2b1e5c41b6cd272538e888809e64a0ee8b05f9a8948eb2432ac7fe1",
             "sourceId": "addy-context-engineering",
@@ -10659,7 +10664,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "handoff",
-            "path": "handoff/origin.txt",
+            "path": "handoff/origin.toml",
             "line": 84,
             "sha256": "8f3b25447d8381591f54ed7d1b76dbd4a1dac29c158d2eed502110fb87ecce20",
             "sourceId": "addy-handoff",
@@ -10720,7 +10725,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "accessibility",
-            "path": "accessibility/origin.txt",
+            "path": "accessibility/origin.toml",
             "line": 7,
             "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
             "sourceId": "ecc-accessibility",
@@ -10746,7 +10751,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "accessibility",
-            "path": "accessibility/origin.txt",
+            "path": "accessibility/origin.toml",
             "line": 7,
             "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
             "sourceId": "ecc-accessibility",
@@ -10779,7 +10784,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "error-handling",
-            "path": "error-handling/origin.txt",
+            "path": "error-handling/origin.toml",
             "line": 7,
             "sha256": "c07372e9c0ac8a471ce71fab6f2315527bdfbf78ec2b99de594db4880d390406",
             "sourceId": "ecc-error-handling",
@@ -11097,7 +11102,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "agent-instructions",
-            "path": "agent-instructions/origin.txt",
+            "path": "agent-instructions/origin.toml",
             "line": 157,
             "sha256": "8361b9e4cac942f936628bf15a4c76f5e316b655fd4b949f1b72097ed746dafc",
             "sourceId": "mblode-agent-skills-creator",
@@ -11116,7 +11121,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "workflow-to-skill",
-            "path": "workflow-to-skill/origin.txt",
+            "path": "workflow-to-skill/origin.toml",
             "line": 101,
             "sha256": "3b38a8ac54a9410c3162c125949e8019be65eec24f719aabca4df9afc55725c0",
             "sourceId": "mblode-skill-capability",
@@ -11144,7 +11149,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "agent-instructions",
-            "path": "agent-instructions/origin.txt",
+            "path": "agent-instructions/origin.toml",
             "line": 134,
             "sha256": "8361b9e4cac942f936628bf15a4c76f5e316b655fd4b949f1b72097ed746dafc",
             "sourceId": "mblode-agents-md",
@@ -11163,7 +11168,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "create-project-instructions",
-            "path": "create-project-instructions/origin.txt",
+            "path": "create-project-instructions/origin.toml",
             "line": 7,
             "sha256": "74653e75c2b1e5c41b6cd272538e888809e64a0ee8b05f9a8948eb2432ac7fe1",
             "sourceId": "mblode-agents-md",
@@ -11191,7 +11196,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "verify",
-            "path": "verify/origin.txt",
+            "path": "verify/origin.toml",
             "line": 156,
             "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
             "sourceId": "mblode-app-verification",
@@ -11232,7 +11237,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "report-work-activity",
-            "path": "report-work-activity/origin.txt",
+            "path": "report-work-activity/origin.toml",
             "line": 37,
             "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
             "sourceId": "mblode-chat-history",
@@ -11257,7 +11262,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "ci-cd-automation",
-            "path": "ci-cd-automation/origin.txt",
+            "path": "ci-cd-automation/origin.toml",
             "line": 37,
             "sha256": "4ca6f9e3eae86f45da59cb07d43875d5c89ba1b0b11aa9f411721e6e56d84c57",
             "sourceId": "mblode-ci-efficiency",
@@ -11286,7 +11291,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "design-code-structure",
-            "path": "design-code-structure/origin.txt",
+            "path": "design-code-structure/origin.toml",
             "line": 65,
             "sha256": "df38165b01116c63ded23e95d6edcd1b8567f9938ed1f7ffb5e460a978a65137",
             "sourceId": "mblode-codebase-architecture",
@@ -11329,7 +11334,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "communicate-clearly",
-            "path": "communicate-clearly/origin.txt",
+            "path": "communicate-clearly/origin.toml",
             "line": 37,
             "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "mblode",
@@ -11346,7 +11351,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "teach",
-            "path": "teach/origin.txt",
+            "path": "teach/origin.toml",
             "line": 49,
             "sha256": "f9d770c797c8e3549459e3ecb429a1ef2cf12fa9738da8c51751cdc08f6dfdde",
             "sourceId": "teach-mblode",
@@ -11374,7 +11379,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "communicate-clearly",
-            "path": "communicate-clearly/origin.txt",
+            "path": "communicate-clearly/origin.toml",
             "line": 37,
             "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "mblode",
@@ -11391,7 +11396,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "write-documentation",
-            "path": "write-documentation/origin.txt",
+            "path": "write-documentation/origin.toml",
             "line": 22,
             "sha256": "e4254a005605437c9988a0b1ed15145eb486c1e356fc372fd74ef85135377e66",
             "sourceId": "mblode",
@@ -11407,7 +11412,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "comment-style",
-            "path": "comment-style/origin.txt",
+            "path": "comment-style/origin.toml",
             "line": 20,
             "sha256": "c3a2be30a357a2e8c5654e0969a31b05ec59f8ed240332cccaa5421ecf2efd17",
             "sourceId": "mblode-ghostwriter",
@@ -11442,7 +11447,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "wayfinder",
-            "path": "wayfinder/origin.txt",
+            "path": "wayfinder/origin.toml",
             "line": 37,
             "sha256": "e0e7a45773bdcab03cca70ec7deb8874a0f51a896fca418d7463ae2284c8931a",
             "sourceId": "blode-decision-briefs",
@@ -11461,7 +11466,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "planning",
-            "path": "planning/origin.txt",
+            "path": "planning/origin.toml",
             "line": 7,
             "sha256": "58d99039850006c28b04859a0fbae2287c59e920b3e329def0e692dd73955039",
             "sourceId": "blode-planning",
@@ -11482,7 +11487,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "task-breakdown",
-            "path": "task-breakdown/origin.txt",
+            "path": "task-breakdown/origin.toml",
             "line": 7,
             "sha256": "088a671b992cf531ff32127504d8f477df76ac3e1f243fb5c076ca049e9108e9",
             "sourceId": "blode-planning",
@@ -11510,7 +11515,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "pr-followup",
-            "path": "pr-followup/origin.txt",
+            "path": "pr-followup/origin.toml",
             "line": 69,
             "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "mblode-followup",
@@ -11535,7 +11540,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "pr",
-            "path": "pr/origin.txt",
+            "path": "pr/origin.toml",
             "line": 71,
             "sha256": "1fbdcc5fa64bc03edf1dcd176e0ca1cd4b77c7e845e3f59b0d485269bf9027e4",
             "sourceId": "mblode-pr",
@@ -11567,7 +11572,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "accessibility",
-            "path": "accessibility/origin.txt",
+            "path": "accessibility/origin.toml",
             "line": 22,
             "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
             "sourceId": "mblode-product-design",
@@ -11656,7 +11661,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "accessibility",
-            "path": "accessibility/origin.txt",
+            "path": "accessibility/origin.toml",
             "line": 37,
             "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
             "sourceId": "mblode-ui-verification",
@@ -11672,7 +11677,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "verify",
-            "path": "verify/origin.txt",
+            "path": "verify/origin.toml",
             "line": 103,
             "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
             "sourceId": "mblode-ui-verification",
@@ -11709,7 +11714,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "ci-cd-automation",
-            "path": "ci-cd-automation/origin.txt",
+            "path": "ci-cd-automation/origin.toml",
             "line": 7,
             "sha256": "4ca6f9e3eae86f45da59cb07d43875d5c89ba1b0b11aa9f411721e6e56d84c57",
             "sourceId": "addy-ci-cd-gates",
@@ -11738,7 +11743,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "simplify-code",
-            "path": "simplify-code/origin.txt",
+            "path": "simplify-code/origin.toml",
             "line": 39,
             "sha256": "83623fa1ab345b636d1f7c7463a852f6e7a44c8ebb7c35b53268357cdde6cde9",
             "sourceId": "addy-simplification",
@@ -11774,7 +11779,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "debug",
-            "path": "debug/origin.txt",
+            "path": "debug/origin.toml",
             "line": 81,
             "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "addy-debugging-and-error-recovery",
@@ -11804,7 +11809,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "deprecate-and-remove",
-            "path": "deprecate-and-remove/origin.txt",
+            "path": "deprecate-and-remove/origin.toml",
             "line": 7,
             "sha256": "42ce96a152816987646c77483fa9884509504d1999db167c85d2e03e455ca338",
             "sourceId": "addy-deprecation",
@@ -11834,7 +11839,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "write-documentation",
-            "path": "write-documentation/origin.txt",
+            "path": "write-documentation/origin.toml",
             "line": 37,
             "sha256": "e4254a005605437c9988a0b1ed15145eb486c1e356fc372fd74ef85135377e66",
             "sourceId": "addy",
@@ -11866,7 +11871,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "accessibility",
-            "path": "accessibility/origin.txt",
+            "path": "accessibility/origin.toml",
             "line": 67,
             "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
             "sourceId": "addy-accessibility",
@@ -11892,7 +11897,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "commit",
-            "path": "commit/origin.txt",
+            "path": "commit/origin.toml",
             "line": 7,
             "sha256": "dc077e6582888c7f9201c5ada83db003185ff72af036879ceec99669650c527e",
             "sourceId": "addy-git",
@@ -11938,7 +11943,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "observability",
-            "path": "observability/origin.txt",
+            "path": "observability/origin.toml",
             "line": 7,
             "sha256": "c8e2e96f4af7ee53343534f8374fa035ecc4834aacbd7f1234f9616af2a95a77",
             "sourceId": "addy-observability",
@@ -12022,7 +12027,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "pr-followup",
-            "path": "pr-followup/origin.txt",
+            "path": "pr-followup/origin.toml",
             "line": 54,
             "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "compound-followup",
@@ -12053,7 +12058,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "wayfinder",
-            "path": "wayfinder/origin.txt",
+            "path": "wayfinder/origin.toml",
             "line": 22,
             "sha256": "e0e7a45773bdcab03cca70ec7deb8874a0f51a896fca418d7463ae2284c8931a",
             "sourceId": "compound-wayfinder",
@@ -12085,7 +12090,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "review-code-changes",
-            "path": "review-code-changes/origin.txt",
+            "path": "review-code-changes/origin.toml",
             "line": 86,
             "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "compound-review-coordination",
@@ -12114,7 +12119,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "commit",
-            "path": "commit/origin.txt",
+            "path": "commit/origin.toml",
             "line": 22,
             "sha256": "dc077e6582888c7f9201c5ada83db003185ff72af036879ceec99669650c527e",
             "sourceId": "compound-commit",
@@ -12139,7 +12144,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "pr",
-            "path": "pr/origin.txt",
+            "path": "pr/origin.toml",
             "line": 56,
             "sha256": "1fbdcc5fa64bc03edf1dcd176e0ca1cd4b77c7e845e3f59b0d485269bf9027e4",
             "sourceId": "compound-pr",
@@ -12178,7 +12183,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "debug",
-            "path": "debug/origin.txt",
+            "path": "debug/origin.toml",
             "line": 66,
             "sha256": "db1a132b35573362c69f5733c56f044e205bef9bb995e63cc979403b3c0661a6",
             "sourceId": "every-ce-debug",
@@ -12218,7 +12223,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "verify",
-            "path": "verify/origin.txt",
+            "path": "verify/origin.toml",
             "line": 186,
             "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
             "sourceId": "compound-dogfood",
@@ -12245,7 +12250,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "teach",
-            "path": "teach/origin.txt",
+            "path": "teach/origin.toml",
             "line": 63,
             "sha256": "f9d770c797c8e3549459e3ecb429a1ef2cf12fa9738da8c51751cdc08f6dfdde",
             "sourceId": "teach-ce",
@@ -12272,7 +12277,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "handoff",
-            "path": "handoff/origin.txt",
+            "path": "handoff/origin.toml",
             "line": 24,
             "sha256": "8f3b25447d8381591f54ed7d1b76dbd4a1dac29c158d2eed502110fb87ecce20",
             "sourceId": "compound-handoff",
@@ -12315,7 +12320,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "performance-optimization",
-            "path": "performance-optimization/origin.txt",
+            "path": "performance-optimization/origin.toml",
             "line": 52,
             "sha256": "e5a7e0882ec9ac41db22ff235ee969debfed55561af96d035785258efcf136db",
             "sourceId": "compound-ce-optimize",
@@ -12358,7 +12363,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "wayfinder",
-            "path": "wayfinder/origin.txt",
+            "path": "wayfinder/origin.toml",
             "line": 22,
             "sha256": "e0e7a45773bdcab03cca70ec7deb8874a0f51a896fca418d7463ae2284c8931a",
             "sourceId": "compound-wayfinder",
@@ -12418,7 +12423,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "pr-followup",
-            "path": "pr-followup/origin.txt",
+            "path": "pr-followup/origin.toml",
             "line": 54,
             "sha256": "799ebb2da5378209a0e7941b6d269a653c676a9bd08b02041a4bf8c46cbe6788",
             "sourceId": "compound-followup",
@@ -12443,7 +12448,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "agent-instructions",
-            "path": "agent-instructions/origin.txt",
+            "path": "agent-instructions/origin.toml",
             "line": 180,
             "sha256": "8361b9e4cac942f936628bf15a4c76f5e316b655fd4b949f1b72097ed746dafc",
             "sourceId": "compound-engineering-ce-retune",
@@ -12521,7 +12526,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "work-mode",
-            "path": "work-mode/origin.txt",
+            "path": "work-mode/origin.toml",
             "line": 22,
             "sha256": "9f5a174e6b5de6155879c0396a3fb6743548d27f34c044ade047c44ac46bab8b",
             "sourceId": "compound-coordination",
@@ -12547,7 +12552,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "work-mode",
-            "path": "work-mode/origin.txt",
+            "path": "work-mode/origin.toml",
             "line": 22,
             "sha256": "9f5a174e6b5de6155879c0396a3fb6743548d27f34c044ade047c44ac46bab8b",
             "sourceId": "compound-coordination",
@@ -12574,7 +12579,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "accessibility",
-            "path": "accessibility/origin.txt",
+            "path": "accessibility/origin.toml",
             "line": 7,
             "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
             "sourceId": "ecc-accessibility",
@@ -12600,7 +12605,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "accessibility",
-            "path": "accessibility/origin.txt",
+            "path": "accessibility/origin.toml",
             "line": 7,
             "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
             "sourceId": "ecc-accessibility",
@@ -12626,7 +12631,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "accessibility",
-            "path": "accessibility/origin.txt",
+            "path": "accessibility/origin.toml",
             "line": 52,
             "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
             "sourceId": "gsd-accessibility",
@@ -12652,7 +12657,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "accessibility",
-            "path": "accessibility/origin.txt",
+            "path": "accessibility/origin.toml",
             "line": 52,
             "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
             "sourceId": "gsd-accessibility",
@@ -12678,7 +12683,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "accessibility",
-            "path": "accessibility/origin.txt",
+            "path": "accessibility/origin.toml",
             "line": 67,
             "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
             "sourceId": "addy-accessibility",
@@ -12704,7 +12709,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "accessibility",
-            "path": "accessibility/origin.txt",
+            "path": "accessibility/origin.toml",
             "line": 82,
             "sha256": "4c3d6eca833b27d3a00c3288095225c05c525283c1f6112cd1a85d9fe4643278",
             "sourceId": "github-cli-accessibility",
@@ -12754,7 +12759,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 22,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "mkosir-types-and-contracts",
@@ -12781,7 +12786,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 22,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "mkosir-types-and-contracts",
@@ -12843,7 +12848,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 22,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "mkosir-types-and-contracts",
@@ -12870,7 +12875,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 22,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "mkosir-types-and-contracts",
@@ -12939,7 +12944,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 52,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "sentimony-compiler-and-modules",
@@ -12973,7 +12978,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 37,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "ecc-typescript-reviewer",
@@ -13007,7 +13012,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "typescript-best-practices",
-            "path": "typescript-best-practices/origin.txt",
+            "path": "typescript-best-practices/origin.toml",
             "line": 67,
             "sha256": "7fdbacf065f67b9836363594016368780a73153d4f02fa638f00614d1b457609",
             "sourceId": "mblode-package-consumer-checks",
@@ -13035,7 +13040,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "ci-cd-automation",
-            "path": "ci-cd-automation/origin.txt",
+            "path": "ci-cd-automation/origin.toml",
             "line": 22,
             "sha256": "4ca6f9e3eae86f45da59cb07d43875d5c89ba1b0b11aa9f411721e6e56d84c57",
             "sourceId": "wshobson-pipeline-design",
@@ -13064,7 +13069,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "ci-cd-automation",
-            "path": "ci-cd-automation/origin.txt",
+            "path": "ci-cd-automation/origin.toml",
             "line": 52,
             "sha256": "4ca6f9e3eae86f45da59cb07d43875d5c89ba1b0b11aa9f411721e6e56d84c57",
             "sourceId": "compound-deployment-verification",
@@ -13162,7 +13167,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "report-work-activity",
-            "path": "report-work-activity/origin.txt",
+            "path": "report-work-activity/origin.toml",
             "line": 7,
             "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
             "sourceId": "cursor-period-summary",
@@ -13187,7 +13192,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "report-work-activity",
-            "path": "report-work-activity/origin.txt",
+            "path": "report-work-activity/origin.toml",
             "line": 22,
             "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
             "sourceId": "pstack-source-context",
@@ -13212,7 +13217,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "report-work-activity",
-            "path": "report-work-activity/origin.txt",
+            "path": "report-work-activity/origin.toml",
             "line": 52,
             "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
             "sourceId": "compound-extraction",
@@ -13237,7 +13242,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "report-work-activity",
-            "path": "report-work-activity/origin.txt",
+            "path": "report-work-activity/origin.toml",
             "line": 52,
             "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
             "sourceId": "compound-extraction",
@@ -13262,7 +13267,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "report-work-activity",
-            "path": "report-work-activity/origin.txt",
+            "path": "report-work-activity/origin.toml",
             "line": 67,
             "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
             "sourceId": "ecc-sent-mail",
@@ -13287,7 +13292,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "report-work-activity",
-            "path": "report-work-activity/origin.txt",
+            "path": "report-work-activity/origin.toml",
             "line": 82,
             "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
             "sourceId": "wshobson-incidents",
@@ -13312,7 +13317,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "report-work-activity",
-            "path": "report-work-activity/origin.txt",
+            "path": "report-work-activity/origin.toml",
             "line": 97,
             "sha256": "aac79b293f829c2546fa334c907789bfd35a1b63941790bedbf8633f237fa121",
             "sourceId": "superpowers-session-evidence",
@@ -13338,7 +13343,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "communicate-clearly",
-            "path": "communicate-clearly/origin.txt",
+            "path": "communicate-clearly/origin.toml",
             "line": 52,
             "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "matt",
@@ -13363,7 +13368,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "communicate-clearly",
-            "path": "communicate-clearly/origin.txt",
+            "path": "communicate-clearly/origin.toml",
             "line": 52,
             "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "matt",
@@ -13388,7 +13393,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "communicate-clearly",
-            "path": "communicate-clearly/origin.txt",
+            "path": "communicate-clearly/origin.toml",
             "line": 52,
             "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "matt",
@@ -13413,7 +13418,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "write-documentation",
-            "path": "write-documentation/origin.txt",
+            "path": "write-documentation/origin.toml",
             "line": 52,
             "sha256": "e4254a005605437c9988a0b1ed15145eb486c1e356fc372fd74ef85135377e66",
             "sourceId": "anthropic",
@@ -13439,7 +13444,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "communicate-clearly",
-            "path": "communicate-clearly/origin.txt",
+            "path": "communicate-clearly/origin.toml",
             "line": 7,
             "sha256": "4c44a5d29ee2ede80bf70f225e9b00fb91e4056de214e88bbdff89887782b1f7",
             "sourceId": "blader",
@@ -13466,7 +13471,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "workflow-to-skill",
-            "path": "workflow-to-skill/origin.txt",
+            "path": "workflow-to-skill/origin.toml",
             "line": 57,
             "sha256": "3b38a8ac54a9410c3162c125949e8019be65eec24f719aabca4df9afc55725c0",
             "sourceId": "pstack-correct",
@@ -13487,7 +13492,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "retro",
-            "path": "retro/origin.txt",
+            "path": "retro/origin.toml",
             "line": 22,
             "sha256": "65a7310c69af8a623a15bacb739842cff52f7e4ab18c9c1ab3ed5c26b7916145",
             "sourceId": "pstack-correct",
@@ -13515,7 +13520,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "verify",
-            "path": "verify/origin.txt",
+            "path": "verify/origin.toml",
             "line": 218,
             "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
             "sourceId": "pstack-performance-evidence",
@@ -13548,7 +13553,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "verify",
-            "path": "verify/origin.txt",
+            "path": "verify/origin.toml",
             "line": 218,
             "sha256": "4401b8fd01b9b19ea3c39149d165192bd4fd3b52a8e0c8131f46251aed37ab3a",
             "sourceId": "pstack-performance-evidence",
@@ -13578,7 +13583,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "learning-plan",
-            "path": "learning-plan/origin.txt",
+            "path": "learning-plan/origin.toml",
             "line": 7,
             "sha256": "83de81cbf8fbaff152fd5d853d3ea4a41ea5c9ceb5df028ffbff91499c1f7c79",
             "sourceId": "learning-plan-cursor",
@@ -13604,7 +13609,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "learning-plan",
-            "path": "learning-plan/origin.txt",
+            "path": "learning-plan/origin.toml",
             "line": 7,
             "sha256": "83de81cbf8fbaff152fd5d853d3ea4a41ea5c9ceb5df028ffbff91499c1f7c79",
             "sourceId": "learning-plan-cursor",
@@ -13633,7 +13638,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "observability",
-            "path": "observability/origin.txt",
+            "path": "observability/origin.toml",
             "line": 22,
             "sha256": "c8e2e96f4af7ee53343534f8374fa035ecc4834aacbd7f1234f9616af2a95a77",
             "sourceId": "gsd-observability",
@@ -13663,7 +13668,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "comment-style",
-            "path": "comment-style/origin.txt",
+            "path": "comment-style/origin.toml",
             "line": 7,
             "sha256": "c3a2be30a357a2e8c5654e0969a31b05ec59f8ed240332cccaa5421ecf2efd17",
             "sourceId": "private-comment-style",
@@ -13693,7 +13698,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "comment-style",
-            "path": "comment-style/origin.txt",
+            "path": "comment-style/origin.toml",
             "line": 35,
             "sha256": "c3a2be30a357a2e8c5654e0969a31b05ec59f8ed240332cccaa5421ecf2efd17",
             "sourceId": "superpowers-review-reception",
@@ -13710,7 +13715,7 @@ window.SKILL_ATLAS = {
           },
           {
             "owner": "review-code-changes",
-            "path": "review-code-changes/origin.txt",
+            "path": "review-code-changes/origin.toml",
             "line": 24,
             "sha256": "2941d4eb970f2c95936a43721426b0b55b9a6e64168179db339f4230a02f6a12",
             "sourceId": "superpowers-review",
@@ -13738,7 +13743,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "performance-optimization",
-            "path": "performance-optimization/origin.txt",
+            "path": "performance-optimization/origin.toml",
             "line": 37,
             "sha256": "e5a7e0882ec9ac41db22ff235ee969debfed55561af96d035785258efcf136db",
             "sourceId": "ecc-benchmark-optimization-loop",
@@ -13766,7 +13771,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "performance-optimization",
-            "path": "performance-optimization/origin.txt",
+            "path": "performance-optimization/origin.toml",
             "line": 22,
             "sha256": "e5a7e0882ec9ac41db22ff235ee969debfed55561af96d035785258efcf136db",
             "sourceId": "pstack-performance-search",
@@ -13794,7 +13799,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "performance-optimization",
-            "path": "performance-optimization/origin.txt",
+            "path": "performance-optimization/origin.toml",
             "line": 22,
             "sha256": "e5a7e0882ec9ac41db22ff235ee969debfed55561af96d035785258efcf136db",
             "sourceId": "pstack-performance-search",
@@ -13822,7 +13827,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "deprecate-and-remove",
-            "path": "deprecate-and-remove/origin.txt",
+            "path": "deprecate-and-remove/origin.toml",
             "line": 37,
             "sha256": "42ce96a152816987646c77483fa9884509504d1999db167c85d2e03e455ca338",
             "sourceId": "hoang-data-transition",
@@ -13850,7 +13855,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "issue-workflow",
-            "path": "issue-workflow/origin.txt",
+            "path": "issue-workflow/origin.toml",
             "line": 7,
             "sha256": "af3bfbffd56e0879e2d39c4bb389872a15f6ce68ab5f0344405cc1d8bd675f1e",
             "sourceId": "matt-project-policy",
@@ -13877,7 +13882,7 @@ window.SKILL_ATLAS = {
         "evidence": [
           {
             "owner": "issue-workflow",
-            "path": "issue-workflow/origin.txt",
+            "path": "issue-workflow/origin.toml",
             "line": 22,
             "sha256": "af3bfbffd56e0879e2d39c4bb389872a15f6ce68ab5f0344405cc1d8bd675f1e",
             "sourceId": "ecc-jira-transitions",
@@ -16478,7 +16483,7 @@ window.SKILL_ATLAS = {
       "sha256": "6ffcea0aad01d82e1493543e41c319eccf656d9291de47c4217f115ebd0628b2",
       "coreWords": 480,
       "sourceFeeds": 7,
-      "provenance": "handoff/origin.txt",
+      "provenance": "handoff/origin.toml",
       "validation": "handoff-implementation-validation.json",
       "scope": "One portable continuation document. No global installation, host activation, transport integration or execution transfer is claimed.",
       "discoverability": "Normal new-skill discoverability; donor-specific explicit-only flags were not imported. This does not authorize unsolicited exports at phase boundaries.",
@@ -18328,37 +18333,37 @@ window.SKILL_ATLAS = {
         "references": [
           {
             "path": "skills/codebase-architecture/references/deepening-existing.md",
-            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.txt.",
+            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.toml.",
             "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/codebase-architecture/references/deepening-existing.md",
             "sha256": "26083492e399a1afd7b32d2f354815bb0df8eb8325bfbd9c4f676bec8ae60c5e"
           },
           {
             "path": "skills/codebase-architecture/references/enforcement-ladder.md",
-            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.txt.",
+            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.toml.",
             "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/codebase-architecture/references/enforcement-ladder.md",
             "sha256": "c8c0ea60dd4c3f55069599e329711ee93117f8317cdf893e70a3361fb36398a0"
           },
           {
             "path": "skills/codebase-architecture/references/guardrail-tooling.md",
-            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.txt.",
+            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.toml.",
             "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/codebase-architecture/references/guardrail-tooling.md",
             "sha256": "ae88b498ed7a2c9915a435c9c481df7f80965b2916da68db7f51205026f13e29"
           },
           {
             "path": "skills/codebase-architecture/references/verification-tiers.md",
-            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.txt.",
+            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.toml.",
             "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/codebase-architecture/references/verification-tiers.md",
             "sha256": "bcb98956d62ed3ae7be0ecbae4eb015d4f5f4d59cb4d4e2edcde88d138499216"
           },
           {
             "path": "skills/codebase-architecture/references/vocabulary.md",
-            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.txt.",
+            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.toml.",
             "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/skills/codebase-architecture/references/vocabulary.md",
             "sha256": "6061a75d3bec5fdf7c181906166e18fcd2581634da9bc961183eef918a110428"
           },
           {
             "path": "LICENSE.md",
-            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.txt.",
+            "coverage": "Full file; selected guidance adapted or explicitly excluded in origin.toml.",
             "url": "https://github.com/mblode/agent-skills/blob/012e6e5208f512151bdea0e2965dafd01ff61340/LICENSE.md",
             "sha256": "81ac64b19ea7ae7f9a8d197705df58f48ffca02c74fca13e565dedf4f7595b46"
           }
@@ -19215,7 +19220,7 @@ window.SKILL_ATLAS = {
         ]
       }
     ],
-    "limitations": "Only the two existing catalog cards are reassessed here. Sentimony and Superpowers are separately pinned in planning/origin.txt and the source review. No other source or package review is refreshed."
+    "limitations": "Only the two existing catalog cards are reassessed here. Sentimony and Superpowers are separately pinned in planning/origin.toml and the source review. No other source or package review is refreshed."
   },
   "catalogReconciliation": {
     "date": "2026-10-06",

@@ -1,0 +1,533 @@
+{
+  "date": "2026-10-17",
+  "request": "Let a skill take one upstream skill as its base with recorded corrections, describe ideas from other sources by what they incorporate and why, and rename origin.txt to origin.toml (step 1: format and conversion of all records; rebuilding skills on chosen bases is separate work).",
+  "format": {
+    "reference": "agent-instructions/references/origin-format.md",
+    "roles": {
+      "base": "The skill follows the material's text; deviations record every intentional difference; an upstream change is merged hunk by hunk unless it conflicts with a deviation, an invariant or the goal, or adds a tool, gate, trigger, external write or authority that needs the user's decision.",
+      "ideas": "Concepts that shaped the skill, each with idea, serves, where, shapes and optional adapted; declines record donor behavior a future update could propose again; donor wording changes do not reach the skill."
+    },
+    "topLevel": [
+      "goal",
+      "approach (base, derive, create, wrap)",
+      "[[invariants]] with rule, reason and where"
+    ],
+    "snapshots": "installed-file, repository-commit or session; a whole package from another repository can be a base; session evidence has no role and its lessons become invariants.",
+    "checker": "agent-instructions/scripts/check-origin.py: types, roles, approach consistency, review chain with one pending review, local locations with GitHub heading anchors, legacy files and fields, line citations, notices for repository bases."
+  },
+  "conversion": {
+    "records": [
+      {
+        "skill": "accessibility",
+        "approach": "derive",
+        "invariants": 4,
+        "ideas": 14,
+        "declined": 21,
+        "deviations": 0
+      },
+      {
+        "skill": "agent-instructions",
+        "approach": "derive",
+        "invariants": 8,
+        "ideas": 26,
+        "declined": 30,
+        "deviations": 0
+      },
+      {
+        "skill": "analyze-change-effects",
+        "approach": "derive",
+        "invariants": 5,
+        "ideas": 6,
+        "declined": 6,
+        "deviations": 0
+      },
+      {
+        "skill": "ci-cd-automation",
+        "approach": "derive",
+        "invariants": 4,
+        "ideas": 15,
+        "declined": 14,
+        "deviations": 0
+      },
+      {
+        "skill": "comment-style",
+        "approach": "base",
+        "invariants": 3,
+        "ideas": 6,
+        "declined": 10,
+        "deviations": 9
+      },
+      {
+        "skill": "commit",
+        "approach": "derive",
+        "invariants": 3,
+        "ideas": 9,
+        "declined": 12,
+        "deviations": 0
+      },
+      {
+        "skill": "communicate-clearly",
+        "approach": "derive",
+        "invariants": 4,
+        "ideas": 16,
+        "declined": 8,
+        "deviations": 0
+      },
+      {
+        "skill": "compare-solutions",
+        "approach": "derive",
+        "invariants": 5,
+        "ideas": 6,
+        "declined": 6,
+        "deviations": 0
+      },
+      {
+        "skill": "create-project-instructions",
+        "approach": "derive",
+        "invariants": 5,
+        "ideas": 5,
+        "declined": 8,
+        "deviations": 0
+      },
+      {
+        "skill": "debug",
+        "approach": "derive",
+        "invariants": 8,
+        "ideas": 27,
+        "declined": 30,
+        "deviations": 0
+      },
+      {
+        "skill": "deprecate-and-remove",
+        "approach": "derive",
+        "invariants": 7,
+        "ideas": 7,
+        "declined": 7,
+        "deviations": 0
+      },
+      {
+        "skill": "design-code-structure",
+        "approach": "derive",
+        "invariants": 5,
+        "ideas": 24,
+        "declined": 25,
+        "deviations": 0
+      },
+      {
+        "skill": "error-handling",
+        "approach": "derive",
+        "invariants": 2,
+        "ideas": 9,
+        "declined": 7,
+        "deviations": 0
+      },
+      {
+        "skill": "explain-code",
+        "approach": "derive",
+        "invariants": 6,
+        "ideas": 5,
+        "declined": 7,
+        "deviations": 0
+      },
+      {
+        "skill": "explain-decisions",
+        "approach": "derive",
+        "invariants": 3,
+        "ideas": 8,
+        "declined": 5,
+        "deviations": 0
+      },
+      {
+        "skill": "handoff",
+        "approach": "derive",
+        "invariants": 4,
+        "ideas": 22,
+        "declined": 14,
+        "deviations": 0
+      },
+      {
+        "skill": "issue-workflow",
+        "approach": "derive",
+        "invariants": 6,
+        "ideas": 3,
+        "declined": 3,
+        "deviations": 0
+      },
+      {
+        "skill": "learning-plan",
+        "approach": "derive",
+        "invariants": 5,
+        "ideas": 7,
+        "declined": 3,
+        "deviations": 0
+      },
+      {
+        "skill": "observability",
+        "approach": "derive",
+        "invariants": 8,
+        "ideas": 10,
+        "declined": 7,
+        "deviations": 0
+      },
+      {
+        "skill": "performance-optimization",
+        "approach": "derive",
+        "invariants": 4,
+        "ideas": 9,
+        "declined": 9,
+        "deviations": 0
+      },
+      {
+        "skill": "planning",
+        "approach": "derive",
+        "invariants": 5,
+        "ideas": 16,
+        "declined": 11,
+        "deviations": 0
+      },
+      {
+        "skill": "pr-followup",
+        "approach": "derive",
+        "invariants": 7,
+        "ideas": 17,
+        "declined": 19,
+        "deviations": 0
+      },
+      {
+        "skill": "pr-review-followup",
+        "approach": "create",
+        "invariants": 9,
+        "ideas": 0,
+        "declined": 0,
+        "deviations": 0
+      },
+      {
+        "skill": "pr-review",
+        "approach": "base",
+        "invariants": 4,
+        "ideas": 0,
+        "declined": 0,
+        "deviations": 11
+      },
+      {
+        "skill": "pr",
+        "approach": "derive",
+        "invariants": 7,
+        "ideas": 17,
+        "declined": 20,
+        "deviations": 0
+      },
+      {
+        "skill": "prototype",
+        "approach": "derive",
+        "invariants": 3,
+        "ideas": 7,
+        "declined": 9,
+        "deviations": 0
+      },
+      {
+        "skill": "report-work-activity",
+        "approach": "derive",
+        "invariants": 5,
+        "ideas": 12,
+        "declined": 10,
+        "deviations": 0
+      },
+      {
+        "skill": "retro",
+        "approach": "derive",
+        "invariants": 4,
+        "ideas": 7,
+        "declined": 11,
+        "deviations": 0
+      },
+      {
+        "skill": "review-code-changes",
+        "approach": "derive",
+        "invariants": 9,
+        "ideas": 32,
+        "declined": 40,
+        "deviations": 0
+      },
+      {
+        "skill": "simplify-code",
+        "approach": "derive",
+        "invariants": 3,
+        "ideas": 8,
+        "declined": 8,
+        "deviations": 0
+      },
+      {
+        "skill": "task-breakdown",
+        "approach": "derive",
+        "invariants": 5,
+        "ideas": 11,
+        "declined": 4,
+        "deviations": 0
+      },
+      {
+        "skill": "tdd",
+        "approach": "derive",
+        "invariants": 4,
+        "ideas": 5,
+        "declined": 5,
+        "deviations": 0
+      },
+      {
+        "skill": "teach",
+        "approach": "derive",
+        "invariants": 3,
+        "ideas": 14,
+        "declined": 13,
+        "deviations": 0
+      },
+      {
+        "skill": "typescript-best-practices",
+        "approach": "derive",
+        "invariants": 4,
+        "ideas": 16,
+        "declined": 19,
+        "deviations": 0
+      },
+      {
+        "skill": "verification-authoring",
+        "approach": "derive",
+        "invariants": 3,
+        "ideas": 10,
+        "declined": 2,
+        "deviations": 0
+      },
+      {
+        "skill": "verify",
+        "approach": "derive",
+        "invariants": 5,
+        "ideas": 23,
+        "declined": 20,
+        "deviations": 0
+      },
+      {
+        "skill": "wayfinder",
+        "approach": "derive",
+        "invariants": 5,
+        "ideas": 15,
+        "declined": 12,
+        "deviations": 0
+      },
+      {
+        "skill": "work-mode",
+        "approach": "derive",
+        "invariants": 4,
+        "ideas": 3,
+        "declined": 9,
+        "deviations": 0
+      },
+      {
+        "skill": "workflow-to-skill",
+        "approach": "derive",
+        "invariants": 3,
+        "ideas": 13,
+        "declined": 15,
+        "deviations": 0
+      },
+      {
+        "skill": "write-documentation",
+        "approach": "derive",
+        "invariants": 5,
+        "ideas": 9,
+        "declined": 11,
+        "deviations": 0
+      }
+    ],
+    "accountedItems": 856,
+    "method": "Per-skill semantic overlays merged by a scratch converter that required an accounting destination for every former borrowed, local_choices and approach item, kept pins, paths and review ranges unchanged, and refused to write while the checker reported diagnostics.",
+    "totals": {
+      "ideas": 469,
+      "declined": 470,
+      "deviations": 20,
+      "invariants": 196
+    },
+    "bases": [
+      "comment-style",
+      "pr-review"
+    ],
+    "dropped": [
+      {
+        "skill": "analyze-change-effects",
+        "item": "pstack-blast-radius local_choices[0]",
+        "reason": "A rename is history that Git keeps (commit 205f2af). The source id and baseline paths already keep the donor's blast-radius name, and historical reports keep their own file names without a rule in this record."
+      },
+      {
+        "skill": "communicate-clearly",
+        "item": "blader local_choices[1]",
+        "reason": "baseline_commit keeps the approved pin, and the reviews record every later decision, including the review that advanced reviewed_through; a separate statement that the pin is not current is no longer needed."
+      },
+      {
+        "skill": "compare-solutions",
+        "item": "pstack-arena local_choices[0]",
+        "reason": "A rename belongs to Git history, not the record. The source id pstack-arena and its baseline paths keep the donor's original identity."
+      },
+      {
+        "skill": "compare-solutions",
+        "item": "pstack-arena local_choices[1]",
+        "reason": "It justified the old approach text. approach = derive now records the decision, and each change it lists is an adapted note or decline on pstack-arena or an invariant."
+      },
+      {
+        "skill": "explain-decisions",
+        "item": "explain-decisions approach[0]",
+        "reason": "The ideas role of the only source states that it supplies ideas, and the agent-instructions dependency record states that ordinary investigation has no skill dependency."
+      },
+      {
+        "skill": "handoff",
+        "item": "alleneubank-handoff local_choices[0]",
+        "reason": "The source's license field already states that the plugin metadata declares MIT, that no tracked license file exists, and that no source text was copied; role ideas records the ideas-only use."
+      },
+      {
+        "skill": "review-code-changes",
+        "item": "dyl-review local_choices[4]",
+        "reason": "Records how the baseline was chosen (the entrypoint was unchanged since atlas snapshot c47b12849e43f18d5c374c7069c744cc55b0ea00) and that the referenced pstack and Thermos files were read only as context without moving other pins. That is record history, which format 2 leaves to Git; baseline_commit and baseline_paths already pin the material."
+      },
+      {
+        "skill": "tdd",
+        "item": "tdd approach[0]",
+        "reason": "The ideas role of the only source states that upstream supplies ideas, and the agent-instructions dependency record states that ordinary TDD has no skill dependency."
+      },
+      {
+        "skill": "verify",
+        "item": "pstack-verification borrowed[0]",
+        "reason": "Repository discovery before writing recipe commands is recipe creation, which the verification-authoring skill owns; its own record keeps this idea, and this skill no longer contains it."
+      },
+      {
+        "skill": "verify",
+        "item": "pstack-verification borrowed[3]",
+        "reason": "Proving a new recipe on one feature and maintaining every feature with separate readers and one driver belong to the verification-authoring skill, whose own record keeps this idea; this skill no longer contains it."
+      },
+      {
+        "skill": "verify",
+        "item": "pstack-verification local_choices[2]",
+        "reason": "Authoring belongs to the verification-authoring skill, whose record keeps this choice; this record's agent-instructions dependency role already states the general writing and maintenance use."
+      },
+      {
+        "skill": "verify",
+        "item": "pstack-verification local_choices[5]",
+        "reason": "Independent source readers exist only in recipe maintenance, which the verification-authoring skill owns; its record keeps this fallback, and this skill has no source-reader step."
+      },
+      {
+        "skill": "verify",
+        "item": "pstack-verification local_choices[6]",
+        "reason": "This skill ships no map validator; the verification-authoring skill bundles it and its record keeps this choice."
+      },
+      {
+        "skill": "verify",
+        "item": "pstack-performance-evidence local_choices[6]",
+        "reason": "A pointer to validation evidence, not a design decision. The first pstack-verification review cites the same report, and Git history keeps the rest."
+      },
+      {
+        "skill": "write-documentation",
+        "item": "anthropic local_choices[0]",
+        "reason": "The source's license field already records ideas-only use in local wording, no copied text, and no skill-specific license at the reviewed path; role ideas keeps donor text out of the skill."
+      }
+    ]
+  },
+  "checks": [
+    {
+      "command": "python3 -m unittest agent-instructions/tests/test_check_origin.py",
+      "result": "26 tests pass"
+    },
+    {
+      "command": "python3 agent-instructions/scripts/check-origin.py --skill-dir <each of the 40 skills>",
+      "result": "No diagnostics after the format 1 files are removed"
+    },
+    {
+      "command": "In-memory fuzzing of 5,042 malformed values across five records",
+      "result": "No checker exceptions"
+    },
+    {
+      "command": "bash pr-review/scripts/validate.sh <review-code-changes>; bash pr-review-followup/scripts/validate.sh",
+      "result": "Both pass reading origin.toml"
+    },
+    {
+      "command": "Unit suites of verification-authoring, review-code-changes and report-work-activity",
+      "result": "Pass"
+    },
+    {
+      "command": "Relative Markdown links in changed files",
+      "result": "0 broken"
+    }
+  ],
+  "trials": {
+    "fixture": "Synthetic release-notes skill derived from a local upstream mirror (/tmp/provenance-v2/trials/upstream, range 6997a3f780e5..77a43ec72816) with a base source and an ideas source.",
+    "task": "Check release-notes for upstream changes (Check mode, no edits), following the arm's upstream-updates.md.",
+    "arms": {
+      "baseline": "origin/main agent-instructions references (format 1 record: borrowed and local_choices).",
+      "candidate": "Revised references with origin-format.md and check-origin.py (format 2 record: base deviations and ideas)."
+    },
+    "executor": "Claude Code general-purpose subagent, same model and tools in both arms, independent contexts, expectations withheld.",
+    "runs": 4,
+    "expectations": {
+      "E1_breaking_group_incorporated": {
+        "baseline": "2/2",
+        "candidate": "2/2"
+      },
+      "E2_authors_merged_scratch_path_kept": {
+        "baseline": "0/2 (both skipped authors as outside borrowed ideas; both kept scratch path)",
+        "candidate": "2/2 (merged authors, kept scratch path citing the deviation)"
+      },
+      "E3_new_lint_tool_needs_user_decision": {
+        "baseline": "1/2 (run 1 deferred; run 2 skipped without asking)",
+        "candidate": "2/2 (deferred for the user's decision)"
+      },
+      "E4_publish_gate_skipped": {
+        "baseline": "2/2",
+        "candidate": "2/2 (cited the Return deviation)"
+      },
+      "E5_local_wording_preserved": {
+        "baseline": "2/2",
+        "candidate": "2/2"
+      },
+      "E6_ideas_wording_change_skipped": {
+        "baseline": "2/2",
+        "candidate": "2/2"
+      },
+      "E7_no_file_changes": {
+        "baseline": "2/2",
+        "candidate": "2/2 (fixture hashes unchanged)"
+      }
+    },
+    "defectFound": "Both candidate runs found that a review with deferred items could not satisfy the checker's review-chain rule while the cursor stayed. Fixed: a pending review is last, starts at reviewed_through, and is updated when resolved; covered by test_pending_review_starts_at_the_cursor.",
+    "limits": "Four Check-mode runs on one synthetic case support only these observations; no general improvement claim. Update mode, the corrected pending-review rule and real-host execution were not re-trialed; the pending-review rule is covered by checker tests only."
+  },
+  "consultations": [
+    {
+      "round": 1,
+      "profiles": [
+        "Codex gpt-6-astra, reasoning max",
+        "Claude claude-fable-5-1, effort max"
+      ],
+      "scope": "Format draft, checker, hand conversion of performance-optimization, migration tools",
+      "findings": "Astra 7 material, Fable 12 material plus minor; all adopted except updating dated root HANDOFF documents, which stay historical like reports."
+    },
+    {
+      "round": 2,
+      "profiles": [
+        "Codex gpt-6-astra, reasoning max",
+        "Claude claude-fable-5-1, effort max"
+      ],
+      "scope": "Revised format and all 40 converted records, with ten read in full against donors and skill text",
+      "findings": "Astra 3 material and 5 minor; Fable 2 material and minor fidelity points; all adopted."
+    },
+    {
+      "round": 3,
+      "profiles": [
+        "Codex gpt-6-astra, reasoning max",
+        "Claude claude-fable-5-1, effort max"
+      ],
+      "scope": "Affected points of the round 2 corrections",
+      "findings": "Both confirmed the round 2 corrections; remaining no-copy license statements, snapshot license field, notice exemption wording and code-span anchors were corrected."
+    }
+  ],
+  "limits": [
+    "Root HANDOFF documents keep their dated origin.txt mentions.",
+    "Review records converted from format 1 keep line references into skill files as dated history.",
+    "Rebuilding wayfinder, agent-instructions, handoff, retro, teach, planning, task-breakdown and verify on their chosen bases is not part of this change."
+  ]
+}
