@@ -15,13 +15,13 @@ reason = "User decision of 2026-10-18: retro tells the user when something is wo
 where = ["SKILL.md#session-retrospective", "SKILL.md#steps", "SKILL.md#files", "SKILL.md#owners"]
 
 [[invariants]]
-rule = "Finishing a task does not request a retrospective. retro is never an automatic end-of-task phase, and it installs no hooks, schedules or tracker items."
+rule = "Finishing a task does not request a retrospective, so retro is never an automatic end-of-task phase."
 reason = "The skill stays model-invocable, so it needs its own guard against running after every task; the base author notes that a run after every session mostly produces rules nobody needed."
 where = ["SKILL.md#session-retrospective"]
 
 [[invariants]]
-rule = "retro owns diagnosis, prioritization and routing. Existing skills own implementation, instruction writing and verification, and retro hands them prepared findings instead of copying their procedures."
-reason = "Local owners exist for every kind of change retro proposes."
+rule = "retro owns diagnosis, prioritization and routing. Existing skills own the changes they cover, including instruction writing and verification, and retro hands them prepared findings with the request that authorizes them instead of copying their procedures. An authorized change that no skill covers is made with the project's own commands."
+reason = "Local owners exist for most kinds of change retro proposes, and an instruction owner needs the user's request to apply its own rules, such as when its model reviews run."
 where = ["SKILL.md#steps", "SKILL.md#owners"]
 
 [[invariants]]
@@ -56,7 +56,7 @@ paths = [
 
 [[sources.deviations]]
 change = "Removed `disable-model-invocation: true` and did not ship the Codex metadata that sets `allow_implicit_invocation: false`; replaced the base description with the local one, and added that finishing a task does not request a retrospective."
-reason = "The skill has always been discoverable in this repository, and the authoring rules preserve an existing invocation policy. The added sentence keeps the base author's intent that retro is not run after every session."
+reason = "The skill has always been discoverable in this repository, and the authoring rules preserve an existing invocation policy. The description names both friction and mistakes the environment allowed, because a request such as asking what would have prevented a fixed bug otherwise selected retro only weakly in a selection probe. The added sentence keeps the base author's intent that retro is not run after every session."
 where = ["SKILL.md", "SKILL.md#session-retrospective"]
 
 [[sources.deviations]]
@@ -80,9 +80,14 @@ reason = "User decision of 2026-10-18: standards belong to the reviewer for proj
 where = ["SKILL.md#implementation-vs-review", "SKILL.md#steps", "SKILL.md#files"]
 
 [[sources.deviations]]
-change = "Restricted the Global AGENTS.md category in the user's personal instructions to flagging no-ops and rules a check now enforces, and added proposing a cross-project rule for personal instructions; every personal-instruction change is a proposal. Added personal instructions to the Files list."
-reason = "User decision of 2026-10-18: the user's personal cross-project rules have no reviewer-only home and stay at personal scope, and retro proposes, never edits, changes to them."
+change = "Restructured the Global AGENTS.md category around scope: a project judgement rule moves to the project's standards document, a rule that holds across the user's projects moves to personal instructions, and a personal rule that applies to one project moves to that project. Personal cross-project rules are not moved to a reviewer document, and every personal-instruction change is a proposal. Added personal instructions to the Files list."
+reason = "User decision of 2026-10-18: the user's personal cross-project rules have no reviewer-only home and stay at personal scope, and retro proposes, never edits, changes to them. A check lives in one project, so it cannot make a cross-project rule a no-op."
 where = ["SKILL.md#steps", "SKILL.md#implementation-vs-review", "SKILL.md#files"]
+
+[[sources.deviations]]
+change = "Widened the Coding standards trigger from a reviewer that failed to catch a mistake to also cover a session with no review in which the user caught it."
+reason = "Many sessions run with no reviewer agent; the user's correction is then the only sign that review would have needed a rule."
+where = ["SKILL.md#steps"]
 
 [[sources.deviations]]
 change = "Restructured the steps: added a step that marks the struggles before the categories, a step that filters candidates before they are presented, and a final hand-off step. Added an Instruction loading category, and extended the Automated checks, No-ops and Information access triggers."
@@ -95,8 +100,8 @@ reason = "The goal requires each finding to carry evidence, a proposal, an owner
 where = ["SKILL.md#steps"]
 
 [[sources.deviations]]
-change = "Replaced the Skills entry's pointer to writing-for-agents and the implicit assumption that retro makes every change with an Owners table that names the local skill for each kind of change, and the user for host configuration and personal instructions."
-reason = "The routing invariant. Host settings such as MCP servers and permissions differ between Claude Code and Codex and fall outside the skill's authority."
+change = "Replaced the Skills entry's pointer to writing-for-agents with an Owners table that names the local skill for each kind of change an authorized run hands off, the user for host configuration and personal instructions, and the agent running retro for any other authorized change."
+reason = "The routing invariant: the base only proposes and names no implementer, while the local skill also carries out authorized changes. Host settings such as MCP servers and permissions differ between Claude Code and Codex and fall outside the skill's authority."
 where = ["SKILL.md#files", "SKILL.md#owners"]
 
 [[sources]]
@@ -185,6 +190,7 @@ reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
 baseline_paths = ["pstack/skills/reflect/SKILL.md", "pstack/LICENSE"]
 paths = [
   "pstack/skills/reflect/SKILL.md",
+  "pstack/skills/reflect/references/judgment-reviewer.md",
   "pstack/skills/reflect/references/tooling-reviewer.md",
   "pstack/skills/reflect/references/synthesizer.md",
   "pstack/skills/reflect/references/divergent-reviewer.md",
@@ -212,17 +218,17 @@ where = ["SKILL.md#steps"]
 shapes = "Extends the Information access trigger to context the user had to paste."
 
 [[sources.ideas]]
-idea = "Keep a candidate only when it traces to a specific moment, would change what a future agent does rather than add reading, stays true after paths, versions and commit IDs change, and is not already covered by clear, well-placed guidance."
+idea = "Keep a candidate only when it traces to a specific moment, would change what a future agent does rather than add reading, teaches something that stays true after paths, versions and commit IDs change, and is not already covered by clear, well-placed guidance."
 serves = "Answers the base's strongest criticism, generic advice written to fill the categories, and drops one-off facts."
 where = ["SKILL.md#steps"]
 shapes = "Adds a filter step between the categories and the presentation, which ends in no change when nothing survives."
-adapted = "One agent runs the retrospective, so the donor's convergence across reviewers is not a criterion; an observed repository state, such as a missing guardrail, also counts as a traceable source."
+adapted = "One agent runs the retrospective, so the donor's convergence across reviewers is not a criterion; an observed repository state, such as a missing guardrail, also counts as a traceable source. Durability applies to the lesson, not to the repair: a navigation pointer may name a current path."
 
 [[sources.ideas]]
-idea = "A success the session claimed without a check that exercised the change shows that the environment lacks a cheap way to prove it."
-serves = "Turns self-reported verification into an environment finding rather than a note about the agent."
+idea = "A success the session claimed without a check that exercised the change is a signal to examine verification: the check may be missing, unwired or too slow to run, which are environment gaps, or it may have been skipped."
+serves = "Turns self-reported verification into an environment finding when the environment is at fault, and keeps a skipped cheap check from becoming a request for new tooling."
 where = ["SKILL.md#steps"]
-shapes = "Extends the Automated checks trigger, with verification-authoring as the owner of a runnable way to prove changes."
+shapes = "Extends the Automated checks trigger with an unchecked success and the question of why no check ran."
 
 [[sources.declined]]
 feature = "Three parallel reviewer subagents with prompt templates, fixed model roles and a synthesizer."
@@ -265,7 +271,7 @@ validation = [
 kind = "local"
 name = "agent-instructions"
 required = false
-role = "Writes authorized changes to instruction files, navigation pointers, skill bodies and descriptions, and accepted personal-instruction proposals."
+role = "Writes authorized changes to instruction files, navigation pointers, skill bodies and descriptions, and accepted personal-instruction proposals; receives the user's request that authorizes each change."
 
 [[dependencies]]
 kind = "local"
@@ -289,7 +295,13 @@ role = "Writes authorized human-facing documentation and indexes."
 kind = "local"
 name = "design-code-structure"
 required = false
-role = "Removes the wrong path through ownership, interfaces and module boundaries."
+role = "Removes the wrong path through ownership, interfaces and module boundaries, and adds the type, lint rule or hook that enforces a code boundary together with its existing violations."
+
+[[dependencies]]
+kind = "local"
+name = "tdd"
+required = false
+role = "Writes the behavior test that a fix at the test level needs."
 
 [[dependencies]]
 kind = "local"
@@ -307,7 +319,7 @@ role = "Changes GitHub Actions workflows when the guardrail lives there."
 kind = "local"
 name = "verification-authoring"
 required = false
-role = "Gives a project a runnable way to prove changes when the session showed none."
+role = "Creates a project verification skill when nothing repeatable exercises the app."
 
 [[dependencies]]
 kind = "local"

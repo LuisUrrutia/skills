@@ -1,6 +1,6 @@
 ---
 name: retro
-description: Use when reviewing a coding session to identify workflow friction and propose improvements to the agent's working environment.
+description: Use when reviewing a coding session to find workflow friction or mistakes its environment allowed, and to propose improvements to the agent's working environment.
 ---
 
 # Session retrospective
@@ -38,10 +38,9 @@ caller started this skill, return the findings so its workflow continues.
    had to paste, expensive or repeated tool calls, recovery work. For each, ask
    what made the wrong path look right: a misleading nearby example, an old way
    that still exists, two supported ways to do one task, a hidden dependency, or
-   guidance that was missing, unloaded or buried. Keep what you observed apart
-   from what you infer about its cause. A required human decision, a deliberate
-   exception or a genuine blocker is not a defect. A smooth session has little to
-   teach.
+   guidance that was missing, unloaded or buried. A required human decision, a
+   deliberate exception or a genuine blocker is not a defect. A smooth session has
+   little to teach.
 
 3. **Look for candidates in these categories.** A category applies only when its
    _Use when_ condition holds; the categories are not a quota.
@@ -57,10 +56,11 @@ caller started this skill, return the findings so its workflow continues.
      or silently broken is the finding, not a reinvention. A repo with no
      **guardrail** (no pre-commit hook and no CI job running its lint, typecheck
      and test commands) is itself a finding, from the observed repository state.
-     A success the session claimed without a check that exercised the change
-     shows the project lacks a cheap way to prove it. _Use when_ the agent made a
-     mistake an automated check could have caught, claimed an unchecked success,
-     or the repo has no guardrail at all.
+     When the session claimed a success that no check exercised, find out
+     whether a suitable check was missing, unwired, too slow to run, or simply
+     skipped; only the first three are gaps in the environment. _Use when_ the
+     agent made a mistake an automated check could have caught, claimed an
+     unchecked success, or the repo has no guardrail at all.
    - **Coding standards**: should the reviewer be given a new rule to enforce?
      Should an existing rule be removed or clarified? Classify the violation
      first. A **mechanical** one (a fixed syntactic pattern, a banned API, an
@@ -70,8 +70,8 @@ caller started this skill, return the findings so its workflow continues.
      genuine **judgement calls** (cross-file consistency, "matches the surrounding
      style", anything no check could substitute for), placed as
      [Implementation vs Review](#implementation-vs-review) describes. _Use when_
-     review or the user caught a mistake that a project standard should have
-     prevented.
+     the reviewer failed to catch a mistake, or the session had no review and the
+     user caught one.
    - **Instruction loading**: when guidance covering the decision existed, find
      out why it did not work before writing anything. Visible but never loaded,
      because a skill description or pointer did not match the task: tune that
@@ -82,14 +82,13 @@ caller started this skill, return the findings so its workflow continues.
      the agent missed guidance that already existed.
    - **Global AGENTS.md**: are there steering instructions in always-loaded files
      that should move? In a project's `AGENTS.md` or `CLAUDE.md`, a judgement rule
-     moves to the project's standards document and a mechanical one to a check.
-     In the user's personal instructions, flag no-ops and rules a check now
-     enforces. A rule that holds across the user's projects, found in a project
-     file or restated by the user during the session, may belong in personal
-     instructions instead. Every personal-instruction change is a proposal to the
-     user. _Use when_ an always-loaded instruction file is particularly large, in
-     the repo or the user's personal scope, or the session revealed a
-     cross-project rule.
+     moves to the project's standards document and a mechanical one to a check. A
+     rule that holds across the user's projects, found in a project file or
+     restated by the user during the session, belongs in the user's personal
+     instructions; a personal rule that applies to one project belongs in that
+     project. Every personal-instruction change is a proposal to the user. _Use
+     when_ an always-loaded instruction file is particularly large, in the repo or
+     the user's personal scope, or a rule sits at the wrong scope.
    - **Tool economy**: did the agent make expensive tool calls that could be
      streamlined? Is there any custom tooling (CLIs, MCP servers) that is
      particularly token-inefficient? _Use when_ the agent made an expensive tool
@@ -110,7 +109,8 @@ caller started this skill, return the findings so its workflow continues.
 4. **Filter the candidates.** Keep a candidate only when it:
    - traces to a specific moment in the session or an observed repository state;
    - would change what a future agent does, not just add reading;
-   - stays true after paths, versions and commit IDs change;
+   - teaches something that stays true after paths, versions and commit IDs
+     change, even when the proposal names a current path;
    - is not already covered by clear, well-placed guidance. A covered candidate
      becomes an instruction-loading finding or an execution miss.
 
@@ -131,8 +131,9 @@ caller started this skill, return the findings so its workflow continues.
    session details out of anything meant for a shared file.
 
 6. **Hand off authorized changes.** For each change the authority covers, give its
-   owner the episode, evidence, proposal, conditions and exclusions, and start the
-   owner within that authority; do not copy its procedure. An unavailable owner
+   owner the user's request that authorizes it, the episode, evidence, proposal,
+   conditions and exclusions, and start the owner within that authority; do not
+   copy its procedure. An unavailable owner
    blocks only its own change: keep the prepared handoff and name the missing
    capability. Update each finding's status.
 
@@ -205,9 +206,12 @@ because a check appears to cover it.
 | A reusable procedure the session revealed | `workflow-to-skill` |
 | Human-facing docs and their indexes | `write-documentation` |
 | Removing the wrong path: ownership, interfaces, module boundaries | `design-code-structure` |
+| A type, lint rule or hook that enforces a code boundary, with its existing violations | `design-code-structure` |
+| A behavior test | `tdd` |
 | Wiring a check into CI, or adding the guardrail | `ci-cd-automation`, or `github-actions` for its workflows |
-| A runnable way to prove changes in the project | `verification-authoring` |
+| A project verification skill, when nothing repeatable exercises the app | `verification-authoring` |
 | Logs and runtime signals the agent could not see | `observability` |
 | Running a check's failing and valid examples | `verify` |
 | Personal instructions | The user decides; `agent-instructions` writes an accepted change |
 | Host configuration: MCP servers, connectors, permissions | The user; name the setting |
+| Any other authorized code or configuration change | The agent running retro, with the project's own commands |
