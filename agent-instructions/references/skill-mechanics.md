@@ -1,22 +1,23 @@
 # Skill mechanics
 
-The skill-specific branch of [the entrypoint](../SKILL.md): what changes when the
-document is a skill (host metadata, the invocation choice, the description,
-splitting by invocation, router skills, and the skill's record). Everything else about writing it is
-the reference in `SKILL.md`; packaging and validation are in
+The skill-specific branch of [the entrypoint](../SKILL.md): what changes when
+the document is a skill (host metadata, the invocation choice, the description,
+splitting by invocation, router skills, and the skill's record). Everything else
+about writing it is the reference in `SKILL.md`; packaging and validation are in
 [packaging.md](packaging.md).
 
 ## Host metadata
 
-These skills run in Claude Code and Codex. `name` and a precise `description` are
-the shared entrypoint; everything else is a host feature. Inspect the intended
-host's installed skill format and current primary documentation when local
-evidence is insufficient, and keep host-specific adapters apart from the portable
-instructions. A frontmatter key is not portable merely because another agent
-accepts it. Preserve supported existing metadata rather than rebuilding the file. Edit
-Codex's `agents/openai.yaml` through the host creator described in
-[packaging.md](packaging.md#host-tools-and-dependencies); a generator may
-replace the whole file, so keep unrelated policy and dependency settings.
+These skills run in Claude Code and Codex. `name` and a precise `description`
+are the shared entrypoint; everything else is a host feature. Inspect the
+intended host's installed skill format and current primary documentation when
+local evidence is insufficient, and keep host-specific adapters apart from the
+portable instructions. A frontmatter key is not portable merely because another
+agent accepts it. Preserve supported existing metadata rather than rebuilding
+the file. When the host supplies a creator
+([packaging.md](packaging.md#host-tools-and-dependencies)), edit Codex's
+`agents/openai.yaml` through it; a generator may replace the whole file, so keep
+unrelated policy and dependency settings.
 
 ## Invocation
 
@@ -51,9 +52,9 @@ other by registered name. When a skill only ever fires by hand, propose user
 invocation with its two-load trade and let the user decide.
 
 Shared reference that two user-invoked skills both need can live in neither: with
-both out of the agent's reach, neither can fire the other. Give it its own
-model-invoked reference skill that both name, rather than a plain file outside
-the packages, which a copied skill folder would lose.
+both out of the agent's reach, neither can fire the other. It belongs in a
+model-invoked reference skill, as above, not in a plain file outside the
+packages, which a copied skill folder would lose.
 
 ## Description
 

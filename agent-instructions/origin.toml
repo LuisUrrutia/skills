@@ -114,13 +114,14 @@ reason = "The invariants on authoring owners and on skill-maintenance. These rep
 where = ["SKILL.md#agent-instructions"]
 
 [[sources.deviations]]
-change = "Added a step section above the base's reference sections: Establish meaning and scope, Write, Get both model perspectives, Verify the change and Report, each ending on a completion criterion. Write applies every reference section to each changed line."
-reason = "The local skill writes and reviews instructions at a user's request as a workflow; the base's information hierarchy puts steps on the top rung and lets steps and reference mix, so its example of an all-reference document ('this skill') now reads 'or both, as this skill does'. The demand 'every lever applied' turns the base reference into the Write step's completion bar, and Verify keeps the earlier local rule that the requested result passes its applicable checks."
+change = "Added a step section above the base's reference sections: Establish meaning and scope, Write, Get both model perspectives, Verify the change and Report, each ending on a completion criterion. Write applies every reference section to each changed line, and Verify finishes only when the requested result passes its applicable checks. The information hierarchy's example of an all-reference document ('this skill') now reads 'or both, as this skill does'."
+reason = "The local skill writes and reviews instructions at a user's request as a workflow; the base's information hierarchy puts steps on the top rung and lets steps and reference mix. The demand 'every lever applied' turns the base reference into the Write step's completion bar, and the passing-checks rule is the earlier local completion criterion."
 where = [
   "SKILL.md#establish-meaning-and-scope",
   "SKILL.md#write",
   "SKILL.md#verify-the-change",
   "SKILL.md#report",
+  "SKILL.md#information-hierarchy",
 ]
 
 [[sources.deviations]]
@@ -139,7 +140,7 @@ reason = "Runs found defects that reading did not, such as invented domain rules
 where = ["SKILL.md#verify-the-change", "references/evaluation.md"]
 
 [[sources.deviations]]
-change = "Added to Context pointers: a pointer with no condition names no branch; a pointer that summarizes the procedure becomes a shortcut; and a pointer to another skill names it by registered name with its selecting condition, inputs and result, never a file inside it."
+change = "Added to Context pointers: a pointer with no condition names no branch; a pointer that summarizes the procedure becomes a shortcut; and a pointer to another skill names it by registered name with its selecting condition and, when it does work, its inputs and completion evidence, never a file inside it."
 reason = "Commit 0aa8bda, after an agent wrote 'its PR-reply rules' as a pointer into another skill (reports/skill-atlas/skill-reference-by-name-validation.json, evaluation case cross-skill-reference-by-name). The shortcut sentence is the superpowers-writing-skills idea recorded below."
 where = ["SKILL.md#context-pointers"]
 
@@ -204,7 +205,7 @@ reason = "The base has only a skill branch; evaluation cases canonical-instructi
 where = ["references/instruction-files.md"]
 
 [[sources.deviations]]
-change = "Replaced 'push it to a plain file outside the skill system' for reference shared by two user-invoked skills with a model-invoked reference skill that both name."
+change = "Replaced 'push it to a plain file outside the skill system' for reference shared by two user-invoked skills with a model-invoked reference skill, and replaced the reason 'with no descriptions' with 'with both out of the agent's reach', because a Codex user-invoked skill keeps its description."
 reason = "The package invariant: a skill must work after only its folder is copied, and a plain file outside the packages would be lost. The model-pair review of this rebuild (Codex Astra, 2026-10-18) found the base advice contradicting references/packaging.md."
 where = ["references/skill-mechanics.md#invocation"]
 

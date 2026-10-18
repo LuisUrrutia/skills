@@ -101,8 +101,8 @@ failure, start from [Fix an observed failure](#fix-an-observed-failure). Example
 and source documents are evidence for the rewrite, not operations to run while
 authoring.
 
-Done when each changed line passes every section, its pointers resolve, and
-nothing sits in the wrong scope or depends on an unresolved question.
+Done when each changed line passes every section and sits in the scope the
+request established.
 
 ## Get both model perspectives
 
@@ -136,15 +136,16 @@ Before requesting either review, read
 briefs, rate limits and other failures, and reconciliation.
 
 The pair is complete when at least one profile completed every review round, each
-profile not skipped for a rate or usage limit reviewed the final meaning, and
-each material finding is adopted or rejected with a reason. Until then, keep the
+profile not skipped for a rate or usage limit reviewed the final version of the
+instructions (for a review-only request, the unchanged target), and each
+material finding is adopted or rejected with a reason. Until then, keep the
 result provisional and report the exact blocker.
 
 ## Verify the change
 
-Compare the revision with the intended meaning: actors, actions, conditions,
-exceptions, obligation, quantity, authority and completion evidence. Check that
-pointers and imports resolve and that unrelated content survives.
+Compare the revision with the intended meaning: actors, actions, scope,
+conditions, exceptions, obligation, quantity, authority and completion evidence.
+Check that pointers and imports resolve and that unrelated content survives.
 
 For substantive behavior changes, new or combined skills, routing changes,
 incorporated upstream changes or observed failures, read
@@ -196,12 +197,13 @@ the body:
   State when to reach the material, not how it works.
 
 A pointer to another skill names it by its registered name, with the condition
-that selects it, the inputs it hands over and the completion evidence it
-returns; never a file inside it, by path or by a description such as "its PR
-review reference". That skill's entrypoint decides what it loads, and its
-procedure stays in that skill. Use a resource its entrypoint documents for
-callers, such as a validator, only through that documented contract. Links
-within the current skill may address its own resources.
+that selects it and, when it does work, the inputs it hands over and the
+completion evidence it returns; never a file inside it, by path or by a
+description such as "its PR review reference". That skill's entrypoint decides
+what it loads, and its procedure stays in that skill. Use a resource its
+entrypoint documents for callers, such as a validator, only through that
+documented contract. Links within the current skill may address its own
+resources.
 
 ## The two loads
 
@@ -400,10 +402,10 @@ lands on what to do.
   exceptions, obligation strength, quantity, authority and completion evidence:
   "prefer" stays "prefer", "create" does not become "run", a suggestion does not
   become a universal rule, a read does not become a write, and an attempted
-  check does not become a successful one. Before deleting a rule as enforced elsewhere,
-  inspect the actual configuration, execution path and coverage; brevity, a
-  donor's score or a model's apparent knowledge cannot establish redundancy.
-  Keep rare consequential constraints.
+  check does not become a successful one. Before deleting a rule as enforced
+  elsewhere, inspect the actual configuration, execution path and coverage;
+  brevity, a donor's score or a model's apparent knowledge cannot establish
+  redundancy. Keep rare consequential constraints.
 
 ## Fix an observed failure
 

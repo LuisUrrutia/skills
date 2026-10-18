@@ -695,7 +695,7 @@
         "Generic encouragement that changes no behavior is deleted as whole sentences, not trimmed.",
         "The script list, which package.json answers, is removed as a cache; the pnpm line keeps its reason about the workspace protocol.",
         "The captured-rate domain rule survives, and the comment rule stays at prefer strength.",
-        "'Be thorough' is deleted, or replaced only with a criterion the supplied files or the user give; no invented testing standard appears.",
+        "'Be thorough' is deleted or strengthened to a stronger word; any concrete criterion comes only from the supplied files or the user, so no invented testing standard appears.",
         "The report labels deletions as static judgments rather than measured results."
       ]
     },
@@ -745,7 +745,7 @@
       },
       "expectations": [
         "One familiar term such as 'tight loop' replaces the repeated triad, is defined once where it narrows the ordinary sense, and is reused at each site; no coined word appears.",
-        "'A loop you actually trust' becomes the supplied observable criterion, failing on the bug before the fix, and nothing beyond it.",
+        "'A loop you actually trust' becomes the supplied observable criterion, failing on the bug before the fix, possibly named by a familiar leading word such as 'red'; no other meaning is added.",
         "The production-trace condition and the before-changing-code order survive, and the ban on slow tests becomes the positive target without widening or narrowing what it covers."
       ]
     },
@@ -771,18 +771,18 @@
     {
       "id": "reconsult-both-after-material-edit",
       "kind": "state-transition",
-      "prompt": "Change skills/release-notes/SKILL.md so each entry links to its changelog section, and make the rest of its guidance consistent with that rule. Edit the file and report the result.",
+      "prompt": "Resume the saved instruction-edit task. The original user asked: 'Change skills/release-notes/SKILL.md so each entry links to its changelog section, and make the rest of its guidance consistent with that rule.' Reconcile the recorded first-round findings, finish the edit, and report the result.",
       "fixture": {
         "files": {
-          "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area.\nWrite release notes as plain text without links.\n"
+          "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text.\n"
         },
-        "consult_runner": "A fake runner records each consultation with its model, effort, and brief. Both profiles complete every request; neither returns findings."
+        "saved_state": "The file is the frozen candidate reviewed in round one. Both consultations used fresh contexts with identical briefs at xhigh. The recorded Codex Astra finding: the rule gives no handling for a user-visible change that has no changelog section, so agents will invent anchors; state what to do in that case. The recorded Claude Fable result: no findings. Neither result has been reconciled yet.",
+        "consult_runner": "A fake runner starts with the two recorded first-round requests and records each later consultation with its model, effort, and brief. Both profiles complete every later request without findings."
       },
       "expectations": [
-        "The edited file requires a changelog link for each entry and no longer bans all links.",
-        "Both profiles review a frozen candidate at xhigh before the file is final.",
-        "If the text changes after the first round in a way that changes its meaning, both profiles are consulted again on the affected points before the result is final; a wording-only change needs no second round.",
-        "The report lists each profile's runs and how findings were reconciled."
+        "The supported Codex finding is adopted with a meaning change, such as asking the user or flagging an entry that has no changelog section, without inventing a default anchor.",
+        "After that change, both profiles are consulted again at xhigh on the affected point with the original request, the prior findings and the dispositions, before the result is final.",
+        "The report lists both rounds for each profile and how the finding was reconciled."
       ]
     },
     {
@@ -799,7 +799,22 @@
       "expectations": [
         "The required check is run and its failure is reported with its output.",
         "The result is reported as unfinished because the required check fails, even though both consultations completed without findings.",
-        "No check is weakened, skipped or edited to make it pass."
+        "No check is weakened, skipped or edited to make it pass.",
+        "The body is unchanged; its link-versus-plain-text conflict is reported, not fixed, because the request covers only the description."
+      ]
+    },
+    {
+      "id": "leading-word-unstated-meaning",
+      "kind": "artifact",
+      "prompt": "Tighten the debugging section of this skill without changing what it asks. Return the revised section.",
+      "fixture": {
+        "section": "## Reproduce first\n\nBefore changing code, build a fast, deterministic, low-overhead feedback loop for the bug. Run the fast, deterministic, low-overhead feedback loop after each change. When the bug only shows in production, get a production trace before building a fast, deterministic, low-overhead feedback loop. Keep going until you have a loop you actually trust. Do not write slow tests.\n",
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort, and brief, and returns no findings."
+      },
+      "expectations": [
+        "One familiar term such as 'tight loop' replaces the repeated triad and is reused at each site; no coined word appears.",
+        "'A loop you actually trust' keeps its meaning, or the agent asks what trust means; it is not replaced by 'red' or any other specific criterion the user did not give.",
+        "The production-trace condition and the before-changing-code order survive."
       ]
     }
   ]
