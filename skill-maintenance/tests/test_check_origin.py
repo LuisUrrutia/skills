@@ -421,6 +421,11 @@ class CommitCitationTest(unittest.TestCase):
         returncode, diagnostics, _ = self.check_record(HEADER.format(approach="create") + f'\n[[invariants]]\nrule = "Cite evidence."\nreason = "{reason}"\n')
         return returncode, diagnostics
 
+    def commit_record(self, record, branch):
+        git(self.repository, "switch", "--quiet", branch)
+        (self.skill_dir / "origin.toml").write_text(record, encoding="utf-8")
+        git(self.repository, "add", ".")
+        git(self.repository, "commit", "--quiet", "-m", f"Record on {branch}")
 
     def test_commit_only_on_a_branch_is_reported(self):
         returncode, diagnostics = self.check_reason(f"Trials at {self.branch_commit[:7]} showed it.")
@@ -460,6 +465,19 @@ verification = "Read the draft at that commit."
 
         self.assertEqual((returncode, diagnostics), (0, []))
         self.assertEqual([item["check"] for item in skipped], ["unmerged-commit"])
+
+    def test_moved_baseline_and_dropped_reviews_are_reported(self):
+        cursor_at_baseline = SOURCE.format(id="donor", role="ideas").replace(f'reviewed_through = "{COMMIT_B}"', f'reviewed_through = "{COMMIT_A}"')
+        self.commit_record(HEADER.format(approach="derive") + ideas_source(), "main")
+        self.commit_record(HEADER.format(approach="derive") + cursor_at_baseline + IDEA, "feature")
+
+        _, dropped, _ = self.check_record(HEADER.format(approach="derive") + cursor_at_baseline + IDEA)
+        _, moved, _ = self.check_record(HEADER.format(approach="derive") + ideas_source().replace(f'baseline_commit = "{COMMIT_A}"', f'baseline_commit = "{"c" * 40}"').replace(f'from_commit = "{COMMIT_A}"', f'from_commit = "{"c" * 40}"'))
+        _, renamed, _ = self.check_record(HEADER.format(approach="derive") + ideas_source("newer-donor").replace(f'baseline_commit = "{COMMIT_A}"', f'baseline_commit = "{"c" * 40}"').replace(f'from_commit = "{COMMIT_A}"', f'from_commit = "{"c" * 40}"'))
+
+        self.assertEqual(dropped, [("reviews-dropped", "sources[0].reviews")])
+        self.assertEqual(moved, [("baseline-moved", "sources[0].baseline_commit")])
+        self.assertEqual(renamed, [])
 
     def test_merged_branch_commit_passes(self):
         git(self.repository, "switch", "--quiet", "main")

@@ -218,6 +218,7 @@ class Checker:
         self.check_approach(data, sources, snapshots, dependencies)
         if self.find_default_branch():
             self.check_commit_citations()
+            self.check_against_default(sources)
         return self.diagnostics
 
     def scan_values(self, value, location):
@@ -445,6 +446,27 @@ class Checker:
                 unmerged[token] = bool(commit) and git(self.skill_dir, "merge-base", "--is-ancestor", commit, self.default)[0] == 1
             if unmerged[token]:
                 self.issue("unmerged-commit", f"Commit {token} is not on {branch}, so a rebase or squash merge can drop it. Describe the evidence or cite the pull request; cite a commit only once the default branch contains it.", location)
+
+    def check_against_default(self, sources):
+        prefix = git(self.skill_dir, "rev-parse", "--show-prefix")[1] or ""
+        returncode, text = git(self.skill_dir, "show", f"{self.default}:{prefix}origin.toml")
+        if returncode != 0:
+            return
+        try:
+            published = tomllib.loads(text)
+        except tomllib.TOMLDecodeError:
+            return
+        entries = published.get("sources", [])
+        before = {item.get("id"): item for item in entries if isinstance(item, dict)} if isinstance(entries, list) else {}
+        for index, source in enumerate(sources):
+            old = before.get(source.get("id"))
+            if old is None:
+                continue
+            if old.get("baseline_commit") != source.get("baseline_commit"):
+                self.issue("baseline-moved", "baseline_commit differs from the default branch's record; give newer material a new source id instead of moving the baseline.", f"sources[{index}].baseline_commit")
+            old_reviews, reviews = old.get("reviews", []), source.get("reviews", [])
+            if isinstance(old_reviews, list) and isinstance(reviews, list) and len(reviews) < len(old_reviews):
+                self.issue("reviews-dropped", "This source has fewer reviews than on the default branch; reviews are history and stay.", f"sources[{index}].reviews")
 
     def check_ids(self, data):
         seen = set()
