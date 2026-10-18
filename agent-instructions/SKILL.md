@@ -198,7 +198,7 @@ the body:
   State when to reach the material, not how it works.
 
 A pointer to another skill names it by its registered name, with the condition
-that selects it and, when that skill performs work rather than supplying
+that selects it and, when the pointer sends it work rather than reaching its
 reference, the inputs it hands over and the completion evidence it returns;
 never a file inside it, by path or by a description such as "its PR review
 reference". That skill's entrypoint decides what it loads, and its procedure
