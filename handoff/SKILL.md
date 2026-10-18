@@ -58,8 +58,3 @@ verified state govern continuation; an old summary grants no new authority.
 This skill writes the document. Commits, publication, session launch, worktree
 changes, agent cancellation, and continued implementation retain their own
 authorization and owners; a request to export context does not imply them.
-
-## Source maintenance
-
-For requested source checks or updates, use `agent-instructions` with `origin.toml`.
-Ordinary handoff creation neither fetches nor invokes the donor skills.

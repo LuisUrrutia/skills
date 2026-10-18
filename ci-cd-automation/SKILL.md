@@ -93,6 +93,3 @@ Return the stage graph and concise stage contracts, key choices and exclusions,
 implementation changes, and observed checks with remaining gaps. When file changes
 are authorized, record durable decisions in the project's existing CI/CD
 documentation; otherwise include them in the response.
-
-For requested source maintenance, read
-[upstream-updates.md](references/upstream-updates.md).

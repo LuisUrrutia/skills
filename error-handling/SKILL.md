@@ -99,6 +99,3 @@ remaining uncertainty. For recovery work, include what was retried or reconciled
 its stopping condition and the evidence that effects were not duplicated. Keep
 proposed behavior and tested behavior distinct. The active caller owns further
 delivery; this skill does not start publication or PR monitoring.
-
-For a requested check or update of this skill's sources, read
-[references/upstream-updates.md](references/upstream-updates.md).

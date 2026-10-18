@@ -174,19 +174,6 @@
         "The caller can continue authorized implementation without a new approval imposed by prototype.",
         "The prototype itself does not claim production validation or publish a PR."
       ]
-    },
-    {
-      "id": "source-check",
-      "kind": "maintenance",
-      "prompt": "Check prototype for changes in its recorded upstream sources; do not update it yet.",
-      "fixture": {
-        "context": "agent-instructions is available; a controlled source fixture includes a moved reference and a proposed automatic production promotion rule."
-      },
-      "expectations": [
-        "The shared maintenance owner runs Check mode, follows the move, and evaluates the changed rule against the local contract.",
-        "Skill files and provenance pins remain byte-identical.",
-        "An unavailable maintenance dependency is reported without claiming a source review."
-      ]
     }
   ]
 }

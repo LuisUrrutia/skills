@@ -194,6 +194,10 @@ reason = "The skill reuses the project's existing durable telemetry and has no d
 feature = "Replacing silent error handling with a log line plus a thrown typed error."
 reason = "Instrumentation records an otherwise silent failure with safe classification and operation identity but keeps the caller's error contract. Replacing a return value with an exception is a change for the error-handling skill and must be in scope on its own."
 
+[[sources.declined]]
+feature = "A fixed metric budget: counters for the three to five things that matter, limited to the metrics that drive alerts."
+reason = "Additions are prioritized by user impact, operational uncertainty and cost, and each one answers a named operational question; the skill sets no fixed number of signals."
+
 [[dependencies]]
 kind = "local"
 name = "debug"
@@ -217,9 +221,3 @@ kind = "local"
 name = "ci-cd-automation"
 required = false
 role = "Conditional rollout and delivery-gate work; instrumentation does not start deployment."
-
-[[dependencies]]
-kind = "local"
-name = "agent-instructions"
-required = false
-role = "Required only for requested skill authoring or source maintenance."

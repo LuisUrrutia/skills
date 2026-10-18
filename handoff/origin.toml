@@ -18,7 +18,6 @@ where = ["SKILL.md"]
 
 [[invariants]]
 rule = "The document is written with the environment's existing writing tools; no helper script, transport mechanism or host runtime is required. Ordinary handoff creation neither fetches nor invokes the donor skills."
-where = ["SKILL.md#source-maintenance"]
 
 [[sources]]
 id = "matt-handoff"
@@ -433,9 +432,3 @@ validation = [
   "Verified baseline, cursor and candidate ancestry; git diff --find-renames ef648e01899b..b92f181b3b74 over the recorded paths is empty and every recorded path exists at the candidate.",
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
-
-[[dependencies]]
-kind = "local"
-name = "agent-instructions"
-required = false
-role = "Only requested source maintenance and skill authoring; ordinary handoff creation has no skill dependency."

@@ -4314,155 +4314,171 @@ window.SKILL_ATLAS = {
         "category": "Instruction authoring",
         "summary": "Investigate a project and its knowledge sources to create evidence-based AGENTS.md or CLAUDE.md instructions.",
         "path": "create-project-instructions/SKILL.md",
-        "sha256": "6a8f07ba9fd1517e6c61224bd1bfc4652f4a22853d9cd3d497704748e29c0a43",
-        "section": "authoring"
+        "sha256": "bd70797cf5ba9d91bd2088012ada04c9c039a01c47b18b51ab39cb76a9c74189",
+        "section": "authoring",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "workflow-to-skill",
         "category": "Instruction authoring",
         "summary": "Extract reusable decisions and route automation to its existing owner with failing and valid acceptance cases; agent-instructions owns writing.",
         "path": "workflow-to-skill/SKILL.md",
-        "sha256": "5e3257c690a7d17afff6ca8ad23ce0bc57f19ec4b42fcd7c3c409ad48a71594c",
+        "sha256": "cd05f1528feb83aef230233c9f57c0d0e7b255e55801938293ab722e322df86d",
         "section": "authoring",
-        "checkedAt": "2026-10-06"
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "explain-code",
         "category": "Understanding and design",
         "summary": "Explain how existing code works, who owns each behavior and where the evidence lives.",
         "path": "explain-code/SKILL.md",
-        "sha256": "2d272b371368526794c01d0b9946ccde7c1a63628ce303ec6bd52aa6fa1cb1a4",
-        "section": "how"
+        "sha256": "8683cc602eb605112715d80e34fd7dd6dc34179582fef749e2fda3d27d078c91",
+        "section": "how",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "explain-decisions",
         "category": "Understanding and design",
         "summary": "Reconstruct documented reasons for existing decisions, separating evidence from inference.",
         "path": "explain-decisions/SKILL.md",
-        "sha256": "b46f0ecb4eb47901bd5334a10d2a8ac09a577f31ee676f556030e50eefc98657",
-        "section": "why"
+        "sha256": "314b161cdf029df8b71a6d84e24e148bac9972abe6f1bc7dfe238562a02a0786",
+        "section": "why",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "analyze-change-effects",
         "category": "Understanding and design",
         "summary": "Trace what a change could break elsewhere and test the assumptions behind that risk.",
         "path": "analyze-change-effects/SKILL.md",
-        "sha256": "a98c8ad920af36d7757877c60ef96e200b00fb02c567dc2744cfd864e5cdf3d1",
-        "section": "analyze-change-effects"
+        "sha256": "858f5f183d717c6fa8b546f45b7790d5ccefc4e7cc9b2eee8bc0938ef7adbd12",
+        "section": "analyze-change-effects",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "compare-solutions",
         "category": "Understanding and design",
         "summary": "Compare independent complete attempts, judge their evidence and verify a combined result.",
         "path": "compare-solutions/SKILL.md",
-        "sha256": "9ca07127f207b7355cdc6c5984c520cd38df58aaf4bca9db02852d45580a1f2f",
-        "section": "compare-solutions"
+        "sha256": "7f1db033bf58034d5fbdd0bd605ba8dfcdd6dd51122a4290677a6bf3e6f8459e",
+        "section": "compare-solutions",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "prototype",
         "category": "Understanding and design",
         "summary": "Build a bounded experiment or demo and return observed evidence; use verify for performance assessment with an explicit fallback.",
         "path": "prototype/SKILL.md",
-        "sha256": "350e483e98c9b63ee64a11b88f452ae90deb022c66c5b98f3c469bb8f245bd71",
-        "section": "prototype"
+        "sha256": "e22e576f92fa1237964520890fa9fb98260865f7045cdef6d6927af73b82ab1c",
+        "section": "prototype",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "design-code-structure",
         "category": "Understanding and design",
         "summary": "Choose a useful structural change, design caller-facing models and module boundaries, and demonstrate selected checks through the actual verification path.",
         "path": "design-code-structure/SKILL.md",
-        "sha256": "84afc2ef4b1df24fc64a849355b5b4252b017e4e7fa159e37e2325919b267494",
-        "section": "design-code-structure"
+        "sha256": "c4c54c52c461b9410513d999322a5fa1a0fe95b93a97d501a65ba169cc737c40",
+        "section": "design-code-structure",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "work-mode",
         "category": "Implementation, verification and review",
         "summary": "Coordinate or resume one selected development task through its remaining authorized phases, preserving specialist owners, evidence and continuation.",
         "path": "work-mode/SKILL.md",
-        "sha256": "5fcf017d49a16fb25faeaff0825357cc13dd9f9be6490fcabec3914981d757e5",
+        "sha256": "6611c2b1b1e005e7a7c179cd17cff9b388efb1d0beb212f017b188c05a11fc71",
         "section": "workflow",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "debug",
         "category": "Implementation, verification and review",
         "summary": "Diagnose observed failures and resource regressions; use verify for measurement assessment and repair within active authority.",
         "path": "debug/SKILL.md",
-        "sha256": "193e825f6d17a7535a8b98a5f711ee99e8d50f38b880d6eb7f1da8f26b8c923d",
-        "section": "debug"
+        "sha256": "dc5327c6553f57ec01b6ce35507439e3bfd3766b39e17e672e2fd42c6af28f77",
+        "section": "debug",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "tdd",
         "category": "Implementation, verification and review",
         "summary": "Implement behavior through observed failing and passing tests, with useful refactoring after the checks pass.",
         "path": "tdd/SKILL.md",
-        "sha256": "224e655607cbf594e5b6345a0516a11b65b6757ee3f1628a3e3c98232b7a5c67",
-        "section": "tdd"
+        "sha256": "3d3a3ee6d44eab1444400eaafea9c5a3095180f92b6db9504dad951163791d37",
+        "section": "tdd",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "error-handling",
         "category": "Implementation, verification and review",
         "summary": "Design, implement or review failure contracts and bounded recovery, preserving caller semantics and avoiding repeated effects.",
         "path": "error-handling/SKILL.md",
-        "sha256": "60d19931af2081bc8b214dd7e464d01d071ccec1bf9462b09825829fb55a08cc",
-        "section": "error-handling"
+        "sha256": "5397c8865e9f1c5ab1c40bf77fbc3c5fba658d0c68e75bb256d4f70ea39e6cc4",
+        "section": "error-handling",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "observability",
         "category": "Implementation, verification and review",
         "summary": "Assess and build project observability, including initial collection setup and instrumentation during feature work.",
         "path": "observability/SKILL.md",
-        "sha256": "a6a3ec72c29dd64761ebd70f66ac5eff4579131a7c4e7a341c5f3b38b899e06d",
+        "sha256": "07349bb50495f672c3e0b2525bef42fc59b30060d46c8fe803d1d236f5575b28",
         "section": "observability",
-        "checkedAt": "2026-10-05"
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "performance-optimization",
         "category": "Implementation, verification and review",
         "summary": "Find worthwhile measured improvements to user-relevant operations through bounded experiments that preserve behavior and resource limits.",
         "path": "performance-optimization/SKILL.md",
-        "sha256": "72bf908b0e7c32340171f1077b50e292006cbe934683153af75f3b17e1141556",
-        "section": "performance-optimization"
+        "sha256": "c305e5632b8096e42d1b24c3d3a9c2e299d4b77f308f66bbfd9e87f2d747b6bf",
+        "section": "performance-optimization",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "accessibility",
         "category": "Implementation, verification and review",
         "summary": "Design, implement or audit accessible user flows, with platform criteria and observed evidence.",
         "path": "accessibility/SKILL.md",
-        "sha256": "39d348ef7acad82ff81dcba2d1e556d3f6b4d3dd319dd06e6d90d9db26211e9e",
-        "section": "accessibility"
+        "sha256": "151f05b7664000434f6b448be12b1e5542b3e2c93acd5db6e4452cd6065d63c0",
+        "section": "accessibility",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "verification-authoring",
         "category": "Implementation, verification and review",
         "summary": "Create and maintain project-local verify-<app> recipes and feature maps.",
         "path": "verification-authoring/SKILL.md",
-        "sha256": "9151e1e50a2cc2fc2a27ee9fa86c57699194be6b155d978c125ee70043a87c3b",
-        "section": "verification"
+        "sha256": "ac3c2654f419cb4bf08ad06d62121c794fea23b25bc51f5ecb3b35d5da75eca9",
+        "section": "verification",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "verify",
         "category": "Implementation, verification and review",
         "summary": "Assess software claims against current execution evidence, with conditional browser and performance criteria and local application recipes.",
         "path": "verify/SKILL.md",
-        "sha256": "a9f199e2a6d03d4a429b62ce14186822fc0646e71905826b6717715e1f1d3bef",
-        "section": "verification"
+        "sha256": "88c6d6b99ccaa746c5054bf1fc88552fb065f46c1302f2749b10e59a815990ed",
+        "section": "verification",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "simplify-code",
         "category": "Implementation, verification and review",
         "summary": "Remove unnecessary complexity from changed code while preserving behavior and necessary constraints.",
         "path": "simplify-code/SKILL.md",
-        "sha256": "6490f2810f88b2d12ab15a6302661c82e94fc570798f5b109ee0ce0aa6e4a01c",
-        "section": "simplify-code"
+        "sha256": "af3bbd1c1c291d2c537dfd34833cff31d85ae6e3978afce46e8ced3e26d34339",
+        "section": "simplify-code",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "review-code-changes",
         "category": "Implementation, verification and review",
         "summary": "Review a declared change with evidence, delegating independent risk questions when useful and authorized.",
         "path": "review-code-changes/SKILL.md",
-        "sha256": "31467f02c5b37a4c313094d83527b2bda73ebf0e6c990270b8ffa3fbda64d0c5",
-        "section": "review-code-changes"
+        "sha256": "3001d4e2d105451439233e2c610d34f741474ef3257d564b0f838157e8dce6bb",
+        "section": "review-code-changes",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "pr-review",
@@ -4493,27 +4509,27 @@ window.SKILL_ATLAS = {
         "category": "Git, pull requests and CI",
         "summary": "Prepare and verify atomic commits while preserving unrelated staged and working-tree changes.",
         "path": "commit/SKILL.md",
-        "sha256": "a340fba881a0e02dba81a72a0685ef742b37b2c10aba56f45997b8562efc4197",
+        "sha256": "cada75a31fcc5eb4789443ef5dcbe3c5b5f6819616318fb145a9c6b1834aaef3",
         "section": "commit-pr",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "pr",
         "category": "Git, pull requests and CI",
         "summary": "Create or update a reviewable PR, including real screenshots, attachment recovery and useful diagrams.",
         "path": "pr/SKILL.md",
-        "sha256": "692d6bc5f553740e07eb7abaa6d59637b860c970e907a2f1b5eb160c9cab80bd",
+        "sha256": "2f503b98cd3eb75cd362a522c8572411c61a47d01099fd4c3d3f42cb922d4f37",
         "section": "pr-attachments",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "pr-followup",
         "category": "Git, pull requests and CI",
         "summary": "Evaluate human and AI feedback, repair authorized CI failures or conflicts and report the current PR state.",
         "path": "pr-followup/SKILL.md",
-        "sha256": "d8185b339a2da05c752dc5ef8f734ea1140092341f3ca227e7fc1f0528b495b2",
+        "sha256": "1a9b979f6386b52ba12cca6bd8d1329a0daffc2151a5302c7c81fc4afd10986b",
         "section": "followup",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "stacked-pr",
@@ -4577,34 +4593,36 @@ window.SKILL_ATLAS = {
         "category": "Implementation, verification and review",
         "summary": "Keep TypeScript contracts honest across domain states, runtime boundaries, mutation, async callbacks and module consumers.",
         "path": "typescript-best-practices/SKILL.md",
-        "sha256": "89625b5e09cfae30e809da5ba116aa551ce9daad3e94d52b03f611fc6f70e41c",
-        "section": "typescript-best-practices"
+        "sha256": "38ef96f8f0ecc9e5402a631c05833164c687c7eae3cdcc970ef99028e607ef3b",
+        "section": "typescript-best-practices",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "ci-cd-automation",
         "category": "Git, pull requests and CI",
         "summary": "Design pipeline stages, checks, artifact promotion, delivery criteria, recovery and measured efficiency; use provider specialists for implementation.",
         "path": "ci-cd-automation/SKILL.md",
-        "sha256": "ed54c6f80073908b543ffa35e548774d3543da6e60f1637fb49e4ce254e66a91",
-        "section": "ci-cd-automation"
+        "sha256": "8de0792f0de66348aa55c81c6accdf40db5b6f6d24a1e356f809f0f438f8d8be",
+        "section": "ci-cd-automation",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "handoff",
         "category": "Writing and personal workflows",
         "summary": "Write portable continuation context with the next action, decisions, evidence and access limits; creating the document does not transfer execution.",
         "path": "handoff/SKILL.md",
-        "sha256": "d6fe45059286875017f51f88dcff6048b03fd495a0fa3c4d95e7183011d1499b",
+        "sha256": "4d76832740d219a99690f67d2eaf51f79c864d986bbdf1b186d03859077cd18e",
         "section": "handoff",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "report-work-activity",
         "category": "Writing and personal workflows",
         "summary": "Explain activity and current obligations with work/open-source metrics, all configured GitHub CLI profiles, Luna extraction and a private HTML evidence bundle.",
         "path": "report-work-activity/SKILL.md",
-        "sha256": "ebc6870ab569948ccff3b1f78cb59d3a08746ce3cc682917ac0092cd1c58bb2f",
+        "sha256": "290fa1dc4791a8891a554d6ebf3a868b89f151fd5ccce37f671bbd880ac46353",
         "section": "report-work-activity",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "write-documentation",
@@ -4619,18 +4637,18 @@ window.SKILL_ATLAS = {
         "category": "Learning",
         "summary": "Teach a concept, codebase, system, or business with adapted examples and optional practice.",
         "path": "teach/SKILL.md",
-        "sha256": "41b637a2b5b0f8f64b3037351e4e07d97ebbc08fe94b81af0c52d1275cd95758",
+        "sha256": "d465314938896eb2d10d96499e680a8bf71542aba4e77e336bb2f2b56784b16c",
         "section": "teaching",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "learning-plan",
         "category": "Learning",
         "summary": "Build or revise a learning progression or complete course with usable lessons and progress checkpoints.",
         "path": "learning-plan/SKILL.md",
-        "sha256": "0d73f6a266bf2bb38e498388124aaebcbb9aa307947b83b5c8cfd4ef6ec13b80",
+        "sha256": "0d655b31bdb1e9e65509546142bd96c38854864de272aafd1bec62d01b913a7c",
         "section": "teaching",
-        "checkedAt": "2026-10-17"
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "comment-style",
@@ -4646,8 +4664,9 @@ window.SKILL_ATLAS = {
         "category": "Implementation, verification and review",
         "summary": "Retire dependencies, APIs or features, with an optional replacement, verified transition conditions and complete obsolete-code cleanup.",
         "path": "deprecate-and-remove/SKILL.md",
-        "sha256": "5bc34ccb77e4e50eb245cec9be2578563284879fe4c5f84f337eff640631d927",
-        "section": "deprecate-and-remove"
+        "sha256": "a0cd71f42acd191246b8efa5178507b866659f949767b31e1e6a7787298a8e1c",
+        "section": "deprecate-and-remove",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "issue-workflow",
@@ -4655,8 +4674,8 @@ window.SKILL_ATLAS = {
         "summary": "Synchronize source tickets at work start, PR creation and observed merge under per-project transition rules.",
         "path": "issue-workflow/SKILL.md",
         "section": "issue-workflow",
-        "checkedAt": "2026-10-17",
-        "sha256": "6e5d9449f5a4742cd4754f9dca1cfbc8bdc1e0a880e9b2337d8cd99b41ad2672"
+        "checkedAt": "2026-10-18",
+        "sha256": "de765d5e6eaf49402f141d365bfd1899b9360520d68018cc46b1e5cbffbd15b6"
       },
       {
         "name": "wayfinder",
@@ -4664,8 +4683,8 @@ window.SKILL_ATLAS = {
         "summary": "Ground the problem, compare real options and resolve decisive uncertainty before planning, preserving decisions across sessions.",
         "path": "wayfinder/SKILL.md",
         "section": "wayfinder",
-        "checkedAt": "2026-10-17",
-        "sha256": "890793e30a966b68d2ac042c3d8ee0d61e6d30b1ee3d2526646fb237caa48fe3"
+        "checkedAt": "2026-10-18",
+        "sha256": "598a5760692e05e5184aa6bd31ffe80494f20af48141fce3a2aecb9df847693a"
       },
       {
         "name": "planning",
@@ -4673,24 +4692,24 @@ window.SKILL_ATLAS = {
         "summary": "Create, review or revise implementation plans with verifiable outcomes, dependencies and acceptance checks; task-breakdown owns PR-sized decomposition.",
         "path": "planning/SKILL.md",
         "section": "planning",
-        "checkedAt": "2026-10-17",
-        "sha256": "045afc60a212e5322891d12846a1d6836199289f7b016290d1ccdc08fd45ecec"
+        "checkedAt": "2026-10-18",
+        "sha256": "d936dc6f5d6e3df3589bc9b6b6de5ea0849c85e34d185133fcc9cf7a05da7d23"
       },
       {
         "name": "task-breakdown",
         "category": "Understanding and design",
         "summary": "Divide implementation plans into cohesive, testable delivery units with real dependencies and explicit review budgets.",
         "path": "task-breakdown/SKILL.md",
-        "checkedAt": "2026-10-17",
-        "sha256": "74792780199e67ca8157bdf3e2175cdf11092f77fc096eeb7309256e4969eafd"
+        "checkedAt": "2026-10-18",
+        "sha256": "3c0f4eb13bef0fdce40f5941e3e69a09e162df4b4159de6cc890d0c49711d363"
       },
       {
         "name": "retro",
         "category": "Implementation, verification and review",
         "summary": "Diagnose coding-session friction from evidence and route supported improvements to their existing owners.",
         "path": "retro/SKILL.md",
-        "checkedAt": "2026-10-17",
-        "sha256": "e6c5a93dce60d5de6446a5214e0cc59a80892db538832eaeca552e50e85b9a92"
+        "checkedAt": "2026-10-18",
+        "sha256": "1e33288926f4c34e202aa6abfa8356b857b2ffbbcafe905d3a1df9a35c38b201"
       }
     ],
     "pending": [],

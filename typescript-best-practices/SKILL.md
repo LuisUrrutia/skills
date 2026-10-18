@@ -59,5 +59,3 @@ separately. Keep formatting and enforceable style in existing tooling.
 
 For compiler, import/export, or package changes, read
 [compiler-and-modules.md](references/compiler-and-modules.md).
-For requested upstream maintenance, read
-[upstream-updates.md](references/upstream-updates.md).

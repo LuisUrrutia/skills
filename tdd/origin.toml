@@ -26,6 +26,10 @@ where = ["SKILL.md#work-one-behavior-at-a-time"]
 rule = "Repository instructions and the caller own worktrees, commits, PRs and further delivery. This skill neither starts those tasks nor cancels an existing requirement to perform them."
 where = ["SKILL.md#finish-with-evidence"]
 
+[[invariants]]
+rule = "The skill runs standalone from the request and project context: it needs no state from the work-mode skill and no earlier phase."
+where = ["SKILL.md#test-driven-development"]
+
 [[sources]]
 id = "mattpocock-tdd"
 author = "Matt Pocock"
@@ -128,9 +132,3 @@ validation = [
   "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 24fe0ef7737e..49dd158d1076 and the changed files at both commits.",
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
-
-[[dependencies]]
-kind = "local"
-name = "agent-instructions"
-required = false
-role = "Required only for requested source maintenance and skill authoring; ordinary TDD has no skill dependency."

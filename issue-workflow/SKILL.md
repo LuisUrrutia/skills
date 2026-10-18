@@ -132,6 +132,3 @@ or install a watcher, scheduler or webhook from this skill's ordinary invocation
 The supplied event hooks are in `pr` and `pr-followup`. Other publishers, including
 `stacked-pr`, need an explicit `issue-workflow` invocation, their own hook or native
 automation. Handling stack completion conditions here does not install those hooks.
-
-For requested source maintenance, use `agent-instructions` with `origin.toml` and
-[references/upstream-updates.md](references/upstream-updates.md).

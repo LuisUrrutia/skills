@@ -122,9 +122,7 @@ examples when replay would
 cause external effects; the original task's permission does not authorize a trial.
 
 Report the resulting skill, retained and excluded lessons, checks, and limits of
-the evidence. For maintenance of this skill's recorded inspiration, delegate to
-`agent-instructions` with this folder as the target; shared update mechanics stay
-with that owner.
+the evidence.
 
 When evaluating this extraction skill itself, use [evals/cases.json](evals/cases.json)
 as a starting corpus and keep its expectations out of executor inputs.

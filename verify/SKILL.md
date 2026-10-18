@@ -119,5 +119,4 @@ prove an unexercised user path. Inspection of a delegated artifact is useful,
 but verify its decisive claims against actual artifacts and execution.
 
 Verification grants no new publication authority. The caller and repository rules
-own commits and PRs. For a requested check or update of this skill's sources,
-read [references/upstream-updates.md](references/upstream-updates.md).
+own commits and PRs.

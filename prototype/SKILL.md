@@ -74,7 +74,5 @@ Return to the caller if the wider task already authorizes the next phase; do not
 add another approval gate. Reused code needs normal implementation and validation.
 Applicable repository commit rules still govern this task's own deliverables.
 
-For a requested source check or update of this skill, read
-[references/upstream-updates.md](references/upstream-updates.md). For evaluation
-of this skill itself, use [evals/cases.json](evals/cases.json); keep its expectations
-out of executor inputs. Neither reference is needed to run a prototype.
+For evaluation of this skill itself, use [evals/cases.json](evals/cases.json);
+keep its expectations out of executor inputs. It is not needed to run a prototype.

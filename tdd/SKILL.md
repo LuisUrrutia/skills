@@ -96,6 +96,3 @@ existing checks, and adding coverage for already working code have different
 completion criteria. Repository instructions and the caller own worktrees,
 commits, PRs, and further delivery; this skill neither initiates those tasks nor
 cancels an existing requirement to perform them.
-
-For a requested check or update of this skill's sources, read
-[references/upstream-updates.md](references/upstream-updates.md).

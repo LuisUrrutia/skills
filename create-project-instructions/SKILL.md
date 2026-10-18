@@ -108,7 +108,3 @@ questions or blocked claims. Separate unavailable access, no relevant results,
 and sources outside scope. Stop research when the material instructions are
 supported and remaining gaps are explicit; do not keep expanding the search to
 fill a template.
-
-For requested maintenance of this skill's recorded inspiration, use
-`agent-instructions` with this folder as the target. Ordinary project discovery
-does not update this skill or its upstream sources.

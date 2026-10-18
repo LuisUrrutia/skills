@@ -16,6 +16,10 @@ where = ["SKILL.md#simplify-from-evidence"]
 rule = "The criteria stay language-neutral and apply through the project's own language, runtime semantics and conventions, without language-specific code examples or syntax prescriptions."
 where = ["SKILL.md#simplify-code"]
 
+[[invariants]]
+rule = "The caller's request sets the mutation authority. An explicit review-only request returns recommendations without edits, and a cleanup request authorizes the cleanup but not new features or a repository-wide redesign. Commit and publication follow the active task and the repository rules."
+where = ["SKILL.md#simplify-code"]
+
 [[sources]]
 id = "cursor-deslop"
 author = "Cursor Team Kit"
@@ -204,9 +208,3 @@ kind = "local"
 name = "verify"
 required = false
 role = "Conditional application verification through the project recipe when needed."
-
-[[dependencies]]
-kind = "local"
-name = "agent-instructions"
-required = false
-role = "Required only for requested skill authoring or source maintenance."

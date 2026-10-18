@@ -99,6 +99,3 @@ Report what was simplified, the scope, exact checks and outcomes, and anything
 retained because its necessity or verification remains unresolved. Keep the report
 proportionate. A passing typecheck alone is not evidence of unchanged runtime
 behavior; missing required checks keep the corresponding completion claim open.
-
-For requested maintenance of this skill's sources, read
-[references/upstream-updates.md](references/upstream-updates.md).

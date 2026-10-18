@@ -5,14 +5,14 @@ approach = "derive"
 goal = "Help an agent implement or review TypeScript code with the simplest types that make the required operations safe and that claim no more than they prove. Success is a change whose type contracts pass the repository's real compiler setup and consumer checks, whose runtime boundaries are validated or tested separately, and whose task scope and public contracts stay intact."
 
 [[invariants]]
-rule = "A type annotation, assertion, generated type, `satisfies` check or `readonly` view is static evidence only and never creates a runtime invariant; a runtime guarantee needs runtime validation or a test."
+rule = "A type annotation, assertion, generated type, `satisfies` check or `readonly` view is static evidence only and never creates a runtime invariant; a runtime guarantee needs runtime validation or a test. A source example is adopted only after it is rechecked with the applicable compiler and runtime."
 reason = "Donor examples overclaimed what durations, mutable tuples, readonly views, satisfies and trusted internal code guarantee at runtime, and the skill corrects that class of claim for every source."
-where = ["SKILL.md#keep-types-honest"]
+where = ["SKILL.md#keep-types-honest", "SKILL.md#verify-the-contract"]
 
 [[invariants]]
-rule = "The skill holds only TypeScript-specific judgment rules; general engineering principles stay with the skills that own them."
+rule = "The skill holds only a small set of TypeScript-specific judgment rules, not whole style guides or catalogs of advanced type features; general engineering principles stay with the skills that own them."
 reason = "All 24 pstack principle skills were reviewed, and only their TypeScript-relevant decisions were kept."
-where = ["SKILL.md#typescript-best-practices", "references/upstream-updates.md"]
+where = ["SKILL.md#typescript-best-practices"]
 
 [[invariants]]
 rule = "The error-handling skill owns recovery policy, the review-code-changes skill owns review coordination and finding format, and the project's conventions or specialist skills own style, naming, layout and framework architecture."
@@ -373,9 +373,3 @@ kind = "local"
 name = "error-handling"
 required = false
 role = "Conditional recovery-policy design; ordinary TypeScript checks do not require it."
-
-[[dependencies]]
-kind = "local"
-name = "agent-instructions"
-required = false
-role = "Required only for requested skill authoring or upstream maintenance."

@@ -160,5 +160,3 @@ in Publish mode. Preserve draft labels and unknowns; drafts are not ready work.
 Retain drafted units if publication is blocked. If implementation is already
 authorized, continue ready units through the existing workflow with
 their acceptance and review-size contracts. Do not select worker topology here.
-
-For requested source maintenance, use `agent-instructions` with `origin.toml`.

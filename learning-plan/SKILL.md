@@ -99,8 +99,3 @@ when requested or already included in the task; a planning-only request ends
 with the plan. Save files and progress only when requested, at the designated
 destination under existing conventions, without creating a learning database by
 default. Follow the active output-language rules.
-
-## Source maintenance
-
-For requested source checks or updates, use `agent-instructions` with `origin.toml`.
-Ordinary planning does not fetch donor skills or require authoring consultations.
