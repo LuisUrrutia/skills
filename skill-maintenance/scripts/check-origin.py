@@ -162,9 +162,14 @@ def resolve_commit(directory, name):
     return output if returncode == 0 else None
 
 
+def is_ancestor(directory, older, newer):
+    return git(directory, "merge-base", "--is-ancestor", older, newer)[0] == 0
+
+
 class Checker:
-    def __init__(self, skill_dir):
+    def __init__(self, skill_dir, clones=None):
         self.skill_dir = skill_dir
+        self.clones = clones or {}
         self.record = skill_dir / "origin.toml"
         self.diagnostics = []
         self.skipped = []
@@ -337,6 +342,8 @@ class Checker:
         for index, review in enumerate(reviews):
             self.check_table(review, REVIEW, {}, f"{location}.reviews[{index}]")
         self.check_review_chain(source, reviews, location)
+        if isinstance(source.get("id"), str) and source["id"] in self.clones:
+            self.check_source_history(source, reviews, location, self.clones[source["id"]])
 
     def check_role(self, table, location):
         self.check_enum(table, "role", ROLES, f"{location}.role")
@@ -381,6 +388,31 @@ class Checker:
                 self.issue("review-chain", "Each review must start where the previous one ended.", f"{location}.reviews[{index}]")
         if resolved[-1][1] != cursor:
             self.issue("review-chain", "The last resolved review must end at reviewed_through.", f"{location}.reviews[{len(resolved) - 1}]")
+
+    def check_source_history(self, source, reviews, location, clone):
+        if git(clone, "rev-parse", "--is-shallow-repository")[1] == "true":
+            self.skip("source-history", f"The clone of {source['id']} is shallow, so missing ancestry proves nothing.")
+            return
+        known = {}
+
+        def exists(commit):
+            if commit not in known:
+                known[commit] = isinstance(commit, str) and bool(COMMIT.match(commit)) and resolve_commit(clone, commit) == commit
+            return known[commit]
+
+        pins = [(key, source.get(key), f"{location}.{key}") for key in ("baseline_commit", "reviewed_through")]
+        ends = [(key, commit, f"{location}.reviews[{index}].{key}") for index, review in enumerate(reviews)
+                for key, commit in zip(("from_commit", "to_commit"), review_range(review))]
+        for key, commit, place in pins + ends:
+            if isinstance(commit, str) and COMMIT.match(commit) and not exists(commit):
+                self.issue("unknown-commit", f"{key} {commit} is not in the clone of {source['id']}; if its history was rewritten, keep the pins and report the source as blocked.", place)
+        baseline, cursor = source.get("baseline_commit"), source.get("reviewed_through")
+        if exists(baseline) and exists(cursor) and not is_ancestor(clone, baseline, cursor):
+            self.issue("commit-order", "reviewed_through does not descend from baseline_commit in the source's history.", f"{location}.reviewed_through")
+        for index, review in enumerate(reviews):
+            start, end = review_range(review)
+            if exists(start) and exists(end) and not is_ancestor(clone, start, end):
+                self.issue("commit-order", "The review's to_commit does not descend from its from_commit, so its range crosses rewritten or unrelated history.", f"{location}.reviews[{index}]")
 
     def check_snapshot(self, snapshot, location):
         kind = snapshot.get("kind") if isinstance(snapshot.get("kind"), str) else None
@@ -546,6 +578,7 @@ def main(argv=None):
     parser.add_argument("--skill-dir", action="append", type=Path, help="skill folder that contains origin.toml; repeat for several skills")
     parser.add_argument("--dependents", metavar="SKILL", help="list the records under --root that declare SKILL as a dependency, instead of checking records")
     parser.add_argument("--root", type=Path, help="repository root searched by --dependents")
+    parser.add_argument("--source", action="append", default=[], metavar="ID=CLONE", help="local clone of the source with this id; checks its commits and their ancestry; repeat for several sources")
     args = parser.parse_args(argv)
     if args.dependents:
         if args.skill_dir or not args.root:
@@ -562,9 +595,16 @@ def main(argv=None):
     if missing:
         print(json.dumps({"error": "not a directory", "paths": missing}), file=sys.stderr)
         return 2
+    clones = {}
+    for item in args.source:
+        identifier, separator, path = item.partition("=")
+        if not separator or not identifier or git(path, "rev-parse", "--git-dir")[0] != 0:
+            print(json.dumps({"error": "--source needs ID=CLONE with a Git clone", "value": item}), file=sys.stderr)
+            return 2
+        clones[identifier] = Path(path)
     diagnostics, skipped = [], []
     for skill_dir in args.skill_dir:
-        checker = Checker(skill_dir)
+        checker = Checker(skill_dir, clones)
         diagnostics.extend(checker.run())
         skipped.extend(checker.skipped)
     print(json.dumps({"checked": [str(path) for path in args.skill_dir], "diagnostics": diagnostics, "skipped": skipped}, indent=2))

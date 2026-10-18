@@ -526,6 +526,84 @@ verification = "Read the draft at that commit."
         self.assertEqual((returncode, diagnostics), (0, []))
 
 
+class SourceCloneTest(unittest.TestCase):
+    def setUp(self):
+        self.directory = tempfile.TemporaryDirectory()
+        root = Path(self.directory.name)
+        self.clone = root / "donor"
+        self.clone.mkdir()
+        git(self.clone, "init", "--quiet", "--initial-branch=main")
+        self.commits = []
+        for name in ("a", "b", "c"):
+            (self.clone / f"{name}.md").write_text(f"{name}\n", encoding="utf-8")
+            git(self.clone, "add", ".")
+            git(self.clone, "commit", "--quiet", "-m", name)
+            self.commits.append(git(self.clone, "rev-parse", "HEAD"))
+        git(self.clone, "switch", "--quiet", "--orphan", "rewritten")
+        (self.clone / "a.md").write_text("rewritten\n", encoding="utf-8")
+        git(self.clone, "add", ".")
+        git(self.clone, "commit", "--quiet", "-m", "rewritten")
+        self.unrelated = git(self.clone, "rev-parse", "HEAD")
+        self.skill_dir = root / "demo"
+        self.skill_dir.mkdir()
+        (self.skill_dir / "SKILL.md").write_text(SKILL, encoding="utf-8")
+
+    def tearDown(self):
+        self.directory.cleanup()
+
+    def check(self, baseline, cursor, reviews, clone=None):
+        source = SOURCE.format(id="donor", role="ideas").replace(f'baseline_commit = "{COMMIT_A}"', f'baseline_commit = "{baseline}"').replace(
+            f'reviewed_through = "{COMMIT_B}"', f'reviewed_through = "{cursor}"')
+        text = "".join(REVIEW.replace(f'from_commit = "{COMMIT_A}"', f'from_commit = "{start}"').replace(f'to_commit = "{COMMIT_B}"', f'to_commit = "{end}"').replace(
+            "deferred = []", 'deferred = ["Behavioral checks did not run."]' if pending else "deferred = []") for start, end, pending in reviews)
+        (self.skill_dir / "origin.toml").write_text(HEADER.format(approach="derive") + source + IDEA + text, encoding="utf-8")
+        returncode, output = run_checker("--skill-dir", self.skill_dir, "--source", f"donor={clone or self.clone}")
+        return returncode, [(item["code"], item.get("location")) for item in output["diagnostics"]], output["skipped"]
+
+    def test_a_chain_of_run_ranges_passes(self):
+        a, b, c = self.commits
+
+        result = self.check(a, b, [(a, b, False), (b, c, True)])
+
+        self.assertEqual(result, (0, [], []))
+
+    def test_a_review_across_rewritten_history_is_reported(self):
+        a, _, _ = self.commits
+
+        returncode, diagnostics, _ = self.check(a, a, [(a, self.unrelated, True)])
+
+        self.assertEqual((returncode, diagnostics), (1, [("commit-order", "sources[0].reviews[0]")]))
+
+    def test_commits_missing_from_the_clone_are_reported(self):
+        missing = "d" * 40
+
+        _, diagnostics, _ = self.check(missing, missing, [])
+
+        self.assertEqual(diagnostics, [("unknown-commit", "sources[0].baseline_commit"), ("unknown-commit", "sources[0].reviewed_through")])
+
+    def test_a_cursor_that_does_not_descend_from_the_baseline_is_reported(self):
+        _, b, _ = self.commits
+
+        _, diagnostics, _ = self.check(b, self.unrelated, [(b, self.unrelated, False)])
+
+        self.assertEqual(diagnostics, [("commit-order", "sources[0].reviewed_through"), ("commit-order", "sources[0].reviews[0]")])
+
+    def test_a_shallow_clone_skips_the_ancestry_check(self):
+        a, b, c = self.commits
+        shallow = self.clone / git(self.clone, "rev-parse", "--git-path", "shallow")
+        shallow.write_text(c + "\n", encoding="utf-8")
+
+        returncode, diagnostics, skipped = self.check(a, a, [(a, self.unrelated, True)])
+
+        self.assertEqual((returncode, diagnostics), (0, []))
+        self.assertEqual([item["check"] for item in skipped], ["source-history"])
+
+    def test_a_source_path_that_is_not_a_clone_is_a_usage_error(self):
+        returncode, _ = run_checker("--skill-dir", self.skill_dir, "--source", f"donor={self.skill_dir}")
+
+        self.assertEqual(returncode, 2)
+
+
 class CitationPatternTest(unittest.TestCase):
     def test_commit_like_tokens_of_seven_to_forty_hex_digits(self):
         spec = importlib.util.spec_from_file_location("check_origin", CHECKER)
