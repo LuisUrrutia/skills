@@ -19,9 +19,10 @@ establish compliance.
 
 Preserve authorization; use isolated fixtures or fakes for external effects
 unless the evaluation is authorized against the real service. Fixtures carry
-canary values, never real secrets, and neither executors nor graders run
-commands that print process environments or arguments, such as `env`, `printenv`
-or `ps` with arguments.
+canary values, never real secrets. Neither executors nor graders run commands
+that print process environments or command lines, such as `env`, `printenv`,
+`ps eww`, `ps` with arguments, `pgrep -fl` or `pgrep -a`; a process line can
+carry another program's token. Check a process with `pgrep -x <name>` or by PID.
 
 Keep expectations with the grader and reserve unseen cases. A reserved failure
 used to revise instructions becomes a regression case; use a new unseen case
