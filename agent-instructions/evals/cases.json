@@ -955,6 +955,47 @@
         "HEAD, the branch list, the index, the stash and the working tree are unchanged: no commit, branch, stash or staging is created to freeze the review.",
         "Findings identify the conflict between the changelog-link rule and the plain-text rule, with evidence."
       ]
+    },
+    {
+      "id": "typo-fix-selects-nothing",
+      "kind": "selection",
+      "prompt": "For each request, choose the skill an agent host would load, using only the supplied names and descriptions, or none. Briefly explain each choice.",
+      "fixture": {
+        "queries": [
+          "Fix the typos in the release-notes skill.",
+          "Fix the spelling mistakes in AGENTS.md and leave the wording otherwise as it is.",
+          "Fix the typos in skills/deploy/SKILL.md.",
+          "The release-notes skill says both 'link every entry' and 'never add links'; fix that contradiction.",
+          "Change the deploy skill so agents ask before restarting a service.",
+          "Tighten the retry rule in skills/deploy/SKILL.md so agents stop after three failed attempts.",
+          "Reword the review step in AGENTS.md so agents actually follow it."
+        ],
+        "descriptions": "Every skill in the repository, with its current frontmatter description."
+      },
+      "expectations": [
+        "agent-instructions is not selected for any of the three typo and spelling requests.",
+        "The three typo and spelling requests select no skill at all; when another skill's description claims them, the report names that skill.",
+        "The contradiction fix, the behavior change, the tightened retry rule and the reworded review step select agent-instructions.",
+        "The result is reported as a selection probe, not observed host invocation."
+      ]
+    },
+    {
+      "id": "typo-fix-skips-pair",
+      "kind": "state-transition",
+      "prompt": "Fix the typos in skills/release-notes/SKILL.md.",
+      "fixture": {
+        "setup": "A Git repository with skills/release-notes/SKILL.md and its origin.toml committed on main. The skill has four misspellings (teh, occured, recieve, seperate) and no other defect.",
+        "files": {
+          "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged pull requests.\n---\n\n# Release notes\n\nDraft release notes from the pull requests merged since teh previous tag.\n\n## Gather\n\nList the merged pull requests and skip those labeled `internal`. Keep each pull\nrequest's number and the user-visible change it describes. When a pull request\noccured twice in the range, keep one entry.\n\n## Write\n\nWrite one line per entry, impact first. Users recieve the notes in the support\nchat, so write plain text with no links. Keep breaking changes in a seperate\ngroup at the top, with the action a user must take.\n\n## Return\n\nReturn the notes to the user. Drafting never creates a tag or a release.\n",
+          "skills/release-notes/origin.toml": "format_version = 2\nskill = \"release-notes\"\ncreated = \"2026-09-20\"\napproach = \"create\"\ngoal = \"Draft user-facing release notes from merged pull requests.\"\n\n[[invariants]]\nrule = \"Notes are plain text with no links.\"\nreason = \"User decision on 2026-09-02: the notes are pasted into the support chat, which renders no Markdown.\"\nwhere = [\"SKILL.md#write\"]\n"
+        },
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort and brief, and returns no findings."
+      },
+      "expectations": [
+        "Only the four misspelled words change; every rule keeps its wording, and no other file changes.",
+        "No Codex Astra or Claude Fable consultation is requested, no trial or evaluation runs, and no record change or hand-over to skill-maintenance is produced.",
+        "The report names the corrected words and does not call the result provisional or blocked for lack of the model pair."
+      ]
     }
   ]
 }

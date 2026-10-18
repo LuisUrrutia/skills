@@ -58,6 +58,11 @@ reason = "Explicit user policy (reports/skill-atlas/agent-instructions-dual-revi
 where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md#handle-failures"]
 
 [[invariants]]
+rule = "A typo fix that leaves guidance unchanged selects no skill and never starts the model pair or trials; the description names typo fixes among its exclusions."
+reason = "Coordinator ruling of 2026-10-18 in the skills pilots, restated on 2026-10-19: a request to fix typos in a skill, with no change to its guidance, selects no skill and never starts the model pair or trials. Codex had routed such requests to this skill, and agents that loaded it for one started the model pair."
+where = ["SKILL.md"]
+
+[[invariants]]
 rule = "Both model-pair profiles run at reasoning effort xhigh."
 reason = "User decision on 2026-10-18: 'It is no longer maximum effort, it has to be xhigh.'"
 where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md#resolve-each-profile"]
@@ -142,7 +147,7 @@ reason = "The registered skill name, and the repository's layout of conditional 
 where = ["SKILL.md#agent-instructions", "references/skill-mechanics.md#skill-mechanics"]
 
 [[sources.deviations]]
-change = "Replaced the base description ('Writing documents for agents. Use when creating or editing skills, or modifying AGENTS.md or CLAUDE.md.') with the local one, which adds review and excludes following instructions and factual updates that leave guidance unchanged."
+change = "Replaced the base description ('Writing documents for agents. Use when creating or editing skills, or modifying AGENTS.md or CLAUDE.md.') with the local one, which adds review and excludes following instructions, typo fixes and factual updates that leave guidance unchanged."
 reason = "The local description passed selection probes (reports/agent-instructions-validation.json description_revision), and its exclusions answer an observed over-activation fixed in commit dc7c930 (evaluation case activation-near-misses)."
 where = ["SKILL.md"]
 

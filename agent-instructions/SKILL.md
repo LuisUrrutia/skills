@@ -1,6 +1,6 @@
 ---
 name: agent-instructions
-description: Use when writing or reviewing AI agent instructions or skills. Excludes following instructions and factual updates that leave guidance unchanged.
+description: Use when writing or reviewing AI agent instructions or skills. Excludes following instructions, typo fixes and factual updates that leave guidance unchanged.
 ---
 
 # Agent instructions
@@ -91,7 +91,7 @@ rules, or an open question that the wording depends on.
 
 ## Write
 
-Edit the requested files, or return a draft when no file change is requested.
+Edit the requested files, or return a draft when none is requested.
 Apply [Negation](#negation) and [Pruning](#pruning) to each changed line, plus
 each [lever](references/levers.md) its pointers, steps, placement and rewording
 reach. When the change answers an observed failure, start from
