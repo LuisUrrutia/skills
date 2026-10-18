@@ -92,29 +92,15 @@ short-lived CLI or TUI there is no server to keep alive: build once, then start
 each drive in its own isolated PTY or terminal session. Record what the launch
 starts: process IDs, sessions, ports, and data paths.
 
-Unless the caller is read-only, prepare the launch with the project's
-documented commands, or with its own scripts and steps that the source shows
-when the documentation is missing, and report each step you had to discover:
-install its locked dependencies without changing the lockfile, create the env
-file, and run migrations and seed data against this run's isolated data. Adding
-dependencies, changing a lockfile, and global installs need the active task's
-authority. A read-only caller, such as a code review, gets none of this setup:
-report each step as a missing prerequisite instead. Prepare the env file by the
-project's mechanism:
-
-- **`.env.schema` exists:** the project uses varlock. Validate with
-  `varlock load --agent`, which redacts sensitive values, and run the project's
-  commands through varlock unless its own scripts already load it. Invoke
-  varlock through the project's package manager when it is a local dependency.
-  Give this run its own ports and data paths through the process environment,
-  which overrides every env file; never write them into `.env` or `.env.local`.
-  The `varlock` skill, when installed, covers the details. Never read `.env` or
-  `.env.local`, and never invent or fill a secret value. A missing required
-  secret stops that step: ask the user to set it. When varlock is in neither the
-  project nor the machine, report a blocker; do not install it.
-- **Otherwise:** create a missing `.env` from `.env.example`, with this run's
-  isolated ports and data paths, and never overwrite an existing env file. A
-  missing secret: ask the user. Never print secret values.
+Unless the caller is read-only, a run may prepare its own launch: install the
+locked dependencies, create the env file, run migrations and seed data against
+its isolated data, and read remote environments read-only to make the local one
+realistic. Before any of that, read
+[references/launch-setup.md](references/launch-setup.md); it sets the limits and
+how to handle env files and secrets. A read-only caller, such as a code review,
+gets none of this setup: report each step as a missing prerequisite instead.
+Never print a secret value, and when the project has `.env.schema`, never read
+`.env` or `.env.local`.
 
 Give the instance its own ports, data, and browser profile, derived from the
 worktree where the project supports it. From a worktree, when the derived port,
@@ -161,13 +147,17 @@ For a rendered browser UI, read
 [references/browser-evidence.md](references/browser-evidence.md) before choosing
 routes, conditions, and probes.
 
-When the change modifies an interface that users interact with, such as a
-page, screen, dialog, form, or terminal UI, use `accessibility` with the
-affected flow, the running instance, the revision, and this run's authority. It
-owns keyboard and focus, target size, reduced motion, accessible names and
-roles, and accessibility scans; report its findings and coverage as that
-skill's result, or report accessibility as unchecked when it is unavailable. A
-backend-only or text-only change does not call it. When `accessibility` is the
+When the change modifies an interface that users interact with, use
+`accessibility` with the affected flow, the running instance or built command,
+the revision, and this run's authority. That covers a page, screen, dialog,
+form, or terminal UI; a command-line interface's arguments, flags, prompts,
+output, and error messages; and the interface text users act on, such as
+labels, link text, and messages. It owns keyboard and focus, target size,
+reduced motion, accessible names and roles, and accessibility scans; report its
+findings and coverage as that skill's result, or report accessibility as
+unchecked when it is unavailable. A backend-only change does not call it, and
+neither does a text-only change: documentation, a README, code comments, or
+other text outside an interface users operate. When `accessibility` is the
 caller, its criteria define those checks: drive the flow it supplies, including
 its keyboard and focus paths, return the observations to it, and do not call it
 back.
@@ -245,7 +235,8 @@ defect ends as **reproduced**, **not reproduced under the tested conditions**
 (only when the alleged trigger was exercised), or **inconclusive or blocked**.
 
 Report the revision, the claims and the evidence for each, the launch,
-readiness, and teardown commands actually used, retained evidence paths,
+readiness, and teardown commands actually used, the setup steps you had to
+discover, retained evidence paths,
 failures, skipped and blocked coverage, and the next missing check. If the run
 used a stand-in for the real target, such as a container in place of a fresh VM
 or a local stack in place of a remote one, list every setup step the stand-in

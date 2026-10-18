@@ -13,18 +13,23 @@ where = [
 ]
 
 [[invariants]]
-rule = "Unless the caller is read-only, launch setup may install the project's locked dependencies without changing the lockfile, create the env file, and run migrations and seed data against the run's isolated data, with the project's documented commands, or its own scripts and steps that the source shows when the documentation is missing, each reported. A read-only caller, such as the review-code-changes skill, gets none of this setup, scaffolding included: each step is reported as a missing prerequisite."
-reason = "User decision of 2026-10-18, option (a) of the rebuild analysis: a fresh worktree usually lacks installed dependencies, and Launch must reach a usable state from empty data. Allowing the project's own undocumented scripts, such as a seed script missing from the README, is the reading applied after the 2026-10-18 model review, so that a run can reach the usable state the base requires."
-where = ["SKILL.md#3-launch-it-and-confirm-it-is-worth-driving"]
+rule = "Unless the caller is read-only, launch setup may install the project's locked dependencies without changing the lockfile, create the env file, and run migrations and seed data against the run's isolated data, with the project's documented commands. When the documentation is missing a step, only scripts and targets the project itself declares (manifest scripts, Makefile or task-runner targets, compose files, its migration and seed tooling) may run, each reported, and setup changes only the run's isolated local data; nothing writes to a shared or remote environment (no deploy, publish, migration or other change to staging or production), and a step whose target is unclear is reported as a prerequisite. A read-only caller, such as the review-code-changes skill, gets none of this setup, scaffolding included: each step is reported as a missing prerequisite."
+reason = "User decision of 2026-10-18, option (a) of the rebuild analysis: a fresh worktree usually lacks installed dependencies, and Launch must reach a usable state from empty data. Coordinator ruling of 2026-10-18 after the model review: \"documented commands\" was the analysis's wording, and project-owned steps that the source shows serve the decision's intent of avoiding false blockers in fresh worktrees, within the limits stated here."
+where = ["SKILL.md#3-launch-it-and-confirm-it-is-worth-driving", "references/launch-setup.md#run-the-projects-own-setup"]
+
+[[invariants]]
+rule = "To make the local environment realistic, a run may read a shared or remote environment through the project's own cloud or platform CLI, such as gcloud: configuration, resource and service versions, schema, flags and data shape. Only read-only commands run, with the CLI's existing authentication and never a login, after confirming that the active project or account belongs to this repository's environments; a missing or unclear one is a reported prerequisite. Queries that cannot print rows, such as counts and schema introspection, are preferred. The user approves before data that may hold personal or customer information enters the local environment, the evidence or the output; shape-only queries need no approval. A secret from a secret manager is never copied into a file or the output, and every remote query is reported with its command and the environment it read."
+reason = "User decision of 2026-10-18: if the project uses Google Cloud, for example, using the gcloud CLI to query the other environments helps build a much more realistic local environment for tests. The limits are the coordinator's, and the approval rule for personal or customer data in the evidence or output is the coordinator's ruling on a question raised while writing it."
+where = ["references/launch-setup.md#read-remote-environments-without-changing-them"]
 
 [[invariants]]
 rule = "When .env.schema exists, the project uses varlock: validate with `varlock load --agent`, run the project's commands through varlock unless its scripts already load it, invoke varlock through the package manager when it is a local dependency, and give the run its ports and data paths through the process environment, never by writing them into an env file. Never read .env or .env.local, never invent or fill a secret value, stop the step and ask the user for a missing required secret, and report a blocker instead of installing varlock when neither the project nor the machine has it. Without .env.schema, create a missing .env from .env.example, never overwrite an existing env file, ask the user for a missing secret and never print secret values. The core steps work without the varlock skill."
 reason = "User decision of 2026-10-18. The user installs the varlock skill later; it was not installed when this rule was written."
-where = ["SKILL.md#3-launch-it-and-confirm-it-is-worth-driving"]
+where = ["SKILL.md#3-launch-it-and-confirm-it-is-worth-driving", "references/launch-setup.md#prepare-the-env-file"]
 
 [[invariants]]
-rule = "Verify owns the functional checks of an interface: user flows, roles, edge cases, loading, empty and error states, navigation and persistence, browser errors, narrow and wide layouts, and theme and locale. Keyboard and focus, pointer target size, reduced motion, accessible names and roles, accessibility scans and other accessibility claims belong to the accessibility skill. Verify calls it when the change modifies an interface that users interact with, such as a page, screen, dialog, form or terminal UI, and reports its result as that skill's findings and coverage; a backend-only or text-only change does not call it. When the accessibility skill is the caller, its criteria define those checks: verify drives the flow it supplies, including keyboard and focus paths, returns the observations and does not call it back."
-reason = "User decision of 2026-10-18: verify checks that the implementation works well for the user it is meant for, covers edge cases and follows a flow, while accessibility tests the accessibility of the components, and the two are different things. The user named keyboard and focus, target size and accessibility claims; reduced motion and automated scanners follow them as accessibility checks by the coordinator's reading of that decision."
+rule = "Verify owns the functional checks of an interface: user flows, roles, edge cases, loading, empty and error states, navigation and persistence, browser errors, narrow and wide layouts, and theme and locale. Keyboard and focus, pointer target size, reduced motion, accessible names and roles, accessibility scans and other accessibility claims belong to the accessibility skill. Verify calls it when the change modifies an interface that users interact with: a page, screen, dialog, form or terminal UI; a command-line interface's arguments, flags, prompts, output and error messages; and the interface text users act on, such as labels, link text and messages. It reports that skill's result as its findings and coverage. A backend-only change does not call it, and neither does a text-only change: documentation, a README, code comments or other text outside an interface users operate. When the accessibility skill is the caller, its criteria define those checks: verify drives the flow it supplies, including keyboard and focus paths, returns the observations and does not call it back."
+reason = "User decision of 2026-10-18: verify checks that the implementation works well for the user it is meant for, covers edge cases and follows a flow, while accessibility tests the accessibility of the components, and the two are different things. The user named keyboard and focus, target size and accessibility claims; reduced motion and automated scanners follow them as accessibility checks by the coordinator's reading of that decision. A later user decision of the same day: a change to a CLI's arguments, flags, prompts, output or error messages also calls accessibility; text-only means documentation and other text outside an interface users operate, by the coordinator's ruling from that answer. The accessibility skill covered terminals only in its terminal-interfaces guidance at that time, and the user plans to extend it separately."
 where = [
   "SKILL.md#4-drive-it-the-way-a-user-does",
   "references/browser-evidence.md#drive-and-observe",
@@ -117,9 +122,9 @@ where = [
 ]
 
 [[sources.deviations]]
-change = "Added launch setup to Launch: what a run may install, create and migrate unless its caller is read-only, and how it prepares the env file, through varlock when .env.schema exists and from .env.example otherwise."
-reason = "The launch setup and env file invariants, both user decisions of 2026-10-18."
-where = ["SKILL.md#3-launch-it-and-confirm-it-is-worth-driving"]
+change = "Added launch setup to Launch: what a run may install, create and migrate unless its caller is read-only, the read-only remote queries that make the local environment realistic, and how it prepares the env file, through varlock when .env.schema exists and from .env.example otherwise. The detail lives in a reference read before any setup; the launch step keeps the authority summary and the secret guard."
+reason = "The launch setup, remote query and env file invariants, all user decisions of 2026-10-18."
+where = ["SKILL.md#3-launch-it-and-confirm-it-is-worth-driving", "references/launch-setup.md"]
 
 [[sources.deviations]]
 change = "Replaced the generated doctor script with a doctor composed from the discovered facts (process up, current build, this run's port, data and profile or those the caller allowed for a shared instance, auth valid; facts a surface lacks, such as a CLI's port, are skipped), or the project's own doctor command when one exists. The launch records the process IDs, sessions, ports and data paths it starts."
@@ -392,7 +397,7 @@ adapted = "The donor builds the refusal into a harness CLI; verify applies it du
 [[sources.ideas]]
 idea = "A missing env file is created from its example with the run's isolated ports and data paths, and an existing env file is never overwritten."
 serves = "Lets a fresh worktree start without manual setup while keeping values someone set on purpose."
-where = ["SKILL.md#3-launch-it-and-confirm-it-is-worth-driving"]
+where = ["references/launch-setup.md#prepare-the-env-file"]
 shapes = "Defines the branch of env-file setup for projects without .env.schema."
 adapted = "Secrets are never filled or printed: a missing secret goes to the user as a question."
 
@@ -656,7 +661,7 @@ coverage = "skills/varlock/SKILL.md at commit 575a24e77f6bfb1e0cfb58e9b648ede528
 kind = "local"
 name = "accessibility"
 required = false
-role = "Accessibility checks for a change that modifies an interface users interact with: keyboard and focus, target size, reduced motion, accessible names and roles, and accessibility scans. When it is unavailable, accessibility is reported as unchecked. When it is the caller, verify drives its criteria and does not call it back."
+role = "Accessibility checks for a change that modifies an interface users interact with, including a CLI's arguments, flags, prompts, output and error messages: keyboard and focus, target size, reduced motion, accessible names and roles, and accessibility scans. When it is unavailable, accessibility is reported as unchecked. When it is the caller, verify drives its criteria and does not call it back."
 
 [[dependencies]]
 kind = "local"
