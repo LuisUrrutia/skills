@@ -296,9 +296,10 @@ also reports:
 A record that is new on the branch has no published copy to compare. In a Git
 checkout, the JSON lists under `skipped` each comparison it could not make, such
 as in a shallow clone. Correcting a baseline that was recorded in error keeps
-`baseline-moved`; report it with the user's confirmation. The checker cannot judge whether an entry is clear, true or
-credited to the right source, or whether a base still fits, which needs the
-base text; reread each entry as a newcomer to the source would.
+`baseline-moved`; report it with the user's confirmation. The checker needs
+Python 3.11 or later. It cannot judge whether an entry is clear, true or credited
+to the right source, or whether a base still fits, which needs the base text;
+reread each entry as a newcomer to the source would.
 
 ## List dependents
 

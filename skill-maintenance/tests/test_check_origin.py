@@ -501,6 +501,15 @@ verification = "Read the draft at that commit."
         self.assertEqual(resolved[:2], (0, []))
         self.assertEqual(behind_main[:2], (0, []))
 
+    def test_deleting_a_pending_review_is_reported(self):
+        pending_source = SOURCE.format(id="donor", role="ideas").replace(f'reviewed_through = "{COMMIT_B}"', f'reviewed_through = "{COMMIT_A}"')
+        pending = REVIEW.replace("deferred = []", 'deferred = ["A new lint tool needs the user\'s decision."]')
+        self.publish_then_branch(HEADER.format(approach="derive") + pending_source + IDEA + pending)
+
+        _, diagnostics, _ = self.check_record(HEADER.format(approach="derive") + pending_source + IDEA)
+
+        self.assertEqual(diagnostics, [("reviews-dropped", "sources[0].reviews")])
+
     def test_malformed_source_ids_do_not_crash_the_comparison(self):
         self.publish_then_branch(HEADER.format(approach="derive") + ideas_source().replace('id = "donor"', "id = []"))
 

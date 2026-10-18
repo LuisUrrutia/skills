@@ -362,7 +362,7 @@ class Checker:
         baseline, cursor = source.get("baseline_commit"), source.get("reviewed_through")
         if not all(isinstance(value, str) for value in (baseline, cursor)):
             return
-        ranges = [(review.get("from_commit"), review.get("to_commit")) for review in reviews]
+        ranges = [review_range(review) for review in reviews]
         pending = bool(reviews) and bool(reviews[-1].get("deferred"))
         resolved = ranges[:-1] if pending else ranges
         for index, review in enumerate(reviews[:len(resolved)]):
@@ -454,7 +454,7 @@ class Checker:
     def check_against_default(self, sources):
         returncode, fork = git(self.skill_dir, "merge-base", "HEAD", self.default)
         if returncode != 0:
-            self.skip("published-record", "HEAD and the default branch share no commit, so there is no published record to compare.")
+            self.skip("published-record", "No merge base between HEAD and the default branch was found, as in unrelated histories or a shallow clone.")
             return
         prefix = git(self.skill_dir, "rev-parse", "--show-prefix")[1] or ""
         returncode, text = git(self.skill_dir, "show", f"{fork}:{prefix}origin.toml")
@@ -466,7 +466,10 @@ class Checker:
             self.skip("published-record", "The record where this history joins the default branch is not valid TOML.")
             return
         entries = published.get("sources", [])
-        before = {item["id"]: item for item in entries if isinstance(item, dict) and isinstance(item.get("id"), str)} if isinstance(entries, list) else {}
+        if not isinstance(entries, list):
+            self.skip("published-record", "The published record's sources is not an array of tables.")
+            return
+        before = {item["id"]: item for item in entries if isinstance(item, dict) and isinstance(item.get("id"), str)}
         for index, source in enumerate(sources):
             old = before.get(source["id"]) if isinstance(source.get("id"), str) else None
             if old is None:
@@ -477,10 +480,10 @@ class Checker:
             if not (isinstance(old_reviews, list) and isinstance(reviews, list)):
                 continue
             # The last published review may still be pending, and a later run updates it in place.
-            if old_reviews and isinstance(old_reviews[-1], dict) and old_reviews[-1].get("deferred"):
-                old_reviews = old_reviews[:-1]
-            if [review_range(review) for review in reviews[:len(old_reviews)]] != [review_range(review) for review in old_reviews]:
-                self.issue("reviews-dropped", "A completed review of the published record is missing or changed its range; reviews are history and stay.", f"sources[{index}].reviews")
+            pending = bool(old_reviews) and isinstance(old_reviews[-1], dict) and bool(old_reviews[-1].get("deferred"))
+            completed = old_reviews[:-1] if pending else old_reviews
+            if len(reviews) < len(old_reviews) or [review_range(review) for review in reviews[:len(completed)]] != [review_range(review) for review in completed]:
+                self.issue("reviews-dropped", "A review of the published record is missing, or a completed one changed its range; reviews are history and stay.", f"sources[{index}].reviews")
 
     def check_ids(self, data):
         seen = set()
