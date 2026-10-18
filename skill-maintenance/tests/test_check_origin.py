@@ -641,6 +641,15 @@ class SourceCloneTest(unittest.TestCase):
         self.assertEqual([item["code"] for item in output["diagnostics"]], ["invalid-toml"])
         self.assertEqual([item.get("source") for item in output["skipped"]], ["donor"])
 
+    def test_a_sources_list_without_tables_keeps_its_diagnostic_with_a_source(self):
+        (self.skill_dir / "origin.toml").write_text(HEADER.format(approach="create") + 'sources = ["donor"]\n', encoding="utf-8")
+
+        returncode, output = run_checker("--skill-dir", self.skill_dir, "--source", f"donor={self.clone}")
+
+        self.assertEqual(returncode, 1)
+        self.assertIn("invalid-type", [item["code"] for item in output["diagnostics"]])
+        self.assertEqual([item.get("source") for item in output["skipped"]], ["donor"])
+
 
 class CitationPatternTest(unittest.TestCase):
     def test_commit_like_tokens_of_seven_to_forty_hex_digits(self):

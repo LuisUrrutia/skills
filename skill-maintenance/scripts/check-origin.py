@@ -209,7 +209,8 @@ class Checker:
         for index, invariant in enumerate(self.tables(data, "invariants", "invariants")):
             self.check_table(invariant, INVARIANT, INVARIANT_OPTIONAL, f"invariants[{index}]")
         sources = self.tables(data, "sources", "sources")
-        self.sources_readable = isinstance(data.get("sources", []), list) and all(isinstance(source.get("id"), str) for source in sources)
+        raw_sources = data.get("sources", [])
+        self.sources_readable = isinstance(raw_sources, list) and all(isinstance(source, dict) and isinstance(source.get("id"), str) for source in raw_sources)
         snapshots = self.tables(data, "local_snapshots", "local_snapshots")
         dependencies = self.tables(data, "dependencies", "dependencies")
         for index, source in enumerate(sources):

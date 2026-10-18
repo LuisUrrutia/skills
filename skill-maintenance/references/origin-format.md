@@ -306,9 +306,9 @@ source fetched. In that clone the checker reports `unknown-commit` for a baselin
 cursor or review commit the clone lacks, and `commit-order` when the cursor does
 not descend from the baseline or a review's end does not descend from its start.
 A source blocked by rewritten history keeps any `unknown-commit` diagnostics:
-report it as blocked instead of moving its pins. An id that matches no source of
-readable records is a usage error; while a record cannot be read, the id is listed
-under `skipped`.
+report it as blocked instead of moving its pins. An id that matches no source is a
+usage error when every checked record's sources can be read; while any checked
+record cannot be read, the id is listed under `skipped` instead.
 
 A record that is new on the branch has no published copy to compare. In a Git
 checkout, the JSON lists under `skipped` each comparison it could not make, such
