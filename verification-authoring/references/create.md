@@ -46,8 +46,11 @@ its configuration, resource and service versions, schema, flags, and data, which
 may be copied into the run's local data. Run read-only commands only, with the
 CLI's existing authentication; never log in. First confirm that the active
 project or account belongs to this repository's environments, and report it as a
-prerequisite when it is missing or unclear. Never copy a secret from a secret
-manager into a file or the output; secrets follow the env-file rules below.
+prerequisite when it is missing or unclear. When a configuration read can include
+secret values, such as a service's environment, select only the fields the
+launch needs with the CLI's format or filter flags, so no secret value reaches
+the output. Never copy a secret from a secret manager into a file or the output;
+secrets follow the env-file rules below.
 Report each remote query with its command and the environment it read, and
 record the ones a later run needs in the generated Launch section. These queries
 belong to launch setup, so a read-only caller gets none of them.

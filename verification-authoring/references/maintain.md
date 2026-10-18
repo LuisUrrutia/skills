@@ -34,7 +34,9 @@ path before calling one missing.
 
 ## Drive every feature
 
-The coordinator alone drives the mutable application state. Follow the target's
+The coordinator alone drives the mutable application state. Before the first
+launch, read [Launch setup](create.md#launch-setup): the recipe supplies the
+commands, and a Launch section that contradicts it is drift. Follow the target's
 launch model: a serially driven long-lived instance, or fresh isolated sessions
 for short-lived commands. Exercise every feature at least once and record which
 entry points and sub-features the evidence actually covers. A proof through one
