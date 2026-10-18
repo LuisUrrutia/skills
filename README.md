@@ -129,7 +129,7 @@ update a skill from its recorded sources or installed dependencies. Install it w
 - Lists the skills whose records depend on a skill, so a contract change can reach its callers
 - Checks a skill against its sources without changing it, or incorporates compatible changes and records the review
 - Advances a source's review cursor only after its full range is resolved and validated
-- Includes a checker for the record format, its locations, field length, and commits cited from unmerged branches
+- Includes a checker for the record format, its locations, field length, commits cited from unmerged branches, and review ranges checked against a source clone
 
 ### create-project-instructions
 

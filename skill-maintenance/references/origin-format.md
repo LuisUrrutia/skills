@@ -161,8 +161,8 @@ that kind of candidate. Delete a decline when the user adopts the feature.
 
 ### Reviews
 
-Each update run adds one `reviews` table per source, from the cursor to that
-run's candidate, with `from_commit`, `to_commit`, and the lists `incorporated`,
+Each update run adds or updates one `reviews` table per source it reviews, from
+the cursor to that run's candidate, with `from_commit`, `to_commit`, and the lists `incorporated`,
 `skipped`, `deferred` and `validation`; lists may be empty. A source whose cursor
 or candidate cannot be verified, such as after rewritten history, gets no review:
 the run keeps its pins and reports the blocker.
@@ -304,8 +304,9 @@ When checking or updating from sources, add `--source <id>=<clone>` for each
 source fetched. In that clone the checker reports `unknown-commit` for a baseline,
 cursor or review commit the clone lacks, and `commit-order` when the cursor does
 not descend from the baseline or a review's end does not descend from its start.
-A source blocked by rewritten history keeps its `unknown-commit` diagnostics:
-report it as blocked instead of moving its pins.
+A source blocked by rewritten history keeps any `unknown-commit` diagnostics:
+report it as blocked instead of moving its pins. An id that matches no source of
+the checked records is a usage error.
 
 A record that is new on the branch has no published copy to compare. In a Git
 checkout, the JSON lists under `skipped` each comparison it could not make, such

@@ -30,8 +30,8 @@ against which updates are judged. Local snapshots are historical evidence, not
 update feeds; a target with no tracked repository sources has no upstream range
 to fetch.
 
-An unresolved or unverified change leaves that source's `reviewed_through`
-unchanged, even if independent improvements were incorporated or an earlier commit
+An unresolved change, or one whose required validation did not pass, leaves that
+source's `reviewed_through` unchanged, even if independent improvements were incorporated or an earlier commit
 of the range is fully resolved. Keep the pending reason in the one review from the
 cursor to the candidate, whose `deferred` list names it. A later run reconsiders that range, using prior decisions and the local
 diff to avoid applying the same change twice, and updates the pending review
@@ -88,7 +88,7 @@ with source path, commit range, rationale, and local impact:
 | Incorporate | Adopt the useful behavior: a base merges the hunk; an idea is restated in local wording and structure |
 | Adapt | Preserve the benefit while resolving host, scope, or ownership differences |
 | Skip | Record why it is irrelevant, already covered, or conflicts with local intent |
-| Defer | Record the missing evidence or material decision; keep the cursor |
+| Defer | Record the missing validation or material decision; keep the cursor |
 
 The source's role sets the default:
 
