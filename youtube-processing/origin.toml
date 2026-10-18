@@ -1,0 +1,26 @@
+format_version = 2
+skill = "youtube-processing"
+created = "2026-04-29"
+approach = "create"
+goal = "Turn YouTube video URLs that the user shares into an Obsidian note set in the user's Personal vault: the transcript, an English summary, a Spanish summary and a local thumbnail. Success is that complete set in the Youtube layout with Base-compatible frontmatter and summaries grounded in the transcript, without duplicating a video that was already processed."
+
+[[invariants]]
+rule = "The skill handles YouTube video URLs only; articles, podcasts, generic webpages and non-YouTube videos are out of scope. It writes only under the user's Personal Obsidian vault, in Youtube/{main_topic}/{video_folder_title}/, and asks for the vault path when it cannot find the vault."
+where = ["SKILL.md#scope-and-output"]
+
+[[invariants]]
+rule = "The video_id is the canonical identity. The duplicate search runs before anything is downloaded. When the matching folder already has transcript.md, the skill asks exactly one question: override the transcript and reprocess everything, or reuse it and regenerate only the summaries."
+where = ["SKILL.md#ordered-workflow", "SKILL.md#identity-and-duplicate-rules"]
+
+[[invariants]]
+rule = "transcript.md holds the transcript exactly as returned; it is never rewritten, summarized or translated. The summaries are translated directly, without external translation tools, and contain no claims, examples or conclusions that the transcript does not support."
+where = ["SKILL.md#transcript-and-thumbnail-rules", "SKILL.md#summary-contract"]
+
+[[invariants]]
+rule = "Each video produces transcript.md, exactly one English and one Spanish summary, and one local thumbnail at attachments/{safe_video_id}.jpg. Notes link only the local thumbnail and never hotlink YouTube images. spanish_file appears only on the English summary and equals the Spanish filename, and the tags are at least five English tags that include youtube and exclude en and es."
+where = [
+  "SKILL.md#scope-and-output",
+  "SKILL.md#folder-filename-and-tag-rules",
+  "SKILL.md#summary-contract",
+  "SKILL.md#completion-standard",
+]

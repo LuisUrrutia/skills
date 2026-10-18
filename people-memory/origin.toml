@@ -1,0 +1,32 @@
+format_version = 2
+skill = "people-memory"
+created = "2026-04-29"
+approach = "create"
+goal = "Keep durable relationship memory about the people the user mentions in the People profiles of the user's Obsidian Personal vault, without writing noise. Success is one of three results: a small factual profile change reported as a mini diff, an explicit statement that nothing was written, or one clarification question, with all existing profile content preserved."
+
+[[invariants]]
+rule = "Triggering is broad and writing is narrow. The skill writes only when the user explicitly asks to create or update a profile, or when the conversation adds new useful relationship memory. A passing mention, a fact the profile already holds, or vague or unresolved information produces no write."
+where = ["SKILL.md#write-gate", "REFERENCE.md#write-gate-rules"]
+
+[[invariants]]
+rule = "The skill asks one direct question and stops instead of writing when a name matches several plausible profiles, a contextual reference does not resolve to exactly one confident person, a new profile lacks the full name or one context clue, or an update would overwrite an existing email, phone, linkedin or company value. It updates without asking only for exactly one match at confidence 0.80 or higher with no close competitor, and it never stores memory under a placeholder profile such as my manager.md."
+where = [
+  "SKILL.md#ask-instead-of-writing",
+  "REFERENCE.md#confidence-rules",
+  "REFERENCE.md#contextual-reference-rules",
+  "REFERENCE.md#creation-rules",
+  "REFERENCE.md#conflict-rules",
+]
+
+[[invariants]]
+rule = "Updates never delete existing notes, aliases, tags, image embeds, Dataview blocks, links, custom sections or unknown frontmatter keys unless the user asks, and they keep # Conversations and # Next Check-ins. A confirmed replacement or conflicting new information adds a dated note and keeps the earlier history."
+reason = "Relationships change, and the profile should show that change instead of pretending the earlier state never existed."
+where = ["REFERENCE.md#safe-update-rules", "REFERENCE.md#conflict-rules", "REFERENCE.md#preservation-rules"]
+
+[[invariants]]
+rule = "Profiles live only in 06 - People/ of the Personal vault, even when People.base filters another folder, unless the user says otherwise. The skill never reads .omo/ runtime state for memory content or edits it, adds no scripts unless asked, and touches no unrelated files."
+where = ["REFERENCE.md#vault-and-scope", "SKILL.md#output-contract", "QA.md#manual-checks"]
+
+[[invariants]]
+rule = "Each response is exactly one of a mini diff after a write, a no-write statement with its reason, or one clarification question, and it never exposes unrelated profile contents."
+where = ["SKILL.md#output-contract", "TEMPLATES.md#mini-diff-response", "TEMPLATES.md#no-write-response"]

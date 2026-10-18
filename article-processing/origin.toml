@@ -1,0 +1,40 @@
+format_version = 2
+skill = "article-processing"
+created = "2026-04-29"
+approach = "create"
+goal = "Turn web article URLs that the user shares into bilingual study notes in the Articles layout of the user's Personal Obsidian vault: one English and one Spanish note per article, each with a concise study layer above the preserved article body and local copies of its images. Success is exactly two notes per new article that share a UUIDv5 from the article's source identity URL and stay compatible with Articles.base, or a report of the existing note when the article is already archived."
+
+[[invariants]]
+rule = "The skill handles web article URLs only and writes only under the user's Personal Obsidian vault, in Articles/{main_topic}/{english_article_title}/. When the vault cannot be found, it asks for the path. Videos, podcasts, newsletters without an article body and generic pages without article content are out of scope."
+where = ["SKILL.md#scope", "SKILL.md#core-rules", "REFERENCE.md#vault-path"]
+
+[[invariants]]
+rule = "An article's identity is a UUIDv5 of its source identity URL: the canonical URL when it is confidently available, otherwise the URL the user gave, and never a Freedium mirror URL. The duplicate search runs before any content is extracted, and a match stops processing with the path of the existing note."
+where = ["SKILL.md#ordered-workflow", "REFERENCE.md#source-identity-and-duplicate-check"]
+
+[[invariants]]
+rule = "Extraction uses the browser first. Freedium is used only when Medium blocks or truncates the article; it is never the default for other sites and never the note's source value. When browser extraction and that fallback both fail, the skill asks the user for pasted article content."
+where = ["SKILL.md#core-rules", "REFERENCE.md#extraction-rules"]
+
+[[invariants]]
+rule = "Each article produces exactly two notes, one English and one Spanish, with the same UUID and the frontmatter that Articles/Articles.base reads: language en or es, spanish_file only on the English note and equal to the Spanish filename, and at least five English tags that include article and exclude en and es. A source in another language gets no original-language note."
+where = [
+  "SKILL.md#completion-standard",
+  "REFERENCE.md#content-and-language-rules",
+  "REFERENCE.md#output-contract",
+  "TEMPLATES.md#frontmatter-template",
+]
+
+[[invariants]]
+rule = "Each note keeps a faithful article body below a concise study layer and adds no claims, examples or conclusions that the source does not support."
+where = ["REFERENCE.md#content-and-language-rules", "TEMPLATES.md#body-rules"]
+
+[[invariants]]
+rule = "Meaningful article images are downloaded into the article folder's attachments/ directory and linked locally. Notes never hotlink remote images, failed images are reported, and the temporary tmp_images/ directory is removed before completion is reported."
+where = ["REFERENCE.md#image-rules", "SKILL.md#completion-standard"]
+
+[[dependencies]]
+kind = "local"
+name = "agent-browser"
+required = false
+role = "Browser extraction of the article page, the first extraction method; when extraction fails, the skill asks for pasted content."

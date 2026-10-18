@@ -1,0 +1,173 @@
+format_version = 2
+skill = "stacked-pr"
+created = "2026-08-22"
+approach = "derive"
+goal = "Design and operate GitHub stacked pull requests and dependent PR chains so that each PR shows one reviewable concern and the chain stays consistent across Git ancestry, PR bases and GitHub's stack state. Success is the requested operation completed on the route that a recorded observation selected, with every original commit recoverable and merges limited to what the user approved, or a report of the blocker."
+
+[[invariants]]
+rule = "Work stays within the requested operation. Explanations, reviews and status checks are read-only; creation and maintenance change only the local branches and linked PRs that the operation needs; a later lifecycle stage runs only when the request includes it. Unrelated dirty-tree work is preserved, and the current branch and relevant tips are recorded before ancestry is rewritten so that every original commit stays reachable until verification."
+where = ["SKILL.md#scope-and-safety"]
+
+[[invariants]]
+rule = "A merge needs the user's explicit approval of the exact PR set and merge method immediately before the merge command. A manual chain merges only its approved bottom PR, and each further layer needs another approval."
+where = ["SKILL.md#scope-and-safety", "references/cli-merge.md", "references/api-merge.md", "references/manual-merge.md"]
+
+[[invariants]]
+rule = "The route is decided in a fixed order and recorded with the observation that decided it: stack-aware CI and integrations, then REST, then the result of gh extension list. The manual route applies only on the user's explicit choice of ordinary dependent PRs, GitHub's report that native stacks are unavailable, or a prohibited or failed install of github/gh-stack; otherwise the CLI route applies. Branches and PRs that no tool tracks yet do not decide the route; a CLI mutation adopts them first."
+reason = "On 2026-10-07 an agent took the manual route on a two-PR stack although github/gh-stack was installed, because the CLI route read as requiring branches that the extension already tracked (commit bf0dae6; reports/skill-atlas/stacked-pr-routing-validation.json)."
+where = ["SKILL.md#route-the-request"]
+
+[[invariants]]
+rule = "A user who explicitly asked for a native stack never gets the manual route. A prohibited or failed install, or GitHub's unavailability report, is reported as a blocker, and the API route is used only with the user's authorization."
+reason = "A CodeRabbit review of PR 19 found that a prohibited or failed install selected the manual route despite such a request (commit 9e65db4, 2026-10-07)."
+where = ["SKILL.md#route-the-request"]
+
+[[invariants]]
+rule = "One tool owns mutations for the whole operation. Once gh-stack tracks a chain, a plain git rebase or push on its branches switches the writer, so a chain moving to the manual route has its ownership migrated through troubleshooting.md first."
+reason = "Switching writers during a mutation can desynchronize local tracking and GitHub state."
+where = ["SKILL.md#route-the-request", "references/troubleshooting.md#move-a-tracked-chain-to-manual"]
+
+[[invariants]]
+rule = "A PR in a native stack carries no stack map, and a map that a PR brings into a native stack is removed. Every other open PR in a dependent chain carries the bottom-to-top map with the current PR marked."
+reason = "GitHub shows a native stack's order and navigation on every member PR and shows no chain for ordinary dependent PRs (commit 632da2f, 2026-10-16)."
+where = [
+  "SKILL.md#stacked-pull-requests",
+  "references/cli-create.md#submit",
+  "references/api-create.md#create-or-adopt-prs",
+  "references/manual-chain.md#mutation-branches",
+]
+
+[[invariants]]
+rule = "On the CLI route, commands with hidden side effects run in their safe form: submit runs without --open when existing drafts must stay drafts, merge receives the approved target and method explicitly, and gh stack link receives existing PRs by URL after missing PRs were published through the pr skill."
+reason = "Side effects of gh stack v0.2.0 named on 2026-10-16 (commit 53a66b3): --open also marks existing PRs ready, a non-interactive merge without a target merges the whole stack with the last-used method, and link pushes branch-name arguments and creates PRs."
+where = ["references/cli-create.md#submit", "references/cli-merge.md", "references/troubleshooting.md#adopt-existing-branches-or-prs"]
+
+[[invariants]]
+rule = "This skill owns stack topology, submission and cascading rebases, and the selected route keeps mutation and remediation ownership. The pr skill supplies PR titles, bodies and templates. When a request, project rule or task record sets a review-size cap, the pr skill measures each layer in Check cap mode against that layer's immediate PR base, never cumulatively against trunk, and capped publication waits for a current within-cap result."
+where = ["SKILL.md#scope-and-safety", "references/cli-create.md#submit", "references/manual-create.md#open-or-adopt-prs"]
+
+[[invariants]]
+rule = "Live gh stack help and current GitHub documentation decide commands, flags, API fields, webhook fields and recovery steps; examples in the skill do not. Failures are classified from observed stderr and state."
+reason = "GitHub's stacked PR CLI, APIs and webhooks may change while in preview."
+where = [
+  "references/cli-workflow.md#establish-the-live-contract",
+  "references/api-workflow.md#establish-the-live-contract",
+  "references/automation.md#establish-the-live-event-contract",
+  "references/troubleshooting.md#diagnose-before-recovery",
+]
+
+[[sources]]
+id = "github-gh-stack"
+author = "GitHub"
+repository = "https://github.com/github/gh-stack"
+remote = "git@github.com:github/gh-stack.git"
+ref = "refs/heads/main"
+license = "MIT; ideas only, no source text copied"
+role = "ideas"
+baseline_commit = "14fc42ed9b6c376a53b2f999f138d3bd26dac546"
+reviewed_through = "14fc42ed9b6c376a53b2f999f138d3bd26dac546"
+baseline_paths = [
+  "skills/gh-stack/SKILL.md",
+  "skills/gh-stack/references/stack-design.md",
+  "skills/gh-stack/references/troubleshooting.md",
+  "skills/gh-stack/references/commands.md",
+  "LICENSE",
+]
+paths = [
+  "skills/gh-stack/SKILL.md",
+  "skills/gh-stack/references/stack-design.md",
+  "skills/gh-stack/references/troubleshooting.md",
+  "skills/gh-stack/references/commands.md",
+  "LICENSE",
+]
+
+[[sources.ideas]]
+idea = "A stack is planned before any branch exists. The work forms one coherent story; each layer owns one concern that a reviewer can accept in one sentence and depends only on the same or lower layers; unrelated work goes to a separate stack. Multi-part work starts as a stack instead of being split after it is written."
+serves = "Keeps each PR reviewable on its own and avoids restructuring a chain whose dependencies point the wrong way."
+where = ["references/stack-design.md#find-the-dependency-chain", "references/stack-design.md#stage-deliberately"]
+shapes = "stack-design.md is a planning step whose output is a bottom-to-top layer plan with a check table per layer; every route loads it before creating branches."
+adapted = "The donor plans layers for gh stack init. Locally the plan serves the CLI, API and manual routes, starts from task-breakdown units when they are supplied, adds verification and review-budget checks per layer, keeps tests in the first layer that can exercise the behavior, and treats a short stack as a pressure rather than a quota."
+
+[[sources.ideas]]
+idea = "Branch names follow the repository's convention first; otherwise they combine a shared topic with the layer's concern, such as billing/monthly-total."
+serves = "Makes the layers of one stack recognizable as a group."
+where = ["references/stack-design.md#name-branches-by-topic-and-concern"]
+shapes = "A naming section in the design reference."
+adapted = "Locally, explicit names also keep the layer plan stable across the CLI, API and manual routes."
+
+[[sources.ideas]]
+idea = "Each layer receives only its own changes: its paths or hunks are staged explicitly, several commits are allowed when they all serve the layer's concern, and other uncommitted work stays out of the layer across branch switches."
+serves = "Prevents one concern from leaking into another layer and protects unrelated work."
+where = ["references/stack-design.md#stage-deliberately", "references/cli-create.md#build-or-adopt"]
+shapes = "The staging section shows explicit git add with staged-diff checks per layer, and the CLI build step stages explicit paths or hunks."
+adapted = "The donor stages before gh stack add. Locally plain Git staging with git diff --cached checks works on every route, unrelated dirty-tree changes stay unstaged, and the dirty tree is checked again after every branch change."
+
+[[sources.ideas]]
+idea = "A change to an existing stack is made on the layer that owns its concern, and every layer above it is then replayed onto the change."
+serves = "Keeps each concern in its owning layer and keeps every upper layer based on its parent."
+where = [
+  "references/cli-maintain.md#edit-one-layer-and-cascade-upward",
+  "references/manual-maintain.md#edit-one-layer",
+  "references/api-maintain.md#edit-or-restack-branches",
+]
+shapes = "Each route's maintenance branch starts by editing the owning layer and cascading upward."
+adapted = "The CLI route uses the current cascading-rebase command from live help; the manual and API routes replay with plain Git and push rewritten refs atomically with leases."
+
+[[sources.ideas]]
+idea = "When the local stack and the stack on GitHub diverge, one side becomes the source. Keeping GitHub's chain drops stale local tracking and checks the remote stack out again; keeping the local chain removes the GitHub grouping and submits the local order again."
+serves = "Resolves divergence without silently losing either side's work."
+where = ["references/troubleshooting.md#local-and-remote-stacks-diverged"]
+shapes = "The divergence section offers these two resolutions."
+adapted = "Locally the differences are shown and the user chooses the source before any mutation. Because gh stack unstack also removes local tracking, keeping the local chain re-adopts the recorded branches through init before submitting, and every original commit must stay reachable."
+
+[[sources.ideas]]
+idea = "A stack whose order or membership must change is rebuilt rather than edited in place: the old tips are preserved, Git ancestry is rewritten bottom-up, the stack is recreated in the new order, and the existing PRs are reused."
+serves = "Changes the order without losing PRs or commits."
+where = [
+  "references/troubleshooting.md#restructure-a-native-stack",
+  "references/api-maintain.md#restructure-or-dissolve",
+  "references/manual-maintain.md#retarget-or-restructure",
+]
+shapes = "Each route has a restructuring operation that preserves tips, rewrites ancestry and recreates membership."
+adapted = "Locally current CLI and REST documentation is checked first for a supported in-place edit, and the combined top diff must change only as requested."
+
+[[sources.ideas]]
+idea = "When another tool owns the branches, such as Jujutsu, Sapling, git-town or a separate worktree, that tool keeps navigation and rebasing, and the stack on GitHub is published through a membership-only link without local tracking."
+serves = "Prevents two tools from writing the same branches."
+where = ["references/troubleshooting.md#worktrees-and-other-branch-managers", "references/troubleshooting.md#adopt-existing-branches-or-prs"]
+shapes = "The interoperability section ends when exactly one tool owns navigation, rebase, push and remote membership."
+adapted = "Locally gh stack link receives existing PRs by URL after missing PRs were published through the pr skill, because a branch-name argument makes it push the branch and create a PR."
+
+[[sources.ideas]]
+idea = "Merging a stack PR also merges every unmerged PR below it, and a merge queue can queue the stack instead of merging it. The affected set is resolved before the merge, and a queued result is reported as queued."
+serves = "Prevents merging more than intended and reporting queued work as merged."
+where = ["references/cli-merge.md", "references/api-merge.md"]
+shapes = "The merge steps resolve the exact unmerged set before the approval is used and distinguish merged, queued and failed results."
+adapted = "Locally the user approves the exact set and merge method immediately before the command, and the CLI merge receives the target and method explicitly."
+
+[[sources.ideas]]
+idea = "Every gh stack command runs in its non-interactive form, because prompts and full-screen views block an agent's session."
+serves = "Keeps CLI operations from hanging."
+where = ["references/cli-workflow.md#establish-the-live-contract"]
+shapes = "The live-contract step derives the non-interactive form of every planned command before the operation starts."
+adapted = "The donor lists fixed commands and flags. Locally the form is read from gh stack <command> --help each time, because live help and GitHub documentation outrank examples while the tool is in preview."
+
+[[sources.declined]]
+feature = "A fixed reference of gh stack commands, flags and exit codes as the operating contract, with recovery chosen from an exit-code table."
+reason = "The CLI and APIs are in preview; the skill reads live help and current GitHub documentation for every planned command and classifies failures from observed stderr and state."
+
+[[sources.declined]]
+feature = "Accepting the PR titles and bodies that gh stack submit generates and editing them afterwards."
+reason = "PR titles and bodies follow the repository's conventions through the pr skill, and a PR in a native stack carries no stack map."
+
+[[dependencies]]
+kind = "local"
+name = "pr"
+required = false
+role = "Supplies PR titles, bodies and templates when the skill creates or adopts PRs, and measures each layer in Check cap mode when a review-size cap applies; read-only operations do not need it."
+
+[[dependencies]]
+kind = "local"
+name = "task-breakdown"
+required = false
+role = "Supplies delivery units that the stack design uses as layers when they exist."
