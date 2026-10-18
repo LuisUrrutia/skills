@@ -40,7 +40,8 @@ schedule.
 2. Write each decision once, as the entry a future editor needs:
    - A rule the user wants kept, such as a scope boundary, an authority limit or
      a host constraint: an invariant.
-   - A difference from the base, including an added rule: a deviation.
+   - A difference from the base, including an added rule, whether or not an
+     invariant also states it: a deviation.
    - A concept taken from a source: an idea. A donor behavior left out that a
      later update could propose again: a decline. Material from a source the
      record does not list yet first gets its own source or snapshot entry.
@@ -52,14 +53,16 @@ schedule.
    locations of renamed headings and moved files. Remove an invariant or a
    decline only when the user's request or decision removes it; when only its
    reason seems gone, report that and ask.
-5. For a skill with approach `base`, judge whether the base
+5. When the change adds, alters or removes an entry of a skill with approach
+   `base`, judge whether the base
    [still fits](references/origin-format.md#choose-each-sources-role); when it
    does not, keep the approach, report the evidence and ask the user.
 6. When the change alters the skill's name, existence or authority, or what
    callers pass to it or receive from it, list its dependents and report each
    whose recorded role or decisions rely on the old contract. Report the full
-   list, with those entries marked, for `agent-instructions` to check their text;
-   changing another skill's text or record needs a request that covers it.
+   list, with those entries marked. Changing their text, other callers or their
+   records needs a request that covers it; `agent-instructions` then checks and
+   updates the text.
 
 Take commits, hashes and dates from the repository or file, never from memory.
 Record only reasons the user stated or the evidence shows, credited and cited as
