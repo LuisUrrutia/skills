@@ -66,7 +66,8 @@ personal data.
 ## Save and report
 
 Save to the destination the user's request names, including when a calling
-workflow forwards it. Otherwise save to the temporary directory of the user's OS
+workflow forwards it; a location a workflow picks on its own is not a named
+destination. Otherwise save to the temporary directory of the user's OS
 (`$TMPDIR`, else `/tmp`; `%TEMP%` on Windows), not the current workspace or
 repository. Create a new file; replace an existing one only when the request
 names it for update.
