@@ -1,9 +1,9 @@
 # Reuse and standardization
 
-Read this when choosing how to standardize a capability, adopt an external skill,
-or update a skill that delegates to one. Start with installed owners and the
-user's candidate sources. Read their instructions and relevant dependencies before
-choosing; similar descriptions do not establish equivalent behavior.
+Read this when choosing how to standardize a capability or adopt an external
+skill. Start with installed owners and the user's candidate sources. Read their
+instructions and relevant dependencies before choosing; similar descriptions do
+not establish equivalent behavior.
 
 ## Choose what to maintain
 
@@ -21,9 +21,11 @@ If a wrapper must replace the donor's scope, tools, ordering, authoring owner, o
 external actions across several steps, compare a base or a small derivation
 instead.
 
-Record the choice and its concrete reason. Distinguish the skill's author or team
-from the repository hosting it. Inspect licensing and notices before distributing
-upstream files; a source citation does not replace required notices.
+Keep the choice and its concrete reason; where the repository keeps records,
+`skill-maintenance` writes them into the skill's record as its approach.
+Distinguish the skill's author or team from the repository hosting it. Inspect
+licensing and notices before distributing upstream files; a source citation does
+not replace required notices.
 
 ## Keep wrappers thin
 
@@ -40,42 +42,3 @@ Verify required dependencies before dependent work and report an unavailable one
 with the prepared inputs. Do not pretend an absent skill ran or silently substitute
 a different procedure. Avoid two automatic entrypoints competing for the same
 request; use the host's supported selection and dependency controls.
-
-## Record sources and dependencies separately
-
-Use `origin.toml`, described in [origin-format.md](origin-format.md), for actual
-external material and dependencies. The skill's own renames and superseded drafts
-belong in Git history. Record rejected candidates in the decision report, not as
-active source feeds.
-
-Record a base or idea source under `[[sources]]`, or `[[local_snapshots]]` when it
-has no tracked feed, with its `role`. Use
-`[[dependencies]]` for runtime dependencies: a local
-dependency records its registered name, role, and whether it is required; the host
-resolves the name.
-An installed upstream also records its repository, SSH remote, relevant paths,
-approved full commit, installation or lockfile location, and local additions.
-Distinguish the approved revision from the revision actually found in the host;
-file presence alone does not verify invocation. Each owner tracks its direct
-dependencies; callers do not copy its source manifest. Local dependencies are
-maintained in their owning repository rather than fetched as upstream feeds.
-
-## Update a dependency without maintaining a fork
-
-On a requested check or update, resolve the current approved version and one
-candidate version. Use the supported installer and version controls; do not fetch
-a floating branch on each skill invocation.
-
-Review changes that can affect the wrapper's contract: activation, inputs, outputs,
-tools, newly loaded instructions, authority, and completion behavior. Follow moved
-paths and changed references. Unrelated donor edits need no local merge or rewrite.
-If the affected scope is unclear, widen inspection before claiming compatibility.
-
-Exercise the wrapper and candidate together on a representative task and a nearby
-case that should stay out of scope. Observe relevant side effects. In check mode,
-report the candidate and evidence without changing the installation or approved
-revision. In update mode, adopt the candidate only after the required checks pass;
-preserve the working version when they fail. Record the tested revision and limits.
-
-This reduces maintenance of copied instructions. It does not make dependency
-updates automatically compatible or remove the need to verify local additions.

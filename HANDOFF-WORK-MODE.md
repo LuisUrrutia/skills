@@ -838,7 +838,7 @@ record before extending a historical claim; the export did not rerun its tests.
 - `agent-instructions/references/reuse.md`: install/wrap/derive/create decision.
 - `agent-instructions/references/hosts.md`: actual host metadata and invocation.
 - `agent-instructions/references/evaluation.md`: behavioral evidence requirements.
-- `agent-instructions/references/upstream-updates.md`: provenance and maintenance.
+- `skill-maintenance/references/updates.md`: provenance and maintenance.
 - `reports/skill-atlas/planning-validation.json`: historical planning validation.
 - `reports/skill-atlas/wayfinder-rewrite-validation.json`: historical direction work.
 - `reports/skill-atlas/task-breakdown-validation.json`: initial decomposition checks.

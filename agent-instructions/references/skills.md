@@ -20,10 +20,16 @@ Before choosing metadata, invocation controls, tool calls, or dependencies, read
 [hosts.md](hosts.md). Preserve supported existing metadata and invocation policy.
 
 For composition, inspect donor files and dependencies. Decide which behavior to
-retain, adapt, or exclude against the user's contract. Record the base and its
-deviations, or the ideas taken and declined, with verified revisions in
-`origin.toml` using [origin-format.md](origin-format.md). Keep unknown provenance
-explicit.
+retain, adapt, or exclude against the user's contract.
+
+A repository keeps records when the target skill or another skill in it has an
+`origin.toml`; skills installed in the host outside that repository do not
+count. Such a repository keeps each skill's goal and decisions there; elsewhere,
+create a record only when the user asks. In such a repository, after creating a
+skill or after a change that adds, removes or alters a rule, a source idea, a
+deviation from its base, or a dependency, use `skill-maintenance` to record the
+decision with the user's reason. When `skill-maintenance` coordinates the
+change, it records the result itself.
 
 ## Write the selection description
 
@@ -105,9 +111,8 @@ selection is ambiguous.
 
 Run the available host validator, resolve local references and dependencies, and
 execute added or changed helpers on representative success and failure inputs.
-When the skill has an `origin.toml`, run the checker named in
-[origin-format.md](origin-format.md); renamed headings and moved files break its
-locations.
+When the skill has an `origin.toml`, renamed headings and moved files break its
+locations; have `skill-maintenance` check the record after such changes.
 For a new package or changed resource paths, inspect resolved targets in the
 source package, then copy only the skill folder with symlinks preserved to a
 neutral directory under a different account layout. Exercise required reads from
@@ -120,6 +125,7 @@ another operating system or login was exercised.
 Read [evaluation.md](evaluation.md) for new behavior or activation changes.
 Package validity does not establish good decisions or successful host invocation.
 
-Finish when the requested skill exists, ownership and references are clear, and
-checks or their specific limits are reported. Installation, publishing, and
+Finish when the requested skill exists, ownership and references are clear, its
+record reflects the change where its repository keeps records, and checks or their
+specific limits are reported. Installation, publishing, and
 scheduling follow the active request and repository instructions.

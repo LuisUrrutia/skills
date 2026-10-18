@@ -1,13 +1,13 @@
-# Provenance record format
+# Skill record format
 
 Read this when creating, converting, or editing a skill's `origin.toml`.
-[upstream-updates.md](upstream-updates.md) uses these records to judge upstream
-changes; [reuse.md](reuse.md) decides which relationship a skill has.
+[updates.md](updates.md) uses these records to judge upstream changes.
 
 `origin.toml` sits at the skill root as UTF-8 TOML with `format_version = 2`. It
-records the external material the skill builds on and why, so an agent that never
-saw the original conversation can judge a later upstream change. Keep the skill's
-own drafts and renames in Git history; the record is not a changelog.
+records the skill's goal, the decisions that shape it, and the external material it
+builds on and why, so an agent that never saw the original conversation can keep
+those decisions when it edits the skill or judges an upstream change. Keep the
+skill's own drafts and renames in Git history; the record is not a changelog.
 
 ## Choose each source's role
 
@@ -32,7 +32,9 @@ words. An `ideas` source or snapshot whose text was not copied says so in its
 - `format_version`: `2`.
 - `skill`: the registered skill name.
 - `created`: the date the record began.
-- `approach`:
+- `approach`: the reuse choice the skill follows, chosen with the
+  `agent-instructions` reuse guidance and revised when a later source changes
+  it, stated as one of:
   - `base`: exactly one source or snapshot has the role `base`.
   - `derive`: one or more `ideas` sources or snapshots, and no base.
   - `create`: local design with no sources and no material snapshots; reference
@@ -41,8 +43,8 @@ words. An `ideas` source or snapshot whose text was not copied says so in its
 - `goal`: the outcome the skill produces, for whom, and what success looks like,
   in one to three sentences. Ideas, deviations and upstream changes are judged
   against it. It may restate the skill's opening; keep the two consistent.
-- `[[invariants]]` (optional): local behavior that every source update must
-  preserve and that no single source explains, such as authority limits, scope
+- `[[invariants]]` (optional): local behavior that later edits and source updates
+  must preserve and that no single source explains, such as authority limits, scope
   boundaries, host constraints, and user decisions. Each has `rule`, an optional
   `reason` (the incident, decision or constraint behind it, dated when that
   matters) and an optional `where`. A rule that answers one donor feature is a
@@ -72,7 +74,8 @@ Each `[[sources]]` entry has:
   relevant references and license files. Update verified renames without changing
   the baseline.
 
-Commits are full 40-character hexadecimal IDs.
+Commits are full 40-character hexadecimal IDs. A candidate that was considered
+and rejected is not a source; name it in the decision report instead.
 
 ### Base deviations
 
@@ -149,8 +152,13 @@ describe the text at that time and are not maintained.
   `decisions` (a list of local decisions about its use). A `local` dependency is
   resolved by registered name. An `installed` dependency also records
   `repository`, `remote`, `paths`, the `approved_commit`, its `installation`
-  location, and optionally `found_commit` and `local_additions`.
-  [reuse.md](reuse.md) owns their maintenance.
+  location, and optionally `found_commit` and `local_additions`. The approved
+  commit is the revision the skill was validated with; `found_commit` is the one
+  actually installed, and file presence alone does not show that it can be
+  invoked. Each skill records only its direct dependencies, and a local dependency
+  is maintained in its own repository rather than fetched as a feed. Skills used
+  only to edit or maintain this skill are not its dependencies.
+  [updates.md](updates.md) owns dependency updates.
 
 ## Example
 
@@ -222,7 +230,7 @@ Run the bundled checker from this skill's installed directory after editing a
 record, and after renaming headings or moving files in a skill that has one:
 
 ```sh
-python3 "<installed-agent-instructions>/scripts/check-origin.py" --skill-dir "<target-skill>"
+python3 "<installed-skill-maintenance>/scripts/check-origin.py" --skill-dir "<target-skill>"
 ```
 
 It prints JSON diagnostics and exits 0 when the record is valid, 1 when

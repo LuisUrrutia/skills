@@ -1,0 +1,126 @@
+{
+  "format_version": 1,
+  "skill": "skill-maintenance",
+  "usage": "Give executors only the prompt and fixture. Keep expectations with the grader. Supply fresh contexts and the same runner settings for candidate and baseline. Use disposable local repositories in place of network access. Add cases from real failures; these do not prove host integration.",
+  "cases": [
+    {
+      "id": "upstream-check",
+      "kind": "state-transition",
+      "prompt": "Check this skill for upstream improvements. Report which changes are useful without modifying the skill or its provenance.",
+      "fixture": {
+        "setup": "In a disposable local Git repository, commit a donor skill as A, rename its directory in B, and add both a useful reference-loading condition and an instruction to publish automatically in C. Create a derived local review skill pinned to A whose contract is read-only by default. Include one local refinement absent from the donor. Supply verified local Git history and snapshots in place of network access."
+      },
+      "expectations": [
+        "The complete target skill and origin remain byte-identical.",
+        "The report follows the source move and evaluates both substantive changes.",
+        "The recommendation preserves the local read-only contract and local refinement.",
+        "The report identifies the actual candidate commit and does not claim incorporation."
+      ]
+    },
+    {
+      "id": "upstream-update",
+      "kind": "state-transition",
+      "prompt": "Update this skill from its recorded upstream sources, incorporating useful changes within its existing contract.",
+      "fixture": {
+        "setup": "Use an independent copy of the upstream-check fixture, with a deterministic local validator and an isolated behavioral runner available. Preserve pre-existing unrelated edits in a separate file. agent-instructions is available."
+      },
+      "expectations": [
+        "The useful condition is incorporated and automatic publishing is skipped or adapted with a reason.",
+        "Local refinements, the original baseline commit, and unrelated edits survive.",
+        "The current source path follows the verified rename while baseline_paths remain historical.",
+        "The cursor advances only after the full relevant range is decided and required validation succeeds.",
+        "A repeated run does not duplicate the incorporated change."
+      ]
+    },
+    {
+      "id": "partial-update",
+      "kind": "state-transition",
+      "prompt": "Update this skill from both recorded sources and report anything you cannot finish.",
+      "fixture": {
+        "setup": "Provide two independent local donor repositories. One has an accessible, compatible change and passing checks. The other has an unavailable recorded commit or rewritten history. Include a local snapshot whose upstream commit is unknown."
+      },
+      "expectations": [
+        "Independent supported work completes without silently resetting the blocked source's cursor.",
+        "The inaccessible source remains unknown and the exact missing evidence is reported.",
+        "The local snapshot retains its hash and unverified provenance; no repository commit is fabricated.",
+        "The final report distinguishes partial completion from full synchronization."
+      ]
+    },
+    {
+      "id": "record-user-decision",
+      "kind": "state-transition",
+      "prompt": "We just changed release-notes so entries never include internal ticket numbers, because customers cannot open our tracker. Record that decision.",
+      "fixture": {
+        "setup": "A release-notes skill whose SKILL.md already has the changed Write section, and a valid format 2 origin.toml with approach derive, one ideas source whose donor puts a ticket number in every entry, and no entry about ticket numbers. The checker is available."
+      },
+      "expectations": [
+        "The record gains a decline under the donor that puts ticket numbers in entries, with the user's reason; it is not added as an idea.",
+        "The entry states the decision so that a reader without the conversation understands what the skill does and why.",
+        "SKILL.md stays byte-identical, and no other entry, reason, goal or commit changes.",
+        "The checker exits 0 and the report names the entry added."
+      ]
+    },
+    {
+      "id": "missing-record",
+      "kind": "artifact",
+      "prompt": "This skill has no origin.toml. Create one.",
+      "fixture": {
+        "setup": "A standup-summary skill written locally, with no outside sources and no runtime dependencies. Its SKILL.md says it never posts to chat and that the user sends the summary. Git history shows no imported material."
+      },
+      "expectations": [
+        "The record uses approach create, has no sources or material snapshots, and has a goal of one to three sentences that matches the skill.",
+        "The rule against posting becomes an invariant; no reason, source, commit or user decision is invented.",
+        "The checker exits 0, and the skill text is unchanged."
+      ]
+    },
+    {
+      "id": "wording-only-change",
+      "kind": "state-transition",
+      "prompt": "I fixed typos in release-notes and renamed its 'Collect PRs' heading to 'Collect pull requests'. Update the record if it needs it.",
+      "fixture": {
+        "setup": "A release-notes skill with a valid record whose idea and deviation entries point to SKILL.md#collect-prs. The edits change no rule."
+      },
+      "expectations": [
+        "Only the where locations change, to SKILL.md#collect-pull-requests.",
+        "No new idea, invariant, deviation or review is added for the wording fixes.",
+        "The checker exits 0."
+      ]
+    },
+    {
+      "id": "adopt-declined-feature",
+      "kind": "state-transition",
+      "prompt": "We now want release-notes to group entries by component, the way the notes-style donor does. Apply it and record the decision.",
+      "fixture": {
+        "setup": "A release-notes skill whose record declines the notes-style donor's grouping by component, with a reason that no longer applies, and an idea from the same donor about impact-first entries. agent-instructions and the checker are available."
+      },
+      "expectations": [
+        "The skill text groups entries by component.",
+        "The decline is deleted and the adopted grouping becomes an idea under the same donor, with idea, serves, where and shapes that match the new text; the existing idea is unchanged.",
+        "No reason, commit or source is invented, and the checker exits 0."
+      ]
+    },
+    {
+      "id": "activation-boundary",
+      "kind": "selection",
+      "prompt": "For each request, choose the primary skill using only the supplied names and descriptions: agent-instructions, skill-maintenance, workflow-to-skill, verification-authoring, or none. Briefly explain each choice.",
+      "fixture": {
+        "queries": [
+          "Check pr-review for upstream changes.",
+          "Update the debug skill from its recorded sources.",
+          "Record why we removed the automatic publish step from release-notes.",
+          "Create an origin.toml for the standup-summary skill.",
+          "Fix the typos in release-notes' SKILL.md.",
+          "Make what we just did into a reusable skill.",
+          "Update the pnpm version in package.json.",
+          "Maintain the verify-memo recipe after the app's routes changed.",
+          "I renamed two headings in debug; fix the locations in its origin.toml."
+        ]
+      },
+      "expectations": [
+        "Requests one through four and request nine select skill-maintenance.",
+        "Request five selects agent-instructions, request six selects workflow-to-skill, request seven selects none, and request eight selects verification-authoring.",
+        "A selection probe is not reported as observed host invocation."
+      ]
+    }
+  ]
+}

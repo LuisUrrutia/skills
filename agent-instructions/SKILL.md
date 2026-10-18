@@ -27,9 +27,10 @@ Write directly from either skill's evidence handoff or a fully supplied new
 capability; do not send it back through discovery. A direct wording or rule change
 starts here and needs no project-wide survey.
 
-For a request to check or update a skill from its recorded sources, use
-[references/upstream-updates.md](references/upstream-updates.md). Ordinary writing
-does not start an upstream check.
+`skill-maintenance` owns checking or updating a skill from its recorded sources
+or installed dependencies; send those requests there. An update hands the text
+it incorporates to this skill for writing and evaluation. Ordinary writing does
+not start an upstream check.
 
 ## Establish meaning and scope
 
@@ -123,8 +124,8 @@ Then load only the branch that applies:
   read [references/instruction-files.md](references/instruction-files.md) to locate
   the canonical source and choose the right scope.
 - For a new or existing skill, read [references/skills.md](references/skills.md)
-  for activation, composition, packaging, and provenance. This branch also covers
-  writing a skill that has never been used before.
+  for activation, composition, packaging, and recording decisions. This branch
+  also covers writing a skill that has never been used before.
 - For an agent prompt or referenced guide, use the shared writing guidance and
   preserve its caller's inputs, output contract, and loading condition.
 
@@ -150,9 +151,10 @@ behavioral checks. A narrow wording correction needs a fidelity check; it does n
 require a new skill package, evaluation suite, or an interview about repeated work.
 Use host validators only for formats they actually validate.
 
-Report the changed instructions, their scope, actual checks and results, and any
-unresolved limitation. When this agent ran the pair or assigned it to a delegate,
-report each profile's actual run, rate-limit skip, or blocker and how material
-findings were reconciled; otherwise, state that this agent did not run the pair.
-Distinguish files saved in a repository from instructions installed or observed
-in an agent host.
+Report the changed instructions, their scope, actual checks and results, whether
+a skill's record changed or that none exists because its repository keeps no
+records, and any unresolved limitation. When this agent ran the pair or assigned
+it to a delegate, report each profile's actual run, rate-limit skip, or blocker
+and how material findings were reconciled; otherwise, state that this agent did
+not run the pair. Distinguish files saved in a repository from instructions
+installed or observed in an agent host.

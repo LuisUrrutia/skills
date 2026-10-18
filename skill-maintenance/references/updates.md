@@ -1,8 +1,8 @@
-# Upstream maintenance
+# Updates from recorded sources
 
-Read this when recording sources for a derived skill, checking their changes, or
-incorporating useful updates. This is an agent-run maintenance procedure; adding
-it does not schedule background work.
+Read this when checking or updating a skill from the sources or installed
+dependencies in its `origin.toml`. This is an agent-run procedure; it does not
+schedule background work.
 
 ## Choose the requested mode
 
@@ -16,12 +16,12 @@ it does not schedule background work.
 Both modes run the research automatically once invoked. A schedule is separate
 work and needs a requested cadence and execution environment.
 
-For installed runtime dependencies recorded under `[[dependencies]]`, use the
-dependency update procedure in [reuse.md](reuse.md). The source comparison below
-maintains a base or the ideas adapted into local instructions; a wrapper does not
-merge the donor's whole implementation.
+For installed runtime dependencies recorded under `[[dependencies]]`, use
+[Update an installed dependency](#update-an-installed-dependency). The source
+comparison maintains a base or the ideas adapted into local instructions; a
+wrapper does not merge the donor's whole implementation.
 
-## Read the provenance record
+## Read the record
 
 Each skill records its sources in `origin.toml`, described in
 [origin-format.md](origin-format.md). The `goal`, `invariants`, a base's
@@ -117,8 +117,10 @@ Preserve local improvements deliberately; do not replace the skill with a donor
 snapshot or let a generic update command overwrite it.
 
 In Check mode, finish with the candidate SHAs, classified changes, recommendations,
-and blockers. In Update mode, apply supported changes within the existing scope
-and run the checks in [evaluation.md](evaluation.md), including affected behavior
+and blockers. In Update mode, apply supported changes within the existing scope.
+Write them and choose their checks with `agent-instructions`, which owns
+instruction wording and evaluation; an Update request is a user-requested edit, so
+its model consultation applies to the incorporated changes. Run affected behavior
 and a nearby regression case. Required checks that cannot run remain blockers
 for advancing the affected cursor. Changes to routing or authority need behavioral
 evidence; a structural pass alone cannot validate them.
@@ -137,3 +139,23 @@ Finish when every requested source has either a resolved range or a specific
 blocker/deferred item, and every local modification has validation evidence or a
 reported limitation. Commit or publish only under the active repository rules
 and user authorization.
+
+## Update an installed dependency
+
+On a requested check or update, resolve the current approved version and one
+candidate version. Use the supported installer and version controls; do not fetch
+a floating branch on each skill invocation.
+
+Review changes that can affect the wrapper's contract: activation, inputs, outputs,
+tools, newly loaded instructions, authority, and completion behavior. Follow moved
+paths and changed references. Unrelated donor edits need no local merge or rewrite.
+If the affected scope is unclear, widen inspection before claiming compatibility.
+
+Exercise the wrapper and candidate together on a representative task and a nearby
+case that should stay out of scope. Observe relevant side effects. In Check mode,
+report the candidate and evidence without changing the installation or approved
+revision. In Update mode, adopt the candidate only after the required checks pass;
+preserve the working version when they fail. Record the tested revision and limits.
+
+This reduces maintenance of copied instructions. It does not make dependency
+updates automatically compatible or remove the need to verify local additions.
