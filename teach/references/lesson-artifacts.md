@@ -37,8 +37,8 @@ preferences. Reference documents also print cleanly.
 ## Check before delivery
 
 Render the lesson from its file, as the learner will open it, with the available
-browser tool (`playwright-cli` opens `file:` URLs only with
-`allowUnrestrictedFileAccess` set in its configuration). Use each control once and
+browser tool (`playwright-cli` opens `file:` URLs when its configuration sets
+`allowUnrestrictedFileAccess`). Use each control once and
 check the console for errors. Check links, examples and expected
 results. A diagram that does not render is worse than prose. Report which checks
 ran: a syntax check, an execution, a visual inspection, or none. A render proves

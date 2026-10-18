@@ -42,7 +42,7 @@ Milestone: {A real application of this stage, tied to a success item, with its f
 - **Observable objectives.** Each objective names something the learner can explain, predict, do or evaluate. "Understand X" is not an objective.
 - **Real prerequisites only.** `Needs` lists the objectives without which this one cannot be learned. Order objectives by `Needs`, then by the nearest unmet success item.
 - **Status follows evidence.** Change a status only when an attempt, a statement of prior knowledge or a lesson supplies its evidence, and fill `Evidence` with the record or lesson. Coverage alone moves an objective no further than `presented`.
-- **Stable IDs.** Give an inserted objective a new ID. Move a dropped or skipped objective to `Deferred` with its reason instead of deleting it.
+- **Stable IDs.** Give an inserted objective a new ID. Move a dropped objective, or one skipped without a statement of prior knowledge, to `Deferred` with its reason instead of deleting it.
 - **Pace from the learner.** The `Pace` line takes the learner's stated time or deadline. Without one, stages carry no dates; add dates only when the learner gave a deadline or schedule, and never invent a weekly commitment.
 - **Scope that does not fit.** When the objectives do not fit the stated time, move the lowest-priority ones to `Deferred`, state the tradeoff, and confirm it with the learner. Never promise mastery by a date.
 - **Revise in place.** The file shows the current route; the learning records keep the history.

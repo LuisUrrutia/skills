@@ -212,7 +212,7 @@
       "request": "siguiente lección",
       "fixture": "The current directory is the learner's workspace. O1 is retained, O2 is open and needs O1, and both serve the same unmet success item.",
       "expect": [
-        "Lesson 0005 starts O2, not O1 again.",
+        "The next numbered lesson starts O2, not O1 again.",
         "Reuses assets/ and writes no record without an attempt."
       ]
     },
@@ -224,6 +224,16 @@
       "expect": [
         "Moves O3 to Deferred with the learner's reason instead of marking it reported or met.",
         "Does not treat the skip as evidence of prior knowledge."
+      ]
+    },
+    {
+      "id": "declined-practice-advance",
+      "skill": "teach",
+      "request": "siguiente lección",
+      "fixture": "The current directory is the shop workspace: NOTES.md records that the learner does not want quizzes or exercises; O1 is presented, O2 is open and needs O1.",
+      "expect": [
+        "The next lesson teaches O2 through worked examples, without a quiz or exercises.",
+        "O1 stays presented and O2 is not marked met; understanding is stated as unmeasured."
       ]
     },
     {

@@ -43,15 +43,15 @@ Links to this skill's own files (the `*-FORMAT.md` files and `references/`) reso
 from this skill's folder; workspace paths (`./lessons/` and the rest) resolve from
 the workspace directory.
 
-**Location.** Continue in the current directory when its `MISSION.md` is this
-learner's mission. Otherwise create `~/learning/<topic>/`, where `<topic>` is a
-short kebab-case name for the mission, and state the path when you create it; if
-that directory already belongs to another mission or learner, choose another name.
-Use a different directory only when the learner names it. Never choose a code
-project or a worktree yourself: lessons do not belong in project history, and
-worktree cleanup deletes them. A location the learner names wins; when it is inside
-a worktree or a tracked project, say once which of those consequences applies,
-then use it.
+**Location.** A location the learner or caller names wins; when it is inside a
+worktree or a tracked project, say once that worktree cleanup can delete it or
+that its files enter project history, then use it. Otherwise continue in the
+current directory when its `MISSION.md` is this learner's mission, or create
+`~/learning/<topic>/`, where `<topic>` is a short kebab-case name for the mission,
+and state the path when you create it; if that directory already belongs to
+another mission or learner, choose another name. Never choose a code project or a
+worktree yourself: lessons do not belong in project history, and worktree cleanup
+deletes them.
 
 **Language.** Workspace files are the learner's study material: write them in the
 learner's language, even where other rules put written artifacts in English. When
@@ -146,6 +146,8 @@ The lesson should be short, and completable very quickly. Learners' working memo
 is very small, and we need to stay within it. But each lesson should give the
 learner a single tangible win that they can build on. It should be directly tied
 to the mission, and should be in the learner's zone of proximal development.
+Define each term or prerequisite before a lesson first relies on it, in a
+workspace lesson or a direct one.
 
 Each lesson should link via HTML anchors to other lessons and reference documents.
 
@@ -163,9 +165,8 @@ learner when the host offers a way, and always give its path.
 
 A direct lesson teaches in the conversation. Start with a plain definition, tie it
 to the learner's case, then walk one concrete example through the mechanism, with
-a contrasting case or limit when it changes the answer. Define each term or
-prerequisite before the lesson first relies on it. A list of parts or functions is
-reference, not teaching. An analogy may introduce the idea; state its limit and
+a contrasting case or limit when it changes the answer. A list of parts or
+functions is reference, not teaching. An analogy may introduce the idea; state its limit and
 return to the real mechanism. Match the depth the learner asked for; when they set
 none, give the smallest complete answer and, in a live conversation, offer more.
 If an explanation fails, find the missing prerequisite or misconception and change
@@ -194,14 +195,15 @@ the first position. As the workspace grows, so should the component library.
 Every workspace lesson should be tied into the mission - the reason that the
 learner is interested in learning about the topic.
 
-When a workspace has no `MISSION.md`, write it from what the learner already said.
-Your first job is to ask only for what that leaves unclear: why they want to learn
-this, and what they already know and can do for the first things the mission
-needs. Ask in one message, together with any language question. Record stated
-prior knowledge, with its depth, as learning records, and use it without retesting
-until an attempt contradicts it. If the learner declines questions or nobody can
-answer, write a provisional mission with its assumptions marked, and confirm or
-correct them as evidence arrives.
+When a workspace has no `MISSION.md`, your first job is to ask, in one message,
+only for what the learner's words leave unclear: why they want to learn this, and
+what they already know and can do for the first things the mission needs,
+together with any language question. Then write `MISSION.md` from what they said
+and answered. Record stated prior knowledge, with its depth, as learning records,
+and use it without retesting until an attempt contradicts it. If the learner
+declines questions, asked for a file or lesson now, or nobody can answer, write a
+provisional mission with its assumptions marked, and confirm or correct them as
+evidence arrives.
 
 Failing to understand the mission will mean knowledge acquisition is not grounded
 in real-world goals. Lessons will feel too abstract. You will have no way of
@@ -227,8 +229,8 @@ feedback criteria are stated in advance. Pace and scope follow the rules in
 
 After the roadmap, teach the first lesson in the same session. A question that
 only shapes a later objective goes beside that lesson, not before it. A plan-only
-request ends instead with `MISSION.md`, `ROADMAP.md`, the plan shown in the reply,
-and the first objective to start with. A request for a complete course delivers
+request ends instead with the plan shown in the reply and the first objective to
+start with, and, in a workspace, with `MISSION.md` and `ROADMAP.md`. A request for a complete course delivers
 the full content of every requested lesson now, not an outline with an offer to
 fill it in later.
 
@@ -262,15 +264,18 @@ a comfortable pass skips redundant practice. A failed one names the gap, reinfor
 the prerequisite or inserts a smaller objective, and earns a misconception record
 once the learner shows they see why. Presented or supported work never makes an
 objective `met`; when the learner declines practice, the status stays and
-understanding is not measured.
+understanding is not measured. A learner who has declined practice still
+advances: skip the practice in step 1, and count their `presented` objectives as
+satisfying `Needs`.
 
 After a milestone, compare the learner's work with the success items it serves:
 name the recurring blockers and weak concepts, decide what to reinforce and what to
 defer, and set the next checkpoint. Then propose the milestone's real application
 or a community rather than another lesson of new material. When every success item
 is met, say so and propose a retention review, real practice or a new mission
-instead of producing more lessons. A request to review or skip ahead wins: mark an
-objective `reported` only when the learner states they know it; otherwise defer it.
+instead of producing more lessons. A request to review or skip ahead wins. For a
+skipped objective, record `reported` when the learner states they know it;
+otherwise move it to Deferred.
 
 When resuming, treat the person continuing as the workspace's learner unless they
 say otherwise or the request contradicts `MISSION.md`; another person gets their

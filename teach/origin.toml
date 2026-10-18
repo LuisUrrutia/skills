@@ -27,7 +27,7 @@ where = [
 ]
 
 [[invariants]]
-rule = "Unknown facts stay unknown: no invented links, company numbers, historical rationale or delivery guarantees. Illustrative numbers are labeled fictional, a marketing claim is not a result, and explanation from model knowledge that no source confirmed is labeled unverified."
+rule = "Unknown facts stay unknown: no invented links, company numbers, historical rationale or delivery guarantees. Illustrative numbers are labeled fictional, a marketing claim is not a result, and a claim that needed a source none could be reached for is labeled unverified model knowledge."
 where = ["SKILL.md#knowledge", "RESOURCES-FORMAT.md#rules", "references/business.md"]
 
 [[invariants]]
@@ -40,7 +40,7 @@ reason = "Carried from the retired learning-plan skill, which saved no transcrip
 where = ["SKILL.md#teaching-workspace", "LEARNING-RECORD-FORMAT.md#what-does-_not_-qualify"]
 
 [[invariants]]
-rule = "The skill never chooses a code project or a worktree for a workspace; its default is `~/learning/<topic>/`, stated when created. A location the learner explicitly names wins, including one inside a worktree or a tracked project: the skill states once that worktree cleanup can delete it or that the files enter project history, then uses it without asking again. \"Never\" constrains the agent's choice, not the learner's."
+rule = "The skill never chooses a code project or a worktree for a workspace; its default is `~/learning/<topic>/`, stated when created. A location the learner, or a calling workflow, explicitly names wins, including one inside a worktree or a tracked project: the skill states once that worktree cleanup can delete it or that the files enter project history, then uses it without asking again. \"Never\" constrains the agent's choice, not the learner's."
 reason = "User decision of 2026-10-18 (analysis option 2(b), clarified by the coordinator the same day): the current directory is used only when it already holds a workspace or the learner names it."
 where = ["SKILL.md#teaching-workspace"]
 
@@ -109,7 +109,7 @@ reason = "User decision of 2026-10-18. The base's own documentation says it is \
 where = ["SKILL.md#teach", "SKILL.md#choose-the-shape", "SKILL.md#direct-lessons"]
 
 [[sources.deviations]]
-change = "Replaced \"Treat the current directory as a teaching workspace\", resolved from \"the directory `/teach` was run in\", with a location rule: continue in the current directory when its MISSION.md is this learner's, otherwise create `~/learning/<topic>/` and state the path, use another directory only when the learner names it, and never choose a code project or a worktree; a learner-named location inside one is used after the skill states once that worktree cleanup can delete it or that the files enter project history."
+change = "Replaced \"Treat the current directory as a teaching workspace\", resolved from \"the directory `/teach` was run in\", with a location rule: continue in the current directory when its MISSION.md is this learner's, otherwise create `~/learning/<topic>/` and state the path, use another directory only when the learner or a caller names it, and never choose a code project or a worktree; a learner-named location inside one is used after the skill states once that worktree cleanup can delete it or that the files enter project history."
 reason = "User decision of 2026-10-18 on the location and its root. Sessions usually start in a code repository or a disposable worktree, whose cleanup would delete the lessons; the base's documentation also says to keep the workspace out of the project you are working in. `/teach` is Claude Code slash syntax, and the skill also runs in Codex."
 where = ["SKILL.md#teaching-workspace"]
 
@@ -129,12 +129,12 @@ reason = "The user retired the learning-plan skill into teach, so study plans an
 where = ["SKILL.md#roadmap", "ROADMAP-FORMAT.md", "MISSION-FORMAT.md#template", "MISSION-FORMAT.md#rules"]
 
 [[sources.deviations]]
-change = "Restructured Zone Of Proximal Development into a two-step procedure over the roadmap and the learning records: choose the lesson's target (finish an objective in progress, otherwise the earliest open objective whose needs are satisfied), then add a changed-context retrieval task for every objective that is due, turning the lesson into a review when several are. After a milestone the skill reviews and proposes real application; when every success item is met it stops producing lessons; a skipped objective is deferred unless the learner states they know it. Removed \"used to calculate the zone of proximal development\" from the learning-record description."
+change = "Restructured Zone Of Proximal Development into a two-step procedure over the roadmap and the learning records: choose the lesson's target (finish an objective in progress, otherwise the earliest open objective whose needs are satisfied), then add a changed-context retrieval task for every objective that is due, turning the lesson into a review when several are. After a milestone the skill reviews and proposes real application; when every success item is met it stops producing lessons; a skipped objective is deferred unless the learner states they know it; a learner who declined practice still advances, with presented objectives satisfying prerequisites. Removed \"used to calculate the zone of proximal development\" from the learning-record description."
 reason = "The base's documentation reports that nothing schedules a review and that the skill lacks exit criteria. A learning record holds observed evidence; it does not compute a psychological measure."
 where = ["SKILL.md#zone-of-proximal-development", "LEARNING-RECORD-FORMAT.md"]
 
 [[sources.deviations]]
-change = "Replaced \"If the user is unclear about the mission, or the MISSION.md is not populated, your first job should be to question the user\" with writing MISSION.md from what the learner already said and asking, in one message, only what that leaves unclear, including a baseline check of what they already know and can do for the first objectives. Stated knowledge is recorded with its depth and used without retesting, and a learner who declines questions gets a provisional mission with marked assumptions instead of a blocked session."
+change = "Replaced \"If the user is unclear about the mission, or the MISSION.md is not populated, your first job should be to question the user\" with asking, in one message, only what the learner's words leave unclear, including a baseline check of what they already know and can do for the first objectives and any language question, then writing MISSION.md from what they said and answered. Stated knowledge is recorded with its depth and used without retesting, and a learner who declines questions gets a provisional mission with marked assumptions instead of a blocked session."
 reason = "The base's documentation calls assumed knowledge and undefined terms the most common real complaint and records the missing assessment step as a standing request (https://github.com/mattpocock/skills/issues/725). Local teaching uses stated knowledge without retesting and lets the learner decline questions."
 where = ["SKILL.md#the-mission", "MISSION-FORMAT.md#template", "MISSION-FORMAT.md#rules"]
 
@@ -215,7 +215,7 @@ idea = "For a codebase subject, one investigator establishes how the code works 
 serves = "Code lessons rest on evidence without repeating the investigation, and no rationale is invented."
 where = ["SKILL.md#knowledge"]
 shapes = "Makes the codebase route in Knowledge name explain-code and explain-decisions and require their uncertainty to survive into the lesson."
-adapted = "The donor runs its how and why skills for every subject it teaches, both for a subsystem and possibly one for a small change. Here explain-decisions runs only when the reasons matter, a subject other than a codebase needs neither, and accessible evidence replaces them when they are unavailable."
+adapted = "The donor teaches only bodies of code and runs its how and why skills on each, both for a subsystem and perhaps one for a small change. Here explain-decisions runs only when the reasons matter, a subject other than a codebase needs neither, and accessible evidence replaces them when they are unavailable."
 
 [[sources.declined]]
 feature = "No quizzes in any lesson."
@@ -433,10 +433,11 @@ shapes = "Opens the practice reference with what practice tests, keeps answers a
 adapted = "The donor's check-ins are always static. Here an HTML lesson checks answers on the page, and a live learner attempts before the solution appears."
 
 [[sources.ideas]]
-idea = "An explanation states the limits of its evidence where they apply, and a claim that no source supported is marked as such instead of sounding established."
+idea = "An explanation states the limits of its evidence where they apply, and a claim whose evidence was unavailable is marked as such instead of sounding established."
 serves = "The learner can use a lesson accurately and knows which parts to check."
 where = ["SKILL.md#knowledge"]
-shapes = "Adds the unverified label for explanation from model knowledge that no reachable source confirmed."
+shapes = "Adds the unverified label to Knowledge."
+adapted = "The label applies only to claims that needed a source that could not be reached; facts that need no check, and claims checked in supplied material, carry none."
 
 [[sources.declined]]
 feature = "Check-ins that are always static text and never pose a question in the conversation."
