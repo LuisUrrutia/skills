@@ -52,8 +52,12 @@ count. There, hand each new skill, and each change that adds, removes or alters 
 rule, a source idea, a deviation from its base or a dependency, to
 `skill-maintenance` with the user's reason; when `skill-maintenance` coordinates
 the change, it records the result itself. After headings or files move in a skill
-with a record, have `skill-maintenance` check the record. Elsewhere, create a
-record only when the user asks.
+with a record, have `skill-maintenance` check the record. Elsewhere, a record
+exists only when the user asks for one, and `skill-maintenance` creates it.
+
+The hand-over is the decisions with their reasons, never a record file. When
+`skill-maintenance` cannot run, put the hand-over in the report and leave every
+`origin.toml` unwritten, even as a draft or placeholder.
 
 ## Review a skill change
 
