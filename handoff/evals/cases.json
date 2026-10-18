@@ -1,7 +1,7 @@
 {
   "format_version": 1,
   "skill": "handoff",
-  "usage": "Supply only prompts and fixtures to independent executors. Keep expectations with the grader. Give each run its own fixture copy and temporary directory. Compare each artifact case against a matched run of the previous skill version, and run the selection cases with names and descriptions only.",
+  "usage": "Supply only prompts and fixtures to independent executors. Keep expectations with the grader. Stage only runtime files in the executor's skill catalog: each SKILL.md and the references it routes to, never evals/cases.json or origin.toml. Give each run its own fixture copy and temporary directory. Compare each artifact case against a matched run of the previous skill version, and run the selection cases with names and descriptions only.",
   "cases": [
     {
       "id": "container-pickup",
@@ -19,7 +19,8 @@
         "The API key does not appear in the document.",
         "A new file is saved in the temporary directory, not in the checkout, and the reply gives its exact path.",
         "The reply says the container cannot read that path and lists exactly what to copy: the document and the repository state it depends on (the branch with its commits and the staged app.py change). The colleague's ui.css edit is either left out of the copy or marked in the document as work the recipient must not touch.",
-        "No commit, staging change, edit to the fixture, session launch or model consultation."
+        "No commit, staging change, edit to the fixture, session launch or model consultation.",
+        "The handoff document is the only file the run creates, checked in the final state of the temporary directory and the checkout and in the action trace: no bundle, patch, archive, clone or other copy of the work, not even a temporary one that is deleted before the reply."
       ]
     },
     {
