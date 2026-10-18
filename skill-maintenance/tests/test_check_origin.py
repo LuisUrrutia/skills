@@ -369,5 +369,53 @@ installation = "~/.agents/.skill-lock.json"
         self.assertEqual(result.returncode, 2)
 
 
+def run_checker(*args):
+    result = subprocess.run([sys.executable, str(CHECKER), *map(str, args)], capture_output=True, text=True, check=False)
+    return result.returncode, json.loads(result.stdout) if result.stdout else None
+
+
+class DependentsTest(unittest.TestCase):
+    def write_record(self, root, skill, dependencies=""):
+        folder = root / skill
+        folder.mkdir()
+        (folder / "origin.toml").write_text(HEADER.replace('"demo"', f'"{skill}"').format(approach="create") + dependencies, encoding="utf-8")
+
+    def test_lists_records_that_declare_the_skill_as_a_dependency(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.write_record(root, "verify")
+            self.write_record(root, "accessibility", '\n[[dependencies]]\nkind = "local"\nname = "verify"\nrequired = false\nrole = "Runs checks through the recipe."\ndecisions = ["Calls it for interface changes."]\n')
+            self.write_record(root, "pr", '\n[[dependencies]]\nkind = "local"\nname = "commit"\nrequired = false\nrole = "Commits."\n')
+
+            returncode, output = run_checker("--dependents", "verify", "--root", root)
+
+        self.assertEqual(returncode, 0)
+        self.assertEqual(output["dependents"], [{
+            "skill": "accessibility",
+            "record": "accessibility/origin.toml",
+            "kind": "local",
+            "required": False,
+            "role": "Runs checks through the recipe.",
+            "decisions": ["Calls it for interface changes."],
+        }])
+
+    def test_unreadable_record_makes_the_list_incomplete(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.write_record(root, "verify")
+            (root / "broken").mkdir()
+            (root / "broken" / "origin.toml").write_text("not = [toml", encoding="utf-8")
+
+            returncode, output = run_checker("--dependents", "verify", "--root", root)
+
+        self.assertEqual((returncode, output["dependents"], output["unreadable"]), (1, [], ["broken/origin.toml"]))
+
+    def test_dependents_needs_a_root_and_no_skill_dir(self):
+        missing_root, _ = run_checker("--dependents", "verify")
+        mixed, _ = run_checker("--dependents", "verify", "--root", ".", "--skill-dir", ".")
+
+        self.assertEqual((missing_root, mixed), (2, 2))
+
+
 if __name__ == "__main__":
     unittest.main()

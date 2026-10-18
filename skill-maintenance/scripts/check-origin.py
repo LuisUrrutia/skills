@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Check a skill's origin.toml provenance record against format version 2."""
+"""Check skills' origin.toml records against format version 2, or list the records that depend on a skill."""
 
 import argparse
 import datetime
@@ -422,10 +422,42 @@ class Checker:
             self.issue("approach-mismatch", "approach wrap needs an installed dependency.", "approach")
 
 
+def dependents(name, root):
+    found, unreadable = [], []
+    for record in sorted(root.rglob("origin.toml")):
+        relative = record.relative_to(root)
+        if any(part.startswith(".") for part in relative.parts):
+            continue
+        try:
+            data = tomllib.loads(record.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, tomllib.TOMLDecodeError):
+            unreadable.append(str(relative))
+            continue
+        entries = data.get("dependencies", [])
+        for dependency in entries if isinstance(entries, list) else []:
+            if isinstance(dependency, dict) and dependency.get("name") == name:
+                found.append({"skill": record.parent.name, "record": str(relative),
+                              **{key: dependency[key] for key in ("kind", "required", "role", "decisions") if key in dependency}})
+    return found, unreadable
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--skill-dir", action="append", required=True, type=Path, help="skill folder that contains origin.toml; repeat for several skills")
+    parser.add_argument("--skill-dir", action="append", type=Path, help="skill folder that contains origin.toml; repeat for several skills")
+    parser.add_argument("--dependents", metavar="SKILL", help="list the records under --root that declare SKILL as a dependency, instead of checking records")
+    parser.add_argument("--root", type=Path, help="repository root searched by --dependents")
     args = parser.parse_args(argv)
+    if args.dependents:
+        if args.skill_dir or not args.root:
+            parser.error("--dependents needs --root and no --skill-dir")
+        if not args.root.is_dir():
+            print(json.dumps({"error": "not a directory", "paths": [str(args.root)]}), file=sys.stderr)
+            return 2
+        found, unreadable = dependents(args.dependents, args.root)
+        print(json.dumps({"skill": args.dependents, "root": str(args.root), "dependents": found, "unreadable": unreadable}, indent=2))
+        return 1 if unreadable else 0
+    if not args.skill_dir:
+        parser.error("--skill-dir is required")
     missing = [str(path) for path in args.skill_dir if not path.is_dir()]
     if missing:
         print(json.dumps({"error": "not a directory", "paths": missing}), file=sys.stderr)
