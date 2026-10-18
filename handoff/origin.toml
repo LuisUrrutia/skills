@@ -13,12 +13,12 @@ rule = "A saved document proves neither receipt nor a transfer of ownership. The
 where = ["SKILL.md#handoff", "SKILL.md#save-and-report"]
 
 [[invariants]]
-rule = "Without a destination named in the request or by the calling workflow, the document is saved in the operating system's temporary directory, never in the workspace or repository. When that directory cannot serve the pickup, because the recipient runs on another machine or container or picks up after the directory may be cleared, the skill still saves there, says so and lists exactly what to copy; it does not choose another location. A named destination wins."
+rule = "Without a destination named in the user's request, including one a calling workflow forwards, the document is saved in the operating system's temporary directory, never in the workspace or repository. When that directory cannot serve the pickup, because the recipient runs on another machine or container or picks up after the directory may be cleared, the skill still saves there, says so and lists exactly what to copy; it does not choose another location, and a calling workflow does not choose one either. A destination named in the user's request wins."
 reason = "User decision of 2026-10-18. The previous text let the agent choose any destination whose access and lifetime seemed to fit, which could put an unrequested handoff file into a tracked tree."
 where = ["SKILL.md#save-and-report"]
 
 [[invariants]]
-rule = "The continuation guidance inside the document is written with agent-instructions when it is available, and writing a handoff never starts the two-model review that agent-instructions requires, even when the request asks for guidance aimed at another agent: a handoff request is not a request for instruction authoring."
+rule = "The continuation guidance inside the document is written with agent-instructions, or without it when the skill catalog lacks it, and writing a handoff never starts the two-model review that agent-instructions requires, even when the request asks for guidance aimed at another agent: a handoff request is not a request for instruction authoring."
 reason = "User decision of 2026-10-18: a handoff records the state of the work so that other agents can pick it up, so its guidance follows agent-instructions, but a handoff never triggers the two-model consultation."
 where = ["SKILL.md#write-the-document"]
 
@@ -71,7 +71,7 @@ reason = "Codex's skill validator accepts only name, description, license, allow
 where = ["SKILL.md#choose-what-travels"]
 
 [[sources.deviations]]
-change = "Replaced the description 'Compact the current conversation into a handoff document for another agent to pick up.' with a selection description that starts with 'Use when' and is limited to writing a handoff document."
+change = "Replaced the description 'Compact the current conversation into a handoff document for another agent to pick up.' with a selection description that starts with 'Use when' and is limited to writing a handoff document; the base description's 'compact' moves into the opening sentence."
 reason = "The repository's description convention, and a model-invocable skill must not catch ordinary compaction, planning, resumption or delegation requests. Selection probes chose handoff for a plain request to delegate a question to a parallel agent while the description also named side tasks, so side tasks stay in the body only."
 where = ["SKILL.md"]
 
@@ -91,7 +91,7 @@ reason = "The recipient cannot open the original conversation, so a pointer to i
 where = ["SKILL.md#choose-what-travels"]
 
 [[sources.deviations]]
-change = "Added that the continuation guidance, including the limits the user set, is written with agent-instructions when it is available, and that writing a handoff never starts the two-model review of agent-instructions, because a handoff request is not a request for instruction authoring."
+change = "Added that the continuation guidance, including the limits the user set, is written with agent-instructions, or without it when the skill catalog lacks it, and that writing a handoff never starts the two-model review of agent-instructions, because a handoff request is not a request for instruction authoring."
 reason = "The agent-instructions invariant (user decision of 2026-10-18)."
 where = ["SKILL.md#write-the-document"]
 
@@ -106,7 +106,7 @@ reason = "Task-relevant ownership, such as which colleague owns an uncommitted e
 where = ["SKILL.md#write-the-document"]
 
 [[sources.deviations]]
-change = "Added that a destination named in the request or by the calling workflow takes precedence over the temporary directory, widened 'not the current workspace' to the workspace or repository, and added that an existing file is replaced only when the request names it for update."
+change = "Added that a destination named in the user's request, including one a calling workflow forwards, takes precedence over the temporary directory, widened 'not the current workspace' to the workspace or repository, and added that an existing file is replaced only when the request names it for update."
 reason = "The destination invariant (user decision of 2026-10-18). The user's own repository handoffs were all written to destinations named in their requests."
 where = ["SKILL.md#save-and-report"]
 
@@ -319,5 +319,5 @@ required = false
 role = "Guides how the continuation guidance inside the document is written."
 decisions = [
   "Writing a handoff never starts the two-model review that agent-instructions requires, even when the request asks for guidance aimed at another agent (user decision of 2026-10-18).",
-  "The skill uses agent-instructions when it is available; without it, the document is still written.",
+  "When the skill catalog lacks agent-instructions, the guidance is written without it and the document is still saved.",
 ]

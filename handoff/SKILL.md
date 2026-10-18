@@ -5,10 +5,10 @@ description: Use when writing a handoff document so another agent or session can
 
 # Handoff
 
-Write a handoff document summarizing the current conversation so a fresh agent
-can continue the work. The document records the state of the work for another
-agent to pick up: in another session, host, or directory, through a colleague,
-or as a side task forked while this session keeps running.
+Write a compact handoff document summarizing the current conversation so a
+fresh agent can continue the work. The document records the state of the work
+for another agent to pick up: in another session, host, or directory, through a
+colleague, or as a side task forked while this session keeps running.
 
 This skill writes and saves the document only. Launching or seeding a session,
 pausing, cancelling agents, committing, publishing, changing worktrees, and
@@ -50,12 +50,12 @@ basis:
 - For repository work, the branch, revision, and staged and uncommitted changes,
   keeping the task's changes apart from other work that must survive.
 
-Use `agent-instructions`, when it is available, to write the continuation
-guidance: the next action, what to read first, and the limits the user set, such
-as no commits, publication, or deployment. Writing a handoff never starts the
-two-model review that `agent-instructions` requires, even when the request asks
-for guidance aimed at another agent: a handoff request is not a request for
-instruction authoring.
+Use `agent-instructions` to write the continuation guidance: the next action,
+what to read first, and the limits the user set, such as no commits,
+publication, or deployment. When the skill catalog lacks it, write the guidance
+without it. Writing a handoff never starts the two-model review that
+`agent-instructions` requires, even when the request asks for guidance aimed at
+another agent: a handoff request is not a request for instruction authoring.
 
 Include a "Suggested skills" section that names, by registered name, the skills
 the next agent should use; the receiving environment resolves and invokes them.
@@ -65,10 +65,11 @@ personal data.
 
 ## Save and report
 
-Save to the destination the request or calling workflow names. Otherwise save to
-the temporary directory of the user's OS (`$TMPDIR`, else `/tmp`; `%TEMP%` on
-Windows), not the current workspace or repository. Create a new file; replace an
-existing one only when the request names it for update.
+Save to the destination the user's request names, including when a calling
+workflow forwards it. Otherwise save to the temporary directory of the user's OS
+(`$TMPDIR`, else `/tmp`; `%TEMP%` on Windows), not the current workspace or
+repository. Create a new file; replace an existing one only when the request
+names it for update.
 
 When the temporary directory cannot serve the pickup, because the recipient runs
 on another machine or container or picks up after the directory may be cleared,
