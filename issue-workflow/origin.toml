@@ -2,7 +2,7 @@ format_version = 2
 skill = "issue-workflow"
 created = "2026-10-05"
 approach = "derive"
-goal = "Keep a ticket's workflow state in step with real delivery events under the consuming project's own transition policy, and publish prepared tasks to the project's tracker when requested. Each operation ends with the exact destination verified on the exact ticket, or with a reported outcome such as unchanged, skipped, pending automation or blocked and the evidence that decided it."
+goal = "Keep a ticket's workflow state in step with real delivery events under the designated transition policy, and publish prepared tasks to the project's tracker when requested. The consuming project keeps that policy; when its team does not follow one, the user can keep a user-level policy on their own machine for their own work. Each operation ends with the exact destination verified on the exact ticket, or with a reported outcome such as unchanged, skipped, pending automation or blocked and the evidence that decided it."
 
 [[invariants]]
 rule = "Transition rules belong to the designated tracker policy, not to the skill. A transition needs a complete, active rule for the verified event: target branch, allowed source states, destination, completion conditions and exactly one owner. A missing, ambiguous or inactive rule blocks that transition and never authorizes a guessed one."
