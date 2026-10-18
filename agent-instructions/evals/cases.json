@@ -501,7 +501,7 @@
         "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort, and brief, and returns no findings."
       },
       "expectations": [
-        "Codex Astra and Claude Fable are each requested once at Max with the same request and target before the findings are final.",
+        "Codex Astra and Claude Fable are each requested once at xhigh with the same request and target before the findings are final.",
         "Each brief describes a bounded read-only consultation whose reviewer must not edit or start another pair.",
         "Findings identify the conflict between the changelog-link rule and the plain-text rule, with evidence.",
         "The skill file remains byte-identical."
@@ -518,7 +518,7 @@
         "consult_runner": "A fake runner records each consultation with its model, effort, and brief. Run two independent variants: Claude Fable returns 'Claude API rate limit reached. Try again later.' while Codex Astra returns no findings; Codex Astra returns 'Usage limit reached; resets in 4 hours.' while Claude Fable returns no findings. A repeated request to the limited profile records a retry and returns the same limit error."
       },
       "expectations": [
-        "Each profile is requested once at Max; the limited profile is neither retried nor replaced, and the executor does not wait for its limit to reset.",
+        "Each profile is requested once at xhigh; the limited profile is neither retried nor replaced, and the executor does not wait for its limit to reset.",
         "The available review is collected and the final findings identify the changelog-link conflict with evidence.",
         "The report names the skipped profile and its rate or usage limit without calling the result provisional or blocked or requesting permission to finalize.",
         "The skill file remains byte-identical."
@@ -532,13 +532,13 @@
         "files": {
           "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text without links.\n"
         },
-        "saved_state": "The file is the frozen candidate reviewed in round one. Both consultations used fresh contexts with identical briefs and Max effort. The recorded Claude Fable result is 'Claude API rate limit reached. Try again later.' The recorded Codex Astra finding identifies the retained ban on links as contradicting the requested changelog-link rule. Neither result has been reconciled yet.",
+        "saved_state": "The file is the frozen candidate reviewed in round one. Both consultations used fresh contexts with identical briefs and xhigh effort. The recorded Claude Fable result is 'Claude API rate limit reached. Try again later.' The recorded Codex Astra finding identifies the retained ban on links as contradicting the requested changelog-link rule. Neither result has been reconciled yet.",
         "consult_runner": "A fake runner starts with the two recorded first-round requests and records each subsequent consultation with its model, effort, and brief. Run two independent variants: Codex Astra returns no findings on the corrected candidate; Codex Astra instead returns a usage-limit error on the corrected candidate. Claude Fable returns the same rate-limit error if requested again."
       },
       "expectations": [
         "The completed edit requires changelog links and removes the contradictory ban on links.",
         "Claude Fable is requested once in total and is skipped in subsequent review rounds during this task.",
-        "Codex Astra is consulted on the changed meaning at Max, and the original finding is accounted for.",
+        "Codex Astra is consulted on the changed meaning at xhigh, and the original finding is accounted for.",
         "If Codex Astra completes the new review, the final report records the Claude Fable skip without treating it as a blocker or asking the user to authorize completion.",
         "If Codex Astra reaches its usage limit in the new round, it is not retried; the corrected draft stays provisional because no profile reviewed its changed meaning, despite the earlier completed review."
       ]
@@ -572,7 +572,7 @@
         "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort, and brief, and returns no findings."
       },
       "expectations": [
-        "Codex Astra and Claude Fable are each requested once at Max, with the user's quoted request and the same target, before the findings are final, because the brief relays the user's request and assigns the pair to the delegate.",
+        "Codex Astra and Claude Fable are each requested once at xhigh, with the user's quoted request and the same target, before the findings are final, because the brief relays the user's request and assigns the pair to the delegate.",
         "Each brief describes a bounded read-only consultation whose reviewer must not edit or start another pair.",
         "Findings identify the conflict between the changelog-link rule and the plain-text rule, with evidence.",
         "The skill file remains byte-identical."
@@ -634,7 +634,136 @@
         "The report explains why the suggested pointer to references/review.md was not followed.",
         "pr-followup's own link to references/feedback.md survives, and pr-followup does not copy comment-style's reply rules.",
         "comment-style files remain unchanged.",
-        "Codex Astra and Claude Fable are each requested at Max before the files are final."
+        "Codex Astra and Claude Fable are each requested at xhigh before the files are final."
+      ]
+    },
+    {
+      "id": "handoff-never-starts-pair",
+      "kind": "state-transition",
+      "prompt": "Write a handoff so a fresh agent can continue this migration task tomorrow. Tell it exactly how to continue.",
+      "fixture": {
+        "available_skills": "handoff and agent-instructions are installed; handoff selects agent-instructions for the continuation guidance inside the document.",
+        "task_state": "Branch feat/orders-migration. Done: migration 0042 adds orders.status_reason, tests pass with `pnpm test`. Pending: backfill script for existing rows; the user chose a nullable column over a default. Blocker: none.",
+        "variants": "Run independently: the request above; and 'Review the continuation instructions in handoff.md before I send it. Report findings without editing it.' with a supplied handoff.md whose next step says 'run the backfill' without naming the script or its dry-run flag.",
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort, and brief, and returns no findings."
+      },
+      "expectations": [
+        "No Codex Astra or Claude Fable consultation is requested in either variant, although the user explicitly asked for a document that instructs another agent.",
+        "The first variant saves a handoff whose next action, decisions and verification state let a cold reader continue; the second returns findings about the unnamed script and dry-run flag and leaves handoff.md byte-identical.",
+        "The report does not call the result provisional or blocked for lack of the pair."
+      ]
+    },
+    {
+      "id": "pointer-one-trigger-per-branch",
+      "kind": "artifact",
+      "prompt": "The db-migrations skill triggers unreliably and its description is long. Revise only its description and report the checks you ran.",
+      "fixture": {
+        "files": {
+          "skills/db-migrations/SKILL.md": "---\nname: db-migrations\ndescription: Use when writing, creating, adding, authoring, generating or scripting database migrations, schema migrations, schema changes or DB migration files. First inspect the current schema, then write the up and down migration, then run it against the local database and check the rollback.\n---\n\n# Database migrations\n\n1. Inspect the current schema and the latest migration.\n2. Write the up and down migration in migrations/.\n3. Run it against the local database, then roll it back and forward again.\n"
+        },
+        "selection_setup": "Give the resulting name and description, without the body, to a separate selector beside these fixed neighbors and withhold the expectations.",
+        "neighbor_descriptions": {
+          "design-code-structure": "Use when designing, comparing, or improving data models, interfaces, and module boundaries for a software change.",
+          "debug": "Use when diagnosing or fixing an observed software bug or performance regression."
+        },
+        "queries": [
+          "Add a nullable status_reason column to orders.",
+          "Write the migration that renames customers.email to contact_email.",
+          "Design the data model for invoices and credit notes."
+        ],
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort, and brief, and returns no findings."
+      },
+      "expectations": [
+        "The description collapses the synonyms into one trigger per distinct branch, front-loads the migration trigger, and drops the procedure summary; the body is byte-identical.",
+        "Any exclusion it adds answers the shown collision with data-model design, not a hypothetical one, and no machine example list or capability catalog appears.",
+        "The independent selector picks db-migrations for the first two queries and design-code-structure for the third.",
+        "The selector result is reported as a selection probe, not observed host invocation."
+      ]
+    },
+    {
+      "id": "no-op-and-cache-pruning",
+      "kind": "artifact",
+      "prompt": "Make the Conventions section of AGENTS.md shorter without losing anything that matters. Edit the file and report what you removed and why.",
+      "fixture": {
+        "files": {
+          "AGENTS.md": "# Project\n\n## Conventions\n\nWrite clean, readable code.\nBe thorough when testing.\nRun tests with `pnpm test`.\nUse pnpm: `npm install` breaks the workspace protocol.\nRefunds use the captured exchange rate, never the current spot rate.\nPrefer one-line comments.\n",
+          "package.json": "{\n  \"name\": \"shop\",\n  \"packageManager\": \"pnpm@10.0.0\",\n  \"scripts\": {\n    \"test\": \"vitest run\"\n  }\n}\n"
+        },
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort, and brief, and returns no findings."
+      },
+      "expectations": [
+        "Generic encouragement that changes no behavior is deleted as whole sentences, not trimmed.",
+        "The test-command line, which package.json answers, is removed or justified; the pnpm line keeps its reason about the workspace protocol.",
+        "The captured-rate domain rule survives, and the comment rule stays at prefer strength.",
+        "'Be thorough' is deleted or replaced with a stronger concrete criterion, not kept as is; the report labels deletions as static judgments rather than measured results."
+      ]
+    },
+    {
+      "id": "completion-criterion-sharpening",
+      "kind": "artifact",
+      "prompt": "Agents using the impact-scan skill stop investigating too early. Revise the skill to fix that and return the complete revised SKILL.md.",
+      "fixture": {
+        "files": {
+          "skills/impact-scan/SKILL.md": "---\nname: impact-scan\ndescription: Use when listing what a change to a shared function could break before opening its PR.\n---\n\n# Impact scan\n\n1. Understand the affected code.\n2. Write the change list.\n3. Open the PR when the user has authorized it.\n"
+        },
+        "run_log": "The agent searched for one caller, listed 2 of the 7 callers of formatPrice, wrote the change list and opened the authorized PR. No subagent was used; all steps ran in one conversation.",
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort, and brief, and returns no findings."
+      },
+      "expectations": [
+        "Step 1 ends on a checkable, exhaustive criterion, such as every caller of the changed symbol found by search and listed with its location.",
+        "The skill stays one document, because the run shows no real context boundary to hide the later steps behind.",
+        "The PR step keeps its authorization condition, and the fix adds no bare prohibition such as 'do not stop early'."
+      ]
+    },
+    {
+      "id": "host-invocation-controls",
+      "kind": "artifact",
+      "prompt": "Make the new deploy-notes skill reachable only when I type its name, in both Claude Code and Codex. Edit the files.",
+      "fixture": {
+        "files": {
+          "skills/deploy-notes/SKILL.md": "---\nname: deploy-notes\ndescription: Use when drafting deployment notes, release summaries, rollout announcements or change notices from merged pull requests.\n---\n\n# Deploy notes\n\nRead the merged pull requests and draft the notes. Publishing is a separate task.\n"
+        },
+        "host_documentation": "Codex: policy.allow_implicit_invocation in agents/openai.yaml; when false the skill is not injected into the model context by default but can be invoked explicitly via $skill. Defaults to true. Claude Code: disable-model-invocation: true removes the skill from the model's automatic use; the user can still invoke it by name.",
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort, and brief, and returns no findings."
+      },
+      "expectations": [
+        "SKILL.md sets disable-model-invocation: true and agents/openai.yaml sets policy.allow_implicit_invocation: false, with nothing else added to either file.",
+        "The description becomes a short human-facing summary without the trigger list.",
+        "The report states that the agent and other skills can no longer reach it on their own, and which host behavior was verified from the supplied documentation rather than observed.",
+        "The body is unchanged."
+      ]
+    },
+    {
+      "id": "leading-word-refactor",
+      "kind": "artifact",
+      "prompt": "Tighten the debugging section of this skill without changing what it asks. Return the revised section.",
+      "fixture": {
+        "section": "## Reproduce first\n\nBefore changing code, build a fast, deterministic, low-overhead feedback loop for the bug. Run the fast, deterministic, low-overhead feedback loop after each change. When the bug only shows in production, get a production trace before building a fast, deterministic, low-overhead feedback loop. Keep going until you have a loop you actually trust. Do not write slow tests.\n",
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort, and brief, and returns no findings."
+      },
+      "expectations": [
+        "One familiar term such as 'tight loop' replaces the repeated triad, is defined once where it narrows the ordinary sense, and is reused at each site; no coined word appears.",
+        "'A loop you actually trust' becomes an observable state, such as the loop failing on the bug, rather than a feeling.",
+        "The production-trace condition and the before-changing-code order survive, and the ban on slow tests becomes the positive target."
+      ]
+    },
+    {
+      "id": "agent-read-artifact-near-miss",
+      "kind": "selection",
+      "prompt": "For each request, choose the primary skill and any additional applicable skills using only their names and descriptions. Choose from agent-instructions, planning, task-breakdown, write-documentation, or none. Briefly explain each choice.",
+      "fixture": {
+        "queries": [
+          "Write the implementation plan for the OAuth migration; another agent executes it next session.",
+          "Split the OAuth migration plan into tickets that agents can pick up.",
+          "Update the README install steps for the new CLI flag.",
+          "Revise the system prompt of our support agent so it asks before refunding."
+        ],
+        "descriptions": "Use each skill's current frontmatter description."
+      },
+      "expectations": [
+        "The plan selects planning, the tickets select task-breakdown and the README selects write-documentation; agent-instructions is not selected for any of the three only because an agent reads the result.",
+        "The system prompt selects agent-instructions.",
+        "The result is reported as a selection probe, not observed host invocation."
       ]
     }
   ]

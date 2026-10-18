@@ -159,7 +159,7 @@ every capability belongs in every coding workflow.
 ## Authoring and evaluation contract
 
 The current [agent-instructions entrypoint](agent-instructions/SKILL.md) requires
-independent **Codex Astra Max and Claude Fable Max** consultations for instruction
+independent **Codex Astra and Claude Fable xhigh** consultations for instruction
 creation, editing and review that the user explicitly requests, alone or within a
 larger task. Instruction work an agent takes on by its own decision does not start
 them, nor does an agent's review of its own changes, inline or through a subagent.
@@ -173,11 +173,12 @@ override; preserve the actual profiles of historical runs rather than relabeling
 them.
 
 Read the applicable authoring references:
-[writing](agent-instructions/references/writing.md),
-[packaging](agent-instructions/references/skills.md),
+[skill mechanics](agent-instructions/references/skill-mechanics.md),
+[packaging](agent-instructions/references/packaging.md),
 [reuse](agent-instructions/references/reuse.md),
-[hosts](agent-instructions/references/hosts.md),
-[evaluation](agent-instructions/references/evaluation.md). Skill records and
+[model pair](agent-instructions/references/model-pair.md),
+[evaluation](agent-instructions/references/evaluation.md). The writing levers
+live in the entrypoint. Skill records and
 upstream maintenance are in [skill-maintenance](skill-maintenance/SKILL.md).
 
 These instructions now incorporate selected `ce-retune` ideas through cohesive

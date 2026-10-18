@@ -54,9 +54,7 @@ specialized context. Put extensive rationale or background in the project's
 existing documentation when needed. Link with a concrete reading condition;
 required detail cannot live only in a temporary research note.
 
-Use a reference when a branch needs substantial detail, with a loading condition
-in the entrypoint. A small instruction edit can stay in its existing paragraph.
-Do not create a skill merely because the target is an instruction file.
+An instruction file needs no skill merely because it is an instruction file.
 
 Avoid promoting a single incident, source example, or task-specific permission
 into a global requirement. When the user explicitly changes a standing rule,

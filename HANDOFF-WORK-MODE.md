@@ -676,8 +676,8 @@ or ask for permission before every phase.
    Separate actual external inspiration from local runtime dependencies. Retain
    applicable license notices in the package; inspect the source license rather
    than assuming all donor files have identical terms.
-6. Review a frozen candidate independently with the current Codex Astra Max and
-   Claude Fable Max profiles required by `agent-instructions`. Resolve current
+6. Review a frozen candidate independently with the current Codex Astra and
+   Claude Fable profiles required by `agent-instructions`. Resolve current
    IDs and effort from the live catalog, keep first contexts independent, retain
    actual run evidence, and reconcile material findings. Reconsult affected
    meaning after material revisions. Do not treat the old source reviews as this
@@ -712,9 +712,10 @@ authorization. A work-mode implementation does not require any of them by defaul
 
 ## 12. Validation contract for the future implementation
 
-Read `agent-instructions/references/evaluation.md`, `skills.md`, `reuse.md`, and
-`hosts.md` before deciding which claims the tests can establish. The following
-cases are proposed from the contract; they have not been executed.
+Read `agent-instructions/references/evaluation.md`, `skill-mechanics.md`,
+`packaging.md`, and `reuse.md` before deciding which claims the tests can
+establish. The following cases are proposed from the contract; they have not
+been executed.
 
 ### Behavioral cases
 
@@ -832,11 +833,11 @@ record before extending a historical claim; the export did not rerun its tests.
 - `HANDOFF.md`: earlier collection, atlas, and authoring context; chronology caveats
   in section 3 apply.
 - `HANDOFF-QA.md`: separate pending QA and e2e installation stream.
-- `agent-instructions/SKILL.md`: current instruction authoring and dual-review owner.
-- `agent-instructions/references/writing.md`: instruction wording.
-- `agent-instructions/references/skills.md`: activation, composition, and packaging.
+- `agent-instructions/SKILL.md`: current instruction authoring, wording, and dual-review owner.
+- `agent-instructions/references/skill-mechanics.md`: host metadata, invocation, and descriptions.
+- `agent-instructions/references/packaging.md`: bundled resources, helpers, and validation.
 - `agent-instructions/references/reuse.md`: install/wrap/derive/create decision.
-- `agent-instructions/references/hosts.md`: actual host metadata and invocation.
+- `agent-instructions/references/model-pair.md`: dual-review runners, briefs, and reconciliation.
 - `agent-instructions/references/evaluation.md`: behavioral evidence requirements.
 - `skill-maintenance/references/updates.md`: provenance and maintenance.
 - `reports/skill-atlas/planning-validation.json`: historical planning validation.

@@ -31,9 +31,8 @@ acquire a permanent evaluation suite.
 
 ## Compare the right instructions
 
-The required Codex and Claude consultations assess instructions; they do not
-replace behavioral checks. Compare new instructions with the same task without
-them, and revisions with the previous snapshot. Keep model, effort, tools,
+Compare new instructions with the same task without them, and revisions with the
+previous snapshot. Keep model, effort, tools,
 fixtures, authorization and output format equal within each pair. Use independent
 clean contexts with no access to another arm's instructions or answers.
 

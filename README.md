@@ -105,9 +105,9 @@ referenced guides, and agent prompts. New skills do not require prior use or rep
 **Triggers:** `update AGENTS.md`, `improve these agent instructions`, `create a skill`, `revise a skill`
 
 **Features:**
-- Requests Codex Astra and Claude Fable at Max for instruction work the user explicitly requests, then reconciles their independent reviews; if one reaches a rate or usage limit, continues with the other without retrying the limited profile or blocking progress. Instruction work or self-review the agent starts on its own skips them
+- Requests Codex Astra and Claude Fable at xhigh for instruction work the user explicitly requests, then reconciles their independent reviews; if one reaches a rate or usage limit, continues with the other without retrying the limited profile or blocking progress. Instruction work or self-review the agent starts on its own, and any handoff document, skips them
 - Edits the canonical instruction source at the intended scope
-- Writes clear rules, conditional references, and completion criteria
+- Writes on Matt Pocock's writing-for-agents levers: context pointers, the two loads, information hierarchy, completion criteria, guarded leading words, and pruning
 - Chooses between reusing, wrapping, deriving, or creating a skill before adding an implementation
 - Hands each skill decision to `skill-maintenance` for the skill's `origin.toml` record in a repository that keeps records
 - Validates the changed behavior in proportion to the task
