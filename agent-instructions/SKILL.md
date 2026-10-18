@@ -27,10 +27,6 @@ Write directly from either skill's evidence handoff or a fully supplied new
 capability; do not send it back through discovery. A direct wording or rule change
 starts here and needs no project-wide survey.
 
-For a request to check or update a skill from its recorded sources, use
-[references/upstream-updates.md](references/upstream-updates.md). Ordinary writing
-does not start an upstream check.
-
 ## Establish meaning and scope
 
 Read the complete target and enough surrounding instructions, imports, references,
@@ -123,8 +119,8 @@ Then load only the branch that applies:
   read [references/instruction-files.md](references/instruction-files.md) to locate
   the canonical source and choose the right scope.
 - For a new or existing skill, read [references/skills.md](references/skills.md)
-  for activation, composition, packaging, and provenance. This branch also covers
-  writing a skill that has never been used before.
+  for activation, composition, packaging, and recording decisions. This branch
+  also covers writing a skill that has never been used before.
 - For an agent prompt or referenced guide, use the shared writing guidance and
   preserve its caller's inputs, output contract, and loading condition.
 

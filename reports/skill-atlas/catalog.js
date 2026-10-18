@@ -4296,9 +4296,18 @@ window.SKILL_ATLAS = {
         "category": "Instruction authoring",
         "summary": "Write and evaluate agent instructions and skills, reconciling independent Codex Astra and Claude Fable reviews at Max.",
         "path": "agent-instructions/SKILL.md",
-        "sha256": "3d3b24f735d079fd4ec8e5942e0c603ad2530687d65b656748af7bd30daf8841",
+        "sha256": "4a281512c2bc14c3d5892c1be9d24326eeb110b539bbc6ed7e434e4835e9d3d8",
         "section": "authoring",
-        "checkedAt": "2026-10-09"
+        "checkedAt": "2026-10-18"
+      },
+      {
+        "name": "skill-maintenance",
+        "category": "Instruction authoring",
+        "summary": "Record each skill's goal, decisions and sources in origin.toml, and check or update a skill from its recorded sources or installed dependencies.",
+        "path": "skill-maintenance/SKILL.md",
+        "sha256": "5613dc18316cfb090602601880c08e8839adb3ec43d7aa82a01a31b4d2f57b6a",
+        "section": "authoring",
+        "checkedAt": "2026-10-18"
       },
       {
         "name": "create-project-instructions",

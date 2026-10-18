@@ -1,0 +1,68 @@
+---
+name: skill-maintenance
+description: Use when recording a skill's goal, sources or design decisions in its origin.toml, or when checking or updating a skill from its recorded sources or dependencies.
+---
+
+# Skill maintenance
+
+Keep each skill's `origin.toml` true to the skill: what the skill is for, the
+decisions that shape it, and the outside material it builds on. The record lets a
+later edit or update keep those decisions instead of guessing them.
+`agent-instructions` owns writing and evaluating the skill's text; this skill owns
+its record and its updates from recorded sources.
+
+Read [references/origin-format.md](references/origin-format.md) before writing a
+record. Then choose the task from the request:
+
+- **Record:** a skill is created, or a change adds, removes or alters a rule, an
+  adopted idea, a deviation from its base, or a dependency. `agent-instructions`
+  hands these changes over; a user can also ask directly.
+- **Check:** "check this skill for updates" reports candidate changes from its
+  sources and leaves the skill and its record unchanged.
+- **Update:** "update this skill from its sources" incorporates compatible changes
+  and records the review.
+
+Using a skill never fetches its sources, and none of these tasks creates a
+schedule.
+
+## Record decisions
+
+1. Read the skill, its record, and the change with the reason the user gave. A
+   skill without a record gets one: its `approach`, a `goal` that states what it
+   produces, for whom and what success looks like, and the invariants its text
+   already enforces.
+2. Write the decision as the entry a future editor needs:
+   - A rule the user wants kept, such as a scope boundary, an authority limit or
+     a host constraint: an invariant.
+   - A correction to the base: a deviation.
+   - A concept taken from a source: an idea. A donor behavior left out that a
+     later update could propose again: a decline.
+   - Something the skill uses at runtime: a dependency.
+3. Describe the decision, not the edit. A reader who never saw the conversation,
+   the source or the diff must understand what the skill does and why.
+4. Update or remove the entries the change makes false, including `where`
+   locations of renamed headings and moved files.
+
+Record only reasons the user stated or the evidence shows; leave `reason` out
+rather than invent one. The `goal` changes only on the user's statement, because
+every later decision is judged against it. Wording fixes and corrections that keep
+the meaning need no entry; Git history keeps them.
+
+## Check or update from sources
+
+Read [references/updates.md](references/updates.md). It covers both modes, the
+review range of each source, installed dependencies, and when the review cursor
+may advance. A partial run reports what stayed unresolved; it never claims the
+skill is fully synchronized.
+
+## Validate the record
+
+After any edit to a record, and after headings or files move in a skill that has
+one, run the checker described in
+[Check the record](references/origin-format.md#check-the-record). Fix every
+diagnostic. Then reread each new or changed entry as someone who never saw the
+source or the conversation would.
+
+Finish when the record matches the skill and the checker passes, or report the
+diagnostics that remain. Commits and publication follow the active repository
+rules and user authorization.

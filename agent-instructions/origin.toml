@@ -21,7 +21,7 @@ rule = "When the host supplies a skill creator, that creator owns current packag
 where = ["references/hosts.md#host-compatibility"]
 
 [[invariants]]
-rule = "A skill package stays host-neutral and self-contained: its resources resolve inside the skill folder, other skills are named by their registered names, and host-specific adapters stay separate. Its origin.toml records the base and its deviations, or the ideas taken and declined, with verified revisions."
+rule = "A skill package stays host-neutral and self-contained: its resources resolve inside the skill folder, other skills are named by their registered names, and host-specific adapters stay separate."
 reason = "The package must work after only the skill folder is copied to another account layout, with the author's checkout unavailable."
 where = [
   "references/skills.md#define-activation-and-responsibility",
@@ -40,7 +40,15 @@ where = [
   "SKILL.md#agent-instructions",
   "SKILL.md#choose-the-document-and-write",
   "references/skills.md#validate",
-  "references/upstream-updates.md#decide-and-incorporate",
+]
+
+[[invariants]]
+rule = "The skill-maintenance skill owns each skill's origin.toml: the record format, recording goals and decisions, and updates from recorded sources and installed dependencies. This skill writes and evaluates the skill text and hands every decision that changes a rule, a source idea, a base deviation or a dependency to skill-maintenance for recording."
+reason = "User decision on 2026-10-18: one skill records decisions and runs updates, instead of maintenance instructions repeated in every skill; every skill keeps its goal and decisions because people keep modifying skills."
+where = [
+  "references/skills.md#define-activation-and-responsibility",
+  "references/skills.md#validate",
+  "references/reuse.md#choose-what-to-maintain",
 ]
 
 [[invariants]]
@@ -686,3 +694,9 @@ where = [
   "references/evaluation.md#judge-the-evidence",
 ]
 shapes = "The comparison section sets what an independent executor receives and what it is not given; the evidence section rejects keywords and self-reports as proof."
+
+[[dependencies]]
+kind = "local"
+name = "skill-maintenance"
+required = true
+role = "Records the goal and decisions of a skill that this skill creates or changes, and checks its origin.toml after headings or files move."

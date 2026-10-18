@@ -85,11 +85,10 @@ Resolve conflicts from established authority, scope or an explicit user decision
 ask when those do not settle the intended behavior. Then keep the governing rule
 or state distinct conditions.
 
-Record a base's deviations, or an idea source's adapted and declined entries, in
-an existing skill's provenance record; other documents keep their established
-attribution conventions. Popularity does
-not justify replacing a local rule. Check changes to invocation, approvals,
-testing, tools and external writes especially carefully.
+For a skill, `skill-maintenance` records a base's deviations and an idea source's
+adapted and declined entries; other documents keep their established attribution
+conventions. Popularity does not justify replacing a local rule. Check changes to
+invocation, approvals, testing, tools and external writes especially carefully.
 
 ## Prune without weakening the contract
 

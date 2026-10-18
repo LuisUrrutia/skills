@@ -109,9 +109,24 @@ referenced guides, and agent prompts. New skills do not require prior use or rep
 - Edits the canonical instruction source at the intended scope
 - Writes clear rules, conditional references, and completion criteria
 - Chooses between reusing, wrapping, deriving, or creating a skill before adding an implementation
-- Preserves provenance pins and supports requested upstream reviews or updates
+- Hands each skill decision to `skill-maintenance` for the skill's `origin.toml` record
 - Validates the changed behavior in proportion to the task
 - Preserves business constraints and preferences when pruning, and distinguishes file size from actual loaded context
+
+### skill-maintenance
+
+Record each skill's goal, decisions, and sources in its `origin.toml`, and check or
+update a skill from its recorded sources or installed dependencies. Install it with
+`agent-instructions`, which writes the skill text.
+
+**Triggers:** `record why we changed this skill`, `check this skill for upstream changes`, `update this skill from its sources`
+
+**Features:**
+- Records the goal, invariants, base deviations, adopted ideas, and declines in words a model without the original conversation can follow
+- Gives every skill a record, including skills built without outside sources
+- Checks a skill against its sources without changing it, or incorporates compatible changes and records the review
+- Advances a source's review cursor only after its full range is resolved and validated
+- Includes a checker for the record format and its locations
 
 ### create-project-instructions
 

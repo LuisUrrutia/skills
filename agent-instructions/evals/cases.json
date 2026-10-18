@@ -27,52 +27,9 @@
       ]
     },
     {
-      "id": "upstream-check",
-      "kind": "state-transition",
-      "prompt": "Check this skill for upstream improvements. Report which changes are useful without modifying the skill or its provenance.",
-      "fixture": {
-        "setup": "In a disposable local Git repository, commit a donor skill as A, rename its directory in B, and add both a useful reference-loading condition and an instruction to publish automatically in C. Create a derived local review skill pinned to A whose contract is read-only by default. Include one local refinement absent from the donor. Supply verified local Git history and snapshots in place of network access."
-      },
-      "expectations": [
-        "The complete target skill and origin remain byte-identical.",
-        "The report follows the source move and evaluates both substantive changes.",
-        "The recommendation preserves the local read-only contract and local refinement.",
-        "The report identifies the actual candidate commit and does not claim incorporation."
-      ]
-    },
-    {
-      "id": "upstream-update",
-      "kind": "state-transition",
-      "prompt": "Update this skill from its recorded upstream sources, incorporating useful changes within its existing contract.",
-      "fixture": {
-        "setup": "Use an independent copy of the upstream-check fixture, with a deterministic local validator and an isolated behavioral runner available. Preserve pre-existing unrelated edits in a separate file."
-      },
-      "expectations": [
-        "The useful condition is incorporated and automatic publishing is skipped or adapted with a reason.",
-        "Local refinements, the original baseline commit, and unrelated edits survive.",
-        "The current source path follows the verified rename while baseline_paths remain historical.",
-        "The cursor advances only after the full relevant range is decided and required validation succeeds.",
-        "A repeated run does not duplicate the incorporated change."
-      ]
-    },
-    {
-      "id": "partial-update",
-      "kind": "state-transition",
-      "prompt": "Update this skill from both recorded sources and report anything you cannot finish.",
-      "fixture": {
-        "setup": "Provide two independent local donor repositories. One has an accessible, compatible change and passing checks. The other has an unavailable recorded commit or rewritten history. Include a local snapshot whose upstream commit is unknown."
-      },
-      "expectations": [
-        "Independent supported work completes without silently resetting the blocked source's cursor.",
-        "The inaccessible source remains unknown and the exact missing evidence is reported.",
-        "The local snapshot retains its hash and unverified provenance; no repository commit is fabricated.",
-        "The final report distinguishes partial completion from full synchronization."
-      ]
-    },
-    {
       "id": "activation-near-misses",
       "kind": "selection",
-      "prompt": "For each request, identify the primary entrypoint and any additional applicable skills using only their names and descriptions. Choose from agent-instructions, workflow-to-skill, create-project-instructions, handoff, write-documentation, or none. Briefly explain each selection.",
+      "prompt": "For each request, identify the primary entrypoint and any additional applicable skills using only their names and descriptions. Choose from agent-instructions, skill-maintenance, workflow-to-skill, create-project-instructions, handoff, write-documentation, or none. Briefly explain each selection.",
       "fixture": {
         "queries": [
           "Combine these two bug-triage skills into one skill.",
@@ -98,7 +55,7 @@
         ]
       },
       "expectations": [
-        "The first six requests enter agent-instructions; the seventh and eighth enter workflow-to-skill; requests nine through thirteen exclude agent-instructions and workflow-to-skill.",
+        "Requests one, two, four, five and six enter agent-instructions, and request three enters skill-maintenance; the seventh and eighth enter workflow-to-skill; requests nine through thirteen exclude agent-instructions and workflow-to-skill.",
         "Request fourteen enters handoff with agent-instructions for continuation guidance; request fifteen enters agent-instructions; request sixteen includes agent-instructions only for the AGENTS.md rule change, not CSV implementation.",
         "Request seventeen excludes agent-instructions because the changelog does not guide agent behavior. Request eighteen includes it because changing the required package manager changes guidance even when labeled a fact. Request nineteen excludes agent-instructions for factual handoff maintenance.",
         "Request twenty includes agent-instructions only for the requested findings-only instruction review, not search implementation.",

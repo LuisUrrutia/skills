@@ -177,8 +177,8 @@ Read the applicable authoring references:
 [packaging](agent-instructions/references/skills.md),
 [reuse](agent-instructions/references/reuse.md),
 [hosts](agent-instructions/references/hosts.md),
-[evaluation](agent-instructions/references/evaluation.md), and
-[upstream maintenance](agent-instructions/references/upstream-updates.md).
+[evaluation](agent-instructions/references/evaluation.md). Skill records and
+upstream maintenance are in [skill-maintenance](skill-maintenance/SKILL.md).
 
 These instructions now incorporate selected `ce-retune` ideas through cohesive
 rewrites, not appended parallel rule sets. Preserve business constraints and team
