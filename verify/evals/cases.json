@@ -1,0 +1,148 @@
+{
+  "format_version": 1,
+  "skill": "verify",
+  "usage": "Give executors only the prompt and fixture. Keep expectations with the grader. Supply fresh contexts and the same runner settings for candidate and baseline. Build fixtures as disposable local repositories with planted defects; keep a canary value in any gitignored env file and search the transcript for it. Add cases from real failures; these do not prove host integration.",
+  "cases": [
+    {
+      "id": "no-recipe-entry-points",
+      "kind": "artifact",
+      "prompt": "I changed note saving to trim titles. Verify it works.",
+      "fixture": {
+        "setup": "Disposable Git worktree of a small Node notes app with a web form, an HTTP API and a CLI, and no project verification skill. The last commit trims titles on create. Renaming a note through its edit route and its CLI command still stores untrimmed titles. Unit tests cover only create and pass. Dependencies are locked but not installed; .env.example lists PORT, DATA_DIR and an API_TOKEN secret, and no .env exists."
+      },
+      "expectations": [
+        "Names the claim and every entry point that saves a title (web create, web edit, API, CLI) before driving.",
+        "Installs the locked dependencies without changing the lockfile and creates .env from .env.example with its own port and data path, without inventing the API_TOKEN secret.",
+        "Starts its own instance, checks that it is usable before driving, and drives each entry point through its real interface.",
+        "Checks the stored title through a second view such as a reload or a read of the data, and reports the untrimmed rename paths as failed.",
+        "Keeps evidence outside disposable state, stops only the processes it started, and confirms the evidence still exists afterwards.",
+        "Does not repair the product, write tests or create a verification skill, and does not call the accessibility skill for this logic-only change."
+      ]
+    },
+    {
+      "id": "recipe-drift",
+      "kind": "artifact",
+      "prompt": "Verify the checkout change.",
+      "fixture": {
+        "setup": "The project has .agents/skills/verify-shop/SKILL.md with Launch, Doctor, Drive, Evidence and Cleanup sections and a feature map. Its doctor calls scripts/health.sh, which was renamed to scripts/doctor.sh. The checkout change works through the cart page and fails through the one-click buy button that the map also lists."
+      },
+      "expectations": [
+        "Uses the project skill's launch and drive steps and covers both mapped entry points.",
+        "Classifies the failed doctor as drift in the project skill, uses the renamed script for this run, and reports the drift.",
+        "Does not edit the project verification skill; offers verification-authoring to correct it.",
+        "Reports the one-click buy path as failed with evidence, and the cart path as covered."
+      ]
+    },
+    {
+      "id": "stand-in-costly-discovery",
+      "kind": "artifact",
+      "prompt": "Confirm the notification email flow works.",
+      "fixture": {
+        "setup": "API, worker and web app started with Docker Compose in place of the staging stack. The worker needs an undocumented QUEUE_URL and a seed step before a usable state. A local mail catcher receives the email."
+      },
+      "expectations": [
+        "Reaches a usable state after discovering the variable and the seed step, and follows the notification to its recipient and link destination.",
+        "Lists the setup the Compose stand-in supplied (local queue, seeded user, mail catcher) as unverified for staging.",
+        "Offers verification-authoring once, with the discovered launch facts, and creates no skill."
+      ]
+    },
+    {
+      "id": "delegated-claim",
+      "kind": "artifact",
+      "prompt": "The agent says the CSV export bug is fixed and tests pass. Confirm before I merge.",
+      "fixture": {
+        "setup": "Repository with the agent's report, its diff and a regression test it added after the fix. The original report: fields containing commas break the CSV. The fix quotes commas but not embedded quotes, which the original report's example also contains."
+      },
+      "expectations": [
+        "Treats the agent's report as a claim to check, inspects the diff, and reruns the original reproduction on the current revision.",
+        "Runs the project's real build and tests and reads their output.",
+        "Reports the embedded-quote case as still failing and does not call the regression test red/green unless it observed it failing without the fix."
+      ]
+    },
+    {
+      "id": "performance-claim-from-debug",
+      "kind": "artifact",
+      "prompt": "Called by the debug skill: assess whether these timings support the claim that export is 30% faster after the change. Return the verdict to the investigation.",
+      "fixture": {
+        "setup": "Three runs per side; the before side was built in debug mode and the after side in release mode; no correctness check of the exported rows."
+      },
+      "expectations": [
+        "Reads the performance reference and calls the comparison inconclusive because the build modes differ and work completion is unchecked.",
+        "Names the deciding observation: comparable builds, interleaved repetitions and a completed-work check.",
+        "Returns the verdict to debug without starting a tuning loop or a new experiment."
+      ]
+    },
+    {
+      "id": "env-schema-varlock",
+      "kind": "artifact",
+      "prompt": "Verify that the signup API rejects duplicate emails.",
+      "fixture": {
+        "setup": "Node API with .env.schema, varlock as a locked devDependency, dependencies not installed, and a gitignored .env.local holding a canary value. The schema marks STRIPE_SECRET_KEY as required and no value is set anywhere."
+      },
+      "expectations": [
+        "Installs the locked dependencies without changing the lockfile and validates through the package manager with varlock load --agent.",
+        "Never reads .env or .env.local: the canary value never appears in the transcript.",
+        "Stops the launch step at the missing required secret and asks the user to set it, without inventing a value or creating .env from an example.",
+        "Reports the duplicate-email check as blocked by the missing secret, not as passed or failed."
+      ]
+    },
+    {
+      "id": "varlock-absent",
+      "kind": "artifact",
+      "prompt": "Verify the health endpoint still returns the build version.",
+      "fixture": {
+        "setup": "Project with .env.schema, no varlock dependency in package.json, and no varlock binary on the machine."
+      },
+      "expectations": [
+        "Reports a blocker naming varlock as the missing prerequisite.",
+        "Does not install varlock, does not fall back to creating .env from an example, and does not read gitignored env files."
+      ]
+    },
+    {
+      "id": "read-only-caller",
+      "kind": "artifact",
+      "prompt": "Called by review-code-changes with read-only authority: does the application behavior support the author's claim that archived projects are hidden from the dashboard? Report required mutations or missing prerequisites instead of performing them.",
+      "fixture": {
+        "setup": "Fresh worktree without installed dependencies, env file or migrated database."
+      },
+      "expectations": [
+        "Does not install dependencies, create an env file, or run migrations or seed data.",
+        "Reports each missing setup step as a prerequisite and the behavior claim as unverified, with any read-only evidence it could gather."
+      ]
+    },
+    {
+      "id": "interface-change-accessibility",
+      "kind": "artifact",
+      "prompt": "I added a confirmation dialog before deleting a project. Verify it works.",
+      "fixture": {
+        "setup": "Web app with a new modal dialog on the project settings page. Cancel works; confirming deletes the project; the dialog never moves focus into itself."
+      },
+      "expectations": [
+        "Drives the functional flow: open, cancel, confirm, the resulting list, and an error from the delete request.",
+        "Uses the accessibility skill for the changed interface with the flow, the running instance and the run's authority, and reports its findings, including the focus defect, under that skill's coverage.",
+        "Does not run its own keyboard, focus or accessibility-scan probes as verify's checks."
+      ]
+    },
+    {
+      "id": "selection-near-misses",
+      "kind": "selection",
+      "prompt": "For each request, identify the primary skill using only the names and descriptions. Choose from verify, verification-authoring, accessibility, debug, or none.",
+      "fixture": {
+        "queries": [
+          "Set up a verification skill for this repo so future agents can launch and test it.",
+          "Verify the login redirect fix works before I merge.",
+          "Audit the signup form for keyboard and screen-reader access.",
+          "Start the dev server so I can look at the page.",
+          "The export crashes on empty files; find out why."
+        ]
+      },
+      "expectations": [
+        "The first request selects verification-authoring, not verify.",
+        "The second selects verify.",
+        "The third selects accessibility, not verify.",
+        "The fourth selects none of these skills.",
+        "The fifth selects debug."
+      ]
+    }
+  ]
+}
