@@ -1,0 +1,21 @@
+format_version = 2
+skill = "daily-meeting-update"
+created = "2026-05-03"
+approach = "create"
+goal = "Route requests that still use the deprecated daily-meeting-update name to the report-work-activity skill, for users and installations that invoke the old name. Success is the request handled by report-work-activity, or a clear report that the replacement is missing; the retired standup workflow never runs."
+
+[[invariants]]
+rule = "The skill is only a deprecated alias. It applies only when a request names daily-meeting-update explicitly, and it sends period summaries, work and open-source metrics, retained HTML evidence and outstanding commitments to the report-work-activity skill, resolved by name in the installed catalog. It runs no reporting workflow of its own."
+reason = "Commit 5efcc19 (2026-10-04) replaced the standup skill with report-work-activity and kept the old name as an explicit migration alias."
+where = ["SKILL.md#daily-meeting-update--deprecated"]
+
+[[invariants]]
+rule = "When report-work-activity is unavailable, the skill reports the missing replacement. It never runs the retired standup interview and never presents the retired OpenCode digest as an equivalent."
+reason = "report-work-activity replaced the standup interview and the OpenCode digest on 2026-10-04. The retired digest selected OpenCode sessions by creation date and could miss later work in resumed conversations (reports/skill-atlas/report-work-activity-research.html, section Retire daily-meeting-update)."
+where = ["SKILL.md#daily-meeting-update--deprecated"]
+
+[[dependencies]]
+kind = "local"
+name = "report-work-activity"
+required = true
+role = "The replacement skill that handles every request made through this alias."

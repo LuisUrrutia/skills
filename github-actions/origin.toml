@@ -1,0 +1,40 @@
+format_version = 2
+skill = "github-actions"
+created = "2026-02-04"
+approach = "create"
+goal = "Create, modify or audit GitHub Actions workflows, reusable workflows and Dependabot configuration as production code with credentials, anchoring security on the trust boundary, performance on the critical path and correctness on the execution graph. Success is a change or audit in which every affected execution path is mapped, behavior is preserved deliberately, and each claim is proven by validation and execution evidence or reported with its exact gap."
+
+[[invariants]]
+rule = "Audit selected alone inspects and reports without editing. Modes can combine: an audit-and-fix request audits first, changes only the authorized findings, and reports which findings were corrected and which remain."
+where = ["SKILL.md#process", "SKILL.md#audit"]
+
+[[invariants]]
+rule = "Every external action, reusable workflow and container image resolves to a reviewed immutable object. A tag is resolved through its own repository's commit endpoint to a verified SHA, and an image is pinned by digest. In a workflow onboarded to .github/workflows/actions.lock, entries are regenerated with gh actions-lock and checked with --verify instead of being edited by hand."
+where = ["SKILL.md#when-an-external-reference-changes", "references/security.md#dependencies-and-workflow-governance"]
+
+[[invariants]]
+rule = "An explicit upgrade authorizes only the compatible upgrades it names. During unrelated work, existing versions stay unless one blocks the requested behavior or has a relevant security defect."
+where = ["SKILL.md#when-an-external-reference-changes"]
+
+[[invariants]]
+rule = "A security finding needs a concrete path from untrusted influence to a capability, and defense-in-depth or stylistic hardening without such a path is labeled separately. A performance finding needs a measured bottleneck or a clearly labeled model of the critical path."
+reason = "Commit f515c9c (2026-02-05) recalibrated the guidance to reduce false positives found in real-world workflow audits."
+where = ["SKILL.md#audit", "references/security.md#finding-calibration"]
+
+[[invariants]]
+rule = "A linter error on syntax that current GitHub Docs accept is confirmed against the docs; the valid syntax stays, and the report names the linter version and the gap. Every other lint finding is fixed."
+reason = "actionlint 1.7.12 rejects valid current syntax such as $/ references, background steps and cache-mode (commit 6284dff, 2026-10-16)."
+where = ["SKILL.md#4-prove-the-workflow"]
+
+[[invariants]]
+rule = "Completion needs passing validation, or an exact tool blocker, for every affected workflow, modified action manifest and modified Dependabot configuration, and direct execution evidence, or an exact external blocker, for every changed behavior. The report gives the exact commands and their outcomes."
+where = ["SKILL.md#4-prove-the-workflow"]
+
+[[invariants]]
+rule = "A failing Dependabot-triggered job is never made to pass by broadening permissions or copying powerful Actions secrets into Dependabot secrets, and pull_request_target never checks out or executes the Dependabot head, its updated lockfile, generated code or artifacts."
+where = ["references/dependabot.md#preserve-the-dependabot-pull-request-trust-boundary"]
+
+[[invariants]]
+rule = "Automation of secret-scanning custom patterns prepares and reconciles pattern definitions only; dry runs and final publishing stay visible human gates in the GitHub UI."
+reason = "GitHub's custom-pattern REST API leaves dry runs and publishing to the UI (GitHub changelog, 2026-07-13)."
+where = ["references/secret-scanning.md#publication-boundary"]

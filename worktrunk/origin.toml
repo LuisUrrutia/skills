@@ -1,0 +1,39 @@
+format_version = 2
+skill = "worktrunk"
+created = "2026-08-24"
+approach = "create"
+goal = "Carry out every Git worktree lifecycle operation, and changes to Worktrunk configuration, through the Worktrunk wt CLI. Success is the requested worktree listed, created, entered or removed, or the configuration changed and verified, with Worktrunk's safety checks and approval boundary intact, or a reported blocker when wt is unavailable."
+
+[[invariants]]
+rule = "Every worktree lifecycle operation goes through wt. Raw git worktree commands run only when the user explicitly requests them, and a missing wt is reported as a blocker instead of being replaced by git worktree."
+reason = "The user's rules forbid raw git worktree as a fallback; commit 7c1fd09 (2026-10-16) removed the fallback the skill still allowed when wt was missing."
+where = ["SKILL.md#worktrunk", "SKILL.md#core-workflow"]
+
+[[invariants]]
+rule = "wt merge runs only when the user asks for it, after confirming that the worktree holds only the intended changes."
+reason = "wt merge commits uncommitted and untracked changes, squashes and rebases the branch, fast-forwards the local target without fetching, and removes the worktree and branch (commit 7c1fd09)."
+where = ["SKILL.md#core-workflow"]
+
+[[invariants]]
+rule = "--force and -D are used only when the user explicitly authorized the matching data loss and the exact target was verified immediately before. --reap is used only when stopping those processes is part of the request, and wt step prune only when the request covers every integrated candidate, after a dry run."
+reason = "--force overrides dirty-worktree protection, so uncommitted files can be lost, and -D overrides unintegrated-branch protection, so commits can become unreachable."
+where = ["references/remove.md#force-flags", "references/remove.md#bulk-cleanup"]
+
+[[invariants]]
+rule = "Commands in .config/wt.toml are repository-supplied shell code. An automated coding session reads the approval state without prompting, stops at Worktrunk's approval decision, and never bypasses it with --yes or records blanket approvals."
+reason = "--yes and blanket approvals are meant for controlled CI jobs and containers whose project commands are already trusted."
+where = ["references/project-config.md#scope", "references/project-config.md#approval-boundary", "references/troubleshooting.md#approval-error"]
+
+[[invariants]]
+rule = "A removal is confirmed from the branch_outcome that wt remove or wt step prune reports with --foreground --format=json, and then from wt list."
+reason = "wt v0.80.0 removes worktrees in the background, so a check right after the command could run before removal finished (commit 7c1fd09)."
+where = ["references/remove.md#safe-removal", "references/remove.md#completion"]
+
+[[invariants]]
+rule = "When each command starts a fresh shell, the skill does not rely on directory changes persisting: it reads the destination from wt switch --format=json and sets the next command's working directory explicitly."
+reason = "A subprocess cannot change its parent shell's directory; Worktrunk's shell wrapper works only in a persistent shell."
+where = ["SKILL.md#core-workflow", "references/switch.md#shell-behavior", "references/troubleshooting.md#directory-does-not-change"]
+
+[[invariants]]
+rule = "User configuration in ~/.config/worktrunk/config.toml is machine-specific and never committed. Edits change only the requested keys, and a personal preference that the user has not specified is asked before it is chosen."
+where = ["references/user-config.md#boundaries"]
