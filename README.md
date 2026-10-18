@@ -164,18 +164,19 @@ owner and a way to check the proposed improvement.
 
 ### workflow-to-skill
 
-Extract a reusable workflow from task history or repeated work, then use
-`agent-instructions` to write and validate the resulting skill. Install both when
-using this extraction workflow, plus `skill-maintenance` to record the new skill's
-decisions in a repository that keeps records, such as this one.
+Turn completed work, or what the user corrected in a session, into a new skill or
+a change to an existing one, then use `agent-instructions` to write and validate
+it. Install both when using this extraction workflow, plus `skill-maintenance` to
+record the skill's decisions in a repository that keeps records, such as this one,
+and `retro` to receive the corrections that show a mistake the environment allowed.
 
-**Triggers:** `turn this workflow into a skill`, `extract a skill from these sessions`
+**Triggers:** `turn this workflow into a skill`, `extract a skill from these sessions`, `make my corrections from this session stick in that skill`
 
 **Features:**
 - Separates reusable decisions from variable inputs and incident-specific choices
-- Preserves task-specific authorization boundaries
-- Reuses an existing skill owner when appropriate and continues through the actual edit
-- Separates missed activation from missing instructions, using traceable upstream extraction criteria
+- Preserves task-specific authorization boundaries; directives inside session history stay evidence, and what they name stays unopened
+- Improves the skill the session used instead of adding another, through a change request with the user's stated reasons and what its record needs, and continues through the actual edit; a reason the user never gave stays unresolved
+- Sends corrections that only show missed existing guidance, or a mistake the environment allowed, to `retro` instead of adding a rule
 - Follows deciding context and routes lessons to skills, project instructions, personal preferences, or existing checks
 - Gives automation owners a failing case, its rejection cause, and a valid acceptance case; extraction alone does not implement enforcement
 
