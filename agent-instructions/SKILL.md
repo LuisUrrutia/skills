@@ -27,6 +27,11 @@ Write directly from either skill's evidence handoff or a fully supplied new
 capability; do not send it back through discovery. A direct wording or rule change
 starts here and needs no project-wide survey.
 
+`skill-maintenance` owns checking or updating a skill from its recorded sources
+or installed dependencies; send those requests there. An update hands the text
+it incorporates to this skill for writing and evaluation. Ordinary writing does
+not start an upstream check.
+
 ## Establish meaning and scope
 
 Read the complete target and enough surrounding instructions, imports, references,

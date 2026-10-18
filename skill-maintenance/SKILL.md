@@ -30,9 +30,9 @@ schedule.
 1. Read the skill, its record, and the change with the reason the user gave. A
    skill without a record gets one when the user asks or when its repository
    keeps records, that is, another skill in it has an `origin.toml`; skills
-   installed in the host outside that repository do not count. The new record states the `approach`, a
-   `goal` that says what the skill produces, for whom and what success looks
-   like, and the invariants its text already enforces.
+   installed in the host outside that repository do not count. The new record
+   states the `approach`, a `goal` that says what the skill produces, for whom
+   and what success looks like, and the invariants its text already enforces.
 2. Write the decision as the entry a future editor needs:
    - A rule the user wants kept, such as a scope boundary, an authority limit or
      a host constraint: an invariant.
