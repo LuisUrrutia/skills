@@ -27,17 +27,18 @@ remove it afterward. Never use scaffolding to conceal a missing product boundary
 
 Unless the caller is read-only, a launch may use the project's documented
 commands. When the documentation is missing a step, use only the scripts and
-targets the project itself declares, such as manifest scripts, Makefile or
-task-runner targets, compose files, and its migration and seed tooling, and
-record each discovered step in the generated Launch section. Setup changes
-only the run's isolated local data: never write to a shared or remote
-environment, so no deploy, publish, migration, or other change to staging or
-production, and report a step whose target is unclear as a prerequisite instead
-of running it. Setup covers installing the locked dependencies without changing
-the lockfile, creating the env file, and running migrations and seed data.
-Adding dependencies, changing a lockfile, and global installs need the active
-task's authority. A read-only caller gets none of this setup; each step becomes
-a reported prerequisite.
+targets the project itself declares, such as manifest scripts, Makefile or task-
+runner targets, compose files, its migration and seed tooling, and the
+environment variables its source reads, and record each discovered step in the
+generated Launch section. Never compose a setup command from the project's
+internals. Setup changes only the run's isolated local data: never write to a
+shared or remote environment, so no deploy, publish, migration, or other change
+to staging or production, and report a step whose target is unclear as a
+prerequisite instead of running it. Setup covers installing the locked
+dependencies without changing the lockfile, creating the env file, and running
+migrations and seed data. Adding dependencies, changing a lockfile, and global
+installs need the active task's authority. A read-only caller gets none of this
+setup; each step becomes a reported prerequisite.
 
 To make the local environment realistic, a launch may read a shared or remote
 environment through the project's own cloud or platform CLI, such as `gcloud`:
@@ -57,16 +58,20 @@ Prepare the env file by the project's mechanism:
 - **`.env.schema` exists:** the project uses varlock. Validate with
   `varlock load --agent`, which redacts sensitive values, and run the project's
   commands through varlock unless its own scripts already load it. Invoke
-  varlock through the project's package manager when it is a local dependency.
-  Give this run its own ports and data paths through the process environment,
-  which overrides every env file; never write them into `.env` or `.env.local`.
-  The `varlock` skill, when installed, covers the details. Never read `.env` or
-  `.env.local`, and never invent or fill a secret value. A missing required
-  secret stops that step: ask the user to set it. When varlock is in neither the
-  project nor the machine, report a blocker; do not install it.
+  varlock through the project's package manager when it is a local dependency;
+  the process environment overrides every env file, so this run's own ports and
+  data paths go there. The `varlock` skill, when installed, covers the details.
+  Never read `.env` or `.env.local`, and never invent or fill a secret value. A
+  missing required secret stops that step: ask the user to set it. When varlock
+  is in neither the project nor the machine, report a blocker; do not install
+  it.
 - **Otherwise:** create a missing `.env` from `.env.example`, with the run's
   isolated ports and data paths, and never overwrite an existing env file. A
   missing secret: ask the user. Never print secret values.
+
+When the run's ports and data paths cannot go into an env file it created, pass
+them through the process environment; never write them into an env file the run
+did not create. Remove an env file the run created during cleanup.
 
 This rule governs your own builds and starts during the interview and the proof,
 and the generated Launch section states it with the project's actual commands.
