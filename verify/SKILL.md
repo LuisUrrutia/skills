@@ -95,11 +95,12 @@ starts: process IDs, sessions, ports, and data paths.
 Unless the caller is read-only, a run may prepare its own launch: install the
 locked dependencies, create the env file, run migrations and seed data against
 its isolated data, and read remote environments read-only to make the local one
-realistic. Before building or starting an instance, read
-[references/launch-setup.md](references/launch-setup.md), even when nothing
-needs setup; it sets the limits of that setup, how to run commands through
-varlock, and how to handle env files and secrets. A read-only caller, such as a
-code review, gets none of this setup: report each step as a missing prerequisite
+realistic. Before any setup or remote query, and before building or starting an
+instance even when nothing needs setup, read
+[references/launch-setup.md](references/launch-setup.md); it sets the limits of
+that setup, how to run commands through varlock, and how to handle env files and
+secrets. A read-only caller, such as a code review, gets none of this setup and
+runs no remote queries: report each needed step as a missing prerequisite
 instead. Never print a secret value, and when the project has `.env.schema`,
 never read `.env` or `.env.local`.
 

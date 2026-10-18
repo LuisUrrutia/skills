@@ -1,10 +1,11 @@
 # Launch setup
 
-Read this before building or starting an instance, even when nothing needs
-setup: it covers installing dependencies, creating an env file, running
-migrations or seed data, querying a remote environment, and running commands
-through varlock. A read-only caller gets no setup and no remote queries; the
-skill's launch step reports each needed step as a missing prerequisite instead.
+Read this before any setup or remote query, and before building or starting an
+instance even when nothing needs setup: it covers installing dependencies,
+creating an env file, running migrations or seed data, querying a remote
+environment, and running commands through varlock. A read-only caller gets no
+setup and runs no remote queries; each needed step or query is a reported
+prerequisite.
 
 ## Run the project's own setup
 
