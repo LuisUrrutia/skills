@@ -2,9 +2,10 @@
 
 The skill-specific branch of [the entrypoint](../SKILL.md): what changes when
 the document is a skill (host metadata, the invocation choice, the description,
-splitting by invocation, router skills, and the skill's record). Everything else
-about writing it is the reference in `SKILL.md`; packaging and validation are in
-[packaging.md](packaging.md).
+splitting by invocation and router skills). Everything else about writing it is
+in the entrypoint and [levers.md](levers.md); packaging and validation are in
+[packaging.md](packaging.md), and the size budget, dependent text and record
+hand-over in [skill-changes.md](skill-changes.md).
 
 ## Host metadata
 
@@ -58,8 +59,8 @@ packages, which a copied skill folder would lose.
 
 ## Description
 
-The description is the skill's top-level context pointer, so the pointer rules in
-[the entrypoint](../SKILL.md#context-pointers) apply in full. Make it the shortest
+The description is the skill's top-level context pointer, so the
+[pointer rules](levers.md#context-pointers) apply in full. Make it the shortest
 clear answer to when the skill should be used: the requested action and the
 distinguishing context, so the name and description select the skill before its
 body loads.
@@ -83,7 +84,7 @@ advertise the whole collection.
 ## Splitting by invocation
 
 The invocation cut of splitting (the sequence cut lives in
-[the entrypoint](../SKILL.md#when-to-split)): split off a model-invoked skill when
+[levers.md](levers.md#when-to-split)): split off a model-invoked skill when
 you have a distinct leading word that should trigger it on its own (a trigger
 word you actually use in your prompts), or another skill must reach it. You pay
 context load for the new always-loaded description, so that independent reach
@@ -98,14 +99,3 @@ cognitive load is cured by a **router skill**: one user-invoked skill that names
 the others and when to reach for each, so the human has one skill to remember
 instead of many. It can only hint, never fire them: the agent cannot reach a
 user-invoked skill, so nothing but the human can invoke one.
-
-## Records
-
-A repository keeps skill records when the target skill or another skill in it has
-an `origin.toml`; skills installed in the host outside that repository do not
-count. There, hand each new skill, and each change that adds, removes or alters a
-rule, a source idea, a deviation from its base or a dependency, to
-`skill-maintenance` with the user's reason; when `skill-maintenance` coordinates
-the change, it records the result itself. After headings or files move in a skill
-with a record, have `skill-maintenance` check the record. Elsewhere, create a
-record only when the user asks.

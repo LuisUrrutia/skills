@@ -1,9 +1,17 @@
 # Reuse and standardization
 
-Read this when choosing how to standardize a capability or adopt an external
-skill. Start with installed owners and the user's candidate sources. Read their
-instructions and relevant dependencies before choosing; similar descriptions do
-not establish equivalent behavior.
+Read this when choosing how to standardize a capability, combining drafts or
+adopting an external skill. Start with installed owners and the user's candidate
+sources. Read their instructions and relevant dependencies before choosing;
+similar descriptions do not establish equivalent behavior.
+
+Where guidance overlaps, such as donor drafts, an adapter and its source, or two
+skills, compare trigger, owner, action, completion evidence and authority:
+similar prose can hide a read-only review beside an automatic repair. Resolve a
+conflict from established authority, scope or an explicit user decision, then
+keep the governing rule or state distinct conditions. Popularity does not justify
+replacing a local rule; check changes to invocation, approvals, testing, tools
+and external writes with extra care.
 
 ## Choose what to maintain
 

@@ -23,7 +23,7 @@ where = [
   "references/packaging.md#bundle-the-resources",
   "references/packaging.md#validate",
   "references/skill-mechanics.md#host-metadata",
-  "SKILL.md#context-pointers",
+  "references/levers.md#context-pointers",
 ]
 
 [[invariants]]
@@ -43,7 +43,7 @@ rule = "The skill-maintenance skill owns each skill's origin.toml: the record fo
 reason = "User decisions on 2026-10-18: one skill records decisions and runs updates, instead of maintenance instructions repeated in every skill; skills in a repository that keeps records keep their goal and decisions because people keep modifying skills, and skills created in other projects, such as a generated verify-<app>, get no record unless requested. The rebuild on writing-for-agents keeps only the hand-over here."
 where = [
   "SKILL.md#agent-instructions",
-  "references/skill-mechanics.md#records",
+  "references/skill-changes.md#records",
   "references/reuse.md#choose-what-to-maintain",
 ]
 
@@ -71,6 +71,40 @@ where = ["SKILL.md#get-both-model-perspectives", "SKILL.md#agent-instructions"]
 rule = "SKILL.md states when the model pair runs, who runs it and its completion criterion; runner resolution, briefs, failure handling and reconciliation live in references/model-pair.md. The split holds only while the model-pair evaluation cases pass against the package; on any regression, the full contract returns to SKILL.md."
 reason = "User decision on 2026-10-18, taken conditionally on the model-pair cases in evals/cases.json still passing. On 2026-10-18 every model-pair case passed against the rebuilt package at 386c7c5 in matched trials, and the four cases nearest the later wording changes passed again at 328975b; the trials are recorded in https://github.com/LuisUrrutia/skills/pull/43."
 where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md"]
+
+[[invariants]]
+rule = "A change to a skill is finished, and a review of one passes, only after checking at least: the entry file's size, the evaluation evidence, the record hand-over to skill-maintenance, the text that depends on the changed contract, and that each claim about another skill names the revision read. A missing item is a finding. The model pair's brief for a skill change asks for the same checks."
+reason = "User statement on 2026-10-18 that agent-instructions, skill-maintenance and workflow-to-skill will review every skill modified later. In the first wave of rebuilds that day, neither the model pair nor the authoring agent flagged entry-file growth, Claude-only trials, unrun cases or stale callers."
+where = ["references/skill-changes.md#review-a-skill-change", "references/model-pair.md#brief-the-reviewers"]
+
+[[invariants]]
+rule = "A changed skill's entry file is counted in words against its previous version and, when the record's approach is base, against the base's entry file. Each added passage names the behavior it buys and why every branch needs it in the entry file; a passage that only some branches need moves to a reference with a load condition, one that buys nothing is cut, and a reference that every branch must read reduces nothing. Exceeding the base needs a measured behavior that fails when the text moves out. When a change leaves the base unrecognizable, the approach question goes to skill-maintenance instead of keeping the base label."
+reason = "On 2026-10-18 the rebuilt entry files grew without any reviewer flagging it: teach 835 to 3289 words (base 1522), retro 790 to 2086 (base 679), verify 1025 to 2657, handoff 469 to 676 (base 144), and this skill 1348 to 3901 (base 1777)."
+where = ["references/skill-changes.md#size-budget", "references/levers.md#information-hierarchy"]
+
+[[invariants]]
+rule = "When a change alters what other text relies on, such as the skill's name, description, inputs, outputs, completion evidence, ownership boundary or a named section or file, the repository is searched for the skill's name and each renamed section or file, skill-maintenance's report of records listing the skill as a dependency is used when offered, and each dependent text, README entries included, is updated within the request's scope or listed. Records stay with skill-maintenance."
+reason = "On 2026-10-18 a contract change in verify left nine caller texts stale (accessibility, review-code-changes, work-mode, pr, pr-followup, verification-authoring, README and two handoff notes), and README feature lines for handoff, retro and teach went stale. A pilot of this skill reported that handoff never named this skill, which was false on the handoff branch because it had read another revision."
+where = ["references/skill-changes.md#dependent-text"]
+
+[[invariants]]
+rule = "Behavioral trials stage only the target's runtime files, never evaluation cases, records or notes; run both arms on every host the target supports, Claude Code and Codex here; grade side effects from the action trace, including tool calls on targets an untrusted directive names; use canary values and never print process environments or arguments; and record host permissions and loaded user-level instructions as fixed conditions. Claims rest on the final revision: each added or changed case runs at least twice per host and every other suite case at least once per host on runtime files matching the final ones, each result names its revision, and an unrun case blocks the claims it covers."
+reason = "On 2026-10-18 the first wave of rebuilds showed each gap: handoff trial catalogs exposed evals/cases.json and origin.toml to executors; handoff, retro, verify and this skill ran Claude executors only; retro rows ran before three later wording changes, and teach and verify left cases unrun, including verify's trust rule; retro's untrusted-directive runs listed the path the directive named; a process listing printed a local token into a pilot's context; and a host deny rule on .env files changed how executors worked."
+where = [
+  "references/evaluation.md#define-the-checks",
+  "references/evaluation.md#compare-the-right-instructions",
+  "references/evaluation.md#judge-the-evidence",
+  "references/evaluation.md#iterate-proportionately",
+]
+
+[[invariants]]
+rule = "Each model-pair round reviews a frozen candidate, cited by commit and tree hash in a Git repository. Both reviewers get identical inputs, kept private from each other and from the coordinator's dispositions until both results are in, and a round is reconciled only after both results are read in full or the missing profile is skipped or blocked. Only edits that change the reviewed meaning are reconsulted; other findings are applied or declined without another round, and a round with no material finding ends the loop."
+reason = "On 2026-10-18: rebase.updateRefs moved backup refs so reviewed commits survived only in the reflog; this skill's pilot appended one reviewer's dispositions to a shared file while the other was still reviewing; the verify pilot reconciled a round before the other result arrived and skipped a result after a declined status call; and minor findings kept starting rounds (verify 8, this skill 5, retro 3)."
+where = [
+  "references/model-pair.md#brief-the-reviewers",
+  "references/model-pair.md#handle-failures",
+  "references/model-pair.md#reconcile-the-findings",
+]
 
 [[sources]]
 id = "mattpocock-writing-for-agents-base"
@@ -114,50 +148,50 @@ reason = "The invariants on authoring owners and on skill-maintenance. These rep
 where = ["SKILL.md#agent-instructions"]
 
 [[sources.deviations]]
-change = "Added a step section above the base's reference sections: Establish meaning and scope, Write, Get both model perspectives, Verify the change and Report, each ending on a completion criterion. Write applies every reference section to each changed line, and Verify finishes only when the requested result passes its applicable checks. The information hierarchy's example of an all-reference document ('this skill') now reads 'or both, as this skill does'."
+change = "Added a step section above the base's reference sections: Establish meaning and scope, Write, Get both model perspectives, Verify the change and Report, each ending on a completion criterion. Write applies Negation and Pruning to each changed line and each lever that the change's pointers, steps, placement and rewording reach, and Verify finishes only when the requested result passes its applicable checks. The information hierarchy's example of an all-reference document ('this skill') now reads 'or both, as this skill does'."
 reason = "The local skill writes and reviews instructions at a user's request as a workflow; the base's information hierarchy puts steps on the top rung and lets steps and reference mix. The demand 'every lever applied' turns the base reference into the Write step's completion bar, and the passing-checks rule is the earlier local completion criterion."
 where = [
   "SKILL.md#establish-meaning-and-scope",
   "SKILL.md#write",
   "SKILL.md#verify-the-change",
   "SKILL.md#report",
-  "SKILL.md#information-hierarchy",
+  "references/levers.md#information-hierarchy",
 ]
 
 [[sources.deviations]]
-change = "Added to Establish meaning and scope: authority and callers, explicit type, quantity, depth and completion evidence ('create tests'), domain decisions resolved from an authoritative contract instead of invented defaults, reconciliation of overlapping guidance by trigger, owner, action, completion evidence and authority, questions on unresolved intent with dependent work paused, review-only requests that leave the source unchanged, and interventions sized to the request."
+change = "Added to Establish meaning and scope: authority and callers, explicit type, quantity, depth and completion evidence ('create tests'), domain decisions resolved from an authoritative contract instead of invented defaults, questions on unresolved intent with dependent work paused, review-only requests that leave the source unchanged, and interventions sized to the request. Reconciling overlapping guidance by trigger, owner, action, completion evidence and authority sits in the reuse reference, which loads for combining drafts."
 reason = "Trials showed agents turning 'create tests' into execution (reports/agent-instructions-validation.json meaning_revision) and inventing a schema, a precision and a row-discard rule (reports/skill-authoring-validation.json). Evaluation cases ambiguous-test-objective, missing-domain-contract, unresolved-donor-conflict and canonical-instruction-edit."
-where = ["SKILL.md#establish-meaning-and-scope"]
+where = ["SKILL.md#establish-meaning-and-scope", "references/reuse.md#reuse-and-standardization"]
 
 [[sources.deviations]]
-change = "Added the Get both model perspectives step and references/model-pair.md: independent Codex Astra and Claude Fable reviews at xhigh for instruction work the user explicitly requests, with who runs them, a completion criterion, runner resolution, briefs, failure handling and reconciliation."
+change = "Added the Get both model perspectives step and references/model-pair.md: independent Codex Astra and Claude Fable reviews at xhigh for instruction work the user explicitly requests, with who runs them, a completion criterion, runner resolution, briefs, failure handling, reconciliation and when rounds stop."
 reason = "The model-pair invariants and the user's decisions of 2026-10-18 on effort, the handoff exemption and the split between SKILL.md and the reference."
 where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md"]
 
 [[sources.deviations]]
-change = "Extended 'settle it by running the document' and upstream's 'no automated eval; run the document by hand' into a behavioral evaluation reference: matched trials against the previous version or no instructions, near-miss selection probes, reserved cases, run attribution and an evidence table."
+change = "Extended 'settle it by running the document' and upstream's 'no automated eval; run the document by hand' into a behavioral evaluation reference: matched trials against the previous version or no instructions, near-miss selection probes, reserved cases, run attribution, an evidence table, runtime-only staging, both hosts and final-revision runs."
 reason = "Runs found defects that reading did not, such as invented domain rules (reports/skill-authoring-validation.json) and a pointer into another skill's files written under pressure (reports/skill-atlas/skill-reference-by-name-validation.json). The checks-scale invariant keeps it proportionate."
 where = ["SKILL.md#verify-the-change", "references/evaluation.md"]
 
 [[sources.deviations]]
 change = "Added to Context pointers: a pointer with no condition names no branch; a pointer that summarizes the procedure becomes a shortcut; and a pointer to another skill names it by registered name with its selecting condition and, when the pointer sends it work rather than reaching its reference, its inputs and completion evidence, never a file inside it."
 reason = "Commit 0aa8bda, after an agent wrote 'its PR-reply rules' as a pointer into another skill (reports/skill-atlas/skill-reference-by-name-validation.json, evaluation case cross-skill-reference-by-name). The shortcut sentence is the superpowers-writing-skills idea recorded below."
-where = ["SKILL.md#context-pointers"]
+where = ["references/levers.md#context-pointers"]
 
 [[sources.deviations]]
 change = "Added to Steps and completion criteria: freedom matched to fragility, a loop's progress signal, end condition and response to a recurring blocker, and naming the next actor at each boundary so a same-conversation phase does not end the turn."
 reason = "Ideas recorded below from openai-public-skill-creator and compound-engineering-ce-retune; the loop rule carries the earlier local guidance on observable progress."
-where = ["SKILL.md#steps-and-completion-criteria"]
+where = ["references/levers.md#steps-and-completion-criteria"]
 
 [[sources.deviations]]
 change = "Replaced 'Coining your own works if you define it clearly, ... reach for an existing word first' with a guard: a leading word is familiar in its ordinary sense or a standard term of the domain, is defined once where the document narrows that sense, stays the same word, and never replaces the condition, obligation, quantity or exception that governs a behavior. Qualified the example 'a loop you believe in -> red' to apply only when failing on the bug is the meaning the author intended, and to ask when that is unclear."
 reason = "User decision on 2026-10-18 to adopt leading words with this guard, reversing the earlier local decline of leading words. The model-pair review of this rebuild (Codex Astra, 2026-10-18) and a trial in which an agent replaced 'a loop you actually trust' with 'red' while citing the example showed the unqualified example licensing a change of meaning without asking."
-where = ["SKILL.md#leading-words"]
+where = ["references/levers.md#leading-words"]
 
 [[sources.deviations]]
 change = "Narrowed the Negation exception: a prohibition stays only for safety, data loss, a format contract, or a shortcut agents were observed to take under pressure after understanding the rule, named as observed and paired with the positive target; added harmful precision as the reason a blanket prohibition fails."
 reason = "Ideas recorded below from mblode-agents-md and superpowers-writing-skills; they give the base's 'hard guardrail you cannot phrase positively' observable conditions."
-where = ["SKILL.md#leading-words"]
+where = ["SKILL.md#negation"]
 
 [[sources.deviations]]
 change = "Added to Pruning: new guidance goes into its existing home instead of a parallel rule; each line is graded by what it supplies before it is cut; and compression keeps force (actors, conditions, obligation strength, quantity, authority and completion evidence), with a rule deleted as enforced elsewhere only after the enforcement is inspected."
@@ -165,9 +199,9 @@ reason = "The user's direction to integrate rather than append (reports/skill-at
 where = ["SKILL.md#pruning"]
 
 [[sources.deviations]]
-change = "Added Fix an observed failure: name the failure mode first, check loading evidence, then map each failure class to the lever that fixes it."
+change = "Added Fix an observed failure to the evaluation reference: name the failure mode first, check loading evidence, then map each failure class to the lever that fixes it."
 reason = "Upstream's documentation for this skill says to name the failure mode first, then fix that (docs/productivity/writing-for-agents.md); the table carries the superpowers-writing-skills and compound-engineering-ce-retune ideas recorded below."
-where = ["SKILL.md#fix-an-observed-failure"]
+where = ["references/evaluation.md#fix-an-observed-failure"]
 
 [[sources.deviations]]
 change = "Replaced the single Claude Code invocation control (disable-model-invocation: true) with a table of each host's control: disable-model-invocation in Claude Code frontmatter and policy.allow_implicit_invocation: false in Codex agents/openai.yaml, where an explicit $name mention still invokes the skill. Each control is verified on its host, and router text no longer assumes a user-invoked skill has no description."
@@ -210,14 +244,24 @@ reason = "The package invariant: a skill must work after only its folder is copi
 where = ["references/skill-mechanics.md#invocation"]
 
 [[sources.deviations]]
-change = "Added a Records section to skill mechanics: in a repository that keeps records, hand each new skill and each change to a rule, idea, deviation or dependency to skill-maintenance, and have it check the record after headings or files move."
-reason = "User decision on 2026-10-18 that skill-maintenance owns records and this skill keeps only the hand-over; records exist only for skills, so the hand-over sits in the skill branch (model-pair review, Claude Fable, 2026-10-18)."
-where = ["references/skill-mechanics.md#records"]
+change = "Added references/skill-changes.md, read before finishing or reviewing any change to a skill: the entry file's size budget against its previous version and its base, the text that depends on a changed contract, the Records hand-over to skill-maintenance in a repository that keeps records, and the checks a review of a skill change makes."
+reason = "User decision on 2026-10-18 that skill-maintenance owns records and this skill keeps only the hand-over; records exist only for skills, so the hand-over sits in the skill branch (model-pair review, Claude Fable, 2026-10-18). The size, dependent-text and review checks are the invariants above."
+where = [
+  "references/skill-changes.md#size-budget",
+  "references/skill-changes.md#dependent-text",
+  "references/skill-changes.md#records",
+  "references/skill-changes.md#review-a-skill-change",
+]
 
 [[sources.deviations]]
 change = "Added references/reuse.md for choosing to install, wrap, base, derive or create a skill."
 reason = "skill-maintenance's record format chooses each record's approach with this guidance."
 where = ["references/reuse.md"]
+
+[[sources.deviations]]
+change = "Restructured the base's single reference into two homes. Context pointers, The two loads, Information hierarchy, Steps and completion criteria, When to split and Leading words moved, in the base's order, to references/levers.md, read before writing or reviewing a pointer, a step or its completion criterion, or where material sits, and before rewording existing text. The Negation paragraph became its own SKILL.md section beside Pruning, and the explanations in Negation, relevance and no-ops were condensed to their rules."
+reason = "The size-budget invariant: the rebuilt entry file had 3901 words against the base's 1777. The base's own disclosure test keeps in the entry file what every branch needs: negation and pruning apply to every line written, while the other levers serve the branches that touch pointers, steps, placement or rewording."
+where = ["SKILL.md#load-what-the-work-needs", "SKILL.md#negation", "SKILL.md#pruning", "references/levers.md"]
 
 [[sources]]
 id = "anthropic-skill-creator"
@@ -299,7 +343,7 @@ paths = ["skills/.system/skill-creator/"]
 idea = "Specificity follows fragility. Fragile, deterministic or order-sensitive work gets code or a fixed sequence; work with several valid approaches gets a result and decision criteria."
 serves = "Prevents both brittle over-prescription and loose instructions for error-prone steps."
 where = [
-  "SKILL.md#steps-and-completion-criteria",
+  "references/levers.md#steps-and-completion-criteria",
   "references/packaging.md#helpers",
 ]
 shapes = "Steps and completion criteria matches each step's freedom to its fragility, keeping a fixed sequence only where order protects an invariant; the helpers section moves stable, deterministic work into code and keeps judgment in prose."
@@ -346,8 +390,8 @@ paths = [
 [[sources.ideas]]
 idea = "The form of a correction follows the observed failure. Wrong structure or order gets the required parts in reading order; a missing element gets a slot in the existing output; a rule applied in the wrong circumstances gets an observable condition and action for each branch; a bypassed requirement gets a guardrail that names the observed shortcut, tested under relevant pressure."
 serves = "Prevents corrections that backfire, such as a prohibition list for a shape problem."
-where = ["SKILL.md#fix-an-observed-failure", "SKILL.md#leading-words"]
-shapes = "Fix an observed failure checks the trace and loading evidence first and then maps each failure class to the base lever that fixes it; the Negation paragraph keeps a prohibition for a shortcut that agents were observed to take under pressure."
+where = ["references/evaluation.md#fix-an-observed-failure", "SKILL.md#negation"]
+shapes = "Fix an observed failure checks the trace and loading evidence first and then maps each failure class to the base lever that fixes it; the Negation section keeps a prohibition for a shortcut that agents were observed to take under pressure."
 adapted = "The donor bans nuance and exemption clauses. Locally, material exceptions are preserved as explicit conditions, and only observed workarounds are countered."
 
 [[sources.ideas]]
@@ -363,7 +407,7 @@ adapted = "Pressure scenarios run when a requirement actually faces such pressur
 [[sources.ideas]]
 idea = "A description or other pointer that summarizes the procedure becomes a shortcut: the agent follows the summary and skips the body it points to. The pointer states when to reach the material, not how the work goes."
 serves = "Keeps the body loaded and authoritative instead of a one-line paraphrase of it."
-where = ["SKILL.md#context-pointers", "references/skill-mechanics.md#description"]
+where = ["references/levers.md#context-pointers", "references/skill-mechanics.md#description"]
 shapes = "The base rule 'cut identity the body already carries' gains the shortcut as its reason; the description section keeps procedures in the body."
 adapted = "The donor states it as a rule for skill descriptions only. Locally it applies to every context pointer, including persistent-file lines that name a document."
 
@@ -506,8 +550,8 @@ shapes = "The scope section resolves loading and precedence from the configured 
 [[sources.ideas]]
 idea = "Harmful precision: a blanket prohibition that is wrong on one plausible task in ten is still obeyed on that task, and the agent cannot tell it is the exception. Stating the wanted outcome lets the context choose the path; absolutes stay for safety, data loss, format contracts and rules agents were observed to break."
 serves = "Complements the no-op test, which removes rules that change nothing, with its opposite failure: rules that change the wrong things."
-where = ["SKILL.md#leading-words"]
-shapes = "The Negation paragraph gives harmful precision as a second reason to prompt the positive and lists the conditions under which a prohibition still earns its place."
+where = ["SKILL.md#negation"]
+shapes = "The Negation section gives harmful precision as a second reason to prompt the positive and lists the conditions under which a prohibition still earns its place."
 
 [[sources.declined]]
 feature = "Migrating every repository to `AGENTS.md` as the single shared source and removing `CLAUDE.md` wrappers and symlinks."
@@ -693,7 +737,7 @@ adapted = "The donor requires an A/A noise floor of 12 or more runs and prescrib
 [[sources.ideas]]
 idea = "Premature stopping is diagnosed from the actual next actor and continuation mechanism: a phase in the same conversation, a real child-agent return, a user decision and a host-supported pause with later resumption are different seams. Where the same agent continues, the instruction states the next required action."
 serves = "Fixes authorized work that stops at a phase boundary without deleting a real return or decision point."
-where = ["SKILL.md#steps-and-completion-criteria", "SKILL.md#fix-an-observed-failure"]
+where = ["references/levers.md#steps-and-completion-criteria", "references/evaluation.md#fix-an-observed-failure"]
 shapes = "Steps and completion criteria names the next actor at every boundary and keeps the real ones; the failure table routes work stopped at a phase boundary to tracing the next actor and continuation path."
 adapted = "User decisions, real blockers, real child returns and host-supported asynchronous resumption are preserved. A pause is not itself a failure, and the repair neither widens authorization nor makes required work optional."
 
@@ -773,7 +817,7 @@ coverage = "The field list of agents/openai.yaml, read at the linked commit."
 kind = "local"
 name = "skill-maintenance"
 required = false
-role = "Required in a repository that keeps records: records the goal and decisions of a skill that this skill creates or changes, and checks its origin.toml after headings or files move."
+role = "Required in a repository that keeps records: records the goal and decisions of a skill that this skill creates or changes, checks its origin.toml after headings or files move, and, when it offers that report, lists the records that name a changed skill as a dependency."
 
 [[dependencies]]
 kind = "local"

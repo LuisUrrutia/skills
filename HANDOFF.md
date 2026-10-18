@@ -168,12 +168,14 @@ files rather than a summary here; preserve the actual profiles of historical
 runs rather than relabeling them.
 
 Read the applicable authoring references:
+[levers](agent-instructions/references/levers.md),
 [skill mechanics](agent-instructions/references/skill-mechanics.md),
 [packaging](agent-instructions/references/packaging.md),
+[skill changes](agent-instructions/references/skill-changes.md),
 [reuse](agent-instructions/references/reuse.md),
 [model pair](agent-instructions/references/model-pair.md),
-[evaluation](agent-instructions/references/evaluation.md). The writing levers
-live in the entrypoint. Skill records and
+[evaluation](agent-instructions/references/evaluation.md). The entrypoint keeps
+the workflow, Negation and Pruning. Skill records and
 upstream maintenance are in [skill-maintenance](skill-maintenance/SKILL.md).
 
 These instructions now incorporate selected `ce-retune` ideas through cohesive
