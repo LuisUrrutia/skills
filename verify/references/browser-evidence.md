@@ -44,8 +44,8 @@ still need the appropriate authority.
 
 Select from these probes according to the claim. Use project thresholds and
 supported states rather than fixed defaults. Keyboard and focus, target size,
-reduced motion, and accessibility scans are not in this table: the skill hands
-them to `accessibility` for interface changes.
+reduced motion, and accessibility scans are not in this table; the skill's drive
+step decides who runs them.
 
 | Claim or risk | Probe and deciding evidence |
 | --- | --- |
