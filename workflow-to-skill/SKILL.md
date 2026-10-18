@@ -63,22 +63,23 @@ Choose the destination by the lesson's role:
   enforcement or execution owner; inspect that tool or check pipeline before
   proposing a new helper, and split and route the work as
   [references/automation.md](references/automation.md) describes.
-- A correction is a rule here when the user stated behavior that the existing
-  rules do not define, or define only weakly or ambiguously. One that restates a
-  clear existing rule, or only points at an instruction, check, document or tool
-  that existed but was not found, loaded or followed, or at an environment that
-  made the wrong path easy, adds no rule and belongs to `retro`.
+- A correction is a rule here when the user stated behavior that no existing
+  instruction, check, document or tool defines, or that one defines only weakly or
+  ambiguously. One that restates a clear existing rule, or only points at an
+  instruction, check, document or tool that existed but was not found, loaded or
+  followed, or at an environment that made the wrong path easy, adds no rule and
+  belongs to `retro`.
 - An already-covered lesson adds no rule; a transient workaround may need no new
   instruction.
 
 When the request asks for the correction and `retro` is available, hand `retro`
 the corrections that belong to it, their evidence, the request's authority, and
 the corrections retained here, so it does not route them again; otherwise list
-them as `retro`'s. Of what `retro` returns, send an instruction change it only
-proposed to `agent-instructions` unchanged; report a change it handed off or
-applied, or one that duplicates a retained correction, without starting a second
-one. Extract a procedure `retro` hands here from the episode it names, without
-diagnosing the session again.
+them as `retro`'s. Of what `retro` returns, send an instruction change it proposed
+for `agent-instructions` on unchanged; report every other finding with its owner
+and status, and start no second change for one it handed off or applied, or one
+that duplicates a retained correction. Extract a procedure `retro` hands here from
+the episode it names, without diagnosing the session again.
 
 Do not turn a partner-specific exception into policy for every input or a local
 business rule into a portable workflow default. A request that needs a broader
