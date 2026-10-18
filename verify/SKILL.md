@@ -55,7 +55,8 @@ Answer these from the codebase and ask only what you cannot observe. Look first
 for the project's own verification skill, such as a `verify-<app>` skill in the
 project's skill directory, and its feature map. When one exists, its Launch,
 Doctor, Drive, Evidence, and Cleanup steps apply and its map lists the entry
-points to cover; the rules below still decide isolation, proof, and the verdict.
+points to cover; the rules below still decide isolation, launch setup and
+secrets, proof, and the verdict.
 Then look for existing harnesses and documented commands: package scripts,
 Makefile targets, the README quickstart, end-to-end specs, container compose
 files, and worktree configuration such as a per-worktree dev command or URL in

@@ -89,7 +89,7 @@ dispatched through the DOM instead of the browser's input layer, an OS clipboard
 substitute, or emulated touch likewise need their actual coverage stated instead
 of being presented as native input proof.
 
-Keep credentials and sensitive fixture data out of artifacts. Retain proof
+Keep credentials and secret values out of artifacts. Retain proof
 outside disposable state and restore only resources the run owns.
 
 ## Decide and report
