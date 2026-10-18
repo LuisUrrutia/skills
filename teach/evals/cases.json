@@ -1,7 +1,48 @@
 {
   "skill": "teach",
-  "purpose": "Grader-only expectations. Withhold this file from executors. Use fresh matched baseline/candidate runs.",
+  "purpose": "Grader-only expectations. Withhold this file from executors. Use fresh matched baseline/candidate runs. Workspace cases run with a scratch home directory standing in for ~ and the fixture as the current directory.",
   "cases": [
+    {
+      "id": "broad-new-roadmap",
+      "skill": "teach",
+      "request": "Quiero aprender Rust para publicar un CLI interno para mi equipo antes de diciembre. Sé Python y Go básico; nunca usé ownership. Tengo unas 3 horas por semana. Usa ~/learning/rust-cli.",
+      "fixture": "~/learning/rust-cli exists and is empty. The current directory is a code repository. The system language list contains only es-ES.",
+      "expect": [
+        "Works in ~/learning/rust-cli and writes nothing into the current directory.",
+        "No language question: the system lists one language and the learner writes in it; NOTES.md records Spanish and the workspace files are in Spanish.",
+        "MISSION.md names the learner, the why, observable success items and the constraints (3 h/week, December deadline).",
+        "Python and basic Go recorded as reported prior knowledge with depth; ownership not assumed.",
+        "ROADMAP.md with stages, observable objectives, Needs, checkpoints and statuses, and a pace that fits 3 h/week or states a scope tradeoff.",
+        "RESOURCES.md lists checked primary sources or an explicit Gaps section; no invented links.",
+        "assets/ holds a shared stylesheet and, when the lesson has a quiz, a component that shuffles options at render.",
+        "lessons/0001-*.html targets the first frontier objective, cites sources, recommends one primary source, includes the follow-up reminder, and its path is reported."
+      ]
+    },
+    {
+      "id": "resume-next-lesson",
+      "skill": "teach",
+      "request": "siguiente lección",
+      "fixture": "The current directory is the learner's workspace (MISSION.md, NOTES.md with Spanish, ROADMAP.md, learning records, assets/style.css and assets/quiz.js, lessons 0001-0004). O1 is met (LR-0003, an earlier session). O2 is supported (lesson 0004). O3 is open and needs O2. O4 is open with no needs and serves a later success item.",
+      "expect": [
+        "Lesson 0005 targets O2 with less support, aimed at its checkpoint.",
+        "The lesson includes one changed-context retrieval task for O1.",
+        "Does not jump to O3 or O4.",
+        "No status change or learning record without evidence from an attempt.",
+        "Reuses assets/ instead of inlining a new stylesheet or quiz logic; the lesson is in Spanish."
+      ]
+    },
+    {
+      "id": "checkpoint-misconception-no-quiz",
+      "skill": "teach",
+      "request": "Calculé 30% de margen con una pista. Ahora creo que facturar más siempre significa tener más efectivo. No quiero otro quiz.",
+      "fixture": "The current directory is the learner's business workspace (fictional shop): O1 gross margin is presented, O2 cash timing is open and needs O1. Spanish in NOTES.md.",
+      "expect": [
+        "Corrects the misconception with a worked example of credit-sale timing.",
+        "Writes a corrected-misconception learning record.",
+        "O1 becomes supported, not met; O2 is not advanced to met.",
+        "No quiz, no mastery claim, no percentage or score."
+      ]
+    },
     {
       "id": "interview-concept",
       "skill": "teach",
@@ -9,7 +50,63 @@
       "material": "Technical facts supplied for this exercise: a goroutine executes concurrently in the same address space. Sending on an unbuffered channel waits for a receiver; on a buffered channel a send proceeds while room exists. A receive waits for a value unless a closed channel is drained, when it returns the zero value and false in the two-value form. Sending to a closed channel panics. Buffered channels do not eliminate synchronization.",
       "expect": [
         "Spanish explanation with accurate contrast and small example.",
-        "No imposed quiz, mock interview, study plan, files, or mastery claim."
+        "No imposed quiz, mock interview, study plan, files, workspace or mastery claim."
+      ]
+    },
+    {
+      "id": "concrete-direct-offer",
+      "skill": "teach",
+      "request": "Teach me what a database index is and when it does not help.",
+      "fixture": "The current directory is a code repository with no teaching workspace.",
+      "expect": [
+        "A direct lesson in the conversation: plain definition, one concrete example, and the cases where an index does not help.",
+        "Creates no files or directories, in the repository or in ~/learning.",
+        "Offers a workspace at most once, in one line, without asking a language question."
+      ]
+    },
+    {
+      "id": "concrete-continue-language",
+      "skill": "teach",
+      "request": "I want to really learn SQL window functions over the next few weeks for my analytics job. Teach me.",
+      "fixture": "The current directory is a code repository with no teaching workspace. The system language list contains only es-ES; the learner writes in English.",
+      "expect": [
+        "Treats the request as continued study and plans a workspace under ~/learning/, not in the repository.",
+        "Asks which language the workspace files should use, because the written language differs from the system language, together with any mission or baseline questions in one message.",
+        "Writes no lesson before the language and mission are settled, or, if it proceeds, records its assumptions as provisional."
+      ]
+    },
+    {
+      "id": "learner-separation",
+      "skill": "teach",
+      "request": "Soy Ana, la pareja de Luis. Quiero entender cómo funciona una cafetería; no sé de contabilidad ni cuánto tiempo tendré. Dame una primera versión por hitos sin preguntas.",
+      "fixture": "The current directory is Luis's Rust workspace: MISSION.md names Luis, a senior engineer comfortable with cash-flow forecasts.",
+      "expect": [
+        "Does not read Luis's records as Ana's or write Ana's material into his workspace.",
+        "Creates a separate workspace for Ana under ~/learning/ and states its path, or delivers the plan in chat with that offer.",
+        "Provisional mission with assumptions marked; milestones without dates or an invented weekly commitment.",
+        "No blocking interview, and none of Luis's expertise or goals carried over."
+      ]
+    },
+    {
+      "id": "complete-course",
+      "skill": "teach",
+      "request": "Soy Ana. Necesito un minicurso completo de tres capítulos sobre margen y flujo de caja para una tienda. Tengo tres sesiones de 30 minutos. Incluye objetivos, explicaciones, ejemplos con números, un ejercicio con respuesta por capítulo y un diagrama. Escríbelo aquí en español; no crees archivos.",
+      "material": "Use a fictional shop. Revenue minus cost of goods sold is gross profit; gross profit divided by revenue is gross margin. Cash flow concerns when cash is received and paid. Credit sales can create profit before cash arrives. Ignore tax and financing to keep examples bounded, and state these simplifying assumptions.",
+      "expect": [
+        "All three chapters contain requested actual content and answer guidance, not an outline.",
+        "Correct arithmetic and distinction between profit and cash timing.",
+        "Fits stated time at an explicitly approximate workload, with diagram and clear starting point.",
+        "No files and no workspace."
+      ]
+    },
+    {
+      "id": "no-practice-course",
+      "skill": "teach",
+      "request": "Write a complete two-chapter beginner lesson on queues. No exercises, quizzes, self-tests, or progress assessment. Give explanations and a worked example in each chapter. Do not ask questions or save files.",
+      "material": "A FIFO queue removes items in insertion order. A finite capacity limits stored items. When full, enqueue may block or fail according to the specified interface; use a blocking queue in the worked example.",
+      "expect": [
+        "Both chapters include explanations and worked examples.",
+        "No imposed exercises, quizzes, assessment, files, workspace or questions."
       ]
     },
     {
@@ -35,21 +132,22 @@
       ]
     },
     {
-      "id": "description-selection",
-      "request": "Choose skills from name and description for a lesson, course, plain code trace, prose rewrite, documentation task, and an agent orienting itself before implementation.",
-      "expect": [
-        "teach for human teaching; learning-plan for a study progression or complete course.",
-        "explain-code for plain tracing and agent orientation; communicate-clearly for prose and write-documentation for documentation without teaching intent.",
-        "A description-only selection probe does not establish actual host activation."
-      ]
-    },
-    {
       "id": "project-lesson",
+      "skill": "teach",
       "request": "Teach a junior teammate how the supplied queued job project works, then give a concrete example. Keep it in chat.",
       "fixture": "POST /jobs stores queued state; a worker sends through an undocumented transport and marks accepted. No history or runtime evidence.",
       "expect": [
         "Explain the source-grounded path as a learner-oriented lesson with a concrete example.",
-        "No invented delivery guarantee or rationale, no plan restart, no files."
+        "No invented delivery guarantee or rationale, no workspace for the requester, no files."
+      ]
+    },
+    {
+      "id": "description-selection",
+      "request": "Choose skills from name and description alone for each request: 'Explain how POST /jobs in this repo persists state', 'Rewrite this paragraph to be clearer', 'Write the onboarding guide for our team wiki', 'Plan the implementation of the retry queue', 'Make me a six-week study plan for SQL', 'Next lesson' (inside a learning workspace), 'Teach me Go channels for an interview'.",
+      "expect": [
+        "teach for the study plan, the next lesson and the Go lesson.",
+        "explain-code for the code trace, communicate-clearly for the rewrite, write-documentation for the onboarding guide, and planning for the implementation plan; none of these selects teach.",
+        "A description-only selection probe does not establish actual host activation."
       ]
     }
   ]
