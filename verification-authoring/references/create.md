@@ -27,18 +27,21 @@ remove it afterward. Never use scaffolding to conceal a missing product boundary
 
 Unless the caller is read-only, a launch may use the project's documented
 commands. When the documentation is missing a step, use only the scripts and
-targets the project itself declares, such as manifest scripts, Makefile or task-
-runner targets, compose files, its migration and seed tooling, and the
+targets the project itself declares, such as manifest scripts, Makefile or
+task-runner targets, compose files, its migration and seed tooling, and the
 environment variables its source reads, and record each discovered step in the
 generated Launch section. Never compose a setup command from the project's
-internals. Setup changes only the run's isolated local data: never write to a
-shared or remote environment, so no deploy, publish, migration, or other change
-to staging or production, and report a step whose target is unclear as a
-prerequisite instead of running it. Setup covers installing the locked
-dependencies without changing the lockfile, creating the env file, and running
-migrations and seed data. Adding dependencies, changing a lockfile, and global
-installs need the active task's authority. A read-only caller gets none of this
-setup; each step becomes a reported prerequisite.
+internals. Read a declared step before running it: a step that reaches a shared
+or remote environment follows the next paragraph when it only reads, and never
+runs when it writes there, and an export or dump that lands in a remote bucket
+is a write, whatever the step's name says. Setup changes only the run's isolated
+local data: never write to a shared or remote environment, so no deploy,
+publish, migration, or other change to staging or production, and report a step
+whose target is unclear as a prerequisite instead of running it. Setup covers
+installing the locked dependencies without changing the lockfile, creating the
+env file, and running migrations and seed data. Adding dependencies, changing a
+lockfile, and global installs need the active task's authority. A read-only
+caller gets none of this setup; each step becomes a reported prerequisite.
 
 To make the local environment realistic, a launch may read a shared or remote
 environment through the project's own cloud or platform CLI, such as `gcloud`:
@@ -46,14 +49,15 @@ its configuration, resource and service versions, schema, flags, and data, which
 may be copied into the run's local data. Run read-only commands only, with the
 CLI's existing authentication; never log in. First confirm that the active
 project or account belongs to this repository's environments, and report it as a
-prerequisite when it is missing or unclear. When a configuration read can include
-secret values, such as a service's environment, select only the fields the
-launch needs with the CLI's format or filter flags, so no secret value reaches
-the output. Never copy a secret from a secret manager into a file or the output;
-secrets follow the env-file rules below.
-Report each remote query with its command and the environment it read, and
-record the ones a later run needs in the generated Launch section. These queries
-belong to launch setup, so a read-only caller gets none of them.
+prerequisite when it is missing or unclear. When a configuration read can
+include secret values, such as a service's environment, select only the fields
+the launch needs with the CLI's format or filter flags, so no secret value
+reaches the output or the evidence. Never read a secret value from a secret
+manager, not even into the process environment: a missing secret follows the
+env-file rules below and goes to the user. Report each remote query with its
+command and the environment it read, and record the ones a later run needs in
+the generated Launch section. These queries belong to launch setup, so a
+read-only caller gets none of them.
 
 Prepare the env file by the project's mechanism:
 
@@ -86,7 +90,7 @@ following operating contract, filled with real project commands and paths:
 
 | Section | Required content |
 | --- | --- |
-| Launch | Exact build/start command and working directory; prerequisites; the [launch setup](#launch-setup) with this project's install, env-file, migration and seed commands; for a run-owned instance, startup from empty data through any migrations and seed data; a bounded readiness check that proves a usable state, not only an answering process or port; how the run identifies its build, instance, and owned resources. |
+| Launch | Exact build/start command and working directory; prerequisites; the [launch setup](#launch-setup) with this project's install, env-file, migration and seed commands and any read-only remote queries with the project or account they require; for a run-owned instance, startup from empty data through any migrations and seed data; a bounded readiness check that proves a usable state, not only an answering process or port; how the run identifies its build, instance, and owned resources. |
 | Doctor | A read-only check of whether this specific instance is worth driving: identity/version, readiness, expected data/profile/port, and relevant auth state. Explain failures without exposing credentials. |
 | Drive | The actual harness and selectors, routes, commands, public API calls, or device actions. Explain reset to a known state and reference the feature index. |
 | Evidence | Required action and result artifacts, independent side-effect checks, build/input identity, and the exact output location outside disposable state. |
