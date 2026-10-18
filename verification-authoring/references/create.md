@@ -23,6 +23,30 @@ configuration may be explicit verification scaffolding when safe and authorized;
 record why it is irrelevant to the behavior, create it only for the run, and
 remove it afterward. Never use scaffolding to conceal a missing product boundary.
 
+### Launch setup
+
+Unless the caller is read-only, a launch may use the project's documented
+commands to install its locked dependencies without changing the lockfile,
+create the env file, and run migrations and seed data against the run's isolated
+data. Adding dependencies, changing a lockfile, and global installs need the
+active task's authority. A read-only caller gets none of this setup; each step
+becomes a reported prerequisite. Prepare the env file by the project's mechanism:
+
+- **`.env.schema` exists:** the project uses varlock. Validate with
+  `varlock load --agent`, which redacts sensitive values, and run the project's
+  commands through varlock unless its own scripts already load it. Invoke
+  varlock through the project's package manager when it is a local dependency.
+  The `varlock` skill, when installed, covers the details. Never read `.env` or
+  `.env.local`, and never invent or fill a secret value. A missing required
+  secret stops that step: ask the user to set it. When varlock is in neither the
+  project nor the machine, report a blocker; do not install it.
+- **Otherwise:** create a missing `.env` from `.env.example`, with the run's
+  isolated ports and data paths, and never overwrite an existing env file. A
+  missing secret: ask the user. Never print secret values.
+
+This rule governs your own builds and starts during the interview and the proof,
+and the generated Launch section states it with the project's actual commands.
+
 ## Write instructions for the next agent
 
 Use `agent-instructions` with the discovered facts, intended verification scope,
@@ -31,7 +55,7 @@ following operating contract, filled with real project commands and paths:
 
 | Section | Required content |
 | --- | --- |
-| Launch | Exact build/start command and working directory; prerequisites; for a run-owned instance, startup from empty data through any migrations and seed data; a bounded readiness check that proves a usable state, not only an answering process or port; how the run identifies its build, instance, and owned resources. |
+| Launch | Exact build/start command and working directory; prerequisites; the [launch setup](#launch-setup) with this project's install, env-file, migration and seed commands; for a run-owned instance, startup from empty data through any migrations and seed data; a bounded readiness check that proves a usable state, not only an answering process or port; how the run identifies its build, instance, and owned resources. |
 | Doctor | A read-only check of whether this specific instance is worth driving: identity/version, readiness, expected data/profile/port, and relevant auth state. Explain failures without exposing credentials. |
 | Drive | The actual harness and selectors, routes, commands, public API calls, or device actions. Explain reset to a known state and reference the feature index. |
 | Evidence | Required action and result artifacts, independent side-effect checks, build/input identity, and the exact output location outside disposable state. |

@@ -67,8 +67,8 @@ prerequisites in the map are documentation drift.
 | Runtime or access prerequisite is unavailable | Record the attempted check and blocked coverage; do not report it as passed. |
 
 Maintenance edits stay inside the target verification skill and its owned
-helpers. Product repair, dependency installation, or external operations require
-the active task's authority. Each corrected harness must run before delivery;
+helpers. Product repair, new dependencies, or external operations require the
+active task's authority; launch setup follows the recipe's Launch section. Each corrected harness must run before delivery;
 rerun affected checks after the final relevant edit. Teardown follows the last
 re-proof, and retained evidence must remain readable.
 

@@ -16,10 +16,19 @@ where = [
 ]
 
 [[invariants]]
-rule = "Product repair, dependency installation, commits, PRs and scheduling follow the active caller and repository rules. A failed check alone never expands the authoring scope."
+rule = "Product repair, new dependencies, lockfile changes, global installs, commits, PRs and scheduling follow the active caller and repository rules. A failed check alone never expands the authoring scope."
 where = [
   "SKILL.md#establish-the-target",
   "SKILL.md#check-the-package-and-the-live-result",
+  "references/maintain.md#correct-the-right-layer",
+]
+
+[[invariants]]
+rule = "Unless the caller is read-only, a launch may install the project's locked dependencies without changing the lockfile, create the env file, and run migrations and seed data against the run's isolated data with the project's documented commands; a read-only caller gets each step as a reported prerequisite. When .env.schema exists, the project uses varlock: validate with `varlock load --agent`, run commands through varlock unless the project's scripts already load it, never read .env or .env.local, never invent or fill a secret, ask the user for a missing required secret, and report a blocker instead of installing varlock when neither the project nor the machine has it. Otherwise a missing .env is created from .env.example without overwriting an existing one, a missing secret goes to the user, and secret values are never printed. The rule governs the authoring run's own launches and the generated Launch section."
+reason = "User decision of 2026-10-18, made for the verify skill and extended to this skill's recipe Launch step."
+where = [
+  "references/create.md#launch-setup",
+  "references/create.md#write-instructions-for-the-next-agent",
   "references/maintain.md#correct-the-right-layer",
 ]
 
@@ -182,3 +191,10 @@ kind = "local"
 name = "verify"
 required = false
 role = "Route to execution when only verification is requested."
+
+[[dependencies]]
+kind = "local"
+name = "varlock"
+required = false
+role = "Details of validating the environment and running commands through varlock when the project has .env.schema. The core launch steps work without it."
+resolution = "Registered name varlock, published in https://github.com/dmno-dev/varlock at skills/varlock/SKILL.md. Not installed when this record was written on 2026-10-18; the user installs it later."
