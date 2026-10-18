@@ -18,8 +18,8 @@ reason = "User decision of 2026-10-18, option (a) of the rebuild analysis: a fre
 where = ["SKILL.md#3-launch-it-and-confirm-it-is-worth-driving", "references/launch-setup.md#run-the-projects-own-setup"]
 
 [[invariants]]
-rule = "To make the local environment realistic, a run may read a shared or remote environment through the project's own cloud or platform CLI, such as gcloud: configuration, resource and service versions, schema, flags and data shape. Only read-only commands run, with the CLI's existing authentication and never a login, after confirming that the active project or account belongs to this repository's environments; a missing or unclear one is a reported prerequisite. Queries that cannot print rows, such as counts and schema introspection, are preferred. The user approves before data that may hold personal or customer information enters the local environment, the evidence or the output; shape-only queries need no approval. A secret from a secret manager is never copied into a file or the output, and every remote query is reported with its command and the environment it read."
-reason = "User decision of 2026-10-18: if the project uses Google Cloud, for example, using the gcloud CLI to query the other environments helps build a much more realistic local environment for tests. The limits are the coordinator's, and the approval rule for personal or customer data in the evidence or output is the coordinator's ruling on a question raised while writing it."
+rule = "To make the local environment realistic, a run may read a shared or remote environment through the project's own cloud or platform CLI, such as gcloud: configuration, resource and service versions, schema, flags and data, and may copy that data into its local data without asking, personal or customer data included. Only read-only commands run, with the CLI's existing authentication and never a login, after confirming that the active project or account belongs to this repository's environments; a missing or unclear one is a reported prerequisite. A secret from a secret manager is never copied into a file or the output; secrets follow the env-file rules. Every remote query is reported with its command and the environment it read. A read-only caller gets no remote queries, because they serve the local launch it does not get."
+reason = "User decision of 2026-10-18: if the project uses Google Cloud, for example, using the gcloud CLI to query the other environments helps build a much more realistic local environment for tests. The read-only, login and project-confirmation limits are the coordinator's. A later user decision of the same day removed the approval step for personal or customer data: \"just copy them, I don't need it to ask\"."
 where = ["references/launch-setup.md#read-remote-environments-without-changing-them"]
 
 [[invariants]]
@@ -122,7 +122,7 @@ where = [
 ]
 
 [[sources.deviations]]
-change = "Added launch setup to Launch: what a run may install, create and migrate unless its caller is read-only, the read-only remote queries that make the local environment realistic, and how it prepares the env file, through varlock when .env.schema exists and from .env.example otherwise. The detail lives in a reference read before any setup; the launch step keeps the authority summary and the secret guard."
+change = "Added launch setup to Launch: what a run may install, create and migrate unless its caller is read-only, the read-only remote queries that make the local environment realistic, and how it prepares the env file, through varlock when .env.schema exists and from .env.example otherwise. The detail lives in a reference read before building or starting any instance, even when nothing needs setup; the launch step keeps the authority summary and the secret guard."
 reason = "The launch setup, remote query and env file invariants, all user decisions of 2026-10-18."
 where = ["SKILL.md#3-launch-it-and-confirm-it-is-worth-driving", "references/launch-setup.md"]
 
@@ -392,7 +392,7 @@ idea = "Refuse rather than fall back: an instance that would land on the main ch
 serves = "Protects other agents' worktrees and the user's main instance on a shared machine."
 where = ["SKILL.md#3-launch-it-and-confirm-it-is-worth-driving"]
 shapes = "Opens the isolation paragraph of the launch step."
-adapted = "The donor builds the refusal into a harness CLI; verify applies it during its own launch, with no new command. As in the donor, the refusal applies only from a worktree, and only to a value the run cannot change for itself. Locally, a port or data path another instance holds leads to this run's own instance on different ones, passed through the process environment."
+adapted = "The donor builds the refusal into a harness CLI that refuses as soon as it detects the main instance's port or database. As in the donor, the refusal applies only from a worktree. Locally, the run first chooses isolated values through the process environment and stops only when it cannot change the conflicting value itself; a port or data path another instance holds leads to different ones."
 
 [[sources.ideas]]
 idea = "A missing env file is created from its example with the run's isolated ports and data paths, and an existing env file is never overwritten."

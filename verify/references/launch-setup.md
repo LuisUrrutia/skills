@@ -1,9 +1,10 @@
 # Launch setup
 
-Read this before installing dependencies, creating an env file, running
-migrations or seed data, or querying a remote environment for a launch. A
-read-only caller gets none of this setup; the skill's launch step reports each
-step as a missing prerequisite instead.
+Read this before building or starting an instance, even when nothing needs
+setup: it covers installing dependencies, creating an env file, running
+migrations or seed data, querying a remote environment, and running commands
+through varlock. A read-only caller gets no setup and no remote queries; the
+skill's launch step reports each needed step as a missing prerequisite instead.
 
 ## Run the project's own setup
 
@@ -24,15 +25,13 @@ active task's authority.
 
 To make the local environment realistic, you may read a shared or remote
 environment through the project's own cloud or platform CLI, such as `gcloud`:
-its configuration, resource and service versions, schema, flags, and data
-shape. Run read-only commands only, with the CLI's existing authentication;
-never log in. First confirm that the active project or account belongs to this
-repository's environments, and report it as a prerequisite when it is missing
-or unclear. Prefer queries that cannot print rows, such as counts and schema
-introspection. Ask the user before copying data that may hold personal or
-customer information into the local environment, the evidence, or the output,
-and never copy a secret from a secret manager into a file or the output. Report
-each remote query with its command and the environment it read.
+its configuration, resource and service versions, schema, flags, and data,
+which may be copied into the run's local data. Run read-only commands only, with
+the CLI's existing authentication; never log in. First confirm that the active
+project or account belongs to this repository's environments, and report it as
+a prerequisite when it is missing or unclear. Never copy a secret from a secret
+manager into a file or the output; secrets follow the env-file rules below.
+Report each remote query with its command and the environment it read.
 
 ## Prepare the env file
 
