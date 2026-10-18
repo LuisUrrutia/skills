@@ -35,6 +35,16 @@ rule = "Teaching authorizes writes inside the workspace only. It does not publis
 where = ["SKILL.md#boundaries", "SKILL.md#acquiring-wisdom"]
 
 [[invariants]]
+rule = "A workspace keeps only what resuming needs: the mission, preferences, resources and evidence of learning. It never saves a transcript or personal details the teaching does not need."
+reason = "Carried from the retired learning-plan skill, which saved no transcript or sensitive detail merely because it was available; a workspace now exists for all continued study."
+where = ["SKILL.md#teaching-workspace", "LEARNING-RECORD-FORMAT.md#what-does-_not_-qualify"]
+
+[[invariants]]
+rule = "The skill never chooses a code project or a worktree for a workspace; its default is `~/learning/<topic>/`, stated when created. A location the learner explicitly names wins, including one inside a worktree or a tracked project: the skill states once that worktree cleanup can delete it or that the files enter project history, then uses it without asking again. \"Never\" constrains the agent's choice, not the learner's."
+reason = "User decision of 2026-10-18 (analysis option 2(b), clarified by the coordinator the same day): the current directory is used only when it already holds a workspace or the learner names it."
+where = ["SKILL.md#teaching-workspace"]
+
+[[invariants]]
 rule = "A request for a complete course delivers the full content of every requested lesson, not an outline with an offer to fill it in later. A plan-only request ends with the mission, the roadmap and a starting point."
 reason = "Carried from the retired learning-plan skill, whose trials covered both requests."
 where = ["SKILL.md#roadmap"]
@@ -94,17 +104,17 @@ reason = "A model-invocable skill is selected by its description, and teach now 
 where = ["SKILL.md"]
 
 [[sources.deviations]]
-change = "Replaced the opening \"This is a stateful request - they intend to learn the topic over multiple sessions\" with a choice of shape. A concrete topic with no sign of continued study gets a direct lesson in the conversation and one offer of a workspace. A workspace starts only when the learner signals continued study, asks to save the lesson, or is already in a workspace. An explicit request about format, files, questions, practice or answers wins over both."
+change = "Replaced the opening \"This is a stateful request - they intend to learn the topic over multiple sessions\" with a choice of shape. A concrete topic with no sign of continued study, including a passing question outside the current workspace's mission, gets a direct lesson in the conversation and one offer of a workspace. A workspace starts only when the learner signals continued study, asks to save the lesson, or asks for something the mission of their current workspace covers. A calling workflow or non-interactive run gets the content in its reply and a workspace only at a location it names. An explicit request about format, files, questions, practice or answers wins over all of these."
 reason = "User decision of 2026-10-18. The base's own documentation says it is \"not the tool for one explanation in passing\", and a model-invocable teach now receives exactly those requests."
 where = ["SKILL.md#teach", "SKILL.md#choose-the-shape", "SKILL.md#direct-lessons"]
 
 [[sources.deviations]]
-change = "Replaced \"Treat the current directory as a teaching workspace\", resolved from \"the directory `/teach` was run in\", with a location rule: the current directory only when it already holds a workspace or the learner names a directory, otherwise `~/learning/<topic>/`, stated when created, and never a code project or a worktree chosen by the agent."
+change = "Replaced \"Treat the current directory as a teaching workspace\", resolved from \"the directory `/teach` was run in\", with a location rule: continue in the current directory when its MISSION.md is this learner's, otherwise create `~/learning/<topic>/` and state the path, use another directory only when the learner names it, and never choose a code project or a worktree; a learner-named location inside one is used after the skill states once that worktree cleanup can delete it or that the files enter project history."
 reason = "User decision of 2026-10-18 on the location and its root. Sessions usually start in a code repository or a disposable worktree, whose cleanup would delete the lessons; the base's documentation also says to keep the workspace out of the project you are working in. `/teach` is Claude Code slash syntax, and the skill also runs in Codex."
 where = ["SKILL.md#teaching-workspace"]
 
 [[sources.deviations]]
-change = "Added a language rule: workspace files are written in the learner's language even where other rules put written artifacts in English. On workspace creation the skill reads the system language (`defaults read -g AppleLanguages`, `locale` or `(Get-UICulture).Name`), asks when the system lists several languages or the learner writes in another one, records the answer as the first line of NOTES.md, and assumes the request's language only when nobody can answer."
+change = "Added a language rule: workspace files are written in the learner's language even where other rules put written artifacts in English. On workspace creation the skill reads the system language (`defaults read -g AppleLanguages`, `locale` or `(Get-UICulture).Name`), asks when the system lists several languages or the learner writes in another one and writes no workspace file until the answer arrives, records the answer as the first line of NOTES.md, repeats the check when NOTES.md records no language, and assumes the request's language only when nobody can answer."
 reason = "User decision of 2026-10-18: teach follows the user's language and keeps the detection procedure. The user's global rule currently sends every artifact that leaves the conversation to English; until the user changes it for personal material, teach states the language of its own workspace files. One of the user's Macs lists only es-ES and another lists English and Spanish."
 where = ["SKILL.md#teaching-workspace", "SKILL.md#notesmd"]
 
@@ -119,12 +129,12 @@ reason = "The user retired the learning-plan skill into teach, so study plans an
 where = ["SKILL.md#roadmap", "ROADMAP-FORMAT.md", "MISSION-FORMAT.md#template", "MISSION-FORMAT.md#rules"]
 
 [[sources.deviations]]
-change = "Restructured Zone Of Proximal Development into a selection procedure over the roadmap and the learning records: finish an objective in progress, give a retrieval task for an objective that is due, then start the next objective; after a milestone, review and propose real application; when every success item is met, stop producing lessons. Removed \"used to calculate the zone of proximal development\" from the learning-record description."
+change = "Restructured Zone Of Proximal Development into a two-step procedure over the roadmap and the learning records: choose the lesson's target (finish an objective in progress, otherwise the earliest open objective whose needs are satisfied), then add a changed-context retrieval task for every objective that is due, turning the lesson into a review when several are. After a milestone the skill reviews and proposes real application; when every success item is met it stops producing lessons; a skipped objective is deferred unless the learner states they know it. Removed \"used to calculate the zone of proximal development\" from the learning-record description."
 reason = "The base's documentation reports that nothing schedules a review and that the skill lacks exit criteria. A learning record holds observed evidence; it does not compute a psychological measure."
 where = ["SKILL.md#zone-of-proximal-development", "LEARNING-RECORD-FORMAT.md"]
 
 [[sources.deviations]]
-change = "Added a baseline check to the mission interview: one message asks why and what the learner already knows and can do for the first objectives, stated knowledge is recorded with its depth and used without retesting, and a learner who declines questions gets a provisional mission with marked assumptions instead of a blocked session."
+change = "Replaced \"If the user is unclear about the mission, or the MISSION.md is not populated, your first job should be to question the user\" with writing MISSION.md from what the learner already said and asking, in one message, only what that leaves unclear, including a baseline check of what they already know and can do for the first objectives. Stated knowledge is recorded with its depth and used without retesting, and a learner who declines questions gets a provisional mission with marked assumptions instead of a blocked session."
 reason = "The base's documentation calls assumed knowledge and undefined terms the most common real complaint and records the missing assessment step as a standing request (https://github.com/mattpocock/skills/issues/725). Local teaching uses stated knowledge without retesting and lets the learner decline questions."
 where = ["SKILL.md#the-mission", "MISSION-FORMAT.md#template", "MISSION-FORMAT.md#rules"]
 
@@ -136,7 +146,7 @@ where = ["SKILL.md#teaching-workspace", "SKILL.md#reference-documents"]
 [[sources.deviations]]
 change = "Replaced \"each answer should be exactly the same number of words\" and \"Vary which position holds the correct answer\" with a quiz component in assets/ that shuffles the options at each render, options of comparable length and form, plausible distractors, and feedback on every option."
 reason = "The base's documentation reports an instruction-level position fix that still put the correct answer first 33 times out of 33 and calls for a shuffling component (https://github.com/mattpocock/skills/issues/335). Local practice keeps clarity ahead of identical word counts."
-where = ["SKILL.md#assets", "references/practice.md#write-quiz-questions"]
+where = ["SKILL.md#assets", "SKILL.md#skills", "references/practice.md#write-quiz-questions"]
 
 [[sources.deviations]]
 change = "Replaced the posture that the learner cannot skip a quiz with learner-decided practice: an explicit opt-out wins, worked examples replace the practice, and understanding stays unmeasured."
@@ -144,9 +154,9 @@ reason = "The invariants that an explicit learner request wins and that answers 
 where = ["SKILL.md#skills"]
 
 [[sources.deviations]]
-change = "Extended \"Never trust your parametric knowledge\": facts that change are checked against current primary sources, examples match the learner's version and period, unconfirmed explanation is labeled unverified, and a procedure or precise notation needs a source or an executed check."
-reason = "The base's documentation reports a learner who received invented Rubik's cube move sequences and puts the highest risk in procedural domains with precise notation."
-where = ["SKILL.md#knowledge"]
+change = "Extended \"Never trust your parametric knowledge\": supplied material is used, facts that change are checked against current primary sources, examples match the learner's version and period, a procedure or precise notation needs a source or an executed check, and only claims that needed an unreachable source are labeled unverified. Research stays proportional: the resource hunt applies to a workspace, and a direct lesson cites what it checked in the reply."
+reason = "The base's documentation reports a learner who received invented Rubik's cube move sequences and puts the highest risk in procedural domains with precise notation. Local teaching kept research proportional and used supplied material, and a direct lesson has no RESOURCES.md."
+where = ["SKILL.md#philosophy", "SKILL.md#knowledge"]
 
 [[sources.deviations]]
 change = "Added grounding routes by kind of subject: an existing codebase through the explain-code and explain-decisions skills, a business through references/business.md, and other subjects through their own sources."
@@ -205,7 +215,7 @@ idea = "For a codebase subject, one investigator establishes how the code works 
 serves = "Code lessons rest on evidence without repeating the investigation, and no rationale is invented."
 where = ["SKILL.md#knowledge"]
 shapes = "Makes the codebase route in Knowledge name explain-code and explain-decisions and require their uncertainty to survive into the lesson."
-adapted = "The donor always runs both investigators. Here explain-decisions runs only when the reasons matter, other subjects need neither, and accessible evidence replaces them when they are unavailable."
+adapted = "The donor runs its how and why skills for every subject it teaches, both for a subsystem and possibly one for a small change. Here explain-decisions runs only when the reasons matter, a subject other than a codebase needs neither, and accessible evidence replaces them when they are unavailable."
 
 [[sources.declined]]
 feature = "No quizzes in any lesson."
@@ -277,8 +287,8 @@ feature = "Collecting the learner's answers through a mandatory question tool."
 reason = "The skill asks in one ordinary message, and only when the mission or the language is unclear."
 
 [[sources.declined]]
-feature = "A week-by-week plan and time-boxed checkpoints by default."
-reason = "The pace comes from the learner's stated time, and no weekly commitment is invented."
+feature = "Time-boxed checkpoints in every plan, with a week-by-week schedule as one of its output forms."
+reason = "The pace comes from the learner's stated time; dates appear only when the learner gave a deadline or schedule, and no weekly commitment is invented."
 
 [[sources.declined]]
 feature = "Practice and reflection required in every phase."
@@ -292,6 +302,40 @@ skipped = ["No change to the recorded paths in this range; no local instruction 
 deferred = []
 validation = [
   "Verified baseline, cursor and candidate ancestry; git diff --find-renames e43c7ee26e00..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.",
+  "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources]]
+id = "teach-humanlayer"
+author = "HumanLayer"
+repository = "https://github.com/humanlayer/skills"
+remote = "git@github.com:humanlayer/skills.git"
+ref = "refs/heads/main"
+license = "MIT; short phrases adapted, notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "ca7c8088db69e315a8b2deea43820270457f8f3c"
+reviewed_through = "653b6411c1f70c275a18e37673b042ff99f67ceb"
+baseline_paths = ["plugins/show-me/skills/show-me/SKILL.md", "LICENSE"]
+paths = ["plugins/show-me/skills/show-me/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "A visual shows only the parts the current point needs, and its short explanation sits next to it rather than in a separate passage."
+serves = "Lets a visual clarify one mechanism without overwhelming the learner."
+where = ["references/lesson-artifacts.md#choose-the-form"]
+shapes = "Ties each example or view in the artifact reference to the lesson's win and places its explanation beside it."
+
+[[sources.declined]]
+feature = "Always opening HTML files with macOS `open`."
+reason = "The skill opens a lesson through whatever the host offers and always gives its path."
+
+[[sources.reviews]]
+from_commit = "ca7c8088db69e315a8b2deea43820270457f8f3c"
+to_commit = "653b6411c1f70c275a18e37673b042ff99f67ceb"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Verified baseline, cursor and candidate ancestry; git diff --find-renames ca7c8088db69..653b6411c1f7 over the recorded paths is empty and every recorded path exists at the candidate.",
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
@@ -322,10 +366,10 @@ shapes = "Ends the artifact reference with a check before delivery, and makes th
 adapted = "The donor names specific renderers and a screenshot step. Here the available browser tool does the check, and the report names which checks ran."
 
 [[sources.ideas]]
-idea = "When an explanation fails, change the example or framing instead of repeating it at greater length."
-serves = "Gives a stuck learner a new way into the idea."
+idea = "An analogy is used only when it clarifies the mechanism, with its limit stated. When an explanation fails, change the example or framing instead of repeating it at greater length."
+serves = "Gives a stuck learner a new way into the idea without leaving them with a misleading picture."
 where = ["SKILL.md#direct-lessons"]
-shapes = "Adds the failure branch to Direct lessons, which first names the missing prerequisite or misconception."
+shapes = "Adds the analogy limit and the failure branch to Direct lessons; the failure branch first names the missing prerequisite or misconception."
 
 [[sources.declined]]
 feature = "Asking before choosing any form beyond a diagram."
@@ -379,7 +423,7 @@ paths = [
 idea = "The learner is whoever will use the lesson, which can differ from the person or workflow that asked. Depth and form come from that learner, and a calling workflow receives the complete content with no menu of follow-up offers, because continuation belongs to the caller."
 serves = "Teaching a teammate, or teaching for another workflow, does not start a workspace for the requester or take over the caller's flow."
 where = ["SKILL.md#teach", "SKILL.md#choose-the-shape"]
-shapes = "Opens the skill with who the learner is, and makes the direct-lesson shape drop its workspace offer for a caller or non-interactive run."
+shapes = "Opens the skill with who the learner is, and gives Choose The Shape a rule for a calling workflow or non-interactive run: complete content in the reply, no offers, and a workspace only at a location the caller names."
 
 [[sources.ideas]]
 idea = "Questions test applying the mechanism or recognizing its limits, not recalling the lesson's wording. In a static document every question comes before any answer, and each answer states what a correct response contains and names the gap a plausible wrong answer reveals."

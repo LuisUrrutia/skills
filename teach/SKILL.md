@@ -20,46 +20,55 @@ owner is unclear stays unused until that is resolved.
 Decide before creating any file:
 
 - **Direct lesson.** A concrete topic (one mechanism, comparison or procedure that
-  one short lesson can make usable) with no sign of continued study. Teach it in
+  one short lesson can make usable) with no sign of continued study, including a
+  passing question outside the mission of the workspace you are in. Teach it in
   the conversation as [Direct lessons](#direct-lessons) describes, then offer a
-  workspace once, in one line. A calling workflow or a non-interactive run gets
-  the complete lesson and no offer; the caller decides what happens next.
+  workspace once, in one line.
 - **Workspace.** The learner signals continued study (a goal that takes several
-  sessions, a course, a plan, "next lesson"), asks to save the lesson, or is
-  already in a workspace. Use the [teaching workspace](#teaching-workspace), and
-  add a [roadmap](#roadmap) when the mission needs one.
+  sessions, a course, a plan, "next lesson"), asks to save the lesson, or asks for
+  something the mission of their current workspace covers. Use the
+  [teaching workspace](#teaching-workspace), and add a [roadmap](#roadmap) when the
+  mission needs one.
 
-An explicit request about format, files, questions, practice or answers wins over
-both shapes: "keep it in chat", "don't save files", "no quiz", "no questions now",
-"just tell me".
+A calling workflow or a non-interactive run gets the complete lesson, plan or
+course in its reply, with no offers; it gets a workspace only at a location it
+names, because continuation belongs to the caller. An explicit request about
+format, files, questions, practice or answers wins over both shapes: "keep it in
+chat", "don't save files", "no quiz", "no questions now", "just tell me".
 
 ## Teaching Workspace
 
 A teaching workspace is a directory that holds one learner's study of one mission.
-Workspace paths (`./lessons/` and the rest) resolve from the workspace directory;
-only the `*-FORMAT.md` links resolve from this skill's folder.
+Links to this skill's own files (the `*-FORMAT.md` files and `references/`) resolve
+from this skill's folder; workspace paths (`./lessons/` and the rest) resolve from
+the workspace directory.
 
-**Location.** Use the current directory when it already holds this learner's
-workspace for this mission (`MISSION.md`), or a directory the learner names. Otherwise create
-`~/learning/<topic>/`, where `<topic>` is a short kebab-case name for the mission,
-and state the path when you create it. Never choose a code project or a worktree
-yourself: lessons do not belong in project history, and worktree cleanup deletes
-them. If the directory already holds another mission or another learner's
-workspace, choose a distinct name.
+**Location.** Continue in the current directory when its `MISSION.md` is this
+learner's mission. Otherwise create `~/learning/<topic>/`, where `<topic>` is a
+short kebab-case name for the mission, and state the path when you create it; if
+that directory already belongs to another mission or learner, choose another name.
+Use a different directory only when the learner names it. Never choose a code
+project or a worktree yourself: lessons do not belong in project history, and
+worktree cleanup deletes them. A location the learner names wins; when it is inside
+a worktree or a tracked project, say once which of those consequences applies,
+then use it.
 
 **Language.** Workspace files are the learner's study material: write them in the
 learner's language, even where other rules put written artifacts in English. When
-creating a workspace, read the system language: `defaults read -g AppleLanguages`
-on macOS, `locale` on Linux, or `(Get-UICulture).Name` in Windows PowerShell.
-Regional variants of one language count as one language. Use the system language
-when it is the only one listed and the learner writes in it. Ask the learner when
-the system lists several languages or the learner writes in another one. Record
-the answer in `NOTES.md` and keep it for later sessions until the learner changes
-it. When nobody can answer, use the language of the request and record it as
-assumed. Talk with the learner in the language they write in.
+creating a workspace, or when `NOTES.md` records no language, read the system
+language: `defaults read -g AppleLanguages` on macOS, `locale` on Linux, or
+`(Get-UICulture).Name` in Windows PowerShell. Regional variants of one language
+count as one language. Use the system language when it is the only one listed and
+the learner writes in it. Ask the learner when the system lists several languages
+or the learner writes in another one, and write no workspace file until they
+answer. Record the answer as the first line of `NOTES.md` and keep it until the
+learner changes it. When nobody can answer, use the language of the request and
+record it as assumed. Talk with the learner in the language they write in.
 
 The state of their learning is captured in these files, each created when it first
-has content:
+has content. Keep only what resuming needs: the mission, preferences, resources and
+evidence of learning. Never save a transcript, or personal details the teaching
+does not need.
 
 - `MISSION.md`: who is learning, the _reason_ they are interested in the topic, and
   what success looks like. This grounds all teaching. Use the format in
@@ -100,9 +109,9 @@ To learn at a deep level, the learner needs three things:
   based on the knowledge
 - **Wisdom**, which comes from interacting with other learners and practitioners
 
-Before the `RESOURCES.md` is well-populated, your focus should be to find
-high-quality resources which will help the learner acquire knowledge. Never trust
-your parametric knowledge.
+In a workspace, before the `RESOURCES.md` is well-populated, your focus should be
+to find high-quality resources which will help the learner acquire knowledge.
+Never trust your parametric knowledge.
 
 Some topics may require more skills than knowledge. Learning more about theoretical
 physics might be more knowledge-based. For yoga, more skills-based.
@@ -154,12 +163,14 @@ learner when the host offers a way, and always give its path.
 
 A direct lesson teaches in the conversation. Start with a plain definition, tie it
 to the learner's case, then walk one concrete example through the mechanism, with
-a contrasting case or limit when it changes the answer. A list of parts or
-functions is reference, not teaching. Match the depth the learner asked for; when
-they set none, give the smallest complete answer and offer more. If an explanation
-fails, find the missing prerequisite or misconception and change the example or
-framing instead of repeating it more slowly. [Knowledge](#knowledge) and
-[Skills](#skills) apply here too.
+a contrasting case or limit when it changes the answer. Define each term or
+prerequisite before the lesson first relies on it. A list of parts or functions is
+reference, not teaching. An analogy may introduce the idea; state its limit and
+return to the real mechanism. Match the depth the learner asked for; when they set
+none, give the smallest complete answer and, in a live conversation, offer more.
+If an explanation fails, find the missing prerequisite or misconception and change
+the example or framing instead of repeating it more slowly. [Knowledge](#knowledge)
+and [Skills](#skills) apply without workspace files.
 
 ## Assets
 
@@ -180,17 +191,17 @@ the first position. As the workspace grows, so should the component library.
 
 ## The Mission
 
-Every lesson should be tied into the mission - the reason that the learner is
-interested in learning about the topic.
+Every workspace lesson should be tied into the mission - the reason that the
+learner is interested in learning about the topic.
 
-If the learner is unclear about the mission, or the `MISSION.md` is not populated,
-your first job should be to ask why they want to learn this and what they already
-know and can do for the first things the mission needs. Ask in one message,
-together with any language question.
-Record stated prior knowledge, with its depth, as learning records, and use it
-without retesting until an attempt contradicts it. If the learner declines
-questions or nobody can answer, write a provisional mission with its assumptions
-marked, and confirm or correct them as evidence arrives.
+When a workspace has no `MISSION.md`, write it from what the learner already said.
+Your first job is to ask only for what that leaves unclear: why they want to learn
+this, and what they already know and can do for the first things the mission
+needs. Ask in one message, together with any language question. Record stated
+prior knowledge, with its depth, as learning records, and use it without retesting
+until an attempt contradicts it. If the learner declines questions or nobody can
+answer, write a provisional mission with its assumptions marked, and confirm or
+correct them as evidence arrives.
 
 Failing to understand the mission will mean knowledge acquisition is not grounded
 in real-world goals. Lessons will feel too abstract. You will have no way of
@@ -211,15 +222,15 @@ requested topic needs a prerequisite with no evidence or the mission changes.
 
 Order objectives from the fundamentals the learner lacks to applied practice.
 Group them into stages that each end with a milestone: a real application whose
-feedback criteria are stated in advance. The pace comes from the learner's stated
-time; when it is unknown, use stages without dates, never an invented weekly
-commitment. If the scope does not fit a deadline, defer objectives or state the
-tradeoff and confirm it with the learner. Never promise mastery.
+feedback criteria are stated in advance. Pace and scope follow the rules in
+[ROADMAP-FORMAT.md](./ROADMAP-FORMAT.md); never promise mastery.
 
-A plan-only request ends with `MISSION.md`, `ROADMAP.md`, the plan shown in the
-reply, and the first objective to start with. A request for a complete course
-delivers the full content of every requested lesson now, not an outline with an
-offer to fill it in later.
+After the roadmap, teach the first lesson in the same session. A question that
+only shapes a later objective goes beside that lesson, not before it. A plan-only
+request ends instead with `MISSION.md`, `ROADMAP.md`, the plan shown in the reply,
+and the first objective to start with. A request for a complete course delivers
+the full content of every requested lesson now, not an outline with an offer to
+fill it in later.
 
 ## Zone Of Proximal Development
 
@@ -227,42 +238,45 @@ Each lesson, the learner should always feel as if they are being challenged 'jus
 enough'.
 
 When the learner names a topic, teach it. Teach a missing prerequisite briefly
-first and say so, add an objective when the roadmap lacks a topic the mission
-covers, and ask whether the mission changes when the topic is outside it.
+first and say so, and add an objective when the roadmap lacks a topic the mission
+covers. For a topic outside the mission, give a direct lesson, and ask whether the
+mission changes only when the learner wants to keep studying it.
 
 When they name none, read the mission, the roadmap and the learning records, then
-choose the first of these that applies:
+build the lesson in two steps:
 
-1. **Finish what is in progress.** A `presented` or `supported` objective gets
-   practice with less support, aimed at its checkpoint.
-2. **Retrieve what is due.** An objective `met` in an earlier session but not yet
-   `retained` gets one retrieval task in a changed context inside the next lesson.
-   When several are due, or the learner asks for review, make the whole lesson a
-   review.
-3. **Start the next objective.** Take the earliest objective whose needs are all
-   `reported`, `met` or `retained` and that serves the nearest unmet success item.
+1. **Choose its target.** Finish an objective in progress first: a `presented` or
+   `supported` objective gets practice aimed at its checkpoint, with less support
+   than it had before. Otherwise start the earliest `open` objective whose needs
+   are all `reported`, `met` or `retained` and that serves the nearest unmet
+   success item.
+2. **Add what is due.** Each objective `met` in an earlier session but not yet
+   `retained` gets one retrieval task in a changed context inside the lesson. When
+   several are due, or the learner asks for review, make the whole lesson a review.
 
 Without a roadmap, choose from the learning records and the mission.
 
 Change a status only on evidence, as [ROADMAP-FORMAT.md](./ROADMAP-FORMAT.md)
-defines. A passed checkpoint marks the objective `met` and earns a learning
-record. A failed one names the gap, records a corrected misconception, and
-reinforces the prerequisite or inserts a smaller objective. Presented or supported
-work never makes an objective `met`; when the learner declines practice, the
-status stays and understanding is not measured.
+defines. A passed checkpoint marks the objective `met` and earns a learning record;
+a comfortable pass skips redundant practice. A failed one names the gap, reinforces
+the prerequisite or inserts a smaller objective, and earns a misconception record
+once the learner shows they see why. Presented or supported work never makes an
+objective `met`; when the learner declines practice, the status stays and
+understanding is not measured.
 
 After a milestone, compare the learner's work with the success items it serves:
 name the recurring blockers and weak concepts, decide what to reinforce and what to
 defer, and set the next checkpoint. Then propose the milestone's real application
 or a community rather than another lesson of new material. When every success item
 is met, say so and propose a retention review, real practice or a new mission
-instead of producing more lessons. A request to review or skip ahead wins; record a
-skip as `reported` or defer the objective.
+instead of producing more lessons. A request to review or skip ahead wins: mark an
+objective `reported` only when the learner states they know it; otherwise defer it.
 
-When resuming, confirm that the workspace belongs to this learner. Revise the
-mission or roadmap when the learner reports a changed goal or available time. When
-an attempt contradicts a learning record, reassess that prerequisite and supersede
-the record.
+When resuming, treat the person continuing as the workspace's learner unless they
+say otherwise or the request contradicts `MISSION.md`; another person gets their
+own workspace. Revise the mission or roadmap when the learner reports a changed
+goal or available time. When an attempt contradicts a learning record, reassess
+that prerequisite and supersede the record.
 
 ## Knowledge
 
@@ -276,11 +290,14 @@ keep track of them. Lessons should be littered with citations - links to externa
 resources to back up any claim made. This increases the trustworthiness of the
 lesson.
 
-Check facts that change against current primary sources, and match examples to the
-version, product and period the learner uses. When no source can be reached, label
-the explanation as unverified model knowledge. A procedure or precise notation,
-such as a move sequence, a command or a chord shape, needs a source or an executed
-check before you teach it; invented procedures that look right are a known failure.
+Use the material the learner or a caller supplied. Check facts that change against
+current primary sources, and match examples to the version, product and period the
+learner uses. A procedure or precise notation, such as a move sequence, a command
+or a chord shape, needs a source or an executed check before you teach it; invented
+procedures that look right are a known failure. Keep research proportional to the
+lesson: a direct lesson cites what it checked in the reply and builds no
+`RESOURCES.md`. Label as unverified model knowledge only the claims that needed a
+source you could not reach.
 
 Ground the subject by its kind:
 

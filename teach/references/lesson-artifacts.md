@@ -24,10 +24,9 @@ in steps when that helps, without a fixed number of diagrams.
 
 ## Make it usable
 
-A lesson holds its win, the worked example, citations beside the claims they
-support, the recommended primary source, the reminder to ask follow-up questions,
-and any exercises with their answer guidance. Link the shared stylesheet and the
-components in `./assets/` with relative paths. Load scripts as classic scripts, not
+Besides what the Lessons section of SKILL.md requires, a lesson holds a worked
+example and any exercises with their answer guidance. Link the shared stylesheet
+and the components in `./assets/` with relative paths. Load scripts as classic scripts, not
 ES modules: lessons open from disk without a server or build step, and browsers
 such as Chrome block module scripts on pages opened from disk.
 

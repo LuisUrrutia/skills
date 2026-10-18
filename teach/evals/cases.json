@@ -1,6 +1,6 @@
 {
   "skill": "teach",
-  "purpose": "Grader-only expectations. Withhold this file from executors. Use fresh matched baseline/candidate runs. Workspace cases run with a scratch home directory standing in for ~ and the fixture as the current directory.",
+  "purpose": "Grader-only expectations. Withhold this file from executors. Use fresh matched baseline/candidate runs on both Claude Code and Codex, because output differs widely between harnesses. Workspace cases run with a scratch home directory standing in for ~ and the fixture as the current directory.",
   "cases": [
     {
       "id": "broad-new-roadmap",
@@ -15,7 +15,7 @@
         "ROADMAP.md with stages, observable objectives, Needs, checkpoints and statuses, and a pace that fits 3 h/week or states a scope tradeoff.",
         "RESOURCES.md lists checked primary sources or an explicit Gaps section; no invented links.",
         "assets/ holds a shared stylesheet and, when the lesson has a quiz, a component that shuffles options at render.",
-        "lessons/0001-*.html targets the first frontier objective, cites sources, recommends one primary source, includes the follow-up reminder, and its path is reported."
+        "lessons/0001-*.html targets the first frontier objective in the same session, cites sources, recommends one primary source, includes the follow-up reminder, and its path is reported; open questions about the CLI's scope go beside the lesson rather than blocking it."
       ]
     },
     {
@@ -24,6 +24,7 @@
       "request": "siguiente lección",
       "fixture": "The current directory is the learner's workspace (MISSION.md, NOTES.md with Spanish, ROADMAP.md, learning records, assets/style.css and assets/quiz.js, lessons 0001-0004). O1 is met (LR-0003, an earlier session). O2 is supported (lesson 0004). O3 is open and needs O2. O4 is open with no needs and serves a later success item.",
       "expect": [
+        "Teaches without asking whether the person is the workspace's learner; nothing contradicts MISSION.md.",
         "Lesson 0005 targets O2 with less support, aimed at its checkpoint.",
         "The lesson includes one changed-context retrieval task for O1.",
         "Does not jump to O3 or O4.",
@@ -38,7 +39,7 @@
       "fixture": "The current directory is the learner's business workspace (fictional shop): O1 gross margin is presented, O2 cash timing is open and needs O1. Spanish in NOTES.md.",
       "expect": [
         "Corrects the misconception with a worked example of credit-sale timing.",
-        "Writes a corrected-misconception learning record.",
+        "Keeps the observed gap visible for the next session (roadmap evidence or a learning record), and writes a corrected-misconception record only if the learner shows they see why.",
         "O1 becomes supported, not met; O2 is not advanced to met.",
         "No quiz, no mastery claim, no percentage or score."
       ]
@@ -72,7 +73,7 @@
       "expect": [
         "Treats the request as continued study and plans a workspace under ~/learning/, not in the repository.",
         "Asks which language the workspace files should use, because the written language differs from the system language, together with any mission or baseline questions in one message.",
-        "Writes no lesson before the language and mission are settled, or, if it proceeds, records its assumptions as provisional."
+        "Writes no workspace file before the language answer arrives."
       ]
     },
     {
@@ -139,6 +140,90 @@
       "expect": [
         "Explain the source-grounded path as a learner-oriented lesson with a concrete example.",
         "No invented delivery guarantee or rationale, no workspace for the requester, no files."
+      ]
+    },
+    {
+      "id": "multilingual-system-ask",
+      "skill": "teach",
+      "request": "Quiero aprender estadística bayesiana durante los próximos meses para mi trabajo de analista. Empecemos.",
+      "fixture": "The system language list contains en-US and es-ES. The current directory holds no workspace.",
+      "expect": [
+        "Asks which language the workspace files should use, because the system lists two languages, in the same message as any mission or baseline questions.",
+        "Writes no workspace file before the answer arrives."
+      ]
+    },
+    {
+      "id": "save-direct-lesson",
+      "skill": "teach",
+      "request": "Guárdame esta lección para repasarla.",
+      "fixture": "The previous turn was a direct lesson in Spanish on database indexes. The current directory is a code repository. The system language list contains only es-ES.",
+      "expect": [
+        "Creates a workspace under ~/learning/<topic>/, states the path, and writes nothing into the repository.",
+        "Saves the lesson as lessons/0001-*.html with the shared stylesheet, in Spanish, with NOTES.md recording the language.",
+        "Asks for a mission only as far as the saved lesson leaves it unclear, without blocking the save."
+      ]
+    },
+    {
+      "id": "off-mission-question",
+      "skill": "teach",
+      "request": "Por cierto, ¿qué es un índice de base de datos?",
+      "fixture": "The current directory is the learner's Rust CLI workspace; the mission does not involve databases.",
+      "expect": [
+        "Gives a direct lesson in the conversation and writes no workspace file.",
+        "Does not ask whether the mission changes unless the learner says they want to keep studying databases."
+      ]
+    },
+    {
+      "id": "named-project-location",
+      "skill": "teach",
+      "request": "Quiero aprender Elixir a fondo en los próximos meses. Crea el espacio de estudio aquí mismo, en este repositorio.",
+      "fixture": "The current directory is a tracked code repository. The system language list contains only es-ES.",
+      "expect": [
+        "Uses the directory the learner named.",
+        "States once that the files will enter the project's history, and does not ask again after the learner confirms.",
+        "Does not silently relocate the workspace to ~/learning/."
+      ]
+    },
+    {
+      "id": "all-success-met",
+      "skill": "teach",
+      "request": "siguiente lección",
+      "fixture": "The current directory is the learner's workspace; every objective in ROADMAP.md is met or retained and every success item in MISSION.md has evidence.",
+      "expect": [
+        "Says that every success item is met.",
+        "Proposes a retention review, real practice or a new mission instead of a lesson of new material.",
+        "Changes no status without evidence."
+      ]
+    },
+    {
+      "id": "caller-plan",
+      "skill": "teach",
+      "request": "(From a calling workflow, non-interactive) Produce a six-week SQL study plan for the new analyst joining next week and return it to me.",
+      "fixture": "No interactive learner. The current directory is a code repository.",
+      "expect": [
+        "Returns the complete plan in the reply, with stages and checkpoints.",
+        "Creates no workspace, because the caller named no location.",
+        "Adds no menu of follow-up offers."
+      ]
+    },
+    {
+      "id": "next-open-objective",
+      "skill": "teach",
+      "request": "siguiente lección",
+      "fixture": "The current directory is the learner's workspace. O1 is retained, O2 is open and needs O1, and both serve the same unmet success item.",
+      "expect": [
+        "Lesson 0005 starts O2, not O1 again.",
+        "Reuses assets/ and writes no record without an attempt."
+      ]
+    },
+    {
+      "id": "skip-ahead",
+      "skill": "teach",
+      "request": "Sáltate lo de select con timeout, eso no lo necesito ahora.",
+      "fixture": "The current directory is the Go workspace from resume-next-lesson; O3 is select with timeout.",
+      "expect": [
+        "Moves O3 to Deferred with the learner's reason instead of marking it reported or met.",
+        "Does not treat the skip as evidence of prior knowledge."
       ]
     },
     {

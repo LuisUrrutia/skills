@@ -52,6 +52,7 @@ Write one when any of these is true:
 - Practice the learner declined. Understanding stays unmeasured; nothing was learned or disproved.
 - Anything already captured tersely in [[GLOSSARY.md]] as a term definition. Don't duplicate.
 - Session-by-session activity logs. Learning records are not a journal: they are decision-grade insights.
+- Transcripts, and personal details the teaching does not need.
 
 ## Supersession
 
