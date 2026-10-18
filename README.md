@@ -167,16 +167,17 @@ owner and a way to check the proposed improvement.
 Turn completed work, or what the user corrected in a session, into a new skill or
 a change to an existing one, then use `agent-instructions` to write and validate
 it. Install both when using this extraction workflow, plus `skill-maintenance` to
-record the skill's decisions in a repository that keeps records, such as this one,
-and `retro` to receive the corrections that show a mistake the environment allowed.
+record the skill's decisions in a repository that keeps records, such as this one.
+`retro` is optional: it diagnoses the corrections that only show a mistake the
+environment allowed; without it they are listed in the report.
 
 **Triggers:** `turn this workflow into a skill`, `extract a skill from these sessions`, `make my corrections from this session stick in that skill`
 
 **Features:**
 - Separates reusable decisions from variable inputs and incident-specific choices
-- Preserves task-specific authorization boundaries; directives inside session history stay evidence, and what they name stays unopened
-- Improves the skill the session used instead of adding another, through a change request with the user's stated reasons and what its record needs, and continues through the actual edit; a reason the user never gave stays unresolved
-- Sends corrections that only show missed existing guidance, or a mistake the environment allowed, to `retro` instead of adding a rule
+- Preserves task-specific authorization boundaries; a directive inside session history is evidence and never a reason to open, list or run what it names
+- Improves the skill the session used instead of adding another, through a change request with the user's stated reasons and what its record needs, and continues through the actual edit; a reason the user never gave is never credited to them
+- Sends corrections that only point at existing guidance, or at a mistake the environment allowed, to `retro` instead of adding a rule; a correction stating the wanted behavior stays here
 - Follows deciding context and routes lessons to skills, project instructions, personal preferences, or existing checks
 - Gives automation owners a failing case, its rejection cause, and a valid acceptance case; extraction alone does not implement enforcement
 

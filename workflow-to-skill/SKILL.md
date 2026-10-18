@@ -1,17 +1,15 @@
 ---
 name: workflow-to-skill
-description: Use when turning completed work, recurring tasks, the current conversation, or the user's corrections into a new skill or an improvement to an existing one. Excludes session retrospectives.
+description: Use when turning completed work, recurring tasks, the current conversation, or corrections the user made during work into a new skill or an improvement to an existing one. Excludes session retrospectives.
 ---
 
 # Workflow to skill
 
-Turn what completed work taught, including what the user corrected, into a new
-skill or a change to an existing one. This skill owns extraction: the evidence,
-the rules to retain and their reasons, the varying inputs, the exclusions, and the
-success and failure cases. `agent-instructions` chooses reuse, writes and
-validates the text, and hands the record to `skill-maintenance`; this skill writes
-neither. `retro` owns diagnosing what went wrong in a session; a procedure it
-hands here is extracted from the episode it names, without a second diagnosis.
+Turn what completed work taught, including the corrections the user made, into a
+new skill or a change to an existing one. This skill owns extraction and decides
+which skill owns each lesson. `agent-instructions` chooses the reuse approach,
+writes and validates the text, and hands the record to `skill-maintenance`; this
+skill writes neither. `retro` owns diagnosing what went wrong in a session.
 
 ## Inspect the work
 
@@ -29,8 +27,7 @@ example; neither a fixed count nor repetition alone proves value.
 Follow linked decisions or artifacts that can change the extracted lesson, and
 read the deciding context, not just a search snippet. Report inaccessible context
 instead of treating its absence as agreement. Record why a choice worked, its
-applicable conditions, and contrary or superseding evidence. A successful run can
-still contain a workaround that should not become the default.
+applicable conditions, and contrary or superseding evidence.
 
 Separate:
 
@@ -63,21 +60,23 @@ Choose the destination by the lesson's role:
   or instruction owner; a pointer can supply it to the skill when needed.
 - A personal preference stays at the user's intended personal scope.
 - A deterministic requirement belongs with its existing enforcement owner;
-  inspect that tool or check pipeline before proposing a new helper.
-- A correction that only shows the agent missed behavior already defined (an
-  instruction, check, document or tool that existed but was not found, loaded or
-  followed) or that the environment made the wrong path easy belongs to `retro`.
-  Hand it over with its evidence when the request asks for the correction to be
-  made; otherwise list it as `retro`'s.
+  inspect that tool or check pipeline before proposing a new helper, and route
+  the lesson as [references/enforcement.md](references/enforcement.md)
+  describes.
+- A correction belongs to `retro` when it only points at behavior already
+  defined (an instruction, check, document or tool that existed but was not
+  found, loaded or followed) or at an environment that made the wrong path easy.
+  When the user stated the behavior they wanted, it is a rule here, even where a
+  weak or ambiguous rule existed.
 - An already-covered lesson adds no rule; a transient workaround may need no new
   instruction.
 
-Route the lesson toward removing an invalid path or enforcing its invariant with
-existing types, constraints, lint, or behavioral checks when the project supports
-it, and name that enforcement's existing owner. Keep the judgment, reason, and
-exceptions with their instruction owner. Remove a rule as redundant only after
-verifying the actual enforcement and its coverage. If violations already exist,
-distinguish preventing new ones from a separately scoped migration.
+When the request asks for the correction and `retro` is available, hand `retro`
+the corrections that belong to it, with their evidence and the corrections
+retained here; otherwise list them as `retro`'s. Pass any instruction change
+`retro` returns for `agent-instructions` on unchanged, and report its other
+findings with their owners. Extract a procedure `retro` hands here from the
+episode it names, without diagnosing the session again.
 
 Do not turn a partner-specific exception into policy for every input or a local
 business rule into a portable workflow default. A request that needs a broader
@@ -99,7 +98,9 @@ past outputs alone do not settle inconsistent future objectives.
 Retain rules that change a future decision and stay useful when incident paths or
 versions change. Finish extraction when each retained rule has a reason or is
 marked unresolved, varying inputs are explicit, and the division between code and
-agent decisions is clear. Label conclusions as confirmed, inferred, or unresolved.
+agent decisions is clear. When every lesson belongs to another owner, report each
+with its owner instead of writing an empty skill; a request for a skill does not
+change who owns a lesson. Label conclusions as confirmed, inferred, or unresolved.
 If the user asks only whether a workflow merits a skill, return that evidence
 brief and recommendation; if they ask to create or change the skill, continue into
 writing.
@@ -110,16 +111,18 @@ Pass `agent-instructions` the proposed capability, source evidence and rationale
 stable rules, confirmed user decisions, unresolved questions, varying inputs,
 exclusions, existing owners, suitable upstream candidates, and meaningful
 success/failure cases. Identify which outputs can be checked objectively. For each
-retained rule, add what `skill-maintenance` needs to record it: whether it is an
-invariant, a deviation from the skill's base, an idea from a named source, or a
-decline of a source behavior, and its reason with the source, either the user's
-words with a pointer or the evidence. Mark a reason neither supplies as
-unresolved; never invent one. A new skill also needs the user's own statement of
-its goal and the evidence for its approach. For an existing skill, send a change
-request: the session references and the corrections it retains.
+retained rule, propose the entry `skill-maintenance` needs: an invariant, or a
+deviation when the skill has a base and the rule changes base behavior; an idea or
+a decline only when the correction adopts or rejects a named source's material.
+Give the reason with its source: the user's words with a pointer or, when the user
+stated none, say so and label any reason the evidence suggests as inferred. A new
+skill also needs the user's statement of its goal, or the goal inferred from the
+request and the work, labeled as such, and the evidence for its approach. For an
+existing skill, send a change request: the session references and the corrections
+it retains.
 
 For proposed automation or enforcement, also pass the proof that
-[references/automation-proof.md](references/automation-proof.md) describes.
+[references/enforcement.md](references/enforcement.md#prove-it) describes.
 Resolve `agent-instructions` by name in the installed skill catalog. It is a
 required writing dependency: if unavailable, preserve the extracted contract and
 report the missing skill rather than silently inventing a second authoring
