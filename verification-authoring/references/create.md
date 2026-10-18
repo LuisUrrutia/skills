@@ -26,9 +26,11 @@ remove it afterward. Never use scaffolding to conceal a missing product boundary
 ### Launch setup
 
 Unless the caller is read-only, a launch may use the project's documented
-commands to install its locked dependencies without changing the lockfile,
-create the env file, and run migrations and seed data against the run's isolated
-data. Adding dependencies, changing a lockfile, and global installs need the
+commands, or its own scripts and steps that the source shows when the
+documentation is missing, to install its locked dependencies without changing
+the lockfile, create the env file, and run migrations and seed data against the
+run's isolated data. Record each discovered step in the generated Launch
+section. Adding dependencies, changing a lockfile, and global installs need the
 active task's authority. A read-only caller gets none of this setup; each step
 becomes a reported prerequisite. Prepare the env file by the project's mechanism:
 
@@ -36,6 +38,8 @@ becomes a reported prerequisite. Prepare the env file by the project's mechanism
   `varlock load --agent`, which redacts sensitive values, and run the project's
   commands through varlock unless its own scripts already load it. Invoke
   varlock through the project's package manager when it is a local dependency.
+  Give this run its own ports and data paths through the process environment,
+  which overrides every env file; never write them into `.env` or `.env.local`.
   The `varlock` skill, when installed, covers the details. Never read `.env` or
   `.env.local`, and never invent or fill a secret value. A missing required
   secret stops that step: ask the user to set it. When varlock is in neither the

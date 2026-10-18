@@ -68,9 +68,11 @@ prerequisites in the map are documentation drift.
 
 Maintenance edits stay inside the target verification skill and its owned
 helpers. Product repair, new dependencies, or external operations require the
-active task's authority; launch setup follows the recipe's Launch section. Each corrected harness must run before delivery;
-rerun affected checks after the final relevant edit. Teardown follows the last
-re-proof, and retained evidence must remain readable.
+active task's authority. Launch setup follows
+[Launch setup](create.md#launch-setup) with the recipe's own commands; a Launch
+section that contradicts it is drift. Each corrected harness must run before
+delivery; rerun affected checks after the final relevant edit. Teardown follows
+the last re-proof, and retained evidence must remain readable.
 
 ## Report the outcome
 
