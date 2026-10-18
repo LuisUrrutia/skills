@@ -18,6 +18,11 @@ reason = "User decision of 2026-10-18. The previous text let the agent choose an
 where = ["SKILL.md#save-and-report"]
 
 [[invariants]]
+rule = "The skill creates no file other than the handoff document: no bundle, patch, archive or other copy of the work, even temporarily or when the temporary directory cannot serve the pickup. It lists what the recipient must copy or fetch instead."
+reason = "User decision of 2026-10-18, after a trial run left a git bundle and a patch in the temporary directory and others built scratch clones to test their copy instructions."
+where = ["SKILL.md#save-and-report"]
+
+[[invariants]]
 rule = "The continuation guidance inside the document is written with agent-instructions, or without it when the skill catalog lacks it, and writing a handoff never starts the two-model review that agent-instructions requires, even when the request asks for guidance aimed at another agent: a handoff request is not a request for instruction authoring."
 reason = "User decision of 2026-10-18: a handoff records the state of the work so that other agents can pick it up, so its guidance follows agent-instructions, but a handoff never triggers the two-model consultation."
 where = ["SKILL.md#write-the-document"]
@@ -111,8 +116,8 @@ reason = "The destination invariant (user decision of 2026-10-18). The user's ow
 where = ["SKILL.md#save-and-report"]
 
 [[sources.deviations]]
-change = "Added that when the temporary directory cannot serve the pickup, the skill still saves there, says so and lists exactly what to copy: the document and each referenced local file the recipient cannot reach."
-reason = "The destination invariant (user decision of 2026-10-18). The base's companion docs name the lost temp path and temp files cleared between sessions as the most-reported problems."
+change = "Added that when the temporary directory cannot serve the pickup, the skill still saves there, says so and lists exactly what the recipient must copy or fetch: the document and each referenced local file it cannot reach. It never creates bundles, patches, archives or other copies of the work to make that transfer."
+reason = "The destination and no-transfer-files invariants (user decisions of 2026-10-18). The base's companion docs name the lost temp path and temp files cleared between sessions as the most-reported problems."
 where = ["SKILL.md#save-and-report"]
 
 [[sources.deviations]]

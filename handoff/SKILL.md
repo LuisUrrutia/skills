@@ -74,8 +74,9 @@ names it for update.
 
 When the temporary directory cannot serve the pickup, because the recipient runs
 on another machine or container or picks up after the directory may be cleared,
-still save there, say so, and list exactly what to copy: the document and each
-referenced local file the recipient cannot reach.
+still save there, say so, and list exactly what the recipient must copy or
+fetch: the document and each referenced local file it cannot reach. Never create
+bundles, patches, archives, or other copies of the work, even temporarily.
 
 Reread the saved file as a fresh agent: it must say what to do next and why, and,
 where limits or abandoned approaches exist, what not to do. Check that each
