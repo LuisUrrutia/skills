@@ -102,15 +102,18 @@ gets none of this setup: report each step as a missing prerequisite instead.
 Never print a secret value, and when the project has `.env.schema`, never read
 `.env` or `.env.local`.
 
-Give the instance its own ports, data, and browser profile, derived from the
-worktree where the project supports it. From a worktree, when the derived port,
-database, or profile is the main checkout's, stop and name the conflict instead
-of falling back. A port or data path that another running instance holds, such
-as a server a worktree hook started, is a conflict too: start this run's own
-instance on a free port with its own data. Drive someone else's instance only
-when the caller allows sharing and doctor shows it serves this checkout; then
-drive it serially and never stop it. A dependency that cannot be isolated, such
-as a shared auth provider, gets this run's namespace and is reported as shared.
+Give the instance its own ports, data, and browser profile: the ones the
+project derives from the worktree when it supports that, otherwise ones chosen
+for this run and passed through the process environment, never written into an
+env file this run did not create. A port or data path that another running
+instance holds, such as a server a worktree hook started, is not available to
+this run: choose others. From a worktree, when a value the run cannot change for
+itself, such as a database the project names in a file this run must not write,
+is the main checkout's, stop and name the conflict instead of falling back.
+Drive someone else's instance only when the caller allows sharing and doctor
+shows it serves this checkout; then drive it serially and never stop it. A
+dependency that cannot be isolated, such as a shared auth provider, gets this
+run's namespace and is reported as shared.
 
 Doctor is one read-only check that answers "is this instance worth driving?":
 the process is up, it serves this checkout's build, it uses this run's port,
@@ -197,7 +200,8 @@ run opened. Register each record or file a drive creates by a stable identifier
 with its cleanup action, run those cleanups in reverse order even after a
 failure, and confirm removal through an authoritative read; never delete by a
 test-looking name alone. An instance this run did not start keeps running; clean
-only the residue this run left in it. Remove marked scaffolding.
+only the residue this run left in it. Remove marked scaffolding and any env
+file this run created.
 
 Run cleanup after every failed attempt too, whether the session is stuck,
 exited, or shared, so broken attempts do not strand processes and ports. Cleanup
@@ -241,7 +245,8 @@ failures, skipped and blocked coverage, and the next missing check. If the run
 used a stand-in for the real target, such as a container in place of a fresh VM
 or a local stack in place of a remote one, list every setup step the stand-in
 did that the target will not; those steps stay unverified until a run on the
-real target covers them. List scaffolding and shared dependencies too.
+real target covers them. List scaffolding, shared dependencies, and any running
+instance this run found holding its resources and left alone.
 
 Claim completion only when every required check has current supporting
 evidence. Name a partial result's passing subset and its failures; never
