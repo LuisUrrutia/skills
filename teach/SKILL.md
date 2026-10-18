@@ -166,9 +166,10 @@ learner when the host offers a way, and always give its path.
 A direct lesson teaches in the conversation. Start with a plain definition, tie it
 to the learner's case, then walk one concrete example through the mechanism, with
 a contrasting case or limit when it changes the answer. A list of parts or
-functions is reference, not teaching. An analogy may introduce the idea; state its limit and
-return to the real mechanism. Match the depth the learner asked for; when they set
-none, give the smallest complete answer and, in a live conversation, offer more.
+functions is reference, not teaching. An analogy may introduce the idea; state its
+limit and return to the real mechanism. Match the depth the learner asked for; when
+they set none, give the smallest complete answer and, in a live conversation, offer
+more.
 If an explanation fails, find the missing prerequisite or misconception and change
 the example or framing instead of repeating it more slowly. [Knowledge](#knowledge)
 and [Skills](#skills) apply without workspace files.
@@ -230,9 +231,9 @@ feedback criteria are stated in advance. Pace and scope follow the rules in
 After the roadmap, teach the first lesson in the same session. A question that
 only shapes a later objective goes beside that lesson, not before it. A plan-only
 request ends instead with the plan shown in the reply and the first objective to
-start with, and, in a workspace, with `MISSION.md` and `ROADMAP.md`. A request for a complete course delivers
-the full content of every requested lesson now, not an outline with an offer to
-fill it in later.
+start with, and, in a workspace, with `MISSION.md` and `ROADMAP.md`. A request for
+a complete course delivers the full content of every requested lesson now, not an
+outline with an offer to fill it in later.
 
 ## Zone Of Proximal Development
 
@@ -265,8 +266,8 @@ the prerequisite or inserts a smaller objective, and earns a misconception recor
 once the learner shows they see why. Presented or supported work never makes an
 objective `met`; when the learner declines practice, the status stays and
 understanding is not measured. A learner who has declined practice still
-advances: skip the practice in step 1, and count their `presented` objectives as
-satisfying `Needs`.
+advances: skip the practice in step 1, and count their `presented` and `supported`
+objectives as satisfying `Needs` without changing those statuses.
 
 After a milestone, compare the learner's work with the success items it serves:
 name the recurring blockers and weak concepts, decide what to reinforce and what to

@@ -26,9 +26,9 @@ in steps when that helps, without a fixed number of diagrams.
 
 Besides what the Lessons section of SKILL.md requires, a lesson holds a worked
 example and any exercises with their answer guidance. Link the shared stylesheet
-and the components in `./assets/` with relative paths. Load scripts as classic scripts, not
-ES modules: lessons open from disk without a server or build step, and browsers
-such as Chrome block module scripts on pages opened from disk.
+and the components in `./assets/` with relative paths. Load scripts as classic
+scripts, not ES modules: lessons open from disk without a server or build step,
+and browsers such as Chrome block module scripts on pages opened from disk.
 
 Give every visual a meaningful text alternative, readable labels and controls
 usable from the keyboard. Motion explains change and respects reduced-motion

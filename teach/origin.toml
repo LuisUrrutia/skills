@@ -27,7 +27,7 @@ where = [
 ]
 
 [[invariants]]
-rule = "Unknown facts stay unknown: no invented links, company numbers, historical rationale or delivery guarantees. Illustrative numbers are labeled fictional, a marketing claim is not a result, and a claim that needed a source none could be reached for is labeled unverified model knowledge."
+rule = "Unknown facts stay unknown: no invented links, company numbers, historical rationale or delivery guarantees. Illustrative numbers are labeled fictional, a marketing claim is not a result, and a claim that needed a source that could not be reached is labeled unverified model knowledge."
 where = ["SKILL.md#knowledge", "RESOURCES-FORMAT.md#rules", "references/business.md"]
 
 [[invariants]]
@@ -45,7 +45,7 @@ reason = "User decision of 2026-10-18 (analysis option 2(b), clarified by the co
 where = ["SKILL.md#teaching-workspace"]
 
 [[invariants]]
-rule = "A request for a complete course delivers the full content of every requested lesson, not an outline with an offer to fill it in later. A plan-only request ends with the mission, the roadmap and a starting point."
+rule = "A request for a complete course delivers the full content of every requested lesson, not an outline with an offer to fill it in later. A plan-only request ends with the plan and a starting point, and in a workspace with MISSION.md and ROADMAP.md."
 reason = "Carried from the retired learning-plan skill, whose trials covered both requests."
 where = ["SKILL.md#roadmap"]
 
@@ -129,7 +129,7 @@ reason = "The user retired the learning-plan skill into teach, so study plans an
 where = ["SKILL.md#roadmap", "ROADMAP-FORMAT.md", "MISSION-FORMAT.md#template", "MISSION-FORMAT.md#rules"]
 
 [[sources.deviations]]
-change = "Restructured Zone Of Proximal Development into a two-step procedure over the roadmap and the learning records: choose the lesson's target (finish an objective in progress, otherwise the earliest open objective whose needs are satisfied), then add a changed-context retrieval task for every objective that is due, turning the lesson into a review when several are. After a milestone the skill reviews and proposes real application; when every success item is met it stops producing lessons; a skipped objective is deferred unless the learner states they know it; a learner who declined practice still advances, with presented objectives satisfying prerequisites. Removed \"used to calculate the zone of proximal development\" from the learning-record description."
+change = "Restructured Zone Of Proximal Development into a two-step procedure over the roadmap and the learning records: choose the lesson's target (finish an objective in progress, otherwise the earliest open objective whose needs are satisfied), then add a changed-context retrieval task for every objective that is due, turning the lesson into a review when several are. After a milestone the skill reviews and proposes real application; when every success item is met it stops producing lessons; a skipped objective is deferred unless the learner states they know it; a learner who declined practice still advances, with presented or supported objectives satisfying prerequisites. Removed \"used to calculate the zone of proximal development\" from the learning-record description."
 reason = "The base's documentation reports that nothing schedules a review and that the skill lacks exit criteria. A learning record holds observed evidence; it does not compute a psychological measure."
 where = ["SKILL.md#zone-of-proximal-development", "LEARNING-RECORD-FORMAT.md"]
 

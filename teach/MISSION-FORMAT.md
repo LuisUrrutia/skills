@@ -29,7 +29,7 @@ Status: {confirmed | provisional}
 
 - **One mission and one learner per workspace.** If the learner wants to learn two unrelated things, that is two workspaces. Another person learning the same topic gets their own workspace.
 - **Concrete over abstract.** "Run a half marathon by October" beats "get fitter." "Ship a Rust CLI to my team" beats "learn Rust."
-- **Push back on vagueness.** If the learner cannot articulate why, interview them before writing anything. A bad mission is worse than no mission.
-- **Mark what you assumed.** When the learner declines questions or nobody can answer, write the mission with `Status: provisional` and mark each assumed line `(assumed)`. Confirm or correct those lines as evidence arrives, then set `Status: confirmed`.
+- **Push back on vagueness.** If the learner cannot articulate why, ask before writing anything, as the Mission section of [SKILL.md](./SKILL.md) describes. A bad mission is worse than no mission.
+- **Mark what you assumed.** When the learner declines questions, asks for a file or lesson now, or nobody can answer, write the mission with `Status: provisional` and mark each assumed line `(assumed)`. Confirm or correct those lines as evidence arrives, then set `Status: confirmed`.
 - **Revise when reality shifts.** Missions change. When the learner's goal moves, update this file after they confirm the change: don't leave a stale mission steering future sessions.
 - **Keep it short.** If `MISSION.md` runs past a screen, it has stopped being a compass and started being a plan. The plan belongs in `ROADMAP.md`, prior knowledge in learning records, and the learner's language and preferences in `NOTES.md`.
