@@ -8,26 +8,23 @@ The code investigators have clearer names: `how` is now `explain-code`, and
 `why` is now `explain-decisions`. Update explicit invocations and installed copies
 to these names; the old names are not alias packages in this repository.
 
+`learning-plan` is retired: `teach` now covers study plans, courses and continued
+study. Update explicit invocations and remove installed copies of
+`learning-plan`; the old name is not an alias package.
+
 ### teach
 
-Teach a concept, codebase, system, or business at the learner's level, with
-concrete examples, useful diagrams, and optional practice and feedback.
+Teach any subject at the learner's level, from one lesson in the conversation to
+study that continues across sessions in a learning workspace.
 
-**Triggers:** `teach me Go channels`, `help me understand this business`, `practice this interview topic`
+**Triggers:** `teach me Go channels`, `make me a study plan for SQL`, `next lesson`, `practice this interview topic`
 
-Supports a direct explanation, a live lesson, or a requested teaching artifact.
-Preserves uncertainty and distinguishes demonstrated understanding from material
-merely presented. Shared installations do not share learner profiles.
-
-### learning-plan
-
-Create or revise a study roadmap or a complete course with ordered objectives,
-chapters, examples, exercises, diagrams, and usable progress checkpoints.
-
-**Triggers:** `create a study plan`, `write a complete beginner course`, `adjust my learning plan`
-
-Fits the learner's constraints and uses `teach` for requested lesson content.
-A complete course includes the lessons; a planning-only request ends with the plan.
+A concrete question gets a direct lesson in the conversation. Continued study gets
+a workspace under `~/learning/<topic>/` with the learner's mission, a roadmap of
+ordered objectives and checkpoints, checked resources, evidence-based learning
+records and short HTML lessons. Workspace files follow the learner's language.
+Explicit requests about files, questions or practice win, and shared
+installations do not share learner records. Built on Matt Pocock's `teach`.
 
 ### wayfinder
 

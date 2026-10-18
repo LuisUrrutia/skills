@@ -1,7 +1,8 @@
 # Practice and feedback
 
-Read when the request or agreed lesson includes practice. Choose an exercise that
-tests the learning objective, not recall of the explanation's phrasing.
+Read when designing practice, a quiz, a checkpoint, or feedback on an attempt.
+Practice tests applying the mechanism or recognizing its limits, not recalling the
+lesson's wording.
 
 ## Choose the task
 
@@ -9,6 +10,8 @@ A prediction, a worked problem, a code trace, a comparison, or a small applicati
 can expose different gaps. Start from the learner's current level. Show a worked
 example when a prerequisite is missing; reduce support as their attempts justify
 it. Change a meaningful condition in later practice so success is not just copying.
+A checkpoint is an unseen or changed task the learner does without help, with its
+pass criteria stated before the attempt.
 
 For interview preparation, connect the explanation to the sort of reasoning the
 role requires. Use follow-up questions about mechanisms, tradeoffs, and failure
@@ -19,9 +22,22 @@ An upcoming interview does not automatically authorize a mock interview.
 For live practice, pose a manageable task and let the learner attempt it before
 revealing the solution, unless they asked for worked examples or answers upfront.
 Offer a useful hint when they are stuck, then a worked solution when needed or
-requested. Do not make frustration a requirement for learning. For a standalone
-lesson, provide self-contained tasks with answer guidance separated from prompts;
-do not leave the artifact dependent on a future chat response.
+requested. Do not make frustration a requirement for learning. In an HTML lesson,
+check answers on the page so feedback is immediate. A static document or a
+non-interactive return puts every question before any answer and keeps the answer
+guidance apart from the prompts, so it never depends on a future reply.
+
+## Write quiz questions
+
+- Give each question the intended number of defensible answers.
+- Make each distractor a plausible answer that a real misconception would produce.
+- Keep options comparable in length, detail and form, so wording gives no clue.
+  Clarity comes before identical word counts.
+- In a lesson, build the quiz on the shuffling component in `./assets/`; writing
+  the options in varied order has not stopped the correct one from landing first.
+  In the conversation or a static document, vary the position yourself.
+- Give every option feedback: what a correct response contains, or the gap that
+  this wrong option reveals.
 
 ## Give diagnostic feedback
 
@@ -36,18 +52,11 @@ defensible answers, evaluate stated assumptions, evidence, and tradeoffs rather
 than pretending there is one hidden correct choice. For code, preserve relevant
 edge cases and distinguish a read-through prediction from executed evidence.
 
-If using multiple-choice questions, make distractors plausible and avoid accidental
-answer clues from wording, formatting, or position; vary where the correct option
-appears across questions. Do not force identical word counts at the expense of
-clarity. Ensure the question has the intended number of defensible answers and
-that explanations address why alternatives fail or depend on context.
+## Record the evidence
 
-## Carry evidence forward
-
-When the learner wants ongoing study, give `learning-plan` the practiced objective,
-the observed attempt, support used, remaining gap, and a suggested next task.
-Recall later in a changed context can check retention; presenting the same answer
-again cannot. Recommend spaced revisiting or mixed practice when useful to the
-goal, without inventing a universal schedule or claiming a measured learning gain.
-Persist these observations only within an authorized learning record, keeping
-demonstrated and self-reported knowledge distinct.
+In a workspace, update the objective's status in `ROADMAP.md` and write a learning
+record only when [LEARNING-RECORD-FORMAT.md](../LEARNING-RECORD-FORMAT.md) calls
+for one. Keep reported, supported, independent and retained evidence distinct.
+One success in the moment does not establish retention; recall later in a changed
+context can, and presenting the same answer again cannot. Outside a workspace,
+state in the reply what the attempt showed and what remains unmeasured.

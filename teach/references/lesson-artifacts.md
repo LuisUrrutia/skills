@@ -1,30 +1,45 @@
-# Lesson artifacts and visual explanations
+# Lesson artifacts
 
-Read when producing visuals, an interactive explanation, or a reusable lesson.
-Choose the requested format or the least elaborate one that makes the mechanism
-clear. Use the host's available artifact and visualization tools; do not require
-a donor's editor, publishing service, or media stack.
+Read when building a workspace lesson, a reference document, an asset, or a visual
+explanation.
 
-Keep each example or view tied to the objective. Use real names and relationships
-when explaining a real system; label simplified models and invented inputs.
-Progressively reveal a complex system when that aids understanding, without
-requiring a fixed number of diagrams. Put the relevant explanation next to the
-visual. Provide a meaningful text alternative, readable labels, and accessible
-controls; motion should explain change and respect reduced-motion preferences.
+## Choose the form
 
-For an interactive lesson, expose the input that controls the mechanism and show
-its consequences, including meaningful boundary cases. A decorative slider or
-animation does not add learning value. Check that visual state, displayed values,
-and answer feedback stay consistent when inputs change or the learner resets.
+Prose is the default. Use a diagram for parts and the links between them, a
+sequence over time, states, or a data path. Use an interactive element only when
+the learner learns by changing one input and seeing the effect. Each step up costs
+more to build and to check, so take the lowest one that carries the idea. A form
+the learner asks for wins. In the conversation, draw diagrams as Mermaid or plain
+text.
 
-A reusable lesson needs its objective, assumed prerequisites, a coherent worked
-example, and any requested exercises with answer guidance. Use `write-documentation`
-when available for document structure and reader-path checks. Respect the existing
-artifact conventions; reuse assets when concrete duplication warrants it rather
-than building a course framework for one lesson.
+Build an interactive element around the one variable that drives the mechanism,
+and show its consequences, including meaningful boundary cases. A decorative slider
+or animation adds nothing. Keep the visual state, displayed values and answer
+feedback consistent when inputs change or the learner resets.
 
-Before delivery, inspect the rendered artifact, exercise its controls, and check
-links, examples, and expected results using the relevant available tools. Distinguish
-syntax checks, execution, visual inspection, and unverified behavior. A render
-proves the artifact displays, not that a person learned from it. Report unavailable
-checks with their practical limits. Publication is separate from local delivery.
+Keep each example or view tied to the lesson's win. Use real names and
+relationships when explaining a real system; label simplified models and invented
+inputs. Put the explanation next to the visual it supports. Reveal a complex system
+in steps when that helps, without a fixed number of diagrams.
+
+## Make it usable
+
+Besides what the Lessons section of SKILL.md requires, a lesson holds a worked
+example and any exercises with their answer guidance. Link the shared stylesheet
+and the components in `./assets/` with relative paths. Load scripts as classic
+scripts, not ES modules: lessons open from disk without a server or build step,
+and browsers such as Chrome block module scripts on pages opened from disk.
+
+Give every visual a meaningful text alternative, readable labels and controls
+usable from the keyboard. Motion explains change and respects reduced-motion
+preferences. Reference documents also print cleanly.
+
+## Check before delivery
+
+Render the lesson from its file, as the learner will open it, with the available
+browser tool (`playwright-cli` opens `file:` URLs when its configuration sets
+`allowUnrestrictedFileAccess`). Use each control once and
+check the console for errors. Check links, examples and expected
+results. A diagram that does not render is worse than prose. Report which checks
+ran: a syntax check, an execution, a visual inspection, or none. A render proves
+the lesson displays, not that the learner learned from it.

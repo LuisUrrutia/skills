@@ -66,8 +66,8 @@ explanation of their relationship.
 Use a diagram, small example, or excerpt when it clarifies that relationship.
 Keep it consistent with the real path and distinguish illustrative inputs from
 observed execution. Scale the format to the question; a narrow answer needs no
-fixed sections. Guided teaching and exercises belong to `teach`; study plans belong to
-`learning-plan`. Use them when requested, not for every explanation.
+fixed sections. Guided teaching, exercises and study plans belong to `teach`. Use it
+when requested, not for every explanation.
 
 Put source locations beside the claims they support, with a short navigation map
 only when it helps the reader continue. Distinguish a component's present function

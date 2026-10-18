@@ -98,7 +98,7 @@ the entrypoint for a named package is `<name>/SKILL.md`.
 | Verification and review | `verification-authoring`, `verify`, `simplify-code`, `review-code-changes` |
 | Git and delivery | `worktrunk`, `commit`, `pr`, `pr-followup`, `stacked-pr`, `github-actions`, `ci-cd-automation`, `issue-workflow` |
 | Communication and continuity | `communicate-clearly`, `write-documentation`, `handoff`, `report-work-activity`, `comment-style`, `daily-meeting-update` (deprecated alias) |
-| Teaching and learning | `teach`, `learning-plan` |
+| Teaching and learning | `teach` |
 | Other retained personal capabilities | `article-processing`, `youtube-processing`, `people-memory` |
 
 `work-mode` remains the future coordinator. Repository presence does not mean
