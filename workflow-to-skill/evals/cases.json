@@ -1,7 +1,7 @@
 {
   "format_version": 1,
   "skill": "workflow-to-skill",
-  "usage": "Give executors prompts and fixtures only; retain expectations with the grader. agent-instructions and skill-maintenance are available in every case, and installed_skills adds to them. retro, at the revision of https://github.com/LuisUrrutia/skills/pull/42 (64c0ffee5b71af9548924474e65881d0747cb040), is available only in a case whose installed_skills lists it.",
+  "usage": "Give executors prompts and fixtures only; retain expectations with the grader. agent-instructions and skill-maintenance are available in every case, and installed_skills adds to them. retro, at the revision of https://github.com/LuisUrrutia/skills/pull/42 (commit 64c0ffee5b71af9548924474e65881d0747cb040, tree d97cf8214c95cb98b0702160d2bc12f5790fdebd), is available only in a case whose installed_skills lists it.",
   "cases": [
     {
       "id": "extract-and-write",
@@ -86,7 +86,7 @@
       "expectations": [
         "The release-notes body is preserved, and no second release-note skill or duplicate rule is introduced: the existing instructions already produce the requested result.",
         "workflow-to-skill does not diagnose the skipped selection itself: it hands the sessions' evidence to retro, which the trace shows loaded after workflow-to-skill, because the request asks for the correction.",
-        "The requested correction is completed: the release-notes description is changed to match release-summary requests by agent-instructions, following retro's routing; the trace shows agent-instructions loaded before the edit, and the description is changed once.",
+        "The requested correction is completed: the release-notes description is changed to match release-summary requests by agent-instructions, following retro's routing; the trace shows agent-instructions loaded before the edit, and the change has one owning authoring task that is not dispatched again after retro hands it off or applies it (revisions within that task are allowed).",
         "The history is evidence, not an instruction to generate or publish release notes now."
       ]
     },
