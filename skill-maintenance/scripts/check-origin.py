@@ -16,7 +16,7 @@ SHA256 = re.compile(r"^[0-9a-f]{64}$")
 SSH_REMOTE = re.compile(r"^(git@[^:\s]+:\S+|ssh://\S+)$")
 LINE_CITATION = re.compile(r"origin\.(?:txt|toml):\d+")
 MAX_WORDS = 100
-COMMIT_CITATION = re.compile(r"(?<![0-9A-Za-z])(?=[0-9a-f]*[0-9])(?=[0-9a-f]*[a-f])[0-9a-f]{7,40}(?![0-9A-Za-z])")
+COMMIT_CITATION = re.compile(r"(?<![0-9A-Za-z])[0-9a-f]{7,40}(?![0-9A-Za-z])")
 LOCATION = re.compile(r"^([^\s#]+)(?:#([a-z0-9_-]+))?$")
 FENCE = re.compile(r"^\s{0,3}(`{3,}|~{3,})")
 HEADING = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$")
@@ -163,8 +163,10 @@ class Checker:
         self.skill_dir = skill_dir
         self.record = skill_dir / "origin.toml"
         self.diagnostics = []
+        self.skipped = []
         self.slug_cache = {}
         self.citations = []
+        self.default = None
 
     def issue(self, code, message, location=None):
         item = {"path": str(self.record), "code": code, "message": message}
@@ -214,7 +216,8 @@ class Checker:
                 names.add(name)
         self.check_ids(data)
         self.check_approach(data, sources, snapshots, dependencies)
-        self.check_commit_citations()
+        if self.find_default_branch():
+            self.check_commit_citations()
         return self.diagnostics
 
     def scan_values(self, value, location):
@@ -417,18 +420,29 @@ class Checker:
             if anchor not in self.slug_cache[target]:
                 self.issue("missing-anchor", f"{relative} has no heading with anchor #{anchor}.", location)
 
+    def skip(self, check, reason):
+        self.skipped.append({"path": str(self.record), "check": check, "reason": reason})
+
+    def find_default_branch(self):
+        if git(self.skill_dir, "rev-parse", "--is-inside-work-tree")[1] != "true":
+            return False
+        self.default = next((ref for ref in DEFAULT_REFS if resolve_commit(self.skill_dir, ref)), None)
+        if self.default is None:
+            self.skip("default-branch", "No origin/HEAD, main or master ref was found.")
+        return self.default is not None
+
     def check_commit_citations(self):
         if not self.citations:
             return
-        default = next((ref for ref in DEFAULT_REFS if resolve_commit(self.skill_dir, ref)), None)
-        if default is None:
+        if git(self.skill_dir, "rev-parse", "--is-shallow-repository")[1] == "true":
+            self.skip("unmerged-commit", "The clone is shallow, so missing ancestry cannot prove a commit is off the default branch.")
             return
-        branch = git(self.skill_dir, "rev-parse", "--abbrev-ref", default)[1] or default
+        branch = git(self.skill_dir, "rev-parse", "--abbrev-ref", self.default)[1] or self.default
         unmerged = {}
         for token, location in self.citations:
             if token not in unmerged:
                 commit = resolve_commit(self.skill_dir, token)
-                unmerged[token] = bool(commit) and git(self.skill_dir, "merge-base", "--is-ancestor", commit, default)[0] == 1
+                unmerged[token] = bool(commit) and git(self.skill_dir, "merge-base", "--is-ancestor", commit, self.default)[0] == 1
             if unmerged[token]:
                 self.issue("unmerged-commit", f"Commit {token} is not on {branch}, so a rebase or squash merge can drop it. Describe the evidence or cite the pull request; cite a commit only once the default branch contains it.", location)
 
@@ -470,7 +484,7 @@ def dependents(name, root):
     found, unreadable = [], []
     for record in sorted(root.rglob("origin.toml")):
         relative = record.relative_to(root)
-        if any(part.startswith(".") for part in relative.parts):
+        if ".git" in relative.parts:
             continue
         try:
             data = tomllib.loads(record.read_text(encoding="utf-8"))
@@ -478,8 +492,11 @@ def dependents(name, root):
             unreadable.append(str(relative))
             continue
         entries = data.get("dependencies", [])
-        for dependency in entries if isinstance(entries, list) else []:
-            if isinstance(dependency, dict) and dependency.get("name") == name:
+        if not isinstance(entries, list) or not all(isinstance(entry, dict) for entry in entries):
+            unreadable.append(str(relative))
+            continue
+        for dependency in entries:
+            if dependency.get("name") == name:
                 found.append({"skill": record.parent.name, "record": str(relative),
                               **{key: dependency[key] for key in ("kind", "required", "role", "decisions") if key in dependency}})
     return found, unreadable
@@ -498,7 +515,7 @@ def main(argv=None):
             print(json.dumps({"error": "not a directory", "paths": [str(args.root)]}), file=sys.stderr)
             return 2
         found, unreadable = dependents(args.dependents, args.root)
-        print(json.dumps({"skill": args.dependents, "root": str(args.root), "dependents": found, "unreadable": unreadable}, indent=2))
+        print(json.dumps({"skill": args.dependents, "root": str(args.root), "dependents": found, "unreadable": unreadable}, indent=2, default=str))
         return 1 if unreadable else 0
     if not args.skill_dir:
         parser.error("--skill-dir is required")
@@ -506,10 +523,12 @@ def main(argv=None):
     if missing:
         print(json.dumps({"error": "not a directory", "paths": missing}), file=sys.stderr)
         return 2
-    diagnostics = []
+    diagnostics, skipped = [], []
     for skill_dir in args.skill_dir:
-        diagnostics.extend(Checker(skill_dir).run())
-    print(json.dumps({"checked": [str(path) for path in args.skill_dir], "diagnostics": diagnostics}, indent=2))
+        checker = Checker(skill_dir)
+        diagnostics.extend(checker.run())
+        skipped.extend(checker.skipped)
+    print(json.dumps({"checked": [str(path) for path in args.skill_dir], "diagnostics": diagnostics, "skipped": skipped}, indent=2))
     return 1 if diagnostics else 0
 
 

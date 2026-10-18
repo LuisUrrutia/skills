@@ -1,3 +1,4 @@
+import importlib.util
 import json
 from pathlib import Path
 import subprocess
@@ -411,11 +412,15 @@ class CommitCitationTest(unittest.TestCase):
     def tearDown(self):
         self.directory.cleanup()
 
-    def check_reason(self, reason):
-        record = HEADER.format(approach="create") + f'\n[[invariants]]\nrule = "Cite evidence."\nreason = "{reason}"\n'
+    def check_record(self, record):
         (self.skill_dir / "origin.toml").write_text(record, encoding="utf-8")
         returncode, output = run_checker("--skill-dir", self.skill_dir)
-        return returncode, [(item["code"], item.get("location")) for item in output["diagnostics"]]
+        return returncode, [(item["code"], item.get("location")) for item in output["diagnostics"]], output["skipped"]
+
+    def check_reason(self, reason):
+        returncode, diagnostics, _ = self.check_record(HEADER.format(approach="create") + f'\n[[invariants]]\nrule = "Cite evidence."\nreason = "{reason}"\n')
+        return returncode, diagnostics
+
 
     def test_commit_only_on_a_branch_is_reported(self):
         returncode, diagnostics = self.check_reason(f"Trials at {self.branch_commit[:7]} showed it.")
@@ -427,6 +432,35 @@ class CommitCitationTest(unittest.TestCase):
 
         self.assertEqual((returncode, diagnostics), (0, []))
 
+    def test_pinned_commit_fields_are_not_citations(self):
+        snapshot = f'''
+[[local_snapshots]]
+id = "draft"
+kind = "repository-commit"
+role = "ideas"
+repository = "https://github.com/example/drafts"
+commit = "{self.branch_commit}"
+paths = ["draft/"]
+verification = "Read the draft at that commit."
+''' + SNAPSHOT_IDEA
+
+        returncode, diagnostics, _ = self.check_record(HEADER.format(approach="derive") + snapshot)
+
+        self.assertEqual((returncode, diagnostics), (0, []))
+
+    def test_shallow_history_skips_the_citation_check(self):
+        git(self.repository, "switch", "--quiet", "main")
+        (self.skill_dir / "later.md").write_text("Later.\n", encoding="utf-8")
+        git(self.repository, "add", ".")
+        git(self.repository, "commit", "--quiet", "-m", "Later main commit")
+        shallow = self.repository / git(self.repository, "rev-parse", "--git-path", "shallow")
+        shallow.write_text(git(self.repository, "rev-parse", "HEAD") + "\n", encoding="utf-8")
+
+        returncode, diagnostics, skipped = self.check_record(HEADER.format(approach="create") + f'\n[[invariants]]\nrule = "Cite evidence."\nreason = "Decided in {self.main_commit[:7]}."\n')
+
+        self.assertEqual((returncode, diagnostics), (0, []))
+        self.assertEqual([item["check"] for item in skipped], ["unmerged-commit"])
+
     def test_merged_branch_commit_passes(self):
         git(self.repository, "switch", "--quiet", "main")
         git(self.repository, "merge", "--quiet", "--no-ff", "-m", "Merge feature", "feature")
@@ -434,6 +468,16 @@ class CommitCitationTest(unittest.TestCase):
         returncode, diagnostics = self.check_reason(f"Trials at {self.branch_commit[:7]} showed it.")
 
         self.assertEqual((returncode, diagnostics), (0, []))
+
+
+class CitationPatternTest(unittest.TestCase):
+    def test_commit_like_tokens_of_seven_to_forty_hex_digits(self):
+        spec = importlib.util.spec_from_file_location("check_origin", CHECKER)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        text = f"Cited 5756208, deadbee and 1a2b3c4d; not abc123, decade, a{'0' * 63}, x1234567 or 1234567z."
+
+        self.assertEqual(module.COMMIT_CITATION.findall(text), ["5756208", "deadbee", "1a2b3c4d"])
 
 
 class DependentsTest(unittest.TestCase):
@@ -460,6 +504,28 @@ class DependentsTest(unittest.TestCase):
             "role": "Runs checks through the recipe.",
             "decisions": ["Calls it for interface changes."],
         }])
+
+    def test_records_in_hidden_folders_are_listed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / ".agents" / "skills").mkdir(parents=True)
+            self.write_record(root / ".agents" / "skills", "caller", '\n[[dependencies]]\nkind = "local"\nname = "verify"\nrequired = true\nrole = "Verifies."\n')
+
+            returncode, output = run_checker("--dependents", "verify", "--root", root)
+
+        self.assertEqual((returncode, [item["record"] for item in output["dependents"]]), (0, [".agents/skills/caller/origin.toml"]))
+
+    def test_malformed_dependencies_are_reported_without_crashing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.write_record(root, "table", '\n[dependencies]\nkind = "local"\nname = "verify"\n')
+            self.write_record(root, "dated", '\n[[dependencies]]\nkind = "local"\nname = "verify"\nrequired = false\nrole = 2026-10-18\n')
+
+            returncode, output = run_checker("--dependents", "verify", "--root", root)
+
+        self.assertEqual(returncode, 1)
+        self.assertEqual(output["unreadable"], ["table/origin.toml"])
+        self.assertEqual([(item["skill"], item["role"]) for item in output["dependents"]], [("dated", "2026-10-18")])
 
     def test_unreadable_record_makes_the_list_incomplete(self):
         with tempfile.TemporaryDirectory() as directory:
