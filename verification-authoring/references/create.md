@@ -42,16 +42,15 @@ setup; each step becomes a reported prerequisite.
 
 To make the local environment realistic, a launch may read a shared or remote
 environment through the project's own cloud or platform CLI, such as `gcloud`:
-its configuration, resource and service versions, schema, flags, and data
-shape. Run read-only commands only, with the CLI's existing authentication;
-never log in. First confirm that the active project or account belongs to this
-repository's environments, and report it as a prerequisite when it is missing
-or unclear. Prefer queries that cannot print rows, such as counts and schema
-introspection. Ask the user before copying data that may hold personal or
-customer information into the local environment, the evidence, or the output,
-and never copy a secret from a secret manager into a file or the output. Report
-each remote query with its command and the environment it read, and record the
-ones a later run needs in the generated Launch section.
+its configuration, resource and service versions, schema, flags, and data, which
+may be copied into the run's local data. Run read-only commands only, with the
+CLI's existing authentication; never log in. First confirm that the active
+project or account belongs to this repository's environments, and report it as a
+prerequisite when it is missing or unclear. Never copy a secret from a secret
+manager into a file or the output; secrets follow the env-file rules below.
+Report each remote query with its command and the environment it read, and
+record the ones a later run needs in the generated Launch section. These queries
+belong to launch setup, so a read-only caller gets none of them.
 
 Prepare the env file by the project's mechanism:
 
