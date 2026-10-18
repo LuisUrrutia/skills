@@ -6,6 +6,7 @@ import datetime
 import json
 from pathlib import Path
 import re
+import subprocess
 import sys
 import tomllib
 
@@ -14,6 +15,7 @@ COMMIT = re.compile(r"^[0-9a-f]{40}$")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 SSH_REMOTE = re.compile(r"^(git@[^:\s]+:\S+|ssh://\S+)$")
 LINE_CITATION = re.compile(r"origin\.(?:txt|toml):\d+")
+COMMIT_CITATION = re.compile(r"(?<![0-9A-Za-z])(?=[0-9a-f]*[0-9])(?=[0-9a-f]*[a-f])[0-9a-f]{7,40}(?![0-9A-Za-z])")
 LOCATION = re.compile(r"^([^\s#]+)(?:#([a-z0-9_-]+))?$")
 FENCE = re.compile(r"^\s{0,3}(`{3,}|~{3,})")
 HEADING = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$")
@@ -26,6 +28,12 @@ ROLES = {"base", "ideas"}
 SNAPSHOT_KINDS = {"installed-file", "repository-commit", "session"}
 DEPENDENCY_KINDS = {"local", "installed"}
 LEGACY_KEYS = {"borrowed", "local_choices"}
+# Typed fields can name upstream commits that never belong on this repository's default branch.
+PINNED_KEYS = {"baseline_commit", "reviewed_through", "from_commit", "to_commit", "commit", "approved_commit",
+               "found_commit", "local_repository_commit", "sha256", "entrypoint_sha256", "review_sha256",
+               "validator_sha256"}
+DEFAULT_REFS = ("refs/remotes/origin/HEAD", "refs/remotes/origin/main", "refs/remotes/origin/master",
+                "refs/heads/main", "refs/heads/master")
 
 TOP = {
     "format_version": INTEGER, "skill": TEXT, "created": DATE, "approach": TEXT,
@@ -136,12 +144,26 @@ def is_text(value):
     return isinstance(value, str) and bool(value.strip())
 
 
+def git(directory, *args):
+    try:
+        result = subprocess.run(["git", "-C", str(directory), *args], capture_output=True, text=True, check=False)
+    except OSError:
+        return None, None
+    return result.returncode, result.stdout.strip()
+
+
+def resolve_commit(directory, name):
+    returncode, output = git(directory, "rev-parse", "--verify", "--quiet", f"{name}^{{commit}}")
+    return output if returncode == 0 else None
+
+
 class Checker:
     def __init__(self, skill_dir):
         self.skill_dir = skill_dir
         self.record = skill_dir / "origin.toml"
         self.diagnostics = []
         self.slug_cache = {}
+        self.citations = []
 
     def issue(self, code, message, location=None):
         item = {"path": str(self.record), "code": code, "message": message}
@@ -191,6 +213,7 @@ class Checker:
                 names.add(name)
         self.check_ids(data)
         self.check_approach(data, sources, snapshots, dependencies)
+        self.check_commit_citations()
         return self.diagnostics
 
     def scan_values(self, value, location):
@@ -203,8 +226,11 @@ class Checker:
         elif isinstance(value, list):
             for index, child in enumerate(value):
                 self.scan_values(child, f"{location}[{index}]")
-        elif isinstance(value, str) and LINE_CITATION.search(value):
-            self.issue("line-citation", "Refer to a record by its content, not by line number.", location)
+        elif isinstance(value, str):
+            if LINE_CITATION.search(value):
+                self.issue("line-citation", "Refer to a record by its content, not by line number.", location)
+            if location.rsplit(".", 1)[-1] not in PINNED_KEYS:
+                self.citations.extend((token, location) for token in COMMIT_CITATION.findall(value))
 
     def tables(self, data, key, location):
         value = data.get(key, [])
@@ -387,6 +413,21 @@ class Checker:
                 self.slug_cache[target] = heading_slugs(target)
             if anchor not in self.slug_cache[target]:
                 self.issue("missing-anchor", f"{relative} has no heading with anchor #{anchor}.", location)
+
+    def check_commit_citations(self):
+        if not self.citations:
+            return
+        default = next((ref for ref in DEFAULT_REFS if resolve_commit(self.skill_dir, ref)), None)
+        if default is None:
+            return
+        branch = git(self.skill_dir, "rev-parse", "--abbrev-ref", default)[1] or default
+        unmerged = {}
+        for token, location in self.citations:
+            if token not in unmerged:
+                commit = resolve_commit(self.skill_dir, token)
+                unmerged[token] = bool(commit) and git(self.skill_dir, "merge-base", "--is-ancestor", commit, default)[0] == 1
+            if unmerged[token]:
+                self.issue("unmerged-commit", f"Commit {token} is not on {branch}, so a rebase or squash merge can drop it. Describe the evidence or cite the pull request; cite a commit only once the default branch contains it.", location)
 
     def check_ids(self, data):
         seen = set()

@@ -369,9 +369,63 @@ installation = "~/.agents/.skill-lock.json"
         self.assertEqual(result.returncode, 2)
 
 
+def git(directory, *args):
+    return subprocess.run(
+        ["git", "-C", str(directory), "-c", "user.name=Test", "-c", "user.email=test@example.com", "-c", "commit.gpgsign=false", *args],
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout.strip()
+
+
 def run_checker(*args):
     result = subprocess.run([sys.executable, str(CHECKER), *map(str, args)], capture_output=True, text=True, check=False)
     return result.returncode, json.loads(result.stdout) if result.stdout else None
+
+
+class CommitCitationTest(unittest.TestCase):
+    def setUp(self):
+        self.directory = tempfile.TemporaryDirectory()
+        self.repository = Path(self.directory.name)
+        self.skill_dir = self.repository / "demo"
+        self.skill_dir.mkdir()
+        (self.skill_dir / "SKILL.md").write_text(SKILL, encoding="utf-8")
+        git(self.repository, "init", "--quiet", "--initial-branch=main")
+        git(self.repository, "add", ".")
+        git(self.repository, "commit", "--quiet", "-m", "Add demo")
+        self.main_commit = git(self.repository, "rev-parse", "HEAD")
+        git(self.repository, "switch", "--quiet", "-c", "feature")
+        (self.skill_dir / "notes.md").write_text("Trial notes.\n", encoding="utf-8")
+        git(self.repository, "add", ".")
+        git(self.repository, "commit", "--quiet", "-m", "Add trial notes")
+        self.branch_commit = git(self.repository, "rev-parse", "HEAD")
+
+    def tearDown(self):
+        self.directory.cleanup()
+
+    def check_reason(self, reason):
+        record = HEADER.format(approach="create") + f'\n[[invariants]]\nrule = "Cite evidence."\nreason = "{reason}"\n'
+        (self.skill_dir / "origin.toml").write_text(record, encoding="utf-8")
+        returncode, output = run_checker("--skill-dir", self.skill_dir)
+        return returncode, [(item["code"], item.get("location")) for item in output["diagnostics"]]
+
+    def test_commit_only_on_a_branch_is_reported(self):
+        returncode, diagnostics = self.check_reason(f"Trials at {self.branch_commit[:7]} showed it.")
+
+        self.assertEqual((returncode, diagnostics), (1, [("unmerged-commit", "invariants[0].reason")]))
+
+    def test_commits_on_the_default_branch_and_unknown_hashes_pass(self):
+        returncode, diagnostics = self.check_reason(f"Decided in {self.main_commit[:7]}; upstream 49dd158d1076 agreed.")
+
+        self.assertEqual((returncode, diagnostics), (0, []))
+
+    def test_merged_branch_commit_passes(self):
+        git(self.repository, "switch", "--quiet", "main")
+        git(self.repository, "merge", "--quiet", "--no-ff", "-m", "Merge feature", "feature")
+
+        returncode, diagnostics = self.check_reason(f"Trials at {self.branch_commit[:7]} showed it.")
+
+        self.assertEqual((returncode, diagnostics), (0, []))
 
 
 class DependentsTest(unittest.TestCase):
