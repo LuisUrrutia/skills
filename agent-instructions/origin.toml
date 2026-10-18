@@ -39,7 +39,7 @@ where = [
 ]
 
 [[invariants]]
-rule = "The skill-maintenance skill owns each skill's origin.toml: the record format, recording goals and decisions, and checks and updates from recorded sources and installed dependencies. This skill keeps no maintenance procedure of its own: it writes and evaluates the skill text, and in a repository that keeps records, where the target skill or another skill has an origin.toml, it hands every decision that changes a rule, a source idea, a base deviation or a dependency to skill-maintenance for recording, and writes no origin.toml itself, not even a draft when skill-maintenance cannot run; elsewhere a record is created only when the user asks."
+rule = "skill-maintenance owns each skill's origin.toml: its format, the recorded goal and decisions, and checks and updates from recorded sources and installed dependencies. This skill keeps no maintenance procedure; it writes and evaluates skill text. In a repository that keeps records, where the target or another skill has an origin.toml, it hands each decision that changes a rule, a source idea, a base deviation or a dependency to skill-maintenance, and writes no origin.toml itself, not even a draft when skill-maintenance cannot run. Elsewhere a record exists only when the user asks."
 reason = "User decisions on 2026-10-18: one skill records decisions and runs updates, instead of maintenance instructions repeated in every skill; skills in a repository that keeps records keep their goal and decisions because people keep modifying skills, and skills created in other projects, such as a generated verify-<app>, get no record unless requested. The rebuild on writing-for-agents keeps only the hand-over here. On 2026-10-18 a Codex trial of the compose-review case, with skill-maintenance unavailable, wrote a provisional origin.toml for the new skill instead of reporting the hand-over."
 where = [
   "SKILL.md#agent-instructions",
@@ -53,7 +53,7 @@ reason = "Policy and preferences can be valuable even when they differ from a mo
 where = ["SKILL.md#pruning"]
 
 [[invariants]]
-rule = "Instruction work the user explicitly requests gets independent reviews from Codex Astra and Claude Fable in fresh contexts before the result is final. Instruction work an agent takes on by its own decision, and an agent's review of its own changes, do not start the pair unless the user asks for that review. The agent that receives the user's request runs the pair unless a brief relays that request and assigns the pair to a delegate. A rate or usage limit skips that profile for the task; other failures leave the result provisional; no model or effort is substituted without the user. A donor's review layer does not replace this consultation."
+rule = "Instruction work the user explicitly requests gets independent, fresh-context reviews from Codex Astra and Claude Fable before the result is final. Work an agent starts on its own, and its review of its own changes, start no pair unless the user asks for that review. The agent receiving the user's request runs the pair unless a brief relays that request and assigns the pair to a delegate. A rate or usage limit skips that profile for the task; other failures leave the result provisional; no model or effort is substituted without the user. No donor review layer replaces the pair."
 reason = "Explicit user policy (reports/skill-atlas/agent-instructions-dual-review-validation.json). Commit 299c077 stopped a subagent from starting an unrequested pair; commit 3d96199 lets one reviewer continue when the other reaches a rate limit."
 where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md#handle-failures"]
 
@@ -69,7 +69,7 @@ where = ["SKILL.md#get-both-model-perspectives", "SKILL.md#agent-instructions"]
 
 [[invariants]]
 rule = "SKILL.md states when the model pair runs, who runs it and its completion criterion; runner resolution, briefs, failure handling and reconciliation live in references/model-pair.md. The split holds only while the model-pair evaluation cases pass against the package; on any regression, the full contract returns to SKILL.md."
-reason = "User decision on 2026-10-18, taken conditionally on the model-pair cases in evals/cases.json still passing. On 2026-10-18 every model-pair case passed against the rebuilt package at 386c7c5 in matched trials, and the four cases nearest the later wording changes passed again at 328975b; the trials are recorded in https://github.com/LuisUrrutia/skills/pull/43."
+reason = "User decision on 2026-10-18, taken conditionally on the model-pair cases in evals/cases.json still passing. That day every model-pair case passed against the rebuilt package in matched Claude trials, and the four cases nearest later wording changes passed again after them. The final revision of https://github.com/LuisUrrutia/skills/pull/43 was tried on Claude Code and Codex; its one recurring model-pair gap, Claude delegates marking their findings provisional in unassigned-relayed-review-skips-pair, occurs on the first rebuild revision too. The trials are recorded in that pull request."
 where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md"]
 
 [[invariants]]
@@ -78,7 +78,7 @@ reason = "User statement on 2026-10-18 that agent-instructions, skill-maintenanc
 where = ["references/skill-changes.md#review-a-skill-change", "references/model-pair.md#brief-the-reviewers"]
 
 [[invariants]]
-rule = "A changed skill's entry file is counted in words against its previous version and, when the record's approach is base, against the base's entry file. Each added passage names the behavior it buys and why every branch needs it in the entry file; a passage that only some branches need moves to a reference with a load condition, one that buys nothing is cut, and a reference that every branch must read reduces nothing. When a change renames or replaces most of the base's sections, the approach question goes to skill-maintenance with the counts and a section map, and skill-maintenance judges whether the base still fits."
+rule = "A changed skill's entry file is counted in words against its previous version and, when the record's approach is base, the base's entry file. Each added passage names the behavior it buys and why every branch needs it there; a passage only some branches need moves to a reference with a load condition, one that buys nothing is cut, and a reference every branch must read reduces nothing. When a change renames or replaces most base sections, the approach question goes to skill-maintenance with the counts and a section map, and skill-maintenance judges whether the base still fits."
 reason = "On 2026-10-18 the rebuilt entry files grew without any reviewer flagging it: teach 835 to 3289 words (base 1522), retro 790 to 2086 (base 679), verify 1025 to 2657, handoff 469 to 676 (base 144), and this skill 1348 to 3901 (base 1777)."
 where = ["references/skill-changes.md#size-budget", "references/levers.md#information-hierarchy"]
 
@@ -93,17 +93,21 @@ reason = "On 2026-10-18 a contract change in verify left nine caller texts stale
 where = ["references/skill-changes.md#dependent-text"]
 
 [[invariants]]
-rule = "Behavioral trials stage only the target's runtime files, never evaluation cases, records or notes; run both arms on every host the target supports, Claude Code and Codex here; grade side effects from the action trace, including tool calls on targets that an untrusted directive names and the task does not need; use canary values and never run commands that print process environments or command lines; and record host permissions and loaded user-level instructions as fixed conditions. Claims rest on the final revision: each added or changed case runs at least twice per host and every other suite case at least once per host on runtime files matching the final ones, each result names its revision, and an unrun case blocks the claims it covers."
-reason = "On 2026-10-18 the first wave of rebuilds showed each gap: handoff trial catalogs exposed evals/cases.json and origin.toml to executors; handoff, retro, verify and this skill ran Claude executors only; retro rows ran before three later wording changes, and teach and verify left cases unrun, including verify's trust rule; retro's untrusted-directive runs listed the path the directive named; a `pgrep -fl` process listing printed the host's messaging token into a pilot's context; and a host deny rule on .env files changed how executors worked."
+rule = "Behavioral trials stage only the target's runtime files, never evaluation cases, records or notes; run both arms on every host the target supports, Claude Code and Codex here; grade side effects from the action trace, including tool calls on targets that an untrusted directive names and the task does not need; use canary values and never run commands that print process environments or command lines; and record host permissions and loaded user-level instructions as fixed conditions."
+reason = "On 2026-10-18 the first wave of rebuilds showed each gap: handoff trial catalogs exposed evals/cases.json and origin.toml to executors; handoff, retro, verify and this skill ran Claude executors only; retro's untrusted-directive runs listed the path the directive named; a `pgrep -fl` process listing printed the host's messaging token into a pilot's context; and a host deny rule on .env files changed how executors worked."
 where = [
   "references/evaluation.md#define-the-checks",
   "references/evaluation.md#compare-the-right-instructions",
   "references/evaluation.md#judge-the-evidence",
-  "references/evaluation.md#iterate-proportionately",
 ]
 
 [[invariants]]
-rule = "Each model-pair round reviews a frozen candidate, cited by commit and tree hash when it is committed and by file hashes otherwise; freezing commits nothing the request or repository rules do not authorize. Both reviewers get identical inputs, kept private from each other and from the coordinator's dispositions until both results are in, and a round is reconciled only after both results are read in full or the missing profile is skipped or blocked. Only edits that change the reviewed meaning are reconsulted; other findings are applied or declined without another round, and a round with no material finding ends the loop."
+rule = "Claims rest on the final revision: each added or changed case runs at least twice per host and every other suite case at least once per host on runtime files that match the final ones by hash; each result names its revision, and an unrun case blocks the claims it covers."
+reason = "On 2026-10-18 retro's result rows ran before three later wording changes, and teach and verify left cases unrun, including verify's trust rule."
+where = ["references/evaluation.md#iterate-proportionately"]
+
+[[invariants]]
+rule = "Each model-pair round reviews a frozen candidate, cited by commit and tree hash when committed and by file hashes otherwise; freezing commits nothing the request or repository rules do not authorize. Both reviewers get identical inputs, private from each other and from the coordinator's dispositions until both results are in; a round is reconciled only after both results are read in full or the missing profile is skipped or blocked. Only edits that change the reviewed meaning are reconsulted; other findings are applied or declined without another round, and a round with no material finding ends the loop."
 reason = "On 2026-10-18: rebase.updateRefs moved backup refs so reviewed commits survived only in the reflog; this skill's pilot appended one reviewer's dispositions to a shared file while the other was still reviewing; the verify pilot reconciled a round before the other result arrived and skipped a result after a declined status call; and minor findings kept starting rounds (verify 8, this skill 5, retro 3)."
 where = [
   "references/model-pair.md#brief-the-reviewers",
