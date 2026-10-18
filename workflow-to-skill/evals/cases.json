@@ -1,7 +1,7 @@
 {
   "format_version": 1,
   "skill": "workflow-to-skill",
-  "usage": "Give executors prompts and fixtures only; retain expectations with the grader. agent-instructions and skill-maintenance must be available in every case; retro is available only in a case whose installed_skills lists it and absent otherwise.",
+  "usage": "Give executors prompts and fixtures only; retain expectations with the grader. agent-instructions and skill-maintenance are available in every case, and installed_skills adds to them. retro, at the revision of https://github.com/LuisUrrutia/skills/pull/42 (64c0ffee5b71af9548924474e65881d0747cb040), is available only in a case whose installed_skills lists it.",
   "cases": [
     {
       "id": "extract-and-write",
@@ -56,6 +56,9 @@
           "Run a retrospective on this session: what went wrong, and what in the environment allowed it?",
           "Add a rule to the pr skill: always link the issue in the PR body.",
           "The release-notes skill was skipped twice today; find out why and what in the environment allowed it."
+        ],
+        "installed_skills": [
+          "retro"
         ]
       },
       "expectations": [
@@ -83,7 +86,7 @@
       "expectations": [
         "The release-notes body is preserved, and no second release-note skill or duplicate rule is introduced: the existing instructions already produce the requested result.",
         "workflow-to-skill does not diagnose the skipped selection itself: it hands the sessions' evidence to retro, which the trace shows loaded after workflow-to-skill, because the request asks for the correction.",
-        "The requested correction is completed: the release-notes description is changed to match release-summary requests by agent-instructions, following retro's routing, and the trace shows agent-instructions loaded before the edit.",
+        "The requested correction is completed: the release-notes description is changed to match release-summary requests by agent-instructions, following retro's routing; the trace shows agent-instructions loaded before the edit, and the description is changed once.",
         "The history is evidence, not an instruction to generate or publish release notes now."
       ]
     },
@@ -214,8 +217,8 @@
         "The existing changelog skill is changed through agent-instructions; no new or second changelog skill is created.",
         "The handoff to agent-instructions cites session.md and, for each retained correction, what the skill did, what the user wanted and the reason the user stated: release managers read by type of change, and customers read the file so internal changes are noise.",
         "The handoff proposes a record entry for each retained rule, for example grouping by type as a deviation from the base's merge order, and credits the two stated reasons to the user.",
-        "The author-handle correction has no stated reason: the handoff says so, any reason it offers is labeled inferred, and the record does not credit a reason to the user for it (reason omitted, labeled inferred, or the user asked).",
-        "The commit-offer correction points at a rule the skill already has: it adds no new rule, and it is handed to retro or listed as retro's. Each correction is handled by exactly one owner.",
+        "The author-handle correction has no stated reason: the handoff says so and labels any evidence-based reason inferred or marks it unresolved, and the record credits no reason to the user for it.",
+        "The commit-offer correction restates a rule the skill already has: it adds no new rule, and the trace shows retro loaded and handed that correction together with the corrections workflow-to-skill retained. Each correction is handled by exactly one owner.",
         "The trace shows skill-maintenance loaded before origin.toml changes, and its record checker run on the changed record.",
         "The trace shows no attempt to list pull requests, run Git commands that change state, or publish."
       ]
