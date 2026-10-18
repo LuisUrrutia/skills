@@ -605,15 +605,17 @@ Publish prepared tasks and keep source tickets aligned with implementation start
 PR creation and merge. `task-breakdown` owns the delivery boundaries; Publish mode
 preserves those contracts, reconciles existing tickets and verifies relationships.
 Drafting tasks alone makes no tracker writes or implementation-state transitions.
-Each consuming project owns its rules in `docs/agents/issue-tracker.md`; the
+Each consuming project owns its rules in `docs/agents/issue-tracker.md`, or a
+user's own instructions designate a policy for the repositories they choose; the
 package includes an unconfigured template and Linear, Jira and GitHub guidance.
 
 **Triggers:** `create tickets from this breakdown`, `start implementing this ticket`, `synchronize this merged PR's ticket`, `configure ticket transitions`
 
 Starting work maps to In Progress, PR creation to In Review (including drafts),
 and verified merge to the project's chosen state, such as Ready for QA or Done.
-The policy chooses real states, source guards, branches, completion conditions and
-one transition owner. Partial work, manual progress and native automation are
+For each workflow scope, selected from the ticket's own fields, the policy
+chooses real states, source guards, branches, completion conditions and one
+transition owner. Partial work, manual progress and native automation are
 preserved; uncertain writes are reconciled before retrying.
 
 Install alongside `pr` and `pr-followup` for their event hooks. Approval alone is

@@ -4518,7 +4518,7 @@ window.SKILL_ATLAS = {
         "category": "Git, pull requests and CI",
         "summary": "Create or update a reviewable PR, including real screenshots, attachment recovery and useful diagrams.",
         "path": "pr/SKILL.md",
-        "sha256": "2f503b98cd3eb75cd362a522c8572411c61a47d01099fd4c3d3f42cb922d4f37",
+        "sha256": "335b8e130761b1055212892eb93f1766822bbecd60e9d4cf3e0acfeac266c253",
         "section": "pr-attachments",
         "checkedAt": "2026-10-18"
       },
@@ -4527,7 +4527,7 @@ window.SKILL_ATLAS = {
         "category": "Git, pull requests and CI",
         "summary": "Evaluate human and AI feedback, repair authorized CI failures or conflicts and report the current PR state.",
         "path": "pr-followup/SKILL.md",
-        "sha256": "1a9b979f6386b52ba12cca6bd8d1329a0daffc2151a5302c7c81fc4afd10986b",
+        "sha256": "0544acf96be46a20e48e29963071cf6e0952617ff926063ff086cca36ebe815b",
         "section": "followup",
         "checkedAt": "2026-10-18"
       },
@@ -4675,7 +4675,7 @@ window.SKILL_ATLAS = {
         "path": "issue-workflow/SKILL.md",
         "section": "issue-workflow",
         "checkedAt": "2026-10-18",
-        "sha256": "de765d5e6eaf49402f141d365bfd1899b9360520d68018cc46b1e5cbffbd15b6"
+        "sha256": "cf82d1c2ab00c04219aff75a9b858ca2cf653dea8cd8ce52a9d939a91d60a417"
       },
       {
         "name": "wayfinder",

@@ -53,7 +53,7 @@ for repair work unless the user requested a specific historical operation. For
 a verified merged target with a linked ticket, first handle the authorized
 `pr-merged` synchronization below; Check scope remains read-only.
 For a standalone request limited to feedback inspection or repair, use Inspect
-for linked-ticket transitions unless the request or standing project instructions
+for linked-ticket transitions unless the request or standing instructions
 also authorize lifecycle synchronization; the outside-scope tracking ticket still
 uses Publish. An active delivery/Drive task retains its existing authority.
 
@@ -109,7 +109,7 @@ Load support only at the boundary that needs it:
 | Push and complete PR description refresh | `pr`; pass exact identity and verified revision. |
 | Wording any reviewer reply, before drafting or posting it | `comment-style`; if missing, block the reply, not the repair. |
 | Dependent PR topology or cascading rebase | `stacked-pr`, retaining one writer. |
-| Linked-ticket transitions, and one tracking ticket per outside-scope thread | `issue-workflow`, using the project's policy and current remote evidence; Publish for the ticket. |
+| Linked-ticket transitions, and one tracking ticket per outside-scope thread | `issue-workflow`, using the linked ticket's policy and current remote evidence; Publish for the ticket. |
 
 For CI, base updates and observation, read
 [references/ci-and-observation.md](references/ci-and-observation.md). Before GitHub

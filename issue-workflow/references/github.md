@@ -4,7 +4,10 @@ GitHub issue open/closed state and a Project's Status field are different. Resol
 the exact issue repository and, for a board transition, the project owner/number,
 item, Status field and option IDs. Inspect current fields/options and current CLI
 help or connector schema rather than assuming one command version. An issue can
-belong to multiple Projects: update only the configured project and item.
+belong to multiple Projects; each Project's Status field is its own workflow
+scope, and its options are the workflow's full state list. An unset Status has
+no option ID and is not drift; it is a valid source only when the rule names it.
+Update only the configured project and item.
 
 If the issue is not in that Project, report the missing membership. Synchronizing
 status does not authorize creating a board, adding an item, inventing a status or
@@ -14,8 +17,8 @@ Change only the designated state labels and preserve unrelated labels.
 
 Before any authenticated GitHub write, follow the active actor-verification rules.
 Read the field/state before editing and re-read that same object afterward. Project
-access can require permissions separate from issue/PR access; report a scope
-failure without automatically expanding permissions.
+access can require permissions separate from issue/PR access; report a
+permission-scope failure without automatically expanding permissions.
 
 Closing keywords such as `Fixes` or `Closes` can close linked issues when a PR
 merges into the default branch. A custom Project Status update alone does not

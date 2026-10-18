@@ -13,8 +13,8 @@ This skill owns publication and PR presentation. `commit` owns atomic commits;
 owns feedback, CI repair and the transition from draft to ready for review. Use
 those owners only for work included in the active request or standing instructions.
 Returning to an authorized caller continues its workflow; completing this phase does not cancel the enclosing task.
-`issue-workflow` owns linked-ticket synchronization under the consuming project's
-canonical transition policy.
+`issue-workflow` owns linked-ticket synchronization under the designated
+transition policy.
 
 ## Resolve the operation
 

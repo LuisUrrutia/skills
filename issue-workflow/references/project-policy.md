@@ -1,9 +1,12 @@
 # Project transition policy
 
 `docs/agents/issue-tracker.md` belongs to the consuming repository. It describes
-that project's tracker and decisions, not generic API instructions. Respect an
-existing canonical tracker document referenced by project instructions. Keep one
-owner and link to it rather than creating a second mapping.
+that project's tracker and decisions, not generic API instructions. It names no
+skill, agent tool or connector, so it stays valid whatever tooling applies it.
+Respect an existing canonical tracker document referenced by project
+instructions, or a user-level policy that the user's own instructions designate
+for the repositories it covers; when both exist, the project's governs. Keep one owner
+and link to it rather than creating a second mapping.
 
 ## Establish the policy
 
@@ -19,36 +22,54 @@ leave the affected rule inactive. Examples are not executable defaults. The
 policy can be prose and tables; no special parser or new configuration service
 is required.
 
+Write it for the agent that applies it: record decisions and the facts needed to
+act on them. Leave out the evidence gathered to reach them, conventions that do
+not apply, and rules this skill already enforces; drop a template field that
+changes no decision, and state a value shared by every row once. Verification
+evidence belongs in the commit or PR that adds the policy.
+
 Record enough to decide a transition:
 
-- Canonical tracker, scope identifiers, repository and project/board when relevant.
-- Exact ticket lookup/linking conventions, and how completing versus contributing
-  PRs are distinguished. Avoid GitHub auto-close keywords when QA must remain open.
-- For each event: qualifying target branches, allowed source states, destination,
-  conditions, required transition-field values when applicable, and exactly one
-  owner (`agent` or a named native/external rule).
+- Canonical tracker and the conventions an agent acts on.
+- Workflow scopes. Identify the projects and issue types this repository's
+  tickets use, from recent ticket references and the user, then read each
+  workflow's states and transitions with the tools available; where they cannot
+  list a workflow, observe its tickets and their available transitions. Each
+  distinct workflow, and each team rule set within a shared workflow, is one
+  scope. Give each scope a selector built from stable fields of the fetched
+  ticket, as the provider adapter defines; where it names no field to separate
+  teams, use a stable field the user designates. Selectors must not overlap
+  unless the document states precedence. List excluded scopes explicitly; an
+  unlisted scope authorizes no transition.
+- How PRs link tickets, and how completing versus contributing PRs are
+  distinguished. Avoid GitHub auto-close keywords when QA must remain open.
+- For each scope and event: qualifying target branches, allowed source states,
+  destination, conditions, required transition-field values when applicable, and
+  exactly one owner (`agent` or a named native/external rule).
 - Merge completion criteria for partial work, multiple PRs and stacked branches.
   Name the final integration branch; do not equate a layer merge with completion.
-- Native rule identity and enabled/configuration evidence, or the explicit limit
-  that an agent must be running or invoked again to observe merge.
-- Exceptions for rework, reopening, manual progress or projects with distinct
-  workflows. Omit branches the project does not use.
+- The identity of each automation rule that owns a transition.
+- Exceptions for rework, reopening or manual progress, when the project has
+  them. Omit branches the project does not use.
 
-Use stable IDs where useful, alongside readable names. Resolve Jira's currently
-available transition IDs at execution time: they are operations, not status IDs.
-An inactive/unresolved row must never authorize a guessed transition. A rule that
-omits source guards or ownership is incomplete, even if its destination exists.
+Record each state by its provider ID where one exists, beside a readable name in
+the policy's language; the ID governs. Resolve Jira's currently available
+transition IDs at execution time: they are operations, not status IDs. An
+inactive/unresolved row must never authorize a guessed transition. A rule that
+omits source guards, ownership or the provider ID of a state that has one is
+incomplete, even if its destination exists.
 
-When configuring policy, recommend the conditional route below so work-start
-selection is explicit. Add it when project instruction edits are included in the
-request, using the repository's canonical AGENTS.md or CLAUDE.md. Otherwise report
-that activation depends on the installed catalog or explicit invocation. Preserve
-its existing import arrangement; do not create both host files or edit global
-instructions. For example:
+When configuring policy, preserve any existing route in the instructions that
+designate it. If none exists, recommend the conditional route below in the
+repository's canonical AGENTS.md or CLAUDE.md, or in user-level instructions for
+a user-level policy the user asked for, using the selected policy path. Add it
+only when edits to those instructions are authorized; otherwise report that
+activation depends on the installed catalog or explicit invocation. Preserve the
+existing import arrangement and do not create both host files. For example:
 
-> When starting implementation from a ticket, creating a linked PR, or observing
-> its merge, use `issue-workflow` with `docs/agents/issue-tracker.md`. Reading or
-> triaging a ticket alone does not change its state.
+> When you start implementing a ticket, or a PR linked to it is open, ready for
+> review or merged, apply `docs/agents/issue-tracker.md`, whoever caused the
+> event. Reading, planning or triaging a ticket alone does not change its state.
 
 Creating this document does not enable provider automation. Configure external
 rules only within separately authorized setup work, then verify their actual
@@ -57,9 +78,12 @@ automation disagree, report the mismatch; do not add a competing agent transitio
 
 ## Interpret an existing policy
 
-Select by the actual ticket scope and event; do not apply one team's workflow to
-another team. Specific branch rules take precedence only when the document says
-so; otherwise overlapping matches are ambiguous. Explicit source states protect
+Select the scope as [../SKILL.md](../SKILL.md) describes. Never carry one scope's
+states or rules to a ticket from another, even when status names match. Specific
+branch rules take precedence only when the document says
+so; otherwise overlapping matches are ambiguous. `Any` as a target branch means
+any verified branch of the target code repository the policy was selected for, and a resolved row
+is active unless the policy marks it inactive. Explicit source states protect
 manual progress without inventing a universal "higher state" ordering.
 
 Use the event definitions in [../SKILL.md](../SKILL.md). The requested progression

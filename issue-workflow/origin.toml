@@ -5,7 +5,7 @@ approach = "derive"
 goal = "Keep a ticket's workflow state in step with real delivery events under the consuming project's own transition policy, and publish prepared tasks to the project's tracker when requested. Each operation ends with the exact destination verified on the exact ticket, or with a reported outcome such as unchanged, skipped, pending automation or blocked and the evidence that decided it."
 
 [[invariants]]
-rule = "Transition rules belong to the consuming project. A transition needs a complete, active rule for the verified event: target branch, allowed source states, destination, completion conditions and exactly one owner. A missing, ambiguous or inactive rule blocks that transition and never authorizes a guessed one."
+rule = "Transition rules belong to the designated tracker policy, not to the skill. A transition needs a complete, active rule for the verified event: target branch, allowed source states, destination, completion conditions and exactly one owner. A missing, ambiguous or inactive rule blocks that transition and never authorizes a guessed one."
 reason = "The user defined this provider-neutral lifecycle contract; the project-policy source supplies only where the policy lives, and the Jira source's fixed status mapping is declined."
 where = [
   "SKILL.md#establish-identity-policy-and-event",
@@ -14,11 +14,40 @@ where = [
 ]
 
 [[invariants]]
+rule = "Each repository has one policy owner. The user's own instructions can designate a user-level policy for the repositories they choose; when the repository designates its own policy too, the repository's governs and the user-level rule supplies only the authorization to move tickets without asking."
+reason = "A team can decline a shared ticket policy while one developer still wants it for their own work."
+where = [
+  "SKILL.md#establish-identity-policy-and-event",
+  "references/project-policy.md#project-transition-policy",
+  "references/project-policy.md#establish-the-policy",
+]
+
+[[invariants]]
+rule = "One policy can hold several workflow scopes. The skill selects a ticket's scope from fields of the fetched ticket, never from the board, the key prefix or the caller's description, and matches states by provider ID rather than by name. A ticket in an unlisted or unmatched scope gets no transition, and an explicitly excluded scope returns skipped."
+reason = "One tracker can hold several workflows: Jira assigns a workflow per project and issue type, and teams can follow different rules on a shared one. Boards are filters, not workflows. Jira localizes status names, and several workflows reuse site-wide statuses."
+where = [
+  "SKILL.md#establish-identity-policy-and-event",
+  "SKILL.md#synchronize-one-event",
+  "references/project-policy.md#establish-the-policy",
+  "references/project-policy.md#interpret-an-existing-policy",
+  "assets/issue-tracker.md#workflow-scopes",
+]
+
+[[invariants]]
+rule = "The tracker policy records only the decisions an agent acts on and the facts it needs to act on them, and names no skill, agent tool or connector. Discovery and verification evidence belongs in the commit or PR that adds the policy."
+reason = "The policy stays valid whatever tooling applies it."
+where = [
+  "references/project-policy.md#project-transition-policy",
+  "references/project-policy.md#establish-the-policy",
+  "assets/issue-tracker.md#issue-tracker",
+]
+
+[[invariants]]
 rule = "Events come from current evidence, not from the caller's label. A PR event needs the exact PR verified remotely, and a merge event needs the remote merged state and the actual target branch."
 where = ["SKILL.md#establish-identity-policy-and-event"]
 
 [[invariants]]
-rule = "Ordinary synchronization creates no tickets, labels, domain docs or policy. An authorized delivery task covers its configured ticket transitions, not comments, assignees, unrelated labels, workflow configuration, deployments or recurring jobs."
+rule = "Ordinary synchronization creates no tickets, labels, domain docs or policy. An authorized delivery task covers its configured ticket transitions. Where a policy requires the user's confirmation for a move unless the user's own instructions authorize it, that task is the authorization. It does not cover comments, assignees, unrelated labels, workflow configuration, deployments or recurring jobs."
 where = ["SKILL.md#resolve-the-operation"]
 
 [[invariants]]
@@ -70,7 +99,7 @@ where = [
   "assets/issue-tracker.md",
 ]
 shapes = "Splits ownership in the skill's opening between the project file and the skill, and makes Establish the policy create that file from the bundled template and add a routing line to the canonical agent instructions."
-adapted = "The file also holds the transition map, which the donor does not supply: events, target branches, allowed source states, destinations, completion conditions and one owner per event. An existing canonical policy path is kept rather than migrated to the default name. The routing line goes into the repository's canonical AGENTS.md or CLAUDE.md and keeps its import arrangement; the skill never creates both host files or edits global instructions."
+adapted = "The file also holds the transition map, which the donor does not supply: events, target branches, allowed source states, destinations, completion conditions and one owner per event. An existing canonical policy path is kept rather than migrated to the default name. The routing line goes into the repository's canonical AGENTS.md or CLAUDE.md, or into user-level instructions for a user-level policy the user asked for, only when edits to those instructions are authorized; it keeps the existing import arrangement, and the skill never creates both host files."
 
 [[sources.declined]]
 feature = "Setup that also establishes a triage-label vocabulary and a domain-doc layout."
