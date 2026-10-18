@@ -47,12 +47,13 @@ not an implemented helper.
 
 ## Host tools and dependencies
 
-If the host supplies a skill creator, use it for its packaging requirements and
-validators: it supplies mechanics, and this skill owns composition and
-evaluation. Reconcile the applicable instructions explicitly rather than nesting
-two complete authoring workflows or installing a second creator with the same
-name. Prefer available host tooling; a donor's reference to its CLI, task
-manager, evaluator or viewer neither installs it nor makes it necessary.
+If the host supplies a skill creator, such as Codex's `skill-creator`, use it
+for its packaging requirements, its metadata files and its validators: it
+supplies mechanics, and this skill owns composition and evaluation. Reconcile
+the applicable instructions explicitly rather than nesting two complete
+authoring workflows or installing a second creator with the same name. Prefer
+available host tooling; a donor's reference to its CLI, task manager, evaluator
+or viewer neither installs it nor makes it necessary.
 
 Loading a Markdown file and invoking a skill are not interchangeable on every
 host. Resolve each skill dependency by registered name through the installed

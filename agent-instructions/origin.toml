@@ -10,11 +10,11 @@ where = ["SKILL.md#agent-instructions"]
 
 [[invariants]]
 rule = "The workflow-to-skill skill extracts a contract from completed work or conversation history, and the create-project-instructions skill investigates a project's code and knowledge sources. This skill writes from their evidence handoff, or from a fully supplied capability, without repeating their discovery."
-where = ["SKILL.md#agent-instructions", "references/skill-mechanics.md#description"]
+where = ["SKILL.md#agent-instructions"]
 
 [[invariants]]
 rule = "When the host supplies a skill creator, that creator owns current packaging mechanics and validators. This skill owns composition and evaluation, reconciles the applicable instructions explicitly, and neither restates the creator's whole workflow nor installs a second creator with the same name."
-where = ["references/packaging.md#host-tools-and-dependencies", "references/skill-mechanics.md#host-metadata"]
+where = ["references/packaging.md#host-tools-and-dependencies"]
 
 [[invariants]]
 rule = "A skill package stays host-neutral and self-contained: its resources resolve inside the skill folder, other skills are named by their registered names, and host-specific adapters stay separate."
@@ -43,7 +43,7 @@ rule = "The skill-maintenance skill owns each skill's origin.toml: the record fo
 reason = "User decisions on 2026-10-18: one skill records decisions and runs updates, instead of maintenance instructions repeated in every skill; skills in a repository that keeps records keep their goal and decisions because people keep modifying skills, and skills created in other projects, such as a generated verify-<app>, get no record unless requested. The rebuild on writing-for-agents keeps only the hand-over here."
 where = [
   "SKILL.md#agent-instructions",
-  "SKILL.md#report",
+  "references/skill-mechanics.md#records",
   "references/reuse.md#choose-what-to-maintain",
 ]
 
@@ -115,7 +115,7 @@ where = ["SKILL.md#agent-instructions"]
 
 [[sources.deviations]]
 change = "Added a step section above the base's reference sections: Establish meaning and scope, Write, Get both model perspectives, Verify the change and Report, each ending on a completion criterion. Write applies every reference section to each changed line."
-reason = "The local skill writes and reviews instructions at a user's request as a workflow; the base's information hierarchy puts steps on the top rung and lets steps and reference mix. The demand 'every lever applied' turns the base reference into the Write step's completion bar."
+reason = "The local skill writes and reviews instructions at a user's request as a workflow; the base's information hierarchy puts steps on the top rung and lets steps and reference mix, so its example of an all-reference document ('this skill') now reads 'or both, as this skill does'. The demand 'every lever applied' turns the base reference into the Write step's completion bar, and Verify keeps the earlier local rule that the requested result passes its applicable checks."
 where = [
   "SKILL.md#establish-meaning-and-scope",
   "SKILL.md#write",
@@ -149,8 +149,8 @@ reason = "Ideas recorded below from openai-public-skill-creator and compound-eng
 where = ["SKILL.md#steps-and-completion-criteria"]
 
 [[sources.deviations]]
-change = "Replaced 'Coining your own works if you define it clearly, ... reach for an existing word first' with a guard: a leading word is familiar in its ordinary sense or a standard term of the domain, is defined once where the document narrows that sense, stays the same word, and never replaces the condition, obligation, quantity or exception that governs a behavior."
-reason = "User decision on 2026-10-18 to adopt leading words with this guard, reversing the earlier local decline of leading words."
+change = "Replaced 'Coining your own works if you define it clearly, ... reach for an existing word first' with a guard: a leading word is familiar in its ordinary sense or a standard term of the domain, is defined once where the document narrows that sense, stays the same word, and never replaces the condition, obligation, quantity or exception that governs a behavior. Qualified the example 'a loop you believe in -> red' to apply only when failing on the bug is the meaning the author intended, and to ask when that is unclear."
+reason = "User decision on 2026-10-18 to adopt leading words with this guard, reversing the earlier local decline of leading words. The model-pair review of this rebuild (Codex Astra, 2026-10-18) and a trial in which an agent replaced 'a loop you actually trust' with 'red' while citing the example showed the unqualified example licensing a change of meaning without asking."
 where = ["SKILL.md#leading-words"]
 
 [[sources.deviations]]
@@ -169,7 +169,7 @@ reason = "Upstream's documentation for this skill says to name the failure mode 
 where = ["SKILL.md#fix-an-observed-failure"]
 
 [[sources.deviations]]
-change = "Replaced the single Claude Code invocation control (disable-model-invocation: true) with a table of each host's control: disable-model-invocation in Claude Code frontmatter and policy.allow_implicit_invocation: false in Codex agents/openai.yaml, where an explicit $name mention still invokes the skill. Each control is verified on its host, and router and shared-reference text no longer assumes a user-invoked skill has no description."
+change = "Replaced the single Claude Code invocation control (disable-model-invocation: true) with a table of each host's control: disable-model-invocation in Claude Code frontmatter and policy.allow_implicit_invocation: false in Codex agents/openai.yaml, where an explicit $name mention still invokes the skill. Each control is verified on its host, and router text no longer assumes a user-invoked skill has no description."
 reason = "These skills run in Claude Code and Codex. Upstream's skills/productivity/README.md lists both controls, its changelog for 1.2.2 (commit 4aaccb5) records Codex hiding this very skill, and the Codex skill-creator reference documents the policy (reference document below)."
 where = ["references/skill-mechanics.md#invocation", "references/skill-mechanics.md#router-skills"]
 
@@ -202,6 +202,16 @@ where = ["references/packaging.md"]
 change = "Added references/instruction-files.md for persistent instruction files: the canonical source, the scope where a rule belongs, imports and adapters, and command truth."
 reason = "The base has only a skill branch; evaluation cases canonical-instruction-edit and project-rule-pruning cover persistent files and their adapters."
 where = ["references/instruction-files.md"]
+
+[[sources.deviations]]
+change = "Replaced 'push it to a plain file outside the skill system' for reference shared by two user-invoked skills with a model-invoked reference skill that both name."
+reason = "The package invariant: a skill must work after only its folder is copied, and a plain file outside the packages would be lost. The model-pair review of this rebuild (Codex Astra, 2026-10-18) found the base advice contradicting references/packaging.md."
+where = ["references/skill-mechanics.md#invocation"]
+
+[[sources.deviations]]
+change = "Added a Records section to skill mechanics: in a repository that keeps records, hand each new skill and each change to a rule, idea, deviation or dependency to skill-maintenance, and have it check the record after headings or files move."
+reason = "User decision on 2026-10-18 that skill-maintenance owns records and this skill keeps only the hand-over; records exist only for skills, so the hand-over sits in the skill branch (model-pair review, Claude Fable, 2026-10-18)."
+where = ["references/skill-mechanics.md#records"]
 
 [[sources.deviations]]
 change = "Added references/reuse.md for choosing to install, wrap, base, derive or create a skill."
@@ -465,7 +475,7 @@ paths = [
 ]
 
 [[sources.ideas]]
-idea = "A persistent instruction file is a working contract. Its entrypoint keeps the project purpose, verified commands, material domain constraints, local conventions and routes to specialized context, plus the reasons and gotchas that configuration cannot reveal; extensive rationale and background go to the project's documentation."
+idea = "A persistent instruction file is a working contract. Its entrypoint keeps the project purpose, the verified commands the work requires with when to run them and what configuration does not show, material domain constraints, local conventions and routes to specialized context, plus the reasons and gotchas that configuration cannot reveal; a bare copy of a script list is a cache, and extensive rationale and background go to the project's documentation."
 serves = "Keeps the always-loaded file focused on decisions that prevent mistakes."
 where = [
   "references/instruction-files.md#make-the-requested-change",
@@ -592,7 +602,7 @@ shapes = "The comparison section adds the removal trial as a supplement to the p
 adapted = "Matched trials against the previous version stay the regression baseline. Rule ablation is optional, unrelated passes cannot justify deletion, and a small passing sample does not justify retiring guidance or a skill."
 
 [[sources.ideas]]
-idea = "Skill descriptions are always loaded together, so a description is read beside its neighbors as one listing: pairs that could claim the same request are checked, each description names the distinct task that selects its owner, and a shared writer can serve several investigating skills without repeating their work."
+idea = "Skill descriptions are always loaded together, so a description is read beside its neighbors as one listing: pairs that could claim the same request are checked, and each description names the distinct task that selects its owner."
 serves = "Prevents two skills from claiming the same request and keeps routing across the collection clear."
 where = ["references/skill-mechanics.md#description"]
 shapes = "The description section ends with the listing check and the hand-off rule."

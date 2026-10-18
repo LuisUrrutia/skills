@@ -2,7 +2,7 @@
 
 The skill-specific branch of [the entrypoint](../SKILL.md): what changes when the
 document is a skill (host metadata, the invocation choice, the description,
-splitting by invocation, and router skills). Everything else about writing it is
+splitting by invocation, router skills, and the skill's record). Everything else about writing it is
 the reference in `SKILL.md`; packaging and validation are in
 [packaging.md](packaging.md).
 
@@ -13,10 +13,10 @@ the shared entrypoint; everything else is a host feature. Inspect the intended
 host's installed skill format and current primary documentation when local
 evidence is insufficient, and keep host-specific adapters apart from the portable
 instructions. A frontmatter key is not portable merely because another agent
-accepts it. Preserve supported existing metadata rather than rebuilding the file.
-In Codex, use the host's `skill-creator` for its requirements before editing
-`agents/openai.yaml`; a generator may replace the whole file, so keep unrelated
-policy and dependency settings.
+accepts it. Preserve supported existing metadata rather than rebuilding the file. Edit
+Codex's `agents/openai.yaml` through the host creator described in
+[packaging.md](packaging.md#host-tools-and-dependencies); a generator may
+replace the whole file, so keep unrelated policy and dependency settings.
 
 ## Invocation
 
@@ -51,8 +51,9 @@ other by registered name. When a skill only ever fires by hand, propose user
 invocation with its two-load trade and let the user decide.
 
 Shared reference that two user-invoked skills both need can live in neither: with
-both out of the agent's reach, neither can fire the other. Push it to a plain
-file outside the skill system: external reference any skill can point at.
+both out of the agent's reach, neither can fire the other. Give it its own
+model-invoked reference skill that both name, rather than a plain file outside
+the packages, which a copied skill folder would lose.
 
 ## Description
 
@@ -96,3 +97,14 @@ cognitive load is cured by a **router skill**: one user-invoked skill that names
 the others and when to reach for each, so the human has one skill to remember
 instead of many. It can only hint, never fire them: the agent cannot reach a
 user-invoked skill, so nothing but the human can invoke one.
+
+## Records
+
+A repository keeps skill records when the target skill or another skill in it has
+an `origin.toml`; skills installed in the host outside that repository do not
+count. There, hand each new skill, and each change that adds, removes or alters a
+rule, a source idea, a deviation from its base or a dependency, to
+`skill-maintenance` with the user's reason; when `skill-maintenance` coordinates
+the change, it records the result itself. After headings or files move in a skill
+with a record, have `skill-maintenance` check the record. Elsewhere, create a
+record only when the user asks.

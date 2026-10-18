@@ -1,7 +1,7 @@
 # Evaluation
 
-Read this when changing instruction behavior, creating or combining skills,
-changing routing, incorporating upstream changes, or correcting observed failures.
+Read this for substantive behavior changes, new or combined skills, routing
+changes, incorporated upstream changes or observed failures.
 
 ## Define the checks
 

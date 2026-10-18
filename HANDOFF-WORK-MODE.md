@@ -677,11 +677,11 @@ or ask for permission before every phase.
    applicable license notices in the package; inspect the source license rather
    than assuming all donor files have identical terms.
 6. Review a frozen candidate independently with the current Codex Astra and
-   Claude Fable profiles required by `agent-instructions`. Resolve current
-   IDs and effort from the live catalog, keep first contexts independent, retain
-   actual run evidence, and reconcile material findings. Reconsult affected
-   meaning after material revisions. Do not treat the old source reviews as this
-   candidate review.
+   Claude Fable profiles required by `agent-instructions`. Resolve current IDs
+   from the live catalog, set the effort `agent-instructions` requires, keep
+   first contexts independent, retain actual run evidence, and reconcile
+   material findings. Reconsult affected meaning after material revisions. Do
+   not treat the old source reviews as this candidate review.
 7. Run proportionate behavioral and packaging checks from section 12. Fix observed
    failures at their actual owner and rerun affected and nearby regression cases.
 8. Integrate the finished package into `README.md` and the Engineering grouping in

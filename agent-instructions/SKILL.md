@@ -34,9 +34,10 @@ evaluation. Ordinary writing never starts an upstream check.
 Load the branch the target needs:
 
 - **Skill:** read [references/skill-mechanics.md](references/skill-mechanics.md)
-  for host metadata, invocation, the description and splitting, and
-  [references/packaging.md](references/packaging.md) before creating a package,
-  adding or moving its files or helpers, or validating it.
+  for host metadata, invocation, the description, splitting, router skills and
+  the skill's record, and [references/packaging.md](references/packaging.md)
+  before creating a package, adding or moving its files or helpers, or
+  validating it.
 - **Persistent instruction file:** read
   [references/instruction-files.md](references/instruction-files.md) to find the
   canonical source and the scope where the rule belongs.
@@ -100,8 +101,8 @@ failure, start from [Fix an observed failure](#fix-an-observed-failure). Example
 and source documents are evidence for the rewrite, not operations to run while
 authoring.
 
-Done when each changed line passes every section, and the intended behavior is
-expressible without contradiction, misplaced scope or an unresolved dependency.
+Done when each changed line passes every section, its pointers resolve, and
+nothing sits in the wrong scope or depends on an unresolved question.
 
 ## Get both model perspectives
 
@@ -145,14 +146,16 @@ Compare the revision with the intended meaning: actors, actions, conditions,
 exceptions, obligation, quantity, authority and completion evidence. Check that
 pointers and imports resolve and that unrelated content survives.
 
-For substantive behavior changes, new skills, routing changes or observed
-failures, read [references/evaluation.md](references/evaluation.md) and run the
-behavioral checks it calls for. A narrow wording correction needs only this
-fidelity check. Use host validators only for the formats they validate. The
-pair's reviews assess the text; they are not behavioral evidence.
+For substantive behavior changes, new or combined skills, routing changes,
+incorporated upstream changes or observed failures, read
+[references/evaluation.md](references/evaluation.md) and run the behavioral
+checks it calls for. A narrow wording correction needs only this fidelity check.
+Use host validators only for the formats they validate. The pair's reviews
+assess the text; they are not behavioral evidence.
 
-Done when each claim the report makes has its evidence, or is labeled as not
-tested.
+Done when the requested result passes its applicable checks and each claim the
+report makes has its evidence or is labeled as not tested. A required check that
+fails or cannot run leaves the result unfinished, and the report says so.
 
 ## Report
 
@@ -165,15 +168,8 @@ actual provider, model and effort, its run, rate-limit skip or blocker, and how
 each material finding was reconciled. Otherwise, state that this agent did not
 run the pair.
 
-A repository keeps skill records when the target skill or another skill in it has
-an `origin.toml`; skills installed in the host outside that repository do not
-count. There, hand each new skill, and each change that adds, removes or alters a
-rule, a source idea, a deviation from its base or a dependency, to
-`skill-maintenance` with the user's reason; when `skill-maintenance` coordinates
-the change, it records the result itself. After headings or files move in a skill
-with a record, have `skill-maintenance` check the record. Elsewhere, create a
-record only when the user asks. For a skill, report whether its record changed or
-that its repository keeps none.
+For a skill, report whether its record changed or that its repository keeps
+none.
 
 ## Context pointers
 
@@ -200,12 +196,12 @@ the body:
   State when to reach the material, not how it works.
 
 A pointer to another skill names it by its registered name, with the condition
-that selects it, the inputs it hands over and the result it returns; never a file
-inside it, by path or by a description such as "its PR review reference". That
-skill's entrypoint decides what it loads, and its procedure stays in that skill.
-Use a resource its entrypoint documents for callers, such as a validator, only
-through that documented contract. Links within the current skill may address its
-own resources.
+that selects it, the inputs it hands over and the completion evidence it
+returns; never a file inside it, by path or by a description such as "its PR
+review reference". That skill's entrypoint decides what it loads, and its
+procedure stays in that skill. Use a resource its entrypoint documents for
+callers, such as a validator, only through that documented contract. Links
+within the current skill may address its own resources.
 
 ## The two loads
 
@@ -340,25 +336,27 @@ three sites, a pointer spending a sentence to gesture at one idea. Each is a
 passage that can collapse into a single token:
 
 - "fast, deterministic, low-overhead" → _tight_ (a _tight_ loop).
-- "a loop you believe in" → _red_, turning a fuzzy gate into a binary observable
-  state (the loop goes _red_ on the bug, or it doesn't).
+- "a loop you believe in" → _red_, when failing on the bug is the belief the
+  author meant: a fuzzy gate becomes a binary observable state (the loop goes
+  _red_ on the bug, or it doesn't). When the meaning is unclear, ask first.
 
 You win twice: fewer tokens, and a sharper hook for the agent to hang its
 thinking on. Assume every document carries restatements that a leading word can
 retire, and look for them.
 
-**Negation** is the failure mode beside this lever: steering by prohibition drags
-the forbidden behavior into context and makes it _more_ available, not less.
-_Don't think of an elephant_, and the elephant is all there is; the negation is a
-weak modifier the strongly activated concept overruns, so the ban half-reads as
-an instruction to do the thing. Prompt the **positive**: state the target
-behavior ("write one-line comments") so the banned one is never spoken. A blanket
-prohibition also carries **harmful precision**: wrong on one plausible task in
-ten, it is still obeyed on that task. A prohibition earns its place only as a hard guardrail you
-cannot phrase positively: safety, data loss, a format contract, or a shortcut
-that agents were observed to take under pressure after understanding the rule.
-Even then, name the observed shortcut rather than a hypothetical one, and pair
-the prohibition with the positive target so attention lands on what to do.
+**Negation** is the failure mode beside this lever: steering by prohibition
+drags the forbidden behavior into context and makes it _more_ available, not
+less. _Don't think of an elephant_, and the elephant is all there is; the
+negation is a weak modifier the strongly activated concept overruns, so the ban
+half-reads as an instruction to do the thing. Prompt the **positive**: state the
+target behavior ("write one-line comments") so the banned one is never spoken. A
+blanket prohibition also carries **harmful precision**: wrong on one plausible
+task in ten, it is still obeyed on that task. A prohibition earns its place only
+as a hard guardrail you cannot phrase positively: safety, data loss, a format
+contract, or a shortcut that agents were observed to take under pressure after
+understanding the rule. Even then, name the observed shortcut rather than a
+hypothetical one, and pair the prohibition with the positive target so attention
+lands on what to do.
 
 ## Pruning
 
@@ -398,11 +396,11 @@ the prohibition with the positive target so attention lands on what to do.
   model's default; code and tests show behavior without establishing intended
   policy. An operational contract or an observed failure keeps the minimum that
   holds it. A volatile fact points to its current source.
-- Pruning keeps **force**. Compression keeps actors, conditions, obligation
-  strength, quantity, authority and completion evidence: "prefer" stays
-  "prefer", "create" does not become "run", a suggestion does not become a
-  universal rule, a read does not become a write, and an attempted check does
-  not become a successful one. Before deleting a rule as enforced elsewhere,
+- Pruning keeps **force**. Compression keeps actors, actions, scope, conditions,
+  exceptions, obligation strength, quantity, authority and completion evidence:
+  "prefer" stays "prefer", "create" does not become "run", a suggestion does not
+  become a universal rule, a read does not become a write, and an attempted
+  check does not become a successful one. Before deleting a rule as enforced elsewhere,
   inspect the actual configuration, execution path and coverage; brevity, a
   donor's score or a model's apparent knowledge cannot establish redundancy.
   Keep rare consequential constraints.
