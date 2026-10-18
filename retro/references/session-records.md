@@ -22,7 +22,9 @@ own location below.
 - Records live under `~/.claude/projects/`, one directory per working directory.
   The directory name is the absolute path with `/` and `.` replaced by `-`:
   `/Users/me/.t3/app` becomes `-Users-me--t3-app`. Each worktree path has its own
-  directory.
+  directory. The encoding is lossy (`/a-b` and `/a/b` share a directory), so
+  confirm the `cwd` on a record's first conversation event before reading its
+  messages.
 - Each session is `<session-id>.jsonl`. Subagent sessions are in
   `<session-id>/subagents/agent-*.jsonl`.
 - Each line is one JSON event. Conversation events (`user`, `assistant`,
@@ -38,12 +40,17 @@ own location below.
   stored by date, not by project, so filter them before reading.
 - The first line has `"type": "session_meta"`. Its `payload.cwd` and
   `payload.git.repository_url` identify the project. Read only that line from
-  each candidate, with `jq` or another JSON reader, and open a rollout fully
-  only after it matches:
+  each candidate, with `jq` or another JSON reader, and print only matches, so
+  other projects' paths and remotes stay out of the output. Open a rollout fully
+  only after it matches. With `root` set to the project root and `repo` to its
+  remote URL:
 
   ```sh
   for f in ~/.codex/sessions/YYYY/MM/DD/rollout-*.jsonl; do
-    head -n 1 "$f" | jq -r --arg f "$f" '[$f, .payload.cwd, .payload.git.repository_url // "", .payload.git.branch // ""] | @tsv'
+    head -n 1 "$f" | jq -r --arg f "$f" --arg root "$root" --arg repo "$repo" '
+      select(.payload.cwd == $root or (.payload.cwd | startswith($root + "/"))
+        or ($repo != "" and .payload.git.repository_url == $repo))
+      | [$f, .payload.cwd, .payload.git.branch // ""] | @tsv'
   done
   ```
 
