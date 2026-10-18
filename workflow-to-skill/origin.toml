@@ -20,12 +20,12 @@ reason = "User confirmation of 2026-10-18 that this skill is the path by which w
 where = ["SKILL.md#inspect-the-work", "SKILL.md#write-and-verify-the-result"]
 
 [[invariants]]
-rule = "A correction is a rule here when the user stated behavior that no existing instruction, check, document or tool defines, or that one defines only weakly or ambiguously. One that restates a clear existing rule, or only points at an instruction, check, document or tool that existed but was not found, loaded or followed, or at an environment that made the wrong path easy, adds no rule and belongs to retro."
+rule = "A correction is retained here when the user stated behavior that no existing instruction, check, document or tool defines, or that one defines only weakly or ambiguously. One that restates a clear existing rule, or only points at an instruction, check, document or tool that existed but was not found, loaded or followed, or at an environment that made the wrong path easy, adds no rule and belongs to retro."
 reason = "The coordinator's reviewer-skill brief of 2026-10-18 makes retro the owner of diagnosing what went wrong in a session, with reusable procedures routed from retro to this skill, and requires that one session never produce the same change twice and that no correction be dropped."
 where = ["SKILL.md#workflow-to-skill", "SKILL.md#choose-what-to-retain"]
 
 [[invariants]]
-rule = "When the request asks for the correction and retro is available, retro receives its corrections with their evidence, the request's authority and the corrections retained here; otherwise they are listed as retro's. Of what retro returns, an instruction change it proposed for agent-instructions goes on unchanged, every other finding is reported with its owner and status, and no second change starts for one it handed off or applied or one duplicating a retained correction. A procedure retro hands over is extracted from its episode without a second diagnosis."
+rule = "When the request asks for the correction and retro is available, retro receives its corrections with their evidence, the request's authority and the corrections retained here; otherwise they are listed as retro's. Of what retro returns, a change it handed off or applied, or one duplicating a retained correction, starts no second change; an instruction change it proposed for agent-instructions that needs no user decision first goes on unchanged; every other finding is reported with its owner and status. A procedure retro hands over is extracted from its episode without a second diagnosis."
 reason = "The same brief requires that no correction be dropped or produced twice, and retro as rebuilt in https://github.com/LuisUrrutia/skills/pull/42 returns its findings to a calling skill so the caller's workflow continues."
 where = ["SKILL.md#choose-what-to-retain"]
 
@@ -384,4 +384,4 @@ role = "Chooses reuse, writes and validates the skill text from the extracted co
 kind = "local"
 name = "retro"
 required = false
-role = "Diagnoses the corrections that restate a clear existing rule, point only at guidance that was not found, loaded or followed, or at a mistake the environment allowed, when the request asks for the correction. When it is unavailable, those corrections are listed in the report."
+role = "Diagnoses the corrections that restate a clear existing rule, point only at an instruction, check, document or tool that was not found, loaded or followed, or at a mistake the environment allowed, when the request asks for the correction. When it is unavailable, those corrections are listed in the report."
