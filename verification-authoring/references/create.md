@@ -54,18 +54,30 @@ local data. Run read-only commands only, with existing authentication; never log
 in. First confirm that the active project or account belongs to this
 repository's environments, and report it as a prerequisite when it is missing or
 unclear. Report each remote query with its command and the environment it read,
-and record the ones a later run needs in the generated Launch section. These
-queries belong to launch setup, so a read-only caller gets none of them.
+and record the ones a later run needs in the generated Launch section. A
+read-only caller gets no setup, and runs these queries only on trusted work: a
+PR whose author is a member or owner of the organization that owns the
+repository (`author_association` `MEMBER` or `OWNER`), a PR by the user (the
+active `gh` account or another account the user named as theirs), the user's own
+repository, or local changes with no PR in the user's own working copy. Anything
+else, or trust that cannot be established, gets no query; report a needed one as
+a prerequisite, and state which trust condition held with its evidence.
 
 No command of this run brings a secret value from a remote environment into a
-file, the output, the evidence, or the process environment. When a configuration
-read can include secret values, such as a service's environment, select only the
-fields the launch needs with the CLI's format or filter flags. The project's
-documented launch may still resolve its own secrets the way it does for its
-developers, such as varlock resolvers or `op run`, with existing authentication
-only: a locked vault, a biometric prompt, or a sign-in prompt is a reported
-prerequisite, never a login by this run. No secret value is printed, written to
-a file, or put in the evidence or the output. A secret the launch still lacks
+file, this run's shell environment, the output, or the evidence; an `export`, a
+shell substitution, or a redirect of a fetched secret is this run's command even
+when a README or a recipe documents it, and that secret goes to the user. When a
+configuration read can include secret values, such as a service's environment,
+select only the fields the launch needs with the CLI's format or filter flags.
+The project's own launch, its documented command or the declared script it runs,
+may still resolve its own secrets the way it does for its developers when its
+mechanism passes them only to the launched process, such as varlock resolvers,
+`op run`, or `doppler run`, with existing authentication only: a locked vault, a
+biometric prompt, or a sign-in prompt is a reported prerequisite, never a login
+by this run. That resolution is part of the launch rather than a remote query of
+this run: report it with the launch command, and for a read-only caller report
+it as a prerequisite instead of launching. No secret value is printed, written
+to a file, or put in the evidence or the output. A secret the launch still lacks
 follows the env-file rules below and goes to the user.
 
 Prepare the env file by the project's mechanism:
@@ -99,7 +111,7 @@ following operating contract, filled with real project commands and paths:
 
 | Section | Required content |
 | --- | --- |
-| Launch | Exact build/start command and working directory; prerequisites; the [launch setup](#launch-setup) with this project's install, env-file, migration and seed commands and any read-only remote queries with the project or account they require; for a run-owned instance, startup from empty data through any migrations and seed data; a bounded readiness check that proves a usable state, not only an answering process or port; how the run identifies its build, instance, and owned resources. |
+| Launch | Exact build/start command and working directory; prerequisites; the [launch setup](#launch-setup) with this project's install, env-file, migration and seed commands, any read-only remote queries with the project or account they require, and how the launch resolves its secrets with the signed-in state it needs; for a run-owned instance, startup from empty data through any migrations and seed data; a bounded readiness check that proves a usable state, not only an answering process or port; how the run identifies its build, instance, and owned resources. |
 | Doctor | A read-only check of whether this specific instance is worth driving: identity/version, readiness, expected data/profile/port, and relevant auth state. Explain failures without exposing credentials. |
 | Drive | The actual harness and selectors, routes, commands, public API calls, or device actions. Explain reset to a known state and reference the feature index. |
 | Evidence | Required action and result artifacts, independent side-effect checks, build/input identity, and the exact output location outside disposable state. |
