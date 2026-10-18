@@ -50,7 +50,7 @@ where = [
 ]
 
 [[invariants]]
-rule = "A source's baseline_commit never moves and its reviews are never deleted; newer material gets a new source record. The checker compares a record with its default-branch copy and reports a moved baseline or dropped reviews."
+rule = "A source's baseline_commit never moves and its reviews are never deleted; newer material gets a new source record. The checker compares a record with its published copy, where the current history joins the default branch, and reports a moved baseline or a missing or rewritten completed review."
 reason = "Three October 2026 rebuild records reused a source id with a moved baseline and deleted its reviews, although the format already required a new source record."
 where = [
   "references/origin-format.md#choose-each-sources-role",
@@ -100,4 +100,4 @@ where = ["references/updates.md#decide-and-incorporate"]
 kind = "local"
 name = "agent-instructions"
 required = false
-role = "Writes the text that an Update incorporates and chooses its behavioral checks, and updates the text of dependents whose contract changed. Record, Dependents and Check run without it."
+role = "Writes the text that an Update incorporates and chooses its behavioral checks, and updates the dependents' text after a skill's contract changes. Record, Dependents and Check run without it."

@@ -283,15 +283,20 @@ It prints JSON diagnostics and exits 0 when the record is valid, 1 when
 diagnostics remain, and 2 on a usage error. Fix every diagnostic. The checker
 validates structure, roles, review chains, local locations and field length. In
 a Git checkout with a default branch (`origin/HEAD`, else `main` or `master`) it
-also compares the record with that branch:
+also reports:
 
 - `unmerged-commit`: a text field cites a commit that exists in the repository
   but not on the default branch.
-- `baseline-moved`: a source keeps its `id` but its `baseline_commit` changed.
-- `reviews-dropped`: a source has fewer `reviews` than on the default branch.
+- `baseline-moved`: a source keeps its `id` but its `baseline_commit` differs
+  from the published record, the copy where the current history joins the
+  default branch.
+- `reviews-dropped`: a completed review of the published record is missing or
+  changed its range. A pending last review may be updated in place.
 
-The JSON lists under `skipped` each comparison it could not make, such as in a
-shallow clone. The checker cannot judge whether an entry is clear, true or
+A record that is new on the branch has no published copy to compare. In a Git
+checkout, the JSON lists under `skipped` each comparison it could not make, such
+as in a shallow clone. Correcting a baseline that was recorded in error keeps
+`baseline-moved`; report it with the user's confirmation. The checker cannot judge whether an entry is clear, true or
 credited to the right source, or whether a base still fits, which needs the
 base text; reread each entry as a newcomer to the source would.
 

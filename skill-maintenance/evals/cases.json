@@ -1,7 +1,7 @@
 {
   "format_version": 1,
   "skill": "skill-maintenance",
-  "usage": "Give executors only the prompt and fixture. Keep expectations with the grader. Supply fresh contexts and the same runner settings for candidate and baseline. Use disposable local repositories in place of network access. Add cases from real failures; these do not prove host integration.",
+  "usage": "Give executors only the prompt and fixture. Keep expectations and notes with the grader. Supply fresh contexts and the same runner settings for candidate and baseline. Use disposable local repositories in place of network access. Add cases from real failures; these do not prove host integration.",
   "cases": [
     {
       "id": "upstream-check",
@@ -116,9 +116,10 @@
     {
       "id": "base-still-fits",
       "kind": "state-transition",
+      "note": "Grader only: control for base-no-longer-fits, expected to pass on both arms.",
       "prompt": "We changed release-notes so fixes for user-reported bugs come first under Fixed, because users look for their own reports. Record that decision.",
       "fixture": {
-        "setup": "Control for base-no-longer-fits: it guards against needless approach questions and is expected to pass on both arms. A release-notes skill with approach base on the same changelog-writer donor. The local SKILL.md keeps the donor's sections, order and most of their sentences; the record has two deviations, for returning instead of publishing and for a user-named draft file. The change is already committed in Write entries. A local mirror of the donor and the checker are available."
+        "setup": "A release-notes skill with approach base on the same changelog-writer donor. The local SKILL.md keeps the donor's sections, order and most of their sentences; the record has two deviations, for returning instead of publishing and for a user-named draft file. The change is already committed in Write entries. A local mirror of the donor and the checker are available."
       },
       "expectations": [
         "The record gains one deviation for the user-reported-first order with the user's reason, located at SKILL.md#write-entries.",

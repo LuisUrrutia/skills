@@ -57,8 +57,9 @@ schedule.
    it does not, keep the approach, report the evidence and ask the user.
 6. When the change alters the skill's name, existence or authority, or what
    callers pass to it or receive from it, list its dependents and report each
-   whose recorded role or decisions rely on the old contract. Hand the list to
-   `agent-instructions`, which checks and updates their text.
+   whose recorded role or decisions rely on the old contract. Hand the full list,
+   with those entries marked, to `agent-instructions`, which checks and updates
+   their text.
 
 Take commits, hashes and dates from the repository or file, never from memory.
 Record only reasons the user stated or the evidence shows, credited and cited as
