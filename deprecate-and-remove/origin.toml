@@ -42,6 +42,18 @@ where = [
 rule = "Completion is reported at the stage actually reached. Notice prepared, notice delivered, access disabled, consumers transitioned, code removed and removal deployed stay distinct, and full retirement is claimed only when every required consumer and removal condition has evidence."
 where = ["SKILL.md#close-at-the-state-actually-reached"]
 
+[[invariants]]
+rule = "Closing access covers every retired entry point, including backend and direct API calls, administration, automation and background work as well as the UI, and the closure is verified through those entry points. A hidden control is not a closed entry point."
+where = [
+  "SKILL.md#replace-or-close-access",
+  "SKILL.md#remove-obsolete-artifacts-and-verify",
+  "references/retirement-boundaries.md#versions-and-consumers",
+]
+
+[[invariants]]
+rule = "The skill prescribes no fixed toolchain, such as a particular language, package manager, database engine or migration tool. Changes use the project's own tools, and manifests and lockfiles change through the project's package manager."
+where = ["SKILL.md#remove-obsolete-artifacts-and-verify"]
+
 [[sources]]
 id = "addy-deprecation"
 author = "Addy Osmani"
@@ -261,9 +273,3 @@ kind = "local"
 name = "pr"
 required = false
 role = "Pull-request work within existing publication authority."
-
-[[dependencies]]
-kind = "local"
-name = "agent-instructions"
-required = false
-role = "Required only for requested skill authoring or source maintenance."

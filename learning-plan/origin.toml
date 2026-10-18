@@ -11,7 +11,7 @@ where = ["SKILL.md#learning-plan", "SKILL.md#connect-plans-to-lessons"]
 [[invariants]]
 rule = "No donor skill is a runtime dependency. Planning and teaching require no plugin installation or new workspace, and ordinary planning does not fetch donor skills."
 reason = "The record began as a standalone derivation of selected teaching and learning-design mechanisms."
-where = ["SKILL.md#connect-plans-to-lessons", "SKILL.md#source-maintenance"]
+where = ["SKILL.md#connect-plans-to-lessons"]
 
 [[invariants]]
 rule = "A plan uses an existing learning record only when it clearly belongs to this learner and topic; a shared installation or workspace does not make another person's profile this learner's."
@@ -175,9 +175,3 @@ kind = "local"
 name = "write-documentation"
 required = false
 role = "Saved course structure and reader-path checks."
-
-[[dependencies]]
-kind = "local"
-name = "agent-instructions"
-required = false
-role = "Requested source maintenance and instruction authoring only."

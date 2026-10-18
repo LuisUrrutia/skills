@@ -100,6 +100,3 @@ State the reviewed scope and missing evidence. Distinguish proposed, already
 resolved, applied and verified work. When no candidate is supported, say so rather
 than inventing generic advice. Keep private session details out of reusable
 artifacts unless they are necessary and appropriate for that destination.
-
-For requested source maintenance, use `agent-instructions` with this package's
-`origin.toml`; the shared maintenance procedure owns upstream checks and updates.

@@ -120,6 +120,3 @@ Finish when each changed path is accounted for, every retained finding has its
 required evidence, and unresolved boundaries and checks remain explicit. No
 findings means none supported in this scope; it is not an approval or a guarantee
 that the change is ready to merge.
-
-For requested source maintenance, read
-[references/upstream-updates.md](references/upstream-updates.md).

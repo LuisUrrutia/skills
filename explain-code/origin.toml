@@ -7,7 +7,7 @@ goal = "Explain how existing code works or which component owns a behavior, from
 [[invariants]]
 rule = "Upstream skills supply ideas only. The skill is used directly, and ordinary explanation needs no coordinator, upstream skill or other skill."
 reason = "The record began as a standalone derivation of source tracing with limited presentation guidance, in which upstream skills are not installed or invoked runtime dependencies."
-where = ["SKILL.md#explain-code", "SKILL.md#source-maintenance"]
+where = ["SKILL.md#explain-code"]
 
 [[invariants]]
 rule = "The skill explains current mechanics and ownership. Guided teaching and exercises belong to the teach skill and study plans to the learning-plan skill; they are used when requested, not for every explanation."
@@ -141,9 +141,3 @@ validation = [
   "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
-
-[[dependencies]]
-kind = "local"
-name = "agent-instructions"
-required = false
-role = "Required only for requested source maintenance and skill authoring; ordinary explanation has no skill dependency."

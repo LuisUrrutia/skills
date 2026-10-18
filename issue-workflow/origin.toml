@@ -42,6 +42,11 @@ where = [
   "references/publish-tasks.md#resolve-scope-before-writing",
 ]
 
+[[invariants]]
+rule = "The skill does not implement unattended merge delivery. It identifies the native rule or other durable handler that covers a future review or merge event, reports an uncovered event explicitly, and never promises background execution or installs a watcher, scheduler or webhook from an ordinary invocation."
+reason = "An agent-owned merge rule runs only when an agent observes the merge and cannot guarantee a wake after the session ends; the pr-followup skill can stop at approval, and a host watch can stop silently at merge."
+where = ["SKILL.md#return-and-continue"]
+
 [[sources]]
 id = "matt-project-policy"
 author = "Matt Pocock"
@@ -132,12 +137,6 @@ validation = [
   "Verified baseline, cursor and candidate ancestry; git diff --find-renames ef648e01899b..b92f181b3b74 over the recorded paths is empty and every recorded path exists at the candidate.",
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
-
-[[dependencies]]
-kind = "local"
-name = "agent-instructions"
-required = false
-role = "Required only for requested instruction authoring or source maintenance."
 
 [[dependencies]]
 kind = "local"

@@ -111,6 +111,3 @@ patch, a screenshot, or an automated score.
   users can perceive the error and reach the recovery action.
 - `design-code-structure` owns module and interface boundaries when a repair
   needs structural design. Ordinary accessibility work does not require it.
-
-For a requested source check or update, read
-[references/upstream-updates.md](references/upstream-updates.md).

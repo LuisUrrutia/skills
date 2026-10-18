@@ -6,15 +6,11 @@ goal = "Design, review or improve a project's CI/CD so that each stage has a sta
 
 [[invariants]]
 rule = "Provider syntax and configuration stay with the platform specialist, the github-actions skill for GitHub Actions; this skill keeps no provider rules. Without a specialist, authorized implementation uses current primary provider documentation and reports that gap."
-where = [
-  "SKILL.md#cicd-automation",
-  "SKILL.md#implement-and-verify-the-contract",
-  "references/upstream-updates.md",
-]
+where = ["SKILL.md#cicd-automation", "SKILL.md#implement-and-verify-the-contract"]
 
 [[invariants]]
-rule = "The verify skill owns execution evidence, the verification-authoring skill owns project verification recipes, and the pr-followup skill owns an existing PR's failing checks and feedback. This skill defines the stage contract they serve."
-where = ["SKILL.md#implement-and-verify-the-contract", "references/upstream-updates.md"]
+rule = "The verify skill owns execution evidence, the verification-authoring skill owns project verification recipes, and the pr-followup skill owns repairing and watching an existing PR's failing checks and feedback. This skill defines the stage contract they serve."
+where = ["SKILL.md#implement-and-verify-the-contract"]
 
 [[invariants]]
 rule = "Designing automation grants no additional authority to publish, deploy or change protection settings, and existing authorization governs deployment and recovery. A design or review request produces recommendations; a setup request includes implementation within the user's existing authorization."
@@ -389,9 +385,3 @@ kind = "local"
 name = "pr-followup"
 required = false
 role = "Existing PR check failures and review feedback stay with this owner."
-
-[[dependencies]]
-kind = "local"
-name = "agent-instructions"
-required = false
-role = "Required only for requested skill authoring or upstream maintenance."

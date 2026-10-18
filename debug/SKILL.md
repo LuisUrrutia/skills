@@ -115,6 +115,3 @@ active caller own commits, worktrees, PRs, and further delivery. A wider authori
 task can continue after this result. Load available domain guidance when the
 investigation or fix reaches that domain; debug does not install dependencies or
 start a general review or PR-monitoring workflow.
-
-For a requested check or update of this skill's sources, read
-[references/upstream-updates.md](references/upstream-updates.md).

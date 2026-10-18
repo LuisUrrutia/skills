@@ -152,7 +152,5 @@ Resolve available owners through the host's skill catalog. Their absence does no
 grant new authority or justify pretending their work ran; report the affected
 limitation and continue independent work that remains possible.
 
-For requested source maintenance, read
-[references/upstream-updates.md](references/upstream-updates.md). For evaluation
-of this skill, use [evals/cases.json](evals/cases.json), keeping expectations out
-of executor inputs.
+For evaluation of this skill, use [evals/cases.json](evals/cases.json), keeping
+expectations out of executor inputs.

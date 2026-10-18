@@ -109,6 +109,3 @@ period, material coverage gaps and any blocked extraction.
 For follow-up, read the manifest and relevant detail/evidence files first. Answer
 historical questions from the snapshot. Refresh only the necessary source when
 the question requires current state, and retain the previous report unchanged.
-
-For requested maintenance of this skill's sources, use `agent-instructions` with
-this package and its `origin.toml`.

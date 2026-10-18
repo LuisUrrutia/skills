@@ -99,8 +99,3 @@ learning record. Use the requested destination and existing conventions; teachin
 does not make the current directory a course workspace. Do not create profiles,
 change project instructions, enroll the learner, or publish material merely to
 teach. Follow the active output-language rules for both conversation and artifacts.
-
-## Source maintenance
-
-For requested source checks or updates, use `agent-instructions` with `origin.toml`.
-Ordinary teaching does not fetch donor skills or require authoring consultations.

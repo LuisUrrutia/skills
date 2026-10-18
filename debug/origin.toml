@@ -44,7 +44,6 @@ where = ["SKILL.md#finish-with-evidence"]
 
 [[invariants]]
 rule = "The sources are inspiration, not runtime dependencies. Debug invokes no donor skill, agent or tool, and a new donor approval gate, mandatory agent, tool name or production action does not become a local requirement automatically."
-where = ["references/upstream-updates.md#requested-upstream-maintenance"]
 
 [[sources]]
 id = "mattpocock-debugging-and-tests"
@@ -590,12 +589,6 @@ validation = [
   "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 8ca22dba9a94..bb92a7774141 and the changed files at both commits.",
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
-
-[[dependencies]]
-kind = "local"
-name = "agent-instructions"
-required = false
-role = "Required only for requested source maintenance and skill authoring."
 
 [[dependencies]]
 kind = "local"

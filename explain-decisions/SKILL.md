@@ -96,9 +96,3 @@ If this investigation prepares a requested change, carry forward evidenced
 constraints and unresolved risks as planning inputs. Distinguish current
 requirements from obsolete historical constraints. Recommendations remain advice;
 this skill does not start implementation or delivery.
-
-## Source maintenance
-
-When asked to check or update this skill from its sources, read
-[references/upstream-updates.md](references/upstream-updates.md). Ordinary
-investigation does not fetch skill sources or require another skill.

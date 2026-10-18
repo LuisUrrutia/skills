@@ -17,6 +17,10 @@ where = ["SKILL.md#locate-the-decision", "SKILL.md#weigh-the-record"]
 rule = "The investigation stays inside the target's evidence boundary: a supplied snapshot inside another checkout does not grant access to that checkout's index or history."
 where = ["references/git-history.md#trace-the-relevant-history"]
 
+[[invariants]]
+rule = "The skill is used directly, and ordinary investigation needs no coordinator, upstream skill or other skill."
+where = ["SKILL.md#explain-decisions"]
+
 [[sources]]
 id = "pstack-why"
 author = "Lauren Tan / pstack"
@@ -150,9 +154,3 @@ validation = [
   "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
-
-[[dependencies]]
-kind = "local"
-name = "agent-instructions"
-required = false
-role = "Required only for requested source maintenance and skill authoring; ordinary investigation has no skill dependency."

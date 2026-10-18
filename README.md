@@ -158,7 +158,7 @@ owner and a way to check the proposed improvement.
 - Routes code, checks, documentation and instruction changes to their existing owners
 - Returns proposals by default and continues improvements already authorized by the caller
 - Accepts no useful finding and reports evidence gaps without inventing causes
-- Records pinned Matt Pocock and pstack sources, with conditional source maintenance
+- Records pinned Matt Pocock and pstack sources
 
 ### workflow-to-skill
 
@@ -275,7 +275,6 @@ Use it directly or as one phase of a larger task; it does not require work-mode.
 - Keeps production implementation and delivery outside the prototype's scope
 - Records Matt Pocock and Lauren Tan's pstack sources at exact commits
 - Uses `verify` for performance-evidence assessment while retaining the experiment and a useful fallback when the specialist is unavailable
-- Delegates requested source maintenance to `agent-instructions`
 
 ### debug
 
@@ -291,7 +290,7 @@ Use it directly, without work-mode or an installed upstream skill.
 - Compares effective environments and component boundaries, and revisits stalled explanations
 - Handles observation-sensitive failures with controlled schedules and explicit evidence limits
 - Uses `verify` for performance claims, including memory regressions, then continues the active diagnosis or repair
-- Preserves exact source commits and delegates requested maintenance to `agent-instructions`
+- Records exact source commits
 
 ### tdd
 
@@ -305,7 +304,7 @@ directly when TDD is requested, without work-mode or an installed upstream skill
 - Tests caller-visible contracts using independent expected results
 - Allows focused refactoring while tests remain green
 - Distinguishes setup failures and already supported behavior from a valid red state
-- Preserves Matt Pocock's exact source revision and delegates requested maintenance to `agent-instructions`
+- Records Matt Pocock's exact source revision
 
 ### explain-code
 
@@ -320,7 +319,7 @@ Use it directly for a mechanism, subsystem, or ownership question.
 - Distinguishes inspected behavior, observed execution, documented reasons, and unknowns
 - Explains requested before/after mechanisms; keeps diagnosis, diff audits, activity reports, and guided teaching with their owners
 - Derives from pstack/how with limited presentation guidance from pstack/teach
-- Records exact source commits and supports requested maintenance through `agent-instructions`
+- Records exact source commits
 
 ### explain-decisions
 
@@ -334,7 +333,7 @@ evidence. Use it directly, without work-mode or an installed upstream skill.
 - Separates recorded reasons, supported inferences, and unanswered questions
 - Distinguishes original motivation from later decisions and current necessity
 - Preserves contradictory evidence and reports missing sources without inventing intent
-- Derives from Lauren Tan's pstack/why with exact provenance and requested source maintenance
+- Derives from Lauren Tan's pstack/why with exact provenance
 
 ### analyze-change-effects
 
@@ -349,7 +348,7 @@ whether those paths are safe. Use it directly for implemented or proposed change
 - Uses focused execution against actual code to test deciding assumptions
 - Distinguishes confirmed breakage, cleared risks, and unproven conditions
 - Preserves product files and respects explicit inspection-only requests
-- Records pstack provenance and supports requested maintenance through `agent-instructions`
+- Records pstack provenance
 
 ### compare-solutions
 
@@ -365,7 +364,7 @@ solutions or independent investigations justify the extra work.
 - Judges settled candidates and checks the final artifact instead of trusting consensus
 - Supports conditional specialist workers, preserving review-code-changes and analyze-change-effects contracts
 - Records failed candidates, missing judges, graft decisions, and verification limits
-- Preserves exact pstack sources and supports requested maintenance through `agent-instructions`
+- Preserves exact pstack sources
 
 ### design-code-structure
 
@@ -385,7 +384,7 @@ checks during authorized implementation; design-only requests stop at the plan.
 - Uses explain-code, explain-decisions, analyze-change-effects, prototype, and compare-solutions when the decision needs them
 - Handles shared invariants, retries, cancellation, external contracts, and migration when relevant
 - Revisits a design when repeated implementation friction exposes a wrong assumption
-- Records pstack, Matt Pocock, and Matthew Blode sources with conditional upstream maintenance
+- Records pstack, Matt Pocock, and Matthew Blode sources
 
 ### error-handling
 
@@ -452,7 +451,7 @@ specialist within an implementation or code review.
 - Checks semantics, keyboard and focus, visual conditions, content alternatives, and recovery
 - Distinguishes automated findings, observed interaction, and missing assistive-technology evidence
 - Uses verify and local recipes for execution; keeps required third-party steps in coverage
-- Records six selected source feeds, primary references, corrections, and maintenance rules
+- Records six selected source feeds, primary references, and corrections
 
 ### typescript-best-practices
 
@@ -567,7 +566,7 @@ execute from a cold start. Install `agent-instructions` alongside this authoring
 - Preserves pstack's Launch, Doctor, Drive, Evidence, Cleanup, and Helpers contract
 - Creates a feature map and proves one feature; maintenance reviews and drives every feature
 - Distinguishes recipe drift from product defects and preserves evidence after cleanup
-- Includes a read-only map checker and pinned pstack sources with requested upstream maintenance
+- Includes a read-only map checker and records pinned pstack sources
 
 ### verify
 
@@ -660,8 +659,8 @@ Evaluate feedback on an existing PR and resolve authorized code, CI and base pro
 - Elsewhere, follows PRs until merge or formal approval; rechecks new heads and reports pending work without automatic scheduling
 - Reconciles observed ready/merge events through `issue-workflow`, preserving Check scope and existing authority
 
-These Git and ticket workflow skills record pinned sources and local decisions in `origin.toml`, with requested
-source maintenance through `agent-instructions`. Repository files are distinct from
+These Git and ticket workflow skills record pinned sources and local decisions in
+`origin.toml`. Repository files are distinct from
 installed copies.
 
 ### ci-cd-automation

@@ -13,8 +13,6 @@ project into different subtasks is a separate coordination problem.
 `compare-solutions` owns the comparison. A selected specialist owns how each
 attempt does its work. For specialist candidates, read
 [references/specialists.md](references/specialists.md) before framing the task.
-For requested source maintenance, use
-[references/upstream-updates.md](references/upstream-updates.md).
 
 ## Frame
 

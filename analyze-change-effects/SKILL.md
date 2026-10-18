@@ -99,9 +99,3 @@ general code-quality report.
 Stop when the material paths have evidence or explicit limits and the next useful
 check is clear. Do not turn an analysis request into repair or delivery. A caller
 with a wider authorized task can use the result to choose its next action.
-
-## Source maintenance
-
-When asked to check or update this skill from its sources, read
-[references/upstream-updates.md](references/upstream-updates.md). Ordinary impact
-investigation does not fetch skill sources or require another skill.

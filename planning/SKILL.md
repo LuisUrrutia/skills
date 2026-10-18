@@ -136,5 +136,3 @@ End a planning-only request with the plan or findings. If execution was already
 requested and permitted, continue the ready work through the existing development
 workflow, preserving required host approvals and real blockers. This skill does
 not choose a worker topology or require another planning session.
-
-For requested source maintenance, use `agent-instructions` with `origin.toml`.

@@ -180,6 +180,3 @@ proposed or added, where to read the signals, observed checks and remaining gaps
 implementation, tested delivery and production operation distinct. Return to the
 active feature or project task; `ci-cd-automation` owns rollout gates and deployment
 recovery. Publication or ongoing monitoring follows the user's existing scope.
-
-For a requested check or update of this skill's sources, read
-[references/upstream-updates.md](references/upstream-updates.md).

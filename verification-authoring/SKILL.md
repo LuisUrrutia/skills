@@ -75,6 +75,4 @@ corrections, product gaps, and blockers. A recipe that could not be executed is 
 draft, even when its Markdown and scripts are valid.
 
 The caller and repository rules own commits, PRs, and scheduling. Do not infer a
-periodic job or PR from maintenance alone. For a requested check or update of
-this skill's own sources, read
-[references/upstream-updates.md](references/upstream-updates.md).
+periodic job or PR from maintenance alone.

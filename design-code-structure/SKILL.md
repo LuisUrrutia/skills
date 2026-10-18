@@ -18,9 +18,6 @@ contract without reopening the design.
 Neither a local decision nor an enforcement gap expands the task into a
 repository-wide audit, cleanup, or tooling rollout.
 
-For requested source maintenance, read
-[references/upstream-updates.md](references/upstream-updates.md).
-
 ## Ground and select the change
 
 Identify the behavior to support, the decision still open, and the constraints

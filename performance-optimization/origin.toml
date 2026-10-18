@@ -22,6 +22,13 @@ rule = "The verify skill judges whether a measurement supports a claim; this ski
 reason = "One owner for measurement validity keeps the two skills from drifting apart."
 where = ["SKILL.md#establish-evidence-and-find-the-limiting-work"]
 
+[[invariants]]
+rule = "Neighboring work keeps its owners: the debug skill owns an observed regression or unexplained failure, the prototype skill owns a disposable experiment that settles an uncertain mechanism, and the observability skill owns diagnostic signals that must outlive the experiment."
+where = [
+  "SKILL.md#keep-neighboring-responsibilities-clear",
+  "SKILL.md#run-bounded-experiments",
+]
+
 [[sources]]
 id = "addy-performance-optimization"
 author = "Addy Osmani"
@@ -73,6 +80,10 @@ reason = "Domain patterns stay conditional hypotheses; existing domain skills ow
 [[sources.declined]]
 feature = "Checking field data before optimizing every operation."
 reason = "Many operations are local; the verify skill judges which evidence a claim needs, and local measurements are reported as local."
+
+[[sources.declined]]
+feature = "Profiling first as a required step of every optimization, and treating an optimization without profiling data as a red flag."
+reason = "The limiting work is located with the cheapest evidence that can change what to try or skip, such as existing traces, profiles, query plans, allocation data or a smaller diagnostic measurement; no particular profiler is required."
 
 [[sources.reviews]]
 from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
@@ -131,6 +142,10 @@ reason = "The active task's tools and authorization decide how experiments run."
 [[sources.declined]]
 feature = "Tracking pstack's shared measurement rules through this skill's source record."
 reason = "The verify skill owns measurement validity; this source covers only the performance-search playbooks."
+
+[[sources.declined]]
+feature = "Capturing a baseline trace and a post-fix trace through a matching control skill for every performance issue."
+reason = "The limiting work is located with the cheapest evidence that can change what to try or skip; a trace is one option, not a required step."
 
 [[sources.reviews]]
 from_commit = "77526ffa67f8dafc698d14b5356e6d4fc78c3127"
@@ -270,12 +285,6 @@ kind = "local"
 name = "observability"
 required = false
 role = "Conditional durable diagnostic coverage that outlives the experiment."
-
-[[dependencies]]
-kind = "local"
-name = "agent-instructions"
-required = false
-role = "Required only for requested authoring or upstream source maintenance."
 
 [[dependencies]]
 kind = "local"

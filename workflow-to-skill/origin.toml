@@ -5,7 +5,7 @@ approach = "derive"
 goal = "Turn completed work, recurring tasks or the current conversation into a reusable skill or an improvement to an existing owner. The skill extracts the reusable decisions with evidence, chooses what to retain and where it belongs, and hands a complete contract to the agent-instructions skill. Success is a skill that a fresh task with different inputs can follow and that a nearby unrelated task does not activate."
 
 [[invariants]]
-rule = "This skill owns extraction and the choice of useful scope; the agent-instructions skill owns reuse decisions, instruction writing, provenance maintenance and validation. If that skill is unavailable, the extracted contract is preserved and the missing skill is reported, without a second authoring workflow."
+rule = "This skill owns extraction and the choice of useful scope; the agent-instructions skill owns reuse decisions, instruction writing and validation. If that skill is unavailable, the extracted contract is preserved and the missing skill is reported, without a second authoring workflow."
 reason = "The skill was built as a small derivation of extraction criteria with instruction writing kept as a local dependency, so no upstream authoring prose or scripts are copied in."
 where = ["SKILL.md#workflow-to-skill", "SKILL.md#write-and-verify-the-result"]
 
@@ -343,4 +343,4 @@ validation = [
 kind = "local"
 name = "agent-instructions"
 required = true
-role = "Owns reuse decisions, instruction writing, provenance maintenance, and validation."
+role = "Owns reuse decisions, instruction writing, and validation."

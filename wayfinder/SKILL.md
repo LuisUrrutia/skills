@@ -152,5 +152,3 @@ If blocked, name the exact question, its impact, and the action that can unblock
 it. A smaller scope may be ready while the broader initiative remains blocked if
 that scope change is authorized. Distinguish a recommendation to narrow, defer,
 or abandon from an authorized decision, and record who or what authorized it.
-
-For requested source maintenance, use `agent-instructions` with `origin.toml`.

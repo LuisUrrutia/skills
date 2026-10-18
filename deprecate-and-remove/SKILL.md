@@ -146,6 +146,3 @@ code removed, and removal deployed distinct when they apply. A repository change
 can complete a requested code change without proving production retirement.
 Claim full retirement only when all required consumers and removal conditions
 have evidence; otherwise name the completed stage and outstanding work.
-
-For a requested check or update from this skill's sources, read
-[upstream-updates.md](references/upstream-updates.md).

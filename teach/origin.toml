@@ -7,7 +7,7 @@ goal = "Teach the intended learner a concept, skill, system or business through 
 [[invariants]]
 rule = "Donor skills are not runtime dependencies. Local skills support teaching when they are available, and the skill uses accessible evidence directly when they are not."
 reason = "The skill is a standalone derivation of selected teaching and learning-design mechanisms."
-where = ["SKILL.md#ground-the-subject", "SKILL.md#source-maintenance"]
+where = ["SKILL.md#ground-the-subject"]
 
 [[invariants]]
 rule = "Teaching does not create profiles, change project instructions, enroll the learner or publish material. Files are created only when the request calls for a saved artifact or a continuing learning record, at the requested destination."
@@ -345,9 +345,3 @@ kind = "local"
 name = "write-documentation"
 required = false
 role = "Saved lesson structure and reader-path checks."
-
-[[dependencies]]
-kind = "local"
-name = "agent-instructions"
-required = false
-role = "Requested source maintenance and instruction authoring only."

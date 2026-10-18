@@ -80,9 +80,3 @@ Finish when the requested path, ownership, and material limits are explained, or
 when an inaccessible prerequisite limits the answer. State what remains unknown
 and which evidence would resolve it. Deliver the explanation itself rather than
 an activity report.
-
-## Source maintenance
-
-When asked to check or update this skill from its sources, read
-[references/upstream-updates.md](references/upstream-updates.md). Ordinary
-explanation does not fetch upstream or require another skill.
