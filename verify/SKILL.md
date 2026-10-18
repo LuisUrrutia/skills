@@ -56,12 +56,11 @@ for the project's own verification skill, such as a `verify-<app>` skill in the
 project's skill directory, and its feature map. When one exists, its Launch,
 Doctor, Drive, Evidence, and Cleanup steps apply and its map lists the entry
 points to cover; the rules below still decide isolation, launch setup and
-secrets, proof, and the verdict, and a Launch step that contradicts them is drift
-under step 7.
-Then look for existing harnesses and documented commands: package scripts,
-Makefile targets, the README quickstart, end-to-end specs, container compose
-files, and worktree configuration such as a per-worktree dev command or URL in
-`.config/wt.toml`.
+secrets, proof, and the verdict, and a Launch step that contradicts them is
+drift under step 7. Then look for existing harnesses and documented commands:
+package scripts, Makefile targets, the README quickstart, end-to-end specs,
+container compose files, and worktree configuration such as a per-worktree dev
+command or URL in `.config/wt.toml`.
 
 - **Surface:** what does a user actually touch: a web UI, a CLI or TUI, a desktop
   or mobile app, an API, a library? Note the primary surface and the others the
@@ -158,16 +157,16 @@ When the change modifies an interface that users interact with, use
 `accessibility` with the affected flow, the running instance or built command,
 the revision, and this run's authority. That covers a page, screen, dialog,
 form, or terminal UI; a command-line interface's arguments, flags, prompts,
-output, and error messages; and the interface text users act on, such as
-labels, link text, and the messages it shows. It owns keyboard and focus, target size,
-reduced motion, accessible names and roles, and accessibility scans; report its
-findings and coverage as that skill's result, or report accessibility as
-unchecked when it is unavailable. A backend-only change does not call it, and
-neither does a text-only change: documentation, a README, code comments, or
-other text outside an interface users operate. When `accessibility` is the
-caller, its criteria define those checks: drive the flow it supplies, including
-its keyboard and focus paths, return the observations to it, and do not call it
-back.
+output, and error messages; and the interface text users act on, such as labels,
+link text, and the messages the interface shows. It owns keyboard and focus,
+target size, reduced motion, accessible names and roles, and accessibility
+scans; report its findings and coverage as that skill's result, or report
+accessibility as unchecked when it is unavailable. A backend-only change does
+not call it, and neither does a text-only change: documentation, a README, code
+comments, or other text outside an interface users operate. An HTTP API or
+library surface counts as backend here. When `accessibility` is the caller, its
+criteria define those checks: drive the flow it supplies, including its keyboard
+and focus paths, return the observations to it, and do not call it back.
 
 ## 5. Keep evidence that proves it
 
