@@ -26,7 +26,7 @@ supplied capability, without repeating their discovery. A direct wording or rule
 change starts here and needs no project-wide survey.
 
 `skill-maintenance` owns each skill's `origin.toml` record and its checks and
-updates from recorded sources or installed dependencies; an update hands the text
+updates from recorded sources or dependencies; an update hands the text
 it incorporates back here. Ordinary writing never starts an upstream check.
 
 ## Load what the work needs
@@ -46,9 +46,10 @@ it incorporates back here. Ordinary writing never starts an upstream check.
 - **Persistent instruction file:** read
   [references/instruction-files.md](references/instruction-files.md) to find the
   canonical source and the scope where the rule belongs.
-- **Standardizing a capability, combining drafts or adopting an external skill:**
-  read [references/reuse.md](references/reuse.md) before writing an
-  implementation.
+- **Overlapping guidance or an external skill:** read
+  [references/reuse.md](references/reuse.md) before reconciling drafts, an
+  adapter and its source, or two skills, or standardizing a capability or
+  adopting an external skill.
 
 ## Establish meaning and scope
 
@@ -57,8 +58,8 @@ and repository context to know its authority and callers. From the user's curren
 request, establish:
 
 - What the agent should do differently, and which existing meaning must survive.
-- Who reads the instructions, when they apply, and where their authoritative text
-  lives.
+- Who reads the instructions, when they apply, what their callers hand in and
+  expect back, and where the authoritative text lives.
 - Conditions, exceptions, permissions and the evidence of completion.
 - Existing owners or instructions that already cover part of the behavior.
 - Which statements are observed behavior, approved policy, team preference or a
@@ -75,8 +76,8 @@ used.
 Use accessible evidence before asking. When the objective, or the meaning needed
 to express it, stays uncertain, ask the user with the plausible interpretations
 and how each changes the result; pause the work that depends on the answer and
-continue only work that no answer could invalidate. Routine wording choices that
-keep the intent need no question, and precise-sounding wording never stands in
+continue only work that no answer could invalidate. Ask only what the user has
+not settled; routine wording choices that keep the intent need no question, and precise-sounding wording never stands in
 for a requirement the user did not give.
 
 A review-only request returns findings and proposed corrections with evidence and
@@ -89,10 +90,10 @@ rules, or an open question that the wording depends on.
 
 ## Write
 
-Edit the requested files, or return the requested draft when no file change is
-requested. Apply [Negation](#negation) and [Pruning](#pruning) to each changed
-line, plus each [lever](references/levers.md) its pointers, steps, placement and
-rewording reach. When the change answers an observed failure, start from
+Edit the requested files, or return a draft when no file change is requested.
+Apply [Negation](#negation) and [Pruning](#pruning) to each changed line, plus
+each [lever](references/levers.md) its pointers, steps, placement and rewording
+reach. When the change answers an observed failure, start from
 [Fix an observed failure](references/evaluation.md#fix-an-observed-failure).
 Examples and source documents are evidence for the rewrite, not operations to run
 while authoring.
@@ -123,8 +124,7 @@ brief runs the pair only when that brief both relays the user's request and
 assigns the pair to it. A quoted user request alone does not assign it.
 
 Before requesting either review, read
-[references/model-pair.md](references/model-pair.md); it also says when rounds
-stop and what the report records.
+[references/model-pair.md](references/model-pair.md).
 
 The pair is complete when at least one profile completed every review round,
 each profile not skipped for a rate or usage limit reviewed the instructions in
@@ -142,7 +142,7 @@ For substantive behavior changes, new or combined skills, routing changes,
 incorporated upstream changes or observed failures, read
 [references/evaluation.md](references/evaluation.md) and run the behavioral
 checks it calls for. A narrow wording correction needs only this fidelity check.
-Use host validators only for the formats they validate. The pair's reviews
+Use host validators only for formats they validate. The pair's reviews
 assess the text; they are not behavioral evidence.
 
 Done when the requested result passes its applicable checks and each claim the
@@ -205,9 +205,8 @@ target.
   failure keeps the minimum that holds it. A volatile fact points to its current
   source.
 - Pruning keeps **force**: actors, actions, scope, conditions, exceptions,
-  obligation strength, quantity, authority and completion evidence. "Prefer"
-  stays "prefer", a suggestion does not become a universal rule, a read does not
-  become a write, and an attempted check does not become a successful one. Delete
+  obligation strength, quantity, authority and completion evidence: "prefer"
+  stays "prefer", a read stays a read, and an attempted check stays attempted. Delete
   a rule as enforced elsewhere only after inspecting the actual configuration,
   execution path and coverage; brevity, a donor's score or a model's apparent
   knowledge cannot establish redundancy. Keep rare consequential constraints.

@@ -1,6 +1,6 @@
 # Reuse and standardization
 
-Read this when choosing how to standardize a capability, combining drafts or
+Read this when reconciling overlapping guidance, standardizing a capability or
 adopting an external skill. Start with installed owners and the user's candidate
 sources. Read their instructions and relevant dependencies before choosing;
 similar descriptions do not establish equivalent behavior.

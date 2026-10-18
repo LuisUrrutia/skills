@@ -14,10 +14,12 @@ report.
 
 ## Brief the reviewers
 
-Freeze the candidate before each round. In a Git repository, commit it and cite
-it by commit and tree hash (`git rev-parse <commit>^{tree}`): a rebase or squash
-merge can move or drop the commit, while the tree hash still identifies the
-reviewed content.
+Freeze the candidate before each round and cite what was reviewed. A committed
+candidate is cited by commit and tree hash (`git rev-parse <commit>^{tree}`): a
+rebase or squash merge can move or drop the commit, while the tree hash still
+identifies the content. Commit only when the request or repository rules
+authorize it; otherwise freeze a copy of the candidate and its diff outside the
+working tree, cited by file hashes.
 
 Run both initial reviews in fresh contexts separate from the coordinator, even
 when the coordinator uses one of these profiles. Give both the same brief, scoped
@@ -28,7 +30,7 @@ Ask for concrete omissions, conflicts, proposed corrections and reasons.
 
 Keep each round's inputs identical and private until both results are in:
 neither reviewer sees the other's findings or the coordinator's dispositions or
-preferred verdict. Point reviewers at the frozen commit rather than a working
+preferred verdict. Point reviewers at the frozen candidate rather than a working
 tree you keep editing, and write notes or dispositions nowhere they read.
 
 State in every brief that this is a bounded read-only consultation: the reviewer

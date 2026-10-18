@@ -78,9 +78,14 @@ reason = "User statement on 2026-10-18 that agent-instructions, skill-maintenanc
 where = ["references/skill-changes.md#review-a-skill-change", "references/model-pair.md#brief-the-reviewers"]
 
 [[invariants]]
-rule = "A changed skill's entry file is counted in words against its previous version and, when the record's approach is base, against the base's entry file. Each added passage names the behavior it buys and why every branch needs it in the entry file; a passage that only some branches need moves to a reference with a load condition, one that buys nothing is cut, and a reference that every branch must read reduces nothing. Exceeding the base needs a measured behavior that fails when the text moves out. When a change leaves the base unrecognizable, the approach question goes to skill-maintenance instead of keeping the base label."
+rule = "A changed skill's entry file is counted in words against its previous version and, when the record's approach is base, against the base's entry file. Each added passage names the behavior it buys and why every branch needs it in the entry file; a passage that only some branches need moves to a reference with a load condition, one that buys nothing is cut, and a reference that every branch must read reduces nothing. When a change renames or replaces most of the base's sections, the approach question goes to skill-maintenance with the counts and a section map, and skill-maintenance judges whether the base still fits."
 reason = "On 2026-10-18 the rebuilt entry files grew without any reviewer flagging it: teach 835 to 3289 words (base 1522), retro 790 to 2086 (base 679), verify 1025 to 2657, handoff 469 to 676 (base 144), and this skill 1348 to 3901 (base 1777)."
 where = ["references/skill-changes.md#size-budget", "references/levers.md#information-hierarchy"]
+
+[[invariants]]
+rule = "This skill's own SKILL.md stays at or under the word count of the base's entry file (writing-for-agents SKILL.md at 49dd158, 1777 words). Exceeding it needs a measured behavior that fails when the text moves out of the entry file."
+reason = "Coordinator brief of 2026-10-18 for this change, after the rebuild had grown the entry file from 1348 to 3901 words. Other skills follow the general size-budget invariant above."
+where = ["SKILL.md"]
 
 [[invariants]]
 rule = "When a change alters what other text relies on, such as the skill's name, description, inputs, outputs, completion evidence, ownership boundary or a named section or file, the repository is searched for the skill's name and each renamed section or file, skill-maintenance's report of records listing the skill as a dependency is used when offered, and each dependent text, README entries included, is updated within the request's scope or listed. Records stay with skill-maintenance."
@@ -88,7 +93,7 @@ reason = "On 2026-10-18 a contract change in verify left nine caller texts stale
 where = ["references/skill-changes.md#dependent-text"]
 
 [[invariants]]
-rule = "Behavioral trials stage only the target's runtime files, never evaluation cases, records or notes; run both arms on every host the target supports, Claude Code and Codex here; grade side effects from the action trace, including tool calls on targets an untrusted directive names; use canary values and never run commands that print process environments or command lines; and record host permissions and loaded user-level instructions as fixed conditions. Claims rest on the final revision: each added or changed case runs at least twice per host and every other suite case at least once per host on runtime files matching the final ones, each result names its revision, and an unrun case blocks the claims it covers."
+rule = "Behavioral trials stage only the target's runtime files, never evaluation cases, records or notes; run both arms on every host the target supports, Claude Code and Codex here; grade side effects from the action trace, including tool calls on targets that an untrusted directive names and the task does not authorize; use canary values and never run commands that print process environments or command lines; and record host permissions and loaded user-level instructions as fixed conditions. Claims rest on the final revision: each added or changed case runs at least twice per host and every other suite case at least once per host on runtime files matching the final ones, each result names its revision, and an unrun case blocks the claims it covers."
 reason = "On 2026-10-18 the first wave of rebuilds showed each gap: handoff trial catalogs exposed evals/cases.json and origin.toml to executors; handoff, retro, verify and this skill ran Claude executors only; retro rows ran before three later wording changes, and teach and verify left cases unrun, including verify's trust rule; retro's untrusted-directive runs listed the path the directive named; a `pgrep -fl` process listing printed the host's messaging token into a pilot's context; and a host deny rule on .env files changed how executors worked."
 where = [
   "references/evaluation.md#define-the-checks",
@@ -98,7 +103,7 @@ where = [
 ]
 
 [[invariants]]
-rule = "Each model-pair round reviews a frozen candidate, cited by commit and tree hash in a Git repository. Both reviewers get identical inputs, kept private from each other and from the coordinator's dispositions until both results are in, and a round is reconciled only after both results are read in full or the missing profile is skipped or blocked. Only edits that change the reviewed meaning are reconsulted; other findings are applied or declined without another round, and a round with no material finding ends the loop."
+rule = "Each model-pair round reviews a frozen candidate, cited by commit and tree hash when it is committed and by file hashes otherwise; freezing commits nothing the request or repository rules do not authorize. Both reviewers get identical inputs, kept private from each other and from the coordinator's dispositions until both results are in, and a round is reconciled only after both results are read in full or the missing profile is skipped or blocked. Only edits that change the reviewed meaning are reconsulted; other findings are applied or declined without another round, and a round with no material finding ends the loop."
 reason = "On 2026-10-18: rebase.updateRefs moved backup refs so reviewed commits survived only in the reflog; this skill's pilot appended one reviewer's dispositions to a shared file while the other was still reviewing; the verify pilot reconciled a round before the other result arrived and skipped a result after a declined status call; and minor findings kept starting rounds (verify 8, this skill 5, retro 3)."
 where = [
   "references/model-pair.md#brief-the-reviewers",
@@ -159,7 +164,7 @@ where = [
 ]
 
 [[sources.deviations]]
-change = "Added to Establish meaning and scope: authority and callers, explicit type, quantity, depth and completion evidence ('create tests'), domain decisions resolved from an authoritative contract instead of invented defaults, questions on unresolved intent with dependent work paused, review-only requests that leave the source unchanged, and interventions sized to the request. Reconciling overlapping guidance by trigger, owner, action, completion evidence and authority sits in the reuse reference, which loads for combining drafts."
+change = "Added to Establish meaning and scope: authority and callers, explicit type, quantity, depth and completion evidence ('create tests'), domain decisions resolved from an authoritative contract instead of invented defaults, questions on unresolved intent with dependent work paused, review-only requests that leave the source unchanged, and interventions sized to the request. Reconciling overlapping guidance by trigger, owner, action, completion evidence and authority sits in the reuse reference, which the entrypoint loads for overlapping drafts, adapters and skills."
 reason = "Trials showed agents turning 'create tests' into execution (reports/agent-instructions-validation.json meaning_revision) and inventing a schema, a precision and a row-discard rule (reports/skill-authoring-validation.json). Evaluation cases ambiguous-test-objective, missing-domain-contract, unresolved-donor-conflict and canonical-instruction-edit."
 where = ["SKILL.md#establish-meaning-and-scope", "references/reuse.md#reuse-and-standardization"]
 
@@ -260,7 +265,7 @@ where = ["references/reuse.md"]
 
 [[sources.deviations]]
 change = "Restructured the base's single reference into two homes. Context pointers, The two loads, Information hierarchy, Steps and completion criteria, When to split and Leading words moved, in the base's order, to references/levers.md, read before writing or reviewing a pointer, a step or its completion criterion, or where material sits, and before rewording existing text. The Negation paragraph became its own SKILL.md section beside Pruning, and the explanations in Negation, relevance and no-ops were condensed to their rules."
-reason = "The size-budget invariant: the rebuilt entry file had 3901 words against the base's 1777. The base's own disclosure test keeps in the entry file what every branch needs: negation and pruning apply to every line written, while the other levers serve the branches that touch pointers, steps, placement or rewording."
+reason = "This skill's own size budget: the rebuilt entry file had 3901 words against the base's 1777. The base's disclosure test keeps in the entry file what every branch needs: negation and pruning apply to every line written. The other levers load for pointer, step, placement or rewording work, which covers most edits, so the split mainly keeps the workflow legible and spares rule additions, scope or ownership reviews, model-pair coordination and record hand-overs from loading them."
 where = ["SKILL.md#load-what-the-work-needs", "SKILL.md#negation", "SKILL.md#pruning", "references/levers.md"]
 
 [[sources]]

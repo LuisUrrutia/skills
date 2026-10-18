@@ -15,13 +15,11 @@ without it) and why every branch needs it there. Move a passage that only some
 branches need into a reference whose pointer names those branches
 ([levers](levers.md#information-hierarchy)), and cut one that buys no behavior.
 Moving text into a reference that every branch must read reduces no load.
-Exceeding the base needs a measured behavior that fails when the text moves out
-of the entry file.
 
-A base stays the base while its sections remain recognizable locally, so an
-upstream diff still maps onto them. When the change rewrites or replaces most of
-the base, hand the approach question (base or derive) to `skill-maintenance` with
-that evidence instead of keeping a `base` label that no longer fits.
+When the change renames or replaces most of the base's sections, hand the
+approach question (base or derive) to `skill-maintenance` with the three counts
+and a map from each base section to its local home. That skill judges whether the
+base still fits; keep the `base` label until it decides.
 
 ## Dependent text
 
@@ -64,8 +62,9 @@ The hand-over is the decisions with their reasons, never a record file. When
 A review of a skill change, by this skill or by the model pair it briefs, checks
 at least:
 
-- **Size and base:** the three counts above, the behavior each growth buys, and
-  whether the base's sections still map onto the local ones.
+- **Size and base:** the three counts above, the behavior each growth buys, and,
+  when most base sections were renamed or replaced, the approach question handed
+  to `skill-maintenance` with the section map.
 - **Evaluation evidence:** the hosts that ran, results labeled with the revision
   they ran on and matching the final runtime files, and the unrun cases with the
   claims they block ([evaluation](evaluation.md)).

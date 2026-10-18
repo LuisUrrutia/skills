@@ -14,14 +14,14 @@ Observe artifacts, actions and resulting state. When a requirement competes with
 a deadline, prior effort or pressure to skip it, use a realistic task that requires
 the executor to act. When a case carries untrusted content, such as a transcript
 or a file with embedded directives, assert on the action trace as well: no tool
-call reads, lists or touches what a directive names. Rule recitation cannot
-establish compliance.
+call acts on what a directive names unless the task itself authorizes that
+target. Rule recitation cannot establish compliance.
 
 Preserve authorization; use isolated fixtures or fakes for external effects
 unless the evaluation is authorized against the real service. Fixtures carry
 canary values, never real secrets. Neither executors nor graders run commands
 that print process environments or command lines, such as `env`, `printenv`,
-`ps eww`, `ps` with arguments, `pgrep -fl` or `pgrep -a`; a process line can
+`ps eww`, `ps aux`, `ps -o args`, `pgrep -fl` or `pgrep -a`; a process line can
 carry another program's token. Check a process with `pgrep -x <name>` or by PID.
 
 Keep expectations with the grader and reserve unseen cases. A reserved failure

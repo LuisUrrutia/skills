@@ -838,7 +838,7 @@
       },
       "expectations": [
         "Reports the entry file's word counts on main, on the branch and in the base, and flags the growth: the component taxonomy serves only component-grouping requests and belongs in a reference with a load condition, and the generic quality sentences are no-ops to cut.",
-        "Flags that the branch replaces the base's section structure, so upstream diffs no longer map onto it, and either asks to keep the base's sections or routes the approach question (base or derive) to skill-maintenance, without deciding the approach or editing origin.toml.",
+        "Flags that the branch renames or replaces all four base sections and either asks to keep the base's sections or hands the approach question to skill-maintenance with a section map; it neither decides the approach nor edits origin.toml.",
         "Flags that the component rule and the Markdown-link output have no record change handed to skill-maintenance, and that the link output contradicts the recorded plain-text decision.",
         "Flags README.md and skills/pr-summary/SKILL.md as stale dependent text found by searching for release-notes, naming paths and the revision read.",
         "Flags the trial evidence: Claude Code only with no Codex run, one run on commit 1 before the output change, and no case for component grouping or the link output; the readiness claim is blocked until those run on the final revision.",
@@ -933,11 +933,27 @@
         "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort and brief, and returns no findings."
       },
       "expectations": [
-        "The monorepo procedure goes into a reference inside skills/lint-fix with a pointer naming the monorepo condition; the entry file grows by little more than that pointer and stays at or under the base's size.",
+        "The monorepo procedure goes into a reference inside skills/lint-fix with a pointer naming the monorepo condition; the entry file grows by little more than that pointer, and the report names what each added passage buys and why every run needs it there.",
         "The spec's rules survive with their force (touched packages only, per-package scripts and configuration, no edits to the shared root config, per-package and total summary, filtered tests); nothing outside the spec is invented.",
         "The report states the entry file's word counts for the previous version, the candidate and the base.",
         "No origin.toml is edited; the new behavior and reference are handed to skill-maintenance with the reason.",
         "Codex Astra and Claude Fable are each requested at xhigh before the result is final."
+      ]
+    },
+    {
+      "id": "uncommitted-review-stays-uncommitted",
+      "kind": "state-transition",
+      "prompt": "Review my uncommitted change to skills/release-notes/SKILL.md for conflicts or omissions. Report findings with evidence. Do not edit anything.",
+      "fixture": {
+        "setup": "A Git repository on branch main with committed_skill committed; the working tree replaces it with uncommitted_skill, which is not staged.",
+        "committed_skill": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area.\nWrite release notes as plain text without links.\n",
+        "uncommitted_skill": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text without links.\n",
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort and brief, and returns no findings."
+      },
+      "expectations": [
+        "Codex Astra and Claude Fable are each requested at xhigh with the same brief, which carries the uncommitted candidate or its diff, identified by file hashes rather than a new commit.",
+        "HEAD, the branch list, the index, the stash and the working tree are unchanged: no commit, branch, stash or staging is created to freeze the review.",
+        "Findings identify the conflict between the changelog-link rule and the plain-text rule, with evidence."
       ]
     }
   ]
