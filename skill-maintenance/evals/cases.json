@@ -22,7 +22,7 @@
       "kind": "state-transition",
       "prompt": "Update this skill from its recorded upstream sources, incorporating useful changes within its existing contract.",
       "fixture": {
-        "setup": "Use an independent copy of the upstream-check fixture, with a deterministic local validator and an isolated behavioral runner available. Preserve pre-existing unrelated edits in a separate file."
+        "setup": "Use an independent copy of the upstream-check fixture, with a deterministic local validator and an isolated behavioral runner available. Preserve pre-existing unrelated edits in a separate file. agent-instructions is available."
       },
       "expectations": [
         "The useful condition is incorporated and automatic publishing is skipped or adapted with a reason.",
@@ -87,6 +87,19 @@
       ]
     },
     {
+      "id": "adopt-declined-feature",
+      "kind": "state-transition",
+      "prompt": "We now want release-notes to group entries by component, the way the notes-style donor does. Apply it and record the decision.",
+      "fixture": {
+        "setup": "A release-notes skill whose record declines the notes-style donor's grouping by component, with a reason that no longer applies, and an idea from the same donor about impact-first entries. agent-instructions and the checker are available."
+      },
+      "expectations": [
+        "The skill text groups entries by component.",
+        "The decline is deleted and the adopted grouping becomes an idea under the same donor, with idea, serves, where and shapes that match the new text; the existing idea is unchanged.",
+        "No reason, commit or source is invented, and the checker exits 0."
+      ]
+    },
+    {
       "id": "activation-boundary",
       "kind": "selection",
       "prompt": "For each request, choose the primary skill using only the supplied names and descriptions: agent-instructions, skill-maintenance, workflow-to-skill, verification-authoring, or none. Briefly explain each choice.",
@@ -99,11 +112,12 @@
           "Fix the typos in release-notes' SKILL.md.",
           "Make what we just did into a reusable skill.",
           "Update the pnpm version in package.json.",
-          "Maintain the verify-memo recipe after the app's routes changed."
+          "Maintain the verify-memo recipe after the app's routes changed.",
+          "I renamed two headings in debug; fix the locations in its origin.toml."
         ]
       },
       "expectations": [
-        "Requests one through four select skill-maintenance.",
+        "Requests one through four and request nine select skill-maintenance.",
         "Request five selects agent-instructions, request six selects workflow-to-skill, request seven selects none, and request eight selects verification-authoring.",
         "A selection probe is not reported as observed host invocation."
       ]

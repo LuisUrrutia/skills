@@ -1,6 +1,6 @@
 ---
 name: skill-maintenance
-description: Use when recording a skill's goal, sources or design decisions in its origin.toml, or when checking or updating a skill from its recorded sources or dependencies.
+description: Use when creating or maintaining a skill's origin.toml to record its goal, sources and design decisions, or when checking or updating a skill from its recorded sources or dependencies.
 ---
 
 # Skill maintenance
@@ -28,25 +28,33 @@ schedule.
 ## Record decisions
 
 1. Read the skill, its record, and the change with the reason the user gave. A
-   skill without a record gets one: its `approach`, a `goal` that states what it
-   produces, for whom and what success looks like, and the invariants its text
-   already enforces.
+   skill without a record gets one when the user asks or when its repository
+   keeps records, that is, another skill in it has an `origin.toml`; skills
+   installed in the host outside that repository do not count. The new record states the `approach`, a
+   `goal` that says what the skill produces, for whom and what success looks
+   like, and the invariants its text already enforces.
 2. Write the decision as the entry a future editor needs:
    - A rule the user wants kept, such as a scope boundary, an authority limit or
      a host constraint: an invariant.
    - A correction to the base: a deviation.
    - A concept taken from a source: an idea. A donor behavior left out that a
-     later update could propose again: a decline.
+     later update could propose again: a decline. Material from a source the
+     record does not list yet first gets its source or snapshot entry with the
+     fields in the format reference, and the `approach` changes when the
+     source's role requires it.
    - Something the skill uses at runtime: a dependency.
 3. Describe the decision, not the edit. A reader who never saw the conversation,
    the source or the diff must understand what the skill does and why.
 4. Update or remove the entries the change makes false, including `where`
    locations of renamed headings and moved files.
 
-Record only reasons the user stated or the evidence shows; leave `reason` out
-rather than invent one. The `goal` changes only on the user's statement, because
-every later decision is judged against it. Wording fixes and corrections that keep
-the meaning need no entry; Git history keeps them.
+Take commits, hashes and dates from the repository or file, never from memory.
+Record only reasons the user stated or the evidence shows. An invariant without a
+known reason leaves `reason` out; a deviation or decline requires one, so ask the
+user when neither the request nor the evidence supplies it. The `goal` changes
+only on the user's statement, because every later decision is judged against it.
+Wording fixes and corrections that keep the meaning need no entry; Git history
+keeps them.
 
 ## Check or update from sources
 

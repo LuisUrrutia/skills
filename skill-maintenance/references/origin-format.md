@@ -32,7 +32,9 @@ words. An `ideas` source or snapshot whose text was not copied says so in its
 - `format_version`: `2`.
 - `skill`: the registered skill name.
 - `created`: the date the record began.
-- `approach`:
+- `approach`: the reuse choice the skill follows, chosen with the
+  `agent-instructions` reuse guidance and revised when a later source changes
+  it, stated as one of:
   - `base`: exactly one source or snapshot has the role `base`.
   - `derive`: one or more `ideas` sources or snapshots, and no base.
   - `create`: local design with no sources and no material snapshots; reference

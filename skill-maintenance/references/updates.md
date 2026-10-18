@@ -119,8 +119,9 @@ snapshot or let a generic update command overwrite it.
 In Check mode, finish with the candidate SHAs, classified changes, recommendations,
 and blockers. In Update mode, apply supported changes within the existing scope.
 Write them and choose their checks with `agent-instructions`, which owns
-instruction wording and evaluation; run affected behavior and a nearby regression
-case. Required checks that cannot run remain blockers
+instruction wording and evaluation; an Update request is a user-requested edit, so
+its model consultation applies to the incorporated changes. Run affected behavior
+and a nearby regression case. Required checks that cannot run remain blockers
 for advancing the affected cursor. Changes to routing or authority need behavioral
 evidence; a structural pass alone cannot validate them.
 

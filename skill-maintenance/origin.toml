@@ -13,8 +13,8 @@ where = [
 ]
 
 [[invariants]]
-rule = "Every skill has a record with at least its approach and goal, including a skill built without outside sources. A change that adds, removes or alters a rule, an adopted idea, a base deviation or a dependency is recorded; a wording fix that keeps the meaning is not."
-reason = "User decision on 2026-10-18: a skill always has a goal and people keep modifying it, so the decisions behind each change are kept."
+rule = "In a repository that keeps records, where the skill itself or another skill in that repository has an origin.toml and skills installed in the host outside it do not count, every skill has one with at least its approach and goal, including a skill built without outside sources; elsewhere a record is created only when the user asks. A change that adds, removes or alters a rule, an adopted idea, a base deviation or a dependency is recorded; a wording fix that keeps the meaning is not."
+reason = "User decisions on 2026-10-18: a skill always has a goal and people keep modifying it, so the decisions behind each change are kept; skills created in other projects, such as a generated verify-<app>, get no record unless requested."
 where = ["SKILL.md#record-decisions"]
 
 [[invariants]]
@@ -26,7 +26,7 @@ where = [
 ]
 
 [[invariants]]
-rule = "Reasons come from the user or from the evidence; an unknown reason is left out. The goal changes only on the user's statement. An upstream commit is never assigned to a snapshot without matching evidence."
+rule = "Reasons come from the user or from the evidence. An invariant with an unknown reason leaves it out, and a deviation or decline takes its reason from the request or the evidence and waits for the user when neither supplies one. Commits, hashes and dates come from the repository or file, and an upstream commit is never assigned to a snapshot without matching evidence. The goal changes only on the user's statement."
 where = [
   "SKILL.md#record-decisions",
   "references/origin-format.md#other-records",
@@ -55,5 +55,5 @@ where = ["references/updates.md#decide-and-incorporate"]
 [[dependencies]]
 kind = "local"
 name = "agent-instructions"
-required = true
-role = "Writes the text that an update incorporates and chooses its behavioral checks."
+required = false
+role = "Required in Update mode: writes the text that an update incorporates and chooses its behavioral checks. Record and Check run without it."

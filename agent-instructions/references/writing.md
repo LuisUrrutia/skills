@@ -85,7 +85,7 @@ Resolve conflicts from established authority, scope or an explicit user decision
 ask when those do not settle the intended behavior. Then keep the governing rule
 or state distinct conditions.
 
-For a skill, `skill-maintenance` records a base's deviations and an idea source's
+For a skill with a record, `skill-maintenance` records a base's deviations and an idea source's
 adapted and declined entries; other documents keep their established attribution
 conventions. Popularity does not justify replacing a local rule. Check changes to
 invocation, approvals, testing, tools and external writes especially carefully.

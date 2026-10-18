@@ -21,10 +21,11 @@ If a wrapper must replace the donor's scope, tools, ordering, authoring owner, o
 external actions across several steps, compare a base or a small derivation
 instead.
 
-Record the choice and its concrete reason with `skill-maintenance`. Distinguish
-the skill's author or team from the repository hosting it. Inspect licensing and
-notices before distributing upstream files; a source citation does not replace
-required notices.
+Keep the choice and its concrete reason; where the repository keeps records,
+`skill-maintenance` writes them into the skill's record as its approach.
+Distinguish the skill's author or team from the repository hosting it. Inspect
+licensing and notices before distributing upstream files; a source citation does
+not replace required notices.
 
 ## Keep wrappers thin
 

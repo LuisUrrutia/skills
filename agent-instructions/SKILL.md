@@ -146,9 +146,10 @@ behavioral checks. A narrow wording correction needs a fidelity check; it does n
 require a new skill package, evaluation suite, or an interview about repeated work.
 Use host validators only for formats they actually validate.
 
-Report the changed instructions, their scope, actual checks and results, and any
-unresolved limitation. When this agent ran the pair or assigned it to a delegate,
-report each profile's actual run, rate-limit skip, or blocker and how material
-findings were reconciled; otherwise, state that this agent did not run the pair.
-Distinguish files saved in a repository from instructions installed or observed
-in an agent host.
+Report the changed instructions, their scope, actual checks and results, whether
+a skill's record changed or that none exists because its repository keeps no
+records, and any unresolved limitation. When this agent ran the pair or assigned
+it to a delegate, report each profile's actual run, rate-limit skip, or blocker
+and how material findings were reconciled; otherwise, state that this agent did
+not run the pair. Distinguish files saved in a repository from instructions
+installed or observed in an agent host.

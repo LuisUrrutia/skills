@@ -109,7 +109,7 @@ referenced guides, and agent prompts. New skills do not require prior use or rep
 - Edits the canonical instruction source at the intended scope
 - Writes clear rules, conditional references, and completion criteria
 - Chooses between reusing, wrapping, deriving, or creating a skill before adding an implementation
-- Hands each skill decision to `skill-maintenance` for the skill's `origin.toml` record
+- Hands each skill decision to `skill-maintenance` for the skill's `origin.toml` record in a repository that keeps records
 - Validates the changed behavior in proportion to the task
 - Preserves business constraints and preferences when pruning, and distinguishes file size from actual loaded context
 
@@ -123,7 +123,7 @@ update a skill from its recorded sources or installed dependencies. Install it w
 
 **Features:**
 - Records the goal, invariants, base deviations, adopted ideas, and declines in words a model without the original conversation can follow
-- Gives every skill a record, including skills built without outside sources
+- Keeps a record for every skill in a repository that keeps records, including skills built without outside sources
 - Checks a skill against its sources without changing it, or incorporates compatible changes and records the review
 - Advances a source's review cursor only after its full range is resolved and validated
 - Includes a checker for the record format and its locations
@@ -164,7 +164,8 @@ owner and a way to check the proposed improvement.
 
 Extract a reusable workflow from task history or repeated work, then use
 `agent-instructions` to write and validate the resulting skill. Install both when
-using this extraction workflow.
+using this extraction workflow, plus `skill-maintenance` to record the new skill's
+decisions in a repository that keeps records, such as this one.
 
 **Triggers:** `turn this workflow into a skill`, `extract a skill from these sessions`
 

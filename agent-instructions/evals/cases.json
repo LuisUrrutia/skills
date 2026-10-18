@@ -15,7 +15,8 @@
           "pr": "Owns creating or updating pull requests when authorized.",
           "github-actions": "Owns workflow YAML correctness and security guidance."
         },
-        "source_provenance": "The drafts are supplied text with no verified upstream repository or commit."
+        "source_provenance": "The drafts are supplied text with no verified upstream repository or commit.",
+        "collection": "The skills repository keeps an origin.toml for every skill, and skill-maintenance is available."
       },
       "expectations": [
         "The deliverable contains substantive skill instructions and valid name/description metadata.",
@@ -23,6 +24,7 @@
         "Commit and PR procedures remain with their existing owners; review does not grant publishing authority.",
         "Specialist references have relevant conditions instead of loading every guide.",
         "No routine permission question is required for reading local task files.",
+        "The new skill's approach, goal and decisions are handed to skill-maintenance for its record.",
         "Provenance and validation claims match supplied evidence and actual tool results."
       ]
     },
@@ -116,12 +118,14 @@
       "kind": "artifact",
       "prompt": "Create a skill called release-summary for a workflow we have not used yet: read a supplied release diff, group user-visible changes, and return a Markdown summary. Publishing is a separate task.",
       "fixture": {
-        "history": "No previous runs. The supplied workflow is the requested capability."
+        "history": "No previous runs. The supplied workflow is the requested capability.",
+        "collection": "A project repository whose skills have no origin.toml; skill-maintenance is installed in the host."
       },
       "expectations": [
         "The skill is created from the supplied contract without requiring prior repetition.",
         "It returns the requested summary and does not acquire publishing authority.",
-        "No workflow-to-skill extraction or interview about prior runs precedes drafting."
+        "No workflow-to-skill extraction or interview about prior runs precedes drafting.",
+        "No origin.toml is created or requested for release-summary, and the report states that the repository keeps no skill records."
       ]
     },
     {
