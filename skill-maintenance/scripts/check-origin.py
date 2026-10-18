@@ -170,6 +170,7 @@ class Checker:
     def __init__(self, skill_dir, clones=None):
         self.skill_dir = skill_dir
         self.clones = clones or {}
+        self.matched_sources = set()
         self.record = skill_dir / "origin.toml"
         self.diagnostics = []
         self.skipped = []
@@ -343,6 +344,7 @@ class Checker:
             self.check_table(review, REVIEW, {}, f"{location}.reviews[{index}]")
         self.check_review_chain(source, reviews, location)
         if isinstance(source.get("id"), str) and source["id"] in self.clones:
+            self.matched_sources.add(source["id"])
             self.check_source_history(source, reviews, location, self.clones[source["id"]])
 
     def check_role(self, table, location):
@@ -396,8 +398,10 @@ class Checker:
         known = {}
 
         def exists(commit):
+            if not (isinstance(commit, str) and COMMIT.match(commit)):
+                return False
             if commit not in known:
-                known[commit] = isinstance(commit, str) and bool(COMMIT.match(commit)) and resolve_commit(clone, commit) == commit
+                known[commit] = resolve_commit(clone, commit) == commit
             return known[commit]
 
         pins = [(key, source.get(key), f"{location}.{key}") for key in ("baseline_commit", "reviewed_through")]
@@ -405,7 +409,7 @@ class Checker:
                 for key, commit in zip(("from_commit", "to_commit"), review_range(review))]
         for key, commit, place in pins + ends:
             if isinstance(commit, str) and COMMIT.match(commit) and not exists(commit):
-                self.issue("unknown-commit", f"{key} {commit} is not in the clone of {source['id']}; if its history was rewritten, keep the pins and report the source as blocked.", place)
+                self.issue("unknown-commit", f"{key} {commit} is not a commit in the clone of {source['id']}; if its history was rewritten, keep the pins and report the source as blocked.", place)
         baseline, cursor = source.get("baseline_commit"), source.get("reviewed_through")
         if exists(baseline) and exists(cursor) and not is_ancestor(clone, baseline, cursor):
             self.issue("commit-order", "reviewed_through does not descend from baseline_commit in the source's history.", f"{location}.reviewed_through")
@@ -598,15 +602,20 @@ def main(argv=None):
     clones = {}
     for item in args.source:
         identifier, separator, path = item.partition("=")
-        if not separator or not identifier or git(path, "rev-parse", "--git-dir")[0] != 0:
+        if not separator or not identifier or not path or git(path, "rev-parse", "--git-dir")[0] != 0:
             print(json.dumps({"error": "--source needs ID=CLONE with a Git clone", "value": item}), file=sys.stderr)
             return 2
         clones[identifier] = Path(path)
-    diagnostics, skipped = [], []
+    diagnostics, skipped, matched = [], [], set()
     for skill_dir in args.skill_dir:
         checker = Checker(skill_dir, clones)
         diagnostics.extend(checker.run())
         skipped.extend(checker.skipped)
+        matched |= checker.matched_sources
+    unmatched = sorted(clones.keys() - matched)
+    if unmatched:
+        print(json.dumps({"error": "--source names no source of the checked records", "ids": unmatched}), file=sys.stderr)
+        return 2
     print(json.dumps({"checked": [str(path) for path in args.skill_dir], "diagnostics": diagnostics, "skipped": skipped}, indent=2))
     return 1 if diagnostics else 0
 

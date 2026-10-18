@@ -598,8 +598,37 @@ class SourceCloneTest(unittest.TestCase):
         self.assertEqual((returncode, diagnostics), (0, []))
         self.assertEqual([item["check"] for item in skipped], ["source-history"])
 
+    def test_a_missing_review_end_is_reported(self):
+        a, _, _ = self.commits
+
+        _, diagnostics, _ = self.check(a, a, [(a, "e" * 40, True)])
+
+        self.assertEqual(diagnostics, [("unknown-commit", "sources[0].reviews[0].to_commit")])
+
+    def test_malformed_commit_values_do_not_crash_the_history_check(self):
+        a, b, _ = self.commits
+        source = SOURCE.format(id="donor", role="ideas").replace(f'reviewed_through = "{COMMIT_B}"', f'reviewed_through = "{b}"')
+        bad_baseline = source.replace(f'baseline_commit = "{COMMIT_A}"', "baseline_commit = []")
+        bad_review = source.replace(f'baseline_commit = "{COMMIT_A}"', f'baseline_commit = "{a}"') + REVIEW.replace(f'from_commit = "{COMMIT_A}"', "from_commit = {}").replace(f'to_commit = "{COMMIT_B}"', f'to_commit = "{b}"')
+        results = []
+        for record in (bad_baseline, bad_review):
+            (self.skill_dir / "origin.toml").write_text(HEADER.format(approach="derive") + record + IDEA, encoding="utf-8")
+            returncode, output = run_checker("--skill-dir", self.skill_dir, "--source", f"donor={self.clone}")
+            results.append((returncode, [item["code"] for item in output["diagnostics"]]))
+
+        self.assertEqual(results, [(1, ["invalid-value"]), (1, ["invalid-value", "review-chain"])])
+
     def test_a_source_path_that_is_not_a_clone_is_a_usage_error(self):
         returncode, _ = run_checker("--skill-dir", self.skill_dir, "--source", f"donor={self.skill_dir}")
+        empty, _ = run_checker("--skill-dir", self.skill_dir, "--source", "donor=")
+
+        self.assertEqual((returncode, empty), (2, 2))
+
+    def test_a_source_id_that_matches_no_source_is_a_usage_error(self):
+        a, _, _ = self.commits
+        self.check(a, a, [])
+
+        returncode, _ = run_checker("--skill-dir", self.skill_dir, "--source", f"donr={self.clone}")
 
         self.assertEqual(returncode, 2)
 
