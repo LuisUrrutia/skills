@@ -19,13 +19,14 @@ skill's own drafts and renames in Git history; the record is not a changelog.
 
 A skill has at most one base. A base stays valid while it stays recognizable
 after local corrections, so upstream diffs still map onto local sections. Judge
-that whenever a change adds, replaces or removes a deviation, including a new
-record's first ones. Start from the deviations' `change` fields, then confirm
+that whenever a change to a base skill is recorded, including a new record. Start
+from the deviations' `change` fields, then confirm
 against the base text: a source at `reviewed_through`, fetched as
 [updates.md](updates.md) describes, or a snapshot base at its recorded commit or
 file. The base still fits while most of its sections keep their purpose and much
 of their text in a local section, so an upstream edit there could merge hunk by
-hunk. The number of deviations and the growth of the entry file do not decide it
+hunk; once most of its sections were replaced or removed, it no longer fits. The
+number of deviations and the growth of the entry file do not decide it
 alone: a skill can keep most base sentences under many added sections, and a
 short base can be buried under local text. When the base text cannot be read,
 record the change and report the fit as not judged.
