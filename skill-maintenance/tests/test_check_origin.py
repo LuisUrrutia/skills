@@ -240,6 +240,14 @@ rule = "Stop on approval outside personal repositories."
         self.assertIn("line-citation", codes)
         self.assertIn("invalid-value", codes)
 
+    def test_fields_over_one_hundred_words_are_reported(self):
+        at_limit = " ".join(["word"] * 100)
+        record = HEADER.format(approach="create") + f'\n[[invariants]]\nrule = "{at_limit}"\nreason = "{at_limit} more"\n'
+
+        _, codes = self.check(record)
+
+        self.assertEqual(codes, ["long-entry"])
+
     def test_malformed_types_are_reported_without_crashing(self):
         record = HEADER.format(approach="derive").replace('approach = "derive"', "approach = []").replace(
             'goal = "Prove a change with evidence that survives cleanup."', "goal = 42"

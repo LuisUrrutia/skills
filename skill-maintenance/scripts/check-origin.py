@@ -15,6 +15,7 @@ COMMIT = re.compile(r"^[0-9a-f]{40}$")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 SSH_REMOTE = re.compile(r"^(git@[^:\s]+:\S+|ssh://\S+)$")
 LINE_CITATION = re.compile(r"origin\.(?:txt|toml):\d+")
+MAX_WORDS = 100
 COMMIT_CITATION = re.compile(r"(?<![0-9A-Za-z])(?=[0-9a-f]*[0-9])(?=[0-9a-f]*[a-f])[0-9a-f]{7,40}(?![0-9A-Za-z])")
 LOCATION = re.compile(r"^([^\s#]+)(?:#([a-z0-9_-]+))?$")
 FENCE = re.compile(r"^\s{0,3}(`{3,}|~{3,})")
@@ -227,6 +228,8 @@ class Checker:
             for index, child in enumerate(value):
                 self.scan_values(child, f"{location}[{index}]")
         elif isinstance(value, str):
+            if len(value.split()) > MAX_WORDS:
+                self.issue("long-entry", f"Keep each field to {MAX_WORDS} words or fewer: record one decision and state it rather than copying the skill's text.", location)
             if LINE_CITATION.search(value):
                 self.issue("line-citation", "Refer to a record by its content, not by line number.", location)
             if location.rsplit(".", 1)[-1] not in PINNED_KEYS:
