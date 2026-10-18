@@ -60,7 +60,8 @@ record only when the user asks.
 A review of a skill change, by this skill or by the model pair it briefs, checks
 at least:
 
-- **Size:** the three counts above, and the behavior each growth buys.
+- **Size and base:** the three counts above, the behavior each growth buys, and
+  whether the base's sections still map onto the local ones.
 - **Evaluation evidence:** the hosts that ran, results labeled with the revision
   they ran on and matching the final runtime files, and the unrun cases with the
   claims they block ([evaluation](evaluation.md)).
