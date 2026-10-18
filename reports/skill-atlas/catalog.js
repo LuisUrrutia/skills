@@ -4671,7 +4671,7 @@ window.SKILL_ATLAS = {
       {
         "name": "issue-workflow",
         "category": "Git, pull requests and CI",
-        "summary": "Synchronize source tickets at work start, PR creation and observed merge under per-project transition rules.",
+        "summary": "Synchronize source tickets at work start, PR creation and observed merge under project or user-level transition rules.",
         "path": "issue-workflow/SKILL.md",
         "section": "issue-workflow",
         "checkedAt": "2026-10-18",
