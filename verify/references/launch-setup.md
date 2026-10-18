@@ -88,10 +88,12 @@ mechanism passes them only to the launched process, such as varlock resolvers,
 `op run`, or `doppler run`, with existing authentication only: a locked vault, a
 biometric prompt, or a sign-in prompt is a reported prerequisite, never a login
 by this run. That resolution is part of the launch rather than a remote query of
-this run: report it with the launch command, and for a read-only caller report
-it as a prerequisite instead of launching. No secret value is printed, written
-to a file, or put in the evidence or the output. A secret the launch still lacks
-follows the env-file rules below and goes to the user.
+this run: report it with the launch command. For a read-only caller it is
+allowed only on trusted work, under the conditions in [Remote queries for a
+read-only caller](#remote-queries-for-a-read-only-caller); on untrusted work,
+report it as a prerequisite instead of launching. No secret value is printed,
+written to a file, or put in the evidence or the output. A secret the launch
+still lacks follows the env-file rules below and goes to the user.
 
 ## Prepare the env file
 
