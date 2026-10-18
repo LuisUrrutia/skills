@@ -171,6 +171,7 @@ class Checker:
         self.skill_dir = skill_dir
         self.clones = clones or {}
         self.matched_sources = set()
+        self.sources_readable = False
         self.record = skill_dir / "origin.toml"
         self.diagnostics = []
         self.skipped = []
@@ -208,6 +209,7 @@ class Checker:
         for index, invariant in enumerate(self.tables(data, "invariants", "invariants")):
             self.check_table(invariant, INVARIANT, INVARIANT_OPTIONAL, f"invariants[{index}]")
         sources = self.tables(data, "sources", "sources")
+        self.sources_readable = isinstance(data.get("sources", []), list) and all(isinstance(source.get("id"), str) for source in sources)
         snapshots = self.tables(data, "local_snapshots", "local_snapshots")
         dependencies = self.tables(data, "dependencies", "dependencies")
         for index, source in enumerate(sources):
@@ -606,17 +608,20 @@ def main(argv=None):
             print(json.dumps({"error": "--source needs ID=CLONE with a Git clone", "value": item}), file=sys.stderr)
             return 2
         clones[identifier] = Path(path)
-    diagnostics, skipped, matched = [], [], set()
+    diagnostics, skipped, matched, readable = [], [], set(), True
     for skill_dir in args.skill_dir:
         checker = Checker(skill_dir, clones)
         diagnostics.extend(checker.run())
         skipped.extend(checker.skipped)
         matched |= checker.matched_sources
+        readable = readable and checker.sources_readable
     unmatched = sorted(clones.keys() - matched)
-    if unmatched:
+    if unmatched and not readable:
+        skipped.extend({"check": "source-history", "source": identifier, "reason": "No readable source has this id; fix the record's diagnostics and run again."} for identifier in unmatched)
+    print(json.dumps({"checked": [str(path) for path in args.skill_dir], "diagnostics": diagnostics, "skipped": skipped}, indent=2))
+    if unmatched and readable:
         print(json.dumps({"error": "--source names no source of the checked records", "ids": unmatched}), file=sys.stderr)
         return 2
-    print(json.dumps({"checked": [str(path) for path in args.skill_dir], "diagnostics": diagnostics, "skipped": skipped}, indent=2))
     return 1 if diagnostics else 0
 
 

@@ -628,9 +628,18 @@ class SourceCloneTest(unittest.TestCase):
         a, _, _ = self.commits
         self.check(a, a, [])
 
-        returncode, _ = run_checker("--skill-dir", self.skill_dir, "--source", f"donr={self.clone}")
+        returncode, output = run_checker("--skill-dir", self.skill_dir, "--source", f"donr={self.clone}")
 
-        self.assertEqual(returncode, 2)
+        self.assertEqual((returncode, output["diagnostics"]), (2, []))
+
+    def test_an_unreadable_record_keeps_its_diagnostics_with_a_source(self):
+        (self.skill_dir / "origin.toml").write_text("not = [toml", encoding="utf-8")
+
+        returncode, output = run_checker("--skill-dir", self.skill_dir, "--source", f"donor={self.clone}")
+
+        self.assertEqual(returncode, 1)
+        self.assertEqual([item["code"] for item in output["diagnostics"]], ["invalid-toml"])
+        self.assertEqual([item.get("source") for item in output["skipped"]], ["donor"])
 
 
 class CitationPatternTest(unittest.TestCase):

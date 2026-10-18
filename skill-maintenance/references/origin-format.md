@@ -26,9 +26,10 @@ against the base text: a source at `reviewed_through`, fetched as
 [updates.md](updates.md) describes, or a snapshot base at its recorded commit or
 file. Count a base section as kept when its purpose and much of its text survive
 in a local section, so an upstream edit there could merge hunk by hunk. The base
-fits while most sections are kept and no longer fits otherwise. The number of deviations and the growth of the entry file do not decide it
-alone: a skill can keep most base sentences under many added sections, and a
-short base can be buried under local text. When the base text cannot be read,
+fits while most sections are kept and no longer fits otherwise. The number of
+deviations and the growth of the entry file do not decide it alone: a skill can
+keep most base sentences under many added sections, and a short base can be
+buried under local text. When the base text cannot be read,
 record the change and report the fit as not judged.
 
 When deviations replace most of the base, changing it into an `ideas` source
@@ -162,10 +163,10 @@ that kind of candidate. Delete a decline when the user adopts the feature.
 ### Reviews
 
 Each update run adds or updates one `reviews` table per source it reviews, from
-the cursor to that run's candidate, with `from_commit`, `to_commit`, and the lists `incorporated`,
-`skipped`, `deferred` and `validation`; lists may be empty. A source whose cursor
-or candidate cannot be verified, such as after rewritten history, gets no review:
-the run keeps its pins and reports the blocker.
+the cursor to that run's candidate, with `from_commit`, `to_commit`, and the
+lists `incorporated`, `skipped`, `deferred` and `validation`; lists may be empty.
+A source whose cursor or candidate cannot be verified, such as after rewritten
+history, gets no review: the run keeps its pins and reports the blocker.
 The first review starts at the baseline, each later one starts where the previous
 one ended, and the last resolved one ends at `reviewed_through`. A review with
 `deferred` items is pending: it is the last review, it starts at
@@ -306,7 +307,8 @@ cursor or review commit the clone lacks, and `commit-order` when the cursor does
 not descend from the baseline or a review's end does not descend from its start.
 A source blocked by rewritten history keeps any `unknown-commit` diagnostics:
 report it as blocked instead of moving its pins. An id that matches no source of
-the checked records is a usage error.
+readable records is a usage error; while a record cannot be read, the id is listed
+under `skipped`.
 
 A record that is new on the branch has no published copy to compare. In a Git
 checkout, the JSON lists under `skipped` each comparison it could not make, such
