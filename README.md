@@ -124,9 +124,12 @@ update a skill from its recorded sources or installed dependencies. Install it w
 **Features:**
 - Records the goal, invariants, base deviations, adopted ideas, and declines in words a model without the original conversation can follow
 - Keeps a record for every skill in a repository that keeps records, including skills built without outside sources
+- Credits each reason to its actual source and cites evidence that survives a rebase or squash merge
+- Asks before changing a skill's approach when its base no longer fits
+- Lists the skills whose records depend on a skill, so a contract change can reach its callers
 - Checks a skill against its sources without changing it, or incorporates compatible changes and records the review
 - Advances a source's review cursor only after its full range is resolved and validated
-- Includes a checker for the record format and its locations
+- Includes a checker for the record format, its locations, field length, and commits cited from unmerged branches
 
 ### create-project-instructions
 

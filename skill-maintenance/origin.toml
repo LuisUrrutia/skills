@@ -18,18 +18,52 @@ reason = "User decisions on 2026-10-18: a skill always has a goal and people kee
 where = ["SKILL.md#record-decisions"]
 
 [[invariants]]
-rule = "Each entry describes the idea or decision itself, so that a model that never saw the source, the conversation or the diff understands what the skill does and why. A donor quote, a bare 'adopt X' or a list of additions is not an entry."
-reason = "User request on 2026-10-17: format 1 records read as lists of what to add instead of which idea the skill incorporated."
+rule = "Each entry describes the idea or decision itself, so that a model that never saw the source, the conversation or the diff understands what the skill does and why. A decision lives in one entry that others refer to by its content, and states the rule rather than copying the skill's text; no field exceeds 100 words. A donor quote, a bare 'adopt X' or a list of additions is not an entry."
+reason = "User request on 2026-10-17: format 1 records read as lists of what to add instead of which idea the skill incorporated. In the October 2026 rebuilds of five skills, rules copied from the skill text reached 600 words, and one rule restated in several entries drifted into a contradiction."
 where = [
   "SKILL.md#record-decisions",
+  "references/origin-format.md#write-the-entries",
   "references/origin-format.md#ideas-and-declines",
 ]
 
 [[invariants]]
-rule = "Reasons come from the user or from the evidence. An invariant with an unknown reason leaves it out, and a deviation or decline takes its reason from the request or the evidence and waits for the user when neither supplies one. Commits, hashes and dates come from the repository or file, and an upstream commit is never assigned to a snapshot without matching evidence. The goal changes only on the user's statement."
+rule = "Reasons come from the user or from the evidence, are credited to their actual source, and name a lasting cause rather than review rounds, trial results or earlier wordings. An invariant with an unknown reason leaves it out, and a deviation or decline waits for the user when neither the request nor the evidence supplies one. Commits, hashes and dates come from the repository or file, and an upstream commit is never assigned to a snapshot without matching evidence. The goal changes only on the user's statement."
+reason = "In the October 2026 rebuilds of five skills, records credited coordinator rulings, briefs and analysis text to the user, and gave review rounds and trial counts as reasons."
 where = [
   "SKILL.md#record-decisions",
+  "references/origin-format.md#write-the-entries",
   "references/origin-format.md#other-records",
+]
+
+[[invariants]]
+rule = "An invariant or a decline is removed only on the user's decision or when its reason no longer holds."
+reason = "A rebuild deleted a decline and adopted the declined behavior with no user decision behind it."
+where = ["SKILL.md#record-decisions"]
+
+[[invariants]]
+rule = "A record cites evidence from the change that writes it in words or by its pull request URL, and cites a commit of its own repository only once the default branch contains it. The checker reports a cited commit that exists only off the default branch."
+reason = "A rebuilt agent-instructions record cited two commits of its own branch, which a rebase or squash merge drops, and its pilot report then asked for a merge commit to keep them."
+where = [
+  "SKILL.md#record-decisions",
+  "references/origin-format.md#write-the-entries",
+  "references/origin-format.md#check-the-record",
+]
+
+[[invariants]]
+rule = "When a change adds, replaces or removes a base deviation, the run judges whether the base still fits by comparing it with the skill section by section. When it no longer fits, the run reports the evidence and asks the user; it never changes the approach or a source's role silently."
+reason = "In the October 2026 rebuilds, records kept approach base while entry files grew two to five times the base, and no step judged the fit. The coordinator's reviewer-skill brief of 2026-10-18 asked to report and ask."
+where = [
+  "SKILL.md#record-decisions",
+  "references/origin-format.md#choose-each-sources-role",
+]
+
+[[invariants]]
+rule = "This skill lists the records that name a skill as a dependency, with each entry's role and decisions, and reports the dependents whose role or text relies on a changed contract. agent-instructions searches the repository for text that names the skill and updates the callers; a dependent's record changes with its text."
+reason = "A contract change to verify left nine caller texts stale, and the records of six of those callers listed verify as a dependency. The division of responsibility comes from the coordinator's reviewer-skill brief of 2026-10-18."
+where = [
+  "SKILL.md#skill-maintenance",
+  "SKILL.md#record-decisions",
+  "references/origin-format.md#list-dependents",
 ]
 
 [[invariants]]
@@ -56,4 +90,4 @@ where = ["references/updates.md#decide-and-incorporate"]
 kind = "local"
 name = "agent-instructions"
 required = false
-role = "Required in Update mode: writes the text that an update incorporates and chooses its behavioral checks. Record and Check run without it."
+role = "Writes the text that an Update incorporates and chooses its behavioral checks, and updates the text of dependents whose contract changed. Record, Dependents and Check run without it."

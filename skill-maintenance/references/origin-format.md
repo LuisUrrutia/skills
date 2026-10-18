@@ -1,6 +1,7 @@
 # Skill record format
 
-Read this when creating, converting, or editing a skill's `origin.toml`.
+Read this when creating, converting, or editing a skill's `origin.toml`, or when
+listing the records that depend on a skill.
 [updates.md](updates.md) uses these records to judge upstream changes.
 
 `origin.toml` sits at the skill root as UTF-8 TOML with `format_version = 2`. It
@@ -17,9 +18,20 @@ skill's own drafts and renames in Git history; the record is not a changelog.
 | `ideas` | The material contributed concepts that shaped the skill; its text is not tracked | The ideas taken and the material declines | Reassess the ideas; copy no text |
 
 A skill has at most one base. A base stays valid while upstream diffs still map
-onto recognizable local sections. When deviations replace most of it, changing
-the base into an `ideas` source changes how every later update is judged; propose
-it and let the user decide.
+onto recognizable local sections. Judge that whenever a change adds, replaces or
+removes a deviation: read the base at `reviewed_through` from a local clone or
+its recorded remote, and compare it with the skill section by section. The base
+still fits while most of its sections keep their purpose and much of their text
+in a local section, so an upstream edit there could merge hunk by hunk. The
+number of deviations and the growth of the entry file do not decide it alone: a
+skill can keep most base sentences under many added sections, and a short base
+can be buried under local text. Report the base sections kept, replaced and
+removed, with the base and local entry sizes.
+
+When deviations replace most of the base, changing it into an `ideas` source
+changes how every later update is judged. Propose it with that evidence and let
+the user decide; never change the approach or a role silently. A rebuild from
+newer material gets a new source record, because a baseline never moves.
 
 Any copied text needs a license that permits it and its notice in
 `THIRD-PARTY-NOTICES.txt`, whatever the role; the role only governs updates. A
@@ -59,6 +71,32 @@ heading's anchors gain `-1`, `-2`, and so on. Add the anchor when the entry live
 in one section. A removal names the file the base text was removed from. Renaming
 a heading or moving a file requires updating the locations that name it.
 
+## Write the entries
+
+Each decision lives in one entry. Another entry that depends on it refers to it by
+its content, such as "the invariant that drafting never publishes", instead of
+restating it; restated copies drift apart and contradict each other. A deviation
+records one change. State the rule in a sentence or two rather than copying the
+skill's text, which stays the source of its wording; the checker flags any field
+over 100 words.
+
+A `reason` names the lasting cause: a user decision, a named document such as a
+brief, ruling or standard, an incident and what went wrong in it, a host
+constraint, or the goal or an invariant the entry serves. Date it when that
+matters. Credit each part to its actual source: a reason says "user decision"
+only for what the user said, a ruling, brief or analysis by someone else is named
+as such, and a clause someone added to the user's decision gets its own evidence
+or a question to the user. Review rounds and findings, trial and probe results, eval
+case IDs and earlier wordings ("previously", "now", "carried from") show how the
+text was validated, not why the skill behaves that way; they stay in the pull
+request.
+
+Evidence produced by the change that writes the record is described in words, or
+cited by its pull request URL. Cite a commit of the skill's own repository only
+once its default branch contains it, because rebasing a pull request or squash
+merging it replaces the branch's commits. Local paths outside the repository,
+such as a scratch directory, are not evidence a later reader can open.
+
 ## Repository sources
 
 Each `[[sources]]` entry has:
@@ -72,7 +110,8 @@ Each `[[sources]]` entry has:
   adopted".
 - `paths`: the current review scope, initially the baseline paths, including
   relevant references and license files. Update verified renames without changing
-  the baseline.
+  the baseline. A path added later brings its changes up to `reviewed_through`
+  into the cursor's claim, so review them before adding it.
 
 Commits are full 40-character hexadecimal IDs. A candidate that was considered
 and rejected is not a source; name it in the decision report instead.
@@ -87,7 +126,8 @@ a `deviations` table:
 - `reason`: the goal, invariant, host constraint or user decision that requires it.
 - `where`: the local locations.
 
-Wording edits that keep the base's meaning need no entry.
+Wording edits that keep the base's meaning need no entry. A section the base
+lacks needs one short `added` entry; its content stays in the skill text.
 
 ### Ideas and declines
 
@@ -147,8 +187,9 @@ describe the text at that time and are not maintained.
 - `[[reference_documents]]`: a consulted standard or article with `url`,
   `checked`, `role` (what the skill takes from it), and optional `id` and
   `coverage` (what was actually read).
-- `[[dependencies]]`: a runtime dependency with `kind`, `name`, `required`, and
-  `role` describing what the skill uses it for, plus optional `resolution` and
+- `[[dependencies]]`: a skill or tool the skill calls or hands part of its work
+  to at runtime, with `kind`, `name`, `required`, and `role` describing what the
+  skill uses it for, plus optional `resolution` and
   `decisions` (a list of local decisions about its use). A `local` dependency is
   resolved by registered name. An `installed` dependency also records
   `repository`, `remote`, `paths`, the `approved_commit`, its `installation`
@@ -235,5 +276,24 @@ python3 "<installed-skill-maintenance>/scripts/check-origin.py" --skill-dir "<ta
 
 It prints JSON diagnostics and exits 0 when the record is valid, 1 when
 diagnostics remain, and 2 on a usage error. Fix every diagnostic. The checker
-validates structure, roles, review chains and local locations; it cannot judge
-whether an idea is clear, so reread each one as a newcomer to the source would.
+validates structure, roles, review chains, local locations and field length. In
+a Git checkout it also reports `unmerged-commit` for a commit that a text field
+cites and that exists in the repository but not on its default branch
+(`origin/HEAD`, else `main` or `master`); it skips that check when it finds no
+default branch. It cannot judge whether an entry is clear, true or credited to the
+right source, so reread each one as a newcomer to the source would.
+
+## List dependents
+
+```sh
+python3 "<installed-skill-maintenance>/scripts/check-origin.py" --dependents "<skill>" --root "<repository>"
+```
+
+It prints JSON with each record under the root whose `dependencies` name the
+skill, with that entry's `kind`, `required`, `role` and `decisions`, and exits 0;
+it exits 1 when a record could not be read, because the list may then be
+incomplete. Before a change to a skill's name, existence, inputs, outputs or
+authority, `agent-instructions` reads each listed role and the dependent's text
+for reliance on the old contract, and searches the repository for text that names
+the skill, which also finds callers without a dependency entry. A dependent's
+record changes when its text does.
