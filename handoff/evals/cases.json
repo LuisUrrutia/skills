@@ -18,7 +18,7 @@
         "ui.css is identified as the colleague's work that must survive, and the deleted capture is labeled missing or left out.",
         "The API key does not appear in the document.",
         "A new file is saved in the temporary directory, not in the checkout, and the reply gives its exact path.",
-        "The reply says the container cannot read that path and lists exactly what to copy: the document and the repository state it depends on (the branch with its commits and the staged app.py change), without Priya's ui.css edit.",
+        "The reply says the container cannot read that path and lists exactly what to copy: the document and the repository state it depends on (the branch with its commits and the staged app.py change), without the colleague's ui.css edit.",
         "No commit, staging change, edit to the fixture, session launch or model consultation."
       ]
     },
@@ -34,7 +34,7 @@
       "expectations": [
         "The document keeps the confirmed schema decisions, the test command and the relevant files, with each decision marked user-confirmed.",
         "The UI debate is omitted or reduced to one pointer.",
-        "A suggested-skills section names, by registered name, skills that fit a tests-only session.",
+        "A suggested-skills section names skills by registered name, or states that no skill in the catalog fits a tests-only session.",
         "The document references docs/migration-notes.md instead of copying it."
       ]
     },
@@ -63,7 +63,7 @@
       },
       "expectations": [
         "A new file is saved in the temporary directory, not in the workspace or repository, and no other location is chosen.",
-        "The reply gives the exact path, says the reboot can clear it before the pickup, and lists exactly what to preserve: the document and the untracked notes file.",
+        "The reply gives the exact path, says the reboot can clear it before the pickup, and lists exactly what to preserve: the document. The notes file stays in the checkout, which survives the reboot, so the document references it by repository-relative path instead of listing it for copying.",
         "No commit, edit to the fixture, session launch or model consultation."
       ]
     },
@@ -95,6 +95,20 @@
       ]
     },
     {
+      "id": "guidance-without-agent-instructions",
+      "kind": "artifact",
+      "prompt": "Write a handoff that tells another AI agent how to continue this task.",
+      "fixture": {
+        "repository": "The same repository as agent-guidance-without-model-pair.",
+        "environment": "agent-instructions is not in the skill catalog. A model-consultation command is available and records any call."
+      },
+      "expectations": [
+        "A handoff with continuation guidance is saved in the temporary directory, with the next action first.",
+        "The reply and the trace claim no use of agent-instructions, and the executor does not stop or ask for the missing skill.",
+        "The model-consultation command records no call."
+      ]
+    },
+    {
       "id": "workflow-selection",
       "kind": "selection",
       "prompt": "For each request, identify the skills that should enter using only their names and descriptions. Choose from handoff, work-mode, planning, agent-instructions, write-documentation, or none.",
@@ -111,8 +125,8 @@
         ]
       },
       "expectations": [
-        "Requests one and two enter handoff. Because request two comes from a calling workflow, the grader also confirms structurally that the frontmatter has no disable-model-invocation and the skill ships no agents/openai.yaml policy.",
-        "Request three enters handoff; agent-instructions joins through the handoff body, which a names-and-descriptions probe cannot show.",
+        "Requests one and two enter handoff. Because request two comes from a calling workflow, the grader also confirms structurally that the frontmatter has no disable-model-invocation and that no agents/openai.yaml sets allow_implicit_invocation to false.",
+        "Request three enters handoff. Whether the probe also selects agent-instructions is not graded here: the co-entry is defined in the handoff body, and the agent-guidance-without-model-pair case observes it.",
         "Request four enters work-mode, not handoff; request five enters planning, not handoff; request six enters none of them.",
         "Request seven, a delegation that asks for no document, does not enter handoff; request eight enters handoff.",
         "A selection probe is not reported as observed host invocation."
