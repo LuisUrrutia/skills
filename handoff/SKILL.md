@@ -1,6 +1,6 @@
 ---
 name: handoff
-description: Use when writing a handoff document so another agent or session can continue a task or take over a side task.
+description: Use when writing a handoff document so another agent or session can continue a task.
 ---
 
 # Handoff
@@ -18,9 +18,10 @@ proves neither receipt nor a transfer of ownership.
 ## Choose what travels
 
 Treat the purpose that the request or calling workflow states for the next
-session as its focus, and tailor the document to it. Without a stated purpose,
-the focus is continuing the current task. Keep what bears on that focus and what
-a fresh agent cannot infer; leave out the rest.
+session as the document's focus, and tailor the document to it. Without a stated
+purpose, the focus is continuing the current task. Keep only what bears on that
+focus and that a fresh agent cannot infer from the material it can read; leave
+out the rest.
 
 Do not duplicate content already captured in other artifacts (specs, plans, ADRs,
 issues, commits, diffs). Reference them by path or URL instead, and say what
@@ -37,6 +38,8 @@ that step.
 Record the state of the work as facts the recipient can check, each with its
 basis:
 
+- The objective and its current scope as the user last directed, so the
+  recipient knows what done means.
 - What is done, partial, and not started, and what depends on what.
 - Each decision as user-confirmed, agent proposal, or assumption, with its reason.
 - Each check as observed, with its command and outcome, or as not run. Mark a
@@ -47,10 +50,12 @@ basis:
 - For repository work, the branch, revision, and staged and uncommitted changes,
   keeping the task's changes apart from other work that must survive.
 
-Use `agent-instructions` to write the continuation guidance: the next action,
-what to read first, and the limits the user set, such as no commits, publication,
-or deployment. Writing a handoff never starts the two-model review that
-`agent-instructions` requires for instruction authoring.
+Use `agent-instructions`, when it is available, to write the continuation
+guidance: the next action, what to read first, and the limits the user set, such
+as no commits, publication, or deployment. Writing a handoff never starts the
+two-model review that `agent-instructions` requires, even when the request asks
+for guidance aimed at another agent: a handoff request is not a request for
+instruction authoring.
 
 Include a "Suggested skills" section that names, by registered name, the skills
 the next agent should use; the receiving environment resolves and invokes them.
@@ -60,19 +65,19 @@ personal data.
 
 ## Save and report
 
-Save to the destination the request names. Otherwise save to the temporary
-directory of the user's OS (`$TMPDIR`, else `/tmp`; `%TEMP%` on Windows), not the
-current workspace or repository. Create a new file; replace an existing one only
-when the request names it for update.
+Save to the destination the request or calling workflow names. Otherwise save to
+the temporary directory of the user's OS (`$TMPDIR`, else `/tmp`; `%TEMP%` on
+Windows), not the current workspace or repository. Create a new file; replace an
+existing one only when the request names it for update.
 
 When the temporary directory cannot serve the pickup, because the recipient runs
 on another machine or container or picks up after the directory may be cleared,
 still save there, say so, and list exactly what to copy: the document and each
 referenced local file the recipient cannot reach.
 
-Reread the saved file as a fresh agent: it must say what to do next, why, and
-what not to do. Check that each referenced local file exists, and label any that
-does not.
+Reread the saved file as a fresh agent: it must say what to do next and why, and,
+where limits or abandoned approaches exist, what not to do. Check that each
+referenced local file exists, and label any that does not.
 
 Reply with the exact saved path, the next task in one line, and any access or
 retention limit.

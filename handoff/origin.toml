@@ -13,12 +13,12 @@ rule = "A saved document proves neither receipt nor a transfer of ownership. The
 where = ["SKILL.md#handoff", "SKILL.md#save-and-report"]
 
 [[invariants]]
-rule = "Without a destination named in the request, the document is saved in the operating system's temporary directory, never in the workspace or repository. When that directory cannot serve the pickup, because the recipient runs on another machine or container or picks up after the directory may be cleared, the skill still saves there, says so and lists exactly what to copy; it does not choose another location. A destination named in the request wins."
+rule = "Without a destination named in the request or by the calling workflow, the document is saved in the operating system's temporary directory, never in the workspace or repository. When that directory cannot serve the pickup, because the recipient runs on another machine or container or picks up after the directory may be cleared, the skill still saves there, says so and lists exactly what to copy; it does not choose another location. A named destination wins."
 reason = "User decision of 2026-10-18. The previous text let the agent choose any destination whose access and lifetime seemed to fit, which could put an unrequested handoff file into a tracked tree."
 where = ["SKILL.md#save-and-report"]
 
 [[invariants]]
-rule = "The continuation guidance inside the document is written with agent-instructions, and writing a handoff never starts the two-model review that agent-instructions requires for instruction authoring."
+rule = "The continuation guidance inside the document is written with agent-instructions when it is available, and writing a handoff never starts the two-model review that agent-instructions requires, even when the request asks for guidance aimed at another agent: a handoff request is not a request for instruction authoring."
 reason = "User decision of 2026-10-18: a handoff records the state of the work so that other agents can pick it up, so its guidance follows agent-instructions, but a handoff never triggers the two-model consultation."
 where = ["SKILL.md#write-the-document"]
 
@@ -72,12 +72,12 @@ where = ["SKILL.md#choose-what-travels"]
 
 [[sources.deviations]]
 change = "Replaced the description 'Compact the current conversation into a handoff document for another agent to pick up.' with a selection description that starts with 'Use when' and is limited to writing a handoff document."
-reason = "The repository's description convention, and a model-invocable skill must not catch ordinary compaction, planning or resumption requests."
+reason = "The repository's description convention, and a model-invocable skill must not catch ordinary compaction, planning, resumption or delegation requests. Selection probes chose handoff for a plain request to delegate a question to a parallel agent while the description also named side tasks, so side tasks stay in the body only."
 where = ["SKILL.md"]
 
 [[sources.deviations]]
 change = "Restructured the five flat paragraphs into an opening and three sections: Choose what travels, Write the document, and Save and report. The opening adds what the document is for: the state of the work for another agent to pick up in another session, host or directory, through a colleague, or as a side task forked while this session keeps running."
-reason = "The ideas from the other sources need an order: choose the content, write it, then save, check and report. Each base paragraph still maps to one section, so upstream changes stay mergeable. The purpose comes from the user's statement of 2026-10-18 and the four situations in the base's companion docs."
+reason = "The ideas from the other sources need an order: choose the content, write it, then save, check and report. Each base sentence still maps to one section, so upstream changes stay mergeable. The purpose comes from the user's statement of 2026-10-18 and the four situations in the base's companion docs."
 where = ["SKILL.md#handoff", "SKILL.md#choose-what-travels", "SKILL.md#write-the-document", "SKILL.md#save-and-report"]
 
 [[sources.deviations]]
@@ -91,7 +91,7 @@ reason = "The recipient cannot open the original conversation, so a pointer to i
 where = ["SKILL.md#choose-what-travels"]
 
 [[sources.deviations]]
-change = "Added that the continuation guidance, including the limits the user set, is written with agent-instructions, and that writing a handoff never starts the two-model review of agent-instructions."
+change = "Added that the continuation guidance, including the limits the user set, is written with agent-instructions when it is available, and that writing a handoff never starts the two-model review of agent-instructions, because a handoff request is not a request for instruction authoring."
 reason = "The agent-instructions invariant (user decision of 2026-10-18)."
 where = ["SKILL.md#write-the-document"]
 
@@ -106,7 +106,7 @@ reason = "Task-relevant ownership, such as which colleague owns an uncommitted e
 where = ["SKILL.md#write-the-document"]
 
 [[sources.deviations]]
-change = "Added that a destination named in the request takes precedence over the temporary directory, widened 'not the current workspace' to the workspace or repository, and added that an existing file is replaced only when the request names it for update."
+change = "Added that a destination named in the request or by the calling workflow takes precedence over the temporary directory, widened 'not the current workspace' to the workspace or repository, and added that an existing file is replaced only when the request names it for update."
 reason = "The destination invariant (user decision of 2026-10-18). The user's own repository handoffs were all written to destinations named in their requests."
 where = ["SKILL.md#save-and-report"]
 
@@ -144,10 +144,10 @@ paths = [
 ]
 
 [[sources.ideas]]
-idea = "The document carries only what a fresh agent cannot infer from the material it can read, besides what bears on the next session's focus."
+idea = "The document carries only what a fresh agent cannot infer from the material it can read."
 serves = "Keeps the document a small fraction of the conversation instead of a recap."
 where = ["SKILL.md#choose-what-travels"]
-shapes = "Adds a second filter beside the base's tailoring to the stated purpose: keep what bears on the focus and what a fresh agent cannot infer, and leave out the rest."
+shapes = "Narrows the base's tailoring to the stated purpose with a second condition: keep only what bears on the focus and that a fresh agent cannot infer, and leave out the rest."
 
 [[sources.ideas]]
 idea = "References are annotated pointers: for each artifact the recipient depends on, the document says what matters there, not only where it is. Repository files use repository-relative paths; an absolute path appears only for machine-local state and is labeled machine-local."
@@ -156,7 +156,7 @@ where = ["SKILL.md#choose-what-travels"]
 shapes = "Extends the base's rule to reference artifacts by path or URL with what matters at each one and a path rule."
 
 [[sources.ideas]]
-idea = "The state of the work is recorded as facts the recipient can check, each with its basis: done, partial or not started and what depends on what; each decision attributed to the user or marked as the writer's proposal or assumption."
+idea = "The state of the work is recorded as facts the recipient can check, each with its basis: the objective and its current scope as the user last directed; done, partial or not started and what depends on what; each decision attributed to the user or marked as the writer's proposal or assumption."
 serves = "Stops a writer's inference or proposal from reaching the recipient as the user's decision. The base's companion docs name confident unverified claims as the source of false premises in the next session."
 where = ["SKILL.md#write-the-document"]
 shapes = "Replaces the base's unstructured summary with a status list in which every item carries its basis."
@@ -178,6 +178,10 @@ adapted = "There is no managed directory or numeric-suffix scheme; an existing f
 [[sources.declined]]
 feature = "A managed handoff store under a per-user directory with ce-handoff/v1 frontmatter, indexed discovery of saved handoffs, and a resume mode with mandatory confirmation stops."
 reason = "Without a named destination the document goes to the operating system's temporary directory (user decision of 2026-10-18), and resuming belongs to the receiving session or work-mode."
+
+[[sources.declined]]
+feature = "A statement inside the document that it is context, not authority, and that current instructions and verified state govern the recipient."
+reason = "The recipient never loads this skill; the basis labels on each decision and check carry that distinction, and resumption with its authority rules belongs to work-mode and the receiving session."
 
 [[sources.declined]]
 feature = "Ending the creation reply with a rendered, copyable resume command."
@@ -294,7 +298,7 @@ idea = "After saving, the writer rereads the file as a stranger without the conv
 serves = "Finds gaps while the writer still has the context to fill them."
 where = ["SKILL.md#save-and-report"]
 shapes = "Inserts a cold read with these three questions between saving and replying."
-adapted = "The local check also confirms that each referenced local file exists and labels any that does not."
+adapted = "The what-not-to-do question applies only where limits or abandoned approaches exist, so the document never invents a prohibition. The local check also confirms that each referenced local file exists and labels any that does not."
 
 [[sources.declined]]
 feature = "GSD milestone and slice paths, task identifiers and the gsd task tools."
@@ -314,5 +318,6 @@ name = "agent-instructions"
 required = false
 role = "Guides how the continuation guidance inside the document is written."
 decisions = [
-  "Writing a handoff never starts the two-model review that agent-instructions requires for instruction authoring (user decision of 2026-10-18).",
+  "Writing a handoff never starts the two-model review that agent-instructions requires, even when the request asks for guidance aimed at another agent (user decision of 2026-10-18).",
+  "The skill uses agent-instructions when it is available; without it, the document is still written.",
 ]
