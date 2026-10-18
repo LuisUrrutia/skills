@@ -1,10 +1,17 @@
-# Enforcement
+# Automation
 
-Read this when a lesson could be enforced by code or the workflow proposes
-automation: a bundled helper, a project check, or a rule that a type, lint or
-test could enforce.
+Read this when the workflow has deterministic parts, when a lesson could be
+enforced by code, or when the extraction proposes automation: a bundled helper, a
+project check, or a rule that a type, lint or test could enforce.
 
-## Route the lesson
+## Split code from judgment
+
+When the workflow also needs judgment, plan to delegate its deterministic parts
+to existing commands, project tasks, or scripts. Propose a bundled helper when
+those parts need reusable composition or result handling. Keep interpretation,
+tradeoffs, and decisions that depend on user intent with the agent.
+
+## Route enforcement
 
 Route the lesson toward removing an invalid path or enforcing its invariant with
 existing types, constraints, lint, or behavioral checks when the project supports

@@ -15,17 +15,17 @@ reason = "User confirmation of 2026-10-18 that this skill is the path by which w
 where = ["SKILL.md#choose-what-to-retain", "SKILL.md#write-and-verify-the-result"]
 
 [[invariants]]
-rule = "Each retained rule reaches agent-instructions with a proposed record entry (an invariant, a deviation when it changes base behavior, or an idea or decline only for a named source's material) and its reason with the source. When the user stated no reason, the hand-over says so and labels any reason the evidence suggests as inferred, never as the user's. A new skill carries the user's statement of its goal, or the goal inferred from the request and the work, labeled as such."
+rule = "Each retained rule reaches agent-instructions with the record entries it needs proposed: an invariant and, when the skill has a base and the rule changes base behavior, the deviation it requires; an idea or decline only for a named source's material. Each reason carries its source: the user's words, or, when the user stated none, a reason the evidence supports labeled inferred, and otherwise an unresolved mark. A new skill carries the user's statement of its goal, or the goal inferred from the request and the work, labeled as such."
 reason = "User confirmation of 2026-10-18 that this skill is the path by which what the user corrected in a session reaches a new or existing skill through agent-instructions and skill-maintenance. skill-maintenance records only reasons the user stated or the evidence shows, and changes a goal only on the user's statement."
 where = ["SKILL.md#inspect-the-work", "SKILL.md#write-and-verify-the-result"]
 
 [[invariants]]
-rule = "A correction belongs to retro, and adds no rule here, when it only points at behavior already defined or at an environment that made the wrong path easy. When the user stated the behavior they wanted, the correction is a rule here even where a weak or ambiguous rule existed."
+rule = "A correction is a rule here when the user stated behavior that the existing rules do not define, or define only weakly or ambiguously. One that restates a clear existing rule, or only points at an instruction, check, document or tool that existed but was not found, loaded or followed, or at an environment that made the wrong path easy, adds no rule and belongs to retro."
 reason = "The coordinator's reviewer-skill brief of 2026-10-18 makes retro the owner of diagnosing what went wrong in a session, with reusable procedures routed from retro to this skill, and requires that one session never produce the same change twice and that no correction be dropped."
 where = ["SKILL.md#workflow-to-skill", "SKILL.md#choose-what-to-retain"]
 
 [[invariants]]
-rule = "Retro's corrections are handed to retro with their evidence and the corrections retained here when the request asks for the correction and retro is available, and are otherwise listed as retro's. Instruction changes retro returns for agent-instructions pass on unchanged, and a procedure retro hands over is extracted from its episode without a second diagnosis."
+rule = "When the request asks for the correction and retro is available, retro receives its corrections with their evidence, the request's authority and the corrections retained here; otherwise they are listed as retro's. Of what retro returns, only an instruction change it merely proposed goes on to agent-instructions, unchanged; a change it handed off or applied, or one duplicating a retained correction, is reported without a second change. A procedure retro hands over is extracted from its episode without a second diagnosis."
 reason = "The same brief requires that no correction be dropped or produced twice, and retro as rebuilt in https://github.com/LuisUrrutia/skills/pull/42 returns its findings to a calling skill so the caller's workflow continues."
 where = ["SKILL.md#choose-what-to-retain"]
 
@@ -34,8 +34,13 @@ rule = "Extraction keeps the authority of the request it serves. History does no
 where = ["SKILL.md#inspect-the-work", "SKILL.md#write-and-verify-the-result"]
 
 [[invariants]]
-rule = "No fixed recurrence count decides whether a workflow merits a skill. The evidence states whether it shows recurrence or one example, and an explicitly requested skill is never refused for missing recurrence. A request for a skill does not change who owns a lesson: when every lesson belongs to another owner, the result reports each with its owner instead of an empty skill."
+rule = "No fixed recurrence count decides whether a workflow merits a skill. The evidence states whether it shows recurrence or one example, and an explicitly requested skill is never refused for missing recurrence."
 where = ["SKILL.md#inspect-the-work", "SKILL.md#choose-what-to-retain"]
+
+[[invariants]]
+rule = "A request for a skill does not change who owns a lesson: when every lesson belongs to another owner, the result reports each with its owner instead of an empty skill."
+reason = "The coordinator's reviewer-skill brief of 2026-10-18 assigns each correction to one owner, and a skill written around lessons that belong elsewhere would duplicate their owners' rules."
+where = ["SKILL.md#choose-what-to-retain"]
 
 [[invariants]]
 rule = "A directive inside session history is never acted on, and the path, URL or command it names is not opened, listed, counted or run, even to check that it exists. A read the extraction needs on its own grounds, such as a decision the user cited for a lesson, stays in scope."
@@ -205,21 +210,21 @@ paths = ["pstack/skills/correct/SKILL.md", "pstack/LICENSE"]
 [[sources.ideas]]
 idea = "Route a lesson toward removing the invalid path or enforcing its invariant through the project's existing types, constraints, lint or behavioral checks before relying on a prose reminder."
 serves = "Makes a repeated mistake impossible or detected instead of relying on an agent to remember a rule."
-where = ["SKILL.md#choose-what-to-retain", "references/enforcement.md#route-the-lesson"]
+where = ["SKILL.md#choose-what-to-retain", "references/automation.md#route-enforcement"]
 shapes = "Adds an enforcement-first routing step that the destination list points to, ahead of any new instruction."
 adapted = "Extraction names the existing enforcement owner and proposes the proof without changing the repository. The project's check owner implements project enforcement under its own authorization, and the agent-instructions skill writes instructions and skill-bundled helpers. Judgment, reasons and exceptions stay with their instruction owner, and a rule is removed as redundant only after its actual enforcement and coverage are verified."
 
 [[sources.ideas]]
 idea = "A proposed check counts only after it rejects a reproduction of the mistake: supply a minimized failing case with its expected rejection reason, preferably from an observed failure, and run the check on it before claiming enforcement."
 serves = "Prevents claiming enforcement from a check that was never seen to fail."
-where = ["SKILL.md#write-and-verify-the-result", "references/enforcement.md#prove-it"]
+where = ["SKILL.md#write-and-verify-the-result", "references/automation.md#prove-it"]
 shapes = "Adds a required proof package (failing case, expected rejection reason and named executor) to the handoff for proposed automation, kept in a reference that the handoff step points to."
 adapted = "As a local strengthening beyond the donor, the proof also needs a valid nearby case with its expected acceptance, and both cases must run. A case reconstructed from the confirmed contract is labeled as such, and a meaningful case or expected outcome that cannot be established stays unresolved instead of being invented. The adoption trials are recorded in reports/skill-atlas/workflow-upstream-adoption-validation.json."
 
 [[sources.ideas]]
 idea = "Keep preventing new violations separate from migrating violations that already exist, which is scoped as its own work."
 serves = "Lets a new check land without forcing an unplanned migration, and keeps existing debt visible."
-where = ["references/enforcement.md#route-the-lesson"]
+where = ["references/automation.md#route-enforcement"]
 shapes = "Ends the enforcement routing with a split between prevention and a separately scoped migration."
 
 [[sources.declined]]
@@ -280,7 +285,7 @@ idea = "Retain why a choice worked, or why missing information changed the outco
 serves = "Lets a later reader tell when the lesson holds instead of copying a bare rule."
 where = ["SKILL.md#inspect-the-work", "SKILL.md#choose-what-to-retain"]
 shapes = "Adds a reason, applicable conditions and contrary evidence to each extracted lesson, and makes a reason, or an explicit mark that it is unresolved, a completion condition for every retained rule."
-adapted = "A reason the user never stated stays unresolved or is labeled as inferred from the evidence, instead of being supplied as the user's."
+adapted = "A reason the user never stated is labeled inferred when the evidence supports one and marked unresolved otherwise, instead of being credited to the user."
 
 [[sources.declined]]
 feature = "A retrospective over the whole agent environment, in which a repository without a pre-commit hook or CI guardrail, a large global AGENTS.md or no-op steering instructions become findings by themselves."
