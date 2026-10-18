@@ -82,14 +82,16 @@ where = [
 ]
 
 [[invariants]]
-rule = "A source's reviewed_through advances only when its full scoped range is resolved and the required validation passes, and a path added to its scope brings that path's earlier changes into the range. Otherwise a pending review keeps the reason and the cursor stays, and the run reports what stayed unresolved instead of claiming the skill is fully synchronized."
-reason = "The October 2026 retro rebuild added reference files to a source's paths without reviewing their changes, so its cursor claimed a review nobody made."
+rule = "A source's reviewed_through moves only to the candidate of an update run that resolved its whole range, including the earlier changes of a path added to its scope, and passed the required validation. Otherwise the cursor stays, even when an earlier commit of the range is resolved, and one pending review from the cursor to the candidate keeps the reason. A source blocked by missing or rewritten history gets no review. The run reports what stayed unresolved instead of claiming full synchronization."
+reason = "The October 2026 retro rebuild widened a source's paths without reviewing the added files. Later, the format's definition let an update advance a cursor to an intermediate commit against the update procedure, and another update recorded a review range across rewritten upstream history."
 where = [
   "SKILL.md#check-or-update-from-sources",
   "references/updates.md#read-the-record",
+  "references/updates.md#acquire-evidence",
   "references/updates.md#decide-and-incorporate",
   "references/origin-format.md#repository-sources",
   "references/origin-format.md#reviews",
+  "references/origin-format.md#check-the-record",
 ]
 
 [[invariants]]

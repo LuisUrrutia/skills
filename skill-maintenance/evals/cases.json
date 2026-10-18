@@ -28,7 +28,8 @@
         "The useful condition is incorporated and automatic publishing is skipped or adapted with a reason.",
         "Local refinements, the original baseline commit, and unrelated edits survive.",
         "The current source path follows the verified rename while baseline_paths remain historical.",
-        "The cursor advances only after the full relevant range is decided and required validation succeeds.",
+        "The cursor moves to the candidate only after the whole range from the cursor is decided and required validation succeeds; otherwise it stays, even at a fully resolved earlier commit, and one pending review covers the cursor to the candidate.",
+        "The checker, run with the source clone, reports no diagnostic.",
         "A repeated run does not duplicate the incorporated change."
       ]
     },
@@ -42,6 +43,7 @@
       "expectations": [
         "Independent supported work completes without silently resetting the blocked source's cursor.",
         "The inaccessible source remains unknown and the exact missing evidence is reported.",
+        "The blocked source gets no new review; its remaining checker diagnostics about missing commits are reported as the blocker, not fixed by moving its pins.",
         "The local snapshot retains its hash and unverified provenance; no repository commit is fabricated.",
         "The final report distinguishes partial completion from full synchronization."
       ]

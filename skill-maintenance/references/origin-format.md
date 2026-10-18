@@ -110,9 +110,11 @@ Each `[[sources]]` entry has:
   `ref` (tracked branch), `license`, and `role`.
 - `baseline_commit` and `baseline_paths`: immutable evidence of the original
   material. A replacement or fresh derivation gets a new source record.
-- `reviewed_through`: the last commit whose in-scope changes are fully resolved.
+- `reviewed_through`: the candidate commit of the last update run that resolved
+  its whole range from the previous cursor and passed its required validation.
   It starts at the baseline and means **reviewed and decided**, not "all content
-  adopted".
+  adopted". A run that leaves anything in its range unresolved does not move it,
+  not even to a fully resolved earlier commit of that range.
 - `paths`: the current review scope, initially the baseline paths, including
   relevant references and license files. Update verified renames without changing
   the baseline. A path added later brings its changes up to `reviewed_through`
@@ -159,8 +161,11 @@ that kind of candidate. Delete a decline when the user adopts the feature.
 
 ### Reviews
 
-Each update run adds a `reviews` table with `from_commit`, `to_commit`, and the
-lists `incorporated`, `skipped`, `deferred` and `validation`; lists may be empty.
+Each update run adds one `reviews` table per source, from the cursor to that
+run's candidate, with `from_commit`, `to_commit`, and the lists `incorporated`,
+`skipped`, `deferred` and `validation`; lists may be empty. A source whose cursor
+or candidate cannot be verified, such as after rewritten history, gets no review:
+the run keeps its pins and reports the blocker.
 The first review starts at the baseline, each later one starts where the previous
 one ended, and the last resolved one ends at `reviewed_through`. A review with
 `deferred` items is pending: it is the last review, it starts at
@@ -294,6 +299,13 @@ also reports:
 - `reviews-dropped`: a review of the published record is missing, or a completed
   one changed its range. A pending last review may be updated in place, not
   removed.
+
+When checking or updating from sources, add `--source <id>=<clone>` for each
+source fetched. In that clone the checker reports `unknown-commit` for a baseline,
+cursor or review commit the clone lacks, and `commit-order` when the cursor does
+not descend from the baseline or a review's end does not descend from its start.
+A source blocked by rewritten history keeps its `unknown-commit` diagnostics:
+report it as blocked instead of moving its pins.
 
 A record that is new on the branch has no published copy to compare. In a Git
 checkout, the JSON lists under `skipped` each comparison it could not make, such
