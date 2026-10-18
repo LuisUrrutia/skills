@@ -31,11 +31,12 @@ schedule.
 ## Record decisions
 
 1. Read the skill, its record, and the change with the reason the user gave. A
-   skill without a record gets one when the user asks or when its repository
-   keeps records, that is, another skill in it has an `origin.toml`; skills
-   installed in the host outside that repository do not count. The new record
+   skill without a record gets one when the user asks or when another skill in
+   its repository has an `origin.toml`; skills installed in the host outside
+   that repository do not count. The new record
    states the `approach`, a `goal` that says what the skill produces, for whom
-   and what success looks like, and the invariants its text already enforces.
+   and what success looks like, the invariants its text already enforces, and
+   the dependencies it calls.
 2. Write each decision once, as the entry a future editor needs:
    - A rule the user wants kept, such as a scope boundary, an authority limit or
      a host constraint: an invariant.
@@ -49,24 +50,24 @@ schedule.
    does and why; state the rule rather than copy the skill's text.
 4. Update or remove the entries the change makes false, including `where`
    locations of renamed headings and moved files. Remove an invariant or a
-   decline only on the user's decision or when its reason no longer holds.
+   decline only when the user's request or decision removes it; when only its
+   reason seems gone, report that and ask.
 5. When the change adds, replaces or removes a base deviation, judge whether the
    base [still fits](references/origin-format.md#choose-each-sources-role); when
    it does not, keep the approach, report the evidence and ask the user.
-6. When the change alters the skill's name, existence, inputs, outputs or
-   authority, list its dependents and report each whose role, decisions or text
-   relies on the old contract, for `agent-instructions` to update.
+6. When the change alters the skill's name, existence or authority, or what
+   callers pass to it or receive from it, list its dependents and report each
+   whose recorded role or decisions rely on the old contract. Hand the list to
+   `agent-instructions`, which checks and updates their text.
 
 Take commits, hashes and dates from the repository or file, never from memory.
-Record only reasons the user stated or the evidence shows, and credit each to its
-actual source. An invariant without a known reason leaves `reason` out; a
-deviation or decline requires one, so ask the user when neither the request nor
-the evidence supplies it. Keep review rounds and trial results out of the record,
-and cite evidence from the change itself as
-[Write the entries](references/origin-format.md#write-the-entries) describes. The
-`goal` changes only on the user's statement, because every later decision is
-judged against it. Wording fixes and corrections that keep the meaning need no
-entry; Git history keeps them.
+Record only reasons the user stated or the evidence shows, credited and cited as
+[Write the entries](references/origin-format.md#write-the-entries) describes. An
+invariant without a known reason leaves `reason` out; a deviation or decline
+requires one, so ask the user when neither the request nor the evidence supplies
+it. The `goal` changes only on the user's statement, because every later
+decision is judged against it. Wording fixes and corrections that keep the
+meaning need no entry; Git history keeps them.
 
 ## Check or update from sources
 

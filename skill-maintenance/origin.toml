@@ -19,7 +19,7 @@ where = ["SKILL.md#record-decisions"]
 
 [[invariants]]
 rule = "Each entry describes the idea or decision itself, so that a model that never saw the source, the conversation or the diff understands what the skill does and why. A decision lives in one entry that others refer to by its content, and states the rule rather than copying the skill's text; no field exceeds 100 words. A donor quote, a bare 'adopt X' or a list of additions is not an entry."
-reason = "User request on 2026-10-17: format 1 records read as lists of what to add instead of which idea the skill incorporated. In the October 2026 rebuilds of five skills, rules copied from the skill text reached 600 words, and one rule restated in several entries drifted into a contradiction."
+reason = "User request on 2026-10-17: format 1 records read as lists of what to add instead of which idea the skill incorporated. In the October 2026 skill rebuilds, rules copied from the skill text reached 600 words, and one rule restated in several entries drifted into a contradiction."
 where = [
   "SKILL.md#record-decisions",
   "references/origin-format.md#write-the-entries",
@@ -36,8 +36,8 @@ where = [
 ]
 
 [[invariants]]
-rule = "An invariant or a decline is removed only on the user's decision or when its reason no longer holds."
-reason = "A rebuild deleted a decline and adopted the declined behavior with no user decision behind it."
+rule = "An invariant or a decline is removed only when the user's request or decision removes it; when only its reason seems gone, the run reports that and asks."
+reason = "The October 2026 agent-instructions rebuild deleted a decline and adopted the declined behavior with no user decision behind it."
 where = ["SKILL.md#record-decisions"]
 
 [[invariants]]
@@ -50,7 +50,15 @@ where = [
 ]
 
 [[invariants]]
-rule = "When a change adds, replaces or removes a base deviation, the run judges whether the base still fits by comparing it with the skill section by section. When it no longer fits, the run reports the evidence and asks the user; it never changes the approach or a source's role silently."
+rule = "A source's baseline_commit never moves and its reviews are never deleted; newer material gets a new source record. The checker compares a record with its default-branch copy and reports a moved baseline or dropped reviews."
+reason = "Three October 2026 rebuild records reused a source id with a moved baseline and deleted its reviews, although the format already required a new source record."
+where = [
+  "references/origin-format.md#choose-each-sources-role",
+  "references/origin-format.md#check-the-record",
+]
+
+[[invariants]]
+rule = "When a change adds, replaces or removes a base deviation, the run judges whether the base still fits from the deviations and the base text, or reports the fit as not judged when that text cannot be read. When it no longer fits, the run reports the evidence and asks the user; it never changes the approach or a source's role silently."
 reason = "In the October 2026 rebuilds, records kept approach base while entry files grew two to five times the base, and no step judged the fit. The coordinator's reviewer-skill brief of 2026-10-18 asked to report and ask."
 where = [
   "SKILL.md#record-decisions",
@@ -58,7 +66,7 @@ where = [
 ]
 
 [[invariants]]
-rule = "This skill lists the records that name a skill as a dependency, with each entry's role and decisions, and reports the dependents whose role or text relies on a changed contract. agent-instructions searches the repository for text that names the skill and updates the callers; a dependent's record changes with its text."
+rule = "This skill lists the records that name a skill as a dependency, with each entry's role and decisions, and reports the dependents whose recorded role or decisions rely on a changed contract. agent-instructions checks the dependents' text, searches the repository for other text that names the skill and updates the callers; a dependent whose text changes comes back to this skill for its record."
 reason = "A contract change to verify left nine caller texts stale, and the records of six of those callers listed verify as a dependency. The division of responsibility comes from the coordinator's reviewer-skill brief of 2026-10-18."
 where = [
   "SKILL.md#skill-maintenance",
@@ -74,11 +82,13 @@ where = [
 ]
 
 [[invariants]]
-rule = "A source's reviewed_through advances only when its full scoped range is resolved and the required validation passes. Otherwise a pending review keeps the reason and the cursor stays, and the run reports what stayed unresolved instead of claiming the skill is fully synchronized."
+rule = "A source's reviewed_through advances only when its full scoped range is resolved and the required validation passes, and a path added to its scope brings that path's earlier changes into the range. Otherwise a pending review keeps the reason and the cursor stays, and the run reports what stayed unresolved instead of claiming the skill is fully synchronized."
+reason = "The October 2026 retro rebuild added reference files to a source's paths without reviewing their changes, so its cursor claimed a review nobody made."
 where = [
   "SKILL.md#check-or-update-from-sources",
   "references/updates.md#read-the-record",
   "references/updates.md#decide-and-incorporate",
+  "references/origin-format.md#repository-sources",
   "references/origin-format.md#reviews",
 ]
 
