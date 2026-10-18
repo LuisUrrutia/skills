@@ -29,7 +29,8 @@ own location below.
   `attachment`) carry `cwd`, `sessionId` and `gitBranch`; bookkeeping events,
   which often open the file, carry only `sessionId`.
 - A user message is a `"type": "user"` event whose `message.content` is a string
-  or a list of `text` blocks. A list of `tool_result` blocks is a tool result.
+  or a list of `text` and `image` blocks. A list of `tool_result` blocks is a tool
+  result.
 
 ## Codex
 
