@@ -31,33 +31,42 @@ targets the project itself declares, such as manifest scripts, Makefile or
 task-runner targets, compose files, its migration and seed tooling, and the
 environment variables its source reads, and record each discovered step in the
 generated Launch section. Never compose a setup command from the project's
-internals. Read a declared step before running it: a step that reaches a shared
-or remote environment follows the next paragraph when it only reads, and never
-runs when it writes there, and an export or dump that lands in a remote bucket
-is a write, whatever the step's name says. Setup changes only the run's isolated
-local data: never write to a shared or remote environment, so no deploy,
-publish, migration, or other change to staging or production, and report a step
-whose target is unclear as a prerequisite instead of running it. Setup covers
-installing the locked dependencies without changing the lockfile, creating the
-env file, and running migrations and seed data. Adding dependencies, changing a
-lockfile, and global installs need the active task's authority. A read-only
-caller gets none of this setup; each step becomes a reported prerequisite.
+internals. Read every step before running it, documented or discovered,
+including what it calls: a step that reaches a shared or remote environment
+follows the next paragraph when it only reads, and never runs when it writes
+there, and an export or dump that lands in a remote bucket is a write, whatever
+the step's name says. Setup changes only the run's isolated local data: never
+write to a shared or remote environment, so no deploy, publish, migration, or
+other change to staging or production, and report a step whose target is unclear
+as a prerequisite instead of running it. Setup covers installing the locked
+dependencies without changing the lockfile, creating the env file, and running
+migrations and seed data. Adding dependencies, changing a lockfile, and global
+installs need the active task's authority. A read-only caller gets none of this
+setup; each step becomes a reported prerequisite.
 
 To make the local environment realistic, a launch may read a shared or remote
-environment through the project's own cloud or platform CLI, such as `gcloud`:
-its configuration, resource and service versions, schema, flags, and data, which
-may be copied into the run's local data. Run read-only commands only, with the
-CLI's existing authentication; never log in. First confirm that the active
-project or account belongs to this repository's environments, and report it as a
-prerequisite when it is missing or unclear. When a configuration read can
-include secret values, such as a service's environment, select only the fields
-the launch needs with the CLI's format or filter flags, so no secret value
-reaches the output or the evidence. Never read a secret value from a secret
-manager, not even into the process environment: a missing secret follows the
-env-file rules below and goes to the user. Report each remote query with its
-command and the environment it read, and record the ones a later run needs in
-the generated Launch section. These queries belong to launch setup, so a
-read-only caller gets none of them.
+environment: through the project's own cloud or platform CLI, such as `gcloud`,
+or through a step the project declares, such as a script, when reading that step
+and everything it calls shows that it only reads remote state; otherwise the
+step is a reported prerequisite. It may read its configuration, resource and
+service versions, schema, flags, and data, and copy that data into the run's
+local data. Run read-only commands only, with existing authentication; never log
+in. First confirm that the active project or account belongs to this
+repository's environments, and report it as a prerequisite when it is missing or
+unclear. Report each remote query with its command and the environment it read,
+and record the ones a later run needs in the generated Launch section. These
+queries belong to launch setup, so a read-only caller gets none of them.
+
+No command of this run brings a secret value from a remote environment into a
+file, the output, the evidence, or the process environment. When a configuration
+read can include secret values, such as a service's environment, select only the
+fields the launch needs with the CLI's format or filter flags. The project's
+documented launch may still resolve its own secrets the way it does for its
+developers, such as varlock resolvers or `op run`, with existing authentication
+only: a locked vault, a biometric prompt, or a sign-in prompt is a reported
+prerequisite, never a login by this run. No secret value is printed, written to
+a file, or put in the evidence or the output. A secret the launch still lacks
+follows the env-file rules below and goes to the user.
 
 Prepare the env file by the project's mechanism:
 
