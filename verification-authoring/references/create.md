@@ -26,13 +26,33 @@ remove it afterward. Never use scaffolding to conceal a missing product boundary
 ### Launch setup
 
 Unless the caller is read-only, a launch may use the project's documented
-commands, or its own scripts and steps that the source shows when the
-documentation is missing, to install its locked dependencies without changing
-the lockfile, create the env file, and run migrations and seed data against the
-run's isolated data. Record each discovered step in the generated Launch
-section. Adding dependencies, changing a lockfile, and global installs need the
-active task's authority. A read-only caller gets none of this setup; each step
-becomes a reported prerequisite. Prepare the env file by the project's mechanism:
+commands. When the documentation is missing a step, use only the scripts and
+targets the project itself declares, such as manifest scripts, Makefile or
+task-runner targets, compose files, and its migration and seed tooling, and
+record each discovered step in the generated Launch section. Setup changes
+only the run's isolated local data: never write to a shared or remote
+environment, so no deploy, publish, migration, or other change to staging or
+production, and report a step whose target is unclear as a prerequisite instead
+of running it. Setup covers installing the locked dependencies without changing
+the lockfile, creating the env file, and running migrations and seed data.
+Adding dependencies, changing a lockfile, and global installs need the active
+task's authority. A read-only caller gets none of this setup; each step becomes
+a reported prerequisite.
+
+To make the local environment realistic, a launch may read a shared or remote
+environment through the project's own cloud or platform CLI, such as `gcloud`:
+its configuration, resource and service versions, schema, flags, and data
+shape. Run read-only commands only, with the CLI's existing authentication;
+never log in. First confirm that the active project or account belongs to this
+repository's environments, and report it as a prerequisite when it is missing
+or unclear. Prefer queries that cannot print rows, such as counts and schema
+introspection. Ask the user before copying data that may hold personal or
+customer information into the local environment, the evidence, or the output,
+and never copy a secret from a secret manager into a file or the output. Report
+each remote query with its command and the environment it read, and record the
+ones a later run needs in the generated Launch section.
+
+Prepare the env file by the project's mechanism:
 
 - **`.env.schema` exists:** the project uses varlock. Validate with
   `varlock load --agent`, which redacts sensitive values, and run the project's
