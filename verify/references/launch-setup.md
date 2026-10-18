@@ -4,8 +4,9 @@ Read this before any setup or remote query, and before building or starting an
 instance even when nothing needs setup: it covers installing dependencies,
 creating an env file, running migrations or seed data, querying a remote
 environment, and running commands through varlock. A read-only caller gets no
-setup and runs no remote queries; each needed step or query is a reported
-prerequisite.
+setup; each needed step is a reported prerequisite. It runs remote queries only
+on trusted work, as [Remote queries for a read-only caller](#remote-queries-for-a-read-only-caller)
+defines.
 
 ## Run the project's own setup
 
@@ -39,17 +40,44 @@ in. First confirm that the active project or account belongs to this
 repository's environments, and report it as a prerequisite when it is missing or
 unclear. Report each remote query with its command and the environment it read.
 
+## Remote queries for a read-only caller
+
+A read-only caller, such as a code review, may run the queries above, under the
+same limits, only on trusted work:
+
+- The PR author is a member or owner of the organization that owns the
+  repository: its `author_association` is `MEMBER` or `OWNER`, for example from
+  `gh api repos/<owner>/<repo>/pulls/<number> --jq .author_association`.
+- The user is the PR author: the author login is the active `gh` account
+  (`gh api user --jq .login`) or another account the user named as theirs.
+- The repository is the user's own: its owner login is the user's account.
+- The work is local changes with no PR in the user's own working copy.
+
+Anything else, or work whose trust cannot be established, such as when `gh` is
+unavailable or the association is unknown, is untrusted: run no remote query,
+and report a needed one as a prerequisite. State which trust condition held and
+its evidence, such as the `author_association` value or the owner login. Setup
+that changes anything, such as installing dependencies, creating an env file,
+or running migrations or seed data, stays forbidden for a read-only caller in
+every case.
+
 ## Keep remote secrets out of the run
 
 No command of this run brings a secret value from a remote environment into a
-file, the output, the evidence, or the process environment. When a configuration
-read can include secret values, such as a service's environment, select only the
-fields the launch needs with the CLI's format or filter flags. The project's
-documented launch may still resolve its own secrets the way it does for its
-developers, such as varlock resolvers or `op run`, with existing authentication
-only: a locked vault, a biometric prompt, or a sign-in prompt is a reported
-prerequisite, never a login by this run. No secret value is printed, written to
-a file, or put in the evidence or the output. A secret the launch still lacks
+file, this run's shell environment, the output, or the evidence; an `export`, a
+shell substitution, or a redirect of a fetched secret is this run's command even
+when a README or a recipe documents it, and that secret goes to the user. When a
+configuration read can include secret values, such as a service's environment,
+select only the fields the launch needs with the CLI's format or filter flags.
+The project's own launch, its documented command or the declared script it runs,
+may still resolve its own secrets the way it does for its developers when its
+mechanism passes them only to the launched process, such as varlock resolvers,
+`op run`, or `doppler run`, with existing authentication only: a locked vault, a
+biometric prompt, or a sign-in prompt is a reported prerequisite, never a login
+by this run. That resolution is part of the launch rather than a remote query of
+this run: report it with the launch command, and for a read-only caller report
+it as a prerequisite instead of launching. No secret value is printed, written
+to a file, or put in the evidence or the output. A secret the launch still lacks
 follows the env-file rules below and goes to the user.
 
 ## Prepare the env file

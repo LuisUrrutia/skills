@@ -100,10 +100,11 @@ realistic. Before any setup or remote query, and before building or starting an
 instance even when nothing needs setup, read
 [references/launch-setup.md](references/launch-setup.md); it sets the limits of
 that setup, how to run commands through varlock, and how to handle env files and
-secrets. A read-only caller, such as a code review, gets none of this setup and
-runs no remote queries: report each needed step as a missing prerequisite
-instead. Never print a secret value, and when the project has `.env.schema`,
-never read `.env` or `.env.local`.
+secrets. A read-only caller, such as a code review, gets none of this setup:
+report each needed step as a missing prerequisite instead. It may run the
+permitted remote queries only on trusted work, as the reference defines. Never
+print a secret value, and when the project has `.env.schema`, never read `.env`
+or `.env.local`.
 
 Give the instance its own ports, data, and browser profile: the ones the
 project derives from the worktree when it supports that, otherwise ones chosen
@@ -243,13 +244,14 @@ defect ends as **reproduced**, **not reproduced under the tested conditions**
 
 Report the revision, the claims and the evidence for each, the launch,
 readiness, and teardown commands actually used, the setup steps you had to
-discover, the remote queries with the environment each read, retained evidence
-paths, failures, skipped and blocked coverage, and the next missing check. If
-the run used a stand-in for the real target, such as a container in place of a
-fresh VM or a local stack in place of a remote one, list every setup step the
-stand-in did that the target will not; those steps stay unverified until a run
-on the real target covers them. List scaffolding, shared dependencies, and any
-running instance this run found holding its resources and left alone.
+discover, the remote queries with the environment each read and, for a read-only
+caller, the trust condition that allowed them, retained evidence paths,
+failures, skipped and blocked coverage, and the next missing check. If the run
+used a stand-in for the real target, such as a container in place of a fresh VM
+or a local stack in place of a remote one, list every setup step the stand-in
+did that the target will not; those steps stay unverified until a run on the
+real target covers them. List scaffolding, shared dependencies, and any running
+instance this run found holding its resources and left alone.
 
 Claim completion only when every required check has current supporting
 evidence. Name a partial result's passing subset and its failures; never
