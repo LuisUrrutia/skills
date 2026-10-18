@@ -56,7 +56,8 @@ for the project's own verification skill, such as a `verify-<app>` skill in the
 project's skill directory, and its feature map. When one exists, its Launch,
 Doctor, Drive, Evidence, and Cleanup steps apply and its map lists the entry
 points to cover; the rules below still decide isolation, launch setup and
-secrets, proof, and the verdict.
+secrets, proof, and the verdict, and a Launch step that contradicts them is drift
+under step 7.
 Then look for existing harnesses and documented commands: package scripts,
 Makefile targets, the README quickstart, end-to-end specs, container compose
 files, and worktree configuration such as a per-worktree dev command or URL in
@@ -158,7 +159,7 @@ When the change modifies an interface that users interact with, use
 the revision, and this run's authority. That covers a page, screen, dialog,
 form, or terminal UI; a command-line interface's arguments, flags, prompts,
 output, and error messages; and the interface text users act on, such as
-labels, link text, and messages. It owns keyboard and focus, target size,
+labels, link text, and the messages it shows. It owns keyboard and focus, target size,
 reduced motion, accessible names and roles, and accessibility scans; report its
 findings and coverage as that skill's result, or report accessibility as
 unchecked when it is unavailable. A backend-only change does not call it, and
@@ -243,13 +244,13 @@ defect ends as **reproduced**, **not reproduced under the tested conditions**
 
 Report the revision, the claims and the evidence for each, the launch,
 readiness, and teardown commands actually used, the setup steps you had to
-discover, retained evidence paths,
-failures, skipped and blocked coverage, and the next missing check. If the run
-used a stand-in for the real target, such as a container in place of a fresh VM
-or a local stack in place of a remote one, list every setup step the stand-in
-did that the target will not; those steps stay unverified until a run on the
-real target covers them. List scaffolding, shared dependencies, and any running
-instance this run found holding its resources and left alone.
+discover, the remote queries with the environment each read, retained evidence
+paths, failures, skipped and blocked coverage, and the next missing check. If
+the run used a stand-in for the real target, such as a container in place of a
+fresh VM or a local stack in place of a remote one, list every setup step the
+stand-in did that the target will not; those steps stay unverified until a run
+on the real target covers them. List scaffolding, shared dependencies, and any
+running instance this run found holding its resources and left alone.
 
 Claim completion only when every required check has current supporting
 evidence. Name a partial result's passing subset and its failures; never

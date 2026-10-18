@@ -14,28 +14,32 @@ use only the scripts and targets the project itself declares, such as manifest
 scripts, Makefile or task-runner targets, compose files, and its migration and
 seed tooling, and the environment variables its source reads; report each step
 you had to discover. Never compose a setup command from the project's internals.
-Setup changes only this run's isolated local data: never write to a shared or
-remote environment, so no deploy, publish, migration, or other change to staging
-or production, and report a step whose target is unclear as a prerequisite
-instead of running it. Setup covers installing the locked dependencies without
-changing the lockfile, creating the env file, and running migrations and seed
-data. Adding dependencies, changing a lockfile, and global installs need the
-active task's authority.
+Read a declared step before running it: a step that reaches a shared or remote
+environment follows the next section when it only reads, and never runs when it
+writes there, and an export or dump that lands in a remote bucket is a write,
+whatever the step's name says. Setup changes only this run's isolated local
+data: never write to a shared or remote environment, so no deploy, publish,
+migration, or other change to staging or production, and report a step whose
+target is unclear as a prerequisite instead of running it. Setup covers
+installing the locked dependencies without changing the lockfile, creating the
+env file, and running migrations and seed data. Adding dependencies, changing a
+lockfile, and global installs need the active task's authority.
 
 ## Read remote environments without changing them
 
 To make the local environment realistic, you may read a shared or remote
 environment through the project's own cloud or platform CLI, such as `gcloud`:
-its configuration, resource and service versions, schema, flags, and data,
-which may be copied into the run's local data. Run read-only commands only, with
-the CLI's existing authentication; never log in. First confirm that the active
-project or account belongs to this repository's environments, and report it as
-a prerequisite when it is missing or unclear. When a configuration read can
+its configuration, resource and service versions, schema, flags, and data, which
+may be copied into the run's local data. Run read-only commands only, with the
+CLI's existing authentication; never log in. First confirm that the active
+project or account belongs to this repository's environments, and report it as a
+prerequisite when it is missing or unclear. When a configuration read can
 include secret values, such as a service's environment, select only the fields
 the launch needs with the CLI's format or filter flags, so no secret value
-reaches the output. Never copy a secret from a secret manager into a file or the
-output; secrets follow the env-file rules below.
-Report each remote query with its command and the environment it read.
+reaches the output or the evidence. Never read a secret value from a secret
+manager, not even into the process environment: a missing secret follows the
+env-file rules below and goes to the user. Report each remote query with its
+command and the environment it read.
 
 ## Prepare the env file
 
