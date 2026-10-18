@@ -466,18 +466,47 @@ verification = "Read the draft at that commit."
         self.assertEqual((returncode, diagnostics), (0, []))
         self.assertEqual([item["check"] for item in skipped], ["unmerged-commit"])
 
+    def publish_then_branch(self, published):
+        self.commit_record(published, "main")
+        git(self.repository, "switch", "--quiet", "-c", "topic")
+
     def test_moved_baseline_and_dropped_reviews_are_reported(self):
+        c, d = "c" * 40, "d" * 40
+        two_reviews = HEADER.format(approach="derive") + SOURCE.format(id="donor", role="ideas").replace(f'reviewed_through = "{COMMIT_B}"', f'reviewed_through = "{c}"') + IDEA + REVIEW + REVIEW.replace(f'from_commit = "{COMMIT_A}"', f'from_commit = "{COMMIT_B}"').replace(f'to_commit = "{COMMIT_B}"', f'to_commit = "{c}"')
+        self.publish_then_branch(two_reviews)
         cursor_at_baseline = SOURCE.format(id="donor", role="ideas").replace(f'reviewed_through = "{COMMIT_B}"', f'reviewed_through = "{COMMIT_A}"')
-        self.commit_record(HEADER.format(approach="derive") + ideas_source(), "main")
-        self.commit_record(HEADER.format(approach="derive") + cursor_at_baseline + IDEA, "feature")
+        replaced = two_reviews.replace(f'reviewed_through = "{c}"', f'reviewed_through = "{d}"').replace(f'from_commit = "{COMMIT_B}"', f'from_commit = "{c}"').replace(f'to_commit = "{c}"', f'to_commit = "{d}"').replace(f'to_commit = "{COMMIT_B}"', f'to_commit = "{c}"')
 
         _, dropped, _ = self.check_record(HEADER.format(approach="derive") + cursor_at_baseline + IDEA)
-        _, moved, _ = self.check_record(HEADER.format(approach="derive") + ideas_source().replace(f'baseline_commit = "{COMMIT_A}"', f'baseline_commit = "{"c" * 40}"').replace(f'from_commit = "{COMMIT_A}"', f'from_commit = "{"c" * 40}"'))
-        _, renamed, _ = self.check_record(HEADER.format(approach="derive") + ideas_source("newer-donor").replace(f'baseline_commit = "{COMMIT_A}"', f'baseline_commit = "{"c" * 40}"').replace(f'from_commit = "{COMMIT_A}"', f'from_commit = "{"c" * 40}"'))
+        _, rewritten, _ = self.check_record(replaced)
+        _, moved, _ = self.check_record(two_reviews.replace(f'baseline_commit = "{COMMIT_A}"', f'baseline_commit = "{"e" * 40}"').replace(f'from_commit = "{COMMIT_A}"', f'from_commit = "{"e" * 40}"'))
+        _, renamed, _ = self.check_record(two_reviews.replace('id = "donor"', 'id = "newer-donor"'))
 
         self.assertEqual(dropped, [("reviews-dropped", "sources[0].reviews")])
-        self.assertEqual(moved, [("baseline-moved", "sources[0].baseline_commit")])
+        self.assertEqual(rewritten, [("reviews-dropped", "sources[0].reviews")])
+        self.assertEqual(moved, [("baseline-moved", "sources[0].baseline_commit"), ("reviews-dropped", "sources[0].reviews")])
         self.assertEqual(renamed, [])
+
+    def test_branch_work_that_keeps_history_passes(self):
+        pending_source = SOURCE.format(id="donor", role="ideas").replace(f'reviewed_through = "{COMMIT_B}"', f'reviewed_through = "{COMMIT_A}"')
+        pending = REVIEW.replace("deferred = []", 'deferred = ["A new lint tool needs the user\'s decision."]')
+        self.publish_then_branch(HEADER.format(approach="derive") + pending_source + IDEA + pending)
+
+        resolved = self.check_record(HEADER.format(approach="derive") + ideas_source())
+        git(self.repository, "switch", "--quiet", "main")
+        self.commit_record(HEADER.format(approach="derive") + ideas_source(), "main")
+        git(self.repository, "switch", "--quiet", "topic")
+        behind_main = self.check_record(HEADER.format(approach="derive") + pending_source + IDEA + pending)
+
+        self.assertEqual(resolved[:2], (0, []))
+        self.assertEqual(behind_main[:2], (0, []))
+
+    def test_malformed_source_ids_do_not_crash_the_comparison(self):
+        self.publish_then_branch(HEADER.format(approach="derive") + ideas_source().replace('id = "donor"', "id = []"))
+
+        returncode, diagnostics, _ = self.check_record(HEADER.format(approach="derive") + ideas_source().replace('id = "donor"', 'id = ["donor"]'))
+
+        self.assertEqual((returncode, diagnostics), (1, [("invalid-value", "sources[0].id")]))
 
     def test_merged_branch_commit_passes(self):
         git(self.repository, "switch", "--quiet", "main")

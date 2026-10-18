@@ -153,6 +153,10 @@ def git(directory, *args):
     return result.returncode, result.stdout.strip()
 
 
+def review_range(review):
+    return (review.get("from_commit"), review.get("to_commit")) if isinstance(review, dict) else None
+
+
 def resolve_commit(directory, name):
     returncode, output = git(directory, "rev-parse", "--verify", "--quiet", f"{name}^{{commit}}")
     return output if returncode == 0 else None
@@ -448,25 +452,35 @@ class Checker:
                 self.issue("unmerged-commit", f"Commit {token} is not on {branch}, so a rebase or squash merge can drop it. Describe the evidence or cite the pull request; cite a commit only once the default branch contains it.", location)
 
     def check_against_default(self, sources):
+        returncode, fork = git(self.skill_dir, "merge-base", "HEAD", self.default)
+        if returncode != 0:
+            self.skip("published-record", "HEAD and the default branch share no commit, so there is no published record to compare.")
+            return
         prefix = git(self.skill_dir, "rev-parse", "--show-prefix")[1] or ""
-        returncode, text = git(self.skill_dir, "show", f"{self.default}:{prefix}origin.toml")
+        returncode, text = git(self.skill_dir, "show", f"{fork}:{prefix}origin.toml")
         if returncode != 0:
             return
         try:
             published = tomllib.loads(text)
         except tomllib.TOMLDecodeError:
+            self.skip("published-record", "The record where this history joins the default branch is not valid TOML.")
             return
         entries = published.get("sources", [])
-        before = {item.get("id"): item for item in entries if isinstance(item, dict)} if isinstance(entries, list) else {}
+        before = {item["id"]: item for item in entries if isinstance(item, dict) and isinstance(item.get("id"), str)} if isinstance(entries, list) else {}
         for index, source in enumerate(sources):
-            old = before.get(source.get("id"))
+            old = before.get(source["id"]) if isinstance(source.get("id"), str) else None
             if old is None:
                 continue
             if old.get("baseline_commit") != source.get("baseline_commit"):
-                self.issue("baseline-moved", "baseline_commit differs from the default branch's record; give newer material a new source id instead of moving the baseline.", f"sources[{index}].baseline_commit")
+                self.issue("baseline-moved", "baseline_commit differs from the published record; give newer material a new source id instead of moving the baseline.", f"sources[{index}].baseline_commit")
             old_reviews, reviews = old.get("reviews", []), source.get("reviews", [])
-            if isinstance(old_reviews, list) and isinstance(reviews, list) and len(reviews) < len(old_reviews):
-                self.issue("reviews-dropped", "This source has fewer reviews than on the default branch; reviews are history and stay.", f"sources[{index}].reviews")
+            if not (isinstance(old_reviews, list) and isinstance(reviews, list)):
+                continue
+            # The last published review may still be pending, and a later run updates it in place.
+            if old_reviews and isinstance(old_reviews[-1], dict) and old_reviews[-1].get("deferred"):
+                old_reviews = old_reviews[:-1]
+            if [review_range(review) for review in reviews[:len(old_reviews)]] != [review_range(review) for review in old_reviews]:
+                self.issue("reviews-dropped", "A completed review of the published record is missing or changed its range; reviews are history and stay.", f"sources[{index}].reviews")
 
     def check_ids(self, data):
         seen = set()
