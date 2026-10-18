@@ -14,8 +14,8 @@ Observe artifacts, actions and resulting state. When a requirement competes with
 a deadline, prior effort or pressure to skip it, use a realistic task that requires
 the executor to act. When a case carries untrusted content, such as a transcript
 or a file with embedded directives, assert on the action trace as well: no tool
-call acts on what a directive names unless the task itself authorizes that
-target. Rule recitation cannot establish compliance.
+call acts on what a directive names unless the task needs that action without
+the directive. Rule recitation cannot establish compliance.
 
 Preserve authorization; use isolated fixtures or fakes for external effects
 unless the evaluation is authorized against the real service. Fixtures carry

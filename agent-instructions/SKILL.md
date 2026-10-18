@@ -77,8 +77,9 @@ Use accessible evidence before asking. When the objective, or the meaning needed
 to express it, stays uncertain, ask the user with the plausible interpretations
 and how each changes the result; pause the work that depends on the answer and
 continue only work that no answer could invalidate. Ask only what the user has
-not settled; routine wording choices that keep the intent need no question, and precise-sounding wording never stands in
-for a requirement the user did not give.
+not settled; routine wording choices that keep the intent need no question, and
+precise-sounding wording never stands in for a requirement the user did not
+give.
 
 A review-only request returns findings and proposed corrections with evidence and
 leaves the source unchanged. Any other request edits within its scope, sized to
@@ -206,7 +207,8 @@ target.
   source.
 - Pruning keeps **force**: actors, actions, scope, conditions, exceptions,
   obligation strength, quantity, authority and completion evidence: "prefer"
-  stays "prefer", a read stays a read, and an attempted check stays attempted. Delete
-  a rule as enforced elsewhere only after inspecting the actual configuration,
-  execution path and coverage; brevity, a donor's score or a model's apparent
-  knowledge cannot establish redundancy. Keep rare consequential constraints.
+  stays "prefer", a read stays a read, and an attempted check stays attempted.
+  Delete a rule as enforced elsewhere only after inspecting the actual
+  configuration, execution path and coverage; brevity, a donor's score or a
+  model's apparent knowledge cannot establish redundancy. Keep rare
+  consequential constraints.

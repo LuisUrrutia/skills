@@ -19,7 +19,7 @@ Moving text into a reference that every branch must read reduces no load.
 When the change renames or replaces most of the base's sections, hand the
 approach question (base or derive) to `skill-maintenance` with the three counts
 and a map from each base section to its local home. That skill judges whether the
-base still fits; keep the `base` label until it decides.
+base still fits; keep the `base` label until that question is settled.
 
 ## Dependent text
 

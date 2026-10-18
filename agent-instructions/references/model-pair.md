@@ -75,6 +75,6 @@ and any open objection. An edit that keeps the reviewed meaning needs no new
 round, and a round that returns no material finding ends the loop.
 
 Keep a record of each round for the report: each profile's actual provider,
-model and effort, its run, rate-limit skip or blocker, the reviewed commit and
-tree, and how each material finding was adopted or rejected, with any unresolved
+model and effort, its run, rate-limit skip or blocker, the reviewed candidate's
+commit and tree or its file hashes, and how each material finding was adopted or rejected, with any unresolved
 limitation.
