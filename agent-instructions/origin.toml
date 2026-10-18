@@ -69,7 +69,7 @@ where = ["SKILL.md#get-both-model-perspectives", "SKILL.md#agent-instructions"]
 
 [[invariants]]
 rule = "SKILL.md states when the model pair runs, who runs it and its completion criterion; runner resolution, briefs, failure handling and reconciliation live in references/model-pair.md. The split holds only while the model-pair evaluation cases pass against the package; on any regression, the full contract returns to SKILL.md."
-reason = "User decision on 2026-10-18, taken conditionally on the model-pair cases in evals/cases.json still passing."
+reason = "User decision on 2026-10-18, taken conditionally on the model-pair cases in evals/cases.json still passing. On 2026-10-18 every model-pair case passed against the rebuilt package in matched trials, recorded in the pull request that rebuilt the skill on writing-for-agents."
 where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md"]
 
 [[sources]]
@@ -140,7 +140,7 @@ reason = "Runs found defects that reading did not, such as invented domain rules
 where = ["SKILL.md#verify-the-change", "references/evaluation.md"]
 
 [[sources.deviations]]
-change = "Added to Context pointers: a pointer with no condition names no branch; a pointer that summarizes the procedure becomes a shortcut; and a pointer to another skill names it by registered name with its selecting condition and, when it does work, its inputs and completion evidence, never a file inside it."
+change = "Added to Context pointers: a pointer with no condition names no branch; a pointer that summarizes the procedure becomes a shortcut; and a pointer to another skill names it by registered name with its selecting condition and, when that skill performs work rather than supplying reference, its inputs and completion evidence, never a file inside it."
 reason = "Commit 0aa8bda, after an agent wrote 'its PR-reply rules' as a pointer into another skill (reports/skill-atlas/skill-reference-by-name-validation.json, evaluation case cross-skill-reference-by-name). The shortcut sentence is the superpowers-writing-skills idea recorded below."
 where = ["SKILL.md#context-pointers"]
 
@@ -180,7 +180,7 @@ reason = "Changing invocation is a product decision, separate from permission fo
 where = ["references/skill-mechanics.md#invocation"]
 
 [[sources.deviations]]
-change = "Removed agents/openai.yaml with the display name 'Writing for Agents', and added Host metadata: the shared name and description, host adapters kept apart, supported metadata preserved, and Codex skill-creator used before editing agents/openai.yaml."
+change = "Removed agents/openai.yaml with the display name 'Writing for Agents', and added Host metadata: the shared name and description, host adapters kept apart, supported metadata preserved, and Codex's agents/openai.yaml edited through the host creator when one is supplied."
 reason = "The local name differs; in this repository only explicit-only skills carry agents/openai.yaml, and the Codex skill-creator owns that file's requirements and may regenerate it."
 where = ["references/skill-mechanics.md#host-metadata"]
 

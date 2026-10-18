@@ -135,11 +135,12 @@ Before requesting either review, read
 [references/model-pair.md](references/model-pair.md) for runner resolution, the
 briefs, rate limits and other failures, and reconciliation.
 
-The pair is complete when at least one profile completed every review round, each
-profile not skipped for a rate or usage limit reviewed the final version of the
-instructions (for a review-only request, the unchanged target), and each
-material finding is adopted or rejected with a reason. Until then, keep the
-result provisional and report the exact blocker.
+The pair is complete when at least one profile completed every review round,
+each profile not skipped for a rate or usage limit reviewed the instructions in
+their final meaning (for a review-only request, the unchanged target; a later
+edit that keeps the reviewed meaning needs no new round), and each material
+finding is adopted or rejected with a reason. Until then, keep the result
+provisional and report the exact blocker.
 
 ## Verify the change
 
@@ -197,13 +198,13 @@ the body:
   State when to reach the material, not how it works.
 
 A pointer to another skill names it by its registered name, with the condition
-that selects it and, when it does work, the inputs it hands over and the
-completion evidence it returns; never a file inside it, by path or by a
-description such as "its PR review reference". That skill's entrypoint decides
-what it loads, and its procedure stays in that skill. Use a resource its
-entrypoint documents for callers, such as a validator, only through that
-documented contract. Links within the current skill may address its own
-resources.
+that selects it and, when that skill performs work rather than supplying
+reference, the inputs it hands over and the completion evidence it returns;
+never a file inside it, by path or by a description such as "its PR review
+reference". That skill's entrypoint decides what it loads, and its procedure
+stays in that skill. Use a resource its entrypoint documents for callers, such
+as a validator, only through that documented contract. Links within the current
+skill may address its own resources.
 
 ## The two loads
 
