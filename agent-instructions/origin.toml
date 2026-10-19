@@ -58,7 +58,7 @@ reason = "Explicit user policy (reports/skill-atlas/agent-instructions-dual-revi
 where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md#handle-failures"]
 
 [[invariants]]
-rule = "A typo fix that leaves guidance unchanged selects no skill and never starts the model pair or trials; the description names typo fixes among its exclusions."
+rule = "A typo fix that leaves guidance unchanged does not select this skill, and a run that loads it for one starts no model pair, trial or record hand-over; the description names typo fixes among its exclusions."
 reason = "Coordinator ruling of 2026-10-18 in the skills pilots, restated on 2026-10-19: a request to fix typos in a skill, with no change to its guidance, selects no skill and never starts the model pair or trials. Codex had routed such requests to this skill, and agents that loaded it for one started the model pair."
 where = ["SKILL.md"]
 
@@ -79,7 +79,7 @@ where = ["SKILL.md#get-both-model-perspectives", "SKILL.md#agent-instructions"]
 
 [[invariants]]
 rule = "SKILL.md states when the model pair runs, who runs it and its completion criterion; runner resolution, briefs, failure handling and reconciliation live in references/model-pair.md. The split holds only while the model-pair evaluation cases pass against the package; on any regression, the full contract returns to SKILL.md."
-reason = "User decision on 2026-10-18, taken conditionally on the model-pair cases in evals/cases.json still passing. Coordinator ruling of 2026-10-19 on what a pass is for a delegate whose brief does not assign the pair: it may say the overall review awaits the pair its parent or caller owes, when it delivers its findings in full, names who owes the pair, and reports no blocker of its own. A behavior the package already showed at commit b206819 is no regression of the split."
+reason = "User decision on 2026-10-18, taken conditionally on the model-pair cases in evals/cases.json still passing. Coordinator ruling of 2026-10-19 on what a pass is for a delegate whose brief does not assign the pair: it may say the overall review awaits the pair its parent or caller owes, when it delivers its findings in full, names who owes the pair, and reports no blocker of its own."
 where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md"]
 
 [[invariants]]
@@ -153,7 +153,7 @@ where = ["SKILL.md#agent-instructions", "references/skill-mechanics.md#skill-mec
 
 [[sources.deviations]]
 change = "Replaced the base description ('Writing documents for agents. Use when creating or editing skills, or modifying AGENTS.md or CLAUDE.md.') with the local one, which adds review and excludes following instructions, typo fixes and factual updates that leave guidance unchanged."
-reason = "The local description passed selection probes (reports/agent-instructions-validation.json description_revision), and its exclusions answer an observed over-activation fixed in commit dc7c930 (evaluation case activation-near-misses)."
+reason = "The local description passed selection probes (reports/agent-instructions-validation.json description_revision), and its exclusions answer an observed over-activation fixed in commit dc7c930 (evaluation case activation-near-misses). The typo-fix exclusion follows the coordinator ruling in the typo-fix invariant above."
 where = ["SKILL.md"]
 
 [[sources.deviations]]
@@ -249,7 +249,7 @@ where = ["references/skill-mechanics.md#splitting-by-invocation"]
 
 [[sources.deviations]]
 change = "Added references/packaging.md: resources bundled inside the package, helpers with explicit inputs, outputs and failure states, host creators (used when installed, hand-written metadata and a reported limit when a documented one is missing) and dependencies, and validation that includes a relocation test."
-reason = "The package invariants; reports/skill-authoring-portability-validation.json; evaluation cases portable-resource-review, fleet-package-relocation and thin-wrapper."
+reason = "The package invariants; reports/skill-authoring-portability-validation.json; evaluation cases portable-resource-review, fleet-package-relocation and thin-wrapper. The missing-creator branch answers Codex runs that changed invocation controls without the Codex skill-creator installed and left its absence unreported."
 where = ["references/packaging.md"]
 
 [[sources.deviations]]
