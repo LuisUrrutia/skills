@@ -1,6 +1,6 @@
 ---
 name: agent-instructions
-description: Use when writing or reviewing AI agent instructions or skills. Excludes following instructions and factual updates that leave guidance unchanged.
+description: Use when writing or reviewing AI agent instructions or skills. Excludes following instructions, typo fixes and factual updates that leave guidance unchanged.
 ---
 
 # Agent instructions
@@ -105,9 +105,9 @@ request established.
 ## Get both model perspectives
 
 When the user explicitly asks for instruction creation, editing or review within
-this skill's scope, alone or inside a larger task, get independent reviews from
-Codex Astra and Claude Fable, both at reasoning effort xhigh, before finalizing
-the instructions or the review findings.
+this skill's scope, alone or inside a larger task, get one round of independent
+reviews from Codex Astra and Claude Fable, both at reasoning effort xhigh,
+before finalizing the instructions or the review findings.
 
 These do not start the pair:
 
@@ -127,11 +127,11 @@ assigns the pair to it. A quoted user request alone does not assign it.
 Before requesting either review, read
 [references/model-pair.md](references/model-pair.md).
 
-The pair is complete when at least one profile completed every review round,
-each profile not skipped for a rate or usage limit reviewed the instructions in
-their final meaning (for a review-only request, the unchanged target), and each
-material finding is adopted or rejected with a reason. Until then, keep the
-result provisional and report the exact blocker.
+The pair is complete when at least one profile completed the round, every
+profile not skipped for a rate or usage limit completed it, and each material
+finding is adopted or rejected with a reason. Edits made in response, and later
+edits in the same change, start no new round. Until then, keep the result
+provisional and report the exact blocker.
 
 ## Verify the change
 
@@ -157,13 +157,12 @@ their results, and any unresolved limitation. Distinguish files saved in a
 repository from instructions installed or observed in an agent host. For a
 skill, add what [skill changes](references/skill-changes.md#report) lists.
 
-When this agent neither ran the pair nor assigned it to a delegate, state that it
-did not run the pair.
+When this agent neither ran nor assigned the pair, state that it did not run it.
 
 ## Negation
 
 Steering by prohibition drags the forbidden behavior into context and makes it
-_more_ available, not less. _Don't think of an elephant_, and the elephant is all
+_more_ available. _Don't think of an elephant_, and the elephant is all
 there is. Prompt the **positive**: state the target behavior ("write one-line
 comments") so the banned one is never spoken. A blanket prohibition also carries
 **harmful precision**: wrong on one plausible task in ten, it is still obeyed on

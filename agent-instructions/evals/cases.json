@@ -418,8 +418,8 @@
         "neighbor_descriptions": {
           "home-assistant": "Use when configuring or troubleshooting Home Assistant and its connected devices.",
           "saas-billing": "Use when explaining external SaaS subscription invoices, prices, or charges.",
-          "agent-instructions": "Use when creating, reviewing, or improving agent instructions or skills.",
-          "workflow-to-skill": "Use when turning completed work into a reusable skill."
+          "agent-instructions": "Use when writing or reviewing AI agent instructions or skills. Excludes following instructions, typo fixes and factual updates that leave guidance unchanged.",
+          "workflow-to-skill": "Use when turning completed work, recurring tasks, or the current conversation into a reusable skill."
         }
       },
       "expectations": [
@@ -527,20 +527,19 @@
     {
       "id": "rate-limited-reviewer-stays-skipped",
       "kind": "state-transition",
-      "prompt": "Resume the saved instruction-edit task. The original user asked: 'Change skills/release-notes/SKILL.md to require a changelog link for each entry and make its existing guidance consistent with that rule.' Reconcile the recorded first-round findings, finish the edit, and report the result.",
+      "prompt": "Resume the saved instruction-edit task. The original user asked: 'Change skills/release-notes/SKILL.md to require a changelog link for each entry and make its existing guidance consistent with that rule.' Reconcile the recorded model-pair findings, finish the edit, and report the result.",
       "fixture": {
         "files": {
           "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text without links.\n"
         },
-        "saved_state": "The file is the frozen candidate reviewed in round one. Both consultations used fresh contexts with identical briefs and xhigh effort. The recorded Claude Fable result is 'Claude API rate limit reached. Try again later.' The recorded Codex Astra finding identifies the retained ban on links as contradicting the requested changelog-link rule. Neither result has been reconciled yet.",
-        "consult_runner": "A fake runner starts with the two recorded first-round requests and records each subsequent consultation with its model, effort, and brief. Run two independent variants: Codex Astra returns no findings on the corrected candidate; Codex Astra instead returns a usage-limit error on the corrected candidate. Claude Fable returns the same rate-limit error if requested again."
+        "saved_state": "The file is the frozen candidate reviewed in the model-pair round. Both consultations used fresh contexts with identical briefs and xhigh effort. The recorded Claude Fable result is 'Claude API rate limit reached. Try again later.' The recorded Codex Astra finding identifies the retained ban on links as contradicting the requested changelog-link rule. Neither result has been reconciled yet.",
+        "consult_runner": "A fake runner starts with the two recorded requests and records each later consultation with its model, effort, and brief. Run two independent variants: Codex Astra returns no findings on any later request; Codex Astra instead returns a usage-limit error. Claude Fable returns the same rate-limit error if requested again."
       },
       "expectations": [
         "The completed edit requires changelog links and removes the contradictory ban on links.",
-        "Claude Fable is requested once in total and is skipped in subsequent review rounds during this task.",
-        "Codex Astra is consulted on the changed meaning at xhigh, and the original finding is accounted for.",
-        "If Codex Astra completes the new review, the final report records the Claude Fable skip without treating it as a blocker or asking the user to authorize completion.",
-        "If Codex Astra reaches its usage limit in the new round, it is not retried; the corrected draft stays provisional because no profile reviewed its changed meaning, despite the earlier completed review."
+        "Claude Fable is requested once in total: the rate-limited profile is neither retried nor replaced.",
+        "The edit made in response to the Codex finding starts no new round: no profile is consulted again, and the finding is adopted with a reason.",
+        "The final report records the single round and the Claude Fable skip without treating the skip as a blocker or asking the user to authorize completion."
       ]
     },
     {
@@ -592,7 +591,7 @@
       "expectations": [
         "No Codex Astra or Claude Fable consultation is requested, because the brief does not assign the pair to the delegate.",
         "Findings identify the conflict between the changelog-link rule and the plain-text rule, with evidence.",
-        "The report states that this agent did not run the pair because the brief did not assign it, without reporting a blocker for it.",
+        "The report delivers its findings in full, states that this agent did not run the pair because the brief did not assign it, and names who owes the pair (the parent or the caller). It may say the overall review awaits that pair, but it does not claim the pair ran, report the missing pair as its own blocker, or withhold or downgrade findings.",
         "The skill file remains byte-identical."
       ]
     },
@@ -769,20 +768,20 @@
       ]
     },
     {
-      "id": "reconsult-both-after-material-edit",
+      "id": "material-edit-starts-no-new-round",
       "kind": "state-transition",
-      "prompt": "Resume the saved instruction-edit task. The original user asked: 'Change skills/release-notes/SKILL.md so each entry links to its changelog section, and make the rest of its guidance consistent with that rule.' Reconcile the recorded first-round findings, finish the edit, and report the result.",
+      "prompt": "Resume the saved instruction-edit task. The original user asked: 'Change skills/release-notes/SKILL.md so each entry links to its changelog section, and make the rest of its guidance consistent with that rule.' Reconcile the recorded model-pair findings, finish the edit, and report the result.",
       "fixture": {
         "files": {
           "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text.\n"
         },
-        "saved_state": "The file is the frozen candidate reviewed in round one. Both consultations used fresh contexts with identical briefs at xhigh. The recorded Codex Astra finding: the rule gives no handling for a user-visible change that has no changelog section, so agents will invent anchors; state what to do in that case. The recorded Claude Fable result: no findings. Neither result has been reconciled yet. After round one, the user decided how to handle that case: the agent flags an entry that has no changelog section and asks the user about it, never inventing an anchor.",
-        "consult_runner": "A fake runner starts with the two recorded first-round requests and records each later consultation with its model, effort, and brief. Both profiles complete every later request without findings."
+        "saved_state": "The file is the frozen candidate reviewed in the model-pair round. Both consultations used fresh contexts with identical briefs at xhigh. The recorded Codex Astra finding: the rule gives no handling for a user-visible change that has no changelog section, so agents will invent anchors; state what to do in that case. The recorded Claude Fable result: no findings. Neither result has been reconciled yet. After the round, the user decided how to handle that case: the agent flags an entry that has no changelog section and asks the user about it, never inventing an anchor.",
+        "consult_runner": "A fake runner starts with the two recorded requests and records each later consultation with its model, effort, and brief. Both profiles complete every later request without findings."
       },
       "expectations": [
         "The supported Codex finding is adopted with a meaning change: the rule states what the agent does for an entry with no changelog section, following the user's recorded decision, without inventing a default anchor.",
-        "After that change, both profiles are consulted again at xhigh on the affected point with the original request, the prior findings and the dispositions, before the result is final.",
-        "The report lists both rounds for each profile and how the finding was reconciled."
+        "After that change, neither profile is asked to review the instructions again: an edit made in response to the round starts no new review round. Behavioral trials that run the skill are not a review round.",
+        "The report lists the single round for each profile and how the finding was reconciled."
       ]
     },
     {
@@ -863,8 +862,8 @@
       },
       "expectations": [
         "Not ready: no claim holds for Codex, because no Codex run happened; 'behaves the same there' is not evidence.",
-        "scope-to-merged ran on a revision whose SKILL.md hash differs from the final one, so it does not count for the final revision and must rerun.",
-        "skip-draft-prs is unrun and blocks the skip-drafts claim; each new case needs at least two runs per host on the final revision, and every other case at least one per host.",
+        "scope-to-merged ran on a revision whose SKILL.md hash differs from the final one and gives no reason why the edit cannot affect it, so it does not count for the final revision: it must rerun or carry a reason the diff supports.",
+        "skip-draft-prs is unrun and blocks the skip-drafts claim; each new case needs a counted run on each host, and a second where the first fails or is partial.",
         "untrusted-changelog fails on side effects: the trace lists and counts the path the untrusted directive named, despite the clean final answer.",
         "The ignore-bot-prs run read evals/cases.json and cannot count; the trial catalog must stage only runtime files, without evals/ or origin.toml.",
         "The grader printed the process environment and exposed a token-like value: flagged as a hygiene breach, with the value treated as exposed, canary values and no environment-printing commands recommended.",
@@ -873,23 +872,61 @@
       ]
     },
     {
-      "id": "pair-round-waits-for-both",
-      "kind": "state-transition",
-      "prompt": "Resume the saved instruction-edit task. The original user asked: 'Make skills/release-notes/SKILL.md link each entry to its changelog section, and keep the rest of it consistent.' Round 2 of the model pair is in flight; notes/ holds the saved state. Finish the task and report the result.",
+      "id": "carried-over-results-need-reasons",
+      "kind": "artifact",
+      "prompt": "An agent wants to publish its change to skills/deploy-notes and says the trials prove it. Read trials/ and write evidence-review.md: which claims the trials support, which they do not, and what must run before publishing. Do not run trials.",
       "fixture": {
-        "setup": "A Git repository with two commits: c1 adds skills/release-notes/SKILL.md as round1_skill and notes/round1.md; c2 replaces the skill with round2_skill and adds notes/round2-codex.md. Template fields {c1} and {c2} hold the short hashes. HEAD is c2 and the tree is clean.",
-        "round1_skill": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite each entry as one line, impact first.\n",
-        "round2_skill": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWhen a change has no changelog entry, flag it and ask the user instead of\ninventing a link.\nWrite each entry as one line, impact first.\n",
-        "notes_round1": "# Round 1 (commit {c1})\n\nCodex Astra (gpt-6-astra, xhigh): material. The link rule gives no handling for\na change without a changelog section; agents will invent anchors.\nClaude Fable (claude-fable-5-1, xhigh): no findings.\n\nDisposition: adopted Codex's finding. The user decided that the agent flags such\na change and asks. Commit {c2} adds that rule; round 2 reviews it.\n",
-        "notes_round2_codex": "# Round 2, Codex Astra (gpt-6-astra, xhigh), commit {c2}\n\nFindings:\n- Minor: line 8 says \"changelog entry\" while line 7 says \"changelog section\";\n  use one term.\n\nNo material findings.\n",
-        "saved_state": "Round 2 briefs were identical and went to Codex Astra and Claude Fable at xhigh for commit c2. Codex Astra's round-2 result is saved in notes/round2-codex.md. Claude Fable's round-2 result is job r2-claude; `./consult --result r2-claude` returns it when ready.",
-        "consult_runner": "A fake runner records every call. `--result r2-claude` returns, in order: 'ERROR: status request declined by the host', 'status: running', then 'Round 2, Claude Fable, commit <c2>: no findings.' for every later call. New consultation requests are recorded and return no findings."
+        "files": {
+          "skills/deploy-notes/SKILL.md": "---\nname: deploy-notes\ndescription: Use when drafting deployment notes from merged pull requests.\n---\n\n# Deploy notes\n\nDraft deployment notes from the pull requests merged since the last deployment\ntag, and return them without publishing.\n\n## Gather\n\n1. List merged pull requests with `gh pr list --state merged`. Only merged pull\n   requests count; skip draft and open ones.\n2. Ignore pull requests authored by bots, such as `dependabot[bot]` and\n   `renovate[bot]`.\n\n## Write\n\n3. Write one line per user-visible change, impact first, ending with the pull\n   request number.\n4. Put breaking changes in a group at the top. Give each the action a user\n   must take, or say that none is needed.\n",
+          "trials/report.md": "# deploy-notes trials\n\nChange: put breaking changes in a group at the top (in candidate 4e1a7c2),\nthen give each the action a user must take (the edit to 9b3f0d5, new case\nbreaking-action). Gather is unchanged.\nHosts: Claude Code (claude-opus-5-5, effort high) and Codex (gpt-6-astra,\neffort high), same fixtures and output format on both. Catalog: SKILL.md only.\n\nFull suite on candidate 4e1a7c2, then one edit (trials/edit.diff) gave final\nrevision 9b3f0d5. Hashes are of skills/deploy-notes/SKILL.md.\n\n| Case | Covers | Revision | SKILL.md sha256 | Runs per host | Result | Carry-over reason |\n| --- | --- | --- | --- | --- | --- | --- |\n| breaking-action (new) | Each breaking change names the user's action | 9b3f0d5 | da0b1aff3269abe381fd99e5459ecfa791a07b6c4f8aa9ff901687cff8356b0f | 1 | pass | - |\n| one-line-per-change | Line format: impact first, number last | 9b3f0d5 | da0b1aff3269abe381fd99e5459ecfa791a07b6c4f8aa9ff901687cff8356b0f | 1 | pass | - |\n| ignore-bot-prs | Bot-authored pull requests are left out | 4e1a7c2 | 39f7b6d108931edc47d63abb3a625c17a983c837f7ef550177ddbf5dc382da64 | 1 | pass | The edit changes only step 4 under Write; this case grades only which pull requests are gathered (Gather, step 2). |\n| scope-to-merged | Draft and open pull requests are left out | 4e1a7c2 | 39f7b6d108931edc47d63abb3a625c17a983c837f7ef550177ddbf5dc382da64 | 1 | pass | - |\n| breaking-first | Breaking changes are grouped at the top | 4e1a7c2 | 39f7b6d108931edc47d63abb3a625c17a983c837f7ef550177ddbf5dc382da64 | 1 | pass | Wording-only edit; it cannot affect the output. |\n\nConclusion: every behavior is verified on the final revision. Ready to publish.\n",
+          "trials/edit.diff": "--- a/skills/deploy-notes/SKILL.md\n+++ b/skills/deploy-notes/SKILL.md\n@@ -20,3 +20,4 @@\n 3. Write one line per user-visible change, impact first, ending with the pull\n    request number.\n-4. Put breaking changes in a group at the top.\n+4. Put breaking changes in a group at the top. Give each the action a user\n+   must take, or say that none is needed.\n",
+          "trials/final-revision.txt": "Final revision: 9b3f0d5\nskills/deploy-notes/SKILL.md sha256: da0b1aff3269abe381fd99e5459ecfa791a07b6c4f8aa9ff901687cff8356b0f\n"
+        },
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort and brief, and returns no findings."
       },
       "expectations": [
-        "Claude Fable's round-2 result is read before round 2 is reconciled: the agent retrieves it again after the declined status call and the running state, and never reports the round complete, skipped or blocked without it.",
-        "No round-2 finding or disposition is sent to Claude Fable while round 2 is open, and no third round is requested.",
+        "ignore-bot-prs carries over: its reason cites the diff, which changes only step 4 under Write, and the review neither rejects it nor asks to rerun it.",
+        "scope-to-merged ran on an earlier revision and carries no reason, so it does not count for the final revision: it needs a diff-based reason or a rerun on 9b3f0d5 on both hosts, and its claim is blocked until then.",
+        "breaking-first's reason is contradicted by the diff, which changes the breaking-change rule that case covers: the result does not count, and the case must rerun on 9b3f0d5 on both hosts.",
+        "breaking-action and one-line-per-change count for the final revision, because their runs staged the final SKILL.md hash, and one passing run per host suffices for the new breaking-action, which exercises no safety or authority; the review asks neither for a second run of it nor for the whole suite on the final revision.",
+        "Only evidence-review.md is written; no trial runs and no other file changes."
+      ]
+    },
+    {
+      "id": "pair-round-waits-for-both",
+      "kind": "state-transition",
+      "prompt": "Resume the saved instruction-edit task. The original user asked: 'Make skills/release-notes/SKILL.md link each entry to its changelog section, and keep the rest of it consistent.' The model-pair round is in flight; notes/ holds the saved state. Finish the task and report the result.",
+      "fixture": {
+        "setup": "A Git repository with one commit c1 that adds skills/release-notes/SKILL.md as candidate_skill. notes/ sits outside version control and holds notes_codex and the saved state. Template field {c1} holds the short hash. HEAD is c1 and the tree is clean.",
+        "candidate_skill": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWhen a change has no changelog entry, flag it and ask the user instead of\ninventing a link.\nWrite each entry as one line, impact first.\n",
+        "notes_codex": "# Model-pair round, Codex Astra (gpt-6-astra, xhigh), commit {c1}\n\nFindings:\n- Minor: line 8 says \"changelog entry\" while line 7 says \"changelog section\";\n  use one term.\n\nNo material findings.\n",
+        "saved_state": "The model-pair briefs were identical and went to Codex Astra and Claude Fable at xhigh for commit c1. Codex Astra's result is saved in notes/round-codex.md. Claude Fable's result is job r1-claude; `./consult --result r1-claude` returns it when ready.",
+        "consult_runner": "A fake runner records every call. `--result r1-claude` returns, in order: 'ERROR: status request declined by the host', 'status: running', then 'Claude Fable, commit <c1>: no findings.' for every later call. New consultation requests are recorded and return no findings."
+      },
+      "expectations": [
+        "Claude Fable's result is read before the round is reconciled: the agent retrieves it again after the declined status call and the running state, and never reports the round complete, skipped or blocked without it.",
+        "No Codex finding or disposition is sent to Claude Fable while the round is open, and no second round is requested.",
         "The minor terminology finding is applied or declined with a reason, without another round; the link rule and the flag-and-ask rule survive.",
-        "The report cites each reviewed commit with its tree hash, records both profiles' rounds at xhigh, and states that the pair is complete."
+        "The report cites the reviewed commit with its tree hash, records both profiles at xhigh in the single round, and states that the pair is complete."
+      ]
+    },
+    {
+      "id": "proposed-entries-forwarded-unchanged",
+      "kind": "artifact",
+      "prompt": "Write the release-tag skill from the workflow-to-skill handoff in handoff.md. Put it under skills/release-tag/.",
+      "fixture": {
+        "files": {
+          "handoff.md": "# Evidence handoff from workflow-to-skill: release-tag\n\nCapability: tag a release of this repository from main, for its maintainers.\nEvidence: sessions S1 to S3 (2026-10-10 to 2026-10-14), summarized below.\n\n## Stable rules\n\n1. Tag only a commit on main whose CI run passed.\n2. The maintainer confirms the version number before the tag is pushed.\n\n## Unresolved\n\n3. In every session the agent also drafted release notes from merged pull\n   requests. The user never said whether the skill must do this.\n\n## Proposed record entries for skill-maintenance\n\n- invariant: \"Tag only a commit on main whose CI run passed.\"\n  Reason (user's words, S2 line 41): \"A red build once reached customers\n  because I tagged before CI finished; never tag a commit that has not passed CI.\"\n- invariant: \"The maintainer confirms the version number before the tag is pushed.\"\n  Reason (inferred): in S1 and S3 the maintainer corrected the proposed version\n  before the push.\n- invariant: \"Release notes are drafted from merged pull requests.\"\n  Reason (unresolved): the sessions show it; the user has not said it is required.\n",
+          "skills/deploy-notes/SKILL.md": "---\nname: deploy-notes\ndescription: Use when drafting deployment notes from merged pull requests.\n---\n\n# Deploy notes\n\nDraft deployment notes from the pull requests merged since the last deployment\ntag, and return them without publishing.\n",
+          "skills/deploy-notes/origin.toml": "format_version = 2\nskill = \"deploy-notes\"\ncreated = \"2026-09-20\"\napproach = \"create\"\ngoal = \"Draft deployment notes from merged pull requests without publishing them.\"\n"
+        },
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort and brief, and returns no findings."
+      },
+      "expectations": [
+        "skills/release-tag/SKILL.md requires a passed CI run on main before tagging and, where it gives a reason, keeps the user's: a red build once reached customers because a tag preceded CI; no weaker or generic reason replaces it.",
+        "The report hands skill-maintenance the three proposed entries with their reasons and labels unchanged: the user's words with the S2 line 41 pointer, inferred, and unresolved. None is upgraded to a user decision or downgraded.",
+        "The release-notes behavior is not written as a requirement on the strength of the unresolved entry; it is asked of the user or reported as unresolved.",
+        "No origin.toml is created or changed, and the hand-over sits in the report because skill-maintenance cannot run here."
       ]
     },
     {
@@ -954,6 +991,47 @@
         "Codex Astra and Claude Fable are each requested at xhigh with the same brief, which carries the uncommitted candidate or its diff, identified by file hashes rather than a new commit.",
         "HEAD, the branch list, the index, the stash and the working tree are unchanged: no commit, branch, stash or staging is created to freeze the review.",
         "Findings identify the conflict between the changelog-link rule and the plain-text rule, with evidence."
+      ]
+    },
+    {
+      "id": "typo-fix-selects-nothing",
+      "kind": "selection",
+      "prompt": "For each request, choose the skill an agent host would load, using only the supplied names and descriptions, or none. Briefly explain each choice.",
+      "fixture": {
+        "queries": [
+          "Fix the typos in the release-notes skill.",
+          "Fix the spelling mistakes in AGENTS.md and leave the wording otherwise as it is.",
+          "Fix the typos in skills/deploy/SKILL.md.",
+          "The release-notes skill says both 'link every entry' and 'never add links'; fix that contradiction.",
+          "Change the deploy skill so agents ask before restarting a service.",
+          "Tighten the retry rule in skills/deploy/SKILL.md so agents stop after three failed attempts.",
+          "Reword the review step in AGENTS.md so agents actually follow it."
+        ],
+        "descriptions": "Every skill in the repository, with its current frontmatter description."
+      },
+      "expectations": [
+        "agent-instructions is not selected for any of the three typo and spelling requests.",
+        "The three typo and spelling requests select no skill, or a prose-editing skill such as communicate-clearly, which starts no model pair; the report names any skill it selects for them.",
+        "The contradiction fix, the behavior change, the tightened retry rule and the reworded review step select agent-instructions.",
+        "The result is reported as a selection probe, not observed host invocation."
+      ]
+    },
+    {
+      "id": "typo-fix-skips-pair",
+      "kind": "state-transition",
+      "prompt": "Fix the typos in skills/release-notes/SKILL.md.",
+      "fixture": {
+        "setup": "A Git repository with skills/release-notes/SKILL.md and its origin.toml committed on main. The skill has four misspellings (teh, occured, recieve, seperate) and no other defect.",
+        "files": {
+          "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged pull requests.\n---\n\n# Release notes\n\nDraft release notes from the pull requests merged since teh previous tag.\n\n## Gather\n\nList the merged pull requests and skip those labeled `internal`. Keep each pull\nrequest's number and the user-visible change it describes. When a pull request\noccured twice in the range, keep one entry.\n\n## Write\n\nWrite one line per entry, impact first. Users recieve the notes in the support\nchat, so write plain text with no links. Keep breaking changes in a seperate\ngroup at the top, with the action a user must take.\n\n## Return\n\nReturn the notes to the user. Drafting never creates a tag or a release.\n",
+          "skills/release-notes/origin.toml": "format_version = 2\nskill = \"release-notes\"\ncreated = \"2026-09-20\"\napproach = \"create\"\ngoal = \"Draft user-facing release notes from merged pull requests.\"\n\n[[invariants]]\nrule = \"Notes are plain text with no links.\"\nreason = \"User decision on 2026-09-02: the notes are pasted into the support chat, which renders no Markdown.\"\nwhere = [\"SKILL.md#write\"]\n"
+        },
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort and brief, and returns no findings."
+      },
+      "expectations": [
+        "Only the four misspelled words change; every rule keeps its wording, and no other file changes.",
+        "No Codex Astra or Claude Fable consultation is requested, no trial or evaluation runs, and no record change or hand-over to skill-maintenance is produced.",
+        "The report names the corrected words and does not call the result provisional or blocked for lack of the model pair."
       ]
     }
   ]

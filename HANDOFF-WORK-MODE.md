@@ -680,8 +680,9 @@ or ask for permission before every phase.
    Claude Fable profiles required by `agent-instructions`. Resolve current IDs
    from the live catalog, set the effort `agent-instructions` requires, keep
    first contexts independent, retain actual run evidence, and reconcile
-   material findings. Reconsult affected meaning after material revisions. Do
-   not treat the old source reviews as this candidate review.
+   material findings. The change gets one round; revisions made in response
+   start no new one. Do not treat the old source reviews as this candidate
+   review.
 7. Run proportionate behavioral and packaging checks from section 12. Fix observed
    failures at their actual owner and rerun affected and nearby regression cases.
 8. Integrate the finished package into `README.md` and the Engineering grouping in

@@ -160,7 +160,7 @@ every capability belongs in every coding workflow.
 
 The current [agent-instructions entrypoint](agent-instructions/SKILL.md) owns the
 independent **Codex Astra and Claude Fable** consultations for instruction work
-the user explicitly requests, at the effort it sets: when they run, who runs them,
+the user explicitly requests, one round per change, at the effort it sets: when they run, who runs them,
 their exemptions (including any handoff document) and when they are complete.
 [Its model-pair reference](agent-instructions/references/model-pair.md) owns
 runner resolution, briefs, rate-limit skips and reconciliation. Follow those

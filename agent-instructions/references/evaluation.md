@@ -120,16 +120,32 @@ without widening authorization or making required work optional.
 
 ## Iterate proportionately
 
-Fix failures at the responsible instruction or reference. While iterating, rerun
-the affected case and a nearby regression case; broaden checks when routing,
+Fix failures at the responsible instruction or reference. Run the target's whole
+suite on every supported host once on a candidate revision, not again for each
+review round. After a later edit, rerun on every host the cases the edited text
+can affect, meaning those whose run reads it and whose graded outcome or
+asserted side effect it can change, plus a nearby regression case and, when the
+description changes, the selection probes; broaden checks when routing,
 authority or termination changes.
 
 Claims rest on the final revision. Label each result with the revision it ran
-on; a result counts for the final revision only when the runtime files it staged
-match the final ones by hash. On the final revision, run each case added or
-whose expected behavior changed at least twice per host, and every other case of
-the target's suite at least once per host. List each case not run with its
-reason; an unrun case blocks any claim about the behavior it covers.
+on; a result ran on the final revision only when the runtime files it staged
+match the final ones by hash. Any other result counts only when it carries over
+from its revision with a written reason, drawn from the diff since that
+revision, that names the edits and the graded outcomes they cannot reach;
+reviews of the change, including the [model pair](model-pair.md), check each
+reason against the diff, and a result without one, or with one the diff
+contradicts, does not count. The author checks a reason written or changed
+after the pair's round, and the report marks it as not reviewed by the pair.
+Grade every counted result against the case's current expectations. A case
+added or whose expected behavior changed needs one counted run per host, and a
+second on a host where the first fails or is partial; when it exercises safety
+or authority, such as secrets, remote environments, publishing or merging,
+destructive commands, or permission or trust boundaries, it needs at least two
+per host. Executors and graders use the strongest available models unless the
+user names others, and the evidence records their actual model IDs; save usage
+through fewer runs, never through weaker models. List each case not run with
+its reason; an unrun case blocks any claim about the behavior it covers.
 
 When a claim needs repeated trials, such as a nondeterministic failure, a model
 migration or a performance comparison, define the metric, meaningful effect, run

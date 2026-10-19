@@ -97,19 +97,19 @@ This is a repository package, not a global installation or a background runtime.
 ### agent-instructions
 
 Write and improve instructions for agents in `AGENTS.md`, `CLAUDE.md`, skills,
-referenced guides, and agent prompts. New skills do not require prior use or repetition.
+referenced guides, and agent prompts. New skills do not require prior use or repetition. Typo fixes that leave the guidance unchanged do not use it.
 
 **Triggers:** `update AGENTS.md`, `improve these agent instructions`, `create a skill`, `revise a skill`
 
 **Features:**
-- Requests Codex Astra and Claude Fable at xhigh for instruction work the user explicitly requests, then reconciles their independent reviews; if one reaches a rate or usage limit, continues with the other without retrying the limited profile or blocking progress. Instruction work or self-review the agent starts on its own, and any handoff document, skips them
+- Requests one round of Codex Astra and Claude Fable reviews at xhigh per change for instruction work the user explicitly requests, then reconciles them; if one reaches a rate or usage limit, continues with the other without retrying the limited profile or blocking progress. Instruction work or self-review the agent starts on its own, and any handoff document, skips them
 - Edits the canonical instruction source at the intended scope
 - Writes on Matt Pocock's writing-for-agents levers: context pointers, the two loads, information hierarchy, completion criteria, guarded leading words, and pruning
 - Chooses between reusing, wrapping, deriving, or creating a skill before adding an implementation
 - Hands each skill decision to `skill-maintenance` for the skill's `origin.toml` record in a repository that keeps records
 - Reviews every skill change for entry-file growth against the previous version and the base, evaluation evidence, record hand-overs, and stale callers or README entries that name the skill
-- Validates the changed behavior in proportion to the task; behavioral trials stage only runtime files, run on Claude Code and Codex, and report the revision each result ran on and every unrun case
-- Runs review rounds that stay independent until both results are in, cite the reviewed candidate by commit and tree (or by file hashes when nothing is committed), and stop when a round finds nothing material
+- Validates the changed behavior in proportion to the task; behavioral trials stage only runtime files and run on Claude Code and Codex. After an edit, only the cases it can affect rerun, and other results carry over with a diff-based reason that reviews check. Reports name the revision each result ran on and every unrun case
+- Keeps the round's two reviews independent until both results are in, cites the reviewed candidate by commit and tree (or by file hashes when nothing is committed), and starts no new round for edits made in response; a disagreement left after it goes to the user
 - Preserves business constraints and preferences when pruning, and distinguishes file size from actual loaded context
 
 ### skill-maintenance
