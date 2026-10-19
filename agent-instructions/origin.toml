@@ -112,8 +112,8 @@ where = [
 ]
 
 [[invariants]]
-rule = "Reruns are proportional to the edit. The whole suite runs on every supported host once on a candidate revision; after a later edit, the cases the edited text can affect rerun on every host, plus the selection probes when the description changes, and each added or changed case runs at least twice per host on the final revision. Any other result carries over only with a written, diff-based reason why the edits cannot affect it, which reviews, including the model pair, check. Each result names its revision, and an unrun case blocks the claims it covers."
-reason = "User decision on 2026-10-19, relayed by the coordinator: reruns after an edit are proportional to it. On 2026-10-18 retro's result rows ran before three later wording changes, and teach and verify left cases unrun, including verify's trust rule."
+rule = "Reruns are proportional to the edit. The whole suite runs on every supported host once on a candidate revision; after a later edit, the cases the edited text can affect rerun on every host, plus the selection probes when the description changes. A result from an earlier revision counts only with a written, diff-based reason why the edits cannot affect it, which reviews, including the model pair, check; this holds for added or changed cases too, which need at least two counted runs per host. Each result names its revision, and an unrun case blocks the claims it covers."
+reason = "User decision on 2026-10-19, relayed by the coordinator: reruns after an edit are proportional to it. Coordinator ruling of the same day applying it: the edit triggers a rerun, not the age of the case, so added or changed cases carry over under the same test. On 2026-10-18 retro's result rows ran before three later wording changes, and teach and verify left cases unrun, including verify's trust rule."
 where = ["references/evaluation.md#iterate-proportionately", "references/skill-changes.md#review-a-skill-change"]
 
 [[invariants]]

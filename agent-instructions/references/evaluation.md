@@ -130,14 +130,15 @@ authority or termination changes.
 
 Claims rest on the final revision. Label each result with the revision it ran
 on; a result ran on the final revision only when the runtime files it staged
-match the final ones by hash. Run each case added or whose expected behavior
-changed at least twice per host on the final revision. Any other result carries
-over from its revision only with a written reason, drawn from the diff since that
+match the final ones by hash. Any other result counts only when it carries over
+from its revision with a written reason, drawn from the diff since that
 revision, that names the edits and the graded outcomes they cannot reach;
 reviews of the change, including the [model pair](model-pair.md), check each
 reason against the diff, and a result without one, or with one the diff
-contradicts, does not count. List each case not run with its reason; an unrun
-case blocks any claim about the behavior it covers.
+contradicts, does not count. Grade every counted result against the case's
+current expectations. A case added or whose expected behavior changed needs at
+least two counted runs per host. List each case not run with its reason; an
+unrun case blocks any claim about the behavior it covers.
 
 When a claim needs repeated trials, such as a nondeterministic failure, a model
 migration or a performance comparison, define the metric, meaningful effect, run
