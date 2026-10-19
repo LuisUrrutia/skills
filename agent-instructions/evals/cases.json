@@ -493,7 +493,7 @@
     {
       "id": "direct-review-starts-pair",
       "kind": "state-transition",
-      "prompt": "Get a two-model review of skills/release-notes/SKILL.md for conflicts or omissions. Report findings without editing it.",
+      "prompt": "Review skills/release-notes/SKILL.md for conflicts or omissions. Report findings without editing it.",
       "fixture": {
         "files": {
           "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text without links.\n"
@@ -510,7 +510,7 @@
     {
       "id": "rate-limited-reviewer-does-not-block",
       "kind": "state-transition",
-      "prompt": "Get a two-model review of skills/release-notes/SKILL.md for conflicts or omissions. Report findings without editing it.",
+      "prompt": "Review skills/release-notes/SKILL.md for conflicts or omissions. Report findings without editing it.",
       "fixture": {
         "files": {
           "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text without links.\n"
@@ -545,7 +545,7 @@
     {
       "id": "reviewer-failures-outside-rate-limit-exception",
       "kind": "state-transition",
-      "prompt": "Get a two-model review of skills/release-notes/SKILL.md for conflicts or omissions. Report findings without editing it.",
+      "prompt": "Review skills/release-notes/SKILL.md for conflicts or omissions. Report findings without editing it.",
       "fixture": {
         "files": {
           "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area.\n"
@@ -841,7 +841,7 @@
         "Flags that the component rule and the Markdown-link output have no record change handed to skill-maintenance, and that the link output contradicts the recorded plain-text decision.",
         "Flags README.md and skills/pr-summary/SKILL.md as stale dependent text found by searching for release-notes, naming paths and the revision read.",
         "Flags the trial evidence: Claude Code only with no Codex run, one run on commit 1 before the output change, and no case for component grouping or the link output; the readiness claim is blocked until those run on the final revision.",
-        "No Codex Astra or Claude Fable consultation is requested, because the user asked for a review without asking for the two-model review; no file changes, origin.toml included."
+        "Codex Astra and Claude Fable are each requested at xhigh with the same brief, which asks for the skill-change checks; no file changes, origin.toml included."
       ]
     },
     {
@@ -980,7 +980,7 @@
     {
       "id": "uncommitted-review-stays-uncommitted",
       "kind": "state-transition",
-      "prompt": "Get a two-model review of my uncommitted change to skills/release-notes/SKILL.md for conflicts or omissions. Report findings with evidence. Do not edit anything.",
+      "prompt": "Review my uncommitted change to skills/release-notes/SKILL.md for conflicts or omissions. Report findings with evidence. Do not edit anything.",
       "fixture": {
         "setup": "A Git repository on branch main with committed_skill committed; the working tree replaces it with uncommitted_skill, which is not staged.",
         "committed_skill": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area.\nWrite release notes as plain text without links.\n",

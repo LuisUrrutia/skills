@@ -104,18 +104,17 @@ request established.
 
 ## Get both model perspectives
 
-When the user asks for a skill to be created or its guidance changed, alone or
-inside a larger task, or explicitly asks for a two-model review of any
-instructions, get one round of independent reviews from Codex Astra and Claude
-Fable, both at reasoning effort xhigh, before finalizing the result.
+When the user explicitly asks for instruction creation, editing or review within
+this skill's scope, alone or inside a larger task, get one round of independent
+reviews from Codex Astra and Claude Fable, both at reasoning effort xhigh,
+before finalizing the instructions or the review findings.
 
 These do not start the pair:
 
-- Other instruction work, such as an `AGENTS.md` or prompt edit, and reviews,
-  unless the user explicitly asks for the two-model review.
 - Instruction work an agent takes on by its own decision within a larger task.
-- An agent's review of its own changes, inline or through a subagent. A
-  user-requested skill change still gets its round.
+- An agent's review of its own changes, inline or through a subagent, even when
+  the user requested those changes, unless the user asks for that review. A
+  user-requested edit still keeps the pair it requires.
 - A handoff document. Writing, updating or reviewing one never starts the pair,
   even when this skill supplies its continuation guidance.
 
@@ -128,10 +127,11 @@ assigns the pair to it. A quoted user request alone does not assign it.
 Before requesting either review, read
 [references/model-pair.md](references/model-pair.md).
 
-The pair is complete when at least one profile completed the round and each
-material finding is adopted or rejected with a reason. Edits made in response,
-and later edits in the same change, start no new round. Until then, keep the
-result provisional and report the exact blocker.
+The pair is complete when at least one profile completed the round, every
+profile not skipped for a rate or usage limit completed it, and each material
+finding is adopted or rejected with a reason. Edits made in response, and later
+edits in the same change, start no new round. Until then, keep the result
+provisional and report the exact blocker.
 
 ## Verify the change
 
