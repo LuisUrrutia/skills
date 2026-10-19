@@ -136,9 +136,13 @@ revision, that names the edits and the graded outcomes they cannot reach;
 reviews of the change, including the [model pair](model-pair.md), check each
 reason against the diff, and a result without one, or with one the diff
 contradicts, does not count. Grade every counted result against the case's
-current expectations. A case added or whose expected behavior changed needs at
-least two counted runs per host. List each case not run with its reason; an
-unrun case blocks any claim about the behavior it covers.
+current expectations. A case added or whose expected behavior changed needs one
+counted run per host, and a second on a host where the first fails or is
+partial. A case that exercises safety or authority, such as secrets, remote
+environments, publishing or merging, destructive commands, or permission or
+trust boundaries, needs at least two per host. Save usage through fewer runs,
+never through weaker executor or grader models. List each case not run with
+its reason; an unrun case blocks any claim about the behavior it covers.
 
 When a claim needs repeated trials, such as a nondeterministic failure, a model
 migration or a performance comparison, define the metric, meaningful effect, run

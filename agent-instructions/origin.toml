@@ -112,8 +112,8 @@ where = [
 ]
 
 [[invariants]]
-rule = "Reruns are proportional to the edit. The whole suite runs on every supported host once on a candidate revision; after a later edit, the cases the edited text can affect rerun on every host, plus the selection probes when the description changes. A result from an earlier revision counts only with a written, diff-based reason why the edits cannot affect it, which reviews, including the model pair, check; this holds for added or changed cases too, which need at least two counted runs per host. Each result names its revision, and an unrun case blocks the claims it covers."
-reason = "User decision on 2026-10-19, relayed by the coordinator: reruns after an edit are proportional to it. Coordinator ruling of the same day applying it: the edit triggers a rerun, not the age of the case, so added or changed cases carry over under the same test. On 2026-10-18 retro's result rows ran before three later wording changes, and teach and verify left cases unrun, including verify's trust rule."
+rule = "The whole suite runs once per host on a candidate revision; after an edit, only the cases it can affect rerun, plus the selection probes when the description changes. An earlier result counts only with a diff-based reason, checked by reviews including the model pair, that the edits cannot affect it. An added or changed case needs one counted run per host, a second after a failure or partial result, and two when it exercises safety or authority; executors and graders keep the strong models. Every result names its revision; an unrun case blocks its claims."
+reason = "User decisions on 2026-10-19, relayed by the coordinator: reruns after an edit are proportional to it, and the run counts above, the coordinator's proposal accepted with the strong models kept. A coordinator ruling applying them: the edit triggers a rerun, not the age of the case. On 2026-10-18 retro's result rows ran before later wording changes, and teach and verify left cases unrun."
 where = ["references/evaluation.md#iterate-proportionately", "references/skill-changes.md#review-a-skill-change"]
 
 [[invariants]]
