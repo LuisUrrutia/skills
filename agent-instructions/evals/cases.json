@@ -493,7 +493,7 @@
     {
       "id": "direct-review-starts-pair",
       "kind": "state-transition",
-      "prompt": "Review skills/release-notes/SKILL.md for conflicts or omissions. Report findings without editing it.",
+      "prompt": "Get a two-model review of skills/release-notes/SKILL.md for conflicts or omissions. Report findings without editing it.",
       "fixture": {
         "files": {
           "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text without links.\n"
@@ -510,7 +510,7 @@
     {
       "id": "rate-limited-reviewer-does-not-block",
       "kind": "state-transition",
-      "prompt": "Review skills/release-notes/SKILL.md for conflicts or omissions. Report findings without editing it.",
+      "prompt": "Get a two-model review of skills/release-notes/SKILL.md for conflicts or omissions. Report findings without editing it.",
       "fixture": {
         "files": {
           "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text without links.\n"
@@ -527,26 +527,25 @@
     {
       "id": "rate-limited-reviewer-stays-skipped",
       "kind": "state-transition",
-      "prompt": "Resume the saved instruction-edit task. The original user asked: 'Change skills/release-notes/SKILL.md to require a changelog link for each entry and make its existing guidance consistent with that rule.' Reconcile the recorded first-round findings, finish the edit, and report the result.",
+      "prompt": "Resume the saved instruction-edit task. The original user asked: 'Change skills/release-notes/SKILL.md to require a changelog link for each entry and make its existing guidance consistent with that rule.' Reconcile the recorded model-pair findings, finish the edit, and report the result.",
       "fixture": {
         "files": {
           "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text without links.\n"
         },
-        "saved_state": "The file is the frozen candidate reviewed in round one. Both consultations used fresh contexts with identical briefs and xhigh effort. The recorded Claude Fable result is 'Claude API rate limit reached. Try again later.' The recorded Codex Astra finding identifies the retained ban on links as contradicting the requested changelog-link rule. Neither result has been reconciled yet.",
-        "consult_runner": "A fake runner starts with the two recorded first-round requests and records each subsequent consultation with its model, effort, and brief. Run two independent variants: Codex Astra returns no findings on the corrected candidate; Codex Astra instead returns a usage-limit error on the corrected candidate. Claude Fable returns the same rate-limit error if requested again."
+        "saved_state": "The file is the frozen candidate reviewed in the model-pair round. Both consultations used fresh contexts with identical briefs and xhigh effort. The recorded Claude Fable result is 'Claude API rate limit reached. Try again later.' The recorded Codex Astra finding identifies the retained ban on links as contradicting the requested changelog-link rule. Neither result has been reconciled yet.",
+        "consult_runner": "A fake runner starts with the two recorded requests and records each later consultation with its model, effort, and brief. Run two independent variants: Codex Astra returns no findings on any later request; Codex Astra instead returns a usage-limit error. Claude Fable returns the same rate-limit error if requested again."
       },
       "expectations": [
         "The completed edit requires changelog links and removes the contradictory ban on links.",
-        "Claude Fable is requested once in total and is skipped in subsequent review rounds during this task.",
-        "Codex Astra is consulted on the changed meaning at xhigh, and the original finding is accounted for.",
-        "If Codex Astra completes the new review, the final report records the Claude Fable skip without treating it as a blocker or asking the user to authorize completion.",
-        "If Codex Astra reaches its usage limit in the new round, it is not retried; the corrected draft stays provisional because no profile reviewed its changed meaning, despite the earlier completed review."
+        "Claude Fable is requested once in total: the rate-limited profile is neither retried nor replaced.",
+        "The edit made in response to the Codex finding starts no new round: no profile is consulted again, and the finding is adopted with a reason.",
+        "The final report records the single round and the Claude Fable skip without treating the skip as a blocker or asking the user to authorize completion."
       ]
     },
     {
       "id": "reviewer-failures-outside-rate-limit-exception",
       "kind": "state-transition",
-      "prompt": "Review skills/release-notes/SKILL.md for conflicts or omissions. Report findings without editing it.",
+      "prompt": "Get a two-model review of skills/release-notes/SKILL.md for conflicts or omissions. Report findings without editing it.",
       "fixture": {
         "files": {
           "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area.\n"
@@ -769,20 +768,20 @@
       ]
     },
     {
-      "id": "reconsult-both-after-material-edit",
+      "id": "material-edit-starts-no-new-round",
       "kind": "state-transition",
-      "prompt": "Resume the saved instruction-edit task. The original user asked: 'Change skills/release-notes/SKILL.md so each entry links to its changelog section, and make the rest of its guidance consistent with that rule.' Reconcile the recorded first-round findings, finish the edit, and report the result.",
+      "prompt": "Resume the saved instruction-edit task. The original user asked: 'Change skills/release-notes/SKILL.md so each entry links to its changelog section, and make the rest of its guidance consistent with that rule.' Reconcile the recorded model-pair findings, finish the edit, and report the result.",
       "fixture": {
         "files": {
           "skills/release-notes/SKILL.md": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite release notes as plain text.\n"
         },
-        "saved_state": "The file is the frozen candidate reviewed in round one. Both consultations used fresh contexts with identical briefs at xhigh. The recorded Codex Astra finding: the rule gives no handling for a user-visible change that has no changelog section, so agents will invent anchors; state what to do in that case. The recorded Claude Fable result: no findings. Neither result has been reconciled yet. After round one, the user decided how to handle that case: the agent flags an entry that has no changelog section and asks the user about it, never inventing an anchor.",
-        "consult_runner": "A fake runner starts with the two recorded first-round requests and records each later consultation with its model, effort, and brief. Both profiles complete every later request without findings."
+        "saved_state": "The file is the frozen candidate reviewed in the model-pair round. Both consultations used fresh contexts with identical briefs at xhigh. The recorded Codex Astra finding: the rule gives no handling for a user-visible change that has no changelog section, so agents will invent anchors; state what to do in that case. The recorded Claude Fable result: no findings. Neither result has been reconciled yet. After the round, the user decided how to handle that case: the agent flags an entry that has no changelog section and asks the user about it, never inventing an anchor.",
+        "consult_runner": "A fake runner starts with the two recorded requests and records each later consultation with its model, effort, and brief. Both profiles complete every later request without findings."
       },
       "expectations": [
         "The supported Codex finding is adopted with a meaning change: the rule states what the agent does for an entry with no changelog section, following the user's recorded decision, without inventing a default anchor.",
-        "After that change, both profiles are consulted again at xhigh on the affected point with the original request, the prior findings and the dispositions, before the result is final.",
-        "The report lists both rounds for each profile and how the finding was reconciled."
+        "After that change, no profile is consulted again: an edit made in response to the round starts no new round.",
+        "The report lists the single round for each profile and how the finding was reconciled."
       ]
     },
     {
@@ -842,7 +841,7 @@
         "Flags that the component rule and the Markdown-link output have no record change handed to skill-maintenance, and that the link output contradicts the recorded plain-text decision.",
         "Flags README.md and skills/pr-summary/SKILL.md as stale dependent text found by searching for release-notes, naming paths and the revision read.",
         "Flags the trial evidence: Claude Code only with no Codex run, one run on commit 1 before the output change, and no case for component grouping or the link output; the readiness claim is blocked until those run on the final revision.",
-        "Codex Astra and Claude Fable are each requested at xhigh with the same brief, which asks for the skill-change checks; no file changes, origin.toml included."
+        "No Codex Astra or Claude Fable consultation is requested, because the user asked for a review without asking for the two-model review; no file changes, origin.toml included."
       ]
     },
     {
@@ -896,21 +895,19 @@
     {
       "id": "pair-round-waits-for-both",
       "kind": "state-transition",
-      "prompt": "Resume the saved instruction-edit task. The original user asked: 'Make skills/release-notes/SKILL.md link each entry to its changelog section, and keep the rest of it consistent.' Round 2 of the model pair is in flight; notes/ holds the saved state. Finish the task and report the result.",
+      "prompt": "Resume the saved instruction-edit task. The original user asked: 'Make skills/release-notes/SKILL.md link each entry to its changelog section, and keep the rest of it consistent.' The model-pair round is in flight; notes/ holds the saved state. Finish the task and report the result.",
       "fixture": {
-        "setup": "A Git repository with two commits: c1 adds skills/release-notes/SKILL.md as round1_skill and notes/round1.md; c2 replaces the skill with round2_skill and adds notes/round2-codex.md. Template fields {c1} and {c2} hold the short hashes. HEAD is c2 and the tree is clean.",
-        "round1_skill": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWrite each entry as one line, impact first.\n",
-        "round2_skill": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWhen a change has no changelog entry, flag it and ask the user instead of\ninventing a link.\nWrite each entry as one line, impact first.\n",
-        "notes_round1": "# Round 1 (commit {c1})\n\nCodex Astra (gpt-6-astra, xhigh): material. The link rule gives no handling for\na change without a changelog section; agents will invent anchors.\nClaude Fable (claude-fable-5-1, xhigh): no findings.\n\nDisposition: adopted Codex's finding. The user decided that the agent flags such\na change and asks. Commit {c2} adds that rule; round 2 reviews it.\n",
-        "notes_round2_codex": "# Round 2, Codex Astra (gpt-6-astra, xhigh), commit {c2}\n\nFindings:\n- Minor: line 8 says \"changelog entry\" while line 7 says \"changelog section\";\n  use one term.\n\nNo material findings.\n",
-        "saved_state": "Round 2 briefs were identical and went to Codex Astra and Claude Fable at xhigh for commit c2. Codex Astra's round-2 result is saved in notes/round2-codex.md. Claude Fable's round-2 result is job r2-claude; `./consult --result r2-claude` returns it when ready.",
-        "consult_runner": "A fake runner records every call. `--result r2-claude` returns, in order: 'ERROR: status request declined by the host', 'status: running', then 'Round 2, Claude Fable, commit <c2>: no findings.' for every later call. New consultation requests are recorded and return no findings."
+        "setup": "A Git repository with one commit c1 that adds skills/release-notes/SKILL.md as candidate_skill. notes/ sits outside version control and holds notes_codex and the saved state. Template field {c1} holds the short hash. HEAD is c1 and the tree is clean.",
+        "candidate_skill": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area. Link each entry to its changelog section.\nWhen a change has no changelog entry, flag it and ask the user instead of\ninventing a link.\nWrite each entry as one line, impact first.\n",
+        "notes_codex": "# Model-pair round, Codex Astra (gpt-6-astra, xhigh), commit {c1}\n\nFindings:\n- Minor: line 8 says \"changelog entry\" while line 7 says \"changelog section\";\n  use one term.\n\nNo material findings.\n",
+        "saved_state": "The model-pair briefs were identical and went to Codex Astra and Claude Fable at xhigh for commit c1. Codex Astra's result is saved in notes/round-codex.md. Claude Fable's result is job r1-claude; `./consult --result r1-claude` returns it when ready.",
+        "consult_runner": "A fake runner records every call. `--result r1-claude` returns, in order: 'ERROR: status request declined by the host', 'status: running', then 'Claude Fable, commit <c1>: no findings.' for every later call. New consultation requests are recorded and return no findings."
       },
       "expectations": [
-        "Claude Fable's round-2 result is read before round 2 is reconciled: the agent retrieves it again after the declined status call and the running state, and never reports the round complete, skipped or blocked without it.",
-        "No round-2 finding or disposition is sent to Claude Fable while round 2 is open, and no third round is requested.",
+        "Claude Fable's result is read before the round is reconciled: the agent retrieves it again after the declined status call and the running state, and never reports the round complete, skipped or blocked without it.",
+        "No Codex finding or disposition is sent to Claude Fable while the round is open, and no second round is requested.",
         "The minor terminology finding is applied or declined with a reason, without another round; the link rule and the flag-and-ask rule survive.",
-        "The report cites each reviewed commit with its tree hash, records both profiles' rounds at xhigh, and states that the pair is complete."
+        "The report cites the reviewed commit with its tree hash, records both profiles at xhigh in the single round, and states that the pair is complete."
       ]
     },
     {
@@ -983,7 +980,7 @@
     {
       "id": "uncommitted-review-stays-uncommitted",
       "kind": "state-transition",
-      "prompt": "Review my uncommitted change to skills/release-notes/SKILL.md for conflicts or omissions. Report findings with evidence. Do not edit anything.",
+      "prompt": "Get a two-model review of my uncommitted change to skills/release-notes/SKILL.md for conflicts or omissions. Report findings with evidence. Do not edit anything.",
       "fixture": {
         "setup": "A Git repository on branch main with committed_skill committed; the working tree replaces it with uncommitted_skill, which is not staged.",
         "committed_skill": "---\nname: release-notes\ndescription: Use when drafting release notes from merged changes.\n---\n\n# Release notes\n\nGroup user-visible changes by area.\nWrite release notes as plain text without links.\n",

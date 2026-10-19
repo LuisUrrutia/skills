@@ -53,8 +53,8 @@ reason = "Policy and preferences can be valuable even when they differ from a mo
 where = ["SKILL.md#pruning"]
 
 [[invariants]]
-rule = "Instruction work the user explicitly requests gets independent, fresh-context reviews from Codex Astra and Claude Fable before the result is final. Work an agent starts on its own, and its review of its own changes, start no pair unless the user asks for that review. The agent receiving the user's request runs the pair unless a brief relays that request and assigns the pair to a delegate. A rate or usage limit skips that profile for the task; other failures leave the result provisional; no model or effort is substituted without the user. No donor review layer replaces the pair."
-reason = "Explicit user policy (reports/skill-atlas/agent-instructions-dual-review-validation.json). Commit 299c077 stopped a subagent from starting an unrequested pair; commit 3d96199 lets one reviewer continue when the other reaches a rate limit."
+rule = "The pair runs when the user asks for a skill to be created or its guidance changed, or explicitly asks for a two-model review; other instruction work, other reviews, work an agent starts on its own and its review of its own changes start none. The agent receiving the user's request runs it unless a brief relays that request and assigns the pair to a delegate. A rate or usage limit skips that profile for the task; other failures leave the result provisional; no model or effort is substituted without the user. No donor review layer replaces the pair."
+reason = "Explicit user policy (reports/skill-atlas/agent-instructions-dual-review-validation.json), narrowed by the user's decision of 2026-10-19, relayed by the coordinator: the two-model review is only for creating or modifying a skill, because otherwise it burns all the user's usage. Including explicit requests for any instructions is the coordinator's reading, pending the user's confirmation. Commit 299c077 stopped a subagent from starting an unrequested pair; commit 3d96199 lets one reviewer continue when the other reaches a rate limit."
 where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md#handle-failures"]
 
 [[invariants]]
@@ -117,8 +117,8 @@ reason = "User decision on 2026-10-19, relayed by the coordinator: reruns after 
 where = ["references/evaluation.md#iterate-proportionately", "references/skill-changes.md#review-a-skill-change"]
 
 [[invariants]]
-rule = "Each model-pair round reviews a frozen candidate, cited by commit and tree hash when committed and by file hashes otherwise; freezing commits nothing the request or repository rules do not authorize. Both reviewers get identical inputs, private from each other and from the coordinator's dispositions until both results are in; a round is reconciled only after both results are read in full or the missing profile is skipped or blocked. Only edits that change the reviewed meaning are reconsulted; other findings are applied or declined without another round, and a round with no material finding ends the loop."
-reason = "On 2026-10-18: rebase.updateRefs moved backup refs so reviewed commits survived only in the reflog; this skill's pilot appended one reviewer's dispositions to a shared file while the other was still reviewing; the verify pilot reconciled a round before the other result arrived and skipped a result after a declined status call; and minor findings kept starting rounds (verify 8, this skill 5, retro 3)."
+rule = "The round reviews a frozen candidate, cited by commit and tree hash, or by file hashes when nothing may be committed. Both reviewers get identical inputs, private from each other and from the coordinator's dispositions until both results are in, and the round is reconciled only after both are read in full or the missing profile is skipped or blocked. A change gets one round: edits in response and later edits start no new round, and a material disagreement left after it goes to the user in the report."
+reason = "User decision on 2026-10-19, relayed by the coordinator: one round per skill change, so the pair does not spawn for every change. On 2026-10-18: rebase.updateRefs moved backup refs so reviewed commits survived only in the reflog; this skill's pilot appended one reviewer's dispositions to a shared file while the other was still reviewing; the verify pilot reconciled a round before the other result arrived and skipped a result after a declined status call; and minor findings kept starting rounds (verify 8, this skill 5, retro 3)."
 where = [
   "references/model-pair.md#brief-the-reviewers",
   "references/model-pair.md#handle-failures",
@@ -183,8 +183,8 @@ reason = "Trials showed agents turning 'create tests' into execution (reports/ag
 where = ["SKILL.md#establish-meaning-and-scope", "references/reuse.md#reuse-and-standardization"]
 
 [[sources.deviations]]
-change = "Added the Get both model perspectives step and references/model-pair.md: independent Codex Astra and Claude Fable reviews at xhigh for instruction work the user explicitly requests, with who runs them, a completion criterion, runner resolution, briefs, failure handling, reconciliation and when rounds stop."
-reason = "The model-pair invariants and the user's decisions of 2026-10-18 on effort, the handoff exemption and the split between SKILL.md and the reference."
+change = "Added the Get both model perspectives step and references/model-pair.md: independent Codex Astra and Claude Fable reviews at xhigh for a skill the user asks to create or change and for any two-model review the user explicitly requests, one round per change, with who runs them, a completion criterion, runner resolution, briefs, failure handling and reconciliation."
+reason = "The model-pair invariants, the user's decisions of 2026-10-18 on effort, the handoff exemption and the split between SKILL.md and the reference, and the user's decision of 2026-10-19 on one round per skill change."
 where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md"]
 
 [[sources.deviations]]
