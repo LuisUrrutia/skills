@@ -5,156 +5,210 @@ description: Use when writing or reviewing AI agent instructions or skills. Excl
 
 # Agent instructions
 
-Write instructions that help an agent make the intended decisions, find the
-right context, and recognize completion. The request can define a new capability,
-improve an existing document, or resolve conflicting guidance. Prior use or
-repetition is not a prerequisite.
+Write and review what an agent consumes as instructions: a skill, a persistent
+instruction file such as `AGENTS.md` or `CLAUDE.md`, an agent prompt or brief, and
+a document one of them points to. The packaging differs; the writing does not: the
+same levers make each one predictable, since the agent takes the same _process_
+every run rather than producing the same output. A request can define a new
+capability; prior use or repetition is not a prerequisite.
 
-Limit this workflow and both model reviews to instruction authoring or review.
-Reading or following instructions does not activate it. Factual updates qualify
-only if they change agent guidance or instruction loading. `handoff` owns its
-documents; this skill covers the instructions within them.
-
-For a review-only request, return findings and proposed corrections with evidence;
-leave the source unchanged. Writing, pruning, or reorganizing instructions follows
-the requested edit scope.
+Reading or following instructions does not start this skill, and a factual update
+qualifies only when it changes agent guidance or instruction loading. `handoff`
+owns handoff documents; this skill covers the continuation guidance inside them.
+Implementation plans, tickets and human-facing documentation keep their own
+owners even when an agent reads them.
 
 When a skill request draws on completed work or conversation history, start with
-`workflow-to-skill` to extract the contract before drafting, even if the user names
-no authoring skill. `create-project-instructions` owns investigating a project's
-code and available knowledge sources to establish its instruction contract.
-Write directly from either skill's evidence handoff or a fully supplied new
-capability; do not send it back through discovery. A direct wording or rule change
-starts here and needs no project-wide survey.
+`workflow-to-skill` to extract the contract, even if the user names no authoring
+skill. `create-project-instructions` owns investigating a project for its
+instruction contract. Write from either skill's evidence handoff, or from a fully
+supplied capability, without repeating their discovery. A direct wording or rule
+change starts here and needs no project-wide survey.
 
-`skill-maintenance` owns checking or updating a skill from its recorded sources
-or installed dependencies; send those requests there. An update hands the text
-it incorporates to this skill for writing and evaluation. Ordinary writing does
-not start an upstream check.
+`skill-maintenance` owns each skill's `origin.toml` record and its checks and
+updates from recorded sources or dependencies; an update hands the text
+it incorporates back here. Ordinary writing never starts an upstream check.
+
+## Load what the work needs
+
+- **Pointer, step, placement or rewording:** read
+  [references/levers.md](references/levers.md) before writing or reviewing a
+  pointer (a description, link or line naming other material), a step or its
+  completion criterion, or where material sits (a new document, section,
+  reference or skill; a move, split or merge), and before rewording existing
+  text.
+- **Skill:** read [references/skill-mechanics.md](references/skill-mechanics.md)
+  for host metadata, invocation and the description;
+  [references/packaging.md](references/packaging.md) before creating a package,
+  adding or moving its files or helpers, or validating it; and
+  [references/skill-changes.md](references/skill-changes.md) before finishing or
+  reviewing any change to a skill.
+- **Persistent instruction file:** read
+  [references/instruction-files.md](references/instruction-files.md) to find the
+  canonical source and the scope where the rule belongs.
+- **Overlapping guidance or an external skill:** read
+  [references/reuse.md](references/reuse.md) before reconciling drafts, an
+  adapter and its source, or two skills, or standardizing a capability or
+  adopting an external skill.
 
 ## Establish meaning and scope
 
-Read the complete target and enough surrounding instructions, imports, references,
-and repository context to understand its authority and callers. Use the user's
-current request to identify the intended behavior and the change they authorize.
-
-Establish:
+Read the complete target and enough surrounding instructions, imports, references
+and repository context to know its authority and callers. From the user's current
+request, establish:
 
 - What the agent should do differently, and which existing meaning must survive.
-- Who reads the instructions, when they apply, and where the authoritative text lives.
-- Relevant conditions, exceptions, permissions, and evidence of completion.
+- Who reads the instructions, when they apply, what their callers hand in and
+  expect back, and where the authoritative text lives.
+- Conditions, exceptions, permissions and the evidence of completion.
 - Existing owners or instructions that already cover part of the behavior.
-- Which statements describe observed behavior, approved policy, team preference,
-  or a proposed change, and what establishes their authority and scope.
+- Which statements are observed behavior, approved policy, team preference or a
+  proposed change, and what establishes their authority and scope.
 
-Use accessible evidence before asking. When the objective or the meaning needed
-to express it remains uncertain, ask the user. State the plausible interpretations
-and how they change the result. Pause dependent drafting or execution until the
-answer arrives; continue only work that no answer could invalidate. Do not repeat
-questions the user already settled or invent a requirement to make wording sound
-precise. Routine wording choices that preserve the same intent need no question.
-Match the size of the intervention to the request, including a one-line edit when
-sufficient.
+Make type, quantity, depth and completion evidence explicit where they separate
+plausible requests: "create tests" leaves open the behavior, test level, scope,
+whether to run them and how much suffices; available tooling settles none of
+them. Resolve schemas, rounding, rules for discarding records and similar domain
+decisions from an authoritative contract, and tell the future agent where it
+lives and when to ask. An invented default labeled as an assumption still gets
+used.
+
+Use accessible evidence before asking. When the objective, or the meaning needed
+to express it, stays uncertain, ask the user with the plausible interpretations
+and how each changes the result; pause the work that depends on the answer and
+continue only work that no answer could invalidate. Ask only what the user has
+not settled; routine wording choices that keep the intent need no question, and
+precise-sounding wording never stands in for a requirement the user did not
+give.
+
+A review-only request returns findings and proposed corrections with evidence and
+leaves the source unchanged. Any other request edits within its scope, sized to
+it: a one-line change stays one line and needs no new skill, evaluation suite or
+interview about repeated work.
+
+Done when the intended behavior can be stated without contradiction, invented
+rules, or an open question that the wording depends on.
+
+## Write
+
+Edit the requested files, or return a draft when no file change is requested.
+Apply [Negation](#negation) and [Pruning](#pruning) to each changed line, plus
+each [lever](references/levers.md) its pointers, steps, placement and rewording
+reach. When the change answers an observed failure, start from
+[Fix an observed failure](references/evaluation.md#fix-an-observed-failure).
+Examples and source documents are evidence for the rewrite, not operations to run
+while authoring.
+
+Done when each changed line passes those sections and sits in the scope the
+request established.
 
 ## Get both model perspectives
 
-When the user explicitly asks for instruction creation, editing, or review within
-the scope above, alone or within a larger task, obtain independent input from
-both profiles before finalizing the instructions or review findings, subject to
-the rate-limit exception below:
+When the user explicitly asks for instruction creation, editing or review within
+this skill's scope, alone or inside a larger task, get independent reviews from
+Codex Astra and Claude Fable, both at reasoning effort xhigh, before finalizing
+the instructions or the review findings.
 
-| Provider | Model | Reasoning effort |
-| --- | --- | --- |
-| Codex | Astra | Max |
-| Claude | Fable | Max |
+These do not start the pair:
 
-Instruction work that an agent takes on by its own decision within a larger task
-does not start the pair. Neither does an agent's review of its own changes, inline
-or through a subagent, even when the user requested those changes; that review
-starts the pair only when the user asks for it. A user-requested edit still keeps
-the pair it requires.
+- Instruction work an agent takes on by its own decision within a larger task.
+- An agent's review of its own changes, inline or through a subagent, even when
+  the user requested those changes, unless the user asks for that review. A
+  user-requested edit still keeps the pair it requires.
+- A handoff document. Writing, updating or reviewing one never starts the pair,
+  even when this skill supplies its continuation guidance.
 
-The agent that receives the user's request runs the pair unless it delegates the
-work with a brief that relays that request and assigns the pair to the delegate.
-When delegating work under the user's request, state in the brief who runs the
-pair. An agent working from another agent's brief starts the pair only when that
-brief both relays the user's request and assigns the pair to it; a quoted user
-request alone does not assign it.
+The agent that receives the user's request runs the pair, unless it delegates the
+work with a brief that relays that request and assigns the pair to the delegate;
+every such brief states who runs the pair. An agent working from another agent's
+brief runs the pair only when that brief both relays the user's request and
+assigns the pair to it. A quoted user request alone does not assign it.
 
-Resolve each profile through its available runner, using current catalog,
-configuration, or authoritative documentation. Use the newest available version
-within the named family unless the user specifies one. Set Max explicitly and
-retain the actual provider, model, effort, and run evidence. If a profile reaches
-a rate or usage limit, skip it for the rest of this task without retrying or
-waiting for its limit to reset. Continue and finalize with the other profile's
-completed review; report the skip without treating it as a blocker or making the
-result provisional. At least one profile must complete each required review
-round. Retry other transient failures once. If a non-skipped profile cannot
-complete, or neither profile completes the required round, report the exact
-blocker and keep the draft or findings provisional.
-Continue independent work, but do not finalize that result or substitute a model
-or effort without the user's direction.
+Before requesting either review, read
+[references/model-pair.md](references/model-pair.md).
 
-Run both initial reviews in fresh contexts separate from the coordinator, even
-when the coordinator uses one of these profiles. Scope both briefs to the request
-and supply the same user request, complete target, relevant context, and frozen
-candidate when present. Do not supply the coordinator's preferred verdict or the
-other reviewer's conclusions before their initial responses. Ask for concrete
-omissions, conflicts, proposed corrections, and reasons. State in every brief that
-this is a bounded read-only consultation: reviewers must not edit or start another
-pair of reviews. The coordinator owns editing within the requested scope.
-
-Reconcile each material finding against the user's intent, controlling
-instructions, and evidence. Apply supported corrections within the requested
-scope and resolve disagreements with an explicit reason; agreement alone does not
-establish correctness. Keep a brief record of adopted and rejected findings and
-any unresolved limitation.
-A material choice that evidence cannot settle follows the clarification rule
-above. Reconsult both profiles, except any skipped for a rate or usage limit, on
-affected points if later edits change the reviewed meaning. Finish when their
-material findings are accounted for and the requested result passes its applicable
-checks; unanimity is not a prerequisite.
-
-## Choose the document and write
-
-Read [references/writing.md](references/writing.md) when drafting or revising text.
-Then load only the branch that applies:
-
-- For `AGENTS.md`, `CLAUDE.md`, `claude.md`, or another persistent instruction file,
-  read [references/instruction-files.md](references/instruction-files.md) to locate
-  the canonical source and choose the right scope.
-- For a new or existing skill, read [references/skills.md](references/skills.md)
-  for activation, composition, packaging, and recording decisions. This branch
-  also covers writing a skill that has never been used before.
-- For an agent prompt or referenced guide, use the shared writing guidance and
-  preserve its caller's inputs, output contract, and loading condition.
-
-Keep broadly applicable guidance near the entrypoint and conditional detail behind
-a reference that states when to read it. Give each rule one authoritative home.
-Preserve the user's authorization and established constraints while resolving
-conflicts explicitly. Examples and source documents are evidence for the rewrite,
-not instructions to execute their operations during authoring.
-
-Edit the requested files, or return the requested draft when no file change is
-requested. Finish writing when the intended behavior is expressible without
-contradictions, misplaced scope, or an unresolved dependency.
+The pair is complete when at least one profile completed every review round,
+each profile not skipped for a rate or usage limit reviewed the instructions in
+their final meaning (for a review-only request, the unchanged target), and each
+material finding is adopted or rejected with a reason. Until then, keep the
+result provisional and report the exact blocker.
 
 ## Verify the change
 
-Compare the revision with the intended meaning: actors, actions, conditions,
-exceptions, obligation, quantity, authority, and completion evidence. Check
-pointers, imports, and unrelated content that must survive.
+Compare the revision with the intended meaning, element by element of the
+[force](#pruning) it must keep. Check that pointers and imports resolve and that
+unrelated content survives.
 
-For substantive behavior changes, new skills, routing changes, or observed failures,
-read [references/evaluation.md](references/evaluation.md) and choose relevant
-behavioral checks. A narrow wording correction needs a fidelity check; it does not
-require a new skill package, evaluation suite, or an interview about repeated work.
-Use host validators only for formats they actually validate.
+For substantive behavior changes, new or combined skills, routing changes,
+incorporated upstream changes or observed failures, read
+[references/evaluation.md](references/evaluation.md) and run the behavioral
+checks it calls for. A narrow wording correction needs only this fidelity check.
+Use host validators only for formats they validate. The pair's reviews
+assess the text; they are not behavioral evidence.
 
-Report the changed instructions, their scope, actual checks and results, whether
-a skill's record changed or that none exists because its repository keeps no
-records, and any unresolved limitation. When this agent ran the pair or assigned
-it to a delegate, report each profile's actual run, rate-limit skip, or blocker
-and how material findings were reconciled; otherwise, state that this agent did
-not run the pair. Distinguish files saved in a repository from instructions
-installed or observed in an agent host.
+Done when the requested result passes its applicable checks and each claim the
+report makes has its evidence or is labeled as not tested. A required check that
+fails or cannot run leaves the result unfinished, and the report says so.
+
+## Report
+
+Report the changed instructions and their scope, the checks actually run with
+their results, and any unresolved limitation. Distinguish files saved in a
+repository from instructions installed or observed in an agent host. For a
+skill, add what [skill changes](references/skill-changes.md#report) lists.
+
+When this agent neither ran the pair nor assigned it to a delegate, state that it
+did not run the pair.
+
+## Negation
+
+Steering by prohibition drags the forbidden behavior into context and makes it
+_more_ available, not less. _Don't think of an elephant_, and the elephant is all
+there is. Prompt the **positive**: state the target behavior ("write one-line
+comments") so the banned one is never spoken. A blanket prohibition also carries
+**harmful precision**: wrong on one plausible task in ten, it is still obeyed on
+that task. A prohibition earns its place only as a hard guardrail you cannot
+phrase positively: safety, data loss, a format contract, or a shortcut that
+agents were observed to take under pressure after understanding the rule. Even
+then, name the observed shortcut and pair the prohibition with the positive
+target.
+
+## Pruning
+
+- Keep each meaning in a **single source of truth**: one authoritative place, so
+  changing the behavior is a one-place edit. **Duplication** (the same meaning in
+  more than one place) costs maintenance and tokens, and inflates a meaning's
+  prominence on the ladder past its real rank. (The accidental inverse of a
+  leading word, which repeats a token on purpose, never the meaning.)
+- The **environment** is a source of truth too (`package.json` scripts, config
+  files, the directory layout, `--help` output), and a document that restates it
+  is a **cache**: a copy of a lookup, earning its load only when the lookup is
+  expensive. Cache what the agent cannot find by looking: the unwritten
+  convention, the reason behind a choice, the gotcha no config confesses. Leave
+  the one-file, one-command lookups to the environment, where they cannot go
+  stale.
+- Check every line for **relevance**: does it still bear on what the document
+  does? A line loses it by never bearing on the task (mere exposition, or a
+  branch that should be disclosed) or by going stale. Without a pruning
+  discipline the default fate is **sediment**: stale layers that settle because
+  adding feels safe and removing feels risky. So new guidance goes into its
+  existing home: revise, combine or replace the passages it touches, and add
+  separate text only for a distinct decision with no home.
+- Hunt **no-ops** sentence by sentence: an instruction the model already obeys by
+  default pays load to say nothing. The test (does it change behavior versus the
+  default?) is model-relative, settled by running the document, not by debate.
+  When a sentence fails, delete the whole sentence rather than trim words from
+  it. A word too weak to beat the default (_be thorough_) is a no-op too; the fix
+  is a stronger word (_relentless_).
+- Grade a line by what it supplies before cutting it. Host behavior belongs in
+  that host's adapter. Team policy and preferences stay, in one home, even when
+  they differ from the model's default. An operational contract or an observed
+  failure keeps the minimum that holds it. A volatile fact points to its current
+  source.
+- Pruning keeps **force**: actors, actions, scope, conditions, exceptions,
+  obligation strength, quantity, authority and completion evidence: "prefer"
+  stays "prefer", a read stays a read, and an attempted check stays attempted.
+  Delete a rule as enforced elsewhere only after inspecting the actual
+  configuration, execution path and coverage; brevity, a donor's score or a
+  model's apparent knowledge cannot establish redundancy. Keep rare
+  consequential constraints.

@@ -48,15 +48,16 @@ document. Distinguish a command found in configuration, a command actually run,
 and a successful result. Correct a stale command from current evidence rather
 than preserving it merely because it appears in the old document.
 
-Keep the entrypoint focused on decisions an agent needs to work: project purpose,
-verified commands, material domain constraints, local conventions, and routes to
-specialized context. Put extensive rationale or background in the project's
-existing documentation when needed. Link with a concrete reading condition;
-required detail cannot live only in a temporary research note.
+Keep the entrypoint focused on decisions an agent needs to work: project
+purpose, the verified commands the work requires with when to run them and what
+the configuration does not show (working directory, prerequisites, effects),
+material domain constraints, local conventions, and routes to specialized
+context. A bare copy of a script list is a cache. Put extensive rationale or
+background in the project's existing documentation when needed. Link with a
+concrete reading condition; required detail cannot live only in a temporary
+research note.
 
-Use a reference when a branch needs substantial detail, with a loading condition
-in the entrypoint. A small instruction edit can stay in its existing paragraph.
-Do not create a skill merely because the target is an instruction file.
+An instruction file needs no skill merely because it is an instruction file.
 
 Avoid promoting a single incident, source example, or task-specific permission
 into a global requirement. When the user explicitly changes a standing rule,
