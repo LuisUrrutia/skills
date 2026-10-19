@@ -91,7 +91,7 @@ rules, or an open question that the wording depends on.
 
 ## Write
 
-Edit the requested files, or return a draft when none is requested.
+Edit the requested files, or return a draft when no file change is requested.
 Apply [Negation](#negation) and [Pruning](#pruning) to each changed line, plus
 each [lever](references/levers.md) its pointers, steps, placement and rewording
 reach. When the change answers an observed failure, start from
@@ -163,7 +163,7 @@ did not run the pair.
 ## Negation
 
 Steering by prohibition drags the forbidden behavior into context and makes it
-_more_ available, not less. _Don't think of an elephant_, and the elephant is all
+_more_ available. _Don't think of an elephant_, and the elephant is all
 there is. Prompt the **positive**: state the target behavior ("write one-line
 comments") so the banned one is never spoken. A blanket prohibition also carries
 **harmful precision**: wrong on one plausible task in ten, it is still obeyed on
