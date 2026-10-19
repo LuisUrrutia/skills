@@ -25,7 +25,12 @@ reason = "The coordinator's reviewer-skill brief of 2026-10-18 makes retro the o
 where = ["SKILL.md#workflow-to-skill", "SKILL.md#choose-what-to-retain"]
 
 [[invariants]]
-rule = "When the request asks for the correction and retro is available, retro receives its corrections with their evidence, the request's authority and the corrections retained here; otherwise they are listed as retro's. Of what retro returns, a change it handed off or applied, or one duplicating a retained correction, starts no second change; an instruction change it proposed for agent-instructions that needs no user decision first goes on unchanged; every other finding is reported with its owner and status. A procedure retro hands over is extracted from its episode without a second diagnosis."
+rule = "When the request asks for the correction and retro is available, retro receives its corrections with their evidence, the request's authority and the corrections retained here; otherwise they are listed as retro's. Either way they carry what happened and its evidence, and the cause is left for retro to diagnose."
+reason = "The coordinator's reviewer-skill brief of 2026-10-18 makes retro the owner of diagnosing what went wrong in a session, says that this skill does not diagnose failures, and requires that no correction be dropped or produced twice."
+where = ["SKILL.md#choose-what-to-retain"]
+
+[[invariants]]
+rule = "Of what retro returns, a change it handed off or applied, or one duplicating a retained correction, starts no second change; an instruction change it proposed for agent-instructions that needs no user decision first goes on unchanged; every other finding is reported with its owner and status. A procedure retro hands over is extracted from its episode without a second diagnosis."
 reason = "The same brief requires that no correction be dropped or produced twice, and retro as rebuilt in https://github.com/LuisUrrutia/skills/pull/42 returns its findings to a calling skill so the caller's workflow continues."
 where = ["SKILL.md#choose-what-to-retain"]
 

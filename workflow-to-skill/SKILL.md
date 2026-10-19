@@ -75,12 +75,13 @@ Choose the destination by the lesson's role:
 When the request asks for the correction and `retro` is available, hand `retro`
 the corrections that belong to it, their evidence, the request's authority, and
 the corrections retained here, so it does not route them again; otherwise list
-them as `retro`'s. Of what `retro` returns, a change it handed off or applied, or
-one that duplicates a retained correction, starts no second change; send on
-unchanged an instruction change it proposed for `agent-instructions` that needs no
-user decision first; report every other finding with its owner and status. Extract
-a procedure `retro` hands here from the episode it names, without diagnosing the
-session again.
+them as `retro`'s. Either way, give what happened and its evidence, and leave why
+it happened for `retro` to diagnose. Of what `retro` returns, a change it handed
+off or applied, or one that duplicates a retained correction, starts no second
+change; send on unchanged an instruction change it proposed for
+`agent-instructions` that needs no user decision first; report every other finding
+with its owner and status. Extract a procedure `retro` hands here from the episode
+it names, without diagnosing the session again.
 
 Do not turn a partner-specific exception into policy for every input or a local
 business rule into a portable workflow default. A request that needs a broader
