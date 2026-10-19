@@ -97,7 +97,7 @@ This is a repository package, not a global installation or a background runtime.
 ### agent-instructions
 
 Write and improve instructions for agents in `AGENTS.md`, `CLAUDE.md`, skills,
-referenced guides, and agent prompts. New skills do not require prior use or repetition.
+referenced guides, and agent prompts. New skills do not require prior use or repetition. Typo fixes that leave the guidance unchanged do not use it.
 
 **Triggers:** `update AGENTS.md`, `improve these agent instructions`, `create a skill`, `revise a skill`
 
@@ -108,7 +108,7 @@ referenced guides, and agent prompts. New skills do not require prior use or rep
 - Chooses between reusing, wrapping, deriving, or creating a skill before adding an implementation
 - Hands each skill decision to `skill-maintenance` for the skill's `origin.toml` record in a repository that keeps records
 - Reviews every skill change for entry-file growth against the previous version and the base, evaluation evidence, record hand-overs, and stale callers or README entries that name the skill
-- Validates the changed behavior in proportion to the task; behavioral trials stage only runtime files, run on Claude Code and Codex, and report the revision each result ran on and every unrun case
+- Validates the changed behavior in proportion to the task; behavioral trials stage only runtime files and run on Claude Code and Codex. After an edit, only the cases it can affect rerun, and other results carry over with a diff-based reason that reviews check. Reports name the revision each result ran on and every unrun case
 - Runs review rounds that stay independent until both results are in, cite the reviewed candidate by commit and tree (or by file hashes when nothing is committed), and stop when a round finds nothing material
 - Preserves business constraints and preferences when pruning, and distinguishes file size from actual loaded context
 
