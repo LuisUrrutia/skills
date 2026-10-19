@@ -120,16 +120,21 @@ without widening authorization or making required work optional.
 
 ## Iterate proportionately
 
-Fix failures at the responsible instruction or reference. While iterating, rerun
-the affected case and a nearby regression case; broaden checks when routing,
-authority or termination changes.
+Fix failures at the responsible instruction or reference. Run the target's whole
+suite on every supported host once on a candidate revision. After a later edit,
+rerun on every host the cases the edited text can affect and a nearby regression
+case, plus the selection probes when the description changes; broaden checks
+when routing, authority or termination changes.
 
 Claims rest on the final revision. Label each result with the revision it ran
-on; a result counts for the final revision only when the runtime files it staged
-match the final ones by hash. On the final revision, run each case added or
-whose expected behavior changed at least twice per host, and every other case of
-the target's suite at least once per host. List each case not run with its
-reason; an unrun case blocks any claim about the behavior it covers.
+on; a result ran on the final revision only when the runtime files it staged
+match the final ones by hash. Run each case added or whose expected behavior
+changed at least twice per host on the final revision. Any other result carries
+over from its revision only with a written reason, drawn from the diff since that
+revision, why the edits cannot affect it; reviews of the change, including the
+[model pair](model-pair.md), check each reason against the diff, and a result
+without one does not count. List each case not run with its reason; an unrun
+case blocks any claim about the behavior it covers.
 
 When a claim needs repeated trials, such as a nondeterministic failure, a model
 migration or a performance comparison, define the metric, meaningful effect, run

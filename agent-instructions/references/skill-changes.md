@@ -66,8 +66,9 @@ at least:
   when most base sections were renamed or replaced, the approach question handed
   to `skill-maintenance` with the section map.
 - **Evaluation evidence:** the hosts that ran, results labeled with the revision
-  they ran on and matching the final runtime files, and the unrun cases with the
-  claims they block ([evaluation](evaluation.md)).
+  they ran on, a diff-based reason for each result carried over from an earlier
+  revision that the diff supports, and the unrun cases with the claims they block
+  ([evaluation](evaluation.md#iterate-proportionately)).
 - **Records:** each change to a rule, idea, deviation or dependency went to
   `skill-maintenance`, and its record check passed or its diagnostics are
   reported.

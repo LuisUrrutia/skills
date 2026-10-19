@@ -107,9 +107,9 @@ where = [
 ]
 
 [[invariants]]
-rule = "Claims rest on the final revision: each added or changed case runs at least twice per host and every other suite case at least once per host on runtime files that match the final ones by hash; each result names its revision, and an unrun case blocks the claims it covers."
-reason = "On 2026-10-18 retro's result rows ran before three later wording changes, and teach and verify left cases unrun, including verify's trust rule."
-where = ["references/evaluation.md#iterate-proportionately"]
+rule = "Reruns are proportional to the edit. The whole suite runs on every supported host once on a candidate revision; after a later edit, the cases the edited text can affect rerun on every host, plus the selection probes when the description changes, and each added or changed case runs at least twice per host on the final revision. Any other result carries over only with a written, diff-based reason why the edits cannot affect it, which reviews, including the model pair, check. Each result names its revision, and an unrun case blocks the claims it covers."
+reason = "User decision on 2026-10-19, relayed by the coordinator: reruns after an edit are proportional to it. On 2026-10-18 retro's result rows ran before three later wording changes, and teach and verify left cases unrun, including verify's trust rule."
+where = ["references/evaluation.md#iterate-proportionately", "references/skill-changes.md#review-a-skill-change"]
 
 [[invariants]]
 rule = "Each model-pair round reviews a frozen candidate, cited by commit and tree hash when committed and by file hashes otherwise; freezing commits nothing the request or repository rules do not authorize. Both reviewers get identical inputs, private from each other and from the coordinator's dispositions until both results are in; a round is reconciled only after both results are read in full or the missing profile is skipped or blocked. Only edits that change the reviewed meaning are reconsulted; other findings are applied or declined without another round, and a round with no material finding ends the loop."
