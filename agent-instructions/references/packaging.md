@@ -51,7 +51,10 @@ If the host supplies a skill creator, such as Codex's `skill-creator`, use it
 for its packaging requirements, its metadata files and its validators: it
 supplies mechanics, and this skill owns composition and evaluation. Reconcile
 the applicable instructions explicitly rather than nesting two complete
-authoring workflows or installing a second creator with the same name. Prefer
+authoring workflows or installing a second creator with the same name. When
+the host documents a creator that is not installed, write its metadata by hand
+from that documentation, and report the missing creator and its unrun
+validators as a limit, not a blocker. Prefer
 available host tooling; a donor's reference to its CLI, task manager, evaluator
 or viewer neither installs it nor makes it necessary.
 
