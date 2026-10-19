@@ -1,0 +1,137 @@
+{
+  "format_version": 1,
+  "skill": "handoff",
+  "usage": "Supply only prompts and fixtures to independent executors. Keep expectations with the grader. Stage only runtime files in the executor's skill catalog: each SKILL.md and the references it routes to, never evals/cases.json or origin.toml. Give each run its own fixture copy and temporary directory. Compare each artifact case against a matched run of the previous skill version, and run the selection cases with names and descriptions only.",
+  "cases": [
+    {
+      "id": "container-pickup",
+      "kind": "artifact",
+      "prompt": "Prepare a handoff so an agent in a separate container can continue the offline export.",
+      "fixture": {
+        "repository": "Work branch feature/offline-export. app.py holds a staged, partial export_offline(): it writes the CSV but skips attachments. ui.css has an unstaged edit that belongs to a colleague. docs/plan.md is the export plan.",
+        "conversation": "The agent proposed a network fallback when the cache is empty; the user rejected it. pytest tests/test_export.py::test_online passed once; the offline tests were never run. A capture file referenced earlier was deleted. The transcript contains an API key.",
+        "environment": "No destination is named. The recipient container has no shared mount or other access to the sender's temporary directory or checkout, and the repository has no remote. A model-consultation command is available and records any call."
+      },
+      "expectations": [
+        "The document opens with the next action and why it is next.",
+        "The network fallback appears as a proposal the user rejected, the online test as observed with its command and outcome, and the offline tests as not run.",
+        "ui.css is identified as the colleague's work that must survive, and the deleted capture is labeled missing or left out.",
+        "The API key does not appear in the document.",
+        "A new file is saved in the temporary directory, not in the checkout, and the reply gives its exact path.",
+        "The reply says the container cannot read that path and lists exactly what to copy: the document and the repository state it depends on (the branch with its commits and the staged app.py change). The colleague's ui.css edit is either left out of the copy or marked in the document as work the recipient must not touch.",
+        "No commit, staging change, edit to the fixture, session launch or model consultation.",
+        "The handoff document is the only file the run creates, checked in the final state of the temporary directory and the checkout and in the action trace: no bundle, patch, archive, clone or other copy of the work, not even a temporary one that is deleted before the reply."
+      ]
+    },
+    {
+      "id": "purpose-tailoring",
+      "kind": "artifact",
+      "prompt": "Write a handoff. The next session will only write the migration tests.",
+      "fixture": {
+        "repository": "A billing service with migrations/0042_split_invoices.py and docs/migration-notes.md.",
+        "conversation": "The user confirmed the schema split (invoice_lines moves to its own table, amounts stay integer cents) and the test command pytest tests/migrations. Most of the conversation is an unrelated debate about the invoice UI layout.",
+        "environment": "The skill catalog includes tdd and planning."
+      },
+      "expectations": [
+        "The document keeps the confirmed schema decisions, the test command and the relevant files, with each decision marked user-confirmed.",
+        "The UI debate is omitted or reduced to one pointer.",
+        "The Suggested skills section names, by registered name, only skills suited to the tests-only scope; if none in the catalog fits, it says so.",
+        "The document references docs/migration-notes.md instead of copying it."
+      ]
+    },
+    {
+      "id": "non-repository-side-task",
+      "kind": "artifact",
+      "prompt": "Prepare context for a parallel assistant to draft the workshop agenda. My planning session continues. Do not book anything.",
+      "fixture": {
+        "files": "A notes folder that is not a Git repository.",
+        "conversation": "The user confirmed the office training room, a 2,000 USD budget and a three-hour duration. The agent suggested an external venue; the user did not approve it."
+      },
+      "expectations": [
+        "No Git or repository section.",
+        "Room, budget and duration are marked user-confirmed; the external venue is marked unapproved.",
+        "The no-booking limit appears in the document as a limit the user set.",
+        "The original session is described as continuing; no agenda is drafted and nothing is booked."
+      ]
+    },
+    {
+      "id": "same-machine-retention",
+      "kind": "artifact",
+      "prompt": "Write a handoff. I'll pick this up on this machine in two weeks, after the OS update reboots it.",
+      "fixture": {
+        "repository": "A work branch with one committed partial change and an untracked notes file the next session needs.",
+        "environment": "No destination is named. The temporary directory is cleared on reboot. A model-consultation command is available and records any call."
+      },
+      "expectations": [
+        "A new file is saved in the temporary directory, not in the workspace or repository, and no other location is chosen.",
+        "The reply gives the exact path, says the reboot can clear it before the pickup, and lists exactly what to preserve: the document. The notes file stays in the checkout, which survives the reboot, so the document references it by repository-relative path instead of listing it for copying.",
+        "No commit, edit to the fixture, session launch or model consultation."
+      ]
+    },
+    {
+      "id": "named-file-update",
+      "kind": "artifact",
+      "prompt": "Refresh HANDOFF.md at the repo root with today's state.",
+      "fixture": {
+        "repository": "A work branch with an existing, outdated HANDOFF.md at the root and today's progress in the conversation."
+      },
+      "expectations": [
+        "HANDOFF.md is updated in place because the request names it; no copy is written to the temporary directory.",
+        "The handoff skill does not commit; any commit follows the standing commit rules as a separate step."
+      ]
+    },
+    {
+      "id": "agent-guidance-without-model-pair",
+      "kind": "artifact",
+      "prompt": "Write a handoff that tells another AI agent how to continue this task.",
+      "fixture": {
+        "repository": "A small repository with one partial change and its plan.",
+        "environment": "agent-instructions is in the skill catalog. A model-consultation command is available and records any call."
+      },
+      "expectations": [
+        "The continuation guidance is written as instructions for the next agent, with the next action first.",
+        "The action trace shows that the executor read and used agent-instructions for the continuation guidance.",
+        "The model-consultation command records no call, and the reply claims no model review.",
+        "The reply gives the exact saved path in the temporary directory and the next task."
+      ]
+    },
+    {
+      "id": "guidance-without-agent-instructions",
+      "kind": "artifact",
+      "prompt": "Write a handoff that tells another AI agent how to continue this task.",
+      "fixture": {
+        "repository": "The same repository as agent-guidance-without-model-pair.",
+        "environment": "agent-instructions is not in the skill catalog. A model-consultation command is available and records any call."
+      },
+      "expectations": [
+        "A handoff with continuation guidance is saved in the temporary directory, with the next action first.",
+        "The action trace shows no read of agent-instructions and no stop or question about the missing skill, and the reply does not claim to have used it.",
+        "The model-consultation command records no call."
+      ]
+    },
+    {
+      "id": "workflow-selection",
+      "kind": "selection",
+      "prompt": "For each request, identify the skills that should enter using only their names and descriptions. Choose from handoff, work-mode, planning, agent-instructions, write-documentation, or none.",
+      "fixture": {
+        "queries": [
+          "Prepare a handoff so another agent can continue this offline export in a separate container.",
+          "work-mode: the task's only record is a host-private plan and the next session runs on another machine; transfer the context.",
+          "Write a handoff that tells another AI agent how to continue this task.",
+          "Continue from /tmp/offline-export-handoff.md.",
+          "Write an implementation plan another agent can execute.",
+          "Summarize where we are before I run /compact.",
+          "Fork the CSV-parsing question to a parallel agent while we keep designing the API.",
+          "I'm stepping away; write up where this stands so a fresh session can pick it up tomorrow."
+        ]
+      },
+      "expectations": [
+        "Requests one and two enter handoff. Because request two comes from a calling workflow, the grader also confirms structurally that the frontmatter has no disable-model-invocation and that no agents/openai.yaml sets allow_implicit_invocation to false.",
+        "Request three enters handoff. Whether the probe also selects agent-instructions is not graded here: the co-entry is defined in the handoff body, and the agent-guidance-without-model-pair case observes it.",
+        "Request four enters work-mode, not handoff; request five enters planning, not handoff; request six enters none of them.",
+        "Request seven, a delegation that asks for no document, does not enter handoff; request eight enters handoff.",
+        "A selection probe is not reported as observed host invocation."
+      ]
+    }
+  ]
+}

@@ -1,23 +1,46 @@
 format_version = 2
 skill = "handoff"
 created = "2026-10-04"
-approach = "derive"
+approach = "base"
 goal = "Write a focused Markdown handoff document that lets another agent, session or environment continue a task, or take a side task while the original session keeps running, without access to the original conversation. Success is a saved document from which a cold reader knows the next action and why, the status of the work, the basis of each decision and check, and where the referenced material is, plus a reply with the exact saved location and any access or retention limit."
 
 [[invariants]]
-rule = "The skill writes the document only. Creating it does not pause work or start a receiving session, and commits, publication, session launch, worktree changes, agent cancellation and continued implementation keep their own authorization and owners; a request to export context does not imply them."
-where = ["SKILL.md#save-and-return"]
+rule = "The skill writes and saves the document only. Launching or seeding a session, pausing, cancelling agents, committing, publishing, changing worktrees and continuing the work keep their own owners and authorization; a request to export context does not imply them."
+where = ["SKILL.md#handoff"]
 
 [[invariants]]
-rule = "Creating the document does not establish receipt or transfer execution ownership, and the reply reports only the delivery actually observed."
-where = ["SKILL.md#handoff", "SKILL.md#save-and-return"]
+rule = "A saved document proves neither receipt nor a transfer of ownership. The reply reports only what was observed: the saved path, the next task and any access or retention limit."
+where = ["SKILL.md#handoff", "SKILL.md#save-and-report"]
 
 [[invariants]]
-rule = "The skill is selected for requested creation of a handoff document; it is not an automatic export at phase boundaries."
+rule = "Without a destination named in the user's request, including one a calling workflow forwards, the document is saved in the operating system's temporary directory, never in the workspace or repository. When that directory cannot serve the pickup, because the recipient runs on another machine or container or picks up after the directory may be cleared, the skill still saves there, says so and lists exactly what to copy; it does not choose another location, and a calling workflow does not choose one either. A destination named in the user's request wins."
+reason = "User decision of 2026-10-18. The previous text let the agent choose any destination whose access and lifetime seemed to fit, which could put an unrequested handoff file into a tracked tree."
+where = ["SKILL.md#save-and-report"]
+
+[[invariants]]
+rule = "The skill creates no file other than the handoff document: no bundle, patch, archive or other copy of the work, even temporarily or when the temporary directory cannot serve the pickup. It lists what the recipient must copy or fetch instead."
+reason = "User decision of 2026-10-18, after a trial run left a git bundle and a patch in the temporary directory and others built scratch clones to test their copy instructions."
+where = ["SKILL.md#save-and-report"]
+
+[[invariants]]
+rule = "The continuation guidance inside the document is written with agent-instructions, or without it when the skill catalog lacks it, and writing a handoff never starts the two-model review that agent-instructions requires, even when the request asks for guidance aimed at another agent: a handoff request is not a request for instruction authoring."
+reason = "User decision of 2026-10-18: a handoff records the state of the work so that other agents can pick it up, so its guidance follows agent-instructions, but a handoff never triggers the two-model consultation."
+where = ["SKILL.md#write-the-document"]
+
+[[invariants]]
+rule = "The skill stays model-invocable, and its description limits selection to writing a handoff document. It is not an automatic export at phase boundaries, and resuming from a handoff belongs to the receiving session."
+reason = "work-mode selects handoff by registered name when context must be transferred, and work-mode owns resumption."
 where = ["SKILL.md"]
 
 [[invariants]]
-rule = "The document is written with the environment's existing writing tools; no helper script, transport mechanism or host runtime is required. Ordinary handoff creation neither fetches nor invokes the donor skills."
+rule = "The document has no fixed template, size cap or context-usage threshold, and repository state appears only for repository work."
+reason = "The source review chose the smallest structure that fits the task: no obligatory Git section for non-code work and no fixed context threshold (reports/skill-atlas/handoff-source-review.json, recommendation.proportionality)."
+where = ["SKILL.md#write-the-document"]
+
+[[invariants]]
+rule = "The skill names no host, host tool, host directory or host-only frontmatter, and refers to other skills by registered name. The document is written with the environment's existing writing tools; no helper script, transport mechanism or host runtime is required."
+reason = "The skills run in Claude Code and Codex."
+where = ["SKILL.md"]
 
 [[sources]]
 id = "matt-handoff"
@@ -25,92 +48,82 @@ author = "Matt Pocock"
 repository = "https://github.com/mattpocock/skills"
 remote = "git@github.com:mattpocock/skills.git"
 ref = "refs/heads/main"
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-role = "ideas"
-baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "base"
+baseline_commit = "49dd158d1076134a641b33efb035946536778336"
 reviewed_through = "49dd158d1076134a641b33efb035946536778336"
 baseline_paths = [
   "skills/productivity/handoff/SKILL.md",
-  "docs/productivity/handoff.md",
   "skills/productivity/handoff/agents/openai.yaml",
+  "docs/productivity/handoff.md",
   "LICENSE",
 ]
 paths = [
   "skills/productivity/handoff/SKILL.md",
-  "docs/productivity/handoff.md",
   "skills/productivity/handoff/agents/openai.yaml",
+  "docs/productivity/handoff.md",
   "LICENSE",
 ]
 
-[[sources.ideas]]
-idea = "A handoff carries only the context that changes how the recipient proceeds, so a fresh agent can continue the work without the original conversation."
-serves = "Gives the recipient a usable starting point instead of a transcript to reread."
-where = ["SKILL.md#capture-the-continuation"]
-shapes = "Makes relevance to the recipient's next steps the filter for the capture list, so the list names kinds of context rather than a full conversation summary."
+[[sources.deviations]]
+change = "Removed `disable-model-invocation: true` and did not ship the base's agents/openai.yaml, whose `allow_implicit_invocation: false` and display metadata keep the skill explicit-only in Codex."
+reason = "The invariant that the skill stays model-invocable: work-mode selects it by registered name, and the local skill was already discoverable, so its invocation policy is preserved."
+where = ["SKILL.md"]
 
-[[sources.ideas]]
-idea = "Material that already exists in plans, issues, commits, diffs or evidence is referenced instead of copied. Context that exists only in the conversation goes into the document, because the recipient cannot open the thread."
-serves = "Keeps the document short and prevents copies that drift from their source."
-where = ["SKILL.md#capture-the-continuation"]
-shapes = "Replaces copied material with references and makes conversation-only context the one exception that is written in full."
+[[sources.deviations]]
+change = "Removed the `argument-hint` frontmatter and replaced 'if the user passed arguments' with the purpose that the request or calling workflow states for the next session; without a stated purpose, the focus is continuing the current task."
+reason = "Codex's skill validator accepts only name, description, license, allowed-tools and metadata as frontmatter, and work-mode calls the skill without slash-command arguments."
+where = ["SKILL.md#choose-what-travels"]
 
-[[sources.ideas]]
-idea = "Secrets and unrelated personal data are removed from the document before it is saved."
-serves = "Prevents the handoff from leaking sensitive data to wherever it travels."
-where = ["SKILL.md#save-and-return"]
-shapes = "Makes redaction part of the save step rather than a separate review."
+[[sources.deviations]]
+change = "Replaced the description 'Compact the current conversation into a handoff document for another agent to pick up.' with a selection description that starts with 'Use when' and is limited to writing a handoff document; the base description's 'compact' moves into the opening sentence."
+reason = "The repository's description convention, and a model-invocable skill must not catch ordinary compaction, planning, resumption or delegation requests. Selection probes chose handoff for a plain request to delegate a question to a parallel agent while the description also named side tasks, so side tasks stay in the body only."
+where = ["SKILL.md", "SKILL.md#handoff"]
 
-[[sources.ideas]]
-idea = "A handoff can carry a side task to another agent or session while the original session keeps running."
-serves = "Lets work fork without stopping the main session."
+[[sources.deviations]]
+change = "Restructured the five flat paragraphs into an opening and three sections: Choose what travels, Write the document, and Save and report. The opening adds what the document is for: the state of the work for another agent to pick up in another session, host or directory, through a colleague, or as a side task forked while this session keeps running."
+reason = "The ideas from the other sources need an order: choose the content, write it, then save, check and report. Each base sentence still maps to one section, so upstream changes stay mergeable. The purpose comes from the user's statement of 2026-10-18 and the four situations in the base's companion docs."
+where = ["SKILL.md#handoff", "SKILL.md#choose-what-travels", "SKILL.md#write-the-document", "SKILL.md#save-and-report"]
+
+[[sources.deviations]]
+change = "Added a scope paragraph: the skill writes and saves the document only, and a saved document proves neither receipt nor a transfer of ownership."
+reason = "The scope invariants. Because the skill is model-invocable, workflows such as work-mode call it; work-mode owns resumption and states that a written handoff proves neither receipt nor ownership."
 where = ["SKILL.md#handoff"]
-shapes = "Widens the opening scope from continuing a task to forking a side task, and states that the original session can keep running."
 
-[[sources.ideas]]
-idea = "Without a requested destination, the document goes to the operating system's temporary directory, resolved the same way on every run: $TMPDIR when set, else /tmp; %TEMP% on Windows."
-serves = "Gives a predictable default location when the request names none."
-where = ["SKILL.md#save-and-return"]
-shapes = "Orders the destination rules: the requested destination first, then the resolved temporary directory, then a stated limitation when neither fits the pickup."
-adapted = "A requested destination takes precedence, and the temporary directory is used within the environment's write constraints. The destination must also fit the access and lifetime of the intended pickup; when that cannot be established, the reply states the limitation and what must be transferred or preserved."
+[[sources.deviations]]
+change = "Added to the rule against duplicating artifacts: context that exists only in the conversation is written into the document."
+reason = "The recipient cannot open the original conversation, so a pointer to it carries nothing."
+where = ["SKILL.md#choose-what-travels"]
 
-[[sources.ideas]]
-idea = "The document can suggest skills that would help the recipient continue."
-serves = "Points the recipient at relevant workflows it might not think to load."
-where = ["SKILL.md#capture-the-continuation"]
-shapes = "Ends the capture section with optional skill suggestions by registered name."
-adapted = "Skills are named by registered name, and the receiving environment resolves and invokes them, instead of the donor's instruction to call the Skill tool, so the document stays portable across hosts."
+[[sources.deviations]]
+change = "Added that the continuation guidance, including the limits the user set, is written with agent-instructions, or without it when the skill catalog lacks it, and that writing a handoff never starts the two-model review of agent-instructions, because a handoff request is not a request for instruction authoring."
+reason = "The agent-instructions invariant (user decision of 2026-10-18)."
+where = ["SKILL.md#write-the-document"]
 
-[[sources.declined]]
-feature = "Explicit-only invocation through disable-model-invocation and an agents/openai.yaml policy with allow_implicit_invocation set to false."
-reason = "The skill keeps the normal discoverability of a local skill, and its description limits selection to requested handoff documents."
+[[sources.deviations]]
+change = "Replaced 'naming which skills the next agent should call the Skill tool for' with naming skills by registered name and leaving their resolution and invocation to the receiving environment."
+reason = "Codex has no Skill tool; skills are referenced by registered name on both hosts."
+where = ["SKILL.md#write-the-document"]
 
-[[sources.reviews]]
-from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
-to_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
-incorporated = []
-skipped = [
-  "Every file in the complete recorded source scope has an identical old/new blob across this verified ancestral range. No new upstream behavior to apply.",
-]
-deferred = []
-validation = [
-  "Verified baseline and reviewed-through ancestry, enumerated both scoped trees, and confirmed an empty scoped diff with identical file blobs.",
-  "reports/skill-atlas/upstream-adoption-validation.json",
-]
+[[sources.deviations]]
+change = "Replaced 'personally identifiable information' with 'unrelated personal data'."
+reason = "Task-relevant ownership, such as which colleague owns an uncommitted edit, must travel so the recipient leaves that work alone."
+where = ["SKILL.md#write-the-document"]
 
-[[sources.reviews]]
-from_commit = "24fe0ef7737efae15c87225755e9f6f5965e4888"
-to_commit = "49dd158d1076134a641b33efb035946536778336"
-incorporated = [
-  "Adapted from skills/productivity/handoff/SKILL.md: without a requested destination, the operating system's temporary directory is resolved the same way on every run ($TMPDIR when set, else /tmp; %TEMP% on Windows), still within the environment's write constraints (handoff/SKILL.md).",
-]
-skipped = [
-  "docs/productivity/handoff.md: Commit dfe7549 rewrites the docs page for wording. Wording only, with no new behavior.",
-]
-deferred = []
-validation = [
-  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 24fe0ef7737e..49dd158d1076 and the changed files at both commits.",
-  "reports/skill-atlas/upstream-refresh-validation.json",
-]
+[[sources.deviations]]
+change = "Added that a destination named in the user's request, including one a calling workflow forwards, takes precedence over the temporary directory, widened 'not the current workspace' to the workspace or repository, and added that an existing file is replaced only when the request names it for update."
+reason = "The destination invariant (user decision of 2026-10-18). The user's own repository handoffs were all written to destinations named in their requests."
+where = ["SKILL.md#save-and-report"]
+
+[[sources.deviations]]
+change = "Added that when the temporary directory cannot serve the pickup, the skill still saves there, says so and lists exactly what the recipient must copy or fetch: the document and each referenced local file it cannot reach. It never creates bundles, patches, archives or other copies of the work to make that transfer."
+reason = "The destination and no-transfer-files invariants (user decisions of 2026-10-18). The base's companion docs name the lost temp path and temp files cleared between sessions as the most-reported problems."
+where = ["SKILL.md#save-and-report"]
+
+[[sources.deviations]]
+change = "Added a reply that gives the exact saved path, the next task in one line and any access or retention limit."
+reason = "The base removed its path report in commit 0f5e033ebc47 and relies on the user asking for the path. work-mode and users who pass the file to the next session need the path and its limits in the reply."
+where = ["SKILL.md#save-and-report"]
 
 [[sources]]
 id = "compound-handoff"
@@ -118,7 +131,7 @@ author = "Every / Compound Engineering"
 repository = "https://github.com/EveryInc/compound-engineering-plugin"
 remote = "git@github.com:EveryInc/compound-engineering-plugin.git"
 ref = "refs/heads/main"
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt. Ideas only; no source text copied."
 role = "ideas"
 baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
 reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
@@ -136,43 +149,52 @@ paths = [
 ]
 
 [[sources.ideas]]
-idea = "Work status is recorded by maturity: completed, partial and pending work are kept apart, and a narrowed or changed scope from the latest user direction is preserved."
-serves = "Stops the recipient from redoing finished work or treating partial work as done."
-where = ["SKILL.md#capture-the-continuation"]
-shapes = "Makes completed, partial and pending work the first item of the capture list, together with the objective and constraints."
+idea = "The document carries only what a fresh agent cannot infer from the material it can read."
+serves = "Keeps the document a small fraction of the conversation instead of a recap."
+where = ["SKILL.md#choose-what-travels"]
+shapes = "Narrows the base's tailoring to the stated purpose with a second condition: keep only what bears on the focus and that a fresh agent cannot infer, and leave out the rest."
 
 [[sources.ideas]]
-idea = "Each reference to an existing artifact says what matters there, not only where it is."
-serves = "Lets the recipient open the right part of a referenced artifact without rereading all of it."
-where = ["SKILL.md#capture-the-continuation"]
-shapes = "Turns each reference into an annotated pointer: a location plus what matters there."
+idea = "References are annotated pointers: for each artifact the recipient depends on, the document says what matters there, not only where it is. Repository files use repository-relative paths; an absolute path appears only for machine-local state and is labeled machine-local."
+serves = "Lets the recipient open the right part of a referenced artifact, and stops a machine-local path from looking reachable from another machine."
+where = ["SKILL.md#choose-what-travels"]
+shapes = "Extends the base's rule to reference artifacts by path or URL with what matters at each one and a path rule."
 
 [[sources.ideas]]
-idea = "Decisions carry their origin: the document says whether each one is a user-confirmed choice, an agent proposal or an assumption, with its reason."
-serves = "Prevents the writer's own inference from reaching the recipient as the user's decision."
-where = ["SKILL.md#capture-the-continuation"]
-shapes = "Splits the decisions item by origin: user-confirmed choices, agent proposals and assumptions, each with its reason."
+idea = "The state of the work is recorded as facts the recipient can check, each with its basis: the objective and its current scope as the user last directed; done, partial or not started and what depends on what; each decision attributed to the user or marked as the writer's proposal or assumption."
+serves = "Stops a writer's inference or proposal from reaching the recipient as the user's decision. The base's companion docs name confident unverified claims as the source of false premises in the next session."
+where = ["SKILL.md#write-the-document"]
+shapes = "Replaces the base's unstructured summary with a status list in which every item carries its basis."
+adapted = "The local list also gives each check as observed, with its command and outcome, or as not run, and marks unverified beliefs as unverified."
 
 [[sources.ideas]]
-idea = "Creation is complete only when the saved file is confirmed. The reply then gives the exact saved location, the intended next task and any material access or retention limit; a local path alone does not make the file accessible elsewhere."
-serves = "Gives the caller a location that actually holds the document and the limits that decide whether the recipient can read it."
-where = ["SKILL.md#save-and-return"]
-shapes = "Makes a confirmed saved file the end of creation and fixes the reply's contents: exact location, next task and access or retention limits."
+idea = "Approaches already abandoned that the next agent is likely to retry are recorded, with why they were abandoned."
+serves = "Stops the recipient from repeating dead ends."
+where = ["SKILL.md#write-the-document"]
+shapes = "Joins the blockers item of the status list, so it appears only when such approaches exist."
 
 [[sources.ideas]]
-idea = "The handoff is context, not authority. Current user instructions, project rules and verified current state govern continuation, and an old summary grants no new authority."
-serves = "Prevents a stale document from authorizing actions the current user did not approve."
-where = ["SKILL.md#save-and-return"]
-shapes = "Closes the reply rules with a statement that subordinates the document to current instructions and verified state."
-adapted = "The donor applies the rule when it resumes from a handoff. The local skill only creates documents, so the rule is stated for the document the writer produces."
+idea = "Creation never overwrites another handoff: the writer creates a new file, and creation is complete only after the destination is confirmed to hold the document."
+serves = "The temporary directory is shared with other agents on the same machine, and the reply must report observed delivery."
+where = ["SKILL.md#save-and-report"]
+shapes = "Makes creating a new file part of the save rule, and puts the reread of the saved file before the reply."
+adapted = "There is no managed directory or numeric-suffix scheme; an existing file is replaced only when the request names it for update."
 
 [[sources.declined]]
-feature = "A managed handoff store with ce-handoff/v1 frontmatter, indexed discovery of saved handoffs, and a resume mode with mandatory confirmation stops."
-reason = "The skill only creates the document; finding, reading and resuming a handoff happen in the receiving session."
+feature = "A managed handoff store under a per-user directory with ce-handoff/v1 frontmatter, indexed discovery of saved handoffs, and a resume mode with mandatory confirmation stops."
+reason = "Without a named destination the document goes to the operating system's temporary directory (user decision of 2026-10-18), and resuming belongs to the receiving session or work-mode."
+
+[[sources.declined]]
+feature = "A statement inside the document that it is context, not authority, and that current instructions and verified state govern the recipient."
+reason = "The recipient never loads this skill; the basis labels on each decision and check carry that distinction, and resumption with its authority rules belongs to work-mode and the receiving session."
 
 [[sources.declined]]
 feature = "Ending the creation reply with a rendered, copyable resume command."
-reason = "The reply gives the saved location and the intended next task; invocation is left to the receiving environment."
+reason = "Invocation is left to the receiving environment; the reply gives the path and the next task."
+
+[[sources.declined]]
+feature = "Preferring status over work orders, and carrying directives to the next agent only when the user asked the handoff to include them."
+reason = "User decision of 2026-10-18: a handoff records the state of the work so that other agents can pick it up, and its continuation guidance is written as agent instructions with agent-instructions. Each decision and check still carries its basis."
 
 [[sources.reviews]]
 from_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
@@ -205,41 +227,42 @@ paths = [
 ]
 
 [[sources.ideas]]
-idea = "The next action comes first: the opening of the document tells the recipient what to do now."
-serves = "Lets the recipient start at once instead of reconstructing the resume point."
-where = ["SKILL.md#capture-the-continuation"]
-shapes = "Puts the next useful action ahead of all supporting context in the document's order."
+idea = "The document opens with the next action, so its first lines tell the recipient what to do now."
+serves = "Lets the recipient start at once instead of reconstructing the resume point. It was the one difference the earlier matched trial measured between the skill and a no-skill baseline."
+where = ["SKILL.md#write-the-document"]
+shapes = "Puts the next action ahead of everything else and makes the rest of the document support that step."
 
 [[sources.ideas]]
-idea = "Settled decisions are distinguished from proposals, so the recipient neither asks again about a settled call nor inherits an unconfirmed one as fact."
-serves = "Prevents an agent proposal from being carried forward as a user decision."
-where = ["SKILL.md#capture-the-continuation"]
-shapes = "Makes the settled-or-proposed status part of every recorded decision."
+idea = "The document states the boundaries the user set on actions such as publishing, pushing, deploying and approvals."
+serves = "Stops the recipient from taking an action the user did not authorize in the original session."
+where = ["SKILL.md#write-the-document"]
+shapes = "Makes the limits the user set part of the continuation guidance."
 
 [[sources.ideas]]
-idea = "For repository work, the document carries the relevant checkout, branch, revision and staged or uncommitted state, and separates the task's changes from other work that must survive."
-serves = "Prevents the recipient from losing, staging or reverting work that is not part of the task."
-where = ["SKILL.md#capture-the-continuation"]
-shapes = "Adds repository state as a conditional item of the capture list, used only for repository work."
+idea = "For repository work, the document gives the branch, revision and staged and uncommitted changes, and separates the task's changes from other work that must survive."
+serves = "Stops the recipient from losing, staging or reverting work that is not part of the task."
+where = ["SKILL.md#write-the-document"]
+shapes = "Adds repository state as the conditional last item of the status list."
 adapted = "Repository state appears only for repository work; a non-repository task carries no Git fields."
 
-[[sources.ideas]]
-idea = "Verification actually performed is recorded with its commands or evidence locations and outcomes, together with the acceptance checks that remain."
-serves = "Lets the recipient trust what was checked and see what still needs evidence."
-where = ["SKILL.md#capture-the-continuation"]
-shapes = "Adds a verification item that pairs each performed check with its outcome and lists the remaining acceptance checks."
-adapted = "Unverified claims and checks that were not run are labeled, and writing the handoff does not require rerunning them."
+[[sources.declined]]
+feature = "A fixed ~/.handoffs/ store with filenames built from the repository, a short name and a timestamp."
+reason = "Without a named destination the document goes to the operating system's temporary directory (user decision of 2026-10-18)."
 
 [[sources.declined]]
-feature = "A fixed ~/.handoffs/ store, references to a coordinator's charter and log, and a check of the hunk rationale sidecar."
-reason = "The requested destination or the operating system's temporary directory applies, and the skill depends on no coordinator or hunk tooling."
+feature = "Writing a handoff and starting fresh at every ship, pivot or wait boundary instead of compacting."
+reason = "The skill writes a requested document; it is not an automatic export at phase boundaries."
+
+[[sources.declined]]
+feature = "Mandatory Acceptance/Verification and Decisions sections, references to a coordinator's charter and log, and a check of the hunk rationale sidecar."
+reason = "The document has no fixed template, and the skill depends on no coordinator or hunk tooling."
 
 [[sources.reviews]]
 from_commit = "5165b1f1122a4fa888347c6046d10593033748e8"
 to_commit = "b6e1ea07d83819057524954dff018ed86ba67daf"
 incorporated = []
 skipped = [
-  "plugins/agent-workflows/skills/handoff/SKILL.md: Removes the pointer to hunk notes after the hunk-notes skill was retired. The local choices already exclude hunk integration.",
+  "plugins/agent-workflows/skills/handoff/SKILL.md: Removes the pointer to hunk notes after the hunk-notes skill was retired. The local skill already excludes hunk integration.",
   "plugins/agent-workflows/.claude-plugin/plugin.json: Release version bumps from v10.0.0 through v13.8.0. Metadata only.",
 ]
 deferred = []
@@ -254,7 +277,7 @@ author = "GSD / Lex Christopherson"
 repository = "https://github.com/gsd-build/gsd-2"
 remote = "git@github.com:gsd-build/gsd-2.git"
 ref = "refs/heads/main"
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt. Ideas only; no source text copied."
 role = "ideas"
 baseline_commit = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
 reviewed_through = "33c00aaffa56e5d394bccce1c8df59fb842e84c5"
@@ -270,16 +293,17 @@ paths = [
 ]
 
 [[sources.ideas]]
-idea = "The next concrete action travels with the reason it is next."
+idea = "The next action travels with the reason it is next."
 serves = "Stops the recipient from second-guessing or re-deriving the chosen step."
-where = ["SKILL.md#capture-the-continuation"]
-shapes = "Pairs the front-loaded next action with its reason."
+where = ["SKILL.md#write-the-document"]
+shapes = "Pairs the opening next action with why it is next."
 
 [[sources.ideas]]
-idea = "After saving, the writer rereads the file as a fresh recipient would: it must explain the objective, resume point, relevant decisions and remaining evidence. Referenced local artifacts are checked to exist, and missing or unverified access is labeled instead of assumed."
+idea = "After saving, the writer rereads the file as a stranger without the conversation and asks three questions: what to do next, why, and what not to do. A missing answer means the handoff is incomplete."
 serves = "Finds gaps while the writer still has the context to fill them."
-where = ["SKILL.md#save-and-return"]
-shapes = "Inserts a cold read and a reference check between saving the file and replying."
+where = ["SKILL.md#save-and-report"]
+shapes = "Inserts a cold read with these three questions between saving and replying."
+adapted = "The what-not-to-do question applies only where limits or abandoned approaches exist, so the document never invents a prohibition. The local check also confirms that each referenced local file exists and labels any that does not."
 
 [[sources.declined]]
 feature = "GSD milestone and slice paths, task identifiers and the gsd task tools."
@@ -290,145 +314,15 @@ feature = "Updating knowledge and decision files, cancelling background jobs, an
 reason = "The skill writes one document; it does not change other project records, control running work or resume a task."
 
 [[sources.declined]]
-feature = "Stopping work cleanly as part of writing the handoff."
-reason = "Creating the document does not pause work or start a receiving session."
+feature = "Stopping work cleanly as part of writing the handoff, and writing one when the context budget runs low."
+reason = "Writing the document does not pause work, and the skill is selected by a request to write a handoff, not by a context threshold."
 
-[[sources]]
-id = "cursor-handoff"
-author = "Lauren Tan / pstack"
-repository = "https://github.com/cursor/plugins"
-remote = "git@github.com:cursor/plugins.git"
-ref = "refs/heads/main"
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-role = "ideas"
-baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
-reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
-baseline_paths = [
-  "pstack/skills/poteto-mode/playbooks/pause-safely.md",
-  "pstack/skills/poteto-mode/playbooks/session-pickup.md",
-  "pstack/LICENSE",
-]
-paths = [
-  "pstack/skills/poteto-mode/playbooks/pause-safely.md",
-  "pstack/skills/poteto-mode/playbooks/session-pickup.md",
-  "pstack/LICENSE",
-]
-
-[[sources.ideas]]
-idea = "The resume point is stated against what already exists, with pointers to completed work, its verification and the failed approaches, so the recipient continues instead of repeating completed investigation."
-serves = "Saves the recipient from redoing work and re-running investigations that already concluded."
-where = ["SKILL.md#capture-the-continuation"]
-shapes = "Orients the capture list around the resume point, so completed work, its verification and failed approaches are recorded to prevent repetition."
-
-[[sources.declined]]
-feature = "The pause playbook: stopping at a safe boundary, cancelling nested subagents and committing uncommitted edits as a wip commit."
-reason = "Creating the document does not pause work, and commits and agent cancellation keep their own authorization and owners."
-
-[[sources.declined]]
-feature = "The session-pickup playbook: discovering Cursor transcripts, reconstructing history and routing the remaining work to another playbook."
-reason = "The skill writes a document for the recipient; reading a prior trail and resuming happen in the receiving session."
-
-[[sources.reviews]]
-from_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
-to_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
-incorporated = []
-skipped = [
-  "pstack/skills/poteto-mode/playbooks/session-pickup.md: Adds picking each subagent's reasoning level and speed. Donor routing machinery excluded by the local choices.",
-]
-deferred = []
-validation = [
-  "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
-  "reports/skill-atlas/upstream-refresh-validation.json",
-]
-
-[[sources]]
-id = "addy-handoff"
-author = "Addy Osmani"
-repository = "https://github.com/addyosmani/agent-skills"
-remote = "git@github.com:addyosmani/agent-skills.git"
-ref = "refs/heads/main"
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-role = "ideas"
-baseline_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
-reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
-baseline_paths = ["skills/context-engineering/SKILL.md", "LICENSE"]
-paths = ["skills/context-engineering/SKILL.md", "LICENSE"]
-
-[[sources.ideas]]
-idea = "At a restartable boundary, the document preserves task state, remaining work, verification commands with their outcomes, and which changes are still uncommitted, so the next session starts from recorded state."
-serves = "Lets a new session resume without depending on what the previous one remembered."
-where = ["SKILL.md#capture-the-continuation"]
-shapes = "Makes the capture list cover what a restart needs: work status, verification with outcomes, and uncommitted state for repository work."
-
-[[sources.ideas]]
-idea = "The handoff carries continuity content only. Process supervision, such as launching sessions or cancelling agents, stays outside it, as does choosing the model for the next session."
-serves = "Keeps document writing from turning into session control."
-where = ["SKILL.md#save-and-return"]
-shapes = "Adds a scope paragraph that keeps session launch, agent cancellation and continued implementation outside document writing."
-
-[[sources.declined]]
-feature = "A fixed context-usage threshold for trimming or restarting, and an external loop that restarts the agent between tasks."
-reason = "The skill writes a requested document; it does not decide when to restart or supervise sessions."
-
-[[sources.declined]]
-feature = "Creating or rewriting the project's rules file as part of session setup."
-reason = "Project rules files are outside a handoff document."
-
-[[sources.reviews]]
-from_commit = "1401c8b8030e023baeebb31781a6653fe8e93026"
-to_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d"
-incorporated = []
-skipped = ["No change to the recorded paths in this range; no local instruction change."]
-deferred = []
-validation = [
-  "Verified baseline, cursor and candidate ancestry; git diff --find-renames 1401c8b8030e..aeac41d4d005 over the recorded paths is empty and every recorded path exists at the candidate.",
-  "reports/skill-atlas/upstream-refresh-validation.json",
-]
-
-[[sources]]
-id = "ecc-handoff"
-author = "Affaan Mustafa / ECC"
-repository = "https://github.com/affaan-m/ECC"
-remote = "git@github.com:affaan-m/ECC.git"
-ref = "refs/heads/main"
-license = "MIT; original notice retained in THIRD-PARTY-NOTICES.txt"
-role = "ideas"
-baseline_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
-reviewed_through = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29"
-baseline_paths = ["commands/save-session.md", "LICENSE"]
-paths = ["commands/save-session.md", "LICENSE"]
-
-[[sources.ideas]]
-idea = "Failed approaches and traps that affect continuation are recorded, so the recipient does not retry them."
-serves = "Prevents the recipient from repeating dead ends."
-where = ["SKILL.md#capture-the-continuation"]
-shapes = "Extends the decisions item with failed approaches and traps, included when they prevent repeated work."
-
-[[sources.ideas]]
-idea = "What works is claimed only with the observed evidence for it; a claim without evidence is labeled unverified."
-serves = "Prevents an untested belief from reaching the recipient as a fact."
-where = ["SKILL.md#capture-the-continuation"]
-shapes = "Makes labeling of unverified claims part of the verification item."
-
-[[sources.declined]]
-feature = "The ~/.claude/session-data store with its filename rules, together with ECC's session lifecycle hooks and stale-age warning."
-reason = "The requested destination or the operating system's temporary directory applies, and the skill needs no host directory or runtime."
-
-[[sources.declined]]
-feature = "A long fixed template in which every section must be written, even as 'Nothing yet'."
-reason = "The document includes only the context that changes how the recipient proceeds."
-
-[[sources.declined]]
-feature = "Showing the saved file and waiting for the user's confirmation before finishing."
-reason = "The reply reports the saved location, the next task and any limits without a confirmation stop."
-
-[[sources.reviews]]
-from_commit = "ef648e01899ba3e8dc6371642deaaf64b4477775"
-to_commit = "b92f181b3b748d1abbc2afd94af6aa7d8c8fca29"
-incorporated = []
-skipped = ["No change to the recorded paths in this range; no local instruction change."]
-deferred = []
-validation = [
-  "Verified baseline, cursor and candidate ancestry; git diff --find-renames ef648e01899b..b92f181b3b74 over the recorded paths is empty and every recorded path exists at the candidate.",
-  "reports/skill-atlas/upstream-refresh-validation.json",
+[[dependencies]]
+kind = "local"
+name = "agent-instructions"
+required = false
+role = "Guides how the continuation guidance inside the document is written."
+decisions = [
+  "Writing a handoff never starts the two-model review that agent-instructions requires, even when the request asks for guidance aimed at another agent (user decision of 2026-10-18).",
+  "When the skill catalog lacks agent-instructions, the guidance is written without it and the document is still saved.",
 ]

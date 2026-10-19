@@ -1,60 +1,86 @@
 ---
 name: handoff
-description: Use when creating a handoff document for another agent or session to continue a task.
+description: Use when writing a handoff document so another agent or session can continue a task.
 ---
 
 # Handoff
 
-Write a focused Markdown document that carries task context to another agent,
-session, environment, or side task. A side-task handoff can leave the original
-session running. Creating the document does not establish receipt or transfer
-execution ownership.
+Write a compact handoff document summarizing the current conversation so a
+fresh agent can continue the work. The document records the state of the work
+for another agent to pick up: in another session, host, or directory, through a
+colleague, or as a side task forked while this session keeps running.
 
-## Capture the continuation
+This skill writes and saves the document only. Launching or seeding a session,
+pausing, cancelling agents, committing, publishing, changing worktrees, and
+continuing the work keep their own owners and authorization. A saved document
+proves neither receipt nor a transfer of ownership.
 
-Use the current request, conversation, and relevant artifacts to establish what
-the recipient should continue. Front-load the next useful action and why. Include
-only the context that changes how the recipient should proceed:
+## Choose what travels
 
-- The objective, relevant constraints, and actual completed, partial, and pending
-  work. Preserve a narrowed or changed scope from the latest user direction.
-- Decisions and their reasons, distinguishing user-confirmed choices from agent
-  proposals and assumptions. Include failed approaches or traps when they help
-  avoid repeating work.
-- Verification actually performed, its commands or evidence locations and
-  outcomes, and remaining acceptance checks. Label unverified claims and checks
-  that were not run; writing the handoff does not require rerunning them.
-- Blockers and the dependency or decision needed to proceed.
-- For repository work, relevant checkout, branch, revision, and staged or
-  uncommitted state. Distinguish task changes from other work that must survive.
+Treat the purpose that the request or calling workflow states for the next
+session as the document's focus, and tailor the document to it. Without a stated
+purpose, the focus is continuing the current task. Keep only what bears on that
+focus and that a fresh agent cannot infer from the material it can read; leave
+out the rest.
 
-Reference existing plans, issues, commits, diffs, and evidence instead of copying
-them. Say what matters at each reference. Include essential conversation-only
-context rather than pointing a fresh reader at a thread they cannot access.
-Identify machine-local or temporary dependencies and anything the recipient
-will need transferred. Suggest useful skills by registered name when known;
-leave resolution and invocation to the receiving environment.
+Do not duplicate content already captured in other artifacts (specs, plans, ADRs,
+issues, commits, diffs). Reference them by path or URL instead, and say what
+matters at each one. Use repository-relative paths for repository files, and
+label an absolute path to machine-local state as machine-local. Write
+conversation-only context into the document, because the recipient cannot open
+this conversation.
 
-## Save and return
+## Write the document
 
-Use the requested destination. Otherwise, use the operating system's temporary
-directory within the environment's write constraints, resolved the same way on
-every run: `$TMPDIR` when set, else `/tmp`; `%TEMP%` on Windows.
-Choose a destination whose access and lifetime fit the intended pickup. If those
-cannot be established, state the limitation and what must be transferred or
-preserved. A local path alone does not make an artifact accessible elsewhere.
+Open with the next action and why it is next. The rest of the document supports
+that step.
 
-Create the document without overwriting another artifact. Redact secrets and
-unrelated personal data. Read back the saved file as a fresh recipient: it should
-explain the objective, resume point, relevant decisions, and remaining evidence.
-Check referenced local artifacts exist; label missing or unverified access
-instead of claiming the receiver can read them.
+Record the state of the work as facts the recipient can check, each with its
+basis:
 
-Return the exact saved location, the intended next task, and any material access
-or retention limitation. Report only the delivery actually observed. Keep the
-document as context: current user instructions, project rules, and relevant
-verified state govern continuation; an old summary grants no new authority.
+- The objective and its current scope as the user last directed, so the
+  recipient knows what done means.
+- What is done, partial, and not started, and what depends on what.
+- Each decision as user-confirmed, agent proposal, or assumption, with its reason.
+- Each check as observed, with its command and outcome, or as not run. Mark a
+  belief the session never verified as unverified; writing the handoff does not
+  require rerunning checks.
+- Blockers and what would clear them, and abandoned approaches the recipient is
+  likely to retry, with why they were abandoned.
+- For repository work, the branch, revision, and staged and uncommitted changes,
+  keeping the task's changes apart from other work that must survive.
 
-This skill writes the document. Commits, publication, session launch, worktree
-changes, agent cancellation, and continued implementation retain their own
-authorization and owners; a request to export context does not imply them.
+Use `agent-instructions` to write the continuation guidance: the next action,
+what to read first, and the limits the user set, such as no commits,
+publication, or deployment. When the skill catalog lacks it, write the guidance
+without it. Writing a handoff never starts the two-model review that
+`agent-instructions` requires, even when the request asks for guidance aimed at
+another agent: a handoff request is not a request for instruction authoring.
+
+Include a "Suggested skills" section that names, by registered name, the skills
+the next agent should use; the receiving environment resolves and invokes them.
+
+Redact any sensitive information, such as API keys, passwords, and unrelated
+personal data.
+
+## Save and report
+
+Save to the destination the user's request names, including when a calling
+workflow forwards it; a location a workflow picks on its own is not a named
+destination. Otherwise save to the temporary directory of the user's OS
+(`$TMPDIR`, else `/tmp`; `%TEMP%` on Windows), not the current workspace or
+repository. Create a new file; replace an existing one only when the request
+names it for update.
+
+When the temporary directory cannot serve the pickup, because the recipient runs
+on another machine or container or picks up after the directory may be cleared,
+still save there, say so, and list exactly what the recipient must copy or
+fetch: the document and each referenced local file it cannot reach. Never create
+bundles, patches, archives, or other copies of the work, even temporarily.
+
+Reread the saved file as a fresh agent: it must say what to do next and why, and,
+where limits or abandoned approaches exist, what not to do. Check that each
+referenced local file exists, and label any that does not.
+
+Reply with the exact saved path, the next task in one line, and any access or
+retention limit.
