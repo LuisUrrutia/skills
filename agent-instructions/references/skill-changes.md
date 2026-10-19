@@ -54,6 +54,12 @@ with a record, have `skill-maintenance` check the record. Elsewhere, a record
 exists only when the user asks for one, and `skill-maintenance` creates it.
 
 The hand-over is the decisions with their reasons, never a record file. When
+the work arrives with proposed record entries, as from `workflow-to-skill`,
+forward each entry, its reason and the reason's label (the user's words,
+inferred or unresolved) to `skill-maintenance` unchanged: a softened or
+relabeled reason misstates its authority. Where the skill text gives the
+reason of such an entry, keep the user's words rather than a weaker paraphrase.
+When
 `skill-maintenance` cannot run, put the hand-over in the report and leave every
 `origin.toml` unwritten, even as a draft or placeholder.
 

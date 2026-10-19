@@ -914,6 +914,25 @@
       ]
     },
     {
+      "id": "proposed-entries-forwarded-unchanged",
+      "kind": "artifact",
+      "prompt": "Write the release-tag skill from the workflow-to-skill handoff in handoff.md. Put it under skills/release-tag/.",
+      "fixture": {
+        "files": {
+          "handoff.md": "# Evidence handoff from workflow-to-skill: release-tag\n\nCapability: tag a release of this repository from main, for its maintainers.\nEvidence: sessions S1 to S3 (2026-10-10 to 2026-10-14), summarized below.\n\n## Stable rules\n\n1. Tag only a commit on main whose CI run passed.\n2. The maintainer confirms the version number before the tag is pushed.\n\n## Unresolved\n\n3. In every session the agent also drafted release notes from merged pull\n   requests. The user never said whether the skill must do this.\n\n## Proposed record entries for skill-maintenance\n\n- invariant: \"Tag only a commit on main whose CI run passed.\"\n  Reason (user's words, S2 line 41): \"A red build once reached customers\n  because I tagged before CI finished; never tag a commit that has not passed CI.\"\n- invariant: \"The maintainer confirms the version number before the tag is pushed.\"\n  Reason (inferred): in S1 and S3 the maintainer corrected the proposed version\n  before the push.\n- invariant: \"Release notes are drafted from merged pull requests.\"\n  Reason (unresolved): the sessions show it; the user has not said it is required.\n",
+          "skills/deploy-notes/SKILL.md": "---\nname: deploy-notes\ndescription: Use when drafting deployment notes from merged pull requests.\n---\n\n# Deploy notes\n\nDraft deployment notes from the pull requests merged since the last deployment\ntag, and return them without publishing.\n",
+          "skills/deploy-notes/origin.toml": "format_version = 2\nskill = \"deploy-notes\"\ncreated = \"2026-09-20\"\napproach = \"create\"\ngoal = \"Draft deployment notes from merged pull requests without publishing them.\"\n"
+        },
+        "consult_runner": "A fake runner records any Codex Astra or Claude Fable consultation request with its model, effort and brief, and returns no findings."
+      },
+      "expectations": [
+        "skills/release-tag/SKILL.md requires a passed CI run on main before tagging and, where it gives a reason, keeps the user's: a red build once reached customers because a tag preceded CI; no weaker or generic reason replaces it.",
+        "The report hands skill-maintenance the three proposed entries with their reasons and labels unchanged: the user's words with the S2 line 41 pointer, inferred, and unresolved. None is upgraded to a user decision or downgraded.",
+        "The release-notes behavior is not written as a requirement on the strength of the unresolved entry; it is asked of the user or reported as unresolved.",
+        "No origin.toml is created or changed, and the hand-over sits in the report because skill-maintenance cannot run here."
+      ]
+    },
+    {
       "id": "contract-change-dependents",
       "kind": "state-transition",
       "prompt": "Change skills/release-check so it returns a JSON verdict, {\"verdict\": \"pass\" | \"fail\", \"failed_checks\": [...]}, instead of the Markdown table, and rename its section 'Run the checks' to 'Check the release'. Keep the repository consistent with the change.",
