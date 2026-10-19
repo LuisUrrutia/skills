@@ -34,7 +34,9 @@ path before calling one missing.
 
 ## Drive every feature
 
-The coordinator alone drives the mutable application state. Follow the target's
+The coordinator alone drives the mutable application state. Before the first
+launch, read [Launch setup](create.md#launch-setup): the recipe supplies the
+commands, and a Launch section that contradicts it is drift. Follow the target's
 launch model: a serially driven long-lived instance, or fresh isolated sessions
 for short-lived commands. Exercise every feature at least once and record which
 entry points and sub-features the evidence actually covers. A proof through one
@@ -67,10 +69,12 @@ prerequisites in the map are documentation drift.
 | Runtime or access prerequisite is unavailable | Record the attempted check and blocked coverage; do not report it as passed. |
 
 Maintenance edits stay inside the target verification skill and its owned
-helpers. Product repair, dependency installation, or external operations require
-the active task's authority. Each corrected harness must run before delivery;
-rerun affected checks after the final relevant edit. Teardown follows the last
-re-proof, and retained evidence must remain readable.
+helpers. Product repair, new dependencies, or external operations require the
+active task's authority. Launch setup follows
+[Launch setup](create.md#launch-setup) with the recipe's own commands; a Launch
+section that contradicts it is drift. Each corrected harness must run before
+delivery; rerun affected checks after the final relevant edit. Teardown follows
+the last re-proof, and retained evidence must remain readable.
 
 ## Report the outcome
 

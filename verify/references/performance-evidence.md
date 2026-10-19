@@ -4,9 +4,9 @@ Read this when checking a measured performance claim or a comparison used to
 choose an implementation or configuration. Apply the checks relevant to that
 claim. The caller owns the experiment or repair; the project harness owns how
 measurements run. This reference owns what the evidence can establish.
-A supplied harness, benchmark, or results packet can be assessed without a
-project recipe. Application execution still follows the local recipe when one
-is available; report missing application coverage separately.
+A supplied harness, benchmark, or results packet can be assessed without
+launching the application. Application execution, when needed, follows the
+skill's launch steps; report missing application coverage separately.
 
 ## Define what the number must prove
 
