@@ -107,7 +107,8 @@ referenced guides, and agent prompts. New skills do not require prior use or rep
 - Writes on Matt Pocock's writing-for-agents levers: context pointers, the two loads, information hierarchy, completion criteria, guarded leading words, and pruning
 - Chooses between reusing, wrapping, deriving, or creating a skill before adding an implementation
 - Hands each skill decision to `skill-maintenance` for the skill's `origin.toml` record in a repository that keeps records
-- Reviews every skill change for entry-file growth against the previous version and the base, evaluation evidence, record hand-overs, and stale callers or README entries that name the skill
+- Prunes the entrypoint and references together: removes repetition, keeps each rule in one home, and compares file and package word counts without treating relocation as a reduction
+- Reviews every skill change for justified growth, evaluation evidence, record hand-overs, and stale callers or README entries that name the skill
 - Validates the changed behavior in proportion to the task; behavioral trials stage only runtime files and run on Claude Code and Codex. After an edit, only the cases it can affect rerun, and other results carry over with a diff-based reason that reviews check. Reports name the revision each result ran on and every unrun case
 - Keeps the round's two reviews independent until both results are in, cites the reviewed candidate by commit and tree (or by file hashes when nothing is committed), and starts no new round for edits made in response; a disagreement left after it goes to the user
 - Preserves business constraints and preferences when pruning, and distinguishes file size from actual loaded context

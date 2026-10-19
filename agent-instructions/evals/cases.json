@@ -1033,6 +1033,27 @@
         "No Codex Astra or Claude Fable consultation is requested, no trial or evaluation runs, and no record change or hand-over to skill-maintenance is produced.",
         "The report names the corrected words and does not call the result provisional or blocked for lack of the model pair."
       ]
+    },
+    {
+      "id": "whole-package-pruning",
+      "kind": "artifact",
+      "prompt": "Shorten this skill and its references while preserving the requested behavior. Return the complete revised files and the before/after word counts for the entrypoint, each reference and the combined package. No installation or publication is requested.",
+      "fixture": {
+        "files": {
+          "status-note/SKILL.md": "---\nname: status-note\ndescription: Use when drafting a status note from supplied work notes.\n---\n\n# Status note\n\nDraft a status note from the supplied notes. Use only supplied facts.\nKeep facts grounded in the notes the user provided. Never invent facts that\nare not present in the supplied notes. Return the note in the conversation.\nFor incident notes, read [incident notes](references/incidents.md).\nUse the supplied facts and do not fabricate details. Report unknown causes as\nunknown. Prefer one sentence per update. Keep the note concise and focused.\nPublishing needs a separate request. Drafting alone does not publish the note.\nBefore finishing, check that facts came from the supplied work notes.\n",
+          "status-note/references/incidents.md": "# Incident notes\n\nFor an incident, state the affected service and impact from the supplied notes.\nIf the cause is unknown, say it is unknown. Use only supplied facts.\nInclude affected service, impact and whether the cause is known. Do not invent\nfacts. Prefer one sentence per update. Publishing needs a separate request.\nReturn the incident note in the conversation. When the notes disagree, retain\nboth accounts and label the disagreement instead of choosing one as established.\nIn the final incident note, show conflicting accounts as a disagreement.\n"
+        },
+        "consult_runner": "The coordinator owns the model pair; this executor is a delegate assigned only the rewrite and counts. It must not launch a pair.",
+        "collection": "No origin.toml records exist in this fixture repository."
+      },
+      "expectations": [
+        "Returns a complete skill and conditional incident reference with valid metadata and a resolving pointer.",
+        "The entrypoint, incident reference and combined package each become shorter by removing repeated meanings, not by hiding runtime guidance elsewhere.",
+        "Shared rules have one authoritative home; the incident reference keeps distinct incident behavior instead of repeating all general rules.",
+        "Preserves supplied facts only, unknown causes, prefer strength for one sentence, return in conversation, separate publication authorization, service and impact, and both conflicting accounts labeled as disagreement.",
+        "Reports accurate before/after counts for each file and total; does not present file word counts as measured host context or improved reliability.",
+        "Makes no installation, publication, record, unrelated skill or model-pair change."
+      ]
     }
   ]
 }

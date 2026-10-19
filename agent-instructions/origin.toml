@@ -5,6 +5,11 @@ approach = "base"
 goal = "Help agents make the intended decisions, find the right context and recognize completion, by writing or reviewing the instruction files, prompts and skills they consume at a user's request. Success is a revision that keeps the intended meaning and authority, places each rule where it reaches the tasks that need it, and carries checks proportionate to the change."
 
 [[invariants]]
+rule = "writing-for-agents remains the base after package-wide condensation. Its concepts retain corresponding local sections; wording differences and local behavior belong in the base deviations."
+reason = "User decision on 2026-10-19: keep base and explain the changes and their reasons in origin.toml, rather than changing the source to derive."
+where = ["references/levers.md", "SKILL.md#pruning"]
+
+[[invariants]]
 rule = "The skill writes and reviews agent-facing instruction files, prompts and skills. A request can define a new capability, and prior use or repetition is not a prerequisite. Reading or following instructions does not activate the skill, and a factual update qualifies only when it changes agent guidance or instruction loading."
 where = ["SKILL.md#agent-instructions"]
 
@@ -55,7 +60,7 @@ where = ["SKILL.md#pruning"]
 [[invariants]]
 rule = "Instruction work the user explicitly requests gets independent, fresh-context reviews from Codex Astra and Claude Fable before the result is final. Work an agent starts on its own, and its review of its own changes, start no pair unless the user asks for that review. The agent receiving the user's request runs the pair unless a brief relays that request and assigns the pair to a delegate. A rate or usage limit skips that profile for the task; other failures leave the result provisional; no model or effort is substituted without the user. No donor review layer replaces the pair."
 reason = "Explicit user policy (reports/skill-atlas/agent-instructions-dual-review-validation.json). Commit 299c077 stopped a subagent from starting an unrequested pair; commit 3d96199 lets one reviewer continue when the other reaches a rate limit."
-where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md#handle-failures"]
+where = ["SKILL.md#get-both-model-perspectives", "SKILL.md#handle-failures"]
 
 [[invariants]]
 rule = "A typo fix that leaves guidance unchanged does not select this skill, and a run that loads it for one starts no model pair, trial or record hand-over; the description names typo fixes among its exclusions."
@@ -70,7 +75,7 @@ where = ["references/skill-changes.md#records"]
 [[invariants]]
 rule = "Both model-pair profiles run at reasoning effort xhigh."
 reason = "User decision on 2026-10-18: 'It is no longer maximum effort, it has to be xhigh.'"
-where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md#resolve-each-profile"]
+where = ["SKILL.md#get-both-model-perspectives", "SKILL.md#resolve-each-profile"]
 
 [[invariants]]
 rule = "Work on a handoff document, whether writing, updating or reviewing it, never starts the model pair. The handoff skill still selects this skill for the continuation guidance inside the document."
@@ -78,19 +83,24 @@ reason = "User decision on 2026-10-18: 'handoff should NEVER trigger those revie
 where = ["SKILL.md#get-both-model-perspectives", "SKILL.md#agent-instructions"]
 
 [[invariants]]
-rule = "SKILL.md states when the model pair runs, who runs it and its completion criterion; runner resolution, briefs, failure handling and reconciliation live in references/model-pair.md. The split holds only while the model-pair evaluation cases pass against the package; on any regression, the full contract returns to SKILL.md."
-reason = "User decision on 2026-10-18, taken conditionally on the model-pair cases in evals/cases.json still passing. Coordinator ruling of 2026-10-19 on what a pass is for a delegate whose brief does not assign the pair: it may say the overall review awaits the pair its parent or caller owes, when it delivers its findings in full, names who owes the pair, and reports no blocker of its own."
+rule = "SKILL.md owns the full model-pair contract: activation, assignment, completion, runner resolution, briefs, failure handling and reconciliation. references/model-pair.md is a compatibility pointer, not a second rule set."
+reason = "User decision on 2026-10-18, taken conditionally on the model-pair cases in evals/cases.json still passing. On 2026-10-19 condensation dropped exact-error reporting and the Claude both-rate-limited case omitted it, so the recorded regression condition returned the full contract to SKILL.md with exact reporting restored. Coordinator ruling of 2026-10-19 on what a pass is for a delegate whose brief does not assign the pair: it may say the overall review awaits the pair its parent or caller owes, when it delivers its findings in full, names who owes the pair, and reports no blocker of its own."
 where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md"]
 
 [[invariants]]
 rule = "A change to a skill is finished, and a review of one passes, only after checking at least: the entry file's size, the evaluation evidence, the record hand-over to skill-maintenance, the text that depends on the changed contract, and that each claim about another skill names the revision read. A missing item is a finding. The model pair's brief for a skill change asks for the same checks."
 reason = "User statement on 2026-10-18 that agent-instructions, skill-maintenance and workflow-to-skill will review every skill modified later. In the first wave of rebuilds that day, neither the model pair nor the authoring agent flagged entry-file growth, Claude-only trials, unrun cases or stale callers."
-where = ["references/skill-changes.md#review-a-skill-change", "references/model-pair.md#brief-the-reviewers"]
+where = ["references/skill-changes.md#review-a-skill-change", "SKILL.md#brief-the-reviewers"]
 
 [[invariants]]
-rule = "A changed skill's entry file is counted in words against its previous version and, when the record's approach is base, the base's entry file. Each added passage names the behavior it buys and why every branch needs it there; a passage only some branches need moves to a reference with a load condition, one that buys nothing is cut, and a reference every branch must read reduces nothing. When a change renames or replaces most base sections, the approach question goes to skill-maintenance with the counts and a section map, and skill-maintenance judges whether the base still fits."
-reason = "On 2026-10-18 the rebuilt entry files grew without any reviewer flagging it: teach 835 to 3289 words (base 1522), retro 790 to 2086 (base 679), verify 1025 to 2657, handoff 469 to 676 (base 144), and this skill 1348 to 3901 (base 1777)."
+rule = "Count the entry file, each instructional reference and the combined package against the previous revision, plus the base entry file where applicable. Justify growth by its distinct behavior; entrypoint additions must serve every branch. Smaller entrypoints cannot excuse unexplained reference growth. Distinguish measured loaded context from file counts or path estimates. Hand a substantially rewritten base to skill-maintenance with counts and a section map before changing its recorded approach."
+reason = "On 2026-10-18 entry files grew without review findings: teach 835 to 3289 words (base 1522), retro 790 to 2086 (base 679), verify 1025 to 2657, handoff 469 to 676 (base 144), and this skill 1348 to 3901 (base 1777). On 2026-10-19 the user required concision across references as well as SKILL.md."
 where = ["references/skill-changes.md#size-budget", "references/levers.md#information-hierarchy"]
+
+[[invariants]]
+rule = "Write the shortest clear instructions that preserve the contract across the whole package. Prune by removing irrelevant material, consolidating each rule in one home, shortening wording and then placing conditional detail; stop before losing meaning or clarity."
+reason = "User request on 2026-10-19: write skills in the fewest words that still achieve their objective, avoiding repeated references to the same meaning."
+where = ["SKILL.md#pruning", "SKILL.md#verify-the-change"]
 
 [[invariants]]
 rule = "This skill's own SKILL.md stays at or under the word count of the base's entry file (writing-for-agents SKILL.md at 49dd158, 1777 words). Exceeding it needs a measured behavior that fails when the text moves out of the entry file."
@@ -129,17 +139,17 @@ where = ["references/evaluation.md#iterate-proportionately"]
 [[invariants]]
 rule = "The round reviews a frozen candidate, cited by commit and tree hash, or by file hashes when nothing may be committed."
 reason = "On 2026-10-18 rebase.updateRefs moved backup refs, so reviewed commits survived only in the reflog."
-where = ["references/model-pair.md#brief-the-reviewers"]
+where = ["SKILL.md#brief-the-reviewers"]
 
 [[invariants]]
 rule = "Both reviewers get identical inputs, private from each other and from the coordinator's dispositions until both results are in, and the round is reconciled only after both are read in full or the missing profile is skipped or blocked."
 reason = "On 2026-10-18 one pilot shared a reviewer's dispositions while the other was still reviewing, and another reconciled a round before the other result arrived."
-where = ["references/model-pair.md#brief-the-reviewers", "references/model-pair.md#reconcile-the-findings"]
+where = ["SKILL.md#brief-the-reviewers", "SKILL.md#reconcile-the-findings"]
 
 [[invariants]]
 rule = "A change gets one model-pair round: edits made in response, and later edits in the same change, start no new round, and a material disagreement left after it goes to the user in the report."
 reason = "User decision on 2026-10-19, relayed by the coordinator: the pair keeps its scope but had been spawning for every change; 'the important thing is that it does not consume all the subscription usage; we need a good balance.'"
-where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md#reconcile-the-findings"]
+where = ["SKILL.md#get-both-model-perspectives", "SKILL.md#reconcile-the-findings"]
 
 [[sources]]
 id = "mattpocock-writing-for-agents-base"
@@ -183,7 +193,7 @@ reason = "The invariants on authoring owners and on skill-maintenance. These rep
 where = ["SKILL.md#agent-instructions"]
 
 [[sources.deviations]]
-change = "Added a step section above the base's reference sections: Establish meaning and scope, Write, Get both model perspectives, Verify the change and Report, each ending on a completion criterion. Write applies Negation and Pruning to each changed line and each lever that the change's pointers, steps, placement and rewording reach, and Verify finishes only when the requested result passes its applicable checks. The information hierarchy's example of an all-reference document ('this skill') now reads 'or both, as this skill does'."
+change = "Added an authoring workflow above the base's reference material: establish scope, write with the applicable rules, obtain the required model pair, verify and report. Completion requires preserved meaning and passing applicable checks."
 reason = "The local skill writes and reviews instructions at a user's request as a workflow; the base's information hierarchy puts steps on the top rung and lets steps and reference mix. The demand 'every lever applied' turns the base reference into the Write step's completion bar, and the passing-checks rule is the earlier local completion criterion."
 where = [
   "SKILL.md#establish-meaning-and-scope",
@@ -194,12 +204,12 @@ where = [
 ]
 
 [[sources.deviations]]
-change = "Added to Establish meaning and scope: authority and callers, explicit type, quantity, depth and completion evidence ('create tests'), domain decisions resolved from an authoritative contract instead of invented defaults, questions on unresolved intent with dependent work paused, review-only requests that leave the source unchanged, and interventions sized to the request. Reconciling overlapping guidance by trigger, owner, action, completion evidence and authority sits in the reuse reference, which the entrypoint loads for overlapping drafts, adapters and skills."
-reason = "Trials showed agents turning 'create tests' into execution (reports/agent-instructions-validation.json meaning_revision) and inventing a schema, a precision and a row-discard rule (reports/skill-authoring-validation.json). Evaluation cases ambiguous-test-objective, missing-domain-contract, unresolved-donor-conflict and canonical-instruction-edit."
+change = "Added to Establish meaning and scope: authority and callers, explicit type, quantity, depth and completion evidence ('create tests'), domain decisions resolved from an authoritative contract instead of invented defaults, questions on unresolved intent with dependent work paused, review-only requests that leave the source unchanged, and interventions sized to the request. Unresolved runtime inputs become prerequisites in the authored workflow so independent authoring can continue. Reconciling overlapping guidance by trigger, owner, action, completion evidence and authority sits in the reuse reference, which the entrypoint loads for overlapping drafts, adapters and skills."
+reason = "Trials showed agents turning 'create tests' into execution (reports/agent-instructions-validation.json meaning_revision) and inventing a schema, a precision and a row-discard rule (reports/skill-authoring-validation.json). On 2026-10-19 the condensed skill's Codex trial instead stopped all authoring for missing runtime inputs; the clarification preserves independent work without inventing business rules (reports/agent-instructions-pruning-validation.json). Evaluation cases ambiguous-test-objective, missing-domain-contract, unresolved-donor-conflict and canonical-instruction-edit."
 where = ["SKILL.md#establish-meaning-and-scope", "references/reuse.md#reuse-and-standardization"]
 
 [[sources.deviations]]
-change = "Added the Get both model perspectives step and references/model-pair.md: independent Codex Astra and Claude Fable reviews at xhigh for instruction work the user explicitly requests, one round per change, with who runs them, a completion criterion, runner resolution, briefs, failure handling and reconciliation."
+change = "Added the Get both model perspectives step: independent Codex Astra and Claude Fable reviews at xhigh for instruction work the user explicitly requests, one round per change, with who runs them, a completion criterion, runner resolution, briefs, failure handling and reconciliation. The full contract now lives in SKILL.md; the former reference redirects there to preserve existing links."
 reason = "The model-pair invariants, the user's decisions of 2026-10-18 on effort, the handoff exemption and the split between SKILL.md and the reference, and the user's decision of 2026-10-19 on one round per change."
 where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md"]
 
@@ -229,7 +239,7 @@ reason = "Ideas recorded below from mblode-agents-md and superpowers-writing-ski
 where = ["SKILL.md#negation"]
 
 [[sources.deviations]]
-change = "Added to Pruning: new guidance goes into its existing home instead of a parallel rule; each line is graded by what it supplies before it is cut; and compression keeps force (actors, conditions, obligation strength, quantity, authority and completion evidence), with a rule deleted as enforced elsewhere only after the enforcement is inspected."
+change = "Extended Pruning into a package-wide pass: remove irrelevant material, consolidate rules in their existing homes, shorten wording, then place conditional detail. Grade each line before cutting, preserve force, and inspect enforcement before deleting a rule as redundant."
 reason = "The user's direction to integrate rather than append (reports/skill-atlas/agent-instructions-retune-validation.json integrationClarification), the pruning invariant, and evaluation cases preserve-wording-force and project-rule-pruning. The no-op test asks whether a line changes behavior, not whether a rewrite keeps its force."
 where = ["SKILL.md#pruning"]
 
@@ -244,8 +254,8 @@ reason = "These skills run in Claude Code and Codex. Upstream's skills/productiv
 where = ["references/skill-mechanics.md#invocation", "references/skill-mechanics.md#router-skills"]
 
 [[sources.deviations]]
-change = "Replaced 'If it only ever fires by hand, make it user-invoked and pay no context load' with: keep an existing skill's invocation policy, keep new skills model-invoked unless the user chooses otherwise, and propose user invocation with its two-load trade."
-reason = "Changing invocation is a product decision, separate from permission for an action, and local skills reach each other by registered name (workflow-to-skill, verification-authoring), which a Claude Code user-invoked skill cannot receive."
+change = "Replaced 'If it only ever fires by hand, make it user-invoked and pay no context load' with: keep an existing skill's invocation policy, keep new skills model-invoked unless the user chooses otherwise, and propose user invocation with its two-load trade. For user invocation, replace trigger lists with a human summary and explain the loss of autonomous access."
+reason = "Changing invocation is a product decision, separate from permission for an action, and local skills reach each other by registered name (workflow-to-skill, verification-authoring), which a Claude Code user-invoked skill cannot receive. In the 2026-10-19 Codex comparison, both versions saved the correct controls but omitted their reachability consequence; the condensed version also kept the trigger list."
 where = ["references/skill-mechanics.md#invocation"]
 
 [[sources.deviations]]
@@ -265,7 +275,7 @@ where = ["references/skill-mechanics.md#splitting-by-invocation"]
 
 [[sources.deviations]]
 change = "Added references/packaging.md: resources bundled inside the package, helpers with explicit inputs, outputs and failure states, host creators (used when installed, hand-written metadata and a reported limit when a documented one is missing) and dependencies, and validation that includes a relocation test."
-reason = "The package invariants: a skill works after only its folder is copied, and a plain file outside the package would be lost. The missing-creator branch answers Codex runs that changed invocation controls without the Codex skill-creator installed and left its absence unreported."
+reason = "The package invariants: a skill works after only its folder is copied, and a plain file outside the package would be lost. The missing-creator branch answers Codex runs that changed invocation controls without the Codex skill-creator installed and left its absence unreported. The 2026-10-19 condensation dropped naming the creator; its failing Codex trial led to restoring that requirement."
 where = ["references/packaging.md"]
 
 [[sources.deviations]]
@@ -279,7 +289,7 @@ reason = "The package invariant: a skill must work after only its folder is copi
 where = ["references/skill-mechanics.md#invocation"]
 
 [[sources.deviations]]
-change = "Added references/skill-changes.md, read before finishing or reviewing any change to a skill: the entry file's size budget against its previous version and its base, the text that depends on a changed contract, the Records hand-over to skill-maintenance in a repository that keeps records, and the checks a review of a skill change makes."
+change = "Added references/skill-changes.md for package-wide size comparisons, dependent text, record handoffs and review checks."
 reason = "User decision on 2026-10-18 that skill-maintenance owns records and this skill keeps only the hand-over; records exist only for skills, so the hand-over sits in the skill branch (model-pair review, Claude Fable, 2026-10-18). The size, dependent-text and review checks are the invariants above."
 where = [
   "references/skill-changes.md#size-budget",
@@ -292,6 +302,11 @@ where = [
 change = "Added references/reuse.md for choosing to install, wrap, base, derive or create a skill."
 reason = "skill-maintenance's record format chooses each record's approach with this guidance."
 where = ["references/reuse.md"]
+
+[[sources.deviations]]
+change = "Condensed the entrypoint and all eight references, retaining their contract while removing repeated explanations, examples and summaries. Context pointers, loads, hierarchy, completion criteria, splitting and leading words retain their homes in levers; negation and pruning remain in SKILL.md. Evaluation repeat minimums stay scoped to added cases or changed expectations."
+reason = "User request on 2026-10-19: the skill and its references use too many words and should achieve the same objective with less repetition. The user explicitly retained base so future source changes are reconciled with these local wording differences. Fidelity checks restored repeat scope and every-branch justification for entry growth. Claude still inlined a conditional procedure because a pointer might be skipped; the size budget now directs that concern toward stronger pointers (reports/agent-instructions-pruning-validation.json)."
+where = ["SKILL.md", "references/levers.md", "references/skill-mechanics.md", "references/skill-changes.md", "references/packaging.md", "references/model-pair.md", "references/instruction-files.md", "references/reuse.md", "references/evaluation.md"]
 
 [[sources.deviations]]
 change = "Restructured the base's single reference into two homes. Context pointers, The two loads, Information hierarchy, Steps and completion criteria, When to split and Leading words moved, in the base's order, to references/levers.md, read before writing or reviewing a pointer, a step or its completion criterion, or where material sits, and before rewording existing text. The Negation paragraph became its own SKILL.md section beside Pruning, and the explanations in Negation, relevance and no-ops were condensed to their rules."
@@ -494,7 +509,7 @@ paths = ["plugins/improve-claude-md/skills/improve-claude-md/SKILL.md", "LICENSE
 idea = "Text can be removed as covered elsewhere only when the surviving owner, such as a linter, formatter, hook, configuration or existing code, actually enforces or supplies the rule. The reason or gotcha that the owner cannot supply stays."
 serves = "Prevents pruning that silently drops a rule that nothing enforces."
 where = ["SKILL.md#pruning"]
-shapes = "The force bullet in Pruning requires inspecting the actual configuration, execution path and coverage before a rule is deleted as enforced elsewhere."
+shapes = "Pruning requires inspecting the actual configuration, execution path and coverage before a rule is deleted as enforced elsewhere."
 adapted = "The donor keeps every command from the original file and cuts style rules that tooling could enforce. Locally, commands are checked against the repository and corrected when stale, and domain constraints that tools do not enforce stay."
 
 [[sources.declined]]
@@ -561,7 +576,7 @@ where = [
   "references/instruction-files.md#make-the-requested-change",
   "SKILL.md#pruning",
 ]
-shapes = "The instruction-file section lists what the entrypoint keeps and where background and conditional detail go; the cache bullet in Pruning keeps the reason or gotcha that discoverable facts lack."
+shapes = "The instruction-file section lists what the entrypoint keeps and where background and conditional detail go; Pruning keeps the reason or gotcha that discoverable facts lack."
 
 [[sources.ideas]]
 idea = "After text is pruned or moved, the result is checked in context: commands still match their definitions, links and imports resolve, the moved rule still reaches the tasks that need it, and rare consequential constraints survived."
@@ -668,7 +683,7 @@ shapes = "Establish meaning and scope classifies statements as observed behavior
 idea = "Before a line is cut, it is graded by what it supplies: generic competence the model already has is cut; host behavior is scoped to that host's adapter; team policy or preference stays in one home; an operational contract or observed failure keeps the minimum that holds it; a volatile fact points to its current source."
 serves = "Gives the no-op test a model-relative answer that still protects preferences and contracts."
 where = ["SKILL.md#pruning"]
-shapes = "A Pruning bullet beside the no-op test grades each line by these classes before cutting it."
+shapes = "Pruning grades each line by these classes before cutting it."
 adapted = "The donor applies its retention table to whole skills in a collection audit and keeps or retires skills on measured gains. Locally it grades lines during any edit, and retirement is declined below."
 
 [[sources.ideas]]

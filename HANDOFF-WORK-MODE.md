@@ -838,7 +838,7 @@ record before extending a historical claim; the export did not rerun its tests.
 - `agent-instructions/references/skill-mechanics.md`: host metadata, invocation, and descriptions.
 - `agent-instructions/references/packaging.md`: bundled resources, helpers, and validation.
 - `agent-instructions/references/reuse.md`: install/wrap/derive/create decision.
-- `agent-instructions/references/model-pair.md`: dual-review runners, briefs, and reconciliation.
+- `agent-instructions/SKILL.md#get-both-model-perspectives`: dual-review runners, briefs, and reconciliation.
 - `agent-instructions/references/evaluation.md`: behavioral evidence requirements.
 - `skill-maintenance/references/updates.md`: provenance and maintenance.
 - `reports/skill-atlas/planning-validation.json`: historical planning validation.
