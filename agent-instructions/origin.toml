@@ -74,7 +74,7 @@ where = ["SKILL.md#get-both-model-perspectives", "SKILL.md#agent-instructions"]
 
 [[invariants]]
 rule = "SKILL.md states when the model pair runs, who runs it and its completion criterion; runner resolution, briefs, failure handling and reconciliation live in references/model-pair.md. The split holds only while the model-pair evaluation cases pass against the package; on any regression, the full contract returns to SKILL.md."
-reason = "User decision on 2026-10-18, taken conditionally on the model-pair cases in evals/cases.json still passing. That day every model-pair case passed against the rebuilt package in matched Claude trials, and the four cases nearest later wording changes passed again after them. The final revision of https://github.com/LuisUrrutia/skills/pull/43 was tried on Claude Code and Codex; its one recurring model-pair gap, Claude delegates marking their findings provisional in unassigned-relayed-review-skips-pair, occurs on the first rebuild revision too. The trials are recorded in that pull request."
+reason = "User decision on 2026-10-18, taken conditionally on the model-pair cases in evals/cases.json still passing. Coordinator ruling of 2026-10-19 on what a pass is for a delegate whose brief does not assign the pair: it may say the overall review awaits the pair its parent or caller owes, when it delivers its findings in full, names who owes the pair, and reports no blocker of its own. A behavior the package already showed at commit b206819 is no regression of the split."
 where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md"]
 
 [[invariants]]
