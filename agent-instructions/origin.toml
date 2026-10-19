@@ -112,18 +112,34 @@ where = [
 ]
 
 [[invariants]]
-rule = "The whole suite runs once per host on a candidate revision; after an edit, only the cases it can affect rerun, plus the selection probes when the description changes. An earlier result counts only with a diff-based reason, checked by reviews including the model pair, that the edits cannot affect it. An added or changed case needs one counted run per host, a second after a failure or partial result, and two when it exercises safety or authority; executors and graders keep the strong models. Every result names its revision; an unrun case blocks its claims."
-reason = "User decisions on 2026-10-19, relayed by the coordinator: reruns after an edit are proportional to it, and the run counts above, the coordinator's proposal accepted with the strong models kept. A coordinator ruling applying them: the edit triggers a rerun, not the age of the case. On 2026-10-18 retro's result rows ran before later wording changes, and teach and verify left cases unrun."
+rule = "The whole suite runs once per host on a candidate revision. After an edit, the cases it can affect and a nearby regression case rerun on every host, plus the selection probes when the description changes. Every result names its revision, and an unrun case blocks its claims."
+reason = "User decision on 2026-10-19, relayed by the coordinator: reruns after an edit are proportional to it. On 2026-10-18 retro's result rows ran before later wording changes, and teach and verify left cases unrun."
+where = ["references/evaluation.md#iterate-proportionately"]
+
+[[invariants]]
+rule = "A result from an earlier revision counts only with a written, diff-based reason that the edits cannot affect it, for added or changed cases too. The model pair checks the reasons in its round; the author checks reasons written after it, and the report marks those as not reviewed by the pair."
+reason = "The user's proportional-rerun decision of 2026-10-19 and the coordinator's ruling of the same day that the edit, not the age of a case, triggers a rerun. Reasons written after the round have no pair to check them under the one-round invariant."
 where = ["references/evaluation.md#iterate-proportionately", "references/skill-changes.md#review-a-skill-change"]
 
 [[invariants]]
-rule = "The round reviews a frozen candidate, cited by commit and tree hash, or by file hashes when nothing may be committed. Both reviewers get identical inputs, private from each other and from the coordinator's dispositions until both results are in, and the round is reconciled only after both are read in full or the missing profile is skipped or blocked. A change gets one round: edits in response and later edits start no new round, and a material disagreement left after it goes to the user in the report."
-reason = "User decision on 2026-10-19, relayed by the coordinator: one round per change, because the pair had been spawning for every change and 'the important thing is that it does not consume all the subscription usage.' On 2026-10-18 rebase.updateRefs moved backup refs so reviewed commits survived only in the reflog; one pilot shared a reviewer's dispositions while the other was still reviewing; and another reconciled a round before the other result arrived."
-where = [
-  "references/model-pair.md#brief-the-reviewers",
-  "references/model-pair.md#handle-failures",
-  "references/model-pair.md#reconcile-the-findings",
-]
+rule = "A case added or whose expected behavior changed needs one counted run per host, a second on a host where the first fails or is partial, and at least two per host when it exercises safety or authority. Executors and graders use the strongest available models; usage is saved through fewer runs."
+reason = "User decision on 2026-10-19, relayed by the coordinator: the coordinator's trial-balance proposal, accepted with the strong executor and grader models kept."
+where = ["references/evaluation.md#iterate-proportionately"]
+
+[[invariants]]
+rule = "The round reviews a frozen candidate, cited by commit and tree hash, or by file hashes when nothing may be committed."
+reason = "On 2026-10-18 rebase.updateRefs moved backup refs, so reviewed commits survived only in the reflog."
+where = ["references/model-pair.md#brief-the-reviewers"]
+
+[[invariants]]
+rule = "Both reviewers get identical inputs, private from each other and from the coordinator's dispositions until both results are in, and the round is reconciled only after both are read in full or the missing profile is skipped or blocked."
+reason = "On 2026-10-18 one pilot shared a reviewer's dispositions while the other was still reviewing, and another reconciled a round before the other result arrived."
+where = ["references/model-pair.md#brief-the-reviewers", "references/model-pair.md#reconcile-the-findings"]
+
+[[invariants]]
+rule = "A change gets one model-pair round: edits made in response, and later edits in the same change, start no new round, and a material disagreement left after it goes to the user in the report."
+reason = "User decision on 2026-10-19, relayed by the coordinator: the pair keeps its scope but had been spawning for every change; 'the important thing is that it does not consume all the subscription usage; we need a good balance.'"
+where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md#reconcile-the-findings"]
 
 [[sources]]
 id = "mattpocock-writing-for-agents-base"
@@ -153,7 +169,7 @@ where = ["SKILL.md#agent-instructions", "references/skill-mechanics.md#skill-mec
 
 [[sources.deviations]]
 change = "Replaced the base description ('Writing documents for agents. Use when creating or editing skills, or modifying AGENTS.md or CLAUDE.md.') with the local one, which adds review and excludes following instructions, typo fixes and factual updates that leave guidance unchanged."
-reason = "The local description passed selection probes (reports/agent-instructions-validation.json description_revision), and its exclusions answer an observed over-activation fixed in commit dc7c930 (evaluation case activation-near-misses). The typo-fix exclusion follows the coordinator ruling in the typo-fix invariant above."
+reason = "Its exclusions answer an observed over-activation fixed in commit dc7c930, and the typo-fix exclusion follows the coordinator ruling in the typo-fix invariant."
 where = ["SKILL.md"]
 
 [[sources.deviations]]
@@ -249,7 +265,7 @@ where = ["references/skill-mechanics.md#splitting-by-invocation"]
 
 [[sources.deviations]]
 change = "Added references/packaging.md: resources bundled inside the package, helpers with explicit inputs, outputs and failure states, host creators (used when installed, hand-written metadata and a reported limit when a documented one is missing) and dependencies, and validation that includes a relocation test."
-reason = "The package invariants; reports/skill-authoring-portability-validation.json; evaluation cases portable-resource-review, fleet-package-relocation and thin-wrapper. The missing-creator branch answers Codex runs that changed invocation controls without the Codex skill-creator installed and left its absence unreported."
+reason = "The package invariants: a skill works after only its folder is copied, and a plain file outside the package would be lost. The missing-creator branch answers Codex runs that changed invocation controls without the Codex skill-creator installed and left its absence unreported."
 where = ["references/packaging.md"]
 
 [[sources.deviations]]
@@ -831,6 +847,12 @@ url = "https://github.com/openai/codex/blob/ce0323f2f2d3b25e82806cd555237da3db4e
 checked = "2026-10-18"
 role = "Evidence for the Codex invocation control: policy.allow_implicit_invocation false keeps a skill out of the model context by default, while an explicit $skill mention still invokes it; the default is true."
 coverage = "The field list of agents/openai.yaml, read at the linked commit."
+
+[[dependencies]]
+kind = "local"
+name = "workflow-to-skill"
+required = false
+role = "Extracts the contract, evidence and proposed record entries from completed work or conversation history before this skill writes a skill from them."
 
 [[dependencies]]
 kind = "local"
