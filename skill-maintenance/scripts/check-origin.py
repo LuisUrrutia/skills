@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
-"""Check a skill's origin.toml provenance record against format version 2."""
+"""Check skills' origin.toml records against format version 2, or list the records that depend on a skill."""
 
 import argparse
 import datetime
 import json
 from pathlib import Path
 import re
+import subprocess
 import sys
 import tomllib
 
@@ -14,6 +15,8 @@ COMMIT = re.compile(r"^[0-9a-f]{40}$")
 SHA256 = re.compile(r"^[0-9a-f]{64}$")
 SSH_REMOTE = re.compile(r"^(git@[^:\s]+:\S+|ssh://\S+)$")
 LINE_CITATION = re.compile(r"origin\.(?:txt|toml):\d+")
+MAX_WORDS = 100
+COMMIT_CITATION = re.compile(r"(?<![0-9A-Za-z])[0-9a-f]{7,40}(?![0-9A-Za-z])")
 LOCATION = re.compile(r"^([^\s#]+)(?:#([a-z0-9_-]+))?$")
 FENCE = re.compile(r"^\s{0,3}(`{3,}|~{3,})")
 HEADING = re.compile(r"^#{1,6}\s+(.+?)\s*#*\s*$")
@@ -26,6 +29,12 @@ ROLES = {"base", "ideas"}
 SNAPSHOT_KINDS = {"installed-file", "repository-commit", "session"}
 DEPENDENCY_KINDS = {"local", "installed"}
 LEGACY_KEYS = {"borrowed", "local_choices"}
+# Typed fields can name upstream commits that never belong on this repository's default branch.
+PINNED_KEYS = {"baseline_commit", "reviewed_through", "from_commit", "to_commit", "commit", "approved_commit",
+               "found_commit", "local_repository_commit", "sha256", "entrypoint_sha256", "review_sha256",
+               "validator_sha256"}
+DEFAULT_REFS = ("refs/remotes/origin/HEAD", "refs/remotes/origin/main", "refs/remotes/origin/master",
+                "refs/heads/main", "refs/heads/master")
 
 TOP = {
     "format_version": INTEGER, "skill": TEXT, "created": DATE, "approach": TEXT,
@@ -136,12 +145,39 @@ def is_text(value):
     return isinstance(value, str) and bool(value.strip())
 
 
+def git(directory, *args):
+    try:
+        result = subprocess.run(["git", "-C", str(directory), *args], capture_output=True, text=True, check=False)
+    except OSError:
+        return None, None
+    return result.returncode, result.stdout.strip()
+
+
+def review_range(review):
+    return (review.get("from_commit"), review.get("to_commit")) if isinstance(review, dict) else None
+
+
+def resolve_commit(directory, name):
+    returncode, output = git(directory, "rev-parse", "--verify", "--quiet", f"{name}^{{commit}}")
+    return output if returncode == 0 else None
+
+
+def is_ancestor(directory, older, newer):
+    return git(directory, "merge-base", "--is-ancestor", older, newer)[0] == 0
+
+
 class Checker:
-    def __init__(self, skill_dir):
+    def __init__(self, skill_dir, clones=None):
         self.skill_dir = skill_dir
+        self.clones = clones or {}
+        self.matched_sources = set()
+        self.sources_readable = False
         self.record = skill_dir / "origin.toml"
         self.diagnostics = []
+        self.skipped = []
         self.slug_cache = {}
+        self.citations = []
+        self.default = None
 
     def issue(self, code, message, location=None):
         item = {"path": str(self.record), "code": code, "message": message}
@@ -173,6 +209,8 @@ class Checker:
         for index, invariant in enumerate(self.tables(data, "invariants", "invariants")):
             self.check_table(invariant, INVARIANT, INVARIANT_OPTIONAL, f"invariants[{index}]")
         sources = self.tables(data, "sources", "sources")
+        raw_sources = data.get("sources", [])
+        self.sources_readable = isinstance(raw_sources, list) and all(isinstance(source, dict) and isinstance(source.get("id"), str) for source in raw_sources)
         snapshots = self.tables(data, "local_snapshots", "local_snapshots")
         dependencies = self.tables(data, "dependencies", "dependencies")
         for index, source in enumerate(sources):
@@ -191,6 +229,9 @@ class Checker:
                 names.add(name)
         self.check_ids(data)
         self.check_approach(data, sources, snapshots, dependencies)
+        if self.find_default_branch():
+            self.check_commit_citations()
+            self.check_against_default(sources)
         return self.diagnostics
 
     def scan_values(self, value, location):
@@ -203,8 +244,13 @@ class Checker:
         elif isinstance(value, list):
             for index, child in enumerate(value):
                 self.scan_values(child, f"{location}[{index}]")
-        elif isinstance(value, str) and LINE_CITATION.search(value):
-            self.issue("line-citation", "Refer to a record by its content, not by line number.", location)
+        elif isinstance(value, str):
+            if len(value.split()) > MAX_WORDS:
+                self.issue("long-entry", f"Keep each field to {MAX_WORDS} words or fewer: record one decision and state it rather than copying the skill's text.", location)
+            if LINE_CITATION.search(value):
+                self.issue("line-citation", "Refer to a record by its content, not by line number.", location)
+            if location.rsplit(".", 1)[-1] not in PINNED_KEYS:
+                self.citations.extend((token, location) for token in COMMIT_CITATION.findall(value))
 
     def tables(self, data, key, location):
         value = data.get(key, [])
@@ -300,6 +346,9 @@ class Checker:
         for index, review in enumerate(reviews):
             self.check_table(review, REVIEW, {}, f"{location}.reviews[{index}]")
         self.check_review_chain(source, reviews, location)
+        if isinstance(source.get("id"), str) and source["id"] in self.clones:
+            self.matched_sources.add(source["id"])
+            self.check_source_history(source, reviews, location, self.clones[source["id"]])
 
     def check_role(self, table, location):
         self.check_enum(table, "role", ROLES, f"{location}.role")
@@ -325,7 +374,7 @@ class Checker:
         baseline, cursor = source.get("baseline_commit"), source.get("reviewed_through")
         if not all(isinstance(value, str) for value in (baseline, cursor)):
             return
-        ranges = [(review.get("from_commit"), review.get("to_commit")) for review in reviews]
+        ranges = [review_range(review) for review in reviews]
         pending = bool(reviews) and bool(reviews[-1].get("deferred"))
         resolved = ranges[:-1] if pending else ranges
         for index, review in enumerate(reviews[:len(resolved)]):
@@ -344,6 +393,33 @@ class Checker:
                 self.issue("review-chain", "Each review must start where the previous one ended.", f"{location}.reviews[{index}]")
         if resolved[-1][1] != cursor:
             self.issue("review-chain", "The last resolved review must end at reviewed_through.", f"{location}.reviews[{len(resolved) - 1}]")
+
+    def check_source_history(self, source, reviews, location, clone):
+        if git(clone, "rev-parse", "--is-shallow-repository")[1] == "true":
+            self.skip("source-history", f"The clone of {source['id']} is shallow, so missing ancestry proves nothing.")
+            return
+        known = {}
+
+        def exists(commit):
+            if not (isinstance(commit, str) and COMMIT.match(commit)):
+                return False
+            if commit not in known:
+                known[commit] = resolve_commit(clone, commit) == commit
+            return known[commit]
+
+        pins = [(key, source.get(key), f"{location}.{key}") for key in ("baseline_commit", "reviewed_through")]
+        ends = [(key, commit, f"{location}.reviews[{index}].{key}") for index, review in enumerate(reviews)
+                for key, commit in zip(("from_commit", "to_commit"), review_range(review))]
+        for key, commit, place in pins + ends:
+            if isinstance(commit, str) and COMMIT.match(commit) and not exists(commit):
+                self.issue("unknown-commit", f"{key} {commit} is not a commit in the clone of {source['id']}; if its history was rewritten, keep the pins and report the source as blocked.", place)
+        baseline, cursor = source.get("baseline_commit"), source.get("reviewed_through")
+        if exists(baseline) and exists(cursor) and not is_ancestor(clone, baseline, cursor):
+            self.issue("commit-order", "reviewed_through does not descend from baseline_commit in the source's history.", f"{location}.reviewed_through")
+        for index, review in enumerate(reviews):
+            start, end = review_range(review)
+            if exists(start) and exists(end) and not is_ancestor(clone, start, end):
+                self.issue("commit-order", "The review's to_commit does not descend from its from_commit, so its range crosses rewritten or unrelated history.", f"{location}.reviews[{index}]")
 
     def check_snapshot(self, snapshot, location):
         kind = snapshot.get("kind") if isinstance(snapshot.get("kind"), str) else None
@@ -388,6 +464,66 @@ class Checker:
             if anchor not in self.slug_cache[target]:
                 self.issue("missing-anchor", f"{relative} has no heading with anchor #{anchor}.", location)
 
+    def skip(self, check, reason):
+        self.skipped.append({"path": str(self.record), "check": check, "reason": reason})
+
+    def find_default_branch(self):
+        if git(self.skill_dir, "rev-parse", "--is-inside-work-tree")[1] != "true":
+            return False
+        self.default = next((ref for ref in DEFAULT_REFS if resolve_commit(self.skill_dir, ref)), None)
+        if self.default is None:
+            self.skip("default-branch", "No origin/HEAD, main or master ref was found.")
+        return self.default is not None
+
+    def check_commit_citations(self):
+        if not self.citations:
+            return
+        if git(self.skill_dir, "rev-parse", "--is-shallow-repository")[1] == "true":
+            self.skip("unmerged-commit", "The clone is shallow, so missing ancestry cannot prove a commit is off the default branch.")
+            return
+        branch = git(self.skill_dir, "rev-parse", "--abbrev-ref", self.default)[1] or self.default
+        unmerged = {}
+        for token, location in self.citations:
+            if token not in unmerged:
+                commit = resolve_commit(self.skill_dir, token)
+                unmerged[token] = bool(commit) and git(self.skill_dir, "merge-base", "--is-ancestor", commit, self.default)[0] == 1
+            if unmerged[token]:
+                self.issue("unmerged-commit", f"Commit {token} is not on {branch}, so a rebase or squash merge can drop it. Describe the evidence or cite the pull request; cite a commit only once the default branch contains it.", location)
+
+    def check_against_default(self, sources):
+        returncode, fork = git(self.skill_dir, "merge-base", "HEAD", self.default)
+        if returncode != 0:
+            self.skip("published-record", "No merge base between HEAD and the default branch was found, as in unrelated histories or a shallow clone.")
+            return
+        prefix = git(self.skill_dir, "rev-parse", "--show-prefix")[1] or ""
+        returncode, text = git(self.skill_dir, "show", f"{fork}:{prefix}origin.toml")
+        if returncode != 0:
+            return
+        try:
+            published = tomllib.loads(text)
+        except tomllib.TOMLDecodeError:
+            self.skip("published-record", "The record where this history joins the default branch is not valid TOML.")
+            return
+        entries = published.get("sources", [])
+        if not isinstance(entries, list):
+            self.skip("published-record", "The published record's sources is not an array of tables.")
+            return
+        before = {item["id"]: item for item in entries if isinstance(item, dict) and isinstance(item.get("id"), str)}
+        for index, source in enumerate(sources):
+            old = before.get(source["id"]) if isinstance(source.get("id"), str) else None
+            if old is None:
+                continue
+            if old.get("baseline_commit") != source.get("baseline_commit"):
+                self.issue("baseline-moved", "baseline_commit differs from the published record; give newer material a new source id instead of moving the baseline.", f"sources[{index}].baseline_commit")
+            old_reviews, reviews = old.get("reviews", []), source.get("reviews", [])
+            if not (isinstance(old_reviews, list) and isinstance(reviews, list)):
+                continue
+            # The last published review may still be pending, and a later run updates it in place.
+            pending = bool(old_reviews) and isinstance(old_reviews[-1], dict) and bool(old_reviews[-1].get("deferred"))
+            completed = old_reviews[:-1] if pending else old_reviews
+            if len(reviews) < len(old_reviews) or [review_range(review) for review in reviews[:len(completed)]] != [review_range(review) for review in completed]:
+                self.issue("reviews-dropped", "A review of the published record is missing, or a completed one changed its range; reviews are history and stay.", f"sources[{index}].reviews")
+
     def check_ids(self, data):
         seen = set()
         for key in ("sources", "local_snapshots", "reference_documents"):
@@ -422,18 +558,71 @@ class Checker:
             self.issue("approach-mismatch", "approach wrap needs an installed dependency.", "approach")
 
 
+def dependents(name, root):
+    found, unreadable = [], []
+    for record in sorted(root.rglob("origin.toml")):
+        relative = record.relative_to(root)
+        if ".git" in relative.parts:
+            continue
+        try:
+            data = tomllib.loads(record.read_text(encoding="utf-8"))
+        except (OSError, UnicodeError, tomllib.TOMLDecodeError):
+            unreadable.append(str(relative))
+            continue
+        entries = data.get("dependencies", [])
+        if not isinstance(entries, list) or not all(isinstance(entry, dict) for entry in entries):
+            unreadable.append(str(relative))
+            continue
+        for dependency in entries:
+            if dependency.get("name") == name:
+                found.append({"skill": record.parent.name, "record": str(relative),
+                              **{key: dependency[key] for key in ("kind", "required", "role", "decisions") if key in dependency}})
+    return found, unreadable
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("--skill-dir", action="append", required=True, type=Path, help="skill folder that contains origin.toml; repeat for several skills")
+    parser.add_argument("--skill-dir", action="append", type=Path, help="skill folder that contains origin.toml; repeat for several skills")
+    parser.add_argument("--dependents", metavar="SKILL", help="list the records under --root that declare SKILL as a dependency, instead of checking records")
+    parser.add_argument("--root", type=Path, help="repository root searched by --dependents")
+    parser.add_argument("--source", action="append", default=[], metavar="ID=CLONE", help="local clone of the source with this id; checks its commits and their ancestry; repeat for several sources")
     args = parser.parse_args(argv)
+    if args.dependents:
+        if args.skill_dir or not args.root:
+            parser.error("--dependents needs --root and no --skill-dir")
+        if not args.root.is_dir():
+            print(json.dumps({"error": "not a directory", "paths": [str(args.root)]}), file=sys.stderr)
+            return 2
+        found, unreadable = dependents(args.dependents, args.root)
+        print(json.dumps({"skill": args.dependents, "root": str(args.root), "dependents": found, "unreadable": unreadable}, indent=2, default=str))
+        return 1 if unreadable else 0
+    if not args.skill_dir:
+        parser.error("--skill-dir is required")
     missing = [str(path) for path in args.skill_dir if not path.is_dir()]
     if missing:
         print(json.dumps({"error": "not a directory", "paths": missing}), file=sys.stderr)
         return 2
-    diagnostics = []
+    clones = {}
+    for item in args.source:
+        identifier, separator, path = item.partition("=")
+        if not separator or not identifier or not path or git(path, "rev-parse", "--git-dir")[0] != 0:
+            print(json.dumps({"error": "--source needs ID=CLONE with a Git clone", "value": item}), file=sys.stderr)
+            return 2
+        clones[identifier] = Path(path)
+    diagnostics, skipped, matched, readable = [], [], set(), True
     for skill_dir in args.skill_dir:
-        diagnostics.extend(Checker(skill_dir).run())
-    print(json.dumps({"checked": [str(path) for path in args.skill_dir], "diagnostics": diagnostics}, indent=2))
+        checker = Checker(skill_dir, clones)
+        diagnostics.extend(checker.run())
+        skipped.extend(checker.skipped)
+        matched |= checker.matched_sources
+        readable = readable and checker.sources_readable
+    unmatched = sorted(clones.keys() - matched)
+    if unmatched and not readable:
+        skipped.extend({"check": "source-history", "source": identifier, "reason": "No readable source has this id; fix the record's diagnostics and run again."} for identifier in unmatched)
+    print(json.dumps({"checked": [str(path) for path in args.skill_dir], "diagnostics": diagnostics, "skipped": skipped}, indent=2))
+    if unmatched and readable:
+        print(json.dumps({"error": "--source names no source of the checked records", "ids": unmatched}), file=sys.stderr)
+        return 2
     return 1 if diagnostics else 0
 
 

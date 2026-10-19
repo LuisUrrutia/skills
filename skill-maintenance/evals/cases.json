@@ -1,7 +1,7 @@
 {
   "format_version": 1,
   "skill": "skill-maintenance",
-  "usage": "Give executors only the prompt and fixture. Keep expectations with the grader. Supply fresh contexts and the same runner settings for candidate and baseline. Use disposable local repositories in place of network access. Add cases from real failures; these do not prove host integration.",
+  "usage": "Give executors only the prompt and fixture. Keep expectations and notes with the grader. Supply fresh contexts and the same runner settings for candidate and baseline. Use disposable local repositories in place of network access. Add cases from real failures; these do not prove host integration.",
   "cases": [
     {
       "id": "upstream-check",
@@ -28,7 +28,8 @@
         "The useful condition is incorporated and automatic publishing is skipped or adapted with a reason.",
         "Local refinements, the original baseline commit, and unrelated edits survive.",
         "The current source path follows the verified rename while baseline_paths remain historical.",
-        "The cursor advances only after the full relevant range is decided and required validation succeeds.",
+        "The cursor moves to the candidate only after the whole range from the cursor is decided and required validation succeeds; otherwise it stays, even at a fully resolved earlier commit, and one pending review covers the cursor to the candidate.",
+        "The checker, run with the source clone, reports no diagnostic.",
         "A repeated run does not duplicate the incorporated change."
       ]
     },
@@ -42,6 +43,7 @@
       "expectations": [
         "Independent supported work completes without silently resetting the blocked source's cursor.",
         "The inaccessible source remains unknown and the exact missing evidence is reported.",
+        "The blocked source gets no new review, and any checker diagnostic about its commits is reported with the blocker, not fixed by moving its pins.",
         "The local snapshot retains its hash and unverified provenance; no repository commit is fabricated.",
         "The final report distinguishes partial completion from full synchronization."
       ]
@@ -100,6 +102,75 @@
       ]
     },
     {
+      "id": "base-no-longer-fits",
+      "kind": "state-transition",
+      "prompt": "We changed release-notes so the Support section lists the workaround that stops being necessary before the fix itself, because support agents answer open tickets about workarounds first. Record that decision.",
+      "fixture": {
+        "setup": "A release-notes skill with approach base on a changelog-writer donor whose five sections are Gather commits, Categorize, Write entries, Save and Publish. The local SKILL.md, about four times the base, has Scope the release, Collect pull requests, Classify by audience, Write per audience, Check links and Return, and the record lists eight deviations that replace or remove every base section. The change is already committed in Write per audience. A local mirror of the donor at the recorded commit and the checker are available."
+      },
+      "expectations": [
+        "The record gains one deviation for the workaround-first order with the user's reason, located at SKILL.md#write-per-audience.",
+        "The report states that the base no longer fits, with section-level evidence that most base sections were replaced or removed, and asks the user whether to derive from it instead.",
+        "approach and the source's role stay base; no other entry changes, and SKILL.md stays byte-identical.",
+        "The checker exits 0."
+      ]
+    },
+    {
+      "id": "base-still-fits",
+      "kind": "state-transition",
+      "note": "Grader only: control for base-no-longer-fits, expected to pass on both arms.",
+      "prompt": "We changed release-notes so fixes for user-reported bugs come first under Fixed, because users look for their own reports. Record that decision.",
+      "fixture": {
+        "setup": "A release-notes skill with approach base on the same changelog-writer donor. The local SKILL.md keeps the donor's sections, order and most of their sentences; the record has two deviations, for returning instead of publishing and for a user-named draft file. The change is already committed in Write entries. A local mirror of the donor and the checker are available."
+      },
+      "expectations": [
+        "The record gains one deviation for the user-reported-first order with the user's reason, located at SKILL.md#write-entries.",
+        "The run does not propose changing the approach; any fit judgment concludes that the base still fits.",
+        "No other entry changes, SKILL.md stays byte-identical, and the checker exits 0."
+      ]
+    },
+    {
+      "id": "branch-commit-citation",
+      "kind": "state-transition",
+      "prompt": "On this branch we changed release-notes so entries never include internal ticket numbers, because customers cannot open our tracker. The trial that showed it is in commit a656ab2 on this branch, and the branch is pull request https://github.com/example/skills/pull/7. Record the decision with its evidence.",
+      "fixture": {
+        "setup": "The record-user-decision release-notes skill on a feature branch whose two commits change the Write section and add trials/ticket-links.md, where three of five customer readers reached a sign-in page from ticket links. Neither commit is on main. The checker is available."
+      },
+      "expectations": [
+        "The record gains a decline under the donor that puts ticket numbers in entries, with the user's reason.",
+        "No commit that exists only on the branch appears in the record; the evidence is described in words or cited by the pull request URL.",
+        "The report says why the branch commit was not cited.",
+        "SKILL.md stays byte-identical and the checker exits 0."
+      ]
+    },
+    {
+      "id": "contract-change-dependents",
+      "kind": "state-transition",
+      "prompt": "We changed verify so it launches the app and captures evidence itself instead of selecting the project's verify-<app> recipe, because users verify without creating a recipe first. The verify text change is committed. Record it.",
+      "fixture": {
+        "setup": "A repository with verify, accessibility, pr and commit skills and a README. verify's committed change renamed its Select the recipe heading to Run the checks, and its record still has an invariant, credited to an earlier user decision, that the recipe launches the app, located at the old heading. accessibility's text and its dependency role rely on verify selecting the recipe; pr's dependency role only cites verify's verdict; commit does not depend on verify. The checker is available."
+      },
+      "expectations": [
+        "verify's record replaces the recipe invariant with the new decision and the user's reason, located at SKILL.md#run-the-checks, and the checker exits 0 for verify.",
+        "The report lists the dependents from the records, accessibility and pr, names accessibility's dependency role as relying on the removed recipe step, and reports the dependents list for agent-instructions or the user without changing their text; commit is not listed.",
+        "accessibility, pr and README files stay byte-identical, and no dependent record is changed to contradict its own skill text."
+      ]
+    },
+    {
+      "id": "reason-attribution",
+      "kind": "state-transition",
+      "prompt": "Record this release-notes change: entries no longer include internal ticket numbers. Background from the pilot report: the coordinator ruled it on 2026-09-03 because customers cannot open our tracker; review round 3 flagged the old behavior, and 4 of 4 trials passed after the change.",
+      "fixture": {
+        "setup": "Use an independent copy of the record-user-decision fixture."
+      },
+      "expectations": [
+        "The record gains a decline under the donor that puts ticket numbers in entries, whose reason is that customers cannot open the tracker.",
+        "The reason credits the coordinator's ruling of 2026-09-03 and does not call it a user decision.",
+        "No review round, trial count or pass rate appears in the record.",
+        "SKILL.md stays byte-identical and the checker exits 0."
+      ]
+    },
+    {
       "id": "activation-boundary",
       "kind": "selection",
       "prompt": "For each request, choose the primary skill using only the supplied names and descriptions: agent-instructions, skill-maintenance, workflow-to-skill, verification-authoring, or none. Briefly explain each choice.",
@@ -118,7 +189,7 @@
       },
       "expectations": [
         "Requests one through four and request nine select skill-maintenance.",
-        "Request five selects agent-instructions, request six selects workflow-to-skill, request seven selects none, and request eight selects verification-authoring.",
+        "Request five selects none, because fixing typos leaves the guidance unchanged; request six selects workflow-to-skill, request seven selects none, and request eight selects verification-authoring.",
         "A selection probe is not reported as observed host invocation."
       ]
     }

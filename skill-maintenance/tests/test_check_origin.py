@@ -1,3 +1,4 @@
+import importlib.util
 import json
 from pathlib import Path
 import subprocess
@@ -240,6 +241,14 @@ rule = "Stop on approval outside personal repositories."
         self.assertIn("line-citation", codes)
         self.assertIn("invalid-value", codes)
 
+    def test_fields_over_one_hundred_words_are_reported(self):
+        at_limit = " ".join(["word"] * 100)
+        record = HEADER.format(approach="create") + f'\n[[invariants]]\nrule = "{at_limit}"\nreason = "{at_limit} more"\n'
+
+        _, codes = self.check(record)
+
+        self.assertEqual(codes, ["long-entry"])
+
     def test_malformed_types_are_reported_without_crashing(self):
         record = HEADER.format(approach="derive").replace('approach = "derive"', "approach = []").replace(
             'goal = "Prove a change with evidence that survives cleanup."', "goal = 42"
@@ -367,6 +376,354 @@ installation = "~/.agents/.skill-lock.json"
         )
 
         self.assertEqual(result.returncode, 2)
+
+
+def git(directory, *args):
+    return subprocess.run(
+        ["git", "-C", str(directory), "-c", "user.name=Test", "-c", "user.email=test@example.com", "-c", "commit.gpgsign=false", *args],
+        capture_output=True,
+        text=True,
+        check=True,
+    ).stdout.strip()
+
+
+def run_checker(*args):
+    result = subprocess.run([sys.executable, str(CHECKER), *map(str, args)], capture_output=True, text=True, check=False)
+    return result.returncode, json.loads(result.stdout) if result.stdout else None
+
+
+class CommitCitationTest(unittest.TestCase):
+    def setUp(self):
+        self.directory = tempfile.TemporaryDirectory()
+        self.repository = Path(self.directory.name)
+        self.skill_dir = self.repository / "demo"
+        self.skill_dir.mkdir()
+        (self.skill_dir / "SKILL.md").write_text(SKILL, encoding="utf-8")
+        git(self.repository, "init", "--quiet", "--initial-branch=main")
+        git(self.repository, "add", ".")
+        git(self.repository, "commit", "--quiet", "-m", "Add demo")
+        self.main_commit = git(self.repository, "rev-parse", "HEAD")
+        git(self.repository, "switch", "--quiet", "-c", "feature")
+        (self.skill_dir / "notes.md").write_text("Trial notes.\n", encoding="utf-8")
+        git(self.repository, "add", ".")
+        git(self.repository, "commit", "--quiet", "-m", "Add trial notes")
+        self.branch_commit = git(self.repository, "rev-parse", "HEAD")
+
+    def tearDown(self):
+        self.directory.cleanup()
+
+    def check_record(self, record):
+        (self.skill_dir / "origin.toml").write_text(record, encoding="utf-8")
+        returncode, output = run_checker("--skill-dir", self.skill_dir)
+        return returncode, [(item["code"], item.get("location")) for item in output["diagnostics"]], output["skipped"]
+
+    def check_reason(self, reason):
+        returncode, diagnostics, _ = self.check_record(HEADER.format(approach="create") + f'\n[[invariants]]\nrule = "Cite evidence."\nreason = "{reason}"\n')
+        return returncode, diagnostics
+
+    def commit_record(self, record, branch):
+        git(self.repository, "switch", "--quiet", branch)
+        (self.skill_dir / "origin.toml").write_text(record, encoding="utf-8")
+        git(self.repository, "add", ".")
+        git(self.repository, "commit", "--quiet", "-m", f"Record on {branch}")
+
+    def test_commit_only_on_a_branch_is_reported(self):
+        returncode, diagnostics = self.check_reason(f"Trials at {self.branch_commit[:7]} showed it.")
+
+        self.assertEqual((returncode, diagnostics), (1, [("unmerged-commit", "invariants[0].reason")]))
+
+    def test_commits_on_the_default_branch_and_unknown_hashes_pass(self):
+        returncode, diagnostics = self.check_reason(f"Decided in {self.main_commit[:7]}; upstream 49dd158d1076 agreed.")
+
+        self.assertEqual((returncode, diagnostics), (0, []))
+
+    def test_pinned_commit_fields_are_not_citations(self):
+        snapshot = f'''
+[[local_snapshots]]
+id = "draft"
+kind = "repository-commit"
+role = "ideas"
+repository = "https://github.com/example/drafts"
+commit = "{self.branch_commit}"
+paths = ["draft/"]
+verification = "Read the draft at that commit."
+''' + SNAPSHOT_IDEA
+
+        returncode, diagnostics, _ = self.check_record(HEADER.format(approach="derive") + snapshot)
+
+        self.assertEqual((returncode, diagnostics), (0, []))
+
+    def test_shallow_history_skips_the_citation_check(self):
+        git(self.repository, "switch", "--quiet", "main")
+        (self.skill_dir / "later.md").write_text("Later.\n", encoding="utf-8")
+        git(self.repository, "add", ".")
+        git(self.repository, "commit", "--quiet", "-m", "Later main commit")
+        shallow = self.repository / git(self.repository, "rev-parse", "--git-path", "shallow")
+        shallow.write_text(git(self.repository, "rev-parse", "HEAD") + "\n", encoding="utf-8")
+
+        returncode, diagnostics, skipped = self.check_record(HEADER.format(approach="create") + f'\n[[invariants]]\nrule = "Cite evidence."\nreason = "Decided in {self.main_commit[:7]}."\n')
+
+        self.assertEqual((returncode, diagnostics), (0, []))
+        self.assertEqual([item["check"] for item in skipped], ["unmerged-commit"])
+
+    def publish_then_branch(self, published):
+        self.commit_record(published, "main")
+        git(self.repository, "switch", "--quiet", "-c", "topic")
+
+    def test_moved_baseline_and_dropped_reviews_are_reported(self):
+        c, d = "c" * 40, "d" * 40
+        two_reviews = HEADER.format(approach="derive") + SOURCE.format(id="donor", role="ideas").replace(f'reviewed_through = "{COMMIT_B}"', f'reviewed_through = "{c}"') + IDEA + REVIEW + REVIEW.replace(f'from_commit = "{COMMIT_A}"', f'from_commit = "{COMMIT_B}"').replace(f'to_commit = "{COMMIT_B}"', f'to_commit = "{c}"')
+        self.publish_then_branch(two_reviews)
+        cursor_at_baseline = SOURCE.format(id="donor", role="ideas").replace(f'reviewed_through = "{COMMIT_B}"', f'reviewed_through = "{COMMIT_A}"')
+        replaced = two_reviews.replace(f'reviewed_through = "{c}"', f'reviewed_through = "{d}"').replace(f'from_commit = "{COMMIT_B}"', f'from_commit = "{c}"').replace(f'to_commit = "{c}"', f'to_commit = "{d}"').replace(f'to_commit = "{COMMIT_B}"', f'to_commit = "{c}"')
+
+        _, dropped, _ = self.check_record(HEADER.format(approach="derive") + cursor_at_baseline + IDEA)
+        _, rewritten, _ = self.check_record(replaced)
+        _, moved, _ = self.check_record(two_reviews.replace(f'baseline_commit = "{COMMIT_A}"', f'baseline_commit = "{"e" * 40}"').replace(f'from_commit = "{COMMIT_A}"', f'from_commit = "{"e" * 40}"'))
+        _, renamed, _ = self.check_record(two_reviews.replace('id = "donor"', 'id = "newer-donor"'))
+
+        self.assertEqual(dropped, [("reviews-dropped", "sources[0].reviews")])
+        self.assertEqual(rewritten, [("reviews-dropped", "sources[0].reviews")])
+        self.assertEqual(moved, [("baseline-moved", "sources[0].baseline_commit"), ("reviews-dropped", "sources[0].reviews")])
+        self.assertEqual(renamed, [])
+
+    def test_branch_work_that_keeps_history_passes(self):
+        pending_source = SOURCE.format(id="donor", role="ideas").replace(f'reviewed_through = "{COMMIT_B}"', f'reviewed_through = "{COMMIT_A}"')
+        pending = REVIEW.replace("deferred = []", 'deferred = ["A new lint tool needs the user\'s decision."]')
+        self.publish_then_branch(HEADER.format(approach="derive") + pending_source + IDEA + pending)
+
+        resolved = self.check_record(HEADER.format(approach="derive") + ideas_source())
+        git(self.repository, "switch", "--quiet", "main")
+        self.commit_record(HEADER.format(approach="derive") + ideas_source(), "main")
+        git(self.repository, "switch", "--quiet", "topic")
+        behind_main = self.check_record(HEADER.format(approach="derive") + pending_source + IDEA + pending)
+
+        self.assertEqual(resolved[:2], (0, []))
+        self.assertEqual(behind_main[:2], (0, []))
+
+    def test_deleting_a_pending_review_is_reported(self):
+        pending_source = SOURCE.format(id="donor", role="ideas").replace(f'reviewed_through = "{COMMIT_B}"', f'reviewed_through = "{COMMIT_A}"')
+        pending = REVIEW.replace("deferred = []", 'deferred = ["A new lint tool needs the user\'s decision."]')
+        self.publish_then_branch(HEADER.format(approach="derive") + pending_source + IDEA + pending)
+
+        _, diagnostics, _ = self.check_record(HEADER.format(approach="derive") + pending_source + IDEA)
+
+        self.assertEqual(diagnostics, [("reviews-dropped", "sources[0].reviews")])
+
+    def test_malformed_source_ids_do_not_crash_the_comparison(self):
+        self.publish_then_branch(HEADER.format(approach="derive") + ideas_source().replace('id = "donor"', "id = []"))
+
+        returncode, diagnostics, _ = self.check_record(HEADER.format(approach="derive") + ideas_source().replace('id = "donor"', 'id = ["donor"]'))
+
+        self.assertEqual((returncode, diagnostics), (1, [("invalid-value", "sources[0].id")]))
+
+    def test_merged_branch_commit_passes(self):
+        git(self.repository, "switch", "--quiet", "main")
+        git(self.repository, "merge", "--quiet", "--no-ff", "-m", "Merge feature", "feature")
+
+        returncode, diagnostics = self.check_reason(f"Trials at {self.branch_commit[:7]} showed it.")
+
+        self.assertEqual((returncode, diagnostics), (0, []))
+
+
+class SourceCloneTest(unittest.TestCase):
+    def setUp(self):
+        self.directory = tempfile.TemporaryDirectory()
+        root = Path(self.directory.name)
+        self.clone = root / "donor"
+        self.clone.mkdir()
+        git(self.clone, "init", "--quiet", "--initial-branch=main")
+        self.commits = []
+        for name in ("a", "b", "c"):
+            (self.clone / f"{name}.md").write_text(f"{name}\n", encoding="utf-8")
+            git(self.clone, "add", ".")
+            git(self.clone, "commit", "--quiet", "-m", name)
+            self.commits.append(git(self.clone, "rev-parse", "HEAD"))
+        git(self.clone, "switch", "--quiet", "--orphan", "rewritten")
+        (self.clone / "a.md").write_text("rewritten\n", encoding="utf-8")
+        git(self.clone, "add", ".")
+        git(self.clone, "commit", "--quiet", "-m", "rewritten")
+        self.unrelated = git(self.clone, "rev-parse", "HEAD")
+        self.skill_dir = root / "demo"
+        self.skill_dir.mkdir()
+        (self.skill_dir / "SKILL.md").write_text(SKILL, encoding="utf-8")
+
+    def tearDown(self):
+        self.directory.cleanup()
+
+    def check(self, baseline, cursor, reviews, clone=None):
+        source = SOURCE.format(id="donor", role="ideas").replace(f'baseline_commit = "{COMMIT_A}"', f'baseline_commit = "{baseline}"').replace(
+            f'reviewed_through = "{COMMIT_B}"', f'reviewed_through = "{cursor}"')
+        text = "".join(REVIEW.replace(f'from_commit = "{COMMIT_A}"', f'from_commit = "{start}"').replace(f'to_commit = "{COMMIT_B}"', f'to_commit = "{end}"').replace(
+            "deferred = []", 'deferred = ["Behavioral checks did not run."]' if pending else "deferred = []") for start, end, pending in reviews)
+        (self.skill_dir / "origin.toml").write_text(HEADER.format(approach="derive") + source + IDEA + text, encoding="utf-8")
+        returncode, output = run_checker("--skill-dir", self.skill_dir, "--source", f"donor={clone or self.clone}")
+        return returncode, [(item["code"], item.get("location")) for item in output["diagnostics"]], output["skipped"]
+
+    def test_a_chain_of_run_ranges_passes(self):
+        a, b, c = self.commits
+
+        result = self.check(a, b, [(a, b, False), (b, c, True)])
+
+        self.assertEqual(result, (0, [], []))
+
+    def test_a_review_across_rewritten_history_is_reported(self):
+        a, _, _ = self.commits
+
+        returncode, diagnostics, _ = self.check(a, a, [(a, self.unrelated, True)])
+
+        self.assertEqual((returncode, diagnostics), (1, [("commit-order", "sources[0].reviews[0]")]))
+
+    def test_commits_missing_from_the_clone_are_reported(self):
+        missing = "d" * 40
+
+        _, diagnostics, _ = self.check(missing, missing, [])
+
+        self.assertEqual(diagnostics, [("unknown-commit", "sources[0].baseline_commit"), ("unknown-commit", "sources[0].reviewed_through")])
+
+    def test_a_cursor_that_does_not_descend_from_the_baseline_is_reported(self):
+        _, b, _ = self.commits
+
+        _, diagnostics, _ = self.check(b, self.unrelated, [(b, self.unrelated, False)])
+
+        self.assertEqual(diagnostics, [("commit-order", "sources[0].reviewed_through"), ("commit-order", "sources[0].reviews[0]")])
+
+    def test_a_shallow_clone_skips_the_ancestry_check(self):
+        a, b, c = self.commits
+        shallow = self.clone / git(self.clone, "rev-parse", "--git-path", "shallow")
+        shallow.write_text(c + "\n", encoding="utf-8")
+
+        returncode, diagnostics, skipped = self.check(a, a, [(a, self.unrelated, True)])
+
+        self.assertEqual((returncode, diagnostics), (0, []))
+        self.assertEqual([item["check"] for item in skipped], ["source-history"])
+
+    def test_a_missing_review_end_is_reported(self):
+        a, _, _ = self.commits
+
+        _, diagnostics, _ = self.check(a, a, [(a, "e" * 40, True)])
+
+        self.assertEqual(diagnostics, [("unknown-commit", "sources[0].reviews[0].to_commit")])
+
+    def test_malformed_commit_values_do_not_crash_the_history_check(self):
+        a, b, _ = self.commits
+        source = SOURCE.format(id="donor", role="ideas").replace(f'reviewed_through = "{COMMIT_B}"', f'reviewed_through = "{b}"')
+        bad_baseline = source.replace(f'baseline_commit = "{COMMIT_A}"', "baseline_commit = []")
+        bad_review = source.replace(f'baseline_commit = "{COMMIT_A}"', f'baseline_commit = "{a}"') + REVIEW.replace(f'from_commit = "{COMMIT_A}"', "from_commit = {}").replace(f'to_commit = "{COMMIT_B}"', f'to_commit = "{b}"')
+        results = []
+        for record in (bad_baseline, bad_review):
+            (self.skill_dir / "origin.toml").write_text(HEADER.format(approach="derive") + record + IDEA, encoding="utf-8")
+            returncode, output = run_checker("--skill-dir", self.skill_dir, "--source", f"donor={self.clone}")
+            results.append((returncode, [item["code"] for item in output["diagnostics"]]))
+
+        self.assertEqual(results, [(1, ["invalid-value"]), (1, ["invalid-value", "review-chain"])])
+
+    def test_a_source_path_that_is_not_a_clone_is_a_usage_error(self):
+        returncode, _ = run_checker("--skill-dir", self.skill_dir, "--source", f"donor={self.skill_dir}")
+        empty, _ = run_checker("--skill-dir", self.skill_dir, "--source", "donor=")
+
+        self.assertEqual((returncode, empty), (2, 2))
+
+    def test_a_source_id_that_matches_no_source_is_a_usage_error(self):
+        a, _, _ = self.commits
+        self.check(a, a, [])
+
+        returncode, output = run_checker("--skill-dir", self.skill_dir, "--source", f"donr={self.clone}")
+
+        self.assertEqual((returncode, output["diagnostics"]), (2, []))
+
+    def test_an_unreadable_record_keeps_its_diagnostics_with_a_source(self):
+        (self.skill_dir / "origin.toml").write_text("not = [toml", encoding="utf-8")
+
+        returncode, output = run_checker("--skill-dir", self.skill_dir, "--source", f"donor={self.clone}")
+
+        self.assertEqual(returncode, 1)
+        self.assertEqual([item["code"] for item in output["diagnostics"]], ["invalid-toml"])
+        self.assertEqual([item.get("source") for item in output["skipped"]], ["donor"])
+
+    def test_a_sources_list_without_tables_keeps_its_diagnostic_with_a_source(self):
+        (self.skill_dir / "origin.toml").write_text(HEADER.format(approach="create") + 'sources = ["donor"]\n', encoding="utf-8")
+
+        returncode, output = run_checker("--skill-dir", self.skill_dir, "--source", f"donor={self.clone}")
+
+        self.assertEqual(returncode, 1)
+        self.assertIn("invalid-type", [item["code"] for item in output["diagnostics"]])
+        self.assertEqual([item.get("source") for item in output["skipped"]], ["donor"])
+
+
+class CitationPatternTest(unittest.TestCase):
+    def test_commit_like_tokens_of_seven_to_forty_hex_digits(self):
+        spec = importlib.util.spec_from_file_location("check_origin", CHECKER)
+        module = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(module)
+        text = f"Cited 5756208, deadbee and 1a2b3c4d; not abc123, decade, a{'0' * 63}, x1234567 or 1234567z."
+
+        self.assertEqual(module.COMMIT_CITATION.findall(text), ["5756208", "deadbee", "1a2b3c4d"])
+
+
+class DependentsTest(unittest.TestCase):
+    def write_record(self, root, skill, dependencies=""):
+        folder = root / skill
+        folder.mkdir()
+        (folder / "origin.toml").write_text(HEADER.replace('"demo"', f'"{skill}"').format(approach="create") + dependencies, encoding="utf-8")
+
+    def test_lists_records_that_declare_the_skill_as_a_dependency(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.write_record(root, "verify")
+            self.write_record(root, "accessibility", '\n[[dependencies]]\nkind = "local"\nname = "verify"\nrequired = false\nrole = "Runs checks through the recipe."\ndecisions = ["Calls it for interface changes."]\n')
+            self.write_record(root, "pr", '\n[[dependencies]]\nkind = "local"\nname = "commit"\nrequired = false\nrole = "Commits."\n')
+
+            returncode, output = run_checker("--dependents", "verify", "--root", root)
+
+        self.assertEqual(returncode, 0)
+        self.assertEqual(output["dependents"], [{
+            "skill": "accessibility",
+            "record": "accessibility/origin.toml",
+            "kind": "local",
+            "required": False,
+            "role": "Runs checks through the recipe.",
+            "decisions": ["Calls it for interface changes."],
+        }])
+
+    def test_records_in_hidden_folders_are_listed(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            (root / ".agents" / "skills").mkdir(parents=True)
+            self.write_record(root / ".agents" / "skills", "caller", '\n[[dependencies]]\nkind = "local"\nname = "verify"\nrequired = true\nrole = "Verifies."\n')
+
+            returncode, output = run_checker("--dependents", "verify", "--root", root)
+
+        self.assertEqual((returncode, [item["record"] for item in output["dependents"]]), (0, [".agents/skills/caller/origin.toml"]))
+
+    def test_malformed_dependencies_are_reported_without_crashing(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.write_record(root, "table", '\n[dependencies]\nkind = "local"\nname = "verify"\n')
+            self.write_record(root, "dated", '\n[[dependencies]]\nkind = "local"\nname = "verify"\nrequired = false\nrole = 2026-10-18\n')
+
+            returncode, output = run_checker("--dependents", "verify", "--root", root)
+
+        self.assertEqual(returncode, 1)
+        self.assertEqual(output["unreadable"], ["table/origin.toml"])
+        self.assertEqual([(item["skill"], item["role"]) for item in output["dependents"]], [("dated", "2026-10-18")])
+
+    def test_unreadable_record_makes_the_list_incomplete(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            self.write_record(root, "verify")
+            (root / "broken").mkdir()
+            (root / "broken" / "origin.toml").write_text("not = [toml", encoding="utf-8")
+
+            returncode, output = run_checker("--dependents", "verify", "--root", root)
+
+        self.assertEqual((returncode, output["dependents"], output["unreadable"]), (1, [], ["broken/origin.toml"]))
+
+    def test_dependents_needs_a_root_and_no_skill_dir(self):
+        missing_root, _ = run_checker("--dependents", "verify")
+        mixed, _ = run_checker("--dependents", "verify", "--root", ".", "--skill-dir", ".")
+
+        self.assertEqual((missing_root, mixed), (2, 2))
 
 
 if __name__ == "__main__":
