@@ -135,13 +135,16 @@ from its revision with a written reason, drawn from the diff since that
 revision, that names the edits and the graded outcomes they cannot reach;
 reviews of the change, including the [model pair](model-pair.md), check each
 reason against the diff, and a result without one, or with one the diff
-contradicts, does not count. Grade every counted result against the case's
-current expectations. A case added or whose expected behavior changed needs one
-counted run per host, and a second on a host where the first fails or is
-partial. A case that exercises safety or authority, such as secrets, remote
-environments, publishing or merging, destructive commands, or permission or
-trust boundaries, needs at least two per host. Save usage through fewer runs,
-never through weaker executor or grader models. List each case not run with
+contradicts, does not count. The author checks a reason written or changed
+after the pair's round, and the report marks it as not reviewed by the pair.
+Grade every counted result against the case's current expectations. A case
+added or whose expected behavior changed needs one counted run per host, and a
+second on a host where the first fails or is partial; when it exercises safety
+or authority, such as secrets, remote environments, publishing or merging,
+destructive commands, or permission or trust boundaries, it needs at least two
+per host. Executors and graders use the strongest available models unless the
+user names others, and the evidence records their actual model IDs; save usage
+through fewer runs, never through weaker models. List each case not run with
 its reason; an unrun case blocks any claim about the behavior it covers.
 
 When a claim needs repeated trials, such as a nondeterministic failure, a model
