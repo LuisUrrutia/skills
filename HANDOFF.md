@@ -162,10 +162,9 @@ The current [agent-instructions entrypoint](agent-instructions/SKILL.md) owns th
 independent **Codex Astra and Claude Fable** consultations for instruction work
 the user explicitly requests, one round per change, at the effort it sets: when they run, who runs them,
 their exemptions (including any handoff document) and when they are complete.
-[Its model-pair reference](agent-instructions/references/model-pair.md) owns
-runner resolution, briefs, rate-limit skips and reconciliation. Follow those
-files rather than a summary here; preserve the actual profiles of historical
-runs rather than relabeling them.
+Its model-pair section also owns runner resolution, briefs, rate-limit skips
+and reconciliation. Follow the entrypoint rather than a summary here; preserve
+the actual profiles of historical runs rather than relabeling them.
 
 Read the applicable authoring references:
 [levers](agent-instructions/references/levers.md),
@@ -173,7 +172,7 @@ Read the applicable authoring references:
 [packaging](agent-instructions/references/packaging.md),
 [skill changes](agent-instructions/references/skill-changes.md),
 [reuse](agent-instructions/references/reuse.md),
-[model pair](agent-instructions/references/model-pair.md),
+[model pair](agent-instructions/SKILL.md#get-both-model-perspectives),
 [evaluation](agent-instructions/references/evaluation.md). The entrypoint keeps
 the workflow, Negation and Pruning. Skill records and
 upstream maintenance are in [skill-maintenance](skill-maintenance/SKILL.md).

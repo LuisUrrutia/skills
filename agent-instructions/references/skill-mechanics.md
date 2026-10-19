@@ -1,101 +1,59 @@
 # Skill mechanics
 
-The skill-specific branch of [the entrypoint](../SKILL.md): what changes when
-the document is a skill (host metadata, the invocation choice, the description,
-splitting by invocation and router skills). Everything else about writing it is
-in the entrypoint and [levers.md](levers.md); packaging and validation are in
-[packaging.md](packaging.md), and the size budget, dependent text and record
-hand-over in [skill-changes.md](skill-changes.md).
-
 ## Host metadata
 
-These skills run in Claude Code and Codex. `name` and a precise `description`
-are the shared entrypoint; everything else is a host feature. Inspect the
-intended host's installed skill format and current primary documentation when
-local evidence is insufficient, and keep host-specific adapters apart from the
-portable instructions. A frontmatter key is not portable merely because another
-agent accepts it. Preserve supported existing metadata rather than rebuilding
-the file. When the host supplies a creator
-([packaging.md](packaging.md#host-tools-and-dependencies)), edit Codex's
-`agents/openai.yaml` through it; a generator may replace the whole file, so keep
-unrelated policy and dependency settings.
+These skills support Claude Code and Codex. `name` and a precise `description`
+are shared; other metadata is host-specific. Inspect the installed format and,
+when insufficient, current primary documentation. Keep adapters separate and
+preserve supported metadata: acceptance by one host does not establish portability.
+
+For Codex's `agents/openai.yaml`, use the host creator as
+[packaging](packaging.md#host-tools-and-dependencies) directs. Generators may replace
+the file; preserve unrelated policy and dependencies.
 
 ## Invocation
 
-Two choices, trading the two loads:
+- **Model-invoked:** an always-loaded description enables automatic discovery,
+  explicit human invocation and access from other skills. Shared reference can
+  have one home in such a skill.
+- **User-invoked:** replace trigger lists with a short capability summary. Report that
+  agents and other skills cannot invoke it; the human remembers when to use it.
 
-- A **model-invoked** skill keeps a `description` the agent sees, so the agent
-  can fire it autonomously, and other skills can reach it. You can still type its
-  name: model-invocation always _includes_ user reach; a description only ever
-  adds agent discovery, never removes the human's. The description is the
-  skill's top-level context pointer, forced to stay loaded at all times:
-  permanent context load in exchange for discoverability. A model-invoked skill
-  whose content is all reference is also one home for shared reference: another
-  skill can invoke it, so reference needed by several skills lives in one place.
-- A **user-invoked** skill takes the description out of the agent's reach: only
-  the human naming it can invoke it, and no other skill can. Zero context load,
-  but it spends cognitive load: you are the index that must remember it exists.
-  The `description` becomes human-facing: a one-line summary, trigger lists
-  stripped.
+Verify each host's control rather than copying between hosts:
 
-Each host sets the choice with its own control. Verify each control's current
-behavior on its host rather than copying one into the other:
-
-| Host | User-invoked control |
+| Host | Explicit-only control |
 | --- | --- |
-| Claude Code | `disable-model-invocation: true` in the frontmatter |
-| Codex | `policy.allow_implicit_invocation: false` in `agents/openai.yaml`; an explicit `$name` mention still invokes the skill |
+| Claude Code | `disable-model-invocation: true` in frontmatter |
+| Codex | `policy.allow_implicit_invocation: false` in `agents/openai.yaml`; explicit `$name` still invokes it |
 
-Keep an existing skill's invocation policy. A new skill stays model-invoked
-unless the user chooses otherwise: changing invocation is a product decision,
-separate from permission for a particular action, and skills here reach each
-other by registered name. When a skill only ever fires by hand, propose user
-invocation with its two-load trade and let the user decide.
+Preserve existing policy. New skills stay model-invoked unless the user chooses
+otherwise. If a skill is only used manually, propose the context/discoverability
+tradeoff; invocation policy is separate from permission to act.
 
-Shared reference that two user-invoked skills both need can live in neither: with
-both out of the agent's reach, neither can fire the other. It belongs in a
-model-invoked reference skill, as above, not in a plain file outside the
-packages, which a copied skill folder would lose.
+Reference shared by two user-invoked skills belongs in a reachable model-invoked
+reference skill, not either unreachable skill or a file lost when packages are
+copied.
 
 ## Description
 
-The description is the skill's top-level context pointer, so the
-[pointer rules](levers.md#context-pointers) apply in full. Make it the shortest
-clear answer to when the skill should be used: the requested action and the
-distinguishing context, so the name and description select the skill before its
-body loads.
+Apply [pointer rules](levers.md#context-pointers): the shortest clear statement of
+the action and distinguishing context that select this skill. Name the capability,
+not its subtasks. Keep procedures, examples, inventory, tools and feature lists
+in the body or references. Retain qualifiers only to resolve demonstrated
+selection ambiguity.
 
-Name the capability instead of listing its subtasks. A skill covering inventory,
-setup, status and job operations for build agents can say "Use when operating or
-maintaining build agents"; the body keeps the subtask list. Procedures, concrete
-examples, inventory facts, tool choices, deliverable details and feature lists
-also belong in the body or references. Keep a qualifier or exclusion only when a
-concrete intended request or a neighboring skill shows the selection ambiguity it
-resolves.
-
-For an existing skill, rewrite from its activation contract: check the requests
-it should serve and the near misses it should not, rather than keeping every term
-of the old description. Brevity must not widen or narrow activation. Read the
-description beside its neighbors as one listing, because they are always loaded
-together: check pairs that could claim the same request, and name the hand-off
-and the distinct task that selects each owner without making every description
-advertise the whole collection.
+Rewrite from intended requests and near misses; preserve activation scope. Read
+the description beside neighboring descriptions, checking competing claims and
+naming each owner's distinct task and handoff without advertising the collection.
 
 ## Splitting by invocation
 
-The invocation cut of splitting (the sequence cut lives in
-[levers.md](levers.md#when-to-split)): split off a model-invoked skill when
-you have a distinct leading word that should trigger it on its own (a trigger
-word you actually use in your prompts), or another skill must reach it. You pay
-context load for the new always-loaded description, so that independent reach
-has to be worth it. Otherwise extend the existing owner or add a conditional
-reference: a second skill with the same responsibility competes for the same
-requests.
+Split when a distinct leading word used in actual prompts warrants independent
+invocation, or another skill must reach the capability. Otherwise extend the
+existing owner or add a conditional reference; a competing skill spends context
+without adding ownership.
 
 ## Router skills
 
-When user-invoked skills multiply past what you can remember, that piled-up
-cognitive load is cured by a **router skill**: one user-invoked skill that names
-the others and when to reach for each, so the human has one skill to remember
-instead of many. It can only hint, never fire them: the agent cannot reach a
-user-invoked skill, so nothing but the human can invoke one.
+When remembering user-invoked skills becomes burdensome, a user-invoked router
+can list when to use each. It can suggest them, not invoke them for the human.
