@@ -17,7 +17,7 @@ where = ["SKILL.md#workflow"]
 [[invariants]]
 rule = "The skill uses the existing checkout and branch. Committing never starts PR work: the `pr` skill owns it, and the `pr` or `stacked-pr` skill owns a lease push after an authorized rebase."
 reason = "Routine commit publication does not rewrite remote history."
-where = ["SKILL.md#commit", "SKILL.md#workflow", "SKILL.md#output"]
+where = ["SKILL.md#commit", "SKILL.md#modes", "SKILL.md#7-publish-when-authorized", "references/publication.md"]
 
 [[sources]]
 id = "addy-git"
@@ -100,8 +100,8 @@ adapted = "The donor stages whole files and commits a named path list so that ot
 [[sources.ideas]]
 idea = "Publishing needs its own permission. A commit request alone does not authorize a push, and a push happens only within the scope resolved at entry, after the commit is verified."
 serves = "Prevents unrequested publication of local work."
-where = ["SKILL.md#commit", "SKILL.md#modes", "SKILL.md#workflow"]
-shapes = "The opening resolves commit and push permission; commit-and-push mode and step 7 publish only within that scope."
+where = ["SKILL.md#modes", "SKILL.md#7-publish-when-authorized", "references/publication.md"]
+shapes = "Modes resolve commit and push authority; Commit-and-push mode and step 7 publish only within it."
 adapted = "The donor never pushes. Locally, a push is allowed when the request, a standing user instruction or an authorized caller such as the `pr` skill grants it."
 
 [[sources.declined]]
@@ -158,7 +158,7 @@ shapes = "Step 1 confirms one coherent purpose and reviewable size before stagin
 idea = "A reviewer needs to know how a change was verified. Each boundary is validated before the commit, and the command and its result are reported with the commit."
 serves = "Lets a reader trust the commit without repeating the check, and shows when no check ran."
 where = ["SKILL.md#workflow", "SKILL.md#output"]
-shapes = "Step 4 runs the narrowest covering check or records why none exists; both output forms carry a Validation field."
+shapes = "Step 4 runs the narrowest covering check or records why none exists; the shared output contract carries Validation for every boundary and adds fields for completed commits or proposals and blockers."
 adapted = "The donor writes verification and risk notes into the PR description. Locally, they stay in the assistant's report and out of the commit message, and PR descriptions belong to the `pr` skill."
 
 [[sources.declined]]
@@ -202,24 +202,23 @@ update_policy = "Compare installed content by hash; no remote update feed is inf
 idea = "A run handles one atomic boundary at a time through a fixed sequence: choose the boundary, inspect its diffs, stage it, validate it, write the message, then commit or propose, and publish only when authorized. Each boundary ends in a terminal state, and the next boundary starts from a fresh baseline."
 serves = "Keeps separate intents from merging into one commit and makes each boundary's outcome explicit."
 where = ["SKILL.md#modes", "SKILL.md#workflow"]
-shapes = "The seven numbered steps run in order for each boundary and each ends on a completion condition; split mode repeats them per boundary, and a terminal state stops further changes to a finished boundary."
+shapes = "Steps 1-6 select, inspect, stage, validate, describe and finish each boundary. Split mode repeats them from a fresh baseline; step 7 conditionally publishes after all intended commits are verified."
 
 [[local_snapshots.ideas]]
 idea = "Git state and earlier claims are evidence to verify, not facts. Branch names, staged state, validation results and earlier claims count only after fresh Git checks, and every commit attempt is compared with a recorded baseline of HEAD, status, message and staged diff before a terminal state is reported; hook rewrites, retries and amendments follow fixed rules."
 serves = "Prevents reporting a commit, amendment or push that Git does not show."
-where = ["SKILL.md#commit", "SKILL.md#workflow", "SKILL.md#output"]
-shapes = "The opening treats unverified state as untrusted; step 6 records the baseline before each attempt and resolves the result through the hook decision table and the safe amend conditions; the output reports only verified terminal states."
+where = ["SKILL.md#commit", "SKILL.md#6-commit-amend-or-propose", "references/hooks-and-amend.md", "SKILL.md#output"]
+shapes = "Step 6 records and verifies each attempt; its conditional reference owns hook recovery and current-task amendments. Unsafe changes and identity mismatches take precedence over retry eligibility, preserving the boundary before another write."
 
 [[local_snapshots.ideas]]
 idea = "Commit and push permission come from the user's authority. A commit request alone does not authorize a push, PR work is a separate phase owned by the `pr` skill, and secrets, mixed concerns, `main` or `master`, and destructive or unrequested actions are conditions to resolve before staging."
 serves = "Keeps the run's side effects inside the authorization the user gave."
 where = [
-  "SKILL.md#commit",
   "SKILL.md#modes",
   "SKILL.md#resolve-boundaries-before-writing",
-  "SKILL.md#output",
+  "SKILL.md#7-publish-when-authorized",
 ]
-shapes = "The modes and the boundary conditions decide what the run may do before anything is staged; the closing paragraph hands PR work to the `pr` skill as a separate phase."
+shapes = "Modes resolve authority once before staging. Step 7 routes authorized publication to its reference and requested PR work to `pr`, keeping commit-only and proposal paths independent."
 adapted = "The snapshot pushed only on an explicit request in the same message and stopped to ask at every listed condition. A later local change made the skill honor existing publication authorization: it also accepts a standing user instruction or an authorized caller such as the `pr` or `pr-followup` skill, applies existing authorization first, and asks only about a material decision that the task and repository leave unresolved."
 
 [[dependencies]]
