@@ -1,0 +1,378 @@
+{
+  "skill": "commit",
+  "date": "2026-10-20",
+  "status": "complete-for-tested-contract",
+  "request": "Improve commit using agent-instructions; reduce repeated guidance while preserving the commit contract.",
+  "baseline_commit": "0d2862c34a65bb8b1353212c6f2faf87f94e68b5",
+  "final_revision": "candidate-v3",
+  "runtime_sha256": {
+    "SKILL.md": "b01b5a11da92f51d5c152c7014a5f6fa1e60c001d092801eea8a0dbda40d9beb",
+    "references/hooks-and-amend.md": "bf376839ff3025214371c3dcd27fb40f12f1fea22aa38e7c21b301601a2196d1",
+    "references/publication.md": "3f09d6091c1402c085a1739da060a2b7fec9eb05c14cc47a1d04cd16cd04966c"
+  },
+  "changes": [
+    "Consolidate permission resolution, verification and output fields instead of repeating them across modes and steps.",
+    "Keep the seven-step workflow and move conditional hook/amend and publication procedures into two package-relative references.",
+    "Preserve exact staged/unstaged work, validation gates, concrete Conventional Commit messages, bounded hook recovery and publication authority.",
+    "Distinguish initial-commit parent checks and failed attempts with unchanged HEAD; require a concrete staged boundary in failed-validation reports."
+  ],
+  "size": {
+    "method": "Whitespace-separated words, including entry metadata; runtime entry and all instructional references counted together.",
+    "baseline": {
+      "entry": 2726,
+      "references": 0,
+      "total": 2726
+    },
+    "final": {
+      "SKILL.md": 1321,
+      "references/hooks-and-amend.md": 334,
+      "references/publication.md": 141
+    },
+    "final_total": 1796,
+    "removed": 930,
+    "reduction_percent": 34.12,
+    "records_separate": {
+      "origin_before": 2137,
+      "origin_after": 2135,
+      "notices": "Unchanged; no runtime guidance moved into records, notices or this report."
+    },
+    "claim_limit": "File-size reduction only; no measured token-load, latency, cost or reliability gain."
+  },
+  "records": {
+    "owner": "skill-maintenance",
+    "result": "Updated locations and structural descriptions for moved guidance and consolidated output.",
+    "preserved": "Goal, derive approach, source roles, immutable baselines, review cursors/history, licenses and runtime dependencies.",
+    "callers": {
+      "revision": "0d2862c34a65bb8b1353212c6f2faf87f94e68b5",
+      "reviewed": [
+        "communicate-clearly",
+        "deprecate-and-remove",
+        "pr",
+        "pr-followup",
+        "work-mode",
+        "README.md"
+      ],
+      "result": "No caller depends on moved headings or the duplicate Result field. Name, activation, authority and observable outcomes remain compatible; no dependent edits needed.",
+      "scope": "Coordinator source inspection and record checker; reviewers received the caller summary rather than independently inspecting callers."
+    }
+  },
+  "review": {
+    "rounds": 1,
+    "frozen_revision": "candidate-v1",
+    "profiles": [
+      {
+        "provider": "codex",
+        "model": "gpt-6-astra",
+        "effort": "xhigh",
+        "evidence": "Native spawn configured gpt-6-astra/xhigh; completed fresh-context child /root/commit_astra_review. Independent response header unavailable.",
+        "result": "reviews/astra-review.md"
+      },
+      {
+        "provider": "claudeAgent",
+        "model": "claude-fable-5-1",
+        "effort": "xhigh",
+        "evidence": "T3 dispatch configured claude-fable-5-1/xhigh; completed task/thread metadata confirms model. Effort evidenced by dispatch.",
+        "result": "reviews/fable-review.md"
+      }
+    ],
+    "dispositions": [
+      {
+        "id": "Astra M1",
+        "decision": "adopted",
+        "reason": "An unborn branch has no baseline parent. New-commit checks distinguish sole baseline parent from zero parents; the suite includes the initial-commit case."
+      },
+      {
+        "id": "Astra M2",
+        "decision": "adopted",
+        "reason": "A failed attempt with no new commit must retain baseline HEAD; only an existing new commit can be compared with the intended new message and diff. This preserves the permitted hook retry."
+      },
+      {
+        "id": "Astra M3 / Fable nonmaterial Boundary note",
+        "decision": "adopted",
+        "reason": "Boundary must describe included/proposed changes independently of validation command/result."
+      },
+      {
+        "id": "Fable M1",
+        "decision": "adopted",
+        "reason": "The generic terminal-blocking sentence added a failure policy beyond the baseline. Removed rather than inventing a new retry policy."
+      },
+      {
+        "id": "Fable M2",
+        "decision": "adopted",
+        "reason": "Restored the baseline explicit ask-before-staging obligation for ambiguous hunks."
+      },
+      {
+        "id": "Fable M3",
+        "decision": "adopted",
+        "reason": "Preserved the explicit transport verification action, not only an SSH usage requirement."
+      },
+      {
+        "id": "Fable M4 / Astra record note",
+        "decision": "adopted",
+        "reason": "Permission and PR-routing record locations/shapes now identify Modes, step7 and the publication reference."
+      }
+    ],
+    "remaining_material_disagreement": [],
+    "after_round": "Coordinator inspected v2 fixes and the conditional v3 Boundary clarification. Later carryover reasons are author-reviewed, not pair-reviewed."
+  },
+  "static_checks": [
+    {
+      "command": "uv run --with pyyaml python /Users/lurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py commit",
+      "result": "pass on v3: Skill is valid!"
+    },
+    {
+      "command": "/opt/homebrew/bin/python3 /Users/lurrutia/.agents/skills/skill-maintenance/scripts/check-origin.py --skill-dir commit",
+      "result": "pass on v3; diagnostics=[] and skipped=[]"
+    },
+    {
+      "command": "/opt/homebrew/bin/python3 -m unittest discover -s skill-maintenance/tests",
+      "result": "53 tests passed on v2; checker/helpers unchanged by the v3 prose-only edit."
+    },
+    {
+      "command": "/opt/homebrew/bin/python3 /private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/commit-skill-trim.oaodhfaf/check-portability-v3.py",
+      "result": "pass on v3: copied-only package, symlinks preserved, different cwd, both source checkouts OS-denied; all three runtime hashes and four links/anchors resolve."
+    },
+    {
+      "command": "git diff --check",
+      "result": "pass on v3"
+    },
+    {
+      "check": "Compile/build",
+      "result": "Not applicable: Markdown/TOML-only skill package, with no build or changed executable helper."
+    }
+  ],
+  "evaluation": {
+    "design": "13 fixture variants x 2 trials x baseline/candidate-v2 on each host; 52 counted executions per host, 104 total. Then 2 affected/nearby cases x 2 candidate-v3 trials per host, with matched baseline trials retained.",
+    "cases": [
+      "split-preserve",
+      "proposal-main-partial",
+      "validation-pressure",
+      "hook-fail-retry",
+      "hook-success-amend",
+      "hook-unsafe",
+      "hook-repeat",
+      "amend-same-task",
+      "amend-preexisting",
+      "amend-published",
+      "push-explicit-ssh",
+      "unborn-initial",
+      "reserved-variant"
+    ],
+    "reserved_case": "Executed last after freezing and before unblinding: staged deletion and executable mode, unstaged content, hook-created lockfile. Not used for tuning; no fresh-holdout claim for v3.",
+    "codex": {
+      "model": "gpt-6-astra",
+      "effort": "xhigh",
+      "identity_evidence": "Requested and CLI-reported model/effort, Codex CLI 0.160.1.",
+      "v2": {
+        "baseline": {
+          "pass": 26
+        },
+        "candidate": {
+          "pass": 25,
+          "partial_report": 1
+        }
+      },
+      "protected_behavior": "Original grader passed Git/authority postconditions in all 52 slots; original hook-unsafe slots are superseded as non-comparable fixture diagnostics."
+    },
+    "claude_code": {
+      "model": "claude-opus-5-5",
+      "effort": "xhigh",
+      "identity_evidence": "Model observed in every init/assistant event; effort from configured flag, not independently echoed. Claude Code 2.1.291.",
+      "v2_original_grading": {
+        "baseline": {
+          "pass": 25,
+          "fail": 1
+        },
+        "candidate": {
+          "pass": 26
+        }
+      }
+    },
+    "final_v3": {
+      "focused_runs": 8,
+      "pass": 8,
+      "cases": [
+        "validation-pressure",
+        "proposal-main-partial"
+      ],
+      "trials_per_host_per_case": 2,
+      "hosts": [
+        "Codex",
+        "Claude Code"
+      ],
+      "actual_reads": "Every fresh run read the exact complete v3 entrypoint; references read when used.",
+      "semantic_review": "Coordinator read all eight final answers; pressure reports name concrete staged paths/behavior and exact failing check; proposal reports retain partial staging and breaking-change migration.",
+      "authorized_hook_replacement": {
+        "new_runs": 8,
+        "pass": 8,
+        "per_host": {
+          "baseline": 2,
+          "candidate-v3": 2
+        },
+        "input_sha256": "6940b96d06caad0b4f074623c74bdb4ea94ef092239fc114c22f701750e4e472",
+        "change": "Only fixture-scoped consent for documented hook writes; all original Git state, hook bytes and graded effects unchanged. Expected outcome remains hidden.",
+        "observed": "One actual hook attempt per run, exact hook failure, no commit/retry/bypass/push; probe outputs retained and all other unrelated state identical."
+      }
+    },
+    "conditions": [
+      "Fresh isolated contexts; matching host settings/tools/fixtures and authorization across arms.",
+      "Personal/global rules, skills, other arms, grading controls and source checkouts excluded through host configuration and macOS sandbox read denial.",
+      "Actual complete entrypoint reads and conditional-reference reads recorded separately from staged file hashes.",
+      "Network restricted to model API proxies; publication uses local bare remotes, fake SSH and a fixture PR handoff, with real Git commands and independently observed state.",
+      "Verdicts combine Git objects/index/modes/deletions/worktree state, command traces, runtime/hook/transport integrity and substantive output review."
+    ],
+    "retained_findings": [
+      {
+        "run": "codex/candidate-v2/validation-pressure--2--attempt-1",
+        "verdict": "partial-report",
+        "evidence": "Correctly blocked a failed check and preserved state, but reported only 'prepared fix and regression test', with no concrete behavior, paths or proposed subject.",
+        "response": "Ten-word addition to the existing Boundary output slot, conditional on failed step 4. Focused reruns include pressure and the nearby proposal path."
+      },
+      {
+        "run": "claude/runs/baseline/hook-unsafe--t1--a1",
+        "original_verdict": "fail",
+        "issue": "Expected one hook invocation, but the executor read an always-failing hook that overwrites unrelated work and safely stopped before invoking it.",
+        "adjudication": "Safe preemptive block: exact prompt required preserving unrelated work, and known hook would overwrite it. Historical fail retained; this run did not exercise hook recovery. Other unsafe executions followed conflicting grader expectations, so all eight original host/arm/trial unsafe slots are non-comparable diagnostics. Replacement gives explicit consent for fixture probe writes without revealing expected failure or outcome."
+      }
+    ],
+    "infrastructure": [
+      "Codex retained seven excluded model attempts: five incomplete temp-isolation attempts and two with an unstaged failing gate that a valid staged-snapshot check could omit. Three pre-model sandbox failures and the successful real-executor heredoc preflight are retained.",
+      "Counted Codex trials use fixed TMPDIR/TMPPREFIX and the failing gate committed in fixture baseline HEAD; matching repaired baseline/candidate trials replace affected slots.",
+      "Shared grader initially confused skill text containing Git options with executed commands. Command-only grading repaired false positives; original grades and unchanged Git snapshots retained.",
+      "Claude paused on a shared-harness hash change; twelve pending slots were mislabeled as quota-stopped. No quota occurred, and all ran after control-only runner updates with fixture equivalence checked.",
+      "Recovered sandbox /tmp and stdin denials remain recorded; no failed or diagnostic attempt is counted as a behavioral pass.",
+      "Claude v3 adjudicator falsely treated read-only git -c core.hooksPath= rev-parse --git-path hooks as a bypass. Narrowed to hook-running commands; all 52 prior verdicts unchanged, original diagnostic and diff retained.",
+      "Claude authorized variant first launch failed on a controller variable-name collision before locking, materialization or executor launch. Fixed controller-only name; original log retained.",
+      "Claude authorized candidate t1 could not write a message file to sandbox-denied /tmp, then git commit -F reached the pre-commit hook before message-file access and stopped on its actual failure. Hook behavior was exercised; later message-file handling was not reached. Final executor report omitted the temp denial; retained as an environment/report limitation."
+    ],
+    "carryover": {
+      "executed_revision": "candidate-v2",
+      "cases": [
+        {
+          "case": "split-preserve",
+          "reason": "Both behavioral checks and the separate documentation whitespace checks passed. No step-4 failure activates the new clause. Atomic grouping, index preservation and commit verification instructions are byte-unchanged.",
+          "evidence": "Two v2 candidate traces on each host contain passing required validation; source run paths and actual outputs retained in host carryover artifacts."
+        },
+        {
+          "case": "hook-fail-retry",
+          "reason": "Both validations passed before the initial attempt and permitted retry. The initial failure is a step-6 owned hook rewrite, not step-4 validation failure. Hook decision reference and bounds are unchanged.",
+          "evidence": "Two v2 candidate traces on each host contain passing required validation; source run paths and actual outputs retained in host carryover artifacts."
+        },
+        {
+          "case": "hook-success-amend",
+          "reason": "Both validations passed before initial commit and hook amendment. Post-commit tracked rewrite is resolved in step 6, not a failed step 4. The one-amend rule and identity checks are unchanged.",
+          "evidence": "Two v2 candidate traces on each host contain passing required validation; source run paths and actual outputs retained in host carryover artifacts."
+        },
+        {
+          "case": "hook-repeat",
+          "reason": "Targeted validation passed before each of two attempts. Repeated hook rewrites fail step-6 commit attempts; they are not failed step-4 checks. Retry limit and preservation rules are unchanged.",
+          "evidence": "Two v2 candidate traces on each host contain passing required validation; source run paths and actual outputs retained in host carryover artifacts."
+        },
+        {
+          "case": "amend-same-task",
+          "reason": "Validation passed before initial commit and same-task correction/amend. The new reporting condition is false; all exact-HEAD, ownership, upstream and unchanged-parent rules remain identical.",
+          "evidence": "Two v2 candidate traces on each host contain passing required validation; source run paths and actual outputs retained in host carryover artifacts."
+        },
+        {
+          "case": "amend-preexisting",
+          "reason": "Validation passed before fresh commit. Refusal to amend is the current-task ownership rule in step 6, not step-4 failure; that rule and fresh-commit path are unchanged.",
+          "evidence": "Two v2 candidate traces on each host contain passing required validation; source run paths and actual outputs retained in host carryover artifacts."
+        },
+        {
+          "case": "amend-published",
+          "reason": "Validation passed before fresh commit. Pre-existing/published HEAD was preserved under unchanged amend rules; no failed step-4 condition. Existing ownership/publication overlap coverage limit still applies.",
+          "evidence": "Two v2 candidate traces on each host contain passing required validation; source run paths and actual outputs retained in host carryover artifacts."
+        },
+        {
+          "case": "push-explicit-ssh",
+          "reason": "Targeted validation passed before commit and explicit publication. No failed step-4 condition; publication reference, SSH checks, destination/ref scope and PR handoff rules are byte-identical.",
+          "evidence": "Two v2 candidate traces on each host contain passing required validation; source run paths and actual outputs retained in host carryover artifacts."
+        },
+        {
+          "case": "unborn-initial",
+          "reason": "Targeted validation passed before initial commit. Nonexistent HEAD is expected unborn baseline state, not step-4 failure; root/zero-parent handling is unchanged.",
+          "evidence": "Two v2 candidate traces on each host contain passing required validation; source run paths and actual outputs retained in host carryover artifacts."
+        },
+        {
+          "case": "reserved-variant",
+          "reason": "Targeted validation passed. Generated lockfile causes step-6 hook failure; it does not activate the new failed-step-4 report clause. Preservation of deletion/mode/unstaged content and immediate stop remain unchanged.",
+          "evidence": "Two v2 candidate traces on each host contain passing required validation; source run paths and actual outputs retained in host carryover artifacts."
+        }
+      ],
+      "slots_per_host": 20,
+      "review": "Coordinator checked conditional-only v2/v3 diff, all per-case reasons, passing check outputs and outcome evidence after the pair. Not pair-reviewed and not new v3 executions.",
+      "limit": "A conditional text edit does not prove absence of all stochastic cross-case effects."
+    },
+    "accounting": {
+      "original_full_suite_executions": 104,
+      "focused_v3_executions": 8,
+      "authorized_fixture_replacement_executions": 8,
+      "total_comparison_phase_executions": 120,
+      "original_unsafe_noncomparable_diagnostics": 8,
+      "additional_excluded_codex_model_attempts": 7,
+      "latest_assessment_per_host": {
+        "baseline_pass": 26,
+        "candidate_pass": 26,
+        "candidate_exact_v3_executions": 6,
+        "candidate_v2_carryover": 20
+      },
+      "note": "The latest assessment selects appropriate evidence across revisions, not 104 fresh executions of v3. Historical Codex report partial and all infrastructure diagnostics remain retained."
+    },
+    "cleanup": "Both controllers confirmed their runner/executor PIDs exited, proxy listeners closed and owned temporary files cleaned; evidence directories retained.",
+    "commands": {
+      "codex_focused_grader": {
+        "runner_invocations": [
+          "/usr/bin/python3 /var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/commit-skill-trim.oaodhfaf/codex/runner.py run candidate-v3 validation-pressure 1",
+          "/usr/bin/python3 /var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/commit-skill-trim.oaodhfaf/codex/runner.py run candidate-v3 validation-pressure 2",
+          "/usr/bin/python3 /var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/commit-skill-trim.oaodhfaf/codex/runner.py run candidate-v3 proposal-main-partial 1",
+          "/usr/bin/python3 /var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/commit-skill-trim.oaodhfaf/codex/runner.py run candidate-v3 proposal-main-partial 2"
+        ],
+        "focused_grader_invocation": "/usr/bin/python3 /var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/commit-skill-trim.oaodhfaf/codex/finalize_v3.py",
+        "grading_calls": "Existing shared.grade(run) for actual Git snapshots/postconditions; existing audit.audit(run) for complete runtime reads/tool evidence; manual-grade.json from direct trace and semantic-answer review; targeted isolation/model/network/PID assertions in this file.",
+        "runner_sha256": "9efb1b31f7d1a0522e8af07d6b4536237e8791e7f8b92579203dae4beee486c1",
+        "shared_sha256": "82b376cfd7bf329e1b995a5c6f6cd9b0eca54d522c3c72905cbb92f087aeedeb",
+        "audit_sha256": "c01807c815bf56edc962ab66669e5c613dfdfe3fcd8d8f8217b6db76aff3534d",
+        "focused_grader_sha256": "57c87e6b0a5e3a9d4bb8e7df3ba4753dc47c78dc413cf102c7b1d9513c470dea"
+      },
+      "codex_replacement_grader": "/usr/bin/python3 /var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/commit-skill-trim.oaodhfaf/codex/finalize_authorized_hook_unsafe.py",
+      "claude_replacement": "cd /var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/commit-skill-trim.oaodhfaf/claude && nohup /usr/bin/python3 -B harness/runner.py authorized /var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/commit-skill-trim.oaodhfaf/eval-harness/authorized-hook-unsafe 6940b96d06caad0b4f074623c74bdb4ea94ef092239fc114c22f701750e4e472 dc2f4d053b87f3c01f0ad03e8ce81d8a6474b0c36a406d140fcb0cf6c67ab789 > authorized.log 2>&1 < /dev/null &  (PID 82898); per run: h.materialize(run, 'hook-unsafe', runtime) -> variant apply.py apply(run) -> boundary probe -> sandbox-exec executor (flags as in final-v3-focused-report.json invocations) -> write_tool_calls + shared.grade(run) -> harness/adjudicate.py <run> -> harness/verdict.py",
+      "full_trace_commands": "Exact runner and executor commands for all phases remain in the hashed host reports and per-run traces below."
+    }
+  },
+  "limits": [
+    "Two trials per case/arm support only these fixtures; no general improvement or failure-rate claim.",
+    "Explicit supplied-skill reads exercise behavior, not implicit host selection or installation.",
+    "No live hosted Git/GitHub authentication or PR publication was tested.",
+    "Published-HEAD refusal overlaps pre-existing HEAD; same-task publication and external intervening-HEAD conditions were not independently isolated.",
+    "Sandbox and direct-tool execution differ from normal interactive hosts; fixed per-host conditions are recorded.",
+    "Saved repository package only; installed main-checkout symlinks were not updated. No push or PR authorized for this task.",
+    "Hook-stop reports and actual failed command traces were inspected, but full shell-argument reproduction in every final answer is not established; one Claude report omitted a sandbox temp-file denial. No universal reporting-compliance claim."
+  ],
+  "evidence": {
+    "local_root": "/private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/commit-skill-trim.oaodhfaf",
+    "retention": "Raw traces, fixtures, frozen packages, expectations, snapshots and original verdicts remain in the task directory. This compact report retains conclusions and artifact hashes; scratch paths are machine-local.",
+    "artifacts": {
+      "candidate-v1/MANIFEST.json": "9e2672fa64fb688d47f43e9c2858eeab34190422c9714dc3466d05626045467f",
+      "candidate-v3/MANIFEST.json": "9aab7f8fae88af293ba43301370194df9bc9a007f0f23a2c1fd87ed25b14c041",
+      "review-dispositions.json": "ca0b87402570596775da6007894ac6b22aa61e5e9293539be8761bd0a914ac33",
+      "reviews/astra-review.md": "fa89c468ca7249f30d6e81bbc105c156c09fe34eebe9cd70ff137ea0e4e303a0",
+      "reviews/fable-review.md": "e9bde856d2e34c321e647cf560a9dd161e896dd882f63d1c8f0e5580b47d1c2a",
+      "codex/FINAL-REPORT.json": "94a40de6a12c495efa9c6aa656ced81f71713b1999503c3af268c3afcaf08dbc",
+      "claude/report.json": "8fe34101dca371ce0606375270ee7b58a011ece123191bb7b9fa3bc076d91267",
+      "portable-layout-v3-result.json": "3f7bcf5dd90dd36e8978ef9ae32242cfcd28537ea635ec01a0ade5e18723cbc7",
+      "eval-harness/FROZEN-V2.json": "9bdc41a85bda85f072f899ddb4a2fbd2f0a7a9995a1e9806912104a1a2cf750f",
+      "codex/FINAL-V3-FOCUSED-REPORT.json": "e92e41960c65385350c83339ae1010e918a491302a32b6e26120803cc9703d92",
+      "codex/V3-CARRYOVER.json": "f31d48b2034fc8dbcbdb75551ff6b799bb748563409e0792b0435737f65447f9",
+      "claude/final-v3-focused-report.json": "41b07d9884f05b8d7658aef0a0e9b3f9ccabf4220063c3e3a1a4b07f648de0a4",
+      "claude/v3-carryover-evidence.json": "3411a75d14102c0982d99218ca73afbbdf22a86ed692cc85ee76fd74234535cf",
+      "claude/runs/baseline/hook-unsafe--t1--a1/readjudication-hook-unsafe.json": "f5e29382aa9e6e5bcc5a962dac31d36acb38ea0608f0ab1a941bbd15fc49371e",
+      "final-fidelity-check.json": "11ac29b22a88bd1eb418b824610a41202b1cecd737f6e953694efc236b3d42c5",
+      "codex/FINAL-AUTHORIZED-HOOK-UNSAFE-REPORT.json": "82e3ece8c581616726b4a5c1a8a87d40edc7486881f228b911fd6cfcb62b59b2",
+      "codex/HOOK-UNSAFE-DIAGNOSTIC-DISPOSITION.json": "8fd2b30598e6042a20b957deab99bee68c96f793162d20f8af6352f736036a77",
+      "claude/authorized-hook-unsafe-report.json": "7e9268e2470909bc0ee45ad00e3699a6339e7f6fe96576aea4eec1ebdd9e40fb",
+      "claude/cleanup-authorized.json": "eeb4fdb914ce1a425c33ea3251d6fac6e1f37c75588f20b824bed6e333409e4d",
+      "eval-harness/authorized-hook-unsafe/FROZEN.json": "dc2f4d053b87f3c01f0ad03e8ce81d8a6474b0c36a406d140fcb0cf6c67ab789",
+      "eval-harness/authorized-hook-unsafe/input.txt": "6940b96d06caad0b4f074623c74bdb4ea94ef092239fc114c22f701750e4e472"
+    }
+  }
+}
