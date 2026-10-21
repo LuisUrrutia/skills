@@ -59,6 +59,16 @@ reason = "User decision of 2026-10-07: a same-topic point continues in its exist
 where = ["SKILL.md#run-and-reconcile"]
 
 [[local_snapshots.deviations]]
+change = "Replaced binding thread replies to the review, and the rule against publishing standalone replies, with posting each reply on its own in its existing thread once the review is submitted and read back. A plan with only replies publishes no review."
+reason = "User decision of 2026-10-21, after a reply published inside the run's review appeared twice on the PR's Conversation tab: GitHub showed the one comment in its thread and again under that review."
+where = [
+  "SKILL.md#word-select-and-publish",
+  "references/github.md#feedback-and-review-publication",
+  "references/github.md#publish-and-verify",
+  "scripts/publish_review.py",
+]
+
+[[local_snapshots.deviations]]
 change = "Replaced handing feedback repair and monitoring to the pr-followup skill with handing follow-up on replies and new commits, thread resolution and later approval to the pr-review-followup skill. When that skill runs this review, the event is capped at COMMENT and approval stays with it."
 reason = "User decision of 2026-10-07: follow-up, thread resolution and later approval moved to the pr-review-followup skill."
 where = [
