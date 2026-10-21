@@ -20,7 +20,7 @@ where = [
 [[invariants]]
 rule = "A request to create a PR continues into the event-driven Drive mode of the pr-followup skill after publication, including when an exact open PR already satisfies creation. Only an explicit create-only instruction returns after publication."
 reason = "The user set this continuation policy on 2026-10-05."
-where = ["SKILL.md#resolve-the-operation", "SKILL.md#publish-and-verify"]
+where = ["SKILL.md#publish-and-verify", "references/continuation.md"]
 
 [[invariants]]
 rule = "The body includes a statement only when it helps assess this diff. Rollout appears only as a gate with its default state or as a merge or deploy prerequisite, and another ticket only as a merge or deploy prerequisite. When to enable a gate, release plans across tickets, and sibling or follow-up scope go to the user in the return."
@@ -33,11 +33,12 @@ where = [
   "SKILL.md#resolve-the-operation",
   "SKILL.md#publish-and-verify",
   "references/publication.md#create-or-update-metadata",
+  "references/publication.md#verify-the-result",
 ]
 
 [[invariants]]
 rule = "Written repository rules and the template on the resolved base govern the body's format. An exact enforced format applies unless the user explicitly overrides it."
-where = ["SKILL.md#understand-the-change-and-repository", "SKILL.md#compose-for-review"]
+where = ["SKILL.md#understand-the-change-and-repository", "references/review-packet.md#title-and-body"]
 
 [[invariants]]
 rule = "Visual evidence is genuine: a screenshot is an observed capture of the stated revision, uploaded where the intended reviewers can access it. A generated or reconstructed image never stands in for runtime evidence."
@@ -261,8 +262,8 @@ idea = "A failed or incomplete lookup is unknown, never an empty result. The exa
 serves = "Prevents duplicate PRs and false success reports after a failed query or a timeout."
 where = [
   "SKILL.md#establish-identity-and-scope",
-  "SKILL.md#publish-and-verify",
   "references/publication.md#create-or-update-metadata",
+  "references/publication.md#verify-the-result",
 ]
 shapes = "Makes exact-PR resolution a numbered identity step and adds a recheck immediately before creation."
 
@@ -314,12 +315,10 @@ paths = ["skills/pr-creator/SKILL.md", "skills/pr-creator/references/pr-polish.m
 idea = "An update rewrites the whole body from the final published diff and replaces obsolete claims instead of appending a history of successive fixes. Still-valid evidence, links and required template content carry forward after they are revalidated."
 serves = "Keeps the PR copy coherent with what the branch now does."
 where = [
-  "SKILL.md#resolve-the-operation",
-  "SKILL.md#compose-for-review",
   "references/review-packet.md#evidence-and-continuity",
-  "references/claims.md",
+  "references/publication.md#publish-the-selected-branch",
 ]
-shapes = "Defines Update as a full rewrite and adds a stale-claim check for the existing body."
+shapes = "The review packet owns full rewrites, stale-claim corrections and preservation; publication routes material pushes back through Update."
 
 [[sources.ideas]]
 idea = "Issue coverage is claimed only when verified. A closing keyword requires coverage of every explicit ask and the authority to close the work item; otherwise a neutral reference states the remaining scope."
@@ -449,7 +448,7 @@ paths = [
 [[sources.ideas]]
 idea = "Screenshots and recordings reach the PR body through gh pr create or gh pr edit with --attach, which uploads each file and rewrites matching local Markdown references to the uploaded URLs. A local screenshot path is not an attachment."
 serves = "Puts real visual evidence where reviewers can see it."
-where = ["references/attachments.md#place-and-upload", "SKILL.md#compose-for-review"]
+where = ["references/attachments.md#place-and-upload", "references/review-packet.md#evidence-and-continuity"]
 shapes = "Makes upload part of the same create or edit operation, with local references placed in the body file first."
 adapted = "Only the upload route comes from gh. What to capture, its provenance, current-head claims, the repository template and the publication authorization stay with this skill. Direct attachment to the PR body is preferred over a comment or another route."
 
@@ -459,7 +458,7 @@ serves = "Prevents retries that duplicate uploads or a report of success that di
 where = [
   "references/attachments.md#select-the-available-route",
   "references/attachments.md#verify-and-recover",
-  "references/publication.md#create-or-update-metadata",
+  "references/publication.md#verify-the-result",
 ]
 shapes = "Starts the attachment route with a capability check and adds a read-back and recovery section after every upload."
 adapted = "Recovery keeps already uploaded URLs, retries only the missing files, and checks rendering in an authorized view, because upload success alone is not a visual check."
@@ -506,6 +505,7 @@ where = [
   "references/claims.md",
   "SKILL.md#establish-identity-and-scope",
   "references/publication.md#create-or-update-metadata",
+  "references/publication.md#verify-the-result",
 ]
 shapes = "Moved the earlier claims matrix into its own reference that is read before substantive claims, and kept the identity and initial-state rules in the identity and publication steps."
 adapted = "The earlier version asked before editing an existing PR and ended the turn at a terminal state. The current skill updates under existing authorization and continues a creation request into the pr-followup skill."
