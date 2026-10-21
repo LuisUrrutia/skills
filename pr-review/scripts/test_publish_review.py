@@ -38,6 +38,7 @@ class FakeGitHub:
         self.reject_reply = False
         self.lose_reply = False
         self.reply_joins_draft = False
+        self.reply_without_review = False
 
     def call(self, endpoint, payload=None, paginate=False):
         self.calls.append((endpoint, payload, paginate))
@@ -61,7 +62,8 @@ class FakeGitHub:
                 raise RejectedError('HTTP 422: Unprocessable Entity')
             number = len(self.replies)+1
             self.reply_reviews[200+number] = {'id':200+number,'state':'PENDING' if self.reply_joins_draft else 'COMMENTED'}
-            comment = {'id':500+number,'node_id':f'PRRC_reply{number}','body':payload['body'],'user':{'login':self.actor},'pull_request_review_id':200+number}
+            comment = {'id':500+number,'node_id':f'PRRC_reply{number}','body':payload['body'],'user':{'login':self.actor},
+                       'pull_request_review_id':None if self.reply_without_review else 200+number}
             self.replies.append({'endpoint':endpoint, **comment})
             if self.lose_reply:
                 self.lose_reply = False
@@ -184,7 +186,8 @@ class PublishReviewTests(unittest.TestCase):
                                  ['repos/example-org/target/pulls/12/comments/100/replies'])
 
     def test_unverified_reply_keeps_its_marker_and_blocks_reruns(self):
-        for flag, message in (('reply_joins_draft', 'reply did not read back'), ('lose_reply', 'lost response')):
+        for flag, message in (('reply_joins_draft', 'reply did not read back'), ('lose_reply', 'lost response'),
+                              ('reply_without_review', 'no review association')):
             with self.subTest(flag=flag):
                 self.receipt.unlink(missing_ok=True)
                 self.api = FakeGitHub(self.f)

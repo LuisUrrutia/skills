@@ -220,7 +220,9 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None, 
                 continue
             comment = write(item["key"], prefix + f"/comments/{roots[item['key']]}/replies", {"body": item["body"]},
                             no_pending_review)
-            review = api.call(prefix + f"/reviews/{comment.get('pull_request_review_id')}")
+            if not comment.get("pull_request_review_id"):
+                raise PublishError("reply was posted but returned no review association; inspect its thread")
+            review = api.call(prefix + f"/reviews/{comment['pull_request_review_id']}")
             if (comment.get("body") != item["body"] or comment.get("user", {}).get("login") != actor
                     or review.get("state") != "COMMENTED"):
                 raise PublishError("reply did not read back as a published comment; inspect its thread")
