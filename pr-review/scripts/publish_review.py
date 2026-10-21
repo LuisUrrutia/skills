@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Publish an authorized review plan at the frozen head as one Comment or Approve review."""
+"""Publish an authorized review plan at the frozen head as a Comment or Approve review and thread replies."""
 from __future__ import annotations
 
 import argparse
@@ -175,10 +175,13 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None, 
             raise PublishError("the actor has unresolved threads on this PR; approval belongs to pr-review-followup")
 
     current = preflight()
+    roots = {}
     for item in plan.get("replies", []):
-        thread = api.call("graphql", {"query": "query($id:ID!){node(id:$id){... on PullRequestReviewThread{pullRequest{id}}}}", "variables": {"id": item["thread_id"]}})
-        if thread["data"]["node"]["pullRequest"]["id"] != current["node_id"]:
+        query = "query($id:ID!){node(id:$id){... on PullRequestReviewThread{pullRequest{id} comments(first:1){nodes{fullDatabaseId}}}}}"
+        thread = api.call("graphql", {"query": query, "variables": {"id": item["thread_id"]}})["data"]["node"]
+        if thread["pullRequest"]["id"] != current["node_id"]:
             raise PublishError("reply thread belongs to a different PR")
+        roots[item["key"]] = thread["comments"]["nodes"][0]["fullDatabaseId"]
     if plan["event"] == "APPROVE":
         check_own_threads()
 
@@ -212,16 +215,16 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None, 
         # A reply that belongs to a review is also shown under that review, apart from its thread.
         replies = state.setdefault("replies", {})
         for item in plan.get("replies", []):
-            if item["key"] in replies:
+            # A reply key under comments was written into the review, which publishes it.
+            if item["key"] in replies or item["key"] in state["comments"]:
                 continue
-            query = "mutation($input:AddPullRequestReviewThreadReplyInput!){addPullRequestReviewThreadReply(input:$input){comment{id body author{login} pullRequestReview{state}}}}"
-            payload = {"pullRequestReviewThreadId": item["thread_id"], "body": item["body"]}
-            result = write(item["key"], "graphql", {"query": query, "variables": {"input": payload}}, no_pending_review)
-            comment = result["data"]["addPullRequestReviewThreadReply"]["comment"]
-            if (comment.get("body") != item["body"] or (comment.get("author") or {}).get("login") != actor
-                    or (comment.get("pullRequestReview") or {}).get("state") != "COMMENTED"):
+            comment = write(item["key"], prefix + f"/comments/{roots[item['key']]}/replies", {"body": item["body"]},
+                            no_pending_review)
+            review = api.call(prefix + f"/reviews/{comment.get('pull_request_review_id')}")
+            if (comment.get("body") != item["body"] or comment.get("user", {}).get("login") != actor
+                    or review.get("state") != "COMMENTED"):
                 raise PublishError("reply did not read back as a published comment; inspect its thread")
-            replies[item["key"]] = {"id": comment["id"], "body": item["body"]}
+            replies[item["key"]] = {"id": comment["node_id"], "body": item["body"]}
             state.pop("pending_operation", None)
             save(receipt, state)
         state["status"] = final_state

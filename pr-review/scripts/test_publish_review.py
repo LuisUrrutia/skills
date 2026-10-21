@@ -4,7 +4,7 @@ import json
 import unittest
 
 from publish_review import PublishError, RejectedError, anchor_lines, apply, validate_plan
-from snapshot import prepare, verify
+from snapshot import digest, prepare, verify
 from test_support import AUDITOR, ReviewFixture
 
 SUBMITTED = {'COMMENT': 'COMMENTED', 'APPROVE': 'APPROVED'}
@@ -32,9 +32,11 @@ class FakeGitHub:
         self.author = 'author'
         self.many_threads = False
         self.replies = []
+        self.reply_reviews = {}
         self.user_reviews = []
         self.user_draft_after_submit = False
         self.reject_reply = False
+        self.lose_reply = False
         self.reply_joins_draft = False
 
     def call(self, endpoint, payload=None, paginate=False):
@@ -53,6 +55,18 @@ class FakeGitHub:
                 self.comments.append({'id':99,'node_id':'USER_DRAFT','body':'user draft text','pull_request_review_id':17})
                 self.add_user_comment = False
             return self.comments.copy()
+        if endpoint.endswith('/replies'):
+            if self.reject_reply:
+                self.reject_reply = False
+                raise RejectedError('HTTP 422: Unprocessable Entity')
+            number = len(self.replies)+1
+            self.reply_reviews[200+number] = {'id':200+number,'state':'PENDING' if self.reply_joins_draft else 'COMMENTED'}
+            comment = {'id':500+number,'node_id':f'PRRC_reply{number}','body':payload['body'],'user':{'login':self.actor},'pull_request_review_id':200+number}
+            self.replies.append({'endpoint':endpoint, **comment})
+            if self.lose_reply:
+                self.lose_reply = False
+                raise PublishError('simulated lost response after reply')
+            return comment
         if endpoint.endswith('/reviews/17/events'):
             assert set(payload) <= {'event', 'body'}
             if self.reject_submit:
@@ -65,6 +79,9 @@ class FakeGitHub:
             return self.review.copy()
         if endpoint.endswith('/reviews/17'):
             return self.review.copy()
+        review_id = endpoint.rsplit('/reviews/', 1)[-1]
+        if review_id.isdigit() and int(review_id) in self.reply_reviews:
+            return self.reply_reviews[int(review_id)].copy()
         if endpoint.endswith('/reviews') and payload is not None:
             assert set(payload) == {'commit_id'}
             self.review = {'id':17,'node_id':'PRR_new','state':'PENDING','user':{'login':self.actor},'commit_id':payload['commit_id']}
@@ -78,17 +95,9 @@ class FakeGitHub:
                 nodes = [{'isResolved':False,'comments':{'nodes':[{'author':author}]}}] if self.unresolved_mine else []
                 return {'data':{'repository':{'pullRequest':{'reviewThreads':{'pageInfo':{'hasNextPage':self.many_threads},'nodes':nodes}}}}}
             if query.startswith('query'):
-                return {'data':{'node':{'pullRequest':{'id':'PR_other' if self.foreign_thread else 'PR_target'}}}}
+                return {'data':{'node':{'pullRequest':{'id':'PR_other' if self.foreign_thread else 'PR_target'},
+                                        'comments':{'nodes':[{'fullDatabaseId':'100'}]}}}}
             data = payload['variables']['input']
-            if 'addPullRequestReviewThreadReply' in query and 'pullRequestReviewId' not in data:
-                if self.reject_reply:
-                    self.reject_reply = False
-                    raise RejectedError('HTTP 422: Unprocessable Entity')
-                number = len(self.replies)+1
-                review = {'id':'PRR_user','state':'PENDING'} if self.reply_joins_draft else {'id':f'PRR_reply{number}','state':'COMMENTED'}
-                comment = {'id':f'PRRC_reply{number}','body':data['body'],'author':{'login':self.actor},'pullRequestReview':review}
-                self.replies.append({'thread':data['pullRequestReviewThreadId'], **comment})
-                return {'data':{'addPullRequestReviewThreadReply':{'comment':comment}}}
             assert data['pullRequestReviewId'] == 'PRR_new'
             number = len(self.comments)+1
             comment = {'id':f'PRRC_{number}', 'body':data['body'],'pullRequestReview':{'id':'PRR_new','state':self.review['state']}}
@@ -96,8 +105,6 @@ class FakeGitHub:
             if self.lose_comment:
                 self.lose_comment = False
                 raise PublishError('simulated lost response after comment')
-            if 'addPullRequestReviewThreadReply' in query:
-                return {'data':{'addPullRequestReviewThreadReply':{'comment':comment}}}
             return {'data':{'addPullRequestReviewThread':{'thread':{'comments':{'nodes':[comment]}}}}}
         raise AssertionError((endpoint, payload))
 
@@ -134,20 +141,17 @@ class PublishReviewTests(unittest.TestCase):
         submissions = [p for e,p in self.api.writes() if e.endswith('/events')]
         self.assertEqual(submissions, [{'event':'COMMENT'}])
         self.assertFalse(any('resolveReviewThread' in json.dumps(p) for _,p in self.api.writes()))
-        reply = next(p for _,p in self.api.writes() if 'addPullRequestReviewThreadReply' in p.get('query',''))
-        self.assertEqual(reply['variables']['input']['pullRequestReviewThreadId'], 'PRRT_existing')
+        self.assertEqual([e for e,_ in self.api.writes() if e.endswith('/replies')],
+                         ['repos/example-org/target/pulls/12/comments/100/replies'])
 
-    def test_replies_post_alone_after_the_review_so_they_show_only_in_their_threads(self):
+    def test_replies_post_alone_after_the_review_is_submitted(self):
         self.apply()
 
-        writes = self.api.writes()
-        submit = next(i for i,(e,_) in enumerate(writes) if e.endswith('/events'))
-        reply = next(i for i,(_,p) in enumerate(writes) if 'addPullRequestReviewThreadReply' in p.get('query',''))
-        self.assertGreater(reply, submit)
-        self.assertNotIn('pullRequestReviewId', writes[reply][1]['variables']['input'])
+        writes = [e for e,_ in self.api.writes()]
+        self.assertGreater(writes.index('repos/example-org/target/pulls/12/comments/100/replies'),
+                           writes.index('repos/example-org/target/pulls/12/reviews/17/events'))
         self.assertEqual([c['body'] for c in self.api.comments], ['preserve the required return value'])
-        self.assertEqual([(r['thread'], r['body']) for r in self.api.replies],
-                         [('PRRT_existing', 'this path also needs the guard')])
+        self.assertEqual([r['body'] for r in self.api.replies], ['this path also needs the guard'])
 
     def test_a_plan_with_only_replies_creates_no_review(self):
         self.data = {'event':'COMMENT','replies':self.data['replies']}
@@ -169,24 +173,46 @@ class PublishReviewTests(unittest.TestCase):
                 setattr(self.api, flag, True)
                 with self.assertRaisesRegex(error, message):
                     self.apply()
-                self.assertEqual(self.api.review['state'], 'COMMENTED')
+                self.assertEqual(json.loads(self.receipt.read_text())['review_status'], 'COMMENTED')
                 self.assertEqual(self.api.replies, [])
 
                 self.api.user_reviews.clear()
                 count = len(self.api.writes())
                 self.assertEqual(self.apply()['status'], 'COMMENTED')
 
-                new = self.api.writes()[count:]
-                self.assertEqual(len(new), 1)
-                self.assertIn('addPullRequestReviewThreadReply', new[0][1]['query'])
+                self.assertEqual([e for e,_ in self.api.writes()[count:]],
+                                 ['repos/example-org/target/pulls/12/comments/100/replies'])
 
-    def test_reply_that_joins_an_unsubmitted_review_stops(self):
-        self.api.reply_joins_draft = True
+    def test_unverified_reply_keeps_its_marker_and_blocks_reruns(self):
+        for flag, message in (('reply_joins_draft', 'reply did not read back'), ('lose_reply', 'lost response')):
+            with self.subTest(flag=flag):
+                self.receipt.unlink(missing_ok=True)
+                self.api = FakeGitHub(self.f)
+                setattr(self.api, flag, True)
+                with self.assertRaisesRegex(PublishError, message):
+                    self.apply()
+                self.assertEqual(json.loads(self.receipt.read_text())['pending_operation'], 'C2-reply')
+                count = len(self.api.writes())
 
-        with self.assertRaisesRegex(PublishError, 'reply did not read back'):
-            self.apply()
+                with self.assertRaisesRegex(PublishError, 'outcome is uncertain'):
+                    self.apply()
 
-        self.assertNotIn('status', json.loads(self.receipt.read_text()))
+                self.assertEqual(len(self.api.writes()), count)
+
+    def test_reply_recorded_inside_the_review_is_not_posted_again(self):
+        self.api.review = {'id':17,'node_id':'PRR_new','state':'PENDING','user':{'login':'reviewer'},'commit_id':self.f.head}
+        recorded = {}
+        for number, item in enumerate(self.data['comments'] + self.data['replies'], 1):
+            self.api.comments.append({'id':number,'node_id':f'PRRC_{number}','body':item['body'],'pull_request_review_id':17})
+            recorded[item['key']] = {'id':f'PRRC_{number}','body':item['body']}
+        identity = {'target':verify(self.f.snapshot)['target'],'actor':'reviewer','plan_sha256':digest(self.plan)}
+        self.receipt.write_text(json.dumps({'identity':identity,'comments':recorded,'review_id':17,'review_node_id':'PRR_new'}))
+
+        state = self.apply()
+
+        self.assertEqual(state['status'], 'COMMENTED')
+        self.assertEqual([e for e,_ in self.api.writes()], ['repos/example-org/target/pulls/12/reviews/17/events'])
+        self.assertEqual(self.api.replies, [])
 
     def test_clean_review_approves_the_frozen_head(self):
         self.data = {'event':'APPROVE','comments':[],'replies':[]}

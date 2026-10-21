@@ -93,9 +93,10 @@ the comments it wrote and no body, and for `APPROVE` that the actor has no
 unresolved thread on the PR. It then submits once with the plan's event and
 body and reads back the submitted state (`COMMENTED` or `APPROVED`), body,
 head, ownership and every recorded comment. Only then does it post each reply
-on its own, since GitHub shows a reply inside a review twice: in its thread and
-under the review. Each reply reads back with its exact body and author as
-published. A plan with only replies creates no review. A moved base tip is
+on its own through the REST replies endpoint, since GitHub shows a reply inside
+a review twice: in its thread and under the review. Each reply reads back with
+its exact body and author, and its own review as `COMMENTED`. A plan with only
+replies creates no review. A moved base tip is
 accepted while the base branch name and the merge-base with the frozen head are
 unchanged; a retarget stops the write.
 It refuses to publish when the actor authored the PR, and refuses `APPROVE` on a
@@ -112,8 +113,9 @@ a definite HTTP 4xx rejection clears it and is reported as nothing written.
 Stop automatic retries; inspect the actor's reviews, and for a reply its thread,
 and associate the actual returned comment or review state before reconciling
 that receipt. Do not clear the marker based on a guess or reuse it with another
-plan. A repeated identical run after a verified publication writes nothing;
-after a verified submission it posts only the missing replies.
+plan. The receipt's `review_status` records a verified submission and `status`
+the whole plan. A repeated identical run after a verified publication writes
+nothing; after a verified submission it posts only the missing replies.
 
 If a comment's review association or a reply's read-back fails, stop further
 writes and report the observed visibility immediately. Claim publication only
@@ -131,5 +133,5 @@ Primary API contracts checked for this adapter:
 
 - https://docs.github.com/en/rest/pulls/reviews#create-a-review-for-a-pull-request
 - https://docs.github.com/en/graphql/reference/pulls#addpullrequestreviewthreadinput
-- https://docs.github.com/en/graphql/reference/pulls#addpullrequestreviewthreadreplyinput
+- https://docs.github.com/en/rest/pulls/comments#create-a-reply-for-a-review-comment
 - https://docs.github.com/en/rest/pulls/reviews#submit-a-review-for-a-pull-request
