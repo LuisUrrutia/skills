@@ -1,0 +1,801 @@
+{
+  "skill": "handoff",
+  "date": "2026-10-21",
+  "status": "provisional: original-case results and supplemental findings reported separately; no global behavioral pass",
+  "request": "Prune handoff using agent-instructions, preserve its contract and base, run the comparative suite and create a PR while minimizing delegates.",
+  "base_commit": "8242e0e6928b265caadf2da3d03578afa722131e",
+  "final_revision": "candidate-v4",
+  "runtime_sha256": {
+    "SKILL.md": "9ba81bbc7d0d923dc081287819945d71a48185b4b8e77e6af346e0f57e323bee"
+  },
+  "changes": [
+    "Consolidate purpose, work-state and ownership guidance; retain every section and the activation description.",
+    "Keep source artifacts at their source, preserve decision provenance and historical checks, distinguish output requirements from tool permissions.",
+    "Clarify exact transfer details in the reply, unreachable Git state, user-owned preservation destinations and whole-file rereading after final edits.",
+    "Correct the README source count, optional agent-instructions use and temporary-storage summary."
+  ],
+  "size": {
+    "method": "Whitespace-separated words, including frontmatter; entry plus all instructional references. Records, evals and notices counted separately.",
+    "baseline": {
+      "entry": 692,
+      "references": 0,
+      "runtime_total": 692
+    },
+    "final": {
+      "entry": 545,
+      "references": 0,
+      "runtime_total": 545
+    },
+    "removed": 147,
+    "reduction_percent": 21.24,
+    "record_words_before_and_after": 3123,
+    "eval_words_before_and_after": 1354,
+    "notice_words_before_and_after": 538,
+    "claim_limit": "File-size reduction only; no measured load, token, latency, cost or reliability improvement."
+  },
+  "records": {
+    "approach": "base",
+    "pinned_base": "49dd158d1076134a641b33efb035946536778336",
+    "base_entry_words": 144,
+    "entry_growth_over_base": 401,
+    "source_map": "The five donor paragraphs remain conversation summary/temp save, suggested skills, artifact pointers, redaction and next-session focus. Existing local decisions supply the remaining ownership, evidence, destination and readback contract.",
+    "growth_justification": "Recorded local requirements add session/authorization boundaries, current work state, decision/check provenance, optional authoring guidance, user-destination precedence, pickup limits, no transient work copies, file/reference verification and exact reporting.",
+    "result": "origin.toml, evals/cases.json and notices byte-identical. Goal, roles, sources, pins, dependency and section locations still describe the revision; no source refresh or new policy. This report records editorial changes rather than making origin.toml a changelog.",
+    "callers": "work-mode is the sole recorded dependent. Read at base_commit with agent-instructions and README; no caller contract change. README factual summaries corrected."
+  },
+  "review": {
+    "rounds": 1,
+    "delegated_agents_total": 2,
+    "frozen_revision": "candidate-v1",
+    "frozen_sha256": "0f4983957cdbd25c3cbeaffa9d57c1b01d0c9826c3a1b59f2753a39d2d15a60e",
+    "profiles": [
+      "Codex gpt-6-astra/xhigh",
+      "Claude claude-fable-5-1/xhigh"
+    ],
+    "identity_evidence": "T3 returned provider/model/options retained with both completed task records; this is configured-side evidence, not independent runtime attestation.",
+    "dispositions": [
+      {
+        "id": "astra-1/fable-9",
+        "disposition": "adopted",
+        "reason": "Disambiguate why an approach was abandoned."
+      },
+      {
+        "id": "astra-2/fable-3",
+        "disposition": "adopted",
+        "reason": "Restore repository-file scope and explicit machine-local label."
+      },
+      {
+        "id": "astra-3/fable-preexisting-readme",
+        "disposition": "adopted",
+        "reason": "Correct four recorded sources and optional dependency; align temp-storage summary. Factual companion text, no new skill guidance."
+      },
+      {
+        "id": "fable-1",
+        "disposition": "adopted",
+        "reason": "Latest user direction governs objective, scope and completion criteria; no invented defaults."
+      },
+      {
+        "id": "fable-2",
+        "disposition": "adopted",
+        "reason": "Keep only purpose-relevant non-inferable context and explicit next-session focus."
+      },
+      {
+        "id": "fable-4",
+        "disposition": "adopted",
+        "reason": "Preserve recorded reason: a handoff request is not instruction authoring."
+      },
+      {
+        "id": "fable-5",
+        "disposition": "adopted",
+        "reason": "Select skills the next agent should use; receiving environment resolves/invokes."
+      },
+      {
+        "id": "fable-6",
+        "disposition": "adopted",
+        "reason": "Opening explicitly includes work state. Status bullets already preserved it, but this also keeps the origin wording accurate."
+      },
+      {
+        "id": "fable-7",
+        "disposition": "adopted",
+        "reason": "Remaining document supports next action."
+      },
+      {
+        "id": "fable-8",
+        "disposition": "adopted",
+        "reason": "Each decision/check explicitly has provenance."
+      },
+      {
+        "id": "fable-10",
+        "disposition": "adopted",
+        "reason": "Copy/fetch list remains conditional on pickup/access/retention mismatch."
+      },
+      {
+        "id": "fable-11",
+        "disposition": "adopted-in-part",
+        "reason": "Restore any access/retention limits and user-set limits; reflow prose. Keep confirm in the saved-file reread: it requires actual read and verification and retains force. The optional stronger wording was not needed."
+      },
+      {
+        "id": "astra-additional-coverage/fable-gaps",
+        "disposition": "not-added; unmeasured boundaries disclosed",
+        "reason": "Restore wording directly against the baseline and unchanged record. Run all eight original cases without changing their expectations. Forwarded versus invented caller destinations, superseded user scope and external absolute-reference labels remain text-reviewed boundaries, not observed behavior or new generalization claims. The requested change is pruning; no authority or routing contract is added."
+      },
+      {
+        "id": "fable-model-check",
+        "disposition": "verified",
+        "reason": "Live catalog lists Opus 5.5 as latest Opus; Astra is frontier demanding-work family per developer metadata. CLI versions and observed model/header evidence are recorded independently; requested effort retained in command. No weaker substitute."
+      }
+    ],
+    "later_edits": "V2 response edits and v3/v4 observed-failure repairs author-checked; no new review pair. Same Astra child reused only for fixed completed-run grading; root owns CLI execution."
+  },
+  "checks": [
+    {
+      "command": "uv run --no-project --with PyYAML python /Users/lurrutia/.codex/skills/.system/skill-creator/scripts/quick_validate.py handoff",
+      "result": "pass on v4"
+    },
+    {
+      "command": "/opt/homebrew/bin/python3 skill-maintenance/scripts/check-origin.py --skill-dir handoff --skill-dir work-mode --skill-dir agent-instructions",
+      "result": "no diagnostics on v4"
+    },
+    {
+      "command": "/opt/homebrew/bin/python3 /Users/lurrutia/.agents/skills/skill-maintenance/scripts/check-origin.py --root . --dependents handoff",
+      "result": "work-mode only; no unreadable records"
+    },
+    {
+      "command": "/opt/homebrew/bin/python3 -m unittest discover -s skill-maintenance/tests",
+      "result": "53 pass; executable checker and tests unchanged by v4 prose"
+    },
+    {
+      "command": "git diff --check",
+      "result": "pass"
+    },
+    {
+      "check": "Frozen package and entry metadata",
+      "result": "runtime hash, frontmatter, headings/order, eight unchanged cases, unchanged origin/notices and zero instructional references verified"
+    },
+    {
+      "check": "Build",
+      "result": "Not applicable to Markdown, report and README changes; no executable helper changed."
+    }
+  ],
+  "evaluation": {
+    "design": "Seven artifact cases x two trials x two arms x two hosts, plus one unchanged catalog-selection probe per arm/host: 60 initial valid runs. V3 and v4 each rerun all 28 affected artifact slots; two unchanged v2 catalog probes carried over into the final assessment.",
+    "initial": {
+      "baseline": {
+        "runs": 30,
+        "original_verdicts": {
+          "pass": 26,
+          "partial": 4
+        },
+        "original_expectations": {
+          "pass": 118,
+          "partial": 4
+        },
+        "supplemental_findings": {
+          "saved_file_reread_and_completion_claim": 1,
+          "cold_reread": 2,
+          "final_saved_file_reread": 2,
+          "excess_copied_artifact_content": 1,
+          "unsupported_exclusive_copy_claim": 1,
+          "unnecessary_recipient_dependencies": 1
+        }
+      },
+      "candidate_v2": {
+        "runs": 30,
+        "original_verdicts": {
+          "pass": 23,
+          "partial": 7
+        },
+        "original_expectations": {
+          "pass": 114,
+          "partial": 8
+        },
+        "supplemental_findings": {
+          "unsupported_facts": 1,
+          "provenance": 1,
+          "continuation_consistency": 1,
+          "final_saved_file_reread": 2,
+          "unsupported_capture_recoverability": 1,
+          "contradictory_next_step_order": 1,
+          "saved_file_final_reread": 2,
+          "excess_copied_artifact_content": 3,
+          "unsupported_exclusive_copy_claim": 1,
+          "user_authority_scope_expansion": 1
+        }
+      }
+    },
+    "exact_v3_historical": {
+      "runs": 28,
+      "original_verdicts": {
+        "pass": 27,
+        "partial": 1
+      },
+      "original_expectations": {
+        "pass": 111,
+        "partial": 1
+      },
+      "supplemental_findings": {
+        "unsupported_exclusive_git_location": 1,
+        "unsupported_user_review_status": 1,
+        "duplicated_source_summary": 1,
+        "unsupported_authorship": 1,
+        "unsupported_test_prerequisite": 1,
+        "unsupported_exclusive_work_location": 1,
+        "incomplete_pickup_option": 1,
+        "unsupported_installed_tooling_claim": 1,
+        "incomplete_reread_after_final_edit": 2,
+        "unsupported_user_attributed_restriction": 1,
+        "unsupported_historical_test_claim": 1,
+        "unsupported_sole_copy_claim": 1,
+        "unsupported_repository_history_and_copy_claims": 1,
+        "duplicated_notes_content": 1,
+        "output_requirement_promoted_to_execution_limit": 1
+      }
+    },
+    "exact_v4": {
+      "runs": 28,
+      "original_verdicts": {
+        "pass": 27,
+        "partial": 1
+      },
+      "original_expectations": {
+        "pass": 111,
+        "partial": 1
+      },
+      "supplemental_findings": {
+        "copied_plan_requirements": 1,
+        "copied_plan_body": 1,
+        "unsupported_exclusive_git_location": 2,
+        "unsupported_historical_check_claim": 1,
+        "unsupported_blanket_approval_gate": 1,
+        "unapproved_option_treated_as_closed": 1,
+        "path_lookup_overstated_as_installation_check": 1,
+        "unsupported_historical_test_claim": 1,
+        "unsupported_exclusive_work_location": 1,
+        "unsupported_backup_and_exclusive_git_claim": 1,
+        "incorrect_untracked_stash_warning": 1,
+        "output_requirement_promoted_to_execution_limit": 1
+      }
+    },
+    "final_assessment": {
+      "candidate_v4_plus_two_selection_carryovers": {
+        "runs": 30,
+        "original_verdicts": {
+          "pass": 29,
+          "partial": 1
+        },
+        "original_expectations": {
+          "pass": 121,
+          "partial": 1
+        },
+        "supplemental_findings": {
+          "copied_plan_requirements": 1,
+          "copied_plan_body": 1,
+          "unsupported_exclusive_git_location": 2,
+          "unsupported_historical_check_claim": 1,
+          "unsupported_blanket_approval_gate": 1,
+          "unapproved_option_treated_as_closed": 1,
+          "path_lookup_overstated_as_installation_check": 1,
+          "unsupported_historical_test_claim": 1,
+          "unsupported_exclusive_work_location": 1,
+          "unsupported_backup_and_exclusive_git_claim": 1,
+          "incorrect_untracked_stash_warning": 1,
+          "output_requirement_promoted_to_execution_limit": 1
+        }
+      },
+      "baseline_reference": "evaluation.initial.baseline"
+    },
+    "final_by_host": {
+      "codex": {
+        "runs": 15,
+        "original_verdicts": {
+          "pass": 15
+        },
+        "supplemental_partial_findings": 1
+      },
+      "claude": {
+        "runs": 15,
+        "original_verdicts": {
+          "pass": 14,
+          "partial": 1
+        },
+        "supplemental_partial_findings": 12
+      }
+    },
+    "accounting": {
+      "fixture_attempts": 126,
+      "valid": 116,
+      "excluded": 10,
+      "preflight_only_diagnostics_not_counted": 3,
+      "executor_launches": 118,
+      "valid_runs_not_a_single_revision": true
+    },
+    "carryover": [
+      {
+        "case": "workflow-selection",
+        "host": "codex",
+        "executed_arm": "candidate-v2",
+        "catalog_sha256": "1f344936c2ce0d5c2d3ee8245c06607b7610dc09c160098b0c53e0e87e94fcb0",
+        "final_revision": "candidate-v4",
+        "reason": "Selection exposes only unchanged names/descriptions. V2-to-v4 body edits concern artifact-copy exclusion, provenance, pickup reporting and final reread, none exposed in catalog probe. Description, invocation metadata, competitors and expectations remain identical.",
+        "review": "Author-checked after the pair; not pair-reviewed."
+      },
+      {
+        "case": "workflow-selection",
+        "host": "claude",
+        "executed_arm": "candidate-v2",
+        "catalog_sha256": "1f344936c2ce0d5c2d3ee8245c06607b7610dc09c160098b0c53e0e87e94fcb0",
+        "final_revision": "candidate-v4",
+        "reason": "Selection exposes only unchanged names/descriptions. V2-to-v4 body edits concern artifact-copy exclusion, provenance, pickup reporting and final reread, none exposed in catalog probe. Description, invocation metadata, competitors and expectations remain identical.",
+        "review": "Author-checked after the pair; not pair-reviewed."
+      }
+    ],
+    "hosts": {
+      "codex": {
+        "version": "codex-cli 0.160.1",
+        "sha256": "09fa44fdc37a5fc70dc1ace31235f90468a2e193d0e85f7552eab068ea2582be",
+        "model": "gpt-6-astra",
+        "effort": "xhigh"
+      },
+      "claude": {
+        "version": "2.1.291 (Claude Code)",
+        "sha256": "9a1d2ed6bb4421e8fc80c892c0413f293be3ee50ae3d7dda1a7622197a056690",
+        "model": "claude-opus-5-5",
+        "effort": "xhigh"
+      }
+    },
+    "identity_limit": "Codex stderr reports model and reasoning effort. Claude stream reports model; effort is configured by flag. Grader uses the same configured Astra/xhigh child.",
+    "conditions": [
+      "Fresh isolated per-run HOME, project and OS-temp directories; fixed models, effort, tools, fixtures and authorization across compared arms.",
+      "Personal rules, source packages, other arms, grader and expectations denied by macOS sandbox; only runtime files staged. Native authentication exceptions are recorded in metadata; no real secrets printed.",
+      "CLI direct tools; Codex missing code-mode sidecar falls back identically in both arms. Claude strict local-tool configuration; auto skill discovery, apps/delegation disabled.",
+      "Network restricted to provider proxy. Local recording consultation fake; no consultation calls in successful observed runs. HEAD/index/worktree/file snapshots plus full actions graded.",
+      "Actual matching runtime tool-result content reads checked separately from staged hashes. Selection exposes names/descriptions only and proves a supplied-catalog probe, not native invocation.",
+      "No OS syscall audit: file snapshots and complete recorded actions establish observed effects, including checks for transient work copies."
+    ],
+    "original_nonpasses_all_revisions": [
+      {
+        "run": "claude/baseline/container-pickup--t2--a1",
+        "expectation": 6,
+        "verdict": "partial",
+        "reason": "The reply explains inaccessibility but copies only the document, app.py and plan, omitting the Git history, branch and index needed to preserve repository state.",
+        "evidence": [
+          "answer.md:1",
+          "answer.md:8",
+          "temp/handoff-offline-export.md:68",
+          "temp/handoff-offline-export.md:75"
+        ]
+      },
+      {
+        "run": "claude/baseline/non-repository-side-task--t2--a2",
+        "expectation": 2,
+        "verdict": "partial",
+        "reason": "The confirmed facts and decision table are accurate, but the user-limits section promotes the unapproved external venue to a rejected proposal.",
+        "evidence": [
+          "temp/workshop-agenda-handoff.md:34",
+          "temp/workshop-agenda-handoff.md:15",
+          "input.txt:8"
+        ]
+      },
+      {
+        "run": "claude/candidate-v2/container-pickup--t1--a1",
+        "expectation": 2,
+        "verdict": "partial",
+        "reason": "Rejected proposal and never-run offline tests are preserved, and the historical command/pass appears. However the artifact then says to treat the historical pass as unverified merely because the test file is currently missing; the reply repeats that downgrade. The supplied history is an observed past pass, while only current reproducibility is unverified.",
+        "evidence": [
+          {
+            "path": "/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/runs/claude/candidate-v2/container-pickup--t1--a1/temp/handoff-offline-export-2026-10-21.md",
+            "line_start": 28,
+            "line_end": 39
+          },
+          {
+            "path": "/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/runs/claude/candidate-v2/container-pickup--t1--a1/answer.md",
+            "line_start": 16,
+            "line_end": 16
+          },
+          {
+            "path": "/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/runs/claude/candidate-v2/container-pickup--t1--a1/input.txt",
+            "line_start": 8,
+            "line_end": 8
+          }
+        ]
+      },
+      {
+        "run": "claude/candidate-v2/container-pickup--t1--a1",
+        "expectation": 6,
+        "verdict": "partial",
+        "reason": "Reply states the access barrier and lists document, app.py and plan. It makes copying .git/branch/commit/staging an optional alternative (If you would rather keep...), so the primary required list omits the repository state required by this expectation. The colleague edit is correctly protected if the full checkout is copied.",
+        "evidence": [
+          {
+            "path": "/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/runs/claude/candidate-v2/container-pickup--t1--a1/answer.md",
+            "line_start": 8,
+            "line_end": 13
+          },
+          {
+            "path": "/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/runs/claude/candidate-v2/container-pickup--t1--a1/temp/handoff-offline-export-2026-10-21.md",
+            "line_start": 43,
+            "line_end": 48
+          }
+        ]
+      },
+      {
+        "run": "claude/candidate-v2/container-pickup--t2--a1",
+        "expectation": 6,
+        "verdict": "partial",
+        "reason": "The reply gives a valid full-checkout transfer but also offers a files-only fallback without a way to obtain the base commit or preserve the branch and index.",
+        "evidence": [
+          "answer.md:8",
+          "temp/handoff-offline-export-2026-10-21.md:17",
+          "temp/handoff-offline-export-2026-10-21.md:20",
+          "input.txt:9"
+        ]
+      },
+      {
+        "run": "claude/candidate-v2/non-repository-side-task--t2--a2",
+        "expectation": 2,
+        "verdict": "partial",
+        "reason": "The table preserves the three confirmed facts but directs treating the unapproved venue as rejected, and the reply repeats that stronger status.",
+        "evidence": [
+          "temp/handoff-workshop-agenda-2026-10-21.md:26",
+          "temp/handoff-workshop-agenda-2026-10-21.md:29",
+          "answer.md:9",
+          "input.txt:8"
+        ]
+      },
+      {
+        "run": "claude/candidate-v2/purpose-tailoring--t2--a1",
+        "expectation": 4,
+        "verdict": "partial",
+        "reason": "The notes path is cited, but a separate checklist reproduces all its coverage content and the done criteria point to that copied checklist.",
+        "evidence": [
+          "temp/handoff-0042-migration-tests.md:13",
+          "temp/handoff-0042-migration-tests.md:22",
+          "project/docs/migration-notes.md:1"
+        ]
+      },
+      {
+        "run": "claude/candidate-v4/same-machine-retention--t1--a1",
+        "expectation": 2,
+        "verdict": "partial",
+        "reason": "The reply supplies the exact path and reboot warning but conditionally adds notes.txt and Git state to the preservation list despite the fixture's explicit guarantee that the checkout survives.",
+        "evidence": [
+          "answer.md:1",
+          "answer.md:3",
+          "answer.md:9",
+          "answer.md:13",
+          "input.txt:7",
+          "temp/handoff-feature-handoff-fixture-2026-10-21.md:16"
+        ]
+      },
+      {
+        "run": "codex/baseline/container-pickup--t1--a1",
+        "expectation": 6,
+        "verdict": "partial",
+        "reason": "Reply states the access barrier but says only to copy the document and its file manifest. The exact work files and Git state are listed inside the document, not in the reply as this expectation specifies. The artifact correctly preserves branch/index and colleague work.",
+        "evidence": [
+          {
+            "path": "/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/runs/codex/baseline/container-pickup--t1--a1/answer.md",
+            "line_start": 1,
+            "line_end": 5
+          },
+          {
+            "path": "/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/runs/codex/baseline/container-pickup--t1--a1/temp/offline-export-handoff-fetkb1ka.md",
+            "line_start": 47,
+            "line_end": 80
+          }
+        ]
+      },
+      {
+        "run": "codex/baseline/container-pickup--t2--a1",
+        "expectation": 6,
+        "verdict": "partial",
+        "reason": "The reply explains inaccessibility but only refers to a list inside the handoff instead of enumerating the exact repository material there.",
+        "evidence": [
+          "answer.md:5",
+          "temp/offline-export-handoff-cf24g6j0.md:31"
+        ]
+      },
+      {
+        "run": "codex/candidate-v2/container-pickup--t1--a1",
+        "expectation": 6,
+        "verdict": "partial",
+        "reason": "Reply reports inaccessible temp storage but refers only to listed repository files. The complete .git/index/branch/working-file manifest is in the document rather than enumerated in the reply, as required by the original expectation.",
+        "evidence": [
+          {
+            "path": "/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/runs/codex/candidate-v2/container-pickup--t1--a1/answer.md",
+            "line_start": 1,
+            "line_end": 5
+          },
+          {
+            "path": "/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/runs/codex/candidate-v2/container-pickup--t1--a1/temp/offline-export-handoff-3lw9iex_.md",
+            "line_start": 38,
+            "line_end": 52
+          }
+        ]
+      },
+      {
+        "run": "codex/candidate-v2/container-pickup--t2--a1",
+        "expectation": 6,
+        "verdict": "partial",
+        "reason": "The reply states the access limitation but refers to the handoff pickup list without listing the document and required repository state itself.",
+        "evidence": [
+          "answer.md:3",
+          "answer.md:5",
+          "temp/offline-export-handoff-q5dm633h.md:55"
+        ]
+      },
+      {
+        "run": "codex/candidate-v2/same-machine-retention--t1--a1",
+        "expectation": 1,
+        "verdict": "partial",
+        "reason": "The only file actually saved is in temp, but the document proposes checkout/handoff.md and the reply directs copying into that agent-chosen destination despite none being user-named.",
+        "evidence": [
+          "stderr.txt:205",
+          "after.json:9",
+          "temp/handoff-hsp52l9s.md:9",
+          "answer.md:5",
+          "input.txt:8"
+        ]
+      },
+      {
+        "run": "codex/candidate-v3/same-machine-retention--t1--a1",
+        "expectation": 2,
+        "verdict": "partial",
+        "reason": "The reply supplies the exact path and says to copy only the handoff before reboot, but does not explicitly say reboot clears it; that warning appears only inside the saved document.",
+        "evidence": [
+          "answer.md:1",
+          "answer.md:5",
+          "temp/handoff-arswb272.md:68",
+          "temp/handoff-arswb272.md:73",
+          "temp/handoff-arswb272.md:32"
+        ]
+      }
+    ],
+    "remaining_supplemental_findings": [
+      {
+        "run": "claude/candidate-v4/container-pickup--t1--a1",
+        "finding": "copied_plan_requirements",
+        "verdict": "partial",
+        "reason": "After identifying the plan as an initial read and explaining the next action, the handoff reproduces all its requirements as a separate completion checklist instead of keeping that artifact content at its source.",
+        "evidence": [
+          "temp/offline-export-handoff.md:13",
+          "temp/offline-export-handoff.md:19",
+          "temp/offline-export-handoff.md:21",
+          "project/docs/plan.md:2",
+          "project/.runtime/handoff/SKILL.md:23"
+        ]
+      },
+      {
+        "run": "claude/candidate-v4/container-pickup--t2--a1",
+        "finding": "copied_plan_body",
+        "verdict": "partial",
+        "reason": "The objective section reproduces the plan's full two-sentence requirements after the opening already summarizes them, despite the runtime instruction to reference existing artifact contents.",
+        "evidence": [
+          "temp/handoff-offline-export.md:7",
+          "temp/handoff-offline-export.md:20",
+          "project/docs/plan.md:2",
+          "project/.runtime/handoff/SKILL.md:23"
+        ]
+      },
+      {
+        "run": "claude/candidate-v4/guidance-without-agent-instructions--t2--a1",
+        "finding": "unsupported_exclusive_git_location",
+        "verdict": "partial",
+        "reason": "The document and reply infer that the branch and commit exist only in this checkout from the absence of a remote, although the evidence does not establish the absence of other copies.",
+        "evidence": [
+          "temp/handoff-cached-csv-export.md:64",
+          "answer.md:15",
+          "stdout.txt:12"
+        ]
+      },
+      {
+        "run": "claude/candidate-v4/guidance-without-agent-instructions--t2--a1",
+        "finding": "unsupported_historical_check_claim",
+        "verdict": "partial",
+        "reason": "The document expands the supplied statement that no tests ran into a categorical claim that no tests or checks ran even before the conversation, which the available history does not establish.",
+        "evidence": [
+          "temp/handoff-cached-csv-export.md:54",
+          "input.txt:9"
+        ]
+      },
+      {
+        "run": "claude/candidate-v4/named-file-update--t2--a1",
+        "finding": "unsupported_blanket_approval_gate",
+        "verdict": "partial",
+        "reason": "The reply says every choice of boundary cases and test framework needs user approval, adding a blanket continuation gate that the supplied request to add boundary tests does not establish.",
+        "evidence": [
+          "answer.md:9",
+          "input.txt:8",
+          "project/HANDOFF.md:16",
+          "project/HANDOFF.md:34"
+        ]
+      },
+      {
+        "run": "claude/candidate-v4/non-repository-side-task--t2--a1",
+        "finding": "unapproved_option_treated_as_closed",
+        "verdict": "partial",
+        "reason": "Although the venue is correctly labeled unapproved, the document and reply prohibit reopening or mentioning it again without evidence that the user closed that option.",
+        "evidence": [
+          "temp/handoff-workshop-agenda-draft-2026-10-21.md:29",
+          "answer.md:9",
+          "input.txt:8"
+        ]
+      },
+      {
+        "run": "claude/candidate-v4/purpose-tailoring--t1--a1",
+        "finding": "path_lookup_overstated_as_installation_check",
+        "verdict": "partial",
+        "reason": "The reply claims pytest is not installed anywhere on the machine and must be installed, while the trace only establishes that which pytest cannot find a PATH executable.",
+        "evidence": [
+          "answer.md:15",
+          "stdout.txt:14",
+          "stdout.txt:15",
+          "temp/handoff-0042-split-invoices-migration-tests.md:54"
+        ]
+      },
+      {
+        "run": "claude/candidate-v4/purpose-tailoring--t2--a1",
+        "finding": "unsupported_historical_test_claim",
+        "verdict": "partial",
+        "reason": "The reply turns the document's qualified statement of no run in this session and no recorded earlier result into a claim that the command has never been run.",
+        "evidence": [
+          "answer.md:16",
+          "temp/handoff-0042-migration-tests.md:58",
+          "input.txt:8"
+        ]
+      },
+      {
+        "run": "claude/candidate-v4/purpose-tailoring--t2--a1",
+        "finding": "unsupported_exclusive_git_location",
+        "verdict": "partial",
+        "reason": "The reply infers that all Git state exists only in this checkout from the absence of a remote, although the inspected state cannot establish whether other copies exist.",
+        "evidence": [
+          "answer.md:22",
+          "stdout.txt:13",
+          "project/README.md:1"
+        ]
+      },
+      {
+        "run": "claude/candidate-v4/same-machine-retention--t1--a1",
+        "finding": "unsupported_exclusive_work_location",
+        "verdict": "partial",
+        "reason": "The document asserts all work exists only in this checkout and predicts total loss from checkout deletion solely from the absence of a remote, without evidence about other copies.",
+        "evidence": [
+          "temp/handoff-feature-handoff-fixture-2026-10-21.md:14",
+          "temp/handoff-feature-handoff-fixture-2026-10-21.md:44",
+          "stdout.txt:12"
+        ]
+      },
+      {
+        "run": "claude/candidate-v4/same-machine-retention--t2--a1",
+        "finding": "unsupported_backup_and_exclusive_git_claim",
+        "verdict": "partial",
+        "reason": "The document and reply infer that no backup or other branch-and-commit copy exists merely because this checkout has no remote or upstream.",
+        "evidence": [
+          "answer.md:17",
+          "temp/handoff-feature-handoff-fixture-2026-10-21.md:23",
+          "stdout.txt:12"
+        ]
+      },
+      {
+        "run": "claude/candidate-v4/same-machine-retention--t2--a1",
+        "finding": "incorrect_untracked_stash_warning",
+        "verdict": "partial",
+        "reason": "The document says a stash without -u would lose notes.txt, although ordinary stash leaves untracked files in the working tree rather than deleting them.",
+        "evidence": [
+          "temp/handoff-feature-handoff-fixture-2026-10-21.md:27",
+          "temp/handoff-feature-handoff-fixture-2026-10-21.md:28",
+          "initial.json:19"
+        ]
+      },
+      {
+        "run": "codex/candidate-v4/guidance-without-agent-instructions--t2--a1",
+        "finding": "output_requirement_promoted_to_execution_limit",
+        "verdict": "partial",
+        "reason": "The user required an offline export, but the handoff additionally orders implementation itself to stay offline without user authority for that execution restriction.",
+        "evidence": [
+          "temp/handoff-cached-csv-ksjp8lq3.md:44",
+          "input.txt:9"
+        ]
+      }
+    ],
+    "remaining_work": "Final behavioral findings remain unresolved; publication is a draft review artifact, not completion of global behavioral verification.",
+    "iteration_decision": "No further fixture-specific prompt examples added. Existing rules already require supported facts, preserve approval status, distinguish output from execution permissions and limit transfer to unreachable files. Additional failures are retained under those rules; the original partial prevents a full-pass claim.",
+    "cleanup": {
+      "executor_pids_recorded": 118,
+      "owned_executor_processes_still_live": [],
+      "pids_reused_after_executor_exit": [],
+      "controller_pid_file": false,
+      "controller_lock_available": true,
+      "controller66645_exists": false
+    },
+    "auditor_correction": {
+      "cause": "Objective auditor assumed .md suffix, although the contract specifies a document without a filename extension rule.",
+      "affected": "codex/candidate-v4/same-machine-retention--t1--a1",
+      "repair": "Count the sole changed/added artifact independently of extension; semantic grader still checks actual content and trace. Atomic audit-record writes avoid partial reader observations.",
+      "changes": [
+        {
+          "run": "/private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/runs/codex/candidate-v4/same-machine-retention--t1--a1",
+          "before": [
+            "one_handoff_at_allowed_destination",
+            "exact_saved_path_reported"
+          ],
+          "after": []
+        }
+      ],
+      "excluded_runs_added": 0,
+      "executor_or_runtime_edits": false,
+      "original_expectations_changed": false,
+      "regression": "All 118 completed attempt objective checks unchanged except the two false flags for the one extensionless handoff; actual Markdown document and exact path verified.",
+      "retained_originals": [
+        "audit-extension-false-positive/audit-before.py",
+        "audit-extension-false-positive/OBJECTIVE-SUMMARY-before.json",
+        "audit-extension-false-positive/affected-objective-before.json"
+      ]
+    },
+    "exclusion_causes": {
+      "preflight_missing_probe_target_before_executor": 8,
+      "parent_cancellation_after_false_quota_match_in_successful_read": 2
+    },
+    "exclusion_handling": "Original attempts retained; repaired probe target and error-only quota detector, verified both hosts and classifier regressions, then reran in fresh contexts. No provider quota-error evidence for the two cancellations.",
+    "commands": [
+      "/opt/homebrew/bin/python3 /private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/runner.py queue /private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/INITIAL-QUEUE.json",
+      "/opt/homebrew/bin/python3 /private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/runner.py queue /private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/RECOVERY-QUEUE.json",
+      "/opt/homebrew/bin/python3 /private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/runner.py queue /private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/V3-QUEUE.json",
+      "/opt/homebrew/bin/python3 /private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/runner.py queue /private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/V4-QUEUE.json",
+      "/opt/homebrew/bin/python3 /private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/audit.py",
+      "/opt/homebrew/bin/python3 /private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp/evaluation/collect_evidence.py"
+    ],
+    "command_root": "/private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp",
+    "command_note": "The initial queue has 59 slots plus the separately counted Codex baseline purpose-tailoring trial 1 pilot. Exact executor flags retained in hashed metadata/runner."
+  },
+  "limits": [
+    "All original expectations and additional runtime findings remain separate. Supplemental partials preclude a global pass; no stochastic improvement claim from two trials.",
+    "Forwarded versus invented caller destinations, superseded scope and external absolute-reference labels text-reviewed only. Windows, host-native automatic selection/installation and broader generalization unmeasured.",
+    "Saved repository package only; installed skill symlinks not changed by this work.",
+    "Raw evidence is machine-local temporary storage. Public CSV preserves verdicts, executed revisions, exclusions and evidence hashes; its hashes do not make raw traces remotely accessible."
+  ],
+  "evidence": {
+    "local_root": "/private/var/folders/l7/55dn875s3bn3780_fldz93mr0000gq/T/handoff-skill-trim.86jl_nmp",
+    "public_per_run_csv": "reports/handoff-pruning-runs.csv",
+    "public_per_run_csv_sha256": "e80dcfbba8cf06c3fa9bc0ccc400d9a2fce6c471cf8db9e36ed9b59ff2b1b5a5",
+    "artifacts": {
+      "BASELINE.json": "9e330046ebb42f5f746626e7a96d164f0a0c0e09e1aae092c13eb88356415a9d",
+      "source-base-SKILL.md": "4cbb043950dad2ffd3662ff1a5a0b51ae676004b5cae10e3787e8ee7a4ee69d3",
+      "review-astra-result.json": "189df64abfe45ce62cd29ffd74c8e60fa48fea51d8eeaf9b41fa277cffc3b6bd",
+      "review-fable-result.json": "49147a6081610be03a5d214d07ad4709546176da6e302147799a6eeebea694c2",
+      "CANDIDATE-V3.json": "9be2be095c568d6ec2eaf9fe7a5a539133bb0607c599cceac2be14f08ea7ad18",
+      "CANDIDATE-V4.json": "11849fa0731bd54a22c882c54be320a9bb2f02338441554dfcfeea6bd9cd8e1b",
+      "frozen-v4.diff": "4e087e8945774051111266f91573637179e928c83baff97c5cf1b02d08c6f80a",
+      "v2-to-v3.diff": "3b4d82591e7109782e60743dea4dd4b54817b756cc6b99048231613aeae4ad97",
+      "v3-to-v4.diff": "a842ba9552e82d2e2121abfb64e3b90813867f6f59ec568e2aba6dd415cec3f7",
+      "V3-REPAIR-REASONS.json": "26f04c39dcf3683f03bce5aefb798e1eb05578c1d35d1dc913a15769ec940cbe",
+      "V4-REPAIR-REASONS.json": "3f8786100b0064738e4a22a99105497cde20a3c3d309aff9ecc20890d9df6f44",
+      "REVIEW-DISPOSITIONS.json": "c540cf57bd5489eee6a67b7db0b2df981c4b2a3ef24fdaa8c6696bcc9841bb0a",
+      "evaluation/V4-CARRYOVER.json": "ff5f51f9a59f725a7e061004df253985779f9ed91ba6d93d5d777433ae58097b",
+      "evaluation/runner.py": "1f65646186e0b1e2716b16217d6c63530258211f88235841db8ad670ba581879",
+      "evaluation/host_infra.py": "e3f36ba0ecd8e8f5bac3cf127d400d26fc8e0dc8c8ac57e9c32529dd863aa660",
+      "evaluation/fixtures.py": "abd8d45550ab7e7f87fe2d034e76146c67fef723130890805e9f9c04178090c4",
+      "evaluation/audit.py": "da1ff247199c197182fa12b0354acead5871c9a6613feebeafcf27978d16b600",
+      "evaluation/trace_audit.py": "f918a487cfd6c224ec561ff3b6605260f5b1cbb3ca1c94c7c9fb33ceb4911e10",
+      "evaluation/ORIGINAL-MODEL-CATALOG.json": "fcb27243d9aabe944fa1a38ae615e388bcae98ea9d78d0eb897bc3d3f33612bd",
+      "evaluation/NORMALIZED-EVIDENCE.json": "fffeed20155f1bcc0ce690d1d2de621e861d369074e5052b61f2e3b8e6ae7514",
+      "evaluation/EXCLUSIONS.json": "52c52b5bf18b46a6903f6560d2f94fc12efe724fc85b09d14902b9ebcbf725a8",
+      "evaluation/CLEANUP.json": "0e4f9285dce7bb4041f6eb85e915f0be4642c1f483a1214f991ad2f321ce6b7c",
+      "evaluation/AUDIT-CORRECTION.json": "458c51b1a7317d5633a25de66919f5475969c5a80f8d491c2d5a4981ec889aff",
+      "evaluation/audit-extension-false-positive/audit-before.py": "96f02ce2bc706259f063b885f2a742da87d91c35f68f304137609eaed54a0ce7",
+      "evaluation/audit-extension-false-positive/affected-objective-before.json": "6091d5bed8380280748daca439f0676596f2ef6efd2420ebff22f6aa56dbf720",
+      "evaluation/GRADE010-METADATA.json": "09a2f328fa0607383b397766047f009fbe80e20243eee4d93fdbb090bc14048c",
+      "evaluation/grading/batch-001-verdicts.json": "53d18149b06ba5631cd3af5cbbbaafa6285e439c04e0b31911f56c7acb36f0fc",
+      "evaluation/grading/batch-002-verdicts.json": "b406ac800b18131180c90a35d6e37ec35a724adda89ae7378dfb7fb1bb9423e5",
+      "evaluation/grading/batch-003-verdicts.json": "a79b2c00fb4ad9212e03a8353114f0d75051be0707e6768a518d10d6872f9647",
+      "evaluation/grading/batch-004-verdicts.json": "a56353c308f0e8d083d6351fc9762be2e1520d979ae8b86ab81ef4688dda4399",
+      "evaluation/grading/batch-005-verdicts.json": "6074c083f40b4c9ec6af4a7b79fa3f9b48d2aaec1c1091dc2a87ab8d35f1102a",
+      "evaluation/grading/batch-006-verdicts.json": "96ebf6da43080fda8bbb1772525d93f46f6690cacb3c2149e8c31ec6ed0d17c4",
+      "evaluation/grading/batch-007-verdicts.json": "ed3fa798d4d0b38056580796d999808f9b83bf4ba36babad4bad048c418c29f5",
+      "evaluation/grading/batch-008-verdicts.json": "2fe586fcc36e1a341d87534b83befeecfdff7045fb46d175b1357d307b7d3a81",
+      "evaluation/grading/batch-009-verdicts.json": "6efc99e41eacc0283e7f95aa70eda965d0a8ac5c65fcbc992d97bfffbd39637e",
+      "evaluation/grading/batch-010-verdicts.json": "cc1650b876893cf825c817f09480592e199bdbedeb245e47c045a0fa3785c221",
+      "evaluation/grading/batch-011-verdicts.json": "59a8d7856d5a1f0ed8a0ea85fe67baa99bb390a179adb653b350a72d9ad5d664"
+    }
+  }
+}
