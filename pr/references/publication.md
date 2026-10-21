@@ -1,88 +1,79 @@
 # Publication and identity
 
-Read before a Git or GitHub mutation. Apply request and standing authorization
-first; a known authorized action does not need a second permission prompt.
+Apply existing request/standing authority before seeking additional permission.
 
 ## Before writing
 
-Verify the exact target PR and head repository/ref, current local branch and HEAD,
-push remote URL, base, and expected remote tip. Preserve unrelated work and index
-state. If uncommitted in-scope work belongs in the PR, use `commit`; otherwise
-describe only the published or selected committed head. A metadata-only edit does
-not authorize shipping newer local commits.
+Recheck exact PR, head repository/ref/SHA, local branch/HEAD, push URL, base and
+expected remote tip. Preserve unrelated work/index state. Use `commit` for
+uncommitted work included in publication; metadata-only work ships no new commits.
+Inspect selected content for credentials, private captures and unrelated artifacts;
+resolve suspected exposure even when already committed.
 
-Inspect the selected publication for credentials, private captures and unrelated
-artifacts. Resolve any suspected exposure before publishing that content; do not
-silently include it because it was already committed or appears in a template.
+Resolve the intended GitHub actor from user direction, otherwise path-effective
+`git config --get user.email` matched to an authenticated account. Neither author
+name nor SSH authentication proves it. Require an exact
+`gh api user --jq .login` match before authenticated writes; switch to the intended
+already-authenticated account and recheck when needed. Ask if ambiguous; expose
+no tokens or secret configuration.
 
-Resolve the intended GitHub actor from explicit user direction, otherwise the
-path-effective `git config --get user.email` matched to an authenticated account.
-The Git author name and SSH authentication do not prove the `gh` actor. Run
-`gh api user --jq .login`; require an exact match before authenticated writes.
-Switch to an already-authenticated intended account when necessary, then verify.
-Ask if the mapping remains ambiguous. Never print tokens or secret configuration.
-
-Use SSH for all Git network operations. Repair an SSH failure or report it; never
-substitute HTTPS. Resolve missing or ambiguous destinations before pushing.
+Use SSH for every Git network operation. Repair failures or report the blocker;
+never substitute HTTPS. Resolve ambiguous destinations before pushing.
 
 ## Publish the selected branch
 
-Use an explicit verified destination, such as
-`git push -u <push-remote> HEAD:refs/heads/<branch>`, for a new tracking branch.
-For an existing branch, verify the configured destination and push only that ref.
-Do not publish unrelated refs or tags. Confirm the actual remote tip after success.
+Push only the verified branch to its explicit destination, for example
+`git push -u <remote> HEAD:refs/heads/<branch>`; include no unrelated refs/tags.
+Confirm the actual remote tip afterward.
 
-When an authorized base update is necessary, use rebase, not a merge commit.
-`stacked-pr` owns cascading rewrites. Preserve a recovery ref and inspect conflicting
-intent on both sides, then re-run the checks affected by the resulting code.
+For necessary authorized base updates, preserve a recovery ref and rebase;
+`stacked-pr` owns cascading rewrites. Reconcile both sides' intent in conflicts and
+rerun affected checks.
 
-After an authorized rebase, publish only with a lease tied to the previously
-recorded exact remote SHA, such as
-`--force-with-lease=refs/heads/<branch>:<expected-sha>`. Immediately before the push,
-recheck current branch, exact PR head, remote and remote tip. If the remote moved,
-stop the push and reconcile the new work; do not refresh the lease blindly or
-retry with plain force. A standing authorization for this operation remains valid.
+Publish a rebase only with an exact recorded lease:
+`--force-with-lease=refs/heads/<branch>:<expected-sha>`. Immediately before pushing,
+recheck branch, exact PR head, remote and tip. If the tip moved, reconcile the new
+work before publishing; never blindly refresh the lease or use plain force.
 
-After material publication to an open PR, rewrite its whole body from the verified
-published diff in Update mode. Recheck head/base before writing; a concurrent
-movement invalidates the prepared claims. Unless an explicit create-only instruction
-applies, hand the new revision to `pr-followup` for a creation request or when
-follow-up work is already authorized; return to an existing follow-up loop rather
-than starting a nested one.
+After material publication to an open PR, perform Update from its verified
+published diff. Recheck head/base before writing; movement invalidates prepared
+claims. Continue according to the entrypoint's request/caller routing.
 
 ## Create or update metadata
 
-Prepare multiline bodies in an ignored temporary file and use `--body-file`.
-When including screenshots or recordings, read [attachments.md](attachments.md)
-and add the verified files with `--attach` to this same create or edit operation.
-Check the installed subcommand's help; do not infer support from a floating source.
-Pass explicit repo, head, base and title. Creation defaults to:
+Write multiline bodies to ignored temporary files and use `--body-file`. Check
+installed subcommand help for flags. For captures, follow
+[attachments](attachments.md) in the same operation.
+
+Recheck exact open PR identity immediately before creating. Use explicit values:
 
 ```text
 gh pr create --repo <target> --base <base> --head <head> --draft --title <title> --body-file <file>
 ```
 
-Use `<branch>` for a same-repository head and `<owner>:<branch>` for a user-owned
-fork. For the user's ready-by-default preference, omit `--draft`. Never use
-interactive creation, `--web`, `--editor`, `--recover` or `--draft=false`.
-Recheck exact open PR identity immediately before creating to avoid a duplicate.
+The head is `<branch>` within one repository, `<owner>:<branch>` for a user-owned
+fork. Omit `--draft` for ready preference. Creation is non-interactive: never use
+`--web`, `--editor`, `--recover` or `--draft=false`.
 
-Verify URL, head repository/ref/SHA, base, title, body and `isDraft` after writing.
-For attached local references, expect `gh` to replace paths with uploaded URLs;
-verify that transformation and surrounding content rather than byte equality with
-the prepared body. Read back partial upload failures before any retry, as specified
-in [attachments.md](attachments.md).
-If a newly created PR has the wrong initial state, correct it once with
-`gh pr ready <url>` or `gh pr ready --undo <url>` under the resolved initial-state
-authorization, then verify. A continuing mismatch blocks further writes.
+For Update, use
+`gh pr edit <exact-url> --title <title> --body-file <file>` with only authorized
+metadata flags. Changing base, reviewers, labels, milestone, assignees or draft
+state needs covering authority. Description work posts no replies, issue comments
+or approvals; feedback replies belong to `pr-followup`, their wording to
+`comment-style`.
 
-For Update, use the exact PR URL with `gh pr edit <url> --title <title> --body-file <file>`
-and only authorized metadata flags. Leave base, reviewers, labels, milestone,
-assignees and ready/draft state alone unless the request or standing scope covers
-their change. Do not publish review replies, issue comments or approval reviews
-as a side effect of writing a PR description. A reply to feedback on your PR
-belongs to `pr-followup`, and its text to `comment-style`.
+## Verify the result
 
-If a write fails or times out, inspect remote state before retrying. Report the
-actual partial outcome and failed prerequisite. Register the PR with the host and
-verify any required thread links. PR readiness and merging are separate operations.
+After every write, including failure/timeout, and before accepting an existing PR
+without writing, verify remote URL, head repository/ref/SHA, base, title, body,
+intended draft state and only requested metadata changes. Resolve mismatches
+before declaring success or continuing; inspect uncertain outcomes before retrying.
+Report partial outcomes and failed prerequisites. Attachments require
+URL transformation and surrounding-content checks, not local-body byte equality;
+their reference owns recovery and rendering/access checks.
+
+Correct a newly created PR's wrong initial state once with `gh pr ready <url>` or
+`gh pr ready --undo <url>` under initial-state authority, then verify. A continuing
+mismatch blocks further writes.
+
+Register the PR with the host and verify required thread links.
