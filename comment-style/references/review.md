@@ -45,10 +45,10 @@ accessible evidence; keep an unverified premise out of the question.
 
 Use the caller's review conventions and severity, or the repository's documented
 conventions when the caller supplies none. Otherwise mark optional advice
-with `suggestion:` and minor rule violations with `nit:`; a concrete defect or
-genuine question starts with its point. Do not downgrade a supported defect to a
-nit. Skip isolated taste objections; a documented rule or repeated inconsistency
-can justify a minor comment.
+with `suggestion:` and minor rule violations with `nit:`; a concrete defect, a
+change your own work depends on or a genuine question starts with its point. Do
+not downgrade a supported defect to a nit. Skip isolated taste objections; a
+documented rule or repeated inconsistency can justify a minor comment.
 
 Start with the observable problem, a genuine question, or an established
 straightforward change. Omit formulaic politeness such as an opening "please".
@@ -83,3 +83,8 @@ extra examples, side observations and caveats the author will meet while
 fixing; give them when the author asks or disputes the point. Name at most
 one fix, preferably an existing pattern; do not join alternative fixes with
 "or". Fixing it here or tracking it in a ticket remains one ask.
+
+When the PR works without a change your own work depends on, the comment is a
+request, not a finding: usually one sentence with the ask and the work that
+depends on it, such as a link to your PR. Leave out why that work needs it; the
+author can ask.

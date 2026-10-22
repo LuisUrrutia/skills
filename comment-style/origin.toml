@@ -232,6 +232,14 @@ where = [
   "references/review.md#word-a-new-finding",
 ]
 
+[[local_snapshots.deviations]]
+change = "Added a new-comment form for a change the commenter's own work depends on while the PR works without it: the comment is a request rather than a finding, starts with the ask without the `suggestion:` label, and usually takes one sentence with the ask and the work that depends on it, such as a link to the dependent PR, leaving out why that work needs it."
+reason = "User decision of 2026-10-22: an agent asked another author's PR to call one more function on resend, because a PR of the user's depends on that date, with a `suggestion:` comment that retold the whole causal chain. The user rewrote it, unlabeled, as the ask plus that dependency, because the request was not a defect and the author can ask for more detail."
+where = [
+  "references/review.md#word-a-new-finding",
+  "references/review.md#say-enough-to-find-the-problem",
+]
+
 [[dependencies]]
 kind = "local"
 name = "communicate-clearly"

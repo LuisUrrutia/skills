@@ -1,0 +1,254 @@
+{
+ "schemaVersion": 1,
+ "date": "2026-10-22",
+ "baseline": "b5306d9177f5d422669a8685b7d345e6509adeef",
+ "status": "Validated for the stated trial and static scope. One model-pair round ran on an earlier candidate; the final wording was changed after it and is not pair-reviewed.",
+ "request": "An agent wrote a long `suggestion:` inline comment on another author's PR in a private repository, asking to call one more function on invite resend and retelling the whole causal chain. The change was not a defect of that PR: one of the user's PRs depends on the date it would update. The user rewrote it as one sentence: the ask plus that dependency. Goal: the minimal general change that keeps such requests to the ask and the dependent work.",
+ "diagnosis": [
+  "The incident session loaded the installed comment-style, which links to a local main at a8e115b. Its references/review.md still said 'shorten the explanation, not its evidence' (hypothesis 1) and had no length budget for findings (hypothesis 2). Commit 6cad78e on origin/main already removed that sentence and added the 40-word budget.",
+  "On origin/main, Claude still framed the incident as a defect: 2 of 2 runs led with the backfill inconsistency and none named the dependent PR. The defect budget (what goes wrong, its trigger, the rule) was the only shape for a new comment, so a request born of the commenter's own dependency was written as a finding (hypothesis 3).",
+  "Hypothesis 4 (a final one-sentence check) was not adopted: SKILL.md already ends with a recipient read-through for every message, and an absolute sentence count would contradict the recorded decision to drop sentence ceilings."
+ ],
+ "changes": [
+  {
+   "file": "comment-style/references/review.md",
+   "change": "'Word a new finding': a change your own work depends on starts with its point, like a defect or a genuine question, instead of `suggestion:`. 'Say enough to find the problem': when the PR works without a change your own work depends on, the comment is a request, not a finding, usually one sentence with the ask and the work that depends on it, such as a link to your PR, leaving out why that work needs it."
+  },
+  {
+   "file": "comment-style/origin.toml",
+   "change": "One added base deviation crediting the user's decision of 2026-10-22."
+  }
+ ],
+ "size": {
+  "SKILL.md": {
+   "before": 956,
+   "after": 956
+  },
+  "references/review.md": {
+   "before": 792,
+   "after": 851
+  },
+  "package": {
+   "before": 1748,
+   "after": 1807
+  },
+  "base_snapshot_0b1bd82": {
+   "SKILL.md": 1519,
+   "references/review.md": 400
+  },
+  "growth_reason": "59 words buy one behavior: the request form and its label, required by the observed failure."
+ },
+ "consultations": {
+  "candidate": "First candidate, frozen by file hash: references/review.md 92ba1170ae5440ff75316e620067c03dbeca75a0efaad08fd1954c410d537f15, origin.toml 9fc34630ab832acc102006d9484daac08eed589bf9a390e4233b98d2ae1b4824; SKILL.md unchanged.",
+  "profiles": [
+   {
+    "profile": "Codex gpt-6-astra / xhigh",
+    "runner": "T3 delegate_task, clientRequestId comment-style-short-requests-astra-r1",
+    "findings": [
+     "Material: 'gets one sentence' is an absolute ceiling that conflicts with SKILL.md keeping required points and with the recorded removal of sentence ceilings."
+    ]
+   },
+   {
+    "profile": "Claude claude-fable-5-1 / xhigh",
+    "runner": "T3 delegate_task, clientRequestId comment-style-short-requests-fable-r1",
+    "findings": [
+     "No material findings.",
+     "Minor: unhedged sentence count.",
+     "Minor: one run packed a second reason; tighten 'that need'.",
+     "Optional: make the precedence over the defect form explicit.",
+     "Minor: origin.toml reason precision.",
+     "Claude trial attribution needs traced runs; effort and Codex model are requested, not observed.",
+     "Unrun near-misses: an optional suggestion and a defect that blocks the user's dependent PR.",
+     "Base-fit report needs a section map and sizes."
+    ]
+   }
+  ],
+  "adopted": "The sentence count became 'usually'; origin.toml reason reworded; traced Claude runs cited; both near-miss cases added and run on both hosts; base-fit evidence reported.",
+  "declined": [
+   {
+    "finding": "'one need' instead of 'that need'",
+    "reason": "Replaced instead by naming the reason as the work that depends on the change, which later trials showed removes the extra reasoning."
+   }
+  ],
+  "post_round_edits": "After the round, trials on Claude still showed the incident written as a defect, so the request moved into its own paragraph with an observable condition (the PR works without the change) and 'leave out why that work needs it'. These edits are not pair-reviewed."
+ },
+ "trials": {
+  "runner": "Each run read only a staged copy of comment-style plus a task file in its own directory. Claude Code: claude -p 2.1.291, model claude-opus-5-5 (observed in the init event), effort xhigh requested, tools Read/Glob/Grep, skills disabled, stream-json trace of every Read. Codex: codex exec 0.160.1, gpt-6-astra and reasoning xhigh requested (not recorded in the event stream), read-only sandbox, JSON trace of every command. Both hosts loaded the user's global instructions. No git, gh or network. Fixtures are scratch files, not committed.",
+  "cases": {
+   "incident": "Reconstruction of the incident context from a private repository: the agent's own Spanish analysis, the user's 'Si, hacelo' and the resend and send code. Regression case. Outputs are redacted: private repository URLs and identifiers are replaced with placeholders in angle brackets; word counts are of the raw outputs.",
+   "payout-currency": "Same class: the user's mobile PR needs a currency field from another author's API PR; analysis lists extra reasons. Used for tuning after round 1.",
+   "funnel-order-id": "Same class: the user's analytics PR needs `orderId` in another author's checkout event. Used for tuning after round 3.",
+   "export-codeblock": "Same class, unseen until the final round: the user's docs PR needs another author's design-system PR to export a component.",
+   "refund-defect": "Real defect (double refund on retry) found while the user builds a dependent PR. Must keep the defect form.",
+   "blocking-defect": "Real defect (response violates the PR's own OpenAPI spec) that blocks the user's dependent PR. Must keep the defect form.",
+   "optional-suggestion": "Optional style advice with no dependency. Must keep `suggestion:` and ask-and-stop."
+  },
+  "rounds": [
+   {
+    "revision": "a8e115b (incident version)",
+    "case": "incident",
+    "result": "Claude: four sentences, 85 words, backfill chain and a side observation; reproduces the incident. Codex: two sentences, 55 words, ask first with the dependent PR."
+   },
+   {
+    "revision": "origin/main b5306d9",
+    "result": "incident: Claude 2 of 2 led with the defect and the backfill and did not name the dependent PR (35-40 words); Codex led with the ask, two sentences, 43 words. payout-currency: both hosts added the currency-migration side observation (40-49 words). funnel-order-id: both hosts added the 7% staging figure (26-28 words). export-codeblock: both hosts added the deep-import mechanism (19-20 words). refund-defect, blocking-defect, optional-suggestion: correct forms."
+   },
+   {
+    "revision": "first candidate (review.md 92ba1170...)",
+    "result": "incident: Claude 2 runs led with the ask and named the dependent PR, one added the backfill clause; Codex 30 words, one sentence. payout-currency 17-25 words on both hosts. refund-defect kept the defect form."
+   },
+   {
+    "revision": "'usually one sentence ... that need' (review.md 893b37e3...)",
+    "result": "incident: Claude led with the ask but used the backfill chain as the reason in two sentences, 37 words; Codex 26 words. payout-currency 16-17 words. refund-defect, blocking-defect and optional-suggestion unchanged from baseline forms."
+   },
+   {
+    "revision": "'the work that depends on it' inline (review.md cf030e5f...)",
+    "result": "incident: Claude 3 of 3 kept the backfill chain, 2 of 3 led with the problem (35-40 words); Codex 22 words. Other request cases 13-21 words on both hosts; defects kept their form. Led to the separate request paragraph."
+   }
+  ],
+  "final_revision": "review.md 137b3c521169f6034afdf0f6c973c4238f8085744781207fcb2c3d9a276f0d3b, identical to the committed file",
+  "final_results": [
+   {
+    "host": "claude",
+    "case": "incident",
+    "arm": "final3",
+    "words": 18,
+    "output": "can the resend also call `<markInviteSent>` with the new `sent_at`? <dependent PR> depends on `<inviteSentAt>` tracking the latest send"
+   },
+   {
+    "host": "claude",
+    "case": "incident",
+    "arm": "final3",
+    "words": 28,
+    "output": "can the resend also call `<markInviteSent>` with the new `sent_at`, like the send path does? <dependent PR> filters on <CRM>'s `<inviteSentAt>` to list invites waiting more than 5 days"
+   },
+   {
+    "host": "claude",
+    "case": "incident",
+    "arm": "final3",
+    "words": 26,
+    "output": "can the resend also call `<markInviteSent>` after this update, like the send path does? The `<ageFilter>` filter in <dependent PR> needs `<inviteSentAt>` to follow the latest send"
+   },
+   {
+    "host": "codex",
+    "case": "incident",
+    "arm": "final3",
+    "words": 14,
+    "output": "can we also call `<markInviteSent>` on resend to support the `<ageFilter>` filter in <dependent PR>?"
+   },
+   {
+    "host": "claude",
+    "case": "payout-currency",
+    "arm": "final3",
+    "words": 16,
+    "output": "could `PayoutSummary` include the payout currency from `row.currency_code`? the payouts screen in https://github.com/acme/mobile/pull/88 depends on it"
+   },
+   {
+    "host": "codex",
+    "case": "payout-currency",
+    "arm": "final3",
+    "words": 10,
+    "output": "can we include the payout currency in `PayoutSummary` for https://github.com/acme/mobile/pull/88?"
+   },
+   {
+    "host": "claude",
+    "case": "funnel-order-id",
+    "arm": "final3",
+    "words": 14,
+    "output": "can this event also include `orderId`? the conversion funnel in https://github.com/acme/analytics/pull/57 depends on it"
+   },
+   {
+    "host": "codex",
+    "case": "funnel-order-id",
+    "arm": "final3",
+    "words": 17,
+    "output": "can you include `orderId` in the event payload and effect dependencies for the conversion funnel in https://github.com/acme/analytics/pull/57?"
+   },
+   {
+    "host": "claude",
+    "case": "export-codeblock",
+    "arm": "base",
+    "words": 19,
+    "output": "can you export `CodeBlock` here too? https://github.com/acme/docs/pull/77 needs it, and deep imports fail because the package only exposes `dist/index.js`"
+   },
+   {
+    "host": "claude",
+    "case": "export-codeblock",
+    "arm": "final3",
+    "words": 9,
+    "output": "can you also export `CodeBlock` here? https://github.com/acme/docs/pull/77 needs it"
+   },
+   {
+    "host": "codex",
+    "case": "export-codeblock",
+    "arm": "base",
+    "words": 20,
+    "output": "can you export `CodeBlock` here so the examples page in https://github.com/acme/docs/pull/77 can use it? Deep imports fail the docs build"
+   },
+   {
+    "host": "codex",
+    "case": "export-codeblock",
+    "arm": "final3",
+    "words": 11,
+    "output": "could you export `CodeBlock` here for the examples page in https://github.com/acme/docs/pull/77?"
+   },
+   {
+    "host": "claude",
+    "case": "refund-defect",
+    "arm": "final3",
+    "words": 42,
+    "output": "after a processor timeout, a retry with the same `Idempotency-Key` doesn't find the first row bc it's still `pending`, so it inserts a second row and calls the processor again. if the first call reached the processor, the merchant gets refunded twice"
+   },
+   {
+    "host": "codex",
+    "case": "refund-defect",
+    "arm": "final3",
+    "words": 36,
+    "output": "retrying with the same `Idempotency-Key` after a processor timeout can refund the charge twice, because this filter misses the existing `pending` refund. Can we prevent retries from issuing another refund while the first outcome is unresolved?"
+   },
+   {
+    "host": "claude",
+    "case": "blocking-defect",
+    "arm": "final3",
+    "words": 38,
+    "output": "this returns `12.34` for 1234 minor units, but the spec defines `available` as an integer in minor units, so clients generated from the spec, like the one in https://github.com/acme/mobile/pull/90, fail integer validation. Can we drop the `/ 100`?"
+   },
+   {
+    "host": "codex",
+    "case": "blocking-defect",
+    "arm": "final3",
+    "words": 26,
+    "output": "return `row.available_minor` directly, since `openapi/v2.yaml:212` requires an integer in minor units. Converting `1234` to `12.34` fails validation in https://github.com/acme/mobile/pull/90 and prevents the balance screen from loading"
+   },
+   {
+    "host": "claude",
+    "case": "optional-suggestion",
+    "arm": "final3",
+    "words": 13,
+    "output": "suggestion: use `formatIsoDate` from `src/lib/dates.ts` here, like the payouts and refunds exports do"
+   },
+   {
+    "host": "codex",
+    "case": "optional-suggestion",
+    "arm": "final3",
+    "words": 6,
+    "output": "suggestion: reuse `formatIsoDate` from `src/lib/dates.ts` here"
+   }
+  ],
+  "final_summary": "Every request case on both hosts starts with the ask and gives the dependent work as the reason without the investigation chain (9-28 words). Claude incident 3 of 3 pass, in a question plus a short reason. Both defect cases keep what goes wrong and its trigger on both hosts, and the optional suggestion keeps `suggestion:`. One run per host per case except Claude incident (3); small samples support only these cases."
+ },
+ "base_fit": "The base snapshot private-comment-style at 0b1bd82 has SKILL.md sections 'Say the ask in the simplest words, then stop', 'Bottom line first, one sentence', 'One comment, one point', 'Name only what the point turns on', 'Unfamiliar languages: ask, don't assert', 'Ask what only the reader can answer', 'Register', 'Done when' (1519 words) and review.md sections 'Label the optional ones, and only those', 'A nit has to earn its place', 'One systemic point, one comment per site', 'Unfamiliar languages: the trace bar rises' (400 words). The local package has SKILL.md 'Find the point', 'Write the shortest complete message', 'Match the conversation', 'Deliver within the request' (956 words) and review.md 'Reply to the actual point', 'Word a new finding', 'Say enough to find the problem' (851 words). Only the label rule and the nit bar survive recognizably, so most base sections were replaced before this change. The approach stays base pending the user's decision.",
+ "checks": [
+  "git diff --check: pass.",
+  "fish -lc python3 (3.14.8) skill-maintenance/scripts/check-origin.py --skill-dir comment-style: no diagnostics, exit 0.",
+  "check-origin.py --dependents comment-style: pr-followup, pr-review, pr-review-followup; none unreadable. Name, authority, inputs and outputs are unchanged, and caller or repository label conventions keep precedence.",
+  "Local Markdown links in comment-style resolve inside the package.",
+  "fish -lc 'env TMPDIR=... bash pr-review/scripts/validate.sh $PWD/review-code-changes': 53 tests OK, pr-review validation passed (smoke path; comment-style has no validator).",
+  "fish -lc 'env TMPDIR=... bash pr-review-followup/scripts/validate.sh': 21 tests OK, pr-review-followup validation passed."
+ ],
+ "unrun": [
+  "A request relayed for someone else's work rather than the commenter's own.",
+  "A request whose essential condition needs a second sentence.",
+  "Automatic skill selection and the installed skill: the trials staged files directly, and the installed copy at ~/.claude/skills/comment-style still points to a local main without 6cad78e."
+ ]
+}
