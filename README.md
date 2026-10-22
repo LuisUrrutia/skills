@@ -263,10 +263,10 @@ task, including a parallel side task while the original session continues.
 
 - Front-loads the next action and preserves relevant decisions, partial work, evidence, and blockers
 - Distinguishes confirmed choices from proposals and checks that passed from checks not run
-- Uses the requested destination or suitable OS temporary storage, including `/tmp`, within environment constraints
+- Uses the user-named destination or OS temporary storage, reporting any pickup limits
 - Checks saved content and local references, and reports access or retention limits
 - Keeps document creation separate from receipt, session launch, and execution ownership
-- Records seven source feeds at exact revisions; ordinary use has no skill dependency
+- Records four source feeds at exact revisions; uses `agent-instructions` when available
 
 ### prototype
 
