@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Publish an authorized review plan at the frozen head as one Comment or Approve review."""
+"""Publish an authorized review plan at the frozen head as a Comment or Approve review and thread replies."""
 from __future__ import annotations
 
 import argparse
@@ -175,24 +175,33 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None, 
             raise PublishError("the actor has unresolved threads on this PR; approval belongs to pr-review-followup")
 
     current = preflight()
+    roots = {}
+    for item in plan.get("replies", []):
+        query = "query($id:ID!){node(id:$id){... on PullRequestReviewThread{pullRequest{id} comments(first:1){nodes{fullDatabaseId}}}}}"
+        thread = api.call("graphql", {"query": query, "variables": {"id": item["thread_id"]}})["data"]["node"]
+        if thread["pullRequest"]["id"] != current["node_id"]:
+            raise PublishError("reply thread belongs to a different PR")
+        roots[item["key"]] = thread["comments"]["nodes"][0]["fullDatabaseId"]
     if plan["event"] == "APPROVE":
         check_own_threads()
-    reviews = api.call(prefix + "/reviews?per_page=100", paginate=True)
-    pending = [r for r in reviews if r.get("state") == "PENDING" and r.get("user", {}).get("login") == actor]
-    if len(pending) > 1:
-        raise PublishError("ambiguous pending review ownership")
-    review = pending[0] if pending else None
-    if review and review["id"] != state.get("review_id"):
-        raise PublishError("the actor has an unsubmitted review this run did not create; publishing would submit it")
-    if state.get("review_id") and not review:
-        raise PublishError("the recorded review is no longer pending; read back its state before retrying")
 
-    def write(operation: str, endpoint: str, payload: dict):
-        preflight()
+    def actor_pending_reviews():
+        reviews = api.call(prefix + "/reviews?per_page=100", paginate=True)
+        return [r for r in reviews if r.get("state") == "PENDING" and r.get("user", {}).get("login") == actor]
+
+    def review_unchanged():
         if state.get("review_id"):
             live = api.call(prefix + f"/reviews/{state['review_id']}")
             if live.get("state") != "PENDING" or live.get("commit_id") != target["head"] or live.get("user", {}).get("login") != actor:
                 raise PublishError("review changed before writing; read back its state before retrying")
+
+    def no_pending_review():
+        if actor_pending_reviews():
+            raise PublishError("the actor has an unsubmitted review, which a reply could join; it belongs to the user")
+
+    def write(operation: str, endpoint: str, payload: dict, guard=review_unchanged):
+        preflight()
+        guard()
         state["pending_operation"] = operation
         save(receipt, state)
         try:
@@ -201,6 +210,40 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None, 
             state.pop("pending_operation", None)
             save(receipt, state)
             raise
+
+    def post_replies():
+        # A reply that belongs to a review is also shown under that review, apart from its thread.
+        replies = state.setdefault("replies", {})
+        for item in plan.get("replies", []):
+            # A reply key under comments was written into the review, which publishes it.
+            if item["key"] in replies or item["key"] in state["comments"]:
+                continue
+            comment = write(item["key"], prefix + f"/comments/{roots[item['key']]}/replies", {"body": item["body"]},
+                            no_pending_review)
+            if not comment.get("pull_request_review_id"):
+                raise PublishError("reply was posted but returned no review association; inspect its thread")
+            review = api.call(prefix + f"/reviews/{comment['pull_request_review_id']}")
+            if (comment.get("body") != item["body"] or comment.get("user", {}).get("login") != actor
+                    or review.get("state") != "COMMENTED"):
+                raise PublishError("reply did not read back as a published comment; inspect its thread")
+            replies[item["key"]] = {"id": comment["node_id"], "body": item["body"]}
+            state.pop("pending_operation", None)
+            save(receipt, state)
+        state["status"] = final_state
+        save(receipt, state)
+        return state
+
+    if state.get("review_status") == final_state or not (
+            plan.get("comments") or plan.get("body", "").strip() or plan["event"] == "APPROVE"):
+        return post_replies()
+    pending = actor_pending_reviews()
+    if len(pending) > 1:
+        raise PublishError("ambiguous pending review ownership")
+    review = pending[0] if pending else None
+    if review and review["id"] != state.get("review_id"):
+        raise PublishError("the actor has an unsubmitted review this run did not create; publishing would submit it")
+    if state.get("review_id") and not review:
+        raise PublishError("the recorded review is no longer pending; read back its state before retrying")
 
     if review is None:
         review = write("create-review", prefix + "/reviews", {"commit_id": target["head"]})
@@ -219,31 +262,20 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None, 
                 raise PublishError("comment was changed or not associated on read-back; reconcile before submitting")
 
     check_recorded(api.call(prefix + f"/reviews/{review['id']}/comments?per_page=100", paginate=True))
-    for kind in ("comments", "replies"):
-        for item in plan.get(kind, []):
-            if item["key"] in state["comments"]:
-                continue
-            if kind == "replies":
-                thread = api.call("graphql", {"query": "query($id:ID!){node(id:$id){... on PullRequestReviewThread{pullRequest{id}}}}", "variables": {"id": item["thread_id"]}})
-                if thread["data"]["node"]["pullRequest"]["id"] != current["node_id"]:
-                    raise PublishError("reply thread belongs to a different PR")
-                mutation = "addPullRequestReviewThreadReply"
-                payload = {"pullRequestReviewId": review_node, "pullRequestReviewThreadId": item["thread_id"], "body": item["body"]}
-                output = "comment{id body pullRequestReview{id state}}"
-            else:
-                mutation = "addPullRequestReviewThread"
-                payload = {"pullRequestReviewId": review_node, "body": item["body"], "path": item["path"], "line": item["line"], "side": item["side"]}
-                if "start_line" in item:
-                    payload.update(startLine=item["start_line"], startSide=item["start_side"])
-                output = "thread{comments(first:1){nodes{id body pullRequestReview{id state}}}}"
-            query = f"mutation($input:{mutation[0].upper() + mutation[1:]}Input!){{{mutation}(input:$input){{{output}}}}}"
-            result = write(item["key"], "graphql", {"query": query, "variables": {"input": payload}})["data"][mutation]
-            comment = result["comment"] if kind == "replies" else result["thread"]["comments"]["nodes"][0]
-            if comment.get("body") != item["body"] or comment.get("pullRequestReview") != {"id": review_node, "state": "PENDING"}:
-                raise PublishError("comment body or review association did not verify; inspect visibility immediately")
-            state["comments"][item["key"]] = {"id": comment["id"], "body": item["body"]}
-            state.pop("pending_operation", None)
-            save(receipt, state)
+    for item in plan.get("comments", []):
+        if item["key"] in state["comments"]:
+            continue
+        payload = {"pullRequestReviewId": review_node, "body": item["body"], "path": item["path"], "line": item["line"], "side": item["side"]}
+        if "start_line" in item:
+            payload.update(startLine=item["start_line"], startSide=item["start_side"])
+        query = "mutation($input:AddPullRequestReviewThreadInput!){addPullRequestReviewThread(input:$input){thread{comments(first:1){nodes{id body pullRequestReview{id state}}}}}}"
+        result = write(item["key"], "graphql", {"query": query, "variables": {"input": payload}})
+        comment = result["data"]["addPullRequestReviewThread"]["thread"]["comments"]["nodes"][0]
+        if comment.get("body") != item["body"] or comment.get("pullRequestReview") != {"id": review_node, "state": "PENDING"}:
+            raise PublishError("comment body or review association did not verify; inspect visibility immediately")
+        state["comments"][item["key"]] = {"id": comment["id"], "body": item["body"]}
+        state.pop("pending_operation", None)
+        save(receipt, state)
 
     members = api.call(prefix + f"/reviews/{review['id']}/comments?per_page=100", paginate=True)
     check_recorded(members)
@@ -263,9 +295,9 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None, 
         raise PublishError("submitted review did not read back with the requested event, body and head")
     check_recorded(api.call(prefix + f"/reviews/{review['id']}/comments?per_page=100", paginate=True))
     state.pop("pending_operation", None)
-    state["status"] = final_state
+    state["review_status"] = final_state
     save(receipt, state)
-    return state
+    return post_replies()
 
 
 def main() -> int:

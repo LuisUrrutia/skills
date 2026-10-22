@@ -145,13 +145,14 @@ existing authorization; suggestions grant no additional permission.
       supported required findings stand outside the actor's threads, and how many
       decisive questions remain open.
     Verify intended actor and current PR base/head, then publish through
-    `scripts/publish_review.py`. It builds the review at that head, binds thread
-    replies to it, submits it once and reads back state, membership and exact
-    bodies. It refuses APPROVE while the actor has an unresolved thread, and stops
-    before submitting when the review holds content it did not write. An
-    unsubmitted review the actor already has belongs to the user: stop rather than
-    publish it. An uncertain write needs reconciliation, not a blind retry; a
-    definite GitHub rejection is reported as such.
+    `scripts/publish_review.py`. It builds the review at that head with the new
+    threads, submits it once and reads back state, membership and exact bodies,
+    then posts thread replies on their own. It refuses APPROVE while the actor
+    has an unresolved thread, and stops before submitting when the review holds
+    content it did not write. An unsubmitted review the actor already has belongs
+    to the user: stop rather than publish it. An uncertain write needs
+    reconciliation, not a blind retry; a definite GitHub rejection is reported as
+    such.
 11. **Report the observed result.** Give the full PR URL and the published event,
     then one row per published site with file/side/line, a short topic, severity,
     required/optional status, sources and whether it is a reply. Include dropped or
