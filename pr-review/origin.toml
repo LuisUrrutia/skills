@@ -120,6 +120,11 @@ where = [
   "scripts/reviewers.py",
 ]
 
+[[local_snapshots.deviations]]
+change = "Added that the review body starts with its first unanchored finding, as a list when there are several, with no lead-in about why those findings are in the body."
+reason = "User decision of 2026-10-22, after a published review body opened with 'a few things that have no line in the diff:', which the user judged a human reviewer would not write."
+where = ["SKILL.md#word-select-and-publish"]
+
 [[dependencies]]
 kind = "local"
 name = "review-code-changes"

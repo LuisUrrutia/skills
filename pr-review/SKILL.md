@@ -129,8 +129,10 @@ existing authorization; suggestions grant no additional permission.
 10. **Anchor and publish.** Read [github.md](references/github.md), validate every
     anchor against the recorded diff side and revision, and create a structured
     review plan. For a finding outside the diff, choose a related changed line and
-    name the counterpart in the body. A required finding with no line anchor, such
-    as PR title format, goes in the review body. Choose the event:
+    name the counterpart in that comment. A required finding with no line anchor,
+    such as PR title format, goes in the review body. The body starts with the
+    first such finding, as a list when there are several, with no lead-in such as
+    "a few things that have no line in the diff:". Choose the event:
     - **APPROVE** only when every requested engine succeeded, no supported
       required finding still stands (new, previously posted, in the body or in
       any thread, accepted deferrals aside), no decisive question is open, and
