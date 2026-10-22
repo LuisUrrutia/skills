@@ -72,12 +72,12 @@ The guards prevent changes to the reviewed checkout and Git directories and
 hide sibling outputs, the private manifest and the unfiltered profile. Codex uses
 its native named permissions profile extending `:read-only`, with command network
 access, approvals, plugins, hooks and nested agents disabled. Its native sandbox
-must not be nested inside macOS `sandbox-exec`. Claude and CodeRabbit use macOS
-`sandbox-exec` or Linux bubblewrap; unavailable guards stop their launch. Claude
+must not be nested inside macOS `sandbox-exec`. Claude uses macOS `sandbox-exec`
+or Linux bubblewrap; unavailable guards stop its launch. Claude
 exposes only Read/Glob/Grep with hooks, MCP and automatic skill discovery disabled.
 CLI-managed runtime state outside the reviewed
 checkout is separate from product mutation. These controls do not guarantee a
-provider's network privacy; CodeRabbit's local CLI can use its remote service.
+provider's network privacy.
 
 Wait with a bounded host-managed call while the parent continues independent work:
 
@@ -120,39 +120,15 @@ never edit `packet.md`.
 
 - `claude/review.md` and `codex/review.md`: canonical code change reports,
   validated against the exact changed-path inventory.
-- `coderabbit/review.jsonl`: native output, including context, findings and
-  completion. CodeRabbit 0.8.2 was observed to emit a final `complete` event with
-  `status: review_completed`, an integer `findings` count and optional
-  `reviewedFiles`. An empty comparison emitted `review_skipped` with zero findings;
-  accept that only for an empty inventory. Empty output, errors, action_required,
-  malformed events, missing completion or a count/snapshot mismatch fail the seat.
-  Also reject a failed `outcome`, positive `unreviewedFileCount`, or explicitly
-  empty `reviewedFiles` for a nonempty scope. A `review_completed` status alone
-  does not override those failure signals.
-  In a separate historical run, a 0.7.5 probe auto-updated to 0.8.2. Retain native update logs alongside
-  the version captured at launch; that launch value alone may not identify the
-  version that finished a self-updating CLI run.
-  The adapter probes `coderabbit review --help` before launch and requires the
-  structured committed-review options. It passes `--fresh` only when advertised;
-  the locally observed 0.7.6 supports `--agent` but rejects `--fresh`. Without
-  that option, request the same committed comparison and inspect native completion
-  evidence. The worker records the missing freshness guarantee in its limitations
-  and validation detail; carry it into the parent's Review basis. A completion explicitly saying no fresh detailed review occurred fails
-  validation; it is not a successful zero-finding audit. Do not erase checkpoints
-  or infer freshness from a zero exit code. If native evidence cannot establish
-  a complete review, keep the seat incomplete and report the exact limitation. Do not add `--use-credits`
-  by inference if the CLI asks for usage-credit consent.
 - `reviewers-state.json`, `reviewer-events/`, engine logs and `attempts/`: execution
   evidence owned by the supervisor. Do not rewrite these to repair a failed seat.
 - `candidate-ledger.md`: initialized once, then written only by the parent.
 - `existing-feedback/`: parent-only collector output, unread until independent
   synthesis and the seam sweep are complete.
 
-Native `reviewedFiles` is provenance, not fabricated canonical per-path coverage.
-Record what CodeRabbit actually reports and preserve missing coverage as a limit.
 A transport-complete seat is not proof of complete reasoning or correct findings.
-An unsuccessful requested engine makes the three-engine workflow incomplete.
+An unsuccessful requested engine makes the two-engine workflow incomplete.
 
 Use the canonical auditor's severity definitions based on demonstrated consequence.
-CI failure is not automatically `blocker`; vendor labels remain provenance.
+CI failure is not automatically `blocker`; an engine's label remains provenance.
 Class and required/optional Action survive synthesis independently of severity.

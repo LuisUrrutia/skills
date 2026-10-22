@@ -6,7 +6,7 @@ import sys
 import unittest
 from pathlib import Path
 
-from adapters import validate_jsonl, validate_report
+from adapters import validate_report
 from read_only import guarded
 from snapshot import SnapshotError, inventory, prepare, verify
 from test_support import AUDITOR, ReviewFixture
@@ -89,11 +89,6 @@ class SnapshotTests(unittest.TestCase):
         self.f.pr.write_text(json.dumps(self.f.data))
         empty = prepare(self.f.repo, self.f.pr, self.f.context, AUDITOR, self.f.root / 'empty')
         self.assertEqual(json.loads((empty.parent / 'changed-paths.json').read_text()), [])
-        report = self.f.root / 'empty.jsonl'
-        report.write_text('\n'.join(map(json.dumps, [
-            {'type':'review_context','reviewType':'committed','baseCommit':self.f.head},
-            {'type':'complete','status':'review_skipped','findings':0}])))
-        self.assertTrue(validate_jsonl(report, empty)[0])
         (self.f.repo / 'top.py').write_text('top_layer = True\n')
         self.f.git('add', '.')
         self.f.git('commit', '-m', 'Stacked top layer')
@@ -144,23 +139,6 @@ class SnapshotTests(unittest.TestCase):
         stale = subprocess.run(command, capture_output=True, text=True)
         self.assertEqual(stale.returncode, 1)
         self.assertIn('drifted', stale.stderr)
-
-    def test_native_completion_errors_malformed_and_zero(self):
-        report = self.f.root / 'native.jsonl'
-        context = {'type': 'review_context', 'reviewType': 'committed', 'baseCommit': self.f.base}
-        success = [context, {'type': 'complete', 'status': 'review_completed', 'findings': 0, 'reviewedFiles': ['src/example.py']}]
-        cases = [('', False), ('{}\n', False), ('invalid', False),
-                 (json.dumps({'type': 'error', 'message': 'failed'}), False),
-                 ('\n'.join(map(json.dumps, success)), True),
-                 ('\n'.join(map(json.dumps, [context, {**success[1], 'message':'No fresh detailed file review was performed in this run.'}])), False),
-                 ('\n'.join(map(json.dumps, [context, {'type': 'complete', 'status': 'review_completed', 'findings': 1}])), False),
-                 ('\n'.join(map(json.dumps, [context, {'type': 'complete', 'status': 'review_skipped', 'findings': 0}])), False),
-                 ('\n'.join(map(json.dumps, [context, {**success[1], 'outcome': 'failed'}])), False),
-                 ('\n'.join(map(json.dumps, [context, {**success[1], 'unreviewedFileCount': 1}])), False),
-                 ('\n'.join(map(json.dumps, [context, {**success[1], 'reviewedFiles': []}])), False)]
-        for value, expected in cases:
-            report.write_text(value)
-            self.assertEqual(validate_jsonl(report, self.f.snapshot)[0], expected, value)
 
     def test_guard_blocks_product_git_and_peer_access_but_allows_own_report(self):
         own = self.f.run / 'codex'

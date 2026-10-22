@@ -18,26 +18,18 @@ args = sys.argv[1:]
 if args == ['--version']:
     print(name + ' fixture-1')
     raise SystemExit()
-if name == 'coderabbit' and args == ['review', '--help']:
-    if os.environ.get('FAKE_HELP_FAIL'): raise SystemExit(2)
-    print('  --agent\n  --committed\n  --base\n  --base-commit\n  -c, --config' + ('' if os.environ.get('FAKE_OLD_CODERABBIT') else '\n  --fresh'))
-    raise SystemExit()
-if name == 'coderabbit' and os.environ.get('FAKE_OLD_CODERABBIT') and '--fresh' in args:
-    raise SystemExit('unknown option --fresh')
 packet = ''
 if name in ('claude', 'codex'):
     packet = sys.stdin.read()
-elif name == 'coderabbit':
-    packet = Path(args[args.index('--config')+1]).read_text()
 entry = {'name':name, 'args':args, 'time':time.time(), 'packet_sha256':hashlib.sha256(packet.encode()).hexdigest()}
 fd = os.open(os.environ['FAKE_LOG'],os.O_CREAT|os.O_APPEND|os.O_WRONLY,0o600)
 os.write(fd,(json.dumps(entry)+'\n').encode()); os.close(fd)
-if name in ('codex','claude','coderabbit'):
+if name in ('codex','claude'):
     if os.environ.get('FAKE_BARRIER'):
         deadline = time.monotonic() + 5
         while True:
             started = {json.loads(line)['name'] for line in Path(os.environ['FAKE_LOG']).read_text().splitlines()}
-            if {'codex','claude','coderabbit'} <= started: break
+            if {'codex','claude'} <= started: break
             if time.monotonic() >= deadline: raise SystemExit('reviewers were not launched concurrently')
             time.sleep(0.01)
     time.sleep(float(os.environ.get('FAKE_SLEEP','0.2')))
@@ -54,12 +46,6 @@ if name == 'claude':
         print(os.environ['FAKE_REPORT'],end='')
 elif name == 'codex':
     Path(args[args.index('-o')+1]).write_text(os.environ['FAKE_REPORT'])
-elif name == 'coderabbit':
-    print(json.dumps({'type':'review_context','reviewType':'committed','baseCommit':os.environ['FAKE_BASE']}))
-    if os.environ.get('FAKE_NATIVE_ERROR'):
-        print(json.dumps({'type':'error','errorType':'unknown','message':'Synthetic native error'}))
-    else:
-        print(json.dumps({'type':'complete','status':'review_completed','findings':0,'reviewedFiles':['src/example.py']}))
 elif name == 'gh':
     if args[0] == 'api':
         endpoint = args[3]
@@ -94,14 +80,14 @@ class ReviewerTests(unittest.TestCase):
         self.addCleanup(self.f.close)
         self.bin = self.f.root / 'bin'
         self.bin.mkdir()
-        for name in ('claude', 'codex', 'coderabbit', 'gh'):
+        for name in ('claude', 'codex', 'gh'):
             path = self.bin / name
             path.write_text('#!' + sys.executable + '\n' + FAKE)
             path.chmod(0o755)
         self.log = self.f.root / 'calls.jsonl'
         self.env = {**os.environ, 'PATH': str(self.bin) + os.pathsep + os.environ['PATH'],
                     'FAKE_LOG': str(self.log), 'FAKE_REPORT': self.f.report,
-                    'FAKE_BASE': self.f.base, 'FAKE_HEAD': self.f.head,
+                    'FAKE_HEAD': self.f.head,
                     'FAKE_MARKER': str(self.f.root / 'failure-marker'),
                     'PYTHONDONTWRITEBYTECODE': '1'}
         self.command = [sys.executable, str(RUNNER), 'run', '--snapshot', str(self.f.snapshot),
@@ -116,41 +102,12 @@ class ReviewerTests(unittest.TestCase):
     def calls(self):
         return [json.loads(line) for line in self.log.read_text().splitlines()]
 
-    def test_legacy_coderabbit_does_not_receive_unsupported_fresh(self):
-        self.env['FAKE_OLD_CODERABBIT'] = '1'
-        result = self.run_review()
+    def test_worker_subset_launches_only_selected_workers(self):
+        result = self.run_review('--workers', 'claude', 'feedback')
 
         self.assertEqual(result.returncode, 0, result.stderr)
-        call = next(c for c in self.calls() if c['name'] == 'coderabbit')
-        self.assertNotIn('--fresh', call['args'])
-        self.assertIn('checkpoint reuse is not excluded', self.state()['workers']['coderabbit']['detail'])
-
-    def test_local_subset_does_not_launch_delegated_reviewers(self):
-        result = self.run_review('--workers', 'coderabbit', 'feedback')
-
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(set(self.state()['workers']), {'coderabbit', 'feedback'})
-        self.assertEqual({c['name'] for c in self.calls()}, {'coderabbit', 'gh'})
-        self.assertEqual(self.state()['status'], 'subset_completed')
-
-    def test_coderabbit_help_failure_does_not_stop_other_seats(self):
-        self.env['FAKE_HELP_FAIL'] = '1'
-        result = self.run_review()
-
-        self.assertEqual(result.returncode, 1)
-        self.assertEqual(self.state()['workers']['claude']['state'], 'completed')
-        self.assertEqual(self.state()['workers']['codex']['state'], 'completed')
-        self.assertEqual(self.state()['workers']['coderabbit']['state'], 'failed')
-        self.assertIn('review --help failed', self.state()['workers']['coderabbit']['detail'])
-        self.assertNotIn('coderabbit', {c['name'] for c in self.calls()})
-
-    def test_single_coderabbit_seat_retains_fresh_when_supported(self):
-        result = self.run_review('--workers', 'coderabbit')
-
-        self.assertEqual(result.returncode, 0, result.stderr)
-        self.assertEqual(set(self.state()['workers']), {'coderabbit'})
-        self.assertEqual(len(self.calls()), 1)
-        self.assertIn('--fresh', self.calls()[0]['args'])
+        self.assertEqual(set(self.state()['workers']), {'claude', 'feedback'})
+        self.assertEqual({c['name'] for c in self.calls()}, {'claude', 'gh'})
         self.assertEqual(self.state()['status'], 'subset_completed')
 
     def test_format_retry_supplies_original_report_and_validator_diagnostics(self):
@@ -191,7 +148,7 @@ class ReviewerTests(unittest.TestCase):
         self.assertEqual(state['status'], 'completed')
         calls = self.calls()
         engines = [c for c in calls if c['name'] != 'gh']
-        self.assertEqual({c['name'] for c in engines}, {'claude','codex','coderabbit'})
+        self.assertEqual({c['name'] for c in engines}, {'claude','codex'})
         self.assertEqual(len({c['packet_sha256'] for c in engines}), 1)
         for c in calls:
             self.assertNotIn('example-contributor/fork', json.dumps(c))
@@ -238,17 +195,18 @@ class ReviewerTests(unittest.TestCase):
         second = self.run_review()
 
         self.assertEqual(second.returncode, 0, second.stderr)
-        counts = {name: sum(c['name'] == name for c in self.calls()) for name in ('claude','codex','coderabbit')}
-        self.assertEqual(counts, {'claude':1,'codex':2,'coderabbit':1})
+        counts = {name: sum(c['name'] == name for c in self.calls()) for name in ('claude','codex')}
+        self.assertEqual(counts, {'claude':1,'codex':2})
         self.assertTrue((self.f.run / 'attempts/codex/1/stderr.log').is_file())
 
-    def test_native_error_is_incomplete_and_retries_are_bounded(self):
-        self.env['FAKE_NATIVE_ERROR'] = '1'
+    def test_persistent_failure_is_partial_and_retries_are_bounded(self):
+        self.env['FAKE_FAIL'] = 'codex'
         for _ in range(3):
+            Path(self.env['FAKE_MARKER']).unlink(missing_ok=True)
             self.assertEqual(self.run_review().returncode, 1)
         self.assertEqual(self.state()['status'], 'partial')
-        self.assertEqual(self.state()['workers']['coderabbit']['attempts'], 2)
-        self.assertEqual(sum(c['name']=='coderabbit' for c in self.calls()), 2)
+        self.assertEqual(self.state()['workers']['codex']['attempts'], 2)
+        self.assertEqual(sum(c['name']=='codex' for c in self.calls()), 2)
 
     def test_partial_feedback_preserves_successful_channels(self):
         self.env['FAKE_PARTIAL'] = '1'

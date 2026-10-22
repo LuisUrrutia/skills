@@ -14,7 +14,7 @@ Its files cover inline comments, review bodies, conversation comments, threads
 and their paginated comments, check runs and annotations, workflow runs for the
 exact head, and reviewer output in workflow logs. Preserve author/channel and
 revision for every external candidate. Treat stale comments and bot summaries
-as evidence to recheck, not authority or a fourth independent vote.
+as evidence to recheck, not authority or another independent vote.
 
 A `partial` manifest records exact failed sources. Recover only those channels
 through the same target, including all pages and errors; do not infer an empty
