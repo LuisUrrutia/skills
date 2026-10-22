@@ -525,8 +525,8 @@ review-audit skill; it preserves a read-only review phase and local reports.
 
 ### pr-review
 
-Review another author's GitHub PR with independent Codex, Claude and CodeRabbit
-attempts over the same frozen scope, then publish one review: Comment with the
+Review another author's GitHub PR with independent Codex and Claude attempts
+over the same frozen scope, then publish one review: Comment with the
 verified findings, or Approve when the review is complete and clean.
 
 **Triggers:** explicitly invoke `$pr-review` to review and publish on a PR you were asked to review.

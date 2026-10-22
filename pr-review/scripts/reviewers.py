@@ -23,7 +23,7 @@ from snapshot import SnapshotError, digest, pr_target, verify
 STATE_NAME = "reviewers-state.json"
 EVENTS_NAME = "reviewer-events"
 LEDGER_NAME = "candidate-ledger.md"
-REVIEWER_NAMES = ("claude", "codex", "coderabbit")
+REVIEWER_NAMES = ("claude", "codex")
 WORKER_ORDER = (*REVIEWER_NAMES, "feedback")
 
 
@@ -384,7 +384,6 @@ def initial_worker(spec: WorkerSpec) -> dict[str, Any]:
         "kind": spec.kind,
         "command": spec.command,
         "protection": spec.protection,
-        "limitations": list(spec.limitations),
         "state": "pending",
         "attempts": 0,
         "pid": None,
@@ -432,8 +431,6 @@ def append_event(
 
 
 def launch(spec: WorkerSpec, repository: Path) -> subprocess.Popen[bytes]:
-    if spec.preflight_error:
-        raise OSError(spec.preflight_error)
     stdout_handle = spec.stdout_path.open("wb")
     stderr_handle = spec.stderr_path.open("wb")
     stdin_handle = spec.stdin_path.open("rb") if spec.stdin_path else subprocess.DEVNULL

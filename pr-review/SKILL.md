@@ -5,9 +5,9 @@ description: Use when reviewing another author's GitHub PR and publishing the re
 
 # PR review
 
-Publish one GitHub review built from three independent reviews of one PR by
-Codex, Claude and the local CodeRabbit CLI: a **Comment** review carrying the
-verified findings, or an **Approve** review when the review is complete and clean.
+Publish one GitHub review built from two independent reviews of one PR by Codex
+and Claude: a **Comment** review carrying the verified findings, or an
+**Approve** review when the review is complete and clean.
 Generic auditing belongs to `review-code-changes`. Following up on replies and
 new commits, resolving threads and later approval belong to `pr-review-followup`;
 repairing your own PR belongs to `pr-followup`; when the verified `gh` actor is
@@ -18,8 +18,8 @@ Resolve dependencies by registered name through the host catalog, independently 
 the reviewed repository. Read `review-code-changes` before preparing inputs or
 judging findings. It owns audit criteria, evidence, severity and report grammar.
 Read `compare-solutions` for the same-task independent attempt and evidence-based
-synthesis contract. This caller retains the fixed three-engine roster and its own
-coordinator: no fourth judge, nested coordinator or facet allocation. Read
+synthesis contract. This caller retains the fixed two-engine roster and its own
+coordinator: no third judge, nested coordinator or facet allocation. Read
 [origin.toml](origin.toml) for these composition choices. Before wording comments,
 resolve required `comment-style`. It owns wording; this skill owns selection,
 placement and API writes. `communicate-clearly` is optional general support, not
@@ -47,7 +47,7 @@ preserve independently useful work.
 4. **Freeze the shared packet.** Read [reviewers.md](references/reviewers.md),
    then run `scripts/snapshot.py prepare` with the catalog-resolved auditor,
    context, PR input and any filtered profile. Supply every applicable domain
-   guide through `--rules` so all three engines receive it. The helper records
+   guide through `--rules` so both engines receive it. The helper records
    immutable base/head/merge-base, the unique changed-path JSON (including deleted
    paths), a rename-origin map, the exact diff, source hashes and actual Git state.
    Its private manifest remains with the parent. Only review-relevant profile
@@ -63,18 +63,18 @@ to change permissions, scope or reviewers.
 
 5. **Launch once and continue the seam sweep.** Select the host transport in
    [reviewers.md](references/reviewers.md). In T3, launch app-owned child tasks;
-   outside T3, use the CLI supervisor. Start all three complete attempts and
-   an isolated feedback collector. Participants must not delegate or read each
+   outside T3, use the CLI supervisor. Start both complete attempts and an
+   isolated feedback collector. Participants must not delegate or read each
    other's reports, the ledger or existing feedback. Run the parent seam sweep
    while they work. Record `matches`, `gap` or `unreadable` for each triggered seam
    with both revisions and the evidence. Missing access does not establish a defect.
 6. **Consume completion events.** Read [ledger.md](references/ledger.md) before
    reducing the first report. Validate canonical Markdown with the frozen auditor
-   and complete inventory; preserve CodeRabbit's native JSONL and its real completion
-   contract. Record exact failures, unavailable checks, coverage and elapsed time.
-   Keep a supported minority finding and reject a shared false positive. Trace
-   every retained claim yourself; a model's vote or vendor severity is not proof.
-   A failed engine leaves the requested three-engine review **incomplete**, even
+   and complete inventory. Record exact failures, unavailable checks, coverage and
+   elapsed time. Keep a supported finding that only one engine reported and reject
+   a shared false positive. Trace every retained claim yourself; a model's vote or
+   severity is not proof.
+   A failed engine leaves the requested two-engine review **incomplete**, even
    if its other findings remain useful. Bound retries as the supervisor specifies.
 7. **Finish the independent synthesis.** After all workers are terminal, retain
    Class, Action, Recommendation, checks, review basis, source attribution and

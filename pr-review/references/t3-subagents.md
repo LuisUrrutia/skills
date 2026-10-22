@@ -1,7 +1,7 @@
 # T3 child-task transport
 
 Read this instead of launching the full CLI roster when running inside T3 Code.
-The parent coordinates the same three independent attempts and owns synthesis.
+The parent coordinates the same two independent attempts and owns synthesis.
 
 ## Dispatch
 
@@ -30,24 +30,7 @@ The parent coordinates the same three independent attempts and owns synthesis.
    it must not fetch feedback, delegate or inspect sibling outputs. Preserve an
    invalid report for the parent's bounded correction round. Give both identical
    audit inputs and no prior conclusions.
-4. Launch a third child named CodeRabbit runner using an available host provider.
-   Its task is only to run the exact guarded local CodeRabbit command below, retain
-   native output and return a verbatim subset-state readback. It must not perform a model review or
-   reinterpret findings. From the reviewed repository, its command is:
-
-   ```bash
-   python3 "$SKILL_DIR/scripts/reviewers.py" run \
-     --snapshot "$SCRATCHPAD/inputs/snapshot.json" \
-     --pr-json "$SCRATCHPAD/pr.json" --scratchpad "$SCRATCHPAD" \
-     --workers coderabbit
-   ```
-
-   Start this as a host-managed background execution, retain its process handle,
-   and observe it with bounded waits as in the CLI supervisor reference; a single
-   foreground tool timeout is not the worker's 1500-second deadline.
-   Resolve all variables to actual paths in the brief. The selected host model is
-   the runner, not the CodeRabbit engine; record both identities separately.
-5. Start the feedback collector separately in a parent-managed background process:
+4. Start the feedback collector separately in a parent-managed background process:
 
    ```bash
    python3 "$SKILL_DIR/scripts/reviewers.py" _collect-feedback \
@@ -56,13 +39,11 @@ The parent coordinates the same three independent attempts and owns synthesis.
    ```
 
    Keep its process handle and logs. Do not read its findings before independent
-   synthesis. A collector process need not masquerade as a fourth reviewer.
+   synthesis. A collector process need not masquerade as a third reviewer.
 
 Do not use `t3_thread_launch`, `create_threads` or `t3_thread_send` to create or
 continue these delegated attempts. Those create or operate ordinary conversations.
-Do not run `reviewers.py run` without `--workers coderabbit` alongside this route.
-The subset supervisor's `subset_completed` means only that local seat completed;
-it does not establish completion of the three-engine review.
+Do not run `reviewers.py run` alongside this route.
 
 Native children follow the host's actual tool permissions. The CLI sandbox flags
 are not applied to native delegation: record the effective restrictions and any
@@ -109,11 +90,9 @@ new unsupported claims as a successful format repair. Transport failures share t
 budget. An uncertain dispatch response needs reconciliation using its stable
 request ID, not a new seat launch.
 
-Read CodeRabbit's native report and subset state using the normal validators.
-The wrapper child's successful turn alone does not prove the CLI completed. After
-all seats terminate, aggregate their validated outcomes with the collector's actual
-manifest. Keep `delegated-tasks.json` separate from the CLI supervisor's evidence;
-never insert fake native workers into `reviewers-state.json`. Missing, cancelled,
+After all seats terminate, aggregate their validated outcomes with the collector's
+actual manifest. Keep `delegated-tasks.json` separate from the CLI supervisor's
+evidence; never insert fake native workers into `reviewers-state.json`. Missing, cancelled,
 invalid or failed seats leave the overall review incomplete. Preserve useful
 findings with their source and limitation, then follow the ordinary parent ledger
 and feedback reconciliation steps.

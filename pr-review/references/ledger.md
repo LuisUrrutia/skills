@@ -9,8 +9,7 @@ separate from the canonical synthesized `review.md` and from the comment plan.
 Record each engine, actual exposed model/effort (or unknown), snapshot, attempt,
 terminal status, report path, elapsed time, validation and exact failure. Retain
 requirement/standard sources and their outcomes, checks with commands and results,
-coverage per changed path, and explicit gaps. For CodeRabbit, retain native
-reviewedFiles when present without inventing canonical per-path coverage.
+coverage per changed path, and explicit gaps.
 Terminal does not mean successful. Empty, failed and valid-zero results differ.
 
 After the fresh pass, add earlier snapshot IDs, dispositions and rationale with
@@ -23,12 +22,12 @@ Mark missing prior artifacts as unavailable rather than inferring closure.
 ## Candidate entries
 
 Keep one stable C identifier per root cause. Preserve these fields as a report is
-reduced, including a vendor severity separately from synthesized severity:
+reduced, including an engine's severity separately from synthesized severity:
 
 ```markdown
 ### C1 | verified | high | src/file.ts:48 | Retry duplicates a write
 
-Sources: claude F2, coderabbit event 7 (vendor: major)
+Sources: claude F2 (high), codex F4 (medium)
 Class: correctness
 Action: required
 Affected: Requests retried after a timeout.
@@ -57,7 +56,7 @@ requirements evidence without an invented runtime trace. Preserve required/optio
 Action even when an optional suggestion and a defect happen to share severity.
 
 A dropped claim retains its sources and a concrete Drop reason. A supported minority
-survives. A shared false positive is dropped. Calibration shapes and a vendor's
+survives. A shared false positive is dropped. Calibration shapes and an engine's
 label cannot decide truth. Separate an unsupported diagnosis from a bad proposed
 remedy; repair the remedy if the underlying finding still stands.
 
