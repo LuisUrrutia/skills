@@ -87,15 +87,15 @@
    {
     "revision": "a8e115b (incident version)",
     "case": "incident",
-    "result": "Claude: four sentences, 85 words, backfill chain and a side observation; reproduces the incident. Codex: two sentences, 55 words, ask first with the dependent PR."
+    "result": "Claude: four sentences, 74 words, backfill chain and a side observation; reproduces the incident. Codex: two sentences, 48 words, ask first with the dependent PR."
    },
    {
     "revision": "origin/main b5306d9",
-    "result": "incident: Claude 2 of 2 led with the defect and the backfill and did not name the dependent PR (35-40 words); Codex led with the ask, two sentences, 43 words. payout-currency: both hosts added the currency-migration side observation (40-49 words). funnel-order-id: both hosts added the 7% staging figure (26-28 words). export-codeblock: both hosts added the deep-import mechanism (19-20 words). refund-defect, blocking-defect, optional-suggestion: correct forms."
+    "result": "incident: Claude 2 of 2 led with the defect and the backfill and did not name the dependent PR (29-34 words); Codex led with the ask, two sentences, 34 words. payout-currency: both hosts added the currency-migration side observation (33-39 words). funnel-order-id: both hosts added the 7% staging figure (26-28 words). export-codeblock: both hosts added the deep-import mechanism (19-20 words). refund-defect, blocking-defect, optional-suggestion: correct forms."
    },
    {
     "revision": "first candidate (review.md 92ba1170...)",
-    "result": "incident: Claude 2 runs led with the ask and named the dependent PR, one added the backfill clause; Codex 30 words, one sentence. payout-currency 17-25 words on both hosts. refund-defect kept the defect form."
+    "result": "incident: Claude 2 runs led with the ask and named the dependent PR (25 and 31 words), one added the backfill clause; Codex 23 words, one sentence. payout-currency 18 words on both hosts. refund-defect kept the defect form."
    },
    {
     "revision": "'usually one sentence ... that need' (review.md 893b37e3...)",
@@ -235,7 +235,8 @@
     "output": "suggestion: reuse `formatIsoDate` from `src/lib/dates.ts` here"
    }
   ],
-  "final_summary": "Every request case on both hosts starts with the ask and gives the dependent work as the reason without the investigation chain (9-28 words). Claude incident 3 of 3 pass, in a question plus a short reason. Both defect cases keep what goes wrong and its trigger on both hosts, and the optional suggestion keeps `suggestion:`. One run per host per case except Claude incident (3); small samples support only these cases."
+  "final_summary": "Every request case on both hosts starts with the ask and gives the dependent work as the reason without the investigation chain (9-28 words). Claude incident 3 of 3 pass, in a question plus a short reason. Both defect cases keep what goes wrong and its trigger on both hosts, and the optional suggestion keeps `suggestion:`. One run per host per case except Claude incident (3); small samples support only these cases.",
+  "word_counts": "Every count in this report is computed by splitting the raw output on whitespace."
  },
  "base_fit": "The base snapshot private-comment-style at 0b1bd82 has SKILL.md sections 'Say the ask in the simplest words, then stop', 'Bottom line first, one sentence', 'One comment, one point', 'Name only what the point turns on', 'Unfamiliar languages: ask, don't assert', 'Ask what only the reader can answer', 'Register', 'Done when' (1519 words) and review.md sections 'Label the optional ones, and only those', 'A nit has to earn its place', 'One systemic point, one comment per site', 'Unfamiliar languages: the trace bar rises' (400 words). The local package has SKILL.md 'Find the point', 'Write the shortest complete message', 'Match the conversation', 'Deliver within the request' (956 words) and review.md 'Reply to the actual point', 'Word a new finding', 'Say enough to find the problem' (851 words). Only the label rule and the nit bar survive recognizably, so most base sections were replaced before this change. The approach stays base pending the user's decision.",
  "checks": [
