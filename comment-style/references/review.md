@@ -60,15 +60,26 @@ weave its condition and consequence into the same thought with links such as
 explanation or a standalone instruction tacked onto the end. Avoid using a
 semicolon to join the request and its explanation. Split sentences when that
 improves readability, keeping their causal connection explicit. Preserve necessary
-conditions without forcing a sentence count or the same structure on every comment.
+conditions without forcing the same structure on every comment.
 
-Preserve exact identifiers and reachable example values when they are necessary;
-shorten the explanation, not its evidence. Point to an existing pattern when that
-helps the author act. In a new finding, describe what a commit changed rather
-than inserting its hash, unless revision evidence is needed; a reply about your
-own fix cites the hash as that evidence.
+In a new finding, describe what a commit changed rather than inserting its hash,
+unless revision evidence is needed; a reply about your own fix cites the hash as
+that evidence.
 
 The review workflow owns which findings to post, their locations, deduplication,
 and resolution. For an authorized inline reply, use its existing thread. Keep
 new findings separate from replies; this wording skill does not fan a message
 out to other sites or resolve a discussion.
+
+## Say enough to find the problem
+
+A new finding, or a reply that raises or argues a technical point, goes to an
+author who knows the code and can investigate with an agent. Give what goes
+wrong, the input, state or user that triggers it, the rule or ticket that makes
+it required, and the ask or question in one or two short sentences, usually
+under 40 words. Leave out how you established it, such as call chains, the code
+path that lets it through, configuration flags, defaults and ticket history, and
+extra examples, side observations and caveats the author will meet while
+fixing; give them when the author asks or disputes the point. Name at most
+one fix, preferably an existing pattern; do not join alternative fixes with
+"or". Fixing it here or tracking it in a ticket remains one ask.
