@@ -174,7 +174,10 @@ Read the subject's description, acceptance criteria, comments and linked designs
 and its parent's description, acceptance criteria and comments, through the
 authorized tracker. A parent requirement for the behavior this PR implements, such
 as whether a delete is soft or hard, applies to this PR unless the subject or a
-recorded decision supersedes it. Record unavailable content rather than inferring it.
+recorded decision supersedes it. When the subject or its parent is a conformance
+or consistency initiative, carry its rules and audit findings into the brief as
+requirements, not as a summary, and name the sibling endpoints that share each
+changed concept. Record unavailable content rather than inferring it.
 With no identifiable ticket, continue from accessible intent; ask only when the
 missing information would materially change the review.
 

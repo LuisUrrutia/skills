@@ -51,8 +51,11 @@ the same site. `comment-style` owns wording, not this placement decision.
 
 Read each completed report end to end, including Review basis, Checks, Open
 questions and Coverage. Reduce candidates one at a time; inspect the decisive
-source and strongest counterevidence. The protocol permits structural and
-requirements evidence without an invented runtime trace. Preserve required/optional
+source and strongest counterevidence. Before narrowing a candidate that is one
+member of a family, such as one rule of a validator, apply the
+[supplement](audit-supplement.md)'s family census on the reviewed head. The
+protocol permits structural and requirements evidence without an invented
+runtime trace. Preserve required/optional
 Action even when an optional suggestion and a defect happen to share severity.
 
 A dropped claim retains its sources and a concrete Drop reason. A supported minority
