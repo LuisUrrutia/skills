@@ -126,7 +126,7 @@ reason = "User decision of 2026-10-22, after a published review body opened with
 where = ["SKILL.md#word-select-and-publish"]
 
 [[local_snapshots.deviations]]
-change = "Added to the caller supplement a test census: for each validation rule, branch, mapping or ignored member that the production diff adds or changes, the engine names the test that fails without it, reports a member with no such test or a test that cannot fail, and records the census in that path's Coverage entry."
+change = "Added to the caller supplement a test census: for each validation rule, mapping, mapping ignore or result-changing branch whose behavior the diff adds or changes, the engine finds the test that fails without it (deleted or inverted when new, the previous behavior when changed), reports a member without one and an added test that passes with its target deleted, excuses an evidenced behavior-neutral member, and records the census on that path's single Coverage line."
 reason = "User decision of 2026-10-23. On a private repository's PR a human reviewer raised six such gaps; the engines held the team test standard but reported one, and their reports did not show which rules went unchecked."
 where = ["references/audit-supplement.md"]
 
@@ -136,17 +136,17 @@ reason = "User decision of 2026-10-23. On the same PR the brief scoped the team 
 where = ["references/profiles.md"]
 
 [[local_snapshots.deviations]]
-change = "Added to the caller supplement a sibling-parity check for a public contract concept that the change adds or alters, such as a date range, pagination, masking or an enum: compare its semantics with the sibling endpoints of the same API version and run the documented examples and the most common realistic input through the code. A divergence without a recorded decision is a finding, or a question when only intent decides it; a PR body disclosure is no decision."
+change = "Added to the caller supplement a sibling-parity check for a public contract concept that the change adds or alters, such as a date range, pagination, masking or an enum: compare its semantics with the sibling endpoints of the same API version and run the supplied conventions' or specification's examples and the most common realistic input through the code. A divergence from those semantics, or from siblings that follow them, without a recorded decision is a finding or a question; a PR body disclosure is no decision."
 reason = "User decision of 2026-10-23. On the same PR two human reviewers found that a date-only createdTo meant midnight, unlike the sibling v2 lists and the conventions' own example; both engines and the coordinator accepted the author's disclosure and the literal spec text."
 where = ["references/audit-supplement.md"]
 
 [[local_snapshots.deviations]]
-change = "Added to the brief that a subject or parent ticket that is a conformance or consistency initiative contributes its rules and audit findings as requirements, not as a summary, together with the sibling endpoints that share each changed concept."
+change = "Added to the brief that a subject or parent ticket that is a conformance or consistency initiative contributes its rules and audit findings for the concepts the PR changes as requirements, not as a summary, and that the brief names the sibling endpoints of each public contract concept the PR changes."
 reason = "User decision of 2026-10-23. On the same PR the parent epic was a consistency initiative whose audit listed date-range drift across endpoints, and the brief reduced it to one line."
 where = ["SKILL.md#brief"]
 
 [[local_snapshots.deviations]]
-change = "Added to candidate reduction that the coordinator applies the supplement's family census on the reviewed head before narrowing a candidate that is one member of a family, such as one rule of a validator."
+change = "Added to candidate reduction that the coordinator judges each candidate with the caller supplement as well as the protocol, treats an author's PR body disclosure as a claim rather than a recorded decision, and censuses every member of a family, such as the rules of one validator, before settling a candidate's extent."
 reason = "User decision of 2026-10-23. On the same PR the coordinator verified a missing test for one validator rule against two sibling rules that had tests and stopped there; a human reviewer then raised the untested remaining rules."
 where = ["references/ledger.md"]
 
