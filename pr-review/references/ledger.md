@@ -51,9 +51,14 @@ the same site. `comment-style` owns wording, not this placement decision.
 
 Read each completed report end to end, including Review basis, Checks, Open
 questions and Coverage. Reduce candidates one at a time; inspect the decisive
-source and strongest counterevidence. The protocol permits structural and
-requirements evidence without an invented runtime trace. Preserve required/optional
-Action even when an optional suggestion and a defect happen to share severity.
+source and strongest counterevidence. Judge each candidate with the protocol and
+the [supplement](audit-supplement.md); an author's disclosure in the PR body is a
+claim, not a recorded decision. When a candidate concerns members of a family,
+such as the rules of one validator, census every member on the reviewed head with
+the supplement's rule and family censuses before settling its extent. The protocol
+permits structural and requirements evidence without an invented runtime trace.
+Preserve required/optional Action even when an optional suggestion and a defect
+happen to share severity.
 
 A dropped claim retains its sources and a concrete Drop reason. A supported minority
 survives. A shared false positive is dropped. Calibration shapes and an engine's

@@ -38,7 +38,10 @@ separate bindings. A malformed candidate profile is an error even if no match ca
 be determined. Do not silently choose a filename or partial organization match.
 
 A profile's Rules name the guides to pass through `--rules` and each file's
-authority; the brief records every passed file's class and the paths it covers:
+authority. The brief records every passed file's class, the paths it covers, and
+its scope as its own text sets it, never narrower: a rule that asks for a failing
+test per production change covers the production hunks, not only changed tests.
+The classes:
 
 - **standard**: a repository instruction; a slip is a `standards` finding.
 - **team standard**: a team document the repository does not cite; a finding
