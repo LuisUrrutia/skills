@@ -121,8 +121,9 @@ existing authorization; suggestions grant no additional permission.
    certainty when shortening or phrasing a question.
    A fix in another repository asks its owner rather than demanding an unrelated
    change in this PR. Keep every supported finding internally. Test-only or tooling
-   comments are selected when requested or when they are this PR's substance;
-   regressions in a required setup/build/run contract remain actionable regardless.
+   comments are selected when requested or when they are this PR's substance; a
+   test site of a finding outside tests is posted with it, and regressions in a
+   required setup/build/run contract remain actionable regardless.
    Post one comment per verified site, with a short back-reference for repeated
    sites. Do not turn one root-cause ledger entry into one lost-anchor comment.
 10. **Anchor and publish.** Read [github.md](references/github.md), validate every

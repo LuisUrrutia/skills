@@ -5,7 +5,7 @@ workers review the frozen PR. A seam connects the changed side to another stack,
 generated contract or repository. Workers stop at explicitly caller-owned seams;
 the parent records both sides at exact revisions.
 
-For in-repo counterparts, use the PR head. Read relevant generated/vendored files
+For in-repo counterparts, use the PR head for the same-version comparison. Read relevant generated/vendored files
 and provenance, including ignored contracts when accessible. A readable committed
 proxy can settle a claim only when its provenance supports the relationship.
 For external counterparts, resolve the intended merged default branch to a SHA,
@@ -21,9 +21,11 @@ unknown from absent.
 
 For an operation both sides perform, such as a delete or a status change, compare
 its semantics as well as its shapes: soft or hard, reversible or not, and what
-each side keeps. When the two sides deploy or roll back separately, also compare
-each side at the base revision with the other side at the head, in both
-directions; each direction is its own row. For each opened row, record:
+each side keeps. When that comparison shows a field removed, renamed or newly
+required, and the profile or the repository's deploy configuration shows that the
+two sides deploy separately, also compare each side at the base revision with the
+other side at the head, in both directions; each direction is its own row. For
+each opened row, record:
 
 - `matches`: the contract, revisions and evidence on both sides; a path-triggered
   change with no contract effect can explain that finding here.
@@ -31,4 +33,9 @@ directions; each direction is its own row. For each opened row, record:
 - `unreadable`: the exact missing repository, revision, path, permission or check.
 
 Only an evidenced gap becomes a candidate. A decisive unknown stays a question.
+A skew gap is evidenced when the old side reads or sends the changed field; it is
+a candidate defect, not a question. An earlier PR that shipped the same pattern
+is not a recorded decision. The remedy is an overlap release that accepts or
+emits both shapes, or a deploy order enforced where deploys are driven; a PR-body
+statement of order is a claim to verify there.
 Every opened seam needs a verdict; an empty set needs the brief's explicit reason.

@@ -151,8 +151,8 @@ reason = "User decision of 2026-10-23. On the same PR the coordinator verified a
 where = ["references/ledger.md"]
 
 [[local_snapshots.deviations]]
-change = "Added to the seam sweep a version-skew comparison for sides that deploy or roll back separately: each side at the base revision against the other side at the head, in both directions, each direction with its own verdict."
-reason = "User decision of 2026-10-25. On a benchmark review of a PR that removed contract fields, a break between a backend service and the API layer that reads it, which appears while old and new versions run together stayed an unposted question, and the same break between the single-page app and that service was never examined."
+change = "Added to the seam sweep a version-skew comparison, opened when a contract field is removed, renamed or newly required between sides that the profile or deploy configuration shows deploy separately: each side at the base revision against the other at the head, in both directions, each direction its own row. A skew gap where the old side reads or sends the field is a candidate defect; an earlier PR with the same pattern is no recorded decision; a PR-body deploy order is a claim to verify where deploys are driven."
+reason = "User decision of 2026-10-25. On a benchmark review of a PR that removed contract fields, a break between a backend service and the API layer that reads it, which appears while old and new versions run together stayed an unposted question justified by an earlier PR with the same pattern, and the same break between the single-page app and that service, which one engine named, was never examined by the seam sweep."
 where = ["references/seams.md"]
 
 [[local_snapshots.deviations]]
@@ -164,6 +164,11 @@ where = ["references/ledger.md#questions-seams-and-synthesis"]
 change = "Added to the caller supplement that a test asserting behavior a finding shows defective, or covering only a shape the writers can no longer produce while the failing shape stays untested, is an affected site of that finding with its own anchor and remedy."
 reason = "User decision of 2026-10-25. On the same benchmark review, a new integration test pinned a regression with a record the backfill already resolves, and the coordinator cited the test only as evidence of that regression instead of asking for it to be fixed."
 where = ["references/audit-supplement.md"]
+
+[[local_snapshots.deviations]]
+change = "Added to comment selection that a test site of a finding outside tests is posted with that finding, whatever the test-only selection rule says."
+reason = "User decision of 2026-10-25 that a new test pinning a regression be fixed before merge; the test-only selection rule would otherwise keep that site internal."
+where = ["SKILL.md#word-select-and-publish"]
 
 [[dependencies]]
 kind = "local"
