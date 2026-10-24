@@ -22,7 +22,10 @@ instructions as instructions, with their actual precedence and scope.
 
 Retain a defect only when the declared change causes or newly exposes it. Name
 the changed line or contract that starts the failure, even when the observable
-failure occurs in unchanged code. Exclude unrelated pre-existing defects.
+failure occurs in unchanged code. When the change rewrites a pre-existing
+defect's expression or makes its triggering value an intended output of a writer
+the change touches, retain the defect as `optional`, or `required` when it defeats
+the change's purpose. Exclude other pre-existing defects.
 For deleted code, cite the original location and identify the baseline side.
 
 ### Requirements and standards
@@ -178,6 +181,8 @@ Phrase each recommendation as one concise request or decision that names the
 behavior to preserve. Compress repetition without removing substantiation or
 imposing a numerical finding limit. Required remedies and optional suggestions
 must remain distinguishable when their recommendation lines are copied alone.
+When an optional remedy lies outside the change's purpose, recommend a follow-up
+ticket instead of a change here.
 
 ## Report grammar
 

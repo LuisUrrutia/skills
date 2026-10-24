@@ -52,6 +52,16 @@ rule = "A failure that only a particular caller, host, mode or configuration tri
 reason = "User direction on 2026-10-13, after a PR review published a required finding for an internal host on a route with no evidenced caller."
 where = ["references/protocol.md#trace-candidates", "references/protocol.md#report-grammar"]
 
+[[invariants]]
+rule = "A pre-existing defect is in scope when the change rewrites its expression or makes its triggering value an intended output of a writer the change touches: it is retained as optional, or as required when it defeats the change's purpose. Other pre-existing defects stay excluded."
+reason = "User decision of 2026-10-25, after a benchmark review dropped as not newly introduced a blank state display that the change rewrote and made reachable by deliberately storing unresolved state names; the user wanted it reported as optional."
+where = ["references/protocol.md#diff-causality"]
+
+[[invariants]]
+rule = "An optional remedy that lies outside the change's purpose is recommended as a follow-up ticket rather than as a change to the reviewed code."
+reason = "User decision of 2026-10-25: maintainability findings that belong to separate work should suggest a ticket or a solution."
+where = ["references/protocol.md#calibrate-and-challenge-findings"]
+
 [[sources]]
 id = "addy-review"
 author = "Addy Osmani"
