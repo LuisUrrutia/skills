@@ -20,12 +20,13 @@ instructions as instructions, with their actual precedence and scope.
 
 ### Diff causality
 
-Retain a defect only when the declared change causes or newly exposes it. Name
-the changed line or contract that starts the failure, even when the observable
-failure occurs in unchanged code. When the change rewrites a pre-existing
-defect's expression or makes its triggering value an intended output of a writer
-the change touches, retain the defect as `optional`, or `required` when it defeats
-the change's purpose. Exclude other pre-existing defects.
+Retain a defect only when the declared change causes, newly exposes or carries
+it. Name the changed line or contract that starts the failure, even when the
+observable failure occurs in unchanged code. A pre-existing defect is carried when
+it stays reachable through an expression whose logic the change rewrites, beyond a
+mechanical rename or move, or through a writer behavior the change deliberately
+keeps; its Diff cause names that rewrite or writer. Exclude other pre-existing
+defects.
 For deleted code, cite the original location and identify the baseline side.
 
 ### Requirements and standards
@@ -162,8 +163,9 @@ a separate agent has a finding quota.
 
 Classify findings as `correctness`, `security`, `requirements`, `standards`,
 `maintainability`, `performance`, or `verification`. Use `required` for a supported
-defect, unmet requirement/standard, or concrete material regression; use `optional`
-for a reasoned improvement. Severity describes consequence, not confidence:
+defect the change causes or newly exposes, unmet requirement/standard, or concrete
+material regression; use `optional` for a reasoned improvement and for a carried
+pre-existing defect unless it defeats the change's purpose. Severity describes consequence, not confidence:
 
 - `blocker`: an immediate release-blocking consequence such as demonstrated data
   destruction or broadly reachable critical compromise;
@@ -208,7 +210,7 @@ decisive unknowns to Open questions.
 Class: correctness
 Action: required
 Affected: Reachable population or workflow.
-Diff cause: The introduced change that causes the issue.
+Diff cause: The introduced change that causes the issue, or the rewrite that carries it.
 Impact: The trigger and its consequence.
 Evidence:
 - producer | `path/to/file:42` | What the inspected source establishes.
