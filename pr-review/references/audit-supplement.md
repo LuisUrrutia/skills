@@ -30,6 +30,10 @@ still owns evidence, severity, Class, Action and report grammar.
   and so is an added test that still passes with its target member deleted; a
   behavior-neutral member needs only the evidence that it is neutral. Record the
   census on that path's single Coverage line: each member with its test, or `none`.
+  An added or changed test that asserts behavior a finding shows defective, or
+  covers only a shape the writers can no longer produce while the failing shape
+  stays untested, is an affected site of that finding with its own anchor and
+  remedy.
 - For a public contract concept the change adds or alters, such as a date range,
   pagination, masking or an enum, compare its semantics with the sibling endpoints
   of the same API version. Run the examples in the supplied conventions or

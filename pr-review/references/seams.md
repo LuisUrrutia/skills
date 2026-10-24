@@ -21,7 +21,9 @@ unknown from absent.
 
 For an operation both sides perform, such as a delete or a status change, compare
 its semantics as well as its shapes: soft or hard, reversible or not, and what
-each side keeps. For each opened row, record:
+each side keeps. When the two sides deploy or roll back separately, also compare
+each side at the base revision with the other side at the head, in both
+directions; each direction is its own row. For each opened row, record:
 
 - `matches`: the contract, revisions and evidence on both sides; a path-triggered
   change with no contract effect can explain that finding here.

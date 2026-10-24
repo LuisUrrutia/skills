@@ -71,7 +71,8 @@ Use stable Q identifiers with source IDs, exact missing premise, needed evidence
 and status (`open`, `resolved`, `dropped`). A premise that decides whether an issue
 exists remains a question. Name the boundary or access needed; do not turn absence
 of access into a finding. Unresolved limits that affect only extent qualify an
-otherwise supported finding.
+otherwise supported finding. A merged question keeps every member its sources
+name, such as each contract or consumer; dropping one needs its own reason.
 
 Add seam gaps with both revision-specific locations through the same candidate
 contract. Matching and unreadable seam verdicts are coverage, not automatic bugs.
