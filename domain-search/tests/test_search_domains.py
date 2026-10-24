@@ -266,6 +266,7 @@ class RenderTest(unittest.TestCase):
             self.row("com", "taken", 1, {"registration": "11.08", "renewal": "11.08"}, "DNS delegation", "NOERROR"),
             self.row("io", "available", 14, {"registration": "28.12", "renewal": "51.80"}, "WHOIS: no record"),
             self.row("cl", "available", None, None, "RDAP: no record"),
+            self.row("ai", "available", 35, {"registration": "82.70", "renewal": "82.70"}, "WHOIS: no record"),
         ]
 
         output = search_domains.render_markdown(rows, all_mode=False, footer=[])
@@ -276,6 +277,8 @@ class RenderTest(unittest.TestCase):
             "- **acme.io**: available, $28.12 first year, $51.80 renewal (TLD #14; WHOIS: no record)",
             "- **acme.cl**: available, no Porkbun price, compare at https://tld-list.com/tld/cl "
             "(TLD unranked; RDAP: no record)",
+            "- **acme.ai**: available, $82.70 per year with a 2-year minimum, $82.70 renewal "
+            "(TLD #35; WHOIS: no record)",
         ])
 
     def test_all_mode_lists_unchecked_undelegated_tlds_with_prices(self):
@@ -288,7 +291,8 @@ class RenderTest(unittest.TestCase):
 
         output = search_domains.render_markdown(rows, all_mode=True, footer=[])
 
-        self.assertNotIn("acme.com", output)
+        self.assertNotIn("**acme.com**", output)
+        self.assertIn("- Taken, most popular first: .com", output)
         self.assertIn("most popular first (first year/renewal): .xyz $2.04/$14.21 · .top $1.63/$4.63", output)
         self.assertIn("Taken: 1. Not checked with the registry: 2;", output)
 

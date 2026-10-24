@@ -28,6 +28,8 @@ DEFAULT_TLDS = ("com", "ai", "app", "io", "dev")
 # ccTLDs the user wants in every --all search although Porkbun does not sell them.
 ALL_EXTRA_TLDS = ("cl", "es")
 DEFAULT_LIMIT = 30
+# Registry minimum terms; without them a price line understates what the first purchase costs.
+MIN_YEARS = {"ai": 2}
 PORKBUN_PRICING = "https://api.porkbun.com/api/json/v3/pricing/get"
 RDAP_BOOTSTRAP = "https://data.iana.org/rdap/dns.json"
 TRANCO_LIST = "https://tranco-list.eu/top-1m.csv.zip"
@@ -428,17 +430,20 @@ def search(items, *, dns, registry, ranks, limit=None, always=()):
 
 
 def describe_price(row):
-    price = row["price"]
-    if price and price.get("registration"):
-        return f"${price['registration']} first year, ${price.get('renewal') or '?'} renewal"
-    return f"no Porkbun price, compare at https://tld-list.com/tld/{row['tld']}"
+    price, years = row["price"], MIN_YEARS.get(row["tld"])
+    if not (price and price.get("registration")):
+        return f"no Porkbun price, compare at https://tld-list.com/tld/{row['tld']}"
+    first = f"${price['registration']} per year with a {years}-year minimum" if years else \
+        f"${price['registration']} first year"
+    return f"{first}, ${price.get('renewal') or '?'} renewal"
 
 
 def short_price(row):
-    price = row["price"]
-    if price and price.get("registration"):
-        return f"${price['registration']}/${price.get('renewal') or '?'}"
-    return "no Porkbun price"
+    price, years = row["price"], MIN_YEARS.get(row["tld"])
+    if not (price and price.get("registration")):
+        return "no Porkbun price"
+    minimum = f" ({years}-year minimum)" if years else ""
+    return f"${price['registration']}/${price.get('renewal') or '?'}{minimum}"
 
 
 def render_markdown(rows, all_mode, footer):
@@ -458,8 +463,10 @@ def render_markdown(rows, all_mode, footer):
                 listing = " · ".join(f".{row['tld']} {short_price(row)}" for row in undelegated)
                 lines.append("- Without DNS delegation, not checked with the registry, most popular first "
                              f"(first year/renewal): {listing}")
-            taken = sum(row["status"] == "taken" for row in group)
-            lines += ["", f"Taken: {taken}. Not checked with the registry: {len(unchecked)}; raise --limit "
+            taken = [f".{row['tld']}" for row in group if row["status"] == "taken"]
+            if taken:
+                lines.append(f"- Taken, most popular first: {' · '.join(taken)}")
+            lines += ["", f"Taken: {len(taken)}. Not checked with the registry: {len(unchecked)}; raise --limit "
                           "to check more."]
         lines.append("")
     return "\n".join(lines + footer) + "\n"
