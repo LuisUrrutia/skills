@@ -2,7 +2,10 @@ import contextlib
 import email.message
 import importlib.util
 import io
+import os
 from pathlib import Path
+import stat
+import tempfile
 import time
 import unittest
 from unittest import mock
@@ -55,6 +58,14 @@ class TargetsTest(unittest.TestCase):
     def test_invalid_label_is_rejected(self):
         with self.assertRaises(ValueError):
             items_for(["-acme"], ["com"])
+
+    def test_subdomain_is_rejected_when_its_suffix_is_not_public(self):
+        with self.assertRaises(ValueError):
+            search_domains.targets(["foo.acme.com"], [], {"co.uk"})
+
+        items = search_domains.targets(["acme.co.uk", "acme.io"], [], {"co.uk"})
+
+        self.assertEqual([item["tld"] for item in items], ["co.uk", "io"])
 
     def test_unicode_tld_is_encoded_like_a_name(self):
         self.assertEqual(search_domains.normalize(".ελ"), "xn--qxam")
@@ -298,20 +309,38 @@ class RenderTest(unittest.TestCase):
             "(TLD #35; WHOIS: no record)",
         ])
 
-    def test_all_mode_lists_unchecked_undelegated_tlds_with_prices(self):
+    def test_all_mode_lists_every_unchecked_tld_with_its_price_and_dns_state(self):
         rows = [
             self.row("com", "taken", 1, {"registration": "11.08", "renewal": "11.08"}, "DNS delegation", "NOERROR"),
             self.row("io", "available", 14, {"registration": "28.12", "renewal": "51.80"}, "WHOIS: no record"),
             self.row("xyz", "unchecked", 18, {"registration": "2.04", "renewal": "14.21"}, "not checked"),
             self.row("top", "unchecked", 21, {"registration": "1.63", "renewal": "4.63"}, "not checked"),
+            self.row("ws", "unchecked", 138, {"registration": "22.97", "renewal": "22.97"}, "not checked", "WILDCARD"),
         ]
 
         output = search_domains.render_markdown(rows, all_mode=True, footer=[])
 
         self.assertNotIn("**acme.com**", output)
         self.assertIn("- Taken, most popular first: .com", output)
-        self.assertIn("most popular first (first year/renewal): .xyz $2.04/$14.21 · .top $1.63/$4.63", output)
-        self.assertIn("Taken: 1. Not checked with the registry: 2;", output)
+        self.assertIn("(first year/renewal; no DNS delegation unless marked): .xyz $2.04/$14.21 · "
+                      ".top $1.63/$4.63 · .ws $22.97/$22.97 [DNS wildcard]", output)
+        self.assertIn("Taken: 1. Not checked with the registry: 3;", output)
+
+
+class CacheTest(unittest.TestCase):
+    def test_read_only_cache_returns_fetched_data_with_a_warning(self):
+        with tempfile.TemporaryDirectory() as directory:
+            os.chmod(directory, stat.S_IRUSR | stat.S_IXUSR)
+            warnings = []
+            try:
+                with mock.patch.dict(os.environ, {"XDG_CACHE_HOME": directory}):
+                    data = search_domains.cached("prices.json", 60, lambda: {"com": {}}, warnings)
+            finally:
+                os.chmod(directory, stat.S_IRWXU)
+
+        self.assertEqual(data, {"com": {}})
+        self.assertEqual(len(warnings), 1)
+        self.assertIn("could not write the cache", warnings[0])
 
 
 class CommandLineTest(unittest.TestCase):

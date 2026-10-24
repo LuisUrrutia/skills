@@ -69,8 +69,9 @@ def cache_dir():
 
 
 def cache_date(name):
+    """The date of the cached copy, or today's when the data was fetched but could not be cached."""
     path = cache_dir() / name
-    return datetime.date.fromtimestamp(path.stat().st_mtime).isoformat() if path.exists() else None
+    return datetime.date.fromtimestamp(path.stat().st_mtime if path.exists() else time.time()).isoformat()
 
 
 def read_json(path):
@@ -81,10 +82,15 @@ def read_json(path):
 
 
 def write_json(path, data):
-    path.parent.mkdir(parents=True, exist_ok=True)
-    partial = path.with_name(path.name + ".partial")
-    partial.write_text(json.dumps(data))
-    partial.replace(path)
+    """Best effort: a read-only cache, as in some agent sandboxes, must not abort a finished run."""
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        partial = path.with_name(path.name + ".partial")
+        partial.write_text(json.dumps(data))
+        partial.replace(path)
+    except OSError:
+        return False
+    return True
 
 
 def cached(name, max_age, fetch, warnings):
@@ -101,7 +107,8 @@ def cached(name, max_age, fetch, warnings):
             return None
         warnings.append(f"{name}: refresh failed ({error}); using the copy from {cache_date(name)}")
         return stored
-    write_json(path, data)
+    if not write_json(path, data):
+        warnings.append(f"{name}: could not write the cache in {cache_dir()}")
     return data
 
 
@@ -187,13 +194,17 @@ def normalize(name):
     return ".".join(labels)
 
 
-def targets(names, tlds):
-    """Expand bare labels across tlds; a name with a dot is one exact domain."""
+def targets(names, tlds, suffixes=None):
+    """Expand bare labels across tlds; a name with a dot is one exact domain. With suffixes, a multi-label TLD
+    part must be one of them: foo.acme.com would otherwise reach the .com registry, which has no record of a
+    subdomain and so reports it as unregistered."""
     found = {}
     for raw in names:
         name = normalize(raw)
         if "." in name:
             label, tld = name.split(".", 1)
+            if suffixes is not None and "." in tld and tld not in suffixes:
+                raise ValueError(f"{raw} is not a registrable domain: {tld} is not a public suffix")
             found[name] = (label, tld)
         else:
             for tld in tlds:
@@ -458,6 +469,10 @@ def short_price(row):
     return f"${price['registration']}/${price.get('renewal') or '?'}{minimum}"
 
 
+def dns_mark(row):
+    return "" if row["dns"] == "NXDOMAIN" else f" [DNS {(row['dns'] or 'failed').lower()}]"
+
+
 def render_markdown(rows, all_mode, footer):
     lines = []
     for name in dict.fromkeys(row["name"] for row in rows):
@@ -470,11 +485,10 @@ def render_markdown(rows, all_mode, footer):
                          f"({rank}; {row['evidence']})")
         if all_mode:
             unchecked = [row for row in group if row["status"] == "unchecked"]
-            undelegated = [row for row in unchecked if row["dns"] == "NXDOMAIN"]
-            if undelegated:
-                listing = " · ".join(f".{row['tld']} {short_price(row)}" for row in undelegated)
-                lines.append("- Without DNS delegation, not checked with the registry, most popular first "
-                             f"(first year/renewal): {listing}")
+            if unchecked:
+                listing = " · ".join(f".{row['tld']} {short_price(row)}{dns_mark(row)}" for row in unchecked)
+                lines.append("- Not checked with the registry, most popular first (first year/renewal; no DNS "
+                             f"delegation unless marked): {listing}")
             taken = [f".{row['tld']}" for row in group if row["status"] == "taken"]
             if taken:
                 lines.append(f"- Taken, most popular first: {' · '.join(taken)}")
@@ -513,18 +527,32 @@ def main(argv=None):
         return 1
 
     warnings = []
+    multi_label = any("." in tld for tld in named) or any(normalize(name).count(".") > 1 for name in args.names)
+    icann = None
+    if args.all or multi_label:
+        icann = set(cached("psl-icann-suffixes.json", 30 * DAY, fetch_icann_suffixes, warnings) or ())
+        if multi_label and not icann:
+            print("error: a multi-label TLD needs the Public Suffix List, which could not be fetched: "
+                  + "; ".join(warnings), file=sys.stderr)
+            return 1
+    unknown = [tld for tld in named if "." in tld and tld not in icann]
+    if unknown:
+        parser.error(f"not a public suffix: {', '.join(unknown)}")
+
     prices = cached("porkbun-pricing.json", DAY, fetch_prices, warnings)
     if args.all:
         if prices is None:
             print("error: --all needs Porkbun's TLD catalog, which could not be fetched: " + "; ".join(warnings),
                   file=sys.stderr)
             return 1
-        icann = set(cached("psl-icann-suffixes.json", 30 * DAY, fetch_icann_suffixes, warnings) or ())
         tlds = list(dict.fromkeys(named + list(ALL_EXTRA_TLDS) + catalog_tlds(prices, icann)))
         always = set(named) | set(ALL_EXTRA_TLDS)
     else:
         tlds, always = named or list(DEFAULT_TLDS), set()
-    items = targets(args.names, tlds)
+    try:
+        items = targets(args.names, tlds, icann)
+    except ValueError as error:
+        parser.error(str(error))
 
     counts = cached("tranco-tld-counts.json", 30 * DAY, fetch_tld_counts, warnings) or {}
     ranks = tld_ranks(counts, {item["tld"] for item in items})
@@ -533,8 +561,9 @@ def main(argv=None):
                             read_json(whois_path), read_json(cooldown_path))
     search(items, dns=dns_status, registry=registries.check, ranks=ranks,
            limit=args.limit if args.all else None, always=always)
-    write_json(whois_path, registries.whois_servers)
-    write_json(cooldown_path, registries.cooldowns)
+    persisted = [write_json(whois_path, registries.whois_servers), write_json(cooldown_path, registries.cooldowns)]
+    if not all(persisted):
+        warnings.append(f"could not write {cache_dir()}, so throttled servers will be queried again next run")
 
     for item in items:
         item["rank"] = ranks.get(item["tld"])
