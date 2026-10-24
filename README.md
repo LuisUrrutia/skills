@@ -699,6 +699,19 @@ Guidelines for writing secure and maintainable GitHub Actions workflows.
 - Reference docs for API calls, matrix builds, and reusable workflows
 - Integrates with `actionlint` for validation
 
+### domain-search
+
+Check whether domain names are available to register and what they cost.
+
+**Triggers:** `is acme.io available?`, `check these names on .com and .ai`, `search acme in every TLD`
+
+**Features:**
+- Checks several names in one run, by default on .com, .ai, .app, .io and .dev
+- Takes each verdict from the TLD's registry over RDAP or WHOIS after a DNS pass, and marks failed or throttled checks as unconfirmed instead of available
+- Searches every priced TLD and lists the open ones by TLD popularity in the Tranco top-1M list
+- Adds Porkbun's public first-year and renewal prices without an API key
+- Paces queries per registry server and skips a server that throttles, because one registry blocks bursts for 24 hours
+
 ## Installation
 
 ### Using npx (Recommended)
