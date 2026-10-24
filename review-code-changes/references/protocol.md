@@ -26,7 +26,8 @@ observable failure occurs in unchanged code. A pre-existing defect is carried wh
 it stays reachable through an expression whose logic the change rewrites, beyond a
 mechanical rename or move, or through a writer behavior the change deliberately
 keeps; its Diff cause names that rewrite or writer. Exclude other pre-existing
-defects.
+defects; before excluding one, check both conditions, including writers outside
+the changed file, and name the condition that fails in that path's Coverage line.
 For deleted code, cite the original location and identify the baseline side.
 
 ### Requirements and standards
