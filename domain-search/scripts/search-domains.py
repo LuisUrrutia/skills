@@ -326,8 +326,11 @@ def search(items, *, dns, registry, ranks, limit=None):
                 item["status"], item["evidence"] = "unknown", f"DNS {item['dns'] or 'failed'}; {note}"
 
 
-def money(price, key):
-    return f"${price[key]}" if price and price.get(key) else "–"
+def describe_price(row):
+    price = row["price"]
+    if price and price.get("registration"):
+        return f"${price['registration']} first year, ${price.get('renewal') or '?'} renewal"
+    return f"no Porkbun price, compare at https://tld-list.com/tld/{row['tld']}"
 
 
 def render_markdown(rows, all_mode, footer):
@@ -335,12 +338,11 @@ def render_markdown(rows, all_mode, footer):
     for name in dict.fromkeys(row["name"] for row in rows):
         group = [row for row in rows if row["name"] == name]
         shown = [row for row in group if not all_mode or row["status"] not in ("taken", "unchecked")]
-        lines += [f"## {name}", "", "| Domain | Status | TLD rank | Porkbun 1st year | Porkbun renewal | Evidence |",
-                  "| --- | --- | --- | --- | --- | --- |"]
+        lines += [f"## {name}", ""]
         for row in shown:
-            rank = f"#{row['rank']}" if row["rank"] else "–"
-            lines.append(f"| {row['domain']} | {row['status']} | {rank} | {money(row['price'], 'registration')} "
-                         f"| {money(row['price'], 'renewal')} | {row['evidence']} |")
+            rank = f"TLD #{row['rank']}" if row["rank"] else "TLD unranked"
+            lines.append(f"- **{row['domain']}**: {row['status']}, {describe_price(row)} "
+                         f"({rank}; {row['evidence']})")
         if all_mode:
             taken = sum(row["status"] == "taken" for row in group)
             unchecked = sum(row["status"] == "unchecked" for row in group)

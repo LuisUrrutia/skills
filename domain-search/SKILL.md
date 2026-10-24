@@ -36,7 +36,10 @@ RDAP block. One run per request keeps every server within the script's pacing.
 
 ## Report the results
 
-Present the table for each name in the user's language, with these statuses:
+Present the results for each name in the user's language as bullet points, one
+domain per bullet with its status and price, as the script prints them. Every
+check the user asks for gets the prices, even when they ask only about
+availability. With these statuses:
 
 - **available:** the registry has no record of the domain.
 - **taken:** the registry or DNS shows a registration.
@@ -54,8 +57,9 @@ you recommend a ccTLD, mention that it may restrict who can register it, as
 
 For `--all`, also give the number of TLDs checked and the counts of taken and
 unchecked TLDs per name. TLDs that Porkbun does not sell, such as .cl, .es and
-.fr, are checked only when named with `--tlds`, and their price shows as `–`.
+.fr, are checked only when named with `--tlds`; their bullet carries a
+tld-list.com link in place of the price.
 
-Done when each requested name has its results, every unconfirmed or unknown
-domain is reported with its reason, and each warning line from the script is
-relayed.
+Done when each requested name has its bullets, every bullet carries its price
+or that link, every unconfirmed or unknown domain is reported with its reason,
+and each warning line from the script is relayed.

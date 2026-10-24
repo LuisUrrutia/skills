@@ -132,5 +132,27 @@ class SearchTest(unittest.TestCase):
         self.assertEqual(unchecked, ["acme.rare", "acme.xyz", "zeta.rare", "zeta.xyz"])
 
 
+class RenderTest(unittest.TestCase):
+    def test_every_domain_bullet_carries_its_price_or_a_comparison_link(self):
+        rows = [
+            {"domain": "acme.com", "name": "acme", "tld": "com", "status": "taken", "rank": 1,
+             "price": {"registration": "11.08", "renewal": "11.08"}, "evidence": "DNS delegation"},
+            {"domain": "acme.io", "name": "acme", "tld": "io", "status": "available", "rank": 14,
+             "price": {"registration": "28.12", "renewal": "51.80"}, "evidence": "WHOIS: no record"},
+            {"domain": "acme.cl", "name": "acme", "tld": "cl", "status": "available", "rank": None,
+             "price": None, "evidence": "RDAP: no record"},
+        ]
+
+        output = search_domains.render_markdown(rows, all_mode=False, footer=[])
+
+        bullets = [line for line in output.splitlines() if line.startswith("- ")]
+        self.assertEqual(bullets, [
+            "- **acme.com**: taken, $11.08 first year, $11.08 renewal (TLD #1; DNS delegation)",
+            "- **acme.io**: available, $28.12 first year, $51.80 renewal (TLD #14; WHOIS: no record)",
+            "- **acme.cl**: available, no Porkbun price, compare at https://tld-list.com/tld/cl "
+            "(TLD unranked; RDAP: no record)",
+        ])
+
+
 if __name__ == "__main__":
     unittest.main()
