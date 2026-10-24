@@ -6,6 +6,7 @@ import concurrent.futures
 import csv
 import datetime
 import email.utils
+import http.client
 import io
 import json
 import os
@@ -24,26 +25,34 @@ import zipfile
 
 
 DEFAULT_TLDS = ("com", "ai", "app", "io", "dev")
+# ccTLDs the user wants in every --all search although Porkbun does not sell them.
+ALL_EXTRA_TLDS = ("cl", "es")
 DEFAULT_LIMIT = 30
 PORKBUN_PRICING = "https://api.porkbun.com/api/json/v3/pricing/get"
 RDAP_BOOTSTRAP = "https://data.iana.org/rdap/dns.json"
 TRANCO_LIST = "https://tranco-list.eu/top-1m.csv.zip"
+PUBLIC_SUFFIX_LIST = "https://publicsuffix.org/list/public_suffix_list.dat"
 IANA_WHOIS = "whois.iana.org"
 USER_AGENT = "domain-search-skill/1"
 DAY = 86400
 # Registries throttle bursts: one RDAP server answered ~250 rapid lookups with a 24-hour block.
 REGISTRY_INTERVAL = 1.0
 SHORT_RETRY = 30
+DEFAULT_COOLDOWN = 3600
 
 LABEL = re.compile(r"^(?!-)[a-z0-9-]{1,63}(?<!-)$")
 DIG_STATUS = re.compile(r"status: ([A-Z]+)")
 WHOIS_SERVER = re.compile(r"^whois:[ \t]*(\S*)", re.MULTILINE)
+# Registries append terms of use that mention throttling and missing data, so only the answer's head is read.
+WHOIS_HEAD_LINES = 10
+WHOIS_HEAD_END = ("terms of use", "notice", "disclaimer", "url of the icann")
+WHOIS_THROTTLED = ("exceeded", "too many", "quota", "try again", "rate limit")
+WHOIS_FAILED = ("error", "denied", "unavailable", "maintenance", "not supported", "retired")
 WHOIS_TAKEN = ("registrar:", "registry domain id:", "registrant:", "creation date:", "created:", "registered:",
                "record created", "nserver:", "name server:", "status: connect")
 WHOIS_AVAILABLE = ("no match", "not found", "not_found", "no found", "no data found", "no entries found",
                    "no object found", "does not exist", "status: free", "status: available",
                    "available for registration", "nothing found")
-WHOIS_THROTTLED = ("limit exceeded", "too many", "quota", "try again later")
 
 
 class Throttled(Exception):
@@ -61,27 +70,39 @@ def cache_date(name):
     return datetime.date.fromtimestamp(path.stat().st_mtime).isoformat() if path.exists() else None
 
 
+def read_json(path):
+    try:
+        return json.loads(path.read_text())
+    except (OSError, ValueError):
+        return None
+
+
+def write_json(path, data):
+    path.parent.mkdir(parents=True, exist_ok=True)
+    partial = path.with_name(path.name + ".partial")
+    partial.write_text(json.dumps(data))
+    partial.replace(path)
+
+
 def cached(name, max_age, fetch, warnings):
     """Return fresh data from fetch, or the cached copy; None only when both are unavailable."""
     path = cache_dir() / name
-    if path.exists() and time.time() - path.stat().st_mtime < max_age:
-        return json.loads(path.read_text())
+    stored = read_json(path)
+    if stored is not None and time.time() - path.stat().st_mtime < max_age:
+        return stored
     try:
         data = fetch()
-    except (OSError, ValueError, KeyError, zipfile.BadZipFile) as error:
-        if not path.exists():
+    except (OSError, ValueError, KeyError, zipfile.BadZipFile, http.client.HTTPException) as error:
+        if stored is None:
             warnings.append(f"{name}: {error}")
             return None
         warnings.append(f"{name}: refresh failed ({error}); using the copy from {cache_date(name)}")
-        return json.loads(path.read_text())
-    path.parent.mkdir(parents=True, exist_ok=True)
-    partial = path.with_suffix(".partial")
-    partial.write_text(json.dumps(data))
-    partial.replace(path)
+        return stored
+    write_json(path, data)
     return data
 
 
-def http(url, data=None, accept="application/json", timeout=30):
+def http_get(url, data=None, accept="application/json", timeout=30):
     headers = {"Accept": accept, "User-Agent": USER_AGENT}
     if data is not None:
         headers["Content-Type"] = "application/json"
@@ -91,7 +112,7 @@ def http(url, data=None, accept="application/json", timeout=30):
 
 
 def fetch_prices():
-    body = json.loads(http(PORKBUN_PRICING, data=b"{}"))
+    body = json.loads(http_get(PORKBUN_PRICING, data=b"{}"))
     if body.get("status") != "SUCCESS":
         raise ValueError(body.get("message", "unexpected Porkbun response"))
     return body["pricing"]
@@ -99,15 +120,30 @@ def fetch_prices():
 
 def fetch_rdap_servers():
     servers = {}
-    for tlds, urls in json.loads(http(RDAP_BOOTSTRAP))["services"]:
+    for tlds, urls in json.loads(http_get(RDAP_BOOTSTRAP))["services"]:
         url = next((u for u in urls if u.startswith("https://")), urls[0])
         servers.update(dict.fromkeys(tlds, url))
     return servers
 
 
+def fetch_icann_suffixes():
+    """Multi-label suffixes from the ICANN section of the Public Suffix List, in punycode."""
+    text = http_get(PUBLIC_SUFFIX_LIST, accept="text/plain").decode("utf-8")
+    section = text.split("// ===BEGIN ICANN DOMAINS===", 1)[1].split("// ===END ICANN DOMAINS===", 1)[0]
+    suffixes = []
+    for line in section.splitlines():
+        line = line.strip()
+        if line and not line.startswith(("//", "*", "!")) and "." in line:
+            try:
+                suffixes.append(normalize(line))
+            except ValueError:
+                pass
+    return suffixes
+
+
 def fetch_tld_counts():
     """Count Tranco top-1M domains under each last label and each two-label suffix."""
-    archive = zipfile.ZipFile(io.BytesIO(http(TRANCO_LIST, accept="application/zip", timeout=120)))
+    archive = zipfile.ZipFile(io.BytesIO(http_get(TRANCO_LIST, accept="application/zip", timeout=120)))
     counts = {}
     with archive.open(archive.namelist()[0]) as file:
         for row in csv.reader(io.TextIOWrapper(file, "ascii", errors="replace")):
@@ -119,11 +155,11 @@ def fetch_tld_counts():
     return counts
 
 
-def catalog_tlds(prices):
-    """Porkbun TLDs in the DNS root: specialType marks Handshake names, and multi-label entries under a
-    gTLD (br.com, uk.net) are private second-level registries without RDAP or WHOIS for their names."""
+def catalog_tlds(prices, icann_suffixes):
+    """Porkbun TLDs in the DNS root. specialType marks Handshake names; a multi-label entry counts only when the
+    Public Suffix List's ICANN section has it, which drops private registries such as br.com and com.de."""
     return [tld for tld, price in prices.items()
-            if not price.get("specialType") and ("." not in tld or len(tld.rsplit(".", 1)[1]) == 2)]
+            if not price.get("specialType") and ("." not in tld or tld in icann_suffixes)]
 
 
 def tld_ranks(counts, tlds):
@@ -132,7 +168,7 @@ def tld_ranks(counts, tlds):
 
 
 def normalize(name):
-    labels = name.strip().lower().rstrip(".").split(".")
+    labels = name.strip().lower().strip(".").split(".")
     try:
         labels = [label.encode("idna").decode("ascii") for label in labels]
     except UnicodeError as error:
@@ -181,22 +217,39 @@ def retry_after(value):
 def describe_wait(seconds):
     if seconds is None:
         return ""
-    hours, minutes = divmod(seconds // 60, 60)
+    hours, minutes = divmod(int(seconds) // 60, 60)
     return f", retry after {hours}h{minutes:02d}m" if hours else f", retry after {minutes}m"
 
 
-def rdap_lookup(domain, base):
+def json_object(body):
     try:
-        http(base.rstrip("/") + "/domain/" + domain, accept="application/rdap+json", timeout=15)
+        return json.loads(body)
+    except ValueError:
+        return None
+
+
+def rdap_lookup(domain, base, fetch=http_get):
+    """A verdict needs an RDAP answer: a domain object, or a 404 whose body is empty or JSON."""
+    try:
+        body = fetch(base.rstrip("/") + "/domain/" + domain, accept="application/rdap+json", timeout=15)
     except urllib.error.HTTPError as error:
-        if error.code == 404:
-            return "available", "RDAP: no record"
         if error.code == 429:
             raise Throttled(retry_after(error.headers.get("Retry-After"))) from None
-        return None, f"RDAP HTTP {error.code}"
-    except (urllib.error.URLError, OSError) as error:
+        if error.code != 404:
+            return None, f"RDAP HTTP {error.code}"
+        try:
+            body = error.read()
+        except (OSError, http.client.HTTPException):
+            body = b""
+        if body.strip() and not isinstance(json_object(body), dict):
+            return None, "RDAP 404 without an RDAP body"
+        return "available", "RDAP: no record"
+    except (urllib.error.URLError, OSError, http.client.HTTPException) as error:
         return None, f"RDAP {getattr(error, 'reason', error)}"
-    return "taken", "RDAP: registered"
+    record = json_object(body)
+    if isinstance(record, dict) and record.get("objectClassName") == "domain":
+        return "taken", "RDAP: registered"
+    return None, "RDAP answer is not a domain record"
 
 
 def whois_query(server, query, timeout=15):
@@ -208,27 +261,54 @@ def whois_query(server, query, timeout=15):
     return b"".join(chunks).decode("utf-8", "replace")
 
 
+def whois_head(text):
+    head = []
+    for line in text.splitlines():
+        line = line.strip().lower()
+        if not line or line.startswith(("%", "#", ">>>")):
+            continue
+        if line.startswith(WHOIS_HEAD_END) or len(head) == WHOIS_HEAD_LINES:
+            break
+        head.append(line)
+    return "\n".join(head)
+
+
 def classify_whois(text):
-    lower = text.lower()
-    if any(pattern in lower for pattern in WHOIS_TAKEN):
+    head = whois_head(text)
+    if any(pattern in head for pattern in WHOIS_THROTTLED):
+        return "throttled", "WHOIS throttled"
+    if any(pattern in head for pattern in WHOIS_FAILED):
+        return None, "WHOIS answered with an error"
+    if any(pattern in head for pattern in WHOIS_TAKEN):
         return "taken", "WHOIS: registered"
-    if any(pattern in lower for pattern in WHOIS_AVAILABLE):
+    if any(pattern in head for pattern in WHOIS_AVAILABLE):
         return "available", "WHOIS: no record"
-    if any(pattern in lower for pattern in WHOIS_THROTTLED):
-        return None, "WHOIS throttled"
     return None, "WHOIS answer not recognized"
 
 
-class Registries:
-    """Registry lookups paced per server; a server that throttles is skipped for the rest of the run."""
+def whois_lookup(server, domain):
+    try:
+        text = whois_query(server, domain)
+    except OSError as error:
+        return None, f"WHOIS {error}"
+    status, note = classify_whois(text)
+    if status == "throttled":
+        raise Throttled(None)
+    return status, note
 
-    def __init__(self, rdap_servers, whois_servers, interval=REGISTRY_INTERVAL):
+
+class Registries:
+    """Registry lookups paced per server. A server that throttles stays in cooldown, and the cooldowns
+    and IANA WHOIS referrals persist between runs."""
+
+    def __init__(self, rdap_servers, whois_servers=None, cooldowns=None, interval=REGISTRY_INTERVAL):
         self.rdap_servers = rdap_servers or {}
-        self.whois_servers = whois_servers
+        self.whois_servers = whois_servers or {}
+        now = time.time()
+        self.cooldowns = {host: until for host, until in (cooldowns or {}).items() if until > now}
         self.interval = interval
         self.lock = threading.Lock()
         self.next_slot = {}
-        self.blocked = {}
 
     def wait(self, host):
         with self.lock:
@@ -237,36 +317,57 @@ class Registries:
             self.next_slot[host] = slot + self.interval
         time.sleep(slot - now)
 
-    def rdap_base(self, tld):
-        return self.rdap_servers.get(tld) or self.rdap_servers.get(tld.rsplit(".", 1)[-1])
+    def delay(self, host, seconds):
+        with self.lock:
+            self.next_slot[host] = max(self.next_slot.get(host, 0), time.monotonic() + seconds)
 
-    def whois_server(self, tld):
-        key = tld.rsplit(".", 1)[-1]
+    def cooldown_note(self, host):
         with self.lock:
-            if key in self.whois_servers:
-                return self.whois_servers[key]
-        try:
-            self.wait(IANA_WHOIS)
-            match = WHOIS_SERVER.search(whois_query(IANA_WHOIS, key))
-        except OSError:
-            return None
-        with self.lock:
-            self.whois_servers[key] = match.group(1) if match else ""
-        return self.whois_servers[key]
+            remaining = self.cooldowns.get(host, 0) - time.time()
+        return f"{host} throttled{describe_wait(remaining)}" if remaining > 0 else None
 
     def lookup(self, host, query):
         for attempt in (1, 2):
-            if host in self.blocked:
-                return None, f"{host} throttled{describe_wait(self.blocked[host])}"
+            note = self.cooldown_note(host)
+            if note:
+                return None, note
             self.wait(host)
+            note = self.cooldown_note(host)
+            if note:
+                return None, note
             try:
                 return query()
             except Throttled as error:
                 if attempt == 1 and error.retry_after is not None and error.retry_after <= SHORT_RETRY:
-                    time.sleep(error.retry_after + 1)
+                    self.delay(host, error.retry_after + 1)
                     continue
-                self.blocked[host] = error.retry_after
-                return None, f"{host} throttled{describe_wait(error.retry_after)}"
+                seconds = DEFAULT_COOLDOWN if error.retry_after is None else error.retry_after
+                with self.lock:
+                    self.cooldowns[host] = time.time() + seconds
+                return None, f"{host} throttled{describe_wait(seconds)}"
+
+    def rdap_base(self, tld):
+        return self.rdap_servers.get(tld) or self.rdap_servers.get(tld.rsplit(".", 1)[-1])
+
+    def whois_server(self, tld, query=whois_query):
+        """The registry's WHOIS host, "" when IANA lists none, or None when IANA gave no usable answer."""
+        key = tld.rsplit(".", 1)[-1]
+        with self.lock:
+            entry = self.whois_servers.get(key)
+        if isinstance(entry, list) and time.time() - entry[1] < 30 * DAY:
+            return entry[0]
+        try:
+            self.wait(IANA_WHOIS)
+            text = query(IANA_WHOIS, key)
+        except OSError:
+            return None
+        if not re.search(rf"^domain:\s*{re.escape(key)}\s*$", text, re.IGNORECASE | re.MULTILINE):
+            return None
+        match = WHOIS_SERVER.search(text)
+        server = match.group(1) if match else ""
+        with self.lock:
+            self.whois_servers[key] = [server, time.time()]
+        return server
 
     def check(self, domain, tld):
         notes = []
@@ -278,27 +379,20 @@ class Registries:
             notes.append(note)
         server = self.whois_server(tld)
         if server:
-            def whois():
-                text = whois_query(server, domain)
-                status, note = classify_whois(text)
-                if note == "WHOIS throttled":
-                    raise Throttled(None)
-                return status, note
-            try:
-                status, note = self.lookup(server, whois)
-            except OSError as error:
-                status, note = None, f"WHOIS {error}"
+            status, note = self.lookup(server, lambda: whois_lookup(server, domain))
             if status:
                 return status, note
             notes.append(note)
+        elif server is None:
+            notes.append("IANA WHOIS referral lookup failed")
         elif not base:
             notes.append("no RDAP or WHOIS server known")
         return None, "; ".join(notes)
 
 
-def search(items, *, dns, registry, ranks, limit=None):
-    """Set each item's status and evidence. With a limit, only that many undelegated domains per name,
-    most popular TLD first, reach the registry; the rest stay unchecked."""
+def search(items, *, dns, registry, ranks, limit=None, always=()):
+    """Set each item's status and evidence. With a limit, the registry hears about the TLDs in always plus that
+    many other undelegated domains per name, most popular TLD first; the rest stay unchecked."""
     with concurrent.futures.ThreadPoolExecutor(32) as pool:
         for item, status in zip(items, pool.map(lambda item: dns(item["domain"]), items)):
             item["dns"] = status
@@ -311,13 +405,20 @@ def search(items, *, dns, registry, ranks, limit=None):
             by_name.setdefault(item["name"], []).append(item)
         candidates = []
         for group in by_name.values():
-            group.sort(key=lambda item: (ranks.get(item["tld"], float("inf")), item["tld"]))
-            candidates += group[:limit]
-            for item in group[limit:]:
-                item["status"], item["evidence"] = "unchecked", "registry not queried (--limit)"
+            ranked = sorted((item for item in group if item["tld"] not in always),
+                            key=lambda item: (ranks.get(item["tld"], float("inf")), item["tld"]))
+            candidates += [item for item in group if item["tld"] in always] + ranked[:limit]
+            for item in ranked[limit:]:
+                item["status"], item["evidence"] = "unchecked", "not checked with the registry"
+
+    def verdict(item):
+        try:
+            return registry(item["domain"], item["tld"])
+        except Exception as error:  # one malformed answer must not discard the rest of the run
+            return None, f"lookup error: {error}"
+
     with concurrent.futures.ThreadPoolExecutor(16) as pool:
-        verdicts = pool.map(lambda item: registry(item["domain"], item["tld"]), candidates)
-        for item, (status, note) in zip(candidates, verdicts):
+        for item, (status, note) in zip(candidates, pool.map(verdict, candidates)):
             if status:
                 item["status"], item["evidence"] = status, note
             elif item["dns"] == "NXDOMAIN":
@@ -333,6 +434,13 @@ def describe_price(row):
     return f"no Porkbun price, compare at https://tld-list.com/tld/{row['tld']}"
 
 
+def short_price(row):
+    price = row["price"]
+    if price and price.get("registration"):
+        return f"${price['registration']}/${price.get('renewal') or '?'}"
+    return "no Porkbun price"
+
+
 def render_markdown(rows, all_mode, footer):
     lines = []
     for name in dict.fromkeys(row["name"] for row in rows):
@@ -344,56 +452,75 @@ def render_markdown(rows, all_mode, footer):
             lines.append(f"- **{row['domain']}**: {row['status']}, {describe_price(row)} "
                          f"({rank}; {row['evidence']})")
         if all_mode:
+            unchecked = [row for row in group if row["status"] == "unchecked"]
+            undelegated = [row for row in unchecked if row["dns"] == "NXDOMAIN"]
+            if undelegated:
+                listing = " · ".join(f".{row['tld']} {short_price(row)}" for row in undelegated)
+                lines.append("- Without DNS delegation, not checked with the registry, most popular first "
+                             f"(first year/renewal): {listing}")
             taken = sum(row["status"] == "taken" for row in group)
-            unchecked = sum(row["status"] == "unchecked" for row in group)
-            lines += ["", f"Taken: {taken}. Unchecked: {unchecked} less popular TLDs that the registry was not "
-                          "asked about; raise --limit to check them."]
+            lines += ["", f"Taken: {taken}. Not checked with the registry: {len(unchecked)}; raise --limit "
+                          "to check more."]
         lines.append("")
     return "\n".join(lines + footer) + "\n"
+
+
+def positive_int(value):
+    number = int(value)
+    if number < 1:
+        raise argparse.ArgumentTypeError("must be at least 1")
+    return number
 
 
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("names", nargs="+", help="labels to try across TLDs, or full domains such as acme.io")
-    parser.add_argument("--tlds", default=",".join(DEFAULT_TLDS), help="comma-separated TLDs (default: %(default)s)")
+    parser.add_argument("--tlds", help=f"comma-separated TLDs (default: {','.join(DEFAULT_TLDS)})")
     parser.add_argument("--all", action="store_true",
-                        help="add every DNS-root TLD that Porkbun prices and list undelegated ones by popularity")
-    parser.add_argument("--limit", type=int, default=DEFAULT_LIMIT,
-                        help="with --all, registry checks per name, most popular TLDs first (default: %(default)s)")
+                        help="every DNS-root TLD that Porkbun prices, plus " + ", ".join(ALL_EXTRA_TLDS)
+                             + " and any --tlds, listed by popularity")
+    parser.add_argument("--limit", type=positive_int, default=DEFAULT_LIMIT,
+                        help="with --all, registry checks per name besides the named TLDs (default: %(default)s)")
     parser.add_argument("--format", choices=("markdown", "json"), default="markdown")
     args = parser.parse_args(argv)
 
-    warnings = []
-    prices = cached("porkbun-pricing.json", DAY, fetch_prices, warnings)
-    tlds = [tld.strip().lower().lstrip(".") for tld in args.tlds.split(",") if tld.strip()]
-    if args.all:
-        if prices is None:
-            print("error: --all needs Porkbun's TLD catalog, which could not be fetched: " + "; ".join(warnings),
-                  file=sys.stderr)
-            return 1
-        tlds = list(dict.fromkeys(tlds + catalog_tlds(prices)))
     try:
-        items = targets(args.names, tlds)
+        named = [normalize(tld) for tld in args.tlds.split(",") if tld.strip()] if args.tlds else []
+        targets(args.names, [])
     except ValueError as error:
         parser.error(str(error))
     if not shutil.which("dig"):
         print("error: dig is required for the DNS pass", file=sys.stderr)
         return 1
 
+    warnings = []
+    prices = cached("porkbun-pricing.json", DAY, fetch_prices, warnings)
+    if args.all:
+        if prices is None:
+            print("error: --all needs Porkbun's TLD catalog, which could not be fetched: " + "; ".join(warnings),
+                  file=sys.stderr)
+            return 1
+        icann = set(cached("psl-icann-suffixes.json", 30 * DAY, fetch_icann_suffixes, warnings) or ())
+        tlds = list(dict.fromkeys(named + list(ALL_EXTRA_TLDS) + catalog_tlds(prices, icann)))
+        always = set(named) | set(ALL_EXTRA_TLDS)
+    else:
+        tlds, always = named or list(DEFAULT_TLDS), set()
+    items = targets(args.names, tlds)
+
     counts = cached("tranco-tld-counts.json", 30 * DAY, fetch_tld_counts, warnings) or {}
     ranks = tld_ranks(counts, {item["tld"] for item in items})
-    whois_path = cache_dir() / "whois-servers.json"
-    whois_servers = json.loads(whois_path.read_text()) if whois_path.exists() else {}
-    registries = Registries(cached("rdap-servers.json", 7 * DAY, fetch_rdap_servers, warnings), whois_servers)
-    search(items, dns=dns_status, registry=registries.check, ranks=ranks, limit=args.limit if args.all else None)
-    whois_path.parent.mkdir(parents=True, exist_ok=True)
-    whois_path.write_text(json.dumps(registries.whois_servers))
+    whois_path, cooldown_path = cache_dir() / "whois-servers.json", cache_dir() / "cooldowns.json"
+    registries = Registries(cached("rdap-servers.json", 7 * DAY, fetch_rdap_servers, warnings),
+                            read_json(whois_path), read_json(cooldown_path))
+    search(items, dns=dns_status, registry=registries.check, ranks=ranks,
+           limit=args.limit if args.all else None, always=always)
+    write_json(whois_path, registries.whois_servers)
+    write_json(cooldown_path, registries.cooldowns)
 
     for item in items:
         item["rank"] = ranks.get(item["tld"])
-        item["price"] = (prices or {}).get(item["tld"])
-        if item["price"]:
-            item["price"] = {key: item["price"].get(key) for key in ("registration", "renewal", "transfer")}
+        price = (prices or {}).get(item["tld"])
+        item["price"] = {key: price.get(key) for key in ("registration", "renewal", "transfer")} if price else None
     if args.all:
         items.sort(key=lambda item: (item["rank"] or float("inf"), item["tld"]))
 
