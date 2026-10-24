@@ -27,6 +27,16 @@ queries, and access is limited by detecting and limiting bulk query access from 
 """
 
 
+def accepts_writes(directory):
+    probe = Path(directory, "probe")
+    try:
+        probe.touch()
+    except OSError:
+        return False
+    probe.unlink()
+    return True
+
+
 def items_for(names, tlds):
     return search_domains.targets(names, tlds)
 
@@ -333,6 +343,8 @@ class CacheTest(unittest.TestCase):
             os.chmod(directory, stat.S_IRUSR | stat.S_IXUSR)
             warnings = []
             try:
+                if accepts_writes(directory):
+                    self.skipTest("directory permissions do not block writes here, as for root")
                 with mock.patch.dict(os.environ, {"XDG_CACHE_HOME": directory}):
                     data = search_domains.cached("prices.json", 60, lambda: {"com": {}}, warnings)
             finally:
