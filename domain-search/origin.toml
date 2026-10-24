@@ -1,0 +1,118 @@
+format_version = 2
+skill = "domain-search"
+created = "2026-10-24"
+approach = "create"
+goal = "Tell the user which domain names they can register and what each one costs. Usually that means several names on a default set of TLDs, and sometimes one name across every TLD ordered by TLD popularity. Success is a bulleted answer with prices in which a domain is called available only when its registry confirmed it, and every result that could not be confirmed is reported with its reason."
+
+[[invariants]]
+rule = "A request can check several names in one run. When the user names no TLDs, each bare name is checked on .com, .ai, .app, .io and .dev; TLDs the user names replace that set."
+reason = "User decision on 2026-10-24: the user will almost always search several domains, and these five TLDs are the ones to search when they name none."
+where = ["SKILL.md#run-the-search", "scripts/search-domains.py"]
+
+[[invariants]]
+rule = "Every check reports each domain as a bullet with its status and Porkbun's first-year and renewal price, taken domains included, even when the user asks only about availability. A TLD that Porkbun does not price carries a tld-list.com comparison link instead. With --all, taken TLDs are only named, as the invariant on the --all registry limit states."
+reason = "User decision on 2026-10-24: whenever the user asks for a check, the answer must give the price, as bullet points with prices."
+where = ["SKILL.md#report-the-results", "scripts/search-domains.py", "tests/test_search_domains.py"]
+
+[[invariants]]
+rule = "--all covers every DNS-root TLD that Porkbun prices, plus .cl and .es, which Porkbun does not sell. Any other TLD, such as .fr, is checked only when the user names it. Whenever DNS shows no delegation, .cl, .es and every named TLD go to the registry, outside the --all registry limit."
+reason = "User decision on 2026-10-24: the user asked to search one name in every TLD, then chose Porkbun's catalog plus a fixed list of ccTLDs that Porkbun does not sell, and named .cl and .es for that list. Observed from the user's machine on 2026-10-24: covering the whole IANA root was rejected because registro.br answers RDAP 404 for name.br, which cannot be registered at the second level, so root-wide coverage would report false availability."
+where = ["SKILL.md#report-the-results", "scripts/search-domains.py", "tests/test_search_domains.py"]
+
+[[invariants]]
+rule = "The --all catalog excludes the Porkbun entries marked with specialType, which are Handshake names, and keeps a multi-label entry only when the ICANN section of the Public Suffix List lists it."
+reason = "Observed on 2026-10-24: Porkbun's catalog lists about 280 Handshake names outside the DNS root, and private registries such as br.com and com.de, whose names the ccTLD registry does not hold."
+where = ["scripts/search-domains.py", "tests/test_search_domains.py"]
+
+[[invariants]]
+rule = "A domain is reported available only on registry evidence: an RDAP 404 whose body is empty or JSON, or a WHOIS not-found answer read as the WHOIS classification invariant describes. When the registry check fails or is throttled, the domain is reported apart as unconfirmed, or as unknown when DNS gave no clear answer either, with its reason, never as available or probably available."
+reason = "Observed from the user's machine on 2026-10-24: tldx reported throttled lookups, such as google.live and google.kitchen, as available, and reported a lookup that timed out as available=true."
+where = ["SKILL.md#domain-search", "SKILL.md#report-the-results", "scripts/search-domains.py", "tests/test_search_domains.py"]
+
+[[invariants]]
+rule = "An available status means only that the registry has no record of the domain. Reserved and premium names have none either, so the registrar's checkout confirms whether the domain can be registered and at what price."
+where = ["SKILL.md#report-the-results", "scripts/search-domains.py"]
+
+[[invariants]]
+rule = "The bundled script, not the tldx domain-availability CLI, gives every verdict, and a script error is reported as the blocker. The script queries each registry server at most once per second. A server that throttles stays in cooldown, in later runs too, until its Retry-After or, without one, an hour has passed; a Retry-After of 30 seconds or less gets one retry first. Each request uses one script run for all its names."
+reason = "Observed from the user's machine on 2026-10-24: a tldx burst over 660 TLDs drew HTTP 429 with a Retry-After of about 86,284 seconds from rdap.identitydigital.services, which the IANA RDAP bootstrap maps to 451 TLDs, .ai and .info among them."
+where = ["SKILL.md#domain-search", "SKILL.md#run-the-search", "scripts/search-domains.py", "tests/test_search_domains.py"]
+
+[[invariants]]
+rule = "With --all, the registry checks at most 30 undelegated TLDs per name besides .cl, .es and the named TLDs, most popular first; --limit raises that number only as far as the user asks. The other undelegated TLDs are listed with their price and DNS evidence only, marked as not confirmed, and taken TLDs are named without a price. The skill offers no exhaustive registry pass that resumes across runs."
+reason = "Author's choice, not stated by the user: it keeps --all within the registry quota that the pacing invariant protects, which also rules out an exhaustive registry pass."
+where = ["SKILL.md#run-the-search", "SKILL.md#report-the-results", "scripts/search-domains.py", "tests/test_search_domains.py"]
+
+[[invariants]]
+rule = "The price of a .ai domain states its two-year minimum term, so the price line does not understate the first purchase."
+reason = "Observed on 2026-10-24: Dynadot's help page on .ai year restrictions, NameSilo and domains.co.za state a two-year minimum for .ai registration and renewal, and .ai is one of the default TLDs."
+where = ["scripts/search-domains.py"]
+
+[[invariants]]
+rule = "A TLD whose DNS resolves a random label, as .ph and .ws do, has wildcard DNS: its names go to the registry instead of counting as taken."
+reason = "Observed from the user's machine on 2026-10-24: wildcard DNS made the DNS pass mark vexlora.ws taken, although a manual check found it available."
+where = ["scripts/search-domains.py", "tests/test_search_domains.py"]
+
+[[invariants]]
+rule = "A WHOIS answer is classified from its first lines only, skipping comment lines and stopping at the terms of use. Throttling and error words are checked before the registered and not-found markers."
+reason = "Observed from the user's machine on 2026-10-24: Identity Digital's not-found answers for .ai, .io and .me append terms of use that mention \"too many queries\" and \"maintenance\"."
+where = ["scripts/search-domains.py", "tests/test_search_domains.py"]
+
+[[invariants]]
+rule = "An unconfirmed .cl or .es domain is reported with a link to its registry's site, https://www.nic.cl or https://www.dominios.es, where the user can check it."
+reason = "Observed from the user's machine on 2026-10-24: neither registry offers RDAP, and NIC Chile's WHOIS server and website and Red.es's WHOIS server did not answer."
+where = ["SKILL.md#report-the-results"]
+
+[[reference_documents]]
+url = "https://www.dynadot.com/help/question/ai-domains-year-restrictions"
+checked = "2026-10-24"
+role = "States the two-year minimum registration and renewal term for .ai that the .ai price invariant relies on."
+coverage = "The page as updated on 2026-05-25."
+
+[[dependencies]]
+kind = "local"
+name = "python3"
+required = true
+role = "Runs scripts/search-domains.py, which needs only the standard library; verified with Python 3.9.6 and 3.15.0."
+resolution = "Executable on PATH."
+
+[[dependencies]]
+kind = "local"
+name = "dig"
+required = true
+role = "Runs the DNS pass: an NS query shows whether each domain has a delegation, and a random-label query detects wildcard DNS. The script stops with an error when dig is missing."
+resolution = "Executable on PATH; macOS provides /usr/bin/dig."
+
+[[dependencies]]
+kind = "local"
+name = "porkbun-pricing-api"
+required = true
+role = "Supplies each TLD's standard first-year and renewal price and the catalog that --all covers. Without a fresh or cached copy, --all stops with an error and other runs show the tld-list.com link instead of a price."
+resolution = "https://api.porkbun.com/api/json/v3/pricing/get, called without an API key; the answer is cached for a day."
+decisions = [
+  "Porkbun is the price source because its pricing API was the only live registrar price API found that needs no key; this is the author's choice, not stated by the user.",
+]
+
+[[dependencies]]
+kind = "local"
+name = "registry-rdap-whois"
+required = true
+role = "Gives the verdict for each domain without a DNS delegation: the TLD registry's RDAP server first, then its WHOIS server."
+resolution = "RDAP servers come from the IANA RDAP bootstrap file https://data.iana.org/rdap/dns.json, cached for a week; WHOIS servers come from referrals by whois.iana.org on port 43, cached for 30 days."
+
+[[dependencies]]
+kind = "local"
+name = "tranco-list"
+required = false
+role = "Supplies the TLD popularity rank that orders --all results and chooses the TLDs the --all registry limit checks. Without it, TLDs are reported unranked."
+resolution = "https://tranco-list.eu/top-1m.csv.zip; the per-TLD counts are cached for 30 days."
+decisions = [
+  "--all lists results most popular TLD first because the user asked for that order on 2026-10-24. Popularity is the number of domains per TLD in the Tranco top-1M list; this measure is the author's choice, not stated by the user, because it is a free, reproducible list of popular sites.",
+]
+
+[[dependencies]]
+kind = "local"
+name = "public-suffix-list"
+required = false
+role = "Its ICANN section decides which multi-label Porkbun entries belong to the --all catalog, as the invariant on the --all catalog states. Without it, --all leaves out every multi-label entry."
+resolution = "https://publicsuffix.org/list/public_suffix_list.dat; the ICANN suffixes are cached for 30 days."
