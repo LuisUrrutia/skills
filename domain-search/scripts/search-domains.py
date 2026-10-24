@@ -12,6 +12,7 @@ import json
 import os
 from pathlib import Path
 import re
+import secrets
 import shutil
 import socket
 import subprocess
@@ -165,8 +166,14 @@ def catalog_tlds(prices, icann_suffixes):
 
 
 def tld_ranks(counts, tlds):
-    keys = {key for key in counts if "." not in key} | {tld for tld in tlds if "." in tld and tld in counts}
-    return {key: rank for rank, key in enumerate(sorted(keys, key=lambda key: (-counts[key], key)), 1)}
+    """Rank single-label TLDs by count; a requested second level such as co.uk takes the position its count
+    reaches without shifting the others, so a TLD keeps its rank whatever else a run checks."""
+    singles = sorted((key for key in counts if "." not in key), key=lambda key: (-counts[key], key))
+    ranks = {key: rank for rank, key in enumerate(singles, 1)}
+    for tld in tlds:
+        if "." in tld and tld in counts:
+            ranks[tld] = 1 + sum(counts[key] > counts[tld] for key in singles)
+    return ranks
 
 
 def normalize(name):
@@ -395,10 +402,15 @@ class Registries:
 def search(items, *, dns, registry, ranks, limit=None, always=()):
     """Set each item's status and evidence. With a limit, the registry hears about the TLDs in always plus that
     many other undelegated domains per name, most popular TLD first; the rest stay unchecked."""
+    # A TLD with wildcard DNS (.ph, .ws) resolves every name, so its DNS answer proves nothing.
+    probe = f"wildcard-probe-{secrets.token_hex(8)}"
+    tlds = sorted({item["tld"] for item in items})
     with concurrent.futures.ThreadPoolExecutor(32) as pool:
+        wildcard = {tld for tld, status in zip(tlds, pool.map(lambda tld: dns(f"{probe}.{tld}"), tlds))
+                    if status == "NOERROR"}
         for item, status in zip(items, pool.map(lambda item: dns(item["domain"]), items)):
-            item["dns"] = status
-            if status == "NOERROR":
+            item["dns"] = "WILDCARD" if item["tld"] in wildcard else status
+            if item["dns"] == "NOERROR":
                 item["status"], item["evidence"] = "taken", "DNS delegation"
     candidates = [item for item in items if item["dns"] != "NOERROR"]
     if limit is not None:

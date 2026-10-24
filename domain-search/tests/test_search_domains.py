@@ -71,12 +71,13 @@ class CatalogTest(unittest.TestCase):
 
 
 class RanksTest(unittest.TestCase):
-    def test_ranks_single_labels_and_requested_second_levels_by_count(self):
-        counts = {"com": 100, "uk": 30, "co.uk": 20, "github.io": 50, "io": 40}
+    def test_second_levels_take_a_position_without_shifting_single_label_ranks(self):
+        counts = {"com": 100, "uk": 30, "co.uk": 35, "github.io": 50, "io": 40, "de": 10}
 
         ranks = search_domains.tld_ranks(counts, {"co.uk"})
 
-        self.assertEqual(ranks, {"com": 1, "io": 2, "uk": 3, "co.uk": 4})
+        self.assertEqual(ranks, {"com": 1, "io": 2, "uk": 3, "de": 4, "co.uk": 3})
+        self.assertEqual(search_domains.tld_ranks(counts, set())["de"], 4)
 
 
 class WhoisTest(unittest.TestCase):
@@ -241,6 +242,22 @@ class SearchTest(unittest.TestCase):
         self.assertEqual(sorted(asked), ["acme.cl", "acme.com", "acme.io", "zeta.cl", "zeta.com", "zeta.io"])
         unchecked = sorted(item["domain"] for item in items if item["status"] == "unchecked")
         self.assertEqual(unchecked, ["acme.rare", "acme.xyz", "zeta.rare", "zeta.xyz"])
+
+    def test_wildcard_dns_tld_goes_to_the_registry_instead_of_counting_as_taken(self):
+        items = items_for(["acme"], ["ws", "com"])
+        asked = []
+
+        def dns(domain):
+            return "NOERROR" if domain.endswith(".ws") or domain == "acme.com" else "NXDOMAIN"
+
+        def registry(domain, tld):
+            asked.append(domain)
+            return "available", "WHOIS: no record"
+
+        search_domains.search(items, dns=dns, registry=registry, ranks={})
+
+        self.assertEqual(asked, ["acme.ws"])
+        self.assertEqual([item["status"] for item in items], ["available", "taken"])
 
     def test_a_failing_lookup_does_not_abort_the_other_domains(self):
         items = items_for(["acme"], ["com", "io"])
