@@ -280,6 +280,19 @@ class SearchTest(unittest.TestCase):
         self.assertEqual(asked, ["acme.ws"])
         self.assertEqual([item["status"] for item in items], ["available", "taken"])
 
+    def test_limit_still_checks_a_full_domain_the_request_names(self):
+        items = items_for(["acme", "acme.rare"], ["com", "io"])
+        asked = []
+
+        def registry(domain, tld):
+            asked.append(domain)
+            return "available", "RDAP: no record"
+
+        search_domains.search(items, dns=lambda domain: "NXDOMAIN", registry=registry, ranks={"com": 1, "io": 2},
+                              limit=1, pinned={"acme.rare"})
+
+        self.assertEqual(sorted(asked), ["acme.com", "acme.rare"])
+
     def test_a_failing_lookup_does_not_abort_the_other_domains(self):
         items = items_for(["acme"], ["com", "io"])
 

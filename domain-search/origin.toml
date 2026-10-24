@@ -44,7 +44,7 @@ reason = "Observed from the user's machine on 2026-10-24: a tldx burst over 660 
 where = ["SKILL.md#domain-search", "SKILL.md#run-the-search", "scripts/search-domains.py", "tests/test_search_domains.py"]
 
 [[invariants]]
-rule = "With --all, the registry checks at most 30 undelegated TLDs per name besides .cl, .es and the named TLDs, most popular first; --limit raises that number only as far as the user asks. Every TLD left unchecked is listed with its price, marked as not confirmed and, when its DNS was wildcard or failed, with that DNS state; taken TLDs are named without a price. The skill offers no exhaustive registry pass that resumes across runs."
+rule = "With --all, the registry checks at most 30 undelegated TLDs per name besides .cl, .es, the named TLDs and any full domain the request names, most popular first; --limit raises that number only as far as the user asks. Every TLD left unchecked is listed with its price, marked as not confirmed and, when its DNS was wildcard or failed, with that DNS state; taken TLDs are named without a price. The skill offers no exhaustive registry pass that resumes across runs."
 reason = "Author's choice, not stated by the user: it keeps --all within the registry quota that the pacing invariant protects, which also rules out an exhaustive registry pass."
 where = ["SKILL.md#run-the-search", "SKILL.md#report-the-results", "scripts/search-domains.py", "tests/test_search_domains.py"]
 

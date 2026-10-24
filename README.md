@@ -707,7 +707,7 @@ Check whether domain names are available to register and what they cost.
 
 **Features:**
 - Checks several names in one run, by default on .com, .ai, .app, .io and .dev
-- Counts a DNS-delegated domain as taken and asks the TLD's registry over RDAP or WHOIS about the rest; a failed or throttled check stays unconfirmed instead of available
+- Counts a DNS-delegated domain as taken and asks the TLD's registry over RDAP or WHOIS about the rest; a failed or throttled check is never reported available
 - Searches every TLD that Porkbun prices, plus .cl and .es, by TLD popularity in the Tranco top-1M list; the registry checks the 30 most popular open TLDs per name, and the rest are listed with DNS evidence only
 - Reports each domain as a bullet with Porkbun's public first-year and renewal prices, fetched without an API key
 - Paces queries per registry server and keeps a throttling server in cooldown across runs, because one registry blocks bursts for 24 hours

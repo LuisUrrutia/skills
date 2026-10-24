@@ -51,7 +51,8 @@ availability. With these statuses:
   .cl or .es gets a link to https://www.nic.cl or https://www.dominios.es:
   neither registry offers RDAP, and their WHOIS servers did not answer this
   machine.
-- **unknown:** neither DNS nor the registry answered.
+- **unknown:** DNS gave no clear answer, because it failed or the TLD has
+  wildcard DNS, and the registry check failed too.
 
 Point out a renewal well above the first-year price. To compare registrars for
 a shortlisted TLD, link `https://tld-list.com/tld/<tld>`. When you recommend a

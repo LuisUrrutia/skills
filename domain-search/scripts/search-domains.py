@@ -410,9 +410,10 @@ class Registries:
         return None, "; ".join(notes)
 
 
-def search(items, *, dns, registry, ranks, limit=None, always=()):
-    """Set each item's status and evidence. With a limit, the registry hears about the TLDs in always plus that
-    many other undelegated domains per name, most popular TLD first; the rest stay unchecked."""
+def search(items, *, dns, registry, ranks, limit=None, always=(), pinned=()):
+    """Set each item's status and evidence. With a limit, the registry hears about the TLDs in always, the
+    domains in pinned, and that many other undelegated domains per name, most popular TLD first; the rest stay
+    unchecked."""
     # A TLD with wildcard DNS (.ph, .ws) resolves every name, so its DNS answer proves nothing.
     probe = f"wildcard-probe-{secrets.token_hex(8)}"
     tlds = sorted({item["tld"] for item in items})
@@ -430,9 +431,10 @@ def search(items, *, dns, registry, ranks, limit=None, always=()):
             by_name.setdefault(item["name"], []).append(item)
         candidates = []
         for group in by_name.values():
-            ranked = sorted((item for item in group if item["tld"] not in always),
+            kept = [item for item in group if item["tld"] in always or item["domain"] in pinned]
+            ranked = sorted((item for item in group if item not in kept),
                             key=lambda item: (ranks.get(item["tld"], float("inf")), item["tld"]))
-            candidates += [item for item in group if item["tld"] in always] + ranked[:limit]
+            candidates += kept + ranked[:limit]
             for item in ranked[limit:]:
                 item["status"], item["evidence"] = "unchecked", "not checked with the registry"
 
@@ -559,8 +561,8 @@ def main(argv=None):
     whois_path, cooldown_path = cache_dir() / "whois-servers.json", cache_dir() / "cooldowns.json"
     registries = Registries(cached("rdap-servers.json", 7 * DAY, fetch_rdap_servers, warnings),
                             read_json(whois_path), read_json(cooldown_path))
-    search(items, dns=dns_status, registry=registries.check, ranks=ranks,
-           limit=args.limit if args.all else None, always=always)
+    search(items, dns=dns_status, registry=registries.check, ranks=ranks, limit=args.limit if args.all else None,
+           always=always, pinned={item["domain"] for item in targets([n for n in args.names if "." in n], [])})
     persisted = [write_json(whois_path, registries.whois_servers), write_json(cooldown_path, registries.cooldowns)]
     if not all(persisted):
         warnings.append(f"could not write {cache_dir()}, so throttled servers will be queried again next run")
