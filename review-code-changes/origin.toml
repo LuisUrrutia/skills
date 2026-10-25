@@ -63,6 +63,11 @@ reason = "User decisions of 2026-10-25. A benchmark review dropped as not newly 
 where = ["references/protocol.md#diff-causality"]
 
 [[invariants]]
+rule = "An unmet standard whose remedy cannot be applied within the change, such as the name of a branch an open pull request already uses, is optional and recommends following the standard in later changes."
+reason = "User decision of 2026-10-25, after a benchmark review published as required a branch-name finding that the review itself said could not be fixed in the pull request."
+where = ["references/protocol.md#calibrate-and-challenge-findings"]
+
+[[invariants]]
 rule = "An optional remedy that lies outside the change's purpose is recommended as a follow-up ticket rather than as a change to the reviewed code."
 reason = "User decision of 2026-10-25 that maintainability findings suggest a ticket or a solution. The split by the change's purpose, a ticket outside it and a solution within it, was proposed by the coordinator and confirmed by the user the same day."
 where = ["references/protocol.md#calibrate-and-challenge-findings"]
