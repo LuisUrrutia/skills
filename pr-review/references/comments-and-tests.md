@@ -17,12 +17,11 @@ applies.
 - **Test level.** For each filter, rule or result-changing branch the production
   diff adds or changes, find the test that fails without it, as the supplement's
   census does, and record its level and the runtime it runs on, such as a mock,
-  an in-memory provider or the real database. A member pinned only below the
-  level that the standard governing its path requires, under that standard's own
-  exceptions, is a candidate; a sibling member's test on the required runtime, or
-  the file's existing lower-level pattern, does not count as that test. A PR body
-  coverage
-  claim the tests do not support is evidence for that candidate, recorded in
-  Review basis.
+  an in-memory provider or the real database. A member pinned only by tests whose
+  level or runtime falls short of what the standard governing its path requires,
+  under that standard's own exceptions, is a candidate; a sibling member's test on
+  the required runtime, or the file's existing lower-level pattern, does not count
+  as that test. A PR body coverage claim the tests do not support is evidence
+  for that candidate, recorded in Review basis.
 
 Each supported item becomes a candidate that the protocol judges.
