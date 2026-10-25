@@ -220,6 +220,21 @@ change = "Replaced selecting test-only and tooling comments only when requested 
 reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On both benchmark PRs the rule kept verified test gaps, story mock defects and typed-fixture violations on code the PR added internal, while the other skill surfaced them."
 where = ["SKILL.md#word-select-and-publish"]
 
+[[local_snapshots.deviations]]
+change = "Added a parent comment and test sweep, run beside the maintainability sweep. It checks the comments the diff adds or changes, existing comments on changed members and the summaries of interfaces a changed member implements, test summaries included, against the head's behavior, and the added or changed ones against the repository's comment rules. For each new or changed filter, rule or branch it checks the level and runtime of the test that fails without it against the standard governing its path, which a sibling's test or the file's lower-level pattern does not satisfy. Engines record that runtime in their census."
+reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On a third benchmark PR, each of two runs of the same revision kept comment findings the other run missed, and only one kept a filter tested only on an in-memory database, although both runs' engines carried the supplement's comment rule and census and the repository's testing standard."
+where = ["references/comments-and-tests.md", "references/audit-supplement.md", "SKILL.md#run-and-reconcile", "references/ledger.md#questions-seams-and-synthesis"]
+
+[[local_snapshots.deviations]]
+change = "Added to the maintainability sweep's near-copy check that when the diff adds one member to several statements, those statements are compared whole."
+reason = "User decision of 2026-10-25 that pre-existing issues in an expression the change edits be suggested as optional tickets. On the same PR one run compared only the shared membership check the diff added to four handlers and missed that the rest of their predicate repeated and had drifted."
+where = ["references/maintainability.md"]
+
+[[local_snapshots.deviations]]
+change = "Replaced placing only required findings without a line anchor in the review body with placing every selected finding without one there."
+reason = "User decision of 2026-10-25 that an unmet standard whose remedy no longer serves the change is optional, with a follow-up. Such a finding, like a branch name, has no line anchor, and comment selection posts optional findings."
+where = ["SKILL.md#word-select-and-publish"]
+
 [[dependencies]]
 kind = "local"
 name = "review-code-changes"
@@ -231,6 +246,8 @@ decisions = [
   "Later caller lenses stay in references/audit-supplement.md until a separately authorized auditor update.",
   "2026-10-13, at the user's direction: the caller-evidence rule for caller-, host- and mode-specific failures went into the auditor protocol as an authorized auditor update, because it governs every audit and both the engines and this coordinator judge with it.",
   "2026-10-25, at the user's direction: the rule that a reachable trigger's rarity narrows Affected rather than severity went into the auditor protocol as an authorized auditor update, because the engines grade severity before the coordinator does.",
+  "2026-10-25, with the user's approval of the change: carrying a pre-existing defect that lies in an expression the change edits, and counting repetition the change extends as part of its resulting structure, went into the auditor protocol as an authorized auditor update, because the auditor owns Class and Action.",
+  "2026-10-25, with the user's approval of the change: making optional an unmet standard whose remedy would no longer serve the change went into the auditor protocol as an authorized auditor update, because the auditor owns Class and Action.",
 ]
 
 [[dependencies]]

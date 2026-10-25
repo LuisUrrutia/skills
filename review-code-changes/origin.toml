@@ -58,9 +58,19 @@ reason = "User direction on 2026-10-13, after a PR review published a required f
 where = ["references/protocol.md#trace-candidates", "references/protocol.md#report-grammar"]
 
 [[invariants]]
-rule = "A pre-existing defect that stays reachable through an expression whose logic the change rewrites, beyond a mechanical rename or move, or through a writer behavior the change deliberately keeps, is carried: it is retained as optional, or as required when it defeats the change's purpose, and its Diff cause names the rewrite or the kept writer. A failure the change introduces or newly makes reachable stays required. Other pre-existing defects stay excluded, and the Coverage line that excludes one names the carry condition it fails."
-reason = "User decision of 2026-10-25, after a benchmark review dropped as not newly introduced a blank state display whose lookup the change rewrote while it deliberately kept storing unresolved state names; the user wanted it reported as optional."
-where = ["references/protocol.md#diff-causality"]
+rule = "A pre-existing defect in an expression whose logic the change edits, such as a predicate it adds a condition to, beyond a mechanical rename or move, or one reachable through a writer behavior the change deliberately keeps, is carried: optional, or required when it defeats the change's purpose, with a Diff cause naming the edit or kept writer. An edited caller does not carry a defect in unchanged code it calls. A failure the change introduces or newly makes reachable stays required; other pre-existing defects stay excluded, and their Coverage line names the carry condition each fails."
+reason = "User decisions of 2026-10-25. A benchmark review dropped as not newly introduced a blank state display whose lookup the change rewrote while it deliberately kept storing unresolved state names, and the user wanted it reported as optional. On a later benchmark one run excluded a missing active-document check in a predicate the change added a condition to because the diff did not rewrite that condition, and the user approved carrying a defect in any expression the change edits."
+where = ["references/protocol.md#diff-causality", "references/protocol.md#report-grammar"]
+
+[[invariants]]
+rule = "Repetition the change extends, such as a predicate repeated per handler that it edits in every copy, is part of the change's resulting structure whatever its age, and drift between the copies is a demonstrable cost."
+reason = "User decision of 2026-10-25 that pre-existing issues in an expression the change edits be suggested as optional tickets. On that benchmark both runs dropped as pre-existing a login-document predicate repeated per handler that the change edited in every copy, where one copy had already drifted, and another review skill reported the repetition as a ticket."
+where = ["references/protocol.md#structure-and-maintainability"]
+
+[[invariants]]
+rule = "An unmet standard whose remedy would no longer serve this change, such as renaming the head branch that an open pull request and the pull requests stacked on it already use, is optional and recommends the standard for later changes. A remedy still owed for this change keeps its Action when it lies outside the diff, such as a pull request title, a commit message, a registry entry or a counterpart repository."
+reason = "User decision of 2026-10-25, after a benchmark review published as required a branch-name finding that the review itself said could not be fixed in the pull request. Keeping the Action of remedies still owed outside the diff guards against demoting them under the same rule."
+where = ["references/protocol.md#calibrate-and-challenge-findings"]
 
 [[invariants]]
 rule = "An optional remedy that lies outside the change's purpose is recommended as a follow-up ticket rather than as a change to the reviewed code."
@@ -783,7 +793,7 @@ idea = "Keep a defect only when the declared change causes or newly exposes it, 
 serves = "Ties every finding to the reviewed change."
 where = ["references/protocol.md#diff-causality", "references/protocol.md#report-grammar"]
 shapes = "Diff causality is the first lens, and every finding carries a Diff cause line."
-adapted = "Locally, a pre-existing defect that the change carries, through an expression whose logic it rewrites or a writer behavior it deliberately keeps, is also retained, as optional unless it defeats the change's purpose."
+adapted = "Locally, a pre-existing defect that the change carries, as the carried-defect invariant defines, is also retained, as optional unless it defeats the change's purpose."
 
 [[local_snapshots.ideas]]
 idea = "Trace a behavioral claim through each leg that exists for it: the writer that can give the value, the producer that carries it, the consumer where the failure occurs, the schema that constrains it, the final send after later mutations, and the counterpart of a generated, external or cross-module contract."

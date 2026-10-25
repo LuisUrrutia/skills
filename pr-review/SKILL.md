@@ -69,9 +69,10 @@ to change permissions, scope or reviewers.
    [reviewers.md](references/reviewers.md). In T3, launch app-owned child tasks;
    outside T3, use the CLI supervisor. Start both complete attempts and an
    isolated feedback collector. Participants must not delegate or read each
-   other's reports, the ledger or existing feedback. Run the parent seam sweep
-   and the [maintainability sweep](references/maintainability.md) while they
-   work. Record `matches`, `gap` or `unreadable` for each triggered seam with
+   other's reports, the ledger or existing feedback. Run the parent seam sweep,
+   the [maintainability sweep](references/maintainability.md) and the
+   [comment and test sweep](references/comments-and-tests.md) while they work.
+   Record `matches`, `gap` or `unreadable` for each triggered seam with
    both revisions and the evidence. Missing access does not establish a defect.
 6. **Consume completion events.** Read [ledger.md](references/ledger.md) before
    reducing the first report. Validate canonical Markdown with the frozen auditor
@@ -137,9 +138,9 @@ existing authorization; suggestions grant no additional permission.
 10. **Anchor and publish.** Read [github.md](references/github.md), validate every
     anchor against the recorded diff side and revision, and create a structured
     review plan. For a finding outside the diff, choose a related changed line and
-    name the counterpart in that comment. A required finding with no line anchor,
-    such as PR title format, goes in the review body. The body starts with the
-    first such finding, as a list when there are several, with no lead-in such as
+    name the counterpart in that comment. A finding with no line anchor, such as
+    PR title format, goes in the review body. The body starts with the first such
+    finding, as a list when there are several, with no lead-in such as
     "a few things that have no line in the diff:". Choose the event:
     - **APPROVE** only when every requested engine succeeded, no supported
       required finding still stands (new, previously posted, in the body or in

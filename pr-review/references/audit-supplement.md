@@ -29,7 +29,8 @@ still owns evidence, severity, Class, Action and report grammar.
   previous behavior when it changed. A member with no such test is a finding,
   and so is an added test that still passes with its target member deleted; a
   behavior-neutral member needs only the evidence that it is neutral. Record the
-  census on that path's single Coverage line: each member with its test, or `none`.
+  census on that path's single Coverage line: each member with its test and the
+  runtime that test runs on, or `none`.
 - An added or changed test that asserts behavior a finding shows defective, or
   that covers only a shape the writers can no longer produce while the shape that
   fails stays untested, is an affected site of that finding with its own anchor
