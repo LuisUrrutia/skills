@@ -186,23 +186,23 @@ reason = "User decision of 2026-10-25 that a new test pinning a regression be fi
 where = ["SKILL.md#word-select-and-publish"]
 
 [[local_snapshots.deviations]]
-change = "Added to the caller supplement three lenses: compare each variant of a changed expression that several variants share, such as API versions or payment methods, at base and head; trace what clears each error, loading, disabled or selected state the diff sets in a UI or form; and treat a comment the diff makes untrue as a finding."
+change = "Added to the caller supplement: compare each variant of a changed expression that several variants share at base and head, including the configuration that selects it, under the sibling-semantics rule's recorded-decision qualifier; trace what clears each UI or form state the diff sets; and treat a comment the diff makes untrue as a finding."
 reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On a second benchmark PR the other skill found a builder link change made for one API version that broke the other, an answer error that stayed after the input was corrected, and a doc comment the change made false; both engines had reviewed those files."
 where = ["references/audit-supplement.md"]
 
 [[local_snapshots.deviations]]
-change = "When a diff adds or changes rendered UI, the packet carries the accessibility skill's web or platform reference as review practice, and the supplement asks for distinct accessible names or a labelled group for repeated controls and a defined focus destination after an element is added, removed or disabled."
-reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On the same PR the other skill found repeated row labels with no group name and focus lost after deleting a row; no accessibility criteria reached the engines."
-where = ["SKILL.md#prepare-one-reproducible-review", "references/audit-supplement.md"]
+change = "For a diff that changes rendered UI, the supplement checks distinct accessible names or a labelled group for repeated controls and a focus destination after an element is added, removed or disabled, under the repository's own accessibility target. When the accessibility skill resolves, its reference enters the packet under a path-derived name with the review-practice class, which directs checks without making a change required; otherwise the run continues."
+reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On the same PR the other skill found repeated row labels with no group name and focus lost after deleting a row; the packet's accessibility baseline covered contrast, visible focus and labels but not those checks."
+where = ["SKILL.md#prepare-one-reproducible-review", "references/audit-supplement.md", "references/profiles.md"]
 
 [[local_snapshots.deviations]]
-change = "Added to the seam sweep that a migration, backfill or job that rewrites stored values opens a seam for each published contract that returns them, recording what its consumers see before and after."
+change = "Added to the seam sweep that a migration, backfill or job that rewrites stored values opens a seam for each published contract that returns them. A value the rewrite changes in what a consumer reads is a gap even when shapes match: a question for the contract owner when undocumented, a candidate defect when a published contract documents it."
 reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On the same PR a backfill changed what integrator-facing APIs return, and no seam opened because the sweep opens seams by changed path."
-where = ["references/seams.md"]
+where = ["references/seams.md", "SKILL.md#prepare-one-reproducible-review", "references/profile-schema.md"]
 
 [[local_snapshots.deviations]]
-change = "Refined the maintainability sweep to search the same app or package first, hand-written test helpers and mocks included, and to compare what each copy of copied data counts or matches, such as characters, UTF-16 units or bytes, not only its value."
-reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On the same PR the sweep compared story handlers only with generated helpers and missed a hand-written copy in the same app, and listed copies of a length limit without noticing that two of them count different units."
+change = "Refined the maintainability sweep to search first the packages a changed file imports from, their fixtures, handlers, helpers and mocks included, then the same app or package, and for a mock or handler the existing handler of the same route; and to compare copies and writers by what they count or match, such as the unit a length counts, not only their values."
+reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On the same PR the sweep compared story handlers only with generated helpers and missed a hand-written copy in the shared package the story imports its fixtures from, and compared two writers of one value without noticing that their length limits count different units."
 where = ["references/maintainability.md"]
 
 [[local_snapshots.deviations]]
@@ -211,12 +211,12 @@ reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmar
 where = ["references/ledger.md"]
 
 [[local_snapshots.deviations]]
-change = "Both seats request effort xhigh, or the highest the catalog offers below it, unless the user or profile requests other settings, on the CLI and in T3."
+change = "Both seats request effort xhigh, or the highest the model offers below it, unless the user requests other settings. In T3 the effort goes in target.options under the catalog's option id, an empty options list being the catalog default, and the returned options are compared with the request."
 reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On the same PR one seat ran at its catalog default effort while earlier benchmark runs used xhigh, which made the runs incomparable."
 where = ["references/t3-subagents.md", "references/reviewers.md"]
 
 [[local_snapshots.deviations]]
-change = "Replaced selecting test-only and tooling comments only when requested or when they are the PR's substance with posting a test, story or tooling finding whenever it concerns a file or behavior the PR adds or changes."
+change = "Replaced selecting test-only and tooling comments only when requested or when they are the PR's substance with selecting test, story and tooling findings like any other finding."
 reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On both benchmark PRs the rule kept verified test gaps, story mock defects and typed-fixture violations on code the PR added internal, while the other skill surfaced them."
 where = ["SKILL.md#word-select-and-publish"]
 
@@ -261,4 +261,4 @@ role = "Optional general prose guidance through comment-style."
 kind = "local"
 name = "accessibility"
 required = false
-role = "Web and platform accessibility reference passed to both engines as review practice when a diff adds or changes rendered UI."
+role = "Web and platform accessibility reference passed to both engines under the review-practice class when a diff changes rendered UI; a run without it records the gap and continues."

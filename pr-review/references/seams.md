@@ -23,7 +23,10 @@ unknown from absent.
 A migration, backfill or job that rewrites stored values changes what every
 reader of those values returns. Open a seam for each published contract that
 returns them, such as a public, partner or integrator API, and record what its
-consumers see before and after.
+consumers see before and after. A value the rewrite adds, changes or removes in
+what a consumer reads is a `gap` even when the shapes match: a question for the
+contract owner when nothing documents the value, and a candidate defect when a
+published contract documents it.
 
 For an operation both sides perform, such as a delete or a status change,
 compare its semantics as well as its shapes: soft or hard, reversible or not,
