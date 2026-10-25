@@ -6,15 +6,15 @@ The parent coordinates the same two independent attempts and owns synthesis.
 ## Dispatch
 
 1. Call `orchestrator_capabilities` and resolve the Codex and Claude provider,
-   model and supported effort options from that live catalog. Honor requested
-   profiles; otherwise request effort `xhigh` for both seats, or the highest the
-   catalog offers below it. Set it in `target.options` under the option id the
-   catalog lists for that model, such as `reasoningEffort` or `effort`; an empty
-   options list selects the catalog default, not the parent's setting. Compare the
-   returned options with the request and record them. Never infer provider IDs
-   from display names. If tools are initially
-   absent, use the host's documented discovery or ACP transport fallback before
-   reporting delegation unavailable.
+   model and supported effort options from that live catalog. Honor the
+   profiles, models and effort the user requests; otherwise request effort
+   `xhigh` for both seats, or the highest the catalog offers below it. Set it in
+   `target.options` under the option id the catalog lists for that model, such
+   as `reasoningEffort` or `effort`; an empty options list selects the catalog
+   default, not the parent's setting. Compare the returned options with the
+   request and record them. Never infer provider IDs from display names. If
+   tools are initially absent, use the host's documented discovery or ACP
+   transport fallback before reporting delegation unavailable.
 2. Verify the snapshot with `scripts/snapshot.py verify`. Initialize a parent-only
    `delegated-tasks.json` with the snapshot digest and an entry per seat containing
    provider, model, effort options, attempt, request ID, task ID, status and artifact paths.
