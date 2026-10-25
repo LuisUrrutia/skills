@@ -65,8 +65,9 @@ to change permissions, scope or reviewers.
    outside T3, use the CLI supervisor. Start both complete attempts and an
    isolated feedback collector. Participants must not delegate or read each
    other's reports, the ledger or existing feedback. Run the parent seam sweep
-   while they work. Record `matches`, `gap` or `unreadable` for each triggered seam
-   with both revisions and the evidence. Missing access does not establish a defect.
+   and the [maintainability sweep](references/maintainability.md) while they
+   work. Record `matches`, `gap` or `unreadable` for each triggered seam with
+   both revisions and the evidence. Missing access does not establish a defect.
 6. **Consume completion events.** Read [ledger.md](references/ledger.md) before
    reducing the first report. Validate canonical Markdown with the frozen auditor
    and complete inventory. Record exact failures, unavailable checks, coverage and
@@ -121,8 +122,11 @@ existing authorization; suggestions grant no additional permission.
    certainty when shortening or phrasing a question.
    A fix in another repository asks its owner rather than demanding an unrelated
    change in this PR. Keep every supported finding internally. Test-only or tooling
-   comments are selected when requested or when they are this PR's substance;
-   regressions in a required setup/build/run contract remain actionable regardless.
+   comments are selected when requested or when they are this PR's substance; a
+   test site of a finding outside tests is posted with it, and regressions in a
+   required setup/build/run contract remain actionable regardless. Other optional
+   findings are posted, a follow-up ticket suggestion included, unless an existing
+   ticket's text already names the remedy; the ledger then cites that ticket.
    Post one comment per verified site, with a short back-reference for repeated
    sites. Do not turn one root-cause ledger entry into one lost-anchor comment.
 10. **Anchor and publish.** Read [github.md](references/github.md), validate every

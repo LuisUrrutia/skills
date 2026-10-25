@@ -150,6 +150,41 @@ change = "Added to candidate reduction that the coordinator judges each candidat
 reason = "User decision of 2026-10-23. On the same PR the coordinator verified a missing test for one validator rule against two sibling rules that had tests and stopped there; a human reviewer then raised the untested remaining rules."
 where = ["references/ledger.md"]
 
+[[local_snapshots.deviations]]
+change = "Added to the seam sweep a version-skew comparison for a contract field removed, renamed or newly required between sides that can run different versions, through separate deploys, a rolling rollout or a client keeping an old build: each side at base against the other at head, in both directions, each a row naming its window. A skew gap where the old side reads, sends or omits the field is a candidate: a defect when its window can outlast a release or it writes lasting data, otherwise an optional improvement. An earlier PR with the same pattern records no decision."
+reason = "User decisions of 2026-10-25. On a benchmark review of a PR that removed contract fields, a break between a backend service and the API layer that reads it while old and new versions run together stayed an unposted question, and the same break between the single-page app and that service was never examined. The user then confirmed that releases deploy every service together, which leaves the rollout and old browser tabs as the windows; the coordinator proposed classing gaps by how long the window lasts and whether it writes lasting data, and the user accepted it."
+where = ["references/seams.md"]
+
+[[local_snapshots.deviations]]
+change = "Added a parent maintainability sweep, run beside the seam sweep while the workers review. It censuses near copies of what the diff adds or rewrites, blocks repeated across changed files and computations repeated within a function; data copied without a single source or equality test; writers of one stored value compared on the same input, where a difference is a cost without a caller and a new writer's difference is the diff's; newly read keys without a constraint, which writer validation does not replace; and work rebuilt from static data."
+reason = "User decisions of 2026-10-25. On a benchmark review of a PR, both engines received the protocol's structure lens and still raised one of ten maintainability issues that another reviewer found; the user chose a check owned by this skill over consulting that reviewer, which this skill never reads. Later runs missed a fixture repeated in 30 files and a new backfill that trims differently, skipped copies the diff rewrote rather than added, dropped writer differences for want of a caller and accepted writer canonicalization in place of a constraint."
+where = ["references/maintainability.md", "SKILL.md#run-and-reconcile", "references/ledger.md#questions-seams-and-synthesis"]
+
+[[local_snapshots.deviations]]
+change = "Added to candidate reduction that a defect an engine names but sets aside on a premise it could not settle is a pending candidate tied to that premise, judged again once the seam sweep, a resolved question or the parent's trace settles it."
+reason = "User decision of 2026-10-25. On a benchmark review, an engine named a carried display defect and set it aside because it could not tell whether an external system writes the triggering value; the seam sweep later read that system's writer, and the coordinator never returned to the defect."
+where = ["references/ledger.md#candidate-entries"]
+
+[[local_snapshots.deviations]]
+change = "Added to comment selection that optional findings outside tests and tooling are posted, a follow-up ticket suggestion included, unless an existing ticket's text already names the remedy, which the ledger then cites."
+reason = "User decision of 2026-10-25 that maintainability findings reach the author as a ticket suggestion or a solution; on a benchmark review the coordinator kept two verified ticket suggestions internal as follow-ups."
+where = ["SKILL.md#word-select-and-publish"]
+
+[[local_snapshots.deviations]]
+change = "Added that a merged question keeps every member its sources name, such as each contract or consumer, and that dropping a member needs its own reason."
+reason = "User decision of 2026-10-25. On the same benchmark review, one engine's question named both the API-layer and the frontend consumers of a contract change, and the merged question kept only the API layer."
+where = ["references/ledger.md#questions-seams-and-synthesis"]
+
+[[local_snapshots.deviations]]
+change = "Added to the caller supplement that a test asserting behavior a finding shows defective, or covering only a shape the writers can no longer produce while the failing shape stays untested, is an affected site of that finding with its own anchor and remedy."
+reason = "User decision of 2026-10-25. On the same benchmark review, a new integration test pinned a regression with a record the backfill already resolves, and the coordinator cited the test only as evidence of that regression instead of asking for it to be fixed."
+where = ["references/audit-supplement.md"]
+
+[[local_snapshots.deviations]]
+change = "Added to comment selection that a test site of a finding outside tests is posted with that finding, whatever the test-only selection rule says."
+reason = "User decision of 2026-10-25 that a new test pinning a regression be fixed before merge; the test-only selection rule would otherwise keep that site internal."
+where = ["SKILL.md#word-select-and-publish"]
+
 [[dependencies]]
 kind = "local"
 name = "review-code-changes"
