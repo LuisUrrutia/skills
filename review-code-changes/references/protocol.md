@@ -166,7 +166,8 @@ Classify findings as `correctness`, `security`, `requirements`, `standards`,
 `maintainability`, `performance`, or `verification`. Use `required` for a supported
 defect the change causes or newly exposes, unmet requirement/standard, or concrete
 material regression; use `optional` for a reasoned improvement and for a carried
-pre-existing defect unless it defeats the change's purpose. Severity describes consequence, not confidence:
+pre-existing defect unless it defeats the change's purpose. Severity describes
+consequence, not confidence:
 
 - `blocker`: an immediate release-blocking consequence such as demonstrated data
   destruction or broadly reachable critical compromise;

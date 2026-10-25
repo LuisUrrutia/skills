@@ -83,9 +83,9 @@ contract. Matching and unreadable seam verdicts are coverage, not automatic bugs
 Add maintainability sweep items the same way, with the sweep as their source;
 each check's census is coverage.
 Before external feedback is opened, every engine is terminal, every delivered
-candidate has a disposition, every opened seam has a verdict, every maintainability check has its census, and
-every material
-question has a resolution or an exact remaining premise.
+candidate has a disposition, every opened seam has a verdict, every
+maintainability check has its census, and every material question has a
+resolution or an exact remaining premise.
 
 Write canonical `review.md` using the resolved auditor's grammar, carrying the
 combined Review basis, Class/Action/Recommendation, questions, checks and actual

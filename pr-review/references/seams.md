@@ -5,9 +5,10 @@ workers review the frozen PR. A seam connects the changed side to another stack,
 generated contract or repository. Workers stop at explicitly caller-owned seams;
 the parent records both sides at exact revisions.
 
-For in-repo counterparts, use the PR head for the same-version comparison. Read relevant generated/vendored files
-and provenance, including ignored contracts when accessible. A readable committed
-proxy can settle a claim only when its provenance supports the relationship.
+For in-repo counterparts, use the PR head for the same-version comparison. Read
+relevant generated/vendored files and provenance, including ignored contracts
+when accessible. A readable committed proxy can settle a claim only when its
+provenance supports the relationship.
 For external counterparts, resolve the intended merged default branch to a SHA,
 unless the caller supplies another authoritative comparison. A linked PR's last
 commit or body does not prove the change shipped.

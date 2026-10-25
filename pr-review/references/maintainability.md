@@ -8,12 +8,13 @@ or changes, and record its census in the ledger: each member with what it was
 compared against and the outcome, or `none` when nothing applies.
 
 - **Near copies.** For each component, hook, helper, validator rule set, mapping
-  or fixture the diff adds or rewrites, search the repository by name, signature and body for
-  an equivalent, and compare the diff's new members with one another. Count the
-  changed files that repeat one literal block, such as a fixture data set, and
-  look inside each changed function for a lookup or computation it repeats. A
-  near copy, a repeated block or a repeated computation is a candidate whose
-  remedy reuses or extends the existing one, or computes it once.
+  or fixture the diff adds or rewrites, search the repository by name, signature
+  and body for an equivalent, and compare the diff's new members with one
+  another. Count the changed files that repeat one literal block, such as a
+  fixture data set, and look inside each changed function for a lookup or
+  computation it repeats. A near copy, a repeated block or a repeated
+  computation is a candidate whose remedy reuses or extends the existing one, or
+  computes it once.
 - **Copied data.** For each value set the diff copies from another source, such
   as a seed, enum, lookup table or constant list, find the single source or the
   test that keeps the copies equal, and name a sibling that already has such a
