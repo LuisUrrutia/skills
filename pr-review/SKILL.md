@@ -65,7 +65,7 @@ to change permissions, scope or reviewers.
    outside T3, use the CLI supervisor. Start both complete attempts and an
    isolated feedback collector. Participants must not delegate or read each
    other's reports, the ledger or existing feedback. Run the parent seam sweep
-   while they work. Record `matches`, `gap` or `unreadable` for each triggered seam
+   and the [maintainability sweep](references/maintainability.md) while they work. Record `matches`, `gap` or `unreadable` for each triggered seam
    with both revisions and the evidence. Missing access does not establish a defect.
 6. **Consume completion events.** Read [ledger.md](references/ledger.md) before
    reducing the first report. Validate canonical Markdown with the frozen auditor

@@ -156,6 +156,11 @@ reason = "User decisions of 2026-10-25. On a benchmark review of a PR that remov
 where = ["references/seams.md"]
 
 [[local_snapshots.deviations]]
+change = "Added a parent maintainability sweep, run beside the seam sweep while the workers review: a census of near copies of what the diff adds, data copied from another source without a single source or equality test, writers of one stored value that apply different rules, newly read keys without a constraint, and work rebuilt from static data. Supported items enter the ledger as candidates judged by the protocol, optional unless they change behavior or a repository standard requires them, and each check's census is coverage."
+reason = "User decision of 2026-10-25. On a benchmark review of a PR, both engines received the protocol's structure lens and still raised one of ten maintainability issues that another reviewer found, such as a near copy of an existing component, seed copies without an equality test and writers that trim differently; the user chose a check owned by this skill over consulting that other reviewer, which this skill never reads."
+where = ["references/maintainability.md", "SKILL.md#run-and-reconcile", "references/ledger.md#questions-seams-and-synthesis"]
+
+[[local_snapshots.deviations]]
 change = "Added that a merged question keeps every member its sources name, such as each contract or consumer, and that dropping a member needs its own reason."
 reason = "User decision of 2026-10-25. On the same benchmark review, one engine's question named both the API-layer and the frontend consumers of a contract change, and the merged question kept only the API layer."
 where = ["references/ledger.md#questions-seams-and-synthesis"]
