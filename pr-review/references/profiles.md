@@ -53,6 +53,9 @@ The classes:
   exceptions and any reversing repository rule still apply.
 - **team history**: rules mined from review threads; a lead until a standard or a
   traced consequence backs it.
+- **review practice**: a domain guide the parent supplies, such as an
+  accessibility reference. It directs what to check; the protocol classifies each
+  finding under it, so the guide alone makes no change required.
 
 Read a resolved profile's Halves and Seams while opening boundaries; Checkouts
 when crossing repositories; Blind spots for schemas and generated/vendored files;

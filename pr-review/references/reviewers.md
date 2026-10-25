@@ -49,8 +49,9 @@ python3 "$SKILL_DIR/scripts/reviewers.py" run \
   --pr-json "$SCRATCHPAD/pr.json" --scratchpad "$SCRATCHPAD"
 ```
 
-Optional explicit `--codex-model`, `--codex-effort`, `--claude-model` and
-`--claude-effort` values must come from the host's available catalog. Omitted model
+Pass `--codex-effort xhigh --claude-effort xhigh`, or the highest effort each
+CLI's model supports below it, unless the user requests other values. Explicit `--codex-model`, `--codex-effort`, `--claude-model`
+and `--claude-effort` values must come from the host's available catalog. Omitted model
 settings use engine defaults; the state records the request and CLI versions,
 not an invented actual model. Preserve native logs for any model/effort disclosed
 at runtime. `--worker-timeout` defaults to 1500 seconds. A failed seat may retry

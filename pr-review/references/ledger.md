@@ -62,7 +62,8 @@ such as the rules of one validator, census every member on the reviewed head wit
 the supplement's rule and family censuses before settling its extent. The protocol
 permits structural and requirements evidence without an invented runtime trace.
 Preserve required/optional Action even when an optional suggestion and a defect
-happen to share severity.
+happen to share severity. Synthesized severity follows the protocol's
+consequence rule: a rare trigger narrows Affected, not severity.
 
 A dropped claim retains its sources and a concrete Drop reason. A supported minority
 survives. A shared false positive is dropped. Calibration shapes and an engine's

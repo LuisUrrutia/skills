@@ -40,14 +40,19 @@ preserve independently useful work.
    base, including stacked PR bases; do not substitute the tracking branch or
    `main`. A supplied SHA that is unavailable is a prerequisite to resolve.
 3. **Write `review-context.md`.** Use the Brief below. Open every seam triggered
-   by the changed paths, using the profile or repository evidence. Name its
-   direction, counterpart revision and missing access. Read
-   [seams.md](references/seams.md) for the sweep contract. Explain an empty seam
-   set. Keep existing feedback and prior conclusions out of the common brief.
+   by the changed paths or by a rewrite of stored values, using the profile or
+   repository evidence. Name its direction, counterpart revision and missing
+   access. Read [seams.md](references/seams.md) for the sweep contract. Explain
+   an empty seam set. Keep existing feedback and prior conclusions out of the
+   common brief.
 4. **Freeze the shared packet.** Read [reviewers.md](references/reviewers.md),
    then run `scripts/snapshot.py prepare` with the catalog-resolved auditor,
    context, PR input and any filtered profile. Supply every applicable domain
-   guide through `--rules` so both engines receive it. The helper records
+   guide through `--rules` so both engines receive it. When the diff adds or
+   changes rendered UI and the `accessibility` skill resolves by registered name,
+   stage its web or platform reference under a path-derived name and pass it
+   with the review-practice class from [profiles.md](references/profiles.md);
+   when it is unavailable, record that and continue. The helper records
    immutable base/head/merge-base, the unique changed-path JSON (including deleted
    paths), a rename-origin map, the exact diff, source hashes and actual Git state.
    Its private manifest remains with the parent. Only review-relevant profile
@@ -121,9 +126,9 @@ existing authorization; suggestions grant no additional permission.
    observation. Preserve required versus optional status, consequence and
    certainty when shortening or phrasing a question.
    A fix in another repository asks its owner rather than demanding an unrelated
-   change in this PR. Keep every supported finding internally. Test-only or tooling
-   comments are selected when requested or when they are this PR's substance; a
-   test site of a finding outside tests is posted with it, and regressions in a
+   change in this PR. Keep every supported finding internally. Test, story and
+   tooling findings are selected like any other finding; a test site of a finding
+   outside tests is posted with it, and regressions in a
    required setup/build/run contract remain actionable regardless. Other optional
    findings are posted, a follow-up ticket suggestion included, unless an existing
    ticket's text already names the remedy; the ledger then cites that ticket.

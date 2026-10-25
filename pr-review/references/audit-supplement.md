@@ -35,12 +35,29 @@ still owns evidence, severity, Class, Action and report grammar.
   fails stays untested, is an affected site of that finding with its own anchor
   and remedy.
 - For a public contract concept the change adds or alters, such as a date range,
-  pagination, masking or an enum, compare its semantics with the sibling endpoints
-  of the same API version. Run the examples in the supplied conventions or
-  specification, and the most common realistic input, such as a date-only bound,
-  through the code. A divergence from those semantics, or from siblings that
-  follow them, without a recorded decision is a finding, or a question when only
-  intent decides it; disclosing it in the PR body records no decision.
+  pagination, masking or an enum, compare its semantics with the sibling
+  endpoints of the same API version. Run the examples in the supplied
+  conventions or specification, and the most common realistic input, such as a
+  date-only bound, through the code. When a changed expression or branch serves
+  several variants, such as API versions, payment methods or environments,
+  compare each variant's result at base and head, including the configuration
+  that selects it. A divergence from those semantics, from siblings that follow
+  them, or in a variant the PR does not target, without a recorded decision is a
+  finding, or a question when only intent decides it; disclosing it in the PR
+  body records no decision.
+- For an error, loading, disabled or selected state the diff sets in a UI or
+  form, including an error set from a server response, trace what clears it. A
+  state that outlives its cause, such as an error that stays after the input is
+  corrected, is a candidate.
+- A comment, doc comment, XML summary or docstring that the diff makes untrue is
+  a finding under the standard that governs comments, or optional where none
+  does.
+- For rendered UI the diff adds or changes, check that repeated controls have
+  distinct accessible names or a labelled group, and that focus has a defined
+  destination after the diff adds, removes or disables an element, counting
+  focus the UI or form library already moves. The repository's accessibility
+  target governs; the packet's accessibility reference, when present, supplies
+  further checks.
 - Trace suggested remedies with the same care as diagnoses. Census all members
   when a change applies a rule to a family of fields, handlers or call sites;
   preserve the affected members and distinct consequences through synthesis.
