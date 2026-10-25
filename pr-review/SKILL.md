@@ -123,7 +123,9 @@ existing authorization; suggestions grant no additional permission.
    change in this PR. Keep every supported finding internally. Test-only or tooling
    comments are selected when requested or when they are this PR's substance; a
    test site of a finding outside tests is posted with it, and regressions in a
-   required setup/build/run contract remain actionable regardless.
+   required setup/build/run contract remain actionable regardless. Other optional
+   findings are posted, a follow-up ticket suggestion included, unless an existing
+   ticket's text already names the remedy; the ledger then cites that ticket.
    Post one comment per verified site, with a short back-reference for repeated
    sites. Do not turn one root-cause ledger entry into one lost-anchor comment.
 10. **Anchor and publish.** Read [github.md](references/github.md), validate every
