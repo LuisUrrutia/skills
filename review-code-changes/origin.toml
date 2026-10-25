@@ -27,6 +27,11 @@ rule = "Severity describes consequence, not confidence or agreement. Reviewer co
 where = ["references/protocol.md#calibrate-and-challenge-findings", "SKILL.md#deliver-the-report"]
 
 [[invariants]]
+rule = "Once a trigger is reachable, its rarity or a small population narrows Affected and does not lower the severity the consequence earns."
+reason = "User decision of 2026-10-25 to fix weak aspects that benchmark comparisons expose: an engine and its coordinator lowered an irreversible deletion of integrator data and a data loss during rollout to low because their triggers were rare."
+where = ["references/protocol.md#calibrate-and-challenge-findings"]
+
+[[invariants]]
 rule = "Sequential passes or personas in one context are perspectives, not independent agents, and are never cited as evidence of independent subagents."
 where = ["references/delegation.md#select-work-from-the-risks"]
 

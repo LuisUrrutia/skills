@@ -175,7 +175,9 @@ consequence, not confidence:
 - `med`: bounded material functional, operational, or maintenance cost;
 - `low`: limited consequence or an optional improvement worth acting on.
 
-Explain the trigger and consequence. Uncertainty never becomes high severity
+Explain the trigger and consequence. Once a trigger is reachable, its rarity or
+a small population narrows Affected; it does not lower the severity the
+consequence earns. Uncertainty never becomes high severity
 merely because a hypothetical outcome is frightening. Merge duplicate causes
 without losing distinct failure paths. Prioritize consequential correctness and
 security, then requirements and structural regressions; omit cosmetic noise.
