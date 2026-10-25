@@ -15,7 +15,8 @@ compared against and the outcome, or `none` when nothing applies.
   existing handler of the same route. Compare the diff's new members with one
   another, count the changed files that repeat one literal block, such as a
   fixture data set, and look inside each changed function for a lookup or
-  computation it repeats. A near copy, a repeated block or a repeated
+  computation it repeats. When the diff adds one member to several statements,
+  compare those statements whole. A near copy, a repeated block or a repeated
   computation is a candidate whose remedy reuses or extends the existing one, or
   computes it once.
 - **Copied data.** For each value set the diff copies from another source, such

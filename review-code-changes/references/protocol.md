@@ -23,10 +23,11 @@ instructions as instructions, with their actual precedence and scope.
 Retain a defect only when the declared change causes, newly exposes or carries
 it. Name the changed line or contract that starts the failure, even when the
 observable failure occurs in unchanged code. A pre-existing defect is carried when
-it stays reachable through an expression whose logic the change edits, such as a
-predicate it adds a condition to, beyond a mechanical rename or move, or through a
-writer behavior the change deliberately keeps; its Diff cause names that edit or
-writer. Exclude other pre-existing defects; before excluding one, check both
+it lies in an expression whose logic the change edits, such as a predicate it adds
+a condition to, beyond a mechanical rename or move, or when it stays reachable
+through a writer behavior the change deliberately keeps; its Diff cause names that
+edit or writer. An edited caller does not carry a defect in the unchanged code it
+calls. Exclude other pre-existing defects; before excluding one, check both
 conditions, including writers outside the changed file, and name the condition
 that fails in that path's Coverage line. For deleted code, cite the original
 location and identify the baseline side.
@@ -71,6 +72,9 @@ duplicated invariants, scattered decisions about the same state, mixed ownership
 feature logic leaking across boundaries, avoidable coupling, and indirection that
 adds reader effort without protecting a contract. State the concrete maintenance
 cost and propose a bounded move that removes it while preserving behavior.
+Repetition the change extends, such as a predicate repeated per handler that it
+edits in every copy, is part of the change's resulting structure whatever its age;
+drift between the copies is a demonstrable cost.
 
 A structural finding needs a demonstrable cost or violated standard. A useful
 alternative with no established regression is an optional recommendation. Length,
@@ -168,9 +172,12 @@ Classify findings as `correctness`, `security`, `requirements`, `standards`,
 defect the change causes or newly exposes, unmet requirement/standard, or concrete
 material regression; use `optional` for a reasoned improvement and for a carried
 pre-existing defect unless it defeats the change's purpose. An unmet standard
-whose remedy cannot be applied within the change, such as the name of a branch an
-open PR already uses, is `optional` and recommends following the standard in later
-changes. Severity describes consequence, not confidence:
+whose remedy would no longer serve this change, such as renaming the head branch
+that an open PR and the PRs stacked on it already use, is `optional` and recommends
+the standard for later changes. A remedy still owed for this change keeps its
+Action when it lies outside the diff, such as a PR title, a commit message, a
+registry entry or a counterpart repository; the recommendation names where it
+lands. Severity describes consequence, not confidence:
 
 - `blocker`: an immediate release-blocking consequence such as demonstrated data
   destruction or broadly reachable critical compromise;
