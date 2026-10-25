@@ -220,6 +220,11 @@ change = "Replaced selecting test-only and tooling comments only when requested 
 reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On both benchmark PRs the rule kept verified test gaps, story mock defects and typed-fixture violations on code the PR added internal, while the other skill surfaced them."
 where = ["SKILL.md#word-select-and-publish"]
 
+[[local_snapshots.deviations]]
+change = "Added a parent comment and test sweep, run beside the maintainability sweep. It censuses the comments the diff adds or changes, those describing changed code and the summaries of interfaces or contracts a changed member implements, test summaries included, against the head's behavior and the repository's comment rules; and, for each new or changed filter, rule or branch, the level and runtime of the test that fails without it, against the testing standard and the PR body's coverage claims."
+reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On a third benchmark PR, each of two runs of the same revision kept comment findings the other run missed, and only one kept a filter tested only on an in-memory database, although both runs' engines carried the supplement's rules for them."
+where = ["references/comments-and-tests.md", "SKILL.md#run-and-reconcile", "references/ledger.md#questions-seams-and-synthesis"]
+
 [[dependencies]]
 kind = "local"
 name = "review-code-changes"
