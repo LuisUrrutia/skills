@@ -20,6 +20,11 @@ recorded SHA. A 404 can mean access failure, a wrong revision or a missing path;
 it does not by itself identify which. Preserve authentication and distinguish
 unknown from absent.
 
+A migration, backfill or job that rewrites stored values changes what every
+reader of those values returns. Open a seam for each published contract that
+returns them, such as a public, partner or integrator API, and record what its
+consumers see before and after.
+
 For an operation both sides perform, such as a delete or a status change,
 compare its semantics as well as its shapes: soft or hard, reversible or not,
 and what each side keeps. When that comparison shows a field removed, renamed or
