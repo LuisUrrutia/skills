@@ -212,7 +212,7 @@ decisive unknowns to Open questions.
 Class: correctness
 Action: required
 Affected: Reachable population or workflow.
-Diff cause: The introduced change that causes the issue, or the rewrite that carries it.
+Diff cause: The introduced change that causes the issue, or the rewrite or kept writer behavior that carries it.
 Impact: The trigger and its consequence.
 Evidence:
 - producer | `path/to/file:42` | What the inspected source establishes.
