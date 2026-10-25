@@ -41,6 +41,19 @@ still owns evidence, severity, Class, Action and report grammar.
   through the code. A divergence from those semantics, or from siblings that
   follow them, without a recorded decision is a finding, or a question when only
   intent decides it; disclosing it in the PR body records no decision.
+- When a changed expression or branch serves several variants, such as API
+  versions, payment methods or environments, compare each variant's result at
+  base and head. A change made for one variant that alters another is a
+  candidate, even when the PR targets only one.
+- For an error, loading, disabled or selected state the diff sets in a UI or
+  form, trace what clears it. A state that outlives its cause, such as an error
+  that stays after the input is corrected, is a candidate.
+- A comment, doc comment or summary that the diff makes untrue is a finding
+  under the standard that governs comments, or optional where none does.
+- For rendered UI the diff adds or changes, apply the accessibility reference
+  when the packet carries one. Repeated controls need distinct accessible names
+  or a labelled group, and focus needs a defined destination after the diff
+  adds, removes or disables an element.
 - Trace suggested remedies with the same care as diagnoses. Census all members
   when a change applies a rule to a family of fields, handlers or call sites;
   preserve the affected members and distinct consequences through synthesis.

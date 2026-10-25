@@ -185,6 +185,16 @@ change = "Added to comment selection that a test site of a finding outside tests
 reason = "User decision of 2026-10-25 that a new test pinning a regression be fixed before merge; the test-only selection rule would otherwise keep that site internal."
 where = ["SKILL.md#word-select-and-publish"]
 
+[[local_snapshots.deviations]]
+change = "Added to the caller supplement three lenses: compare each variant of a changed expression that several variants share, such as API versions or payment methods, at base and head; trace what clears each error, loading, disabled or selected state the diff sets in a UI or form; and treat a comment the diff makes untrue as a finding."
+reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On a second benchmark PR the other skill found a builder link change made for one API version that broke the other, an answer error that stayed after the input was corrected, and a doc comment the change made false; both engines had reviewed those files."
+where = ["references/audit-supplement.md"]
+
+[[local_snapshots.deviations]]
+change = "When a diff adds or changes rendered UI, the packet carries the accessibility skill's web or platform reference as review practice, and the supplement asks for distinct accessible names or a labelled group for repeated controls and a defined focus destination after an element is added, removed or disabled."
+reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On the same PR the other skill found repeated row labels with no group name and focus lost after deleting a row; no accessibility criteria reached the engines."
+where = ["SKILL.md#prepare-one-reproducible-review", "references/audit-supplement.md"]
+
 [[dependencies]]
 kind = "local"
 name = "review-code-changes"
@@ -220,3 +230,9 @@ kind = "local"
 name = "communicate-clearly"
 required = false
 role = "Optional general prose guidance through comment-style."
+
+[[dependencies]]
+kind = "local"
+name = "accessibility"
+required = false
+role = "Web and platform accessibility reference passed to both engines as review practice when a diff adds or changes rendered UI."

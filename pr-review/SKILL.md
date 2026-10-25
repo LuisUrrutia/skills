@@ -47,7 +47,11 @@ preserve independently useful work.
 4. **Freeze the shared packet.** Read [reviewers.md](references/reviewers.md),
    then run `scripts/snapshot.py prepare` with the catalog-resolved auditor,
    context, PR input and any filtered profile. Supply every applicable domain
-   guide through `--rules` so both engines receive it. The helper records
+   guide through `--rules` so both engines receive it. When the diff adds or
+   changes rendered UI, also pass the `accessibility` skill's web or platform
+   reference, resolved by registered name, as review practice: a finding under
+   it names the interaction it blocks and is optional unless a standard requires
+   it. The helper records
    immutable base/head/merge-base, the unique changed-path JSON (including deleted
    paths), a rename-origin map, the exact diff, source hashes and actual Git state.
    Its private manifest remains with the parent. Only review-relevant profile
