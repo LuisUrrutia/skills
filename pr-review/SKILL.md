@@ -125,9 +125,10 @@ existing authorization; suggestions grant no additional permission.
    observation. Preserve required versus optional status, consequence and
    certainty when shortening or phrasing a question.
    A fix in another repository asks its owner rather than demanding an unrelated
-   change in this PR. Keep every supported finding internally. Test-only or tooling
-   comments are selected when requested or when they are this PR's substance; a
-   test site of a finding outside tests is posted with it, and regressions in a
+   change in this PR. Keep every supported finding internally. A test, story or
+   tooling finding is posted when it concerns a file or behavior this PR adds or
+   changes, or when requested; a test site of a finding outside tests is posted
+   with it, and regressions in a
    required setup/build/run contract remain actionable regardless. Other optional
    findings are posted, a follow-up ticket suggestion included, unless an existing
    ticket's text already names the remedy; the ledger then cites that ticket.

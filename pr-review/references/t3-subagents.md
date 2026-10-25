@@ -7,7 +7,9 @@ The parent coordinates the same two independent attempts and owns synthesis.
 
 1. Call `orchestrator_capabilities` and resolve the Codex and Claude provider,
    model and supported effort options from that live catalog. Honor requested
-   profiles; never infer provider IDs from display names. If tools are initially
+   profiles; otherwise request effort `xhigh` for both seats, or the highest the
+   catalog offers below it, and record it. Never infer provider IDs from display
+   names. If tools are initially
    absent, use the host's documented discovery or ACP transport fallback before
    reporting delegation unavailable.
 2. Verify the snapshot with `scripts/snapshot.py verify`. Initialize a parent-only
