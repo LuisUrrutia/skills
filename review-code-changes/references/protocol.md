@@ -23,12 +23,13 @@ instructions as instructions, with their actual precedence and scope.
 Retain a defect only when the declared change causes, newly exposes or carries
 it. Name the changed line or contract that starts the failure, even when the
 observable failure occurs in unchanged code. A pre-existing defect is carried when
-it stays reachable through an expression whose logic the change rewrites, beyond a
-mechanical rename or move, or through a writer behavior the change deliberately
-keeps; its Diff cause names that rewrite or writer. Exclude other pre-existing
-defects; before excluding one, check both conditions, including writers outside
-the changed file, and name the condition that fails in that path's Coverage line.
-For deleted code, cite the original location and identify the baseline side.
+it stays reachable through an expression whose logic the change edits, such as a
+predicate it adds a condition to, beyond a mechanical rename or move, or through a
+writer behavior the change deliberately keeps; its Diff cause names that edit or
+writer. Exclude other pre-existing defects; before excluding one, check both
+conditions, including writers outside the changed file, and name the condition
+that fails in that path's Coverage line. For deleted code, cite the original
+location and identify the baseline side.
 
 ### Requirements and standards
 
@@ -214,7 +215,7 @@ decisive unknowns to Open questions.
 Class: correctness
 Action: required
 Affected: Reachable population or workflow.
-Diff cause: The introduced change that causes the issue, or the rewrite or kept writer behavior that carries it.
+Diff cause: The introduced change that causes the issue, or the edit or kept writer behavior that carries it.
 Impact: The trigger and its consequence.
 Evidence:
 - producer | `path/to/file:42` | What the inspected source establishes.

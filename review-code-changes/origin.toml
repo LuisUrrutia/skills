@@ -58,8 +58,8 @@ reason = "User direction on 2026-10-13, after a PR review published a required f
 where = ["references/protocol.md#trace-candidates", "references/protocol.md#report-grammar"]
 
 [[invariants]]
-rule = "A pre-existing defect that stays reachable through an expression whose logic the change rewrites, beyond a mechanical rename or move, or through a writer behavior the change deliberately keeps, is carried: it is retained as optional, or as required when it defeats the change's purpose, and its Diff cause names the rewrite or the kept writer. A failure the change introduces or newly makes reachable stays required. Other pre-existing defects stay excluded, and the Coverage line that excludes one names the carry condition it fails."
-reason = "User decision of 2026-10-25, after a benchmark review dropped as not newly introduced a blank state display whose lookup the change rewrote while it deliberately kept storing unresolved state names; the user wanted it reported as optional."
+rule = "A pre-existing defect that stays reachable through an expression whose logic the change edits, such as a predicate it adds a condition to, beyond a mechanical rename or move, or through a writer behavior the change deliberately keeps, is carried: it is retained as optional, or as required when it defeats the change's purpose, and its Diff cause names the edit or the kept writer. A failure the change introduces or newly makes reachable stays required. Other pre-existing defects stay excluded, and the Coverage line that excludes one names the carry condition it fails."
+reason = "User decisions of 2026-10-25. A benchmark review dropped as not newly introduced a blank state display whose lookup the change rewrote while it deliberately kept storing unresolved state names, and the user wanted it reported as optional. On a later benchmark both runs excluded a missing active-document check in a predicate the change added a condition to, and the user approved carrying a defect through any logic edit of its expression."
 where = ["references/protocol.md#diff-causality"]
 
 [[invariants]]
