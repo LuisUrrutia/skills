@@ -46,8 +46,9 @@ still owns evidence, severity, Class, Action and report grammar.
   finding, or a question when only intent decides it; disclosing it in the PR
   body records no decision.
 - For an error, loading, disabled or selected state the diff sets in a UI or
-  form, trace what clears it. A state that outlives its cause, such as an error
-  that stays after the input is corrected, is a candidate.
+  form, including an error set from a server response, trace what clears it. A
+  state that outlives its cause, such as an error that stays after the input is
+  corrected, is a candidate.
 - A comment, doc comment, XML summary or docstring that the diff makes untrue is
   a finding under the standard that governs comments, or optional where none
   does.
