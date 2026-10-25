@@ -50,7 +50,11 @@ with a short back-reference. Duplicate source reports do not multiply comments a
 the same site. `comment-style` owns wording, not this placement decision.
 
 Read each completed report end to end, including Review basis, Checks, Open
-questions and Coverage. Reduce candidates one at a time; inspect the decisive
+questions and Coverage. A defect an engine names but sets aside on a premise it
+could not settle, such as whether an outside writer produces the value, is a
+pending candidate tied to that premise; when the seam sweep, a resolved question
+or your own trace settles the premise, judge the defect again. Reduce candidates
+one at a time; inspect the decisive
 source and strongest counterevidence. Judge each candidate with the protocol and
 the [supplement](audit-supplement.md); an author's disclosure in the PR body is a
 claim, not a recorded decision. When a candidate concerns members of a family,
