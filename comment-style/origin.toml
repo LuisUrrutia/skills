@@ -240,6 +240,11 @@ where = [
   "references/review.md#say-enough-to-find-the-problem",
 ]
 
+[[local_snapshots.deviations]]
+change = "Replaced marking minor rule violations with `nit:` with marking a minor optional point with it. Both `nit:` and `suggestion:` tell the author that the point does not block approval, so a required finding starts with its point, however minor."
+reason = "User decision of 2026-10-27 that open suggestions and nits never block a reviewer's approval. A review had labeled a required low-severity finding `nit:`."
+where = ["references/review.md#word-a-new-finding"]
+
 [[dependencies]]
 kind = "local"
 name = "communicate-clearly"

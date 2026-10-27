@@ -45,10 +45,12 @@ accessible evidence; keep an unverified premise out of the question.
 
 Use the caller's review conventions and severity, or the repository's documented
 conventions when the caller supplies none. Otherwise mark optional advice
-with `suggestion:` and minor rule violations with `nit:`; a concrete defect, a
-change your own work depends on or a genuine question starts with its point. Do
-not downgrade a supported defect to a nit. Skip isolated taste objections; a
-documented rule or repeated inconsistency can justify a minor comment.
+with `suggestion:` and a minor optional point, such as a repeated inconsistency
+no rule requires, with `nit:`. Both labels tell the author that the point does
+not block approval, so a required finding, however minor, a concrete defect, a
+change your own work depends on or a genuine question starts with its point.
+Skip isolated taste objections; a documented rule or repeated inconsistency can
+justify a minor comment.
 
 Start with the observable problem, a genuine question, or an established
 straightforward change. Omit formulaic politeness such as an opening "please".
