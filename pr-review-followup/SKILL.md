@@ -64,11 +64,12 @@ step to report, never a success.
    ```bash
    python3 "$SKILL_DIR/scripts/followup.py" record --pr "$PR_URL" --actor "$REVIEWER" \
      --state-file "$STATE_FILE" --snapshot "$SCRATCHPAD/inputs/snapshot.json" \
-     --receipt "$SCRATCHPAD/review-receipt.json" --complete true --standing 0 --questions 0
+     --complete "$COMPLETE" --standing "$STANDING" --questions "$QUESTIONS"
    ```
 
-   Pass `--receipt` whenever the review published anything; it records each
-   thread's action unless a later judgment holds. `record` refuses an unfinished
+   When the review published anything, add `--receipt
+   "$SCRATCHPAD/review-receipt.json"`; it records each thread's action unless a
+   later judgment holds. `record` refuses an unfinished
    publication; report it like a failed review.
 
    `--complete` is true only when every requested engine succeeded. `--standing`

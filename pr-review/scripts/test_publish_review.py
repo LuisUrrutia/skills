@@ -232,7 +232,7 @@ class PublishReviewTests(unittest.TestCase):
         self.assertEqual([p for e,p in self.api.writes() if e.endswith('/events')], [{'event':'APPROVE'}])
 
     def test_body_is_submitted_and_read_back(self):
-        self.data['body'] = 'the PR title needs the ticket format'
+        self.data.update(body='the PR title needs the ticket format', body_action='required')
         self.write_plan()
         self.apply()
         self.assertEqual([p for e,p in self.api.writes() if e.endswith('/events')],
@@ -378,7 +378,8 @@ class PublishReviewTests(unittest.TestCase):
                 self.receipt.unlink(missing_ok=True)
                 self.api = FakeGitHub(self.f)
                 self.api.unresolved_mine = event == 'APPROVE'
-                self.data = {'event':event,'body':'' if event == 'APPROVE' else 'the PR title needs the ticket format'}
+                self.data = ({'event':event} if event == 'APPROVE'
+                             else {'event':event,'body':'the PR title needs the ticket format','body_action':'required'})
                 self.write_plan()
                 self.api.review = {'id':17,'node_id':'PRR_user','state':'PENDING','user':{'login':'reviewer'},
                                    'commit_id':self.f.head,'body':'user draft'}
@@ -447,7 +448,10 @@ class PublishReviewTests(unittest.TestCase):
         plan['comments'][0].update(start_line=1,start_side='LEFT')
         validate_plan(plan, manifest, self.f.snapshot)
         validate_plan({'event':'APPROVE'}, manifest, self.f.snapshot)
-        validate_plan({'event':'COMMENT','body':'the PR title needs the ticket format'}, manifest, self.f.snapshot)
+        validate_plan({'event':'COMMENT','body':'the PR title needs the ticket format','body_action':'required'},
+                      manifest, self.f.snapshot)
+        validate_plan({'event':'APPROVE','body':'suggestion: name the branch after its ticket','body_action':'optional'},
+                      manifest, self.f.snapshot)
         plan['comments'][0].update(action='optional', body='nit: name this after the sibling handler')
         validate_plan({'event':'APPROVE','comments':plan['comments'],'optional_threads':['PRRT_x']}, manifest, self.f.snapshot)
         plan['comments'][0].update(action='required', body='preserve this previous behavior')
@@ -465,10 +469,14 @@ class PublishReviewTests(unittest.TestCase):
                  ({'event':'COMMENT','replies':[{**reply,'body':'suggestion: guard the retry'}]}, 'nit or suggestion'),
                  ({'event':'COMMENT','comments':[{**finding,'body':'**nit:** regenerate the client'}]}, 'nit or suggestion'),
                  ({'event':'COMMENT','comments':[{**finding,'body':'_suggestion_: guard the retry'}]}, 'nit or suggestion'),
-                 ({'event':'COMMENT','body':'x','optional_threads':['PRRT_x']}, 'optional_threads'),
+                 ({'event':'COMMENT','body':'x','body_action':'required','optional_threads':['PRRT_x']}, 'optional_threads'),
+                 ({'event':'COMMENT','body':'the PR title needs the ticket format'}, 'body_action'),
+                 ({'event':'APPROVE','body':'the PR title needs the ticket format','body_action':'required'},
+                  'only an optional body'),
+                 ({'event':'COMMENT','comments':[finding],'body_action':'required'}, 'applies only to a body'),
                  ({'event':'APPROVE','optional_threads':'PRRT_x'}, 'optional_threads'),
                  ({'event':'COMMENT'}, 'nothing to publish'),
-                 ({'event':'COMMENT','body':'x','resolve':['PRRT_x']}, 'unknown plan fields')]
+                 ({'event':'COMMENT','body':'x','body_action':'required','resolve':['PRRT_x']}, 'unknown plan fields')]
         for invalid, message in cases:
             with self.subTest(message=message), self.assertRaisesRegex(PublishError, message):
                 validate_plan(invalid, manifest, self.f.snapshot)

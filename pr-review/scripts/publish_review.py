@@ -81,12 +81,20 @@ OWN_THREADS = """query($owner:String!,$repo:String!,$number:Int!){repository(own
 
 
 def validate_plan(plan: dict, manifest: dict, snapshot: Path) -> None:
-    if set(plan) - {"event", "body", "comments", "replies", "optional_threads"}:
-        raise PublishError("unknown plan fields; only event, body, comments, replies and optional_threads are supported")
+    if set(plan) - {"event", "body", "body_action", "comments", "replies", "optional_threads"}:
+        raise PublishError("unknown plan fields; only event, body, body_action, comments, replies and "
+                           "optional_threads are supported")
     if plan.get("event") not in EVENTS:
         raise PublishError("event must be COMMENT or APPROVE")
     if "body" in plan and not isinstance(plan["body"], str):
         raise PublishError("body must be a string")
+    if plan.get("body", "").strip():
+        if plan.get("body_action") not in ACTIONS:
+            raise PublishError("a body needs body_action required or optional")
+        if plan["event"] == "APPROVE" and plan["body_action"] == "required":
+            raise PublishError("APPROVE carries only an optional body; publish required findings as COMMENT")
+    elif "body_action" in plan:
+        raise PublishError("body_action applies only to a body")
     if "optional_threads" in plan and (plan["event"] != "APPROVE" or not isinstance(plan["optional_threads"], list)
                                        or not all(isinstance(i, str) for i in plan["optional_threads"])):
         raise PublishError("optional_threads is a list of thread IDs and applies only to APPROVE")

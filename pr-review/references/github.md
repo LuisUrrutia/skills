@@ -36,8 +36,8 @@ snapshot, rules and anchors before writing. An out-of-date review is not brought
 current by changing its commit ID alone.
 
 Create `comment-plan.json` with `event` (`COMMENT` or `APPROVE`), an optional
-`body`, `comments` and `replies` arrays and, for `APPROVE`, an optional
-`optional_threads` array:
+`body` with its `body_action`, `comments` and `replies` arrays and, for
+`APPROVE`, an optional `optional_threads` array:
 
 ```json
 {
@@ -66,7 +66,8 @@ Create `comment-plan.json` with `event` (`COMMENT` or `APPROVE`), an optional
 Use real thread IDs and exact final wording. Every key identifies one verified
 site or reply, with provenance in the ledger. `action` is the ledger Action of
 the finding the item carries, and `required` for a decisive question; a reply's
-action is what its thread holds after it. `optional_threads` lists the actor's
+action is what its thread holds after it. `body_action` is `required` when the
+body holds any required finding. `optional_threads` lists the actor's
 other unresolved threads whose only open point the step 8 reconciliation judged
 optional; a `nit:` or `suggestion:` label is not evidence, because the user may
 edit a published comment. For each anchor, inspect the file at the claimed
@@ -92,8 +93,8 @@ This is a write command, used only as part of an authorized pr-review run.
 Validation uses fake APIs; a real publication test requires an authorized
 disposable PR. Do not execute an example plan against a real target.
 
-The plan validator rejects an item without an `action`, a required item that
-starts with `nit:` or `suggestion:`, `APPROVE` with a required item,
+The plan validator rejects an item or body without an action, a required item
+that starts with `nit:` or `suggestion:`, `APPROVE` with a required item or body,
 `optional_threads` outside `APPROVE`, and a `COMMENT` with no comment, reply or
 body. The helper first verifies that every reply's thread belongs to this PR.
 It creates a review with `commit_id` set to the frozen head, adds every new
