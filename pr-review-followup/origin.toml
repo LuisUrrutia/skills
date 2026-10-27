@@ -48,6 +48,16 @@ rule = "Thread replies follow the pr-review skill's rule for published text: the
 reason = "User decision on 2026-10-08."
 where = ["references/thread-settlement.md"]
 
+[[invariants]]
+rule = "Open optional threads, meaning suggestions and nits, never block approval or `done`. A thread's required or optional action comes from the pr-review publication receipt or the follow-up's own classification, never from its label, and a thread without a recorded action counts as required."
+reason = "User decision of 2026-10-27, after a follow-up kept listing a lone `suggestion:` thread as an approval blocker. A label is not evidence because the user edits published comments and earlier reviews labeled some required findings `nit:`."
+where = ["SKILL.md#run-one-tick", "references/thread-settlement.md", "scripts/followup.py"]
+
+[[invariants]]
+rule = "Optional threads still open after a verified approval stay with the author: the schedule ends and the final report lists them."
+reason = "The user left this choice to the implementation on 2026-10-27. Following those threads would mean a full re-review of every later push until merge, and the author can resolve their own threads."
+where = ["SKILL.md#run-one-tick"]
+
 [[local_snapshots]]
 id = "pr-1982-followup-session"
 kind = "session"
@@ -59,7 +69,7 @@ verification = "Derived from one supervised session on 2026-10-07: a 15-minute w
 kind = "local"
 name = "pr-review"
 required = true
-role = "Full review of a new head, publication of new findings and same-topic replies."
+role = "Full review of a new head, publication of new findings and same-topic replies, and the publication receipt that records each thread's required or optional action."
 
 [[dependencies]]
 kind = "local"

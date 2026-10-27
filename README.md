@@ -549,7 +549,8 @@ directory passed with `--profiles-dir`. Generic reviews need no profile.
 
 ### pr-review-followup
 
-Follow a PR you reviewed until your threads are settled and it is approved.
+Follow a PR you reviewed until your required threads are settled and it is
+approved.
 
 **Triggers:** explicitly invoke `$pr-review-followup` with the PR URL after a `pr-review`.
 
@@ -557,8 +558,9 @@ Every 30 minutes by default, it re-reviews each new head with `pr-review`, repli
 in your own threads, resolves what the current head or a confirmed ticket settles,
 reopens a thread whose finding still stands, and approves only through a gate its
 helper enforces: a complete review of the current head, no standing required
-finding and every reviewer thread resolved and verified. Your own PRs belong to
-`pr-followup`.
+finding and every required reviewer thread resolved and verified. Open
+suggestions and nits do not block it, and stay with the author after approval.
+Your own PRs belong to `pr-followup`.
 
 ### verification-authoring
 

@@ -96,8 +96,17 @@ class FollowupTests(unittest.TestCase):
         self.api = FakeGitHub()
         self.ticks = 0
 
-    def record(self, complete=True, standing=0, questions=0):
-        return record(PR, 'reviewer', self.state_file, self.snapshot, complete, standing, questions)
+    def record(self, complete=True, standing=0, questions=0, receipt=None):
+        return record(PR, 'reviewer', self.state_file, self.snapshot, complete, standing, questions, receipt)
+
+    def receipt(self, *entries, head=HEAD, actor='reviewer'):
+        path = self.root / 'review-receipt.json'
+        path.write_text(json.dumps({
+            'identity': {'target': {'url': PR, 'head': head, 'base_name': 'main'}, 'actor': actor, 'plan_sha256': '0'},
+            'comments': {f'C{i}': {'id': f'PRRC_{i}', 'thread_id': node, 'body': 'x', 'action': action}
+                         for i, (node, action) in enumerate(entries)},
+            'replies': {}}))
+        return path
 
     def apply(self, **data):
         self.ticks += 1
@@ -159,7 +168,7 @@ class FollowupTests(unittest.TestCase):
 
     def test_other_reviewers_threads_are_never_touched(self):
         self.record()
-        for data in ({'resolve': ['T3']}, {'replies': [{'thread_id': 'T3', 'body': 'agreed'}]}):
+        for data in ({'resolve': ['T3']}, {'replies': [{'thread_id': 'T3', 'body': 'agreed'}]}, {'optional': ['T3']}):
             with self.subTest(data=data), self.assertRaisesRegex(FollowupError, 'not a thread the reviewer started'):
                 self.apply(**data)
         self.assertEqual(self.api.writes(), [])
@@ -168,7 +177,8 @@ class FollowupTests(unittest.TestCase):
         self.record()
         for data in ({'approve': 'false'}, {'resolve': 'T1'}, {'replies': [{'thread_id': 'T1', 'body': 3}]},
                      {'verified': [1]}, {'merge': True}, {'resolve': ['T1'], 'unresolve': ['T1']},
-                     {'verified': ['T1']}, {'unresolve': ['T2'], 'verified': ['T2']}, {'expected_base_ref': 3}):
+                     {'verified': ['T1']}, {'unresolve': ['T2'], 'verified': ['T2']}, {'expected_base_ref': 3},
+                     {'optional': 'T1'}, {'optional': ['T1'], 'required': ['T1']}):
             with self.subTest(data=data), self.assertRaisesRegex(FollowupError, 'plan'):
                 self.apply(**data)
         self.assertEqual(self.api.writes(), [])
@@ -184,6 +194,53 @@ class FollowupTests(unittest.TestCase):
                 with self.assertRaisesRegex(FollowupError, message):
                     self.apply(approve=True)
         self.assertFalse(any(e.endswith('/reviews') for e, _ in self.api.writes()))
+
+    def test_open_optional_threads_do_not_block_approval_or_done(self):
+        self.record(receipt=self.receipt(('T1', 'optional'), ('T2', 'required')))
+
+        result = self.apply(verified=['T2'], approve=True)
+        after = state(PR, 'reviewer', self.state_file, self.api)
+
+        self.assertEqual(result['approved'], HEAD)
+        self.assertTrue(after['done'])
+        self.assertEqual(after['open_optional'], ['T1'])
+        self.assertEqual([t['action'] for t in after['threads']], ['optional', 'required'])
+
+    def test_a_resolved_optional_thread_needs_no_verification(self):
+        self.record(receipt=self.receipt(('T1', 'optional'), ('T2', 'optional')))
+
+        self.assertEqual(state(PR, 'reviewer', self.state_file, self.api)['needs_verification'], [])
+        self.assertEqual(self.apply(approve=True)['approved'], HEAD)
+
+    def test_an_unrecorded_thread_counts_as_required_until_classified(self):
+        self.record()
+
+        with self.assertRaisesRegex(FollowupError, 'no recorded action'):
+            self.apply(verified=['T2'], approve=True)
+        with self.assertRaisesRegex(FollowupError, 'required reviewer threads'):
+            self.apply(required=['T1'], verified=['T2'], approve=True)
+        result = self.apply(optional=['T1'], verified=['T2'], approve=True)
+
+        self.assertEqual(result['approved'], HEAD)
+        self.assertEqual(state(PR, 'reviewer', self.state_file, self.api)['threads'][0]['action'], 'optional')
+
+    def test_a_later_publication_updates_a_threads_action(self):
+        self.record(receipt=self.receipt(('T1', 'optional')))
+        self.record(receipt=self.receipt(('T1', 'required')))
+
+        result = state(PR, 'reviewer', self.state_file, self.api)
+
+        self.assertEqual(result['threads'][0]['action'], 'required')
+        self.assertIn('required reviewer threads remain unresolved', result['approval_blockers'])
+
+    def test_a_receipt_from_another_run_or_without_actions_is_refused(self):
+        cases = [(('T1', 'optional'), {'head': 'b' * 40}, 'another PR, head'),
+                 (('T1', 'optional'), {'actor': 'someone-else'}, 'another PR, head'),
+                 (('T1', None), {}, "each thread's action")]
+        for entry, identity, message in cases:
+            with self.subTest(identity=identity, message=message), self.assertRaisesRegex(FollowupError, message):
+                self.record(receipt=self.receipt(entry, **identity))
+        self.assertFalse(self.state_file.exists())
 
     def test_resolution_by_someone_else_needs_verification_before_approval(self):
         self.record()

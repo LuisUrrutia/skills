@@ -8,11 +8,13 @@ reviewer started.
 | --- | --- | --- |
 | The author fixed it, or removed the code it was about | The issue no longer exists | Resolve. Reply only when it adds something. |
 | The author fixed part of it | The rest still stands | Reply with what is done and what remains; keep it open. |
+| The author answered a required finding | Only an optional point remains | Mark the thread `optional` and keep it open. Reply only when it adds something. |
 | A new head fixed it without a reply | The issue no longer exists | Resolve. |
 | The author answered a question | The answer settles it, with evidence | Resolve. |
 | The author answered, but the point still stands | Evidence still supports the finding | Reply once with the deciding fact. If the author disagrees again, report the thread to the user and stop replying there. |
 | The author disagreed | The author is right | Resolve; a short acknowledgment is optional. |
-| The author deferred it as out of scope | The issue still exists | Ask for a ticket to track it; keep it open. |
+| The author declined or deferred an optional point | — | Resolve; an optional point needs no ticket. |
+| The author deferred a required finding as out of scope | The issue still exists | Ask for a ticket to track it; keep it open. |
 | The author gave a ticket key or link, or confirmed the ticket exists | — | Resolve. When the tracker is accessible, confirm the ticket exists first. |
 | The author promised a ticket later, or refused one | — | Wait on a promise; report a refusal to the user. Keep it open. |
 | A resolved thread awaits verification on this head and base, whoever resolved it | The issue no longer exists, or the thread was settled by a confirmed ticket | Mark it `verified`. |
