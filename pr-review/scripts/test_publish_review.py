@@ -94,7 +94,9 @@ class FakeGitHub:
             query = payload['query']
             if 'reviewThreads' in query:
                 author = {'login':self.actor}
-                nodes = [{'isResolved':False,'comments':{'nodes':[{'author':author}]}}] if self.unresolved_mine else []
+                # GitHub shows the viewer the threads of its own pending review.
+                mine = (['PRRT_existing'] if self.unresolved_mine else []) + [f"PRRT_new{c['id']}" for c in self.comments]
+                nodes = [{'id':node,'isResolved':False,'comments':{'nodes':[{'author':author}]}} for node in mine]
                 return {'data':{'repository':{'pullRequest':{'reviewThreads':{'pageInfo':{'hasNextPage':self.many_threads},'nodes':nodes}}}}}
             if query.startswith('query'):
                 return {'data':{'node':{'pullRequest':{'id':'PR_other' if self.foreign_thread else 'PR_target'},
@@ -107,7 +109,7 @@ class FakeGitHub:
             if self.lose_comment:
                 self.lose_comment = False
                 raise PublishError('simulated lost response after comment')
-            return {'data':{'addPullRequestReviewThread':{'thread':{'comments':{'nodes':[comment]}}}}}
+            return {'data':{'addPullRequestReviewThread':{'thread':{'id':f'PRRT_new{number}','comments':{'nodes':[comment]}}}}}
         raise AssertionError((endpoint, payload))
 
     def writes(self):
@@ -122,8 +124,10 @@ class PublishReviewTests(unittest.TestCase):
         self.plan = self.f.root / 'comment-plan.json'
         self.receipt = self.f.root / 'receipt.json'
         self.data = {'event':'COMMENT',
-                     'comments':[{'key':'C1-site1','path':'src/example.py','line':2,'side':'RIGHT','body':'preserve the required return value'}],
-                     'replies':[{'key':'C2-reply','thread_id':'PRRT_existing','body':'this path also needs the guard'}]}
+                     'comments':[{'key':'C1-site1','path':'src/example.py','line':2,'side':'RIGHT','action':'required',
+                                  'body':'preserve the required return value'}],
+                     'replies':[{'key':'C2-reply','thread_id':'PRRT_existing','action':'required',
+                                 'body':'this path also needs the guard'}]}
         self.write_plan()
 
     def write_plan(self):
@@ -228,7 +232,7 @@ class PublishReviewTests(unittest.TestCase):
         self.assertEqual([p for e,p in self.api.writes() if e.endswith('/events')], [{'event':'APPROVE'}])
 
     def test_body_is_submitted_and_read_back(self):
-        self.data['body'] = 'the PR title needs the ticket format'
+        self.data.update(body='the PR title needs the ticket format', body_action='required')
         self.write_plan()
         self.apply()
         self.assertEqual([p for e,p in self.api.writes() if e.endswith('/events')],
@@ -257,6 +261,64 @@ class PublishReviewTests(unittest.TestCase):
             self.apply()
 
         self.assertEqual(self.api.writes(), [])
+
+    def test_approve_passes_an_unresolved_thread_marked_optional(self):
+        self.data = {'event':'APPROVE','optional_threads':['PRRT_existing']}
+        self.write_plan()
+        self.api.unresolved_mine = True
+
+        state = self.apply()
+
+        self.assertEqual(state['status'], 'APPROVED')
+        receipt = json.loads(self.receipt.read_text())
+        self.assertEqual(receipt['optional_threads'], ['PRRT_existing'])
+        self.assertIn('published_at', receipt)
+
+    def test_approve_with_optional_comments_is_blocked_by_another_unmarked_thread(self):
+        self.api.unresolved_mine = True
+        self.data = {'event':'APPROVE','comments':[{**self.data['comments'][0],'action':'optional',
+                                                    'body':'suggestion: extract this mapping into the shared helper'}]}
+        self.write_plan()
+
+        with self.assertRaisesRegex(PublishError, 'unresolved'):
+            self.apply()
+
+        self.assertEqual(self.api.writes(), [])
+
+    def test_approve_resumes_with_its_recorded_comment_threads_exempt(self):
+        self.data = {'event':'APPROVE','comments':[{**self.data['comments'][0],'action':'optional',
+                                                    'body':'suggestion: extract this mapping into the shared helper'}]}
+        self.write_plan()
+        item = self.data['comments'][0]
+        self.api.review = {'id':17,'node_id':'PRR_new','state':'PENDING','user':{'login':'reviewer'},'commit_id':self.f.head}
+        self.api.comments.append({'id':1,'node_id':'PRRC_1','body':item['body'],'pull_request_review_id':17})
+        identity = {'target':verify(self.f.snapshot)['target'],'actor':'reviewer','plan_sha256':digest(self.plan)}
+        self.receipt.write_text(json.dumps({'identity':identity,'review_id':17,'review_node_id':'PRR_new','comments':{
+            item['key']:{'id':'PRRC_1','thread_id':'PRRT_new1','body':item['body'],'action':'optional'}}}))
+
+        state = self.apply()
+
+        self.assertEqual(state['status'], 'APPROVED')
+        self.assertEqual([e for e,_ in self.api.writes()], ['repos/example-org/target/pulls/12/reviews/17/events'])
+
+    def test_approve_carries_optional_comments_and_replies(self):
+        self.api.unresolved_mine = True
+        self.data['event'] = 'APPROVE'
+        self.data['comments'][0].update(action='optional', body='suggestion: extract this mapping into the shared helper')
+        self.data['replies'][0].update(action='optional', body='nit: this name still differs from the sibling handler')
+        self.write_plan()
+
+        state = self.apply()
+
+        self.assertEqual(state['status'], 'APPROVED')
+        self.assertEqual([p for e,p in self.api.writes() if e.endswith('/events')], [{'event':'APPROVE'}])
+        self.assertEqual([c['body'] for c in self.api.comments], ['suggestion: extract this mapping into the shared helper'])
+        self.assertEqual(len(self.api.replies), 1)
+        receipt = json.loads(self.receipt.read_text())
+        self.assertEqual(receipt['comments']['C1-site1']['thread_id'], 'PRRT_new1')
+        self.assertEqual(receipt['comments']['C1-site1']['action'], 'optional')
+        self.assertEqual((receipt['replies']['C2-reply']['thread_id'], receipt['replies']['C2-reply']['action']),
+                         ('PRRT_existing', 'optional'))
 
     def test_base_tip_may_move_while_the_merge_base_holds(self):
         self.api.base = 'b' * 40
@@ -311,13 +373,22 @@ class PublishReviewTests(unittest.TestCase):
         self.assertFalse(any(e.endswith('/events') for e,_ in self.api.writes()))
 
     def test_existing_unsubmitted_review_is_never_published(self):
-        self.api.review = {'id':17,'node_id':'PRR_user','state':'PENDING','user':{'login':'reviewer'},'commit_id':self.f.head,'body':'user draft'}
+        for event in ('COMMENT', 'APPROVE'):
+            with self.subTest(event=event):
+                self.receipt.unlink(missing_ok=True)
+                self.api = FakeGitHub(self.f)
+                self.api.unresolved_mine = event == 'APPROVE'
+                self.data = ({'event':event} if event == 'APPROVE'
+                             else {'event':event,'body':'the PR title needs the ticket format','body_action':'required'})
+                self.write_plan()
+                self.api.review = {'id':17,'node_id':'PRR_user','state':'PENDING','user':{'login':'reviewer'},
+                                   'commit_id':self.f.head,'body':'user draft'}
 
-        with self.assertRaisesRegex(PublishError, 'unsubmitted review'):
-            self.apply()
+                with self.assertRaisesRegex(PublishError, 'unsubmitted review'):
+                    self.apply()
 
-        self.assertEqual(self.api.writes(), [])
-        self.assertEqual(self.api.review['state'], 'PENDING')
+                self.assertEqual(self.api.writes(), [])
+                self.assertEqual(self.api.review['state'], 'PENDING')
 
     def test_actor_mismatch_and_remote_drift_prevent_writes(self):
         self.api.actor = 'another-user'
@@ -371,21 +442,41 @@ class PublishReviewTests(unittest.TestCase):
 
     def test_plan_event_rules_and_anchors(self):
         manifest = verify(self.f.snapshot)
-        plan = {'event':'COMMENT','comments':[{'key':'deleted','path':'src/example.py','line':2,'side':'LEFT','body':'preserve this previous behavior'}]}
+        plan = {'event':'COMMENT','comments':[{'key':'deleted','path':'src/example.py','line':2,'side':'LEFT','action':'required',
+                                               'body':'preserve this previous behavior'}]}
         validate_plan(plan, manifest, self.f.snapshot)
         plan['comments'][0].update(start_line=1,start_side='LEFT')
         validate_plan(plan, manifest, self.f.snapshot)
         validate_plan({'event':'APPROVE'}, manifest, self.f.snapshot)
-        validate_plan({'event':'COMMENT','body':'the PR title needs the ticket format'}, manifest, self.f.snapshot)
+        validate_plan({'event':'COMMENT','body':'the PR title needs the ticket format','body_action':'required'},
+                      manifest, self.f.snapshot)
+        validate_plan({'event':'APPROVE','body':'suggestion: name the branch after its ticket','body_action':'optional'},
+                      manifest, self.f.snapshot)
+        plan['comments'][0].update(action='optional', body='nit: name this after the sibling handler')
+        validate_plan({'event':'APPROVE','comments':plan['comments'],'optional_threads':['PRRT_x']}, manifest, self.f.snapshot)
+        plan['comments'][0].update(action='required', body='preserve this previous behavior')
         finding = dict(plan['comments'][0])
+        reply = {'key':'r','thread_id':'PRRT_x','action':'required','body':'the retry path still writes twice'}
         plan['comments'][0]['line'] = 99
         cases = [(plan, 'outside'),
                  ({'comments':[]}, 'event'),
                  ({'event':'REQUEST_CHANGES'}, 'event'),
-                 ({'event':'APPROVE','comments':[finding]}, 'APPROVE'),
-                 ({'event':'APPROVE','replies':[{'key':'r','thread_id':'PRRT_x','body':'done'}]}, 'APPROVE'),
+                 ({'event':'APPROVE','comments':[finding]}, 'APPROVE carries only optional'),
+                 ({'event':'APPROVE','replies':[reply]}, 'APPROVE carries only optional'),
+                 ({'event':'COMMENT','replies':[{**reply,'action':'blocking'}]}, 'action'),
+                 ({'event':'COMMENT','replies':[{k:v for k,v in reply.items() if k != 'action'}]}, 'action'),
+                 ({'event':'COMMENT','comments':[{**finding,'body':'Nit: regenerate the client'}]}, 'nit or suggestion'),
+                 ({'event':'COMMENT','replies':[{**reply,'body':'suggestion: guard the retry'}]}, 'nit or suggestion'),
+                 ({'event':'COMMENT','comments':[{**finding,'body':'**nit:** regenerate the client'}]}, 'nit or suggestion'),
+                 ({'event':'COMMENT','comments':[{**finding,'body':'_suggestion_: guard the retry'}]}, 'nit or suggestion'),
+                 ({'event':'COMMENT','body':'x','body_action':'required','optional_threads':['PRRT_x']}, 'optional_threads'),
+                 ({'event':'COMMENT','body':'the PR title needs the ticket format'}, 'body_action'),
+                 ({'event':'APPROVE','body':'the PR title needs the ticket format','body_action':'required'},
+                  'only an optional body'),
+                 ({'event':'COMMENT','comments':[finding],'body_action':'required'}, 'applies only to a body'),
+                 ({'event':'APPROVE','optional_threads':'PRRT_x'}, 'optional_threads'),
                  ({'event':'COMMENT'}, 'nothing to publish'),
-                 ({'event':'COMMENT','body':'x','resolve':['PRRT_x']}, 'unknown plan fields')]
+                 ({'event':'COMMENT','body':'x','body_action':'required','resolve':['PRRT_x']}, 'unknown plan fields')]
         for invalid, message in cases:
             with self.subTest(message=message), self.assertRaisesRegex(PublishError, message):
                 validate_plan(invalid, manifest, self.f.snapshot)
@@ -417,8 +508,8 @@ class PublishReviewTests(unittest.TestCase):
                                self.f.root / ('context-' + context))
             frozen = (snapshot.parent / 'diff.patch').read_text()
             self.assertIn('@@ -12,7 +12,7 @@', frozen)
-            plan = {'event':'COMMENT','comments':[{'key':'rename','path':'src/renamed.py','line':12,
-                                 'side':'RIGHT','body':'Preserve the renamed contract.'}]}
+            plan = {'event':'COMMENT','comments':[{'key':'rename','path':'src/renamed.py','line':12,'side':'RIGHT',
+                                 'action':'required','body':'Preserve the renamed contract.'}]}
             validate_plan(plan, verify(snapshot), snapshot)
             plan['comments'][0]['line'] = 8
             with self.assertRaisesRegex(PublishError, 'outside'):

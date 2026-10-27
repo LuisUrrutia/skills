@@ -527,7 +527,8 @@ review-audit skill; it preserves a read-only review phase and local reports.
 
 Review another author's GitHub PR with independent Codex and Claude attempts
 over the same frozen scope, then publish one review: Comment with the
-verified findings, or Approve when the review is complete and clean.
+verified findings, or Approve when the review is complete and nothing blocking
+remains.
 
 **Triggers:** explicitly invoke `$pr-review` to review and publish on a PR you were asked to review.
 
@@ -535,8 +536,9 @@ Uses `review-code-changes` for the audit protocol, `compare-solutions` for indep
 attempts and `comment-style` for wording. The parent verifies findings, checks
 cross-repository seams and reconciles existing feedback, continuing a same-topic
 point in its existing thread. It never requests changes, never submits a review
-the user started, and approves only when no required finding or reviewer thread
-remains open. Read-only review controls, bounded retries and exact actor/head
+the user started, and approves only when no required finding or required
+reviewer thread remains open; open suggestions and nits never block approval.
+Read-only review controls, bounded retries and exact actor/head
 binding remain part of the workflow.
 
 This replaces `pr-review-draft`, which left a pending review for the user to
@@ -548,7 +550,8 @@ directory passed with `--profiles-dir`. Generic reviews need no profile.
 
 ### pr-review-followup
 
-Follow a PR you reviewed until your threads are settled and it is approved.
+Follow a PR you reviewed until your required threads are settled and it is
+approved.
 
 **Triggers:** explicitly invoke `$pr-review-followup` with the PR URL after a `pr-review`.
 
@@ -556,8 +559,9 @@ Every 30 minutes by default, it re-reviews each new head with `pr-review`, repli
 in your own threads, resolves what the current head or a confirmed ticket settles,
 reopens a thread whose finding still stands, and approves only through a gate its
 helper enforces: a complete review of the current head, no standing required
-finding and every reviewer thread resolved and verified. Your own PRs belong to
-`pr-followup`.
+finding and every required reviewer thread resolved and verified. Open
+suggestions and nits do not block it, and stay with the author after approval.
+Your own PRs belong to `pr-followup`.
 
 ### verification-authoring
 

@@ -19,6 +19,7 @@ THREADS_QUERY = """query($owner:String!,$repo:String!,$number:Int!){repository(o
     comments(first:100){pageInfo{hasNextPage} nodes{databaseId author{login} body createdAt}}}}}}}"""
 THREAD_MUTATION = "mutation($id:ID!){%s(input:{threadId:$id}){thread{id isResolved}}}"
 REVIEW_IN_PROGRESS = timedelta(hours=3)
+ACTIONS = ("required", "optional")
 
 
 class FollowupError(RuntimeError):
@@ -115,6 +116,25 @@ def review_key(pr: dict) -> str:
     return f"{pr['head']}@{pr['base_ref']}"
 
 
+def thread_actions(data: dict, plan: dict | None = None) -> dict:
+    stored = data.get("thread_actions") if isinstance(data.get("thread_actions"), dict) else {}
+    actions = {i: e["action"] for i, e in stored.items() if isinstance(e, dict) and e.get("action") in ACTIONS}
+    for action in ACTIONS:
+        actions.update(dict.fromkeys((plan or {}).get(action, []), action))
+    return actions
+
+
+def classify(data: dict, actions: dict, at: str) -> None:
+    """Record each thread's action as judged at `at`, unless a later judgment already holds."""
+    stored = data["thread_actions"] = data["thread_actions"] if isinstance(data.get("thread_actions"), dict) else {}
+    for thread_id, action in actions.items():
+        previous = stored.get(thread_id)
+        if (isinstance(previous, dict) and isinstance(previous.get("at"), str)
+                and datetime.fromisoformat(previous["at"]) > datetime.fromisoformat(at)):
+            continue
+        stored[thread_id] = {"action": action, "at": at}
+
+
 def summarize(pr: dict, data: dict, plan: dict | None = None) -> dict:
     """The approval gate: one predicate for approving and for declaring the follow-up done."""
     plan = plan or {}
@@ -123,11 +143,14 @@ def summarize(pr: dict, data: dict, plan: dict | None = None) -> dict:
     reviewing = data.get("reviewing") or {}
     started = datetime.fromisoformat(reviewing["started_at"]) if reviewing else None
     verified = data.get("verified") if isinstance(data.get("verified"), dict) else {}
+    actions = thread_actions(data, plan)
     resolve, unresolve = set(plan.get("resolve", [])), set(plan.get("unresolve", []))
     checked = resolve | set(plan.get("verified", []))
     closed = {t["id"] for t in pr["threads"] if (t["resolved"] or t["id"] in resolve) and t["id"] not in unresolve}
     unresolved = [t["id"] for t in pr["threads"] if t["id"] not in closed]
-    unverified = [i for i in sorted(closed) if verified.get(i) != review_key(pr) and i not in checked]
+    # A thread with no recorded action counts as required.
+    blocking = {t["id"] for t in pr["threads"] if actions.get(t["id"]) != "optional"}
+    unverified = [i for i in sorted(closed & blocking) if verified.get(i) != review_key(pr) and i not in checked]
     complete = current and reviewed.get("complete") is True and all(
         type(reviewed.get(field)) is int for field in ("standing", "questions"))
     blockers = []
@@ -140,8 +163,10 @@ def summarize(pr: dict, data: dict, plan: dict | None = None) -> dict:
             blockers.append("required findings outside reviewer threads still stand")
         if reviewed.get("questions"):
             blockers.append("decisive questions remain open")
-    if unresolved:
-        blockers.append("reviewer threads remain unresolved")
+    if any(i in blocking and i in actions for i in unresolved):
+        blockers.append("required reviewer threads remain unresolved")
+    if any(i not in actions for i in unresolved):
+        blockers.append("unresolved reviewer threads have no recorded action")
     if unverified:
         blockers.append("resolved threads have not been verified on the current head")
     return {"current": current, "complete": complete,
@@ -149,7 +174,8 @@ def summarize(pr: dict, data: dict, plan: dict | None = None) -> dict:
             "questions": reviewed.get("questions") if current else None,
             "in_progress": reviewing.get("head") == pr["head"] and started is not None
             and datetime.now(timezone.utc) - started < REVIEW_IN_PROGRESS,
-            "unresolved": unresolved, "unverified": unverified, "blockers": blockers}
+            "unresolved": unresolved, "open_optional": [i for i in unresolved if i not in blocking],
+            "unverified": unverified, "blockers": blockers}
 
 
 def state(url: str, actor: str, state_file: Path, api=None) -> dict:
@@ -157,6 +183,7 @@ def state(url: str, actor: str, state_file: Path, api=None) -> dict:
     data = load_state(state_file, target, actor)
     pr = read_pr(target, actor, api or GitHub(target["host"]))
     view = summarize(pr, data)
+    actions = thread_actions(data)
     return {"pr": target["url"], "author": pr["author"], "state": pr["state"], "head": pr["head"],
             "base_ref": pr["base_ref"], "reviewed": data.get("reviewed"), "review_current": view["current"],
             "review_complete": view["complete"], "standing_required": view["standing"],
@@ -164,7 +191,8 @@ def state(url: str, actor: str, state_file: Path, api=None) -> dict:
             "pending_review": pr["pending_review"], "approved_head": pr["approved_head"],
             "done": pr["approved_head"] and not view["blockers"], "approval_blockers": view["blockers"],
             "pending_operation": data.get("pending_operation"), "unresolved": len(view["unresolved"]),
-            "needs_verification": view["unverified"], "threads": pr["threads"]}
+            "open_optional": view["open_optional"], "needs_verification": view["unverified"],
+            "threads": [{**t, "action": actions.get(t["id"])} for t in pr["threads"]]}
 
 
 def begin(url: str, actor: str, state_file: Path, head: str) -> dict:
@@ -181,14 +209,37 @@ def counts(standing: int, questions: int) -> None:
             raise FollowupError(f"{name} must be a non-negative count")
 
 
+def published_actions(receipt: Path, frozen: dict, actor: str) -> tuple[str, dict]:
+    """When a completed pr-review publication ended, and the action of each thread it judged."""
+    published = json.loads(receipt.read_text())
+    identity = published.get("identity") or {}
+    if identity.get("actor") != actor or identity.get("target") != frozen:
+        raise FollowupError("the publication receipt belongs to another snapshot or reviewer")
+    if (published.get("status") not in ("COMMENTED", "APPROVED") or published.get("pending_operation")
+            or not isinstance(published.get("published_at"), str)):
+        raise FollowupError("the publication did not complete; reconcile it before recording its threads")
+    optional = published.get("optional_threads", [])
+    if not isinstance(optional, list) or not all(isinstance(i, str) for i in optional):
+        raise FollowupError("the publication receipt lists optional threads that are not thread IDs")
+    actions = dict.fromkeys(optional, "optional")
+    for entry in [*published.get("comments", {}).values(), *published.get("replies", {}).values()]:
+        if not isinstance(entry.get("thread_id"), str) or entry.get("action") not in ACTIONS:
+            raise FollowupError("the publication receipt does not record each thread's action")
+        actions[entry["thread_id"]] = entry["action"]
+    return published["published_at"], actions
+
+
 def record(url: str, actor: str, state_file: Path, snapshot: Path, complete: bool, standing: int,
-           questions: int) -> dict:
+           questions: int, receipt: Path | None = None) -> dict:
     target = parse_pr(url)
     data = load_state(state_file, target, actor)
     frozen = json.loads(snapshot.read_text())["target"]
     if parse_pr(frozen["url"])["url"] != target["url"]:
         raise FollowupError("the review snapshot belongs to another PR")
     counts(standing, questions)
+    if receipt:
+        published_at, actions = published_actions(receipt, frozen, actor)
+        classify(data, actions, published_at)
     data["reviewed"] = {"head": frozen["head"], "base_ref": frozen["base_name"], "complete": complete,
                         "standing": standing, "questions": questions,
                         "snapshot_sha256": hashlib.sha256(snapshot.read_bytes()).hexdigest()}
@@ -210,11 +261,11 @@ def settle(url: str, actor: str, state_file: Path, standing: int, questions: int
 
 
 def validate_plan(plan: object) -> dict:
-    fields = {"expected_head", "expected_base_ref", "replies", "resolve", "unresolve", "verified", "approve"}
+    fields = {"expected_head", "expected_base_ref", "replies", "resolve", "unresolve", "verified", "approve", *ACTIONS}
     if (not isinstance(plan, dict) or set(plan) - fields or not isinstance(plan.get("expected_head"), str)
             or not isinstance(plan.get("expected_base_ref"), str)):
         raise FollowupError(f"plan accepts {', '.join(sorted(fields))}, with expected_head and expected_base_ref required")
-    for field in ("resolve", "unresolve", "verified"):
+    for field in ("resolve", "unresolve", "verified", *ACTIONS):
         if not isinstance(plan.get(field, []), list) or not all(isinstance(i, str) for i in plan.get(field, [])):
             raise FollowupError(f"plan field {field} must be a list of thread IDs")
     replies = plan.get("replies", [])
@@ -228,6 +279,8 @@ def validate_plan(plan: object) -> dict:
         raise FollowupError("plan cannot resolve and reopen the same thread")
     if set(plan.get("verified", [])) & set(plan.get("unresolve", [])):
         raise FollowupError("plan cannot reopen and verify the same thread")
+    if set(plan.get("required", [])) & set(plan.get("optional", [])):
+        raise FollowupError("plan cannot mark the same thread required and optional")
     return plan
 
 
@@ -261,7 +314,8 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
     pr = preflight()
     mine = {t["id"]: t for t in pr["threads"]}
     replies, resolve, unresolve = plan.get("replies", []), plan.get("resolve", []), plan.get("unresolve", [])
-    for thread_id in [r["thread_id"] for r in replies] + resolve + unresolve + plan.get("verified", []):
+    classified = plan.get("required", []) + plan.get("optional", [])
+    for thread_id in [r["thread_id"] for r in replies] + resolve + unresolve + plan.get("verified", []) + classified:
         if thread_id not in mine:
             raise FollowupError(f"{thread_id} is not a thread the reviewer started on this PR")
     for thread_id in resolve:
@@ -275,6 +329,9 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
             raise FollowupError(f"plan verifies {thread_id}, which is not resolved")
     if plan.get("approve") and (blockers := summarize(pr, data, plan)["blockers"]):
         raise FollowupError(blockers[0])
+    # Saved before any write, so a later failed write cannot drop a required classification.
+    classify(data, {i: a for a in ACTIONS for i in plan.get(a, [])}, datetime.now(timezone.utc).isoformat())
+    save(state_file, data)
 
     def write(key: str, endpoint: str, payload: dict, check=None):
         if key in done["completed"]:
@@ -371,6 +428,7 @@ def main() -> int:
     start.add_argument("--head", required=True)
     mark.add_argument("--snapshot", required=True, type=Path)
     mark.add_argument("--complete", choices=("true", "false"), required=True)
+    mark.add_argument("--receipt", type=Path, help="the pr-review publication receipt, when the review published anything")
     for command in (mark, close):
         command.add_argument("--standing", required=True, type=int)
         command.add_argument("--questions", required=True, type=int)
@@ -384,8 +442,8 @@ def main() -> int:
         elif args.command == "begin":
             output = begin(args.pr, args.actor, state_file, args.head)
         elif args.command == "record":
-            output = record(args.pr, args.actor, state_file, args.snapshot.resolve(),
-                            args.complete == "true", args.standing, args.questions)
+            output = record(args.pr, args.actor, state_file, args.snapshot.resolve(), args.complete == "true",
+                            args.standing, args.questions, args.receipt.resolve() if args.receipt else None)
         elif args.command == "settle":
             output = settle(args.pr, args.actor, state_file, args.standing, args.questions)
         else:
