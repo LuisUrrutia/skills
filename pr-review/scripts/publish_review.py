@@ -72,17 +72,23 @@ def anchor_lines(repository: Path, base: str, head: str, path: str, old_path: st
 
 
 EVENTS = {"COMMENT": "COMMENTED", "APPROVE": "APPROVED"}
+ACTIONS = {"required", "optional"}
+# These labels tell the author a point does not block approval.
+OPTIONAL_LABEL = re.compile(r"\s*(nit|suggestion)\s*:", re.I)
 OWN_THREADS = """query($owner:String!,$repo:String!,$number:Int!){repository(owner:$owner,name:$repo){pullRequest(number:$number){
-  reviewThreads(first:100){pageInfo{hasNextPage} nodes{isResolved comments(first:1){nodes{author{login}}}}}}}}"""
+  reviewThreads(first:100){pageInfo{hasNextPage} nodes{id isResolved comments(first:1){nodes{author{login}}}}}}}}"""
 
 
 def validate_plan(plan: dict, manifest: dict, snapshot: Path) -> None:
-    if set(plan) - {"event", "body", "comments", "replies"}:
-        raise PublishError("unknown plan fields; only event, body, comments and replies are supported")
+    if set(plan) - {"event", "body", "comments", "replies", "optional_threads"}:
+        raise PublishError("unknown plan fields; only event, body, comments, replies and optional_threads are supported")
     if plan.get("event") not in EVENTS:
         raise PublishError("event must be COMMENT or APPROVE")
     if "body" in plan and not isinstance(plan["body"], str):
         raise PublishError("body must be a string")
+    if "optional_threads" in plan and (plan["event"] != "APPROVE" or not isinstance(plan["optional_threads"], list)
+                                       or not all(isinstance(i, str) for i in plan["optional_threads"])):
+        raise PublishError("optional_threads is a list of thread IDs and applies only to APPROVE")
     paths = json.loads((snapshot.parent / "changed-paths.json").read_text())
     keys = set()
     for kind in ("comments", "replies"):
@@ -98,11 +104,17 @@ def validate_plan(plan: dict, manifest: dict, snapshot: Path) -> None:
             if item["key"] in keys:
                 raise PublishError("comment keys must be unique across all sites and replies")
             keys.add(item["key"])
+            if item.get("action") not in ACTIONS:
+                raise PublishError("every comment and reply needs action required or optional")
+            if item["action"] == "required" and OPTIONAL_LABEL.match(item["body"]):
+                raise PublishError("a required point cannot be worded as a nit or suggestion")
+            if plan["event"] == "APPROVE" and item["action"] == "required":
+                raise PublishError("APPROVE carries only optional comments and replies; publish required ones as COMMENT")
             if kind == "replies":
-                if set(item) != {"key", "body", "thread_id"} or not isinstance(item["thread_id"], str):
-                    raise PublishError("reply needs only key, body and thread_id")
+                if set(item) != {"key", "body", "thread_id", "action"} or not isinstance(item["thread_id"], str):
+                    raise PublishError("reply needs only key, body, thread_id and action")
                 continue
-            if set(item) - {"key", "body", "path", "line", "side", "start_line", "start_side"}:
+            if set(item) - {"key", "body", "action", "path", "line", "side", "start_line", "start_side"}:
                 raise PublishError("unknown comment fields")
             if item.get("path") not in paths or item.get("side") not in {"LEFT", "RIGHT"}:
                 raise PublishError("comment must anchor in the frozen diff")
@@ -114,8 +126,6 @@ def validate_plan(plan: dict, manifest: dict, snapshot: Path) -> None:
                 raise PublishError("line/range is outside one frozen diff hunk")
             if ("start_line" in item) != ("start_side" in item) or item.get("start_side", item["side"]) != item["side"]:
                 raise PublishError("range must specify both start_line and the same start_side")
-    if plan["event"] == "APPROVE" and (plan.get("comments") or plan.get("replies")):
-        raise PublishError("APPROVE carries no comments or replies; publish findings as COMMENT")
     if plan["event"] == "COMMENT" and not (plan.get("comments") or plan.get("replies") or plan.get("body", "").strip()):
         raise PublishError("COMMENT has nothing to publish")
 
@@ -169,10 +179,15 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None, 
         threads = threads["data"]["repository"]["pullRequest"]["reviewThreads"]
         if threads["pageInfo"]["hasNextPage"]:
             raise PublishError("the PR has more than 100 review threads; refusing to approve on a partial view")
+        # An APPROVE plan holds only optional items, so the threads it writes to are optional too.
+        optional = ({i["thread_id"] for i in plan.get("replies", [])} | set(plan.get("optional_threads", []))
+                    | {saved["thread_id"] for saved in state["comments"].values()})
         if any(
-                not node["isResolved"] and (node["comments"]["nodes"][0]["author"] or {}).get("login") == actor
+                not node["isResolved"] and node["id"] not in optional
+                and (node["comments"]["nodes"][0]["author"] or {}).get("login") == actor
                 for node in threads["nodes"] if node["comments"]["nodes"]):
-            raise PublishError("the actor has unresolved threads on this PR; approval belongs to pr-review-followup")
+            raise PublishError("the actor has unresolved threads the plan does not mark optional; "
+                               "approval belongs to pr-review-followup")
 
     current = preflight()
     roots = {}
@@ -226,7 +241,8 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None, 
             if (comment.get("body") != item["body"] or comment.get("user", {}).get("login") != actor
                     or review.get("state") != "COMMENTED"):
                 raise PublishError("reply did not read back as a published comment; inspect its thread")
-            replies[item["key"]] = {"id": comment["node_id"], "body": item["body"]}
+            replies[item["key"]] = {"id": comment["node_id"], "thread_id": item["thread_id"], "body": item["body"],
+                                    "action": item["action"]}
             state.pop("pending_operation", None)
             save(receipt, state)
         state["status"] = final_state
@@ -268,12 +284,14 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None, 
         payload = {"pullRequestReviewId": review_node, "body": item["body"], "path": item["path"], "line": item["line"], "side": item["side"]}
         if "start_line" in item:
             payload.update(startLine=item["start_line"], startSide=item["start_side"])
-        query = "mutation($input:AddPullRequestReviewThreadInput!){addPullRequestReviewThread(input:$input){thread{comments(first:1){nodes{id body pullRequestReview{id state}}}}}}"
+        query = "mutation($input:AddPullRequestReviewThreadInput!){addPullRequestReviewThread(input:$input){thread{id comments(first:1){nodes{id body pullRequestReview{id state}}}}}}"
         result = write(item["key"], "graphql", {"query": query, "variables": {"input": payload}})
-        comment = result["data"]["addPullRequestReviewThread"]["thread"]["comments"]["nodes"][0]
+        thread = result["data"]["addPullRequestReviewThread"]["thread"]
+        comment = thread["comments"]["nodes"][0]
         if comment.get("body") != item["body"] or comment.get("pullRequestReview") != {"id": review_node, "state": "PENDING"}:
             raise PublishError("comment body or review association did not verify; inspect visibility immediately")
-        state["comments"][item["key"]] = {"id": comment["id"], "body": item["body"]}
+        state["comments"][item["key"]] = {"id": comment["id"], "thread_id": thread["id"], "body": item["body"],
+                                          "action": item["action"]}
         state.pop("pending_operation", None)
         save(receipt, state)
 

@@ -125,7 +125,8 @@ existing authorization; suggestions grant no additional permission.
    reviewer's access. A fact the author can see on the PR, such as a merge
    conflict that kept CI from running, can still be stated as the reviewer's own
    observation. Preserve required versus optional status, consequence and
-   certainty when shortening or phrasing a question.
+   certainty when shortening or phrasing a question. Only an optional finding
+   takes the `nit:` or `suggestion:` label.
    A fix in another repository asks its owner rather than demanding an unrelated
    change in this PR. Keep every supported finding internally. Test, story and
    tooling findings are selected like any other finding; a test site of a finding
@@ -145,25 +146,26 @@ existing authorization; suggestions grant no additional permission.
     - **APPROVE** only when every requested engine succeeded, no supported
       required finding still stands (new, previously posted, in the body or in
       any thread, accepted deferrals aside), no decisive question is open, and
-      the actor has no unresolved thread on the PR. APPROVE carries no comments
-      or replies.
+      every unresolved thread of the actor holds only an optional point. Open
+      suggestions and nits never block approval, and APPROVE can carry new
+      ones as comments or replies.
     - **COMMENT** otherwise, when there is a finding, reply or question to
       publish. An incomplete review publishes that content the same way,
       without saying the review is incomplete; with nothing to publish, it
       publishes nothing. Either way, step 11 reports the gap to the user.
     - When `pr-review-followup` runs this review, it owns approval: publish with
       `--max-event COMMENT`, and return whether every engine succeeded, how many
-      supported required findings stand outside the actor's threads, and how many
-      decisive questions remain open.
+      supported required findings stand outside the actor's threads, how many
+      decisive questions remain open, and the receipt when anything was published.
     Verify intended actor and current PR base/head, then publish through
     `scripts/publish_review.py`. It builds the review at that head with the new
     threads, submits it once and reads back state, membership and exact bodies,
     then posts thread replies on their own. It refuses APPROVE while the actor
-    has an unresolved thread, and stops before submitting when the review holds
-    content it did not write. An unsubmitted review the actor already has belongs
-    to the user: stop rather than publish it. An uncertain write needs
-    reconciliation, not a blind retry; a definite GitHub rejection is reported as
-    such.
+    has an unresolved thread the plan does not mark optional, and stops before
+    submitting when the review holds content it did not write. An unsubmitted
+    review the actor already has belongs to the user: stop rather than publish
+    it. An uncertain write needs reconciliation, not a blind retry; a definite
+    GitHub rejection is reported as such.
 11. **Report the observed result.** Give the full PR URL and the published event,
     then one row per published site with file/side/line, a short topic, severity,
     required/optional status, sources and whether it is a reply. Include dropped or

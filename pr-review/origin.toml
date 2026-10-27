@@ -44,7 +44,7 @@ reason = "Private repository profiles stay out of the public package, and profil
 where = ["references/profiles.md", "scripts/resolve_profile.py"]
 
 [[local_snapshots.deviations]]
-change = "Replaced preparing an editable PENDING review for the user to submit with publishing the review directly: a Comment review with the verified findings, or an Approve review only when every engine succeeded and no supported required finding, open decisive question or unresolved thread of the actor remains."
+change = "Replaced preparing an editable PENDING review for the user to submit with publishing the review directly: a Comment review with the verified findings, or an Approve review only when every engine succeeded and no supported required finding, open decisive question or unresolved required thread of the actor remains."
 reason = "User decision of 2026-10-07: publish reviews directly and approve only a complete and clean review."
 where = [
   "SKILL.md#pr-review",
@@ -234,6 +234,16 @@ where = ["references/maintainability.md"]
 change = "Replaced placing only required findings without a line anchor in the review body with placing every selected finding without one there."
 reason = "User decision of 2026-10-25 that an unmet standard whose remedy no longer serves the change is optional, with a follow-up. Such a finding, like a branch name, has no line anchor, and comment selection posts optional findings."
 where = ["SKILL.md#word-select-and-publish"]
+
+[[local_snapshots.deviations]]
+change = "Added that open suggestions and nits never block approval. Each published comment and reply records the Action of the point it carries and the receipt keeps it per thread; an Approve review may carry optional comments and replies; the actor's unresolved threads block approval only when they hold a required point; and only an optional finding takes the `nit:` or `suggestion:` label."
+reason = "User decision of 2026-10-27, after the follow-up of a private repository's PR kept listing a lone `suggestion:` thread as an approval blocker. The action is recorded at publication rather than read from the label because the user edits published comments, and an earlier review had labeled a required low-severity finding `nit:`."
+where = [
+  "SKILL.md#word-select-and-publish",
+  "references/github.md#review-identity-and-comment-plan",
+  "references/github.md#publish-and-verify",
+  "scripts/publish_review.py",
+]
 
 [[dependencies]]
 kind = "local"

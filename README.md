@@ -535,8 +535,9 @@ Uses `review-code-changes` for the audit protocol, `compare-solutions` for indep
 attempts and `comment-style` for wording. The parent verifies findings, checks
 cross-repository seams and reconciles existing feedback, continuing a same-topic
 point in its existing thread. It never requests changes, never submits a review
-the user started, and approves only when no required finding or reviewer thread
-remains open. Read-only review controls, bounded retries and exact actor/head
+the user started, and approves only when no required finding or required
+reviewer thread remains open; open suggestions and nits never block approval.
+Read-only review controls, bounded retries and exact actor/head
 binding remain part of the workflow.
 
 This replaces `pr-review-draft`, which left a pending review for the user to
