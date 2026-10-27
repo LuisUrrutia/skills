@@ -7,10 +7,10 @@ description: Use when following up on a GitHub PR you reviewed, until your requi
 
 Carry a PR you reviewed to approval: answer the author in your own threads, settle
 what is resolved, re-review new commits and approve once nothing blocking remains.
-Open suggestions and nits never block approval. When the verified `gh` actor is
-the PR's author, use `pr-followup` instead; producing a review belongs to
-`pr-review`. This skill never edits the reviewed code, requests changes, or
-touches other reviewers' threads.
+Open threads whose recorded action is `optional` never block approval. When the
+verified `gh` actor is the PR's author, use `pr-followup` instead; producing a
+review belongs to `pr-review`. This skill never edits the reviewed code,
+requests changes, or touches other reviewers' threads.
 
 Resolve `pr-review` and `comment-style` by registered name, and use
 `comment-style` before wording any reply. A missing dependency blocks the phase
