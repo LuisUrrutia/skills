@@ -7,7 +7,7 @@ description: Use when reviewing another author's GitHub PR and publishing the re
 
 Publish one GitHub review built from two independent reviews of one PR by Codex
 and Claude: a **Comment** review carrying the verified findings, or an
-**Approve** review when the review is complete and clean.
+**Approve** review when the review is complete and nothing blocking remains.
 Generic auditing belongs to `review-code-changes`. Following up on replies and
 new commits, resolving threads and later approval belong to `pr-review-followup`;
 repairing your own PR belongs to `pr-followup`; when the verified `gh` actor is

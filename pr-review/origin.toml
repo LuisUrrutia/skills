@@ -2,7 +2,7 @@ format_version = 2
 skill = "pr-review"
 created = "2026-10-06"
 approach = "base"
-goal = "Publish one GitHub review of another author's PR under the user's own account, built from independent Codex and Claude reviews that the parent verifies and synthesizes. Success is a Comment review that carries only verified, correctly anchored findings, or an Approve review when the review is complete and clean, with read-back confirming what was published and every gap reported to the user."
+goal = "Publish one GitHub review of another author's PR under the user's own account, built from independent Codex and Claude reviews that the parent verifies and synthesizes. Success is a Comment review that carries only verified, correctly anchored findings, or an Approve review when the review is complete and nothing that blocks approval remains, with read-back confirming what was published and every gap reported to the user."
 
 [[invariants]]
 rule = "The skill runs only on explicit invocation."
@@ -59,7 +59,7 @@ reason = "User decision of 2026-10-07: a same-topic point continues in its exist
 where = ["SKILL.md#run-and-reconcile"]
 
 [[local_snapshots.deviations]]
-change = "Replaced binding thread replies to the review, and the rule against publishing standalone replies, with posting each reply on its own in its existing thread once the review is submitted and read back. A plan with only replies publishes no review."
+change = "Replaced binding thread replies to the review, and the rule against publishing standalone replies, with posting each reply on its own in its existing thread once the review is submitted and read back. A Comment plan with only replies publishes no review."
 reason = "User decision of 2026-10-21, after a reply published inside the run's review appeared twice on the PR's Conversation tab: GitHub showed the one comment in its thread and again under that review."
 where = [
   "SKILL.md#word-select-and-publish",

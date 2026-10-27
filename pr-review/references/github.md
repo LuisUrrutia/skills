@@ -66,12 +66,11 @@ Create `comment-plan.json` with `event` (`COMMENT` or `APPROVE`), an optional
 Use real thread IDs and exact final wording. Every key identifies one verified
 site or reply, with provenance in the ledger. `action` is the ledger Action of
 the finding the item carries, and `required` for a decisive question; a reply's
-action is what its thread holds after it. `optional_threads` lists the actor's other unresolved
-threads whose only open point is optional. Take that from the receipt or ledger
-of the review that published the thread, or judge it again with the auditor's
-Action rule; a `nit:` or `suggestion:` label is not evidence, because the user
-may edit a published comment. For each anchor, inspect the file
-at the claimed revision and confirm it belongs to the frozen diff. `RIGHT` is
+action is what its thread holds after it. `optional_threads` lists the actor's
+other unresolved threads whose only open point the step 8 reconciliation judged
+optional; a `nit:` or `suggestion:` label is not evidence, because the user may
+edit a published comment. For each anchor, inspect the file at the claimed
+revision and confirm it belongs to the frozen diff. `RIGHT` is
 the head side; `LEFT` can anchor a deleted baseline line. A range includes both
 `start_line` and `start_side`, within one hunk on the same side. For an unchanged
 counterpart, anchor the related change and name the other location in the body.
@@ -107,7 +106,7 @@ the plan's event and body and reads back the submitted state (`COMMENTED` or
 it post each reply on its own through the REST replies endpoint, since GitHub
 shows a reply inside a review twice: in its thread and under the review. Each
 reply reads back with its exact body and author, and its own review as
-`COMMENTED`. A plan with only
+`COMMENTED`. A `COMMENT` plan with only
 replies creates no review. A moved base tip is
 accepted while the base branch name and the merge-base with the frozen head are
 unchanged; a retarget stops the write.
@@ -119,8 +118,9 @@ An unsubmitted review the actor already has, which this run did not create, is
 the user's work: the helper stops instead of submitting it or posting a reply
 that could join it. Do not submit or discard it to bypass that boundary; report it.
 
-The receipt stores each completed key with its thread ID and action, which
-`pr-review-followup` records. It records an operation **before** its write. A transport failure or ambiguous
+The receipt stores each completed key with its thread ID and action, and on
+completion the time and any `optional_threads`; `pr-review-followup` records
+those actions. It records an operation **before** its write. A transport failure or ambiguous
 response leaves `pending_operation` set; a definite HTTP 4xx rejection clears
 it and is reported as nothing written. Stop automatic retries; inspect the actor's reviews, and for a reply its thread,
 and associate the actual returned comment or review state before reconciling

@@ -270,6 +270,36 @@ class PublishReviewTests(unittest.TestCase):
         state = self.apply()
 
         self.assertEqual(state['status'], 'APPROVED')
+        receipt = json.loads(self.receipt.read_text())
+        self.assertEqual(receipt['optional_threads'], ['PRRT_existing'])
+        self.assertIn('published_at', receipt)
+
+    def test_approve_with_optional_comments_is_blocked_by_another_unmarked_thread(self):
+        self.api.unresolved_mine = True
+        self.data = {'event':'APPROVE','comments':[{**self.data['comments'][0],'action':'optional',
+                                                    'body':'suggestion: extract this mapping into the shared helper'}]}
+        self.write_plan()
+
+        with self.assertRaisesRegex(PublishError, 'unresolved'):
+            self.apply()
+
+        self.assertEqual(self.api.writes(), [])
+
+    def test_approve_resumes_with_its_recorded_comment_threads_exempt(self):
+        self.data = {'event':'APPROVE','comments':[{**self.data['comments'][0],'action':'optional',
+                                                    'body':'suggestion: extract this mapping into the shared helper'}]}
+        self.write_plan()
+        item = self.data['comments'][0]
+        self.api.review = {'id':17,'node_id':'PRR_new','state':'PENDING','user':{'login':'reviewer'},'commit_id':self.f.head}
+        self.api.comments.append({'id':1,'node_id':'PRRC_1','body':item['body'],'pull_request_review_id':17})
+        identity = {'target':verify(self.f.snapshot)['target'],'actor':'reviewer','plan_sha256':digest(self.plan)}
+        self.receipt.write_text(json.dumps({'identity':identity,'review_id':17,'review_node_id':'PRR_new','comments':{
+            item['key']:{'id':'PRRC_1','thread_id':'PRRT_new1','body':item['body'],'action':'optional'}}}))
+
+        state = self.apply()
+
+        self.assertEqual(state['status'], 'APPROVED')
+        self.assertEqual([e for e,_ in self.api.writes()], ['repos/example-org/target/pulls/12/reviews/17/events'])
 
     def test_approve_carries_optional_comments_and_replies(self):
         self.api.unresolved_mine = True
@@ -343,13 +373,21 @@ class PublishReviewTests(unittest.TestCase):
         self.assertFalse(any(e.endswith('/events') for e,_ in self.api.writes()))
 
     def test_existing_unsubmitted_review_is_never_published(self):
-        self.api.review = {'id':17,'node_id':'PRR_user','state':'PENDING','user':{'login':'reviewer'},'commit_id':self.f.head,'body':'user draft'}
+        for event in ('COMMENT', 'APPROVE'):
+            with self.subTest(event=event):
+                self.receipt.unlink(missing_ok=True)
+                self.api = FakeGitHub(self.f)
+                self.api.unresolved_mine = event == 'APPROVE'
+                self.data = {'event':event,'body':'' if event == 'APPROVE' else 'the PR title needs the ticket format'}
+                self.write_plan()
+                self.api.review = {'id':17,'node_id':'PRR_user','state':'PENDING','user':{'login':'reviewer'},
+                                   'commit_id':self.f.head,'body':'user draft'}
 
-        with self.assertRaisesRegex(PublishError, 'unsubmitted review'):
-            self.apply()
+                with self.assertRaisesRegex(PublishError, 'unsubmitted review'):
+                    self.apply()
 
-        self.assertEqual(self.api.writes(), [])
-        self.assertEqual(self.api.review['state'], 'PENDING')
+                self.assertEqual(self.api.writes(), [])
+                self.assertEqual(self.api.review['state'], 'PENDING')
 
     def test_actor_mismatch_and_remote_drift_prevent_writes(self):
         self.api.actor = 'another-user'
@@ -425,6 +463,8 @@ class PublishReviewTests(unittest.TestCase):
                  ({'event':'COMMENT','replies':[{k:v for k,v in reply.items() if k != 'action'}]}, 'action'),
                  ({'event':'COMMENT','comments':[{**finding,'body':'Nit: regenerate the client'}]}, 'nit or suggestion'),
                  ({'event':'COMMENT','replies':[{**reply,'body':'suggestion: guard the retry'}]}, 'nit or suggestion'),
+                 ({'event':'COMMENT','comments':[{**finding,'body':'**nit:** regenerate the client'}]}, 'nit or suggestion'),
+                 ({'event':'COMMENT','comments':[{**finding,'body':'_suggestion_: guard the retry'}]}, 'nit or suggestion'),
                  ({'event':'COMMENT','body':'x','optional_threads':['PRRT_x']}, 'optional_threads'),
                  ({'event':'APPROVE','optional_threads':'PRRT_x'}, 'optional_threads'),
                  ({'event':'COMMENT'}, 'nothing to publish'),

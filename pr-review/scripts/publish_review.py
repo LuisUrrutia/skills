@@ -8,6 +8,7 @@ import os
 import re
 import subprocess
 import sys
+from datetime import datetime, timezone
 from pathlib import Path
 
 from snapshot import DIFF_OPTIONS, SnapshotError, digest, git, verify
@@ -74,7 +75,7 @@ def anchor_lines(repository: Path, base: str, head: str, path: str, old_path: st
 EVENTS = {"COMMENT": "COMMENTED", "APPROVE": "APPROVED"}
 ACTIONS = {"required", "optional"}
 # These labels tell the author a point does not block approval.
-OPTIONAL_LABEL = re.compile(r"\s*(nit|suggestion)\s*:", re.I)
+OPTIONAL_LABEL = re.compile(r"[\s*_`]*(nit|suggestion)[*_`]*\s*:", re.I)
 OWN_THREADS = """query($owner:String!,$repo:String!,$number:Int!){repository(owner:$owner,name:$repo){pullRequest(number:$number){
   reviewThreads(first:100){pageInfo{hasNextPage} nodes{id isResolved comments(first:1){nodes{author{login}}}}}}}}"""
 
@@ -197,9 +198,6 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None, 
         if thread["pullRequest"]["id"] != current["node_id"]:
             raise PublishError("reply thread belongs to a different PR")
         roots[item["key"]] = thread["comments"]["nodes"][0]["fullDatabaseId"]
-    if plan["event"] == "APPROVE":
-        check_own_threads()
-
     def actor_pending_reviews():
         reviews = api.call(prefix + "/reviews?per_page=100", paginate=True)
         return [r for r in reviews if r.get("state") == "PENDING" and r.get("user", {}).get("login") == actor]
@@ -246,6 +244,9 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None, 
             state.pop("pending_operation", None)
             save(receipt, state)
         state["status"] = final_state
+        state.setdefault("published_at", datetime.now(timezone.utc).isoformat())
+        if plan.get("optional_threads"):
+            state["optional_threads"] = plan["optional_threads"]
         save(receipt, state)
         return state
 
@@ -260,6 +261,8 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None, 
         raise PublishError("the actor has an unsubmitted review this run did not create; publishing would submit it")
     if state.get("review_id") and not review:
         raise PublishError("the recorded review is no longer pending; read back its state before retrying")
+    if plan["event"] == "APPROVE":
+        check_own_threads()
 
     if review is None:
         review = write("create-review", prefix + "/reviews", {"commit_id": target["head"]})

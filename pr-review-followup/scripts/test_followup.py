@@ -9,6 +9,8 @@ from followup import FollowupError, RejectedError, apply, begin, record, settle,
 
 PR = 'https://github.com/example-org/api/pull/12'
 HEAD = 'a' * 40
+EARLIER = '2026-10-01T09:00:00+00:00'
+LATER = '2026-10-02T09:00:00+00:00'
 
 
 def thread(node, *comments, resolved=False, resolved_by=None, can_resolve=True):
@@ -99,13 +101,17 @@ class FollowupTests(unittest.TestCase):
     def record(self, complete=True, standing=0, questions=0, receipt=None):
         return record(PR, 'reviewer', self.state_file, self.snapshot, complete, standing, questions, receipt)
 
-    def receipt(self, *entries, head=HEAD, actor='reviewer'):
+    def receipt(self, *comments, replies=(), optional=(), at=EARLIER, actor='reviewer', **receipt):
+        target = {**json.loads(self.snapshot.read_text())['target'], **receipt.pop('target', {})}
         path = self.root / 'review-receipt.json'
         path.write_text(json.dumps({
-            'identity': {'target': {'url': PR, 'head': head, 'base_name': 'main'}, 'actor': actor, 'plan_sha256': '0'},
+            'identity': {'target': target, 'actor': actor, 'plan_sha256': '0'},
             'comments': {f'C{i}': {'id': f'PRRC_{i}', 'thread_id': node, 'body': 'x', 'action': action}
-                         for i, (node, action) in enumerate(entries)},
-            'replies': {}}))
+                         for i, (node, action) in enumerate(comments)},
+            'replies': {f'R{i}': {'id': f'PRRC_r{i}', 'thread_id': node, 'body': 'x', 'action': action}
+                        for i, (node, action) in enumerate(replies)},
+            'status': 'COMMENTED', 'published_at': at, **({'optional_threads': list(optional)} if optional else {}),
+            **receipt}))
         return path
 
     def apply(self, **data):
@@ -224,22 +230,71 @@ class FollowupTests(unittest.TestCase):
         self.assertEqual(result['approved'], HEAD)
         self.assertEqual(state(PR, 'reviewer', self.state_file, self.api)['threads'][0]['action'], 'optional')
 
-    def test_a_later_publication_updates_a_threads_action(self):
+    def test_only_a_later_judgment_replaces_a_threads_action(self):
         self.record(receipt=self.receipt(('T1', 'optional')))
-        self.record(receipt=self.receipt(('T1', 'required')))
+        self.record(receipt=self.receipt(('T1', 'optional'), replies=[('T1', 'required')], at=LATER))
+        self.record(receipt=self.receipt(('T1', 'optional')))
+        self.record()
 
         result = state(PR, 'reviewer', self.state_file, self.api)
 
         self.assertEqual(result['threads'][0]['action'], 'required')
         self.assertIn('required reviewer threads remain unresolved', result['approval_blockers'])
 
-    def test_a_receipt_from_another_run_or_without_actions_is_refused(self):
-        cases = [(('T1', 'optional'), {'head': 'b' * 40}, 'another PR, head'),
-                 (('T1', 'optional'), {'actor': 'someone-else'}, 'another PR, head'),
-                 (('T1', None), {}, "each thread's action")]
-        for entry, identity, message in cases:
-            with self.subTest(identity=identity, message=message), self.assertRaisesRegex(FollowupError, message):
-                self.record(receipt=self.receipt(entry, **identity))
+    def test_reimporting_a_receipt_keeps_a_later_classification(self):
+        published = self.receipt(('T1', 'optional'))
+        self.record(receipt=published)
+        self.apply(required=['T1'])
+
+        self.record(receipt=published)
+
+        self.assertEqual(state(PR, 'reviewer', self.state_file, self.api)['threads'][0]['action'], 'required')
+
+    def test_a_standalone_approval_hands_its_optional_threads_over(self):
+        self.record(receipt=self.receipt(optional=['T1', 'T2'], status='APPROVED'))
+        self.api.reviews.append({'state': 'APPROVED', 'commit_id': HEAD, 'user': {'login': 'reviewer'}})
+
+        result = state(PR, 'reviewer', self.state_file, self.api)
+
+        self.assertTrue(result['done'])
+        self.assertEqual(result['open_optional'], ['T1'])
+
+    def test_a_classification_survives_a_later_failed_write(self):
+        self.record(receipt=self.receipt(('T1', 'optional')))
+        self.api.threads[1].update(isResolved=False, resolvedBy=None, viewerCanResolve=True)
+        self.api.reject_resolve = True
+
+        with self.assertRaises(RejectedError):
+            self.apply(required=['T1'], replies=[{'thread_id': 'T1', 'body': 'the retry path still writes twice'}],
+                       resolve=['T2'])
+
+        result = state(PR, 'reviewer', self.state_file, self.api)
+        self.assertEqual(result['threads'][0]['action'], 'required')
+        self.assertIn('required reviewer threads remain unresolved', result['approval_blockers'])
+
+    def test_a_malformed_recorded_action_counts_as_unrecorded(self):
+        self.record()
+        data = json.loads(self.state_file.read_text())
+        data['thread_actions'] = {'T1': {'action': 'blocking', 'at': EARLIER}, 'T2': 'optional'}
+        self.state_file.write_text(json.dumps(data))
+
+        result = state(PR, 'reviewer', self.state_file, self.api)
+
+        self.assertEqual([t['action'] for t in result['threads']], [None, None])
+        self.assertIn('unresolved reviewer threads have no recorded action', result['approval_blockers'])
+        self.assertEqual(result['needs_verification'], ['T2'])
+
+    def test_a_receipt_from_another_snapshot_or_an_unfinished_publication_is_refused(self):
+        cases = [((('T1', 'optional'),), {'target': {'head': 'b' * 40}}, 'another snapshot'),
+                 ((('T1', 'optional'),), {'target': {'base_name': 'release/1.2'}}, 'another snapshot'),
+                 ((('T1', 'optional'),), {'actor': 'someone-else'}, 'another snapshot'),
+                 ((('T1', None),), {}, "each thread's action"),
+                 ((('T1', 'optional'),), {'status': None}, 'did not complete'),
+                 ((('T1', 'optional'),), {'pending_operation': 'C2-reply'}, 'did not complete'),
+                 ((), {'optional': [3]}, 'not thread IDs')]
+        for comments, fields, message in cases:
+            with self.subTest(fields=fields), self.assertRaisesRegex(FollowupError, message):
+                self.record(receipt=self.receipt(*comments, **fields))
         self.assertFalse(self.state_file.exists())
 
     def test_resolution_by_someone_else_needs_verification_before_approval(self):

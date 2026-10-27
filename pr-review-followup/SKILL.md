@@ -68,7 +68,8 @@ step to report, never a success.
    ```
 
    Pass `--receipt` whenever the review published anything; it records each
-   thread's action.
+   thread's action unless a later judgment holds. `record` refuses an unfinished
+   publication; report it like a failed review.
 
    `--complete` is true only when every requested engine succeeded. `--standing`
    counts supported required findings that still stand outside the reviewer's
@@ -81,10 +82,9 @@ step to report, never a success.
 4. **Settle the reviewer's threads.** Act on each thread where the author or
    another participant spoke last, on every unresolved thread after a new head
    or base (a push can fix it without a reply), and on each resolved thread
-   listed in `needs_verification`: a resolution counts only once it is confirmed
-   on the current head and base, so every resolved thread is checked again after
-   a new head or base. Read the whole thread, check its claims on the current
-   head, and choose the action in
+   listed in `needs_verification`: a resolved thread that is not optional
+   counts only once the current head and base confirm it. Read the whole thread,
+   check its claims on the current head, and choose the action in
    [thread-settlement.md](references/thread-settlement.md). Reassess the
    review's standing findings and open questions too: a fixed PR title, an
    answered question or a ticket confirmed elsewhere lowers them with `settle
@@ -93,7 +93,9 @@ step to report, never a success.
    classifies it: take the Action from the ledger of the review that published
    it, or judge it with the auditor's Action rule on the current head. Its label
    is not evidence: the user may edit comments, and earlier reviews labeled
-   required findings `nit:`.
+   required findings `nit:`. A recorded `required` thread becomes `optional`
+   only through the settlement row for an answer that leaves an optional point,
+   and the tick report gives the deciding fact.
 5. **Apply** with `apply --plan "$PLAN" --receipt "$RECEIPT"`, a new plan and
    receipt per tick. The plan is `{"expected_head": SHA, "expected_base_ref":
    BRANCH, "replies": [{"thread_id", "body"}], "resolve": [ids], "unresolve":

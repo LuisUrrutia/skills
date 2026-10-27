@@ -117,10 +117,22 @@ def review_key(pr: dict) -> str:
 
 
 def thread_actions(data: dict, plan: dict | None = None) -> dict:
-    actions = dict(data["thread_actions"]) if isinstance(data.get("thread_actions"), dict) else {}
+    stored = data.get("thread_actions") if isinstance(data.get("thread_actions"), dict) else {}
+    actions = {i: e["action"] for i, e in stored.items() if isinstance(e, dict) and e.get("action") in ACTIONS}
     for action in ACTIONS:
         actions.update(dict.fromkeys((plan or {}).get(action, []), action))
     return actions
+
+
+def classify(data: dict, actions: dict, at: str) -> None:
+    """Record each thread's action as judged at `at`, unless a later judgment already holds."""
+    stored = data["thread_actions"] = data["thread_actions"] if isinstance(data.get("thread_actions"), dict) else {}
+    for thread_id, action in actions.items():
+        previous = stored.get(thread_id)
+        if (isinstance(previous, dict) and isinstance(previous.get("at"), str)
+                and datetime.fromisoformat(previous["at"]) > datetime.fromisoformat(at)):
+            continue
+        stored[thread_id] = {"action": action, "at": at}
 
 
 def summarize(pr: dict, data: dict, plan: dict | None = None) -> dict:
@@ -197,19 +209,24 @@ def counts(standing: int, questions: int) -> None:
             raise FollowupError(f"{name} must be a non-negative count")
 
 
-def published_actions(receipt: Path, frozen: dict, actor: str) -> dict:
-    """The required or optional action of each thread a pr-review publication receipt wrote to."""
+def published_actions(receipt: Path, frozen: dict, actor: str) -> tuple[str, dict]:
+    """When a completed pr-review publication ended, and the action of each thread it judged."""
     published = json.loads(receipt.read_text())
     identity = published.get("identity") or {}
-    if (identity.get("actor") != actor or parse_pr(identity["target"]["url"])["url"] != parse_pr(frozen["url"])["url"]
-            or identity["target"]["head"] != frozen["head"]):
-        raise FollowupError("the publication receipt belongs to another PR, head or reviewer")
-    actions = {}
+    if identity.get("actor") != actor or identity.get("target") != frozen:
+        raise FollowupError("the publication receipt belongs to another snapshot or reviewer")
+    if (published.get("status") not in ("COMMENTED", "APPROVED") or published.get("pending_operation")
+            or not isinstance(published.get("published_at"), str)):
+        raise FollowupError("the publication did not complete; reconcile it before recording its threads")
+    optional = published.get("optional_threads", [])
+    if not isinstance(optional, list) or not all(isinstance(i, str) for i in optional):
+        raise FollowupError("the publication receipt lists optional threads that are not thread IDs")
+    actions = dict.fromkeys(optional, "optional")
     for entry in [*published.get("comments", {}).values(), *published.get("replies", {}).values()]:
         if not isinstance(entry.get("thread_id"), str) or entry.get("action") not in ACTIONS:
             raise FollowupError("the publication receipt does not record each thread's action")
         actions[entry["thread_id"]] = entry["action"]
-    return actions
+    return published["published_at"], actions
 
 
 def record(url: str, actor: str, state_file: Path, snapshot: Path, complete: bool, standing: int,
@@ -221,7 +238,8 @@ def record(url: str, actor: str, state_file: Path, snapshot: Path, complete: boo
         raise FollowupError("the review snapshot belongs to another PR")
     counts(standing, questions)
     if receipt:
-        data["thread_actions"] = {**thread_actions(data), **published_actions(receipt, frozen, actor)}
+        published_at, actions = published_actions(receipt, frozen, actor)
+        classify(data, actions, published_at)
     data["reviewed"] = {"head": frozen["head"], "base_ref": frozen["base_name"], "complete": complete,
                         "standing": standing, "questions": questions,
                         "snapshot_sha256": hashlib.sha256(snapshot.read_bytes()).hexdigest()}
@@ -311,6 +329,9 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
             raise FollowupError(f"plan verifies {thread_id}, which is not resolved")
     if plan.get("approve") and (blockers := summarize(pr, data, plan)["blockers"]):
         raise FollowupError(blockers[0])
+    # Saved before any write, so a later failed write cannot drop a required classification.
+    classify(data, {i: a for a in ACTIONS for i in plan.get(a, [])}, datetime.now(timezone.utc).isoformat())
+    save(state_file, data)
 
     def write(key: str, endpoint: str, payload: dict, check=None):
         if key in done["completed"]:
@@ -371,7 +392,6 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
         result["resolved"].append(thread_id)
     for thread_id in plan.get("verified", []):
         verified[thread_id] = key_now
-    data["thread_actions"] = thread_actions(data, plan)
     save(state_file, data)
     def gate(live: dict) -> None:
         if blockers := summarize(live, data)["blockers"]:

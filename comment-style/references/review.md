@@ -50,7 +50,7 @@ no rule requires, with `nit:`. Both labels tell the author that the point does
 not block approval, so a required finding, however minor, a concrete defect, a
 change your own work depends on or a genuine question starts with its point.
 Skip isolated taste objections; a documented rule or repeated inconsistency can
-justify a minor comment.
+justify a comment.
 
 Start with the observable problem, a genuine question, or an established
 straightforward change. Omit formulaic politeness such as an opening "please".

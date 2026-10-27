@@ -2,7 +2,7 @@ format_version = 2
 skill = "pr-review-followup"
 created = "2026-10-07"
 approach = "create"
-goal = "Carry a GitHub PR the user reviewed to approval on the reviewer's behalf: answer the author in the reviewer's own threads, settle what the current head confirms, re-review each new head through the pr-review skill, and approve once nothing remains. Success is an approval of a fully reviewed head through the gate enforced in code, or a report of the blocker that needs the user."
+goal = "Carry a GitHub PR the user reviewed to approval on the reviewer's behalf: answer the author in the reviewer's own threads, settle what the current head confirms, re-review each new head through the pr-review skill, and approve once nothing that blocks approval remains. Success is an approval of a fully reviewed head through the gate enforced in code, or a report of the blocker that needs the user."
 
 [[invariants]]
 rule = "The skill is the reviewer-side counterpart of the pr-followup skill. When the verified gh actor is the PR's author, the pr-followup skill applies instead, and producing a review belongs to the pr-review skill. This skill never edits the reviewed code or requests changes."
@@ -14,13 +14,13 @@ reason = "Set at the user's direction when the skill was derived from the superv
 where = ["references/cadence.md", "SKILL.md#start-the-follow-up"]
 
 [[invariants]]
-rule = "An author's reply, or a resolution by someone else, is a claim. A thread is settled only after its claim is checked on the current head, and a resolved thread counts only once the current head and base confirm it."
+rule = "An author's reply, or a resolution by someone else, is a claim. A thread is settled only after its claim is checked on the current head, and a resolved thread that is not optional counts only once the current head and base confirm it."
 reason = "Set when the skill was derived from the supervised PR 1982 follow-up session on 2026-10-07 (local snapshot pr-1982-followup-session)."
 where = ["references/thread-settlement.md", "SKILL.md#run-one-tick"]
 
 [[invariants]]
-rule = "Every follow-up on a topic stays in its existing thread. A deferral as out of scope gets a request for a ticket, and the thread is resolved once the author supplies the ticket."
-reason = "Set when the skill was derived from the supervised PR 1982 follow-up session on 2026-10-07 (local snapshot pr-1982-followup-session)."
+rule = "Every follow-up on a topic stays in its existing thread. A required finding deferred as out of scope gets a request for a ticket, and the thread is resolved once the author supplies the ticket; a declined or deferred optional point is resolved without one."
+reason = "Set when the skill was derived from the supervised PR 1982 follow-up session on 2026-10-07 (local snapshot pr-1982-followup-session). Optional points are exempt by the user decision of 2026-10-27 that they never block approval."
 where = ["references/thread-settlement.md"]
 
 [[invariants]]
