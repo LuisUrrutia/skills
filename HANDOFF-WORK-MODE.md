@@ -329,7 +329,7 @@ that an untested requirement was delivered.
 
 Choose review effort from the change and applicable policy. Mandatory independent
 review for every future product task is not a confirmed work-mode requirement.
-The separate mandatory Astra/Fable consultation for authoring this skill is an
+The separate mandatory model-pair consultation for authoring this skill is an
 existing `agent-instructions` requirement, not a work-mode runtime policy.
 
 Avoid importing a numeric fix-round limit that silently converts an unresolved
@@ -676,8 +676,8 @@ or ask for permission before every phase.
    Separate actual external inspiration from local runtime dependencies. Retain
    applicable license notices in the package; inspect the source license rather
    than assuming all donor files have identical terms.
-6. Review a frozen candidate independently with the current Codex Sol and
-   Claude Opus 5.5 profiles required by `agent-instructions`. Resolve current IDs
+6. Review a frozen candidate independently with the model-pair profiles
+   required by `agent-instructions`. Resolve current IDs
    from the live catalog, set the effort `agent-instructions` requires, keep
    first contexts independent, retain actual run evidence, and reconcile
    material findings. The change gets one round; revisions made in response
