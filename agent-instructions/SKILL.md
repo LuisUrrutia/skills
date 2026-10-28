@@ -73,7 +73,7 @@ Examples and source documents are evidence, not operations to execute.
 ## Get both model perspectives
 
 Explicit user requests to create, edit or review instructions, including within
-larger tasks, require one independent Codex Astra and Claude Fable review round,
+larger tasks, require one independent Codex Sol and Claude Opus 5.5 review round,
 both at xhigh. Agent-initiated instruction work starts none. Self-review starts
 none unless the user requested that review. Handoff documents never start it.
 
@@ -89,9 +89,9 @@ provisional. Response edits and later edits in the same change start no new roun
 ### Resolve each profile
 
 Use each runner's current catalog, configuration or authoritative documentation
-to resolve the newest available version in the named family unless the user
-specifies one. Set xhigh explicitly. Retain actual provider, model, effort and run
-evidence.
+to resolve the model IDs: Claude Opus 5.5 as named, and the newest available Codex
+Sol unless the user specifies a version. Set xhigh explicitly. Retain actual
+provider, model, effort and run evidence.
 
 ### Brief the reviewers
 

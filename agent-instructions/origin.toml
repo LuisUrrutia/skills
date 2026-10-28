@@ -58,7 +58,7 @@ reason = "Policy and preferences can be valuable even when they differ from a mo
 where = ["SKILL.md#pruning"]
 
 [[invariants]]
-rule = "Instruction work the user explicitly requests gets independent, fresh-context reviews from Codex Astra and Claude Fable before the result is final. Work an agent starts on its own, and its review of its own changes, start no pair unless the user asks for that review. The agent receiving the user's request runs the pair unless a brief relays that request and assigns the pair to a delegate. A rate or usage limit skips that profile for the task; other failures leave the result provisional; no model or effort is substituted without the user. No donor review layer replaces the pair."
+rule = "Instruction work the user explicitly requests gets independent, fresh-context reviews from both model-pair profiles before the result is final. Work an agent starts on its own, and its review of its own changes, start no pair unless the user asks for that review. The agent receiving the user's request runs the pair unless a brief relays that request and assigns the pair to a delegate. A rate or usage limit skips that profile for the task; other failures leave the result provisional; no model or effort is substituted without the user. No donor review layer replaces the pair."
 reason = "Explicit user policy (reports/skill-atlas/agent-instructions-dual-review-validation.json). Commit 299c077 stopped a subagent from starting an unrequested pair; commit 3d96199 lets one reviewer continue when the other reaches a rate limit."
 where = ["SKILL.md#get-both-model-perspectives", "SKILL.md#handle-failures"]
 
@@ -73,8 +73,8 @@ reason = "Coordinator note of 2026-10-19 from the workflow-to-skill focus task: 
 where = ["references/skill-changes.md#records"]
 
 [[invariants]]
-rule = "Both model-pair profiles run at reasoning effort xhigh."
-reason = "User decision on 2026-10-18: 'It is no longer maximum effort, it has to be xhigh.'"
+rule = "The model-pair profiles are Codex Sol, at its newest available version unless the user names one, and Claude Opus 5.5, both at reasoning effort xhigh."
+reason = "User decisions: on 2026-10-18, 'It is no longer maximum effort, it has to be xhigh.'; on 2026-10-28, 'Que sea opus 5.5 xhigh y Sol xhigh' ('Make it Opus 5.5 xhigh and Sol xhigh'). Pinning Opus to 5.5 while Sol follows its newest version is inferred from the user naming a version for Opus only."
 where = ["SKILL.md#get-both-model-perspectives", "SKILL.md#resolve-each-profile"]
 
 [[invariants]]
@@ -209,7 +209,7 @@ reason = "Trials showed agents turning 'create tests' into execution (reports/ag
 where = ["SKILL.md#establish-meaning-and-scope", "references/reuse.md#reuse-and-standardization"]
 
 [[sources.deviations]]
-change = "Added the Get both model perspectives step: independent Codex Astra and Claude Fable reviews at xhigh for instruction work the user explicitly requests, one round per change, with who runs them, a completion criterion, runner resolution, briefs, failure handling and reconciliation. The full contract now lives in SKILL.md; the former reference redirects there to preserve existing links."
+change = "Added the Get both model perspectives step: independent reviews by the model-pair profiles for instruction work the user explicitly requests, one round per change, with who runs them, a completion criterion, runner resolution, briefs, failure handling and reconciliation. The full contract now lives in SKILL.md; the former reference redirects there to preserve existing links."
 reason = "The model-pair invariants, the user's decisions of 2026-10-18 on effort, the handoff exemption and the split between SKILL.md and the reference, and the user's decision of 2026-10-19 on one round per change."
 where = ["SKILL.md#get-both-model-perspectives", "references/model-pair.md"]
 
