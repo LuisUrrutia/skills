@@ -4294,11 +4294,11 @@ window.SKILL_ATLAS = {
       {
         "name": "agent-instructions",
         "category": "Instruction authoring",
-        "summary": "Write and evaluate agent instructions and skills, reconciling independent Codex Astra and Claude Fable reviews at Max.",
+        "summary": "Write and evaluate agent instructions and skills, reconciling independent Codex Sol and Claude Opus reviews at xhigh.",
         "path": "agent-instructions/SKILL.md",
-        "sha256": "c34098ebfe4a0a3e94ff7503131faf0f2c6d5dddc63911953078012263921645",
+        "sha256": "92b32a9fbedcd666760ee4d6b16d9c01bbd11ec6d0191a01832ae1375df8b20d",
         "section": "authoring",
-        "checkedAt": "2026-10-18"
+        "checkedAt": "2026-10-28"
       },
       {
         "name": "skill-maintenance",
