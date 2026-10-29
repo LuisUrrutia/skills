@@ -74,7 +74,7 @@ Before writing a body, read:
   a consequential unresolved choice.
 - Up to ten recent merged PRs not authored by bots: measure each non-empty body
   for the review packet's length budget, for example with
-  `gh pr list --repo <target> --state merged --limit 30 --json author,body --jq '[.[] | select(.author.is_bot | not) | .body | length | select(. > 0)] | .[:10]'`,
+  `gh pr list --repo <target> --state merged --limit 50 --json author,body --jq '[.[] | select(.author.is_bot | not) | .body | length | select(. > 0)] | .[:10]'`,
   and read three bodies, or all if fewer exist, for style rather than policy.
 
 Record inaccessible required evidence and its failed lookup as unknown;
@@ -131,7 +131,7 @@ Publication never merges by itself.
 
 Report `created`, `updated`, `draft-only` or `blocked`: URL when known, head/base,
 draft state, body length against its budget with the reason for any overrun,
-validation, executed commands/results, remaining work and coordination omitted
+detail comment URL, validation, executed commands/results, remaining work and coordination omitted
 from the body. Separate current execution from historical evidence. Draft-only
 returns the copy and confirms no mutation; blockers name the prerequisite or
 decision and completed work. Pass verified identity, revision and publication
