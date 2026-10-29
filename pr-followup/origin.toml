@@ -515,23 +515,27 @@ baseline_paths = ["skills/babysit-pr/SKILL.md", "skills/babysit-pr/scripts/pr-wa
 paths = ["skills/babysit-pr/SKILL.md", "skills/babysit-pr/scripts/pr-wait", "LICENSE"]
 
 [[sources.ideas]]
-idea = "In T3 Code a watched thread stays out of the user's inbox. The watch is stopped before any turn that ends for the user: complete, blocked, or a question or needed confirmation. When later work again waits on checks or reviews, the agent takes a fresh snapshot and re-arms, even after that unwatch."
+idea = "In T3 Code a watched thread stays out of the user's inbox. The watch is stopped before any turn that ends for the user: complete, blocked, a question or needed confirmation, or a stopping condition that waits only on an event the watch never reports. When later work again waits on checks or reviews, the agent takes a fresh snapshot and re-arms, even after that unwatch."
 serves = "Keeps a question, blocker or result from sitting unseen in a thread that still looks busy."
 where = [
   "references/ci-and-observation.md#t3-code",
   "references/ci-and-observation.md#observe-resume-and-stop",
 ]
 shapes = "Adds a T3 Code subsection and lets a host handback rule stop the watch before the stopping condition holds."
-adapted = "T3 Code's wake message and agent instructions give the same rule. Locally the fresh snapshot before re-arming covers events that arrived while the thread was unwatched, because a new watch does not repeat news the previous one reported."
+adapted = "The donor names ready, blocked and a question as handbacks; locally a stopping condition that waits only on an event the watch never reports is one too. The fresh snapshot before re-arming covers events that arrived while unwatched, because a new watch does not repeat news the previous one reported."
 
 [[sources.ideas]]
-idea = "A watch wake that needs no action ends the agent turn without a status message or PR comment."
+idea = "A watch wake that changes no decision or remote state ends the agent turn without a status message or PR comment. The status report is given when handing back or after a turn that changed something."
 serves = "Saves tokens and keeps the thread and the PR free of filler."
-where = ["references/ci-and-observation.md#observe-resume-and-stop"]
-shapes = "Adds the rule to the paragraph on the cost of each delivered event."
+where = [
+  "references/ci-and-observation.md#observe-resume-and-stop",
+  "SKILL.md#move-a-settled-draft-to-review",
+  "SKILL.md#stop-with-an-honest-result",
+]
+shapes = "Adds the rule to the paragraph on the cost of each delivered event, and limits the stop report and the pending-review report to hand-backs and turns that changed something."
 
 [[sources.ideas]]
-idea = "Only the thread that owns the PR arms its watch. A delegated child or subagent leaves watching to its parent."
+idea = "A delegated child or subagent never arms a watch; it leaves watching to its parent."
 serves = "Prevents duplicate watchers and wakes delivered to a thread that cannot act on the PR."
 where = ["SKILL.md#choose-scope-and-establish-state"]
 shapes = "Replaces the rule that only a subagent unable to own the watch returns it to its parent."
@@ -541,11 +545,11 @@ idea = "GraphQL and REST have separate GitHub rate limits. When the GraphQL budg
 serves = "Keeps feedback collection going after watchers or earlier reads used up the GraphQL budget."
 where = ["references/github-collection.md#ci-and-external-reviewers"]
 shapes = "Adds a REST fallback to the coverage-gap paragraph."
-adapted = "Thread resolution status, which the collection reads through GraphQL, stays a reported gap until the reset."
+adapted = "PR metadata comes from the REST pull request endpoint; thread resolution status, which only GraphQL exposes, stays a reported gap until the reset."
 
 [[sources.declined]]
 feature = "The bundled pr-wait poller, run through a monitor tool, for hosts without T3 Code's watch."
-reason = "The user runs PR follow-up in T3 Code and asked to adopt its waiting guidance (2026-10-29). The poller's ready gate also waits only for Greptile or Macroscope and never for CodeRabbit, against the invariant that every enabled automated reviewer finishes before a personal-repository merge."
+reason = "In T3 Code, where the user runs PR follow-up, the agent instructions forbid waiting with Monitor and the tool-use evaluations fail a run that starts pr-wait, so watch_pull_request is the only watcher. Elsewhere a missing resumable watch is reported as a coverage gap."
 
 [[sources.declined]]
 feature = "Treating CodeRabbit as advisory: never waiting for it and never holding a merge for it."
@@ -557,7 +561,15 @@ reason = "Edited comments and new replies in resolved or outdated threads are re
 
 [[sources.declined]]
 feature = "Waiting for a GitHub rate-limit reset with one background command before watching again."
-reason = "T3 Code pauses a rate-limited watch and resumes it on its own, as its PullRequestWatchReactor source shows; a watch stopped for read failures follows the existing rule to re-arm only once access works again."
+reason = "T3 Code's agent instructions forbid waiting with sleep or loops, and T3 Code pauses a rate-limited watch and resumes it on its own, in its PullRequestWatchReactor source and in the installed 0.1.1-nightly.20261020 build. A watch stopped for read failures is re-armed once access works again."
+
+[[sources.declined]]
+feature = "Never merging while the branch is BEHIND or while base commits that landed after the last green run touch the PR's files; rebase, push and wait for green instead."
+reason = "The base is updated only when the user asks, conflicts prevent integration, repository policy requires it, or evidence connects a failure to a needed base change; repository policy decides whether a BEHIND branch may merge."
+
+[[sources.declined]]
+feature = "Keeping the PR small by declining review findings such as unneeded tests, edge-case guards or small performance costs and listing them as follow-ups."
+reason = "The user's standing PR-feedback rule applies every clear improvement or correct observation; a correct finding whose fix belongs elsewhere gets a tracking ticket."
 
 [[sources]]
 id = "t3code-pr-watch"
@@ -589,17 +601,17 @@ paths = [
 ]
 
 [[sources.ideas]]
-idea = "T3 Code's PR watch never wakes the agent for a merge, base advancement or a BEHIND branch, another actor's ready transition, or the gh user's own comments. The agent checks those itself at each wake and before claiming readiness or merging."
+idea = "T3 Code's PR watch never wakes the agent for a check that starts after the required-checks wake, a thread resolved without a comment, a merge, base advancement or a BEHIND branch, another actor's ready transition, or the gh user's own comments. The agent checks those at each wake and before claiming readiness or merging, and hands back when the stopping condition waits only on one of them."
 serves = "Prevents readiness or merge decisions that assume the watch reported every relevant change."
 where = ["references/ci-and-observation.md#t3-code"]
-shapes = "Lists the uncovered events in the T3 Code subsection instead of a per-run disclosure of a generic coverage gap."
+shapes = "Lists the uncovered events in the T3 Code subsection, supplementing the generic rule to disclose uncovered events the stopping condition depends on."
 adapted = "Only gaps that follow from the watch's design are listed; the tool description and wake message already state what does wake."
 
 [[sources.ideas]]
-idea = "T3 Code checks the PR on its own fixed cadence and wakes the model only when something changed, so the elapsed-time cadence table and its fixed-interval disclosure do not apply there."
-serves = "The cadence table's purpose, limiting model work as babysitting ages, is already met, and repeating a disclosure on every run adds noise."
+idea = "T3 Code checks the PR on its own fixed cadence that the agent cannot set, and wakes the model only when something changed, so the agent does not disclose that interval. Arming immediately after the final snapshot keeps the gap before activation short, so it needs no disclosure either."
+serves = "Avoids repeating, on every run, disclosures about a host interval and an arming gap that the user cannot act on."
 where = ["references/ci-and-observation.md#t3-code"]
-shapes = "Scopes the cadence table to hosts with a configurable watch interval."
+shapes = "Exempts T3 Code from the fixed-interval and arming-gap disclosures of the generic watch rules."
 
 [[sources.ideas]]
 idea = "After ten comment-only wakes in a row without a push or check change, T3 Code stops the watch to break reply loops, such as a bot answering each reply. The skill treats that stop as a notification-loop guard, investigated before re-arming."
@@ -631,6 +643,10 @@ idea = "A delegated child that worked on the PR returns its URL, head SHA and pe
 serves = "Gives the watching parent the state it needs without a second collection."
 where = ["SKILL.md#choose-scope-and-establish-state"]
 shapes = "Adds the return contract to the rule that leaves watching to the parent."
+
+[[sources.declined]]
+feature = "Arming the watch whenever an authorized merge still waits on checks or reviews, as T3 Code's agent instructions direct for work the user asked for."
+reason = "Feedback scope does not become indefinite babysitting; its personal-repository merge is a standing-policy step the user did not ask to follow, so it reports the remaining gates instead."
 
 [[dependencies]]
 kind = "local"

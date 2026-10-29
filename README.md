@@ -663,7 +663,7 @@ Evaluate feedback on an existing PR and resolve authorized code, CI and base pro
 **Features:**
 
 - Separates read-only checks, feedback repairs and host-managed babysitting under the applicable stopping policy
-- In T3 Code, waits on its PR watch, ends no-op wakes silently and unwatches before handing a turn back to you
+- Ends watch wakes that change nothing without a message; in T3 Code, waits on its PR watch and unwatches before handing a turn back to you
 - Collects threads, reviews, conversation, check annotations and reviewer logs
 - Reevaluates edited comments and new replies in resolved or outdated threads
 - Tests claims against current code and keeps independent repairs progressing

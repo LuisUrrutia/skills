@@ -36,13 +36,13 @@ under repository policy; green checks and a bot's success comment are not approv
 A closed, unmerged PR ends observation with that outcome, not success. An access
 blocker pauses affected work and must be reported, not treated as completion.
 Use host-managed event notifications and end the agent turn while waiting.
-Before arming, re-arming or stopping a watch, read
-[references/ci-and-observation.md](references/ci-and-observation.md#observe-resume-and-stop).
-A host watch notification resumes this skill and its retained task state. Only
-the thread that owns the PR arms its watch; a delegated child or subagent leaves
-it to its parent and returns the PR URL, head SHA and pending check and review
-state. If no resumable watch is available, report that limitation instead of
-keeping the model in a polling loop or claiming unattended coverage. A separate
+Before arming, keeping, re-arming or stopping a watch, read
+[references/ci-and-observation.md](references/ci-and-observation.md), including
+its T3 Code subsection. A host watch notification resumes this skill and its
+retained task state. A delegated child or subagent never arms a watch; it returns
+the PR URL, head SHA and pending check and review state to its parent. If no
+resumable watch is available, report that limitation instead of keeping the model
+in a polling loop or claiming unattended coverage. A separate
 recurring schedule still requires an explicit request. Feedback scope does not
 become indefinite babysitting merely because its repairs or ready transition
 finished.
@@ -171,9 +171,9 @@ Always attempt a fresh post-ready snapshot before returning;
 report an inaccessible snapshot as blocked rather than claiming completion.
 
 Human feedback arriving during observation or on host resumption enters the same
-loop. If human review is still pending when the agent yields, report that fact
-separately from completed technical work; never claim approval. Establish merge
-readiness through the applicable policy, including the personal-repository rule below.
+loop. In each report, keep pending human review separate from completed
+technical work; never claim approval. Establish merge readiness through the
+applicable policy, including the personal-repository rule below.
 
 ## Merge settled PRs in Luis Urrutia's personal repositories
 
@@ -226,7 +226,7 @@ requirement as a blocker. Do not substitute auto-merge for checking these gates.
 Verify the remote merged state and merge revision before reporting success or
 emitting `pr-merged`. If the command enabled auto-merge instead, disable that request,
 verify its removal and rebuild the snapshot. A required merge queue is pending until
-merge is verified. In Drive, keep the host watch until then; a formal approval alone does
+merge is verified. In Drive, keep waiting until then; a formal approval alone does
 not end this personal-repository task. Feedback scope attempts this merge when
 eligible, otherwise reports the remaining gates without starting indefinite observation.
 
@@ -253,7 +253,8 @@ the policy's single owner and completion guards. Report its result separately
 from the PR outcome, including a missing skill or blocked tracker operation.
 Formal approval alone never emits `pr-merged`: retain the pending merge event and
 report its configured durable owner or the uncovered delivery gap. Stop the host
-watch when the PR stopping condition holds; do not extend Drive to solve that gap.
+watch when the PR stopping condition holds or a host handback rule requires it;
+do not extend Drive to solve that gap.
 A host may
 stop silently on merge or closure; do not promise a final agent message without
 a wake. Report that outcome when next invoked. Approval does
@@ -267,12 +268,13 @@ access blockers separately. Outside the personal-repository policy or another
 explicit merge authorization, never merge or enable auto-merge merely to make the
 loop finish. Never approve a gated workflow merely to end observation.
 
-Return the PR URL and current head, applied work summary with relevant commits,
+When handing back, or after a turn that changed a decision or remote state,
+return the PR URL and current head, applied work summary with relevant commits,
 actual verification commands/results, current checks, and remaining items. For
 each unapplied item give the evidence-based reason; for a user decision include
 choices and recommendation. State `complete for requested scope`, `waiting`, or
 `blocked` and what would allow continuation. Retain the ledger only while needed
-for resumption, then remove owned scratch. Stop local watchers owned by this run;
-retain this run's host watch only while Drive is waiting for its stopping condition.
+for resumption, then remove owned scratch. Stop local watchers owned by this run,
+and its host watch as described above.
 Outside the personal-repository policy, other pending reviews do not override an
 already verified approval stop.
