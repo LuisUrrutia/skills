@@ -67,8 +67,9 @@ Return compact status deltas and actionable findings to the model; avoid loading
 unchanged logs and bot summaries repeatedly. A wake that needs no action ends the
 turn without a status message or PR comment. Reread the evidence needed for each
 new decision and the final coherent snapshot. Do not replace the watch with
-repeated agent turns, sleep loops or recurring AI checks. If the host cannot resume this task, report the coverage gap. Do not create
-a separate recurring schedule as a side effect of Drive.
+repeated agent turns, sleep loops, `gh run watch`, `gh pr checks --watch` or
+recurring AI checks. If the host cannot resume this task, report the coverage
+gap. Do not create a separate recurring schedule as a side effect of Drive.
 
 Inspect the host's wake coverage and stop conditions. Edited comments, delayed
 publication of pending reviews, or terminal PR states may not generate a wake.
@@ -120,11 +121,13 @@ The host watch is `watch_pull_request`; `unwatch_pull_request` stops it. T3 chec
 on its own fixed cadence and wakes the model only on changes, so the cadence table
 and its disclosure do not apply.
 
+- Checks still running when the required ones pass wake it once more when they
+  all finish; end the turn and wait for that wake.
 - It never wakes on a merge, base advancement or BEHIND state, another actor's
   ready transition, or the `gh` user's own comments. Check these at each wake and
   before claiming readiness or merging.
 - A watched thread stays out of the user's inbox. Unwatch before any turn that
-  ends for the user: complete, blocked, a question or needed confirmation, or
-  waiting only on something the watch does not report. When the user replies and
-  Drive continues, take a fresh snapshot and re-arm.
+  ends for the user: complete, blocked, or a question or needed confirmation.
+  When later work again waits on checks or reviews, take a fresh snapshot and
+  re-arm, even after that unwatch.
 - Its stop after ten comment-only wakes in a row is the loop guard above.

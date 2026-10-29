@@ -40,18 +40,21 @@ Before arming, re-arming or stopping a watch, read
 [references/ci-and-observation.md](references/ci-and-observation.md#observe-resume-and-stop).
 A host watch notification resumes this skill and its retained task state. Only
 the thread that owns the PR arms its watch; a delegated child or subagent leaves
-it to its parent. If no resumable watch is available, report that limitation
-instead of keeping the model in a polling loop or claiming unattended coverage. A separate recurring schedule
-still requires an explicit request. Feedback scope does not become indefinite
-babysitting merely because its repairs or ready transition finished.
+it to its parent and returns the PR URL, head SHA and pending check and review
+state. If no resumable watch is available, report that limitation instead of
+keeping the model in a polling loop or claiming unattended coverage. A separate
+recurring schedule still requires an explicit request. Feedback scope does not
+become indefinite babysitting merely because its repairs or ready transition
+finished.
 
 Resolve exact PR URL, target repository, head repository/ref/SHA, base ref/SHA,
 open/closed state, draft state and repository merge requirements. Match the local
 checkout to that head before editing; preserve unrelated work and index state.
 Use host checkout ownership and `worktrunk` for necessary checkout operations;
 `stacked-pr` owns stack topology and rebases. Keep one mutation owner per PR or stack.
-Register the PR with the host when supported. Stop on a closed or merged target
-for repair work unless the user requested a specific historical operation. For
+In Feedback and Drive scope, register the PR with the host once when supported;
+Check scope only reads. Stop on a closed or merged target for repair work unless
+the user requested a specific historical operation. For
 a verified merged target with a linked ticket, first handle the authorized
 `pr-merged` synchronization below; Check scope remains read-only.
 For a standalone request limited to feedback inspection or repair, use Inspect

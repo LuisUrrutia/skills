@@ -515,14 +515,14 @@ baseline_paths = ["skills/babysit-pr/SKILL.md", "skills/babysit-pr/scripts/pr-wa
 paths = ["skills/babysit-pr/SKILL.md", "skills/babysit-pr/scripts/pr-wait", "LICENSE"]
 
 [[sources.ideas]]
-idea = "In T3 Code a watched thread stays out of the user's inbox. The watch is stopped before any turn that ends for the user: complete, blocked, a question or needed confirmation, or waiting only on something the watch does not report. When the user replies and Drive continues, a fresh snapshot comes before re-arming."
+idea = "In T3 Code a watched thread stays out of the user's inbox. The watch is stopped before any turn that ends for the user: complete, blocked, or a question or needed confirmation. When later work again waits on checks or reviews, the agent takes a fresh snapshot and re-arms, even after that unwatch."
 serves = "Keeps a question, blocker or result from sitting unseen in a thread that still looks busy."
 where = [
   "references/ci-and-observation.md#t3-code",
   "references/ci-and-observation.md#observe-resume-and-stop",
 ]
 shapes = "Adds a T3 Code subsection and lets a host handback rule stop the watch before the stopping condition holds."
-adapted = "T3 Code's own wake message gives the same rule. Locally the fresh snapshot before re-arming covers events that arrived while the thread was unwatched."
+adapted = "T3 Code's wake message and agent instructions give the same rule. Locally the fresh snapshot before re-arming covers events that arrived while the thread was unwatched, because a new watch does not repeat news the previous one reported."
 
 [[sources.ideas]]
 idea = "A watch wake that needs no action ends the agent turn without a status message or PR comment."
@@ -572,11 +572,19 @@ reviewed_through = "da04ebc5087477a82deae9ce19c03539a627359f"
 baseline_paths = [
   "apps/server/src/orchestration-v2/pullRequestWatch.ts",
   "apps/server/src/orchestration-v2/PullRequestWatchReactor.ts",
+  "apps/server/src/mcp/toolkits/pullRequests/tools.ts",
+  "packages/provider-core/src/server/runtimeInstructions.ts",
+  "docs/user/source-control.md",
+  "evals/mcp-tool-use/cases/pull-requests.ndjson",
   "LICENSE",
 ]
 paths = [
   "apps/server/src/orchestration-v2/pullRequestWatch.ts",
   "apps/server/src/orchestration-v2/PullRequestWatchReactor.ts",
+  "apps/server/src/mcp/toolkits/pullRequests/tools.ts",
+  "packages/provider-core/src/server/runtimeInstructions.ts",
+  "docs/user/source-control.md",
+  "evals/mcp-tool-use/cases/pull-requests.ndjson",
   "LICENSE",
 ]
 
@@ -585,7 +593,7 @@ idea = "T3 Code's PR watch never wakes the agent for a merge, base advancement o
 serves = "Prevents readiness or merge decisions that assume the watch reported every relevant change."
 where = ["references/ci-and-observation.md#t3-code"]
 shapes = "Lists the uncovered events in the T3 Code subsection instead of a per-run disclosure of a generic coverage gap."
-adapted = "Volatile details, such as when optional checks wake, are left to the source; only the gaps that follow from the watch's design are listed."
+adapted = "Only gaps that follow from the watch's design are listed; the tool description and wake message already state what does wake."
 
 [[sources.ideas]]
 idea = "T3 Code checks the PR on its own fixed cadence and wakes the model only when something changed, so the elapsed-time cadence table and its fixed-interval disclosure do not apply there."
@@ -598,6 +606,31 @@ idea = "After ten comment-only wakes in a row without a push or check change, T3
 serves = "Prevents restarting a notification loop that only consumes tokens."
 where = ["references/ci-and-observation.md#t3-code"]
 shapes = "Names T3 Code's comment-only stop as an instance of the existing loop-guard rule."
+
+[[sources.ideas]]
+idea = "When the required checks pass while other checks still run, T3 Code wakes the agent once more after they all finish. On the required-checks wake the agent ends the turn and waits for that wake."
+serves = "Prevents re-arming, unwatching or waiting in the shell on a required-checks wake, the failure T3 Code's tool-use evaluations record."
+where = ["references/ci-and-observation.md#t3-code"]
+shapes = "Adds the remaining-checks wake to the T3 Code subsection."
+adapted = "The wake reached T3 Code on 2026-10-22 in https://github.com/pingdotgg/t3code/pull/23904; earlier builds do not send it."
+
+[[sources.ideas]]
+idea = "The watch is never replaced by gh run watch or gh pr checks --watch, the shell waits T3 Code's tool-use evaluations record agents starting after a watch wake or after unwatching."
+serves = "Keeps waiting on host events instead of a model-held shell wait."
+where = ["references/ci-and-observation.md#observe-resume-and-stop"]
+shapes = "Names those commands in the existing rule against replacing the watch."
+
+[[sources.ideas]]
+idea = "Check scope only reads and does not register the PR with the host. Feedback and Drive register it once, because they work on the PR."
+serves = "Keeps read-only inspections from attaching PRs to the thread; T3 Code's agent instructions reserve linking for PRs the agent creates, takes over or pushes to."
+where = ["SKILL.md#choose-scope-and-establish-state"]
+shapes = "Limits the host registration step to Feedback and Drive scope."
+
+[[sources.ideas]]
+idea = "A delegated child that worked on the PR returns its URL, head SHA and pending check and review state, so the parent that owns the watch can continue."
+serves = "Gives the watching parent the state it needs without a second collection."
+where = ["SKILL.md#choose-scope-and-establish-state"]
+shapes = "Adds the return contract to the rule that leaves watching to the parent."
 
 [[dependencies]]
 kind = "local"
