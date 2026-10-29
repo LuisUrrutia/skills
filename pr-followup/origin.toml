@@ -634,9 +634,9 @@ shapes = "Names those commands in the existing rule against replacing the watch.
 
 [[sources.ideas]]
 idea = "Check scope only reads and does not register the PR with the host. Feedback and Drive register it when it is not yet registered, because they work on the PR; an existing registration persists across pushes."
-serves = "Keeps read-only inspections from attaching PRs to the thread; T3 Code's agent instructions reserve linking for PRs the agent creates, takes over or pushes to."
+serves = "Keeps read-only inspections from attaching PRs to the thread, since T3 Code's agent instructions reserve linking for PRs the agent creates, takes over or pushes to, and avoids linking an already linked PR again after a push, a mistake T3 Code's tool-use evaluations record."
 where = ["SKILL.md#choose-scope-and-establish-state"]
-shapes = "Limits the host registration step to Feedback and Drive scope."
+shapes = "Limits the host registration step to Feedback and Drive scope and to a PR not yet registered."
 
 [[sources.ideas]]
 idea = "A delegated child that worked on the PR returns its URL, head SHA and pending check and review state, so the parent that owns the watch can continue."
