@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-29",
+  "baseline": "998dfed38ab9a2b8149f33994121dfd7086ac28e",
+  "status": "Validated against T3 Code's source, docs, agent instructions and tool-use evaluation cases at pingdotgg/t3code da04ebc and against the running desktop build 0.1.6-nightly.20261029.3892; one Codex Sol and Claude Opus review round; matched baseline and candidate decision probes on both hosts.",
+  "request": "Improve pr-followup with t3dotgg/tstack's babysit-pr, adopting T3 Code guidance on how the agent waits for new PR comments and similar events.",
+  "changes": [
+    {
+      "file": "pr-followup/references/ci-and-observation.md",
+      "change": "New T3 Code subsection: watch_pull_request armed right after the final snapshot, the remaining-checks wake, the events the watch never reports (late-starting checks, threads resolved without a comment, merge, base advancement or BEHIND, another actor's ready transition, the gh user's own comments), unwatch before any handback, re-arm from a fresh snapshot, and the comment-only stop as the loop guard. Wakes that change nothing end without a message; gh run watch and gh pr checks --watch are named as watch replacements to avoid."
+    },
+    {
+      "file": "pr-followup/SKILL.md",
+      "change": "Pointer to the observation reference before arming, keeping, re-arming or stopping a watch; delegated children never arm a watch and return URL, head SHA and pending state; Check scope does not register the PR and Feedback and Drive register it only when not yet registered; reports are given on handbacks and turns that changed something; one rule stops the host watch, including host handback rules."
+    },
+    {
+      "file": "pr-followup/references/github-collection.md",
+      "change": "REST fallback, including the pull request endpoint, when the GraphQL rate limit is exhausted."
+    },
+    {
+      "file": "pr-followup/origin.toml",
+      "change": "New idea sources tstack-babysit-pr (1085050) and t3code-pr-watch (da04ebc) with their ideas and declined features."
+    },
+    {
+      "file": "work-mode/references/delivery.md",
+      "change": "A delegated child never arms the watch and returns the waiting state to its parent."
+    },
+    {
+      "file": "README.md",
+      "change": "pr-followup feature line for quiet wakes and the T3 Code watch."
+    }
+  ],
+  "not_adopted": [
+    {
+      "source": "https://github.com/t3dotgg/tstack/blob/1085050f3baed1ac724caa4a8166145fb2ac88af/skills/babysit-pr/scripts/pr-wait",
+      "reason": "T3 Code's agent instructions forbid Monitor waits and its tool-use evaluations fail a run that starts pr-wait; watch_pull_request is the only watcher there."
+    },
+    {
+      "source": "https://github.com/t3dotgg/tstack/blob/1085050f3baed1ac724caa4a8166145fb2ac88af/skills/babysit-pr/SKILL.md",
+      "reason": "CodeRabbit as advisory, acting only on comments newer than the last push, the BEHIND merge guard and declining findings to keep the PR small conflict with recorded local rules; see origin.toml declines."
+    }
+  ],
+  "sources": [
+    "https://github.com/t3dotgg/tstack/tree/1085050f3baed1ac724caa4a8166145fb2ac88af/skills/babysit-pr",
+    "https://github.com/pingdotgg/t3code/blob/da04ebc5087477a82deae9ce19c03539a627359f/apps/server/src/orchestration-v2/pullRequestWatch.ts",
+    "https://github.com/pingdotgg/t3code/blob/da04ebc5087477a82deae9ce19c03539a627359f/apps/server/src/orchestration-v2/PullRequestWatchReactor.ts",
+    "https://github.com/pingdotgg/t3code/blob/da04ebc5087477a82deae9ce19c03539a627359f/apps/server/src/mcp/toolkits/pullRequests/tools.ts",
+    "https://github.com/pingdotgg/t3code/blob/da04ebc5087477a82deae9ce19c03539a627359f/packages/provider-core/src/server/runtimeInstructions.ts",
+    "https://github.com/pingdotgg/t3code/blob/da04ebc5087477a82deae9ce19c03539a627359f/docs/user/source-control.md",
+    "https://github.com/pingdotgg/t3code/blob/da04ebc5087477a82deae9ce19c03539a627359f/evals/mcp-tool-use/cases/pull-requests.ndjson",
+    "https://github.com/pingdotgg/t3code/pull/23904"
+  ],
+  "consultations": {
+    "brief": "Scratch brief (not committed): user request, frozen candidate d2f613a7778572d355e544f9fc81e8018195a0a7 (tree 91fbba9623962880caaf77849316c8d537d26bdd), baseline and candidate skill copies, full diff, donor files, T3 source and tool text, skill-change checks; read-only, no delegation.",
+    "rounds": [
+      {
+        "round": 1,
+        "profiles": [
+          {
+            "profile": "Codex gpt-6.1-sol / xhigh",
+            "runner": "T3 delegate_task",
+            "result": "Three material (missing wake gaps for optional checks and thread resolution; silent wakes conflicting with unconditional reports; missing behavioral evaluation) and one minor (record descriptions)."
+          },
+          {
+            "profile": "Claude claude-opus-5-5 / xhigh",
+            "runner": "T3 delegate_task",
+            "result": "Four material (late optional checks absent from the uncovered list; merge-queue wait kept the watch against the handback rule; work-mode kept the old child rule; Feedback scope versus the harness watch rule) and nine minor."
+          }
+        ],
+        "adopted": "All material findings except the Feedback-scope choice, resolved by the existing rule that Feedback scope does not become indefinite babysitting; most minor findings. Wake initialization and thread-resolution coverage were confirmed in Orchestrator.ts and pullRequestWatch.ts.",
+        "rejected": [
+          {
+            "finding": "Remove the T3 tool names from the subsection as cached host text",
+            "reason": "They map the generic host-watch rules to T3's tools."
+          },
+          {
+            "finding": "Add a T3 clause that settling the thread ends the watch",
+            "reason": "The generic text now says a settled thread may end the watch, and the re-arm rule covers resumption."
+          }
+        ]
+      }
+    ]
+  },
+  "trials": {
+    "runner": "Blinded per-arm directories with a frozen skill copy (baseline 998dfed, candidate efe4029, then 51880e3 and 7f4f703 for reruns) and a shared scenario file with T3 tool text and runtime instructions; executors described actions without executing; expectations kept outside their reach.",
+    "results": [
+      {
+        "case": "S1 required checks passed while CodeRabbit still runs (personal repository)",
+        "claude": "baseline: status message in a watched thread; candidate: no message, watch kept",
+        "codex": "baseline: status message; candidate: no message, watch kept"
+      },
+      {
+        "case": "S2 reviewer asks for a PM decision",
+        "claude": "both arms unwatch and ask",
+        "codex": "both arms unwatch and ask"
+      },
+      {
+        "case": "S3 bot comment that changes nothing",
+        "claude": "baseline: status message; candidate: no message",
+        "codex": "both arms: no message"
+      },
+      {
+        "case": "S4 Check scope",
+        "claude": "both arms read only, no link",
+        "codex": "both arms read only, no link"
+      },
+      {
+        "case": "S5 merge permission after an unwatch",
+        "claude": "both arms rebase, push, watch and end the turn",
+        "codex": "baseline: watch; candidate efe4029 and 51880e3: re-linked the linked PR after the push; 7f4f703: no re-link, watch and end the turn"
+      },
+      {
+        "case": "S6 optional check that starts after the required-checks wake",
+        "claude": "baseline: kept the watch and asked the user to report; candidate: unwatch and hand back",
+        "codex": "baseline: kept the watch; candidate: unwatch and hand back"
+      }
+    ],
+    "limits": "One run per arm and host; decision probes inside T3 child threads without executing gh, git or T3 tools.",
+    "final_revision_runs": "S5 on Codex used commit 7f4f703, whose skill text matches the final revision; S1 to S4 and S6 used efe4029, whose later edits change only the registration sentence exercised by S4 and S5 (rerun on 51880e3 for both hosts)."
+  },
+  "checks": [
+    "git diff --check passed for every commit.",
+    "check-origin.py: pr-followup and work-mode records have 0 diagnostics, including against clones of both sources.",
+    "Relative Markdown links and anchors in pr-followup/ and work-mode/ resolve.",
+    "pr-followup/origin.toml parses with Python tomllib.",
+    "The running T3 Code desktop build 0.1.6-nightly.20261029.3892 contains the remaining-checks wake (owedChecks) and the handback wake text."
+  ],
+  "size_words": {
+    "SKILL.md": "2590 -> 2650",
+    "references (all)": "2782 -> 3065",
+    "package": "5372 -> 5715"
+  },
+  "final_hashes": {
+    "pr-followup/SKILL.md": "785d395ae59949bca53c8de98a537225139632a7cfca80ea8a54aea7aec2e3b5",
+    "pr-followup/origin.toml": "b35e35b1baee92d8134775ad4d3263f8eb7d3c0145ecec8909b92ee65cb82667",
+    "pr-followup/references/ci-and-observation.md": "217bd872d58f4f1be40f19c97ccd28bc76b8594ecca9c9c913d8fd656e963b33",
+    "pr-followup/references/feedback.md": "c66b96fa26ca085ed17224b6619d705a4b5b7e3e7f7da4c9de60b80d730ff7dd",
+    "pr-followup/references/github-collection.md": "38a5d0e3f8758a335cfe03f5a8e43b4f2338a2276646f379d97fe9920a49b400"
+  }
+}
