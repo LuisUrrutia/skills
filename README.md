@@ -555,7 +555,7 @@ approved.
 
 **Triggers:** explicitly invoke `$pr-review-followup` with the PR URL after a `pr-review`.
 
-In T3 Code it wakes on PR activity through T3's PR watch; elsewhere it runs every
+In T3 Code it runs when T3's PR watch reports a change; elsewhere it runs every
 30 minutes by default. Each run re-reviews a new head with `pr-review`, replies
 in your own threads, resolves what the current head or a confirmed ticket settles,
 reopens a thread whose finding still stands, and approves only through a gate its
