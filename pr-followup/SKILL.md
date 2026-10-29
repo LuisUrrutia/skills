@@ -53,7 +53,8 @@ checkout to that head before editing; preserve unrelated work and index state.
 Use host checkout ownership and `worktrunk` for necessary checkout operations;
 `stacked-pr` owns stack topology and rebases. Keep one mutation owner per PR or stack.
 In Feedback and Drive scope, register the PR with the host when supported and not
-yet registered; Check scope only reads. Stop on a closed or merged target for repair work unless
+yet registered; a registered PR stays registered after a push, so do not link it
+again. Check scope only reads. Stop on a closed or merged target for repair work unless
 the user requested a specific historical operation. For
 a verified merged target with a linked ticket, first handle the authorized
 `pr-merged` synchronization below; Check scope remains read-only.
