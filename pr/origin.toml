@@ -28,6 +28,21 @@ reason = "On 2026-10-08 the user rejected release sequencing and sibling-ticket 
 where = ["references/review-packet.md#write-for-the-reviewer"]
 
 [[invariants]]
+rule = "A body stays within a length budget taken from the repository: the second-longest of up to ten non-empty bodies of recent merged PRs not authored by bots, or 2,500 characters when fewer than three exist. The budget is a ceiling. Only review-critical content without another accessible home exceeds it, and the return reports the length against the budget. Each decision and check takes one line unless the reviewer needs more, and repository documentation and commit messages are linked rather than restated."
+reason = "On 2026-10-29 the user rejected a body that successive Update rewrites had grown to 14.6k characters for a one-off data-fix script, in a repository whose recent merged bodies ran from 120 to 2,730 characters with one at 7.9k, and asked for concise bodies with a budget anchored to recent merged PRs. Taking the second-longest keeps one outlier from setting the budget."
+where = ["references/review-packet.md#length-budget", "references/review-packet.md#title-and-body", "SKILL.md#understand-the-change-and-repository", "SKILL.md#return"]
+
+[[invariants]]
+rule = "An Update rewrites the body within the same budget: a newer run replaces the run it supersedes, the same check or environment at an older revision, and an older run stays only as one line for evidence the newer one lacks."
+reason = "In the body the user rejected on 2026-10-29, each rewrite kept every earlier run and added the new one in full, so its validation section grew from 1.4k to 6.4k characters across four rewrites."
+where = ["references/review-packet.md#evidence-and-continuity"]
+
+[[invariants]]
+rule = "Detail a reviewer may want but does not need, such as run logs, per-check results, per-item counts and traces, stays out of the body. Detail that still matters goes to a linked accessible artifact or to one PR comment posted under create or update authority, and that comment is the only comment description work posts. Draft-only returns it beside the body."
+reason = "User decision on 2026-10-29: detail that still matters belongs in a linked artifact or a PR comment, not in the body."
+where = ["references/review-packet.md#length-budget", "references/publication.md#create-or-update-metadata"]
+
+[[invariants]]
 rule = "A new PR opens as a draft unless the user's preference says ready, and publication never merges as a side effect."
 where = [
   "SKILL.md#resolve-the-operation",
@@ -137,7 +152,7 @@ paths = [
 idea = "The body gives the reviewer the change's purpose, what ran against which revision and what it proved, and where review should begin: the owning module, invariant or critical path rather than every changed file."
 serves = "Gives the reviewer an entry point and a basis for trusting the result."
 where = ["references/review-packet.md#title-and-body"]
-shapes = "Turns purpose, validation and review entry point into questions the body answers, with each command's outcome placed next to the command."
+shapes = "Turns purpose, validation and review entry point into questions the body answers, each in one line unless the reviewer needs more, with each check's revision, outcome and limits on its line."
 
 [[sources.ideas]]
 idea = "History is judged by reviewer effort. When independent concerns could be reviewed and reverted separately, the skill recommends a split; it does not rewrite published history, reorder a stack, or separate a behavior from its regression test only to shorten the diff."
@@ -267,6 +282,13 @@ where = [
 ]
 shapes = "Makes exact-PR resolution a numbered identity step and adds a recheck immediately before creation."
 
+[[sources.ideas]]
+idea = "A sentence or section stays only when cutting it would lower the reviewer's confidence, and a navigation hint appears only when the reviewer would otherwise start in the wrong place, never as a list of changed files."
+serves = "Keeps the body short enough to read before the diff without dropping what the review needs."
+where = ["references/review-packet.md#title-and-body", "references/review-packet.md#evidence-and-continuity"]
+shapes = "Makes the review entry point conditional and adds a per-sentence cut test to the check before delivery."
+adapted = "Required template content and others' preserved notes stay even when the test would cut them, as the length budget allows."
+
 [[sources.declined]]
 feature = "Previewing a rewritten description and asking for confirmation before editing an existing PR."
 reason = "An existing request or standing authorization covers the update, so it needs no second approval."
@@ -319,6 +341,7 @@ where = [
   "references/publication.md#publish-the-selected-branch",
 ]
 shapes = "The review packet owns full rewrites, stale-claim corrections and preservation; publication routes material pushes back through Update."
+adapted = "Carried-forward evidence follows the invariant that a newer run replaces the run it supersedes, so rewrites do not accumulate validation."
 
 [[sources.ideas]]
 idea = "Issue coverage is claimed only when verified. A closing keyword requires coverage of every explicit ask and the authority to close the work item; otherwise a neutral reference states the remaining scope."
@@ -342,7 +365,7 @@ reason = "The skill recommends a split when it helps review and does not rewrite
 
 [[sources.declined]]
 feature = "Fixed length quotas, such as a title under 60 characters."
-reason = "The repository's title convention applies, and the body stays proportional to the review decision."
+reason = "The repository's title convention applies, and the body budget comes from the repository's own merged PRs under the invariant on the length budget; a fixed number applies only when the repository offers too few bodies."
 
 [[sources.declined]]
 feature = "PR creation triggered by a request to commit."

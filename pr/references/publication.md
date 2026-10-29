@@ -58,9 +58,10 @@ fork. Omit `--draft` for ready preference. Creation is non-interactive: never us
 For Update, use
 `gh pr edit <exact-url> --title <title> --body-file <file>` with only authorized
 metadata flags. Changing base, reviewers, labels, milestone, assignees or draft
-state needs covering authority. Description work posts no replies, issue comments
-or approvals; feedback replies belong to `pr-followup`, their wording to
-`comment-style`.
+state needs covering authority. Description work posts no replies or approvals,
+and no comment except detail moved out of the body under the
+[length budget](review-packet.md#length-budget); feedback replies belong to
+`pr-followup`, their wording to `comment-style`.
 
 ## Verify the result
 
