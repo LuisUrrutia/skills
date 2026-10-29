@@ -7,10 +7,11 @@ includes relevant attachments. Draft-only prepares files/copy without uploading.
 ## Select the available route
 
 Check `gh --version` and exact subcommand `--help` for `--attach`; prefer supported
-`gh pr create/edit` uploads directly to the body. The documented route supports
-GitHub.com/GHE.com, OAuth or classic/fine-grained PATs and WRITE/MAINTAIN/ADMIN
-repository access; GHES and most GitHub App tokens are unsupported. Diagnose
-permissions without exposing tokens; head and target rights can differ for forks.
+`gh pr create/edit` uploads directly to the body. The documented route needs
+GitHub.com/GHE.com and WRITE/MAINTAIN/ADMIN repository access; GHES is
+unsupported, and most GitHub App tokens are refused with the same error as missing
+write access. Diagnose permissions without exposing tokens; head and target rights
+can differ for forks.
 
 If unavailable, try a host/browser attachment control for this PR or an established
 reviewer-accessible repository asset location, preserving scope and visibility.
@@ -29,8 +30,9 @@ After: validation remains beside the field.
 ```
 
 Substitute observed evidence. A missing baseline does not prevent attaching the
-current-state capture. Markdown paths and attachment paths both resolve from
-**gh's working directory**, not the body file's directory.
+current-state capture. Write Markdown destinations and attachment paths relative
+to **gh's working directory**: gh before 2.103.0 does not resolve them from the
+body file's directory.
 
 Add one `--attach <file>` per capture to the resolved create/edit command, keeping
 its initial-state preference. For example:

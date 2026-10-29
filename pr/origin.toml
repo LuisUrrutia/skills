@@ -76,7 +76,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
-reviewed_through = "49dd158d1076134a641b33efb035946536778336"
+reviewed_through = "59db609eb1e18aaf59b63284d0e52255aff0c63c"
 baseline_paths = ["skills/engineering/pr/SKILL.md", "LICENSE"]
 paths = ["skills/engineering/pr/SKILL.md", "LICENSE"]
 
@@ -132,6 +132,16 @@ validation = [
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
+[[sources.reviews]]
+from_commit = "49dd158d1076134a641b33efb035946536778336"
+to_commit = "59db609eb1e18aaf59b63284d0e52255aff0c63c"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Fetched over SSH on 2026-10-29 and verified baseline, cursor and candidate ancestry; git diff --find-renames 49dd158d1076..59db609eb1e1 over the recorded paths is empty and every recorded path exists at the candidate.",
+]
+
 [[sources]]
 id = "cursor-reviewable-pr"
 author = "Cursor Team Kit"
@@ -141,7 +151,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+reviewed_through = "1ba91fc25c0977741dd0e267849e6234b037ed0a"
 baseline_paths = [
   "cursor-team-kit/skills/new-branch-and-pr/SKILL.md",
   "cursor-team-kit/skills/make-pr-easy-to-review/SKILL.md",
@@ -189,6 +199,16 @@ validation = [
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
+[[sources.reviews]]
+from_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+to_commit = "1ba91fc25c0977741dd0e267849e6234b037ed0a"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Fetched over SSH on 2026-10-29 and verified baseline, cursor and candidate ancestry; git diff --find-renames e5136d82418d..1ba91fc25c09 over the recorded paths is empty and every recorded path exists at the candidate.",
+]
+
 [[sources]]
 id = "pstack-decision-evidence"
 author = "Lauren Tan / pstack"
@@ -198,7 +218,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+reviewed_through = "1ba91fc25c0977741dd0e267849e6234b037ed0a"
 baseline_paths = ["pstack/skills/show-me-your-work/SKILL.md", "pstack/LICENSE"]
 paths = ["pstack/skills/show-me-your-work/SKILL.md", "pstack/LICENSE"]
 
@@ -241,6 +261,16 @@ deferred = []
 validation = [
   "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
   "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+to_commit = "1ba91fc25c0977741dd0e267849e6234b037ed0a"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Fetched over SSH on 2026-10-29 and verified baseline, cursor and candidate ancestry; git diff --find-renames e5136d82418d..1ba91fc25c09 over the recorded paths is empty and every recorded path exists at the candidate.",
 ]
 
 [[sources]]
@@ -321,6 +351,20 @@ validation = [
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
+[[sources.reviews]]
+from_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+to_commit = "fbd794f329f5b65d0ea00a5e6487336c385ff2be"
+incorporated = []
+skipped = [
+  "skills/ce-commit-push-pr/references/apply-and-handoff.md: Commit 122f9f90 says a pipeline-mode return ends the skill, not the turn, so the calling skill continues. Already covered: pr/SKILL.md says completing this phase continues an authorized caller's workflow, and pr/references/continuation.md returns to an authorized loop instead of nesting another.",
+]
+deferred = [
+  "skills/ce-commit-push-pr/references/pr-description-writing.md: Commit c27add90 credits other contributors when a PR ships their work: it names them in the body, links a continued or replaced PR, keeps existing credit on rewrite, and ends the body with Co-authored-by trailers when the repository squash-merges. Credit does not help assess the diff, so it conflicts with the invariant that the body includes a statement only when it helps assess this diff; adopting it needs the user's decision.",
+]
+validation = [
+  "Fetched over SSH on 2026-10-29 and verified baseline, cursor and candidate ancestry; read the complete scoped diff bdc53d034ccf..fbd794f329f5 and the changed files at both commits.",
+]
+
 [[sources]]
 id = "mblode-pr"
 author = "Matthew Blode"
@@ -330,7 +374,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
-reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+reviewed_through = "ff92bf5ae675e8108e7d2f14b22a523fd1303e76"
 baseline_paths = [
   "skills/pr-creator/SKILL.md",
   "skills/pr-creator/references/pr-polish.md",
@@ -389,6 +433,16 @@ deferred = []
 validation = [
   "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 51e9ae4fd21f..872bc83bdb6d and the changed files at both commits.",
   "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+to_commit = "ff92bf5ae675e8108e7d2f14b22a523fd1303e76"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Fetched over SSH on 2026-10-29 and verified baseline, cursor and candidate ancestry; git diff --find-renames 872bc83bdb6d..ff92bf5ae675 over the recorded paths is empty and every recorded path exists at the candidate.",
 ]
 
 [[sources]]
@@ -455,7 +509,7 @@ ref = "refs/heads/trunk"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "6fc1c29d5477bfe71da7af290eb481c0df7811f1"
-reviewed_through = "59e9f78eacdf2554f8534d166808c3e9b8c7ebcb"
+reviewed_through = "f7a06a18a91eef5c0b218b549dab64b86f36f8b9"
 baseline_paths = [
   "skills/gh/SKILL.md",
   "internal/attachments/attach.go",
@@ -514,6 +568,24 @@ deferred = []
 validation = [
   "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 6fc1c29d5477..59e9f78eacdf and the changed files at both commits.",
   "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "59e9f78eacdf2554f8534d166808c3e9b8c7ebcb"
+to_commit = "f7a06a18a91eef5c0b218b549dab64b86f36f8b9"
+incorporated = [
+  "pkg/cmd/pr/create/create.go, pkg/cmd/pr/edit/edit.go and skills/gh/SKILL.md: Commit 2f195d678, released in v2.103.0, resolves relative Markdown destinations in a --body-file against the body file's directory first, then the working directory. Adapted in pr/references/attachments.md: destinations and attachment paths stay relative to gh's working directory, which works before and after 2.103.0, and the text no longer says the body file's directory is never used.",
+  "internal/attachments/attach.go and skills/gh/SKILL.md: Commit 17ac598e6, released in v2.103.2, leaves credential checks to the server, which refuses most GitHub App tokens with the same error as missing write access. Adapted in pr/references/attachments.md: the token-type list is gone and that ambiguous error is named for permission diagnosis.",
+]
+skipped = [
+  "skills/gh/SKILL.md: The new gh issue artifact commands attach documents and links to issues and refuse pull requests, so they offer no route for PR captures or moved detail.",
+  "skills/gh/SKILL.md: Expiring-token guidance says not to cache gh auth token output. The pr skill never reads or caches tokens and uses gh commands that refresh them.",
+  "internal/attachments/attach.go and attach_test.go: Multi-document uploads and partial-save reporting serve issue artifacts; the PR create and edit changes are the two recorded above.",
+]
+deferred = []
+validation = [
+  "Fetched over SSH on 2026-10-29, verified baseline, cursor and candidate ancestry, read the complete scoped diff 59e9f78eacdf..f7a06a18a91e, and confirmed with git tag --contains that both incorporated commits are released.",
+  "Ran eval cases 5 and 7 on Claude Code (claude-opus-5-5) and Codex (gpt-6.1-sol), both at xhigh, against the previous and updated packages. Each host scored the same on both packages; Codex case 5 took two trials per package and scored 6 of 10 expectations on each, with the failures swapping between trials.",
 ]
 
 [[local_snapshots]]
