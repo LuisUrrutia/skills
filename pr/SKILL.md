@@ -72,10 +72,11 @@ Before writing a body, read:
 - Templates on the resolved base in root, `docs/`, `.github/` and their
   `PULL_REQUEST_TEMPLATE/` directories. Choose by task and rules; ask only about
   a consequential unresolved choice.
-- Up to ten recent merged PRs not authored by bots: measure each non-empty body
-  for the review packet's length budget, for example with
-  `gh pr list --repo <target> --state merged --limit 50 --json author,body --jq '[.[] | select(.author.is_bot | not) | .body | length | select(. > 0)] | .[:10]'`,
-  and read three bodies, or all if fewer exist, for style rather than policy.
+- Up to ten most recently merged PRs not authored by bots: measure each non-empty
+  body for the review packet's length budget, for example with
+  `gh pr list --repo <target> --state merged --search 'sort:updated-desc' --limit 50 --json author,body,mergedAt --jq '[.[] | select((.author.is_bot | not) and (.body | length) > 0)] | sort_by(.mergedAt) | reverse | .[:10] | map(.body | length)'`
+  (plain `gh pr list` orders by creation; a PR's update time is never before its
+  merge), and read three bodies, or all if fewer exist, for style rather than policy.
 
 Record inaccessible required evidence and its failed lookup as unknown;
 continue supported work without inventing conventions.
