@@ -601,17 +601,17 @@ paths = [
 ]
 
 [[sources.ideas]]
-idea = "T3 Code's PR watch never wakes the agent for a check that starts after the required-checks wake, a thread resolved without a comment, a merge, base advancement or a BEHIND branch, another actor's ready transition, or the gh user's own comments. The agent checks those at each wake and before claiming readiness or merging, and hands back when the stopping condition waits only on one of them."
+idea = "T3 Code's PR watch never wakes the agent for a check that starts after the required-checks wake, a thread resolved without a comment, a merge, base advancement or a BEHIND branch, another actor's ready transition, or comments by the GitHub account T3 Code reads with. The agent checks those at each wake and before claiming readiness or merging, and hands back when the stopping condition waits only on one of them."
 serves = "Prevents readiness or merge decisions that assume the watch reported every relevant change."
 where = ["references/ci-and-observation.md#t3-code"]
 shapes = "Lists the uncovered events in the T3 Code subsection, supplementing the generic rule to disclose uncovered events the stopping condition depends on."
 adapted = "Only gaps that follow from the watch's design are listed; the tool description and wake message already state what does wake."
 
 [[sources.ideas]]
-idea = "T3 Code checks the PR on its own fixed cadence that the agent cannot set, and wakes the model only when something changed, so the agent does not disclose that interval. Arming immediately after the final snapshot keeps the gap before activation short, so it needs no disclosure either."
-serves = "Avoids repeating, on every run, disclosures about a host interval and an arming gap that the user cannot act on."
+idea = "T3 Code checks the PR on its own fixed cadence that the agent cannot set, and wakes the model only when something changed, so the agent does not disclose that interval."
+serves = "Avoids repeating, on every run, a disclosure about a host interval that the user cannot act on."
 where = ["references/ci-and-observation.md#t3-code"]
-shapes = "Exempts T3 Code from the fixed-interval and arming-gap disclosures of the generic watch rules."
+shapes = "Exempts T3 Code from the fixed-interval disclosure of the generic watch rules."
 
 [[sources.ideas]]
 idea = "After ten comment-only wakes in a row without a push or check change, T3 Code stops the watch to break reply loops, such as a bot answering each reply. The skill treats that stop as a notification-loop guard, investigated before re-arming."

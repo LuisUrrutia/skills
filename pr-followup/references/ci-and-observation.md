@@ -122,15 +122,15 @@ on its own fixed cadence and wakes only on changes; do not disclose its interval
 Feedback scope never arms it, even when an authorized merge waits on checks.
 
 - Arm it immediately after the final snapshot, then end the turn. It never reports
-  earlier comments; the next wake rereads every channel, so this short gap needs
-  no disclosure.
+  earlier comments, so one posted in between waits for the next wake, which may
+  not come; disclose that gap.
 - Checks still running at the required-checks wake produce one more wake when
   they all finish; end the turn and wait for it.
 - It never wakes on a check that starts after that wake, a thread resolved without
   a comment, a merge, base advancement or BEHIND state, another actor's ready
-  transition, or the `gh` user's own comments. Check these at each wake and before
-  claiming readiness or merging. When the stopping condition waits only on one of
-  them, hand back.
+  transition, or comments by the GitHub account T3 Code reads with. Check these at
+  each wake and before claiming readiness or merging. When the stopping condition
+  waits only on one of them, hand back.
 - A watched thread stays out of the user's inbox. Unwatch before any turn that
   ends for the user: complete, blocked, a question or needed confirmation, or a
   hand-back above. When later work again waits on checks or reviews, take a fresh

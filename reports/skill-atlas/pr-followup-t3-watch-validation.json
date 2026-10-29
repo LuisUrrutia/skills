@@ -7,7 +7,7 @@
   "changes": [
     {
       "file": "pr-followup/references/ci-and-observation.md",
-      "change": "New T3 Code subsection: watch_pull_request armed right after the final snapshot, the remaining-checks wake, the events the watch never reports (late-starting checks, threads resolved without a comment, merge, base advancement or BEHIND, another actor's ready transition, the gh user's own comments), unwatch before any handback, re-arm from a fresh snapshot, and the comment-only stop as the loop guard. Wakes that change nothing end without a message; gh run watch and gh pr checks --watch are named as watch replacements to avoid."
+      "change": "New T3 Code subsection: watch_pull_request armed right after the final snapshot, the remaining-checks wake, the events the watch never reports (late-starting checks, threads resolved without a comment, merge, base advancement or BEHIND, another actor's ready transition, comments by the GitHub account T3 Code reads with), unwatch before any handback, re-arm from a fresh snapshot, and the comment-only stop as the loop guard. Wakes that change nothing end without a message; gh run watch and gh pr checks --watch are named as watch replacements to avoid."
     },
     {
       "file": "pr-followup/SKILL.md",
@@ -78,6 +78,27 @@
             "reason": "The generic text now says a settled thread may end the watch, and the re-arm rule covers resumption."
           }
         ]
+      },
+      {
+        "round": 2,
+        "profiles": [
+          {
+            "profile": "CodeRabbit (CHILL profile, repository defaults)",
+            "runner": "Pull request review of ec1ab8a on https://github.com/LuisUrrutia/skills/pull/64",
+            "result": "One major finding (a comment posted between the final snapshot and arming the watch never wakes it, and the next wake may not come) and two minor (version-dependent remaining-checks wake; register the PR only after creating, taking over or pushing to it)."
+          }
+        ],
+        "adopted": "The arming gap is disclosed again under the generic rule.",
+        "rejected": [
+          {
+            "finding": "Report a coverage gap when the T3 build lacks the remaining-checks wake",
+            "reason": "The agent cannot detect the T3 build; origin.toml records the dependency and T3 Code updates itself."
+          },
+          {
+            "finding": "Register the PR only after creating, taking over or pushing to it",
+            "reason": "Feedback and Drive take over the user's own PR follow-up with replies, resolutions and repairs; T3 Code excludes only PRs the agent only reads or reviews, which is Check scope."
+          }
+        ]
       }
     ]
   },
@@ -132,8 +153,8 @@
   },
   "final_hashes": {
     "pr-followup/SKILL.md": "785d395ae59949bca53c8de98a537225139632a7cfca80ea8a54aea7aec2e3b5",
-    "pr-followup/origin.toml": "b35e35b1baee92d8134775ad4d3263f8eb7d3c0145ecec8909b92ee65cb82667",
-    "pr-followup/references/ci-and-observation.md": "217bd872d58f4f1be40f19c97ccd28bc76b8594ecca9c9c913d8fd656e963b33",
+    "pr-followup/origin.toml": "88a92d8b092821ebef7799ea7e14416ae0ba86bbbe47a81ab80773e8365424fd",
+    "pr-followup/references/ci-and-observation.md": "ffa38f77483329f4f5a6d0fe5d0b248c933b20170e8ed167739e71212a5b95f8",
     "pr-followup/references/feedback.md": "c66b96fa26ca085ed17224b6619d705a4b5b7e3e7f7da4c9de60b80d730ff7dd",
     "pr-followup/references/github-collection.md": "38a5d0e3f8758a335cfe03f5a8e43b4f2338a2276646f379d97fe9920a49b400"
   }
