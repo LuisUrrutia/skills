@@ -1,9 +1,36 @@
 # Cadence
 
-Read when starting or stopping the follow-up schedule.
+Read when starting, resuming or stopping the follow-up.
 
-Run one tick every 30 minutes unless the user names another interval. Use the
-host's recurring scheduler and keep its identifier with the follow-up:
+## T3 Code watch
+
+In T3 Code, wait with `watch_pull_request` unless the user names an interval;
+then schedule ticks as below. Each wake runs one tick.
+
+- Arm the watch right after the first tick's final read, then end the turn. A
+  tick that ends waiting keeps the watch; do not call it again on a wake.
+- It wakes on new comments and reviews by others, failed checks, checks passing
+  on a new head (on GitHub, also when no check reports 15 minutes after a push),
+  conflicts and closure. It never wakes on a thread resolved without a comment or
+  push, a re-requested review, a merge, or comments by the GitHub account T3 Code
+  reads with. Each tick rechecks these; a merge ends the watch silently, so report
+  it when next invoked.
+- A watched thread stays out of the user's inbox. Unwatch before a tick that ends
+  for the user: approval, `done`, a closed PR, or a blocker that needs the user,
+  such as an incomplete review, the reviewer's unsubmitted review or a thread
+  waiting on the user. When the user replies, run a tick and re-arm unless the
+  follow-up is done.
+- Ten comment-only wakes in a row stop the watch, for example when a bot answers
+  each reply. Find the cause before re-arming. After a stop for read failures,
+  re-arm once reads work.
+- Only the thread that runs the follow-up arms the watch; a delegated child
+  returns its tick result to that thread.
+
+## Schedule
+
+Elsewhere, or when the user names an interval, run one tick every 30 minutes
+unless the user names another interval. Use the host's recurring scheduler and
+keep its identifier with the follow-up:
 
 - T3 Code: `schedule_task` with `{"type":"interval","everyMs":1800000}` bound to
   the current thread.

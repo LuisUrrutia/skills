@@ -34,8 +34,8 @@ step to report, never a success.
    write.
 3. If `pr-review` just reviewed the current head, record it from that run (step 3
    of a tick); otherwise the first tick performs the full review.
-4. Schedule the ticks as [cadence.md](references/cadence.md) describes, then run
-   the first tick immediately.
+4. Read [cadence.md](references/cadence.md), set up waiting between ticks as it
+   describes for this host, and run the first tick immediately.
 
 ## Run one tick
 
@@ -51,7 +51,8 @@ step to report, never a success.
    a partial view of threads or comments.
 2. **Stop or wait.**
    - `done` (the reviewer approved this head and the approval gate is clear), or
-     a merged or closed PR: delete the schedule and report the outcome. Optional
+     a merged or closed PR: stop waiting as cadence.md describes and report the
+     outcome. Optional
      threads still open stay with the author; list them in the report.
    - An unsubmitted review by the reviewer, or a `pending_operation`: report it
      and write nothing. Clear an uncertain operation only after reading back the
@@ -116,7 +117,7 @@ step to report, never a success.
    base. Open optional threads never block. Set `approve` when this plan clears
    them. For an approving plan the helper checks the same gate before any write
    and again on the read that immediately precedes the approval; `done` uses it
-   too. After a verified approval, delete the schedule.
+   too. After a verified approval, stop waiting as cadence.md describes.
 7. **Report the tick** in the user's language: resolved/total, each reply,
    resolution, reopening or classification with its reason, a new review's
    outcome, and blockers. A tick with no change is one line.
