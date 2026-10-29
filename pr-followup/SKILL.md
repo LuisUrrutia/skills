@@ -36,10 +36,12 @@ under repository policy; green checks and a bot's success comment are not approv
 A closed, unmerged PR ends observation with that outcome, not success. An access
 blocker pauses affected work and must be reported, not treated as completion.
 Use host-managed event notifications and end the agent turn while waiting.
-A host watch notification resumes this skill and its retained task state. A
-subagent unable to own the watch returns that responsibility to its parent. If no
-resumable watch is available, report that limitation instead of keeping the model
-in a polling loop or claiming unattended coverage. A separate recurring schedule
+Before arming, re-arming or stopping a watch, read
+[references/ci-and-observation.md](references/ci-and-observation.md#observe-resume-and-stop).
+A host watch notification resumes this skill and its retained task state. Only
+the thread that owns the PR arms its watch; a delegated child or subagent leaves
+it to its parent. If no resumable watch is available, report that limitation
+instead of keeping the model in a polling loop or claiming unattended coverage. A separate recurring schedule
 still requires an explicit request. Feedback scope does not become indefinite
 babysitting merely because its repairs or ready transition finished.
 
