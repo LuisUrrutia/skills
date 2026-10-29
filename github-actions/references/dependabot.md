@@ -28,7 +28,7 @@ Inventory every manifest, lockfile, workspace, subdirectory, vendored tree, gene
 
 Do not infer one capability from another. A newly supported ecosystem can support version updates without security updates, or graph submission without dependency scope. Dependency scope is also manifest-specific; do not use a `runtime` or `development` label as a reliable triage signal until the current scope table confirms it for that manifest.
 
-For `package-ecosystem: github-actions`, map the special discovery rules. The root directory covers workflows under `.github/workflows` and root action metadata. Repository-form `uses:` references are updateable; local actions and `docker://` container actions are not. Preserve the same-line release comment when Dependabot updates a SHA-pinned action. For a workflow onboarded to a [workflow lockfile](security.md#dependencies-and-workflow-governance), Dependabot regenerates the matching lockfile entry in the same pull request; it does not onboard a workflow. If the current SHA has no associated tag, Dependabot can select a repository commit rather than the latest release, so verify the replacement with the [external-reference procedure](../SKILL.md#when-an-external-reference-changes). Verify private-action access separately.
+For `package-ecosystem: github-actions`, map the special discovery rules. The root directory covers workflows under `.github/workflows` and root action metadata. Repository-form `uses:` references are updateable; local actions and `docker://` container actions are not. Preserve the same-line release comment when Dependabot updates a SHA-pinned action. For a workflow onboarded to a [workflow lockfile](lockfiles.md), Dependabot regenerates the matching lockfile entry in the same pull request; it does not onboard a workflow. If the current SHA has no associated tag, Dependabot can select a repository commit rather than the latest release, so verify the replacement with the [external-reference procedure](../SKILL.md#when-an-external-reference-changes). Verify private-action access separately.
 
 For pre-commit hooks, inspect `rev` semantics rather than assuming every SHA is release-bound. A SHA without a `# frozen:` constraint can advance to the default branch head; where reproducibility matters, use the supported version constraint and verify the changed SHA. For every ecosystem, fail with an exact coverage gap when the repository's package-manager or runtime version is below the current Dependabot floor.
 
@@ -111,13 +111,15 @@ Source: [Dependabot options reference](https://docs.github.com/en/code-security/
 
 GitHub currently applies a three-day default cooldown to version updates and bypasses that default for security updates. Re-read the current option before relying on that duration; configure `cooldown` explicitly when the delay is an operational contract. A cooldown reduces exposure to newly published mistakes or short-lived attacks. It does not protect against an established malicious release, compromised build tooling, or a dependency whose dangerous version remains published.
 
+Before slowing version updates to `weekly` or `monthly`, verify security-update coverage, including the dependency graph and alerts, because security updates follow disclosures rather than the version-update schedule. Enable it where the ecosystem supports it; for an unsupported surface, report the gap and establish another urgent-update path before slowing the cadence.
+
 Use grouping to reduce review and CI noise without hiding risk:
 
 - group related minor and patch version updates that share owners and tests
 - leave major, production-critical, runtime, build-system, and low-confidence changes separate unless they form one tested release unit
 - set `applies-to` explicitly; do not rely on its default
 - order groups from specific to broad because the first matching group wins
-- use cross-directory grouping only for the same ecosystem and a coherent repository contract
+- use cross-directory grouping only for the same ecosystem and a coherent repository contract; with `directories`, set `group-by: dependency-name` so one dependency's update across directories becomes one pull request
 - use multi-ecosystem groups only when the components must be tested, released, and rolled back together
 - give security updates their own narrow groups; never mix security and version updates
 
@@ -131,7 +133,7 @@ Keep updates on the default branch unless the repository has a concrete release-
 
 Customize Dependabot branch names only to satisfy Git ref limits or existing CI, ruleset, and ticketing contracts. Validate the rendered prefix, separators, template fields, group suffix, and maximum length. Do not build new automation around retired Dependabot merge, close, reopen, or cancel-merge comment commands; use native pull-request UI, GitHub CLI, or API behavior.
 
-Sources: [optimizing version-update pull requests](https://docs.github.com/en/code-security/tutorials/secure-your-dependencies/optimizing-pr-creation-version-updates), [customizing Dependabot pull requests](https://docs.github.com/en/code-security/tutorials/secure-your-dependencies/customizing-dependabot-prs), [grouped security updates](https://docs.github.com/en/code-security/how-tos/secure-your-supply-chain/secure-your-dependencies/configure-security-updates), and [retired Dependabot comment commands](https://github.blog/changelog/2026-01-27-changes-to-github-dependabot-pull-request-comment-commands/).
+Sources: [optimizing version-update pull requests](https://docs.github.com/en/code-security/tutorials/secure-your-dependencies/optimizing-pr-creation-version-updates), [grouped and slower Dependabot updates](https://github.blog/security/supply-chain-security/tame-dependabot-group-your-updates-slow-the-cadence-keep-security-fast/), [customizing Dependabot pull requests](https://docs.github.com/en/code-security/tutorials/secure-your-dependencies/customizing-dependabot-prs), [grouped security updates](https://docs.github.com/en/code-security/how-tos/secure-your-supply-chain/secure-your-dependencies/configure-security-updates), and [retired Dependabot comment commands](https://github.blog/changelog/2026-01-27-changes-to-github-dependabot-pull-request-comment-commands/).
 
 ## Authenticate private dependencies narrowly
 

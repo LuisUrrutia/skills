@@ -64,7 +64,7 @@ Trace every interpolation from its source to the generated program and resulting
 
 `pull_request_target`, `workflow_run`, `issue_comment`, and other default-branch workflows can combine untrusted influence with base-repository authority. Keep privileged jobs metadata-only, or split untrusted build and test work into an unprivileged `pull_request` workflow and a narrowly privileged follow-up.
 
-In a public repository with no applicable Actions event policy, GitHub's default policy blocks `pull_request_target`. For a repository that used the default before general availability (2026-09-17), it runs in evaluate mode until enforcement on 2026-11-02; verify the current enforcement state for any other repository. Prefer `pull_request` where it supplies the required context. A workflow that must keep `pull_request_target` needs an event policy that explicitly allows the trigger, preferably scoped to that workflow file; check policy insights for runs the default would block.
+In a public repository with no applicable Actions event policy, GitHub's default policy blocks `pull_request_target`. For a repository that used the default before general availability (2026-09-17), it runs in evaluate mode until enforcement on 2026-12-02; verify the current enforcement state for any other repository. Prefer `pull_request` where it supplies the required context. A workflow that must keep `pull_request_target` needs an event policy that explicitly allows the trigger, preferably scoped to that workflow file; check policy insights for runs the default would block.
 
 For a privileged follow-up:
 
@@ -77,7 +77,7 @@ A direct path from contributor-controlled code or generated source to a write to
 
 Current `actions/checkout` releases include guardrails against common fork pull-request checkouts in privileged events. Full-SHA, minor, and patch pins do not receive backports automatically. For every affected checkout, verify the selected commit contains the current guard, satisfies the runner floor, and has no unsafe opt-out. Treat the guard as defense in depth: it does not cover manual `git` or `gh` fetches, every trigger, unrelated repositories, or execution of untrusted artifacts.
 
-Sources: [secure use of `pull_request_target`](https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target), its [default policy](https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target#default-policy-for-pull_request_target), and the [safer checkout defaults release note](https://github.blog/changelog/2026-06-18-safer-pull_request_target-defaults-for-github-actions-checkout/).
+Sources: [secure use of `pull_request_target`](https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target), its [default policy](https://docs.github.com/en/actions/reference/security/securely-using-pull_request_target#default-policy-for-pull_request_target) and [moved enforcement date](https://github.blog/changelog/2026-09-17-workflow-execution-protections-in-github-actions-generally-available/), and the [safer checkout defaults release note](https://github.blog/changelog/2026-06-18-safer-pull_request_target-defaults-for-github-actions-checkout/).
 
 ## Dependencies and workflow governance
 
@@ -86,10 +86,8 @@ Sources: [secure use of `pull_request_target`](https://docs.github.com/en/action
 - On GitHub.com, `$/path` resolves a local action from the repository of the running workflow or action at its running commit and needs no checkout. A `./path` reference instead executes files from the checked-out job workspace and inherits that checkout's repository and ref. `$/` is unavailable on GHES. Map the exact source before invoking local code from a privileged job. For same-repository reusable workflows, apply the [reusable-workflow contract](reliability.md#reusable-workflows). See [local-action reference semantics](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#jobsjob_idstepsuses).
 - Set `persist-credentials: false` on checkout by default; enable persisted credentials only for authenticated Git operations later in the job.
 - Pin container images by digest when they execute in a privileged or reproducible path.
-- A workflow lockfile (`.github/workflows/actions.lock`, public preview) records the commit and source-repository identity of every action, including transitive actions, for each workflow listed in its `workflows` section. Onboarding is per workflow, singly or all at once, and the lockfile supersedes SHA pinning only for listed workflows. A fix run without `--no-migrate-local-actions` rewrites a `./` action reference that resolves to an in-repo action file to `$/`, in workflows and in-repo `action.yml` files. The documentation says a workflow not yet onboarded that keeps a `./` action reference is skipped; in an onboarded workflow it is a blocking error and the run writes nothing. A called reusable workflow's dependencies follow the lockfile of the repository that defines it. After onboarding, allowed-actions and full-SHA policies evaluate locked SHAs, so tag-based allowlist entries stop matching.
+- Apply [workflow lockfiles](lockfiles.md) for coverage, onboarding, and enforcement when the repository tracks `.github/workflows/actions.lock`.
 - Account for allowed-actions policies, required full-SHA policies, workflow lockfiles and the Require lockfile policy, dependency updates, dependency review, and ownership of workflow files. Report missing governance separately unless changing it is in scope.
-
-Sources: [workflow dependency lockfiles](https://docs.github.com/en/actions/concepts/security/workflow-dependency-lockfiles), [locking workflow dependencies](https://docs.github.com/en/actions/how-tos/secure-your-work/lock-workflow-dependencies), and [enforcing lockfiles](https://docs.github.com/en/actions/how-tos/administer/enforce-workflow-lockfiles).
 
 ## Secrets, OIDC, and environments
 
@@ -100,10 +98,11 @@ Sources: [workflow dependency lockfiles](https://docs.github.com/en/actions/conc
 - Decide whether a job's environment represents a deployment. Set `deployment: false` for CI or test jobs that need environment secrets, variables, branch policies, or built-in approvals without creating a deployment record.
 - With `deployment: false`, wait timers and required reviewers still apply. A custom deployment protection app requires a deployment object, so an environment that enables one makes the job fail instead of requesting approval.
 - Pass secrets through environment variables or standard input rather than command-line arguments.
+- Treat GitHub App installation tokens as opaque strings. They now run about 520 characters with the `ghs_` prefix, so a fixed-length or legacy-pattern check, size-limited storage or header, or format-based redaction rule can reject, truncate, or leak them. Remove any `X-GitHub-Stateless-S2S-Token` request header; GitHub ignores it after 2026-11-30.
 - Mask every dynamically produced or transformed sensitive value before another command can emit it. Keep sensitive values out of outputs, summaries, caches, and artifacts.
 - Verify actual fork, Dependabot, bot, and environment-approval behavior instead of assuming secrets are present or absent.
 
-Sources: [OpenID Connect security](https://docs.github.com/en/actions/concepts/security/openid-connect) and [using environments without deployments](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/control-deployments#using-environments-without-deployments).
+Sources: [OpenID Connect security](https://docs.github.com/en/actions/concepts/security/openid-connect), [using environments without deployments](https://docs.github.com/en/actions/how-tos/deploy/configure-and-manage-deployments/control-deployments#using-environments-without-deployments), and [stateless installation tokens](https://github.blog/changelog/2026-10-02-stateless-github-app-installation-tokens-rolled-out/).
 
 ## Artifact promotion
 
@@ -147,7 +146,13 @@ For every self-hosted label:
 - on GitHub.com, a runner below 2.329.0 cannot register, and a runner that misses any runner release for more than 30 days after its publication stops receiving jobs
 - rebuild stale images and templates; auto-update is effective only when runners can reach the update service
 
-Sources: [self-hosted runner REST API](https://docs.github.com/en/rest/actions/self-hosted-runners), the [minimum runner version requirements](https://github.blog/changelog/2026-06-12-github-actions-minimum-version-enforcement-timeline-for-self-hosted-runners/), and the [enforcement date change](https://github.blog/changelog/2026-09-28-self-hosted-runner-version-enforcement-date-has-moved).
+For an IP allowlist or egress firewall between runners and other services:
+
+- Sync GitHub-hosted runner ranges from the `actions` and `actions_macos` arrays of `GET /meta`, which change weekly, rather than from cloud-provider ranges. Eligible 2- and 4-core Linux runners also run on AWS, so a rule that allows only Azure or Microsoft-owned ranges, including Microsoft Entra Conditional Access, can block them.
+- To expose an internal resource, prefer a larger runner with static IP addresses or private networking, which stays outside the multi-cloud pool, or a self-hosted runner; GitHub advises against allowlisting the hosted ranges.
+- A runner behind an egress allowlist needs the hosts in `domains.actions` of `GET /meta`, or the exact hosts in `domains.actions_inbound.full_domains` for a firewall without wildcard rules, including Actions blob storage (`productionresultssa*.blob.core.windows.net`); a missing host interrupts job logs and summaries.
+
+Sources: [self-hosted runner REST API](https://docs.github.com/en/rest/actions/self-hosted-runners), [hosted-runner IP addresses](https://docs.github.com/en/actions/reference/runners/github-hosted-runners#ip-addresses), [multi-cloud compute](https://github.blog/changelog/2026-10-28-github-actions-adds-multi-cloud-compute-to-improve-reliability/), [Actions blob storage hosts](https://github.blog/changelog/2026-10-22-meta-api-endpoints-updated-for-actions-blob-storage/), the [minimum runner version requirements](https://github.blog/changelog/2026-06-12-github-actions-minimum-version-enforcement-timeline-for-self-hosted-runners/), and the [enforcement date change](https://github.blog/changelog/2026-09-28-self-hosted-runner-version-enforcement-date-has-moved).
 
 ## Platform execution protections
 

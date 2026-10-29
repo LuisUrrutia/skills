@@ -9,8 +9,8 @@ rule = "Audit selected alone inspects and reports without editing. Modes can com
 where = ["SKILL.md#process", "SKILL.md#audit"]
 
 [[invariants]]
-rule = "Every external action, reusable workflow and container image resolves to a reviewed immutable object. A tag is resolved through its own repository's commit endpoint to a verified SHA, and an image is pinned by digest. In a workflow onboarded to .github/workflows/actions.lock, entries are regenerated with gh actions-lock and checked with --verify instead of being edited by hand."
-where = ["SKILL.md#when-an-external-reference-changes", "references/security.md#dependencies-and-workflow-governance"]
+rule = "Every external action, reusable workflow and container image resolves to a reviewed immutable object. A tag is resolved through its own repository's commit endpoint to a verified SHA, and an image is pinned by digest. A workflow lockfile covers only step-level actions, so an onboarded workflow keeps SHA pins for external reusable-workflow calls and digests for images. The lockfile itself is changed only by gh actions-lock and checked with --verify, never edited by hand or deleted."
+where = ["SKILL.md#when-an-external-reference-changes", "references/lockfiles.md#coverage", "references/lockfiles.md#change-locked-dependencies"]
 
 [[invariants]]
 rule = "An explicit upgrade authorizes only the compatible upgrades it names. During unrelated work, existing versions stay unless one blocks the requested behavior or has a relevant security defect."
@@ -22,8 +22,8 @@ reason = "Commit f515c9c (2026-02-05) recalibrated the guidance to reduce false 
 where = ["SKILL.md#audit", "references/security.md#finding-calibration"]
 
 [[invariants]]
-rule = "A linter error on syntax that current GitHub Docs accept is confirmed against the docs; the valid syntax stays, and the report names the linter version and the gap. Every other lint finding is fixed."
-reason = "actionlint 1.7.12 rejects valid current syntax such as $/ references, background steps and cache-mode (commit 6284dff, 2026-10-16)."
+rule = "A linter error on syntax that current GitHub Docs accept is confirmed against the docs; the valid syntax stays, and the report names the linter version and the gap. When that linter also runs as a repository check, the same change adds an ignore scoped to exactly the rejected syntax, or reports the conflict before introducing the syntax when the linter configuration is out of scope. Every other lint finding is fixed."
+reason = "actionlint 1.7.12 rejects valid current syntax such as $/ references, background steps and cache-mode (commit 6284dff, 2026-10-16). Because the skill routes cache-mode and step concurrency into ordinary changes, a repository actionlint check would otherwise stay failing."
 where = ["SKILL.md#4-prove-the-workflow"]
 
 [[invariants]]
@@ -38,3 +38,13 @@ where = ["references/dependabot.md#preserve-the-dependabot-pull-request-trust-bo
 rule = "Automation of secret-scanning custom patterns prepares and reconciles pattern definitions only; dry runs and final publishing stay visible human gates in the GitHub UI."
 reason = "GitHub's custom-pattern REST API leaves dry runs and publishing to the UI (GitHub changelog, 2026-07-13)."
 where = ["references/secret-scanning.md#publication-boundary"]
+
+[[invariants]]
+rule = "Step concurrency is part of the target graph. In every job the agent creates, and among the steps a requested change adds or rewrites, independent steps run in a parallel group and processes that later steps use run as background steps, unless shared state, ordering or CPU contention makes overlap unsafe. Regrouping other existing steps is reported as a performance change instead of applied."
+reason = "User decision (2026-10-29): parallel steps are a top priority for this skill. The limit to new jobs and changed steps keeps the Modify mode's smallest cohesive change."
+where = ["SKILL.md#2-shape-the-safe-execution-graph", "references/performance.md#step-concurrency"]
+
+[[invariants]]
+rule = "A lockfile finding that a locked commit or its source moved or changed identity (tag-commit-mismatch, unreachable-pin, misleading-sha, repo-replaced) goes to the user. Relocking a moved exact tag and running --accept-moved are human decisions, and --accept-moved never runs in CI or other automation."
+reason = "The gh-actions-lock troubleshooting guide and agent skill make --accept-moved a human decision because automation would silently accept a tampered pin. A moved exact release tag points to unreviewed code, which the invariant on reviewed immutable dependencies does not let the agent adopt on its own."
+where = ["references/lockfiles.md#change-locked-dependencies"]

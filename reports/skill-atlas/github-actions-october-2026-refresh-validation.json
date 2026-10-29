@@ -1,0 +1,177 @@
+{
+ "schemaVersion": 1,
+ "date": "2026-10-29",
+ "baseline": "2a7b77f77130cc7d3cd5629ec087861a16565724",
+ "status": "Validated against primary sources current on 2026-10-29, one Codex Sol and Claude Opus review round, 12 blinded baseline-versus-candidate trials and 4 final-revision reruns across Claude Code and Codex, and one CodeRabbit pull-request review whose seven findings were adopted.",
+ "request": "Improve the github-actions skill from 18 GitHub changelog and blog articles (2026-06-25 to 2026-10-28). The user marked lockfiles, the API changes and cache-mode as important and parallel steps as the top priority.",
+ "changes": [
+  {
+   "file": "github-actions/references/lockfiles.md",
+   "change": "New reference for GA workflow lockfiles and gh-actions-lock v0.3.0 and v0.4.0: coverage (step-level actions only; reusable-workflow calls and images keep their own pins), onboarding checked before each run, scoped and authorized --relock, identity findings and --accept-moved sent to the user, local-action choices repeated in --verify and CI, restore instead of delete, verify CI, CODEOWNERS, the Require lockfile rollout and the GHE.com token. Replaces SKILL.md step 5 and the security.md lockfile bullet."
+  },
+  {
+   "file": "github-actions/references/performance.md",
+   "change": "Step concurrency section routed for created jobs and changed steps: parallel groups, background services kept in the foreground of their step, cancel and wait semantics, the ten-step limit, services: containers kept, contention on ubuntu-slim and standard runners, and other regrouping reported as performance work. Runner labels and toolchains: macOS 14 retirement with architecture-preserving replacements, ubuntu-latest migration to 26.04, Xcode image labels. Caches: write-only publishing with a fresh key, silent denials for actions/cache, ACTIONS_CACHE_MODE diagnosis."
+  },
+  {
+   "file": "github-actions/SKILL.md",
+   "change": "Routing rows for lockfiles, agentic workflows, step concurrency, runner labels, workflow-run queries, network allowlists and cache-mode; cache access in the least-privilege target; step concurrency in the target graph; reusable-workflow and image pins whether or not a workflow is onboarded; actionlint gaps for xcode-27 and retiring labels, with scoped ignores when actionlint runs as a repository check."
+  },
+  {
+   "file": "github-actions/references/security.md",
+   "change": "Default pull_request_target enforcement moved to 2026-12-02; lockfile bullet replaced by a pointer; opaque stateless GitHub App installation tokens; network allowlists from GET /meta (actions and actions_macos ranges, domains.actions hosts including Actions blob storage) and the multi-cloud AWS pool."
+  },
+  {
+   "file": "github-actions/references/api.md",
+   "change": "Query workflow runs: filtered lists return at most 1,000 runs, searches by workflow, event, status, branch or actor report counts above 2,500 as 2,500+, and complete enumeration splits by created ranges."
+  },
+  {
+   "file": "github-actions/references/agentic-workflows.md",
+   "change": "New reference for GitHub Agentic Workflows: edit the Markdown source and recompile, gh-aw action pins and its Dependabot ignore rule, imported workflows, safe-output trust boundaries, and engine authentication."
+  },
+  {
+   "file": "github-actions/references/dependabot.md",
+   "change": "Slower version-update cadence only after security-update coverage is verified, with a reported alternative for unsupported surfaces; group-by: dependency-name for cross-directory groups; lockfile pointer."
+  },
+  {
+   "file": "github-actions/origin.toml",
+   "change": "Invariants for step concurrency (user decision) and lockfile identity findings; the immutable-dependency and linter invariants updated for lockfile coverage and scoped linter ignores."
+  },
+  {
+   "file": "reports/skill-atlas/catalog.js, sources.json, index.html",
+   "change": "Refreshed the github-actions entrypoint hash and the catalog cache key."
+  }
+ ],
+ "not_adopted": [
+  {
+   "source": "https://github.blog/changelog/2026-10-01-actions-runner-controller-release-0-15-0/",
+   "reason": "Controller-internal Kubernetes changes; nothing changes how an agent writes or audits workflows."
+  },
+  {
+   "source": "Node 20 removal, retention expansion and runner-version enforcement articles",
+   "reason": "Already covered by the 2026-10-16 refresh; rechecked and still accurate."
+  },
+  {
+   "source": "Reviewer suggestion to add workflow lockfiles and agentic workflows to the description",
+   "reason": "Not adopted in this change: it widens activation and needs selection probes; the existing description already covers GitHub Actions workflows."
+  }
+ ],
+ "sources": [
+  "https://github.blog/security/supply-chain-security/tame-dependabot-group-your-updates-slow-the-cadence-keep-security-fast/",
+  "https://github.blog/changelog/2026-10-28-github-agentic-workflows-generally-available/",
+  "https://github.blog/changelog/2026-10-28-github-actions-workflow-lockfiles-are-generally-available/",
+  "https://github.blog/changelog/2026-10-28-github-actions-adds-multi-cloud-compute-to-improve-reliability/",
+  "https://github.blog/changelog/2026-10-22-meta-api-endpoints-updated-for-actions-blob-storage/",
+  "https://github.blog/changelog/2026-10-15-xcode-27-runner-image-generally-available/",
+  "https://github.blog/changelog/2026-10-14-github-actions-workflow-lockfiles-in-public-preview/",
+  "https://github.blog/changelog/2026-10-02-stateless-github-app-installation-tokens-rolled-out/",
+  "https://github.blog/changelog/2026-10-01-github-actions-macos-14-runner-image-retirement/",
+  "https://github.blog/changelog/2026-10-01-actions-retention-now-covers-checks-runs-and-statuses/",
+  "https://github.blog/changelog/2026-10-01-actions-runner-controller-release-0-15-0/",
+  "https://github.blog/changelog/2026-09-28-self-hosted-runner-version-enforcement-date-has-moved/",
+  "https://github.blog/changelog/2026-09-25-changes-to-query-results-in-the-github-actions-api-and-ui/",
+  "https://github.blog/changelog/2026-09-23-node-20-is-no-longer-available-in-github-actions/",
+  "https://github.blog/changelog/2026-09-17-ubuntu-26-generally-available-and-latest-migration/",
+  "https://github.blog/changelog/2026-09-17-workflow-execution-protections-in-github-actions-generally-available/",
+  "https://github.blog/changelog/2026-09-10-control-github-actions-cache-access-with-cache-mode/",
+  "https://github.blog/changelog/2026-06-25-actions-steps-can-now-be-run-in-parallel/",
+  "https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax",
+  "https://docs.github.com/en/actions/reference/workflows-and-actions/dependency-caching",
+  "https://docs.github.com/en/actions/concepts/security/workflow-dependency-lockfiles",
+  "https://docs.github.com/en/actions/how-tos/secure-your-work/lock-workflow-dependencies",
+  "https://docs.github.com/en/actions/how-tos/administer/enforce-workflow-lockfiles",
+  "https://docs.github.com/en/actions/how-tos/administer/control-workflow-execution",
+  "https://docs.github.com/en/actions/reference/runners/github-hosted-runners",
+  "https://docs.github.com/en/rest/actions/workflow-runs",
+  "https://docs.github.com/en/rest/meta/meta (and a live GET /meta response)",
+  "https://github.com/github/gh-actions-lock (README, agent skill, troubleshooting guide, v0.3.0 and v0.4.0 release notes)",
+  "https://github.github.com/gh-aw/ (how they work, working with workflows, compilation process)",
+  "https://github.com/rhysd/actionlint/releases (1.7.12 is still the latest release)"
+ ],
+ "consultations": {
+  "brief": "Scratch brief (not committed): user request, frozen candidate e806f34c9931557bb77d8b55e8a8929ce190b84a with diff sha256 71ed3a10d32299e137a0d7afff03ecee050b2187027b2ddf3cf04301de2d231e, design decisions, size counts and skill-change checks; read-only, no delegation.",
+  "rounds": [
+   {
+    "round": 1,
+    "profiles": [
+     {
+      "profile": "Codex gpt-6.1-sol / xhigh",
+      "runner": "T3 delegate_task, gha-refresh-sol-r1",
+      "result": "Three material (--ignore-local-actions must repeat in --verify and CI; GHE.com token needs v0.4.0; cadence rule blocked ecosystems without security updates) and two minor (engine authentication, origin.toml where path)."
+     },
+     {
+      "profile": "Claude claude-opus-5-5 / xhigh",
+      "runner": "T3 delegate_task, gha-refresh-opus-r1",
+      "result": "Five material (step concurrency regrouped every changed job; repository actionlint checks left failing; running gh actions-lock on affected workflows onboarded them silently; findings handling relocked unauthorized refs and left tag-commit-mismatch to the agent; gh-aw action pins and Dependabot rule missing) and twelve minor."
+     }
+    ],
+    "adopted": "All material findings and eleven minor findings, merged where they overlapped. The actionlint ignore configuration was confirmed with actionlint 1.7.12 (exit 0 on a probe using cache-mode, parallel, background, cancel, ubuntu-26.04 and xcode-27).",
+    "rejected": [
+     {
+      "finding": "Add workflow lockfiles and agentic workflows to the description",
+      "reason": "Widens activation and needs selection probes; left for a separate user decision."
+     }
+    ]
+   },
+   {
+    "round": 2,
+    "profiles": [
+     {
+      "profile": "CodeRabbit (CHILL profile, repository defaults)",
+      "runner": "Pull request review of 4c5e4a7 on https://github.com/LuisUrrutia/skills/pull/63",
+      "result": "Seven findings: gh aw compile reuses cached pins, so refresh with gh aw update-actions; gh-aw-actions references can fall back to a stable tag; threat detection is a default that can be disabled and warns by default; the 2,500+ count applies only to workflow, event, status, branch and actor searches; unscoped --verify fails while workflows remain unonboarded; fork pull requests get no secrets for the verify job; macos-14-large maps to the large Intel macos-15-large or macos-26-large, not macos-15-intel."
+     }
+    ],
+    "adopted": "All seven, each checked against the gh-aw compilation-process and threat-detection pages, the query-results changelog and REST reference, gh-actions-lock v0.4.0 cmd/gh-actions-lock source and troubleshooting guide, and the larger-runners reference.",
+    "rejected": []
+   }
+  ]
+ },
+ "trials": {
+  "runner": "Blinded per-run directories with a frozen skill copy, a fixture repository and a task file; no network, no installed skills. Claude Code: general-purpose subagents on claude-opus-5-5. Codex: T3 delegate_task on gpt-6.1-sol / xhigh. Both hosts loaded the user's global instructions; two Codex runs disclosed reading the user's personal AGENTS files, which hold no skill content.",
+  "results": [
+   {
+    "case": "Create CI for a pnpm API with lint, typecheck, unit tests, build and e2e against the started API",
+    "claude": "baseline: separate jobs, background API with cancel, no parallel group; candidate: parallel lint and typecheck with vitest kept out for CPU contention, cache-mode: none, background API with exec and cancel",
+    "codex": "baseline and candidate both used background steps with wait and cancel and cache-mode: none (no observed gain); final revision used a parallel group for lint, typecheck and unit tests"
+   },
+   {
+    "case": "Upgrade checkout to v7.0.1 and onboard ci.yml to an existing lockfile (local composite action, external reusable workflow)",
+    "claude": "baseline: assumed the lockfile could cover the reusable workflow and did not pin it; candidate and final: SHA-pinned the reusable workflow, chose --migrate-local-actions, required gh-actions-lock v0.3.0+, never deleted the lockfile; final also repeated the local-action option in --verify and sent tag-commit-mismatch to the user",
+    "codex": "baseline: used the retired --no-migrate-local-actions flag, left ci.yml unchanged and expected onboarding to record the reusable workflow; candidate and final: SHA-pinned the reusable workflow and handled findings and local actions; final passed --verify with the same local-action option and required v0.4.0 on GHE.com"
+   },
+   {
+    "case": "Audit a pull_request_target preview workflow with cache-mode: write, macos-14 and a shell-backgrounded server, plus a scheduled run-count report sent to an Azure-IP-allowlisted partner",
+    "claude": "baseline: stated 2026-11-02 as the pull_request_target enforcement date and missed the macOS 14 retirement and the AWS pool; candidate: 2026-12-02, macOS 14 retirement, 1,000 and 2,500+ caps, GET /meta and static-IP remedies",
+    "codex": "baseline: stated 2026-11-02, missed the macOS 14 retirement, the count caps and the allowlist break; candidate: all four found"
+   }
+  ],
+  "limits": "One run per arm and host; supplied-context answers without executing workflows on GitHub. Case 3 was not rerun on the final revision: the review edits changed its graded facts only in wording (macOS replacement labels, GET /meta arrays), not in the dates, caps or findings it was graded on.",
+  "final_revision_runs": "Cases 1 and 2 on both hosts used skill files byte-identical to commit 2e2c82a8bf62b2b1d9d159b92872cf791f1bd4d3."
+ },
+ "checks": [
+  "git diff --check passed for every commit.",
+  "Relative Markdown links and anchors in github-actions/: 68 checked, 0 broken.",
+  "All 15 YAML snippets in the skill parse with Ruby YAML.safe_load.",
+  "actionlint 1.7.12 rejects cache-mode, parallel, background, cancel, ubuntu-26.04 and xcode-27 and accepts macos-14; a scoped .github/actionlint.yaml (paths ignore and self-hosted-runner labels) makes the same probe exit 0.",
+  "Every time-sensitive claim was checked on 2026-10-29 against the cited changelog entries, GitHub Docs pages, gh-actions-lock and actionlint release data, gh-aw documentation and a live GET /meta response.",
+  "skill-maintenance check-origin.py --skill-dir github-actions: no diagnostics; --dependents github-actions lists five dependents, none of whose recorded roles rely on a changed contract.",
+  "sources.json and this report parse as JSON; node --check reports/skill-atlas/catalog.js passed; catalog.js equals the prefixed sources.json."
+ ],
+ "size_words": {
+  "SKILL.md": "1990 -> 1962",
+  "references (all)": "8963 -> 11241",
+  "package": "10953 -> 13203"
+ },
+ "final_hashes": {
+  "github-actions/SKILL.md": "ccab06730aac312d9ad77595381f875f52e5122eca5afb24a946be2a4145c6e0",
+  "github-actions/origin.toml": "9d03c447c3687919303d75ec10dc7269e6405de79722c9acdaa48aa172081860",
+  "github-actions/references/agentic-workflows.md": "edb188a19b9ea054a724ac8386132c1f0d707147150380e72a4fe579c7f78c3f",
+  "github-actions/references/api.md": "954b88cb4356133162c889bea99a18c049ca3bd53effe42d7ab556ec6d5dbac7",
+  "github-actions/references/dependabot.md": "f73ce22a64fa8510cbca03390c9317abffa1fa61e3402e4cfb87e61674a076c1",
+  "github-actions/references/lockfiles.md": "da8e2df0266ca158316b369b249a33d85ddf7799665d6bce969955f679cb284f",
+  "github-actions/references/performance.md": "8e534b96f55c1086f67cf2662d6f48451cb02799169c57318a73d2841ba5accc",
+  "github-actions/references/reliability.md": "21ab96a23cd27d1e8f41a18928444fa701dc88f782e0739d663fa99f6afb3755",
+  "github-actions/references/security.md": "6619f2a2e46fd53fca4a67137540b13a0933520fc095cb17c016aa36b748061f"
+ }
+}
