@@ -72,8 +72,11 @@ Before writing a body, read:
 - Templates on the resolved base in root, `docs/`, `.github/` and their
   `PULL_REQUEST_TEMPLATE/` directories. Choose by task and rules; ask only about
   a consequential unresolved choice.
-- Up to ten recent merged PRs; read three bodies, or all if fewer exist, for
-  style rather than policy.
+- Up to ten most recently merged PRs not authored by bots: measure each non-empty
+  body for the review packet's length budget, for example with
+  `gh pr list --repo <target> --state merged --search 'sort:updated-desc' --limit 50 --json author,body,mergedAt --jq '[.[] | select((.author.is_bot | not) and (.body | length) > 0)] | sort_by(.mergedAt) | reverse | .[:10] | map(.body | length)'`
+  (plain `gh pr list` orders by creation; a PR's update time is never before its
+  merge), and read three bodies, or all if fewer exist, for style rather than policy.
 
 Record inaccessible required evidence and its failed lookup as unknown;
 continue supported work without inventing conventions.
@@ -128,8 +131,9 @@ Publication never merges by itself.
 ## Return
 
 Report `created`, `updated`, `draft-only` or `blocked`: URL when known, head/base,
-draft state, validation, executed commands/results, remaining work and coordination
-omitted from the body. Separate current execution from historical evidence. Draft-only
+draft state, body length against its budget with the reason for any overrun,
+detail comment URL, validation, executed commands/results, remaining work and coordination omitted
+from the body. Separate current execution from historical evidence. Draft-only
 returns the copy and confirms no mutation; blockers name the prerequisite or
 decision and completed work. Pass verified identity, revision and publication
 state back to an authorized caller.

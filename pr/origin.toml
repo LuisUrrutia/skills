@@ -28,6 +28,26 @@ reason = "On 2026-10-08 the user rejected release sequencing and sibling-ticket 
 where = ["references/review-packet.md#write-for-the-reviewer"]
 
 [[invariants]]
+rule = "A body stays within a length budget taken from the repository: the second-longest of up to ten non-empty bodies of recent merged PRs not authored by bots, with a floor of 1,000 characters, or 2,500 characters when fewer than three exist or the lookup fails. The budget is a ceiling. Only content a reviewer needs to approve safely and cannot open elsewhere, such as merge/deploy care or one-line validation results, exceeds it, and the return reports the length against the budget."
+reason = "On 2026-10-29 the user rejected a body that successive Update rewrites had grown to 14.6k characters for a one-off data-fix script, in a repository whose ten most recent merged bodies ran from 120 to 3,096 characters with one at 7.9k, and asked for concise bodies with a budget anchored to recent merged PRs. Taking the second-longest keeps one outlier from setting the budget; the floor keeps a repository of near-empty bodies from removing deploy care and validation."
+where = ["references/review-packet.md#length-budget", "SKILL.md#understand-the-change-and-repository", "SKILL.md#return"]
+
+[[invariants]]
+rule = "Each decision and check takes one line unless the reviewer needs more, and a check's line keeps its key result. A decision that only follows a repository template or convention gets no entry. Repository documentation gets at most a one-line summary and a pointer, and commit messages are pointed to, not restated; merge/deploy care stays in the body even when they also state it."
+reason = "The user asked on 2026-10-29 for one line per decision and check and for pointers to the README and commit messages; the rejected body restated README rules and per-field counts and gave eight decisions their full rationale. Keeping key results and deploy care guards against cutting below what a reviewer needs."
+where = ["references/review-packet.md#title-and-body", "references/review-packet.md#length-budget"]
+
+[[invariants]]
+rule = "An Update rewrites the body against the length budget again: a new run enters as one line and replaces the run it supersedes, the same check or environment at an older revision, and an older run stays only as one line for evidence the newer one lacks."
+reason = "In the body the user rejected on 2026-10-29, each rewrite kept every earlier run and added the new one in full with sub-bullets, so its validation section grew from 1.4k to 6.4k characters across four rewrites."
+where = ["references/review-packet.md#evidence-and-continuity"]
+
+[[invariants]]
+rule = "Sub-results within a run, run logs, per-item counts and traces stay out of the body. Detail that still matters goes to an artifact at the PR's visibility, never a gist or external host, or to one detail comment per PR that the body links, that later writes edit in place, and that is inspected for exposure and verified like the body. It is the only comment description work posts, this skill words it, and Draft-only returns it beside the body."
+reason = "User decision on 2026-10-29: detail that still matters belongs in a linked artifact or a PR comment, not in the body. Keeping one comment edited in place stops the comments from accumulating the way the body did, and run logs of data fixes can hold production values."
+where = ["references/review-packet.md#length-budget", "references/publication.md#before-writing", "references/publication.md#create-or-update-metadata", "references/publication.md#verify-the-result"]
+
+[[invariants]]
 rule = "A new PR opens as a draft unless the user's preference says ready, and publication never merges as a side effect."
 where = [
   "SKILL.md#resolve-the-operation",
@@ -56,7 +76,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
-reviewed_through = "49dd158d1076134a641b33efb035946536778336"
+reviewed_through = "59db609eb1e18aaf59b63284d0e52255aff0c63c"
 baseline_paths = ["skills/engineering/pr/SKILL.md", "LICENSE"]
 paths = ["skills/engineering/pr/SKILL.md", "LICENSE"]
 
@@ -112,6 +132,16 @@ validation = [
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
+[[sources.reviews]]
+from_commit = "49dd158d1076134a641b33efb035946536778336"
+to_commit = "59db609eb1e18aaf59b63284d0e52255aff0c63c"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Fetched over SSH on 2026-10-29 and verified baseline, cursor and candidate ancestry; git diff --find-renames 49dd158d1076..59db609eb1e1 over the recorded paths is empty and every recorded path exists at the candidate.",
+]
+
 [[sources]]
 id = "cursor-reviewable-pr"
 author = "Cursor Team Kit"
@@ -121,7 +151,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+reviewed_through = "1ba91fc25c0977741dd0e267849e6234b037ed0a"
 baseline_paths = [
   "cursor-team-kit/skills/new-branch-and-pr/SKILL.md",
   "cursor-team-kit/skills/make-pr-easy-to-review/SKILL.md",
@@ -137,7 +167,7 @@ paths = [
 idea = "The body gives the reviewer the change's purpose, what ran against which revision and what it proved, and where review should begin: the owning module, invariant or critical path rather than every changed file."
 serves = "Gives the reviewer an entry point and a basis for trusting the result."
 where = ["references/review-packet.md#title-and-body"]
-shapes = "Turns purpose, validation and review entry point into questions the body answers, with each command's outcome placed next to the command."
+shapes = "Turns purpose, validation and review entry point into questions the body answers, each in one line unless the reviewer needs more, with each check's revision, outcome and limits on its line."
 
 [[sources.ideas]]
 idea = "History is judged by reviewer effort. When independent concerns could be reviewed and reverted separately, the skill recommends a split; it does not rewrite published history, reorder a stack, or separate a behavior from its regression test only to shorten the diff."
@@ -169,6 +199,16 @@ validation = [
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
+[[sources.reviews]]
+from_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+to_commit = "1ba91fc25c0977741dd0e267849e6234b037ed0a"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Fetched over SSH on 2026-10-29 and verified baseline, cursor and candidate ancestry; git diff --find-renames e5136d82418d..1ba91fc25c09 over the recorded paths is empty and every recorded path exists at the candidate.",
+]
+
 [[sources]]
 id = "pstack-decision-evidence"
 author = "Lauren Tan / pstack"
@@ -178,7 +218,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+reviewed_through = "1ba91fc25c0977741dd0e267849e6234b037ed0a"
 baseline_paths = ["pstack/skills/show-me-your-work/SKILL.md", "pstack/LICENSE"]
 paths = ["pstack/skills/show-me-your-work/SKILL.md", "pstack/LICENSE"]
 
@@ -221,6 +261,16 @@ deferred = []
 validation = [
   "Verified baseline, cursor and candidate ancestry; read the complete scoped diff e43c7ee26e00..e5136d82418d and the changed files at both commits.",
   "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+to_commit = "1ba91fc25c0977741dd0e267849e6234b037ed0a"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Fetched over SSH on 2026-10-29 and verified baseline, cursor and candidate ancestry; git diff --find-renames e5136d82418d..1ba91fc25c09 over the recorded paths is empty and every recorded path exists at the candidate.",
 ]
 
 [[sources]]
@@ -267,6 +317,13 @@ where = [
 ]
 shapes = "Makes exact-PR resolution a numbered identity step and adds a recheck immediately before creation."
 
+[[sources.ideas]]
+idea = "A sentence or section stays only when cutting it would lower the reviewer's confidence, and a navigation hint appears only when the reviewer would otherwise start in the wrong place, never as a list of changed files."
+serves = "Keeps the body short enough to read before the diff without dropping what the review needs."
+where = ["references/review-packet.md#title-and-body", "references/review-packet.md#evidence-and-continuity"]
+shapes = "Makes the review entry point conditional and adds a per-sentence cut test to the check before delivery."
+adapted = "Besides required template content, which the donor also keeps, the cut test yields to the length budget's other exceptions, such as merge/deploy care and others' preserved notes."
+
 [[sources.declined]]
 feature = "Previewing a rewritten description and asking for confirmation before editing an existing PR."
 reason = "An existing request or standing authorization covers the update, so it needs no second approval."
@@ -294,6 +351,20 @@ validation = [
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
+[[sources.reviews]]
+from_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+to_commit = "fbd794f329f5b65d0ea00a5e6487336c385ff2be"
+incorporated = []
+skipped = [
+  "skills/ce-commit-push-pr/references/apply-and-handoff.md: Commit 122f9f90 says a pipeline-mode return ends the skill, not the turn, so the calling skill continues. Already covered: pr/SKILL.md says completing this phase continues an authorized caller's workflow, and pr/references/continuation.md returns to an authorized loop instead of nesting another.",
+]
+deferred = [
+  "skills/ce-commit-push-pr/references/pr-description-writing.md: Commit c27add90 credits other contributors when a PR ships their work: it names them in the body, links a continued or replaced PR, keeps existing credit on rewrite, and ends the body with Co-authored-by trailers when the repository squash-merges. Credit does not help assess the diff, so it conflicts with the invariant that the body includes a statement only when it helps assess this diff; adopting it needs the user's decision.",
+]
+validation = [
+  "Fetched over SSH on 2026-10-29 and verified baseline, cursor and candidate ancestry; read the complete scoped diff bdc53d034ccf..fbd794f329f5 and the changed files at both commits.",
+]
+
 [[sources]]
 id = "mblode-pr"
 author = "Matthew Blode"
@@ -303,7 +374,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "51e9ae4fd21ff9b0cfe269c874b40342e8538a47"
-reviewed_through = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+reviewed_through = "ff92bf5ae675e8108e7d2f14b22a523fd1303e76"
 baseline_paths = [
   "skills/pr-creator/SKILL.md",
   "skills/pr-creator/references/pr-polish.md",
@@ -319,6 +390,7 @@ where = [
   "references/publication.md#publish-the-selected-branch",
 ]
 shapes = "The review packet owns full rewrites, stale-claim corrections and preservation; publication routes material pushes back through Update."
+adapted = "Carried-forward evidence follows the invariant that a newer run replaces the run it supersedes, so rewrites do not accumulate validation."
 
 [[sources.ideas]]
 idea = "Issue coverage is claimed only when verified. A closing keyword requires coverage of every explicit ask and the authority to close the work item; otherwise a neutral reference states the remaining scope."
@@ -342,7 +414,7 @@ reason = "The skill recommends a split when it helps review and does not rewrite
 
 [[sources.declined]]
 feature = "Fixed length quotas, such as a title under 60 characters."
-reason = "The repository's title convention applies, and the body stays proportional to the review decision."
+reason = "The repository's title convention applies, and the body budget comes from the repository's own merged PRs under the invariant on the length budget; a fixed number applies only when the repository offers too few bodies."
 
 [[sources.declined]]
 feature = "PR creation triggered by a request to commit."
@@ -361,6 +433,16 @@ deferred = []
 validation = [
   "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 51e9ae4fd21f..872bc83bdb6d and the changed files at both commits.",
   "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "872bc83bdb6dd54a9ff456fbf1181beea6db7875"
+to_commit = "ff92bf5ae675e8108e7d2f14b22a523fd1303e76"
+incorporated = []
+skipped = ["No change to the recorded paths in this range; no local instruction change."]
+deferred = []
+validation = [
+  "Fetched over SSH on 2026-10-29 and verified baseline, cursor and candidate ancestry; git diff --find-renames 872bc83bdb6d..ff92bf5ae675 over the recorded paths is empty and every recorded path exists at the candidate.",
 ]
 
 [[sources]]
@@ -427,7 +509,7 @@ ref = "refs/heads/trunk"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "6fc1c29d5477bfe71da7af290eb481c0df7811f1"
-reviewed_through = "59e9f78eacdf2554f8534d166808c3e9b8c7ebcb"
+reviewed_through = "f7a06a18a91eef5c0b218b549dab64b86f36f8b9"
 baseline_paths = [
   "skills/gh/SKILL.md",
   "internal/attachments/attach.go",
@@ -486,6 +568,24 @@ deferred = []
 validation = [
   "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 6fc1c29d5477..59e9f78eacdf and the changed files at both commits.",
   "reports/skill-atlas/upstream-refresh-validation.json",
+]
+
+[[sources.reviews]]
+from_commit = "59e9f78eacdf2554f8534d166808c3e9b8c7ebcb"
+to_commit = "f7a06a18a91eef5c0b218b549dab64b86f36f8b9"
+incorporated = [
+  "pkg/cmd/pr/create/create.go, pkg/cmd/pr/edit/edit.go and skills/gh/SKILL.md: Commit 2f195d678, released in v2.103.0, resolves relative Markdown destinations in a --body-file against the body file's directory first, then the working directory. Adapted in pr/references/attachments.md: destinations and attachment paths stay relative to gh's working directory, which works before and after 2.103.0, and the text no longer says the body file's directory is never used.",
+  "internal/attachments/attach.go and skills/gh/SKILL.md: Commit 17ac598e6, released in v2.103.2, leaves credential checks to the server, which refuses most GitHub App tokens with the same error as missing write access. Adapted in pr/references/attachments.md: the token-type list is gone and that ambiguous error is named for permission diagnosis.",
+]
+skipped = [
+  "skills/gh/SKILL.md: The new gh issue artifact commands attach documents and links to issues and refuse pull requests, so they offer no route for PR captures or moved detail.",
+  "skills/gh/SKILL.md: Expiring-token guidance says not to cache gh auth token output. The pr skill never reads or caches tokens and uses gh commands that refresh them.",
+  "internal/attachments/attach.go and attach_test.go: Multi-document uploads and partial-save reporting serve issue artifacts; the PR create and edit changes are the two recorded above.",
+]
+deferred = []
+validation = [
+  "Fetched over SSH on 2026-10-29, verified baseline, cursor and candidate ancestry, read the complete scoped diff 59e9f78eacdf..f7a06a18a91e, and confirmed with git tag --contains that both incorporated commits are released.",
+  "Ran eval cases 5 and 7 on Claude Code (claude-opus-5-5) and Codex (gpt-6.1-sol), both at xhigh, against the previous and updated packages. Each host scored the same on both packages; Codex case 5 took two trials per package and scored 6 of 10 expectations on each, with the failures swapping between trials.",
 ]
 
 [[local_snapshots]]

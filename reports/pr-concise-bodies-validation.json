@@ -1,0 +1,210 @@
+{
+ "skill": "pr",
+ "date": "2026-10-29",
+ "request": "Make concise PR bodies the default: a length budget anchored to recent merged PRs, one line per decision and check, pointers instead of restated README and commit content, superseded runs replaced on Update, and detail moved to a linked artifact or PR comment. Then review the skill and its recorded upstream sources.",
+ "baseline_commit": "2a7b77f77130cc7d3cd5629ec087861a16565724",
+ "commits": [
+  "1867dda13ebc49c5ba595896c6d808460cfc4eab",
+  "a50e7d0fd7ddf756f6638b058fbb33d2b44a7c5c",
+  "e960e87fb8719fdca0e29211e75a43363be32c0d"
+ ],
+ "size": {
+  "method": "Whitespace-separated words across SKILL.md and all references; records, evals and notices excluded.",
+  "files": [
+   {
+    "path": "SKILL.md",
+    "before": 929,
+    "after": 988,
+    "sha256": "accf6d9dbac1e2caf3a7f0365b29c87cb2ee9e363542e74e1102b873a75eafc8"
+   },
+   {
+    "path": "references/attachments.md",
+    "before": 512,
+    "after": 525,
+    "sha256": "f11316f98a0db6277ddb9f3781ce1ee4cbfdb1b5201fea4fb9079c2e770a3b8b"
+   },
+   {
+    "path": "references/claims.md",
+    "before": 469,
+    "after": 469,
+    "sha256": "ab57710eb4e310080eac414838a781b352ba7c422f59610f00cda0d87bab2887"
+   },
+   {
+    "path": "references/continuation.md",
+    "before": 200,
+    "after": 200,
+    "sha256": "e559308414750d51b45e336898b4df757eb9fd5ce409495e50efc462f354d7ac"
+   },
+   {
+    "path": "references/publication.md",
+    "before": 508,
+    "after": 571,
+    "sha256": "9a52876c7cb1de397de4cf806816412a149c2c5d7d4eb3f86cec9247715d487a"
+   },
+   {
+    "path": "references/review-packet.md",
+    "before": 571,
+    "after": 855,
+    "sha256": "887ed4ddd7ec1c1614a9669ae142205f1a970dbc5974987b8b6e289a21002748"
+   },
+   {
+    "path": "references/visual-evidence.md",
+    "before": 273,
+    "after": 273,
+    "sha256": "4bd552ace395c347f3605a8919524ede74d202e22ec0178d25e498052bba6ca8"
+   }
+  ],
+  "total": {
+   "before": 3462,
+   "after": 3881
+  }
+ },
+ "growth_reasons": [
+  "Length budget and its floor, fallback and exceptions: user request for a budget anchored to recent merged PRs; floor and exceptions from review findings that tiny samples and closed lists cut deploy care and validation.",
+  "One line per decision and check with its key result, template-following decisions omitted, documentation pointer: user request; key results restored after eval cases 10 and 13 lost test counts.",
+  "Update replacement of superseded runs: observed accumulation from 1.4k to 6.4k characters of validation.",
+  "Detail comment mechanics and exposure check in publication.md: user decision allowing a PR comment; one comment edited in place stops comment accumulation.",
+  "attachments.md: gh 2.103 path resolution and token refusal behavior from the GitHub CLI source review."
+ ],
+ "static_checks": [
+  {
+   "command": "uv run --with pyyaml python ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py pr",
+   "result": "pass"
+  },
+  {
+   "command": "uv run --with pyyaml python ~/.codex/skills/.system/skill-creator/scripts/quick_validate.py comment-style",
+   "result": "pass"
+  },
+  {
+   "command": "python3 skill-maintenance/scripts/check-origin.py --skill-dir pr --source <id>=<clone> for all seven sources",
+   "result": "pass: no diagnostics, nothing skipped"
+  },
+  {
+   "command": "python3 skill-maintenance/scripts/check-origin.py --skill-dir comment-style",
+   "result": "pass"
+  },
+  {
+   "command": "python3 -m unittest discover -s skill-maintenance/tests",
+   "result": "pass: 53 tests"
+  },
+  {
+   "command": "git diff --check",
+   "result": "pass"
+  }
+ ],
+ "review": {
+  "candidate": "1867dda (tree 9b4335444b5a7d4b9cdeeecb6a0f7c8f24f37daf)",
+  "profiles": [
+   {
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "findings": "3 material, 2 minor"
+   },
+   {
+    "provider": "claudeAgent",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "findings": "8 material, 12 minor"
+   }
+  ],
+  "dispositions": "All material findings adopted in a50e7d0. Declined: treating the author's own manual body edits as preserved notes, because agent writes and the author's edits use the same GitHub account and cannot be told apart; the open exception list keeps deploy care such as a safety section instead."
+ },
+ "evaluation": {
+  "design": "Draft-only fixture cases 5, 7 and 8 to 14. Executors: Claude Code 2.1.291 with claude-opus-5-5 at xhigh (read-only tools, skills disabled, no MCP) and Codex CLI 0.160.1 with gpt-6.1-sol at xhigh (read-only sandbox). Each executor read only a neutrally named staged copy of the runtime files; traces show no read of installed skills. Grader: claude-opus-5-5, blind to the arm; a script measured body length from the grader's verbatim extraction.",
+  "arms": {
+   "baseline": "2a7b77f runtime",
+   "candidate-v1": "1867dda runtime (reviewed candidate)",
+   "final": "e960e87 runtime"
+  },
+  "carryover": "Baseline results for cases 8, 9, 10 and 13 come from t1: their prompts and the baseline package did not change.",
+  "case_matrix": [
+   {
+    "case": "case-05",
+    "claude_baseline": "t2: 4/5 (0 body chars)",
+    "claude_final": "t2: 4/5 (0 body chars)",
+    "codex_baseline": "t2: 4/5 (0 body chars); t3: 2/5 (0 body chars)",
+    "codex_final": "t2: 2/5 (0 body chars); t3: 4/5 (0 body chars)"
+   },
+   {
+    "case": "case-07",
+    "claude_baseline": "t2: 3/3 (0 body chars)",
+    "claude_final": "t2: 3/3 (0 body chars)",
+    "codex_baseline": "t2: 2/3 (0 body chars)",
+    "codex_final": "t2: 2/3 (0 body chars)"
+   },
+   {
+    "case": "case-08",
+    "claude_baseline": "t1: 6/7 (1703 body chars)",
+    "claude_candidate-v1": "t1: 6/7 (1603 body chars)",
+    "claude_final": "t2: 6/7 (1647 body chars)",
+    "codex_baseline": "t1: 6/7 (1339 body chars)",
+    "codex_candidate-v1": "t1: 6/7 (1207 body chars)",
+    "codex_final": "t2: 7/7 (1339 body chars)"
+   },
+   {
+    "case": "case-09",
+    "claude_baseline": "t1: 6/6 (1387 body chars)",
+    "claude_candidate-v1": "t1: 6/6 (868 body chars)",
+    "claude_final": "t2: 6/6 (1016 body chars)",
+    "codex_baseline": "t1: 6/6 (955 body chars)",
+    "codex_candidate-v1": "t1: 5/6 (604 body chars)",
+    "codex_final": "t2: 6/6 (734 body chars)"
+   },
+   {
+    "case": "case-10",
+    "claude_baseline": "t1: 4/4 (557 body chars); t3: 4/4 (600 body chars)",
+    "claude_candidate-v1": "t1: 3/4 (511 body chars)",
+    "claude_final": "t2: 3/4 (495 body chars); t3: 4/4 (488 body chars)",
+    "codex_baseline": "t1: 4/4 (434 body chars)",
+    "codex_candidate-v1": "t1: 3/4 (385 body chars)",
+    "codex_final": "t2: 4/4 (419 body chars)"
+   },
+   {
+    "case": "case-11",
+    "claude_baseline": "t1: 5/9 (3517 body chars); t2: 5/9 (3827 body chars)",
+    "claude_candidate-v1": "t1: 9/9 (2835 body chars)",
+    "claude_final": "t2: 9/9 (2937 body chars)",
+    "codex_baseline": "t1: 6/9 (2850 body chars); t2: 6/9 (2513 body chars)",
+    "codex_candidate-v1": "t1: 8/9 (2362 body chars)",
+    "codex_final": "t2: 8/9 (2049 body chars)"
+   },
+   {
+    "case": "case-12",
+    "claude_baseline": "t1: 7/8 (1853 body chars); t2: 7/9 (2006 body chars)",
+    "claude_candidate-v1": "t1: 7/8 (1609 body chars)",
+    "claude_final": "t2: 9/9 (1165 body chars)",
+    "codex_baseline": "t1: 7/8 (1778 body chars); t2: 7/9 (1625 body chars)",
+    "codex_candidate-v1": "t1: 8/8 (1136 body chars)",
+    "codex_final": "t2: 9/9 (1086 body chars)"
+   },
+   {
+    "case": "case-13",
+    "claude_baseline": "t1: 5/5 (418 body chars)",
+    "claude_candidate-v1": "t1: 5/5 (380 body chars)",
+    "claude_final": "t2: 5/5 (399 body chars)",
+    "codex_baseline": "t1: 4/5 (284 body chars)",
+    "codex_candidate-v1": "t1: 3/5 (219 body chars)",
+    "codex_final": "t2: 5/5 (267 body chars)"
+   },
+   {
+    "case": "case-14",
+    "claude_baseline": "t2: 4/6 (783 body chars)",
+    "claude_final": "t2: 5/6 (691 body chars)",
+    "codex_baseline": "t2: 4/6 (489 body chars)",
+    "codex_final": "t2: 5/6 (480 body chars)"
+   }
+  ]
+ },
+ "limits": [
+  "One trial per host and case except repeated cases 5 (Codex) and 10 (Claude); small samples support only these cases.",
+  "Fixtures simulate tool output; no live GitHub write, detail comment, upload or tracker action was exercised.",
+  "Case 14 expectation 2 (the 30-day period in the body) fails on both arms and both hosts; it is unrelated to this change.",
+  "Case 8 expectation 2 (commit pointer without mechanism) fails on most runs of both arms, as before this change.",
+  "The PR 35 replay was textual: no executor rewrote the real 14.6k body."
+ ],
+ "evidence": {
+  "local_root": "/tmp/pr-skill-concise",
+  "retention": "Raw traces, outputs and per-run grades are machine-local; this report holds conclusions and hashes."
+ }
+}

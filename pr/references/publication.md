@@ -7,8 +7,9 @@ Apply existing request/standing authority before seeking additional permission.
 Recheck exact PR, head repository/ref/SHA, local branch/HEAD, push URL, base and
 expected remote tip. Preserve unrelated work/index state. Use `commit` for
 uncommitted work included in publication; metadata-only work ships no new commits.
-Inspect selected content for credentials, private captures and unrelated artifacts;
-resolve suspected exposure even when already committed.
+Inspect selected content, the body and any detail comment for credentials, private
+data, private captures and unrelated artifacts; resolve suspected exposure even
+when already committed.
 
 Resolve the intended GitHub actor from user direction, otherwise path-effective
 `git config --get user.email` matched to an authenticated account. Neither author
@@ -58,16 +59,22 @@ fork. Omit `--draft` for ready preference. Creation is non-interactive: never us
 For Update, use
 `gh pr edit <exact-url> --title <title> --body-file <file>` with only authorized
 metadata flags. Changing base, reviewers, labels, milestone, assignees or draft
-state needs covering authority. Description work posts no replies, issue comments
-or approvals; feedback replies belong to `pr-followup`, their wording to
-`comment-style`.
+state needs covering authority. Description work posts no replies or approvals.
+Its only comment is one detail comment per PR, holding detail the
+[length budget](review-packet.md#length-budget) moves out of the body; this skill
+words it. Post it once the PR exists, link it from the body, and on later writes
+edit it, for example with
+`gh api -X PATCH repos/<owner>/<repo>/issues/comments/<id> -F body=@<file>`,
+instead of adding another. Feedback replies belong to `pr-followup`, their
+wording to `comment-style`.
 
 ## Verify the result
 
 After every write, including failure/timeout, and before accepting an existing PR
 without writing, verify remote URL, head repository/ref/SHA, base, title, body,
-intended draft state and only requested metadata changes. Resolve mismatches
-before declaring success or continuing; inspect uncertain outcomes before retrying.
+any detail comment, intended draft state and only requested metadata changes.
+Resolve mismatches before declaring success or continuing; inspect uncertain
+outcomes before retrying.
 Report partial outcomes and failed prerequisites. Attachments require
 URL transformation and surrounding-content checks, not local-body byte equality;
 their reference owns recovery and rendering/access checks.

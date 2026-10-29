@@ -9,8 +9,9 @@ Write a message the recipient can take in at a glance, fitting the conversation
 and the user's intent. Use this for PR and issue replies, Slack, WhatsApp, and
 replies to social posts. Return the
 message itself, ready to use, without an introduction, editing notes, or several
-alternatives unless requested. PR bodies and commit messages stay with `pr` and
-`commit`; long-form writing stays with its existing owner.
+alternatives unless requested. PR bodies, the detail comment `pr` moves out of a
+body, and commit messages stay with `pr` and `commit`; long-form writing stays
+with its existing owner.
 
 ## Find the point
 
