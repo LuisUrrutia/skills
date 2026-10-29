@@ -2,7 +2,7 @@
  "schemaVersion": 1,
  "date": "2026-10-29",
  "baseline": "2a7b77f77130cc7d3cd5629ec087861a16565724",
- "status": "Validated against primary sources current on 2026-10-29, one Codex Sol and Claude Opus review round, 12 blinded baseline-versus-candidate trials and 4 final-revision reruns across Claude Code and Codex.",
+ "status": "Validated against primary sources current on 2026-10-29, one Codex Sol and Claude Opus review round, 12 blinded baseline-versus-candidate trials and 4 final-revision reruns across Claude Code and Codex, and one CodeRabbit pull-request review whose seven findings were adopted.",
  "request": "Improve the github-actions skill from 18 GitHub changelog and blog articles (2026-06-25 to 2026-10-28). The user marked lockfiles, the API changes and cache-mode as important and parallel steps as the top priority.",
  "changes": [
   {
@@ -23,7 +23,7 @@
   },
   {
    "file": "github-actions/references/api.md",
-   "change": "Query workflow runs: filtered lists return at most 1,000 runs, counts above 2,500 are reported as 2,500+, and complete enumeration splits by created ranges."
+   "change": "Query workflow runs: filtered lists return at most 1,000 runs, searches by workflow, event, status, branch or actor report counts above 2,500 as 2,500+, and complete enumeration splits by created ranges."
   },
   {
    "file": "github-actions/references/agentic-workflows.md",
@@ -112,6 +112,18 @@
       "reason": "Widens activation and needs selection probes; left for a separate user decision."
      }
     ]
+   },
+   {
+    "round": 2,
+    "profiles": [
+     {
+      "profile": "CodeRabbit (CHILL profile, repository defaults)",
+      "runner": "Pull request review of 4c5e4a7 on https://github.com/LuisUrrutia/skills/pull/63",
+      "result": "Seven findings: gh aw compile reuses cached pins, so refresh with gh aw update-actions; gh-aw-actions references can fall back to a stable tag; threat detection is a default that can be disabled and warns by default; the 2,500+ count applies only to workflow, event, status, branch and actor searches; unscoped --verify fails while workflows remain unonboarded; fork pull requests get no secrets for the verify job; macos-14-large maps to the large Intel macos-15-large or macos-26-large, not macos-15-intel."
+     }
+    ],
+    "adopted": "All seven, each checked against the gh-aw compilation-process and threat-detection pages, the query-results changelog and REST reference, gh-actions-lock v0.4.0 cmd/gh-actions-lock source and troubleshooting guide, and the larger-runners reference.",
+    "rejected": []
    }
   ]
  },
@@ -148,17 +160,17 @@
  ],
  "size_words": {
   "SKILL.md": "1990 -> 1962",
-  "references (all)": "8963 -> 11066",
-  "package": "10953 -> 13028"
+  "references (all)": "8963 -> 11241",
+  "package": "10953 -> 13203"
  },
  "final_hashes": {
   "github-actions/SKILL.md": "ccab06730aac312d9ad77595381f875f52e5122eca5afb24a946be2a4145c6e0",
   "github-actions/origin.toml": "9d03c447c3687919303d75ec10dc7269e6405de79722c9acdaa48aa172081860",
-  "github-actions/references/agentic-workflows.md": "95103278f5d017bc69abe5f795967f334f09716d0160d743437d9bbe10271b50",
-  "github-actions/references/api.md": "092d8634a0b1d8ac8cbd959799bcb533bc4b4cfe4df6c96b9fa0895edadcddb3",
+  "github-actions/references/agentic-workflows.md": "edb188a19b9ea054a724ac8386132c1f0d707147150380e72a4fe579c7f78c3f",
+  "github-actions/references/api.md": "954b88cb4356133162c889bea99a18c049ca3bd53effe42d7ab556ec6d5dbac7",
   "github-actions/references/dependabot.md": "f73ce22a64fa8510cbca03390c9317abffa1fa61e3402e4cfb87e61674a076c1",
-  "github-actions/references/lockfiles.md": "525a89719ef1640e5d45ee76d067e3fbf08997f40dab0fa73943859c9dba9906",
-  "github-actions/references/performance.md": "9d9adc4c837ffe3aff17d30be4be0750067d58451b32358970d02976c460564a",
+  "github-actions/references/lockfiles.md": "da8e2df0266ca158316b369b249a33d85ddf7799665d6bce969955f679cb284f",
+  "github-actions/references/performance.md": "8e534b96f55c1086f67cf2662d6f48451cb02799169c57318a73d2841ba5accc",
   "github-actions/references/reliability.md": "21ab96a23cd27d1e8f41a18928444fa701dc88f782e0739d663fa99f6afb3755",
   "github-actions/references/security.md": "6619f2a2e46fd53fca4a67137540b13a0933520fc095cb17c016aa36b748061f"
  }

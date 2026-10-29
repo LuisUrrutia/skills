@@ -76,7 +76,7 @@ Source: [create a workflow dispatch event](https://docs.github.com/en/rest/actio
 
 ## Query workflow runs
 
-A workflow-run list filtered by `actor`, `branch`, `check_suite_id`, `created`, `event`, `head_sha`, or `status` returns at most 1,000 runs, and GitHub reports more than 2,500 matches as "2,500+" rather than an exact count. Treat a count at that cap as a lower bound. To process every match, split the query into `created` date ranges, narrow any range that returns 1,000 runs, and paginate within each range.
+A workflow-run list filtered by `actor`, `branch`, `check_suite_id`, `created`, `event`, `head_sha`, or `status` returns at most 1,000 runs. When a search by workflow, event, status, branch, or actor matches more than 2,500 runs, GitHub reports "2,500+" rather than an exact count. Treat a count at that cap as a lower bound. To process every match, split the query into `created` date ranges, narrow any range that returns 1,000 runs, and paginate within each range.
 
 Sources: [list workflow runs](https://docs.github.com/en/rest/actions/workflow-runs#list-workflow-runs-for-a-repository) and the [query-results change](https://github.blog/changelog/2026-09-25-changes-to-query-results-in-the-github-actions-api-and-ui/).
 
