@@ -44,7 +44,7 @@ For job edges:
 
 ### Step concurrency
 
-In every job you create or change, find steps that consume none of each other's outputs, files, or side effects, and run them in a `parallel` group; run long-lived services as `background` steps. Keep a step sequential when it writes paths, ports, or tool caches that a concurrent step uses, when order matters, or when CPU-bound steps would contend for a 2- or 4-core runner; a tool that already parallelizes internally gains little from overlap. Outside the requested change, report overlap opportunities with step timings or a labeled model instead of restructuring untouched jobs.
+In every job you create, and among the steps a requested change adds or rewrites, run steps that consume none of each other's outputs, files, environment or path changes, or side effects in a `parallel` group, and run a process that later steps use while it stays up as a `background` step. Keep `services:` containers for containerized dependencies that need health checks and cleanup. Keep a step sequential when it writes paths, ports, or tool caches that a concurrent step uses, when order matters, or when CPU-bound steps would contend on a small runner (one CPU on `ubuntu-slim`, two to four on standard runners); a tool that already parallelizes internally gains little from overlap. Regrouping other existing steps is a performance change: report it with step timings or a labeled model, and apply it only when latency work is requested, under the [performance criterion](#performance-criterion).
 
 ```yaml
 steps:
@@ -81,7 +81,7 @@ steps:
 - Native background and parallel syntax is unavailable inside composite actions; the composite itself can run in the background.
 - Prefer native step concurrency to shell `&`, which interleaves logs and hides lifecycle, output, and failure semantics.
 
-Verify `parallel`, `background`, `wait`, `cancel`, and concurrency-queue availability against the repository's GitHub.com or GHES version.
+Verify `parallel`, `background`, `wait`, `cancel`, `cache-mode`, and concurrency-queue availability against the repository's GitHub.com or GHES version.
 
 Sources: [GitHub Actions workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#jobsjob_idstepsbackground) and the [parallel-steps release note](https://github.blog/changelog/2026-06-25-actions-steps-can-now-be-run-in-parallel/).
 
@@ -99,7 +99,7 @@ Source: [actions/checkout](https://github.com/actions/checkout).
 
 Resolve preinstalled tools from the exact runner image manifest. `-latest` labels and their software move over time.
 
-- Verify every GitHub-hosted label against the current runner reference before keeping or adding it. A retired label fails its jobs, after scheduled brownout failures: `macos-14`, `macos-14-large`, and `macos-14-xlarge` retire on 2026-11-02, so move to `macos-15` or `macos-26` (`macos-latest`) arm64 labels. A `-latest` label migrates between OS versions: `ubuntu-latest` moves from Ubuntu 24.04 to 26.04 between 2026-10-19 and 2026-11-19. Test on the new image, and pin the previous explicit label only while a required tool is missing there.
+- Verify every GitHub-hosted label against the current runner reference before keeping or adding it. A retired label fails its jobs, after scheduled brownout failures: `macos-14`, `macos-14-large`, and `macos-14-xlarge` retire on 2026-11-02. Keep the architecture and size: move arm64 jobs to `macos-15` or `macos-26` (`macos-latest`), `-xlarge` jobs to `macos-15-xlarge` or `macos-26-xlarge` (`macos-latest-xlarge`), and Intel `macos-14-large` jobs to an Intel label such as `macos-15-intel` unless they pass on arm64. A `-latest` label migrates between OS versions: `ubuntu-latest` moves from Ubuntu 24.04 to 26.04 between 2026-10-19 and 2026-11-19. Test on the new image, and pin the previous explicit label only while a required tool is missing there.
 - When the Xcode version is the contract, select an Xcode image label such as `xcode-27` or `xcode-27-xlarge`; each image carries one major Xcode version and runs only on Apple Silicon.
 - Use a preinstalled binary directly only when its floating version is acceptable and the current manifest confirms it on every selected OS and architecture.
 - For self-hosted runners, inspect and version the owned image or bootstrap process.
@@ -118,8 +118,8 @@ A cache should save more time and cost than restore, validation, and save consum
 - Use restore prefixes only when a partial match remains correct after the normal locked install or rebuild.
 - Cache only dependencies or expensive rebuildable intermediates. Keep secrets, credentials, release artifacts, and opaque executable state in their authoritative stores.
 - Keep cache key cardinality and paths bounded to prevent eviction churn. Review hit rate, restore and save duration, entry size, retention, repository limits, and read-only cache warnings.
-- Give consumers that should not publish shared state `cache-mode: read` and a restore-only cache step so no save is attempted. Give a trusted job that rebuilds from a clean state and publishes the cache `cache-mode: write-only`.
-- An operation the effective mode denies does not fail: a denied restore is a cache miss, and a denied save is skipped with an informational log line. After a `cache-mode` change, read the effective mode from `ACTIONS_CACHE_MODE` before diagnosing keys or hit rates.
+- Give consumers that should not publish shared state `cache-mode: read` and a restore-only cache step so no save is attempted. Give a trusted job that rebuilds from a clean state and publishes the cache `cache-mode: write-only` and a key that no existing entry holds, because an existing key is never overwritten.
+- `actions/cache` and `@actions/cache` skip an operation the effective mode denies without failing: a denied restore is a cache miss, and a denied save is skipped with an informational log line. Other cache clients meet the scoped token's denial, so verify how each one fails. Before diagnosing keys or hit rates, read the effective mode from `ACTIONS_CACHE_MODE`; a trigger default or a calling job's `cache-mode` can set it without a change in this workflow.
 
 For any untrusted producer or privileged consumer, also apply the [cache-poisoning chain](security.md#cache-poisoning-chain).
 

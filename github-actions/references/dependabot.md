@@ -111,7 +111,7 @@ Source: [Dependabot options reference](https://docs.github.com/en/code-security/
 
 GitHub currently applies a three-day default cooldown to version updates and bypasses that default for security updates. Re-read the current option before relying on that duration; configure `cooldown` explicitly when the delay is an operational contract. A cooldown reduces exposure to newly published mistakes or short-lived attacks. It does not protect against an established malicious release, compromised build tooling, or a dependency whose dangerous version remains published.
 
-Slow a version-update cadence to `weekly` or `monthly` only after verifying that security updates, with their dependency-graph and alert prerequisites, are enabled for that surface. Security updates follow disclosures rather than the schedule, so they keep fixes fast only when they are on.
+Before slowing version updates to `weekly` or `monthly`, verify security-update coverage, including the dependency graph and alerts, because security updates follow disclosures rather than the version-update schedule. Enable it where the ecosystem supports it; for an unsupported surface, report the gap and establish another urgent-update path before slowing the cadence.
 
 Use grouping to reduce review and CI noise without hiding risk:
 

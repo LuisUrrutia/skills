@@ -148,9 +148,9 @@ For every self-hosted label:
 
 For an IP allowlist or egress firewall between runners and other services:
 
-- Sync GitHub-hosted runner ranges from the `actions` array of `GET /meta`, which changes weekly, rather than from cloud-provider ranges. Eligible 2- and 4-core Linux runners also run on AWS, so a rule that allows only Azure or Microsoft-owned ranges, including Microsoft Entra Conditional Access, can block them.
+- Sync GitHub-hosted runner ranges from the `actions` and `actions_macos` arrays of `GET /meta`, which change weekly, rather than from cloud-provider ranges. Eligible 2- and 4-core Linux runners also run on AWS, so a rule that allows only Azure or Microsoft-owned ranges, including Microsoft Entra Conditional Access, can block them.
 - To expose an internal resource, prefer a larger runner with static IP addresses or private networking, which stays outside the multi-cloud pool, or a self-hosted runner; GitHub advises against allowlisting the hosted ranges.
-- A runner behind an egress allowlist needs the hosts in `domains.actions` of `GET /meta`, including Actions blob storage (`productionresultssa*.blob.core.windows.net`); a missing host interrupts job logs and summaries.
+- A runner behind an egress allowlist needs the hosts in `domains.actions` of `GET /meta`, or the exact hosts in `domains.actions_inbound.full_domains` for a firewall without wildcard rules, including Actions blob storage (`productionresultssa*.blob.core.windows.net`); a missing host interrupts job logs and summaries.
 
 Sources: [self-hosted runner REST API](https://docs.github.com/en/rest/actions/self-hosted-runners), [hosted-runner IP addresses](https://docs.github.com/en/actions/reference/runners/github-hosted-runners#ip-addresses), [multi-cloud compute](https://github.blog/changelog/2026-10-28-github-actions-adds-multi-cloud-compute-to-improve-reliability/), [Actions blob storage hosts](https://github.blog/changelog/2026-10-22-meta-api-endpoints-updated-for-actions-blob-storage/), the [minimum runner version requirements](https://github.blog/changelog/2026-06-12-github-actions-minimum-version-enforcement-timeline-for-self-hosted-runners/), and the [enforcement date change](https://github.blog/changelog/2026-09-28-self-hosted-runner-version-enforcement-date-has-moved).
 
