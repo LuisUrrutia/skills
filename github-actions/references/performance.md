@@ -32,7 +32,7 @@ Expose independent work at the earliest safe point. Choose the parallelism bound
 
 - **Jobs:** independently runnable lint, test, build, and scan work that needs separate permissions, environments, status checks, retries, runners, or resource limits.
 - **Parallel group:** independent steps that share one runner and must all finish before the next step.
-- **Background lifecycle:** a `run` or `uses` step that overlaps later work or provides a service; give it an `id`, probe readiness, and terminate or wait explicitly.
+- **Background lifecycle:** a `run` or `uses` step with an `id` that overlaps later work or provides a service.
 - **Sequential steps:** tightly coupled work where runner startup or artifact transfer costs more than overlap saves.
 
 For job edges:
@@ -41,6 +41,10 @@ For job edges:
 - Run fast, high-signal failures early without delaying independent work.
 - Build once and fan out an immutable artifact when downstream jobs need the same output.
 - Keep shared writes race-free; jobs provide isolation, while parallel and background steps share CPU, memory, disk, network, workspace, and permissions.
+
+### Step concurrency
+
+In every job you create or change, find steps that consume none of each other's outputs, files, or side effects, and run them in a `parallel` group; run long-lived services as `background` steps. Keep a step sequential when it writes paths, ports, or tool caches that a concurrent step uses, when order matters, or when CPU-bound steps would contend for a 2- or 4-core runner; a tool that already parallelizes internally gains little from overlap. Outside the requested change, report overlap opportunities with step timings or a labeled model instead of restructuring untouched jobs.
 
 ```yaml
 steps:
@@ -69,16 +73,17 @@ steps:
 ```
 
 - Probe readiness before using a background service; launch completion alone is insufficient.
-- `wait` targets one step ID or an array, `wait-all:` takes no arguments, and `cancel` targets one ID.
-- Wait and cancel steps always run and do not accept `if`. Outputs and environment changes become available only after the matching wait; failures surface there unless the background step allows failure.
-- Pair every background step with an explicit wait or cancel. The runner otherwise waits before post-job cleanup.
-- At most ten background steps run concurrently per job; additional steps queue.
+- Keep the service in the step's foreground. A command that daemonizes, such as `docker run -d` or `nohup … &`, completes at launch, and `cancel` cannot reach the process it leaves behind.
+- `wait` targets one step ID or an array, and `wait-all:` takes no arguments. `cancel` targets one ID and sends `SIGTERM`, then `SIGKILL` after a short grace period.
+- Wait and cancel steps always run, even after a failure, and do not accept `if`. A background step's outputs and environment changes become available only after a wait that includes it; its failure fails that wait unless the background step sets `continue-on-error`.
+- End every background step with an explicit wait or cancel. An implicit `wait-all` runs before post-job cleanup, so a service that is never cancelled holds the job until its timeout.
+- At most ten background steps, including `parallel` members, run concurrently per job; additional steps queue.
 - Native background and parallel syntax is unavailable inside composite actions; the composite itself can run in the background.
-- Prefer the native graph to shell `&`, which hides lifecycle, output, and failure semantics.
+- Prefer native step concurrency to shell `&`, which interleaves logs and hides lifecycle, output, and failure semantics.
 
 Verify `parallel`, `background`, `wait`, `cancel`, and concurrency-queue availability against the repository's GitHub.com or GHES version.
 
-Sources: [GitHub Actions workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax) and the [parallel-steps release note](https://github.blog/changelog/2026-06-25-actions-steps-can-now-be-run-in-parallel/).
+Sources: [GitHub Actions workflow syntax](https://docs.github.com/en/actions/reference/workflows-and-actions/workflow-syntax#jobsjob_idstepsbackground) and the [parallel-steps release note](https://github.blog/changelog/2026-06-25-actions-steps-can-now-be-run-in-parallel/).
 
 ## Checkout and dependency setup
 
@@ -90,17 +95,19 @@ Sources: [GitHub Actions workflow syntax](https://docs.github.com/en/actions/ref
 
 Source: [actions/checkout](https://github.com/actions/checkout).
 
-## Runner toolchains
+## Runner labels and toolchains
 
 Resolve preinstalled tools from the exact runner image manifest. `-latest` labels and their software move over time.
 
+- Verify every GitHub-hosted label against the current runner reference before keeping or adding it. A retired label fails its jobs, after scheduled brownout failures: `macos-14`, `macos-14-large`, and `macos-14-xlarge` retire on 2026-11-02, so move to `macos-15` or `macos-26` (`macos-latest`) arm64 labels. A `-latest` label migrates between OS versions: `ubuntu-latest` moves from Ubuntu 24.04 to 26.04 between 2026-10-19 and 2026-11-19. Test on the new image, and pin the previous explicit label only while a required tool is missing there.
+- When the Xcode version is the contract, select an Xcode image label such as `xcode-27` or `xcode-27-xlarge`; each image carries one major Xcode version and runs only on Apple Silicon.
 - Use a preinstalled binary directly only when its floating version is acceptable and the current manifest confirms it on every selected OS and architecture.
 - For self-hosted runners, inspect and version the owned image or bootstrap process.
 - When removing a setup action, run the underlying command and record the resolved version.
 - Select the smallest runner that meets memory, CPU, disk, architecture, and network needs. Use a larger runner only when measured speedup or queue behavior justifies its cost.
 - Set bounded job and step timeouts for work that can hang or consume scarce capacity.
 
-Source: [GitHub-hosted runners](https://docs.github.com/en/actions/reference/runners/github-hosted-runners).
+Sources: [GitHub-hosted runners](https://docs.github.com/en/actions/reference/runners/github-hosted-runners), the [macOS 14 retirement](https://github.blog/changelog/2026-10-01-github-actions-macos-14-runner-image-retirement/), the [Ubuntu 26.04 migration](https://github.blog/changelog/2026-09-17-ubuntu-26-generally-available-and-latest-migration/), and the [Xcode 27 image](https://github.blog/changelog/2026-10-15-xcode-27-runner-image-generally-available/).
 
 ## Caches
 
@@ -111,7 +118,8 @@ A cache should save more time and cost than restore, validation, and save consum
 - Use restore prefixes only when a partial match remains correct after the normal locked install or rebuild.
 - Cache only dependencies or expensive rebuildable intermediates. Keep secrets, credentials, release artifacts, and opaque executable state in their authoritative stores.
 - Keep cache key cardinality and paths bounded to prevent eviction churn. Review hit rate, restore and save duration, entry size, retention, repository limits, and read-only cache warnings.
-- Give consumers that should not publish shared state `cache-mode: read` and a restore-only cache step so no save is attempted.
+- Give consumers that should not publish shared state `cache-mode: read` and a restore-only cache step so no save is attempted. Give a trusted job that rebuilds from a clean state and publishes the cache `cache-mode: write-only`.
+- An operation the effective mode denies does not fail: a denied restore is a cache miss, and a denied save is skipped with an informational log line. After a `cache-mode` change, read the effective mode from `ACTIONS_CACHE_MODE` before diagnosing keys or hit rates.
 
 For any untrusted producer or privileged consumer, also apply the [cache-poisoning chain](security.md#cache-poisoning-chain).
 

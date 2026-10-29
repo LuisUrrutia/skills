@@ -52,7 +52,7 @@ Make each non-success state intentional:
 - Use `continue-on-error` only when a later condition reads the outcome or the step is intentionally informational.
 - Give network calls bounded, idempotency-aware retries rather than hiding deterministic failures.
 - Set job and step `timeout-minutes` from observed upper bounds for commands that can hang or consume scarce runners.
-- Ensure cancellation reaches child processes and apply the [`background` lifecycle](performance.md#execution-graph) to services.
+- Ensure cancellation reaches child processes and apply the [`background` lifecycle](performance.md#step-concurrency) to services.
 - Put diagnostic uploads behind `if: ${{ !cancelled() }}` or another explicit status condition and keep them free of secrets.
 
 ## Concurrency

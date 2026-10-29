@@ -40,19 +40,24 @@ Load the anchored reference as soon as its observed context matches:
 | An entrant can influence a job with authority | [Trust-boundary map](references/security.md#map-the-trust-boundary) and [token permissions](references/security.md#token-permissions) |
 | A privileged or default-branch event handles contributor influence | [Privileged events](references/security.md#privileged-events) |
 | An external dependency, checkout, local `./` or `$/` action, or workflow policy matters | [Dependencies and workflow governance](references/security.md#dependencies-and-workflow-governance) |
+| The repository tracks `.github/workflows/actions.lock`, or lockfile adoption or the Require lockfile policy is in scope | [Workflow lockfiles](references/lockfiles.md) |
+| A `.github/workflows/*.md` file has a generated `.lock.yml`, or agent-driven automation is requested | [Agentic workflows](references/agentic-workflows.md) |
 | Secrets, OIDC, environments, or cloud credentials matter | [Secrets, OIDC, and environments](references/security.md#secrets-oidc-and-environments) |
-| Artifacts or caches cross jobs, workflows, refs, or trust levels, or Actions retention settings change | [Artifact promotion](references/security.md#artifact-promotion) or [cache-poisoning chain](references/security.md#cache-poisoning-chain) |
-| A self-hosted runner or Actions policy matters | [Runners and network reach](references/security.md#runners-and-network-reach) or [platform execution protections](references/security.md#platform-execution-protections) |
+| A job restores or saves caches or sets `cache-mode`, artifacts cross jobs, workflows, refs, or trust levels, or Actions retention settings change | [Artifact promotion](references/security.md#artifact-promotion) or [cache-poisoning chain](references/security.md#cache-poisoning-chain) |
+| A self-hosted runner, network allowlist, or Actions policy matters | [Runners and network reach](references/security.md#runners-and-network-reach) or [platform execution protections](references/security.md#platform-execution-protections) |
 | A run is held, awaits approval, or is blocked before a job starts | [Approval gates and held runs](references/reliability.md#approval-gates-and-held-runs) and, for policy denials, [platform execution protections](references/security.md#platform-execution-protections) |
 | A `run:` block is created, changed, or reviewed | [Shell semantics](references/shell.md#select-shell-semantics-explicitly), [expression boundary](references/shell.md#cross-the-expression-boundary-through-env), [failure handling](references/shell.md#handle-failure-as-data-only-when-expected), and [workflow data](references/shell.md#write-workflow-data-safely) |
 | A `run:` block writes a transient file | [Runner-owned temporary storage](references/shell.md#use-runner-owned-temporary-storage) |
 | GitHub API, `gh`, or `github-script` is used | [Choose the narrowest API](references/api.md#choose-the-narrowest-interface), then its matching interface section |
 | `workflow_dispatch` is sent through an API or its run must be tracked | [Workflow dispatch](references/api.md#workflow-dispatch) |
+| Workflow runs are listed, counted, or searched through the API | [Query workflow runs](references/api.md#query-workflow-runs) |
 | Secret-scanning custom patterns are automated | [Secret-scanning custom patterns](references/secret-scanning.md) |
 | Dependabot configuration, alerts, dependency graphs, dependency submission, private registries, or Dependabot pull-request behavior matters | [Dependabot and dependency automation](references/dependabot.md) |
 | Outputs, environment writes, or summaries are used | [Workflow channels](references/api.md#workflow-channels) |
 | Events, filters, expressions, failure, cancellation, or timeouts matter | [Events and refs](references/reliability.md#events-and-refs), [expressions](references/reliability.md#expressions-and-conditions), or [failure](references/reliability.md#failure-cancellation-and-time-bounds) |
 | Concurrency, matrices, or reusable contracts matter | [Concurrency](references/reliability.md#concurrency), [matrices](references/reliability.md#matrices), or [reusable workflows](references/reliability.md#reusable-workflows) |
+| A job is created or its steps change, or a step backgrounds a process with shell `&` | [Step concurrency](references/performance.md#step-concurrency) |
+| A `runs-on` label is added, kept, or changed | [Runner labels and toolchains](references/performance.md#runner-labels-and-toolchains) |
 | Latency, cost, parallelism, setup, runners, caches, or artifacts matter | [Name the target and baseline](references/performance.md#name-the-target-and-baseline), then the matching performance section |
 | Actions metrics, billing reports, dashboards, or GitHub-generated workflows matter | [Collect and attribute evidence](references/performance.md#collect-and-attribute-evidence) |
 
@@ -63,9 +68,9 @@ Load the anchored reference as soon as its observed context matches:
 Compare the mapped graph with the target below for every selected mode. In audit-only mode, record evidence-backed divergences without editing. For modification or creation, shape this target; when combined with audit, retain the divergences as evidence for the changes:
 
 - Choose the least-privileged event that supplies the required context.
-- Establish a deny-by-default token baseline and grant each job only its required permissions.
+- Establish a deny-by-default token baseline and grant each job only its required permissions and cache access (`cache-mode`).
 - Constrain untrusted values crossing into privileged operations so they cannot control execution, authority selection, destination, or side-effect scope.
-- Add only data, isolation, or lifecycle edges; start independent work as soon as its dependencies allow.
+- Add only data, isolation, or lifecycle edges; start independent work as soon as its dependencies allow, across jobs and within each job through [step concurrency](references/performance.md#step-concurrency).
 - Make required-check, failure, retry, timeout, cancellation, and concurrency semantics explicit.
 - Give deployments and releases protected environments, immutable inputs, and deliberate queueing.
 - Use locked dependency installs and explicit shell semantics where scripts depend on them.
@@ -111,8 +116,8 @@ Treat a new action, reusable workflow, container image, or explicit upgrade as a
    ```
 
 3. Verify the SHA belongs to that repository; inspect source behavior, action metadata, runtime and runner floors, permissions, and input handling relevant to this workflow. On GitHub.com, JavaScript actions run only on Node 24 and the Node 20 opt-out is gone: replace a release that still declares `runs.using: node20` with a Node 24-compatible one, and treat self-hosted runners on macOS 13.4 or earlier or on ARM32 as unsupported.
-4. Pin container images by digest. Outside a workflow onboarded to a lockfile, set `uses:` to the reviewed SHA; wherever `uses:` holds a SHA, update it and its human-readable release comment together.
-5. When the repository tracks `.github/workflows/actions.lock`, check whether the affected workflow appears in its `workflows` section. For an onboarded workflow, change `uses:` in the repository's existing form and regenerate its entries with `gh actions-lock <workflow-path>` instead of editing the lockfile; a run without paths also prunes entries and rewrites every workflow it scans. Onboard a new workflow the same way. A normal run keeps existing entries, so a branch or partial-version pin such as `@main` or `@v4` advances only with `--relock`. If a locked commit is no longer reachable upstream, `--relock` reports an error and writes nothing; verify the upstream history before adding `--accept-moved`. Keep the tool's `uses:` rewrites: it can replace a floating tag with the exact release it locked and convert a resolvable `./` action to `$/`, which changes the code's source (see [local action references](references/security.md#dependencies-and-workflow-governance)). Before onboarding, fix any `./` action reference the run would keep (migrate it to `$/`, correct its path, or remove the step), or pass only the other workflow paths. The documentation says such a workflow is skipped, but check the `workflows` section afterwards: an empty entry onboards a workflow with no dependencies, and GitHub then rejects its remote actions. Until a workflow is onboarded with its entries, step 4 applies to it. In an onboarded workflow a remaining `./` action reference is a blocking error: the run writes nothing, so migrate it to `$/`, fix its path, or remove the step before regenerating. Review the full diff, confirm each changed `commit` is the reviewed SHA, investigate a changed `owner_id` or `repo_id` as a possible transfer or substitution before accepting it, then run `gh actions-lock --verify`.
+4. Pin container images by digest and external reusable workflows called at `jobs.<job_id>.uses` by SHA in every workflow; workflow lockfiles cover neither. Set a step-level `uses:` to the reviewed SHA unless its workflow is onboarded to a lockfile. Wherever `uses:` holds a SHA, update it and its human-readable release comment together.
+5. When the repository tracks `.github/workflows/actions.lock`, or lockfile adoption is in scope, apply [workflow lockfiles](references/lockfiles.md) to every affected workflow and confirm each changed `commit` is the reviewed SHA.
 
 An explicit upgrade authorizes the compatible upgrades it names. During unrelated work, preserve existing versions unless one blocks the requested behavior or has a relevant security defect.
 
@@ -126,13 +131,13 @@ An explicit upgrade authorizes the compatible upgrades it names. During unrelate
 
 ### 4. Prove the workflow
 
-1. Run the repository's configured workflow lint command; otherwise run `actionlint` against every affected workflow. A linter can lag current syntax: actionlint 1.7.12 rejects valid `$/` references, `parallel`, `background`, `wait`, `wait-all`, `cancel`, `queue: max`, `cache-mode`, the `vulnerability-alerts` permission, `job.workflow_*` contexts, and new runner labels such as `ubuntu-26.04`. Confirm each such error against current GitHub Docs, keep the valid syntax, and report the linter version and gap; fix every other finding.
+1. Run the repository's configured workflow lint command; otherwise run `actionlint` against every affected workflow. A linter can lag current syntax: actionlint 1.7.12 rejects valid `$/` references, `parallel`, `background`, `wait`, `wait-all`, `cancel`, `queue: max`, `cache-mode`, the `vulnerability-alerts` permission, `job.workflow_*` contexts, and new runner labels such as `ubuntu-26.04` and `xcode-27`, yet still accepts retiring labels such as `macos-14`. Confirm each such error against current GitHub Docs, keep the valid syntax, and report the linter version and gap; fix every other finding. A passing label check does not prove the label is current.
 2. For a modified local action, validate its metadata with the configured schema tool (on GitHub.com, a JavaScript action declares `runs.using: node24`) and exercise its declared inputs, outputs, entrypoint, post behavior, and representative caller.
 3. Run each configured Actions security analyzer and reconcile its output with the trust-boundary map; static analysis supplements path tracing.
 4. Run safe underlying commands from changed `run:` steps with the repository's locked dependency state. Use a documented dry-run for release or deployment commands.
 5. For performance changes, satisfy the [performance criterion](references/performance.md#performance-criterion). Report inaccessible remote execution as the exact measurement gap.
 6. For combined Dependabot and workflow changes, also satisfy the [Dependabot validation and criterion](references/dependabot.md#validate-operation-not-only-yaml).
-7. Recheck the complete affected graph: event, approval, hold, and policy semantics; permissions, secrets, OIDC, environments, and runners; dependency pins; local and reusable contracts; outputs, matrices, caches, artifacts, concurrency, background barriers, and `needs`.
+7. Recheck the complete affected graph: event, approval, hold, and policy semantics; permissions, secrets, OIDC, environments, and runners; dependency pins and lockfile entries; local and reusable contracts; outputs, matrices, caches, artifacts, concurrency, background barriers, and `needs`.
 8. Report exact commands and outcomes. Name an unavailable runner, credential, service, policy, or tool as a verification gap.
 
 **Complete when:** every affected workflow, modified action manifest, and modified Dependabot configuration has passing applicable validation or an exact tool blocker; every changed behavior has direct execution evidence or an exact external blocker; every security conclusion names the traced path; and every optimization satisfies the linked performance criterion.
