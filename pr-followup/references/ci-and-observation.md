@@ -64,31 +64,34 @@ limitation and use its watch without adding a second agent loop.
 The host's ordinary GitHub checks should not invoke a model; each delivered event
 starts agent work and consumes tokens for its context, investigation and response.
 Return compact status deltas and actionable findings to the model; avoid loading
-unchanged logs and bot summaries repeatedly. Reread the evidence needed for each
+unchanged logs and bot summaries repeatedly. A wake that changes no decision or
+remote state ends the turn without a status message or PR comment. Reread the evidence needed for each
 new decision and the final coherent snapshot. Do not replace the watch with
-repeated agent turns, sleep loops or recurring AI checks. If the host cannot resume this task, report the coverage gap. Do not create
-a separate recurring schedule as a side effect of Drive.
+repeated agent turns, sleep loops, `gh run watch`, `gh pr checks --watch` or
+recurring AI checks. If the host cannot resume this task, report the coverage
+gap. Do not create a separate recurring schedule as a side effect of Drive.
 
 Inspect the host's wake coverage and stop conditions. Edited comments, delayed
 publication of pending reviews, or terminal PR states may not generate a wake.
-Disclose uncovered events; notifications are prompts to reread GitHub, not a
-complete inbox or proof of approval. When first arming a watch, close any gap
-between the initial collection and activation with a fresh snapshot if the host
-allows it. If it requires immediate yielding, disclose the gap and reread all
-channels at the next wake.
+Disclose uncovered events the stopping condition depends on; notifications are
+prompts to reread GitHub, not a complete inbox or proof of approval. When first
+arming a watch, close any gap between the initial collection and activation with
+a fresh snapshot if the host allows it. If it requires immediate yielding,
+disclose the gap and reread all channels at the next wake.
 
 For a user time limit, use a host expiry or an authorized one-shot wake to stop
 the watch at the deadline. If neither is available, report that unattended expiry
 cannot be guaranteed; merely remembering a deadline cannot wake a quiet thread.
 
 Inspect the host's stop conditions. A watch may stop on closure, access failures
-or a notification-loop guard, and may pause when the app is offline or the thread
-is settled. Report interruptions. Re-arm only after checking the cause and current
+or a notification-loop guard, may pause when the app is offline, and may end when
+the thread is settled. Report interruptions. Re-arm only after checking the cause and current
 PR state: recover an access failure when access works again, and investigate a
 loop guard before resuming it. Never blindly restart a repeating notification loop.
-On an approval event, verify current review state. Unwatch only if the stopping
-condition holds; otherwise retain the existing watch. Merge or closure may stop
-the host watch silently, with no final agent turn.
+On an approval event, verify current review state. Unwatch when the stopping
+condition holds or a host handback rule requires it; otherwise retain the
+existing watch. Merge or closure may stop the host watch silently, with no final
+agent turn.
 
 For the post-ready pass, inspect workflow triggers and draft conditions, review
 requests and available reviewer-app configuration to identify expected work. Use
@@ -111,3 +114,25 @@ technical work finishes. A user-imposed deadline returns waiting with outstandin
 IDs/URLs, not success. If required evidence is inaccessible, report the exact blocker
 and completed independent work. No quiet interval, fixed pass count or lack of new comments proves
 approval. Stop this PR's watch when the stopping condition is verified.
+
+### T3 Code
+
+The host watch is `watch_pull_request`; `unwatch_pull_request` stops it. T3 checks
+on its own fixed cadence and wakes only on changes; do not disclose its interval.
+Feedback scope never arms it, even when an authorized merge waits on checks.
+
+- Arm it immediately after the final snapshot, then end the turn. It never reports
+  earlier comments, so one posted in between waits for the next wake, which may
+  not come; disclose that gap.
+- Checks still running at the required-checks wake produce one more wake when
+  they all finish; end the turn and wait for it.
+- It never wakes on a check that starts after that wake, a thread resolved without
+  a comment, a merge, base advancement or BEHIND state, another actor's ready
+  transition, or comments by the GitHub account T3 Code reads with. Check these at
+  each wake and before claiming readiness or merging. When everything the stopping
+  condition still waits on is among them, hand back.
+- A watched thread stays out of the user's inbox. Unwatch before any turn that
+  ends for the user: complete, blocked, a question or needed confirmation, or a
+  hand-back above. When later work again waits on checks or reviews, take a fresh
+  snapshot and re-arm, even after that unwatch.
+- Its comment-only stop is the loop guard above.

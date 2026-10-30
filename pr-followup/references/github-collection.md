@@ -56,7 +56,11 @@ available authorized tools; Actions commands cannot prove external CI results.
 
 An API error, incomplete pagination, missing permission, unavailable log or private
 external details page is a coverage gap, not an empty inbox. Report the exact
-channel and limitation; continue independent supported work. A known scheduled
+channel and limitation; continue independent supported work. When
+`gh api rate_limit` shows GraphQL exhausted, read PR metadata from
+`GET /repos/{owner}/{repo}/pulls/{number}` and the other channels through the REST
+endpoints above, whose limit is separate; thread status stays a gap until its
+reset. A known scheduled
 reviewer still running differs from a hypothetical future comment.
 
 Read PR metadata again after collection and before mutation/completion. If head

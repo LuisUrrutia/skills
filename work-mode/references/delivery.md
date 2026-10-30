@@ -57,7 +57,8 @@ requires a later result retains that work after follow-up returns.
 While Drive is waiting, retain its PR identity, revision, pending event, and watch
 owner. Use the host-supported watch and yield the current turn. On a wake, resume
 that owner, refresh remote state, and reconcile earlier actions before continuing.
-If a child cannot own the watch, return that responsibility to the parent. An
+A delegated child never arms the watch; it returns the waiting state to its
+parent. An
 unavailable resumable watch is a specific coverage limit; do not replace it with
 agent polling or an unrequested recurring schedule.
 
