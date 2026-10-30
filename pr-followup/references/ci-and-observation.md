@@ -129,8 +129,8 @@ Feedback scope never arms it, even when an authorized merge waits on checks.
 - It never wakes on a check that starts after that wake, a thread resolved without
   a comment, a merge, base advancement or BEHIND state, another actor's ready
   transition, or comments by the GitHub account T3 Code reads with. Check these at
-  each wake and before claiming readiness or merging. When the stopping condition
-  waits only on one of them, hand back.
+  each wake and before claiming readiness or merging. When everything the stopping
+  condition still waits on is among them, hand back.
 - A watched thread stays out of the user's inbox. Unwatch before any turn that
   ends for the user: complete, blocked, a question or needed confirmation, or a
   hand-back above. When later work again waits on checks or reviews, take a fresh

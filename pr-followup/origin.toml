@@ -515,14 +515,14 @@ baseline_paths = ["skills/babysit-pr/SKILL.md", "skills/babysit-pr/scripts/pr-wa
 paths = ["skills/babysit-pr/SKILL.md", "skills/babysit-pr/scripts/pr-wait", "LICENSE"]
 
 [[sources.ideas]]
-idea = "In T3 Code a watched thread stays out of the user's inbox. The watch is stopped before any turn that ends for the user: complete, blocked, a question or needed confirmation, or a stopping condition that waits only on an event the watch never reports. When later work again waits on checks or reviews, the agent takes a fresh snapshot and re-arms, even after that unwatch."
+idea = "In T3 Code a watched thread stays out of the user's inbox. The watch is stopped before any turn that ends for the user: complete, blocked, a question or needed confirmation, or a stopping condition that waits only on events the watch never reports. When later work again waits on checks or reviews, the agent takes a fresh snapshot and re-arms, even after that unwatch."
 serves = "Keeps a question, blocker or result from sitting unseen in a thread that still looks busy."
 where = [
   "references/ci-and-observation.md#t3-code",
   "references/ci-and-observation.md#observe-resume-and-stop",
 ]
 shapes = "Adds a T3 Code subsection and lets a host handback rule stop the watch before the stopping condition holds."
-adapted = "The donor names ready, blocked and a question as handbacks; locally a stopping condition that waits only on an event the watch never reports is one too. The fresh snapshot before re-arming covers events that arrived while unwatched, because a new watch does not repeat news the previous one reported."
+adapted = "The donor names ready, blocked and a question as handbacks; locally a stopping condition that waits only on events the watch never reports is one too. The fresh snapshot before re-arming covers events that arrived while unwatched, because a new watch does not repeat news the previous one reported."
 
 [[sources.ideas]]
 idea = "A watch wake that changes no decision or remote state ends the agent turn without a status message or PR comment. The status report is given when handing back or after a turn that changed something."
@@ -601,7 +601,7 @@ paths = [
 ]
 
 [[sources.ideas]]
-idea = "T3 Code's PR watch never wakes the agent for a check that starts after the required-checks wake, a thread resolved without a comment, a merge, base advancement or a BEHIND branch, another actor's ready transition, or comments by the GitHub account T3 Code reads with. The agent checks those at each wake and before claiming readiness or merging, and hands back when the stopping condition waits only on one of them."
+idea = "T3 Code's PR watch never wakes the agent for a check that starts after the required-checks wake, a thread resolved without a comment, a merge, base advancement or a BEHIND branch, another actor's ready transition, or comments by the GitHub account T3 Code reads with. The agent checks those at each wake and before claiming readiness or merging, and hands back when everything the stopping condition still waits on is among them."
 serves = "Prevents readiness or merge decisions that assume the watch reported every relevant change."
 where = ["references/ci-and-observation.md#t3-code"]
 shapes = "Lists the uncovered events in the T3 Code subsection, supplementing the generic rule to disclose uncovered events the stopping condition depends on."
