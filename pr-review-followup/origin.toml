@@ -34,14 +34,19 @@ reason = "Set when the skill was derived from the supervised PR 1982 follow-up s
 where = ["SKILL.md#pr-review-follow-up", "SKILL.md#run-one-tick", "references/thread-settlement.md"]
 
 [[invariants]]
-rule = "The skill is invoked only explicitly, like the pr-review skill, through allow_implicit_invocation false in agents/openai.yaml. It does not use Claude Code's disable-model-invocation."
-reason = "The skill publishes and approves, so it must not start implicitly. disable-model-invocation would also stop it from invoking the pr-review skill and stop scheduled ticks from invoking it."
-where = ["agents/openai.yaml"]
+rule = "The skill starts when the user asks to follow up a reviewed PR or when the pr-review skill hands over a published Comment review. Implicit invocation stays enabled in Codex, and Claude Code does not use disable-model-invocation, so another skill and scheduled ticks can start it. An active follow-up for the same PR and reviewer is reused, and a status question gets only the state report."
+reason = "User decision on 2026-10-30 that every reviewed PR is followed up unless the user says otherwise. Codex hides a skill whose agents/openai.yaml sets allow_implicit_invocation false from the model's prompt; only an explicit $name still invokes it (codex-rs/ext/skills/src/provider/host.rs and the skill-creator openai_yaml reference in openai/codex, checked 2026-10-30). Reuse and the status-only report keep implicit selection from starting writes or a second follow-up."
+where = ["SKILL.md#start-the-follow-up", "scripts/validate.sh"]
 
 [[invariants]]
 rule = "scripts/followup.py enforces the approval gate, binds each state file to one PR and reviewer, keeps uncertain-write markers across ticks, and requires verification of threads that someone else resolved. Prose instructions do not carry these guarantees."
 reason = "Codex Astra Max and Claude Fable Max reviews found that the first draft relied on prose for them."
 where = ["scripts/followup.py", "SKILL.md#run-one-tick"]
+
+[[invariants]]
+rule = "Every mutating helper command holds one nonblocking lock for its resolved state path across state updates, GitHub writes and read-back. A competing command exits without changing state; the adjacent lock file stays in place while follow-up is active."
+reason = "A reused state file can receive a review handoff during a scheduled tick. Concurrent load-and-replace operations can lose state or uncertain-write markers and allow duplicate GitHub writes."
+where = ["scripts/followup.py", "SKILL.md#pr-review-follow-up"]
 
 [[invariants]]
 rule = "Thread replies follow the pr-review skill's rule for published text: they never mention the engines, models or agents behind the review, how it was run, or what it could not cover. An author's question about how the review was done goes to the user."

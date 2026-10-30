@@ -1,6 +1,6 @@
 ---
 name: pr-review-followup
-description: Use when following up on a GitHub PR you reviewed, until your required threads are settled and the PR is approved.
+description: Use after pr-review publishes a Comment review, or when asked to follow up on a GitHub PR you reviewed, until your required threads are settled and the PR is approved.
 ---
 
 # PR review follow-up
@@ -19,7 +19,10 @@ that needs it. Every write below is published immediately; none waits as a draft
 All helper commands run from any directory as
 `python3 "$SKILL_DIR/scripts/followup.py" <command> --pr "$PR_URL" --actor "$REVIEWER" --state-file "$STATE_FILE"`,
 plus the arguments named below. Each prints JSON; a nonzero exit is a stopped
-step to report, never a success.
+step to report, never a success. Mutating commands hold a per-state-file lock
+through GitHub writes and read-back. A busy operation exits without changing
+state; retry it after the owner finishes. Keep the adjacent `.lock` file in place
+while the follow-up is active, including when reconciling an uncertain write.
 
 ## Start the follow-up
 
@@ -31,7 +34,9 @@ step to report, never a success.
 2. Choose one state file per PR in the reviewed project's permitted scratch area.
    It is bound to that PR and reviewer and holds the recorded review, the head
    and base on which each resolved thread was last verified, and any uncertain
-   write.
+   write. Reuse an active follow-up for this PR and reviewer, with its state file
+   and waiting, instead of starting another. A status question without a
+   follow-up request gets the `state` report only: no waiting and no writes.
 3. If `pr-review` just reviewed the current head, record it from that run (step 3
    of a tick); otherwise the first tick performs the full review.
 4. Run the first tick immediately; [cadence.md](references/cadence.md) says how

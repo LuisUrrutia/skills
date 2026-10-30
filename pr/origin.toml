@@ -18,8 +18,8 @@ where = [
 ]
 
 [[invariants]]
-rule = "A request to create a PR continues into the event-driven Drive mode of the pr-followup skill after publication, including when an exact open PR already satisfies creation. Only an explicit create-only instruction returns after publication."
-reason = "The user set this continuation policy on 2026-10-05."
+rule = "A request to create a PR continues into the event-driven Drive mode of the pr-followup skill after publication, including when an exact open PR already satisfies creation. Only an explicit create-only instruction, such as asking for the PR without follow-up, returns after publication."
+reason = "The user set this continuation policy on 2026-10-05 and restated it on 2026-10-30: every created PR is followed up unless the user asks for it without follow-up."
 where = ["SKILL.md#publish-and-verify", "references/continuation.md"]
 
 [[invariants]]

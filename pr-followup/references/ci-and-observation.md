@@ -124,6 +124,11 @@ Feedback scope never arms it, even when an authorized merge waits on checks.
 - Arm it immediately after the final snapshot, then end the turn. It never reports
   earlier comments, so one posted in between waits for the next wake, which may
   not come; disclose that gap.
+- For a stack, return each layer's pass and pending watch action to the `stacked-pr`
+  owner before arming. The owner finishes all passes and mutations, refreshes affected
+  layers, and arms all unwatched waiting layers in one batched host invocation, then
+  ends the turn. Report failed activations as coverage gaps. This batch replaces the
+  single-PR arming step; existing watches stay active.
 - Checks still running at the required-checks wake produce one more wake when
   they all finish; end the turn and wait for it.
 - It never wakes on a check that starts after that wake, a thread resolved without

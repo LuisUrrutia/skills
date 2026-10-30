@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import fcntl
 import hashlib
 import json
 import os
@@ -10,6 +11,7 @@ import re
 import subprocess
 import sys
 from datetime import datetime, timedelta, timezone
+from functools import wraps
 from pathlib import Path
 
 THREADS_QUERY = """query($owner:String!,$repo:String!,$number:Int!){repository(owner:$owner,name:$repo){pullRequest(number:$number){
@@ -28,6 +30,19 @@ class FollowupError(RuntimeError):
 
 class RejectedError(FollowupError):
     """GitHub definitely refused the request (HTTP 4xx); nothing was written."""
+
+
+def serialized(operation):
+    @wraps(operation)
+    def guarded(url: str, actor: str, state_file: Path, *args, **kwargs):
+        state_file = state_file.resolve()
+        with state_file.with_name(state_file.name + ".lock").open("a") as lock:
+            try:
+                fcntl.flock(lock, fcntl.LOCK_EX | fcntl.LOCK_NB)
+            except BlockingIOError as error:
+                raise FollowupError("another follow-up operation owns this state file; retry after it finishes") from error
+            return operation(url, actor, state_file, *args, **kwargs)
+    return guarded
 
 
 class GitHub:
@@ -195,6 +210,7 @@ def state(url: str, actor: str, state_file: Path, api=None) -> dict:
             "threads": [{**t, "action": actions.get(t["id"])} for t in pr["threads"]]}
 
 
+@serialized
 def begin(url: str, actor: str, state_file: Path, head: str) -> dict:
     target = parse_pr(url)
     data = load_state(state_file, target, actor)
@@ -229,6 +245,7 @@ def published_actions(receipt: Path, frozen: dict, actor: str) -> tuple[str, dic
     return published["published_at"], actions
 
 
+@serialized
 def record(url: str, actor: str, state_file: Path, snapshot: Path, complete: bool, standing: int,
            questions: int, receipt: Path | None = None) -> dict:
     target = parse_pr(url)
@@ -248,6 +265,7 @@ def record(url: str, actor: str, state_file: Path, snapshot: Path, complete: boo
     return data
 
 
+@serialized
 def settle(url: str, actor: str, state_file: Path, standing: int, questions: int, api=None) -> dict:
     target = parse_pr(url)
     data = load_state(state_file, target, actor)
@@ -284,6 +302,7 @@ def validate_plan(plan: object) -> dict:
     return plan
 
 
+@serialized
 def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path, api=None) -> dict:
     target = parse_pr(url)
     api = api or GitHub(target["host"])

@@ -20,7 +20,9 @@ When the verified `gh` actor reviewed the PR rather than authoring it, use
 - **Drive:** repair feedback, CI and necessary base conflicts, publish when authorized,
   and follow the PR until merged or, outside the personal-repository merge policy
   below, a current formal approval is verified.
-  Use this for requested babysitting and the continuation of a PR creation request.
+  Use this for requested babysitting and the continuation of a PR creation request;
+  that continuation is babysitting, so arm the host watch as for an explicit request
+  and keep it when the turn ends waiting.
 
 Resolve scope from the request and standing instructions. In Feedback and Drive
 scope, classify every review thread and bring it to one of the dispositions in

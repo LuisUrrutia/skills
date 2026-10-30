@@ -530,7 +530,7 @@ over the same frozen scope, then publish one review: Comment with the
 verified findings, or Approve when the review is complete and nothing blocking
 remains.
 
-**Triggers:** explicitly invoke `$pr-review` to review and publish on a PR you were asked to review.
+**Triggers:** `$pr-review <url>` or a request to review and publish on a PR you were asked to review; an unpublished review belongs to `review-code-changes`.
 
 Uses `review-code-changes` for the audit protocol, `compare-solutions` for independent
 attempts and `comment-style` for wording. The parent verifies findings, checks
@@ -542,7 +542,8 @@ Read-only review controls, bounded retries and exact actor/head
 binding remain part of the workflow. Where the host can rename a conversation
 dedicated to one review, as in T3 Code, it titles it
 `[REVIEW] #<number> <ticket> <author>`, with `NO_TICKET` when no subject ticket
-is found in any tracker.
+is found in any tracker. After a published Comment review it starts
+`pr-review-followup` unless you ask for the review without follow-up.
 
 This replaces `pr-review-draft`, which left a pending review for the user to
 submit. Update installed links and explicit invocations to `pr-review`; no alias
@@ -556,7 +557,7 @@ directory passed with `--profiles-dir`. Generic reviews need no profile.
 Follow a PR you reviewed until your required threads are settled and it is
 approved.
 
-**Triggers:** explicitly invoke `$pr-review-followup` with the PR URL after a `pr-review`.
+**Triggers:** starts after `pr-review` publishes a Comment review unless you ask for the review without follow-up, or when you ask to follow up a PR you reviewed. A status question gets only the current state.
 
 In T3 Code it runs when T3's PR watch reports a change; elsewhere it runs every
 30 minutes by default. Each run re-reviews a new head with `pr-review`, replies
@@ -652,6 +653,7 @@ Create or update a GitHub PR with a concise explanation and useful review eviden
 - Keeps the body to what helps review the diff and returns project coordination, such as flag timing or other tickets' scope, to the user
 - Sizes the body against the repository's recent merged PRs, gives each decision and check one line, replaces superseded runs on updates, and moves run detail to a linked artifact or one detail comment
 - Captures visible UI changes and attaches real images through supported `gh --attach` operations
+- Continues into `pr-followup` after creating a PR unless you ask for it without follow-up
 - Preserves uploaded URLs on rewrites and recovers partial uploads without duplicate PRs
 - Uses diagrams and measured comparisons when they aid review
 - Preserves draft preference, verifies the GitHub actor and publishes over SSH

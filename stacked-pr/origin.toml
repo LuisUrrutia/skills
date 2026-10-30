@@ -2,15 +2,27 @@ format_version = 2
 skill = "stacked-pr"
 created = "2026-08-22"
 approach = "derive"
-goal = "Design and operate GitHub stacked pull requests and dependent PR chains so that each PR shows one reviewable concern and the chain stays consistent across Git ancestry, PR bases and GitHub's stack state. Success is the requested operation completed on the route that a recorded observation selected, with every original commit recoverable and merges limited to what the user approved, or a report of the blocker."
+goal = "Design and operate GitHub stacked pull requests and dependent PR chains so that each PR shows one reviewable concern and the chain stays consistent across Git ancestry, PR bases and GitHub's stack state. Success is the requested operation completed on the route that a recorded observation selected, with every original commit recoverable and merges limited to what the user approved or the personal-repository merge policy covers, or a report of the blocker."
 
 [[invariants]]
-rule = "Work stays within the requested operation. Explanations, reviews and status checks are read-only; creation and maintenance change only the local branches and linked PRs that the operation needs; a later lifecycle stage runs only when the request includes it. Unrelated dirty-tree work is preserved, and the current branch and relevant tips are recorded before ancestry is rewritten so that every original commit stays reachable until verification."
+rule = "Work stays within the requested operation. Explanations, reviews and status checks are read-only; creation and maintenance change only the local branches and linked PRs that the operation needs; a later lifecycle stage runs only when the request includes it, except that new layers continue into pr-followup Drive unless the user asks for no follow-up. Unrelated dirty-tree work is preserved, and the current branch and relevant tips are recorded before ancestry is rewritten so that every original commit stays reachable until verification."
+reason = "The follow-up exception is the user decision of 2026-10-30 that every created PR is followed up unless the user says otherwise."
 where = ["SKILL.md#scope-and-safety"]
 
 [[invariants]]
-rule = "A merge needs the user's explicit approval of the exact PR set and merge method immediately before the merge command. A manual chain merges only its approved bottom PR, and each further layer needs another approval."
+rule = "A merge needs the user's explicit approval of the exact PR set and merge method immediately before the merge command, except the user's own PRs in a repository that the pr-followup skill's personal-repository merge policy covers, which land bottom-up under that standing authorization once each layer passes its gates. Otherwise a manual chain merges only its approved bottom PR, and each further layer needs another approval."
+reason = "The personal-repository exception is the user decision of 2026-10-30: in the user's personal repository, the user's own stacked PRs merge automatically."
 where = ["SKILL.md#scope-and-safety", "references/cli-merge.md", "references/api-merge.md", "references/manual-merge.md"]
+
+[[invariants]]
+rule = "All three routes enter their merge and maintenance branches under the root's standing landing authorization. That policy merges only the current bottom PR, repairs the remainder through the selected route, and rebuilds the next bottom's head/base evidence before landing it. Outside that policy the explicit approval remains binding."
+reason = "The user's personal-repository policy applies to every stack route. Landing a lower layer can change the next layer's base and head, invalidating its earlier merge evidence."
+where = ["SKILL.md#scope-and-safety", "references/cli-workflow.md#mutation-branches", "references/api-workflow.md#mutation-branches", "references/manual-chain.md#mutation-branches", "references/cli-merge.md", "references/api-merge.md", "references/manual-merge.md"]
+
+[[invariants]]
+rule = "The stack owner completes each new layer's Drive pass before waiting, receives pending watch actions, refreshes layers affected by mutations and arms T3 watches together through the pr-followup adapter. Existing watches are reused and failed activations are reported."
+reason = "T3 Code requires the turn to end after watch activation; arming the first layer during its Drive pass can prevent the remaining layers from receiving follow-up."
+where = ["SKILL.md#follow-up-layers"]
 
 [[invariants]]
 rule = "The route is decided in a fixed order and recorded with the observation that decided it: stack-aware CI and integrations, then REST, then the result of gh extension list. The manual route applies only on the user's explicit choice of ordinary dependent PRs, GitHub's report that native stacks are unavailable, or a prohibited or failed install of github/gh-stack; otherwise the CLI route applies. Branches and PRs that no tool tracks yet do not decide the route; a CLI mutation adopts them first."
@@ -38,7 +50,7 @@ where = [
 ]
 
 [[invariants]]
-rule = "On the CLI route, commands with hidden side effects run in their safe form: submit runs without --open when existing drafts must stay drafts, merge receives the approved target and method explicitly, and gh stack link receives existing PRs by URL after missing PRs were published through the pr skill."
+rule = "On the CLI route, commands with hidden side effects run in their safe form: submit runs without --open when existing drafts must stay drafts, merge receives the authorized target and method explicitly, and gh stack link receives existing PRs by URL after missing PRs were published through the pr skill."
 reason = "Side effects of gh stack v0.2.0 named on 2026-10-16 (commit 53a66b3): --open also marks existing PRs ready, a non-interactive merge without a target merges the whole stack with the last-used method, and link pushes branch-name arguments and creates PRs."
 where = ["references/cli-create.md#submit", "references/cli-merge.md", "references/troubleshooting.md#adopt-existing-branches-or-prs"]
 
@@ -171,3 +183,9 @@ kind = "local"
 name = "task-breakdown"
 required = false
 role = "Supplies delivery units that the stack design uses as layers when they exist."
+
+[[dependencies]]
+kind = "local"
+name = "pr-followup"
+required = false
+role = "Follows each new layer in Drive unless the user asked for no follow-up; this skill keeps topology, rebases and landing."

@@ -40,4 +40,4 @@ Preserve the stage of existing PRs unless the request changes it.
 
 Submission is complete when a fresh GitHub read proves that every requested PR has the intended
 head, base, title, body without a stack map, and draft state. Report created and reused PR
-identifiers, then stop.
+identifiers, then continue as Scope and safety in the root `SKILL.md` directs.

@@ -16,7 +16,8 @@ frontmatter = (skill / 'SKILL.md').read_text().split('---', 2)
 assert len(frontmatter) == 3 and not frontmatter[0].strip()
 assert re.search(r'^name: pr-review-followup$', frontmatter[1], re.M)
 assert re.search(r'^description: \S.+$', frontmatter[1], re.M)
-assert 'allow_implicit_invocation: false' in (skill / 'agents/openai.yaml').read_text()
+openai = skill / 'agents/openai.yaml'
+assert not openai.exists() or not re.search(r'allow_implicit_invocation:\s*false', openai.read_text())
 with (skill / 'origin.toml').open('rb') as source:
     dependencies = tomllib.load(source)['dependencies']
 assert {d['name'] for d in dependencies if d['required']} == {'pr-review', 'comment-style'}
@@ -34,7 +35,7 @@ for path in skill.rglob('*'):
             destination = (path.parent / link.split('#')[0]).resolve()
             assert destination.is_relative_to(skill), f'escaping reference: {path}: {link}'
             assert destination.exists(), f'broken reference: {path}: {link}'
-print('Package references, explicit-only metadata, provenance and Python syntax passed')
+print('Package references, invocation metadata, provenance and Python syntax passed')
 PY
 python3 -m unittest discover -s "$script_dir" -p 'test_*.py' -v
 printf 'pr-review-followup validation passed\n'

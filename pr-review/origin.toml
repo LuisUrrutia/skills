@@ -5,8 +5,9 @@ approach = "base"
 goal = "Publish one GitHub review of another author's PR under the user's own account, built from independent Codex and Claude reviews that the parent verifies and synthesizes. Success is a Comment review that carries only verified, correctly anchored findings, or an Approve review when the review is complete and nothing that blocks approval remains, with read-back confirming what was published and every gap reported to the user."
 
 [[invariants]]
-rule = "The skill runs only on explicit invocation."
-where = ["agents/openai.yaml"]
+rule = "Users and the pr-review-followup skill start the skill. Implicit invocation stays enabled in Codex so follow-up ticks can re-review a new head, and the description limits selection to a review that is published on GitHub."
+reason = "User decision on 2026-10-30. Codex hides a skill whose agents/openai.yaml sets allow_implicit_invocation false from the model's prompt; only an explicit $name still invokes it (codex-rs/ext/skills/src/provider/host.rs and the skill-creator openai_yaml reference in openai/codex, checked 2026-10-30)."
+where = ["SKILL.md", "scripts/validate.sh"]
 
 [[invariants]]
 rule = "The review-code-changes skill owns audit criteria, evidence, severity and report grammar; the compare-solutions skill owns the independent-attempt and synthesis contract; the comment-style skill owns wording. This skill owns the fixed roster, its coordination, comment selection, placement and GitHub writes."
@@ -21,6 +22,11 @@ where = ["references/profiles.md", "SKILL.md#prepare-one-reproducible-review"]
 rule = "The workflow never requests changes, resolves threads or modifies the reviewed code."
 reason = "User decision of 2026-10-07; thread resolution belongs to the pr-review-followup skill."
 where = ["SKILL.md#pr-review", "references/github.md#feedback-and-review-publication"]
+
+[[invariants]]
+rule = "After a published COMMENT review, the skill starts the pr-review-followup skill on the PR and passes it the review's inputs, unless pr-review-followup ran the review or the user asked for the review without follow-up. A delegated child returns that handoff to its parent."
+reason = "User decision on 2026-10-30: every PR the user reviews is followed up unless the user says otherwise. An APPROVE review needs no follow-up because it already meets pr-review-followup's stopping condition."
+where = ["SKILL.md#word-select-and-publish"]
 
 [[local_snapshots]]
 id = "private-draft-review"
@@ -303,3 +309,9 @@ kind = "local"
 name = "accessibility"
 required = false
 role = "Web and platform accessibility reference passed to both engines under the review-practice class when a diff changes rendered UI; a run without it records the gap and continues."
+
+[[dependencies]]
+kind = "local"
+name = "pr-review-followup"
+required = false
+role = "Follows the PR after a published review whose event is not APPROVE, unless the user asked for the review without follow-up; a missing package is reported as the follow-up gap."

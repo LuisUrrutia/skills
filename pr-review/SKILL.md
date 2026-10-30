@@ -1,6 +1,6 @@
 ---
 name: pr-review
-description: Use when reviewing another author's GitHub PR and publishing the review.
+description: Use when asked to review another author's GitHub PR and publish the review on GitHub; an unpublished review belongs to review-code-changes.
 ---
 
 # PR review
@@ -179,8 +179,11 @@ existing authorization; suggestions grant no additional permission.
     required/optional status, sources and whether it is a reply. Include dropped or
     unposted items and why, engine failures, coverage gaps and decisive questions.
     Claim publication only after read-back verifies it. An incomplete roster,
-    collector or write is reported as incomplete, not a clean review. To follow the
-    author's replies and new commits, continue with `pr-review-followup`.
+    collector or write is reported as incomplete, not a clean review. After a
+    published COMMENT review, start `pr-review-followup` on this PR, passing the PR
+    URL, actor, snapshot and receipt paths and the counts this step returns to it, unless
+    `pr-review-followup` ran this review or the user asked for the review without
+    follow-up. A delegated child returns this handoff to its parent.
 
 ## Brief
 
