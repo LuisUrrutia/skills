@@ -1,0 +1,81 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-30",
+  "baseline": "296213a3ed7b9c1f3d8c94fdd201c287ddffea78",
+  "status": "Validated with one Codex Sol and Claude Opus review round and the package checks; no host trial of the rename was run.",
+  "request": "Make pr-review title its conversation `[REVIEW] #<PR number> <ticket> <author>`, generic across trackers rather than Jira-only, with `NO_TICKET` when there is no ticket and a short name for an app author.",
+  "changes": [
+    {
+      "file": "pr-review/SKILL.md",
+      "change": "Step 1 captures the author and closing issues and titles a conversation dedicated to the review when the host can rename it; the Brief adds closing issues as subject-ticket candidates after a tracker key in the branch, title and body."
+    },
+    {
+      "file": "pr-review/references/profile-schema.md",
+      "change": "New optional Author names profile section."
+    },
+    {
+      "file": "pr-review/references/profiles.md",
+      "change": "Author names are read for the conversation title."
+    },
+    {
+      "file": "pr-review/origin.toml",
+      "change": "Two deviations: the title (user decision) and closing issues as ticket candidates (inferred from it)."
+    },
+    {
+      "file": "README.md",
+      "change": "pr-review titles a dedicated review conversation where the host can rename it."
+    }
+  ],
+  "not_adopted": [
+    {
+      "source": "Codex review finding 3",
+      "reason": "A delegated child renames only its own thread and a delegating parent keeps its own title; returning a proposed title to the parent is behavior the user did not ask for."
+    },
+    {
+      "source": "Codex review finding 4",
+      "reason": "Author names stay per repository like every profile section; the only repository with a profile is the one the alias was requested for, and the gap is reported to the user."
+    }
+  ],
+  "sources": [],
+  "consultations": {
+    "brief": "Scratch brief (not committed): user request, frozen candidate files and diff against 296213a with SHA-256 hashes, the T3 rename tool contract and skill-change checks; read-only, no delegation.",
+    "rounds": [
+      {
+        "round": 1,
+        "profiles": [
+          {
+            "profile": "Codex gpt-6.1-sol / xhigh",
+            "runner": "T3 delegate_task",
+            "result": "Four behavior gaps (prefix validation for numeric issues and several closing issues; cross-repository issue form; delegated title ownership; alias scope) and two corrections (split the record entry; README condition)."
+          },
+          {
+            "profile": "Claude claude-opus-5-5 / xhigh",
+            "runner": "T3 delegate_task",
+            "result": "Six material (rename guard; non-closing #N mentions; capture closingIssuesReferences; canonical ticket form; split the record entry; report the subject change) and three minor (title in step 1; README; redundant clause)."
+          }
+        ]
+      }
+    ]
+  },
+  "trials": {
+    "runner": "None run; the rename on T3 Code remains untested through the skill.",
+    "results": []
+  },
+  "checks": [
+    "check-origin.py --skill-dir pr-review: 0 diagnostics.",
+    "pr-review/scripts/validate.sh (57 tests) passes.",
+    "resolve_profile.py still matches the edited private profile.",
+    "catalog.js and sources.json carry the new pr-review/SKILL.md hash and the cache key matches catalog.js."
+  ],
+  "size_words": {
+    "SKILL.md": "2046 -> 2129",
+    "references (all)": "7106 -> 7135",
+    "package": "9152 -> 9264"
+  },
+  "final_hashes": {
+    "pr-review/SKILL.md": "579045850d2a764a62c119a41b04842ac70ece5bcc527cec2d233fd5033ff1b3",
+    "pr-review/origin.toml": "591ac4091fa14e1135bcae5a87710a8b8c09989b016203e0703fe853249b5070",
+    "pr-review/references/profiles.md": "931fba949fd1a967849df0e032768738dc6222933dfcc34eceb1ef58e46b4355",
+    "pr-review/references/profile-schema.md": "f288f59a62109607f654a45fb74a74c689fe6a0d2b8e9a7a0e277779886e5ce4"
+  }
+}
