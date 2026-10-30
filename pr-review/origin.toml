@@ -22,6 +22,11 @@ rule = "The workflow never requests changes, resolves threads or modifies the re
 reason = "User decision of 2026-10-07; thread resolution belongs to the pr-review-followup skill."
 where = ["SKILL.md#pr-review", "references/github.md#feedback-and-review-publication"]
 
+[[invariants]]
+rule = "After publishing a review whose event is not APPROVE, the skill starts the pr-review-followup skill on the PR, unless pr-review-followup ran the review or the user asked for the review without follow-up."
+reason = "User decision on 2026-10-30: every PR the user reviews is followed up unless the user says otherwise."
+where = ["SKILL.md#word-select-and-publish"]
+
 [[local_snapshots]]
 id = "private-draft-review"
 kind = "repository-commit"
@@ -303,3 +308,9 @@ kind = "local"
 name = "accessibility"
 required = false
 role = "Web and platform accessibility reference passed to both engines under the review-practice class when a diff changes rendered UI; a run without it records the gap and continues."
+
+[[dependencies]]
+kind = "local"
+name = "pr-review-followup"
+required = false
+role = "Follows the PR after a published review whose event is not APPROVE, unless the user asked for the review without follow-up; a missing package is reported as the follow-up gap."

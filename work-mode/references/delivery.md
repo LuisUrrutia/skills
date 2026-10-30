@@ -17,9 +17,8 @@ responsible owner; this reference composes existing procedures.
 - For dependent branches or PRs, use `stacked-pr` with the selected units, actual
   dependencies, topology, and requested operation. Keep one stack mutation owner.
   Independent units do not become a stack merely because they share a project.
-  Stack publication ends at that operation's verified result; it does not inherit
-  single-PR Create's Drive default. Continue follow-up on layers when the request
-  includes it, preserving `stacked-pr` as the topology and rebase owner.
+  Its new layers continue into `pr-followup` Drive unless the user asked for no
+  follow-up, preserving `stacked-pr` as the topology and rebase owner.
 - For an existing PR's requested feedback or monitoring, use `pr-followup` with
   the exact PR, current revision, feedback/CI evidence, permitted actions, and
   stopping condition. An Update performed by `pr` inside that loop returns to it.

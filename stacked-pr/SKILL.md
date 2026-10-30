@@ -25,7 +25,9 @@ chain carries the map, because GitHub shows no chain for it.
 
 Bound the work to the requested operation. Explanations, reviews, and status checks are read-only.
 Creation and maintenance may change only the local branches and linked PRs needed for that
-operation. A later lifecycle stage must be explicitly included in the request.
+operation. A later lifecycle stage must be explicitly included in the request, except
+follow-up: new layers continue into `pr-followup` Drive unless the user asked for no
+follow-up, and this skill keeps topology, rebases and landing.
 
 Merging requires the user's explicit approval for the exact PR set and merge method immediately
 before the merge command. Preserve unrelated dirty-tree work. Before rewriting ancestry, record the

@@ -179,8 +179,10 @@ existing authorization; suggestions grant no additional permission.
     required/optional status, sources and whether it is a reply. Include dropped or
     unposted items and why, engine failures, coverage gaps and decisive questions.
     Claim publication only after read-back verifies it. An incomplete roster,
-    collector or write is reported as incomplete, not a clean review. To follow the
-    author's replies and new commits, continue with `pr-review-followup`.
+    collector or write is reported as incomplete, not a clean review. Then start
+    `pr-review-followup` on this PR unless the published event was APPROVE,
+    `pr-review-followup` ran this review, or the user asked for the review without
+    follow-up.
 
 ## Brief
 

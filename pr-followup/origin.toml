@@ -47,6 +47,11 @@ where = [
   "references/ci-and-observation.md#observe-resume-and-stop",
 ]
 
+[[invariants]]
+rule = "Drive that continues a PR creation request is babysitting: the host watch is armed without a separate monitoring request."
+reason = "User decision on 2026-10-30 that every created PR is followed up unless the user asks otherwise. On 2026-10-19 a Codex run created https://github.com/LuisUrrutia/skills/pull/48 after the user wrote only \"crea la pr\", loaded this skill and ended without a watch, because T3 Code's agent instructions arm the watch when asked to monitor or babysit."
+where = ["SKILL.md#choose-scope-and-establish-state"]
+
 [[sources]]
 id = "pstack-pr-followup"
 author = "Lauren Tan / pstack"

@@ -13,8 +13,8 @@ Report synchronization separately. A blocked tracker transition does not undo
 publication or stop independent follow-up. If the skill is missing, retain the
 event and report the gap without guessing a tracker state.
 
-Unless explicitly **create-only**, continue with `pr-followup` in **Drive** before
-returning. Pass URL, exact head/base, draft state, validation, pending work and,
+Unless the user asked for the PR without follow-up (**create-only**), continue with
+`pr-followup` in **Drive** before returning. Pass URL, exact head/base, draft state, validation, pending work and,
 where relevant, ticket relation, transition result and merge-delivery owner or
 uncovered event. It owns feedback/CI repair, readiness and post-ready observation
 under this request. Pass **keep-draft** only for an explicit user instruction to

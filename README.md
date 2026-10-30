@@ -542,7 +542,8 @@ Read-only review controls, bounded retries and exact actor/head
 binding remain part of the workflow. Where the host can rename a conversation
 dedicated to one review, as in T3 Code, it titles it
 `[REVIEW] #<number> <ticket> <author>`, with `NO_TICKET` when no subject ticket
-is found in any tracker.
+is found in any tracker. After a Comment review it starts
+`pr-review-followup` unless you ask for the review without follow-up.
 
 This replaces `pr-review-draft`, which left a pending review for the user to
 submit. Update installed links and explicit invocations to `pr-review`; no alias
@@ -556,7 +557,7 @@ directory passed with `--profiles-dir`. Generic reviews need no profile.
 Follow a PR you reviewed until your required threads are settled and it is
 approved.
 
-**Triggers:** explicitly invoke `$pr-review-followup` with the PR URL after a `pr-review`.
+**Triggers:** starts after `pr-review` publishes a Comment review unless you ask for the review without follow-up; or invoke `$pr-review-followup` with the PR URL.
 
 In T3 Code it runs when T3's PR watch reports a change; elsewhere it runs every
 30 minutes by default. Each run re-reviews a new head with `pr-review`, replies

@@ -34,9 +34,9 @@ reason = "Set when the skill was derived from the supervised PR 1982 follow-up s
 where = ["SKILL.md#pr-review-follow-up", "SKILL.md#run-one-tick", "references/thread-settlement.md"]
 
 [[invariants]]
-rule = "The skill is invoked only explicitly, like the pr-review skill, through allow_implicit_invocation false in agents/openai.yaml. It does not use Claude Code's disable-model-invocation."
-reason = "The skill publishes and approves, so it must not start implicitly. disable-model-invocation would also stop it from invoking the pr-review skill and stop scheduled ticks from invoking it."
-where = ["agents/openai.yaml"]
+rule = "The skill starts when the user invokes it or when the pr-review skill hands over a published review. Implicit invocation stays enabled in Codex, and Claude Code does not use disable-model-invocation, so another skill and scheduled ticks can start it."
+reason = "User decision on 2026-10-30 that every reviewed PR is followed up unless the user says otherwise. Codex documents that a skill with allow_implicit_invocation false can only be invoked explicitly by users, so the pr-review skill could not start it (https://learn.chatgpt.com/docs/build-skills, checked 2026-10-30)."
+where = ["scripts/validate.sh"]
 
 [[invariants]]
 rule = "scripts/followup.py enforces the approval gate, binds each state file to one PR and reviewer, keeps uncertain-write markers across ticks, and requires verification of threads that someone else resolved. Prose instructions do not carry these guarantees."

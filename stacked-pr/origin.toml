@@ -5,7 +5,8 @@ approach = "derive"
 goal = "Design and operate GitHub stacked pull requests and dependent PR chains so that each PR shows one reviewable concern and the chain stays consistent across Git ancestry, PR bases and GitHub's stack state. Success is the requested operation completed on the route that a recorded observation selected, with every original commit recoverable and merges limited to what the user approved, or a report of the blocker."
 
 [[invariants]]
-rule = "Work stays within the requested operation. Explanations, reviews and status checks are read-only; creation and maintenance change only the local branches and linked PRs that the operation needs; a later lifecycle stage runs only when the request includes it. Unrelated dirty-tree work is preserved, and the current branch and relevant tips are recorded before ancestry is rewritten so that every original commit stays reachable until verification."
+rule = "Work stays within the requested operation. Explanations, reviews and status checks are read-only; creation and maintenance change only the local branches and linked PRs that the operation needs; a later lifecycle stage runs only when the request includes it, except that new layers continue into pr-followup Drive unless the user asks for no follow-up. Unrelated dirty-tree work is preserved, and the current branch and relevant tips are recorded before ancestry is rewritten so that every original commit stays reachable until verification."
+reason = "The follow-up exception is the user decision of 2026-10-30 that every created PR is followed up unless the user says otherwise."
 where = ["SKILL.md#scope-and-safety"]
 
 [[invariants]]
@@ -171,3 +172,9 @@ kind = "local"
 name = "task-breakdown"
 required = false
 role = "Supplies delivery units that the stack design uses as layers when they exist."
+
+[[dependencies]]
+kind = "local"
+name = "pr-followup"
+required = false
+role = "Follows each new layer in Drive unless the user asked for no follow-up; this skill keeps topology, rebases and landing."
