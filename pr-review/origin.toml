@@ -245,6 +245,20 @@ where = [
   "scripts/publish_review.py",
 ]
 
+[[local_snapshots.deviations]]
+change = "Added titling a conversation dedicated to reviewing one PR `[REVIEW] #<number> <ticket> <author>` when the host can rename it: the subject ticket in its tracker's canonical form, or `NO_TICKET`, and the author's login unless the profile's Author names give it another name."
+reason = "User decision of 2026-10-30 to name review threads by PR number, ticket and author, with `NO_TICKET` when there is none, a short name for an app author, and tickets from any tracker rather than only Jira."
+where = [
+  "SKILL.md#prepare-one-reproducible-review",
+  "references/profile-schema.md",
+  "references/profiles.md",
+]
+
+[[local_snapshots.deviations]]
+change = "Added the issues a PR is linked to close as subject-ticket candidates after a tracker key in the branch name, title and body."
+reason = "Inferred from the user's 2026-10-30 decision that the title's ticket comes from any tracker: the title uses the subject ticket, and the PR that prompted the decision named its GitHub issue only as a closing reference."
+where = ["SKILL.md#brief", "SKILL.md#prepare-one-reproducible-review"]
+
 [[dependencies]]
 kind = "local"
 name = "review-code-changes"

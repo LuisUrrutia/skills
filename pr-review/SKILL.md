@@ -29,11 +29,19 @@ preserve independently useful work.
 ## Prepare one reproducible review
 
 1. **Identify the PR and its rules.** Read [profiles.md](references/profiles.md).
-   Capture its full URL, number, title, body, baseRefName, baseRefOid, headRefName
-   and headRefOid in `pr.json`. The URL identifies the **target** repository even
-   for a fork. Resolve relevant repository instructions, requirements and standards
-   with their source, revision and applicability. A private profile supplies
-   local context, never permission to waive required repository behavior.
+   Capture its full URL, number, title, body, author, closingIssuesReferences,
+   baseRefName, baseRefOid, headRefName and headRefOid in `pr.json`. The URL
+   identifies the **target** repository even for a fork. Resolve relevant
+   repository instructions, requirements and standards with their source,
+   revision and applicability. A private profile supplies local context, never
+   permission to waive required repository behavior. When the conversation is
+   dedicated to reviewing this PR and the host can rename it (T3:
+   `t3_thread_update` with `rename`), title it
+   `[REVIEW] #<number> <ticket> <author>`. The ticket is the subject ticket the
+   [Brief](#brief) identifies, in its tracker's canonical form, such as
+   `ABC-123`, `#141`, or `owner/repo#141` for another repository's issue, else
+   `NO_TICKET`; the author is the PR author's login, or the name the profile's
+   Author names give it.
 2. **Establish the checkout.** Follow the host's checkout ownership rules. Fetch
    the required target-base and PR-head objects using the authorized Git transport.
    The checkout must be clean and at the captured PR head. Use the actual target
@@ -177,10 +185,11 @@ existing authorization; suggestions grant no additional permission.
 ## Brief
 
 Include the PR body verbatim as the author's scope claims, alongside requirements
-and standards with their actual authority. For a subject ticket, examine branch
-name, title and then body in that order. Validate a candidate prefix against the
-profile's live project keys: strings such as `UTF-8` are not automatically tickets.
-Later keys are related context and do not by themselves add acceptance criteria.
+and standards with their actual authority. For a subject ticket, examine the
+branch name, title and body for a tracker key, in that order, then the issues the
+PR is linked to close. Validate a candidate key prefix against the profile's live
+project keys: strings such as `UTF-8` are not automatically tickets. Later
+candidates are related context and do not by themselves add acceptance criteria.
 Read the subject's description, acceptance criteria, comments and linked designs,
 and its parent's description, acceptance criteria and comments, through the
 authorized tracker. A parent requirement for the behavior this PR implements, such
