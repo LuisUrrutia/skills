@@ -18,7 +18,8 @@ responsible owner; this reference composes existing procedures.
   dependencies, topology, and requested operation. Keep one stack mutation owner.
   Independent units do not become a stack merely because they share a project.
   Its new layers continue into `pr-followup` Drive unless the user asked for no
-  follow-up, preserving `stacked-pr` as the topology and rebase owner.
+  follow-up; `stacked-pr` starts that follow-up and keeps topology and rebases, so
+  do not start another on its return.
 - For an existing PR's requested feedback or monitoring, use `pr-followup` with
   the exact PR, current revision, feedback/CI evidence, permitted actions, and
   stopping condition. An Update performed by `pr` inside that loop returns to it.

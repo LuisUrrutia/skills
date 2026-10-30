@@ -2,7 +2,7 @@ format_version = 2
 skill = "stacked-pr"
 created = "2026-08-22"
 approach = "derive"
-goal = "Design and operate GitHub stacked pull requests and dependent PR chains so that each PR shows one reviewable concern and the chain stays consistent across Git ancestry, PR bases and GitHub's stack state. Success is the requested operation completed on the route that a recorded observation selected, with every original commit recoverable and merges limited to what the user approved, or a report of the blocker."
+goal = "Design and operate GitHub stacked pull requests and dependent PR chains so that each PR shows one reviewable concern and the chain stays consistent across Git ancestry, PR bases and GitHub's stack state. Success is the requested operation completed on the route that a recorded observation selected, with every original commit recoverable and merges limited to what the user approved or the personal-repository merge policy covers, or a report of the blocker."
 
 [[invariants]]
 rule = "Work stays within the requested operation. Explanations, reviews and status checks are read-only; creation and maintenance change only the local branches and linked PRs that the operation needs; a later lifecycle stage runs only when the request includes it, except that new layers continue into pr-followup Drive unless the user asks for no follow-up. Unrelated dirty-tree work is preserved, and the current branch and relevant tips are recorded before ancestry is rewritten so that every original commit stays reachable until verification."
@@ -10,7 +10,8 @@ reason = "The follow-up exception is the user decision of 2026-10-30 that every 
 where = ["SKILL.md#scope-and-safety"]
 
 [[invariants]]
-rule = "A merge needs the user's explicit approval of the exact PR set and merge method immediately before the merge command. A manual chain merges only its approved bottom PR, and each further layer needs another approval."
+rule = "A merge needs the user's explicit approval of the exact PR set and merge method immediately before the merge command, except the user's own PRs in a repository that the pr-followup skill's personal-repository merge policy covers, which land bottom-up under that standing authorization once each layer passes its gates. Otherwise a manual chain merges only its approved bottom PR, and each further layer needs another approval."
+reason = "The personal-repository exception is the user decision of 2026-10-30: in the user's personal repository, the user's own stacked PRs merge automatically."
 where = ["SKILL.md#scope-and-safety", "references/cli-merge.md", "references/api-merge.md", "references/manual-merge.md"]
 
 [[invariants]]

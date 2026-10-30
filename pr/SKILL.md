@@ -124,7 +124,8 @@ existing open PR without a write.
 
 After verified publication for a **creation request**, including an existing open
 PR that satisfies it, execute [continuation](references/continuation.md) before
-returning. For Update with authorized follow-up, invoke `pr-followup` unless
+returning: it continues into `pr-followup` Drive, which arms the host watch, unless
+the user asked for the PR without follow-up. For Update with authorized follow-up, invoke `pr-followup` unless
 create-only; reuse an existing loop. Draft-only starts none.
 Publication never merges by itself.
 

@@ -30,7 +30,9 @@ follow-up: new layers continue into `pr-followup` Drive unless the user asked fo
 follow-up, and this skill keeps topology, rebases and landing.
 
 Merging requires the user's explicit approval for the exact PR set and merge method immediately
-before the merge command. Preserve unrelated dirty-tree work. Before rewriting ancestry, record the
+before the merge command, except the user's own PRs in a repository that `pr-followup`'s
+personal-repository merge policy covers: those land bottom-up under that standing authorization
+once each layer passes its gates. Preserve unrelated dirty-tree work. Before rewriting ancestry, record the
 current branch and relevant tips so every original commit remains reachable until verification.
 
 When a request, project rule or task record sets a review-size cap, carry it through
@@ -45,7 +47,8 @@ Read-only inspection may use the same check and report its verdict without publi
 ## Route the request
 
 Choose one primary route, load its file, select the requested operation there, and stop when that
-operation's completion criterion is satisfied. For a request that explicitly includes several
+operation's completion criterion is satisfied; after creating or extending layers, continue as
+Scope and safety directs. For a request that explicitly includes several
 operations, complete them in dependency order and satisfy each criterion before loading the next.
 
 Decide the route in this order:

@@ -33,7 +33,7 @@ response as a chain or payload defect to inspect; treat a conflict response as c
 refetch.
 
 Creation is complete when a fresh stack read proves the intended trunk, order, PR bases, and stage,
-and Git ancestry agrees. Stop here for a create or adopt request.
+and Git ancestry agrees. For a create or adopt request, continue as Scope and safety in the root `SKILL.md` directs.
 
 ## Extend the top
 
@@ -42,5 +42,5 @@ against that top branch, then call the current documented append operation with 
 bottom-to-top order. Refetch on concurrent state before deciding whether a retry is still needed.
 
 Extension is complete when a fresh read shows the previous order unchanged, every requested PR
-appended exactly once with the expected base, and no appended PR body carries a stack map. Stop
-after reporting the resulting order.
+appended exactly once with the expected base, and no appended PR body carries a stack map. Report
+the resulting order, then continue as Scope and safety in the root `SKILL.md` directs.

@@ -34,9 +34,9 @@ reason = "Set when the skill was derived from the supervised PR 1982 follow-up s
 where = ["SKILL.md#pr-review-follow-up", "SKILL.md#run-one-tick", "references/thread-settlement.md"]
 
 [[invariants]]
-rule = "The skill starts when the user invokes it or when the pr-review skill hands over a published review. Implicit invocation stays enabled in Codex, and Claude Code does not use disable-model-invocation, so another skill and scheduled ticks can start it."
-reason = "User decision on 2026-10-30 that every reviewed PR is followed up unless the user says otherwise. Codex documents that a skill with allow_implicit_invocation false can only be invoked explicitly by users, so the pr-review skill could not start it (https://learn.chatgpt.com/docs/build-skills, checked 2026-10-30)."
-where = ["scripts/validate.sh"]
+rule = "The skill starts when the user asks to follow up a reviewed PR or when the pr-review skill hands over a published Comment review. Implicit invocation stays enabled in Codex, and Claude Code does not use disable-model-invocation, so another skill and scheduled ticks can start it. An active follow-up for the same PR and reviewer is reused, and a status question gets only the state report."
+reason = "User decision on 2026-10-30 that every reviewed PR is followed up unless the user says otherwise. Codex hides a skill whose agents/openai.yaml sets allow_implicit_invocation false from the model's prompt; only an explicit $name still invokes it (codex-rs/ext/skills/src/provider/host.rs and the skill-creator openai_yaml reference in openai/codex, checked 2026-10-30). Reuse and the status-only report keep implicit selection from starting writes or a second follow-up."
+where = ["SKILL.md#start-the-follow-up", "scripts/validate.sh"]
 
 [[invariants]]
 rule = "scripts/followup.py enforces the approval gate, binds each state file to one PR and reviewer, keeps uncertain-write markers across ticks, and requires verification of threads that someone else resolved. Prose instructions do not carry these guarantees."

@@ -13,4 +13,5 @@ the next PR explicitly to the trunk. Verify its diff and update every remaining 
 
 Merge is complete when GitHub reports the approved bottom PR merged, the next PR targets the trunk
 with only its own layer diff, remaining branch ancestry and maps agree, and every preserved dirty
-path is intact. Stop; another layer requires another approval and operation.
+path is intact. Stop; another layer requires another approval and operation unless the root
+approval exception covers it.

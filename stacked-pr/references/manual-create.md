@@ -20,4 +20,4 @@ current PR.
 
 Creation is complete when every requested layer has exactly one PR, its direct base and diff contain
 only that layer, titles and bodies follow repository conventions, and the requested draft state is
-verified from fresh GitHub reads. Stop after reporting the chain.
+verified from fresh GitHub reads. Report the chain, then continue as Scope and safety in the root `SKILL.md` directs.
