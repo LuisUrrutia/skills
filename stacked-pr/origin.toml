@@ -15,6 +15,16 @@ reason = "The personal-repository exception is the user decision of 2026-10-30: 
 where = ["SKILL.md#scope-and-safety", "references/cli-merge.md", "references/api-merge.md", "references/manual-merge.md"]
 
 [[invariants]]
+rule = "All three routes enter their merge and maintenance branches under the root's standing landing authorization. That policy merges only the current bottom PR, repairs the remainder through the selected route, and rebuilds the next bottom's head/base evidence before landing it. Outside that policy the explicit approval remains binding."
+reason = "The user's personal-repository policy applies to every stack route. Landing a lower layer can change the next layer's base and head, invalidating its earlier merge evidence."
+where = ["SKILL.md#scope-and-safety", "references/cli-workflow.md#mutation-branches", "references/api-workflow.md#mutation-branches", "references/manual-chain.md#mutation-branches", "references/cli-merge.md", "references/api-merge.md", "references/manual-merge.md"]
+
+[[invariants]]
+rule = "The stack owner completes each new layer's Drive pass before waiting, receives pending watch actions, refreshes layers affected by mutations and arms T3 watches together through the pr-followup adapter. Existing watches are reused and failed activations are reported."
+reason = "T3 Code requires the turn to end after watch activation; arming the first layer during its Drive pass can prevent the remaining layers from receiving follow-up."
+where = ["SKILL.md#follow-up-layers"]
+
+[[invariants]]
 rule = "The route is decided in a fixed order and recorded with the observation that decided it: stack-aware CI and integrations, then REST, then the result of gh extension list. The manual route applies only on the user's explicit choice of ordinary dependent PRs, GitHub's report that native stacks are unavailable, or a prohibited or failed install of github/gh-stack; otherwise the CLI route applies. Branches and PRs that no tool tracks yet do not decide the route; a CLI mutation adopts them first."
 reason = "On 2026-10-07 an agent took the manual route on a two-PR stack although github/gh-stack was installed, because the CLI route read as requiring branches that the extension already tracked (commit bf0dae6; reports/skill-atlas/stacked-pr-routing-validation.json)."
 where = ["SKILL.md#route-the-request"]
@@ -40,7 +50,7 @@ where = [
 ]
 
 [[invariants]]
-rule = "On the CLI route, commands with hidden side effects run in their safe form: submit runs without --open when existing drafts must stay drafts, merge receives the approved target and method explicitly, and gh stack link receives existing PRs by URL after missing PRs were published through the pr skill."
+rule = "On the CLI route, commands with hidden side effects run in their safe form: submit runs without --open when existing drafts must stay drafts, merge receives the authorized target and method explicitly, and gh stack link receives existing PRs by URL after missing PRs were published through the pr skill."
 reason = "Side effects of gh stack v0.2.0 named on 2026-10-16 (commit 53a66b3): --open also marks existing PRs ready, a non-interactive merge without a target merges the whole stack with the last-used method, and link pushes branch-name arguments and creates PRs."
 where = ["references/cli-create.md#submit", "references/cli-merge.md", "references/troubleshooting.md#adopt-existing-branches-or-prs"]
 

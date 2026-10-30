@@ -52,6 +52,11 @@ rule = "Drive that continues a PR creation request is babysitting: the host watc
 reason = "User decision on 2026-10-30 that every created PR is followed up unless the user asks otherwise. On 2026-10-19 a Codex run created https://github.com/LuisUrrutia/skills/pull/48 after the user wrote only \"crea la pr\", loaded this skill, called unwatch_pull_request without having watched, and ended without a watch. T3 Code's agent instructions arm the watch when asked to monitor or babysit; that this trigger caused the omission is inferred, not shown by the trace."
 where = ["SKILL.md#choose-scope-and-establish-state"]
 
+[[invariants]]
+rule = "For stacks in T3 Code, a layer pass returns its pending watch action to the stacked-pr owner. That owner completes all passes and mutations, refreshes affected layers, and activates all unwatched waiting layers in one host batch before ending the turn; activation failures remain coverage gaps."
+reason = "T3 Code ends the agent turn after watch activation, so an individual layer cannot arm first while other layers still need their initial passes."
+where = ["references/ci-and-observation.md#t3-code"]
+
 [[sources]]
 id = "pstack-pr-followup"
 author = "Lauren Tan / pstack"

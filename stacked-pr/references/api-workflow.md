@@ -1,7 +1,8 @@
 # Native stack through the GitHub API
 
 Use this route when REST owns GitHub stack state: bots, integrations, stateless jobs, or an explicit
-REST request. Plain Git owns branch ancestry and pushes. Perform only the requested operation.
+REST request. Plain Git owns branch ancestry and pushes. Perform the requested operation
+and the root skill's authorized follow-up and landing continuation.
 
 ## Establish the live contract
 
@@ -39,12 +40,12 @@ Stop after reporting those facts for a status, explanation, or review request.
 
 ## Mutation branches
 
-Load one matching branch at a time. Load another only when it is explicitly included in the request
-and the current operation's completion criterion is satisfied:
+Load one matching branch at a time. After its completion criterion is satisfied, load another
+when the request or the root skill's standing follow-up and landing authorization includes it:
 
 - [api-create.md](api-create.md) — create or adopt PRs, create a stack, or extend its top.
 - [api-maintain.md](api-maintain.md) — restack branches, change review stage, restructure, or dissolve.
-- [api-merge.md](api-merge.md) — merge the approved scope and observe asynchronous completion.
+- [api-merge.md](api-merge.md) — merge the authorized scope and observe asynchronous completion.
 
 Every mutation branch uses the live contract established here. Refetch before writes, make creation
 idempotent through prior lookup, and verify state from a fresh read rather than trusting a write

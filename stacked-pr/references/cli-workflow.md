@@ -6,7 +6,7 @@ part of the requested mutation, through the adopt step in [cli-create.md](cli-cr
 adoption is complete when the stack view lists the existing branches in order with their tips
 unchanged; the requested operation then handles any rebase they need. Branches that another tool
 manages follow the interoperability section of [troubleshooting.md](troubleshooting.md). Perform
-only the requested operation.
+the requested operation and the root skill's authorized follow-up and landing continuation.
 
 ## Establish the live contract
 
@@ -56,11 +56,11 @@ the expected layer. Stop after checkout unless the user requested another operat
 
 ## Mutation branches
 
-Load one matching branch at a time. Load another only when it is explicitly included in the request
-and the current operation's completion criterion is satisfied:
+Load one matching branch at a time. After its completion criterion is satisfied, load another
+when the request or the root skill's standing follow-up and landing authorization includes it:
 
 - [cli-create.md](cli-create.md) — create, adopt, split, or submit layers.
 - [cli-maintain.md](cli-maintain.md) — edit a layer, cascade a rebase, sync, or push.
-- [cli-merge.md](cli-merge.md) — merge the approved native-stack scope.
+- [cli-merge.md](cli-merge.md) — merge the authorized native-stack scope.
 - [troubleshooting.md](troubleshooting.md) — recover from conflicts, divergence, stale metadata,
   restructuring, worktrees, or another branch manager.

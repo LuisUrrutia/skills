@@ -3,8 +3,8 @@
 Use this workflow when SKILL.md selects the manual route. Git ancestry and PR bases are the source
 of chain state. Normally a manual chain has no native stack object on GitHub. Leave any retained one
 unchanged; change its membership only through the API route, or dissolve it when the user
-explicitly asked for ordinary dependent PRs or for dissolution. Perform only the requested
-operation.
+explicitly asked for ordinary dependent PRs or for dissolution. Perform the requested
+operation and the root skill's authorized follow-up and landing continuation.
 
 ## Inspect
 
@@ -25,12 +25,12 @@ operation was requested.
 
 ## Mutation branches
 
-Load one matching branch at a time. Load another only when it is explicitly included in the request
-and the current operation's completion criterion is satisfied:
+Load one matching branch at a time. After its completion criterion is satisfied, load another
+when the request or the root skill's standing follow-up and landing authorization includes it:
 
 - [manual-create.md](manual-create.md) — create or adopt an ordinary dependent-PR chain.
 - [manual-maintain.md](manual-maintain.md) — edit, restack, retarget, or push the chain.
-- [manual-merge.md](manual-merge.md) — merge one approved bottom layer and repair the remainder.
+- [manual-merge.md](manual-merge.md) — merge one authorized bottom layer and repair the remainder.
 - [troubleshooting.md](troubleshooting.md) — recover or migrate the chain.
 
 The map steps in these operations write a map only on a PR that GitHub does not stack; a PR that a

@@ -27,13 +27,18 @@ Bound the work to the requested operation. Explanations, reviews, and status che
 Creation and maintenance may change only the local branches and linked PRs needed for that
 operation. A later lifecycle stage must be explicitly included in the request, except
 follow-up: new layers continue into `pr-followup` Drive unless the user asked for no
-follow-up, and this skill keeps topology, rebases and landing.
+follow-up, using Follow up layers below. This skill keeps topology, rebases and landing.
 
 Merging requires the user's explicit approval for the exact PR set and merge method immediately
 before the merge command, except the user's own PRs in a repository that `pr-followup`'s
 personal-repository merge policy covers: those land bottom-up under that standing authorization
 once each layer passes its gates. Preserve unrelated dirty-tree work. Before rewriting ancestry, record the
 current branch and relevant tips so every original commit remains reachable until verification.
+
+Under that standing authorization, enter the selected route's merge branch for the
+current bottom PR only. After its verified merge, repair the remaining chain through
+that route's maintenance branch and rebuild the next bottom's gate evidence before
+landing it. Outside that policy, retain the exact PR set and method the user approved.
 
 When a request, project rule or task record sets a review-size cap, carry it through
 the selected route. Before pushing or creating PRs, invoke `pr` in
@@ -95,6 +100,16 @@ are recorded, such as the extension listing, a failed install, GitHub's report, 
 choice, or the REST or automation context. For repository-bound work, also identify the
 repository, trunk, push remote, and authenticated principal. Before a mutation, record the current
 branch, dirty paths, relevant branch tips, and intended remote objects.
+
+## Follow up layers
+
+Run a Drive pass for every new layer before waiting. Keep one stack mutation owner;
+each pass returns its head/base, result and pending watch action to that owner instead
+of arming a watch or ending the turn. Complete authorized repairs and bottom-up landing
+first, then refresh affected layers. In T3 Code, arm all remaining layer watches in one
+batched host invocation and yield, as `pr-followup`'s T3 Code adapter directs. Reuse
+existing watches. Report any layer whose watch failed; a first layer's wait never
+postpones the other layers' initial passes.
 
 ## Conditional references
 
