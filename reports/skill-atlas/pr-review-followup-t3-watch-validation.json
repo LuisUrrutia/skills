@@ -1,0 +1,126 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-10-29",
+  "baseline": "998dfed38ab9a2b8149f33994121dfd7086ac28e",
+  "status": "Validated against T3 Code's source-control docs, PR watch source, PR tool definitions and runtime instructions at pingdotgg/t3code da04ebc; one Codex Sol and Claude Opus review round; matched baseline and candidate decision probes on both hosts.",
+  "request": "Also update pr-review-followup for T3 Code after pr-followup adopted T3's PR watch. The user chose watch_pull_request over the 30-minute schedule in T3 Code, the schedule elsewhere, and a separate PR.",
+  "changes": [
+    {
+      "file": "pr-review-followup/references/cadence.md",
+      "change": "New T3 Code watch section: arm after a tick that ends waiting, with a resume line and the events the watch never reports; one tick per wake; unwatch before a tick that ends for the user, including progress that waits only on time or unreported events; schedule fallback when arming fails or the user names an interval; once-per-change blocker reports for both modes."
+    },
+    {
+      "file": "pr-review-followup/SKILL.md",
+      "change": "First tick runs immediately with cadence.md deciding how to wait; one pointer at the end of each tick to keep or stop waiting; a user-requested retry of a failed review with begin."
+    },
+    {
+      "file": "pr-review-followup/origin.toml",
+      "change": "The cadence invariant records the 2026-10-29 user decision; two new invariants for handback and unreported events; T3 Code reference documents."
+    },
+    {
+      "file": "README.md",
+      "change": "pr-review-followup runs on T3 watch changes in T3 Code and every 30 minutes elsewhere."
+    }
+  ],
+  "not_adopted": [
+    {
+      "source": "Opus review finding 9",
+      "reason": "A rule against replying to a bot's answer is outside the waiting change; T3 Code's comment-only stop bounds a reply loop."
+    }
+  ],
+  "sources": [
+    "https://github.com/pingdotgg/t3code/blob/da04ebc5087477a82deae9ce19c03539a627359f/docs/user/source-control.md",
+    "https://github.com/pingdotgg/t3code/blob/da04ebc5087477a82deae9ce19c03539a627359f/apps/server/src/orchestration-v2/pullRequestWatch.ts",
+    "https://github.com/pingdotgg/t3code/blob/da04ebc5087477a82deae9ce19c03539a627359f/apps/server/src/orchestration-v2/PullRequestWatchReactor.ts",
+    "https://github.com/pingdotgg/t3code/blob/da04ebc5087477a82deae9ce19c03539a627359f/apps/server/src/mcp/toolkits/pullRequests/tools.ts",
+    "https://github.com/pingdotgg/t3code/blob/da04ebc5087477a82deae9ce19c03539a627359f/packages/provider-core/src/server/runtimeInstructions.ts",
+    "https://github.com/pingdotgg/t3code/blob/da04ebc5087477a82deae9ce19c03539a627359f/packages/source-control-github/src/server/GitHubPullRequestProvider.ts"
+  ],
+  "consultations": {
+    "brief": "Scratch brief (not committed): user request and decisions, frozen candidate 3206890 (tree 2417f3187fb6f0e1f0df9681c321fea947357b78), baseline and candidate copies, full diff, T3 Code files and skill-change checks; read-only, no delegation.",
+    "rounds": [
+      {
+        "round": 1,
+        "profiles": [
+          {
+            "profile": "Codex gpt-6.1-sol / xhigh",
+            "runner": "T3 delegate_task",
+            "result": "Two material (a failed review's timed retry has no wake source; rechecking unreported events does not ensure a tick) and two minor (once-per-change reporting moved under the schedule; the 15-minute wording)."
+          },
+          {
+            "profile": "Claude claude-opus-5-5 / xhigh",
+            "runner": "T3 delegate_task",
+            "result": "Five material (timed retries; no tick prompt on wakes; handback and re-arm conflict; SKILL.md pointers miss user blockers; no fallback when arming fails) and nine minor."
+          }
+        ],
+        "adopted": "All material findings and the minor ones on arming order and disclosure, the false re-requested-review recheck, the own-comment account, the circular interval rule, record credits and references, size cuts and the README wording; adopted in f5e920b.",
+        "rejected": [
+          {
+            "finding": "Do not reply to a bot's answer unless it raises a new technical point",
+            "reason": "Outside the waiting change; the comment-only stop bounds a reply loop."
+          }
+        ]
+      }
+    ]
+  },
+  "trials": {
+    "runner": "Blinded per-arm directories with a frozen skill copy (baseline 998dfed, candidate 3206890, then f5e920b) and a shared scenario file with T3 tool text and runtime instructions; executors described actions without executing; expectations kept outside their reach.",
+    "results": [
+      {
+        "case": "P1 start the follow-up",
+        "claude": "baseline: 30-minute schedule plus a watch; candidate: watch only, with the resume line on f5e920b",
+        "codex": "baseline: schedule plus a watch; candidate: watch only, with the resume line on f5e920b"
+      },
+      {
+        "case": "P2 wake with a new head",
+        "claude": "both arms review, resolve the fixed thread and keep waiting",
+        "codex": "both arms review, resolve the fixed thread and keep waiting"
+      },
+      {
+        "case": "P3 wake that ends in approval",
+        "claude": "both arms approve and unwatch",
+        "codex": "both arms approve and unwatch"
+      },
+      {
+        "case": "P4 incomplete review needs the user",
+        "claude": "baseline: asks the user while keeping the watch; candidate: unwatches first",
+        "codex": "both arms unwatch"
+      },
+      {
+        "case": "P5 user names an hourly interval",
+        "claude": "both arms schedule hourly without a watch",
+        "codex": "baseline: hourly schedule plus a watch; candidate: schedule only"
+      },
+      {
+        "case": "P6 review fails before recording on a quiet PR (f5e920b only)",
+        "claude": "unwatches and offers a retry with begin",
+        "codex": "unwatches and offers a retry with begin"
+      },
+      {
+        "case": "P7 arming fails (f5e920b only)",
+        "claude": "reports the error and schedules 30-minute ticks",
+        "codex": "reports the error and schedules 30-minute ticks"
+      }
+    ],
+    "limits": "One run per arm and host; decision probes inside T3 child threads without executing gh, the helper or T3 tools.",
+    "final_revision_runs": "P1 to P7 ran on both hosts with skill files from f5e920b, the final revision."
+  },
+  "checks": [
+    "git diff --check passed for every commit.",
+    "check-origin.py --skill-dir pr-review-followup: 0 diagnostics.",
+    "Relative Markdown links and anchors in pr-review-followup/ resolve; origin.toml parses with tomllib.",
+    "pr-review-followup/scripts/validate.sh (30 tests) passes; the helper is unchanged.",
+    "catalog.js equals sources.json and the cache key matches catalog.js."
+  ],
+  "size_words": {
+    "SKILL.md": "1132 -> 1140",
+    "references (all)": "857 -> 1187",
+    "package": "1989 -> 2327"
+  },
+  "final_hashes": {
+    "pr-review-followup/SKILL.md": "eef222ba0d9ea428a945d1c300ed526ec270c96745affe400b37d50b87400558",
+    "pr-review-followup/origin.toml": "bfccc2f3eae3b47fa43fcf260f357d9f1dcb31dc924cdfba13c33fd06f8c57d0",
+    "pr-review-followup/references/cadence.md": "3a0fbe13769916ec23bfdf5d324d851a5ba0ab65cd4baae29c74450606c33790",
+    "pr-review-followup/references/thread-settlement.md": "e98e2a459c9ac5f7bacac6a18defd0a977af9753db87c59a58628e196af1be13"
+  }
+}

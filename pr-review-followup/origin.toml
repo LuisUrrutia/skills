@@ -9,8 +9,8 @@ rule = "The skill is the reviewer-side counterpart of the pr-followup skill. Whe
 where = ["SKILL.md#pr-review-follow-up"]
 
 [[invariants]]
-rule = "Run one follow-up tick every 30 minutes unless the user names another interval."
-reason = "Set at the user's direction when the skill was derived from the supervised PR 1982 follow-up session on 2026-10-07 (local snapshot pr-1982-followup-session)."
+rule = "In T3 Code, T3's PR watch wakes the follow-up, one tick per wake, unless the user names an interval. Otherwise one tick runs every 30 minutes or at the interval the user names."
+reason = "The 30-minute default was set at the user's direction when the skill was derived from the supervised PR 1982 follow-up session on 2026-10-07 (local snapshot pr-1982-followup-session). The user chose T3 Code's PR watch over that schedule in T3 Code on 2026-10-29. Using a named interval to select the schedule in T3 Code is inferred from the earlier rule that a named interval sets the cadence."
 where = ["references/cadence.md", "SKILL.md#start-the-follow-up"]
 
 [[invariants]]
@@ -54,9 +54,19 @@ reason = "User decision of 2026-10-27, after a follow-up kept listing a lone `su
 where = ["SKILL.md#run-one-tick", "references/thread-settlement.md", "scripts/followup.py"]
 
 [[invariants]]
-rule = "Optional threads still open after a verified approval stay with the author: the schedule ends and the final report lists them."
+rule = "Optional threads still open after a verified approval stay with the author: waiting ends and the final report lists them."
 reason = "The user left this choice to the implementation on 2026-10-27. Following those threads would mean a full re-review of every later push until merge, and the author can resolve their own threads."
 where = ["SKILL.md#run-one-tick"]
+
+[[invariants]]
+rule = "In T3 Code, the watch is stopped before reporting a tick that ends for the user: approval, done, a closed PR, a new blocker that needs the user, or progress that waits only on time or an event the watch never reports. A blocker already reported and unchanged since the user's reply ends the tick waiting, and a tick that ends waiting keeps or arms the watch."
+reason = "The user chose to unwatch when handing the turn back (2026-10-29), and T3 Code keeps a watched thread in Working and out of the user's inbox until the agent stops watching, per its source-control documentation and wake message. The list of turns that end for the user is inferred from the skill's blockers and the watch's missing timer."
+where = ["references/cadence.md#t3-code-watch"]
+
+[[invariants]]
+rule = "Each tick rechecks the events T3 Code's PR watch never reports: a thread resolved without a comment or push, a base change, a merge, comments by the account T3 Code reads with, and time passing. Arming discloses that they and comments posted after the final read wait for another wake or invocation."
+reason = "Host constraint in T3 Code's PR watch source; a resolved thread still needs verification on the current head before approval."
+where = ["references/cadence.md#t3-code-watch", "SKILL.md#run-one-tick"]
 
 [[local_snapshots]]
 id = "pr-1982-followup-session"
@@ -64,6 +74,20 @@ kind = "session"
 author = "Luis Urrutia"
 repository = "local session"
 verification = "Derived from one supervised session on 2026-10-07: a 15-minute watcher that only reported thread state, then approved a head it had not reviewed. No external donor."
+
+[[reference_documents]]
+id = "t3code-source-control-docs"
+url = "https://github.com/pingdotgg/t3code/blob/da04ebc5087477a82deae9ce19c03539a627359f/docs/user/source-control.md"
+checked = "2026-10-29"
+role = "How T3 Code's PR watch checks a PR, which comments wake it, when it ends, and that a watched thread stays out of the inbox until the agent stops watching."
+coverage = "The linked pull requests and watching sections."
+
+[[reference_documents]]
+id = "t3code-pr-watch-source"
+url = "https://github.com/pingdotgg/t3code/blob/da04ebc5087477a82deae9ce19c03539a627359f/apps/server/src/orchestration-v2/pullRequestWatch.ts"
+checked = "2026-10-29"
+role = "The events that wake the watch, including the no-checks wake after a push, the comment-only wake limit and the wake message."
+coverage = "apps/server/src/orchestration-v2/pullRequestWatch.ts and PullRequestWatchReactor.ts, apps/server/src/mcp/toolkits/pullRequests/tools.ts, packages/provider-core/src/server/runtimeInstructions.ts, and checksAlwaysReport in packages/source-control-github/src/server/GitHubPullRequestProvider.ts, all at the same commit."
 
 [[dependencies]]
 kind = "local"

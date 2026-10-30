@@ -34,8 +34,8 @@ step to report, never a success.
    write.
 3. If `pr-review` just reviewed the current head, record it from that run (step 3
    of a tick); otherwise the first tick performs the full review.
-4. Schedule the ticks as [cadence.md](references/cadence.md) describes, then run
-   the first tick immediately.
+4. Run the first tick immediately; [cadence.md](references/cadence.md) says how
+   to wait between ticks on this host.
 
 ## Run one tick
 
@@ -51,8 +51,8 @@ step to report, never a success.
    a partial view of threads or comments.
 2. **Stop or wait.**
    - `done` (the reviewer approved this head and the approval gate is clear), or
-     a merged or closed PR: delete the schedule and report the outcome. Optional
-     threads still open stay with the author; list them in the report.
+     a merged or closed PR: report the outcome. Optional threads still open stay
+     with the author; list them in the report.
    - An unsubmitted review by the reviewer, or a `pending_operation`: report it
      and write nothing. Clear an uncertain operation only after reading back the
      thread or review it names.
@@ -79,7 +79,8 @@ step to report, never a success.
    questions the review left open. An incomplete review is recorded as
    such, is not rerun on the same head, and blocks approval until the user
    decides. A review that fails before recording is reported once; the next tick
-   retries it after the in-progress window. Re-read the state before settling threads.
+   retries it after the in-progress window, or sooner with `begin` when the user
+   asks. Re-read the state before settling threads.
 4. **Settle the reviewer's threads.** Act on each thread where the author or
    another participant spoke last, on every unresolved thread after a new head
    or base (a push can fix it without a reply), and on each resolved thread
@@ -116,7 +117,8 @@ step to report, never a success.
    base. Open optional threads never block. Set `approve` when this plan clears
    them. For an approving plan the helper checks the same gate before any write
    and again on the read that immediately precedes the approval; `done` uses it
-   too. After a verified approval, delete the schedule.
+   too.
 7. **Report the tick** in the user's language: resolved/total, each reply,
    resolution, reopening or classification with its reason, a new review's
-   outcome, and blockers. A tick with no change is one line.
+   outcome, and blockers. A tick with no change is one line. Then keep or stop
+   waiting as cadence.md describes.
