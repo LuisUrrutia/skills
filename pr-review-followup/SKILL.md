@@ -19,7 +19,10 @@ that needs it. Every write below is published immediately; none waits as a draft
 All helper commands run from any directory as
 `python3 "$SKILL_DIR/scripts/followup.py" <command> --pr "$PR_URL" --actor "$REVIEWER" --state-file "$STATE_FILE"`,
 plus the arguments named below. Each prints JSON; a nonzero exit is a stopped
-step to report, never a success.
+step to report, never a success. Mutating commands hold a per-state-file lock
+through GitHub writes and read-back. A busy operation exits without changing
+state; retry it after the owner finishes. Keep the adjacent `.lock` file in place
+while the follow-up is active, including when reconciling an uncertain write.
 
 ## Start the follow-up
 

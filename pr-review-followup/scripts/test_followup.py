@@ -1,6 +1,8 @@
 from __future__ import annotations
 
 import json
+import subprocess
+import sys
 import tempfile
 import unittest
 from pathlib import Path
@@ -369,6 +371,67 @@ class FollowupTests(unittest.TestCase):
         with self.assertRaises(RejectedError):
             self.apply(resolve=['T1'])
         self.assertNotIn('pending_operation', json.loads(self.state_file.read_text()))
+
+    def test_inflight_write_excludes_a_handoff_from_another_process(self):
+        self.record()
+        original_call = self.api.call
+        handoff = []
+
+        def call(endpoint, payload=None):
+            if endpoint.endswith('/replies'):
+                handoff.append(subprocess.run([
+                    sys.executable, str(Path(__file__).with_name('followup.py')), 'record',
+                    '--pr', PR, '--actor', 'reviewer', '--state-file', str(self.state_file),
+                    '--snapshot', str(self.snapshot), '--complete', 'true', '--standing', '0',
+                    '--questions', '0',
+                ], capture_output=True, text=True, timeout=10))
+                self.assertNotEqual(handoff[-1].returncode, 0)
+                self.assertIn('another follow-up operation', handoff[-1].stderr)
+                self.assertTrue(json.loads(self.state_file.read_text())['pending_operation'])
+            return original_call(endpoint, payload)
+
+        self.api.call = call
+        self.api.lose_reply = True
+
+        with self.assertRaisesRegex(FollowupError, 'lost response'):
+            self.apply(replies=[{'thread_id': 'T1', 'body': 'this one is done'}])
+
+        self.assertEqual(len(handoff), 1)
+        self.record()
+        self.assertTrue(json.loads(self.state_file.read_text())['pending_operation'])
+        writes = len(self.api.writes())
+        with self.assertRaisesRegex(FollowupError, 'outcome is uncertain'):
+            self.apply(replies=[{'thread_id': 'T1', 'body': 'this one is done'}])
+        self.assertEqual(len(self.api.writes()), writes)
+
+    def test_inflight_write_excludes_all_state_mutations(self):
+        self.record()
+        original_call = self.api.call
+        plan = self.root / 'other-plan.json'
+        plan.write_text(json.dumps({'expected_head': HEAD, 'expected_base_ref': 'main'}))
+
+        def call(endpoint, payload=None):
+            if endpoint.endswith('/replies'):
+                before = self.state_file.read_bytes()
+                operations = [
+                    lambda: begin(PR, 'reviewer', self.state_file, HEAD),
+                    lambda: self.record(),
+                    lambda: settle(PR, 'reviewer', self.state_file, 0, 0, self.api),
+                    lambda: apply(PR, 'reviewer', self.state_file, plan, self.root / 'other-receipt.json', self.api),
+                ]
+                for operation in operations:
+                    with self.assertRaisesRegex(FollowupError, 'another follow-up operation'):
+                        operation()
+                    self.assertEqual(self.state_file.read_bytes(), before)
+            return original_call(endpoint, payload)
+
+        self.api.call = call
+
+        result = self.apply(replies=[{'thread_id': 'T1', 'body': 'this one is done'}])
+
+        self.assertEqual(result['replied'], ['T1'])
+        self.assertNotIn('pending_operation', json.loads(self.state_file.read_text()))
+        begin(PR, 'reviewer', self.state_file, HEAD)
 
     def test_verification_holds_only_for_the_head_it_checked(self):
         self.record()

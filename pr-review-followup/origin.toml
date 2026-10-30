@@ -44,6 +44,11 @@ reason = "Codex Astra Max and Claude Fable Max reviews found that the first draf
 where = ["scripts/followup.py", "SKILL.md#run-one-tick"]
 
 [[invariants]]
+rule = "Every mutating helper command holds one nonblocking lock for its resolved state path across state updates, GitHub writes and read-back. A competing command exits without changing state; the adjacent lock file stays in place while follow-up is active."
+reason = "A reused state file can receive a review handoff during a scheduled tick. Concurrent load-and-replace operations can lose state or uncertain-write markers and allow duplicate GitHub writes."
+where = ["scripts/followup.py", "SKILL.md#pr-review-follow-up"]
+
+[[invariants]]
 rule = "Thread replies follow the pr-review skill's rule for published text: they never mention the engines, models or agents behind the review, how it was run, or what it could not cover. An author's question about how the review was done goes to the user."
 reason = "User decision on 2026-10-08."
 where = ["references/thread-settlement.md"]
