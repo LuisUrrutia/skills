@@ -2,7 +2,7 @@
   "schemaVersion": 1,
   "date": "2026-10-30",
   "baseline": "998dfed38ab9a2b8149f33994121dfd7086ac28e",
-  "status": "Validated against an observed failure (PR 48), the Codex skill loader source and T3 Code's agent instructions; one Codex Sol and Claude Opus review round; matched decision probes on both hosts.",
+  "status": "Initial independent reviews and decision probes are historical. Current structural checks pass; concurrency regressions fail before the helper fix and pass with it. Stack watch batching and standing-authorization routing were inspected but not exercised on live hosts.",
   "request": "Always follow up a PR the user creates and a PR the user reviews, unless the user says otherwise, for example 'crea la pr sin followup'.",
   "changes": [
     {
@@ -106,7 +106,7 @@
   "checks": [
     "git diff --check passed for every commit.",
     "check-origin.py: 0 diagnostics for pr, pr-followup, pr-review, pr-review-followup, stacked-pr and work-mode.",
-    "pr-review/scripts/validate.sh and pr-review-followup/scripts/validate.sh pass, including their unit tests.",
+    "pr-review/scripts/validate.sh: 57 tests pass; pr-review-followup/scripts/validate.sh: 32 tests pass, including two concurrency regressions.",
     "Relative links and anchors in the changed skills resolve, except the pre-existing illustrative path in pr/references/attachments.md.",
     "catalog.js equals sources.json, node --check passes, and only the current inventory hashes and the cache key changed."
   ],
@@ -115,20 +115,28 @@
     "pr/references/continuation.md": "471f98dd541f2801045e3b8705eda458b741e2a3c135fa27fc24c4a965cf316c",
     "pr/origin.toml": "89015f96a3c601963a9a57973545b482fb708c342ae4be78dd8052493dabe620",
     "pr-followup/SKILL.md": "a61c0704f1b5343a18c1bbbea729f76166c52f4a0b5aa26cd9b54dc375d13531",
-    "pr-followup/origin.toml": "ff67eb438850f8acc601322189cdf3056cb9f2343e7496cb6c8bc59737fa08af",
+    "pr-followup/origin.toml": "4809f136899289ff6cf6dc7ac42ed7c0ca3c5370032dc01385a8cd579f97bb52",
     "pr-review/SKILL.md": "df1141908067c4dddc0d356e4950b378f2c5dd04fa669bbd5fe5d24e098a3109",
     "pr-review/origin.toml": "c6216dd40f222c3b1265fcac0b1f2b16c692c2677daf986fb714522e2979e0b4",
     "pr-review/scripts/validate.sh": "7d62ead51a7a83af799ad925ca03ef2fcdc8bf9abc6debe6d32ca9a63f8b3ead",
-    "pr-review-followup/SKILL.md": "0a30f02821eda70d73415f8d5db22fbb99a1726941e4e0ad688d7e7ea27cafb0",
-    "pr-review-followup/origin.toml": "443c4f61dedfacb15ed4c3fe558714871730a4c6c6fb58b361db445841f5aba4",
+    "pr-review-followup/SKILL.md": "38e62e8d0adb0b6aff8ffb5ffdd1dc0b127b376623868e13d9e4cf3087200a37",
+    "pr-review-followup/origin.toml": "4da31406cd4705d1788976f4c259731179948a0b44caea406305a0282809f232",
     "pr-review-followup/scripts/validate.sh": "cb31483e43ffc23acdc87178eb844e5a226c9a4b355ffcb750e6a9632bc5f500",
-    "stacked-pr/SKILL.md": "709c23f9087088a2f07aff61c56d5c3901cb1105c9f9dca5325ce2aee7711a1b",
-    "stacked-pr/origin.toml": "6b9d5fc6be4dfc33feac760ea2ccb26380fda9afc397bfb579908e51074014fb",
+    "stacked-pr/SKILL.md": "663098ab3f67de497af1c99766b4a2213bb0ec5f8ccb263044c752f2acaf8bc7",
+    "stacked-pr/origin.toml": "57fca4f0c74a0f3e34e08c483574a25f5affb3402fcc2c427f322ebc9daa9d2a",
     "stacked-pr/references/cli-create.md": "dd36ebffef84a6c22ea4cfc67d6bb7b26a3206074ef51a32ad3bc55cd90efbdd",
     "stacked-pr/references/api-create.md": "bc4b36db2acc567dc968fb1a61a288b1afac079e65219873b92e0f3aa546d7f1",
     "stacked-pr/references/manual-create.md": "bb4ee7c5372683a1c1f92227b3a86986c9532d0e0525e063d3f7a900112731a0",
-    "stacked-pr/references/manual-merge.md": "f18b65d59b6a771776c8d202c02ceb5612eb4f86f80440aaac1995797c701545",
-    "work-mode/references/delivery.md": "061db6b8546891150c79567dadc4bae8ee48a25c5f79546db2112e89b279fbaa"
+    "stacked-pr/references/manual-merge.md": "280928068b61149366af5a537039ea72fae4d458fafa4bc8ac886eb5ff64bb49",
+    "work-mode/references/delivery.md": "061db6b8546891150c79567dadc4bae8ee48a25c5f79546db2112e89b279fbaa",
+    "pr-review-followup/scripts/followup.py": "201f814b2b85e634221896cd83a86664aa017179979af8c51c7fb1a05ed8b388",
+    "pr-review-followup/scripts/test_followup.py": "328218af1b87dae10cb2b44efa66410bb3634532c00dda7fb18928abe873a2b4",
+    "pr-followup/references/ci-and-observation.md": "0eacadb3574de2e4364fc4ecd1c38d9053cb4df7570e7a30e3aa8158b4c7174c",
+    "stacked-pr/references/manual-chain.md": "132b331d5d0dc4fb4cd86cc38ae3eb11a77522152f5dd7cc2ee9e1d4d62abcc7",
+    "stacked-pr/references/api-merge.md": "a8db630bce93c7506546a5c92aae49daba286e5ddce372c3630b48a1e841106c",
+    "stacked-pr/references/cli-workflow.md": "87b4d93ca9ecee4a6ac7850d1b49a768b2cf297155520a3654ba4baf50d0fe22",
+    "stacked-pr/references/api-workflow.md": "8a4c9e3a6be27df717d1e04713d23b3c3a8976efd39fce4baa24dee655d3ea6b",
+    "stacked-pr/references/cli-merge.md": "079b6d9658ebc825053ddc232c7b80b10609e4b4d40b01669b39bb78d489876c"
   },
   "rebase": {
     "onto": "689e9fc1f0d29a66cc0974a735582146d1aab2e4",
@@ -143,6 +151,190 @@
       "pr-review/origin.toml",
       "work-mode/references/delivery.md"
     ],
-    "result": "pr-review/SKILL.md and the other skill files merged without text conflicts. README.md kept both the conversation-title sentence from #67 and this branch's follow-up sentence. Only the atlas inventory hashes and cache key were regenerated. The combined text was read for contradictions and none were found. The probes above ran before the rebases and were not rerun on the combined revision."
+    "result": "The skill files merged without text conflicts. README.md kept both the conversation-title sentence from PR 67 and this branch's follow-up sentence. Atlas inventory hashes and cache key were regenerated. The initial inspection missed the three integration issues documented under feedback_repairs. Historical probes above predate the rebases and those repairs."
+  },
+  "feedback_repairs": {
+    "runtime_revision": "845c1f068b39f970a6d016c9f531f871f55673b4",
+    "items": [
+      {
+        "url": "https://github.com/LuisUrrutia/skills/pull/66#discussion_r4423616722",
+        "disposition": "Applied",
+        "change": "A nonblocking OS lock serializes begin, record, settle and apply for the resolved state path, across GitHub writes and read-back. The persistent adjacent lock file is documented.",
+        "evidence": "Both new concurrency tests fail on c0a14d4 and pass with 29e63e4; one launches a separate CLI process while apply is in a GitHub write, then verifies a lost response keeps the pending marker and prevents repetition."
+      },
+      {
+        "url": "https://github.com/LuisUrrutia/skills/pull/66#discussion_r4423616734",
+        "disposition": "Applied",
+        "change": "Each layer returns its Drive pass to the stack owner. That owner completes passes and mutations, refreshes affected layers, then activates remaining watches in one host batch and yields. The T3 adapter names the stack exception to its single-PR activation step."
+      },
+      {
+        "url": "https://github.com/LuisUrrutia/skills/pull/66#discussion_r4423616744",
+        "disposition": "Applied",
+        "change": "CLI, API and manual dispatch and merge procedures accept the root standing authorization. Personal-repository landing selects only the current bottom, repairs the chain through its existing owner and rebuilds evidence for the next layer. Explicit approvals remain required outside that policy."
+      }
+    ],
+    "commands": [
+      {
+        "command": "fish -c 'env PYTHONDONTWRITEBYTECODE=1 python3 -m unittest test_followup.FollowupTests.test_inflight_write_excludes_a_handoff_from_another_process test_followup.FollowupTests.test_inflight_write_excludes_all_state_mutations -v'",
+        "directory": "pr-review-followup/scripts",
+        "before": "2 failures",
+        "after": "2 pass"
+      },
+      {
+        "command": "fish -c 'bash pr-review-followup/scripts/validate.sh pr-review-followup'",
+        "result": "32 tests pass; package references and Python compilation pass"
+      },
+      {
+        "command": "fish -c 'env TMPDIR=/tmp/pr66-resume bash pr-review/scripts/validate.sh \"$PWD/review-code-changes\"'",
+        "result": "57 tests pass; package references and Python compilation pass"
+      },
+      {
+        "command": "quick_validate.py <skill> with uv run --no-project --with PyYAML==6.0.3; check-origin.py --skill-dir <skill>",
+        "result": "All six affected skills pass; no origin diagnostics. The initial host-validator run lacked PyYAML; an isolated uv environment supplies it without repository dependency changes."
+      }
+    ],
+    "carryover": "The suites ran after the helper and its tests reached their final hashes. Subsequent stack instructions, provenance and atlas edits do not alter those test inputs. Current hash, link and metadata checks cover the subsequent edits. No new model-pair round was run for these response edits within the same PR; the initial pair predates them.",
+    "limits": [
+      "No live multi-PR watch batch or CLI/API/manual stack landing was executed.",
+      "No new model behavior or selection probes on Codex or Claude were run for these feedback corrections. Structural consistency does not establish that behavior."
+    ],
+    "size": {
+      "pr-followup": {
+        "files": [
+          {
+            "file": "pr-followup/SKILL.md",
+            "before": 2672,
+            "after": 2672
+          },
+          {
+            "file": "pr-followup/references/ci-and-observation.md",
+            "before": 1325,
+            "after": 1385
+          },
+          {
+            "file": "pr-followup/references/feedback.md",
+            "before": 880,
+            "after": 880
+          },
+          {
+            "file": "pr-followup/references/github-collection.md",
+            "before": 869,
+            "after": 869
+          }
+        ],
+        "package_before": 5746,
+        "package_after": 5806,
+        "growth_reason": "The T3 adapter describes stack-owner batching before the turn ends."
+      },
+      "pr-review-followup": {
+        "files": [
+          {
+            "file": "pr-review-followup/SKILL.md",
+            "before": 1185,
+            "after": 1227
+          },
+          {
+            "file": "pr-review-followup/references/cadence.md",
+            "before": 534,
+            "after": 534
+          },
+          {
+            "file": "pr-review-followup/references/thread-settlement.md",
+            "before": 653,
+            "after": 653
+          }
+        ],
+        "package_before": 2372,
+        "package_after": 2414,
+        "growth_reason": "The helper lock, busy exit and persistent lock-file handling are caller-visible."
+      },
+      "stacked-pr": {
+        "files": [
+          {
+            "file": "stacked-pr/SKILL.md",
+            "before": 964,
+            "after": 1113
+          },
+          {
+            "file": "stacked-pr/references/api-create.md",
+            "before": 404,
+            "after": 404
+          },
+          {
+            "file": "stacked-pr/references/api-maintain.md",
+            "before": 301,
+            "after": 301
+          },
+          {
+            "file": "stacked-pr/references/api-merge.md",
+            "before": 185,
+            "after": 234
+          },
+          {
+            "file": "stacked-pr/references/api-workflow.md",
+            "before": 348,
+            "after": 359
+          },
+          {
+            "file": "stacked-pr/references/automation.md",
+            "before": 395,
+            "after": 395
+          },
+          {
+            "file": "stacked-pr/references/cli-create.md",
+            "before": 374,
+            "after": 374
+          },
+          {
+            "file": "stacked-pr/references/cli-maintain.md",
+            "before": 273,
+            "after": 273
+          },
+          {
+            "file": "stacked-pr/references/cli-merge.md",
+            "before": 187,
+            "after": 240
+          },
+          {
+            "file": "stacked-pr/references/cli-workflow.md",
+            "before": 477,
+            "after": 488
+          },
+          {
+            "file": "stacked-pr/references/manual-chain.md",
+            "before": 314,
+            "after": 325
+          },
+          {
+            "file": "stacked-pr/references/manual-create.md",
+            "before": 193,
+            "after": 193
+          },
+          {
+            "file": "stacked-pr/references/manual-maintain.md",
+            "before": 237,
+            "after": 237
+          },
+          {
+            "file": "stacked-pr/references/manual-merge.md",
+            "before": 182,
+            "after": 196
+          },
+          {
+            "file": "stacked-pr/references/stack-design.md",
+            "before": 527,
+            "after": 527
+          },
+          {
+            "file": "stacked-pr/references/troubleshooting.md",
+            "before": 1127,
+            "after": 1127
+          }
+        ],
+        "package_before": 6488,
+        "package_after": 6786,
+        "growth_reason": "The stack owner collects all passes before waiting; every merge dispatcher and route accepts the existing authorization and rebuilds per-layer evidence."
+      }
+    }
   }
 }
