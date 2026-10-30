@@ -539,7 +539,10 @@ point in its existing thread. It never requests changes, never submits a review
 the user started, and approves only when no required finding or required
 reviewer thread remains open; open suggestions and nits never block approval.
 Read-only review controls, bounded retries and exact actor/head
-binding remain part of the workflow.
+binding remain part of the workflow. Where the host can rename a conversation
+dedicated to one review, as in T3 Code, it titles it
+`[REVIEW] #<number> <ticket> <author>`, with `NO_TICKET` when no subject ticket
+is found in any tracker.
 
 This replaces `pr-review-draft`, which left a pending review for the user to
 submit. Update installed links and explicit invocations to `pr-review`; no alias

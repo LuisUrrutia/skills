@@ -60,7 +60,8 @@ The classes:
 Read a resolved profile's Halves and Seams while opening boundaries; Checkouts
 when crossing repositories; Blind spots for schemas and generated/vendored files;
 Tracker for ticket identity/access; Operational scope for reachability; Findings
-that died here when challenging candidates; Comment bindings for wording.
+that died here when challenging candidates; Comment bindings for wording; Author
+names for the conversation title.
 Revalidate historical facts on the recorded revision. Repository rules govern a
 conflict with personal preferences; missing decisive evidence becomes a question.
 

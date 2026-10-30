@@ -53,6 +53,8 @@ The full vocabulary is:
   carries each passed file's class and scope to the engines.
 - **Tracker**: valid project prefixes, retrieval method and where decisions live.
   Keep access details with the parent; sanitize retrieved requirements for workers.
+- **Author names**: the name a PR author's login takes in the conversation title,
+  such as a short name for an app account.
 - **Operational scope**: evidenced populations and workflows. Personal tolerance
   for an edge case cannot silently waive a required behavior.
 - **Comment bindings**: explicitly stated language familiarity, voice and local
