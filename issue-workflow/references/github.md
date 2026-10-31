@@ -15,7 +15,7 @@ using labels as an improvised board. Honor an existing label-based convention
 only when the policy explicitly chooses that state representation and its effects.
 Change only the designated state labels and preserve unrelated labels.
 
-Before any authenticated GitHub write, follow the active actor-verification rules.
+Before any authenticated GitHub write, apply the [shared actor rule](identity.md).
 Read the field/state before editing and re-read that same object afterward. Project
 access can require permissions separate from issue/PR access; report a
 permission-scope failure without automatically expanding permissions.

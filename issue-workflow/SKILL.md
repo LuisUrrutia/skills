@@ -10,7 +10,8 @@ events. Also publish prepared tasks when requested. The designated tracker
 policy, by default the consuming project's `docs/agents/issue-tracker.md`, owns
 destinations and transition rules; this skill owns discovery, guarded execution
 and evidence. That default path is relative to the target project root, not this
-installed skill.
+installed skill. Before the first `gh` command, read
+[references/identity.md](references/identity.md).
 
 ## Resolve the operation
 
