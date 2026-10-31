@@ -52,15 +52,12 @@ the same site. `comment-style` owns wording, not this placement decision.
 Read each completed report end to end, including Review basis, Checks, Open
 questions and Coverage. A defect an engine names but sets aside on a premise it
 could not settle, such as whether an outside writer produces the value, is a
-pending candidate tied to that premise; when the seam sweep, a resolved question
+pending candidate tied to that premise; when a seam verdict, a resolved question
 or your own trace settles the premise, judge the defect again. Reduce candidates
 one at a time; inspect the decisive
-source and strongest counterevidence. Judge each candidate with the protocol and
-the [supplement](audit-supplement.md); an author's disclosure in the PR body is a
-claim, not a recorded decision. When a candidate concerns members of a family,
-such as the rules of one validator, census every member on the reviewed head with
-the supplement's rule and family censuses before settling its extent. The protocol
-permits structural and requirements evidence without an invented runtime trace.
+source and strongest counterevidence. Judge each candidate, and census a
+family's members on the reviewed head, with the protocol. It permits structural
+and requirements evidence without an invented runtime trace.
 Preserve required/optional Action even when an optional suggestion and a defect
 happen to share severity. Synthesized severity follows the protocol's
 consequence rule: a rare trigger narrows Affected, not severity.
@@ -73,20 +70,18 @@ remedy; repair the remedy if the underlying finding still stands.
 ## Questions, seams and synthesis
 
 Use stable Q identifiers with source IDs, exact missing premise, needed evidence
-and status (`open`, `resolved`, `dropped`). A premise that decides whether an issue
-exists remains a question. Name the boundary or access needed; do not turn absence
-of access into a finding. Unresolved limits that affect only extent qualify an
-otherwise supported finding. A merged question keeps every member its sources
+and status (`open`, `resolved`, `dropped`), judged under the protocol's premise
+rules. A merged question keeps every member its sources
 name, such as each contract or consumer; dropping one needs its own reason.
 
 Add seam gaps with both revision-specific locations through the same candidate
 contract. Matching and unreadable seam verdicts are coverage, not automatic bugs.
-Add maintainability and comment and test sweep items the same way, with the
-sweep as their source; each check's census is coverage.
+Add each census member that fails its check the same way, with the check as
+its source; each check's census is coverage.
 Before external feedback is opened, every engine is terminal, every delivered
-candidate has a disposition, every opened seam has a verdict, every
-maintainability, comment and test check has its census, and every material
-question has a resolution or an exact remaining premise.
+candidate has a disposition, every opened seam has a verdict, every census
+check has its census, and every material question has a resolution or an exact
+remaining premise.
 
 Write canonical `review.md` using the resolved auditor's grammar, carrying the
 combined Review basis, Class/Action/Recommendation, questions, checks and actual

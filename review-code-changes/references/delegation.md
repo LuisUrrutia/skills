@@ -16,10 +16,13 @@ Choose the smallest useful set of assignments. Common facets include behavior
 and contracts, security, state and concurrency, structure, performance, or test
 validity. Combine overlapping questions. Load available domain skills through
 the specialist router; do not invent installed skill names or universal language
-rules. Keep requirements, overall coverage, and cross-facet interactions with
-the coordinator. Dividing files alone can hide the contract between them.
+rules. Keep requirements, seams, census checks, overall coverage, and
+cross-facet interactions with the coordinator; a facet worker runs seams or
+census checks only when assigned. Dividing files alone can hide the contract between them.
 
 Use the host's actual delegation mechanism, available model catalog, and capacity.
+Choose a plain agent type whose whole brief is your prompt, not a specialist
+with its own review role.
 Honor the caller's model, effort, budget, and agent constraints. Separate contexts
 on one model can investigate independently; role-play in this context is not a
 subagent run. This skill grants no additional external-service or code-sharing
@@ -32,7 +35,8 @@ remains unmet.
 Give each worker:
 
 - The exact comparison and source snapshot, intent, applicable requirements and
-  standards, caller-owned seams, and relevant setup facts.
+  standards, caller-owned seams, relevant setup facts, and only the profile
+  sections [profiles.md](profiles.md) lets workers receive.
 - One concrete risk question, the assigned changed paths and their JSON inventory,
   and permission to trace relevant surrounding code within the parent's boundary.
 - This skill and protocol, its non-delegating worker role, permitted read-only

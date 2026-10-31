@@ -39,19 +39,45 @@ valid result: report it instead of inventing work.
 
 Save the unique changed-path inventory as a JSON array for report validation.
 Record deleted paths and the new path of a rename, identifying the old path in
-Coverage. Capture Git state so concurrent edits or accidental mutations are
-detectable. If the input changes during review, refresh the affected analysis or
+Coverage. A submodule bump is a pin change: record its old and new commits and
+URL, and review the superproject's integration with the new pin; the
+submodule's own changes are outside scope unless the caller adds them. Capture
+Git state so concurrent edits or accidental mutations are detectable. If the input changes during review, refresh the affected analysis or
 report that the result covers the earlier snapshot.
 
 ## Gather intent and review
 
 Read effective repository instructions, the supplied request, relevant tests,
-and accessible specifications. Search the repository for documents that state
-coding standards, such as `CONTRIBUTING.md`, `CODING_STANDARDS.md`, or style
-guides, and read those that govern the changed paths. A PR body, ticket, author
+and accessible specifications. Unless a coordinator supplied your profile
+context, resolve the target repository's private review profile as
+[references/profiles.md](references/profiles.md) directs. Search the repository
+for documents that state coding standards or review policy, such as
+`CONTRIBUTING.md`, `CODING_STANDARDS.md`, `REVIEW.md`, or style guides, and read
+those that govern the changed paths. A PR body, ticket, author
 summary, and existing test describe claims to check; they do not prove
 correctness. Mark a missing specification as a limit while continuing the
 supported review. Do not invent product requirements to fill it.
+
+Look for a subject ticket in the branch name, then the PR title and body, then
+the issues the PR closes. Validate a candidate key against the tracker's project
+keys: strings such as `UTF-8` are not tickets. Later candidates are related
+context and add no acceptance criteria by themselves. Through the authorized
+tracker, read the subject's description, acceptance criteria, comments and linked
+designs, and its parent's description, acceptance criteria and comments. A parent
+requirement for the behavior the change implements, such as whether a delete is
+soft or hard, applies unless the subject or a recorded decision supersedes it.
+When the subject or its parent is a conformance or consistency initiative, carry
+its rules for the concepts the change alters as requirements and its audit
+findings for them as evidence, not as a summary. Record unavailable content
+rather than inferring it. Without a ticket, continue from accessible intent;
+ask only when the missing information would materially change the review.
+
+Identify which users, row populations, environments or workflows each claim
+reaches, from code and accessible contracts. For each one named as reachable,
+record its triggering request or execution, its host, environment and mode, and
+the evidence the protocol's tracing rule accepts. Name one that is only
+admitted, such as an internal host granted every permission with no evidenced
+caller, separately with the evidence it lacks. Do not invent populations.
 
 Review both intended behavior and applicable standards. Then apply the protocol
 to every changed path and follow relevant callers, producers, consumers, schemas,
@@ -96,7 +122,8 @@ subagents automatically, within the caller's authority and host limits. Select
 their questions from the change, not a fixed roster or file-size threshold.
 
 An assigned facet worker or a `compare-solutions` participant performs its single
-assigned review without delegation. `compare-solutions` remains the owner of
+assigned review without delegation and uses only the profile context its
+coordinator supplies. `compare-solutions` remains the owner of
 comparing independent complete audits; this skill's coordinator owns complementary
 facets of one review. Neither mode recursively starts the other.
 
@@ -107,10 +134,13 @@ Write the canonical Markdown report at the caller's exact path, or in the
 project's permitted scratch area. Run `python3 <skill-dir>/scripts/report.py
 validate <report.md> --changed-paths <paths.json>` using actual absolute paths.
 Repair format or coverage errors before delivery. The validator checks the
-declared inventory and report structure, not the truth of a finding.
+declared inventory and report structure, not the truth of a finding. A caller may
+also call `scripts/resolve_profile.py` as its CLI documents, or import its
+`profile_matches(path) -> set[str]`, which raises `ProfileError` for a malformed
+profile.
 
 For a caller handoff, return `Wrote <count> findings to <absolute-report-path>`
-after validation. For a standalone review, also run `python3
+after validation; returning ends this review, not the caller's run. For a standalone review, also run `python3
 <skill-dir>/scripts/report.py render <report.md> <report.html> --changed-paths
 <paths.json>` and return the HTML path followed by the Markdown path. Rendering
 copies the stylesheet beside the HTML; keep both together. Edit Markdown first

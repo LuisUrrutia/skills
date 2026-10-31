@@ -24,7 +24,7 @@ reviewer started.
 | Anything that needs the user's judgment | — | Report it; do not reply. |
 
 Name the tracker the project uses when the repository instructions or the private
-`pr-review` profile establish it, for example Jira; otherwise ask for "a ticket"
+review profile establish it, for example Jira; otherwise ask for "a ticket"
 without naming a tool. An inaccessible tracker does not block resolving on the
 author's ticket key or link. A resolved deferral stays an accepted deferral for
 later reviews.

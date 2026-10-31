@@ -8,7 +8,7 @@ resolution, repairs, or a write outside the review and replies this run publishe
 ## Read feedback after independent synthesis
 
 The supervisor prefetches into `existing-feedback/`, hidden from worker processes.
-After the independent reports and parent sweeps are reduced, wait for the collector
+After the independent reports and parent checks are reduced, wait for the collector
 with `reviewers.py wait --kind collector` and read `manifest.json` first.
 Its files cover inline comments, review bodies, conversation comments, threads
 and their paginated comments, check runs and annotations, workflow runs for the

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
 import re
@@ -12,8 +13,6 @@ import subprocess
 import sys
 from pathlib import Path
 from urllib.parse import urlparse
-
-from resolve_profile import profile_matches
 
 
 class SnapshotError(RuntimeError):
@@ -98,8 +97,18 @@ def inventory(repository: Path, base: str, head: str) -> tuple[list[str], dict[s
     return sorted(set(paths)), renames
 
 
-def review_profile(path: Path, repository: str) -> str:
-    if repository.casefold() not in profile_matches(path):
+def profile_matches(audit: Path, path: Path) -> set[str]:
+    spec = importlib.util.spec_from_file_location("resolve_profile", audit / "scripts/resolve_profile.py")
+    module = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(module)
+    try:
+        return module.profile_matches(path)
+    except module.ProfileError as error:
+        raise SnapshotError(str(error)) from error
+
+
+def review_profile(audit: Path, path: Path, repository: str) -> str:
+    if repository.casefold() not in profile_matches(audit, path):
         raise SnapshotError("explicit profile does not match the PR target repository")
     allowed = {"Halves", "Blind spots", "Operational scope", "Findings that died here"}
     result, include = [], False
@@ -130,13 +139,12 @@ def prepare(repository: Path, pr_path: Path, context: Path, audit: Path,
         raise SnapshotError("comparison needs one unambiguous merge-base")
     merge_base = bases[0]
     paths, renames = inventory(repository, merge_base, target["head"])
-    required = [audit / "SKILL.md", audit / "references/protocol.md", audit / "scripts/report.py"]
+    required = [audit / "SKILL.md", audit / "references/protocol.md", audit / "scripts/report.py", audit / "scripts/resolve_profile.py"]
     if not all(path.is_file() for path in required) or "name: review-code-changes" not in required[0].read_text():
         raise SnapshotError("--audit-skill must be the catalog-resolved review-code-changes package")
-    supplement = Path(__file__).resolve().parents[1] / "references/audit-supplement.md"
-    sources = [pr_path, context, *required, supplement, *rules, *([profile] if profile else [])]
+    sources = [pr_path, context, *required, *rules, *([profile] if profile else [])]
     source_hashes = {str(path.resolve()): digest(path) for path in sources}
-    profile_text = review_profile(profile, target["repository"]) if profile else "No private profile. Derive domain contracts from repository evidence."
+    profile_text = review_profile(audit, profile, target["repository"]) if profile else "No private profile. Derive domain contracts from repository evidence."
     output.mkdir(parents=True, exist_ok=True)
     (output / "changed-paths.json").write_text(json.dumps(paths, indent=2) + "\n")
     patch = git(repository, "diff", *DIFF_OPTIONS, "--binary", merge_base, target["head"])
@@ -176,10 +184,9 @@ def prepare(repository: Path, pr_path: Path, context: Path, audit: Path,
         "Read the files directly; a denied parent listing does not establish that "
         "the supplied files are unavailable. The private snapshot manifest is not shared.\n\n"
         "## Canonical audit protocol\n\n" + required[1].read_text() + "\n\n"
-        "## Caller review supplement\n\n" + supplement.read_text() + "\n\n"
         "## PR intent claims\n\n" + str(pr.get("title", "")) + "\n\n" + str(pr.get("body", "")) + "\n\n"
         "## Requirements, standards, seams and unavailable sources\n\n" + context.read_text() + "\n\n"
-        "## Filtered private profile rules\n\n" + profile_text + "\n\n"
+        "## Filtered private profile rules (private calibration)\n\n" + profile_text + "\n\n"
     )
     for rule in rules:
         packet += f"## Shared rule source: {rule.name}\n\n{rule.read_text()}\n\n"
