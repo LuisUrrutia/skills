@@ -264,6 +264,30 @@
         "Creation targets `platform/billing` on `github.acme.internal` as a draft with base `main` and head `fix/tax-rounding`.",
         "No token value is printed, and `gh auth token` runs only inside a per-command substitution, never as a standalone call or an exported variable."
       ]
+    },
+    {
+      "id": 20,
+      "prompt": "Create a PR for my branch. Do not push or call GitHub in this exercise; describe the steps you would take up to the push. Treat these values as verified command output: branch `feature/rate-limit` in `acme/api`, base `main`, merge-base `1111111`, head `2222222`, all work committed. No PR exists for the branch. Earlier in this session `review-code-changes` wrote a validated report for `1111111..1aaaaaa`, an older head; no report covers `2222222`.",
+      "expected_output": "Before any push, a fresh review-code-changes run on 1111111..2222222, because the earlier report covers a different head; every finding fixed, disproved with evidence, reported as an out-of-purpose follow-up, or put to the user; fixes committed and re-reviewed on the new head before publication.",
+      "files": [],
+      "expectations": [
+        "The plan does not reuse the report for `1111111..1aaaaaa` as covering the published head.",
+        "The plan runs `review-code-changes` on `1111111..2222222` before pushing or creating the PR.",
+        "The plan fixes findings whose remedy lands in this change and commits the fixes through `commit`.",
+        "After fixes, the plan reruns affected checks and a repeat review on the new head before publishing.",
+        "No push or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 21,
+      "prompt": "Create a PR for my branch. Do not push or call GitHub in this exercise; describe the steps you would take up to the push. Treat these values as verified command output: branch `fix/null-total` in `acme/shop`, base `main`, merge-base `3333333`, head `4444444`, all work committed. I already ran `review-code-changes` on `3333333..4444444`; its validated report at `/tmp/review.md` has no findings or open questions.",
+      "expected_output": "The supplied report for the exact head is reused; no new review runs; the plan proceeds to publication and the return lists the report path.",
+      "files": [],
+      "expectations": [
+        "The plan reuses `/tmp/review.md` and does not start another `review-code-changes` run.",
+        "The planned return includes the review report path.",
+        "No push or GitHub mutation is executed."
+      ]
     }
   ]
 }

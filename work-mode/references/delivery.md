@@ -11,7 +11,7 @@ responsible owner; this reference composes existing procedures.
   A breakdown alone does not authorize creating tickets. Preserve useful artifacts
   and independent implementation when publication is blocked.
 - For one PR, use `pr` with its exact operation, repository/head/base, verified
-  changes, validation, linked ticket or lookup hint, and explicit create-only or keep-draft
+  changes, validation, review report, linked ticket or lookup hint, and explicit create-only or keep-draft
   limits. Its Create operation normally continues into `pr-followup` Drive.
   Let that owner continue; do not start another follow-up loop on its return.
 - For dependent branches or PRs, use `stacked-pr` with the selected units, actual

@@ -49,6 +49,10 @@ and keep capped publication pending. The selected stack route retains mutation
 and remediation ownership under the shared contract defined by `pr`.
 Read-only inspection may use the same check and report its verdict without publishing.
 
+Before creating each layer's PR, apply `pr`'s Review before creation to that layer
+against its immediate PR base. The stack route applies the fixes and restacks the
+layers above it.
+
 ## Route the request
 
 Choose one primary route, load its file, select the requested operation there, and stop when that
