@@ -138,6 +138,16 @@ rule = "While the engines review, the parent opens the seams and runs the census
 reason = "User decisions of 2026-10-25: engines that carried the same checks still missed items, and two runs of one revision each kept comment findings the other missed. On 2026-10-31 the user kept this redundancy in this skill when the checks moved into review-code-changes."
 where = ["SKILL.md#run-and-reconcile", "references/ledger.md#questions-seams-and-synthesis"]
 
+[[invariants]]
+rule = "Every `gh` write the skill prescribes, the publish helper included, runs under the intended actor's per-command token binding from the host's GitHub account rule, which the skill names rather than copies. The active `gh` account stays unchanged: when the login under the binding is not the actor, the run stops and reports the blocker instead of switching, logging in or logging out."
+reason = "User decision of 2026-10-31: `gh` keeps one active account per host for every process on the machine, and parallel agent sessions on personal and work repositories kept running `gh auth switch`, which broke `gh` for every other session. The global rule changed in https://github.com/LuisUrrutia/.dotfiles/pull/39, but the user observed that a loaded skill's specific step tends to win over it, so agents running this skill kept switching."
+where = ["SKILL.md#pr-review", "SKILL.md#word-select-and-publish", "references/github.md#review-identity-and-comment-plan", "references/github.md#publish-and-verify", "references/github.md#requested-edits", "scripts/publish_review.py"]
+
+[[invariants]]
+rule = "The binding sets the token variable `gh` reads for the recorded host: `GH_TOKEN` for github.com and ghe.com subdomains, `GH_ENTERPRISE_TOKEN` for a GitHub Enterprise Server host. The publish helper refuses to run when that variable is unset."
+reason = "Inferred from the invariant that every `gh` write runs under the actor's binding: `gh help environment` applies `GH_TOKEN` only to github.com and ghe.com subdomains, so a fixed `GH_TOKEN` leaves an Enterprise Server write on stored credentials, and without the refusal an unbound run passes whenever the active account happens to be the actor."
+where = ["references/github.md#review-identity-and-comment-plan", "scripts/publish_review.py"]
+
 [[dependencies]]
 kind = "local"
 name = "review-code-changes"

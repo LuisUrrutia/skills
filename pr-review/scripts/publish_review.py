@@ -24,6 +24,11 @@ class RejectedError(PublishError):
 
 class GitHub:
     def __init__(self, host: str):
+        # gh reads GH_TOKEN only for github.com and *.ghe.com; Enterprise Server hosts read GH_ENTERPRISE_TOKEN.
+        variable = "GH_TOKEN" if host == "github.com" or host.endswith(".ghe.com") else "GH_ENTERPRISE_TOKEN"
+        if not os.environ.get(variable):
+            raise PublishError(f"no {variable} for {host}: bind the intended actor's token for this command "
+                               "instead of using or switching the active gh account")
         self.host = host
 
     def call(self, endpoint: str, payload: dict | None = None, paginate: bool = False):
@@ -166,8 +171,10 @@ def apply(snapshot: Path, plan_path: Path, actor: str, receipt: Path, api=None, 
 
     def preflight():
         verify(snapshot)
-        if api.call("user").get("login") != actor:
-            raise PublishError("active GitHub actor differs from the intended actor")
+        login = api.call("user").get("login")
+        if login != actor:
+            raise PublishError(f"gh authenticates as {login!r}, not the intended actor {actor!r}; "
+                               "bind the actor's token instead of switching the active gh account")
         current = api.call(prefix)
         if current.get("user", {}).get("login") == actor:
             raise PublishError("the actor authored this PR; follow it with pr-followup instead")

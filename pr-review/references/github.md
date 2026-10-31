@@ -25,11 +25,13 @@ commands; the local checkout can be a fork.
 
 ## Review identity and comment plan
 
-Before a write, determine the intended GitHub actor from explicit user direction
-or the path-effective Git email matched to an authenticated account. A Git/SSH
-identity does not prove the `gh` actor. Verify `gh api user --jq .login` on the
-recorded host. If a verified intended account is already authenticated, switch
-and verify it under the host's rules. Ask only if identity remains ambiguous.
+Determine the intended GitHub actor as the host's GitHub account rule directs,
+and run every `gh` write in this file, the helper included, under that rule's
+per-command token binding; gh's active account stays unchanged. A GitHub
+Enterprise Server host binds `GH_ENTERPRISE_TOKEN` from that host instead of
+`GH_TOKEN`. Under the binding, `gh api user --jq .login` on the recorded host
+must print the actor. Otherwise stop and report the blocker instead of running
+`gh auth switch`, `login` or `logout`.
 
 Validate both PR head and base against the frozen snapshot. Recheck the local
 snapshot, rules and anchors before writing. An out-of-date review is not brought
@@ -80,6 +82,7 @@ The helper validates hunk membership, not whether the finding belongs there.
 ## Publish and verify
 
 ```bash
+GH_TOKEN="$(gh auth token --hostname github.com --user "$INTENDED_ACTOR" || echo none)" \
 python3 "$SKILL_DIR/scripts/publish_review.py" \
   --snapshot "$SCRATCHPAD/inputs/snapshot.json" \
   --plan "$SCRATCHPAD/comment-plan.json" --actor "$INTENDED_ACTOR" \
@@ -136,9 +139,9 @@ from the read-back state.
 
 ## Requested edits
 
-Read the current body before an authorized edit and preserve concurrent user
-changes. Use GitHub's supported review-comment mutation for the actual comment
-ID, then read back the body. Do not delete/recreate a review to repair wording. Use numbered/path-based scratch filenames, not case-only
+Under the actor's binding, read the current body before an authorized edit and
+preserve concurrent user changes. Use GitHub's supported review-comment mutation
+for the actual comment ID, then read back the body. Do not delete/recreate a review to repair wording. Use numbered/path-based scratch filenames, not case-only
 node-ID distinctions on case-insensitive filesystems. After a batch, inspect every
 returned body for accidental duplicates and missing intended edits.
 
