@@ -68,6 +68,20 @@ edit it, for example with
 instead of adding another. Feedback replies belong to `pr-followup`, their
 wording to `comment-style`.
 
+When GraphQL is exhausted as [exact PR](../SKILL.md#establish-identity-and-scope)
+defines, recheck through its REST lookup, then create with
+`gh api repos/<target>/pulls -f title=<title> -f head=<head> -f base=<base> -F draft=true -F body=@<file>`
+(omit `draft` for ready preference; for a fork head add
+`-F maintainer_can_modify=true`, and `-f head_repo=<head-repository-name>` when
+both repositories share an organization owner), update with
+`gh api -X PATCH repos/<target>/pulls/<number> -f title=<title> -F body=@<file>`,
+post the detail comment with
+`gh api repos/<target>/issues/<number>/comments -F body=@<file>`, and read back
+with `gh api repos/<target>/pulls/<number>`. REST has no `--attach`; follow
+attachments' unavailable route. Draft-state and other authorized metadata
+changes, such as reviewers, labels or assignees, wait for the GraphQL reset;
+report them as pending.
+
 ## Verify the result
 
 After every write, including failure/timeout, and before accepting an existing PR

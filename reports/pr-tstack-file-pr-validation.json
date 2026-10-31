@@ -1,0 +1,81 @@
+{
+ "skill": "pr",
+ "date": "2026-10-31",
+ "request": "Adopt ideas from t3dotgg/tstack skills/file-pr at 6efae364201abc9d9f07443e9caa461f42e51090: weak and strong title and opening examples, impact rather than mechanism in titles, a problem-first opening from the requester's perspective, title convention from merged PR titles and base history, and a REST fallback when GraphQL is exhausted. Decline the model and harness attribution footer.",
+ "baseline_commit": "78677aa",
+ "commits": [
+  "458929c4ee79b1d10758b90b990834ef7c52bdc7",
+  "8b307ea"
+ ],
+ "size": {
+  "method": "Whitespace-separated words across SKILL.md and all references.",
+  "total": {
+   "before": 3932,
+   "after": 4211
+  }
+ },
+ "growth_reasons": [
+  "Title impact rule, measurement condition and weak/strong pairs for title and opening: user request (ideas 1-3).",
+  "Title convention reads before a title and titles in the merged-PR query: user request (idea 4); reviewers found title-only requests skipped them.",
+  "REST lookup in the exact-PR step and REST write, comment, read-back, fork and draft-wait routes: user request (idea 5); reviewers verified that an unqualified REST head filter returns unrelated PRs.",
+  "Repository-required AI disclosure exception: keeps the declined footer from overriding repository rules."
+ ],
+ "review": {
+  "candidate": "458929c (tree 31f6a6a75dccd9c013483f07ce8fd96f422e8b93)",
+  "profiles": [
+   {
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "findings": "5 P2"
+   },
+   {
+    "provider": "claudeAgent",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "findings": "5 medium, 7 low, 1 process"
+   }
+  ],
+  "dispositions": "All findings adopted in 8b307ea, including evaluation. maintainer_can_modify for forks adopted to match gh pr create's default of allowing maintainer edits."
+ },
+ "evaluation": {
+  "design": "Cases 14 (regression), 15 and 16 (new). Executors: Claude Code 2.1.291 with claude-opus-5-5 at xhigh (Read/Glob/Grep only, skills disabled, strict empty MCP) and Codex CLI 0.160.1 with gpt-6.1-sol at xhigh (read-only sandbox, ephemeral). Each read only a neutrally named staged copy of the arm's runtime files; Codex traces show reads only under pkg/. One trial per case, host and arm. Graded by the coordinator (claude-opus-5-5), not blind.",
+  "arms": {
+   "base": "78677aa runtime",
+   "final": "8b307ea runtime"
+  },
+  "final_runtime_sha256": {
+   "SKILL.md": "3a191eb8fce5e209b2da1020a5213aee8d6cd735393eb2ab89103dbfd1d1c924",
+   "references/attachments.md": "f11316f98a0db6277ddb9f3781ce1ee4cbfdb1b5201fea4fb9079c2e770a3b8b",
+   "references/claims.md": "ab57710eb4e310080eac414838a781b352ba7c422f59610f00cda0d87bab2887",
+   "references/continuation.md": "471f98dd541f2801045e3b8705eda458b741e2a3c135fa27fc24c4a965cf316c",
+   "references/publication.md": "3de1a291b092e8bc721aa4340b0e05d687797369845d4b58e9e080b39b574433",
+   "references/review-packet.md": "7cf33764d92709d6c8a7f368ae1820c094eb8eb167e22f424922b481274114b3",
+   "references/visual-evidence.md": "4bd552ace395c347f3605a8919524ede74d202e22ec0178d25e498052bba6ca8"
+  },
+  "case_matrix": [
+   {
+    "case": "case-14",
+    "claude_base": "6/6 (814 body chars)",
+    "claude_final": "6/6 (714)",
+    "codex_base": "6/6 (497)",
+    "codex_final": "6/6 (505)"
+   },
+   {
+    "case": "case-15",
+    "claude_base": "8/8; title names mechanism and outcome, no figure",
+    "claude_final": "8/8; title states the measured 71%",
+    "codex_base": "8/8; outcome title, no figure",
+    "codex_final": "8/8; title states the measured 71%"
+   },
+   {
+    "case": "case-16",
+    "claude_base": "6/6",
+    "claude_final": "6/6",
+    "codex_base": "6/6",
+    "codex_final": "6/6"
+   }
+  ],
+  "limits": "Case 16 does not discriminate: both hosts already chose an owner-qualified paginated REST route without the new text, so it guards against regression rather than proving gain. Case 15's baseline already opened problem-first; the final arm moved both hosts' titles to the measured impact. Single trials support only these cases. Other cases (1-13) were not rerun; their reads of title or REST text can change only the title wording and the GraphQL-exhausted branch, which they do not exercise."
+ }
+}

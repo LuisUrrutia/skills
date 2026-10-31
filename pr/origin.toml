@@ -588,6 +588,58 @@ validation = [
   "Ran eval cases 5 and 7 on Claude Code (claude-opus-5-5) and Codex (gpt-6.1-sol), both at xhigh, against the previous and updated packages. Each host scored the same on both packages; Codex case 5 took two trials per package and scored 6 of 10 expectations on each, with the failures swapping between trials.",
 ]
 
+[[sources]]
+id = "tstack-file-pr"
+author = "Theo Browne"
+repository = "https://github.com/t3dotgg/tstack"
+remote = "git@github.com:t3dotgg/tstack.git"
+ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "6efae364201abc9d9f07443e9caa461f42e51090"
+reviewed_through = "6efae364201abc9d9f07443e9caa461f42e51090"
+baseline_paths = ["skills/file-pr/SKILL.md", "LICENSE"]
+paths = ["skills/file-pr/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "The title leads with the delivered impact and why it matters rather than only the mechanism that produced it, and quantifies the impact only when a measurement supports the figure."
+serves = "Gives reviewers and the squash commit history a title that says what changed for users instead of how."
+where = ["references/review-packet.md#title-and-body"]
+shapes = "Replaces the outcome rule with one that rejects a mechanism-only title, adds a measurement condition for figures, and adds a weak and strong title pair."
+adapted = "The strong example says compression instead of the donor's gzipping, because permessage-deflate uses DEFLATE, not gzip."
+
+[[sources.ideas]]
+idea = "The body opens with the problem as the affected user or API consumer experiences it, taken from motivation evidence such as the request or ticket, followed by the resulting behavior, before any implementation detail."
+serves = "Lets the reviewer understand why the change exists before reading how it works, and prevents an opening that is an inventory of edits."
+where = ["references/review-packet.md#title-and-body"]
+shapes = "Names the source and perspective of the opening problem and adds a weak inventory opening beside a strong problem-first opening."
+adapted = "The donor takes the problem from the user's original prompt; here any motivation evidence the claims reference accepts can supply it, because an Update request often states no problem. The strong example uses neutral voice, since the person who raised the problem may not be the PR author."
+
+[[sources.ideas]]
+idea = "The title convention comes from written rules, otherwise from the titles of recent merged PRs not authored by bots and the base branch's non-merge commit subjects, because titles often become squash commit messages. Titles are sampled whether or not their bodies are empty."
+serves = "Makes the title follow the repository's real convention instead of a guessed one, including when only a title is requested."
+where = ["SKILL.md#understand-the-change-and-repository", "references/review-packet.md#title-and-body"]
+shapes = "Makes the convention reads apply before a title as well as a body, and extends the merged-PR query to return up to ten titles beside the non-empty body lengths that set the length budget."
+
+[[sources.ideas]]
+idea = "When gh api rate_limit shows the GraphQL primary limit exhausted, the exact-PR lookup, the create or update write, the detail comment and the read-back go through the REST API, whose primary limit is separate, keeping the intended draft state. The REST lookup qualifies the head with its owner, paginates and matches head ref and repository. Merged-PR convention evidence also has a REST query, and every REST call carries the target host off github.com. REST cannot upload attachments or change draft state, so captures follow the attachments reference's unavailable route, and draft and other metadata changes wait for the reset."
+serves = "Keeps publication possible during GraphQL exhaustion without creating a duplicate PR or losing the draft default."
+where = ["SKILL.md#establish-identity-and-scope", "references/publication.md#create-or-update-metadata"]
+shapes = "Adds the REST lookup and host rule to the exact-PR step, a REST convention query beside the merged-PR query, and a REST paragraph after the update and detail-comment rules."
+adapted = "The donor uses REST for creation only after a creation error; here the rate_limit endpoint detects exhaustion, as pr-followup does, so a secondary limit shared by both APIs does not trigger more writes, and every GraphQL step has a REST route or a stated wait."
+
+[[sources.declined]]
+feature = "Ending the body with the public model name and harness that made the change, such as 'Created with <model> in <harness>.'"
+reason = "User decision on 2026-10-31: PR bodies carry no model or harness attribution footer."
+
+[[sources.declined]]
+feature = "Opening a ready PR instead of a draft so review bots run."
+reason = "The invariant that a new PR opens as a draft unless the user's preference says ready."
+
+[[sources.declined]]
+feature = "Handing follow-up to babysit-pr and comment wording to leaving-pr-comments."
+reason = "The pr-followup skill owns follow-up and the comment-style skill owns comment wording."
+
 [[local_snapshots]]
 id = "pr-SKILL.md"
 kind = "installed-file"
