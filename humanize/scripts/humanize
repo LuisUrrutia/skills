@@ -1,0 +1,153 @@
+#!/usr/bin/env python3
+"""Rewrite English or Chinese prose with the humanizer model on Runpod.
+
+Reads a file argument or stdin, writes the rewrite to stdout, and reports
+fact-check warnings on stderr. Needs RUNPOD_API_KEY and HUMANIZER_URL, the
+endpoint's /completion URL.
+"""
+import argparse
+import hashlib
+import json
+import os
+import re
+import sys
+import time
+import urllib.error
+import urllib.request
+
+INSTR = (
+    "Rewrite the text below so it reads like a person wrote it, not a language model.\n\n"
+    "Reorganize it as you see fit. Vary sentence length on purpose. Cut hedging,\n"
+    "throat-clearing, and any sentence that only announces what comes next.\n"
+    "Prefer the concrete word over the abstract one. It is fine to sound uneven.\n\n"
+    "Every fact, number, unit, date, name and quotation must survive unchanged."
+)
+SEP = "\n\n### Rewritten:\n\n"
+# The model's context is 8192 tokens; chunks this size leave room for the rewrite.
+MAX_CHUNK_CHARS = 3000
+# A cold worker needs about 2 minutes to load the model; Runpod answers with an
+# error while no worker is ready.
+COLD_START_DEADLINE_S = 420
+
+
+def build_prompt(draft: str) -> str:
+    return INSTR + "\n\n" + draft.strip() + SEP
+
+
+assert hashlib.sha256(build_prompt("X").encode()).hexdigest()[:16] == "cc51d66b4c593fbe"
+
+
+def split_blocks(text: str) -> list[tuple[bool, str]]:
+    """Return (rewrite?, block) pairs; code fences and headings stay verbatim."""
+    blocks: list[tuple[bool, str]] = []
+    prose: list[str] = []
+
+    def flush() -> None:
+        chunk = ""
+        for para in prose:
+            if chunk and len(chunk) + len(para) + 2 > MAX_CHUNK_CHARS:
+                blocks.append((True, chunk))
+                chunk = ""
+            chunk = f"{chunk}\n\n{para}" if chunk else para
+        if chunk:
+            blocks.append((True, chunk))
+        prose.clear()
+
+    parts = re.split(r"(```.*?```)", text, flags=re.S)
+    for part in parts:
+        if part.startswith("```"):
+            flush()
+            blocks.append((False, part))
+            continue
+        for para in re.split(r"\n\s*\n", part):
+            para = para.strip()
+            if not para:
+                continue
+            if para.startswith("#") and "\n" not in para:
+                flush()
+                blocks.append((False, para))
+            else:
+                prose.append(para)
+    flush()
+    return blocks
+
+
+def call_model(draft: str, url: str, key: str) -> str:
+    body = {
+        "prompt": build_prompt(draft),
+        "temperature": 1.0,
+        "top_p": 0.95,
+        "top_k": 0,
+        "min_p": 0,
+        "repeat_penalty": 1.0,
+        "n_predict": max(256, min(2048, int(len(draft) / 4 * 2.5))),
+    }
+    data = json.dumps(body).encode()
+    headers = {"Content-Type": "application/json", "Authorization": f"Bearer {key}"}
+    deadline = time.monotonic() + COLD_START_DEADLINE_S
+    while True:
+        req = urllib.request.Request(url, data, headers)
+        try:
+            with urllib.request.urlopen(req, timeout=330) as resp:
+                return json.load(resp)["content"].strip()
+        except urllib.error.HTTPError as err:
+            if err.code in (401, 403):
+                sys.exit(f"humanize: Runpod rejected the API key (HTTP {err.code})")
+            problem = f"HTTP {err.code}"
+        except (urllib.error.URLError, TimeoutError) as err:
+            problem = str(err)
+        if time.monotonic() > deadline:
+            sys.exit(f"humanize: endpoint not ready after {COLD_START_DEADLINE_S}s ({problem})")
+        print(f"humanize: waiting for a worker ({problem})", file=sys.stderr)
+        time.sleep(10)
+
+
+def fact_issues(draft: str, out: str) -> list[str]:
+    issues = []
+    for label, pattern in (("number", r"\d+(?:[.,]\d+)*"), ("url", r"https?://\S+")):
+        before, after = set(re.findall(pattern, draft)), set(re.findall(pattern, out))
+        issues += [f"missing {label} {x}" for x in sorted(before - after)]
+        issues += [f"added {label} {x}" for x in sorted(after - before)]
+    return issues
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("file", nargs="?", help="input file (default: stdin)")
+    args = parser.parse_args()
+
+    key = os.environ.get("RUNPOD_API_KEY")
+    if not key:
+        sys.exit("humanize: RUNPOD_API_KEY is not set")
+    url = os.environ.get("HUMANIZER_URL")
+    if not url:
+        sys.exit("humanize: HUMANIZER_URL is not set")
+    text = open(args.file, encoding="utf-8").read() if args.file else sys.stdin.read()
+    if not text.strip():
+        sys.exit("humanize: empty input")
+
+    out_blocks = []
+    flagged = False
+    for rewrite, block in split_blocks(text):
+        if not rewrite:
+            out_blocks.append(block)
+            continue
+        out = call_model(block, url, key)
+        issues = fact_issues(block, out)
+        if issues:
+            # The model slips on single facts now and then; one more sample usually fixes it.
+            retry = call_model(block, url, key)
+            retry_issues = fact_issues(block, retry)
+            if len(retry_issues) < len(issues):
+                out, issues = retry, retry_issues
+        if issues:
+            flagged = True
+            print(f"humanize: check this piece: {'; '.join(issues)}", file=sys.stderr)
+        out_blocks.append(out)
+
+    print("\n\n".join(out_blocks))
+    sys.exit(2 if flagged else 0)
+
+
+if __name__ == "__main__":
+    main()
