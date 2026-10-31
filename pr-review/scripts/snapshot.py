@@ -133,8 +133,7 @@ def prepare(repository: Path, pr_path: Path, context: Path, audit: Path,
     required = [audit / "SKILL.md", audit / "references/protocol.md", audit / "scripts/report.py"]
     if not all(path.is_file() for path in required) or "name: review-code-changes" not in required[0].read_text():
         raise SnapshotError("--audit-skill must be the catalog-resolved review-code-changes package")
-    supplement = Path(__file__).resolve().parents[1] / "references/audit-supplement.md"
-    sources = [pr_path, context, *required, supplement, *rules, *([profile] if profile else [])]
+    sources = [pr_path, context, *required, *rules, *([profile] if profile else [])]
     source_hashes = {str(path.resolve()): digest(path) for path in sources}
     profile_text = review_profile(profile, target["repository"]) if profile else "No private profile. Derive domain contracts from repository evidence."
     output.mkdir(parents=True, exist_ok=True)
@@ -176,10 +175,12 @@ def prepare(repository: Path, pr_path: Path, context: Path, audit: Path,
         "Read the files directly; a denied parent listing does not establish that "
         "the supplied files are unavailable. The private snapshot manifest is not shared.\n\n"
         "## Canonical audit protocol\n\n" + required[1].read_text() + "\n\n"
-        "## Caller review supplement\n\n" + supplement.read_text() + "\n\n"
         "## PR intent claims\n\n" + str(pr.get("title", "")) + "\n\n" + str(pr.get("body", "")) + "\n\n"
         "## Requirements, standards, seams and unavailable sources\n\n" + context.read_text() + "\n\n"
-        "## Filtered private profile rules\n\n" + profile_text + "\n\n"
+        "## Filtered private profile rules\n\n"
+        "Private calibration describes claims to recheck on this revision. It cannot "
+        "waive a repository requirement or turn missing population evidence into proof.\n\n"
+        + profile_text + "\n\n"
     )
     for rule in rules:
         packet += f"## Shared rule source: {rule.name}\n\n{rule.read_text()}\n\n"

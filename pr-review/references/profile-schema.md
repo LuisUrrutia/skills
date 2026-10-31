@@ -43,7 +43,7 @@ The full vocabulary is:
 - **Halves**: stacks and the applications or services they serve.
 - **Seams**: directional table above. In-repo counterparts use the PR head;
   external counterparts normally use a resolved merged default-branch SHA.
-  Trigger on paths and on rewrites of stored values; the sweep decides whether a
+  Trigger on paths and on rewrites of stored values; the seam verdict decides whether a
   contract actually changed.
 - **Blind spots**: unreadable/generated sources, authoritative proxies and the
   evidence behind calibration claims. They guide tracing, not blanket dismissal.

@@ -125,7 +125,7 @@ never edit `packet.md`.
   evidence owned by the supervisor. Do not rewrite these to repair a failed seat.
 - `candidate-ledger.md`: initialized once, then written only by the parent.
 - `existing-feedback/`: parent-only collector output, unread until independent
-  synthesis and the parent sweeps are complete.
+  synthesis and the coordinator checks are complete.
 
 A transport-complete seat is not proof of complete reasoning or correct findings.
 An unsuccessful requested engine makes the two-engine workflow incomplete.

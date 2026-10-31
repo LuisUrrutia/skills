@@ -89,26 +89,6 @@ reason = "User decision of 2026-10-08, after an earlier rule to name the missing
 where = ["SKILL.md#word-select-and-publish"]
 
 [[local_snapshots.deviations]]
-change = "Added to the brief, for each population or workflow named as reachable, its triggering request or execution, host, environment and mode, and the evidence that the auditor's tracing rule accepts; a population that is only admitted is named separately with the evidence it lacks."
-reason = "User decision of 2026-10-13. A review had published a required finding for an internal host on a route with no evidenced caller through that host: the brief listed the host as reachable because it grants every permission, the engine cited the PR body's description of the branch as a requirement, and the coordinator answered the missing caller by lowering the severity. The reviewer who owns those paths confirmed the route is not called that way."
-where = ["SKILL.md#brief"]
-
-[[local_snapshots.deviations]]
-change = "Added reading the subject ticket's linked designs and the parent ticket's description, acceptance criteria and comments to the brief; a parent requirement for the behavior the PR implements applies unless the subject or a recorded decision supersedes it."
-reason = "User decision of 2026-10-13 from the human review of the same PR: the owning reviewer cited the parent epic as asking for the soft delete the PR lacked, and the brief had named that epic without reading it."
-where = ["SKILL.md#brief"]
-
-[[local_snapshots.deviations]]
-change = "Added to the seam sweep a comparison of the semantics of an operation that both sides of a seam perform, such as a soft or hard delete, as well as its shape."
-reason = "User decision of 2026-10-13 from the human review of the same PR, where the missing soft delete was a semantic mismatch across the seam."
-where = ["references/seams.md"]
-
-[[local_snapshots.deviations]]
-change = "Added a caller lens that establishes which entry points of a domain change must emit its events, webhooks or notifications, including other services and a system of record's own public API."
-reason = "User decision of 2026-10-13 from the human review of the same PR: partners also change those records through the system of record's public API."
-where = ["references/audit-supplement.md"]
-
-[[local_snapshots.deviations]]
 change = "Added rule authority classes to the profile reference, including owner convention: rules that the owning reviewer of the touched paths enforces, reported as an optional finding of the subject's class unless a standard or a traced consequence makes it required."
 reason = "User decision of 2026-10-13. On that PR the engines received that reviewer's mined conventions as leads and dropped them, while the author applied 23 of the reviewer's 29 threads; over six months up to 86% of the reviewer's comments on those paths were applied, counting changed or resolved lines."
 where = ["references/profiles.md"]
@@ -132,43 +112,18 @@ reason = "User decision of 2026-10-22, after a published review body opened with
 where = ["SKILL.md#word-select-and-publish"]
 
 [[local_snapshots.deviations]]
-change = "Added to the caller supplement a test census: for each validation rule, mapping, mapping ignore or result-changing branch whose behavior the diff adds or changes, the engine finds the test that fails without it (deleted or inverted when new, the previous behavior when changed), reports a member without one and an added test that passes with its target deleted, excuses an evidenced behavior-neutral member, and records the census on that path's single Coverage line."
-reason = "User decision of 2026-10-23. On a private repository's PR a human reviewer raised six such gaps; the engines held the team test standard but reported one, and their reports did not show which rules went unchecked."
-where = ["references/audit-supplement.md"]
-
-[[local_snapshots.deviations]]
 change = "Added that the brief records each passed rule file's scope as the file's own text sets it, never narrower, so a rule that asks for a failing test per production change covers the production hunks and not only the changed tests."
 reason = "User decision of 2026-10-23. On the same PR the brief scoped the team test standard to changed test files, and the engines judged the existing tests instead of looking for a test per changed rule."
 where = ["references/profiles.md"]
 
 [[local_snapshots.deviations]]
-change = "Added to the caller supplement a sibling-parity check for a public contract concept that the change adds or alters, such as a date range, pagination, masking or an enum: compare its semantics with the sibling endpoints of the same API version and run the supplied conventions' or specification's examples and the most common realistic input through the code. A divergence from those semantics, or from siblings that follow them, without a recorded decision is a finding or a question; a PR body disclosure is no decision."
-reason = "User decision of 2026-10-23. On the same PR two human reviewers found that a date-only createdTo meant midnight, unlike the sibling v2 lists and the conventions' own example; both engines and the coordinator accepted the author's disclosure and the literal spec text."
-where = ["references/audit-supplement.md"]
-
-[[local_snapshots.deviations]]
-change = "Added to the brief that a subject or parent ticket that is a conformance or consistency initiative contributes its rules for the concepts the PR changes as requirements and its audit findings for them as evidence, not as a summary, and that the brief names the sibling endpoints of each public contract concept the PR changes."
+change = "Added that the brief names the sibling endpoints of each public contract concept the PR changes."
 reason = "User decision of 2026-10-23. On the same PR the parent epic was a consistency initiative whose audit listed date-range drift across endpoints, and the brief reduced it to one line."
 where = ["SKILL.md#brief"]
 
 [[local_snapshots.deviations]]
-change = "Added to candidate reduction that the coordinator judges each candidate with the caller supplement as well as the protocol, treats an author's PR body disclosure as a claim rather than a recorded decision, and censuses every member of a family, such as the rules of one validator, before settling a candidate's extent."
-reason = "User decision of 2026-10-23. On the same PR the coordinator verified a missing test for one validator rule against two sibling rules that had tests and stopped there; a human reviewer then raised the untested remaining rules."
-where = ["references/ledger.md"]
-
-[[local_snapshots.deviations]]
-change = "Added to the seam sweep a version-skew comparison for a contract field removed, renamed or newly required between sides that can run different versions, through separate deploys, a rolling rollout or a client keeping an old build: each side at base against the other at head, in both directions, each a row naming its window. A skew gap where the old side reads, sends or omits the field is a candidate: a defect when its window can outlast a release or it writes lasting data, otherwise an optional improvement. An earlier PR with the same pattern records no decision."
-reason = "User decisions of 2026-10-25. On a benchmark review of a PR that removed contract fields, a break between a backend service and the API layer that reads it while old and new versions run together stayed an unposted question, and the same break between the single-page app and that service was never examined. The user then confirmed that releases deploy every service together, which leaves the rollout and old browser tabs as the windows; the coordinator proposed classing gaps by how long the window lasts and whether it writes lasting data, and the user accepted it."
-where = ["references/seams.md"]
-
-[[local_snapshots.deviations]]
-change = "Added a parent maintainability sweep, run beside the seam sweep while the workers review. It censuses near copies of what the diff adds or rewrites, blocks repeated across changed files and computations repeated within a function; data copied without a single source or equality test; writers of one stored value compared on the same input, where a difference is a cost without a caller and a new writer's difference is the diff's; newly read keys without a constraint, which writer validation does not replace; and work rebuilt from static data."
-reason = "User decisions of 2026-10-25. On a benchmark review of a PR, both engines received the protocol's structure lens and still raised one of ten maintainability issues that another reviewer found; the user chose a check owned by this skill over consulting that reviewer, which this skill never reads. Later runs missed a fixture repeated in 30 files and a new backfill that trims differently, skipped copies the diff rewrote rather than added, dropped writer differences for want of a caller and accepted writer canonicalization in place of a constraint."
-where = ["references/maintainability.md", "SKILL.md#run-and-reconcile", "references/ledger.md#questions-seams-and-synthesis"]
-
-[[local_snapshots.deviations]]
-change = "Added to candidate reduction that a defect an engine names but sets aside on a premise it could not settle is a pending candidate tied to that premise, judged again once the seam sweep, a resolved question or the parent's trace settles it."
-reason = "User decision of 2026-10-25. On a benchmark review, an engine named a carried display defect and set it aside because it could not tell whether an external system writes the triggering value; the seam sweep later read that system's writer, and the coordinator never returned to the defect."
+change = "Added to candidate reduction that a defect an engine names but sets aside on a premise it could not settle is a pending candidate tied to that premise, judged again once a seam verdict, a resolved question or the parent's trace settles it."
+reason = "User decision of 2026-10-25. On a benchmark review, an engine named a carried display defect and set it aside because it could not tell whether an external system writes the triggering value; the parent's seam check later read that system's writer, and the coordinator never returned to the defect."
 where = ["references/ledger.md#candidate-entries"]
 
 [[local_snapshots.deviations]]
@@ -182,34 +137,19 @@ reason = "User decision of 2026-10-25. On the same benchmark review, one engine'
 where = ["references/ledger.md#questions-seams-and-synthesis"]
 
 [[local_snapshots.deviations]]
-change = "Added to the caller supplement that a test asserting behavior a finding shows defective, or covering only a shape the writers can no longer produce while the failing shape stays untested, is an affected site of that finding with its own anchor and remedy."
-reason = "User decision of 2026-10-25. On the same benchmark review, a new integration test pinned a regression with a record the backfill already resolves, and the coordinator cited the test only as evidence of that regression instead of asking for it to be fixed."
-where = ["references/audit-supplement.md"]
-
-[[local_snapshots.deviations]]
 change = "Added to comment selection that a test site of a finding outside tests is posted with that finding, whatever the test-only selection rule says."
 reason = "User decision of 2026-10-25 that a new test pinning a regression be fixed before merge; the test-only selection rule would otherwise keep that site internal."
 where = ["SKILL.md#word-select-and-publish"]
 
 [[local_snapshots.deviations]]
-change = "Added to the caller supplement: compare each variant of a changed expression that several variants share at base and head, including the configuration that selects it, under the sibling-semantics rule's recorded-decision qualifier; trace what clears each UI or form state the diff sets, server-set errors included; and treat a comment the diff makes untrue as a finding."
-reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On a second benchmark PR the other skill found a builder link change made for one API version that broke the other, an answer error that stayed after the input was corrected, and a doc comment the change made false; both engines had reviewed those files."
-where = ["references/audit-supplement.md"]
-
-[[local_snapshots.deviations]]
-change = "For a diff that changes rendered UI, the supplement checks distinct accessible names or a labelled group for repeated controls and a focus destination after an element is added, removed or disabled, under the repository's own accessibility target. When the accessibility skill resolves, its reference enters the packet under a path-derived name with the review-practice class, which directs checks without making a change required; otherwise the run continues."
+change = "For a diff that changes rendered UI, when the accessibility skill resolves, its reference enters the packet under a path-derived name with the review-practice class, which directs checks without making a change required; otherwise the run continues."
 reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On the same PR the other skill found repeated row labels with no group name and focus lost after deleting a row; the packet's accessibility baseline covered contrast, visible focus and labels but not those checks."
-where = ["SKILL.md#prepare-one-reproducible-review", "references/audit-supplement.md", "references/profiles.md"]
+where = ["SKILL.md#prepare-one-reproducible-review", "references/profiles.md"]
 
 [[local_snapshots.deviations]]
-change = "Added to the seam sweep that a migration, backfill or job that rewrites stored values opens a seam for each published contract that returns them. A value the rewrite changes in what a consumer reads is a gap even when shapes match: a question for the contract owner when undocumented, a candidate defect when a published contract documents it."
+change = "Added that profile seams trigger on rewrites of stored values as well as on changed paths."
 reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On the same PR a backfill changed what integrator-facing APIs return, and no seam opened because the sweep opens seams by changed path."
-where = ["references/seams.md", "SKILL.md#prepare-one-reproducible-review", "references/profile-schema.md"]
-
-[[local_snapshots.deviations]]
-change = "Refined the maintainability sweep to search first the packages a changed file imports from, their fixtures, handlers, helpers and mocks included, then the same app or package, and for a mock or handler the existing handler of the same route; and to compare copies and writers by what they count or match, such as the unit a length counts, not only their values."
-reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On the same PR the sweep compared story handlers only with generated helpers and missed a hand-written copy in the shared package the story imports its fixtures from, and compared two writers of one value without noticing that their length limits count different units."
-where = ["references/maintainability.md"]
+where = ["references/profile-schema.md"]
 
 [[local_snapshots.deviations]]
 change = "Added to candidate reduction a pointer that synthesized severity follows the protocol's consequence rule, under which a rare trigger narrows Affected, not severity."
@@ -225,16 +165,6 @@ where = ["references/t3-subagents.md", "references/reviewers.md"]
 change = "Replaced selecting test-only and tooling comments only when requested or when they are the PR's substance with selecting test, story and tooling findings like any other finding."
 reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On both benchmark PRs the rule kept verified test gaps, story mock defects and typed-fixture violations on code the PR added internal, while the other skill surfaced them."
 where = ["SKILL.md#word-select-and-publish"]
-
-[[local_snapshots.deviations]]
-change = "Added a parent comment and test sweep, run beside the maintainability sweep. It checks the comments the diff adds or changes, existing comments on changed members and the summaries of interfaces a changed member implements, test summaries included, against the head's behavior, and the added or changed ones against the repository's comment rules. For each new or changed filter, rule or branch it checks the level and runtime of the test that fails without it against the standard governing its path, which a sibling's test or the file's lower-level pattern does not satisfy. Engines record that runtime in their census."
-reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On a third benchmark PR, each of two runs of the same revision kept comment findings the other run missed, and only one kept a filter tested only on an in-memory database, although both runs' engines carried the supplement's comment rule and census and the repository's testing standard."
-where = ["references/comments-and-tests.md", "references/audit-supplement.md", "SKILL.md#run-and-reconcile", "references/ledger.md#questions-seams-and-synthesis"]
-
-[[local_snapshots.deviations]]
-change = "Added to the maintainability sweep's near-copy check that when the diff adds one member to several statements, those statements are compared whole."
-reason = "User decision of 2026-10-25 that pre-existing issues in an expression the change edits be suggested as optional tickets. On the same PR one run compared only the shared membership check the diff added to four handlers and missed that the rest of their predicate repeated and had drifted."
-where = ["references/maintainability.md"]
 
 [[local_snapshots.deviations]]
 change = "Replaced placing only required findings without a line anchor in the review body with placing every selected finding without one there."
@@ -261,9 +191,9 @@ where = [
 ]
 
 [[local_snapshots.deviations]]
-change = "Added the issues a PR is linked to close as subject-ticket candidates after a tracker key in the branch name, title and body."
-reason = "Inferred from the user's 2026-10-30 decision that the title's ticket comes from any tracker: the title uses the subject ticket, and the PR that prompted the decision named its GitHub issue only as a closing reference."
-where = ["SKILL.md#brief", "SKILL.md#prepare-one-reproducible-review"]
+change = "Removed the caller review supplement and the parent seam sweep's criteria; the packet carries only the auditor protocol, and the parent runs the coordinator checks the review-code-changes skill assigns."
+reason = "User decision of 2026-10-31: rules for how to review code belong in the review-code-changes skill, not in this skill."
+where = ["SKILL.md#run-and-reconcile", "references/ledger.md", "scripts/snapshot.py"]
 
 [[dependencies]]
 kind = "local"
@@ -273,11 +203,11 @@ role = "Canonical audit methodology, severity, report grammar and validator, res
 decisions = [
   "Each engine is one non-delegating comparison participant over the full frozen PR scope.",
   "Each run freezes the resolved auditor protocol and its validator; the skill maintains no copied audit core.",
-  "Later caller lenses stay in references/audit-supplement.md until a separately authorized auditor update.",
   "2026-10-13, at the user's direction: the caller-evidence rule for caller-, host- and mode-specific failures went into the auditor protocol as an authorized auditor update, because it governs every audit and both the engines and this coordinator judge with it.",
   "2026-10-25, at the user's direction: the rule that a reachable trigger's rarity narrows Affected rather than severity went into the auditor protocol as an authorized auditor update, because the engines grade severity before the coordinator does.",
   "2026-10-25, with the user's approval of the change: carrying a pre-existing defect that lies in an expression the change edits, and counting repetition the change extends as part of its resulting structure, went into the auditor protocol as an authorized auditor update, because the auditor owns Class and Action.",
   "2026-10-25, with the user's approval of the change: making optional an unmet standard whose remedy would no longer serve the change went into the auditor protocol as an authorized auditor update, because the auditor owns Class and Action.",
+  "2026-10-31, at the user's direction: every remaining review criterion this skill held, its caller lenses, seam semantics, maintainability, comment and test checks and the brief's intent rules, went into the auditor, so this skill keeps no audit criteria and runs the auditor's coordinator checks.",
 ]
 
 [[dependencies]]

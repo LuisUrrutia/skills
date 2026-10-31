@@ -53,6 +53,27 @@ summary, and existing test describe claims to check; they do not prove
 correctness. Mark a missing specification as a limit while continuing the
 supported review. Do not invent product requirements to fill it.
 
+Look for a subject ticket in the branch name, then the PR title and body, then
+the issues the PR closes. Validate a candidate key against the tracker's project
+keys: strings such as `UTF-8` are not tickets. Later candidates are related
+context and add no acceptance criteria by themselves. Through the authorized
+tracker, read the subject's description, acceptance criteria, comments and linked
+designs, and its parent's description, acceptance criteria and comments. A parent
+requirement for the behavior the change implements, such as whether a delete is
+soft or hard, applies unless the subject or a recorded decision supersedes it.
+When the subject or its parent is a conformance or consistency initiative, carry
+its rules for the concepts the change alters as requirements and its audit
+findings for them as evidence, not as a summary. Record unavailable content
+rather than inferring it. Without a ticket, continue from accessible intent;
+ask only when the missing information would materially change the review.
+
+Identify which users, row populations, environments or workflows each claim
+reaches, from code and accessible contracts. For each one named as reachable,
+record its triggering request or execution, its host, environment and mode, and
+the evidence the protocol's tracing rule accepts. Name one that is only
+admitted, such as an internal host granted every permission with no evidenced
+caller, separately with the evidence it lacks. Do not invent populations.
+
 Review both intended behavior and applicable standards. Then apply the protocol
 to every changed path and follow relevant callers, producers, consumers, schemas,
 configuration, and dependencies beyond the diff. Use bounded discovery that
@@ -98,7 +119,10 @@ their questions from the change, not a fixed roster or file-size threshold.
 An assigned facet worker or a `compare-solutions` participant performs its single
 assigned review without delegation. `compare-solutions` remains the owner of
 comparing independent complete audits; this skill's coordinator owns complementary
-facets of one review. Neither mode recursively starts the other.
+facets of one review. Neither mode recursively starts the other. In either mode,
+the coordinator also opens the seams and runs the census checks itself while
+the auditors work, because auditors that carried those checks still missed
+items, and treats each gap and census item as a candidate.
 
 ## Deliver the report
 

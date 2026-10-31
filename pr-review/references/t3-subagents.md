@@ -59,7 +59,7 @@ seat blocked instead of silently weakening that policy.
 
 ## Completion and format repair
 
-Continue the parent sweeps while children work. T3 completion notifications
+Continue the coordinator checks while children work. T3 completion notifications
 wake the parent; use `task_status` when a result is needed mid-turn. If no
 independent work remains, yield to the armed notification. Do not busy-poll or
 launch a separate watcher. Observe the collector through its saved process handle.

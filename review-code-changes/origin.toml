@@ -77,6 +77,46 @@ rule = "An optional remedy that lies outside the change's purpose is recommended
 reason = "User decision of 2026-10-25 that maintainability findings suggest a ticket or a solution. The split by the change's purpose, a ticket outside it and a solution within it, was proposed by the coordinator and confirmed by the user the same day."
 where = ["references/protocol.md#calibrate-and-challenge-findings"]
 
+[[invariants]]
+rule = "Review criteria that callers apply, including those first written for the pr-review skill, live in this skill's protocol and entrypoint; a caller adds orchestration, not criteria."
+reason = "User decision of 2026-10-31: pr-review held rules for how to review code that belong in this skill, so a standalone review or another caller applied none of them."
+where = ["references/protocol.md", "SKILL.md#gather-intent-and-review"]
+
+[[invariants]]
+rule = "The subject ticket comes from the branch name, then the PR title and body, then the issues the PR closes, validated against the tracker's project keys. The review reads the subject's description, acceptance criteria, comments and linked designs and its parent's description, acceptance criteria and comments. A parent requirement for the implemented behavior applies unless superseded, and a conformance or consistency initiative contributes its rules as requirements and its audit findings as evidence."
+reason = "User decisions of 2026-10-13 and 2026-10-23 for pr-review: a human reviewer cited a parent epic, named but unread, as asking for the soft delete a PR lacked, and on another PR a consistency initiative listing date-range drift was reduced to one line. Closing issues follow from the user's 2026-10-30 decision that tickets come from any tracker, as inferred for a PR that named its issue only as a closing reference."
+where = ["SKILL.md#gather-intent-and-review"]
+
+[[invariants]]
+rule = "For each population or workflow named as reachable, the review records its triggering request or execution, host, environment and mode, and the evidence the tracing rule accepts; one that is only admitted is named separately with the evidence it lacks."
+reason = "User decision of 2026-10-13 for pr-review, after the review behind the caller-evidence invariant listed an internal host as reachable because it grants every permission."
+where = ["SKILL.md#gather-intent-and-review"]
+
+[[invariants]]
+rule = "Seams compare semantics as well as shapes, such as soft or hard deletes. A migration, backfill or job that rewrites stored values opens a seam for each published contract that returns them. A field removed, renamed or newly required between sides that can run different versions is compared base against head in both directions: required when its window can outlast a release or it writes lasting data, otherwise optional."
+reason = "User decisions of 2026-10-13 and 2026-10-25 for pr-review: a missing soft delete across a seam, a backfill that changed what integrator APIs return without opening a seam, and a removed contract field whose break between running versions went unexamined. The user confirmed that releases deploy every service together, leaving the rollout and old browser tabs as windows."
+where = ["references/protocol.md#seams"]
+
+[[invariants]]
+rule = "The review establishes which entry points of a domain change must emit its events, compares a changed public contract concept with sibling endpoints and each variant a changed expression serves at base and head, traces what clears each UI or form state the change sets, and checks accessible names of repeated controls and the focus destination after an element changes. A PR body disclosure records no decision."
+reason = "User decisions of 2026-10-13, 2026-10-23 and 2026-10-25 for pr-review: partners also changed records through a system of record's public API, a date-only bound diverged from sibling endpoints after the author disclosed it, and another review skill found a link broken for one API version, an error that outlived its input, repeated row labels without a group and focus lost after deleting a row."
+where = ["references/protocol.md#correctness-compatibility-and-security", "references/protocol.md#calibrate-and-challenge-findings"]
+
+[[invariants]]
+rule = "Census checks cover near copies, copied data, one rule per stored value, integrity and repeated static work, comments the change makes untrue, a test that fails without each changed rule or branch on the runtime its standard requires, and tests that pin defective behavior. Each census is recorded on its path's Coverage line; a maintainability item that does not change behavior is optional unless a standard requires it."
+reason = "User decisions of 2026-10-23 and 2026-10-25 for pr-review. Engines holding the team test standard reported one of six untested rules, and benchmark reviews missed most maintainability issues another reviewer found, a fixture repeated in 30 files, a backfill that trims differently, a false doc comment, a filter tested only on an in-memory database and a test pinning a regression."
+where = ["references/protocol.md#census-checks"]
+
+[[invariants]]
+rule = "A coordinator of facets or of independent complete audits also opens the seams and runs the census checks itself while the auditors work, and treats each gap and census item as a candidate."
+reason = "User decisions of 2026-10-25 for pr-review: auditors that carried the same checks still missed items, and two runs of one revision each kept comment findings the other missed."
+where = ["SKILL.md#use-focused-support"]
+
+[[invariants]]
+rule = "Before settling a candidate's extent, the review censuses every member of the family it concerns, and it traces a proposed remedy with the care of its diagnosis."
+reason = "User decision of 2026-10-23 for pr-review: a coordinator verified a missing test for one validator rule against two siblings that had tests and stopped, and a human reviewer then raised the remaining untested rules."
+where = ["references/protocol.md#calibrate-and-challenge-findings"]
+
 [[sources]]
 id = "addy-review"
 author = "Addy Osmani"

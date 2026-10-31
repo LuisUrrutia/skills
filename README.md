@@ -517,6 +517,7 @@ review-audit skill; it preserves a read-only review phase and local reports.
 
 - Pins the actual comparison and accounts for every declared changed path
 - Traces causal evidence, requirements, standards, structure, security, and verification
+- Opens cross-repository seams and runs census checks for copies, stored-value writers, comments, and tests
 - Distinguishes required changes, optional improvements, and unresolved questions
 - Uses relevant specialists within the review's scope and permissions
 - Delegates independent risk areas automatically when useful, with one coordinator validating evidence and complete coverage
