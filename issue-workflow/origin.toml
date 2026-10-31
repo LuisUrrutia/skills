@@ -65,6 +65,14 @@ where = [
 ]
 
 [[invariants]]
+rule = "For `gh`, the user-level GitHub account rule chooses the actor. Every `gh` command the skill runs, reads included, is bound to that actor for that command alone, and a failed or different login under the binding is a blocker. The skill never changes gh's active account with `gh auth switch`, `login` or `logout`, and it points to that rule rather than restating its procedure."
+reason = "User decision (2026-10-31): gh keeps one active account per host for every process on the machine, so parallel agent sessions that ran `gh auth switch` broke gh for every other session; the skill points to the rule rather than copying it. Reads are bound too because, without a switch, a read runs under whatever account is active, and GitHub answers a private resource that account cannot see with 404."
+where = [
+  "SKILL.md#issue-workflow",
+  "references/identity.md",
+]
+
+[[invariants]]
 rule = "Publish mode sends prepared tasks to the tracker. Dividing work into units stays with the task-breakdown skill, and publishing tickets changes no delivery state."
 where = [
   "SKILL.md#resolve-the-operation",
