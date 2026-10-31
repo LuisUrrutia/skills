@@ -78,9 +78,9 @@ reason = "User decision of 2026-10-25 that maintainability findings suggest a ti
 where = ["references/protocol.md#calibrate-and-challenge-findings"]
 
 [[invariants]]
-rule = "Review criteria that callers apply, including those first written for the pr-review skill, live in this skill's protocol and entrypoint; a caller adds orchestration, not criteria."
-reason = "User decision of 2026-10-31: pr-review held rules for how to review code that belong in this skill, so a standalone review or another caller applied none of them."
-where = ["references/protocol.md", "SKILL.md#gather-intent-and-review"]
+rule = "Review criteria that callers apply, including those first written for the pr-review skill, and the private repository profiles that say how to review a specific repository live in this skill; a caller adds orchestration, not criteria."
+reason = "User decisions of 2026-10-31: pr-review held rules for how to review code and the profile resolution that belong in this skill, so a standalone review or another caller applied none of them."
+where = ["references/protocol.md", "SKILL.md#gather-intent-and-review", "references/profiles.md"]
 
 [[invariants]]
 rule = "The subject ticket comes from the branch name, then the PR title and body, then the issues the PR closes, validated against the tracker's project keys. The review reads the subject's description, acceptance criteria, comments and linked designs and its parent's description, acceptance criteria and comments. A parent requirement for the implemented behavior applies unless superseded, and a conformance or consistency initiative contributes its rules as requirements and its audit findings as evidence."
@@ -126,6 +126,21 @@ where = ["references/protocol.md#requirements-and-standards"]
 rule = "When the change applies a rule to a family of fields, handlers or call sites, or a candidate concerns such a family, the review censuses every member before settling its extent, and it traces a proposed remedy with the care of its diagnosis."
 reason = "User decision of 2026-10-23 for pr-review: a coordinator verified a missing test for one validator rule against two siblings that had tests and stopped, and a human reviewer then raised the remaining untested rules."
 where = ["references/protocol.md#calibrate-and-challenge-findings"]
+
+[[invariants]]
+rule = "Private repository profiles stay outside the package as external runtime inputs. A profile supplies local context, never permission to waive required repository behavior, and workers receive only its review sections while access details and personal bindings stay with the coordinator."
+reason = "Profiles hold checkout and access details, tracker setup, personal wording bindings and historical calibration that the portable package must not bundle."
+where = ["references/profiles.md", "references/profile-schema.md", "scripts/resolve_profile.py"]
+
+[[invariants]]
+rule = "The default profile directory is the first existing of review-code-changes/profiles, pr-review/profiles and pr-review-draft/profiles under XDG_CONFIG_HOME, so profiles set up under earlier owners keep resolving."
+reason = "User decision of 2026-10-31 to move profile resolution from pr-review into this skill while falling back to the directories pr-review used."
+where = ["references/profiles.md", "scripts/resolve_profile.py"]
+
+[[invariants]]
+rule = "Profile seams trigger on rewrites of stored values as well as on changed paths."
+reason = "User decision of 2026-10-25 for pr-review. On a benchmark PR a backfill changed what integrator-facing APIs return, and no seam opened because seams opened only by changed path."
+where = ["references/profile-schema.md"]
 
 [[sources]]
 id = "addy-review"

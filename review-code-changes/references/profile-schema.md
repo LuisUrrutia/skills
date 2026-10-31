@@ -27,7 +27,7 @@ Source: root architecture guide at the reviewed revision.
 
 | Diff touches | Kind | Trace into | Read it at | Where a fix lands |
 | --- | --- | --- | --- | --- |
-| `api/**` | in-repo | `web/` callers | PR head | this PR |
+| `api/**` | in-repo | `web/` callers | reviewed head | this change |
 
 ## Blind spots
 
@@ -39,30 +39,30 @@ The full vocabulary is:
 
 - **Matches**: exact target `owner/repo`, not a fork, old alias or a related service.
 - **Checkouts**: private discovery/access conventions and intended accounts. Do not
-  include credential values. Keep this section with the parent.
+  include credential values. Keep this section with the coordinator.
 - **Halves**: stacks and the applications or services they serve.
-- **Seams**: directional table above. In-repo counterparts use the PR head;
+- **Seams**: directional table above. In-repo counterparts use the reviewed head;
   external counterparts normally use a resolved merged default-branch SHA.
   Trigger on paths and on rewrites of stored values; the seam verdict decides whether a
   contract actually changed.
 - **Blind spots**: unreadable/generated sources, authoritative proxies and the
   evidence behind calibration claims. They guide tracing, not blanket dismissal.
-- **Rules**: domain guides the parent passes through `--rules`, chosen by changed
-  path, with each file's authority class from [profiles.md](profiles.md) and the
-  evidence for an owner convention. Keep this section with the parent; the brief
-  carries each passed file's class and scope to the engines.
+- **Rules**: domain guides chosen by changed path, each with its protocol
+  authority class and the evidence for an owner convention. Keep this section
+  with the coordinator; workers receive each applicable file with its class and
+  scope.
 - **Tracker**: valid project prefixes, retrieval method and where decisions live.
-  Keep access details with the parent; sanitize retrieved requirements for workers.
-- **Author names**: the name a PR author's login takes in the conversation title,
-  such as a short name for an app account.
+  Keep access details with the coordinator; sanitize retrieved requirements for workers.
+- **Author names**: for a publishing caller, the name a PR author's login takes
+  in a conversation title, such as a short name for an app account.
 - **Operational scope**: evidenced populations and workflows. Personal tolerance
   for an edge case cannot silently waive a required behavior.
-- **Comment bindings**: explicitly stated language familiarity, voice and local
-  naming/convention preferences for `comment-style`. Required/optional status
+- **Comment bindings**: for a publishing caller, explicitly stated language
+  familiarity, voice and local naming/convention preferences for `comment-style`. Required/optional status
   and certainty survive question phrasing.
 - **Findings that died here**: a candidate shape, the evidence that defeated it,
   and its revision. Recheck that evidence; history does not predetermine a verdict.
 
 A separate repository review-policy document is useful only when the repository
 needs one and creating it is authorized. Do not migrate private access/history
-facts into tracked project docs as a side effect of reviewing a PR.
+facts into tracked project docs as a side effect of a review.

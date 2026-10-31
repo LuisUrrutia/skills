@@ -6,7 +6,15 @@ import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-from resolve_profile import ProfileError, resolve_profile
+import importlib.util
+import sys
+
+SCRIPT = Path(__file__).resolve().parents[1] / "scripts/resolve_profile.py"
+spec = importlib.util.spec_from_file_location("resolve_profile", SCRIPT)
+module = importlib.util.module_from_spec(spec)
+sys.modules["resolve_profile"] = module
+spec.loader.exec_module(module)
+ProfileError, resolve_profile = module.ProfileError, module.resolve_profile
 
 BODY = '# Fixture\n\n## Matches\n\n| Repository | Status |\n| --- | --- |\n| `example-org/api` | current |\n'
 
@@ -45,11 +53,15 @@ class ProfileTests(unittest.TestCase):
         (legacy / 'profile.md').write_text(BODY)
         with patch.dict(os.environ, {'XDG_CONFIG_HOME': str(self.profiles)}):
             fallback = resolve_profile('example-org/api')
-            current = self.profiles / 'pr-review/profiles'
-            current.mkdir(parents=True)
+            previous_dir = self.profiles / 'pr-review/profiles'
+            previous_dir.mkdir(parents=True)
+            (previous_dir / 'profile.md').write_text(BODY)
+            previous = resolve_profile('example-org/api')
+            (self.profiles / 'review-code-changes/profiles').mkdir(parents=True)
             preferred = resolve_profile('example-org/api')
 
         self.assertEqual(fallback['profile'], str((legacy / 'profile.md').resolve()))
+        self.assertEqual(previous['profile'], str((previous_dir / 'profile.md').resolve()))
         self.assertEqual(preferred['status'], 'none')
 
     def test_missing_explicit_directory_is_an_error(self):

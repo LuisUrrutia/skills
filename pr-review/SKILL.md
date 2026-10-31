@@ -33,8 +33,7 @@ preserve independently useful work.
    baseRefName, baseRefOid, headRefName and headRefOid in `pr.json`. The URL
    identifies the **target** repository even for a fork. Resolve relevant
    repository instructions, requirements and standards with their source,
-   revision and applicability. A private profile supplies local context, never
-   permission to waive required repository behavior. When the conversation is
+   revision and applicability. When the conversation is
    dedicated to reviewing this PR and the host can rename it (T3:
    `t3_thread_update` with `rename`), title it
    `[REVIEW] #<number> <ticket> <author>`. The ticket is the subject ticket of the
@@ -55,7 +54,7 @@ preserve independently useful work.
    guide through `--rules` so both engines receive it. When the diff adds or
    changes rendered UI and the `accessibility` skill resolves by registered name,
    stage its web or platform reference under a path-derived name and pass it
-   with the review-practice class from [profiles.md](references/profiles.md);
+   with the review-practice authority class;
    when it is unavailable, record that and continue. The helper records
    immutable base/head/merge-base, the unique changed-path JSON (including deleted
    paths), a rename-origin map, the exact diff, source hashes and actual Git state.
@@ -185,5 +184,4 @@ requirements and standards with their actual authority, the subject ticket and
 its parent, the affected stack, reachable and only-admitted populations, each
 opened seam with its direction, counterpart revision and missing access or why
 none opened, and the sibling endpoints of each public contract concept the PR
-changes. Validate a candidate ticket key against the matched profile's live
-project keys.
+changes.

@@ -9,6 +9,7 @@ export PYTHONDONTWRITEBYTECODE=1
 test -d "$TMPDIR"
 test -f "$AUDIT_SKILL_DIR/references/protocol.md"
 test -f "$AUDIT_SKILL_DIR/scripts/report.py"
+test -f "$AUDIT_SKILL_DIR/scripts/resolve_profile.py"
 
 python3 - "$skill_dir" <<'PY'
 import json

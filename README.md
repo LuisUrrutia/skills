@@ -518,6 +518,7 @@ review-audit skill; it preserves a read-only review phase and local reports.
 - Pins the actual comparison and accounts for every declared changed path
 - Traces causal evidence, requirements, standards, structure, security, and verification
 - Opens cross-repository seams and runs census checks for copies, stored-value writers, comments, and tests
+- Reads a private per-repository review profile from the first existing of `$XDG_CONFIG_HOME/review-code-changes/profiles`, `pr-review/profiles` or `pr-review-draft/profiles`, or `--profiles-dir`; generic reviews need none
 - Distinguishes required changes, optional improvements, and unresolved questions
 - Uses relevant specialists within the review's scope and permissions
 - Delegates independent risk areas automatically when useful, with one coordinator validating evidence and complete coverage
@@ -548,10 +549,8 @@ is found in any tracker. After a published Comment review it starts
 
 This replaces `pr-review-draft`, which left a pending review for the user to
 submit. Update installed links and explicit invocations to `pr-review`; no alias
-package is included. Private profiles stay outside the package, in
-`$XDG_CONFIG_HOME/pr-review/profiles` (or `~/.config/pr-review/profiles`), with the
-legacy `pr-review-draft/profiles` used when the new directory is absent, or a
-directory passed with `--profiles-dir`. Generic reviews need no profile.
+package is included. Private repository profiles are resolved by
+`review-code-changes`.
 
 ### pr-review-followup
 

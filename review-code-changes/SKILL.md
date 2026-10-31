@@ -46,7 +46,8 @@ report that the result covers the earlier snapshot.
 ## Gather intent and review
 
 Read effective repository instructions, the supplied request, relevant tests,
-and accessible specifications. Search the repository for documents that state
+and accessible specifications. Resolve the target repository's private review
+profile as [references/profiles.md](references/profiles.md) directs. Search the repository for documents that state
 coding standards, such as `CONTRIBUTING.md`, `CODING_STANDARDS.md`, or style
 guides, and read those that govern the changed paths. A PR body, ticket, author
 summary, and existing test describe claims to check; they do not prove
