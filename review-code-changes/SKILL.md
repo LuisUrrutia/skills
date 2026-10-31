@@ -39,7 +39,8 @@ valid result: report it instead of inventing work.
 
 Save the unique changed-path inventory as a JSON array for report validation.
 Record deleted paths and the new path of a rename, identifying the old path in
-Coverage. Capture Git state so concurrent edits or accidental mutations are
+Coverage. A submodule bump is a pin change: record its old and new commits and
+URL; the submodule's contents are an unreviewed seam unless the caller adds them. Capture Git state so concurrent edits or accidental mutations are
 detectable. If the input changes during review, refresh the affected analysis or
 report that the result covers the earlier snapshot.
 
@@ -47,9 +48,12 @@ report that the result covers the earlier snapshot.
 
 Read effective repository instructions, the supplied request, relevant tests,
 and accessible specifications. Resolve the target repository's private review
-profile as [references/profiles.md](references/profiles.md) directs. Search the repository for documents that state
-coding standards, such as `CONTRIBUTING.md`, `CODING_STANDARDS.md`, or style
-guides, and read those that govern the changed paths. A PR body, ticket, author
+profile as [references/profiles.md](references/profiles.md) directs. Search the
+repository for documents that state coding standards or review policy, such as
+`CONTRIBUTING.md`, `CODING_STANDARDS.md`, `REVIEW.md`, or style guides, and read
+those that govern the changed paths. Read review policy at the base revision: a
+change is not reviewed under policy it wrote itself, and Review basis notes a
+policy edit whose new version was not applied. A PR body, ticket, author
 summary, and existing test describe claims to check; they do not prove
 correctness. Mark a missing specification as a limit while continuing the
 supported review. Do not invent product requirements to fill it.

@@ -68,7 +68,9 @@ Treat intentional removals or breakage as authorized only to the extent the
 request establishes. Trace consequences beyond that stated intent. A comparison
 or parity claim requires reading the comparison path; shared behavior can share
 a defect. Specification silence does not prove either a new product requirement
-or the absence of a regression in established behavior.
+or the absence of a regression in established behavior. When the intent ships
+across several changes, such as the PRs of a multi-PR plan, judge completeness
+against the part this change declares; the rest is out of scope, not missing.
 
 Trace a claimed restriction to its policy, permission or contract owner. Absence
 of an existing capability does not establish a prohibition. Compare a workaround
@@ -89,6 +91,11 @@ lockfile changes, release notes, migrations, and deployed-version interactions.
 An installed package, compatible signature, or version label does not prove
 compatible runtime behavior. Confirm generated or vendored contracts against the
 authoritative revision when that provenance decides the claim.
+
+For a deleted file, check that nothing in the surviving tree still reaches it:
+string references such as asset paths or config and plugin names, routes
+resolved from file names, and registrations it made when imported, as well as
+static imports.
 
 For an event, webhook, notification or other side effect emitted for a domain
 change, establish from its contract, consumers or ticket which entry points must

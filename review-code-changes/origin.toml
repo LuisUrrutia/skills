@@ -151,7 +151,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "a06bc63b3f8b829c14b0bbf53d99fefc39d58092"
-reviewed_through = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+reviewed_through = "8bfcc1f9916f2eea55494d8c1fa7f4bde867dd9e"
 baseline_paths = [
   "skills/code-review-and-quality/SKILL.md",
   "references/security-checklist.md",
@@ -229,6 +229,14 @@ validation = [
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
+[[sources.reviews]]
+from_commit = "aeac41d4d005999432bb7312f7ff06383a91d59d"
+to_commit = "8bfcc1f9916f2eea55494d8c1fa7f4bde867dd9e"
+incorporated = []
+skipped = ["references/security-checklist.md and references/performance-checklist.md: corrected example commands (a staged-diff secret scan that prints file names only, a Lighthouse URL, an aliased web-vitals import). Checklist examples; no recorded idea or review concept changes."]
+deferred = []
+validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate."]
+
 [[sources]]
 id = "superpowers-review"
 author = "Jesse Vincent / obra"
@@ -238,7 +246,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "8ca22dba9a94f28898bbce59f2537ff4d87c747d"
-reviewed_through = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
+reviewed_through = "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b"
 baseline_paths = [
   "skills/requesting-code-review/SKILL.md",
   "skills/requesting-code-review/code-reviewer.md",
@@ -289,6 +297,14 @@ validation = [
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
+[[sources.reviews]]
+from_commit = "bb92a77741419a4ab5f06e711a283343f1ada0c3"
+to_commit = "2ce8aa15d05bd57213e6f746f953aafb7ded7a8b"
+incorporated = []
+skipped = ["No recorded path changed in the range."]
+deferred = []
+validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate."]
+
 [[sources]]
 id = "thermos-review"
 author = "Cursor / Thermos"
@@ -298,7 +314,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+reviewed_through = "4dd1d05818d19792e7cd6e818f1667f95f7e1dbe"
 baseline_paths = [
   "thermos/skills/thermo-nuclear-review/SKILL.md",
   "thermos/skills/thermo-nuclear-code-quality-review/SKILL.md",
@@ -386,6 +402,14 @@ validation = [
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
+[[sources.reviews]]
+from_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+to_commit = "4dd1d05818d19792e7cd6e818f1667f95f7e1dbe"
+incorporated = []
+skipped = ["No recorded path changed in the range."]
+deferred = []
+validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate."]
+
 [[sources]]
 id = "cursor-quality-review"
 author = "Cursor Team Kit"
@@ -395,7 +419,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "23e4138daa01c42d4969f7a5465f82704e64f798"
-reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+reviewed_through = "4dd1d05818d19792e7cd6e818f1667f95f7e1dbe"
 baseline_paths = [
   "cursor-team-kit/skills/thermo-nuclear-code-quality-review/SKILL.md",
   "cursor-team-kit/LICENSE",
@@ -427,6 +451,14 @@ validation = [
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
+[[sources.reviews]]
+from_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+to_commit = "4dd1d05818d19792e7cd6e818f1667f95f7e1dbe"
+incorporated = []
+skipped = ["No recorded path changed in the range."]
+deferred = []
+validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate."]
+
 [[sources]]
 id = "matt-code-review"
 author = "Matt Pocock"
@@ -436,7 +468,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
-reviewed_through = "49dd158d1076134a641b33efb035946536778336"
+reviewed_through = "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa"
 baseline_paths = ["skills/engineering/code-review/SKILL.md", "LICENSE"]
 paths = ["skills/engineering/code-review/SKILL.md", "LICENSE"]
 
@@ -502,6 +534,14 @@ validation = [
   "Verified baseline, cursor and candidate ancestry; read the complete scoped diff 24fe0ef7737e..49dd158d1076 and the changed files at both commits.",
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
+
+[[sources.reviews]]
+from_commit = "49dd158d1076134a641b33efb035946536778336"
+to_commit = "a496f5513d4a4cf889bc48e189e579f4b0bdf6aa"
+incorporated = []
+skipped = ["skills/engineering/code-review/SKILL.md: every sub-agent starts with a fresh context window. Already covered by review-code-changes/references/delegation.md, which keeps first-pass workers independent and does not count role-play in one context as a subagent run."]
+deferred = []
+validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate."]
 
 [[sources]]
 id = "compound-review-coordination"
@@ -604,6 +644,34 @@ validation = [
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
+[[sources.ideas]]
+idea = "Review policy files such as REVIEW.md govern the review only in their base-revision version, so a change cannot set the rules it is reviewed under; Review basis notes a policy edit whose new version was not applied."
+serves = "Keeps a reviewed change from relaxing its own review."
+where = ["SKILL.md#gather-intent-and-review"]
+shapes = "The intent-gathering paragraph names REVIEW.md among the documents to read and requires the base version of review policy."
+adapted = "The donor's severity remapping, exclusions and caps from the policy file are not adopted; the protocol keeps its own severity and Action rules."
+
+[[sources.ideas]]
+idea = "A whole-file deletion is a defect when the surviving tree still reaches the file through string references, routes resolved from file names or registrations made at import time, not only through static imports."
+serves = "Catches deletions that break silently away from the change site."
+where = ["references/protocol.md#correctness-compatibility-and-security"]
+shapes = "The correctness lens gains a liveness check for deleted files."
+
+[[sources.ideas]]
+idea = "When the intent ships across several changes, such as the PRs of a multi-PR plan, completeness is judged against the part this change declares; the remaining parts are out of scope, not missing."
+serves = "Prevents false missing-requirement findings on one layer of planned multi-PR work."
+where = ["references/protocol.md#requirements-and-standards"]
+shapes = "The requirements lens scopes completeness to the declared part."
+adapted = "Generalized from the donor's plan_group argument to any declared split of the intent."
+
+[[sources.reviews]]
+from_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+to_commit = "3449230705a508229a5a298671e9031e489f0278"
+incorporated = ["skills/ce-code-review/references/scope.md, action-class-rubric.md and subagent-template.md: a repository review policy (REVIEW.md) read from the base, so a change is not reviewed under policy it wrote. Adapted into SKILL.md#gather-intent-and-review without the donor's severity remapping, exclusions or caps.", "skills/ce-code-review/references/personas/adversarial-reviewer.md, correctness-reviewer.md and diff-scope.md: a whole-file deletion is wrong when the surviving tree still reaches it through string references, file-name routes or import-time registrations. Adapted into references/protocol.md#correctness-compatibility-and-security.", "skills/ce-code-review/references/intent-and-plan.md and modes-and-output.md: plan_group scopes completeness to the PR group a multi-PR plan assigns this diff. Adapted into references/protocol.md#requirements-and-standards for any intent that ships across several changes."]
+skipped = ["skills/ce-code-review/references/dispatch-reviewers.md and subagent-template.md: per-subagent model overrides, generic subagent naming, asset delivery by path and the statement that a subagent's context excludes the parent transcript. Covered by delegation.md, which honors caller model constraints and keeps workers independent.", "skills/ce-code-review/references/modes-and-output.md, finish-review.md and validator-batch-template.md: peer outcome fields, policy coverage counts, --irreversible-delete diffs, depth-gate floors for deletions, caller-return wording and staged-diff reading. Donor runtime, output schema and depth floors, excluded by the declined fixed roster or numerical depth floor and the declined donor CLI routes."]
+deferred = ["Behavioral validation of the three incorporated changes on Claude Code and Codex waits for the user's authorization to run evaluations, given on 2026-10-31 as wait for the user's instruction."]
+validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate.", "review-code-changes structural checks: python3 -m unittest discover -s review-code-changes/tests passed; check-origin.py passed."]
+
 [[sources]]
 id = "openclaw-review-completion"
 author = "openclaw"
@@ -666,6 +734,21 @@ validation = [
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
 
+[[sources.ideas]]
+idea = "A submodule bump is a pin change: the review records its old and new commits and URL, and the submodule's contents are an unreviewed seam unless the caller adds them."
+serves = "Keeps Coverage from implying that a bumped dependency's contents were reviewed."
+where = ["SKILL.md#establish-a-reproducible-scope"]
+shapes = "The scope inventory paragraph records pin metadata for gitlink changes."
+adapted = "Stated as a seam of the local review rather than the donor's prompt metadata."
+
+[[sources.reviews]]
+from_commit = "3008b58824c9acbdc9a2fe2b79f8b3567c3db8ac"
+to_commit = "9ac98356158876ca9e84f60f2e53884cd3e684bd"
+incorporated = ["skills/autoreview/SKILL.md: a submodule gitlink bump is pin metadata with old and new IDs and URL, and the submodule's contents are not reviewed automatically. Adapted into SKILL.md#establish-a-reproducible-scope as an unreviewed seam unless the caller adds it."]
+skipped = ["skills/autoreview/SKILL.md: an explicit base with zero selected changes still runs and may report a scoped-clean result. Already covered by the empty-diff rule in references/protocol.md#report-grammar.", "skills/autoreview/SKILL.md: explicit branch allocation manifests with whole changed-file units and cross-owner integration obligations. Covered by delegation.md, which assigns paths per facet and keeps cross-facet interactions with the coordinator.", "skills/autoreview/SKILL.md, references/diagnostics-and-results.md and scripts/autoreview: OpenClaw restricted execution, Codex no-fallback, prompt byte budget, report path readiness probes and effective model status. Donor runtime, excluded by the declined external review runner and the declined copying or running of the donor's runtime."]
+deferred = ["Behavioral validation of the incorporated submodule-pin rule on Claude Code and Codex waits for the user's authorization to run evaluations, given on 2026-10-31 as wait for the user's instruction."]
+validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate.", "review-code-changes structural checks: python3 -m unittest discover -s review-code-changes/tests passed; check-origin.py passed."]
+
 [[sources]]
 id = "alireza-review-perspectives"
 author = "ekreloff (adversarial-reviewer); Alireza Rezvani (repository and code-reviewer)"
@@ -675,7 +758,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "19392f7a08264ed00486a251f5b2098321771f94"
-reviewed_through = "19392f7a08264ed00486a251f5b2098321771f94"
+reviewed_through = "e4a1dc3695908dd5a6c811cc76ab7aa4cf95f2f0"
 baseline_paths = [
   "engineering-team/skills/adversarial-reviewer/SKILL.md",
   "engineering-team/skills/code-reviewer/SKILL.md",
@@ -731,6 +814,14 @@ reason = "No findings is not an approval or a guarantee that the change is ready
 feature = "The donor's PR analyzer, quality checker and report generator scripts."
 reason = "The local causal protocol and the source-aware report validator stay authoritative."
 
+[[sources.reviews]]
+from_commit = "19392f7a08264ed00486a251f5b2098321771f94"
+to_commit = "e4a1dc3695908dd5a6c811cc76ab7aa4cf95f2f0"
+incorporated = []
+skipped = ["engineering-team/skills/adversarial-reviewer/SKILL.md and engineering-team/skills/code-reviewer/SKILL.md: frontmatter moved to metadata and descriptions rewritten for selection. No review concept changed."]
+deferred = []
+validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate."]
+
 [[sources]]
 id = "dyl-review"
 author = "Dylan Gattey / dyl-stack"
@@ -740,7 +831,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "e43c7ee26e0038c6c1fa8380dd34ce86ff94cb2a"
-reviewed_through = "e5136d82418d2db3165ea1050d17577cd618cc05"
+reviewed_through = "4dd1d05818d19792e7cd6e818f1667f95f7e1dbe"
 baseline_paths = [
   "dyl-stack/skills/dyl-review/SKILL.md",
   "dyl-stack/skills/dyl-mode/SKILL.md",
@@ -812,6 +903,14 @@ validation = [
   "Verified baseline, cursor and candidate ancestry; git diff --find-renames e43c7ee26e00..e5136d82418d over the recorded paths is empty and every recorded path exists at the candidate.",
   "reports/skill-atlas/upstream-refresh-validation.json",
 ]
+
+[[sources.reviews]]
+from_commit = "e5136d82418d2db3165ea1050d17577cd618cc05"
+to_commit = "4dd1d05818d19792e7cd6e818f1667f95f7e1dbe"
+incorporated = []
+skipped = ["No recorded path changed in the range."]
+deferred = []
+validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate."]
 
 [[local_snapshots]]
 id = "review-audit-SKILL.md"
