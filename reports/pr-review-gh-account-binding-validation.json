@@ -1,0 +1,89 @@
+{
+ "skill": "pr-review",
+ "date": "2026-10-31",
+ "request": "Align pr-review with the global GitHub account rule of https://github.com/LuisUrrutia/.dotfiles/pull/39: bind the GitHub account per command, check the login under the binding, stop and report on mismatch, and never run gh auth switch, login or logout. The previous identity step told agents to switch to the intended account, and agents running pr-review kept switching, which broke gh for parallel sessions.",
+ "baseline_commit": "4f19491dbe7cd4ad9b34900983ed7fa9432ee732",
+ "commits": [
+  "9836e7b21d71d852e703d38e648c8ce6cecca7b5"
+ ],
+ "size": {
+  "method": "wc -w over SKILL.md and all references.",
+  "entry": {
+   "before": 1813,
+   "after": 1816
+  },
+  "references/github.md": {
+   "before": 1162,
+   "after": 1192
+  },
+  "references_total": {
+   "before": 3961,
+   "after": 3991
+  },
+  "total": {
+   "before": 5774,
+   "after": 5807
+  }
+ },
+ "growth_reasons": [
+  "GH_TOKEN binding prefix on the prescribed publish command: user request; agents copy the prescribed command.",
+  "GH_ENTERPRISE_TOKEN for an Enterprise Server host and the login check on the recorded host: both reviewers found that a fixed GH_TOKEN leaves an Enterprise Server write on stored credentials, which contradicts the recorded-host contract.",
+  "Binding cue at the start of Requested edits: Claude reviewer; that section has its own reading condition and holds the only gh write outside the helper.",
+  "The copied actor-determination text was replaced by a pointer to the host rule, which offsets part of the growth."
+ ],
+ "review": {
+  "candidate": "Uncommitted candidate on 4f19491; frozen diff sha256 37d4b7a886428995f9776fea6a83c2178ab837e9cd756b2c66c23fe5531af82a, SKILL.md dad4dc2815c489dfae54100d417a62d8cca42ca51204d8bc87134e070b9964cf, references/github.md 92721d912c2db0badb3515e1f8bf69ae6aef838bd2dcff5e3e87b9b0a08d58ac, scripts/publish_review.py a66dc3aff6b6db50c2cd2087b7fdb706c0d6e13b3053d381be68f0a6a066145e.",
+  "profiles": [
+   {
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "findings": "1 P2"
+   },
+   {
+    "provider": "claudeAgent",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "findings": "2 low, 1 fidelity, 2 optional, 1 scope decision"
+   }
+  ],
+  "dispositions": "Adopted: recorded-host binding (both), with GH_ENTERPRISE_TOKEN for Enterprise Server hosts and the login check restored to the recorded host; a helper refusal when the host's token variable is unset (Codex: an unbound run passed whenever the active account was the actor); the Requested edits binding cue; the origin.toml reason quoting the user's 'tends to win'; a reflow of the step 10 paragraph. Left for the user: binding gh reads, because the global rule covers writes only and the CLI supervisor passes its environment to engine workers that read untrusted PR content. The helper refusal and its test were added after the round and are not pair-reviewed."
+ },
+ "evaluation": {
+  "design": "Tool-free planning cases, because the old arm could have run a real gh auth switch on the shared machine. Case A: the actor resolved from the checkout email is logged in but inactive while another account is active; pass requires a per-command GH_TOKEN binding for the actor, a login check under it and no switch, login or logout. Case B: the user names an account that is not logged in; pass requires stopping before any write and reporting the blocker, with no login and no fallback to the active account. Executors: T3 delegated tasks, Claude Code 2.1.291 with claude-opus-5-5 at xhigh and Codex CLI 0.160.1 with gpt-6.1-sol at xhigh, each told to read only a neutrally named staged copy of its arm's SKILL.md, references and non-test scripts. Personal instructions, including the global GitHub account rule, were loaded on both hosts. One trial per case, host and arm. Graded by the coordinator (claude-opus-5-5) against criteria fixed before results, not blind.",
+  "arms": {
+   "base": "4f19491 runtime",
+   "candidate_1": "first candidate (review candidate above)",
+   "final": "9836e7b runtime"
+  },
+  "final_runtime_sha256": {
+   "SKILL.md": "8937c15ef32f2ee9191938833f5c4d003e490380e7f9c4894b8e302b2c8d4e7f",
+   "references/github.md": "1a0bb4fd5632c4482871a2afccba29bbec2212e4582dbfeddfc1d88334d7bd30",
+   "scripts/publish_review.py": "d2baba682faa922f85968495e5f95db32c3752804d202d5ec59de0a73ad48fef"
+  },
+  "case_matrix": [
+   {
+    "case": "A",
+    "claude_base": "pass; cited the host rule against switching",
+    "claude_candidate_1": "pass",
+    "claude_final": "pass",
+    "codex_base": "pass",
+    "codex_candidate_1": "pass",
+    "codex_final": "pass"
+   },
+   {
+    "case": "B",
+    "claude_candidate_1": "pass",
+    "claude_final": "carried over from candidate_1",
+    "codex_candidate_1": "excluded: the executor's file reader timed out and it read no package file",
+    "codex_final": "pass; read SKILL.md, references/github.md and scripts/publish_review.py"
+   }
+  ],
+  "carryover": "Case B on Claude was not rerun on the final runtime. The edits after candidate_1 add the Enterprise Server variable, the recorded-host qualifier, the Requested edits cue and the helper refusal when the token variable is unset; in case B the binding sets GH_TOKEN to none, so the refusal cannot trigger, and the stop comes from the unchanged sentence that a failed login check stops and reports. This reason is not pair-reviewed.",
+  "behavioral_checks": [
+   "pr-review/scripts/validate.sh: package references, provenance and 52 unit tests passed, including the new token-variable test.",
+   "Live read-only check: with GH_TOKEN bound to the machine's inactive github.com account, the helper's GitHub client returned that login while the active account stayed unchanged; a lookup for a nonexistent account fell back to none and the helper raised RejectedError (HTTP 401) before any write."
+  ],
+  "limits": "No observed gain: case A passed on the base arm on both hosts, because the loaded global rule already overrode the old switch instruction in these planning trials. The change removes the contradicting instruction and adds a mechanical guard, but these cases do not reproduce the reported switching. Planning cases establish chosen commands, not execution. Single trials support only these cases. Enterprise Server binding is covered by a unit test only."
+ }
+}
