@@ -588,6 +588,56 @@ validation = [
   "Ran eval cases 5 and 7 on Claude Code (claude-opus-5-5) and Codex (gpt-6.1-sol), both at xhigh, against the previous and updated packages. Each host scored the same on both packages; Codex case 5 took two trials per package and scored 6 of 10 expectations on each, with the failures swapping between trials.",
 ]
 
+[[sources]]
+id = "tstack-file-pr"
+author = "Theo Browne"
+repository = "https://github.com/t3dotgg/tstack"
+remote = "git@github.com:t3dotgg/tstack.git"
+ref = "refs/heads/main"
+license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
+role = "ideas"
+baseline_commit = "6efae364201abc9d9f07443e9caa461f42e51090"
+reviewed_through = "6efae364201abc9d9f07443e9caa461f42e51090"
+baseline_paths = ["skills/file-pr/SKILL.md", "LICENSE"]
+paths = ["skills/file-pr/SKILL.md", "LICENSE"]
+
+[[sources.ideas]]
+idea = "The title states the delivered impact and why it matters rather than the mechanism that produced it, and quantifies the impact only when a measurement supports the figure. A weak and a strong title pair shows the difference."
+serves = "Gives reviewers and the squash commit history a title that says what changed for users instead of how."
+where = ["references/review-packet.md#title-and-body"]
+shapes = "Adds the mechanism to what a title must not name, a measurement condition for figures, and a weak and strong title pair."
+
+[[sources.ideas]]
+idea = "The body opens with the problem as the requesting user or caller experiences it, taken from the request or ticket, followed by the resulting behavior, before any implementation detail."
+serves = "Lets the reviewer understand why the change exists before reading how it works, and prevents an opening that is an inventory of edits."
+where = ["references/review-packet.md#title-and-body"]
+shapes = "Names the source and perspective of the opening problem and adds a short example opening."
+
+[[sources.ideas]]
+idea = "The title convention comes from the titles of recent merged PRs and the base branch's recent commit subjects, because titles often become squash commit messages."
+serves = "Makes the title follow the repository's real convention instead of a guessed one."
+where = ["SKILL.md#understand-the-change-and-repository", "references/review-packet.md#title-and-body"]
+shapes = "Extends the merged-PR query that measures body lengths to return titles, and adds a recent base log read."
+
+[[sources.ideas]]
+idea = "When gh reports its GraphQL rate limit exhausted, the exact-PR recheck, the create or update write and the read-back go through the REST API, which has a separate limit, keeping the intended draft state. REST has no attachment upload, so captures follow the attachments reference's unavailable route."
+serves = "Keeps publication possible during GraphQL exhaustion without creating a duplicate PR or losing the draft default."
+where = ["references/publication.md#create-or-update-metadata"]
+shapes = "Adds a REST fallback paragraph after the creation command."
+adapted = "The donor uses REST for creation only; here the duplicate recheck and the update also use REST, because a failed lookup is unknown rather than empty."
+
+[[sources.declined]]
+feature = "Ending the body with the public model name and harness that made the change, such as 'Created with <model> in <harness>.'"
+reason = "User decision on 2026-10-31: PR bodies carry no model or harness attribution footer."
+
+[[sources.declined]]
+feature = "Opening a ready PR instead of a draft so review bots run."
+reason = "The invariant that a new PR opens as a draft unless the user's preference says ready."
+
+[[sources.declined]]
+feature = "Handing follow-up to babysit-pr and comment wording to leaving-pr-comments."
+reason = "The pr-followup skill owns follow-up and the comment-style skill owns comment wording."
+
 [[local_snapshots]]
 id = "pr-SKILL.md"
 kind = "installed-file"

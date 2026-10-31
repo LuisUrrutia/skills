@@ -9,10 +9,19 @@ the work nor a template's invitation to list follow-ups overrides this boundary.
 
 ## Title and body
 
-Follow the repository's title convention; name the delivered outcome, not files,
-generic editing or issue intent. Open with problem and resulting behavior; add a
-before/after example when it clarifies a trigger or boundary. Explain mechanisms
-only for correctness or consequential tradeoffs.
+Follow the repository's title convention; titles often become squash commit
+messages. Name the delivered outcome and why it matters, not the mechanism, files,
+generic editing or issue intent, and state a figure only when measured:
+
+- Weak: `perf(server): negotiate permessage-deflate on the websocket`
+- Strong: `perf(server): cut websocket frame size by 70%+ with gzipping`
+
+Open with the problem as the requesting user or caller experiences it, taken from
+the request or ticket, then the resulting behavior, before any implementation
+detail. For example: "New threads on existing worktrees ignored my 'new worktree'
+default. Now the configured defaults always apply." Add a before/after example
+when it clarifies a trigger or boundary. Explain mechanisms only for correctness
+or consequential tradeoffs.
 
 Point to repository documentation, such as a README's rules, steps or counts,
 with at most a one-line summary instead of restating it. Do not restate commit
@@ -88,7 +97,7 @@ Preserve others' accurate notes and unresolved design questions: the reviewer
 boundary governs your new prose, not deletion of their notes. Evidence is required
 to complete an unchecked item. Repair history belongs in commits.
 
-Use full issue URLs and the verified ticket policy. Include no promotional footer,
+Use full issue URLs and the verified ticket policy. Include no promotional or model/harness attribution footer,
 invented intent or implied human approval.
 
 Before delivery, ensure every claim has evidence, cut each sentence whose removal
