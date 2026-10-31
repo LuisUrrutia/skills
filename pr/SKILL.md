@@ -42,7 +42,11 @@ Read branch, status, remotes, upstream and HEAD. Resolve:
    `gh pr list --repo <target> --state all --head <branch> --json number,url,state,headRefName,headRepository,headRepositoryOwner,baseRefName,isDraft`.
    Here `--head` takes the branch, not `owner:branch`; match branch **and** head
    repository. Disambiguate multiple exact matches. Failed or incomplete lookups
-   are unknown, not empty.
+   are unknown, not empty. `gh pr` commands use GraphQL; when `gh api rate_limit`
+   shows GraphQL `remaining` at 0, use REST, whose primary limit is separate:
+   `gh api -X GET repos/<target>/pulls --paginate -f head=<head-owner>:<branch> -f state=all`,
+   matching `head.ref` and `head.repo.full_name`. GitHub ignores a `head` without
+   its owner.
 4. **Base:** retain an existing PR's actual base; for creation use the explicit
    verified base or target repository's default. Fetch through the target's SSH
    remote and verify that ref's identity rather than trusting local `main`.
@@ -66,18 +70,20 @@ Do not shorten the diff by rewriting published history, reordering a stack or
 separating behavior from its regression test. Necessary generated output is not
 automatically noise.
 
-Before writing a body, read:
+Before writing a title or body, read:
 
 - Repository instructions and `CONTRIBUTING.md`.
 - Templates on the resolved base in root, `docs/`, `.github/` and their
   `PULL_REQUEST_TEMPLATE/` directories. Choose by task and rules; ask only about
   a consequential unresolved choice.
-- Up to ten most recently merged PRs not authored by bots: read their titles,
-  with `git log --oneline -20 <base>`, for the title convention; measure each
-  non-empty body for the review packet's length budget, for example with
-  `gh pr list --repo <target> --state merged --search 'sort:updated-desc' --limit 50 --json author,title,body,mergedAt --jq '[.[] | select((.author.is_bot | not) and (.body | length) > 0)] | sort_by(.mergedAt) | reverse | .[:10] | map({title, chars: (.body | length)})'`
+- Recently merged PRs not authored by bots, for example with
+  `gh pr list --repo <target> --state merged --search 'sort:updated-desc' --limit 50 --json author,title,body,mergedAt --jq '[.[] | select(.author.is_bot | not)] | sort_by(.mergedAt) | reverse | {titles: (.[:10] | map(.title)), chars: (map(select((.body | length) > 0)) | .[:10] | map(.body | length))}'`
   (plain `gh pr list` orders by creation; a PR's update time is never before its
-  merge), and read three bodies, or all if fewer exist, for style rather than policy.
+  merge). Read up to ten titles and the base's commit subjects
+  (`git log --no-merges --format=%s -20 <base>`) for the title convention when no
+  written rule sets it. For a body, measure up to ten non-empty bodies for the
+  review packet's length budget and read three, or all if fewer exist, for style
+  rather than policy.
 
 Record inaccessible required evidence and its failed lookup as unknown;
 continue supported work without inventing conventions.

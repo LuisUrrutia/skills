@@ -191,6 +191,36 @@
         "The body is at most 1,000 characters, or the response reports the overrun and the content causing it is merge/deploy care or one-line validation results.",
         "No push or GitHub call occurs."
       ]
+    },
+    {
+      "id": 15,
+      "prompt": "Prepare a Draft-only title and body for this simulated branch; do not push or call GitHub. Treat these values as verified tool output. Repository `acme/chat`, base `main`, head `perf/ws-compression` at `c1d2e3f`. No PR template or written title rule exists. The ten most recent merged PR titles by humans are `fix(sidebar): keep the selected thread visible after reload`, `perf(search): return results in under 200 ms on large workspaces`, `feat(export): let admins export a workspace as JSON`, `fix(auth): stop logging users out after a password reset`, `perf(sync): halve startup time on slow networks`, `fix(editor): keep the cursor in place when a message arrives`, `feat(threads): pin up to three threads`, `fix(push): deliver notifications on Android 15`, `perf(images): load avatars lazily below the fold`, `fix(api): reject empty message bodies`; their bodies measure 820, 1,140, 960, 700, 1,310, 650, 900, 1,020, 760 and 880 characters. Request from the user: \"Users on mobile data say the app burns through their data plan; a busy channel streams megabytes per minute. Fix it.\" One commit, `c1d2e3f perf(server): enable permessage-deflate on websocket connections`, negotiates the permessage-deflate extension in `server/ws.ts` and adds `server/ws.test.ts`. On `c1d2e3f`, `pnpm test` passed 318 tests, and a recorded 10-minute replay of a busy channel measured 41.2 MB of websocket frames before and 11.9 MB after (`bench/ws-replay.md`). Clients that do not support the extension keep uncompressed frames. Return the title, the body, and anything else the user should know.",
+      "expected_output": "A title in the repository's `type(scope): outcome` style that names the measured data reduction rather than only the extension, and a body that opens with the users' data-usage problem before any implementation detail, with the measurement and test run as evidence and no model or harness attribution.",
+      "files": [],
+      "expectations": [
+        "The title follows the `type(scope): ...` lowercase convention of the listed titles.",
+        "The title states the user-visible outcome, such as less websocket data or smaller frames, and is not only the mechanism (for example, not just `enable permessage-deflate on websocket connections`).",
+        "Any figure in the title or body matches the measured 41.2 MB to 11.9 MB replay (about 71%) and cites or points to that measurement.",
+        "The body's first sentence or paragraph states the problem as users experience it (mobile data use in busy channels) before naming permessage-deflate or files.",
+        "The body states that clients without the extension keep uncompressed frames.",
+        "The body reports `pnpm test` with 318 passing tests on `c1d2e3f`.",
+        "The body has no model, harness or tool attribution footer such as `Created with` or `Generated with`.",
+        "No push or GitHub call occurs."
+      ]
+    },
+    {
+      "id": 16,
+      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output and describe, as exact commands in order, how you would complete the request, then what you would report. The user asked: \"Open a PR for my branch.\" Repository `acme/api` (default branch `main`), local branch `fix/retry-timeout` at `7f6e5d4`, already pushed to `origin` (`git@github.com:acme/api.git`) with remote tip `7f6e5d4`. The title and body are prepared in `.tmp/pr/body.md` (title `fix(client): retry timed-out requests once`), within the length budget, with no captures. The user has no ready-for-review preference. `gh pr list --repo acme/api --state all --head fix/retry-timeout ...` failed with `GraphQL: API rate limit already exceeded for user ID 4242.` `gh api rate_limit` shows `graphql.remaining` 0 resetting in 47 minutes and `core.remaining` 4,870. `gh api user --jq .login` returns `octo-dev`, matching the intended actor.",
+      "expected_output": "A REST route that rechecks the exact PR with an owner-qualified, paginated head filter, creates a draft through the REST pulls endpoint with the body file, reads the result back through REST, and reports the PR without assuming the failed GraphQL lookup meant no PR exists.",
+      "files": [],
+      "expectations": [
+        "The response does not treat the failed GraphQL lookup as proof that no PR exists.",
+        "The exact-PR recheck uses the REST pulls endpoint with `head=acme:fix/retry-timeout` (owner-qualified) and `state=all`, and matches head ref and head repository in the results.",
+        "Creation uses `gh api` against `repos/acme/api/pulls` with base `main`, head `fix/retry-timeout` or `acme:fix/retry-timeout`, the prepared title, the body from `.tmp/pr/body.md` (for example `-F body=@.tmp/pr/body.md`), and draft set to true.",
+        "The response does not use `gh pr create`, `gh pr view` or other GraphQL-based `gh pr` commands while GraphQL is exhausted, or explicitly defers them until the reset.",
+        "The result is read back through REST, such as `gh api repos/acme/api/pulls/<number>`, checking head, base, title, body and draft state.",
+        "The response creates no duplicate PR and does not push again or change the branch."
+      ]
     }
   ]
 }

@@ -56,15 +56,6 @@ The head is `<branch>` within one repository, `<owner>:<branch>` for a user-owne
 fork. Omit `--draft` for ready preference. Creation is non-interactive: never use
 `--web`, `--editor`, `--recover` or `--draft=false`.
 
-`gh pr` commands use GraphQL. When `gh` reports its GraphQL rate limit exhausted,
-switch to REST, which has a separate limit, for the lookup, write and read-back:
-recheck with `gh api 'repos/<target>/pulls?head=<head-owner>:<branch>&state=all'`,
-then create with
-`gh api repos/<target>/pulls -f title=<title> -f head=<head> -f base=<base> -F draft=true -F body=@<file>`
-(omit `draft` for ready preference) or update with
-`gh api -X PATCH repos/<target>/pulls/<number> -f title=<title> -F body=@<file>`.
-REST has no `--attach`; follow attachments' unavailable route.
-
 For Update, use
 `gh pr edit <exact-url> --title <title> --body-file <file>` with only authorized
 metadata flags. Changing base, reviewers, labels, milestone, assignees or draft
@@ -76,6 +67,18 @@ edit it, for example with
 `gh api -X PATCH repos/<owner>/<repo>/issues/comments/<id> -F body=@<file>`,
 instead of adding another. Feedback replies belong to `pr-followup`, their
 wording to `comment-style`.
+
+When GraphQL is exhausted as [exact PR](../SKILL.md#establish-identity-and-scope)
+defines, recheck through its REST lookup, then create with
+`gh api repos/<target>/pulls -f title=<title> -f head=<head> -f base=<base> -F draft=true -F body=@<file>`
+(omit `draft` for ready preference; for a fork head add
+`-F maintainer_can_modify=true`, and `-f head_repo=<head-repository-name>` when
+both repositories share an organization owner), update with
+`gh api -X PATCH repos/<target>/pulls/<number> -f title=<title> -F body=@<file>`,
+post the detail comment with
+`gh api repos/<target>/issues/<number>/comments -F body=@<file>`, and read back
+with `gh api repos/<target>/pulls/<number>`. REST has no `--attach`; follow
+attachments' unavailable route. Draft-state changes wait for the GraphQL reset.
 
 ## Verify the result
 
