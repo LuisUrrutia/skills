@@ -1,22 +1,30 @@
 #!/usr/bin/env python3
-"""Rewrite English or Chinese prose with the humanizer model on Runpod.
+"""Rewrite English or Chinese prose with the humanizer model.
 
 Reads a file argument or stdin, writes the rewrite to stdout, and reports
-fact-check warnings on stderr. Needs RUNPOD_API_KEY and HUMANIZER_URL, the
-endpoint's /completion URL, from the environment or as fish universal variables.
+fact-check warnings on stderr. Runs the model with a local llama-server when
+this machine has the memory for it, and otherwise calls the Runpod endpoint,
+which needs RUNPOD_API_KEY and HUMANIZER_URL, the endpoint's /completion URL,
+from the environment or as fish universal variables.
 """
 import argparse
 import hashlib
 import json
 import os
+import platform
 import re
 import shutil
+import socket
 import subprocess
 import sys
+import tempfile
 import time
 import urllib.error
 import urllib.request
 from collections import Counter
+from contextlib import ExitStack
+from dataclasses import dataclass
+from pathlib import Path
 
 INSTR = (
     "Rewrite the text below so it reads like a person wrote it, not a language model.\n\n"
@@ -31,6 +39,17 @@ MAX_CHUNK_CHARS = 3000
 # A cold worker needs about 2 minutes to load the model; Runpod answers with an
 # error while no worker is ready.
 COLD_START_DEADLINE_S = 420
+
+MODEL_REPO = "jialinyyzz/humanizer-GGUF"
+# (file, minimum unified memory on Apple silicon, minimum VRAM on CUDA), in GiB,
+# best first. The model card lists peak memory of 13.7 GB for Q8_0 and about
+# 11 GB for Q6_K; smaller quantizations slip on facts more often, so a machine
+# below these limits uses Runpod instead.
+LOCAL_QUANTS = (
+    ("humanizer-12b-Q8_0.gguf", 32, 16),
+    ("humanizer-12b-Q6_K.gguf", 16, 12),
+)
+LOCAL_LOAD_DEADLINE_S = 300
 
 
 def build_prompt(draft: str) -> str:
@@ -113,7 +132,16 @@ def split_blocks(text: str) -> list[tuple[bool, str]]:
     return blocks
 
 
-def call_model(draft: str, url: str, key: str, n_predict: int) -> tuple[str, bool]:
+@dataclass
+class Backend:
+    url: str
+    headers: dict[str, str]
+    # How long a failing call keeps retrying; only a scaled-to-zero Runpod
+    # endpoint needs to wait.
+    retry_s: int
+
+
+def call_model(draft: str, backend: Backend, n_predict: int) -> tuple[str, bool]:
     """Return the rewrite and whether it stopped at the n_predict limit."""
     body = {
         "prompt": build_prompt(draft),
@@ -125,10 +153,10 @@ def call_model(draft: str, url: str, key: str, n_predict: int) -> tuple[str, boo
         "n_predict": n_predict,
     }
     data = json.dumps(body).encode()
-    headers = {"Content-Type": "application/json", "Authorization": f"Bearer {key}"}
-    deadline = time.monotonic() + COLD_START_DEADLINE_S
+    headers = {"Content-Type": "application/json", **backend.headers}
+    deadline = time.monotonic() + backend.retry_s
     while True:
-        req = urllib.request.Request(url, data, headers)
+        req = urllib.request.Request(backend.url, data, headers)
         try:
             with urllib.request.urlopen(req, timeout=330) as resp:
                 try:
@@ -146,7 +174,7 @@ def call_model(draft: str, url: str, key: str, n_predict: int) -> tuple[str, boo
         except (urllib.error.URLError, TimeoutError) as err:
             problem = str(err)
         if time.monotonic() > deadline:
-            sys.exit(f"humanize: endpoint not ready after {COLD_START_DEADLINE_S}s ({problem})")
+            sys.exit(f"humanize: model server not ready after {backend.retry_s}s ({problem})")
         print(f"humanize: waiting for a worker ({problem})", file=sys.stderr)
         time.sleep(10)
 
@@ -160,58 +188,189 @@ def fact_issues(draft: str, out: str) -> list[str]:
     return issues
 
 
-def rewrite_piece(draft: str, url: str, key: str, n_predict: int) -> tuple[str, list[str]]:
-    out, truncated = call_model(draft, url, key, n_predict)
+def rewrite_piece(draft: str, backend: Backend, n_predict: int) -> tuple[str, list[str]]:
+    out, truncated = call_model(draft, backend, n_predict)
     issues = fact_issues(draft, out)
     if truncated:
         issues.insert(0, "rewrite cut off at the output limit")
     return out, issues
 
 
+def fish(command: str) -> str:
+    # Agents started from a GUI app run bash or zsh, which miss fish's PATH and
+    # universal variables (`set -Ux`), the place settings persist across reboots.
+    if not shutil.which("fish"):
+        return ""
+    result = subprocess.run(["fish", "-c", command], capture_output=True, text=True, timeout=10)
+    return result.stdout.strip() if result.returncode == 0 else ""
+
+
 def setting(name: str) -> str:
-    value = os.environ.get(name)
-    # Agents started from a GUI app run bash or zsh, which never see fish
-    # universal variables (`set -Ux`), the place they persist across reboots.
-    if not value and shutil.which("fish"):
-        result = subprocess.run(
-            ["fish", "-c", f"printf %s ${name}"],
-            capture_output=True, text=True, timeout=10,
-        )
-        value = result.stdout if result.returncode == 0 else ""
+    value = os.environ.get(name) or fish(f"printf %s ${name}")
     if not value:
         sys.exit(f"humanize: {name} is not set")
     return value
 
 
-def main() -> None:
-    parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("file", nargs="?", help="input file (default: stdin)")
-    args = parser.parse_args()
-
+def runpod_backend() -> Backend:
     key = setting("RUNPOD_API_KEY")
     url = setting("HUMANIZER_URL")
-    text = open(args.file, encoding="utf-8").read() if args.file else sys.stdin.read()
-    if not text.strip():
-        sys.exit("humanize: empty input")
+    print("humanize: using the Runpod endpoint (billed)", file=sys.stderr)
+    return Backend(url, {"Authorization": f"Bearer {key}"}, COLD_START_DEADLINE_S)
 
+
+def memory_gib() -> tuple[float, float]:
+    """Return (unified memory on Apple silicon, largest CUDA GPU's VRAM), in GiB."""
+    unified = vram = 0.0
+    if sys.platform == "darwin" and platform.machine() == "arm64":
+        result = subprocess.run(["sysctl", "-n", "hw.memsize"], capture_output=True, text=True)
+        if result.returncode == 0:
+            unified = int(result.stdout) / 2**30
+    if shutil.which("nvidia-smi"):
+        result = subprocess.run(
+            ["nvidia-smi", "--query-gpu=memory.total", "--format=csv,noheader,nounits"],
+            capture_output=True, text=True,
+        )
+        if result.returncode == 0:
+            vram = max((int(mib) / 1024 for mib in result.stdout.split()), default=0.0)
+    return unified, vram
+
+
+def local_quant() -> str | None:
+    unified, vram = memory_gib()
+    for name, min_unified, min_vram in LOCAL_QUANTS:
+        if unified >= min_unified or vram >= min_vram:
+            return name
+    return None
+
+
+def model_path(name: str) -> Path:
+    """Return the cached GGUF, downloading it once from Hugging Face."""
+    cache = Path(os.environ.get("XDG_CACHE_HOME") or Path.home() / ".cache") / "humanize"
+    path = cache / name
+    if path.exists():
+        return path
+    cache.mkdir(parents=True, exist_ok=True)
+    part = path.with_name(name + ".part")
+    url = f"https://huggingface.co/{MODEL_REPO}/resolve/main/{name}"
+    done = part.stat().st_size if part.exists() else 0
+    # Downloads stop on flaky networks; resume where the last run left off.
+    req = urllib.request.Request(url, headers={"Range": f"bytes={done}-"} if done else {})
+    print(f"humanize: downloading {name} once into {cache}", file=sys.stderr)
+    with urllib.request.urlopen(req, timeout=60) as resp, open(part, "ab" if done else "wb") as out:
+        if done and resp.status != 206:
+            out.truncate(0)
+            done = 0
+        total = done + int(resp.headers.get("Content-Length", 0))
+        reported = 0
+        while chunk := resp.read(1 << 20):
+            out.write(chunk)
+            done += len(chunk)
+            if total and done * 10 // total > reported:
+                reported = done * 10 // total
+                print(f"humanize: downloaded {reported * 10}%", file=sys.stderr)
+    with open(part, "rb") as f:
+        if f.read(4) != b"GGUF" or (total and part.stat().st_size != total):
+            part.unlink()
+            raise OSError(f"incomplete download of {name}")
+    part.rename(path)
+    return path
+
+
+def free_port() -> int:
+    with socket.socket() as s:
+        s.bind(("127.0.0.1", 0))
+        return s.getsockname()[1]
+
+
+def start_local_server(llama_server: str, model: Path, log) -> tuple[subprocess.Popen, Backend]:
+    port = free_port()
+    server = subprocess.Popen(
+        [llama_server, "-m", str(model), "-c", "8192", "-np", "1", "-ngl", "99",
+         "--no-mmproj", "--host", "127.0.0.1", "--port", str(port)],
+        stdin=subprocess.DEVNULL, stdout=log, stderr=subprocess.STDOUT,
+    )
+    base = f"http://127.0.0.1:{port}"
+    deadline = time.monotonic() + LOCAL_LOAD_DEADLINE_S
+    while server.poll() is None and time.monotonic() < deadline:
+        try:
+            with urllib.request.urlopen(f"{base}/health", timeout=5) as resp:
+                if resp.status == 200:
+                    return server, Backend(f"{base}/completion", {}, 0)
+        except (urllib.error.URLError, TimeoutError, ConnectionError):
+            pass
+        time.sleep(1)
+    server.kill()
+    server.wait()
+    log.seek(0)
+    tail = log.read().decode(errors="replace").strip().splitlines()[-3:]
+    raise OSError("llama-server did not start: " + " | ".join(tail))
+
+
+def choose_backend(mode: str, stack) -> Backend:
+    if mode == "runpod":
+        return runpod_backend()
+    quant = local_quant()
+    llama_server = shutil.which("llama-server") or fish("command -s llama-server")
+    problem = None
+    if not quant:
+        problem = "this machine has too little memory to run the model"
+    elif not llama_server:
+        problem = "llama-server is not installed (brew install llama.cpp)"
+    else:
+        try:
+            model = model_path(quant)
+            log = stack.enter_context(tempfile.TemporaryFile())
+            server, backend = start_local_server(llama_server, model, log)
+            stack.callback(server.wait)
+            stack.callback(server.terminate)
+            print(f"humanize: running {quant} locally", file=sys.stderr)
+            return backend
+        except OSError as err:
+            problem = str(err)
+    if mode == "local":
+        sys.exit(f"humanize: cannot run locally: {problem}")
+    print(f"humanize: {problem}; falling back to Runpod", file=sys.stderr)
+    return runpod_backend()
+
+
+def rewrite_text(text: str, backend: Backend) -> tuple[list[str], bool]:
     out_blocks = []
     flagged = False
     for rewrite, block in split_blocks(text):
         if not rewrite:
             out_blocks.append(block)
             continue
-        out, issues = rewrite_piece(block, url, key, max(256, min(2048, int(len(block) / 4 * 2.5))))
+        out, issues = rewrite_piece(block, backend, max(256, min(2048, int(len(block) / 4 * 2.5))))
         if issues:
             # The model slips on single facts now and then; one more sample usually
             # fixes it. A cut-off rewrite gets the full output budget.
-            retry, retry_issues = rewrite_piece(block, url, key, 2048)
+            retry, retry_issues = rewrite_piece(block, backend, 2048)
             if len(retry_issues) < len(issues):
                 out, issues = retry, retry_issues
         if issues:
             flagged = True
             print(f"humanize: check this piece: {'; '.join(issues)}", file=sys.stderr)
         out_blocks.append(out)
+    return out_blocks, flagged
 
+
+def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("file", nargs="?", help="input file (default: stdin)")
+    parser.add_argument(
+        "--backend", choices=("auto", "local", "runpod"), default="auto",
+        help="auto runs locally when the machine can, else on Runpod (default: auto)",
+    )
+    args = parser.parse_args()
+
+    text = open(args.file, encoding="utf-8").read() if args.file else sys.stdin.read()
+    if not text.strip():
+        sys.exit("humanize: empty input")
+
+    with ExitStack() as stack:
+        backend = choose_backend(args.backend, stack)
+        out_blocks, flagged = rewrite_text(text, backend)
     print("\n\n".join(out_blocks))
     sys.exit(2 if flagged else 0)
 
