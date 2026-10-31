@@ -20,7 +20,8 @@ continues an authorized caller's workflow.
 - **Create:** after the [review gate](references/review-gate.md), publish the
   selected commits and open a requested PR when no exact PR exists. Default to
   draft unless the user prefers ready.
-- **Update:** refresh an exact open PR under existing authority.
+- **Update:** refresh an exact open PR under existing authority; its pushes skip
+  the review gate.
 - **Draft-only:** return requested copy or inspection using only necessary reads;
   make no commit, push or GitHub mutation.
 - **Check cap:** run only [the size check](#check-the-review-size-cap). Return its
