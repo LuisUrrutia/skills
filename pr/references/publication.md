@@ -2,6 +2,36 @@
 
 Apply existing request/standing authority before seeking additional permission.
 
+## GitHub account
+
+`gh` keeps one active account per host for every session on the machine. Bind
+each `gh` command to the intended actor; never run `gh auth switch`,
+`gh auth login` or `gh auth logout`, even when a command fails as the wrong
+account.
+
+Resolve the intended actor from user direction, otherwise path-effective
+`git config --get user.email` matched to an authenticated account. Neither author
+name nor SSH authentication proves it. When neither settles it, ask before the
+first write.
+
+Once the actor is resolved, prefix every `gh` command with this binding, reads and
+rate-limit checks included, because access and limits are per account. Examples
+in this skill omit it:
+
+```text
+GH_TOKEN="$(gh auth token --hostname github.com --user <actor> || echo none)" gh …
+```
+
+`|| echo none` makes a failed lookup fail authentication rather than fall back to
+the active account. Run `gh auth token` only inside that substitution; expose no
+tokens or secret configuration. For a target on another host, pass that host to
+the lookup's `--hostname` and add `GH_HOST=<host>` so commands without a hostname
+reach it. GitHub Enterprise Server takes `GH_ENTERPRISE_TOKEN` in place of
+`GH_TOKEN`; ghe.com keeps `GH_TOKEN`.
+
+Before the first write, require `gh api user --jq .login` under the binding to
+print the actor; otherwise stop and report the blocker.
+
 ## Before writing
 
 Recheck exact PR, head repository/ref/SHA, local branch/HEAD, push URL, base and
@@ -10,13 +40,6 @@ uncommitted work included in publication; metadata-only work ships no new commit
 Inspect selected content, the body and any detail comment for credentials, private
 data, private captures and unrelated artifacts; resolve suspected exposure even
 when already committed.
-
-Resolve the intended GitHub actor from user direction, otherwise path-effective
-`git config --get user.email` matched to an authenticated account. Neither author
-name nor SSH authentication proves it. Require an exact
-`gh api user --jq .login` match before authenticated writes; switch to the intended
-already-authenticated account and recheck when needed. Ask if ambiguous; expose
-no tokens or secret configuration.
 
 Use SSH for every Git network operation. Repair failures or report the blocker;
 never substitute HTTPS. Resolve ambiguous destinations before pushing.

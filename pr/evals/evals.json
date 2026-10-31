@@ -221,6 +221,49 @@
         "The result is read back through REST, such as `gh api repos/acme/api/pulls/<number>`, checking head, base, title, body and draft state.",
         "The response creates no duplicate PR and does not push again or change the branch."
       ]
+    },
+    {
+      "id": 17,
+      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output and describe, as exact commands in order, how you would complete the request, then what you would report. The user asked: \"Open a PR for my branch.\" Repository `acme-corp/payments-api` on github.com is private; its default branch is `main`. Local branch `fix/refund-retries` is at `a1b2c3d`, already pushed to `origin` (`git@github.com:acme-corp/payments-api.git`) with remote tip `a1b2c3d`. The title `fix(refunds): retry failed refunds once` and the body in `.tmp/pr/body.md` are prepared and within the length budget, with no captures and no ticket. The user has no ready-for-review preference. In the checkout, `git config --get user.email` returns `dana@acme-corp.com`. `gh auth status` shows two github.com accounts stored in the keyring: `dana-personal` (active) and `dana-acme` (inactive). The verified email `dana@acme-corp.com` belongs to `dana-acme` only. The exact-PR lookup `gh pr list --repo acme-corp/payments-api --state all --head fix/refund-retries --json ...` failed with `GraphQL: Could not resolve to a Repository with the name 'acme-corp/payments-api'. (repository)`. `gh api user --jq .login` returns `dana-personal`. GraphQL is not rate limited.",
+      "expected_output": "A Create plan that resolves `dana-acme` from the checkout email, binds every later `gh` command to it per command without changing the active account, confirms the bound login before the first write, rechecks the exact PR under the binding instead of treating the failed lookup as no PR, and creates a draft.",
+      "files": [],
+      "expectations": [
+        "The intended actor is `dana-acme`, resolved from the checkout email, not the active `dana-personal`.",
+        "The response runs no `gh auth switch`, `gh auth login` or `gh auth logout`, and leaves the active account unchanged.",
+        "Every `gh` command after the actor is resolved, including the exact-PR recheck, the create and the read-back, carries a per-command binding such as `GH_TOKEN=\"$(gh auth token --hostname github.com --user dana-acme || echo none)\"`, whose failed lookup cannot fall back to the active account.",
+        "A bound `gh api user --jq .login` that must print `dana-acme` runs before the first write, and any other result stops with a reported blocker.",
+        "The failed unbound lookup is treated as unknown, and the exact PR is rechecked under the binding before creation.",
+        "Creation uses `--repo acme-corp/payments-api --base main --head fix/refund-retries --draft` with the prepared title and `--body-file .tmp/pr/body.md`.",
+        "No token value is printed, and `gh auth token` runs only inside a per-command substitution, never as a standalone call or an exported variable."
+      ]
+    },
+    {
+      "id": 18,
+      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output and describe, as exact commands in order, how you would complete the request, then what you would report. The user asked: \"Update the description of https://github.com/acme-corp/ledger/pull/57 with the prepared body.\" The body is prepared in `.tmp/pr/body.md`; the title stays `feat(ledger): export monthly statements`. The PR is verified OPEN, head `acme-corp/ledger:feat/statements` at `9f8e7d6`, base `main`. Earlier in this conversation the user said: \"Use my work account sam-acme for the acme-corp repositories.\" `gh auth status` lists one github.com account, `sam-dev` (active); `sam-acme` has no stored credentials on this machine. `gh api user --jq .login` returns `sam-dev`, and `sam-dev` has write access to `acme-corp/ledger`.",
+      "expected_output": "A blocked Update: the user-named actor `sam-acme` has no credentials, so no write runs as `sam-dev`, the agent neither logs in nor switches accounts, and the report names the missing credentials and the user's choices.",
+      "files": [],
+      "expectations": [
+        "The intended actor is `sam-acme`, from the user's instruction, despite `sam-dev`'s write access.",
+        "The response runs no `gh auth switch`, `gh auth login` or `gh auth logout`, and leaves the active account unchanged.",
+        "No `gh pr edit` or other write runs as `sam-dev`.",
+        "The response stops before the write and reports a blocker stating that `sam-acme` has no credentials on this machine.",
+        "No token value is printed, and `gh auth token` runs only inside a per-command substitution, never as a standalone call or an exported variable."
+      ]
+    },
+    {
+      "id": 19,
+      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output and describe, as exact commands in order, how you would complete the request, then what you would report. The user asked: \"Open a PR for my branch, as jlee-admin.\" Repository `platform/billing` is on the GitHub Enterprise Server host `github.acme.internal`; its default branch is `main`. Local branch `fix/tax-rounding` is at `b4c5d6e`, already pushed to `origin` (`git@github.acme.internal:platform/billing.git`) with remote tip `b4c5d6e`. The title `fix(tax): round line taxes before summing` and the body in `.tmp/pr/body.md` are prepared and within the length budget, with no captures and no ticket. The user has no ready-for-review preference. `gh auth status --hostname github.acme.internal` shows `jlee` (active) and `jlee-admin` (inactive), both stored in the keyring. The exact-PR lookup on that host succeeded under `jlee` and returned no match. GraphQL is not rate limited.",
+      "expected_output": "A Create plan for an Enterprise Server host that binds each `gh` command to `jlee-admin` through `GH_ENTERPRISE_TOKEN` for `github.acme.internal`, makes commands without a hostname reach that host, confirms the bound login there, rechecks the exact PR as `jlee-admin` and creates a draft on that host.",
+      "files": [],
+      "expectations": [
+        "The response runs no `gh auth switch`, `gh auth login` or `gh auth logout`, and leaves the active account unchanged.",
+        "Each `gh` command carries `GH_ENTERPRISE_TOKEN` from `gh auth token --hostname github.acme.internal --user jlee-admin` with a failure fallback that cannot use the active account; `GH_TOKEN` alone does not count.",
+        "Commands without a hostname flag reach `github.acme.internal`, through `GH_HOST=github.acme.internal` in the binding or a host-qualified `--repo github.acme.internal/platform/billing` on every `gh pr` command.",
+        "A bound login check against `github.acme.internal` that must print `jlee-admin` runs before the first write.",
+        "The exact PR is rechecked under the `jlee-admin` binding before creation, because the earlier lookup ran as `jlee`.",
+        "Creation targets `platform/billing` on `github.acme.internal` as a draft with base `main` and head `fix/tax-rounding`.",
+        "No token value is printed, and `gh auth token` runs only inside a per-command substitution, never as a standalone call or an exported variable."
+      ]
     }
   ]
 }

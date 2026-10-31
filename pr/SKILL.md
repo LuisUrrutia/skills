@@ -31,6 +31,9 @@ A blocker pauses dependent work; continue useful independent preparation.
 
 ## Establish identity and scope
 
+Before the first `gh` command, read
+[GitHub account](references/publication.md#github-account).
+
 Read branch, status, remotes, upstream and HEAD. Resolve:
 
 1. **Push destination:** verified requested or configured repository, remote and

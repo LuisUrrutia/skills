@@ -656,7 +656,7 @@ Create or update a GitHub PR with a concise explanation and useful review eviden
 - Continues into `pr-followup` after creating a PR unless you ask for it without follow-up
 - Preserves uploaded URLs on rewrites and recovers partial uploads without duplicate PRs
 - Uses diagrams and measured comparisons when they aid review
-- Preserves draft preference, verifies the GitHub actor and publishes over SSH
+- Preserves draft preference, runs each `gh` command as the verified GitHub actor without changing the active account, and publishes over SSH
 - Refreshes the whole description after material publication under existing authorization
 - Resolves ticket hints through `issue-workflow` and applies the project-selected review event after creation
 
