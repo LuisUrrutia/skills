@@ -11,11 +11,12 @@ responsible owner; this reference composes existing procedures.
   A breakdown alone does not authorize creating tickets. Preserve useful artifacts
   and independent implementation when publication is blocked.
 - For one PR, use `pr` with its exact operation, repository/head/base, verified
-  changes, validation, review report, linked ticket or lookup hint, and explicit create-only or keep-draft
+  changes, validation, review report for the committed head with each finding's
+  disposition, linked ticket or lookup hint, and explicit create-only or keep-draft
   limits. Its Create operation normally continues into `pr-followup` Drive.
   Let that owner continue; do not start another follow-up loop on its return.
 - For dependent branches or PRs, use `stacked-pr` with the selected units, actual
-  dependencies, topology, and requested operation. Keep one stack mutation owner.
+  dependencies, topology, requested operation, and per-layer review reports. Keep one stack mutation owner.
   Independent units do not become a stack merely because they share a project.
   Its new layers continue into `pr-followup` Drive unless the user asked for no
   follow-up; `stacked-pr` starts that follow-up and keeps topology and rebases, so

@@ -649,7 +649,7 @@ Create or update a GitHub PR with a concise explanation and useful review eviden
 - Resolves the exact target, fork, head and actual base
 - Checks claims against implementation, requirements and current verification
 - Checks a task's review-size cap against the actual PR diff before publishing code or creating the PR
-- Runs `review-code-changes` before creating a PR unless a report already covers the exact head, then fixes every finding and re-reviews until nothing remains to fix
+- Before creating a PR, runs `review-code-changes` unless a report covers the exact head, resolves every finding by a fix, evidence, a follow-up or your decision, and re-reviews until nothing remains to fix
 - Follows repository conventions while allowing useful additions where the format permits
 - Keeps the body to what helps review the diff and returns project coordination, such as flag timing or other tickets' scope, to the user
 - Sizes the body against the repository's recent merged PRs, gives each decision and check one line, replaces superseded runs on updates, and moves run detail to a linked artifact or one detail comment

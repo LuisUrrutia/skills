@@ -9,21 +9,24 @@ Make one change understandable to its reviewer: problem, delivered behavior,
 consequential decisions and evidence.
 
 This skill owns publication and presentation. Use `commit` for atomic commits,
-`stacked-pr` for stack topology, submission and cascading rebases, `pr-followup`
+`stacked-pr` for stack topology, submission and cascading rebases,
+`review-code-changes` for the pre-creation audit, `pr-followup`
 for feedback, CI repair and readiness, and `issue-workflow` for ticket transitions.
 Invoke owners within the request or standing authority; completing this phase
 continues an authorized caller's workflow.
 
 ## Resolve the operation
 
-- **Create:** after [review before creation](#review-before-creation), publish
-  the selected commits and open a requested PR when no exact PR exists. Default
-  to draft unless the user prefers ready.
+- **Create:** after the [review gate](references/review-gate.md), publish the
+  selected commits and open a requested PR when no exact PR exists. Default to
+  draft unless the user prefers ready.
 - **Update:** refresh an exact open PR under existing authority.
 - **Draft-only:** return requested copy or inspection using only necessary reads;
   make no commit, push or GitHub mutation.
 - **Check cap:** run only [the size check](#check-the-review-size-cap). Return its
   verdict; the caller retains remediation, publication and continuation.
+- **Review gate:** run only the [review gate](references/review-gate.md) for a
+  supplied base and head; the caller retains publication and restacking.
 
 An exact closed or merged PR is historical: report its URL/state and obtain the
 user's chosen operation before editing, reopening or replacing it. Otherwise ask
@@ -95,25 +98,6 @@ Before writing a title or body, read:
 Record inaccessible required evidence and its failed lookup as unknown;
 continue supported work without inventing conventions.
 
-## Review before creation
-
-Create, including each new `stacked-pr` layer, requires a validated
-`review-code-changes` report whose scope is the exact `<merge-base>..<head>` SHAs
-being published, after included work is committed. Reuse a supplied or earlier
-report with that scope; otherwise run the review. Skip it only on the user's
-explicit instruction, and report the skip.
-
-Resolve every finding and open question before publishing:
-
-- Fix each one whose remedy lands in this change; commit fixes through `commit`.
-- Record the code evidence that disproves a finding instead of changing code.
-- Report an optional suggestion outside the change's purpose as a follow-up.
-- Ask the user when one needs their decision; creation waits for the answer.
-
-After fixes, rerun affected checks and a repeat review on the new head. Publish
-when a review of the exact head leaves nothing to fix. When a rerun repeats a
-finding without new evidence or progress, stop and report it as a blocker.
-
 ## Check the review-size cap
 
 Apply when the request, project or task record sets a cap. Resolve exact base/head
@@ -166,8 +150,8 @@ Publication never merges by itself.
 
 Report `created`, `updated`, `draft-only` or `blocked`: URL when known, head/base,
 draft state, body length against its budget with the reason for any overrun,
-detail comment URL, validation, review report path with each finding's
-disposition, executed commands/results, remaining work and coordination omitted
+detail comment URL, validation, the review gate's result for Create, executed
+commands/results, remaining work and coordination omitted
 from the body. Separate current execution from historical evidence. Draft-only
 returns the copy and confirms no mutation; blockers name the prerequisite or
 decision and completed work. Pass verified identity, revision and publication
