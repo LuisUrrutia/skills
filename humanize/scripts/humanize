@@ -44,6 +44,24 @@ FENCE = re.compile(r"^ {0,3}(`{3,}|~{3,})")
 HEADING = re.compile(r"^ {0,3}#{1,6}(\s|$)")
 
 
+def bounded(text: str, limit: int = MAX_CHUNK_CHARS) -> list[str]:
+    """Split text longer than limit at sentence, then word, then character bounds."""
+    if len(text) <= limit:
+        return [text]
+    for separator in (r"(?<=[.!?。！？])\s+", r"\s+"):
+        units = re.split(separator, text)
+        if len(units) > 1:
+            pieces, piece = [], ""
+            for unit in units:
+                if piece and len(piece) + len(unit) + 1 > limit:
+                    pieces.append(piece)
+                    piece = ""
+                piece = f"{piece} {unit}" if piece else unit
+            pieces.append(piece)
+            return [part for piece in pieces for part in bounded(piece, limit)]
+    return [text[i : i + limit] for i in range(0, len(text), limit)]
+
+
 def split_blocks(text: str) -> list[tuple[bool, str]]:
     """Return (rewrite?, block) pairs; code fences and headings stay verbatim."""
     blocks: list[tuple[bool, str]] = []
@@ -58,7 +76,7 @@ def split_blocks(text: str) -> list[tuple[bool, str]]:
     def flush_prose() -> None:
         end_paragraph()
         chunk = ""
-        for para in paragraphs:
+        for para in (piece for para in paragraphs for piece in bounded(para)):
             if chunk and len(chunk) + len(para) + 2 > MAX_CHUNK_CHARS:
                 blocks.append((True, chunk))
                 chunk = ""
@@ -113,8 +131,14 @@ def call_model(draft: str, url: str, key: str, n_predict: int) -> tuple[str, boo
         req = urllib.request.Request(url, data, headers)
         try:
             with urllib.request.urlopen(req, timeout=330) as resp:
-                result = json.load(resp)
-                return result["content"].strip(), result.get("stop_type") == "limit"
+                try:
+                    result = json.load(resp)
+                except ValueError:
+                    result = None
+            content = result.get("content") if isinstance(result, dict) else None
+            if not isinstance(content, str):
+                sys.exit("humanize: the endpoint returned no text content")
+            return content.strip(), result.get("stop_type") == "limit"
         except urllib.error.HTTPError as err:
             if err.code in (401, 403):
                 sys.exit(f"humanize: Runpod rejected the API key (HTTP {err.code})")
