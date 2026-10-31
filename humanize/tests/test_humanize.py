@@ -98,10 +98,13 @@ class HumanizeBackendTest(unittest.TestCase):
         # Keeps the developer's fish universal variables and PATH out of the tests.
         self.enterContext(mock.patch.object(humanize, "fish", return_value=""))
 
-    def install_llama_server(self, source):
-        path = self.bin / "llama-server"
+    def install(self, name, source):
+        path = self.bin / name
         path.write_text(source)
         path.chmod(path.stat().st_mode | stat.S_IEXEC)
+
+    def install_llama_server(self, source):
+        self.install("llama-server", source)
 
     def run_script(self, memory, *args):
         stdout, stderr = io.StringIO(), io.StringIO()
@@ -166,16 +169,44 @@ class HumanizeBackendTest(unittest.TestCase):
         self.assertEqual(out.strip(), "runpod rewrite of 12 engineers")
         self.assertIn("llama-server is not installed", err)
 
+    def resume_refused(self, remote_size):
+        refused = urllib.error.HTTPError("https://huggingface.co/x", 416, "Range Not Satisfiable", None, None)
+        head = mock.MagicMock()
+        head.__enter__.return_value.headers = {"Content-Length": str(remote_size)}
+        return mock.patch.object(humanize.urllib.request, "urlopen", side_effect=[refused, head])
+
     def test_keeps_a_complete_download_that_was_never_renamed(self):
         cache = self.tmp / "cache" / "humanize"
         (cache / "humanizer-12b-Q8_0.gguf").rename(cache / "humanizer-12b-Q8_0.gguf.part")
-        refused = urllib.error.HTTPError("https://huggingface.co/x", 416, "Range Not Satisfiable", None, None)
 
-        with mock.patch.object(humanize.urllib.request, "urlopen", side_effect=refused):
+        with self.resume_refused(remote_size=4):
             path = humanize.model_path("humanizer-12b-Q8_0.gguf")
 
         self.assertEqual(path, cache / "humanizer-12b-Q8_0.gguf")
         self.assertEqual(path.read_bytes(), b"GGUF")
+
+    def test_discards_a_partial_file_larger_than_the_remote_file(self):
+        cache = self.tmp / "cache" / "humanize"
+        part = cache / "humanizer-12b-Q8_0.gguf.part"
+        (cache / "humanizer-12b-Q8_0.gguf").unlink()
+        part.write_bytes(b"GGUF stale bytes")
+
+        with self.resume_refused(remote_size=4), self.assertRaises(OSError):
+            humanize.model_path("humanizer-12b-Q8_0.gguf")
+
+        self.assertFalse(part.exists())
+
+    def test_ignores_gpus_that_report_no_memory(self):
+        self.install("nvidia-smi", "#!/bin/sh\nprintf '[N/A]\\n24576\\n'\n")
+
+        _, vram = humanize.memory_gib()
+
+        self.assertEqual(vram, 24.0)
+
+    def test_treats_a_hanging_probe_as_unavailable(self):
+        self.install("slow", "#!/bin/sh\nsleep 5\n")
+
+        self.assertEqual(humanize.probe([str(self.bin / "slow")], timeout=1), "")
 
     def test_forced_local_backend_fails_instead_of_billing_runpod(self):
         code, out, _ = self.run_script((8.0, 0.0), "--backend", "local")

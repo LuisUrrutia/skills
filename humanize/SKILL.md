@@ -27,12 +27,13 @@ printf '%s' "$TEXT" | humanize
   blocks and one-line Markdown headings verbatim and splits long text into
   pieces of about 3,000 characters at paragraph breaks.
 - **Local runs:** the first local run downloads the GGUF once (12.7 GB for
-  Q8_0) into `~/.cache/humanize/`, resuming an interrupted download; later
-  runs load it in seconds. When the machine qualifies but `llama-server` is
-  missing or cannot load the model, the script falls back to Runpod and says
-  why on stderr; tell the user, since Runpod is billed. Run the first local
-  run in the background: the download takes minutes. `--backend local` or
-  `--backend runpod` forces one backend.
+  Q8_0) into `$XDG_CACHE_HOME/humanize/`, or `~/.cache/humanize/` when that
+  variable is unset, resuming an interrupted download; later runs load it in
+  seconds. When the machine qualifies but `llama-server` is missing or cannot
+  load the model, the script falls back to Runpod and says why on stderr; tell
+  the user, since Runpod is billed. Run the first local run in the background:
+  the download takes minutes. `--backend local` or `--backend runpod` forces
+  one backend.
 - **Runpod cold start:** the endpoint scales to zero. The first call after
   idle waits 6 to 40 seconds for a worker, or several minutes when Runpod
   places it on a host without the cached model; the script retries for up to

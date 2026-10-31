@@ -196,13 +196,19 @@ def rewrite_piece(draft: str, backend: Backend, n_predict: int) -> tuple[str, li
     return out, issues
 
 
+def probe(args: list[str], timeout: int) -> str:
+    """Return the command's stdout, or "" when it fails, hangs or is missing."""
+    try:
+        result = subprocess.run(args, capture_output=True, text=True, timeout=timeout)
+    except (OSError, subprocess.TimeoutExpired):
+        return ""
+    return result.stdout.strip() if result.returncode == 0 else ""
+
+
 def fish(command: str) -> str:
     # Agents started from a GUI app run bash or zsh, which miss fish's PATH and
     # universal variables (`set -Ux`), the place settings persist across reboots.
-    if not shutil.which("fish"):
-        return ""
-    result = subprocess.run(["fish", "-c", command], capture_output=True, text=True, timeout=10)
-    return result.stdout.strip() if result.returncode == 0 else ""
+    return probe(["fish", "-c", command], 10)
 
 
 def setting(name: str) -> str:
@@ -221,18 +227,13 @@ def runpod_backend() -> Backend:
 
 def memory_gib() -> tuple[float, float]:
     """Return (unified memory on Apple silicon, largest CUDA GPU's VRAM), in GiB."""
-    unified = vram = 0.0
+    unified = 0.0
     if sys.platform == "darwin" and platform.machine() == "arm64":
-        result = subprocess.run(["sysctl", "-n", "hw.memsize"], capture_output=True, text=True)
-        if result.returncode == 0:
-            unified = int(result.stdout) / 2**30
-    if shutil.which("nvidia-smi"):
-        result = subprocess.run(
-            ["nvidia-smi", "--query-gpu=memory.total", "--format=csv,noheader,nounits"],
-            capture_output=True, text=True,
-        )
-        if result.returncode == 0:
-            vram = max((int(mib) / 1024 for mib in result.stdout.split()), default=0.0)
+        memsize = probe(["sysctl", "-n", "hw.memsize"], 5)
+        unified = int(memsize) / 2**30 if memsize.isdigit() else 0.0
+    # nvidia-smi prints N/A for a GPU that does not report its memory.
+    mibs = probe(["nvidia-smi", "--query-gpu=memory.total", "--format=csv,noheader,nounits"], 5)
+    vram = max((int(mib) / 1024 for mib in mibs.split() if mib.isdigit()), default=0.0)
     return unified, vram
 
 
@@ -264,6 +265,10 @@ def model_path(name: str) -> Path:
             raise
         resp = None
     total = 0
+    if not resp:
+        # Hugging Face's 416 carries no size; compare against the remote file's.
+        with urllib.request.urlopen(urllib.request.Request(url, method="HEAD"), timeout=60) as head:
+            total = int(head.headers.get("Content-Length", 0))
     if resp:
         print(f"humanize: downloading {name} once into {cache}", file=sys.stderr)
         with resp, open(part, "ab" if done else "wb") as out:
