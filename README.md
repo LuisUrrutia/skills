@@ -732,7 +732,7 @@ Rewrite English or Chinese prose with the humanizer model (jialinyyzz/humanizer,
 
 **Features:**
 - Runs only on an explicit request, never for ordinary rewriting
-- Reads `RUNPOD_API_KEY` and `HUMANIZER_URL`, the endpoint's `/completion` URL, from the environment
+- Reads `RUNPOD_API_KEY` and `HUMANIZER_URL`, the endpoint's `/completion` URL, from the environment or from fish universal variables, so agents launched from GUI apps find them
 - Sends the model's exact training prompt and sampling settings, keeps code fences and headings verbatim and splits long text at paragraph breaks
 - Waits for a scaled-to-zero endpoint to start, and resamples once when a number or URL goes missing or appears
 - Has the agent check names, dates and quotations against the original and report every fix before handing back the rewrite

@@ -8,7 +8,8 @@ description: Use only when the user explicitly asks to humanize text or to run i
 Rewrite the text with `scripts/humanize` from this skill's directory (also on
 PATH as `humanize`). It calls Luis's humanizer model, a fine-tuned Gemma 4 12B
 on a Runpod Serverless endpoint, and needs `RUNPOD_API_KEY` and
-`HUMANIZER_URL` (the endpoint's `/completion` URL) in the environment. When a
+`HUMANIZER_URL` (the endpoint's `/completion` URL), read from the environment
+or, when missing there, from fish universal variables. When a
 variable is missing or the script exits 1, report its
 message as the blocker; do not rewrite the text yourself instead.
 
@@ -31,8 +32,9 @@ printf '%s' "$TEXT" | humanize
 
 ## Check the result
 
-Exit code 2 means a piece still lost or gained a number or URL after one
-automatic retry; stderr names it. Exit code 0 checks only numbers and URLs.
+Exit code 2 means a piece still lost or gained a number or URL, or was cut
+off at the output limit, after one automatic retry; stderr names it. Exit
+code 0 checks only numbers, URLs and truncation.
 
 Before handing the rewrite back, compare it with the original yourself:
 names, dates, quotations and claims must survive, and nothing may be added.

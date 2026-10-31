@@ -3,13 +3,15 @@
 
 Reads a file argument or stdin, writes the rewrite to stdout, and reports
 fact-check warnings on stderr. Needs RUNPOD_API_KEY and HUMANIZER_URL, the
-endpoint's /completion URL.
+endpoint's /completion URL, from the environment or as fish universal variables.
 """
 import argparse
 import hashlib
 import json
 import os
 import re
+import shutil
+import subprocess
 import sys
 import time
 import urllib.error
@@ -142,17 +144,28 @@ def rewrite_piece(draft: str, url: str, key: str, n_predict: int) -> tuple[str, 
     return out, issues
 
 
+def setting(name: str) -> str:
+    value = os.environ.get(name)
+    # Agents started from a GUI app run bash or zsh, which never see fish
+    # universal variables (`set -Ux`), the place they persist across reboots.
+    if not value and shutil.which("fish"):
+        result = subprocess.run(
+            ["fish", "-c", f"printf %s ${name}"],
+            capture_output=True, text=True, timeout=10,
+        )
+        value = result.stdout if result.returncode == 0 else ""
+    if not value:
+        sys.exit(f"humanize: {name} is not set")
+    return value
+
+
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("file", nargs="?", help="input file (default: stdin)")
     args = parser.parse_args()
 
-    key = os.environ.get("RUNPOD_API_KEY")
-    if not key:
-        sys.exit("humanize: RUNPOD_API_KEY is not set")
-    url = os.environ.get("HUMANIZER_URL")
-    if not url:
-        sys.exit("humanize: HUMANIZER_URL is not set")
+    key = setting("RUNPOD_API_KEY")
+    url = setting("HUMANIZER_URL")
     text = open(args.file, encoding="utf-8").read() if args.file else sys.stdin.read()
     if not text.strip():
         sys.exit("humanize: empty input")
