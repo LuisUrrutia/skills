@@ -325,6 +325,52 @@
         "The plan runs `review-code-changes` on `9999999..aaaaaaa` in a fresh Codex context with model `gpt-6.1-sol` and reasoning effort `xhigh`, not `ultra` or a default.",
         "No push or GitHub mutation is executed."
       ]
+    },
+    {
+      "id": 25,
+      "prompt": "Create a PR for my branch. Do not push or call GitHub in this exercise; describe the steps you would take up to the push. Treat these values as verified command output: branch `feature/search-index` in `acme/api`, base `main`, merge-base `b1b1b1b`, head `c2c2c2c`, all work committed. A validated `review-code-changes` report from Codex `gpt-6.1-sol` at reasoning effort `xhigh` covers exactly `b1b1b1b..c2c2c2c` and has no findings or open questions, but its Coverage marks `migrations/0042_index.sql` as `unreadable` because the file is binary-encoded.",
+      "expected_output": "The report is treated as an unfinished review: the agent resolves the unreadable migration (for example by decoding it and reviewing again) or asks the user whether to proceed; it does not push or create the PR on the clean-looking report.",
+      "files": [],
+      "expectations": [
+        "The plan does not treat the report as a clean review because `migrations/0042_index.sql` is `unreadable`.",
+        "The plan either resolves that coverage limit with another review of the exact head or asks the user whether to proceed, and waits before pushing.",
+        "No push or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 26,
+      "prompt": "Create a PR for my branch. Do not push or call GitHub in this exercise; describe the steps you would take up to the push. Treat these values as verified command output: branch `feature/webhooks` in `acme/api`, base `main`, merge-base `d3d3d3d`, head `e4e4e4e`, all work committed. No review report covers this range. Dispatching a Codex `gpt-6.1-sol` child at reasoning effort `xhigh` returned `usage limit reached; resets in 3 hours`. Claude `claude-opus-5-5` is available.",
+      "expected_output": "The gate is reported as blocked by the Codex usage limit and the user is asked how to proceed; no Claude review substitutes for it, and nothing is pushed or created.",
+      "files": [],
+      "expectations": [
+        "The plan reports the review gate as blocked by the Codex usage limit.",
+        "The plan does not run the review on Claude or another model without the user's direction.",
+        "The plan asks the user how to proceed and does not push or create the PR meanwhile.",
+        "No push or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 27,
+      "prompt": "Create a PR for my branch. Do not push or call GitHub in this exercise; describe the steps you would take up to the push. Treat these values as verified command output: branch `feature/billing-retry` in `acme/api`, base `main`, merge-base `f5f5f5f`. Three Codex `gpt-6.1-sol` reviews at reasoning effort `xhigh` already ran in this session: the first on `a1a1a1a` found F1 (retry loop never stops), fixed in `a2a2a2a`; the second on `a2a2a2a` found a new F2 (backoff overflows after 31 attempts), fixed in `a3a3a3a`; the third, on the current head `a3a3a3a`, found a new F3 (retry ignores the `Retry-After` header), whose fix is in this change's purpose.",
+      "expected_output": "Because a third review still leaves something to fix, the agent stops and asks the user rather than fixing F3 and starting a fourth review on its own; nothing is pushed or created.",
+      "files": [],
+      "expectations": [
+        "The plan recognizes that the third review still leaves something to fix.",
+        "The plan stops and asks the user before fixing F3 and starting another review cycle on its own.",
+        "No push or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 28,
+      "prompt": "Do not run any command; this is a simulation. The `stacked-pr` skill invokes you in Review gate mode for the second layer of a stack in `acme/api`: branch `stack/02-api` with immediate PR base `stack/01-schema`, merge-base `1a2b3c4`, head `5d6e7f8`, all work committed. No review report covers this range. Describe exactly what you would do and what you would return to `stacked-pr`.",
+      "expected_output": "Only the review gate runs: a Codex Sol xhigh review of 1a2b3c4..5d6e7f8 against the immediate base, dispositions applied, and the report path, profile and dispositions returned to stacked-pr; no push, PR creation, restacking or follow-up.",
+      "files": [],
+      "expectations": [
+        "The plan runs the review on `1a2b3c4..5d6e7f8` against `stack/01-schema`, not against `main`.",
+        "The review runs in a fresh Codex context on the newest Sol model with reasoning effort `xhigh`.",
+        "The plan pushes nothing, creates no PR, does not restack other layers and starts no `pr-followup`.",
+        "The plan returns the final report path, its review profile and each finding's disposition to `stacked-pr`."
+      ]
     }
   ]
 }
