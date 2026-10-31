@@ -12,6 +12,7 @@ import textwrap
 import threading
 import unittest
 from unittest import mock
+import urllib.error
 
 
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts" / "humanize"
@@ -164,6 +165,17 @@ class HumanizeBackendTest(unittest.TestCase):
         self.assertEqual(code, 0)
         self.assertEqual(out.strip(), "runpod rewrite of 12 engineers")
         self.assertIn("llama-server is not installed", err)
+
+    def test_keeps_a_complete_download_that_was_never_renamed(self):
+        cache = self.tmp / "cache" / "humanize"
+        (cache / "humanizer-12b-Q8_0.gguf").rename(cache / "humanizer-12b-Q8_0.gguf.part")
+        refused = urllib.error.HTTPError("https://huggingface.co/x", 416, "Range Not Satisfiable", None, None)
+
+        with mock.patch.object(humanize.urllib.request, "urlopen", side_effect=refused):
+            path = humanize.model_path("humanizer-12b-Q8_0.gguf")
+
+        self.assertEqual(path, cache / "humanizer-12b-Q8_0.gguf")
+        self.assertEqual(path.read_bytes(), b"GGUF")
 
     def test_forced_local_backend_fails_instead_of_billing_runpod(self):
         code, out, _ = self.run_script((8.0, 0.0), "--backend", "local")

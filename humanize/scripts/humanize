@@ -256,19 +256,28 @@ def model_path(name: str) -> Path:
     done = part.stat().st_size if part.exists() else 0
     # Downloads stop on flaky networks; resume where the last run left off.
     req = urllib.request.Request(url, headers={"Range": f"bytes={done}-"} if done else {})
-    print(f"humanize: downloading {name} once into {cache}", file=sys.stderr)
-    with urllib.request.urlopen(req, timeout=60) as resp, open(part, "ab" if done else "wb") as out:
-        if done and resp.status != 206:
-            out.truncate(0)
-            done = 0
-        total = done + int(resp.headers.get("Content-Length", 0))
-        reported = 0
-        while chunk := resp.read(1 << 20):
-            out.write(chunk)
-            done += len(chunk)
-            if total and done * 10 // total > reported:
-                reported = done * 10 // total
-                print(f"humanize: downloaded {reported * 10}%", file=sys.stderr)
+    try:
+        resp = urllib.request.urlopen(req, timeout=60)
+    except urllib.error.HTTPError as err:
+        # 416: the previous run downloaded every byte but stopped before the rename.
+        if not (done and err.code == 416):
+            raise
+        resp = None
+    total = 0
+    if resp:
+        print(f"humanize: downloading {name} once into {cache}", file=sys.stderr)
+        with resp, open(part, "ab" if done else "wb") as out:
+            if done and resp.status != 206:
+                out.truncate(0)
+                done = 0
+            total = done + int(resp.headers.get("Content-Length", 0))
+            reported = 0
+            while chunk := resp.read(1 << 20):
+                out.write(chunk)
+                done += len(chunk)
+                if total and done * 10 // total > reported:
+                    reported = done * 10 // total
+                    print(f"humanize: downloaded {reported * 10}%", file=sys.stderr)
     with open(part, "rb") as f:
         if f.read(4) != b"GGUF" or (total and part.stat().st_size != total):
             part.unlink()
