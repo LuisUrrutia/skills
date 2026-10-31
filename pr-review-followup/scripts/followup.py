@@ -92,6 +92,10 @@ def load_state(state_file: Path, target: dict, actor: str) -> dict:
 
 
 def read_pr(target: dict, actor: str, api) -> dict:
+    # Viewer-dependent fields, such as a pending review or resolve rights, are only valid as the reviewer.
+    if (login := api.call("user").get("login")) != actor:
+        raise FollowupError(f"GitHub actor differs from the reviewer: gh authenticates as {login!r}; "
+                            "bind the reviewer's token to the command")
     data = api.call("graphql", {"query": THREADS_QUERY, "variables": {
         "owner": target["owner"], "repo": target["repo"], "number": target["number"]}})
     pr = data["data"]["repository"]["pullRequest"]
@@ -317,8 +321,6 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
         raise FollowupError("receipt belongs to a different PR, actor or plan")
 
     def preflight() -> dict:
-        if api.call("user").get("login") != actor:
-            raise FollowupError("active GitHub actor differs from the intended reviewer")
         pr = read_pr(target, actor, api)
         if pr["state"] != "OPEN":
             raise FollowupError(f"PR is not open ({pr['state']})")

@@ -17,9 +17,9 @@ this skill first if it is no longer in context.
   invocation.
 - It wakes on others' comments and reviews, check results, a push without checks,
   conflicts and closure. It never wakes on a thread resolved without a comment or
-  push, a base change, a merge, comments by the account T3 Code reads with
-  (normally the reviewer), or time passing. Each tick rechecks them; a merge ends
-  the watch silently, so report it when next invoked.
+  push, a base change, a merge, comments by the account T3 Code reads with, or
+  time passing. Each tick rechecks them; a merge ends the watch silently, so
+  report it when next invoked.
 - A watched thread stays out of the user's inbox, so unwatch before reporting a
   tick that ends for the user: approval, `done`, a closed PR, a new blocker that
   needs the user, such as an incomplete review, the reviewer's unsubmitted review
@@ -29,7 +29,8 @@ this skill first if it is no longer in context.
   the user's reply ends the tick waiting instead.
 - If arming fails, report why and schedule ticks as below.
 - Its comment-only stop is a loop guard: find the cause, such as a bot answering
-  each reply, before re-arming. After a stop for read failures, re-arm once reads
+  each reply or, when T3 Code reads with another account, the reviewer's own
+  replies, before re-arming. After a stop for read failures, re-arm once reads
   work.
 - A delegated child does not arm it; it returns its tick result to its parent.
 

@@ -152,6 +152,14 @@ class FollowupTests(unittest.TestCase):
         with self.assertRaisesRegex(FollowupError, 'snapshot'):
             self.record()
 
+    def test_every_read_stops_when_gh_authenticates_as_another_account(self):
+        self.api.actor = 'someone-else'
+
+        with self.assertRaisesRegex(FollowupError, 'actor differs'):
+            state(PR, 'reviewer', self.state_file, self.api)
+
+        self.assertEqual(self.api.calls, [('user', None)])
+
     def test_reviewer_who_authored_the_pr_is_refused(self):
         self.api.author = 'reviewer'
         with self.assertRaisesRegex(FollowupError, 'pr-followup'):
