@@ -4518,7 +4518,7 @@ window.SKILL_ATLAS = {
         "category": "Git, pull requests and CI",
         "summary": "Create or update a reviewable PR, including real screenshots, attachment recovery and useful diagrams.",
         "path": "pr/SKILL.md",
-        "sha256": "3a191eb8fce5e209b2da1020a5213aee8d6cd735393eb2ab89103dbfd1d1c924",
+        "sha256": "65e7110e4b23ff7a9a51d3f8ef874c3fa347f0c31eb9ddbff6ce5791bbd88f4e",
         "section": "pr-attachments",
         "checkedAt": "2026-10-18"
       },

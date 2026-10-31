@@ -78,7 +78,9 @@ both repositories share an organization owner), update with
 post the detail comment with
 `gh api repos/<target>/issues/<number>/comments -F body=@<file>`, and read back
 with `gh api repos/<target>/pulls/<number>`. REST has no `--attach`; follow
-attachments' unavailable route. Draft-state changes wait for the GraphQL reset.
+attachments' unavailable route. Draft-state and other authorized metadata
+changes, such as reviewers, labels or assignees, wait for the GraphQL reset;
+report them as pending.
 
 ## Verify the result
 

@@ -46,7 +46,8 @@ Read branch, status, remotes, upstream and HEAD. Resolve:
    shows GraphQL `remaining` at 0, use REST, whose primary limit is separate:
    `gh api -X GET repos/<target>/pulls --paginate -f head=<head-owner>:<branch> -f state=all`,
    matching `head.ref` and `head.repo.full_name`. GitHub ignores a `head` without
-   its owner.
+   its owner. Add `--hostname <target-host>` to every `gh api` call when the
+   target is not on github.com.
 4. **Base:** retain an existing PR's actual base; for creation use the explicit
    verified base or target repository's default. Fetch through the target's SSH
    remote and verify that ref's identity rather than trusting local `main`.
@@ -79,7 +80,9 @@ Before writing a title or body, read:
 - Recently merged PRs not authored by bots, for example with
   `gh pr list --repo <target> --state merged --search 'sort:updated-desc' --limit 50 --json author,title,body,mergedAt --jq '[.[] | select(.author.is_bot | not)] | sort_by(.mergedAt) | reverse | {titles: (.[:10] | map(.title)), chars: (map(select((.body | length) > 0)) | .[:10] | map(.body | length))}'`
   (plain `gh pr list` orders by creation; a PR's update time is never before its
-  merge). Read up to ten titles and the base's commit subjects
+  merge). When GraphQL is exhausted, query
+  `gh api -X GET repos/<target>/pulls -f state=closed -f sort=updated -f direction=desc -f per_page=50`
+  and keep entries with `merged_at` whose `user.type` is not `Bot`. Read up to ten titles and the base's commit subjects
   (`git log --no-merges --format=%s -20 <base>`) for the title convention when no
   written rule sets it. For a body, measure up to ten non-empty bodies for the
   review packet's length budget and read three, or all if fewer exist, for style
