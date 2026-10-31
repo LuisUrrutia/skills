@@ -9,20 +9,25 @@ Make one change understandable to its reviewer: problem, delivered behavior,
 consequential decisions and evidence.
 
 This skill owns publication and presentation. Use `commit` for atomic commits,
-`stacked-pr` for stack topology, submission and cascading rebases, `pr-followup`
+`stacked-pr` for stack topology, submission and cascading rebases,
+`review-code-changes` for the pre-creation audit, `pr-followup`
 for feedback, CI repair and readiness, and `issue-workflow` for ticket transitions.
 Invoke owners within the request or standing authority; completing this phase
 continues an authorized caller's workflow.
 
 ## Resolve the operation
 
-- **Create:** publish the selected commits and open a requested PR when no exact
-  PR exists. Default to draft unless the user prefers ready.
-- **Update:** refresh an exact open PR under existing authority.
+- **Create:** after the [review gate](references/review-gate.md), publish the
+  selected commits and open a requested PR when no exact PR exists. Default to
+  draft unless the user prefers ready.
+- **Update:** refresh an exact open PR under existing authority; its pushes skip
+  the review gate.
 - **Draft-only:** return requested copy or inspection using only necessary reads;
   make no commit, push or GitHub mutation.
 - **Check cap:** run only [the size check](#check-the-review-size-cap). Return its
   verdict; the caller retains remediation, publication and continuation.
+- **Review gate:** run only the [review gate](references/review-gate.md) for a
+  supplied base and head; the caller retains publication and restacking.
 
 An exact closed or merged PR is historical: report its URL/state and obtain the
 user's chosen operation before editing, reopening or replacing it. Otherwise ask
@@ -146,7 +151,8 @@ Publication never merges by itself.
 
 Report `created`, `updated`, `draft-only` or `blocked`: URL when known, head/base,
 draft state, body length against its budget with the reason for any overrun,
-detail comment URL, validation, executed commands/results, remaining work and coordination omitted
+detail comment URL, validation, the review gate's result for Create, executed
+commands/results, remaining work and coordination omitted
 from the body. Separate current execution from historical evidence. Draft-only
 returns the copy and confirms no mutation; blockers name the prerequisite or
 decision and completed work. Pass verified identity, revision and publication

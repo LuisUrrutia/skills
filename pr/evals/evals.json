@@ -3,7 +3,7 @@
   "evals": [
     {
       "id": 1,
-      "prompt": "Prepare a GitHub PR command from this simulated repository state, but do not push or call GitHub. Treat these values as verified command output: the current branch is `feature/cache-key`; its upstream is `origin/feature/cache-key`; remote `origin` is `git@github.com:acme/widget.git`; `gh repo view` identifies `acme/widget`, which is not a fork and whose default branch is `develop`; no PR matches this head; the user did not request a base and prefers draft PRs. Return the resolved target repository, push remote and repository, head ref, base, mode, and exact non-interactive `gh pr create` command with title/body placeholders.",
+      "prompt": "Prepare a GitHub PR command from this simulated repository state, but do not push or call GitHub. Treat these values as verified command output: the current branch is `feature/cache-key`; its upstream is `origin/feature/cache-key`; remote `origin` is `git@github.com:acme/widget.git`; `gh repo view` identifies `acme/widget`, which is not a fork and whose default branch is `develop`; no PR matches this head; the user did not request a base and prefers draft PRs. Return the resolved target repository, push remote and repository, head ref, base, mode, and exact non-interactive `gh pr create` command with title/body placeholders. A validated `review-code-changes` report from Codex `gpt-6.1-sol` at reasoning effort `xhigh` for exactly the merge-base and head being published has no findings or open questions, and its Coverage marks every path `reviewed`.",
       "expected_output": "A Create-mode plan targeting acme/widget from feature/cache-key, pushed through origin, based on develop, with a draft gh command. The branch upstream is used only as the push destination and never as the PR base.",
       "files": [],
       "expectations": [
@@ -16,7 +16,7 @@
     },
     {
       "id": 2,
-      "prompt": "Prepare a GitHub PR command for an upstream contribution from this simulated repository state, but do not push or call GitHub. Treat these values as verified command output: branch `feature/a11y-labels` tracks `origin/feature/a11y-labels`; `origin` is `git@github.com:alice/widget.git`; checkout repo `alice/widget` is a fork whose parent is `acme/widget`; remote `upstream` is `git@github.com:acme/widget.git`; target repo `acme/widget` has default branch `develop`; Alice explicitly asked to contribute this branch to the parent; no exact PR matches owner `alice` plus branch `feature/a11y-labels`; Alice prefers draft PRs. Return checkout, target and push repositories/remotes, head owner/ref, base, mode, and the exact non-interactive create command.",
+      "prompt": "Prepare a GitHub PR command for an upstream contribution from this simulated repository state, but do not push or call GitHub. Treat these values as verified command output: branch `feature/a11y-labels` tracks `origin/feature/a11y-labels`; `origin` is `git@github.com:alice/widget.git`; checkout repo `alice/widget` is a fork whose parent is `acme/widget`; remote `upstream` is `git@github.com:acme/widget.git`; target repo `acme/widget` has default branch `develop`; Alice explicitly asked to contribute this branch to the parent; no exact PR matches owner `alice` plus branch `feature/a11y-labels`; Alice prefers draft PRs. Return checkout, target and push repositories/remotes, head owner/ref, base, mode, and the exact non-interactive create command. A validated `review-code-changes` report from Codex `gpt-6.1-sol` at reasoning effort `xhigh` for exactly the merge-base and head being published has no findings or open questions, and its Coverage marks every path `reviewed`.",
       "expected_output": "A fork-aware Create-mode plan that pushes to Alice's origin, targets acme/widget through upstream, uses alice:feature/a11y-labels as the cross-repository head, and bases the PR on acme/widget's develop branch.",
       "files": [],
       "expectations": [
@@ -210,7 +210,7 @@
     },
     {
       "id": 16,
-      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output and describe, as exact commands in order, how you would complete the request, then what you would report. The user asked: \"Open a PR for my branch.\" Repository `acme/api` (default branch `main`), local branch `fix/retry-timeout` at `7f6e5d4`, already pushed to `origin` (`git@github.com:acme/api.git`) with remote tip `7f6e5d4`. The title and body are prepared in `.tmp/pr/body.md` (title `fix(client): retry timed-out requests once`), within the length budget, with no captures. The user has no ready-for-review preference. `gh pr list --repo acme/api --state all --head fix/retry-timeout ...` failed with `GraphQL: API rate limit already exceeded for user ID 4242.` `gh api rate_limit` shows `graphql.remaining` 0 resetting in 47 minutes and `core.remaining` 4,870. `gh api user --jq .login` returns `octo-dev`, matching the intended actor.",
+      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output and describe, as exact commands in order, how you would complete the request, then what you would report. The user asked: \"Open a PR for my branch.\" Repository `acme/api` (default branch `main`), local branch `fix/retry-timeout` at `7f6e5d4`, already pushed to `origin` (`git@github.com:acme/api.git`) with remote tip `7f6e5d4`. The title and body are prepared in `.tmp/pr/body.md` (title `fix(client): retry timed-out requests once`), within the length budget, with no captures. The user has no ready-for-review preference. `gh pr list --repo acme/api --state all --head fix/retry-timeout ...` failed with `GraphQL: API rate limit already exceeded for user ID 4242.` `gh api rate_limit` shows `graphql.remaining` 0 resetting in 47 minutes and `core.remaining` 4,870. `gh api user --jq .login` returns `octo-dev`, matching the intended actor. A validated `review-code-changes` report from Codex `gpt-6.1-sol` at reasoning effort `xhigh` for exactly the merge-base and head being published has no findings or open questions, and its Coverage marks every path `reviewed`.",
       "expected_output": "A REST route that rechecks the exact PR with an owner-qualified, paginated head filter, creates a draft through the REST pulls endpoint with the body file, reads the result back through REST, and reports the PR without assuming the failed GraphQL lookup meant no PR exists.",
       "files": [],
       "expectations": [
@@ -224,7 +224,7 @@
     },
     {
       "id": 17,
-      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output and describe, as exact commands in order, how you would complete the request, then what you would report. The user asked: \"Open a PR for my branch.\" Repository `acme-corp/payments-api` on github.com is private; its default branch is `main`. Local branch `fix/refund-retries` is at `a1b2c3d`, already pushed to `origin` (`git@github.com:acme-corp/payments-api.git`) with remote tip `a1b2c3d`. The title `fix(refunds): retry failed refunds once` and the body in `.tmp/pr/body.md` are prepared and within the length budget, with no captures and no ticket. The user has no ready-for-review preference. In the checkout, `git config --get user.email` returns `dana@acme-corp.com`. `gh auth status` shows two github.com accounts stored in the keyring: `dana-personal` (active) and `dana-acme` (inactive). The verified email `dana@acme-corp.com` belongs to `dana-acme` only. The exact-PR lookup `gh pr list --repo acme-corp/payments-api --state all --head fix/refund-retries --json ...` failed with `GraphQL: Could not resolve to a Repository with the name 'acme-corp/payments-api'. (repository)`. `gh api user --jq .login` returns `dana-personal`. GraphQL is not rate limited.",
+      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output and describe, as exact commands in order, how you would complete the request, then what you would report. The user asked: \"Open a PR for my branch.\" Repository `acme-corp/payments-api` on github.com is private; its default branch is `main`. Local branch `fix/refund-retries` is at `a1b2c3d`, already pushed to `origin` (`git@github.com:acme-corp/payments-api.git`) with remote tip `a1b2c3d`. The title `fix(refunds): retry failed refunds once` and the body in `.tmp/pr/body.md` are prepared and within the length budget, with no captures and no ticket. The user has no ready-for-review preference. In the checkout, `git config --get user.email` returns `dana@acme-corp.com`. `gh auth status` shows two github.com accounts stored in the keyring: `dana-personal` (active) and `dana-acme` (inactive). The verified email `dana@acme-corp.com` belongs to `dana-acme` only. The exact-PR lookup `gh pr list --repo acme-corp/payments-api --state all --head fix/refund-retries --json ...` failed with `GraphQL: Could not resolve to a Repository with the name 'acme-corp/payments-api'. (repository)`. `gh api user --jq .login` returns `dana-personal`. GraphQL is not rate limited. A validated `review-code-changes` report from Codex `gpt-6.1-sol` at reasoning effort `xhigh` for exactly the merge-base and head being published has no findings or open questions, and its Coverage marks every path `reviewed`.",
       "expected_output": "A Create plan that resolves `dana-acme` from the checkout email, binds every later `gh` command to it per command without changing the active account, confirms the bound login before the first write, rechecks the exact PR under the binding instead of treating the failed lookup as no PR, and creates a draft.",
       "files": [],
       "expectations": [
@@ -252,7 +252,7 @@
     },
     {
       "id": 19,
-      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output and describe, as exact commands in order, how you would complete the request, then what you would report. The user asked: \"Open a PR for my branch, as jlee-admin.\" Repository `platform/billing` is on the GitHub Enterprise Server host `github.acme.internal`; its default branch is `main`. Local branch `fix/tax-rounding` is at `b4c5d6e`, already pushed to `origin` (`git@github.acme.internal:platform/billing.git`) with remote tip `b4c5d6e`. The title `fix(tax): round line taxes before summing` and the body in `.tmp/pr/body.md` are prepared and within the length budget, with no captures and no ticket. The user has no ready-for-review preference. `gh auth status --hostname github.acme.internal` shows `jlee` (active) and `jlee-admin` (inactive), both stored in the keyring. The exact-PR lookup on that host succeeded under `jlee` and returned no match. GraphQL is not rate limited.",
+      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output and describe, as exact commands in order, how you would complete the request, then what you would report. The user asked: \"Open a PR for my branch, as jlee-admin.\" Repository `platform/billing` is on the GitHub Enterprise Server host `github.acme.internal`; its default branch is `main`. Local branch `fix/tax-rounding` is at `b4c5d6e`, already pushed to `origin` (`git@github.acme.internal:platform/billing.git`) with remote tip `b4c5d6e`. The title `fix(tax): round line taxes before summing` and the body in `.tmp/pr/body.md` are prepared and within the length budget, with no captures and no ticket. The user has no ready-for-review preference. `gh auth status --hostname github.acme.internal` shows `jlee` (active) and `jlee-admin` (inactive), both stored in the keyring. The exact-PR lookup on that host succeeded under `jlee` and returned no match. GraphQL is not rate limited. A validated `review-code-changes` report from Codex `gpt-6.1-sol` at reasoning effort `xhigh` for exactly the merge-base and head being published has no findings or open questions, and its Coverage marks every path `reviewed`.",
       "expected_output": "A Create plan for an Enterprise Server host that binds each `gh` command to `jlee-admin` through `GH_ENTERPRISE_TOKEN` for `github.acme.internal`, makes commands without a hostname reach that host, confirms the bound login there, rechecks the exact PR as `jlee-admin` and creates a draft on that host.",
       "files": [],
       "expectations": [
@@ -263,6 +263,113 @@
         "The exact PR is rechecked under the `jlee-admin` binding before creation, because the earlier lookup ran as `jlee`.",
         "Creation targets `platform/billing` on `github.acme.internal` as a draft with base `main` and head `fix/tax-rounding`.",
         "No token value is printed, and `gh auth token` runs only inside a per-command substitution, never as a standalone call or an exported variable."
+      ]
+    },
+    {
+      "id": 20,
+      "prompt": "Create a PR for my branch. Do not push or call GitHub in this exercise; describe the steps you would take up to the push. Treat these values as verified command output: branch `feature/rate-limit` in `acme/api`, base `main`, merge-base `1111111`, head `2222222`, all work committed. No PR exists for the branch. Earlier in this session `review-code-changes` wrote a validated report for `1111111..1aaaaaa`, an older head; no report covers `2222222`.",
+      "expected_output": "Before any push, a fresh review-code-changes run on 1111111..2222222, because the earlier report covers a different head; every finding fixed, disproved with evidence, reported as an out-of-purpose follow-up, or put to the user; fixes committed and re-reviewed on the new head before publication.",
+      "files": [],
+      "expectations": [
+        "The plan does not reuse the report for `1111111..1aaaaaa` as covering the published head.",
+        "The plan runs `review-code-changes` on `1111111..2222222` before pushing or creating the PR.",
+        "The review runs in a fresh Codex context on the newest Sol model with reasoning effort `xhigh`, and the plan records that profile with the report.",
+        "The plan fixes findings whose remedy lands in this change and commits the fixes through `commit`.",
+        "After fixes, the plan reruns affected checks and a repeat review on the new head before publishing.",
+        "No push or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 21,
+      "prompt": "Create a PR for my branch. Do not push or call GitHub in this exercise; describe the steps you would take up to the push. Treat these values as verified command output: branch `fix/null-total` in `acme/shop`, base `main`, merge-base `3333333`, head `4444444`, all work committed. I already ran `review-code-changes` on `3333333..4444444` with Codex `gpt-6.1-sol` at reasoning effort `xhigh`; its validated report at `/tmp/review.md` has no findings or open questions.",
+      "expected_output": "The supplied report for the exact head is reused; no new review runs; the plan proceeds to publication and the return lists the report path.",
+      "files": [],
+      "expectations": [
+        "The plan reuses `/tmp/review.md` and does not start another `review-code-changes` run.",
+        "The planned return includes the review report path.",
+        "No push or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 22,
+      "prompt": "Create a PR for my branch. Do not push or call GitHub in this exercise; describe the steps you would take up to the push and the dispositions you would report. Treat these values as verified command output: branch `feature/invoice-export` in `acme/billing`, base `main`, merge-base `5555555`, head `6666666`, all work committed. A validated `review-code-changes` report from Codex `gpt-6.1-sol` at reasoning effort `xhigh`, at `/tmp/review.md`, covers exactly `5555555..6666666`, with every path `reviewed`, and has: F1 high required: `src/export.ts:40` drops the last page of invoices. F2 low optional: `src/export.ts:12` duplicates a date formatter the change introduced. F3 low optional: `src/legacy/tax.ts:88`, untouched by the change, rounds VAT per line instead of per invoice. F4 med required: `src/export.ts:70` claims a missing null check, but `src/export.ts:65` already returns early when `invoice` is null. F5 med required: the `acme/billing-schema` repository must add the new `exported_at` field. Q1: should exports include voided invoices? The ticket is silent.",
+      "expected_output": "F1 and F2 fixed and committed through commit; F3 reported as a follow-up; F4 recorded as disproved with the evidence at src/export.ts:65; F5 and Q1 put to the user with creation waiting; after fixes, a repeat review of the new head that receives the previous report and dispositions; no push or PR before that.",
+      "files": [],
+      "expectations": [
+        "F1 and F2 are fixed and committed through `commit`.",
+        "F3 is reported as a follow-up, not fixed in this PR.",
+        "F4 is recorded as disproved with `src/export.ts:65` as evidence, without a code change.",
+        "F5 and Q1 are put to the user, and the plan waits for the answers before creating the PR.",
+        "After the fixes, the plan runs a repeat review of the new head and passes it `/tmp/review.md` and the dispositions.",
+        "No push or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 23,
+      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output and describe, as exact commands in order, how you would complete the request. The user asked: \"Push my two new commits to https://github.com/acme/api/pull/88 and refresh its description.\" PR 88 is open, its head `feature/quota` is at `7777777` on `origin` (`git@github.com:acme/api.git`), and the local branch is two commits ahead at `8888888`. No `review-code-changes` report covers `8888888`.",
+      "expected_output": "An Update: publish the two commits and refresh the body from the published diff, with no review-code-changes run, because the review gate applies only to Create.",
+      "files": [],
+      "expectations": [
+        "The plan does not run `review-code-changes` or require a review report before pushing.",
+        "The plan pushes `8888888` to `feature/quota` and then rewrites the body from the published diff.",
+        "No command is executed."
+      ]
+    },
+    {
+      "id": 24,
+      "prompt": "Create a PR for my branch. Do not push or call GitHub in this exercise; describe the steps you would take up to the push. Treat these values as verified command output: branch `feature/audit-log` in `acme/api`, base `main`, merge-base `9999999`, head `aaaaaaa`, all work committed. Earlier in this session a Claude subagent ran `review-code-changes` on exactly `9999999..aaaaaaa` and wrote a validated report with no findings and full coverage. The host catalog lists Codex `gpt-6.1-sol` with reasoning efforts up to `ultra`.",
+      "expected_output": "The Claude report is not reused because it lacks the required profile; a new review-code-changes run on 9999999..aaaaaaa in a fresh Codex gpt-6.1-sol context at xhigh before any push.",
+      "files": [],
+      "expectations": [
+        "The plan does not accept the Claude subagent's report as satisfying the gate.",
+        "The plan runs `review-code-changes` on `9999999..aaaaaaa` in a fresh Codex context with model `gpt-6.1-sol` and reasoning effort `xhigh`, not `ultra` or a default.",
+        "No push or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 25,
+      "prompt": "Create a PR for my branch. Do not push or call GitHub in this exercise; describe the steps you would take up to the push. Treat these values as verified command output: branch `feature/search-index` in `acme/api`, base `main`, merge-base `b1b1b1b`, head `c2c2c2c`, all work committed. A validated `review-code-changes` report from Codex `gpt-6.1-sol` at reasoning effort `xhigh` covers exactly `b1b1b1b..c2c2c2c` and has no findings or open questions, but its Coverage marks `migrations/0042_index.sql` as `unreadable` because the file is binary-encoded.",
+      "expected_output": "The report is treated as an unfinished review: the agent resolves the unreadable migration (for example by decoding it and reviewing again) or asks the user whether to proceed; it does not push or create the PR on the clean-looking report.",
+      "files": [],
+      "expectations": [
+        "The plan does not treat the report as a clean review because `migrations/0042_index.sql` is `unreadable`.",
+        "The plan either resolves that coverage limit with another review of the exact head or asks the user whether to proceed, and waits before pushing.",
+        "No push or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 26,
+      "prompt": "Create a PR for my branch. Do not push or call GitHub in this exercise; describe the steps you would take up to the push. Treat these values as verified command output: branch `feature/webhooks` in `acme/api`, base `main`, merge-base `d3d3d3d`, head `e4e4e4e`, all work committed. No review report covers this range. Dispatching a Codex `gpt-6.1-sol` child at reasoning effort `xhigh` returned `usage limit reached; resets in 3 hours`. Claude `claude-opus-5-5` is available.",
+      "expected_output": "The gate is reported as blocked by the Codex usage limit and the user is asked how to proceed; no Claude review substitutes for it, and nothing is pushed or created.",
+      "files": [],
+      "expectations": [
+        "The plan reports the review gate as blocked by the Codex usage limit.",
+        "The plan does not run the review on Claude or another model without the user's direction.",
+        "The plan asks the user how to proceed and does not push or create the PR meanwhile.",
+        "No push or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 27,
+      "prompt": "Create a PR for my branch. Do not push or call GitHub in this exercise; describe the steps you would take up to the push. Treat these values as verified command output: branch `feature/billing-retry` in `acme/api`, base `main`, merge-base `f5f5f5f`. Three Codex `gpt-6.1-sol` reviews at reasoning effort `xhigh` already ran in this session: the first on `a1a1a1a` found F1 (retry loop never stops), fixed in `a2a2a2a`; the second on `a2a2a2a` found a new F2 (backoff overflows after 31 attempts), fixed in `a3a3a3a`; the third, on the current head `a3a3a3a`, found a new F3 (retry ignores the `Retry-After` header), whose fix is in this change's purpose.",
+      "expected_output": "Because a third review still leaves something to fix, the agent stops and asks the user rather than fixing F3 and starting a fourth review on its own; nothing is pushed or created.",
+      "files": [],
+      "expectations": [
+        "The plan recognizes that the third review still leaves something to fix.",
+        "The plan stops and asks the user before fixing F3 and starting another review cycle on its own.",
+        "No push or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 28,
+      "prompt": "Do not run any command; this is a simulation. The `stacked-pr` skill invokes you in Review gate mode for the second layer of a stack in `acme/api`: branch `stack/02-api` with immediate PR base `stack/01-schema`, merge-base `1a2b3c4`, head `5d6e7f8`, all work committed. No review report covers this range. Describe exactly what you would do and what you would return to `stacked-pr`.",
+      "expected_output": "Only the review gate runs: a Codex Sol xhigh review of 1a2b3c4..5d6e7f8 against the immediate base, dispositions applied, and the report path, profile and dispositions returned to stacked-pr; no push, PR creation, restacking or follow-up.",
+      "files": [],
+      "expectations": [
+        "The plan runs the review on `1a2b3c4..5d6e7f8` against `stack/01-schema`, not against `main`.",
+        "The review runs in a fresh Codex context on the newest Sol model with reasoning effort `xhigh`.",
+        "The plan pushes nothing, creates no PR, does not restack other layers and starts no `pr-followup`.",
+        "The plan returns the final report path, its review profile and each finding's disposition to `stacked-pr`."
       ]
     }
   ]
