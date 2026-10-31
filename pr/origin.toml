@@ -78,6 +78,11 @@ reason = "User decision of 2026-10-31: \"deberiamos tener una forma en la que an
 where = ["references/review-gate.md", "SKILL.md#resolve-the-operation"]
 
 [[invariants]]
+rule = "Every review of the gate, repeat reviews included, runs in a fresh Codex context on the newest available Sol model with reasoning effort set to xhigh, and only a report from that profile satisfies the gate. An unavailable or limited profile blocks the gate until the user directs a substitute."
+reason = "User decision of 2026-10-31: \"la idea es que review-code-changes se ejecute con codex sol xhigh\" (the idea is that review-code-changes runs with Codex Sol at xhigh). The coordinator, not the user, added the reuse condition and the blocking fallback so that a report from another model cannot satisfy the gate."
+where = ["references/review-gate.md"]
+
+[[invariants]]
 rule = "Resolving a finding means fixing every required finding and every optional one within the change's purpose, recording the code evidence that disproves a finding, reporting an optional suggestion outside the change's purpose or aimed at later changes as a follow-up, and asking the user about decisions and remedies outside the repository. A report with partial or unreadable coverage is unfinished. A finding that survives its fix or disproof, or a third review that still leaves something to fix, goes to the user."
 reason = "Coordinator interpretation of the user's \"solucionar todos los problemas\": review-code-changes directs out-of-purpose optional suggestions to follow-up tickets, fixing a disproved finding would damage correct code, and each repeat review covers the whole change and can raise new findings, so the loop needs a bound that returns the decision to the user."
 where = ["references/review-gate.md"]
@@ -765,4 +770,4 @@ role = "Revise delivery units when the measured PR exceeds its task or project r
 kind = "local"
 name = "review-code-changes"
 required = true
-role = "Audits the exact range before a PR is created or a stack layer is pushed; this skill applies the dispositions and repeat reviews."
+role = "Audits the exact range before a PR is created or a stack layer is pushed, run in a fresh Codex Sol context at xhigh; this skill applies the dispositions and repeat reviews."
