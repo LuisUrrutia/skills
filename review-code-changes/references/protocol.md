@@ -276,9 +276,10 @@ Record each opened seam's verdict in Review basis, or why none opened:
 ## Census checks
 
 Run each check over the production and test paths the change adds or alters,
-following it into unchanged files it names. Record each census on that path's
-single Coverage line: each member, what it was compared against and the
-outcome. One `census: none` covers a path where no check applies.
+following it into unchanged files it names. Record each census inside that
+path's one-line Coverage entry, with checks separated by semicolons and no
+nested bullets: each member, what it was compared against and the outcome. One
+`census: none` covers a path where no check applies.
 
 - **Near copies.** For each component, hook, helper, validator rule set, mapping
   or fixture the change adds or rewrites, search for an equivalent by name,

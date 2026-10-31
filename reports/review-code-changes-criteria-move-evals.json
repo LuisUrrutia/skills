@@ -1,0 +1,151 @@
+{
+  "date": "2026-10-31",
+  "skill": "review-code-changes and pr-review",
+  "status": "completed with one format regression fixed and rerun",
+  "base_commit": "38c8649cc235144f6b229b4e812f5cc5ef2d4f54",
+  "candidate_commit": "0a20737 plus the Coverage census format fix committed with this report",
+  "hosts": {
+    "claude": "Claude Code 2.1.291, claude-opus-5-5, effort xhigh, --disable-slash-commands, personal CLAUDE.md loaded",
+    "codex": "codex-cli 0.160.1, gpt-6.1-sol, reasoning effort xhigh, isolated HOME with only authentication, so no installed skills"
+  },
+  "fixture": "Python signup service. Trigger branch: a new username length rule without a test, a docstring the rule makes untrue, a deleted plugin module still named by string in app/plugins.py, REVIEW.md relaxed by the change itself, a ticket requiring email validation in one PR while the PR body defers it, and a submodule pin bump. No-trigger branch: a README wording edit, which also carried the submodule pin bump by fixture error.",
+  "cases": [
+    "standalone review-code-changes on the trigger branch",
+    "pr-review packet built by each arm's snapshot.py on the trigger branch",
+    "standalone review-code-changes on the no-trigger branch"
+  ],
+  "conditions": "Each run had its own repository copy, no private profile, no subagents and identical prompts per arm; every workspace stayed clean.",
+  "results": {
+    "base-claude-trigger": {
+      "valid": true,
+      "findings": 6,
+      "deletion": "finding",
+      "docstring_contract": "finding",
+      "missing_test": "finding",
+      "review_policy_base": "applied",
+      "email_missing": "finding",
+      "submodule": "content finding (low)"
+    },
+    "candidate-claude-trigger": {
+      "valid": true,
+      "findings": 5,
+      "deletion": "finding",
+      "docstring_contract": "finding",
+      "missing_test": "finding",
+      "review_policy_base": "applied",
+      "email_missing": "finding",
+      "submodule": "pin recorded, contents out of scope"
+    },
+    "base-codex-trigger": {
+      "valid": true,
+      "findings": 4,
+      "deletion": "finding",
+      "docstring_contract": "finding",
+      "missing_test": "finding",
+      "review_policy_base": "applied",
+      "email_missing": "finding",
+      "submodule": "pin recorded"
+    },
+    "candidate-codex-trigger": {
+      "valid": true,
+      "findings": 3,
+      "deletion": "seam gap in Review basis, not promoted: no load_plugins caller",
+      "docstring_contract": "finding",
+      "missing_test": "finding",
+      "review_policy_base": "applied",
+      "email_missing": "finding",
+      "submodule": "pin recorded, matches"
+    },
+    "base-claude-packet": {
+      "valid": true,
+      "findings": 6,
+      "deletion": "finding",
+      "docstring_contract": "finding",
+      "missing_test": "finding",
+      "review_policy_base": "applied",
+      "email_missing": "finding",
+      "submodule": "content finding (low)"
+    },
+    "base-codex-packet": {
+      "valid": true,
+      "findings": 3,
+      "deletion": "dismissed in Coverage: no load_plugins caller",
+      "docstring_contract": "finding",
+      "missing_test": "finding",
+      "review_policy_base": "applied",
+      "email_missing": "finding",
+      "submodule": "pin recorded"
+    },
+    "candidate-claude-packet (first run)": {
+      "valid": false,
+      "failure": "Coverage entry for app/validators.py split census into nested bullets",
+      "findings": 4,
+      "deletion": "finding",
+      "docstring_contract": "finding",
+      "missing_test": "finding",
+      "review_policy_base": "applied; edit raised as question",
+      "email_missing": "finding",
+      "submodule": "matches, contents out of scope"
+    },
+    "candidate-codex-packet (first run)": {
+      "valid": true,
+      "findings": 3,
+      "deletion": "open question: no load_plugins caller",
+      "docstring_contract": "finding",
+      "missing_test": "finding",
+      "review_policy_base": "applied",
+      "email_missing": "finding",
+      "submodule": "matches"
+    },
+    "candidate-claude-packet (after Coverage fix)": {
+      "valid": false,
+      "failure": "one Checks entry used two backtick spans; Coverage valid once that line is repaired, the pre-existing format rule the pr-review supervisor corrects on retry",
+      "findings": 5,
+      "deletion": "finding",
+      "docstring_contract": "finding",
+      "missing_test": "finding",
+      "review_policy_base": "applied",
+      "email_missing": "finding",
+      "submodule": "matches"
+    },
+    "candidate-codex-packet (after Coverage fix)": {
+      "valid": true,
+      "findings": 4,
+      "deletion": "finding",
+      "docstring_contract": "finding",
+      "missing_test": "finding",
+      "review_policy_base": "applied",
+      "email_missing": "finding (high)",
+      "submodule": "matches"
+    },
+    "base-claude-notrigger": {
+      "valid": true,
+      "findings": 1,
+      "note": "fixture flaw: branch also bumped the submodule pin; flagged med"
+    },
+    "candidate-claude-notrigger": {
+      "valid": true,
+      "findings": 1,
+      "note": "same pin bump flagged low; submodule contents kept out of scope; census: none"
+    },
+    "base-codex-notrigger": {
+      "valid": true,
+      "findings": 0
+    },
+    "candidate-codex-notrigger": {
+      "valid": true,
+      "findings": 0
+    }
+  },
+  "conclusions": [
+    "Both arms found the core planted issues on both hosts, so this single trial shows no detection loss from moving the criteria and no measured detection gain.",
+    "The candidate kept submodule contents out of scope as its new pin rule directs, where the base raised them as findings.",
+    "The deleted-but-referenced plugin reached Codex findings only after the census and seam rules were in the packet: the base packet dismissed it, the candidate raised it as a question and then a finding; standalone Codex runs vary between a finding and a recorded seam gap under the caller-evidence rule.",
+    "The candidate's census-on-Coverage rule caused one invalid report with nested bullets; the protocol now requires one-line entries with semicolon-separated checks, and the rerun's Coverage validates."
+  ],
+  "limits": [
+    "One trial per case and host; no repeated-trial statistics.",
+    "The no-trigger branch was not change-free because of the submodule fixture error.",
+    "pr-review publication and GitHub interaction were not exercised; only the packet review."
+  ]
+}

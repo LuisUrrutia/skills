@@ -552,7 +552,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "9af474a70e7f2a844338519ad9e92aafbd92d4fb"
-reviewed_through = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
+reviewed_through = "3449230705a508229a5a298671e9031e489f0278"
 baseline_paths = [
   "skills/ce-code-review/SKILL.md",
   "skills/ce-code-review/references/persona-catalog.md",
@@ -674,8 +674,8 @@ from_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
 to_commit = "3449230705a508229a5a298671e9031e489f0278"
 incorporated = ["skills/ce-code-review/references/scope.md, action-class-rubric.md and subagent-template.md: a repository review policy (REVIEW.md) read from the base, so a change is not reviewed under policy it wrote. Adapted into references/protocol.md#requirements-and-standards and SKILL.md#gather-intent-and-review without the donor's severity remapping, exclusions or caps.", "skills/ce-code-review/references/personas/adversarial-reviewer.md, correctness-reviewer.md and diff-scope.md: a whole-file deletion is wrong when the surviving tree still reaches it through string references, file-name routes or import-time registrations. Adapted into references/protocol.md#correctness-compatibility-and-security.", "skills/ce-code-review/references/intent-and-plan.md and modes-and-output.md: plan_group scopes completeness to the PR group a multi-PR plan assigns this diff. Adapted into references/protocol.md#requirements-and-standards for any split an accessible plan, ticket or stack establishes.", "skills/ce-code-review/references/dispatch-reviewers.md: a dispatched reviewer uses a plain agent type whose whole brief is the prompt, never a specialist with its own role. Adapted into references/delegation.md#select-work-from-the-risks.", "skills/ce-code-review/references/modes-and-output.md: returning a result ends the skill, not the caller's run. Adapted into SKILL.md#deliver-the-report for caller handoffs."]
 skipped = ["skills/ce-code-review/references/dispatch-reviewers.md and subagent-template.md: per-subagent model overrides, asset delivery by path and the statement that a subagent's context excludes the parent transcript. Covered by delegation.md, which honors caller model constraints and keeps workers independent.", "skills/ce-code-review/references/modes-and-output.md, finish-review.md and validator-batch-template.md: peer outcome fields, policy coverage counts, --irreversible-delete diffs, depth-gate floors for deletions and staged-diff reading. Donor runtime, output schema and depth floors, excluded by the declined fixed roster or numerical depth floor and the declined donor CLI routes."]
-deferred = ["Behavioral validation of the three incorporated changes on Claude Code and Codex waits: on 2026-10-31 the user asked to wait for their instruction before running evaluations."]
-validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate.", "review-code-changes structural checks: python3 -m unittest discover -s review-code-changes/tests passed; check-origin.py passed.", "Added scope.md, action-class-rubric.md, intent-and-plan.md, diff-scope.md and personas/correctness-reviewer.md to paths after confirming that none changed from the baseline to the cursor."]
+deferred = []
+validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate.", "review-code-changes structural checks: python3 -m unittest discover -s review-code-changes/tests passed; check-origin.py passed.", "Added scope.md, action-class-rubric.md, intent-and-plan.md, diff-scope.md and personas/correctness-reviewer.md to paths after confirming that none changed from the baseline to the cursor.", "Behavioral evaluation on Claude Code and Codex, base 38c8649 against the candidate, standalone and pr-review packet cases on a fixture with a deleted file still named by string, a relaxed REVIEW.md, a deferred ticket requirement and a submodule bump, plus a no-trigger case: reports/review-code-changes-criteria-move-evals.json."]
 
 [[sources]]
 id = "openclaw-review-completion"
@@ -686,7 +686,7 @@ ref = "refs/heads/main"
 license = "MIT; notice retained in THIRD-PARTY-NOTICES.txt"
 role = "ideas"
 baseline_commit = "edf1e2f436fa2a5375c98052180a090a57223f9e"
-reviewed_through = "3008b58824c9acbdc9a2fe2b79f8b3567c3db8ac"
+reviewed_through = "9ac98356158876ca9e84f60f2e53884cd3e684bd"
 baseline_paths = [
   "skills/autoreview/SKILL.md",
   "skills/autoreview/references/diagnostics-and-results.md",
@@ -752,8 +752,8 @@ from_commit = "3008b58824c9acbdc9a2fe2b79f8b3567c3db8ac"
 to_commit = "9ac98356158876ca9e84f60f2e53884cd3e684bd"
 incorporated = ["skills/autoreview/SKILL.md: a submodule gitlink bump is pin metadata with old and new IDs and URL, and the submodule's contents are not reviewed automatically. Adapted into SKILL.md#establish-a-reproducible-scope: the superproject's integration is reviewed and the submodule's own changes stay outside scope unless the caller adds them."]
 skipped = ["skills/autoreview/SKILL.md: an explicit base with zero selected changes still runs and may report a scoped-clean result. Already covered by the empty-diff rule in references/protocol.md#report-grammar.", "skills/autoreview/SKILL.md: explicit branch allocation manifests with whole changed-file units and cross-owner integration obligations. Covered by delegation.md, which assigns paths per facet and keeps cross-facet interactions with the coordinator.", "skills/autoreview/SKILL.md, references/diagnostics-and-results.md and scripts/autoreview: OpenClaw restricted execution, Codex no-fallback, prompt byte budget, report path readiness probes and effective model status. Donor runtime, excluded by the declined external review runner and the declined copying or running of the donor's runtime."]
-deferred = ["Behavioral validation of the incorporated submodule-pin rule on Claude Code and Codex waits: on 2026-10-31 the user asked to wait for their instruction before running evaluations."]
-validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate.", "review-code-changes structural checks: python3 -m unittest discover -s review-code-changes/tests passed; check-origin.py passed.", "Added references/git-and-context.md to paths after reading its version at the cursor, created between the baseline and the cursor: runtime Git collection, context and partition rules covered by the declined donor runtime."]
+deferred = []
+validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate.", "review-code-changes structural checks: python3 -m unittest discover -s review-code-changes/tests passed; check-origin.py passed.", "Added references/git-and-context.md to paths after reading its version at the cursor, created between the baseline and the cursor: runtime Git collection, context and partition rules covered by the declined donor runtime.", "Behavioral evaluation on Claude Code and Codex, base 38c8649 against the candidate, standalone and pr-review packet cases on a fixture with a deleted file still named by string, a relaxed REVIEW.md, a deferred ticket requirement and a submodule bump, plus a no-trigger case: reports/review-code-changes-criteria-move-evals.json."]
 
 [[sources]]
 id = "alireza-review-perspectives"
