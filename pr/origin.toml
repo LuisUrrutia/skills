@@ -18,6 +18,11 @@ where = [
 ]
 
 [[invariants]]
+rule = "Every gh command runs as the resolved intended actor through a credential binding prefixed to that command, reads and rate-limit checks included, so the token is looked up per command and never cached. The skill never runs gh auth switch, login or logout. A write requires the bound login check to print the actor; otherwise it stops and reports the blocker."
+reason = "User decision on 2026-10-31, stated in the user's global agent rule (https://github.com/LuisUrrutia/.dotfiles/pull/39): gh keeps one active account per host for the whole machine, and parallel agent sessions on personal and work repositories kept running gh auth switch, which broke gh for every other session. The skill restates the rule because skills.sh.json publishes it, and the user's request allowed that when installed copies lack the global rule."
+where = ["references/publication.md#github-account", "SKILL.md#establish-identity-and-scope"]
+
+[[invariants]]
 rule = "A request to create a PR continues into the event-driven Drive mode of the pr-followup skill after publication, including when an exact open PR already satisfies creation. Only an explicit create-only instruction, such as asking for the PR without follow-up, returns after publication."
 reason = "The user set this continuation policy on 2026-10-05 and restated it on 2026-10-30: every created PR is followed up unless the user asks for it without follow-up."
 where = ["SKILL.md#publish-and-verify", "references/continuation.md"]
