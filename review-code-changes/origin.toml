@@ -78,7 +78,7 @@ reason = "User decision of 2026-10-25 that maintainability findings suggest a ti
 where = ["references/protocol.md#calibrate-and-challenge-findings"]
 
 [[invariants]]
-rule = "Review criteria that callers apply, including those first written for the pr-review skill, and the private repository profiles that say how to review a specific repository live in this skill; a caller adds orchestration, not criteria."
+rule = "Review criteria that callers apply, including those first written for the pr-review skill, and the resolution and schema of the private repository profiles that say how to review a specific repository live in this skill; a caller adds orchestration, not criteria."
 reason = "User decisions of 2026-10-31: pr-review held rules for how to review code and the profile resolution that belong in this skill, so a standalone review or another caller applied none of them."
 where = ["references/protocol.md", "SKILL.md#gather-intent-and-review", "references/profiles.md"]
 
@@ -576,6 +576,11 @@ paths = [
   "skills/ce-code-review/references/validator-batch-template.md",
   "skills/ce-code-review/references/personas/adversarial-reviewer.md",
   "LICENSE",
+  "skills/ce-code-review/references/scope.md",
+  "skills/ce-code-review/references/action-class-rubric.md",
+  "skills/ce-code-review/references/intent-and-plan.md",
+  "skills/ce-code-review/references/diff-scope.md",
+  "skills/ce-code-review/references/personas/correctness-reviewer.md",
 ]
 
 [[sources.ideas]]
@@ -647,8 +652,8 @@ validation = [
 [[sources.ideas]]
 idea = "Review policy files such as REVIEW.md govern the review only in their base-revision version, so a change cannot set the rules it is reviewed under; Review basis notes a policy edit whose new version was not applied."
 serves = "Keeps a reviewed change from relaxing its own review."
-where = ["SKILL.md#gather-intent-and-review"]
-shapes = "The intent-gathering paragraph names REVIEW.md among the documents to read and requires the base version of review policy."
+where = ["SKILL.md#gather-intent-and-review", "references/protocol.md#requirements-and-standards"]
+shapes = "The intent-gathering paragraph names REVIEW.md among the documents to read, and the requirements lens applies review policy in its base version and standards at the reviewed head."
 adapted = "The donor's severity remapping, exclusions and caps from the policy file are not adopted; the protocol keeps its own severity and Action rules."
 
 [[sources.ideas]]
@@ -658,19 +663,19 @@ where = ["references/protocol.md#correctness-compatibility-and-security"]
 shapes = "The correctness lens gains a liveness check for deleted files."
 
 [[sources.ideas]]
-idea = "When the intent ships across several changes, such as the PRs of a multi-PR plan, completeness is judged against the part this change declares; the remaining parts are out of scope, not missing."
+idea = "When an accessible plan, ticket or stack assigns parts of the intent to other changes, completeness is judged against the part assigned to this change; the other parts are out of scope, not missing, and the change's own claim that a part comes later is a claim to verify."
 serves = "Prevents false missing-requirement findings on one layer of planned multi-PR work."
 where = ["references/protocol.md#requirements-and-standards"]
 shapes = "The requirements lens scopes completeness to the declared part."
-adapted = "Generalized from the donor's plan_group argument to any declared split of the intent."
+adapted = "Generalized from the donor's plan_group argument, which must match a plan heading, to any split an accessible plan, ticket or stack establishes; an unsupported split falls back to the whole intent."
 
 [[sources.reviews]]
 from_commit = "bdc53d034ccfa5baf01b6139cd46082145ff95cc"
 to_commit = "3449230705a508229a5a298671e9031e489f0278"
-incorporated = ["skills/ce-code-review/references/scope.md, action-class-rubric.md and subagent-template.md: a repository review policy (REVIEW.md) read from the base, so a change is not reviewed under policy it wrote. Adapted into SKILL.md#gather-intent-and-review without the donor's severity remapping, exclusions or caps.", "skills/ce-code-review/references/personas/adversarial-reviewer.md, correctness-reviewer.md and diff-scope.md: a whole-file deletion is wrong when the surviving tree still reaches it through string references, file-name routes or import-time registrations. Adapted into references/protocol.md#correctness-compatibility-and-security.", "skills/ce-code-review/references/intent-and-plan.md and modes-and-output.md: plan_group scopes completeness to the PR group a multi-PR plan assigns this diff. Adapted into references/protocol.md#requirements-and-standards for any intent that ships across several changes."]
-skipped = ["skills/ce-code-review/references/dispatch-reviewers.md and subagent-template.md: per-subagent model overrides, generic subagent naming, asset delivery by path and the statement that a subagent's context excludes the parent transcript. Covered by delegation.md, which honors caller model constraints and keeps workers independent.", "skills/ce-code-review/references/modes-and-output.md, finish-review.md and validator-batch-template.md: peer outcome fields, policy coverage counts, --irreversible-delete diffs, depth-gate floors for deletions, caller-return wording and staged-diff reading. Donor runtime, output schema and depth floors, excluded by the declined fixed roster or numerical depth floor and the declined donor CLI routes."]
-deferred = ["Behavioral validation of the three incorporated changes on Claude Code and Codex waits for the user's authorization to run evaluations, given on 2026-10-31 as wait for the user's instruction."]
-validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate.", "review-code-changes structural checks: python3 -m unittest discover -s review-code-changes/tests passed; check-origin.py passed."]
+incorporated = ["skills/ce-code-review/references/scope.md, action-class-rubric.md and subagent-template.md: a repository review policy (REVIEW.md) read from the base, so a change is not reviewed under policy it wrote. Adapted into references/protocol.md#requirements-and-standards and SKILL.md#gather-intent-and-review without the donor's severity remapping, exclusions or caps.", "skills/ce-code-review/references/personas/adversarial-reviewer.md, correctness-reviewer.md and diff-scope.md: a whole-file deletion is wrong when the surviving tree still reaches it through string references, file-name routes or import-time registrations. Adapted into references/protocol.md#correctness-compatibility-and-security.", "skills/ce-code-review/references/intent-and-plan.md and modes-and-output.md: plan_group scopes completeness to the PR group a multi-PR plan assigns this diff. Adapted into references/protocol.md#requirements-and-standards for any split an accessible plan, ticket or stack establishes.", "skills/ce-code-review/references/dispatch-reviewers.md: a dispatched reviewer uses a plain agent type whose whole brief is the prompt, never a specialist with its own role. Adapted into references/delegation.md#select-work-from-the-risks.", "skills/ce-code-review/references/modes-and-output.md: returning a result ends the skill, not the caller's run. Adapted into SKILL.md#deliver-the-report for caller handoffs."]
+skipped = ["skills/ce-code-review/references/dispatch-reviewers.md and subagent-template.md: per-subagent model overrides, asset delivery by path and the statement that a subagent's context excludes the parent transcript. Covered by delegation.md, which honors caller model constraints and keeps workers independent.", "skills/ce-code-review/references/modes-and-output.md, finish-review.md and validator-batch-template.md: peer outcome fields, policy coverage counts, --irreversible-delete diffs, depth-gate floors for deletions and staged-diff reading. Donor runtime, output schema and depth floors, excluded by the declined fixed roster or numerical depth floor and the declined donor CLI routes."]
+deferred = ["Behavioral validation of the three incorporated changes on Claude Code and Codex waits: on 2026-10-31 the user asked to wait for their instruction before running evaluations."]
+validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate.", "review-code-changes structural checks: python3 -m unittest discover -s review-code-changes/tests passed; check-origin.py passed.", "Added scope.md, action-class-rubric.md, intent-and-plan.md, diff-scope.md and personas/correctness-reviewer.md to paths after confirming that none changed from the baseline to the cursor."]
 
 [[sources]]
 id = "openclaw-review-completion"
@@ -693,6 +698,7 @@ paths = [
   "skills/autoreview/references/diagnostics-and-results.md",
   "skills/autoreview/scripts/autoreview",
   "LICENSE",
+  "skills/autoreview/references/git-and-context.md",
 ]
 
 [[sources.ideas]]
@@ -735,19 +741,19 @@ validation = [
 ]
 
 [[sources.ideas]]
-idea = "A submodule bump is a pin change: the review records its old and new commits and URL, and the submodule's contents are an unreviewed seam unless the caller adds them."
+idea = "A submodule bump is a pin change: the review records its old and new commits and URL and reviews the superproject's integration with the new pin, while the submodule's own changes are outside scope unless the caller adds them."
 serves = "Keeps Coverage from implying that a bumped dependency's contents were reviewed."
 where = ["SKILL.md#establish-a-reproducible-scope"]
 shapes = "The scope inventory paragraph records pin metadata for gitlink changes."
-adapted = "Stated as a seam of the local review rather than the donor's prompt metadata."
+adapted = "Stated as scope and inventory rules of the local review rather than the donor's prompt metadata."
 
 [[sources.reviews]]
 from_commit = "3008b58824c9acbdc9a2fe2b79f8b3567c3db8ac"
 to_commit = "9ac98356158876ca9e84f60f2e53884cd3e684bd"
-incorporated = ["skills/autoreview/SKILL.md: a submodule gitlink bump is pin metadata with old and new IDs and URL, and the submodule's contents are not reviewed automatically. Adapted into SKILL.md#establish-a-reproducible-scope as an unreviewed seam unless the caller adds it."]
+incorporated = ["skills/autoreview/SKILL.md: a submodule gitlink bump is pin metadata with old and new IDs and URL, and the submodule's contents are not reviewed automatically. Adapted into SKILL.md#establish-a-reproducible-scope: the superproject's integration is reviewed and the submodule's own changes stay outside scope unless the caller adds them."]
 skipped = ["skills/autoreview/SKILL.md: an explicit base with zero selected changes still runs and may report a scoped-clean result. Already covered by the empty-diff rule in references/protocol.md#report-grammar.", "skills/autoreview/SKILL.md: explicit branch allocation manifests with whole changed-file units and cross-owner integration obligations. Covered by delegation.md, which assigns paths per facet and keeps cross-facet interactions with the coordinator.", "skills/autoreview/SKILL.md, references/diagnostics-and-results.md and scripts/autoreview: OpenClaw restricted execution, Codex no-fallback, prompt byte budget, report path readiness probes and effective model status. Donor runtime, excluded by the declined external review runner and the declined copying or running of the donor's runtime."]
-deferred = ["Behavioral validation of the incorporated submodule-pin rule on Claude Code and Codex waits for the user's authorization to run evaluations, given on 2026-10-31 as wait for the user's instruction."]
-validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate.", "review-code-changes structural checks: python3 -m unittest discover -s review-code-changes/tests passed; check-origin.py passed."]
+deferred = ["Behavioral validation of the incorporated submodule-pin rule on Claude Code and Codex waits: on 2026-10-31 the user asked to wait for their instruction before running evaluations."]
+validation = ["Verified baseline, cursor and candidate ancestry; read the scoped diff from the cursor to the candidate and checked that every recorded path still exists at the candidate.", "review-code-changes structural checks: python3 -m unittest discover -s review-code-changes/tests passed; check-origin.py passed.", "Added references/git-and-context.md to paths after reading its version at the cursor, created between the baseline and the cursor: runtime Git collection, context and partition rules covered by the declined donor runtime."]
 
 [[sources]]
 id = "alireza-review-perspectives"

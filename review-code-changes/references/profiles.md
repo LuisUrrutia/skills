@@ -1,16 +1,16 @@
 # Private review profiles
 
-Read when the target repository is known, before gathering intent. A private
-profile holds review context a repository does not track: its stacks and seams,
-accessible checkouts, blind spots, rule sources and their authority, tracker
-setup, operational scope and findings that failed there before. Keep these
-facts outside this package.
+Read when the target repository is known, before gathering intent, unless you
+are a worker whose coordinator supplied profile context. A private profile holds
+review context a repository does not track; keep it outside this package.
 
 ## Resolve
 
 Identify the target `owner/repo`: a PR's URL, even for a fork checkout;
-otherwise the repository the change will merge into. Ask when forks or several
-remotes leave it ambiguous.
+otherwise the repository the change will merge into. A target without an
+`owner/repo` identity has no profile and continues as `none`. When a configured
+profile directory exists and forks or several remotes leave the identity
+ambiguous, ask.
 
 ```bash
 python3 <skill-dir>/scripts/resolve_profile.py <owner/repo>
@@ -21,8 +21,8 @@ The default directory is the first existing of `review-code-changes/profiles`,
 `$XDG_CONFIG_HOME`, or `~/.config` when it is unset. When none exists, no
 profile is configured. `--profiles-dir <dir>` selects another directory, which
 must exist and be readable. Every `.md` file in the selected directory must be a
-valid profile; keep versioned profiles in a private checkout and link the
-default directory to it.
+valid profile, so keep folder documentation outside it. Keep versioned profiles
+in a private checkout and link the default directory to it.
 
 - `matched`: read the single exact match and name its source in Review basis.
 - `none`: continue from repository evidence; derive seam scope.

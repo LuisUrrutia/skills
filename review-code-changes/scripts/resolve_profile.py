@@ -54,7 +54,10 @@ def profile_matches(path: Path) -> set[str]:
 
 
 def resolve_profile(repo: str, profiles_dir: Path | None = None) -> dict[str, Any]:
-    normalized_repo = normalize_repo(repo)
+    try:
+        normalized_repo = normalize_repo(repo)
+    except ProfileError:
+        return {"repo": repo, "status": "none", "profile": None}
     explicit = profiles_dir is not None
     if profiles_dir is None:
         config = Path(os.environ.get("XDG_CONFIG_HOME", str(Path.home() / ".config")))

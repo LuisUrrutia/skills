@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import argparse
 import hashlib
+import importlib.util
 import json
 import os
 import re
@@ -12,8 +13,6 @@ import subprocess
 import sys
 from pathlib import Path
 from urllib.parse import urlparse
-
-import importlib.util
 
 
 class SnapshotError(RuntimeError):
@@ -102,7 +101,10 @@ def profile_matches(audit: Path, path: Path) -> set[str]:
     spec = importlib.util.spec_from_file_location("resolve_profile", audit / "scripts/resolve_profile.py")
     module = importlib.util.module_from_spec(spec)
     spec.loader.exec_module(module)
-    return module.profile_matches(path)
+    try:
+        return module.profile_matches(path)
+    except module.ProfileError as error:
+        raise SnapshotError(str(error)) from error
 
 
 def review_profile(audit: Path, path: Path, repository: str) -> str:

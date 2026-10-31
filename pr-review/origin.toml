@@ -5,6 +5,10 @@ approach = "create"
 goal = "Publish one GitHub review of another author's PR under the user's own account, built from independent Codex and Claude reviews that the parent verifies and synthesizes. Success is a Comment review that carries only verified, correctly anchored findings, or an Approve review when the review is complete and nothing that blocks approval remains, with read-back confirming what was published and every gap reported to the user."
 
 [[invariants]]
+rule = "The record keeps no base: the private draft-review package this skill was migrated from is Git history, not a tracked base or snapshot."
+reason = "User decision of 2026-10-31 to remove draft-review from the record."
+
+[[invariants]]
 rule = "Users and the pr-review-followup skill start the skill. Implicit invocation stays enabled in Codex so follow-up ticks can re-review a new head, and the description limits selection to a review that is published on GitHub."
 reason = "User decision on 2026-10-30. Codex hides a skill whose agents/openai.yaml sets allow_implicit_invocation false from the model's prompt; only an explicit $name still invokes it (codex-rs/ext/skills/src/provider/host.rs and the skill-creator openai_yaml reference in openai/codex, checked 2026-10-30)."
 where = ["SKILL.md", "scripts/validate.sh"]
@@ -148,6 +152,7 @@ decisions = [
   "2026-10-25, with the user's approval of the change: making optional an unmet standard whose remedy would no longer serve the change went into the auditor protocol as an authorized auditor update, because the auditor owns Class and Action.",
   "2026-10-31, at the user's direction: every remaining review criterion this skill held, its caller lenses, seam semantics, maintainability, comment and test checks and the brief's intent rules, went into the auditor, so this skill keeps no audit criteria; its parent still runs the seam and census checks itself.",
   "2026-10-31, at the user's direction: private profile resolution and the profile schema moved into the auditor; this skill reads the matched profile's publishing sections and filters what reaches the packet.",
+  "snapshot.py checks that a supplied profile matches the PR target through the auditor's documented profile_matches caller contract, turning its ProfileError into a snapshot failure.",
 ]
 
 [[dependencies]]

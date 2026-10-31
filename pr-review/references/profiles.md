@@ -6,8 +6,7 @@ metadata first, then resolve the target's private profile as `review-code-change
 directs.
 
 Beyond what that review reads, use the matched profile's Comment bindings for
-wording, Author names for the conversation title and Tracker project keys to
-validate the subject ticket key.
+wording and Author names for the conversation title.
 
 A profile's Rules name the guides to pass through `--rules`. The brief records
 every passed file's authority class from the auditor protocol, the paths it

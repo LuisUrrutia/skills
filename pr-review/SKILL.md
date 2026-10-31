@@ -33,9 +33,9 @@ preserve independently useful work.
    baseRefName, baseRefOid, headRefName and headRefOid in `pr.json`. The URL
    identifies the **target** repository even for a fork. Resolve relevant
    repository instructions, requirements and standards with their source,
-   revision and applicability. When the conversation is
-   dedicated to reviewing this PR and the host can rename it (T3:
-   `t3_thread_update` with `rename`), title it
+   revision and applicability. When the conversation is dedicated to reviewing
+   this PR and the host can rename it (T3: `t3_thread_update` with `rename`),
+   title it
    `[REVIEW] #<number> <ticket> <author>`. The ticket is the subject ticket of the
    [Brief](#brief), in its tracker's canonical form, such as
    `ABC-123`, `#141`, or `owner/repo#141` for another repository's issue, else
@@ -54,8 +54,8 @@ preserve independently useful work.
    guide through `--rules` so both engines receive it. When the diff adds or
    changes rendered UI and the `accessibility` skill resolves by registered name,
    stage its web or platform reference under a path-derived name and pass it
-   with the review-practice authority class;
-   when it is unavailable, record that and continue. The helper records
+   with the review-practice authority class; when it is unavailable, record
+   that and continue. The helper records
    immutable base/head/merge-base, the unique changed-path JSON (including deleted
    paths), a rename-origin map, the exact diff, source hashes and actual Git state.
    Its private manifest remains with the parent. Only review-relevant profile

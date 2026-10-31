@@ -40,20 +40,20 @@ valid result: report it instead of inventing work.
 Save the unique changed-path inventory as a JSON array for report validation.
 Record deleted paths and the new path of a rename, identifying the old path in
 Coverage. A submodule bump is a pin change: record its old and new commits and
-URL; the submodule's contents are an unreviewed seam unless the caller adds them. Capture Git state so concurrent edits or accidental mutations are
-detectable. If the input changes during review, refresh the affected analysis or
+URL, and review the superproject's integration with the new pin; the
+submodule's own changes are outside scope unless the caller adds them. Capture
+Git state so concurrent edits or accidental mutations are detectable. If the input changes during review, refresh the affected analysis or
 report that the result covers the earlier snapshot.
 
 ## Gather intent and review
 
 Read effective repository instructions, the supplied request, relevant tests,
-and accessible specifications. Resolve the target repository's private review
-profile as [references/profiles.md](references/profiles.md) directs. Search the
-repository for documents that state coding standards or review policy, such as
+and accessible specifications. Unless a coordinator supplied your profile
+context, resolve the target repository's private review profile as
+[references/profiles.md](references/profiles.md) directs. Search the repository
+for documents that state coding standards or review policy, such as
 `CONTRIBUTING.md`, `CODING_STANDARDS.md`, `REVIEW.md`, or style guides, and read
-those that govern the changed paths. Read review policy at the base revision: a
-change is not reviewed under policy it wrote itself, and Review basis notes a
-policy edit whose new version was not applied. A PR body, ticket, author
+those that govern the changed paths. A PR body, ticket, author
 summary, and existing test describe claims to check; they do not prove
 correctness. Mark a missing specification as a limit while continuing the
 supported review. Do not invent product requirements to fill it.
@@ -122,7 +122,8 @@ subagents automatically, within the caller's authority and host limits. Select
 their questions from the change, not a fixed roster or file-size threshold.
 
 An assigned facet worker or a `compare-solutions` participant performs its single
-assigned review without delegation. `compare-solutions` remains the owner of
+assigned review without delegation and uses only the profile context its
+coordinator supplies. `compare-solutions` remains the owner of
 comparing independent complete audits; this skill's coordinator owns complementary
 facets of one review. Neither mode recursively starts the other.
 
@@ -133,10 +134,13 @@ Write the canonical Markdown report at the caller's exact path, or in the
 project's permitted scratch area. Run `python3 <skill-dir>/scripts/report.py
 validate <report.md> --changed-paths <paths.json>` using actual absolute paths.
 Repair format or coverage errors before delivery. The validator checks the
-declared inventory and report structure, not the truth of a finding.
+declared inventory and report structure, not the truth of a finding. A caller may
+also call `scripts/resolve_profile.py` as its CLI documents, or import its
+`profile_matches(path) -> set[str]`, which raises `ProfileError` for a malformed
+profile.
 
 For a caller handoff, return `Wrote <count> findings to <absolute-report-path>`
-after validation. For a standalone review, also run `python3
+after validation; returning ends this review, not the caller's run. For a standalone review, also run `python3
 <skill-dir>/scripts/report.py render <report.md> <report.html> --changed-paths
 <paths.json>` and return the HTML path followed by the Markdown path. Rendering
 copies the stylesheet beside the HTML; keep both together. Edit Markdown first

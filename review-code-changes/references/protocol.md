@@ -68,9 +68,16 @@ Treat intentional removals or breakage as authorized only to the extent the
 request establishes. Trace consequences beyond that stated intent. A comparison
 or parity claim requires reading the comparison path; shared behavior can share
 a defect. Specification silence does not prove either a new product requirement
-or the absence of a regression in established behavior. When the intent ships
-across several changes, such as the PRs of a multi-PR plan, judge completeness
-against the part this change declares; the rest is out of scope, not missing.
+or the absence of a regression in established behavior. When an accessible
+plan, ticket or stack assigns parts of the intent to other changes, judge
+completeness against the part assigned to this change; the others are out of
+scope, not missing. The change's own claim that a part comes later is a claim to
+verify.
+
+Files that set how review behaves, such as `REVIEW.md`, apply in their
+base-revision version, so a change is not reviewed under policy it wrote itself;
+Review basis notes a policy edit whose new version was not applied. Standards
+apply at the reviewed head.
 
 Trace a claimed restriction to its policy, permission or contract owner. Absence
 of an existing capability does not establish a prohibition. Compare a workaround

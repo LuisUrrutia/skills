@@ -518,7 +518,7 @@ review-audit skill; it preserves a read-only review phase and local reports.
 - Pins the actual comparison and accounts for every declared changed path
 - Traces causal evidence, requirements, standards, structure, security, and verification
 - Opens cross-repository seams and runs census checks for copies, stored-value writers, comments, and tests
-- Reads a private per-repository review profile from the first existing of `$XDG_CONFIG_HOME/review-code-changes/profiles`, `pr-review/profiles` or `pr-review-draft/profiles`, or `--profiles-dir`; generic reviews need none
+- Reads a private per-repository review profile from the first existing of `review-code-changes/profiles`, `pr-review/profiles` or `pr-review-draft/profiles` under `$XDG_CONFIG_HOME` (default `~/.config`), or `--profiles-dir`; generic reviews need none
 - Distinguishes required changes, optional improvements, and unresolved questions
 - Uses relevant specialists within the review's scope and permissions
 - Delegates independent risk areas automatically when useful, with one coordinator validating evidence and complete coverage

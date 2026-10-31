@@ -1,18 +1,15 @@
 from __future__ import annotations
 
+import importlib.util
 import os
 import tempfile
 import unittest
 from pathlib import Path
 from unittest.mock import patch
 
-import importlib.util
-import sys
-
 SCRIPT = Path(__file__).resolve().parents[1] / "scripts/resolve_profile.py"
 spec = importlib.util.spec_from_file_location("resolve_profile", SCRIPT)
 module = importlib.util.module_from_spec(spec)
-sys.modules["resolve_profile"] = module
 spec.loader.exec_module(module)
 ProfileError, resolve_profile = module.ProfileError, module.resolve_profile
 
@@ -63,6 +60,13 @@ class ProfileTests(unittest.TestCase):
         self.assertEqual(fallback['profile'], str((legacy / 'profile.md').resolve()))
         self.assertEqual(previous['profile'], str((previous_dir / 'profile.md').resolve()))
         self.assertEqual(preferred['status'], 'none')
+
+    def test_target_without_owner_repo_identity_has_no_profile(self):
+        (self.profiles / 'profile.md').write_text(BODY)
+
+        result = resolve_profile('group/sub/repo', self.profiles)
+
+        self.assertEqual(result['status'], 'none')
 
     def test_missing_explicit_directory_is_an_error(self):
         with self.assertRaises(ProfileError):
