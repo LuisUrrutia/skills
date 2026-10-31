@@ -89,7 +89,7 @@ reason = "User decision of 2026-10-08, after an earlier rule to name the missing
 where = ["SKILL.md#word-select-and-publish"]
 
 [[local_snapshots.deviations]]
-change = "Added rule authority classes to the profile reference, including owner convention: rules that the owning reviewer of the touched paths enforces, reported as an optional finding of the subject's class unless a standard or a traced consequence makes it required."
+change = "Added rule authority classes to the profile reference: the brief labels each passed rule file with its auditor class, including owner convention, mined from how authors resolved the owning reviewer's comments on the touched paths."
 reason = "User decision of 2026-10-13. On that PR the engines received that reviewer's mined conventions as leads and dropped them, while the author applied 23 of the reviewer's 29 threads; over six months up to 86% of the reviewer's comments on those paths were applied, counting changed or resolved lines."
 where = ["references/profiles.md"]
 
@@ -191,9 +191,19 @@ where = [
 ]
 
 [[local_snapshots.deviations]]
-change = "Removed the caller review supplement and the parent seam sweep's criteria; the packet carries only the auditor protocol, and the parent runs the coordinator checks the review-code-changes skill assigns."
+change = "Removed the caller review supplement, the seam, maintainability and comment and test sweep criteria, the brief's ticket and population rules and the rule authority class semantics; the auditor protocol carries them, and the packet labels profile rules as private calibration."
 reason = "User decision of 2026-10-31: rules for how to review code belong in the review-code-changes skill, not in this skill."
-where = ["SKILL.md#run-and-reconcile", "references/ledger.md", "scripts/snapshot.py"]
+where = ["SKILL.md#brief", "SKILL.md#run-and-reconcile", "references/ledger.md", "references/profiles.md", "scripts/snapshot.py"]
+
+[[local_snapshots.deviations]]
+change = "Added that, while the engines review, the parent opens the seams and runs the census checks of the frozen auditor protocol itself and records each seam verdict and census in the ledger; each census member that fails its check becomes a candidate."
+reason = "User decisions of 2026-10-25: engines that carried the same checks still missed items, and two runs of one revision each kept comment findings the other missed. On 2026-10-31 the user kept this redundancy in this skill when the checks moved into review-code-changes."
+where = ["SKILL.md#run-and-reconcile", "references/ledger.md#questions-seams-and-synthesis"]
+
+[[local_snapshots.deviations]]
+change = "Added capturing the PR's closing issue references in pr.json, so the subject ticket can come from an issue the PR closes."
+reason = "Inferred from the user's 2026-10-30 decision that the title's ticket comes from any tracker; the PR that prompted it named its GitHub issue only as a closing reference."
+where = ["SKILL.md#prepare-one-reproducible-review"]
 
 [[dependencies]]
 kind = "local"
@@ -207,7 +217,7 @@ decisions = [
   "2026-10-25, at the user's direction: the rule that a reachable trigger's rarity narrows Affected rather than severity went into the auditor protocol as an authorized auditor update, because the engines grade severity before the coordinator does.",
   "2026-10-25, with the user's approval of the change: carrying a pre-existing defect that lies in an expression the change edits, and counting repetition the change extends as part of its resulting structure, went into the auditor protocol as an authorized auditor update, because the auditor owns Class and Action.",
   "2026-10-25, with the user's approval of the change: making optional an unmet standard whose remedy would no longer serve the change went into the auditor protocol as an authorized auditor update, because the auditor owns Class and Action.",
-  "2026-10-31, at the user's direction: every remaining review criterion this skill held, its caller lenses, seam semantics, maintainability, comment and test checks and the brief's intent rules, went into the auditor, so this skill keeps no audit criteria and runs the auditor's coordinator checks.",
+  "2026-10-31, at the user's direction: every remaining review criterion this skill held, its caller lenses, seam semantics, maintainability, comment and test checks and the brief's intent rules, went into the auditor, so this skill keeps no audit criteria; its parent still runs the seam and census checks itself.",
 ]
 
 [[dependencies]]

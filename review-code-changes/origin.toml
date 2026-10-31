@@ -94,7 +94,7 @@ where = ["SKILL.md#gather-intent-and-review"]
 
 [[invariants]]
 rule = "Seams compare semantics as well as shapes, such as soft or hard deletes. A migration, backfill or job that rewrites stored values opens a seam for each published contract that returns them. A field removed, renamed or newly required between sides that can run different versions is compared base against head in both directions: required when its window can outlast a release or it writes lasting data, otherwise optional."
-reason = "User decisions of 2026-10-13 and 2026-10-25 for pr-review: a missing soft delete across a seam, a backfill that changed what integrator APIs return without opening a seam, and a removed contract field whose break between running versions went unexamined. The user confirmed that releases deploy every service together, leaving the rollout and old browser tabs as windows."
+reason = "User decisions of 2026-10-13 and 2026-10-25 for pr-review: a missing soft delete across a seam, a backfill that changed what integrator APIs return without opening a seam, and a removed contract field whose break between running versions went unexamined. The user confirmed that releases deploy every service together, leaving the rollout and old browser tabs as windows, and accepted the coordinator's proposal to class gaps by window length and lasting writes."
 where = ["references/protocol.md#seams"]
 
 [[invariants]]
@@ -103,17 +103,27 @@ reason = "User decisions of 2026-10-13, 2026-10-23 and 2026-10-25 for pr-review:
 where = ["references/protocol.md#correctness-compatibility-and-security", "references/protocol.md#calibrate-and-challenge-findings"]
 
 [[invariants]]
-rule = "Census checks cover near copies, copied data, one rule per stored value, integrity and repeated static work, comments the change makes untrue, a test that fails without each changed rule or branch on the runtime its standard requires, and tests that pin defective behavior. Each census is recorded on its path's Coverage line; a maintainability item that does not change behavior is optional unless a standard requires it."
-reason = "User decisions of 2026-10-23 and 2026-10-25 for pr-review. Engines holding the team test standard reported one of six untested rules, and benchmark reviews missed most maintainability issues another reviewer found, a fixture repeated in 30 files, a backfill that trims differently, a false doc comment, a filter tested only on an in-memory database and a test pinning a regression."
+rule = "Census checks for maintainability search first the packages a changed file imports from, then its app, then the repository; compare whole statements the change adds one member to; compare copies and writers of one stored value by the unit they count or match; and count a new writer's different rule as the change's even without a caller. Writer validation does not replace a constraint on a newly read key."
+reason = "User decisions of 2026-10-25 for pr-review. Benchmark reviews missed most maintainability issues another reviewer found, a fixture repeated in 30 files, a hand-written copy in an imported package, a backfill that trims differently, two length limits counting different units, a drifted predicate repeated in four handlers, and accepted writer canonicalization in place of a constraint."
 where = ["references/protocol.md#census-checks"]
 
 [[invariants]]
-rule = "A coordinator of facets or of independent complete audits also opens the seams and runs the census checks itself while the auditors work, and treats each gap and census item as a candidate."
-reason = "User decisions of 2026-10-25 for pr-review: auditors that carried the same checks still missed items, and two runs of one revision each kept comment findings the other missed."
-where = ["SKILL.md#use-focused-support"]
+rule = "Census checks find, for each changed rule, mapping, filter or result-changing branch, the test that fails without it and its runtime against the standard governing its path, and check each comment the change touches or makes untrue. Each census goes on its path's single Coverage line, and a census item that does not change behavior is optional unless a standard requires it."
+reason = "User decisions of 2026-10-23 and 2026-10-25 for pr-review. Engines holding the team test standard reported one of six untested rules; two runs of one revision each kept comment findings the other missed, and only one kept a filter tested only on an in-memory database."
+where = ["references/protocol.md#census-checks"]
 
 [[invariants]]
-rule = "Before settling a candidate's extent, the review censuses every member of the family it concerns, and it traces a proposed remedy with the care of its diagnosis."
+rule = "A test that asserts behavior a finding shows defective, or covers only a shape the writers can no longer produce, is an affected site of that finding with its own remedy."
+reason = "User decision of 2026-10-25 for pr-review: a new integration test pinned a regression with a record the backfill already resolves, and the coordinator cited it only as evidence."
+where = ["references/protocol.md#census-checks"]
+
+[[invariants]]
+rule = "A caller may label each rule source's authority: standard, team standard, owner convention, team history, review practice or private calibration. An owner convention match is an optional finding unless a standard or traced consequence makes it required; a review practice guide alone makes no change required; and a rule source applies at the scope its own text sets, never narrower."
+reason = "User decisions of 2026-10-13 and 2026-10-23 for pr-review: engines dropped an owning reviewer's mined conventions as leads although authors applied most of that reviewer's threads, and a brief scoped a test-per-production-change standard to changed test files. On 2026-10-31 the user moved these classification rules from pr-review's profile reference into this skill."
+where = ["references/protocol.md#requirements-and-standards"]
+
+[[invariants]]
+rule = "When the change applies a rule to a family of fields, handlers or call sites, or a candidate concerns such a family, the review censuses every member before settling its extent, and it traces a proposed remedy with the care of its diagnosis."
 reason = "User decision of 2026-10-23 for pr-review: a coordinator verified a missing test for one validator rule against two siblings that had tests and stopped, and a human reviewer then raised the remaining untested rules."
 where = ["references/protocol.md#calibrate-and-challenge-findings"]
 

@@ -119,10 +119,7 @@ their questions from the change, not a fixed roster or file-size threshold.
 An assigned facet worker or a `compare-solutions` participant performs its single
 assigned review without delegation. `compare-solutions` remains the owner of
 comparing independent complete audits; this skill's coordinator owns complementary
-facets of one review. Neither mode recursively starts the other. In either mode,
-the coordinator also opens the seams and runs the census checks itself while
-the auditors work, because auditors that carried those checks still missed
-items, and treats each gap and census item as a candidate.
+facets of one review. Neither mode recursively starts the other.
 
 ## Deliver the report
 

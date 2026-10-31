@@ -70,16 +70,14 @@ remedy; repair the remedy if the underlying finding still stands.
 ## Questions, seams and synthesis
 
 Use stable Q identifiers with source IDs, exact missing premise, needed evidence
-and status (`open`, `resolved`, `dropped`). A premise that decides whether an issue
-exists remains a question. Name the boundary or access needed; do not turn absence
-of access into a finding. Unresolved limits that affect only extent qualify an
-otherwise supported finding. A merged question keeps every member its sources
+and status (`open`, `resolved`, `dropped`), judged under the protocol's premise
+rules. A merged question keeps every member its sources
 name, such as each contract or consumer; dropping one needs its own reason.
 
 Add seam gaps with both revision-specific locations through the same candidate
 contract. Matching and unreadable seam verdicts are coverage, not automatic bugs.
-Add census check items the same way, with the check as their source; each
-check's census is coverage.
+Add each census member that fails its check the same way, with the check as
+its source; each check's census is coverage.
 Before external feedback is opened, every engine is terminal, every delivered
 candidate has a disposition, every opened seam has a verdict, every census
 check has its census, and every material question has a resolution or an exact

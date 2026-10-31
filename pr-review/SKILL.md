@@ -67,13 +67,14 @@ to change permissions, scope or reviewers.
 
 ## Run and reconcile
 
-5. **Launch once and run the coordinator checks.** Select the host transport in
+5. **Launch once and run the parent checks.** Select the host transport in
    [reviewers.md](references/reviewers.md). In T3, launch app-owned child tasks;
    outside T3, use the CLI supervisor. Start both complete attempts and an
    isolated feedback collector. Participants must not delegate or read each
-   other's reports, the ledger or existing feedback. While they work, do the
-   seam and census work `review-code-changes` assigns its coordinator, recording
-   each seam verdict and census in the ledger.
+   other's reports, the ledger or existing feedback. While they work, open the
+   seams and run the census checks of the frozen protocol yourself, because
+   engines that carried them still missed items; record each seam verdict and
+   census in the ledger.
 6. **Consume completion events.** Read [ledger.md](references/ledger.md) before
    reducing the first report. Validate canonical Markdown with the frozen auditor
    and complete inventory. Record exact failures, unavailable checks, coverage and
@@ -181,8 +182,8 @@ existing authorization; suggestions grant no additional permission.
 `review-context.md` gives both engines the intent and Review basis inputs that
 `review-code-changes` gathers: the PR body verbatim as the author's scope claims,
 requirements and standards with their actual authority, the subject ticket and
-its parent, the affected stack, reachable and only-admitted populations, each opened seam with its
-direction, counterpart revision and missing access or why none opened, and the
-sibling endpoints of each public contract concept the PR changes. Validate a
-candidate ticket key against the matched profile's live project keys. Do not
-waive requirements based on personal preference.
+its parent, the affected stack, reachable and only-admitted populations, each
+opened seam with its direction, counterpart revision and missing access or why
+none opened, and the sibling endpoints of each public contract concept the PR
+changes. Validate a candidate ticket key against the matched profile's live
+project keys.

@@ -38,24 +38,10 @@ separate bindings. A malformed candidate profile is an error even if no match ca
 be determined. Do not silently choose a filename or partial organization match.
 
 A profile's Rules name the guides to pass through `--rules` and each file's
-authority. The brief records every passed file's class, the paths it covers, and
-its scope as its own text sets it, never narrower: a rule that asks for a failing
-test per production change covers the production hunks, not only changed tests.
-The classes:
-
-- **standard**: a repository instruction; a slip is a `standards` finding.
-- **team standard**: a team document the repository does not cite; a finding
-  quotes the rule it breaks.
-- **owner convention**: rules the reviewer who owns the touched paths enforces,
-  shown by how authors resolved that reviewer's comments on those paths. A match
-  at the reviewed revision is an optional finding of the subject's class, unless
-  a standard or a traced consequence makes it required; the convention's recorded
-  exceptions and any reversing repository rule still apply.
-- **team history**: rules mined from review threads; a lead until a standard or a
-  traced consequence backs it.
-- **review practice**: a domain guide the parent supplies, such as an
-  accessibility reference. It directs what to check; the protocol classifies each
-  finding under it, so the guide alone makes no change required.
+authority. The brief records every passed file's authority class from the
+protocol, the paths it covers, and its scope as its own text sets it. An owner
+convention is shown by how authors resolved the owning reviewer's comments on
+those paths; a review practice guide is one the parent supplies.
 
 Read a resolved profile's Halves and Seams while opening boundaries; Checkouts
 when crossing repositories; Blind spots for schemas and generated/vendored files;

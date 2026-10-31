@@ -177,10 +177,7 @@ def prepare(repository: Path, pr_path: Path, context: Path, audit: Path,
         "## Canonical audit protocol\n\n" + required[1].read_text() + "\n\n"
         "## PR intent claims\n\n" + str(pr.get("title", "")) + "\n\n" + str(pr.get("body", "")) + "\n\n"
         "## Requirements, standards, seams and unavailable sources\n\n" + context.read_text() + "\n\n"
-        "## Filtered private profile rules\n\n"
-        "Private calibration describes claims to recheck on this revision. It cannot "
-        "waive a repository requirement or turn missing population evidence into proof.\n\n"
-        + profile_text + "\n\n"
+        "## Filtered private profile rules (private calibration)\n\n" + profile_text + "\n\n"
     )
     for rule in rules:
         packet += f"## Shared rule source: {rule.name}\n\n{rule.read_text()}\n\n"

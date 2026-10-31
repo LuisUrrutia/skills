@@ -46,6 +46,24 @@ how it applies; local conventions govern style. Heuristics are leads, not proof
 of violations. Avoid duplicating tool-enforced formatting findings unless the
 tool or workflow actually fails to enforce the requirement.
 
+Read a supplied rule source at the scope its own text sets, never narrower: a
+rule that asks for a failing test per production change covers the production
+hunks, not only changed tests. A caller may label each source's authority:
+
+- **standard**: a repository instruction; a slip is a `standards` finding.
+- **team standard**: a team document the repository does not cite; a finding
+  quotes the rule it breaks.
+- **owner convention**: a rule the reviewer who owns the touched paths enforces.
+  A match at the reviewed revision is an `optional` finding of the subject's
+  class unless a standard or a traced consequence makes it `required`; the
+  convention's recorded exceptions and any reversing repository rule still apply.
+- **team history**: a rule mined from review threads; a lead until a standard or
+  a traced consequence backs it.
+- **review practice**: a domain guide such as an accessibility reference. It
+  directs what to check; the guide alone makes no change required.
+- **private calibration**: claims to recheck on this revision; it cannot waive a
+  repository requirement or turn missing population evidence into proof.
+
 Treat intentional removals or breakage as authorized only to the extent the
 request establishes. Trace consequences beyond that stated intent. A comparison
 or parity claim requires reading the comparison path; shared behavior can share
@@ -224,7 +242,8 @@ in which the sides run different versions, such as separate deploys, a rolling
 rollout or a client that keeps an old build, also compare each side at base with
 the other at head, in both directions, each as its own row naming its window. A
 skew gap is evidenced when the old side reads or sends the changed field, or
-omits a field the new side requires or reads. It is `required` when its window
+omits a field the new side requires or reads; it is a candidate, not a question.
+It is `required` when its window
 can outlast a release, such as a separately deployed or rolled-back side or an
 old client build, or when what it writes outlasts the window; when only the
 rollout of a release that ships both sides opens it, it is `optional`. An earlier
@@ -238,14 +257,14 @@ Record each opened seam's verdict in Review basis, or why none opened:
 - `gap`: the incompatibility, both revision-specific locations and where the fix
   belongs. Only an evidenced gap becomes a candidate.
 - `unreadable`: the exact missing repository, revision, path, permission or
-  check. A decisive unknown stays a question.
+  check.
 
 ## Census checks
 
 Run each check over the production and test paths the change adds or alters,
-following it into unchanged files it names. Record its census on that path's
-Coverage line: each member, what it was compared against and the outcome, or
-`none` when nothing applies.
+following it into unchanged files it names. Record each census on that path's
+single Coverage line: each member, what it was compared against and the
+outcome. One `census: none` covers a path where no check applies.
 
 - **Near copies.** For each component, hook, helper, validator rule set, mapping
   or fixture the change adds or rewrites, search for an equivalent by name,
@@ -281,7 +300,7 @@ Coverage line: each member, what it was compared against and the outcome, or
 - **Comments.** Census each comment, doc comment, XML summary and docstring the
   change adds or alters, each existing one on a member the change alters, and the
   summary of each interface, base type or contract a changed member implements,
-  test summaries included. One the head's behavior makes untrue is a finding
+  test summaries included. One the change makes untrue is a finding
   under the standard that governs comments, or `optional` where none does. Check
   those the change adds or alters also against the repository's comment rules,
   such as rules on listing callers, stamps or diff history.
@@ -297,13 +316,14 @@ Coverage line: each member, what it was compared against and the outcome, or
   governing its path requires, under that standard's own exceptions, is a
   candidate; a sibling member's test on the required runtime, or the file's
   existing lower-level pattern, does not count as that test. A PR body coverage
-  claim the tests do not support is evidence for that candidate.
+  claim the tests do not support is evidence for that candidate, recorded in
+  Review basis.
 - **Tests of defective behavior.** An added or changed test that asserts behavior
   a finding shows defective, or that covers only a shape the writers can no
   longer produce while the shape that fails stays untested, is an affected site
   of that finding with its own location and remedy.
 
-A maintainability item that changes behavior, such as two writers storing
+A census item that changes behavior, such as two writers storing
 different values for one input, is a correctness candidate. Otherwise it is
 `optional` unless a standard requires the change.
 
@@ -312,8 +332,8 @@ different values for one input, is a correctness candidate. Otherwise it is
 For each candidate, look for the strongest disconfirming evidence: an earlier
 guard, a later overwrite, a constrained input population, an inactive path, or
 an intentional contract change. A comment, another reviewer's agreement or an
-author's disclosure in a PR body cannot replace that inspection. Attribute external findings that survive and explain a
-material disagreement with evidence. An outdated comment must be rechecked on
+author's disclosure in a PR body cannot replace that inspection. Attribute
+external findings that survive and explain a material disagreement with evidence. An outdated comment must be rechecked on
 the reviewed snapshot.
 
 Challenge the implementation against the expected contract, including failure,
@@ -348,10 +368,11 @@ without losing distinct failure paths. Prioritize consequential correctness and
 security, then requirements and structural regressions; omit cosmetic noise.
 Provide the smallest useful remedy or decision, not a speculative rewrite.
 Trace a remedy with the same care as its diagnosis; a proposed rewrite preserves
-value semantics, including timestamp components and time zones. When a candidate
-concerns members of a family, such as the rules of one validator or the call
-sites a rule is applied to, census every member before settling its extent, and
-keep the affected members and distinct consequences through synthesis.
+value semantics, including timestamp components and time zones. When the
+change applies a rule to a family of fields, handlers or call sites, or a
+candidate concerns such a family, such as the rules of one validator, census
+every member before settling its extent, and keep the affected members and
+distinct consequences through synthesis.
 
 Phrase each recommendation as one concise request or decision that names the
 behavior to preserve. Compress repetition without removing substantiation or
