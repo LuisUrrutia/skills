@@ -4485,7 +4485,7 @@ window.SKILL_ATLAS = {
         "category": "Implementation, verification and review",
         "summary": "Review another author's PR with independent Codex, Claude and CodeRabbit attempts over one frozen scope, then publish one Comment or Approve review.",
         "path": "pr-review/SKILL.md",
-        "sha256": "6b7d52d17eed9d31ec1fcae5d6c7a9efe7e12a79acd9603b24b5772e57a3930a",
+        "sha256": "8937c15ef32f2ee9191938833f5c4d003e490380e7f9c4894b8e302b2c8d4e7f",
         "checkedAt": "2026-10-17"
       },
       {

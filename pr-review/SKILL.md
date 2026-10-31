@@ -10,7 +10,7 @@ and Claude: a **Comment** review carrying the verified findings, or an
 **Approve** review when the review is complete and nothing blocking remains.
 Generic auditing belongs to `review-code-changes`. Following up on replies and
 new commits, resolving threads and later approval belong to `pr-review-followup`;
-repairing your own PR belongs to `pr-followup`; when the verified `gh` actor is
+repairing your own PR belongs to `pr-followup`; when the intended GitHub actor is
 the PR's author, use that instead. This workflow never requests changes, resolves
 threads or modifies the reviewed code.
 
@@ -156,15 +156,15 @@ existing authorization; suggestions grant no additional permission.
       `--max-event COMMENT`, and return whether every engine succeeded, how many
       supported required findings stand outside the actor's threads, how many
       decisive questions remain open, and the receipt when anything was published.
-    Verify intended actor and current PR base/head, then publish through
-    `scripts/publish_review.py`. It builds the review at that head with the new
-    threads, submits it once and reads back state, membership and exact bodies,
-    then posts thread replies on their own. It refuses APPROVE while the actor
-    has an unresolved thread the plan does not mark optional, and stops before
-    submitting when the review holds content it did not write. An unsubmitted
-    review the actor already has belongs to the user: stop rather than publish
-    it. An uncertain write needs reconciliation, not a blind retry; a definite
-    GitHub rejection is reported as such.
+    Under the intended actor's token binding, verify current PR base/head, then
+    publish through `scripts/publish_review.py`. It builds the review at that
+    head with the new threads, submits it once and reads back state, membership
+    and exact bodies, then posts thread replies on their own. It refuses APPROVE
+    while the actor has an unresolved thread the plan does not mark optional,
+    and stops before submitting when the review holds content it did not write.
+    An unsubmitted review the actor already has belongs to the user: stop rather
+    than publish it. An uncertain write needs reconciliation, not a blind retry;
+    a definite GitHub rejection is reported as such.
 11. **Report the observed result.** Give the full PR URL and the published event,
     then one row per published site with file/side/line, a short topic, severity,
     required/optional status, sources and whether it is a reply. Include dropped or

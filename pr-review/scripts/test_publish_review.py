@@ -1,9 +1,11 @@
 from __future__ import annotations
 
 import json
+import os
 import unittest
+from unittest import mock
 
-from publish_review import PublishError, RejectedError, anchor_lines, apply, validate_plan
+from publish_review import GitHub, PublishError, RejectedError, anchor_lines, apply, validate_plan
 from snapshot import digest, prepare, verify
 from test_support import AUDITOR, ReviewFixture
 
@@ -392,7 +394,7 @@ class PublishReviewTests(unittest.TestCase):
 
     def test_actor_mismatch_and_remote_drift_prevent_writes(self):
         self.api.actor = 'another-user'
-        with self.assertRaisesRegex(PublishError, 'actor differs'):
+        with self.assertRaisesRegex(PublishError, "'another-user', not the intended actor 'reviewer'"):
             self.apply()
         self.assertEqual(self.api.writes(), [])
         self.api.actor = 'reviewer'
@@ -514,6 +516,21 @@ class PublishReviewTests(unittest.TestCase):
             plan['comments'][0]['line'] = 8
             with self.assertRaisesRegex(PublishError, 'outside'):
                 validate_plan(plan, verify(snapshot), snapshot)
+
+
+class TokenBindingTests(unittest.TestCase):
+    def test_the_client_requires_the_token_variable_gh_reads_for_the_host(self):
+        cases = [('github.com', 'GH_TOKEN', 'GH_ENTERPRISE_TOKEN'),
+                 ('octo.ghe.com', 'GH_TOKEN', 'GH_ENTERPRISE_TOKEN'),
+                 ('ghes.example.com', 'GH_ENTERPRISE_TOKEN', 'GH_TOKEN')]
+        for host, bound, other in cases:
+            with self.subTest(host=host), mock.patch.dict(os.environ):
+                os.environ.pop(bound, None)
+                os.environ[other] = 'canary-other'
+                with self.assertRaisesRegex(PublishError, f'{bound} for {host}'):
+                    GitHub(host)
+                os.environ[bound] = 'canary-bound'
+                self.assertEqual(GitHub(host).host, host)
 
 
 if __name__ == '__main__':
