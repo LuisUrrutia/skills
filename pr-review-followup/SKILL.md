@@ -17,20 +17,26 @@ Resolve `pr-review` and `comment-style` by registered name, and use
 that needs it. Every write below is published immediately; none waits as a draft.
 
 All helper commands run from any directory as
-`python3 "$SKILL_DIR/scripts/followup.py" <command> --pr "$PR_URL" --actor "$REVIEWER" --state-file "$STATE_FILE"`,
+`GH_TOKEN="$(gh auth token --hostname "$PR_HOST" --user "$REVIEWER" || echo none)" python3 "$SKILL_DIR/scripts/followup.py" <command> --pr "$PR_URL" --actor "$REVIEWER" --state-file "$STATE_FILE"`,
 plus the arguments named below. Each prints JSON; a nonzero exit is a stopped
 step to report, never a success. Mutating commands hold a per-state-file lock
 through GitHub writes and read-back. A busy operation exits without changing
 state; retry it after the owner finishes. Keep the adjacent `.lock` file in place
 while the follow-up is active, including when reconciling an uncertain write.
 
+Bind every `gh` call to the reviewer with that prefix, naming
+`GH_ENTERPRISE_TOKEN` instead of `GH_TOKEN` on a GitHub Enterprise Server host.
+Its `none` fallback makes a failed lookup fail instead of using another account.
+Run `gh auth token` only inside the binding. Never run `gh auth switch`, `login`
+or `logout`: every session on the machine shares the active account.
+
 ## Start the follow-up
 
-1. Resolve the PR URL, its target repository and the reviewer actor: explicit user
-   direction, or the path-effective Git email matched to an authenticated `gh`
-   account. Verify it with `gh api user --jq .login` on the PR's host and switch
-   to an already authenticated intended account when needed. Ask only when the
-   identity stays ambiguous.
+1. Resolve the PR URL, its host (`$PR_HOST`) and target repository, and the
+   reviewer actor: explicit user direction, or the path-effective Git email
+   matched to an authenticated `gh` account. Ask only when the identity stays
+   ambiguous. Under the binding, `gh api --hostname "$PR_HOST" user --jq .login`
+   must print the reviewer; otherwise stop and report the blocker.
 2. Choose one state file per PR in the reviewed project's permitted scratch area.
    It is bound to that PR and reviewer and holds the recorded review, the head
    and base on which each resolved thread was last verified, and any uncertain
@@ -63,14 +69,11 @@ while the follow-up is active, including when reconciling an uncertain write.
      thread or review it names.
 3. **Review a new head.** When `review_current` is false and no review is in
    progress, run `begin --head "$HEAD"`, then `pr-review` on the current head as
-   a full review. Tell it that this follow-up owns approval, so it publishes
-   with `--max-event COMMENT` or publishes nothing. Then record what it covered:
-
-   ```bash
-   python3 "$SKILL_DIR/scripts/followup.py" record --pr "$PR_URL" --actor "$REVIEWER" \
-     --state-file "$STATE_FILE" --snapshot "$SCRATCHPAD/inputs/snapshot.json" \
-     --complete "$COMPLETE" --standing "$STANDING" --questions "$QUESTIONS"
-   ```
+   a full review with the reviewer as its intended actor, under the same binding.
+   Tell it that this follow-up owns approval, so it publishes with `--max-event
+   COMMENT` or publishes nothing. Then record what it covered with `record
+   --snapshot "$SCRATCHPAD/inputs/snapshot.json" --complete "$COMPLETE" --standing
+   "$STANDING" --questions "$QUESTIONS"`.
 
    When the review published anything, add `--receipt
    "$SCRATCHPAD/review-receipt.json"`; it records each thread's action unless a

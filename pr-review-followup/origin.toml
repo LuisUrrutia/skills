@@ -49,6 +49,16 @@ reason = "A reused state file can receive a review handoff during a scheduled ti
 where = ["scripts/followup.py", "SKILL.md#pr-review-follow-up"]
 
 [[invariants]]
+rule = "Every `gh` call the skill makes, helper commands included, runs under a per-command token binding to the reviewer on the PR's host, and the pr-review run for a new head gets the reviewer as its intended actor under the same binding. The skill never runs `gh auth switch`, `login` or `logout`. When the login under the binding is not the reviewer, the follow-up stops and reports the blocker; scripts/followup.py checks that login on every PR read, because a pending review and resolve rights are only visible to the reviewer."
+reason = "User decision of 2026-10-31: `gh` keeps one active account per host for every process on the machine, and parallel agent sessions on personal and work repositories kept running `gh auth switch`, which broke `gh` for every other session. The user's global rule changed in https://github.com/LuisUrrutia/.dotfiles/pull/39, but the user observed that a loaded skill's specific step wins over it, so agents running this skill kept switching."
+where = ["SKILL.md#pr-review-follow-up", "SKILL.md#start-the-follow-up", "SKILL.md#run-one-tick", "scripts/followup.py"]
+
+[[invariants]]
+rule = "The skill states its GitHub account binding itself instead of pointing at the user's global GitHub account rule."
+reason = "The user asked on 2026-10-31 to point at the global rule unless the skill must stay self-contained. It must: skills.sh.json publishes the skill, so an installation may lack the user's global instructions, and the helper's command form has to carry the binding anyway."
+where = ["SKILL.md#pr-review-follow-up"]
+
+[[invariants]]
 rule = "Thread replies follow the pr-review skill's rule for published text: they never mention the engines, models or agents behind the review, how it was run, or what it could not cover. An author's question about how the review was done goes to the user."
 reason = "User decision on 2026-10-08."
 where = ["references/thread-settlement.md"]
@@ -98,7 +108,7 @@ coverage = "apps/server/src/orchestration-v2/pullRequestWatch.ts and PullRequest
 kind = "local"
 name = "pr-review"
 required = true
-role = "Full review of a new head, publication of new findings and same-topic replies, and the publication receipt that records each thread's required or optional action."
+role = "Full review of a new head with the reviewer as its intended actor, publication of new findings and same-topic replies, and the publication receipt that records each thread's required or optional action."
 
 [[dependencies]]
 kind = "local"
