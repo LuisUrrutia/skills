@@ -724,6 +724,19 @@ Check whether domain names are available to register and what they cost.
 - Reports each domain as a bullet with Porkbun's public first-year and renewal prices, fetched without an API key
 - Paces queries per registry server and keeps a throttling server in cooldown across runs, because one registry blocks bursts for 24 hours
 
+### humanize
+
+Rewrite English or Chinese prose with the humanizer model (jialinyyzz/humanizer, a fine-tuned Gemma 4 12B) served from your own llama.cpp endpoint.
+
+**Triggers:** `humanize this`, `run this through humanizer`
+
+**Features:**
+- Runs only on an explicit request, never for ordinary rewriting
+- Reads `RUNPOD_API_KEY` and `HUMANIZER_URL`, the endpoint's `/completion` URL, from the environment or from fish universal variables, so agents launched from GUI apps find them
+- Sends the model's exact training prompt and sampling settings, keeps code fences and headings verbatim and splits long text at paragraph breaks
+- Waits for a scaled-to-zero endpoint to start, and resamples once when a number or URL goes missing or appears
+- Has the agent check names, dates and quotations against the original and report every fix before handing back the rewrite
+
 ## Installation
 
 ### Using npx (Recommended)
