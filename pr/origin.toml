@@ -5,7 +5,7 @@ approach = "derive"
 goal = "Publish, update or inspect one pull request so that a human reviewer understands the problem, the delivered behavior, the consequential decisions and the evidence needed to assess the change. Success is a PR with verified identity, head and base, a title and body whose every claim rests on evidence for that class of claim, the intended draft state and only the requested metadata, with a creation request continuing into follow-up."
 
 [[invariants]]
-rule = "This skill owns publication and PR presentation. The commit skill owns atomic commits, the stacked-pr skill owns stack topology, submit and cascading rebases, the pr-followup skill owns feedback, CI repair and the transition from draft to ready, and the issue-workflow skill owns linked-ticket synchronization. Checkout switches follow the host's checkout ownership and the worktrunk skill."
+rule = "This skill owns publication and PR presentation. The commit skill owns atomic commits, the stacked-pr skill owns stack topology, submit and cascading rebases, the review-code-changes skill owns the pre-creation audit, the pr-followup skill owns feedback, CI repair and the transition from draft to ready, and the issue-workflow skill owns linked-ticket synchronization. Checkout switches follow the host's checkout ownership and the worktrunk skill."
 where = ["SKILL.md#pull-request", "SKILL.md#establish-identity-and-scope"]
 
 [[invariants]]
@@ -71,6 +71,16 @@ where = [
   "references/visual-evidence.md#screenshots-and-recordings",
   "references/attachments.md#verify-and-recover",
 ]
+
+[[invariants]]
+rule = "Creating a PR, including each new stacked-pr layer through the Review gate mode, first requires a validated review-code-changes report whose scope is the exact merge-base and head to publish, reused when one exists and run otherwise. Every finding and open question is resolved before pushing or creating, and fixes get a repeat review of the new head. Only the user's explicit instruction skips the gate, and an unavailable review skill blocks it."
+reason = "User decision of 2026-10-31: \"deberiamos tener una forma en la que antes de hacer el pr, si no se ha corrido review-code-changes, se deberia correr y solucionar todos los problemas\" (before making the PR, if review-code-changes has not run, it should run and every problem should be fixed). The coordinator, not the user, limited the gate to creation because the request names making the PR, so pushes to an existing PR run no gate."
+where = ["references/review-gate.md", "SKILL.md#resolve-the-operation"]
+
+[[invariants]]
+rule = "Resolving a finding means fixing every required finding and every optional one within the change's purpose, recording the code evidence that disproves a finding, reporting an optional suggestion outside the change's purpose or aimed at later changes as a follow-up, and asking the user about decisions and remedies outside the repository. A report with partial or unreadable coverage is unfinished. A finding that survives its fix or disproof, or a third review that still leaves something to fix, goes to the user."
+reason = "Coordinator interpretation of the user's \"solucionar todos los problemas\": review-code-changes directs out-of-purpose optional suggestions to follow-up tickets, fixing a disproved finding would damage correct code, and each repeat review covers the whole change and can raise new findings, so the loop needs a bound that returns the decision to the user."
+where = ["references/review-gate.md"]
 
 [[sources]]
 id = "matt-reviewable-pr"
@@ -750,3 +760,9 @@ kind = "local"
 name = "task-breakdown"
 required = false
 role = "Revise delivery units when the measured PR exceeds its task or project review-size cap."
+
+[[dependencies]]
+kind = "local"
+name = "review-code-changes"
+required = true
+role = "Audits the exact range before a PR is created or a stack layer is pushed; this skill applies the dispositions and repeat reviews."
