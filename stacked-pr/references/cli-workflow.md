@@ -31,8 +31,8 @@ a mutation, when the installed version is older and no rebase or modify recovery
 it with the same command plus `--force`; a read-only request only reports the newer release.
 Confirm with `gh stack --version`. Git older than 2.36 is a blocker for this route.
 
-Report a failed install with its stderr; it decides the route as SKILL.md describes, and never
-leads to layers opened with `gh pr create` on this route. After a failed upgrade, report it and
+Retry a transient install failure once, then report it with its stderr; SKILL.md decides the next
+step, and it never leads to layers opened with `gh pr create` on this route. After a failed upgrade, report it and
 continue with the installed version, unless that version is older than v0.2.0 and the stack spans
 worktrees: shared worktree tracking starts there, so report a blocker.
 

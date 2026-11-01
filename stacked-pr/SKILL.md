@@ -68,24 +68,22 @@ Decide the route in this order:
 2. **API** when REST owns the state: a bot, integration, stateless job, or explicit REST request
    performs a native-stack operation. Load [references/api-workflow.md](references/api-workflow.md).
 3. Otherwise run `gh extension list` and record the result.
-   - **Manual** when the user explicitly asks for ordinary dependent PRs instead of a native stack,
-     when GitHub reports native stacks unavailable for the repository, or when installing the
-     absent extension is prohibited or fails. Load
-     [references/manual-chain.md](references/manual-chain.md).
+   - **Manual** when the user explicitly asks for ordinary dependent PRs instead of a native stack.
+     Load [references/manual-chain.md](references/manual-chain.md).
    - **CLI** otherwise: `github/gh-stack` is installed, or it is absent and the route installs it
      before its first command. Only the user or a project rule can prohibit installation. Load
      [references/cli-workflow.md](references/cli-workflow.md).
 
-When several conditions hold at once, the user's explicit choice outranks GitHub's report, which
-outranks the extension listing. A user who explicitly asked for a native stack never gets the manual
-route: report a prohibited or failed install, or GitHub's report, as a blocker, and use the API
-route only with the user's authorization.
+Any other request for stacked or dependent PRs asks for a native stack. When installing the absent
+extension is prohibited or fails, report a blocker with that observation and offer ordinary
+dependent PRs or, with the user's authorization, the API route. When GitHub reports native stacks
+unavailable for the repository, report a blocker and offer ordinary dependent PRs. The manual route
+then follows only the user's choice, and a chain
+that `gh-stack` already tracks moves to it through the migration section of troubleshooting.md.
 
 GitHub reports native stacks unavailable through a failed native-stack read, link, or submit;
-routing does not probe for it. If that report appears during a mutation on the CLI route and the
-user did not ask for a native stack, record it as the deciding observation and move the chain to
-manual through the migration section of troubleshooting.md. During a read-only request, report it
-and keep inspecting through Git and PR reads without changing tracking or ownership.
+routing does not probe for it. During a read-only request, report it and keep inspecting through
+Git and PR reads without changing tracking or ownership.
 
 Existing branches and PRs that no tool tracks yet do not decide the route. On the CLI route, a
 mutation adopts them first as part of the requested operation, through the adopt step in

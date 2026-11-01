@@ -25,13 +25,13 @@ reason = "T3 Code requires the turn to end after watch activation; arming the fi
 where = ["SKILL.md#follow-up-layers"]
 
 [[invariants]]
-rule = "The route is decided in a fixed order and recorded with its deciding observation: stack-aware CI and integrations, then REST, then gh extension list. Manual applies only on the user's explicit choice of ordinary dependent PRs, GitHub's report that native stacks are unavailable, or a prohibited or failed install of github/gh-stack; otherwise the CLI route installs an absent extension and applies. Only the user or a project rule prohibits installation. Untracked branches and PRs, and branches in linked Git worktrees, do not decide the route; a CLI mutation adopts them first."
+rule = "The route is decided in a fixed order and recorded with its deciding observation: stack-aware CI and integrations, then REST, then gh extension list. Manual applies only on the user's explicit choice of ordinary dependent PRs; otherwise the CLI route installs an absent extension and applies. Only the user or a project rule prohibits installation. Untracked branches and PRs, and branches in linked Git worktrees, do not decide the route; a CLI mutation adopts them first."
 reason = "On 2026-10-07 an agent took the manual route on a two-PR stack although github/gh-stack was installed, because the CLI route read as requiring branches that the extension already tracked (commit bf0dae6; reports/skill-atlas/stacked-pr-routing-validation.json). On 2026-11-01 the user reported that stacks were still sometimes not created natively and stated that a missing extension must be installed."
 where = ["SKILL.md#route-the-request"]
 
 [[invariants]]
-rule = "A user who explicitly asked for a native stack never gets the manual route. A prohibited or failed install, or GitHub's unavailability report, is reported as a blocker, and the API route is used only with the user's authorization."
-reason = "A CodeRabbit review of PR 19 found that a prohibited or failed install selected the manual route despite such a request (commit 9e65db4, 2026-10-07)."
+rule = "Every request for stacked or dependent PRs asks for a native stack unless the user explicitly asks for ordinary dependent PRs. A prohibited or failed install is a blocker that offers ordinary dependent PRs or, with the user's authorization, the API route; GitHub's unavailability report is a blocker that offers ordinary dependent PRs; the manual route follows only the user's choice."
+reason = "A CodeRabbit review of PR 19 found that a prohibited or failed install selected the manual route despite a native-stack request (commit 9e65db4, 2026-10-07). On 2026-11-01 the user decided that a plain stacked-PR request counts as a native-stack request, so neither condition falls back to ordinary PRs without the user's choice."
 where = ["SKILL.md#route-the-request"]
 
 [[invariants]]
