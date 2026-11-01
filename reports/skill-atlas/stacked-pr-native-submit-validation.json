@@ -1,0 +1,116 @@
+{
+ "schemaVersion": 1,
+ "date": "2026-11-01",
+ "baseline": "3e9098e020c213730f26dca9ff4e90d0525a1253",
+ "scope": "Make stacked-pr create native GitHub stacks reliably, install gh-stack when absent, and update from github/gh-stack 14fc42ed9b6c376a53b2f999f138d3bd26dac546..2a49e6751238633db504655d8a8eba3e433e827d (v0.3.0).",
+ "diagnosis": "The CLI submit step loaded the pr skill without a mode, whose Create mode opens ordinary PRs, and its completion criterion checked bases but not native membership. The interoperability section treated a separate worktree as another branch manager, sending WorkTrunk users to pr Create plus gh stack link. Installation was conditional. gh-stack v0.3.0 also reports stacks unavailable after any failed lookup (cmd/submit.go) and can exit 0 when linking fails.",
+ "probes": [
+  {
+   "case": "Linked worktree, extension absent, 2-layer split",
+   "runtime": "stacked-pr at 3e9098e",
+   "host": "Claude Code general-purpose subagent, claude-opus-5-5, default effort, read-only dry run",
+   "result": "Reproduced the failure: pr Create mode for both PRs, then gh stack link; no submit."
+  },
+  {
+   "case": "Earlier candidates: same split; ordinary PRs; read-only status; failed install; 401 on submit; two remotes; cooldown; rebase on an ordinary chain; native-by-default decision",
+   "runtime": "uncommitted intermediate candidates, superseded",
+   "host": "Claude Code general-purpose subagents, claude-opus-5-5, read-only dry runs",
+   "result": "Each found gap was fixed in the text; superseded by the final runs below."
+  },
+  {
+   "case": "Final suite: 1 create with absent extension; 2 submit unavailable with HTTP 401; 3 sync on an ordinary untracked chain; 4 v0.2.1 installed with eligible v0.3.0 and fresh v0.3.1; 5 explicit ordinary PRs",
+   "runtime": "/tmp/stacked-pr-final/runtime.sha256 sha256 296bf8502a8f344a6e00a8781b2db1c98ca5c4f2a1877a77453688ba341d06ca; both hosts reported SKILL.md 53d23415..., cli-workflow.md bc99782d..., cli-create.md adac600b..., cli-maintain.md 0eaecaab..., troubleshooting.md d5df2b59...",
+   "host": "Claude Code general-purpose subagent (claude-opus-5-5) and Codex delegate (gpt-6.1-sol, reasoningEffort high), read-only dry runs",
+   "result": "Both hosts: CLI with install --pin v0.3.0 and PRs only from gh stack submit; 401 kept as an auth blocker without regular PRs; sync paused for the user's conversion decision; remove plus install --pin v0.3.0 with rollback to v0.2.1; manual route for explicit ordinary PRs. Superseded for cases 2 and 3 by the head runs below."
+  },
+  {
+   "case": "Head suite: A sync on an ordinary untracked chain (question timing); B conversion declined; C conversion accepted; D submit unavailable confirmed by the documented 404; E regression with absent extension",
+   "runtime": "git archive 0f29cd6 stacked-pr, manifest sha256 f0246d6299cf7dd2edd44d1c69ebd3a93e38138fb589792b9d876f4b08df4c1c; SKILL.md 1ba9fa5e..., cli-workflow.md 5f711c91... reported by both hosts",
+   "host": "Claude Code general-purpose subagent (claude-opus-5-5) and Codex delegate (gpt-6.1-sol, reasoningEffort high), read-only dry runs",
+   "outputs": [
+    "reports/skill-atlas/stacked-pr-probes/claude-0f29cd6.md",
+    "reports/skill-atlas/stacked-pr-probes/codex-0f29cd6.md"
+   ],
+   "probe": "reports/skill-atlas/stacked-pr-probes/probe-0f29cd6.md",
+   "result": "Both hosts: A asks before any adoption or gh stack init; B takes the manual route with no migration; C adopts, syncs and verifies membership through the stack endpoint; D blocks, declines regular PRs and offers ordinary PRs; E installs with --pin v0.3.0 and creates PRs only with gh stack submit --auto."
+  },
+  {
+   "case": "After CodeRabbit fixes: stack-list 404 with readable repository; repository 404; offline upgrade failure from v0.2.1; read-only status on v0.2.1",
+   "runtime": "stacked-pr/ at 6f0f86d, manifest sha256 a28dbf638da46d4f2ef033e854be78bfdc1788a77ef42829b919026e84ccd7cb",
+   "host": "Claude Code general-purpose subagent (claude-opus-5-5) and Codex delegate (gpt-6.1-sol, reasoningEffort high), read-only dry runs",
+   "outputs": [
+    "reports/skill-atlas/stacked-pr-probes/claude-coderabbit.md",
+    "reports/skill-atlas/stacked-pr-probes/codex-coderabbit.md"
+   ],
+   "probe": "reports/skill-atlas/stacked-pr-probes/probe-coderabbit.md",
+   "result": "Both hosts: only a stack-list 404 with a readable repository counts as unavailability; a repository 404 is an access blocker; the upgrade copies, removes, installs pinned, and restores the copy on failure, recording the verified version; read-only status changes nothing."
+  }
+ ],
+ "modelReview": {
+  "candidate": "/tmp/stacked-pr-review/candidate.diff sha256 5456711d32b2cecc1f154fe560b5773779330fdbf2499a32e987f6b2899846b6",
+  "profiles": [
+   "codex gpt-6.1-sol reasoningEffort xhigh: completed, 8 findings",
+   "claudeAgent claude-opus-5-5 effort xhigh: completed, 12 findings"
+  ],
+  "adopted": [
+   "Membership verification for adopted ordinary chains (scoped to a create or submit request after the final probe)",
+   "Conflict resolution in the owning worktree and sync rollback",
+   "Submit acts on every active layer; ask instead of publishing a subset",
+   "accept-base-change approval for rebase and sync",
+   "Pinned install for the release cooldown, no upgrade during pending recovery, Git 2.36 check",
+   "Narrowed the generated-copy decline and added the gh pr edit idea",
+   "Added docs/src/content/docs/reference/cli.md to source paths",
+   "Recorded validation before advancing the cursor",
+   "Exit 9 confirmed against the stack endpoint",
+   "Membership re-read, single submit retry and single-layer pending state",
+   "--remote for the recorded push remote",
+   "WorkTrunk layer creation on its parent and no wt merge or rebase on layers",
+   "v0.2.0 floor for worktree stacks after a failed upgrade",
+   "Decline the regular-PR prompt, run submit without a terminal",
+   "Draft-only copy only for PRs submit created",
+   "Reason labeled as analysis"
+  ],
+  "rejected": [],
+  "userDecision": "Resolved 2026-11-01: the user chose option (a), a plain stacked-PR request counts as a native-stack request."
+ },
+ "size": {
+  "SKILL.md": [
+   1150,
+   1149
+  ],
+  "references/cli-create.md": [
+   374,
+   656
+  ],
+  "references/cli-maintain.md": [
+   273,
+   330
+  ],
+  "references/cli-workflow.md": [
+   488,
+   769
+  ],
+  "references/troubleshooting.md": [
+   1127,
+   1288
+  ],
+  "total": [
+   6823,
+   7603
+  ],
+  "justification": "Each addition closes an observed or source-confirmed path to unstacked PRs, an install or upgrade defect, or records a v0.3.0 behavior change."
+ },
+ "checks": [
+  "python3 skill-maintenance/scripts/check-origin.py --skill-dir stacked-pr --source github-gh-stack=/tmp/ghstack-src/gh-stack: no diagnostics"
+ ],
+ "limits": [
+  "Dry runs plan actions; no tool executed, no extension replacement and no GitHub write was exercised.",
+  "Live help and GitHub documentation were outside the probes."
+ ],
+ "reviewGate": {
+  "profile": "Codex gpt-6.1-sol, reasoningEffort xhigh",
+  "scope": "3e9098e..db98caa",
+  "findings": "F1 sync converts ordinary PRs, F2 --force ignores --pin, F3 validation evidence, F4 single-layer exception in the invariant, F5 probe history in a reason; all fixed",
+  "repeat": "Repeat review of 3e9098e..0f29cd6 resolved F1, F2, F4 and F5 and kept F3 for final-runtime evidence; the head runs above answer it."
+ }
+}

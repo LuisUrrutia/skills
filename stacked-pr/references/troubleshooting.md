@@ -16,8 +16,10 @@ recoverable pre-operation tips, and one evidence-backed recovery branch are iden
 
 ## Interrupted or conflicting rebase
 
-Resolve only the files reported by Git, stage them, and use the continuation form shown by current
-CLI help. Repeat for later layers. Use the current abort form when recovery must restore the
+Resolve only the files reported by Git, in the worktree the conflict message names, stage them
+there, and use the continuation form shown by current CLI help. Repeat for later layers. A sync
+conflict restores the branches instead of pausing; rerun the current rebase command to reproduce
+it before resolving. Use the current abort form when recovery must restore the
 pre-operation stack, then verify the recorded tips.
 
 Recovery is complete when no rebase remains active, the worktree is clean except for preserved
@@ -75,10 +77,11 @@ remove the local tracking together, because a retained native stack keeps its me
 Otherwise remove only the local tracking and leave the PRs, branches, and GitHub stack unchanged,
 unless the request includes dissolving it. Make no Git write while local tracking remains.
 
-After a requested dissolution, GitHub may keep some PRs stacked, for example while they are queued
-for merge. The CLI then leaves local tracking in place. Report the remaining stack and obtain the
-user's decision before continuing. If the user proceeds, remove local tracking with the local-only
-form and confirm that the stack view no longer reports the chain before any Git write.
+After a requested dissolution, GitHub may keep merged or queued PRs stacked. From v0.3.0 the CLI
+still removes local tracking when unstacking partly succeeds, and retains it only when GitHub
+rejects the whole operation. Report any remaining stack and obtain the user's decision before
+continuing. If the user proceeds while local tracking remains, remove it with the local-only form
+and confirm that the stack view no longer reports the chain before any Git write.
 
 Add the bottom-to-top map to the body of every open PR that GitHub no longer stacks.
 
@@ -111,12 +114,21 @@ verification finishes.
 
 ## Worktrees and other branch managers
 
-When worktrees, Jujutsu, Sapling, git-town, or another tool owns branches, keep navigation and
-rebasing in that owner. Use the membership-only link form from the adoption section or the API route
-only to publish remote stack membership. On the manual and API routes, branches checked out in
-another worktree require explicit replay there because Git cannot silently move those refs. On the
-CLI route, `gh stack modify` applies changes in each branch's clean owning worktree; confirm in live
-help before relying on another command to do the same.
+When Jujutsu, Sapling, git-town, or another tool owns branches, keep navigation and rebasing in that
+owner. Use the membership-only link form from the adoption section or the API route only to publish
+remote stack membership.
+
+Linked Git worktrees, including WorkTrunk's, share one `gh-stack` catalog, so the CLI route keeps
+init, add, submit, rebase and sync there. Switching the branch of a checkout the host owns follows
+the host's checkout rules. A layer that needs its own worktree is created with
+`wt switch --create <layer> --base <parent>` and then adopted into the stack, because WorkTrunk
+otherwise bases it on the default branch. WorkTrunk keeps only the worktree lifecycle: its merge
+and its rebase, push or squash steps never run on stack layers. A layer checked out in another worktree is located with
+the `--print-path` form of navigation or checkout from live help: check the exit status and use
+only successful stdout as the path. Rebase and sync update clean owning worktrees and stop at a
+dirty one; report that worktree and ask before changing its files. The `modify` editor is
+an interactive TUI that an agent cannot drive. On the manual and API routes, branches checked out
+in another worktree require explicit replay there because Git cannot silently move those refs.
 
 Interoperability is complete when exactly one tool owns local ancestry, GitHub membership matches
 that ancestry, every worktree points at its intended layer, and the operating procedure names the
