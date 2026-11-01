@@ -72,8 +72,8 @@ Decide the route in this order:
      when GitHub reports native stacks unavailable for the repository, or when installing the
      absent extension is prohibited or fails. Load
      [references/manual-chain.md](references/manual-chain.md).
-   - **CLI** otherwise: `github/gh-stack` is installed, or it is absent and may be installed.
-     The route installs it only when the operation needs it. Load
+   - **CLI** otherwise: `github/gh-stack` is installed, or it is absent and the route installs it
+     before its first command. Only the user or a project rule can prohibit installation. Load
      [references/cli-workflow.md](references/cli-workflow.md).
 
 When several conditions hold at once, the user's explicit choice outranks GitHub's report, which
@@ -90,7 +90,8 @@ and keep inspecting through Git and PR reads without changing tracking or owners
 Existing branches and PRs that no tool tracks yet do not decide the route. On the CLI route, a
 mutation adopts them first as part of the requested operation, through the adopt step in
 cli-create.md and the adoption section of troubleshooting.md, keeping every existing tip. Branches
-that another tool manages follow the interoperability section there instead. Read-only requests
+that another tool manages follow the interoperability section there instead. Linked Git worktrees,
+including WorkTrunk's, are not another branch manager: `gh-stack` tracks their branches. Read-only requests
 inspect untracked branches without writing tracking.
 
 Keep one mutation owner throughout an operation. Reading through another interface is safe, but

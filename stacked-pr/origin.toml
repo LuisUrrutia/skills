@@ -25,8 +25,8 @@ reason = "T3 Code requires the turn to end after watch activation; arming the fi
 where = ["SKILL.md#follow-up-layers"]
 
 [[invariants]]
-rule = "The route is decided in a fixed order and recorded with the observation that decided it: stack-aware CI and integrations, then REST, then the result of gh extension list. The manual route applies only on the user's explicit choice of ordinary dependent PRs, GitHub's report that native stacks are unavailable, or a prohibited or failed install of github/gh-stack; otherwise the CLI route applies. Branches and PRs that no tool tracks yet do not decide the route; a CLI mutation adopts them first."
-reason = "On 2026-10-07 an agent took the manual route on a two-PR stack although github/gh-stack was installed, because the CLI route read as requiring branches that the extension already tracked (commit bf0dae6; reports/skill-atlas/stacked-pr-routing-validation.json)."
+rule = "The route is decided in a fixed order and recorded with its deciding observation: stack-aware CI and integrations, then REST, then gh extension list. Manual applies only on the user's explicit choice of ordinary dependent PRs, GitHub's report that native stacks are unavailable, or a prohibited or failed install of github/gh-stack; otherwise the CLI route installs an absent extension and applies. Only the user or a project rule prohibits installation. Untracked branches and PRs, and branches in linked Git worktrees, do not decide the route; a CLI mutation adopts them first."
+reason = "On 2026-10-07 an agent took the manual route on a two-PR stack although github/gh-stack was installed, because the CLI route read as requiring branches that the extension already tracked (commit bf0dae6; reports/skill-atlas/stacked-pr-routing-validation.json). On 2026-11-01 the user reported that stacks were still sometimes not created natively and stated that a missing extension must be installed."
 where = ["SKILL.md#route-the-request"]
 
 [[invariants]]
@@ -55,6 +55,11 @@ reason = "Side effects of gh stack v0.2.0 named on 2026-10-16 (commit 53a66b3): 
 where = ["references/cli-create.md#submit", "references/cli-merge.md", "references/troubleshooting.md#adopt-existing-branches-or-prs"]
 
 [[invariants]]
+rule = "On the CLI route only gh stack submit creates layer PRs, never a subset through another command; the pr skill supplies titles and bodies for the PRs submit created in Draft-only mode, applied with gh pr edit. A submit failure counts as GitHub's unavailability report only when the stack endpoint returns its documented not-enabled response. Submission completes only when a read of that endpoint places every requested PR in one native stack in bottom-to-top order."
+reason = "On 2026-11-01 the user reported that agents still sometimes left stacks without native GitHub stack membership. Analysis of the previous text and a dry-run probe found that the submit step loaded the pr skill without a mode, whose Create mode opens ordinary PRs, and checked bases but not membership. gh-stack v0.3.0 reports stacks unavailable after any failed lookup and can exit 0 when linking fails (cmd/submit.go)."
+where = ["references/cli-create.md#submit"]
+
+[[invariants]]
 rule = "This skill owns stack topology, submission and cascading rebases, and the selected route keeps mutation and remediation ownership. The pr skill supplies PR titles, bodies and templates. When a request, project rule or task record sets a review-size cap, the pr skill measures each layer in Check cap mode against that layer's immediate PR base, never cumulatively against trunk, and capped publication waits for a current within-cap result."
 where = ["SKILL.md#scope-and-safety", "references/cli-create.md#submit", "references/manual-create.md#open-or-adopt-prs"]
 
@@ -77,7 +82,7 @@ ref = "refs/heads/main"
 license = "MIT; ideas only, no source text copied"
 role = "ideas"
 baseline_commit = "14fc42ed9b6c376a53b2f999f138d3bd26dac546"
-reviewed_through = "14fc42ed9b6c376a53b2f999f138d3bd26dac546"
+reviewed_through = "2a49e6751238633db504655d8a8eba3e433e827d"
 baseline_paths = [
   "skills/gh-stack/SKILL.md",
   "skills/gh-stack/references/stack-design.md",
@@ -90,6 +95,7 @@ paths = [
   "skills/gh-stack/references/stack-design.md",
   "skills/gh-stack/references/troubleshooting.md",
   "skills/gh-stack/references/commands.md",
+  "docs/src/content/docs/reference/cli.md",
   "LICENSE",
 ]
 
@@ -144,11 +150,11 @@ shapes = "Each route has a restructuring operation that preserves tips, rewrites
 adapted = "Locally current CLI and REST documentation is checked first for a supported in-place edit, and the combined top diff must change only as requested."
 
 [[sources.ideas]]
-idea = "When another tool owns the branches, such as Jujutsu, Sapling, git-town or a separate worktree, that tool keeps navigation and rebasing, and the stack on GitHub is published through a membership-only link without local tracking."
-serves = "Prevents two tools from writing the same branches."
-where = ["references/troubleshooting.md#worktrees-and-other-branch-managers", "references/troubleshooting.md#adopt-existing-branches-or-prs"]
-shapes = "The interoperability section ends when exactly one tool owns navigation, rebase, push and remote membership."
-adapted = "Locally gh stack link receives existing PRs by URL after missing PRs were published through the pr skill, because a branch-name argument makes it push the branch and create a PR."
+idea = "When another tool owns the branches, such as Jujutsu, Sapling or git-town, that tool keeps navigation and rebasing, and the stack on GitHub is published through a membership-only link without local tracking. Linked Git worktrees are not such a tool: they share one gh-stack catalog, a layer checked out elsewhere is located through the path-printing form of navigation or checkout, and rebase and sync update clean owning worktrees and stop at dirty ones."
+serves = "Prevents two tools from writing the same branches while keeping worktree-based stacks on the native CLI path."
+where = ["SKILL.md#route-the-request", "references/troubleshooting.md#worktrees-and-other-branch-managers", "references/troubleshooting.md#adopt-existing-branches-or-prs"]
+shapes = "The interoperability section separates external branch managers, which use the link path, from linked worktrees, which stay on the CLI route; routing states that WorkTrunk worktrees are not another branch manager."
+adapted = "Locally link receives existing PRs by URL, because a branch-name argument makes it push and create a PR. Path output is used only after a successful exit, and a dirty owning worktree is reported instead of changed. A layer in its own WorkTrunk worktree is created on its parent and adopted; WorkTrunk keeps only the worktree lifecycle, because its merge and rebase steps would bypass gh-stack."
 
 [[sources.ideas]]
 idea = "Merging a stack PR also merges every unmerged PR below it, and a merge queue can queue the stack instead of merging it. The affected set is resolved before the merge, and a queued result is reported as queued."
@@ -164,19 +170,99 @@ where = ["references/cli-workflow.md#establish-the-live-contract"]
 shapes = "The live-contract step derives the non-interactive form of every planned command before the operation starts."
 adapted = "The donor lists fixed commands and flags. Locally the form is read from gh stack <command> --help each time, because live help and GitHub documentation outrank examples while the tool is in preview."
 
+[[sources.ideas]]
+idea = "Setup installs the github/gh-stack extension and requires Git 2.36 or later and an authenticated GitHub CLI."
+serves = "A missing or outdated extension does not push the agent toward ordinary PRs."
+where = ["references/cli-workflow.md#establish-the-live-contract"]
+shapes = "The live-contract step installs an absent extension pinned to the newest release past the cooldown, replaces an older one before a mutation, and records the Git and extension versions."
+adapted = "The donor lists the install as one-time setup. Locally the route installs before its first command, pinned because install and upgrade otherwise take a release younger than the cooldown; it upgrades only before a mutation with no pending recovery; a failed upgrade continues unless a worktree stack needs v0.2.0; a failed install is routed by SKILL.md."
+
+[[sources.ideas]]
+idea = "Submit fails with a distinct result when stacked PRs are disabled on the repository; under a TTY it instead offers to create ordinary unstacked PRs."
+serves = "Keeps unstacked PRs from passing as a native stack."
+where = ["references/cli-create.md#submit"]
+shapes = "The submit step confirms the result against the stack endpoint before treating it as GitHub's unavailability report, and declines the offer of regular PRs."
+adapted = "v0.3.0 returns that result after any failed stack lookup, so locally only the endpoint's documented not-enabled response counts; other failures keep the CLI route."
+
+[[sources.ideas]]
+idea = "Stack pushes are atomic by default from v0.3.0, with an opt-out that allows partial updates; PR and stack API steps after the push stay non-atomic."
+serves = "Recovery after a rejected push starts from the actual remote state."
+where = ["references/cli-maintain.md#push-an-already-verified-stack"]
+shapes = "The push step confirms atomicity in live help and refetches the remote refs after a rejection."
+adapted = "The version is named only as context; live help decides."
+
+[[sources.ideas]]
+idea = "When GitHub retargets a stack after its base branch is deleted, sync and rebase move it onto the new base and drop the old base's commits; a non-interactive run needs an explicit flag when the old base did not merge into the new one."
+serves = "Prevents commits from being dropped without a decision."
+where = ["references/cli-maintain.md#maintain-a-native-cli-stack"]
+shapes = "The maintenance preamble requires the user's approval before rebase or sync receives the flag."
+adapted = "The donor treats the flag as the non-interactive answer to its prompt; locally it is a user decision because it discards commits."
+
+[[sources.ideas]]
+idea = "Unstacking that GitHub accepts only partly, because some PRs are merged or queued, still removes local tracking; tracking remains only when GitHub rejects the whole operation."
+serves = "The migration to manual knows whether local tracking still exists before any Git write."
+where = ["references/troubleshooting.md#move-a-tracked-chain-to-manual"]
+shapes = "The migration section checks for remaining local tracking after a partial dissolution."
+adapted = "Locally the remaining GitHub stack is reported and the user decides before continuing."
+
+[[sources.ideas]]
+idea = "PR titles and bodies that submit generates are changed afterwards with gh pr edit, because submit has no flag for custom copy."
+serves = "Lets the stack keep native submission while PRs follow the repository's conventions."
+where = ["references/cli-create.md#submit"]
+shapes = "After submit, the pr skill drafts copy for each PR that submit created, applied with gh pr edit."
+adapted = "Locally only created PRs get new copy; a reused PR loses only a stack map unless the request changes it."
+
+[[sources.ideas]]
+idea = "With several remotes, gh-stack needs a push remote, through remote.pushDefault or the remote flag, before non-interactive commands can run."
+serves = "Prevents fork setups from failing submit and falling back to another path."
+where = ["references/cli-workflow.md#establish-the-live-contract"]
+shapes = "Setup passes the recorded push remote to every command that accepts it."
+adapted = "The donor sets remote.pushDefault in setup; locally the flag is used and writing that setting needs the user's approval."
+
+[[sources.ideas]]
+idea = "A conflict is resolved and staged in the worktree that the conflict message names, and a sync conflict restores every branch, so a rebase reproduces it before resolution."
+serves = "Keeps conflict resolution in the right checkout and state."
+where = ["references/troubleshooting.md#interrupted-or-conflicting-rebase"]
+shapes = "The rebase recovery section names the owning worktree and the sync case."
+adapted = "Continuation forms come from live help."
+
 [[sources.declined]]
 feature = "A fixed reference of gh stack commands, flags and exit codes as the operating contract, with recovery chosen from an exit-code table."
 reason = "The CLI and APIs are in preview; the skill reads live help and current GitHub documentation for every planned command and classifies failures from observed stderr and state."
 
 [[sources.declined]]
-feature = "Accepting the PR titles and bodies that gh stack submit generates and editing them afterwards."
+feature = "Keeping the PR titles and bodies that gh stack submit generates as the final copy."
 reason = "PR titles and bodies follow the repository's conventions through the pr skill, and a PR in a native stack carries no stack map."
+
+[[sources.reviews]]
+from_commit = "14fc42ed9b6c376a53b2f999f138d3bd26dac546"
+to_commit = "2a49e6751238633db504655d8a8eba3e433e827d"
+incorporated = [
+  "skills/gh-stack/SKILL.md (Setup): Git 2.36+ and an authenticated GitHub CLI join the install step; adapted into references/cli-workflow.md as a mandatory install or upgrade with a recorded version.",
+  "skills/gh-stack/SKILL.md and references/troubleshooting.md (worktrees): linked worktrees share one catalog and no longer need link; --print-path locates foreign-owned layers; rebase and sync update clean owning worktrees. Revises the interoperability idea in references/troubleshooting.md and SKILL.md routing.",
+  "references/commands.md (push, submit, sync, link): atomic multi-ref pushes by default with an opt-out; adapted into references/cli-maintain.md push recovery.",
+  "references/commands.md (submit): the stacked-PRs-disabled result and the TTY offer of unstacked PRs; adapted into references/cli-create.md submit.",
+  "docs/src/content/docs/reference/cli.md and commit 3f8c957 (retargeted base): the accept-base-change flag drops the old base's commits; adapted into references/cli-maintain.md as a user decision.",
+  "references/troubleshooting.md (unstack): partial unstacking still removes local tracking; adapted into references/troubleshooting.md migration to manual.",
+]
+skipped = [
+  "references/troubleshooting.md (keep the local version): the added init before submit is already covered by the local divergence section.",
+  "references/commands.md (checkout): branch names now resolve remote stacks. The local skill already avoids checkout for remote reads that must not write tracking; no change.",
+  "references/troubleshooting.md (separate-git-dir, legacy catalog migration, lock files, modify journals): rare recovery detail that live help and stderr classification cover; the declined fixed exit-code table also applies.",
+  "Changes outside skills/ and docs reference (Go sources, TUIs, theme, CI, dependency bumps, release notifications): no effect on the agent contract beyond the behaviors listed above.",
+]
+deferred = []
+validation = [
+  "Dry-run probes: HEAD reproduced pr Create plus link in a WorkTrunk worktree; the candidate used gh stack submit and verified membership through the stack endpoint; regressions for ordinary dependent PRs, read-only status, a failed install, a 401 on submit, two remotes and the release cooldown behaved as written.",
+  "Codex gpt-6.1-sol and Claude Opus 5.5 reviews at xhigh, all findings adopted.",
+  "reports/skill-atlas/stacked-pr-native-submit-validation.json",
+]
 
 [[dependencies]]
 kind = "local"
 name = "pr"
 required = false
-role = "Supplies PR titles, bodies and templates when the skill creates or adopts PRs, measures each layer in Check cap mode when a review-size cap applies, and reviews each new layer in Review gate mode, bottom-up, before it is pushed; this skill applies the fixes and restacks. Read-only operations do not need it."
+role = "Supplies PR titles, bodies and templates when the skill creates or adopts PRs, in Draft-only mode on the CLI route where gh stack submit creates them, measures each layer in Check cap mode when a review-size cap applies, and reviews each new layer in Review gate mode, bottom-up, before it is pushed; this skill applies the fixes and restacks. Read-only operations do not need it."
 
 [[dependencies]]
 kind = "local"

@@ -1,7 +1,9 @@
 # Maintain a native CLI stack
 
 Use this branch for exactly one requested maintenance operation. Read live help for each planned
-command before mutation.
+command before mutation. When GitHub retargeted the stack after its base branch was deleted and the
+old base did not merge into the new one, the rebase and sync flag that accepts the base change drops
+the old base's commits; pass it only after the user approves dropping those commits.
 
 ## Edit one layer and cascade upward
 
@@ -27,9 +29,9 @@ unrelated local ref and dirty path remains preserved.
 ## Push an already verified stack
 
 Refetch remote heads immediately before pushing. Use the CLI's current safe push form and retain
-lease protection for rewritten branches. `gh stack push` leases each branch separately and is not
-atomic: after a rejection, refetch and record which remote refs changed before fixing the rejected
-branch and pushing again.
+lease protection for rewritten branches. Confirm in live help whether the push is atomic; from
+v0.3.0 it is by default, and its opt-out allows partial updates. After a rejection, refetch and
+record which remote refs changed before fixing the rejected branch and pushing again.
 
 Push is complete when every intended remote ref equals its verified local tip, no unintended ref
 changed, and a fresh stack read reports the expected order and bases.

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-01",
+  "baseline": "3e9098e020c213730f26dca9ff4e90d0525a1253",
+  "scope": "Make stacked-pr create native GitHub stacks reliably, install gh-stack when absent, and update from github/gh-stack 14fc42ed9b6c376a53b2f999f138d3bd26dac546..2a49e6751238633db504655d8a8eba3e433e827d (v0.3.0).",
+  "diagnosis": "The CLI submit step loaded the pr skill without a mode, whose Create mode opens ordinary PRs, and its completion criterion checked bases but not native membership. The interoperability section treated a separate worktree as another branch manager, sending WorkTrunk users to pr Create plus gh stack link. Installation was conditional. gh-stack v0.3.0 also reports stacks unavailable after any failed lookup (cmd/submit.go) and can exit 0 when linking fails.",
+  "probes": [
+    {"case": "Linked worktree, extension absent, 2-layer split", "version": "HEAD", "result": "Reproduced the failure: installs gh-stack, creates both PRs with pr Create mode, then gh stack link; never runs submit."},
+    {"case": "Same", "version": "first candidate", "result": "CLI route, installs gh-stack, gh stack submit --auto, pr Draft-only plus gh pr edit, verifies membership through the REST stack endpoint; no gh pr create."},
+    {"case": "Explicit ordinary dependent PRs; read-only status; native request with failed install", "version": "first candidate", "result": "Manual route; no install or PR on read-only (found an upgrade conflict, fixed); blocker without manual fallback."},
+    {"case": "Final text: fork with two remotes and pinned release cooldown; submit exit 9 with HTTP 401 on the stack endpoint; rebase on an ordinary untracked chain; explicit ordinary PRs", "version": "final candidate", "result": "Pins v0.3.0 over a one-day-old v0.3.1 and passes --remote origin; 401 kept on the CLI route as an auth blocker without regular PRs; manual regression unchanged. Found that maintenance converted an ordinary chain to a native stack without a request; fixed to report and ask."}
+  ],
+  "modelReview": {
+    "candidate": "/tmp/stacked-pr-review/candidate.diff sha256 5456711d32b2cecc1f154fe560b5773779330fdbf2499a32e987f6b2899846b6",
+    "profiles": ["codex gpt-6.1-sol reasoningEffort xhigh: completed, 8 findings", "claudeAgent claude-opus-5-5 effort xhigh: completed, 12 findings"],
+    "adopted": ["Membership verification for adopted ordinary chains (scoped to a create or submit request after the final probe)", "Conflict resolution in the owning worktree and sync rollback", "Submit acts on every active layer; ask instead of publishing a subset", "accept-base-change approval for rebase and sync", "Pinned install for the release cooldown, no upgrade during pending recovery, Git 2.36 check", "Narrowed the generated-copy decline and added the gh pr edit idea", "Added docs/src/content/docs/reference/cli.md to source paths", "Recorded validation before advancing the cursor", "Exit 9 confirmed against the stack endpoint", "Membership re-read, single submit retry and single-layer pending state", "--remote for the recorded push remote", "WorkTrunk layer creation on its parent and no wt merge or rebase on layers", "v0.2.0 floor for worktree stacks after a failed upgrade", "Decline the regular-PR prompt, run submit without a terminal", "Draft-only copy only for PRs submit created", "Reason labeled as analysis"],
+    "rejected": [],
+    "userDecision": "Whether a plain request for stacked PRs counts as an explicit native-stack request (Opus finding 12)."
+  },
+  "size": {"SKILL.md": [1150, 1169], "references": [5673, 6390], "total": [6823, 7559], "justification": "Each addition closes an observed or source-confirmed path to unstacked PRs or records a v0.3.0 behavior change."},
+  "checks": ["python3 skill-maintenance/scripts/check-origin.py --skill-dir stacked-pr --source github-gh-stack=<clone>: no diagnostics"]
+}
