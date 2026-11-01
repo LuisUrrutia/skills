@@ -21,7 +21,18 @@
    "case": "Final suite: 1 create with absent extension; 2 submit unavailable with HTTP 401; 3 sync on an ordinary untracked chain; 4 v0.2.1 installed with eligible v0.3.0 and fresh v0.3.1; 5 explicit ordinary PRs",
    "runtime": "/tmp/stacked-pr-final/runtime.sha256 sha256 296bf8502a8f344a6e00a8781b2db1c98ca5c4f2a1877a77453688ba341d06ca; both hosts reported SKILL.md 53d23415..., cli-workflow.md bc99782d..., cli-create.md adac600b..., cli-maintain.md 0eaecaab..., troubleshooting.md d5df2b59...",
    "host": "Claude Code general-purpose subagent (claude-opus-5-5) and Codex delegate (gpt-6.1-sol, reasoningEffort high), read-only dry runs",
-   "result": "Both hosts: CLI with install --pin v0.3.0 and PRs only from gh stack submit; 401 kept as an auth blocker without regular PRs; sync paused for the user's conversion decision; remove plus install --pin v0.3.0 with rollback to v0.2.1; manual route for explicit ordinary PRs."
+   "result": "Both hosts: CLI with install --pin v0.3.0 and PRs only from gh stack submit; 401 kept as an auth blocker without regular PRs; sync paused for the user's conversion decision; remove plus install --pin v0.3.0 with rollback to v0.2.1; manual route for explicit ordinary PRs. Superseded for cases 2 and 3 by the head runs below."
+  },
+  {
+   "case": "Head suite: A sync on an ordinary untracked chain (question timing); B conversion declined; C conversion accepted; D submit unavailable confirmed by the documented 404; E regression with absent extension",
+   "runtime": "git archive 0f29cd6 stacked-pr, manifest sha256 f0246d6299cf7dd2edd44d1c69ebd3a93e38138fb589792b9d876f4b08df4c1c; SKILL.md 1ba9fa5e..., cli-workflow.md 5f711c91... reported by both hosts",
+   "host": "Claude Code general-purpose subagent (claude-opus-5-5) and Codex delegate (gpt-6.1-sol, reasoningEffort high), read-only dry runs",
+   "outputs": [
+    "reports/skill-atlas/stacked-pr-probes/claude-0f29cd6.md",
+    "reports/skill-atlas/stacked-pr-probes/codex-0f29cd6.md"
+   ],
+   "probe": "reports/skill-atlas/stacked-pr-probes/probe-0f29cd6.md",
+   "result": "Both hosts: A asks before any adoption or gh stack init; B takes the manual route with no migration; C adopts, syncs and verifies membership through the stack endpoint; D blocks, declines regular PRs and offers ordinary PRs; E installs with --pin v0.3.0 and creates PRs only with gh stack submit --auto."
   }
  ],
  "modelReview": {
@@ -81,9 +92,6 @@
  "checks": [
   "python3 skill-maintenance/scripts/check-origin.py --skill-dir stacked-pr --source github-gh-stack=/tmp/ghstack-src/gh-stack: no diagnostics"
  ],
- "carryover": [
-  "After the final runs, cli-workflow.md asks before adoption and hands a declined conversion to the manual route (Claude case 3 ambiguity), and SKILL.md requires the stack endpoint's documented not-enabled response for GitHub's report (Codex limit). Both narrow the observed behavior of cases 2 and 3 and change no other case."
- ],
  "limits": [
   "Dry runs plan actions; no tool executed, no extension replacement and no GitHub write was exercised.",
   "Live help and GitHub documentation were outside the probes."
@@ -91,6 +99,7 @@
  "reviewGate": {
   "profile": "Codex gpt-6.1-sol, reasoningEffort xhigh",
   "scope": "3e9098e..db98caa",
-  "findings": "F1 sync converts ordinary PRs, F2 --force ignores --pin, F3 validation evidence, F4 single-layer exception in the invariant, F5 probe history in a reason; all fixed"
+  "findings": "F1 sync converts ordinary PRs, F2 --force ignores --pin, F3 validation evidence, F4 single-layer exception in the invariant, F5 probe history in a reason; all fixed",
+  "repeat": "Repeat review of 3e9098e..0f29cd6 resolved F1, F2, F4 and F5 and kept F3 for final-runtime evidence; the head runs above answer it."
  }
 }
