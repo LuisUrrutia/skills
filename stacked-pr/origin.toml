@@ -55,7 +55,7 @@ reason = "Side effects of gh stack v0.2.0 named on 2026-10-16 (commit 53a66b3): 
 where = ["references/cli-create.md#submit", "references/cli-merge.md", "references/troubleshooting.md#adopt-existing-branches-or-prs"]
 
 [[invariants]]
-rule = "On the CLI route only gh stack submit creates layer PRs, never a subset through another command; the pr skill supplies titles and bodies for the PRs submit created in Draft-only mode, applied with gh pr edit. A submit failure counts as GitHub's unavailability report only when the stack endpoint returns its documented not-enabled response. Submission completes only when a read of that endpoint places every requested PR in one native stack in bottom-to-top order, or a single submitted layer is reported with membership pending."
+rule = "On the CLI route only gh stack submit creates layer PRs, never a subset through another command; the pr skill supplies titles and bodies for the PRs submit created in Draft-only mode, applied with gh pr edit. A submit failure counts as GitHub's unavailability report only when the stack list returns 404 while the repository read succeeds. Submission completes only when a read of that endpoint places every requested PR in one native stack in bottom-to-top order, or a single submitted layer is reported with membership pending."
 reason = "On 2026-11-01 the user reported that agents still sometimes left stacks without native GitHub stack membership. The submit step loaded the pr skill without a mode, whose Create mode opens ordinary PRs, and checked bases but not membership. gh-stack v0.3.0 reports stacks unavailable after any failed lookup and can exit 0 when linking fails (cmd/submit.go)."
 where = ["references/cli-create.md#submit"]
 
@@ -175,14 +175,14 @@ idea = "Setup installs the github/gh-stack extension and requires Git 2.36 or la
 serves = "A missing or outdated extension does not push the agent toward ordinary PRs."
 where = ["references/cli-workflow.md#establish-the-live-contract"]
 shapes = "The live-contract step installs an absent extension pinned to the newest release past the cooldown, replaces an older one before a mutation, and records the Git and extension versions."
-adapted = "The donor lists the install as one-time setup. Locally the route installs before its first command, pinned because install and upgrade otherwise take a release younger than the cooldown, and replaced by remove and pinned install because --force ignores the pin; it upgrades only before a mutation with no pending recovery; a failed upgrade continues unless a worktree stack needs v0.2.0; a failed install is routed by SKILL.md."
+adapted = "The donor lists the install as one-time setup. Locally the route installs before its first command, pinned because install and upgrade otherwise take a release younger than the cooldown; it upgrades only before a mutation with no pending recovery, by remove and pinned install because --force ignores the pin, keeping a copy of the old extension to restore; worktree stacks need v0.2.0; a failed install is routed by SKILL.md."
 
 [[sources.ideas]]
 idea = "Submit fails with a distinct result when stacked PRs are disabled on the repository; under a TTY it instead offers to create ordinary unstacked PRs."
 serves = "Keeps unstacked PRs from passing as a native stack."
 where = ["references/cli-create.md#submit"]
 shapes = "The submit step confirms the result against the stack endpoint before treating it as GitHub's unavailability report, and declines the offer of regular PRs."
-adapted = "v0.3.0 returns that result after any failed stack lookup, so locally only the endpoint's documented not-enabled response counts; other failures keep the CLI route."
+adapted = "v0.3.0 returns that result after any failed stack lookup, and GitHub documents its 404 only as Resource not found, so locally only a stack-list 404 with a readable repository counts; other failures keep the CLI route and are reported without claiming unavailability."
 
 [[sources.ideas]]
 idea = "Stack pushes are atomic by default from v0.3.0, with an opt-out that allows partial updates; PR and stack API steps after the push stay non-atomic."

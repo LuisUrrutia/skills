@@ -26,18 +26,20 @@ gh release list -R github/gh-stack --exclude-pre-releases --json tagName,publish
 ```
 
 The eligible release is the newest one older than the repository's release cooldown, or three days
-when it sets none. When the listing lacks `github/gh-stack`, install that tag with `gh extension
-install github/gh-stack --pin <tag>`. Before a mutation, when the installed version is older and no
-rebase or modify recovery is pending, record it, run `gh extension remove gh-stack`, and install the
-eligible tag with the same command; `--force` would ignore the pin and take the latest release. If
-that install fails, reinstall the recorded version with `--pin`. A read-only request only reports
-the newer release. Confirm with `gh stack --version` that the eligible tag is installed. Git older
-than 2.36 is a blocker for this route.
+when it sets none. When the listing lacks `github/gh-stack`, install that tag with
+`gh extension install github/gh-stack --pin <tag>`. Before a mutation, when the installed version
+is older and no rebase or modify recovery is pending, record it and copy its directory under the
+`gh` extensions directory (by default `~/.local/share/gh/extensions/gh-stack`) to task scratch, then
+run `gh extension remove gh-stack` and install the eligible tag with the same command; `--force`
+would ignore the pin and take the latest release. If that install fails, restore the copy, or
+reinstall the recorded version with `--pin` when no copy exists, and confirm `gh stack --version`
+before continuing. A read-only request only reports the newer release. Record the version actually
+installed with `gh stack --version`. Git older than 2.36 is a blocker for this route.
 
 Retry a transient install failure once, then report it with its stderr; SKILL.md decides the next
 step, and it never leads to layers opened with `gh pr create` on this route. After a failed upgrade,
-report it and continue with the installed version, unless that version is older than v0.2.0 and the
-stack spans worktrees: shared worktree tracking starts there, so report a blocker.
+report it and continue with the installed version. A stack that spans worktrees needs v0.2.0 or
+later, where shared worktree tracking starts; with an older installed version, report a blocker.
 
 For every planned command, read `gh stack <command> --help` and derive its current flags and
 non-interactive form. Pass the recorded push remote with `--remote` to every command that accepts

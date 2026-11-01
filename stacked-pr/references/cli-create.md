@@ -41,13 +41,15 @@ Non-interactive submit acts on every active layer of the current stack. When a t
 is outside the request, ask before submitting instead of publishing a subset another way.
 
 Submit reports stacked PRs as unavailable after any failed stack lookup, including authentication,
-rate-limit and network errors. Before treating it as GitHub's unavailability report, read the
-documented stack endpoint from [api-workflow.md](api-workflow.md#establish-the-live-contract): only
-its documented not-enabled response counts, and SKILL.md then decides the route. Any other failure
-keeps the CLI route; retry a transient one once, otherwise report a blocker. Decline any offer to
-create regular PRs.
+rate-limit and network errors. Before treating it as GitHub's unavailability report, read the stack
+list endpoint from [api-workflow.md](api-workflow.md#establish-the-live-contract) and the repository
+itself as the same principal. Only a 404 from the stack list while the repository read succeeds
+counts, because gh-stack reads that 404 as stacks not enabled and GitHub documents it only as
+"Resource not found"; SKILL.md then decides the route. Any other failure keeps the CLI route; retry
+a transient one once, otherwise report a blocker that names the failure without claiming stacks
+are unavailable. Decline any offer to create regular PRs.
 
-Then invoke `pr` in Draft-only mode for each PR that submit created and apply its title and body,
+Then invoke `pr` in Draft-only mode for each PR that any submit attempt created and apply its title and body,
 without a stack map, with `gh pr edit`. Change a reused PR only to remove a stack map, unless the
 request changes it. Preserve the stage of existing PRs unless the request changes it.
 
