@@ -5,11 +5,12 @@ and GitHub stack state for every mutation. Branches that no tool tracks yet are 
 part of the requested mutation, through the adopt step in [cli-create.md](cli-create.md). That
 adoption is complete when the stack view lists the existing branches in order with their tips
 unchanged; the requested operation then handles any rebase they need. When their open PRs form no
-native stack yet, push, rebase and sync leave them ordinary: a request to create or submit a stack
-ends with the submit step in cli-create.md, and any other operation reports the missing stack and
-asks before converting it. Branches that another tool
-manages follow the interoperability section of [troubleshooting.md](troubleshooting.md). Perform
-the requested operation and the root skill's authorized follow-up and landing continuation.
+native stack yet, a request to create or submit a stack ends with the submit step in cli-create.md.
+For any other operation, report the missing stack and ask before adoption whether to convert it,
+because sync links two or more open PRs into a native stack. A declined conversion is the user's
+choice of ordinary dependent PRs, and the manual route takes the operation. Branches that another
+tool manages follow the interoperability section of [troubleshooting.md](troubleshooting.md).
+Perform the requested operation and the root skill's authorized follow-up and landing continuation.
 
 ## Establish the live contract
 
@@ -24,23 +25,25 @@ gh extension list
 gh release list -R github/gh-stack --exclude-pre-releases --json tagName,publishedAt
 ```
 
-The eligible release is the newest one older than the repository's release cooldown, or three
-days when it sets none. When the listing lacks
-`github/gh-stack`, install that tag with `gh extension install github/gh-stack --pin <tag>`. Before
-a mutation, when the installed version is older and no rebase or modify recovery is pending, replace
-it with the same command plus `--force`; a read-only request only reports the newer release.
-Confirm with `gh stack --version`. Git older than 2.36 is a blocker for this route.
+The eligible release is the newest one older than the repository's release cooldown, or three days
+when it sets none. When the listing lacks `github/gh-stack`, install that tag with `gh extension
+install github/gh-stack --pin <tag>`. Before a mutation, when the installed version is older and no
+rebase or modify recovery is pending, record it, run `gh extension remove gh-stack`, and install the
+eligible tag with the same command; `--force` would ignore the pin and take the latest release. If
+that install fails, reinstall the recorded version with `--pin`. A read-only request only reports
+the newer release. Confirm with `gh stack --version` that the eligible tag is installed. Git older
+than 2.36 is a blocker for this route.
 
 Retry a transient install failure once, then report it with its stderr; SKILL.md decides the next
-step, and it never leads to layers opened with `gh pr create` on this route. After a failed upgrade, report it and
-continue with the installed version, unless that version is older than v0.2.0 and the stack spans
-worktrees: shared worktree tracking starts there, so report a blocker.
+step, and it never leads to layers opened with `gh pr create` on this route. After a failed upgrade,
+report it and continue with the installed version, unless that version is older than v0.2.0 and the
+stack spans worktrees: shared worktree tracking starts there, so report a blocker.
 
 For every planned command, read `gh stack <command> --help` and derive its current flags and
 non-interactive form. Pass the recorded push remote with `--remote` to every command that accepts
 it; with several remotes and no `remote.pushDefault`, non-interactive commands fail, and writing
-that setting needs the user's approval. Preview behavior in live help and GitHub documentation outranks examples in
-this skill.
+that setting needs the user's approval. Preview behavior in live help and GitHub documentation
+outranks examples in this skill.
 
 Setup is complete when the repository, trunk, push remote, authenticated principal, Git and
 installed extension versions, and non-interactive form of every planned command are recorded.

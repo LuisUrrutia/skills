@@ -81,8 +81,8 @@ unavailable for the repository, report a blocker and offer ordinary dependent PR
 then follows only the user's choice, and a chain
 that `gh-stack` already tracks moves to it through the migration section of troubleshooting.md.
 
-GitHub reports native stacks unavailable through a failed native-stack read, link, or submit;
-routing does not probe for it. During a read-only request, report it and keep inspecting through
+GitHub reports native stacks unavailable when a failed native-stack read, link, or submit is
+confirmed by the stack endpoint's documented not-enabled response; routing does not probe for it. During a read-only request, report it and keep inspecting through
 Git and PR reads without changing tracking or ownership.
 
 Existing branches and PRs that no tool tracks yet do not decide the route. On the CLI route, a

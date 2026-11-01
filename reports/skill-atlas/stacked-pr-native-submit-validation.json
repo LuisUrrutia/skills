@@ -7,28 +7,21 @@
  "probes": [
   {
    "case": "Linked worktree, extension absent, 2-layer split",
-   "version": "HEAD",
-   "result": "Reproduced the failure: installs gh-stack, creates both PRs with pr Create mode, then gh stack link; never runs submit."
+   "runtime": "stacked-pr at 3e9098e",
+   "host": "Claude Code general-purpose subagent, claude-opus-5-5, default effort, read-only dry run",
+   "result": "Reproduced the failure: pr Create mode for both PRs, then gh stack link; no submit."
   },
   {
-   "case": "Same",
-   "version": "first candidate",
-   "result": "CLI route, installs gh-stack, gh stack submit --auto, pr Draft-only plus gh pr edit, verifies membership through the REST stack endpoint; no gh pr create."
+   "case": "Earlier candidates: same split; ordinary PRs; read-only status; failed install; 401 on submit; two remotes; cooldown; rebase on an ordinary chain; native-by-default decision",
+   "runtime": "uncommitted intermediate candidates, superseded",
+   "host": "Claude Code general-purpose subagents, claude-opus-5-5, read-only dry runs",
+   "result": "Each found gap was fixed in the text; superseded by the final runs below."
   },
   {
-   "case": "Explicit ordinary dependent PRs; read-only status; native request with failed install",
-   "version": "first candidate",
-   "result": "Manual route; no install or PR on read-only (found an upgrade conflict, fixed); blocker without manual fallback."
-  },
-  {
-   "case": "Final text: fork with two remotes and pinned release cooldown; submit exit 9 with HTTP 401 on the stack endpoint; rebase on an ordinary untracked chain; explicit ordinary PRs",
-   "version": "final candidate",
-   "result": "Pins v0.3.0 over a one-day-old v0.3.1 and passes --remote origin; 401 kept on the CLI route as an auth blocker without regular PRs; manual regression unchanged. Found that maintenance converted an ordinary chain to a native stack without a request; fixed to report and ask."
-  },
-  {
-   "case": "Decision (a): plain request with a failed install; plain request with a documented 404 from the stack endpoint; explicit ordinary PRs",
-   "version": "after decision",
-   "result": "Both plain requests stop with a blocker and no PRs; explicit ordinary PRs take the manual route. Fixed two findings: the API route is offered only after a failed install, and a transient install failure is retried once."
+   "case": "Final suite: 1 create with absent extension; 2 submit unavailable with HTTP 401; 3 sync on an ordinary untracked chain; 4 v0.2.1 installed with eligible v0.3.0 and fresh v0.3.1; 5 explicit ordinary PRs",
+   "runtime": "/tmp/stacked-pr-final/runtime.sha256 sha256 296bf8502a8f344a6e00a8781b2db1c98ca5c4f2a1877a77453688ba341d06ca; both hosts reported SKILL.md 53d23415..., cli-workflow.md bc99782d..., cli-create.md adac600b..., cli-maintain.md 0eaecaab..., troubleshooting.md d5df2b59...",
+   "host": "Claude Code general-purpose subagent (claude-opus-5-5) and Codex delegate (gpt-6.1-sol, reasoningEffort high), read-only dry runs",
+   "result": "Both hosts: CLI with install --pin v0.3.0 and PRs only from gh stack submit; 401 kept as an auth blocker without regular PRs; sync paused for the user's conversion decision; remove plus install --pin v0.3.0 with rollback to v0.2.1; manual route for explicit ordinary PRs."
   }
  ],
  "modelReview": {
@@ -61,19 +54,43 @@
  "size": {
   "SKILL.md": [
    1150,
-   1169
+   1149
   ],
-  "references": [
-   5673,
-   6390
+  "references/cli-create.md": [
+   374,
+   656
+  ],
+  "references/cli-maintain.md": [
+   273,
+   330
+  ],
+  "references/cli-workflow.md": [
+   488,
+   769
+  ],
+  "references/troubleshooting.md": [
+   1127,
+   1288
   ],
   "total": [
    6823,
-   7559
+   7603
   ],
-  "justification": "Each addition closes an observed or source-confirmed path to unstacked PRs or records a v0.3.0 behavior change."
+  "justification": "Each addition closes an observed or source-confirmed path to unstacked PRs, an install or upgrade defect, or records a v0.3.0 behavior change."
  },
  "checks": [
-  "python3 skill-maintenance/scripts/check-origin.py --skill-dir stacked-pr --source github-gh-stack=<clone>: no diagnostics"
- ]
+  "python3 skill-maintenance/scripts/check-origin.py --skill-dir stacked-pr --source github-gh-stack=/tmp/ghstack-src/gh-stack: no diagnostics"
+ ],
+ "carryover": [
+  "After the final runs, cli-workflow.md asks before adoption and hands a declined conversion to the manual route (Claude case 3 ambiguity), and SKILL.md requires the stack endpoint's documented not-enabled response for GitHub's report (Codex limit). Both narrow the observed behavior of cases 2 and 3 and change no other case."
+ ],
+ "limits": [
+  "Dry runs plan actions; no tool executed, no extension replacement and no GitHub write was exercised.",
+  "Live help and GitHub documentation were outside the probes."
+ ],
+ "reviewGate": {
+  "profile": "Codex gpt-6.1-sol, reasoningEffort xhigh",
+  "scope": "3e9098e..db98caa",
+  "findings": "F1 sync converts ordinary PRs, F2 --force ignores --pin, F3 validation evidence, F4 single-layer exception in the invariant, F5 probe history in a reason; all fixed"
+ }
 }
