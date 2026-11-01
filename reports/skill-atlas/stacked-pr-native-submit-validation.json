@@ -33,6 +33,17 @@
    ],
    "probe": "reports/skill-atlas/stacked-pr-probes/probe-0f29cd6.md",
    "result": "Both hosts: A asks before any adoption or gh stack init; B takes the manual route with no migration; C adopts, syncs and verifies membership through the stack endpoint; D blocks, declines regular PRs and offers ordinary PRs; E installs with --pin v0.3.0 and creates PRs only with gh stack submit --auto."
+  },
+  {
+   "case": "After CodeRabbit fixes: stack-list 404 with readable repository; repository 404; offline upgrade failure from v0.2.1; read-only status on v0.2.1",
+   "runtime": "stacked-pr/ at 6f0f86d, manifest sha256 a28dbf638da46d4f2ef033e854be78bfdc1788a77ef42829b919026e84ccd7cb",
+   "host": "Claude Code general-purpose subagent (claude-opus-5-5) and Codex delegate (gpt-6.1-sol, reasoningEffort high), read-only dry runs",
+   "outputs": [
+    "reports/skill-atlas/stacked-pr-probes/claude-coderabbit.md",
+    "reports/skill-atlas/stacked-pr-probes/codex-coderabbit.md"
+   ],
+   "probe": "reports/skill-atlas/stacked-pr-probes/probe-coderabbit.md",
+   "result": "Both hosts: only a stack-list 404 with a readable repository counts as unavailability; a repository 404 is an access blocker; the upgrade copies, removes, installs pinned, and restores the copy on failure, recording the verified version; read-only status changes nothing."
   }
  ],
  "modelReview": {
