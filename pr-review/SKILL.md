@@ -99,13 +99,15 @@ to change permissions, scope or reviewers.
    thread instead of opening another. A settled point is not repeated, but an
    issue that reappears on the current head is raised again in its resolved
    thread. A finding the author deferred with a ticket they confirmed in its
-   thread is an accepted deferral: keep it in the ledger with the ticket, do not
+   thread, or declined or deferred by citing a recorded team decision that covers
+   it (a link to a decision record, a Slack thread, a ticket or an ADR), is an
+   accepted deferral: keep it in the ledger with that ticket or link, do not
    republish it, and do not count it against approval. Suppress a duplicate that
    adds nothing, with a reason. For a repeat review, review the full current
    scope first, then compare the previous snapshot and disposition ledger. Record
    declined optional asks in Review basis; revive them only on new evidence.
-   Deferral without a confirmed ticket does not resolve a supported defect. Carry
-   decisive unknowns as questions.
+   Any other deferral does not resolve a supported defect. Carry decisive
+   unknowns as questions.
 
 At any phase, snapshot or source drift invalidates reuse. Refresh the affected
 assessment before comments are written. Do not present a prior result as current.

@@ -97,7 +97,8 @@ or `logout`: every session on the machine shares the active account.
    check its claims on the current head, and choose the action in
    [thread-settlement.md](references/thread-settlement.md). Reassess the
    review's standing findings and open questions too: a fixed PR title, an
-   answered question or a ticket confirmed elsewhere lowers them with `settle
+   answered question, a ticket confirmed elsewhere or a recorded team decision
+   the author cites lowers them with `settle
    --standing N --questions N`, which only updates the review of the current
    head. A thread whose `action` is null counts as required until the plan
    classifies it: take the Action from the ledger of the review that published

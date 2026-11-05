@@ -99,6 +99,11 @@ reason = "Design choice of 2026-11-05, made at the user's request to decide wher
 where = ["SKILL.md#word-select-and-publish"]
 
 [[invariants]]
+rule = "A finding the author declined or deferred by citing a recorded team decision that covers it, meaning a link to a decision record, a Slack thread, a ticket or an ADR, is an accepted deferral like one deferred to a confirmed ticket: the ledger keeps it with the link, and it is neither republished nor counted against approval."
+reason = "User decision of 2026-11-05, 'Accept team decision, always!', after the author of https://github.com/aurora-payments/monorepo/pull/2205 declined a required rollout-order point twice, each time citing a team decision recorded in Slack. Without it, a later round would raise the point again and count it as standing."
+where = ["SKILL.md#run-and-reconcile", "references/ledger.md#source-status-and-review-basis"]
+
+[[invariants]]
 rule = "Test, story and tooling findings are selected like any other finding, and a test site of a finding outside tests is posted with that finding."
 reason = "User decision of 2026-10-25 to fix the weak aspects that each benchmark comparison against another review skill exposes. On both benchmark PRs the rule kept verified test gaps, story mock defects and typed-fixture violations on code the PR added internal, while the other skill surfaced them. User decision of 2026-10-25 that a new test pinning a regression be fixed before merge; the test-only selection rule would otherwise keep that site internal."
 where = ["SKILL.md#word-select-and-publish"]

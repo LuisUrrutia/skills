@@ -563,7 +563,8 @@ approved.
 
 In T3 Code it runs when T3's PR watch reports a change; elsewhere it runs every
 30 minutes by default. Each run re-reviews a new head with `pr-review`, replies
-in your own threads, resolves what the current head or a confirmed ticket settles,
+in your own threads, resolves what the current head, a confirmed ticket or a
+recorded team decision the author cites settles,
 reopens a thread whose finding still stands, and approves only through a gate its
 helper enforces: a complete review of the current head, no standing required
 finding and every required reviewer thread resolved and verified. Open
