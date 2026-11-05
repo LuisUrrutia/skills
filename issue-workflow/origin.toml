@@ -52,6 +52,11 @@ reason = "User decision (2026-11-05): starting implementation of a ticket, sub-t
 where = ["SKILL.md#resolve-the-operation", "SKILL.md#synchronize-one-event"]
 
 [[invariants]]
+rule = "Every report to the user, a caller's included, names each ticket skipped because the policy excludes its scope and each assignment left with another person, with the rule that decided it."
+reason = "User decision (2026-11-05) after an incident: the Aurora policy excluded sub-tasks, so six sub-tasks were implemented without being assigned or moved, and the exclusion reached the user only as a settled limit instead of a gap to fix."
+where = ["SKILL.md#return-and-continue"]
+
+[[invariants]]
 rule = "Each transition rule has exactly one owner: the agent or a named native rule. The agent never races native automation, and an agent fallback needs an explicit ownership change."
 reason = "The user asked for single ownership to work the same way across providers."
 where = ["SKILL.md#synchronize-one-event"]

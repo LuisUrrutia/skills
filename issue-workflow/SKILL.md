@@ -160,7 +160,10 @@ selected scope with the ticket fields that selected it, the rule, observed
 before/after state and assignee, the outcome of the transition and of any
 assignment (`changed`, `unchanged`, `skipped`, `pending automation`, `blocked`,
 `inspect-only`, or `not applicable`) and deciding evidence.
-Include any unresolved decision, failed operation or required field. Return to
+Include any unresolved decision, failed operation or required field. Every report
+to the user, a caller's included, names each ticket skipped because the policy
+excludes its scope and each assignment left with someone else, with the deciding
+rule. Return to
 the authorized caller; ticket synchronization does not replace its remaining work.
 
 For future merge delivery, identify the configured native rule or other durable
