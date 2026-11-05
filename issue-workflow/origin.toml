@@ -47,7 +47,7 @@ rule = "Events come from current evidence, not from the caller's label. A PR eve
 where = ["SKILL.md#establish-identity-policy-and-event"]
 
 [[invariants]]
-rule = "Ordinary synchronization creates no tickets, labels, domain docs or policy. An authorized delivery task covers its configured ticket transitions and the policy's assignment rules. Where a policy requires the user's confirmation for a move unless the user's own instructions authorize it, that task is the authorization. An assignment rule only fills an empty assignee and never replaces or removes one. The task does not cover comments, other assignee changes, unrelated labels, workflow configuration, deployments or recurring jobs."
+rule = "Ordinary synchronization creates no tickets, labels, domain docs or policy. An authorized delivery task covers its configured ticket transitions and the policy's assignment rules. Where a policy requires the user's confirmation for a move unless the user's own instructions authorize it, that task is the authorization. An assignment rule writes only when the pre-write read shows no assignee and never deliberately replaces or removes one. The task does not cover comments, other assignee changes, unrelated labels, workflow configuration, deployments or recurring jobs."
 reason = "User decision (2026-11-05): starting implementation of a ticket, sub-tasks included, should assign it to the user without being asked. The policy declares the assignment, so the skill stays provider- and team-neutral, and a ticket another person holds keeps its assignee."
 where = ["SKILL.md#resolve-the-operation", "SKILL.md#synchronize-one-event"]
 
