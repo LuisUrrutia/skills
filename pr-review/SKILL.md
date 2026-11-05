@@ -134,8 +134,8 @@ existing authorization; suggestions grant no additional permission.
    outside tests is posted with it, and regressions in a
    required setup/build/run contract remain actionable regardless. Other optional
    findings are posted, a follow-up ticket suggestion included, unless an existing
-   ticket's text already names the remedy, which the ledger then cites, or the
-   run is a later round.
+   ticket's text already names the remedy, which the ledger then cites; a later
+   round narrows this as below.
    Post one comment per verified site, with a short back-reference for repeated
    sites. Do not turn one root-cause ledger entry into one lost-anchor comment.
 
@@ -146,12 +146,13 @@ existing authorization; suggestions grant no additional permission.
    actor's first review of the PR, and the rules above apply unchanged. When a
    channel this needs stays unreadable after recovery, decide from what was
    read and report the gap in step 11. A later round keeps the bar for required
-   findings and posts no `nit:`. It posts an optional point, new or carried over
-   from earlier candidates, in a comment, a reply or the body, only as a
-   `suggestion:` that clearly pays for itself: it prevents a plausible future
-   defect, stops real drift between duplicated rules, or removes material
-   complexity. Style, naming, comment wording, documentation gaps, test tidiness
-   and refactors of code that works do not qualify.
+   findings and posts no minor optional point, the kind `comment-style` labels
+   `nit:`. It publishes other optional advice, new or carried over from earlier
+   candidates, in a comment, a reply or the body, only when it clearly pays for
+   itself: it prevents a plausible future defect, stops real drift between
+   duplicated rules, or removes material complexity. Style, naming, comment
+   wording, documentation gaps, test tidiness and other refactors of code that
+   works do not qualify.
 10. **Anchor and publish.** Read [github.md](references/github.md), validate every
     anchor against the recorded diff side and revision, and create a structured
     review plan. For a finding outside the diff, choose a related changed line and

@@ -540,8 +540,9 @@ cross-repository seams and reconciles existing feedback, continuing a same-topic
 point in its existing thread. It never requests changes, never submits a review
 the user started, and approves only when no required finding or required
 reviewer thread remains open; open suggestions and nits never block approval.
-Your first review of a PR posts every finding; later rounds keep the required
-bar but post no nits and only suggestions that clearly pay for themselves.
+Your first review of a PR also posts nits and suggestions; later rounds keep the
+required bar but post no nits and only suggestions that clearly pay for
+themselves.
 Read-only review controls, bounded retries and exact actor/head
 binding remain part of the workflow. Where the host can rename a conversation
 dedicated to one review, as in T3 Code, it titles it
