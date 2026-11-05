@@ -15,6 +15,8 @@ decision there.
 - Completing versus contributing PR relation: unresolved.
 - Closing keywords and their effects, for GitHub issues: unresolved.
 - Default project and issue type for published tasks, if any: unresolved.
+- Assignment at an event, if wanted (event, scopes, assignee as a provider
+  account ID or the acting account): unresolved.
 
 ## Workflow scopes
 
@@ -56,7 +58,8 @@ item.
 - Manual progress/source-state exceptions: unresolved.
 - Rework or reopening policy, if needed: unresolved.
 - GitHub issue closure versus Project Status changes, if applicable: unresolved.
-- Required transition fields and their approved values, if applicable: unresolved.
+- Required transition fields, their approved values and the transition to use
+  where several reach one destination, if applicable: unresolved.
 
 ## Delivery ownership
 
