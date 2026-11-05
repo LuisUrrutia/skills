@@ -29,8 +29,8 @@ reason = "User decision of 2026-10-07; thread resolution belongs to the pr-revie
 where = ["SKILL.md#pr-review", "references/github.md#feedback-and-review-publication"]
 
 [[invariants]]
-rule = "After a published COMMENT review, the skill starts the pr-review-followup skill on the PR and passes it the review's inputs, unless pr-review-followup ran the review or the user asked for the review without follow-up. A delegated child returns that handoff to its parent."
-reason = "User decision on 2026-10-30: every PR the user reviews is followed up unless the user says otherwise. An APPROVE review needs no follow-up because it already meets pr-review-followup's stopping condition."
+rule = "After a published COMMENT review, or when an accepted deferral still sits in an unresolved thread of the actor, the skill starts the pr-review-followup skill on the PR and passes it the review's inputs, unless pr-review-followup ran the review or the user asked for the review without follow-up. A delegated child returns that handoff to its parent."
+reason = "User decision on 2026-10-30: every PR the user reviews is followed up unless the user says otherwise. An APPROVE review needs no follow-up because it already meets pr-review-followup's stopping condition. An accepted deferral in an unresolved thread blocks APPROVE and only the follow-up can resolve it, so it starts even when the run publishes nothing; inferred from the user's 2026-11-05 decision that a team-decision thread must stop blocking approval."
 where = ["SKILL.md#word-select-and-publish"]
 
 [[invariants]]
@@ -84,9 +84,24 @@ reason = "User decision of 2026-10-25. On a benchmark review, an engine named a 
 where = ["references/ledger.md#candidate-entries"]
 
 [[invariants]]
-rule = "Optional findings are posted, a follow-up ticket suggestion included, unless an existing ticket's text already names the remedy, which the ledger then cites."
+rule = "On the actor's first review of a PR, optional findings are posted, a follow-up ticket suggestion included, unless an existing ticket's text already names the remedy, which the ledger then cites. Later rounds follow the invariant on the later-round bar instead."
 reason = "User decision of 2026-10-25 that maintainability findings reach the author as a ticket suggestion or a solution; on a benchmark review the coordinator kept two verified ticket suggestions internal as follow-ups."
 where = ["SKILL.md#word-select-and-publish"]
+
+[[invariants]]
+rule = "The actor's first review of a PR keeps the full selection bar, nits and suggestions included. A later round keeps the bar for required findings, posts no nit, and publishes other optional advice, new or carried over, in a comment, a reply or the body, only when it prevents a plausible future defect, stops real drift between duplicated rules or removes material complexity; style, naming, comment wording, documentation gaps, test tidiness and other refactors of working code do not qualify. The ledger keeps each held-back finding with its reason."
+reason = "User decision of 2026-11-05: the first review stays super strict, and later reviews post no nits and no suggestions unless the change is really worth it; the criteria and exclusions follow the examples the user gave with that decision. The user reported that on https://github.com/aurora-payments/monorepo/pull/2205 later rounds posted optional comments and an optional reply that blocked nothing but added work, and that a round-3 nit asking only to fix a comment led the author to a behavior change that a later round had to raise as a required regression."
+where = ["SKILL.md#word-select-and-publish", "references/ledger.md#questions-seams-and-synthesis"]
+
+[[invariants]]
+rule = "The parent detects a later round itself from the collector's output: an earlier review by the actor that approved, requested changes, was dismissed or has a body, or a thread the actor started. Replies alone do not count, and pr-review-followup passes no round. The engines never learn the round, so they report every finding and the bar applies only at selection."
+reason = "Design choice of 2026-11-05, made at the user's request to decide where the round is detected. Only detection here also covers a direct run on a PR the actor already reviewed and a follow-up whose first tick performs the first review; the collector already fetches every review and comment, so no script changes. A reply posted on its own creates a review with no body, so counting it would hold a first review to the later-round bar after the user only replied in another reviewer's thread."
+where = ["SKILL.md#prepare-one-reproducible-review", "SKILL.md#run-and-reconcile", "SKILL.md#word-select-and-publish"]
+
+[[invariants]]
+rule = "A finding the author declined or deferred by citing a recorded team decision that covers it, meaning a link to a decision record, a Slack thread, a ticket or an ADR, taken at the author's word when it cannot be read, is an accepted deferral like one deferred to a confirmed ticket: the ledger keeps it with the link, and it is neither republished nor counted against approval."
+reason = "User decision of 2026-11-05, 'Accept team decision, always!'; the pr-review-followup record's invariant on team decisions holds the incident. 'Always' makes it apply to every run, a first review included. Without it, a later round would raise the point again and count it as standing. Taking an unreadable record at the author's word keeps this skill consistent with the follow-up, which resolves the thread on the author's citation."
+where = ["SKILL.md#run-and-reconcile", "references/ledger.md#source-status-and-review-basis"]
 
 [[invariants]]
 rule = "Test, story and tooling findings are selected like any other finding, and a test site of a finding outside tests is posted with that finding."

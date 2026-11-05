@@ -540,6 +540,9 @@ cross-repository seams and reconciles existing feedback, continuing a same-topic
 point in its existing thread. It never requests changes, never submits a review
 the user started, and approves only when no required finding or required
 reviewer thread remains open; open suggestions and nits never block approval.
+Your first review of a PR also posts nits and suggestions; later rounds keep the
+required bar but post no nits and only suggestions that clearly pay for
+themselves.
 Read-only review controls, bounded retries and exact actor/head
 binding remain part of the workflow. Where the host can rename a conversation
 dedicated to one review, as in T3 Code, it titles it
@@ -561,7 +564,8 @@ approved.
 
 In T3 Code it runs when T3's PR watch reports a change; elsewhere it runs every
 30 minutes by default. Each run re-reviews a new head with `pr-review`, replies
-in your own threads, resolves what the current head or a confirmed ticket settles,
+in your own threads, resolves what the current head, a confirmed ticket or a
+recorded team decision the author cites settles,
 reopens a thread whose finding still stands, and approves only through a gate its
 helper enforces: a complete review of the current head, no standing required
 finding and every required reviewer thread resolved and verified. Open

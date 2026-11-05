@@ -1,0 +1,166 @@
+{
+ "skill": [
+  "pr-review",
+  "pr-review-followup"
+ ],
+ "date": "2026-11-05",
+ "request": "Keep the reviewer's first review of a PR as strict as before, and hold every later round to a higher bar for comments that do not block: required findings keep their bar, no nit is posted, and a suggestion is posted only when the change clearly pays for itself. The bar also covers optional points in follow-up replies and carried-over candidates, and each held-back candidate stays in the ledger with its reason. Persist the user's rule 'Accept team decision, always!' as a settlement row, so an author's decline or deferral that cites a recorded team decision is accepted without asking the user and stops blocking approval. Trigger: https://github.com/aurora-payments/monorepo/pull/2205.",
+ "baseline_commit": "040ea34c8a2a3b0b84fe2edfb4f4626de40abdc6",
+ "commits": [
+  "13f3c2bfb1ef32f6179da324654c5ac6ba6f4a7b",
+  "1c271efdb43506c390b215f31feb87f171f44a04",
+  "8faeba08051bfb41b53f1b5c49083d192d90b783",
+  "19a7e4d0275879fe380e451c321ccfc2cecc7134",
+  "12f4aaf5fec7b6911abafa1d009113e43e459da1",
+  "5c21f4aca1178d4a7409f199c23e9b36da40f320",
+  "6e4807b345644cad8dfd1d7e1f1c8c1ed146a406"
+ ],
+ "size": {
+  "method": "wc -w over SKILL.md and all references at the baseline and at 6e4807b.",
+  "pr-review": {
+   "entry": {
+    "before": 1816,
+    "after": 2035
+   },
+   "references/ledger.md": {
+    "before": 724,
+    "after": 736
+   },
+   "references_total": {
+    "before": 3991,
+    "after": 4003
+   },
+   "total": {
+    "before": 5807,
+    "after": 6038
+   }
+  },
+  "pr-review-followup": {
+   "entry": {
+    "before": 1297,
+    "after": 1302
+   },
+   "references/thread-settlement.md": {
+    "before": 653,
+    "after": 794
+   },
+   "references_total": {
+    "before": 1196,
+    "after": 1337
+   },
+   "total": {
+    "before": 2493,
+    "after": 2639
+   }
+  }
+ },
+ "growth_reasons": [
+  "pr-review step 9 later-round paragraph: the user's bar, its qualifying criteria and exclusions, and the round detection the user asked the implementer to choose. Counting only reviews that approved, requested changes, were dismissed or have a body, plus threads the actor started, came from the Claude reviewer: a reply posted on its own creates an empty review. The unreadable-channel fallback also came from the Claude reviewer.",
+  "pr-review step 8 accepted deferral by a recorded team decision: the user's 'Accept team decision, always!'; taking an unreadable record at the author's word keeps both skills consistent (Claude reviewer).",
+  "pr-review step 11 hand-off when an accepted deferral sits in an unresolved thread: Codex reviewer; pr-review cannot resolve threads and the publisher refuses APPROVE while a required thread is open.",
+  "ledger.md Disposition for each verified finding that gets no comment: the user's request to keep each dropped optional candidate with its reason.",
+  "thread-settlement.md team-decision row: the user's explicit request for a row there. Partial-fix and answered-required rows: the user's bar for optional points while settling, plus marking the thread optional before resolving, which both reviewers found necessary so later heads neither re-verify nor reopen it. Verification and reopen rows: keep a team-decision thread clear on later heads.",
+  "pr-review-followup step 4: a recorded team decision the author cites lowers standing findings outside threads, so body findings follow the same rule."
+ ],
+ "review": {
+  "candidate": "Commit 8faeba08051bfb41b53f1b5c49083d192d90b783, tree 0fe302eb6a6caf1c2a67c2f657db512811a94aa7; frozen diff 040ea34..8faeba0 sha256 eee539a818aa558d2ece1c9bb4bab29e5eb4ba68ecf4b491e7e51a438ae25f2f.",
+  "profiles": [
+   {
+    "provider": "codex",
+    "model": "gpt-6.1-sol",
+    "effort": "xhigh",
+    "findings": "2 material, 1 minor"
+   },
+   {
+    "provider": "claudeAgent",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "findings": "4 material, 12 minor"
+   }
+  ],
+  "adopted": [
+   "Both: a thread resolved below the bar stayed required, so on the next head it needed verification and matched the reopen row; it is now marked optional before it is resolved (5c21f4a).",
+   "Codex: a direct pr-review run had no path to settle an unresolved accepted deferral; step 11 now starts pr-review-followup for it (6e4807b).",
+   "Claude: reply-only reviews counted as an earlier review (19a7e4d).",
+   "Claude: the two skills disagreed on an unreadable team-decision record (6e4807b).",
+   "Claude: 'removes material complexity' conflicted with excluding refactors of working code; now 'other refactors' (12f4aaf).",
+   "Claude minor: bar stated by finding kind rather than the nit label, unreadable-channel fallback, reopen-row precedence, ledger sentence order, README overclaim, record credits and counts, a where location, and the premise sentence cut. Codex minor: no pointer into a pr-review step."
+  ],
+  "declined": [
+   "Claude M3 pointer part: keep the short team-decision definition in the settlement row instead of pointing to pr-review's definition, because a follow-up tick without a new head may not load pr-review and the pointer rule forbids pointing into another skill's sections. Both copies now carry the same unreadable-record rule.",
+   "Claude m8: 'stops real drift between duplicated rules' is the user's own example; tightening it to copies that already disagree changes the user's criterion, so it is reported to the user instead.",
+   "Claude m9 direction: the incident stays in pr-review-followup's record, where the user asked for the rule, and pr-review's record points to it."
+  ],
+  "after_review": "Commits 19a7e4d..6e4807b apply the adopted findings and were not pair-reviewed again."
+ },
+ "evaluation": {
+  "design": "Tool-free planning cases on a fake PR (example-shop/shop#42) with a reduced candidate ledger, a fake checkout and collector output. Tick case: a later-round follow-up tick on a new head, with three reviewer threads: T1 a required rollout-order point the author declined twice citing a Slack team decision, T2 an unanswered first-round nit, T3 a required memory point fixed while the author declined an optional rename. Candidates: C1 a required tenant-isolation regression, C2 a comment typo, C3 a variable name, C4 a duplicated format allowlist, C5 a README gap, C6 the rollout-order point again, C7 the declined rename again. First case: the same ledger with no earlier reviewer activity. Executors: T3 delegated tasks on Claude (claude-opus-5-5, xhigh) and Codex (gpt-6.1-sol, xhigh), each reading only staged copies of pr-review, pr-review-followup and comment-style at the arm's commit, with origin.toml, tests and evals removed. The coordinator graded the outputs, not blind.",
+  "expectations": {
+   "tick": [
+    "E1 C1 posted as required.",
+    "E2 C2, C3 and C5 not posted, each kept with its reason.",
+    "E3 C4 posted as an optional suggestion.",
+    "E4 C6 and C7 not republished.",
+    "E5 T1 acknowledged and resolved, with no question to the user.",
+    "E6 T2 left open.",
+    "E7 T3 resolved, with no rename comment."
+   ],
+   "first": [
+    "F1 detected as the actor's first review.",
+    "F2 C1 and C6 posted as required.",
+    "F3 optional findings posted as on the baseline, with nit comments and the C4 suggestion."
+   ]
+  },
+  "runs": [
+   {
+    "run": "run-k",
+    "case": "tick",
+    "arm": "baseline 040ea34",
+    "host": "Claude",
+    "result": "E2 fail (C2, C3, C5 posted), E5 fail (T1 escalated to the user); E1, E3, E4, E6, E7 pass."
+   },
+   {
+    "run": "run-m",
+    "case": "tick",
+    "arm": "baseline 040ea34",
+    "host": "Codex",
+    "result": "E2 fail (C2, C3, C5 posted), E5 fail (asks the user about T1); E1, E3, E4, E6, E7 pass."
+   },
+   {
+    "run": "run-a",
+    "case": "tick",
+    "arm": "6e4807b",
+    "host": "Claude",
+    "result": "E1-E7 pass; T3 marked optional and resolved."
+   },
+   {
+    "run": "run-b",
+    "case": "tick",
+    "arm": "6e4807b",
+    "host": "Codex",
+    "result": "E1-E7 pass; T3 marked optional and resolved."
+   },
+   {
+    "run": "run-c",
+    "case": "first",
+    "arm": "6e4807b",
+    "host": "Claude",
+    "result": "F1-F3 pass: all seven findings posted, three as nit and two as suggestion."
+   },
+   {
+    "run": "run-d",
+    "case": "first",
+    "arm": "6e4807b",
+    "host": "Codex",
+    "result": "F1-F3 pass: all seven findings posted, four as nit and one as suggestion."
+   }
+  ],
+  "runtime_hashes": "Every 6e4807b run staged pr-review/SKILL.md sha256 prefix 532aea2b87f8 and thread-settlement.md 250bcef9a7d7, matching the commit.",
+  "unrun": [
+   "First case on the baseline: its expectations encode the baseline text's first-review rules, which the change leaves in place.",
+   "The answered-required row with an optional remainder the author did not decline, and the partial-fix row: T3's author declined the rename, so the baseline also resolves it; the cases do not isolate those rows.",
+   "Reply-only earlier reviews, an unreadable reviews channel, and a direct pr-review run that leaves an accepted deferral open."
+  ],
+  "limits": "One run per case, host and arm; plans, not executed publication or helper writes. Small samples support only these cases."
+ }
+}

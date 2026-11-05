@@ -99,13 +99,16 @@ to change permissions, scope or reviewers.
    thread instead of opening another. A settled point is not repeated, but an
    issue that reappears on the current head is raised again in its resolved
    thread. A finding the author deferred with a ticket they confirmed in its
-   thread is an accepted deferral: keep it in the ledger with the ticket, do not
-   republish it, and do not count it against approval. Suppress a duplicate that
+   thread, or declined or deferred by citing a recorded team decision that covers
+   it (a link to a decision record, a Slack thread, a ticket or an ADR, taken at
+   the author's word when it cannot be read), is an accepted deferral: keep it in
+   the ledger with that ticket or link, do not republish it, and do not count it
+   against approval. Suppress a duplicate that
    adds nothing, with a reason. For a repeat review, review the full current
    scope first, then compare the previous snapshot and disposition ledger. Record
    declined optional asks in Review basis; revive them only on new evidence.
-   Deferral without a confirmed ticket does not resolve a supported defect. Carry
-   decisive unknowns as questions.
+   Any other deferral does not resolve a supported defect. Carry decisive
+   unknowns as questions.
 
 At any phase, snapshot or source drift invalidates reuse. Refresh the affected
 assessment before comments are written. Do not present a prior result as current.
@@ -132,9 +135,25 @@ existing authorization; suggestions grant no additional permission.
    outside tests is posted with it, and regressions in a
    required setup/build/run contract remain actionable regardless. Other optional
    findings are posted, a follow-up ticket suggestion included, unless an existing
-   ticket's text already names the remedy; the ledger then cites that ticket.
+   ticket's text already names the remedy, which the ledger then cites; a later
+   round narrows this as below.
    Post one comment per verified site, with a short back-reference for repeated
    sites. Do not turn one root-cause ledger entry into one lost-anchor comment.
+
+   The run is a **later round** when the actor already reviewed the PR: the
+   collector's `reviews.json` holds an actor review that approved, requested
+   changes, was dismissed or has a body, or its `review-comments.json` holds a
+   thread the actor started. Replies alone do not count. Otherwise it is the
+   actor's first review of the PR, and the rules above apply unchanged. When a
+   channel this needs stays unreadable after recovery, decide from what was
+   read and report the gap in step 11. A later round keeps the bar for required
+   findings and posts no minor optional point, the kind `comment-style` labels
+   `nit:`. It publishes other optional advice, new or carried over from earlier
+   candidates, in a comment, a reply or the body, only when it clearly pays for
+   itself: it prevents a plausible future defect, stops real drift between
+   duplicated rules, or removes material complexity. Style, naming, comment
+   wording, documentation gaps, test tidiness and other refactors of code that
+   works do not qualify.
 10. **Anchor and publish.** Read [github.md](references/github.md), validate every
     anchor against the recorded diff side and revision, and create a structured
     review plan. For a finding outside the diff, choose a related changed line and
@@ -171,7 +190,8 @@ existing authorization; suggestions grant no additional permission.
     unposted items and why, engine failures, coverage gaps and decisive questions.
     Claim publication only after read-back verifies it. An incomplete roster,
     collector or write is reported as incomplete, not a clean review. After a
-    published COMMENT review, start `pr-review-followup` on this PR, passing the PR
+    published COMMENT review, or when an accepted deferral still sits in an
+    unresolved thread of the actor, start `pr-review-followup` on this PR, passing the PR
     URL, actor, snapshot and receipt paths and the counts this step returns to it, unless
     `pr-review-followup` ran this review or the user asked for the review without
     follow-up. A delegated child returns this handoff to its parent.

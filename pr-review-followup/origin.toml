@@ -19,8 +19,18 @@ reason = "Set when the skill was derived from the supervised PR 1982 follow-up s
 where = ["references/thread-settlement.md", "SKILL.md#run-one-tick"]
 
 [[invariants]]
-rule = "Every follow-up on a topic stays in its existing thread. A required finding deferred as out of scope gets a request for a ticket, and the thread is resolved once the author supplies the ticket; a declined or deferred optional point is resolved without one."
+rule = "Every follow-up on a topic stays in its existing thread. A required finding deferred as out of scope without a cited team decision gets a request for a ticket, and the thread is resolved once the author supplies the ticket; a declined or deferred optional point is resolved without one."
 reason = "Set when the skill was derived from the supervised PR 1982 follow-up session on 2026-10-07 (local snapshot pr-1982-followup-session). Optional points are exempt by the user decision of 2026-10-27 that they never block approval."
+where = ["references/thread-settlement.md"]
+
+[[invariants]]
+rule = "When the author declines or defers a point, required or optional, by citing a recorded team decision that covers it (a link to a decision record, a Slack thread, a ticket or an ADR, taken at the author's word when it cannot be read), the follow-up accepts it without a user decision, even if the finding still stands: it replies with a short acknowledgment and resolves the thread, and later heads verify the thread as settled, so the approval gate stops counting it."
+reason = "User decision of 2026-11-05, 'Accept team decision, always!'. On https://github.com/aurora-payments/monorepo/pull/2205 the author declined a required rollout-order point twice, each time citing a team decision recorded in Slack, and the user told the follow-up to accept the decision and resolve the thread. Accepting a record that cannot be read mirrors the rule that an inaccessible tracker does not block resolving on the author's ticket key."
+where = ["references/thread-settlement.md", "SKILL.md#run-one-tick"]
+
+[[invariants]]
+rule = "Settlement follows the pr-review skill's later-round bar: a reply raises an optional point only when it meets that bar, and a thread whose partial fix or answered required finding leaves only an optional point below it is marked optional and resolved. Optional threads the author has not answered stay open."
+reason = "User decision of 2026-11-05 that the later-round bar also covers optional points added in replies while settling threads; the pr-review record's invariant on that bar holds the incident. Resolving a thread whose only remainder falls below the bar is inferred from that decision, because an open optional thread asks the author for work as a new comment does; marking it optional keeps later heads from verifying or reopening it. Leaving unanswered optional threads open is inferred from the user's decision to keep the first review unchanged."
 where = ["references/thread-settlement.md"]
 
 [[invariants]]
@@ -109,6 +119,9 @@ kind = "local"
 name = "pr-review"
 required = true
 role = "Full review of a new head with the reviewer as its intended actor, publication of new findings and same-topic replies, and the publication receipt that records each thread's required or optional action."
+decisions = [
+  "pr-review detects a later round itself from the reviewer's earlier reviews on the PR, so the follow-up passes it no round; the pr-review record holds the reason.",
+]
 
 [[dependencies]]
 kind = "local"

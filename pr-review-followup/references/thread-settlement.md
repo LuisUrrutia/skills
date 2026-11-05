@@ -7,18 +7,19 @@ reviewer started.
 | What happened | Verified on the current head | Action |
 | --- | --- | --- |
 | The author fixed it, or removed the code it was about | The issue no longer exists | Resolve. Reply only when it adds something. |
-| The author fixed part of it | The rest still stands | Reply with what is done and what remains; keep it open. |
-| The author answered a required finding | Only an optional point remains | Mark the thread `optional` and keep it open. Reply only when it adds something. |
+| The author fixed part of it | The rest still stands | Reply with what is done and what remains; keep it open. When only an optional point below the later-round bar remains, mark the thread `optional` and resolve it without restating that point. |
+| The author answered a required finding | Only an optional point remains | Mark the thread `optional`. Keep it open if that point meets the later-round bar; otherwise resolve it. Reply only when it adds something. |
 | A new head fixed it without a reply | The issue no longer exists | Resolve. |
 | The author answered a question | The answer settles it, with evidence | Resolve. |
 | The author answered, but the point still stands | Evidence still supports the finding | Reply once with the deciding fact. If the author disagrees again, report the thread to the user and stop replying there. |
 | The author disagreed | The author is right | Resolve; a short acknowledgment is optional. |
 | The author declined or deferred an optional point | — | Resolve; an optional point needs no ticket. |
+| The author declined or deferred a point, required or optional, citing a recorded team decision: a link to a decision record, a Slack thread, a ticket or an ADR | The decision covers the point, or its record cannot be read | Accept it, even if the finding still stands: reply with a short acknowledgment and resolve; this needs no user decision. |
 | The author deferred a required finding as out of scope | The issue still exists | Ask for a ticket to track it; keep it open. |
 | The author gave a ticket key or link, or confirmed the ticket exists | — | Resolve. When the tracker is accessible, confirm the ticket exists first. |
 | The author promised a ticket later, or refused one | — | Wait on a promise; report a refusal to the user. Keep it open. |
-| A resolved thread awaits verification on this head and base, whoever resolved it | The issue no longer exists, or the thread was settled by a confirmed ticket | Mark it `verified`. |
-| A resolved thread awaits verification on this head and base | The finding still stands | Reopen it with `unresolve` and reply with the deciding fact. |
+| A resolved thread awaits verification on this head and base, whoever resolved it | The issue no longer exists, or a confirmed ticket or a recorded team decision settled the thread | Mark it `verified`. |
+| A resolved thread awaits verification on this head and base | The finding still stands, and no confirmed ticket or recorded team decision settled the thread | Reopen it with `unresolve` and reply with the deciding fact. |
 | A resolved issue reappears in a new head | The issue is back | Reopen it and say what came back; `pr-review` raises the same point there. |
 | The author asks how the review was done or which engine, model or tool produced a finding | — | Report that question to the user and do not answer it. Settle any technical point in the same message by its own row. |
 | Anything that needs the user's judgment | — | Report it; do not reply. |
@@ -26,8 +27,12 @@ reviewer started.
 Name the tracker the project uses when the repository instructions or the private
 review profile establish it, for example Jira; otherwise ask for "a ticket"
 without naming a tool. An inaccessible tracker does not block resolving on the
-author's ticket key or link. A resolved deferral stays an accepted deferral for
-later reviews.
+author's ticket key or link. A thread resolved on a ticket or a team decision
+stays an accepted deferral for later reviews.
+
+Replies follow `pr-review`'s later-round bar: a reply raises an optional point
+only when it meets that bar. Optional threads the author has not answered stay
+open.
 
 Keep every follow-up on a topic in its existing thread. A new thread is only for
 a new finding, which `pr-review` publishes. Word every reply with `comment-style`
