@@ -75,12 +75,13 @@ rest of the workflow merely by invoking it.
 When implementation actually starts from a ticket, use `issue-workflow` for
 the configured `work-started` event, including work without a PR. Run it at the
 first implementation boundary, before source or test edits. When `debug`, `tdd`,
-or a delegated worker will implement, assign this event to that implementation
-owner in its brief; retain the event receipt instead of waiting for a completed
-repair to trigger it. Hand over the event itself, not a forecast of its outcome:
-add only tracker limits the user set, so an expected skip still runs through
-`issue-workflow` and reaches the user. Investigation, planning, and diagnosis
-alone do not establish the event. Pass the verified ticket, project, and current event evidence.
+or a delegated worker will implement, hand this event, not a forecast of its
+outcome, to that implementation owner in its brief, adding only tracker limits
+the user set, so an expected skip still runs through `issue-workflow`. Retain
+the event receipt instead of waiting for a completed repair to trigger it, and
+pass on to the user any ticket it skipped by scope exclusion or assignment it
+left with someone else. Investigation, planning, and diagnosis alone do not
+establish the event. Pass the verified ticket, project, and current event evidence.
 A blocked tracker transition leaves independent authorized implementation
 available. Creating new tickets is a separate publication operation.
 

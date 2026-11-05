@@ -25,7 +25,7 @@ where = [
 ]
 
 [[invariants]]
-rule = "A brief that assigns a ticket event to an implementation owner hands over the event, not the coordinator's forecast of its outcome, and adds only the tracker limits the user set."
+rule = "A coordinator hands a ticket event to its implementation owner, not its own forecast of the outcome, adds only the tracker limits the user set, and passes on to the user any scope-exclusion skip or kept assignment that the event's receipt reports."
 reason = "Incident (2026-11-05): a coordinator read the tracker policy, found sub-tasks excluded, and told each worker not to change its sub-task's status or assignee. The event never ran through issue-workflow, and the gap reached the user as a settled limit."
 where = ["SKILL.md#run-a-phase-and-read-its-result"]
 
