@@ -1,0 +1,101 @@
+{
+  "schemaVersion": 1,
+  "date": "2026-11-05",
+  "package": "issue-workflow",
+  "relatedPackages": ["work-mode"],
+  "status": "validated in the stated structural, model-pair review and fake-tracker scope",
+  "scope": "Make assignment at a policy event part of the issue-workflow contract (fill an empty assignee only), let a policy name the Jira transition when several reach one destination, report scope-exclusion skips to the user, and stop work-mode briefs from forecasting a ticket event's outcome.",
+  "diagnosis": {
+    "incident": "Six unassigned MMS-2113 sub-tasks (MMS-2131 to MMS-2136) were implemented through work-mode on 2026-11-05 without being assigned or moved.",
+    "links": [
+      "The user-level Aurora policy listed Sub-task (10003) as an excluded scope, so work-started for a sub-task resolved to skipped.",
+      "issue-workflow/SKILL.md at 040ea34 said a delivery task does not authorize assignees, so no policy could request one.",
+      "The coordinator read the policy directly, never invoked issue-workflow, and wrote into each worker brief an instruction not to change the sub-task's status or assignee; its report presented the exclusion as a settled limit."
+    ]
+  },
+  "revisions": {
+    "baseline": "040ea34c8a2a3b0b84fe2edfb4f4626de40abdc6",
+    "reviewedCandidate": "d3e112ce0c659c5021682c7c1cb7110b8f95d4aa",
+    "finalCandidate": "d1602210d5999aa6b726224aeb4d1706ecb51643",
+    "finalCandidateTree": "529ad20cbcc4ab9ec97cad722bc3f4c23b21a571"
+  },
+  "size": {
+    "unit": "words (wc -w)",
+    "issueWorkflowEntry": {"baseline": 1554, "final": 1755},
+    "issueWorkflowInstructionalPackage": {"baseline": 4694, "final": 5026},
+    "workModeEntry": {"baseline": 1549, "final": 1590},
+    "growthBuys": [
+      "Assignment authority and its fill-only limit.",
+      "A separate assignment step before the transition rule, with its own outcome and a fresh transitions read.",
+      "Per-write re-read, verification and retry for two operations.",
+      "Assignee and assignment outcome in the return, and the once-per-ticket scope-exclusion notice.",
+      "Policy guidance and template fields for assignment and for a named transition among several to one destination.",
+      "work-mode: hand over the event without a forecast, and relay a receipt's skip notices."
+    ]
+  },
+  "review": {
+    "profiles": [
+      {"provider": "codex", "model": "gpt-6.1-sol", "effort": "xhigh"},
+      {"provider": "claudeAgent", "model": "claude-opus-5-5", "effort": "xhigh"}
+    ],
+    "candidate": "d3e112c plus the proposed user-level policy, frozen by sha256 in an identical brief",
+    "adopted": [
+      "Both: the transition step could return before the assignment ran, and a kept assignee could end the event; the assignment became its own step before the transition rule with independent outcomes and a fresh transitions read.",
+      "Sol: assignment ownership was undefined when native automation owns the transition; the agent applies assignment whatever owns the transition, and adapters limit their automation rule to the transition.",
+      "Opus: the work-mode coordinator never loads issue-workflow, so it must pass a receipt's skip notices on to the user.",
+      "Opus: the agent's own write must not trigger re-evaluation; each write is verified and retried on its own.",
+      "Opus: 'every report' would repeat on follow-up wakes; the notice reaches the user once per ticket and event.",
+      "Both: the reporting invariant over-credited the user; it now credits the user's request and names the scope limit as a design choice.",
+      "Opus: GitHub adapter wording, work-mode 'assign this event' ambiguity, and README wrap.",
+      "Opus: the proposed policy's assignment line gained 'when it has no assignee', and the activation rule in the user's private instructions gained assignment."
+    ],
+    "returnedToUser": [
+      "Sol: AA's local sub-task transitions (4, 10, 3) are not directly observed; AA has no open sub-task.",
+      "Opus: the installed skill is the main checkout, so the policy's assignment section precedes the merged skill change.",
+      "Opus: choosing transitions 4 and 3 (optional screen fields) over 7 and 9 (no screen) is the user's decision; the policy-wide 'Blocked moves' rewrite was withdrawn in favour of a Sub-tasks-only note."
+    ]
+  },
+  "evaluation": {
+    "method": "Offline runs against a fake Jira CLI with canary keys MMS-9901xx that do not exist in Jira. Each run read only the staged runtime files (SKILL.md, references, assets) of one revision; records and notices were removed.",
+    "fixedConditions": "Claude Code runs used general-purpose subagents on Claude Opus at default effort; Codex runs used gpt-6.1-sol at xhigh. Both hosts loaded the user's personal instructions; prompts designated the fixture policy over ~/.agents/aurora/issue-tracker.md and granted standing authorization for the policy's ticket changes. Cases within one run shared a context.",
+    "cases": [
+      {
+        "id": "start-tickets",
+        "policy": "proposed Aurora policy",
+        "requests": "work-started on an unassigned To Do sub-task (MMS-990101), a To Do story assigned to another person (MMS-990102) and an Epic (MMS-990103)",
+        "expected": "Assign MMS-990101 then transition 4; transition MMS-990102 with 21 and keep its assignee; no write on the Epic; messages name the kept assignee and the exclusion.",
+        "results": {
+          "claude-old": "pass", "claude-new": "pass", "codex-old": "pass", "codex-new": "pass"
+        },
+        "finding": "No observed gain: with an explicit policy assignment rule and standing authorization, the 040ea34 skill also assigned on both hosts."
+      },
+      {
+        "id": "coordinator-briefs",
+        "policy": "current Aurora policy (sub-tasks excluded)",
+        "requests": "work-mode coordination of two unassigned sub-tasks, writing worker briefs instead of launching threads",
+        "expected": "Each brief hands work-started to the worker through issue-workflow without forecasting its outcome or adding tracker limits the user did not set; skip notices reach the user.",
+        "results": {
+          "claude-old": "fail: brief forbids any other Jira write, including assignee and transition changes, beyond the policy",
+          "codex-old": "fail: brief forecasts the skipped receipt, says no transition write is necessary and to leave assignments unchanged",
+          "claude-new": "pass: brief hands over the event with no forecast; the user message promises to pass on each thread's tracker result",
+          "codex-new": "pass with note: brief names the expected exclusion but requires running issue-workflow anyway, forbids claiming an anticipated skip, and asks the worker to send each excluded-scope outcome on to the user"
+        },
+        "finding": "Directional improvement on one run per host; neither old run reproduced the exact incident wording."
+      },
+      {
+        "id": "assignment-order",
+        "revision": "d160221 only",
+        "requests": "work-started on an unassigned To Do story whose start transition is available only to the assignee (MMS-990120), and on an unassigned sub-task already In Progress (MMS-990121)",
+        "expected": "Assign MMS-990120, read transitions again, transition 21; assign MMS-990121 with an unchanged status.",
+        "results": {"claude-new": "pass", "codex-new": "pass"}
+      }
+    ],
+    "unrun": [
+      "pr-ready and pr-merged for the Sub-tasks scope (needs a fake PR source).",
+      "Host selection probes: the description did not change.",
+      "Live Jira: no write was authorized."
+    ]
+  },
+  "recordChecks": "check-origin.py reported no diagnostics for issue-workflow and work-mode at d160221.",
+  "limits": "Single runs per case and host; tool-based fake tracker, not Jira; the installed skill remains the main checkout until this branch merges."
+}
