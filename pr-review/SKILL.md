@@ -139,16 +139,19 @@ existing authorization; suggestions grant no additional permission.
    Post one comment per verified site, with a short back-reference for repeated
    sites. Do not turn one root-cause ledger entry into one lost-anchor comment.
 
-   The run is a **later round** when the collector's `reviews.json` holds a
-   review by the intended actor in any state but `PENDING`; otherwise it is the
-   actor's first review of the PR, and the rules above apply unchanged. A later
-   round keeps the bar for required findings and posts no `nit:`. It posts an
-   optional point, new or carried over from earlier candidates, in a comment, a
-   reply or the body, only as a `suggestion:` that clearly pays for itself: it
-   prevents a plausible future defect, stops real drift between duplicated
-   rules, or removes material complexity. Style, naming, comment wording,
-   documentation gaps, test tidiness and refactors of code that works do not
-   qualify.
+   The run is a **later round** when the actor already reviewed the PR: the
+   collector's `reviews.json` holds an actor review that approved, requested
+   changes, was dismissed or has a body, or its `review-comments.json` holds a
+   thread the actor started. Replies alone do not count. Otherwise it is the
+   actor's first review of the PR, and the rules above apply unchanged. When a
+   channel this needs stays unreadable after recovery, decide from what was
+   read and report the gap in step 11. A later round keeps the bar for required
+   findings and posts no `nit:`. It posts an optional point, new or carried over
+   from earlier candidates, in a comment, a reply or the body, only as a
+   `suggestion:` that clearly pays for itself: it prevents a plausible future
+   defect, stops real drift between duplicated rules, or removes material
+   complexity. Style, naming, comment wording, documentation gaps, test tidiness
+   and refactors of code that works do not qualify.
 10. **Anchor and publish.** Read [github.md](references/github.md), validate every
     anchor against the recorded diff side and revision, and create a structured
     review plan. For a finding outside the diff, choose a related changed line and

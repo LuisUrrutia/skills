@@ -94,9 +94,9 @@ reason = "User decision of 2026-11-05: the first review stays super strict, and 
 where = ["SKILL.md#word-select-and-publish", "references/ledger.md#questions-seams-and-synthesis"]
 
 [[invariants]]
-rule = "The parent detects a later round itself, from a review by the intended actor in any state but PENDING among the reviews the feedback collector fetches; pr-review-followup passes no round. The engines never learn the round, so they report every finding and the bar applies only at selection."
-reason = "Design choice of 2026-11-05, made at the user's request to decide where the round is detected. Only detection here also covers a direct run on a PR the actor already reviewed and a follow-up whose first tick performs the actor's first review. The collector already fetches every review, so no script changes, and the brief keeps prior conclusions away from the engines."
-where = ["SKILL.md#word-select-and-publish"]
+rule = "The parent detects a later round itself from the collector's output: an earlier review by the actor that approved, requested changes, was dismissed or has a body, or a thread the actor started. Replies alone do not count, and pr-review-followup passes no round. The engines never learn the round, so they report every finding and the bar applies only at selection."
+reason = "Design choice of 2026-11-05, made at the user's request to decide where the round is detected. Only detection here also covers a direct run on a PR the actor already reviewed and a follow-up whose first tick performs the first review; the collector already fetches every review and comment, so no script changes. A reply posted on its own creates a review with no body, so counting it would hold a first review to the later-round bar after the user only replied in another reviewer's thread."
+where = ["SKILL.md#prepare-one-reproducible-review", "SKILL.md#run-and-reconcile", "SKILL.md#word-select-and-publish"]
 
 [[invariants]]
 rule = "A finding the author declined or deferred by citing a recorded team decision that covers it, meaning a link to a decision record, a Slack thread, a ticket or an ADR, is an accepted deferral like one deferred to a confirmed ticket: the ledger keeps it with the link, and it is neither republished nor counted against approval."
