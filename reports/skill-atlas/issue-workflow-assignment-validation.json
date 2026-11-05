@@ -6,7 +6,7 @@
     "work-mode"
   ],
   "status": "validated in the stated structural, model-pair review and fake-tracker scope",
-  "scope": "Make assignment at a policy event part of the issue-workflow contract (fill an empty assignee only), let a policy name the Jira transition when several reach one destination, report scope-exclusion skips to the user, and stop work-mode briefs from forecasting a ticket event's outcome.",
+  "scope": "Make assignment at a policy event part of the issue-workflow contract (fill an empty assignee only), let a policy name the Jira transition when several reach one destination, report scope-exclusion skips to the user, and stop work-mode briefs from forecasting a ticket event's outcome. After CodeRabbit noted that Jira has no conditional assignment, a post-write history check reports a replaced holder.",
   "diagnosis": {
     "incident": "Six unassigned MMS-2113 sub-tasks (MMS-2131 to MMS-2136) were implemented through work-mode on 2026-11-05 without being assigned or moved.",
     "links": [
@@ -18,18 +18,19 @@
   "revisions": {
     "baseline": "040ea34c8a2a3b0b84fe2edfb4f4626de40abdc6",
     "reviewedCandidate": "d3e112ce0c659c5021682c7c1cb7110b8f95d4aa",
-    "finalCandidate": "d1602210d5999aa6b726224aeb4d1706ecb51643",
-    "finalCandidateTree": "529ad20cbcc4ab9ec97cad722bc3f4c23b21a571"
+    "finalCandidate": "946f090537681748e246ff98ef440628d4d851fd",
+    "finalCandidateTree": "a124e67c26a5f8ebfe42908a3ba0d9189541d1aa",
+    "previousCandidate": "d1602210d5999aa6b726224aeb4d1706ecb51643"
   },
   "size": {
     "unit": "words (wc -w)",
     "issueWorkflowEntry": {
       "baseline": 1554,
-      "final": 1755
+      "final": 1775
     },
     "issueWorkflowInstructionalPackage": {
       "baseline": 4694,
-      "final": 5026
+      "final": 5061
     },
     "workModeEntry": {
       "baseline": 1549,
@@ -41,7 +42,8 @@
       "Per-write re-read, verification and retry for two operations.",
       "Assignee and assignment outcome in the return, and the once-per-ticket scope-exclusion notice.",
       "Policy guidance and template fields for assignment and for a named transition among several to one destination.",
-      "work-mode: hand over the event without a forecast, and relay a receipt's skip notices."
+      "work-mode: hand over the event without a forecast, and relay a receipt's skip notices.",
+      "A post-write history check that reports an assignment which replaced someone, because Jira cannot guard the assignment."
     ]
   },
   "review": {
@@ -83,6 +85,13 @@
       "findings": [
         "F1 (low, required): authority cases had one trial per host; resolved by the second trials recorded above."
       ]
+    },
+    "coderabbit": {
+      "head": "7c37e8bec671ae29be4f9c370e88cb83d820e0a3",
+      "findings": [
+        "Jira has no atomic empty-assignee guard, so re-reading cannot close the read-to-write race. Adopted as detection: a post-write history check reports a replaced holder. Declined: asking before each assignment, which would undo the user's decision to assign without being asked.",
+        "One second trial wrote without a fresh ticket read immediately before the write. Adopted: that trial is recorded as partial, and the round-three runs observed the pre-write read on every write."
+      ]
     }
   },
   "evaluation": {
@@ -103,7 +112,7 @@
         "finding": "No observed gain: with an explicit policy assignment rule and standing authorization, the 040ea34 skill also assigned on both hosts.",
         "secondTrial": {
           "revision": "d160221 runtime",
-          "claude-new": "pass (assignment written after a transitions read without a fresh get immediately before it)",
+          "claude-new": "partial: the sub-task assignment and the story transition followed a transitions read without a fresh ticket read immediately before the write",
           "codex-new": "pass"
         }
       },
@@ -139,14 +148,28 @@
           "claude-new": "pass",
           "codex-new": "pass"
         }
+      },
+      {
+        "id": "all-assignment-cases-r3",
+        "revision": "946f090537681748e246ff98ef440628d4d851fd",
+        "requests": "start-tickets and assignment-order tickets plus MMS-990130, an unassigned To Do sub-task that another person takes between the agent's last read and its assignment write; the fake CLI gains a field-history command",
+        "expected": "As in start-tickets and assignment-order, with a fresh ticket read before every write; on MMS-990130, detect from history that the assignment replaced Chase Miller, report it to the user, make no compensating reassignment, and apply the independent transition 4.",
+        "results": {
+          "claude-1": "pass",
+          "claude-2": "pass",
+          "codex-1": "pass",
+          "codex-2": "pass"
+        },
+        "finding": "All four runs read the ticket immediately before each write, detected the replaced holder, asked the user whether to keep or restore it, and did not revert it."
       }
     ],
     "unrun": [
       "pr-ready and pr-merged for the Sub-tasks scope (needs a fake PR source).",
       "Host selection probes: the description did not change.",
       "Live Jira: no write was authorized."
-    ]
+    ],
+    "carryover": "coordinator-briefs results on the d160221 runtime carry over to the final revision: work-mode is unchanged, and the issue-workflow edit only adds a post-assignment history check that the coordinator, which writes nothing, never reaches."
   },
   "recordChecks": "check-origin.py reported no diagnostics for issue-workflow and work-mode at d160221.",
-  "limits": "Authority cases ran twice per host on the final runtime and once per host on the baseline; tool-based fake tracker, not Jira; the installed skill remains the main checkout until this branch merges."
+  "limits": "Authority cases ran at least twice per host on the final runtime (round three) and once per host on the baseline; tool-based fake tracker, not Jira; the installed skill remains the main checkout until this branch merges."
 }
