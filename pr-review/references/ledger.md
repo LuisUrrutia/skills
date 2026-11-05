@@ -87,6 +87,7 @@ Write canonical `review.md` using the resolved auditor's grammar, carrying the
 combined Review basis, Class/Action/Recommendation, questions, checks and actual
 coverage. Validate it against the frozen inventory. Separately reconcile its
 finding IDs to ledger sources and each selected site to the final comment plan.
-Retain unselected test/tooling findings internally with the selection reason.
+Give each verified finding that gets no comment a Disposition with the selection
+reason, such as an optional finding below the later-round bar.
 Only then reconcile external feedback and prior dispositions, revalidate affected
 conclusions and prepare the review comments.

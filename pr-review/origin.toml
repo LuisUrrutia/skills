@@ -84,8 +84,18 @@ reason = "User decision of 2026-10-25. On a benchmark review, an engine named a 
 where = ["references/ledger.md#candidate-entries"]
 
 [[invariants]]
-rule = "Optional findings are posted, a follow-up ticket suggestion included, unless an existing ticket's text already names the remedy, which the ledger then cites."
+rule = "On the actor's first review of a PR, optional findings are posted, a follow-up ticket suggestion included, unless an existing ticket's text already names the remedy, which the ledger then cites. Later rounds follow the invariant on the later-round bar instead."
 reason = "User decision of 2026-10-25 that maintainability findings reach the author as a ticket suggestion or a solution; on a benchmark review the coordinator kept two verified ticket suggestions internal as follow-ups."
+where = ["SKILL.md#word-select-and-publish"]
+
+[[invariants]]
+rule = "The actor's first review of a PR keeps the full selection bar, `nit:` and `suggestion:` comments included. A later round keeps the bar for required findings, posts no `nit:`, and publishes an optional point, new or carried over, in a comment, a reply or the body, only as a `suggestion:` that prevents a plausible future defect, stops real drift between duplicated rules or removes material complexity. The ledger keeps each optional finding the bar holds back, with that reason."
+reason = "User decision of 2026-11-05: the first review stays super strict, and later reviews post no nits and no suggestions unless the change is really worth it. On https://github.com/aurora-payments/monorepo/pull/2205, rounds 3 and 4 posted five optional comments and an optional reply that blocked nothing but added work for the author, and a round-3 nit that only asked to fix a comment led the author to change behavior and introduce a regression that round 4 had to raise as required."
+where = ["SKILL.md#word-select-and-publish", "references/ledger.md#questions-seams-and-synthesis"]
+
+[[invariants]]
+rule = "The parent detects a later round itself, from a review by the intended actor in any state but PENDING among the reviews the feedback collector fetches; pr-review-followup passes no round. The engines never learn the round, so they report every finding and the bar applies only at selection."
+reason = "Design choice of 2026-11-05, made at the user's request to decide where the round is detected. Only detection here also covers a direct run on a PR the actor already reviewed and a follow-up whose first tick performs the actor's first review. The collector already fetches every review, so no script changes, and the brief keeps prior conclusions away from the engines."
 where = ["SKILL.md#word-select-and-publish"]
 
 [[invariants]]

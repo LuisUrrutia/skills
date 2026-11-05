@@ -132,9 +132,21 @@ existing authorization; suggestions grant no additional permission.
    outside tests is posted with it, and regressions in a
    required setup/build/run contract remain actionable regardless. Other optional
    findings are posted, a follow-up ticket suggestion included, unless an existing
-   ticket's text already names the remedy; the ledger then cites that ticket.
+   ticket's text already names the remedy, which the ledger then cites, or the
+   run is a later round.
    Post one comment per verified site, with a short back-reference for repeated
    sites. Do not turn one root-cause ledger entry into one lost-anchor comment.
+
+   The run is a **later round** when the collector's `reviews.json` holds a
+   review by the intended actor in any state but `PENDING`; otherwise it is the
+   actor's first review of the PR, and the rules above apply unchanged. A later
+   round keeps the bar for required findings and posts no `nit:`. It posts an
+   optional point, new or carried over from earlier candidates, in a comment, a
+   reply or the body, only as a `suggestion:` that clearly pays for itself: it
+   prevents a plausible future defect, stops real drift between duplicated
+   rules, or removes material complexity. Style, naming, comment wording,
+   documentation gaps, test tidiness and refactors of code that works do not
+   qualify.
 10. **Anchor and publish.** Read [github.md](references/github.md), validate every
     anchor against the recorded diff side and revision, and create a structured
     review plan. For a finding outside the diff, choose a related changed line and
