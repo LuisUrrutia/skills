@@ -29,8 +29,8 @@ reason = "User decision of 2026-11-05, 'Accept team decision, always!'. On https
 where = ["references/thread-settlement.md", "SKILL.md#run-one-tick"]
 
 [[invariants]]
-rule = "Settlement follows the pr-review skill's later-round bar: a reply raises an optional point only when it meets that bar, and a thread whose partial fix or answered required finding leaves only an optional point below it is resolved. Optional threads the author has not answered stay open."
-reason = "User decision of 2026-11-05 that the later-round bar also covers optional points added in replies while settling threads; the pr-review record's invariant on that bar holds the incident. Resolving a thread whose only remainder falls below the bar is inferred from that decision, because an open optional thread asks the author for work as a new comment does. Leaving unanswered optional threads open is inferred from the user's decision to keep the first review unchanged."
+rule = "Settlement follows the pr-review skill's later-round bar: a reply raises an optional point only when it meets that bar, and a thread whose partial fix or answered required finding leaves only an optional point below it is marked optional and resolved. Optional threads the author has not answered stay open."
+reason = "User decision of 2026-11-05 that the later-round bar also covers optional points added in replies while settling threads; the pr-review record's invariant on that bar holds the incident. Resolving a thread whose only remainder falls below the bar is inferred from that decision, because an open optional thread asks the author for work as a new comment does; marking it optional keeps later heads from verifying or reopening it. Leaving unanswered optional threads open is inferred from the user's decision to keep the first review unchanged."
 where = ["references/thread-settlement.md"]
 
 [[invariants]]

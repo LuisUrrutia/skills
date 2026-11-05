@@ -7,8 +7,8 @@ reviewer started.
 | What happened | Verified on the current head | Action |
 | --- | --- | --- |
 | The author fixed it, or removed the code it was about | The issue no longer exists | Resolve. Reply only when it adds something. |
-| The author fixed part of it | The rest still stands | Reply with what is done and what remains; keep it open. When only an optional point below the later-round bar remains, resolve instead. |
-| The author answered a required finding | Only an optional point remains | If that point meets the later-round bar, mark the thread `optional` and keep it open; otherwise resolve it. Reply only when it adds something. |
+| The author fixed part of it | The rest still stands | Reply with what is done and what remains; keep it open. When only an optional point below the later-round bar remains, mark the thread `optional` and resolve it without restating that point. |
+| The author answered a required finding | Only an optional point remains | Mark the thread `optional`. Keep it open if that point meets the later-round bar; otherwise resolve it. Reply only when it adds something. |
 | A new head fixed it without a reply | The issue no longer exists | Resolve. |
 | The author answered a question | The answer settles it, with evidence | Resolve. |
 | The author answered, but the point still stands | Evidence still supports the finding | Reply once with the deciding fact. If the author disagrees again, report the thread to the user and stop replying there. |
@@ -30,9 +30,9 @@ without naming a tool. An inaccessible tracker does not block resolving on the
 author's ticket key or link. A thread resolved on a ticket or a team decision
 stays an accepted deferral for later reviews.
 
-Every reviewer thread follows a published review, so the later-round bar of
-`pr-review` step 9 applies: a reply raises an optional point only when it meets
-that bar. Optional threads the author has not answered stay open.
+Replies follow `pr-review`'s later-round bar: a reply raises an optional point
+only when it meets that bar. Optional threads the author has not answered stay
+open.
 
 Keep every follow-up on a topic in its existing thread. A new thread is only for
 a new finding, which `pr-review` publishes. Word every reply with `comment-style`

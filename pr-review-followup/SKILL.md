@@ -105,7 +105,7 @@ or `logout`: every session on the machine shares the active account.
    it, or judge it with the auditor's Action rule on the current head. Its label
    is not evidence: the user may edit comments, and earlier reviews labeled
    required findings `nit:`. A recorded `required` thread becomes `optional`
-   only through the settlement row for an answer that leaves an optional point,
+   only through a settlement row that leaves only an optional point,
    and the tick report gives the deciding fact.
 5. **Apply** with `apply --plan "$PLAN" --receipt "$RECEIPT"`, a new plan and
    receipt per tick. The plan is `{"expected_head": SHA, "expected_base_ref":
