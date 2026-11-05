@@ -58,7 +58,8 @@ item.
 - Manual progress/source-state exceptions: unresolved.
 - Rework or reopening policy, if needed: unresolved.
 - GitHub issue closure versus Project Status changes, if applicable: unresolved.
-- Required transition fields and their approved values, if applicable: unresolved.
+- Required transition fields, their approved values and the transition to use
+  where several reach one destination, if applicable: unresolved.
 
 ## Delivery ownership
 

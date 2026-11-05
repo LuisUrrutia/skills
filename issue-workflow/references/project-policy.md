@@ -44,8 +44,9 @@ Record enough to decide a transition:
 - How PRs link tickets, and how completing versus contributing PRs are
   distinguished. Avoid GitHub auto-close keywords when QA must remain open.
 - For each scope and event: qualifying target branches, allowed source states,
-  destination, conditions, required transition-field values when applicable, and
-  exactly one owner (`agent` or a named native/external rule).
+  destination, conditions, exactly one owner (`agent` or a named native/external
+  rule) and, when applicable, required transition-field values and the
+  transition to use where several reach the destination.
 - Assignment, if the user wants it: the events and scopes that assign, and the
   assignee as a provider account ID or the acting account.
 - Merge completion criteria for partial work, multiple PRs and stacked branches.
@@ -55,8 +56,9 @@ Record enough to decide a transition:
   them. Omit branches the project does not use.
 
 Record each state by its provider ID where one exists, beside a readable name in
-the policy's language; the ID governs. Resolve Jira's currently available
-transition IDs at execution time: they are operations, not status IDs. An
+the policy's language; the ID governs. Jira transition IDs are operations, not
+status IDs: record one only to choose among transitions that reach the same
+destination, and resolve availability at execution time. An
 inactive/unresolved row must never authorize a guessed transition. A rule that
 omits source guards, ownership or the provider ID of a state that has one is
 incomplete, even if its destination exists.
