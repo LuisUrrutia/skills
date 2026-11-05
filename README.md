@@ -631,8 +631,9 @@ and verified merge to the project's chosen state, such as Ready for QA or Done.
 For each workflow scope, selected from the ticket's own fields, the policy
 chooses real states, source guards, branches, completion conditions and one
 transition owner. Where the policy assigns at an event, an unassigned ticket gets
-that assignee and an assigned one keeps its own. Partial work, manual progress and native automation are
-preserved; uncertain writes are reconciled before retrying.
+that assignee and an assigned one keeps its own. Partial work, manual progress
+and native automation are preserved; uncertain writes are reconciled before
+retrying.
 
 Install alongside `pr` and `pr-followup` for their event hooks. Approval alone is
 not merge. Other publishers need an explicit invocation or their own integration;

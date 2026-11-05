@@ -7,8 +7,8 @@ help or connector schema rather than assuming one command version. An issue can
 belong to multiple Projects; each Project's Status field is its own workflow
 scope, and its options are the workflow's full state list. An unset Status has
 no option ID and is not drift; it is a valid source only when the rule names it.
-Update only the configured project and item. An issue is unassigned only when its
-assignee list is empty.
+Update only the configured project and item, and the issue's assignees when an
+assignment rule fills them; an issue is unassigned only when that list is empty.
 
 If the issue is not in that Project, report the missing membership. Synchronizing
 status does not authorize creating a board, adding an item, inventing a status or

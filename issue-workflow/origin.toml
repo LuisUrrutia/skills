@@ -57,6 +57,11 @@ reason = "User decision (2026-11-05) after an incident: the Aurora policy exclud
 where = ["SKILL.md#return-and-continue"]
 
 [[invariants]]
+rule = "The agent applies an assignment rule whatever owns the transition, before the transition, and gives the assignment its own outcome. A project whose native automation assigns declares no assignment rule."
+reason = "Serves the invariant that each rule has exactly one owner, and a workflow condition can limit a transition to the assignee."
+where = ["SKILL.md#synchronize-one-event", "references/project-policy.md#establish-the-policy"]
+
+[[invariants]]
 rule = "Each transition rule has exactly one owner: the agent or a named native rule. The agent never races native automation, and an agent fallback needs an explicit ownership change."
 reason = "The user asked for single ownership to work the same way across providers."
 where = ["SKILL.md#synchronize-one-event"]

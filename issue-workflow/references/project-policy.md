@@ -48,7 +48,8 @@ Record enough to decide a transition:
   rule) and, when applicable, required transition-field values and the
   transition to use where several reach the destination.
 - Assignment, if the user wants it: the events and scopes that assign, and the
-  assignee as a provider account ID or the acting account.
+  assignee as a provider account ID or the acting account. The agent applies it,
+  so leave it out where native automation assigns.
 - Merge completion criteria for partial work, multiple PRs and stacked branches.
   Name the final integration branch; do not equate a layer merge with completion.
 - The identity of each automation rule that owns a transition.
