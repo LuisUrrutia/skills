@@ -52,8 +52,8 @@ reason = "User decision (2026-11-05): starting implementation of a ticket, sub-t
 where = ["SKILL.md#resolve-the-operation", "SKILL.md#synchronize-one-event"]
 
 [[invariants]]
-rule = "Every report to the user, a caller's included, names each ticket skipped because the policy excludes its scope and each assignment left with another person, with the rule that decided it."
-reason = "User decision (2026-11-05) after an incident: the Aurora policy excluded sub-tasks, so six sub-tasks were implemented without being assigned or moved, and the exclusion reached the user only as a settled limit instead of a gap to fix."
+rule = "A ticket skipped because the policy excludes its scope, and an assignment left with another person, reach the user once per ticket and event with the rule that decided them, also when the skill runs under a caller."
+reason = "User request (2026-11-05): a skip caused by a policy exclusion must not become silence. Six MMS-2113 sub-tasks were implemented unassigned and unmoved, and the exclusion reached the user only as a settled limit. Covering only scope exclusions, not routine event-level skips such as a draft PR under a pr-ready policy, and adding kept assignments are design choices that serve that request."
 where = ["SKILL.md#return-and-continue"]
 
 [[invariants]]
