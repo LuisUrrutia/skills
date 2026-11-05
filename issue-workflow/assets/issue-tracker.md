@@ -15,6 +15,8 @@ decision there.
 - Completing versus contributing PR relation: unresolved.
 - Closing keywords and their effects, for GitHub issues: unresolved.
 - Default project and issue type for published tasks, if any: unresolved.
+- Assignment at an event, if wanted (event, scopes, assignee as a provider
+  account ID or the acting account): unresolved.
 
 ## Workflow scopes
 

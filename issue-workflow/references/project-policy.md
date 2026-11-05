@@ -46,6 +46,8 @@ Record enough to decide a transition:
 - For each scope and event: qualifying target branches, allowed source states,
   destination, conditions, required transition-field values when applicable, and
   exactly one owner (`agent` or a named native/external rule).
+- Assignment, if the user wants it: the events and scopes that assign, and the
+  assignee as a provider account ID or the acting account.
 - Merge completion criteria for partial work, multiple PRs and stacked branches.
   Name the final integration branch; do not equate a layer merge with completion.
 - The identity of each automation rule that owns a transition.
