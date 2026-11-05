@@ -2,7 +2,9 @@
   "schemaVersion": 1,
   "date": "2026-11-05",
   "package": "issue-workflow",
-  "relatedPackages": ["work-mode"],
+  "relatedPackages": [
+    "work-mode"
+  ],
   "status": "validated in the stated structural, model-pair review and fake-tracker scope",
   "scope": "Make assignment at a policy event part of the issue-workflow contract (fill an empty assignee only), let a policy name the Jira transition when several reach one destination, report scope-exclusion skips to the user, and stop work-mode briefs from forecasting a ticket event's outcome.",
   "diagnosis": {
@@ -21,9 +23,18 @@
   },
   "size": {
     "unit": "words (wc -w)",
-    "issueWorkflowEntry": {"baseline": 1554, "final": 1755},
-    "issueWorkflowInstructionalPackage": {"baseline": 4694, "final": 5026},
-    "workModeEntry": {"baseline": 1549, "final": 1590},
+    "issueWorkflowEntry": {
+      "baseline": 1554,
+      "final": 1755
+    },
+    "issueWorkflowInstructionalPackage": {
+      "baseline": 4694,
+      "final": 5026
+    },
+    "workModeEntry": {
+      "baseline": 1549,
+      "final": 1590
+    },
     "growthBuys": [
       "Assignment authority and its fill-only limit.",
       "A separate assignment step before the transition rule, with its own outcome and a fresh transitions read.",
@@ -35,8 +46,16 @@
   },
   "review": {
     "profiles": [
-      {"provider": "codex", "model": "gpt-6.1-sol", "effort": "xhigh"},
-      {"provider": "claudeAgent", "model": "claude-opus-5-5", "effort": "xhigh"}
+      {
+        "provider": "codex",
+        "model": "gpt-6.1-sol",
+        "effort": "xhigh"
+      },
+      {
+        "provider": "claudeAgent",
+        "model": "claude-opus-5-5",
+        "effort": "xhigh"
+      }
     ],
     "candidate": "d3e112c plus the proposed user-level policy, frozen by sha256 in an identical brief",
     "adopted": [
@@ -53,11 +72,22 @@
       "Sol: AA's local sub-task transitions (4, 10, 3) are not directly observed; AA has no open sub-task.",
       "Opus: the installed skill is the main checkout, so the policy's assignment section precedes the merged skill change.",
       "Opus: choosing transitions 4 and 3 (optional screen fields) over 7 and 9 (no screen) is the user's decision; the policy-wide 'Blocked moves' rewrite was withdrawn in favour of a Sub-tasks-only note."
-    ]
+    ],
+    "gate": {
+      "profile": {
+        "provider": "codex",
+        "model": "gpt-6.1-sol",
+        "effort": "xhigh"
+      },
+      "scope": "040ea34..8322641",
+      "findings": [
+        "F1 (low, required): authority cases had one trial per host; resolved by the second trials recorded above."
+      ]
+    }
   },
   "evaluation": {
     "method": "Offline runs against a fake Jira CLI with canary keys MMS-9901xx that do not exist in Jira. Each run read only the staged runtime files (SKILL.md, references, assets) of one revision; records and notices were removed.",
-    "fixedConditions": "Claude Code runs used general-purpose subagents on Claude Opus at default effort; Codex runs used gpt-6.1-sol at xhigh. Both hosts loaded the user's personal instructions; prompts designated the fixture policy over ~/.agents/aurora/issue-tracker.md and granted standing authorization for the policy's ticket changes. Cases within one run shared a context.",
+    "fixedConditions": "Claude Code runs used general-purpose subagents on Claude Opus at default effort; Codex runs used gpt-6.1-sol at xhigh. Both hosts loaded the user's personal instructions; prompts designated the fixture policy over ~/.agents/aurora/issue-tracker.md and granted standing authorization for the policy's ticket changes. Cases within one run shared a context. Second trials ran on the same runtime files with a fake CLI whose only change adds the assignee-only start condition used by assignment-order.",
     "cases": [
       {
         "id": "start-tickets",
@@ -65,9 +95,17 @@
         "requests": "work-started on an unassigned To Do sub-task (MMS-990101), a To Do story assigned to another person (MMS-990102) and an Epic (MMS-990103)",
         "expected": "Assign MMS-990101 then transition 4; transition MMS-990102 with 21 and keep its assignee; no write on the Epic; messages name the kept assignee and the exclusion.",
         "results": {
-          "claude-old": "pass", "claude-new": "pass", "codex-old": "pass", "codex-new": "pass"
+          "claude-old": "pass",
+          "claude-new": "pass",
+          "codex-old": "pass",
+          "codex-new": "pass"
         },
-        "finding": "No observed gain: with an explicit policy assignment rule and standing authorization, the 040ea34 skill also assigned on both hosts."
+        "finding": "No observed gain: with an explicit policy assignment rule and standing authorization, the 040ea34 skill also assigned on both hosts.",
+        "secondTrial": {
+          "revision": "d160221 runtime",
+          "claude-new": "pass (assignment written after a transitions read without a fresh get immediately before it)",
+          "codex-new": "pass"
+        }
       },
       {
         "id": "coordinator-briefs",
@@ -80,14 +118,27 @@
           "claude-new": "pass: brief hands over the event with no forecast; the user message promises to pass on each thread's tracker result",
           "codex-new": "pass with note: brief names the expected exclusion but requires running issue-workflow anyway, forbids claiming an anticipated skip, and asks the worker to send each excluded-scope outcome on to the user"
         },
-        "finding": "Directional improvement on one run per host; neither old run reproduced the exact incident wording."
+        "finding": "Old briefs forecast the skip or limited Jira writes on both hosts. New briefs always hand the event to the worker and ask for skip notices to reach the user; Claude did so without a forecast in both trials, while Codex stated the expected skip in both trials, so the no-forecast wording is only partly followed on Codex.",
+        "secondTrial": {
+          "revision": "d160221 runtime",
+          "claude-new": "pass: hands over work-started with no forecast and no added tracker limit; promises to pass on each thread's report",
+          "codex-new": "partial: hands over the event, requires running it despite the predicted skip and relays exclusion notices, but states the expected outcome and repeats the policy's lack of an assignment rule as a limit"
+        }
       },
       {
         "id": "assignment-order",
         "revision": "d160221 only",
         "requests": "work-started on an unassigned To Do story whose start transition is available only to the assignee (MMS-990120), and on an unassigned sub-task already In Progress (MMS-990121)",
         "expected": "Assign MMS-990120, read transitions again, transition 21; assign MMS-990121 with an unchanged status.",
-        "results": {"claude-new": "pass", "codex-new": "pass"}
+        "results": {
+          "claude-new": "pass",
+          "codex-new": "pass"
+        },
+        "secondTrial": {
+          "revision": "d160221 runtime",
+          "claude-new": "pass",
+          "codex-new": "pass"
+        }
       }
     ],
     "unrun": [
@@ -97,5 +148,5 @@
     ]
   },
   "recordChecks": "check-origin.py reported no diagnostics for issue-workflow and work-mode at d160221.",
-  "limits": "Single runs per case and host; tool-based fake tracker, not Jira; the installed skill remains the main checkout until this branch merges."
+  "limits": "Authority cases ran twice per host on the final runtime and once per host on the baseline; tool-based fake tracker, not Jira; the installed skill remains the main checkout until this branch merges."
 }
