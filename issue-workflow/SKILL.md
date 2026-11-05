@@ -151,7 +151,9 @@ ends only its own operation.
    guard when the API offers it. Use the allowed transition and its required
    fields, never a different status as a workaround for a rejected operation.
 6. Re-read after each write. It succeeds only with its exact destination or
-   assignee on the exact ticket. After timeout or another uncertain outcome,
+   assignee on the exact ticket. Where the provider records field history,
+   confirm the assignment replaced no one; a replaced holder is another writer
+   to report. After timeout or another uncertain outcome,
    read first: if the change applied, stop; if it did not and the same guard
    still holds, retry that write at most once for a transient failure. If state
    cannot be read or another writer intervened, report the uncertainty instead

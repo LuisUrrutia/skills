@@ -62,6 +62,11 @@ reason = "Serves the invariant that each rule has exactly one owner, and a workf
 where = ["SKILL.md#synchronize-one-event", "references/project-policy.md#establish-the-policy"]
 
 [[invariants]]
+rule = "Where the provider records field history, the skill checks after writing that an assignment replaced no one, and reports a replaced holder as another writer instead of reverting it or asking before each assignment."
+reason = "Jira's assign operation has no conditional empty-assignee guard, so a change between the pre-write read and the write can be detected but not prevented. Asking before every assignment would undo the user decision (2026-11-05) to assign without being asked."
+where = ["SKILL.md#synchronize-one-event", "references/jira.md"]
+
+[[invariants]]
 rule = "Each transition rule has exactly one owner: the agent or a named native rule. The agent never races native automation, and an agent fallback needs an explicit ownership change."
 reason = "The user asked for single ownership to work the same way across providers."
 where = ["SKILL.md#synchronize-one-event"]

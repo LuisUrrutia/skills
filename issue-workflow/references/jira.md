@@ -38,7 +38,8 @@ More than one operation can reach a destination. When several available ones
 do, use the one the rule names; when it names none of them, resolve required
 fields or materially different transition effects before writing. Do not choose
 the first result, guess an ID or bypass the workflow with a direct status edit.
-Re-fetch the issue after the operation.
+Re-fetch the issue after the operation. Jira offers no conditional assignment;
+its changelog records each assignee change with the previous value.
 
 Connected development tools can deliver PR-created and PR-merged automation events.
 Inspect the actual rule, issue linkage, project filters and branch conditions
