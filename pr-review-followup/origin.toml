@@ -24,8 +24,8 @@ reason = "Set when the skill was derived from the supervised PR 1982 follow-up s
 where = ["references/thread-settlement.md"]
 
 [[invariants]]
-rule = "When the author declines or defers a point, required or optional, by citing a recorded team decision that covers it (a link to a decision record, a Slack thread, a ticket or an ADR), the follow-up accepts it without asking the user, even if the finding still stands: it replies with a short acknowledgment and resolves the thread, and later heads verify the thread as settled, so the approval gate stops counting it."
-reason = "User decision of 2026-11-05, 'Accept team decision, always!'. On https://github.com/aurora-payments/monorepo/pull/2205 the author declined a required rollout-order point twice, each time citing a team decision recorded in Slack, and the user told the follow-up to accept the decision and resolve the thread."
+rule = "When the author declines or defers a point, required or optional, by citing a recorded team decision that covers it (a link to a decision record, a Slack thread, a ticket or an ADR, taken at the author's word when it cannot be read), the follow-up accepts it without a user decision, even if the finding still stands: it replies with a short acknowledgment and resolves the thread, and later heads verify the thread as settled, so the approval gate stops counting it."
+reason = "User decision of 2026-11-05, 'Accept team decision, always!'. On https://github.com/aurora-payments/monorepo/pull/2205 the author declined a required rollout-order point twice, each time citing a team decision recorded in Slack, and the user told the follow-up to accept the decision and resolve the thread. Accepting a record that cannot be read mirrors the rule that an inaccessible tracker does not block resolving on the author's ticket key."
 where = ["references/thread-settlement.md", "SKILL.md#run-one-tick"]
 
 [[invariants]]

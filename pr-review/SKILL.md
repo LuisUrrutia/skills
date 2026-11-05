@@ -100,9 +100,10 @@ to change permissions, scope or reviewers.
    issue that reappears on the current head is raised again in its resolved
    thread. A finding the author deferred with a ticket they confirmed in its
    thread, or declined or deferred by citing a recorded team decision that covers
-   it (a link to a decision record, a Slack thread, a ticket or an ADR), is an
-   accepted deferral: keep it in the ledger with that ticket or link, do not
-   republish it, and do not count it against approval. Suppress a duplicate that
+   it (a link to a decision record, a Slack thread, a ticket or an ADR, taken at
+   the author's word when it cannot be read), is an accepted deferral: keep it in
+   the ledger with that ticket or link, do not republish it, and do not count it
+   against approval. Suppress a duplicate that
    adds nothing, with a reason. For a repeat review, review the full current
    scope first, then compare the previous snapshot and disposition ledger. Record
    declined optional asks in Review basis; revive them only on new evidence.
@@ -189,7 +190,8 @@ existing authorization; suggestions grant no additional permission.
     unposted items and why, engine failures, coverage gaps and decisive questions.
     Claim publication only after read-back verifies it. An incomplete roster,
     collector or write is reported as incomplete, not a clean review. After a
-    published COMMENT review, start `pr-review-followup` on this PR, passing the PR
+    published COMMENT review, or when an accepted deferral still sits in an
+    unresolved thread of the actor, start `pr-review-followup` on this PR, passing the PR
     URL, actor, snapshot and receipt paths and the counts this step returns to it, unless
     `pr-review-followup` ran this review or the user asked for the review without
     follow-up. A delegated child returns this handoff to its parent.
