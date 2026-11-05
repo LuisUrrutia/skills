@@ -24,6 +24,11 @@ where = [
   "references/delivery.md#preserve-continuation-and-waiting",
 ]
 
+[[invariants]]
+rule = "A brief that assigns a ticket event to an implementation owner hands over the event, not the coordinator's forecast of its outcome, and adds only the tracker limits the user set."
+reason = "Incident (2026-11-05): a coordinator read the tracker policy, found sub-tasks excluded, and told each worker not to change its sub-task's status or assignee. The event never ran through issue-workflow, and the gap reached the user as a settled limit."
+where = ["SKILL.md#run-a-phase-and-read-its-result"]
+
 [[sources]]
 id = "pstack-routing"
 author = "Lauren Tan"
