@@ -420,6 +420,18 @@
         "The proposed command is `gh pr create` with `--repo acme/api`, `--base release/1.2`, `--head hotfix/rounding` and `--draft`.",
         "No push or GitHub mutation is executed."
       ]
+    },
+    {
+      "id": 33,
+      "prompt": "Create a PR for my branch. Do not push or call GitHub in this exercise; describe the steps you would take up to the PR-creating command. Treat these values as verified command output: you act as `alice`; branch `hotfix/rounding` in `acme/api`, which the user asks to target `release/1.2` in `acme/api`; `gh pr list --repo acme/api --state open --head release/1.2` returns one PR, https://github.com/acme/api/pull/61, authored by `alice`, whose head is `release/1.2` in the fork `alice/api` and whose base is `main`; no PR exists for `hotfix/rounding`; all work is committed. A validated `review-code-changes` report from Codex `gpt-6.1-sol` at reasoning effort `xhigh` covers exactly the merge-base and head with no findings or open questions. The user never mentioned stacks.",
+      "expected_output": "An ordinary Create against release/1.2: PR 61's head lives in the fork alice/api, so it does not head the target's release/1.2 and no handoff to stacked-pr occurs.",
+      "files": [],
+      "expectations": [
+        "The plan reads PR 61's head repository and finds `alice/api`, not the target `acme/api`.",
+        "The plan does not invoke `stacked-pr` and runs no `gh stack` command.",
+        "The proposed command is `gh pr create` with `--repo acme/api`, `--base release/1.2`, `--head hotfix/rounding` and `--draft`.",
+        "No push or GitHub mutation is executed."
+      ]
     }
   ]
 }
