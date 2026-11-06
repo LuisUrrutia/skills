@@ -37,3 +37,14 @@ where = ["SKILL.md#core-workflow", "references/switch.md#shell-behavior", "refer
 [[invariants]]
 rule = "User configuration in ~/.config/worktrunk/config.toml is machine-specific and never committed. Edits change only the requested keys, and a personal preference that the user has not specified is asked before it is chosen."
 where = ["references/user-config.md#boundaries"]
+
+[[invariants]]
+rule = "For a stacked or dependent branch, stacked-pr loads first unless one of its operations already directs the work. It owns creating the branch's PR, its stack membership and rebases; wt handles only the worktree."
+reason = "On 2026-11-06 this skill created the worktree for the second layer of a requested stack, and the agent then opened that layer's PR with a bare gh pr create --base <parent>, outside GitHub's native stack."
+where = ["SKILL.md#core-workflow"]
+
+[[dependencies]]
+kind = "local"
+name = "stacked-pr"
+required = false
+role = "Owns a stacked or dependent branch's PR, stack membership and rebases; this skill handles only that branch's worktree."
