@@ -20,6 +20,12 @@ continues an authorized caller's workflow.
 - **Create:** after the [review gate](references/review-gate.md), publish the
   selected commits and open a requested PR when no exact PR exists. Default to
   draft unless the user prefers ready.
+  A stack layer belongs to `stacked-pr`, because `gh pr create` leaves it
+  outside GitHub's native stack: the request or caller places the PR in a stack,
+  its base is the head branch of another open PR by the same author, or another
+  PR will build on it. Unless `stacked-pr` invoked this Create, invoke it with
+  the request before the review gate and return its result, or report a blocker
+  when it is unavailable.
 - **Update:** refresh an exact open PR under existing authority; its pushes skip
   the review gate.
 - **Draft-only:** return requested copy or inspection using only necessary reads;
@@ -59,7 +65,8 @@ Read branch, status, remotes, upstream and HEAD. Resolve:
 4. **Base:** retain an existing PR's actual base; for creation use the explicit
    verified base or target repository's default. Fetch through the target's SSH
    remote and verify that ref's identity rather than trusting local `main`.
-   Route dependent-branch topology to `stacked-pr`.
+   For creation on a base other than the default branch, collect open PRs headed by it with
+   `gh pr list --repo <target> --state open --head <base> --json number,url,author`.
 5. **Revision:** record exact base/head SHAs. Describe selected local commits for
    publication, the published head for metadata-only work. Preserve unrelated
    work/index entries; they neither block metadata work nor belong in its claims.
@@ -149,7 +156,7 @@ Publication never merges by itself.
 
 ## Return
 
-Report `created`, `updated`, `draft-only` or `blocked`: URL when known, head/base,
+Report `created`, `updated`, `draft-only`, `handed-off` or `blocked`: URL when known, head/base,
 draft state, body length against its budget with the reason for any overrun,
 detail comment URL, validation, the review gate's result for Create, executed
 commands/results, remaining work and coordination omitted

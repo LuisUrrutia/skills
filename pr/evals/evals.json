@@ -371,6 +371,55 @@
         "The plan pushes nothing, creates no PR, does not restack other layers and starts no `pr-followup`.",
         "The plan returns the final report path, its review profile and each finding's disposition to `stacked-pr`."
       ]
+    },
+    {
+      "id": 29,
+      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output and describe, as exact commands in order, what you would do. Earlier in this session the user said: \"Implement it as a stacked PR, with the follow-up change in another PR on top.\" The caller now invokes you with: \"Create mode. Branch `feature/carry-approval` (1 commit `0e5c9c4` on top of `origin/main` `2105bea`), base `main`. Bottom of a 2-layer stack; layer 2 will be stacked on it.\" Repository `acme/web`, remote `origin` is `git@github.com:acme/web.git`, default branch `main`, no PR exists for the branch, the branch is not pushed. `gh extension list` shows `github/gh-stack v0.3.0`; the `stacked-pr` skill is available.",
+      "expected_output": "No PR is created by this skill and no review gate runs here; it invokes stacked-pr with the request, which owns creating the stack's PRs, and returns that result as handed-off.",
+      "files": [],
+      "expectations": [
+        "The plan runs no `gh pr create` for `feature/carry-approval`.",
+        "The plan invokes `stacked-pr` with the request, including both layers, before starting the review gate, and returns its result.",
+        "The plan does not treat base `main` as making this an ordinary single PR.",
+        "No push or GitHub mutation is executed by this skill."
+      ]
+    },
+    {
+      "id": 30,
+      "prompt": "Create a PR for my branch. Do not push or call GitHub in this exercise; describe the steps you would take. Treat these values as verified command output: branch `feature/api-routes` in `acme/api`, which the user asks to target `feature/data-model`; open PR https://github.com/acme/api/pull/12, authored by the same user, has head `feature/data-model` and base `main`; no PR exists for `feature/api-routes`; all work is committed. The user never mentioned stacks.",
+      "expected_output": "Because the requested base is the head of the same author's open PR, this skill invokes stacked-pr with the request before the review gate and opens no PR itself.",
+      "files": [],
+      "expectations": [
+        "The plan identifies `feature/data-model` as the head of open PR 12 by the same author.",
+        "The plan invokes `stacked-pr` with the request before starting the review gate.",
+        "The plan runs no `gh pr create --base feature/data-model`.",
+        "No push or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 31,
+      "prompt": "Do not run any command; this is a simulation. The `stacked-pr` skill invokes you in Create mode on its manual route because the user explicitly asked for ordinary dependent PRs instead of a native stack: branch `stack/02-api` in `acme/api`, base `stack/01-schema` (open PR https://github.com/acme/api/pull/40), merge-base `1a2b3c4`, head `5d6e7f8`, all work committed and the branch already pushed by `stacked-pr`. A validated `review-code-changes` report from Codex `gpt-6.1-sol` at reasoning effort `xhigh` covers exactly `1a2b3c4..5d6e7f8` with no findings or open questions. Describe the PR-creating command you would run and what you return.",
+      "expected_output": "Create proceeds: the PR opens against stack/01-schema with gh pr create in its draft, non-interactive form, and the result returns to stacked-pr; no handoff back to stacked-pr and no gh stack command.",
+      "files": [],
+      "expectations": [
+        "The plan creates the PR with `gh pr create` including `--repo acme/api`, `--base stack/01-schema`, `--head stack/02-api` and `--draft`.",
+        "The plan does not hand the request back to `stacked-pr` before creating the PR.",
+        "The plan runs no `gh stack` command.",
+        "The plan returns the PR URL, head/base and draft state to `stacked-pr`.",
+        "The plan starts no separate `pr-followup` loop; follow-up stays with `stacked-pr`."
+      ]
+    },
+    {
+      "id": 32,
+      "prompt": "Create a PR for my branch. Do not push or call GitHub in this exercise; describe the steps you would take up to the PR-creating command. Treat these values as verified command output: branch `hotfix/rounding` in `acme/api`, which the user asks to target `release/1.2`; open PR https://github.com/acme/api/pull/50, authored by `release-manager`, a different user, has head `release/1.2` and base `main`; no PR exists for `hotfix/rounding`; all work is committed. A validated `review-code-changes` report from Codex `gpt-6.1-sol` at reasoning effort `xhigh` covers exactly the merge-base and head with no findings or open questions. The user never mentioned stacks.",
+      "expected_output": "An ordinary Create against release/1.2: the base heads another author's PR, so nothing places this PR in a stack and no handoff to stacked-pr occurs.",
+      "files": [],
+      "expectations": [
+        "The plan collects open PRs headed by `release/1.2` and finds PR 50 by another author.",
+        "The plan does not invoke `stacked-pr` and runs no `gh stack` command.",
+        "The proposed command is `gh pr create` with `--repo acme/api`, `--base release/1.2`, `--head hotfix/rounding` and `--draft`.",
+        "No push or GitHub mutation is executed."
+      ]
     }
   ]
 }

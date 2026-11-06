@@ -87,6 +87,11 @@ rule = "Resolving a finding means fixing every required finding and every option
 reason = "Coordinator interpretation of the user's \"solucionar todos los problemas\": review-code-changes directs out-of-purpose optional suggestions to follow-up tickets, fixing a disproved finding would damage correct code, and each repeat review covers the whole change and can raise new findings, so the loop needs a bound that returns the decision to the user."
 where = ["references/review-gate.md"]
 
+[[invariants]]
+rule = "Create opens no stack layer itself. When the request or caller places the PR in a stack, its base is the head branch of another open PR by the same author, or another PR will build on it, Create invokes stacked-pr with the request before the review gate and reports handed-off with that result, unless stacked-pr invoked that Create. An unavailable stacked-pr is a blocker, never a reason to run gh pr create. A base that heads another author's PR, such as a release branch, stays an ordinary Create."
+reason = "On 2026-11-06 a caller invoked Create for the bottom of a planned two-layer stack with base main; the only stack hook sat in base resolution, so Create opened an ordinary PR and the stack never became native until the user linked it by hand. A model review of the fix noted that adopting another author's PR, such as an open release PR, would link someone else's work into a stack with bottom-up merge constraints."
+where = ["SKILL.md#resolve-the-operation", "SKILL.md#establish-identity-and-scope", "SKILL.md#return"]
+
 [[sources]]
 id = "matt-reviewable-pr"
 author = "Matt Pocock"
@@ -734,7 +739,7 @@ role = "Required for linked-ticket policy inspection and authorized creation-eve
 kind = "local"
 name = "stacked-pr"
 required = false
-role = "Conditional support; preserve the called skill scope and existing authorization."
+role = "Owns stack topology, submission and cascading rebases, and receives every Create for a stack layer that it did not invoke itself; this skill returns its result as handed-off. An unavailable stacked-pr blocks that Create."
 
 [[dependencies]]
 kind = "local"

@@ -653,6 +653,7 @@ Create or update a GitHub PR with a concise explanation and useful review eviden
 **Features:**
 
 - Resolves the exact target, fork, head and actual base
+- Sends a PR that belongs to a stack to `stacked-pr`, which opens it in a native GitHub stack
 - Checks claims against implementation, requirements and current verification
 - Checks a task's review-size cap against the actual PR diff before publishing code or creating the PR
 - Before creating a PR, runs `review-code-changes` on Codex Sol at xhigh unless such a report covers the exact head, resolves every finding by a fix, evidence, a follow-up or your decision, and re-reviews until nothing remains to fix
