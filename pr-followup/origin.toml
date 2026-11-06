@@ -57,6 +57,11 @@ rule = "For stacks in T3 Code, a layer pass returns its pending watch action to 
 reason = "T3 Code ends the agent turn after watch activation, so an individual layer cannot arm first while other layers still need their initial passes."
 where = ["references/ci-and-observation.md#t3-code"]
 
+[[invariants]]
+rule = "In Feedback or Drive, a stack or dependent chain whose retained task state records neither native membership, or a single layer's pending membership, nor the user's choice of ordinary PRs first goes to stacked-pr with its PRs and the originating request; a request for stacked PRs makes that the submission of the stack. The result is recorded. Collection and evaluation continue meanwhile, while repairs, publication and watches wait and then run under stacked-pr's ownership."
+reason = "On 2026-11-06 Drive was invoked for a two-PR stack whose PRs had been opened with plain gh pr create, and it armed watches without checking membership, so the stack stayed ordinary until the user linked it by hand. Recording the result, including a single layer's pending membership, keeps later watch wakes from invoking stacked-pr again."
+where = ["SKILL.md#choose-scope-and-establish-state"]
+
 [[sources]]
 id = "pstack-pr-followup"
 author = "Lauren Tan / pstack"
@@ -680,7 +685,7 @@ role = "Wording of every reviewer reply; a missing package blocks the reply, not
 kind = "local"
 name = "stacked-pr"
 required = false
-role = "Conditional support; preserve the called skill scope and existing authorization."
+role = "Owns stack topology, rebases and bottom-up landing. Receives a stack or dependent chain whose membership or ordinary-PR choice is not yet recorded, with its PRs and the originating request, before repairs, publication or watches; layer passes then run under its ownership."
 
 [[dependencies]]
 kind = "local"

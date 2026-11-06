@@ -1,0 +1,40 @@
+{
+  "skill_name": "pr-followup",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output and describe, in order, what you would do first and what must hold before Drive repairs, publication or watches. Earlier in this session the user asked: \"Implement it as a stacked PR, with the follow-up change in another PR on top.\" Draft PRs https://github.com/acme/web/pull/2488 (head `ci/carry-approval`, base `main`) and https://github.com/acme/web/pull/2493 (head `storybook/anchored-clock`, base `ci/carry-approval`) were opened with plain `gh pr create` by the same author and form no native GitHub stack. You are now invoked directly: \"Drive mode for a 2-PR stack, both drafts: #2488 bottom, #2493 top.\" No `stacked-pr` operation is running and retained task state records no stack membership. `gh extension list` shows `github/gh-stack v0.3.0`; the `stacked-pr` skill is available.",
+      "expected_output": "Before any repair, push, ready transition or watch, the plan invokes stacked-pr with both PRs and the originating stacked-PR request as the submission of that stack, records its membership result, and only then runs Drive passes under stacked-pr; feedback collection may proceed meanwhile.",
+      "files": [],
+      "expectations": [
+        "The plan invokes `stacked-pr` with PRs 2488 and 2493 and the originating stacked-PR request before any repair, push, ready transition or watch.",
+        "The plan treats the originating request as asking for a native stack and does not ask the user whether to keep ordinary PRs.",
+        "The plan arms no watch until `stacked-pr` reports native membership, and then lets `stacked-pr` own the batched watches.",
+        "The plan does not create, close or recreate either PR with `gh pr create`.",
+        "No command or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Do not run any command; this is a simulation. A T3 Code watch wake resumes Drive for draft PR https://github.com/acme/web/pull/2501 (head `api/routes`, base `main`). Retained task state records that `stacked-pr` submitted this PR as the bottom layer of a planned stack and reported its native membership as pending until the second layer exists; `stacked-pr` owns the stack. The wake reports one new review comment. Describe what you do on this wake, in order.",
+      "expected_output": "The recorded pending single-layer membership satisfies the stack check, so Drive continues on the new comment under stacked-pr's ownership without invoking stacked-pr again or blocking on a second layer.",
+      "files": [],
+      "expectations": [
+        "The plan does not invoke `stacked-pr` again to establish membership on this wake.",
+        "The plan does not block follow-up until a second layer exists.",
+        "The plan collects and evaluates the new review comment.",
+        "Any rebase or stack topology change goes to `stacked-pr`."
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Do not run any command; this is a simulation. Drive draft PR https://github.com/acme/web/pull/77 (head `fix/null-total`, base `main`) until approval. No other open PR builds on it, its base heads no other PR, and the user never mentioned stacks. CI has one failing lint job. Describe what you do first.",
+      "expected_output": "Ordinary Drive: collect feedback and investigate the lint failure; stacked-pr is not invoked.",
+      "files": [],
+      "expectations": [
+        "The plan does not invoke `stacked-pr`.",
+        "The plan collects feedback channels and investigates the failing lint job."
+      ]
+    }
+  ]
+}

@@ -682,6 +682,7 @@ Evaluate feedback on an existing PR and resolve authorized code, CI and base pro
 - Reevaluates edited comments and new replies in resolved or outdated threads
 - Tests claims against current code and keeps independent repairs progressing
 - Uses `commit` and `pr` for their phases; requires those local owners when those phases are reached
+- Hands a dependent PR chain without recorded stack membership to `stacked-pr` before repairs or watches
 - Distinguishes fixed, verified, published, replied and resolved states
 - Merges settled PRs in LuisUrrutia's personal repositories without waiting for approvals, after all feedback is resolved and CI/CD passes
 - Elsewhere, follows PRs until merge or formal approval; rechecks new heads and reports pending work without automatic scheduling

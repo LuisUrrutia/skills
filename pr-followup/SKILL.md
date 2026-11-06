@@ -54,6 +54,12 @@ open/closed state, draft state and repository merge requirements. Match the loca
 checkout to that head before editing; preserve unrelated work and index state.
 Use host checkout ownership and `worktrunk` for necessary checkout operations;
 `stacked-pr` owns stack topology and rebases. Keep one mutation owner per PR or stack.
+When Feedback or Drive covers a stack or dependent chain and retained task state
+records neither native membership (or a single layer's pending membership) nor
+the user's choice of ordinary PRs, invoke `stacked-pr` with its PRs and the
+originating request; a request for stacked PRs makes this the submission of that
+stack. Record its result. Collection and evaluation continue meanwhile; repairs,
+publication and watches wait for it and then run under its ownership.
 In Feedback and Drive scope, register the PR with the host when supported and not
 yet registered; a registered PR stays registered after a push, so do not link it
 again. Check scope only reads. Stop on a closed or merged target for repair work unless
