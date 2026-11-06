@@ -23,6 +23,17 @@
    ],
    "probe": "reports/skill-atlas/stacked-pr-probes/probe-entry-points.md",
    "result": "Candidate, both hosts: A-D create PRs only with gh stack submit and keep stack-worktree to worktree setup; B returns handed-off from pr; C loads stacked-pr from worktrunk before the worktree; D submits the originating stack without a conversion question; E and F still use gh pr create; G continues Drive without re-invoking stacked-pr; H opens an ordinary PR. Baseline: G passed on both hosts; H routed to stacked-pr on Codex, which would have linked the release manager's PR into a stack."
+  },
+  {
+   "case": "Round 3, cases F, H, I, J, K: F and H repeated as nearby regressions; I pr eval 30 (base heads the same author's PR in the target, no stack words); J pr eval 33 (same author, same branch name, head in a fork); K worktrunk eval 2 (plain worktree)",
+   "runtime": "candidate after the review-gate fixes, runtime manifest sha256 193d0f97546222fe6dce6b123757192c15543590f336fe14570c3a26313b938f; pr/SKILL.md sha256 868ab12421531652a4418e6f27378316c8ca591e6bf83d9788257580e67ae60d; the other three entry files are unchanged from round 2",
+   "host": "Claude Code general-purpose subagent (claude-opus-5-5) and Codex delegate (gpt-6.1-sol, reasoningEffort high), read-only dry runs, candidate arm only",
+   "outputs": [
+    "reports/skill-atlas/stacked-pr-probes/claude-entry-points-round3.md",
+    "reports/skill-atlas/stacked-pr-probes/codex-entry-points-round3.md"
+   ],
+   "probe": "reports/skill-atlas/stacked-pr-probes/probe-entry-points.md",
+   "result": "Both hosts: F creates with gh pr create on the manual route and returns created; H and J open an ordinary PR with gh pr create --repo acme/web --base release/1.2 --head hotfix/rounding --draft, J after excluding PR 61 because its head is in the fork; I invokes stacked-pr before the review gate and runs no gh pr create; K runs wt switch --create docs/typo without loading stacked-pr."
   }
  ],
  "observedGain": "On Codex, D no longer asks before converting a requested stack and H no longer adopts another author's PR. No host reproduced the original selection failure in a dry run, so the selection and pr Create changes rest on the session trace, not on a measured baseline failure.",
@@ -51,7 +62,7 @@
  "size": {
   "pr/SKILL.md": [
    1199,
-   1296
+   1304
   ],
   "stacked-pr/SKILL.md": [
    1148,
@@ -68,7 +79,7 @@
   "packages": {
    "pr": [
     4866,
-    4963
+    4971
    ],
    "stacked-pr": [
     7675,
@@ -87,11 +98,22 @@
  },
  "checks": [
   "python3 skill-maintenance/scripts/check-origin.py --skill-dir <skill> for stacked-pr, pr, pr-followup and worktrunk: no diagnostics",
-  "jq parses pr/evals/evals.json (32 cases), pr-followup/evals/evals.json (3) and worktrunk/evals/evals.json (2)"
+  "jq parses pr/evals/evals.json (33 cases), pr-followup/evals/evals.json (3) and worktrunk/evals/evals.json (2)"
  ],
  "limits": [
   "Dry runs plan actions; no tool executed, no host skill selection was observed, and no GitHub write was exercised.",
   "The original failure came from a long session in which a project skill had already been followed; focused dry runs did not reproduce it on the baseline, so they cannot show that the selection change prevents it.",
   "The aurora-payments/monorepo stack-worktree skill still prescribes gh pr create --base <parent>; a session that follows only that skill remains uncovered until the organization changes it."
- ]
+ ],
+ "reviewGate": {
+  "profile": "codex gpt-6.1-sol reasoningEffort xhigh, review-code-changes on f2150614..efef7c4",
+  "findings": [
+   "F1 (required, med): the base-PR lookup returned no head repository, so a same-named branch in the author's fork could trigger stack adoption. Fixed: the lookup requests headRepository and headRepositoryOwner and keeps PRs headed in the target; pr eval 33 covers the fork case; round 3 passes on both hosts.",
+   "F2 (required, low): pr eval 30 and worktrunk eval 2 had no recorded run. Fixed: round 3 ran them, with the new eval 33, on both hosts.",
+   "F3 (required, low): the pr origin.toml reason cited a model review. Fixed: the reason states the lasting cause."
+  ],
+  "openQuestions": [
+   "Q1: whether host selection reaches stacked-pr after a project stack skill is already loaded. Not answered: observing it needs the candidate installed in a host session with the project skill, which this change did not do. Recorded in limits; no claim of prevention is made."
+  ]
+ }
 }

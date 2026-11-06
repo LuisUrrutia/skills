@@ -35,3 +35,15 @@ H. The user says: "Create a PR for my branch hotfix/rounding against release/1.2
 
 For each case report: skills loaded (in order), the command that creates each PR (or the handoff instead), any `gh stack` commands, and what is reported or asked. Finally list each file you read with its sha256.
 ```
+
+## Round 3
+
+Run after the review gate's findings on efef7c4: the base-PR lookup in pr gained head-repository matching, and pr eval 30, the new pr eval 33 and worktrunk eval 2 had no recorded run. Only the candidate arm ran, with the same setup paragraph, the actor named `dev`, and these cases; F and H repeat as nearby regressions. The closing request also asks for `wt` commands.
+
+```text
+I. The user says: "Create a PR for my branch feature/api-routes against feature/data-model." `gh pr list --repo acme/web --state open --head feature/data-model` returns PR #12, authored by `dev` (you), head `feature/data-model` in `acme/web`, base `main`. No PR exists for `feature/api-routes`, one commit, all work committed. The user never mentions stacks. What does `pr` do, up to and including any PR-creating command or handoff?
+
+J. The user says: "Create a PR for my branch hotfix/rounding against release/1.2." `gh pr list --repo acme/web --state open --head release/1.2` returns one PR, #61, authored by `dev` (you), whose head is `release/1.2` in the fork `dev/web` and whose base is `main`. The target `acme/web` has its own `release/1.2` branch. No PR exists for `hotfix/rounding`, one commit, and a validated review report covers the exact range with no findings. The user never mentions stacks. Give the PR-creating command or handoff.
+
+K. The user says: "Create a worktree for a new branch docs/typo off main so I can fix a typo." No PR is requested and nothing depends on another branch. Which skills do you load, and what exact command do you run?
+```
