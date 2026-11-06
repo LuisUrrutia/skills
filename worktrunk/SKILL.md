@@ -20,6 +20,7 @@ wt remove
 - `wt switch` opens the picker, `wt switch -` returns to the previous worktree, and `wt switch ^` enters the default branch worktree.
 - Continue work in the directory reported by `wt`. When shell state does not persist between commands, set the next command's working directory explicitly.
 - `wt merge` commits uncommitted changes, untracked files included, squashes and rebases the branch, fast-forwards the local target branch without fetching, then removes the worktree and branch. Run it only when the user asks for it, after confirming the worktree holds only the intended changes.
+- For a stacked or dependent branch, load `stacked-pr` first unless one of its operations already directs this work: it owns creating the branch's PR, its stack membership and rebases, and `wt` handles only the worktree.
 - Use `wt <command> --help` for version-specific flags. Use raw `git worktree` commands only when the user explicitly requests them. When `wt` is unavailable, report it as a blocker instead of substituting `git worktree`.
 
 ## References

@@ -653,6 +653,7 @@ Create or update a GitHub PR with a concise explanation and useful review eviden
 **Features:**
 
 - Resolves the exact target, fork, head and actual base
+- Sends a PR that belongs to a stack to `stacked-pr`, which opens it in a native GitHub stack
 - Checks claims against implementation, requirements and current verification
 - Checks a task's review-size cap against the actual PR diff before publishing code or creating the PR
 - Before creating a PR, runs `review-code-changes` on Codex Sol at xhigh unless such a report covers the exact head, resolves every finding by a fix, evidence, a follow-up or your decision, and re-reviews until nothing remains to fix
@@ -681,6 +682,7 @@ Evaluate feedback on an existing PR and resolve authorized code, CI and base pro
 - Reevaluates edited comments and new replies in resolved or outdated threads
 - Tests claims against current code and keeps independent repairs progressing
 - Uses `commit` and `pr` for their phases; requires those local owners when those phases are reached
+- Hands a dependent PR chain without recorded stack membership to `stacked-pr` before repairs or watches
 - Distinguishes fixed, verified, published, replied and resolved states
 - Merges settled PRs in LuisUrrutia's personal repositories without waiting for approvals, after all feedback is resolved and CI/CD passes
 - Elsewhere, follows PRs until merge or formal approval; rechecks new heads and reports pending work without automatic scheduling

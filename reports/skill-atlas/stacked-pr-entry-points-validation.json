@@ -1,0 +1,137 @@
+{
+ "schemaVersion": 1,
+ "date": "2026-11-06",
+ "baseline": "f2150614bb1fe44b37349f4134341973927ebcd8",
+ "scope": "Make every entry point that a stacked-PR request can load first (stacked-pr selection, pr Create, worktrunk, pr-followup Feedback and Drive) reach native GitHub stack creation, after the third reported case of a requested stack opened as ordinary PRs.",
+ "diagnosis": "In the failing Claude Code session the user asked for a stacked PR in aurora-payments/monorepo. The skill listing held both stacked-pr and the repository's project skill stack-worktree, whose steps open layers with gh pr create --base <parent>. The agent said it would load both but invoked only stack-worktree, so the earlier fixes inside stacked-pr never applied. It then invoked pr in Create mode with 'Bottom of a 2-layer stack' and base main; pr's only stack hook sat in base resolution, so Create opened PR 2488 with gh pr create. After worktrunk created the layer-2 worktree, the agent opened PR 2493 with a bare gh pr create --base <layer-1 branch>. pr-followup Drive then armed watches for the '2-PR stack' without checking membership. gh-stack v0.3.0 was installed and no gh stack command ran; the user created native stack 2499 by hand.",
+ "probes": [
+  {
+   "case": "Round 1, cases A-F: A stacked-PR request with stack-worktree listed; B pr Create for the bottom layer with base main; C worktrunk stacked worktree then PR; D pr-followup Drive on an ordinary two-PR chain after a stack request; E plain PR (near miss); F pr Create invoked by stacked-pr's manual route",
+   "runtime": "baseline arm at f2150614 and the first candidate, read-only dry runs",
+   "host": "Claude Code general-purpose subagent (claude-opus-5-5) and Codex delegate (gpt-6.1-sol, reasoningEffort high)",
+   "result": "Neither host reproduced the session failure on the baseline: both opened native stacks through gh stack submit in A-D in a focused dry run. Codex baseline loaded stack-worktree before stacked-pr in A and asked a conversion question in D; the first candidate still asked in D on Codex. Superseded for the candidate by round 2."
+  },
+  {
+   "case": "Round 2, cases A-H: round 1 plus G a watch wake on a bottom layer whose membership stacked-pr reported as pending, and H a hotfix whose base heads another author's open release PR (near miss)",
+   "runtime": "final candidate, runtime manifest sha256 ed11f25c9b81711a735db07f9744249f6d61f9882c4164b7ca3559fa10889ef8; baseline ran only G and H",
+   "host": "Claude Code general-purpose subagent (claude-opus-5-5) and Codex delegate (gpt-6.1-sol, reasoningEffort high), read-only dry runs",
+   "outputs": [
+    "reports/skill-atlas/stacked-pr-probes/claude-entry-points-baseline.md",
+    "reports/skill-atlas/stacked-pr-probes/codex-entry-points-baseline.md",
+    "reports/skill-atlas/stacked-pr-probes/claude-entry-points-candidate.md",
+    "reports/skill-atlas/stacked-pr-probes/codex-entry-points-candidate.md"
+   ],
+   "probe": "reports/skill-atlas/stacked-pr-probes/probe-entry-points.md",
+   "result": "Candidate, both hosts: A-D create PRs only with gh stack submit and keep stack-worktree to worktree setup; B returns handed-off from pr; C loads stacked-pr from worktrunk before the worktree; D submits the originating stack without a conversion question; E and F still use gh pr create; G continues Drive without re-invoking stacked-pr; H opens an ordinary PR. Baseline: G passed on both hosts; H routed to stacked-pr on Codex, which would have linked the release manager's PR into a stack."
+  },
+  {
+   "case": "Round 3, cases F, H, I, J, K, L: F and H repeated as nearby regressions; I pr eval 30 (base heads the same author's PR in the target, no stack words); J pr eval 33 (same author, same branch name, head in a fork); K worktrunk eval 2 (plain worktree); L pr-followup eval 3 (direct Drive on a standalone PR with failing lint), run afterwards from its own prompt",
+   "runtime": "candidate after the review-gate fixes, runtime manifest sha256 193d0f97546222fe6dce6b123757192c15543590f336fe14570c3a26313b938f; pr/SKILL.md sha256 868ab12421531652a4418e6f27378316c8ca591e6bf83d9788257580e67ae60d; the other three entry files are unchanged from round 2",
+   "host": "Claude Code general-purpose subagent (claude-opus-5-5) and Codex delegate (gpt-6.1-sol, reasoningEffort high), read-only dry runs, candidate arm only",
+   "outputs": [
+    "reports/skill-atlas/stacked-pr-probes/claude-entry-points-round3.md",
+    "reports/skill-atlas/stacked-pr-probes/codex-entry-points-round3.md"
+   ],
+   "probe": "reports/skill-atlas/stacked-pr-probes/probe-entry-points.md",
+   "result": "Both hosts: F creates with gh pr create on the manual route and returns created; H and J open an ordinary PR with gh pr create --repo acme/web --base release/1.2 --head hotfix/rounding --draft, J after excluding PR 61 because its head is in the fork; I invokes stacked-pr before the review gate and runs no gh pr create; K runs wt switch --create docs/typo without loading stacked-pr; L collects every feedback channel and investigates the lint failure under ordinary Drive, with no stacked-pr invocation or gh stack command."
+  },
+  {
+   "case": "Round 4, cases F, H, I, J after the base-PR lookup moved to paginated REST with the target-owner head filter; I and J state the PRs without naming a lookup command",
+   "runtime": "runtime manifest sha256 0d4a5d41e97079a9339ccf831f3944cec6cefe45166ea6de6e257c7c2afe7918; pr/SKILL.md sha256 f8d840bfc87aae6c8b540d40f6ce2fd1026fe0972c9b2e463fa7c09b62ff94db; the other entry files are unchanged from round 3",
+   "host": "Claude Code general-purpose subagent (claude-opus-5-5) and Codex delegate (gpt-6.1-sol, reasoningEffort high), read-only dry runs, candidate arm only",
+   "outputs": [
+    "reports/skill-atlas/stacked-pr-probes/claude-entry-points-round4.md",
+    "reports/skill-atlas/stacked-pr-probes/codex-entry-points-round4.md"
+   ],
+   "probe": "reports/skill-atlas/stacked-pr-probes/probe-entry-points.md",
+   "result": "Both hosts look up the base with gh api -X GET repos/acme/web/pulls --paginate -f head=acme:<base> -f state=open and keep target-headed PRs. F creates with gh pr create on the manual route; H and J open an ordinary PR against release/1.2, J because the owner filter excludes the fork PR; I invokes stacked-pr before the review gate and runs no gh pr create."
+  }
+ ],
+ "observedGain": "On Codex, D no longer asks before converting a requested stack and H no longer adopts another author's PR. No host reproduced the original selection failure in a dry run, so the selection and pr Create changes rest on the session trace, not on a measured baseline failure.",
+ "modelReview": {
+  "candidate": "diff sha256 73eb58d95aabf143113798e1e0081532187377ceb37071b347316e7019f3c62a",
+  "profiles": [
+   "codex gpt-6.1-sol reasoningEffort xhigh: completed, 2 findings",
+   "claudeAgent claude-opus-5-5 effort xhigh: completed, 9 findings and 7 minor items"
+  ],
+  "adopted": [
+   "pr invokes stacked-pr and returns its result as handed-off instead of 'hand off and stop', and reports a blocker when stacked-pr is unavailable",
+   "stacked-pr keeps only a project skill's worktree setup; the selected route owns PR creation, pushes, rebases and PR bodies",
+   "worktrunk exempts work that a stacked-pr operation already directs; ownership narrowed to creating the PR, membership and rebases",
+   "pr-followup triggers on retained task state, accepts a single layer's pending membership, records the result, keeps collection and evaluation running, and treats a stacked-PR originating request as submission",
+   "pr's base trigger limited to the head of another open PR by the same author, with an explicit lookup; near-miss case for another author's release PR",
+   "Regression cases for worktrunk and pr-followup, eval 29 and 31 expectations, and recorded selection and entry-point probes",
+   "stacked-pr description reworded to apply to work that is or will be published as stacked PRs, together with other stack skills"
+  ],
+  "rejected": [
+   "Narrowing pr's exemption to stacked-pr's manual, API and link routes: references/cli-create.md already owns the rule that the CLI route creates PRs only with gh stack submit, and naming routes in pr would duplicate stacked-pr's routing.",
+   "A sentence for stacks built one layer at a time: both hosts derived a valid path from the existing build and single-layer submit rules.",
+   "Moving the pr handoff ahead of identity resolution: the base condition needs the base lookup, and the review gate is the first costly step it precedes.",
+   "Avoiding a gh-stack install during follow-up: the user decided on 2026-11-01 that a missing extension must be installed for a native stack."
+  ]
+ },
+ "size": {
+  "pr/SKILL.md": [
+   1199,
+   1309
+  ],
+  "stacked-pr/SKILL.md": [
+   1148,
+   1210
+  ],
+  "pr-followup/SKILL.md": [
+   2672,
+   2745
+  ],
+  "worktrunk/SKILL.md": [
+   271,
+   307
+  ],
+  "packages": {
+   "pr": [
+    4866,
+    4976
+   ],
+   "stacked-pr": [
+    7675,
+    7737
+   ],
+   "pr-followup": [
+    5806,
+    5879
+   ],
+   "worktrunk": [
+    2804,
+    2840
+   ]
+  },
+  "justification": "Each addition closes one entry point the failing session took without reaching stacked-pr, or a reviewer-found gap in that closure (unavailable owner, single-layer pending state, another author's base PR, re-entry from worktrunk). References are unchanged."
+ },
+ "checks": [
+  "python3 skill-maintenance/scripts/check-origin.py --skill-dir <skill> for stacked-pr, pr, pr-followup and worktrunk: no diagnostics",
+  "jq parses pr/evals/evals.json (33 cases), pr-followup/evals/evals.json (3) and worktrunk/evals/evals.json (2)"
+ ],
+ "limits": [
+  "Dry runs plan actions; no tool executed, no host skill selection was observed, and no GitHub write was exercised.",
+  "The original failure came from a long session in which a project skill had already been followed; focused dry runs did not reproduce it on the baseline, so they cannot show that the selection change prevents it.",
+  "The aurora-payments/monorepo stack-worktree skill still prescribes gh pr create --base <parent>; a session that follows only that skill remains uncovered until the organization changes it."
+ ],
+ "reviewGate": {
+  "profile": "codex gpt-6.1-sol reasoningEffort xhigh, review-code-changes on f2150614..efef7c4",
+  "findings": [
+   "F1 (required, med): the base-PR lookup returned no head repository, so a same-named branch in the author's fork could trigger stack adoption. Fixed: the lookup requests headRepository and headRepositoryOwner and keeps PRs headed in the target; pr eval 33 covers the fork case; round 3 passes on both hosts.",
+   "F2 (required, low): pr eval 30 and worktrunk eval 2 had no recorded run. Fixed: round 3 ran them, with the new eval 33, on both hosts.",
+   "F3 (required, low): the pr origin.toml reason cited a model review. Fixed: the reason states the lasting cause."
+  ],
+  "openQuestions": [
+   "Q1: whether host selection reaches stacked-pr after a project stack skill is already loaded. Not answered: observing it needs the candidate installed in a host session with the project skill, which this change did not do. Recorded in limits; no claim of prevention is made."
+  ],
+  "repeat": {
+   "profile": "codex gpt-6.1-sol reasoningEffort xhigh, review-code-changes on f2150614..ac42566",
+   "result": "F1, F2 and F3 resolved; Q1 kept as a limit. New F4 (required, low): pr-followup eval 3 had no recorded run. Fixed: case L ran on both hosts against the round-3 runtime."
+  }
+ },
+ "prFeedback": [
+  "CodeRabbit review 5805222689, thread on pr/SKILL.md (comment 4496269414): gh pr list returns 30 results by default, so same-named fork heads could hide the target's PR. Applied: the lookup uses paginated REST with head=<target-owner>:<base> and blocks Create when incomplete; round 4 reran F, H, I and J on both hosts."
+ ]
+}

@@ -1,0 +1,27 @@
+{
+  "skill_name": "worktrunk",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output and describe, as exact commands in order, what you would do. Repository `acme/web`, default branch `main`, `wt` v0.81.0 installed, `gh extension list` shows `github/gh-stack v0.3.0`, and the `stacked-pr` skill is available. Earlier in this session the user asked for a stacked PR. You are invoked with: \"Create a stacked worktree for new branch storybook/anchored-clock based on ci/carry-approval (PR #2488, already pushed), then open its PR.\"",
+      "expected_output": "stacked-pr is loaded before the stacked branch's worktree or PR is created; wt creates only the worktree with an explicit base, and the PR is opened through stacked-pr's native stack route rather than gh pr create.",
+      "files": [],
+      "expectations": [
+        "The plan loads `stacked-pr` before creating the worktree or the PR.",
+        "The worktree command is `wt switch --create storybook/anchored-clock` with `--base ci/carry-approval`.",
+        "The plan creates the PR through `stacked-pr` and runs no `gh pr create --base ci/carry-approval`.",
+        "The plan runs no `wt merge` or `wt step rebase` on the stacked branches."
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Do not run any command; this is a simulation. Repository `acme/web`, default branch `main`, `wt` v0.81.0 installed. The user asks: \"Create a worktree for a new branch docs/typo off main so I can fix a typo.\" No PR is requested and nothing depends on another branch. Give the exact command.",
+      "expected_output": "A plain worktree creation with wt; stacked-pr is not loaded.",
+      "files": [],
+      "expectations": [
+        "The command is `wt switch --create docs/typo`, optionally with `--base main`.",
+        "The plan does not load `stacked-pr`."
+      ]
+    }
+  ]
+}
