@@ -47,3 +47,9 @@ J. The user says: "Create a PR for my branch hotfix/rounding against release/1.2
 
 K. The user says: "Create a worktree for a new branch docs/typo off main so I can fix a typo." No PR is requested and nothing depends on another branch. Which skills do you load, and what exact command do you run?
 ```
+
+Case L ran afterwards from its own prompt: the same setup paragraph, this case, and a closing request for the skills loaded, any `gh stack` command or `stacked-pr` invocation, what is done first and the files read.
+
+```text
+L. A user invokes `pr-followup` directly: "Drive draft PR https://github.com/acme/web/pull/77 until approval." Its head is `fix/null-total` and its base is `main`. No other open PR builds on it, its base heads no other PR, and the user never mentioned stacks. CI has one failing lint job. No retained task state exists for it. What do you do first, in order, and which skills do you load?
+```

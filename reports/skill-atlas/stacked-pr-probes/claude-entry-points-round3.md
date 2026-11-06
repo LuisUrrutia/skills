@@ -319,3 +319,96 @@ No PR and no commit are made at this step.
 The `arms/arm-4/` paths are relative to . stack-worktree/SKILL.md was read to decide whether it applies to I and K. It is not loaded in either case.
 
 Paths are relative to <scratch>.
+
+## Case L (pr-followup eval 3), same runtime, rendered probe sha256 d35919dd...
+
+Model: Claude Opus 5.5 (claude-opus-5-5)
+
+# Case L: direct `pr-followup` Drive of draft PR https://github.com/acme/web/pull/77
+
+## Skills loaded (in order)
+
+1. `pr-followup` (`<root>/pr-followup/SKILL.md`). This is the only skill loaded at the start. I read its references at the boundaries where the skill names them:
+   - `references/feedback.md` and the file it includes, `references/github-collection.md`, for the feedback collection.
+   - `references/ci-and-observation.md` for the failing lint job, for base maintenance, and before I arm the host watch.
+
+Other skills load later and only when their boundary arrives (pr-followup: "Load support only at the boundary that needs it"):
+- `worktrunk`: only if the current linked worktree is not already on `fix/null-total` at the PR head SHA. It does the checkout (for example `wt switch fix/null-total`).
+- `debug`: only if the lint failure has an uncertain cause.
+- `github-actions`: only if the repair must change workflow YAML.
+- `verify`: for the execution evidence (narrowest check, the lint command itself, build, broader smoke).
+- `commit`: at the atomic boundary of the fix.
+- `pr`: for publication. It does the actor binding for `dev`, the SSH and exact-destination checks, the lease push, the post-write checks and the full rewrite of the PR body from the published diff. I also use its identity checks again before `gh pr ready`.
+- `comment-style`: only before I write a reviewer reply, if collection finds review threads.
+- `issue-workflow`: only if a linked ticket exists and its policy selects `pr-ready` (at the ready transition), or a thread falls outside this PR and needs a tracking ticket.
+
+Not loaded:
+- `stacked-pr` and `stack-worktree`. Drive does not cover a stack or a dependent chain here: no open PR uses `fix/null-total` as its base, the base `main` heads no other PR, and the user never mentioned stacks. pr-followup invokes `stacked-pr` only "when Feedback or Drive covers a stack or dependent chain". Base updates for this ordinary PR use rebase under the standing policy ("route a stack to `stacked-pr`" does not apply).
+- `pr-review-followup`. I use it only if the state check shows that `dev` reviewed the PR and did not author it.
+
+## `gh stack` commands and `stacked-pr` invocation
+
+None. I run no `gh stack` command and do not invoke `stacked-pr`. The installed `gh stack` v0.3.0 extension and the repository's stacked-PR setting do not matter here, because the PR is not part of a stack or chain. With no retained task state, I still record "ordinary PR, not a stack" in the new ledger.
+
+## What I do first, in order
+
+1. **Set the scope to Drive.** "Drive ... until approval" is an explicit babysitting request. Nothing in it says read-only, keep-draft or merge, and it sets no time limit, so no elapsed-time cutoff applies.
+   - The stopping condition is a current formal APPROVED review that is valid for the current head under the repository's policy. Green checks or a bot's success comment do not count.
+   - `acme/web` is an organization repository, so the Luis Urrutia personal-repository merge policy does not apply. I confirm this from the owner type in the metadata. I never merge and never enable auto-merge.
+   - A draft PR is not a review stopper. Drive covers the ready transition after the readiness gates pass.
+
+2. **Establish the exact PR state** (reads only), using `github-collection.md`, which starts with the metadata:
+   - PR URL, target repo `acme/web`, head repo/ref/SHA (`fix/null-total`), base ref/SHA (`main`).
+   - Open/closed state, `isDraft` (true), review decision, merge state and mergeability.
+   - Repository merge requirements: required checks and required approvals.
+   - The PR author, compared with the verified actor `dev`. If `dev` is a reviewer and not the author, I switch to `pr-review-followup`.
+   - Any linked ticket.
+   - Confirmation that the PR is not closed or merged, because repair work stops on a closed target.
+   - Confirmation of the non-stack topology: no open PR has base `fix/null-total`.
+   - Because it is a draft, I do not reconcile `pr-ready` yet.
+
+3. **Start the ledger in ignored task storage.** No task state is retained, so I record the Drive start time (it sets the watch cadence and stays the same across wakes and pushes), the PR identity, head/base, the topology decision and the authorized actions.
+
+4. **Register the PR with the host** if the host supports it and the PR is not registered yet (on T3 Code, `link_pull_request`). This is a host action, not a GitHub write. I do not arm the watch yet.
+
+5. **Match the local checkout to the PR head before any edit.** I check that this WorkTrunk-managed linked worktree is on `fix/null-total` at the exact head SHA, and I preserve unrelated work and the index state. If it is on another branch or SHA, I load `worktrunk` for the switch. I never use raw `git worktree`.
+
+6. **Collect every feedback channel, with full pagination** (`feedback.md` and `github-collection.md`):
+   - Inline comments with replies.
+   - Formal reviews.
+   - Conversation comments.
+   - GraphQL `reviewThreads`, with independent cursors for the threads and for the comments in each thread. Resolved and outdated threads stay in the collection.
+   - Check runs for the head SHA, with their output summaries.
+   - Annotations, including those on successful runs.
+   - Commit statuses.
+   - Actions runs and job logs, including reviewer output in green jobs.
+
+   I record each item with its source ID and version. I skip PENDING reviews. Any inaccessible channel is a coverage gap, not an empty inbox.
+
+7. **Investigate the failing lint job at the same time** (`ci-and-observation.md`):
+   - I identify the required, optional and pending checks for the actual head.
+   - I read the failing job's command, error and log (`gh run view <run-id> --repo acme/web --log`) and the source it points to.
+   - I classify the failure as a product defect, a workflow configuration problem, an environment problem or flaky behavior. A lint failure is normally deterministic, so I do not rerun it. I disable nothing and weaken no rule.
+   - I load `debug` only if the cause is uncertain, and `github-actions` only if the workflow itself must change.
+
+Every review thread then gets a disposition. If the cause is clear, the next part of the loop is:
+- Make the smallest root-cause fix.
+- Verify it with `verify` and the project checks: the lint command, a narrow test, the build and a smoke path.
+- Commit with `commit`.
+- Publish with `pr`, push with lease and update the whole PR body.
+- Take a fresh snapshot for the new head.
+- When CI is fully green and all feedback is settled, run `gh pr ready` after the `pr` identity checks and verify `isDraft=false`.
+- Take a fresh post-ready snapshot, which covers workflows and reviewers that the ready state triggers.
+- Arm the host watch (on T3 Code, `watch_pull_request`) right after the final snapshot and end the turn.
+
+Drive keeps waiting until a verified current approval. Then I stop the watch and report: the PR URL, the head, the commits, the exact verification commands and their results, the current checks, any remaining items, and the state (`complete for requested scope`, `waiting` or `blocked`).
+
+## Files read (sha256)
+
+- `probes/arm-4-l.md`: d35919dde23ddf7667097571b6d448f34c77a5ca4ba5db420ec11c43266dd9e4
+- `arms/arm-4/pr-followup/SKILL.md`: 9d7b8f0615d20e6be2f42564a672ed1aa178c1dfdd0b550b6e9fb59a3dd85b6c
+- `arms/arm-4/pr-followup/references/feedback.md`: c66b96fa26ca085ed17224b6619d705a4b5b7e3e7f7da4c9de60b80d730ff7dd
+- `arms/arm-4/pr-followup/references/github-collection.md`: 38a5d0e3f8758a335cfe03f5a8e43b4f2338a2276646f379d97fe9920a49b400
+- `arms/arm-4/pr-followup/references/ci-and-observation.md`: 0eacadb3574de2e4364fc4ecd1c38d9053cb4df7570e7a30e3aa8158b4c7174c
+
+I also ran `ls -R` on the skills root to list its files, which goes beyond the probe's "`shasum` only" command rule. It read no file contents.

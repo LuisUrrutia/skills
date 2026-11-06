@@ -144,3 +144,47 @@ Relative skill paths below are relative to this exact root:
 | `worktrunk/references/switch.md` | `a94d75dc3e23c3f41aafc7e6775f7b86380bd11dc9d06e6e7f1293e92621b8a2` |
 
 Paths are relative to <scratch>.
+
+## Case L (pr-followup eval 3), same runtime, rendered probe sha256 d35919dd...
+
+Provider: OpenAI; model: gpt-6.1-sol; reasoning effort: high.
+
+## Case L
+
+This is `pr-followup` Drive scope for one ordinary PR, stopping at a verified current formal approval or a verified merge. The supplied facts do not establish a stack: `fix/null-total` targets `main`, no other open PR builds on it, and its base heads no other PR. No retained state is normal for a fresh standalone Drive task; it does not make this PR a stack.
+
+### Skills loaded, in order
+
+1. `pr-followup`, including `references/feedback.md`, `references/github-collection.md`, and `references/ci-and-observation.md`.
+2. `pr`, for its identity/publication procedure, including `references/publication.md`. This supports the existing follow-up task; it does not start Create or its review gate.
+
+No `stacked-pr` invocation and no `gh stack` command, including no speculative `gh stack submit` or stack-membership conversion. The extension version and repository's stack support are irrelevant to this standalone PR. Do not load `stack-worktree` or `worktrunk` just because the current checkout is WorkTrunk-managed; invoke `worktrunk` if an actual checkout operation becomes necessary. Do not load `github-actions` merely because a lint job failed; it becomes applicable if the repair changes workflow code.
+
+### What I do first, in order
+
+1. Select Drive scope and establish fresh task state. Resolve the exact open draft PR https://github.com/acme/web/pull/77, author, head repository/ref/SHA, base ref/SHA, merge requirements, and local checkout identity. Use the verified actor `dev` with `pr`'s binding for every `gh` command; do not switch the machine's active account. Confirm this is an authored PR rather than one the actor only reviewed, which would route to `pr-review-followup`. Preserve unrelated work and index state. Record the Drive start time and current revision. Match the checkout to the actual PR head before editing; use `worktrunk` if switching is necessary.
+2. Register the PR with the host if not already registered. Continue directly under `pr-followup`: its stack handoff is conditional on an actual stack or dependent chain, which the case excludes. Do not run a stack bootstrap before repairing lint.
+3. Collect all published feedback and CI evidence for the current revision, with complete pagination: inline comments and replies, resolved/outdated threads, formal reviews, conversation comments, check annotations and summaries, status contexts, and reviewer output in job logs, including successful jobs. Read the failing lint job's command, error, and relevant source. Resolve required and optional checks and expected automated reviewers. Inaccessible evidence remains unknown. Recheck head/base after collection and before acting.
+4. Evaluate the lint failure and each feedback item against current code and the intended contract. Describe invoking `debug` if the cause is uncertain; investigate before editing. Make a supported root-cause repair rather than weakening lint or rerunning an unexplained failure. If workflow code must change, load `github-actions` at that boundary. Mere base advancement is not a reason to rebase this ordinary PR.
+5. Verify the repair with applicable behavioral checks, build/compile, and a broader smoke path, using `verify` and the project's execution recipe as needed. Invoke `commit` for the coherent repair. Publish through `pr` Update after its identity, SSH destination, exact revision, and remote-tip checks; refresh the whole PR description from the verified published diff. Load its claims/review-packet references when composing those claims. Recollect evidence for the new remote head. For reviewer replies invoke `comment-style` before drafting, then follow each thread's disposition and verify the reply/resolution. Invoke `issue-workflow` only when linked-ticket policy or an outside-scope tracking ticket requires it.
+6. Keep the PR draft while the lint failure or any other readiness prerequisite remains. Once a fresh current head/base snapshot proves all applicable CI passed, all observed feedback is settled, and no known repair/conflict/active automated reviewer remains, mark ready under the existing Drive authorization and verify the remote state. Reconcile a linked ticket's ready event if its policy requires it. Immediately collect a fresh post-ready snapshot and account for workflows/reviewers newly triggered or unblocked by ready state; draft-era evidence does not establish their completion.
+7. Continue the repair/verify/publish loop until the requested stop. Since `acme/web` is an organization repository, the personal-repository automatic merge policy does not apply, and “until approval” does not authorize merging. Verify a formal approval against the current revision and repository policy; green lint or a bot success comment alone is insufficient. As this task is explicitly a test sub-agent, do not arm a host watch: return the exact PR URL, head SHA, and pending checks/review state to the parent, which owns continued observation. In a non-delegated Drive session, the owner would arm the resumable host watch after its final snapshot and yield while waiting, with the documented coverage limitations, rather than poll.
+
+These are dry-run actions, not executed repairs or GitHub operations. No actual Git, GitHub, network, checkout, watch, or subagent action was taken.
+
+## Files read and SHA-256
+
+The probe digest matched the supplied value. Paths below use these exact prefixes:
+
+- `probe/` = `probes/`
+- `root/` = `arms/arm-4/`
+
+| File | SHA-256 |
+| --- | --- |
+| `probe/arm-4-l.md` | `d35919dde23ddf7667097571b6d448f34c77a5ca4ba5db420ec11c43266dd9e4` |
+| `root/pr-followup/SKILL.md` | `9d7b8f0615d20e6be2f42564a672ed1aa178c1dfdd0b550b6e9fb59a3dd85b6c` |
+| `root/pr-followup/references/feedback.md` | `c66b96fa26ca085ed17224b6619d705a4b5b7e3e7f7da4c9de60b80d730ff7dd` |
+| `root/pr-followup/references/github-collection.md` | `38a5d0e3f8758a335cfe03f5a8e43b4f2338a2276646f379d97fe9920a49b400` |
+| `root/pr-followup/references/ci-and-observation.md` | `0eacadb3574de2e4364fc4ecd1c38d9053cb4df7570e7a30e3aa8158b4c7174c` |
+| `root/pr/SKILL.md` | `868ab12421531652a4418e6f27378316c8ca591e6bf83d9788257580e67ae60d` |
+| `root/pr/references/publication.md` | `e2e564257673c1e018a7134a8a2c28585545f6865ef202c2b6f1b8c8902ce25f` |

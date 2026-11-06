@@ -25,7 +25,7 @@
    "result": "Candidate, both hosts: A-D create PRs only with gh stack submit and keep stack-worktree to worktree setup; B returns handed-off from pr; C loads stacked-pr from worktrunk before the worktree; D submits the originating stack without a conversion question; E and F still use gh pr create; G continues Drive without re-invoking stacked-pr; H opens an ordinary PR. Baseline: G passed on both hosts; H routed to stacked-pr on Codex, which would have linked the release manager's PR into a stack."
   },
   {
-   "case": "Round 3, cases F, H, I, J, K: F and H repeated as nearby regressions; I pr eval 30 (base heads the same author's PR in the target, no stack words); J pr eval 33 (same author, same branch name, head in a fork); K worktrunk eval 2 (plain worktree)",
+   "case": "Round 3, cases F, H, I, J, K, L: F and H repeated as nearby regressions; I pr eval 30 (base heads the same author's PR in the target, no stack words); J pr eval 33 (same author, same branch name, head in a fork); K worktrunk eval 2 (plain worktree); L pr-followup eval 3 (direct Drive on a standalone PR with failing lint), run afterwards from its own prompt",
    "runtime": "candidate after the review-gate fixes, runtime manifest sha256 193d0f97546222fe6dce6b123757192c15543590f336fe14570c3a26313b938f; pr/SKILL.md sha256 868ab12421531652a4418e6f27378316c8ca591e6bf83d9788257580e67ae60d; the other three entry files are unchanged from round 2",
    "host": "Claude Code general-purpose subagent (claude-opus-5-5) and Codex delegate (gpt-6.1-sol, reasoningEffort high), read-only dry runs, candidate arm only",
    "outputs": [
@@ -33,7 +33,7 @@
     "reports/skill-atlas/stacked-pr-probes/codex-entry-points-round3.md"
    ],
    "probe": "reports/skill-atlas/stacked-pr-probes/probe-entry-points.md",
-   "result": "Both hosts: F creates with gh pr create on the manual route and returns created; H and J open an ordinary PR with gh pr create --repo acme/web --base release/1.2 --head hotfix/rounding --draft, J after excluding PR 61 because its head is in the fork; I invokes stacked-pr before the review gate and runs no gh pr create; K runs wt switch --create docs/typo without loading stacked-pr."
+   "result": "Both hosts: F creates with gh pr create on the manual route and returns created; H and J open an ordinary PR with gh pr create --repo acme/web --base release/1.2 --head hotfix/rounding --draft, J after excluding PR 61 because its head is in the fork; I invokes stacked-pr before the review gate and runs no gh pr create; K runs wt switch --create docs/typo without loading stacked-pr; L collects every feedback channel and investigates the lint failure under ordinary Drive, with no stacked-pr invocation or gh stack command."
   }
  ],
  "observedGain": "On Codex, D no longer asks before converting a requested stack and H no longer adopts another author's PR. No host reproduced the original selection failure in a dry run, so the selection and pr Create changes rest on the session trace, not on a measured baseline failure.",
@@ -114,6 +114,10 @@
   ],
   "openQuestions": [
    "Q1: whether host selection reaches stacked-pr after a project stack skill is already loaded. Not answered: observing it needs the candidate installed in a host session with the project skill, which this change did not do. Recorded in limits; no claim of prevention is made."
-  ]
+  ],
+  "repeat": {
+   "profile": "codex gpt-6.1-sol reasoningEffort xhigh, review-code-changes on f2150614..ac42566",
+   "result": "F1, F2 and F3 resolved; Q1 kept as a limit. New F4 (required, low): pr-followup eval 3 had no recorded run. Fixed: case L ran on both hosts against the round-3 runtime."
+  }
  }
 }
