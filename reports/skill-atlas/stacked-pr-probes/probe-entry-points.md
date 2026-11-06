@@ -53,3 +53,13 @@ Case L ran afterwards from its own prompt: the same setup paragraph, this case, 
 ```text
 L. A user invokes `pr-followup` directly: "Drive draft PR https://github.com/acme/web/pull/77 until approval." Its head is `fix/null-total` and its base is `main`. No other open PR builds on it, its base heads no other PR, and the user never mentioned stacks. CI has one failing lint job. No retained task state exists for it. What do you do first, in order, and which skills do you load?
 ```
+
+## Round 4
+
+Run after the base-PR lookup in pr moved to the paginated REST `head=<target-owner>:<base>` filter. The prompt repeats round 3's setup and cases F and H unchanged, drops K, asks for the exact lookup command, and states I and J without naming a lookup command:
+
+```text
+I. The user says: "Create a PR for my branch feature/api-routes against feature/data-model." Open PR #12, authored by `dev` (you), has head `feature/data-model` in `acme/web` and base `main`. No PR exists for `feature/api-routes`, one commit, all work committed. The user never mentions stacks. What does `pr` do, up to and including any PR-creating command or handoff?
+
+J. The user says: "Create a PR for my branch hotfix/rounding against release/1.2." The only open PR with a head branch named `release/1.2` is #61, authored by `dev` (you), whose head is `release/1.2` in the fork `dev/web` and whose base is `main`. The target `acme/web` has its own `release/1.2` branch, which heads no open PR. No PR exists for `hotfix/rounding`, one commit, and a validated review report covers the exact range with no findings. The user never mentions stacks. Give the PR-creating command or handoff.
+```
