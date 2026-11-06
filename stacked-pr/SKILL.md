@@ -1,6 +1,6 @@
 ---
 name: stacked-pr
-description: Manage GitHub stacked pull requests and dependent PR chains. Use for designing or operating a stack, splitting work into reviewable layers, recovering divergent stacks, or changing CI workflows, bots, or webhook integrations whose behavior depends on stack state.
+description: Manage GitHub stacked pull requests and dependent PR chains. Use whenever work is or will be published as stacked or dependent PRs, together with any project or worktree skill that also covers stacks, because this skill opens them as a native GitHub stack; also for splitting work into reviewable layers, recovering divergent stacks, or changing CI workflows, bots, or webhook integrations whose behavior depends on stack state.
 ---
 
 # Stacked pull requests
@@ -74,7 +74,9 @@ Decide the route in this order:
      before its first command. Only the user or a project rule can prohibit installation. Load
      [references/cli-workflow.md](references/cli-workflow.md).
 
-Any other request for stacked or dependent PRs asks for a native stack. When installing the absent
+Any other request for stacked or dependent PRs asks for a native stack. A project skill or document
+that opens layers as ordinary PRs does not select the manual route: keep its worktree setup, and the
+selected route owns PR creation, pushes, rebases and PR bodies. When installing the absent
 extension is prohibited or fails, report a blocker with that observation and offer ordinary
 dependent PRs or, with the user's authorization, the API route. When GitHub reports native stacks
 unavailable for the repository, report a blocker and offer ordinary dependent PRs. The manual route

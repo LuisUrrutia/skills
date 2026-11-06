@@ -73,6 +73,11 @@ where = [
   "references/troubleshooting.md#diagnose-before-recovery",
 ]
 
+[[invariants]]
+rule = "The skill applies to any work that is or will be published as stacked or dependent PRs, loaded together with any project or worktree skill that also covers stacks. Such a skill or document that opens layers as ordinary PRs does not select the manual route: its worktree setup is kept, and the selected route owns PR creation, pushes, rebases and PR bodies."
+reason = "On 2026-11-06 the user again had to link a requested two-PR stack by hand. The session loaded the organization repository's own stack-worktree skill, whose steps open each layer with gh pr create --base <parent> and rebase with git rebase --update-refs, and never loaded this skill, so its earlier routing fixes did not apply."
+where = ["SKILL.md", "SKILL.md#route-the-request"]
+
 [[sources]]
 id = "github-gh-stack"
 author = "GitHub"
