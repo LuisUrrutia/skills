@@ -66,8 +66,9 @@ Read branch, status, remotes, upstream and HEAD. Resolve:
    verified base or target repository's default. Fetch through the target's SSH
    remote and verify that ref's identity rather than trusting local `main`.
    For creation on a base other than the default branch, collect open PRs headed by it with
-   `gh pr list --repo <target> --state open --head <base> --json number,url,author,headRepository,headRepositoryOwner`,
-   keeping those whose head repository is the target.
+   `gh api -X GET repos/<target>/pulls --paginate -f head=<target-owner>:<base> -f state=open`,
+   keeping those whose `head.repo.full_name` is the target; a failed or incomplete
+   lookup blocks Create.
 5. **Revision:** record exact base/head SHAs. Describe selected local commits for
    publication, the published head for metadata-only work. Preserve unrelated
    work/index entries; they neither block metadata work nor belong in its claims.
