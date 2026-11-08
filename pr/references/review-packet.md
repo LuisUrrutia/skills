@@ -68,9 +68,10 @@ Use these sections in order, leaving out any that has nothing to say.
 5. **How it was tested:** results, not steps, on the closest real environment,
    with links to the runs or events they produced. Several cases from a real
    end-to-end run go in a small Request | Before | After table; logic that unit
-   tests cover gets no table. Name what was not tested; whether a gap blocks the
-   PR belongs to `verify`. Leave the section out when nothing runs, such as a
-   Markdown-only change.
+   tests cover gets no table. Name a layer only CI can run, or a step meant to run
+   after merge, and why; any other untested layer
+   [blocks publication](../SKILL.md#publish-and-verify). Leave the section out
+   when nothing runs, such as a Markdown-only change.
 6. **Risk:** consequences, not generic labels; unknowns go here, not in a separate
    section.
    - No real risk: one line, `Low.`, plus the only difference users notice or a
@@ -84,13 +85,14 @@ Use these sections in order, leaving out any that has nothing to say.
 7. **Review notes:** only what the diff does not explain, one idea per note, each
    saying why it matters: where to begin and why, a decision a reviewer would
    question, a consequential trade-off. Leave out implementation mechanics that
-   the code or its comments explain. Link code to its line in the PR diff,
+   the code or its comments explain, and what the PR page already shows, such as
+   the base branch. Link code to its line in the PR diff,
    `https://github.com/<owner>/<repo>/pull/<number>/files#diff-<sha256 of the path>R<line>`.
    Leave the section out when the diff explains itself.
 8. **How to test:** numbered steps on the closest real environment for every
    changed layer, such as the processor's test environment for a payment change,
    naming the screen to open and what to see. A test command is not a step. Every
-   PR has one; a layer never run that way is named in How it was tested instead.
+   PR has one.
 
 ## Length budget
 

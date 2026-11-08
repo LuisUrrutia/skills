@@ -86,9 +86,14 @@ reason = "User decision on 2026-11-08, after comparing PR bodies for the user's 
 where = ["references/review-packet.md#default-structure"]
 
 [[invariants]]
-rule = "How it was tested states results on the closest real environment and names what was not tested; whether a gap blocks the PR belongs to verify. It is left out when nothing runs. How to test gives numbered steps on the closest real environment for every changed layer; a test command is not a step."
+rule = "How it was tested states results on the closest real environment and names a layer only CI can run or a step meant to run after merge. It is left out when nothing runs. How to test gives numbered steps on the closest real environment for every changed layer; a test command is not a step."
 reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
 where = ["references/review-packet.md#default-structure"]
+
+[[invariants]]
+rule = "Create and Update publish a body only when every changed layer ran through its How to test flow on the closest real environment; a layer only CI can run, a step meant to run after merge such as a production write, and a change with nothing to run are exempt. Otherwise publication blocks: verify runs within the request's authority, or the untested layers are reported as the blocker. Draft-only returns them beside the body."
+reason = "User decision on 2026-11-08: a PR should block when its change was not tested. Running and judging the tests stays with verify."
+where = ["SKILL.md#publish-and-verify", "references/review-packet.md#default-structure"]
 
 [[invariants]]
 rule = "Risk is one line starting with Low when the change carries no real risk. Otherwise, and for a shared component that reaches every place it is used, it gives Impact, Rollback with its real cost and Error detection. Money movement or wider data access adds who is affected, who notices first or could see what they should not, records made before a rollback, and how to check the result."
@@ -96,7 +101,7 @@ reason = "User decision on 2026-11-08, after comparing PR bodies for the user's 
 where = ["references/review-packet.md#default-structure"]
 
 [[invariants]]
-rule = "Review notes hold only what the diff does not explain, one idea each with why it matters, linked to the line in the PR diff, and leave out implementation mechanics the code or its comments explain; the section is left out when the diff explains itself."
+rule = "Review notes hold only what the diff does not explain, one idea each with why it matters, linked to the line in the PR diff, and leave out implementation mechanics the code or its comments explain and what the PR page already shows, such as the base branch; the section is left out when the diff explains itself."
 reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
 where = ["references/review-packet.md#default-structure"]
 
