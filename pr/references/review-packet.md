@@ -61,7 +61,9 @@ Use these sections in order, leaving out any that has nothing to say.
      **Code** headings, the code reason in one line.
    - Name a cause by linking its upstream report or failing run, not with counts.
      Make no argument that the fix is safe.
-3. **What changes:** the delivered behavior.
+3. **What changes:** the delivered behavior as a user would sum it up, in a few
+   bullets. Leave UI detail that the captures or the diff show, such as row
+   wording, empty, loading and error states, or layout at each width, to them.
    - Several behaviors of one kind, each with a before and an after, even in a
      tiny fix: a small Before | After table. A one-to-one mapping, such as
      statuses to stages: a two-column table.

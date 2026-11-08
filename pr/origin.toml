@@ -81,7 +81,7 @@ reason = "User decision on 2026-11-08, after comparing PR bodies for the user's 
 where = ["references/review-packet.md#default-structure"]
 
 [[invariants]]
-rule = "What changes uses a Before and After table when it lists several behaviors of one kind, even in a tiny fix, and a two-column table for a one-to-one mapping. It leaves out intended visual changes reviewers see in Storybook or Chromatic anyway, keeps an unexpected visible difference, and ends with a short line for explicit asks left out."
+rule = "What changes sums up the delivered behavior as a user would, in a few bullets, and leaves UI detail the captures or diff show, such as row wording, loading and error states or layout per width, to them. It uses a Before and After table when it lists several behaviors of one kind, even in a tiny fix, and a two-column table for a one-to-one mapping. It leaves out intended visual changes reviewers see in Storybook or Chromatic anyway, keeps an unexpected visible difference, and ends with a short line for explicit asks left out."
 reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
 where = ["references/review-packet.md#default-structure"]
 
