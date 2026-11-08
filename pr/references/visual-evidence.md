@@ -9,7 +9,7 @@ prose, and place it under What changes beside the change it shows.
 | What does the change turn one value into, step by step? | Mermaid diagram of the steps |
 | What does each kind of item get under a rule? | Mermaid diagram linking each kind to what it gets |
 | What changes for the user? | Genuine before/after screenshots or a short interaction recording |
-| What changes in cost/performance? | Measured comparison with units, workload, baseline, revision and method |
+| What changes in cost/performance? | Measured comparison with units, workload, baseline and method |
 
 A one-to-one mapping, such as statuses to stages, is a two-column table, and a
 simple move or rename is bullets. Flowcharts with long labels and tables of rules
@@ -34,8 +34,8 @@ Use the real app, applicable `verify` recipe and host browser/device/native capt
 tool; use Storybook only when no app uses the change yet. Show the app's capture
 alone, not beside the design. Save captures in ignored task storage. Include
 interactions or alternate viewports when material; match before/after scenario,
-data, viewport and theme, identify revisions, and honor checkout ownership when
-running another revision.
+data, viewport and theme, record each capture's revision for the return rather
+than the body, and honor checkout ownership when running another revision.
 
 Show captures inline when the change is mainly visual, and an unexpected visible
 difference always; fold captures that only confirm the stated behavior in a

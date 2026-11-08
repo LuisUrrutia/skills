@@ -22,16 +22,24 @@ explicitly overrides them, and fit the [default structure](#default-structure)'s
 content into the template's sections. Without a template, use that structure.
 
 Write in plain words, with `communicate-clearly` when available: one line per fact
-and bullets, not dense prose. Link tickets named in prose, give gates their
-default states, and name branches rather than commit hashes unless a check ran on
-an older revision. Point to repository documentation or a commit message in one
-line instead of restating it. Leave out who did what, closing summaries,
-statistics or counts offered to justify the change, test commands and their
-totals, even when repository instructions ask for them in the description
-(report those in the return), tables of checks, lines saying CI or Chromatic ran, steps the team does on
-every PR such as accepting Chromatic changes or merging a stack in order, and
-reassurance such as "no auth code changes". Size every section to the diff: what
-a reviewer reads quickly in the diff gets a line or nothing.
+and bullets, not dense prose. Link tickets named in prose and give gates their
+default states. Describe what users and callers see; class names, design tokens,
+CSS and internal function names belong only in review-note links. Point to
+repository documentation or a commit message in one line instead of restating it.
+Leave out:
+
+- Commit hashes and revisions, including those of captures and runs; reviewers
+  read the PR as a whole, so say "before this change" or "an earlier version of
+  this branch".
+- Who did what, closing summaries, and reassurance such as "no auth code changes".
+- Statistics or counts offered to justify the change.
+- Test commands and their totals, even when repository instructions ask for them
+  in the description; report those in the return.
+- Tables of checks, lines saying CI or Chromatic ran, and steps the team does on
+  every PR, such as accepting Chromatic changes or merging a stack in order.
+
+Size every section to the diff: what a reviewer reads quickly in the diff gets a
+line or nothing.
 
 ## Default structure
 
