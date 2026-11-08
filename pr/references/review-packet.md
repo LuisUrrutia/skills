@@ -39,7 +39,8 @@ Use these sections in order, leaving out any that has nothing to say.
 
 1. **Ticket line:** `Completes [KEY-1](<ticket URL>)` or `Part of [KEY-1](<ticket URL>)`,
    followed on the same line by ` · [Design](<design URL>)` when a design exists.
-   No stack or "Stacked on" line.
+   A tracker policy's permitted link form sets the keyword, not the format: the
+   link keeps the ticket key as its text. No stack or "Stacked on" line.
 2. **Why:** what goes wrong for users or the business without the change, from
    the ticket and its epic, said as you would tell a colleague: who does what,
    what stops them today, in terms of what they see. Measurements, widths and
