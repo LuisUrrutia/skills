@@ -40,7 +40,8 @@ Use these sections in order, leaving out any that has nothing to say.
    when one exists. No stack or "Stacked on" line.
 2. **Why:** what goes wrong for users or the business without the change, from
    the ticket and its epic, said as you would tell a colleague: who does what,
-   what stops them today. Do not restate what the ticket asks.
+   what stops them today, in terms of what they see. Measurements, widths and
+   mechanism belong in What changes. Do not restate what the ticket asks.
    - A goal and a constraint: label them **Goal:** and **Constraint:**; the
      constraint is what the change must never do and what that would cost.
    - A single reason: one plain sentence with no label. A purely technical or
@@ -53,7 +54,8 @@ Use these sections in order, leaving out any that has nothing to say.
    - Several behaviors of one kind, each with a before and an after, even in a
      tiny fix: a small Before | After table. A one-to-one mapping, such as
      statuses to stages: a two-column table.
-   - Leave out visual changes reviewers see in Storybook or Chromatic anyway.
+   - Leave out intended visual changes reviewers see in Storybook or Chromatic
+     anyway; an unexpected visible difference still goes in the body.
    - Add [screenshots and diagrams](visual-evidence.md) beside the change they
      show.
    - End with a short `Not in this PR:` line for explicit asks of the ticket left

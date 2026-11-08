@@ -76,12 +76,12 @@ reason = "User decision on 2026-11-08, after comparing PR bodies for the user's 
 where = ["references/review-packet.md#title-and-body"]
 
 [[invariants]]
-rule = "Why states what goes wrong for users or the business without the change, as one would tell a colleague, not what the ticket asks. Goal and Constraint labels appear only when both exist; a single reason is one plain sentence. Product and Code headings appear only when the two reasons clearly differ."
+rule = "Why states what goes wrong for users or the business without the change, as one would tell a colleague and in terms of what they see, not what the ticket asks; measurements and mechanism go in What changes. Goal and Constraint labels appear only when both exist; a single reason is one plain sentence. Product and Code headings appear only when the two reasons clearly differ."
 reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
 where = ["references/review-packet.md#default-structure"]
 
 [[invariants]]
-rule = "What changes uses a Before and After table when it lists several behaviors of one kind, even in a tiny fix, and a two-column table for a one-to-one mapping. It leaves out visual changes reviewers see in Storybook or Chromatic anyway and ends with a short line for explicit asks left out."
+rule = "What changes uses a Before and After table when it lists several behaviors of one kind, even in a tiny fix, and a two-column table for a one-to-one mapping. It leaves out intended visual changes reviewers see in Storybook or Chromatic anyway, keeps an unexpected visible difference, and ends with a short line for explicit asks left out."
 reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
 where = ["references/review-packet.md#default-structure"]
 
