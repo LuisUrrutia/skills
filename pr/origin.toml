@@ -66,12 +66,12 @@ rule = "Written repository rules and the template on the resolved base govern th
 where = ["SKILL.md#understand-the-change-and-repository", "references/review-packet.md#title-and-body"]
 
 [[invariants]]
-rule = "Without a template on the resolved base, the body follows the default structure in order: ticket line, Why, What changes, steps outside the PR, How it was tested, Risk, Review notes and How to test. A section with nothing to say is left out, except How to test, which every PR has. With a template, the same content fills the template's sections."
+rule = "Without a template on the resolved base, the body follows the default structure in order: a ticket line with labeled ticket and design links, Why, What changes, steps outside the PR, How it was tested, Risk, Review notes and How to test. A section with nothing to say is left out, except How to test, which every PR has. With a template, the same content fills the template's sections."
 reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail. The user asked that the skill define the default structure for repositories without a template."
 where = ["references/review-packet.md#title-and-body", "references/review-packet.md#default-structure"]
 
 [[invariants]]
-rule = "The body uses plain words, one line per fact and bullets, and sizes every section to the diff. It leaves out who did what, closing summaries, statistics or counts offered to justify the change or prove its cause, commands CI also runs, tables of checks, lines saying CI ran, steps the team does on every PR, stack lines and reassurance. It names branches, not commit hashes, unless a check ran on an older revision."
+rule = "The body uses plain words, one line per fact and bullets, and sizes every section to the diff. It leaves out who did what, closing summaries, statistics or counts offered to justify the change or prove its cause, test commands and their totals even when repository instructions ask for them in the description, tables of checks, lines saying CI ran, steps the team does on every PR, stack lines and reassurance. It names branches, not commit hashes, unless a check ran on an older revision."
 reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
 where = ["references/review-packet.md#title-and-body"]
 
@@ -96,7 +96,7 @@ reason = "User decision on 2026-11-08, after comparing PR bodies for the user's 
 where = ["references/review-packet.md#default-structure"]
 
 [[invariants]]
-rule = "Review notes hold only what the diff does not explain, one idea each with why it matters, linked to the line in the PR diff; the section is left out when the diff explains itself."
+rule = "Review notes hold only what the diff does not explain, one idea each with why it matters, linked to the line in the PR diff, and leave out implementation mechanics the code or its comments explain; the section is left out when the diff explains itself."
 reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
 where = ["references/review-packet.md#default-structure"]
 

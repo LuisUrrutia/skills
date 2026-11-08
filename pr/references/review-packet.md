@@ -26,8 +26,9 @@ and bullets, not dense prose. Link tickets named in prose, give gates their
 default states, and name branches rather than commit hashes unless a check ran on
 an older revision. Point to repository documentation or a commit message in one
 line instead of restating it. Leave out who did what, closing summaries,
-statistics or counts offered to justify the change, commands CI also runs,
-tables of checks, lines saying CI or Chromatic ran, steps the team does on
+statistics or counts offered to justify the change, test commands and their
+totals, even when repository instructions ask for them in the description
+(report those in the return), tables of checks, lines saying CI or Chromatic ran, steps the team does on
 every PR such as accepting Chromatic changes or merging a stack in order, and
 reassurance such as "no auth code changes". Size every section to the diff: what
 a reviewer reads quickly in the diff gets a line or nothing.
@@ -36,8 +37,9 @@ a reviewer reads quickly in the diff gets a line or nothing.
 
 Use these sections in order, leaving out any that has nothing to say.
 
-1. **Ticket line:** `Completes <ticket>` or `Part of <ticket>`, and a design link
-   when one exists. No stack or "Stacked on" line.
+1. **Ticket line:** `Completes [KEY-1](<ticket URL>)` or `Part of [KEY-1](<ticket URL>)`,
+   followed on the same line by ` · [Design](<design URL>)` when a design exists.
+   No stack or "Stacked on" line.
 2. **Why:** what goes wrong for users or the business without the change, from
    the ticket and its epic, said as you would tell a colleague: who does what,
    what stops them today, in terms of what they see. Measurements, widths and
@@ -81,7 +83,8 @@ Use these sections in order, leaving out any that has nothing to say.
      records made before a rollback, and how anyone can check the result.
 7. **Review notes:** only what the diff does not explain, one idea per note, each
    saying why it matters: where to begin and why, a decision a reviewer would
-   question, a consequential trade-off. Link code to its line in the PR diff,
+   question, a consequential trade-off. Leave out implementation mechanics that
+   the code or its comments explain. Link code to its line in the PR diff,
    `https://github.com/<owner>/<repo>/pull/<number>/files#diff-<sha256 of the path>R<line>`.
    Leave the section out when the diff explains itself.
 8. **How to test:** numbered steps on the closest real environment for every

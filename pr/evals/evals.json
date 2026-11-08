@@ -439,7 +439,7 @@
       "expected_output": "A short body in the default structure: a one-sentence Why, a Before/After table of the cases, results without CI commands, a one-line Risk, one review note and a How to test.",
       "files": [],
       "expectations": [
-        "The body opens with a ticket line linking PAY-212, such as `Completes` or `Part of` followed by the link.",
+        "The body opens with a ticket line such as `Completes [PAY-212](https://acme.atlassian.net/browse/PAY-212)`, with the key as the link text rather than a bare URL.",
         "The Why is one plain sentence about admins losing their merchant counts, with no `Goal:` or `Constraint:` label.",
         "What changes is a Before | After table with at least the admin-with-flag-on case and the partner case.",
         "How it was tested names the new test and that it failed before the fix, states that staging was not checked in a browser, and does not list `pnpm test` or the 4,451-test count.",
