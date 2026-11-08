@@ -39,7 +39,8 @@ Leave out:
   every PR, such as accepting Chromatic changes or merging a stack in order.
 
 Size every section to the diff: what a reviewer reads quickly in the diff gets a
-line or nothing.
+line or nothing, and a diff of a few lines never gets more text about what changed
+than the diff itself: one What changes bullet, with no mechanism.
 
 ## Default structure
 
