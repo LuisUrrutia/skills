@@ -97,9 +97,10 @@ Use these sections in order, leaving out any that has nothing to say.
      records made before a rollback, and how anyone can check the result.
 7. **Review notes:** only what the diff does not explain, one idea per note, each
    saying why it matters: where to begin and why, a decision a reviewer would
-   question, a consequential trade-off. Leave out implementation mechanics that
-   the code or its comments explain, and what the PR page already shows, such as
-   the base branch. Link code to its line in the PR diff,
+   question, a consequential trade-off, in plain words rather than token or
+   attribute names. Leave out implementation mechanics that the code or its
+   comments explain, notes about tests, such as which states lack one or where a
+   test lives, and what the PR page already shows, such as the base branch. Link code to its line in the PR diff,
    `https://github.com/<owner>/<repo>/pull/<number>/files#diff-<sha256 of the path>R<line>`.
    Leave the section out when the diff explains itself.
 8. **How to test:** numbered steps on the closest real environment for every
