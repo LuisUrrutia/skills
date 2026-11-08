@@ -31,7 +31,8 @@ Disclose when rendering is unverified.
 ## Screenshots and recordings
 
 Use the real app, applicable `verify` recipe and host browser/device/native capture
-tool; use Storybook only when no app uses the change yet. Show the app's capture
+tool; when no app capture of the state exists, use a Storybook capture of it. A
+mainly visual change always gets a capture. Show the app's capture
 alone, not beside the design. Save captures in ignored task storage. Include
 interactions or alternate viewports when material; match before/after scenario,
 data, viewport and theme, record each capture's revision for the return rather

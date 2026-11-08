@@ -67,8 +67,9 @@ Use these sections in order, leaving out any that has nothing to say.
    - Several behaviors of one kind, each with a before and an after, even in a
      tiny fix: a small Before | After table. A one-to-one mapping, such as
      statuses to stages: a two-column table.
-   - Leave out intended visual changes reviewers see in Storybook or Chromatic
-     anyway; an unexpected visible difference still goes in the body.
+   - Do not describe in words intended visual changes reviewers see in Storybook
+     or Chromatic anyway; captures still show them, and an unexpected visible
+     difference still goes in the body.
    - Add [screenshots and diagrams](visual-evidence.md) beside the change they
      show.
    - End with a short `Not in this PR:` line for explicit asks of the ticket left
