@@ -48,9 +48,9 @@ reason = "In the body the user rejected on 2026-10-29, each rewrite kept every e
 where = ["references/review-packet.md#evidence-and-continuity"]
 
 [[invariants]]
-rule = "Sub-results within a run, run logs, per-item counts and traces stay out of the body. Detail that still matters goes to an artifact at the PR's visibility, never a gist or external host, or to one detail comment per PR that the body links, that later writes edit in place, and that is inspected for exposure and verified like the body. It is the only comment description work posts, this skill words it, and Draft-only returns it beside the body."
-reason = "User decision on 2026-10-29: detail that still matters belongs in a linked artifact or a PR comment, not in the body. Keeping one comment edited in place stops the comments from accumulating the way the body did, and run logs of data fixes can hold production values."
-where = ["references/review-packet.md#length-budget", "references/publication.md#before-writing", "references/publication.md#create-or-update-metadata", "references/publication.md#verify-the-result"]
+rule = "Sub-results within a run, run logs, per-item counts and traces stay out of the body. Detail that still matters goes in a folded details block in the body or in an artifact at the PR's visibility, never a gist or external host. Description work posts no PR comments."
+reason = "User decision on 2026-11-08: detail belongs folded in the description, not in a first comment. This replaces the user's 2026-10-29 choice of one detail comment per PR. Run logs of data fixes can hold production values, so private hosts stay excluded."
+where = ["references/review-packet.md#length-budget", "references/publication.md#create-or-update-metadata"]
 
 [[invariants]]
 rule = "A new PR opens as a draft unless the user's preference says ready, and publication never merges as a side effect."
@@ -64,6 +64,51 @@ where = [
 [[invariants]]
 rule = "Written repository rules and the template on the resolved base govern the body's format. An exact enforced format applies unless the user explicitly overrides it."
 where = ["SKILL.md#understand-the-change-and-repository", "references/review-packet.md#title-and-body"]
+
+[[invariants]]
+rule = "Without a template on the resolved base, the body follows the default structure in order: ticket line, Why, What changes, steps outside the PR, How it was tested, Risk, Review notes and How to test. A section with nothing to say is left out, except How to test, which every PR has. With a template, the same content fills the template's sections."
+reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail. The user asked that the skill define the default structure for repositories without a template."
+where = ["references/review-packet.md#title-and-body", "references/review-packet.md#default-structure"]
+
+[[invariants]]
+rule = "The body uses plain words, one line per fact and bullets, and sizes every section to the diff. It leaves out who did what, closing summaries, statistics or counts offered to justify the change or prove its cause, commands CI also runs, tables of checks, lines saying CI ran, steps the team does on every PR, stack lines and reassurance. It names branches, not commit hashes, unless a check ran on an older revision."
+reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
+where = ["references/review-packet.md#title-and-body"]
+
+[[invariants]]
+rule = "Why states what goes wrong for users or the business without the change, as one would tell a colleague, not what the ticket asks. Goal and Constraint labels appear only when both exist; a single reason is one plain sentence. Product and Code headings appear only when the two reasons clearly differ."
+reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
+where = ["references/review-packet.md#default-structure"]
+
+[[invariants]]
+rule = "What changes uses a Before and After table when it lists several behaviors of one kind, even in a tiny fix, and a two-column table for a one-to-one mapping. It leaves out visual changes reviewers see in Storybook or Chromatic anyway and ends with a short line for explicit asks left out."
+reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
+where = ["references/review-packet.md#default-structure"]
+
+[[invariants]]
+rule = "How it was tested states results on the closest real environment and names what was not tested; whether a gap blocks the PR belongs to verify. It is left out when nothing runs. How to test gives numbered steps on the closest real environment for every changed layer; a test command is not a step."
+reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
+where = ["references/review-packet.md#default-structure"]
+
+[[invariants]]
+rule = "Risk is one line starting with Low when the change carries no real risk. Otherwise, and for a shared component that reaches every place it is used, it gives Impact, Rollback with its real cost and Error detection. Money movement or wider data access adds who is affected, who notices first or could see what they should not, records made before a rollback, and how to check the result."
+reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
+where = ["references/review-packet.md#default-structure"]
+
+[[invariants]]
+rule = "Review notes hold only what the diff does not explain, one idea each with why it matters, linked to the line in the PR diff; the section is left out when the diff explains itself."
+reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
+where = ["references/review-packet.md#default-structure"]
+
+[[invariants]]
+rule = "A diagram answers a decision or race that is hard to follow in prose, a transformation with steps, or a rule that gives each kind of item something. It reads left to right with one- or two-word boxes and no crossing arrows. A one-to-one mapping is a table, and a simple move or rename is bullets."
+reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail. Diagrams with long labels and tables of rules read worse for the user than either."
+where = ["references/visual-evidence.md#visual-evidence-for-a-pr", "references/visual-evidence.md#diagrams"]
+
+[[invariants]]
+rule = "Captures come from the running app, or from Storybook only when no app uses the change yet, and show the app alone without a design comparison. They appear inline when the change is mainly visual or shows an unexpected difference, and folded when they only confirm stated behavior."
+reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
+where = ["references/visual-evidence.md#screenshots-and-recordings"]
 
 [[invariants]]
 rule = "Visual evidence is genuine: a screenshot is an observed capture of the stated revision, uploaded where the intended reviewers can access it. A generated or reconstructed image never stands in for runtime evidence."
@@ -106,10 +151,10 @@ baseline_paths = ["skills/engineering/pr/SKILL.md", "LICENSE"]
 paths = ["skills/engineering/pr/SKILL.md", "LICENSE"]
 
 [[sources.ideas]]
-idea = "A visual is chosen for a concrete review question, and the smallest view that answers it is used: a flow or sequence for what happens to a request, a before-and-after dependency view or call tree for moved ownership, genuine screenshots for a visible change, and a measured comparison for cost or performance."
+idea = "A visual is chosen for a concrete review question, and the smallest view that answers it is used: genuine screenshots for a visible change and a measured comparison for cost or performance, with diagrams kept to the questions the invariant on diagrams names."
 serves = "Makes the change faster to assess without burying the reviewer in diagrams."
 where = ["references/visual-evidence.md#visual-evidence-for-a-pr", "SKILL.md#compose-for-review"]
-shapes = "Organizes visual evidence as a table from review question to the smallest useful view, and makes a visual conditional on answering such a question."
+shapes = "Organizes visual evidence as a table from review question to the smallest useful view, and makes a visual conditional on answering such a question. The invariant on diagrams sets the questions that earn one."
 adapted = "The view is chosen by the review question, not offered as a menu of formats; a trivial change gets no diagram."
 
 [[sources.ideas]]
@@ -117,21 +162,21 @@ idea = "Evidence that the change works is shown as a before and after of the sam
 serves = "Lets the reviewer see the effect of the change instead of trusting a description of it."
 where = [
   "references/visual-evidence.md#screenshots-and-recordings",
-  "references/review-packet.md#title-and-body",
+  "references/review-packet.md#default-structure",
 ]
-shapes = "Requires matched scenario, data, viewport and revisions for before-and-after captures, and adds a before-and-after example to the body opening when it makes a trigger or boundary concrete."
+shapes = "Requires matched scenario, data, viewport and revisions for before-and-after captures, shown side by side, and a Before and After table in What changes."
 adapted = "When no honest baseline exists, a labeled current-state capture replaces the before view; a baseline is never invented."
 
 [[sources.ideas]]
 idea = "The body assesses what needs care when merging or deploying the diff: migration, compatibility, deploy order, rollback, or an irreversible external effect, stated as concrete consequences rather than a generic risk label."
 serves = "Tells the reviewer whether the change can be walked back and who it can break."
-where = ["references/review-packet.md#title-and-body", "references/claims.md"]
-shapes = "Adds a merge-and-deploy question to the list of questions the body covers where they matter, and a claim class that requires facts for risk and impact."
-adapted = "Asked as a question where it matters, not as a mandatory Merge Danger section with door and blast-radius labels."
+where = ["references/review-packet.md#default-structure", "references/claims.md"]
+shapes = "Gives merge and deploy care a home in the default structure's Risk and outside-steps sections, and a claim class that requires facts for risk and impact."
+adapted = "Risk is sized by the invariant on Risk instead of a mandatory Merge Danger section with door and blast-radius labels."
 
 [[sources.declined]]
 feature = "A mandatory Summary, Evidence and Merge Danger body skeleton."
-reason = "Repository rules, templates and the actual review need set the format."
+reason = "Repository rules and templates set the format; without one, the user's default structure applies, and its sections drop when they have nothing to say."
 
 [[sources.reviews]]
 from_commit = "d81f3a183412e71a5b1e84ca21bc1a35eea03a60"
@@ -191,8 +236,8 @@ paths = [
 [[sources.ideas]]
 idea = "The body gives the reviewer the change's purpose, what ran against which revision and what it proved, and where review should begin: the owning module, invariant or critical path rather than every changed file."
 serves = "Gives the reviewer an entry point and a basis for trusting the result."
-where = ["references/review-packet.md#title-and-body"]
-shapes = "Turns purpose, validation and review entry point into questions the body answers, each in one line unless the reviewer needs more, with each check's revision, outcome and limits on its line."
+where = ["references/review-packet.md#default-structure"]
+shapes = "Gives purpose, validation and the review entry point their own default sections: Why, How it was tested and Review notes."
 
 [[sources.ideas]]
 idea = "History is judged by reviewer effort. When independent concerns could be reviewed and reverted separately, the skill recommends a split; it does not rewrite published history, reorder a stack, or separate a behavior from its regression test only to shorten the diff."
@@ -345,8 +390,8 @@ shapes = "Makes exact-PR resolution a numbered identity step and adds a recheck 
 [[sources.ideas]]
 idea = "A sentence or section stays only when cutting it would lower the reviewer's confidence, and a navigation hint appears only when the reviewer would otherwise start in the wrong place, never as a list of changed files."
 serves = "Keeps the body short enough to read before the diff without dropping what the review needs."
-where = ["references/review-packet.md#title-and-body", "references/review-packet.md#evidence-and-continuity"]
-shapes = "Makes the review entry point conditional and adds a per-sentence cut test to the check before delivery."
+where = ["references/review-packet.md#default-structure", "references/review-packet.md#evidence-and-continuity"]
+shapes = "Makes the review entry point a conditional review note and adds a per-sentence cut test to the check before delivery."
 adapted = "Besides required template content, which the donor also keeps, the cut test yields to the length budget's other exceptions, such as merge/deploy care and others' preserved notes."
 
 [[sources.declined]]
@@ -420,8 +465,8 @@ adapted = "Carried-forward evidence follows the invariant that a newer run repla
 [[sources.ideas]]
 idea = "Issue coverage is claimed only when verified. A closing keyword requires coverage of every explicit ask and the authority to close the work item; otherwise a neutral reference states the remaining scope."
 serves = "Prevents a merge from closing a ticket that the branch only partly delivers."
-where = ["references/review-packet.md#evidence-and-continuity", "references/claims.md"]
-shapes = "Adds the closing-keyword condition and a requirement to name unimplemented asks of the PR's own ticket."
+where = ["references/review-packet.md#evidence-and-continuity", "references/review-packet.md#default-structure", "references/claims.md"]
+shapes = "Adds the closing-keyword condition and a line in What changes naming unimplemented asks of the PR's own ticket."
 
 [[sources.ideas]]
 idea = "A reason or decision appears in the body only when a source establishes it; a rationale invented from the diff is left out rather than presented as the author's intent."
@@ -499,12 +544,12 @@ paths = [
 idea = "Structural diagrams are derived from inspected code and limited to the decision under review. They show actual owners, gates and important failure paths, distinguish an existing path from a proposed one, and never stand in for execution evidence."
 serves = "Makes the shape of a change understandable without implying that it ran or works."
 where = ["references/visual-evidence.md#diagrams"]
-shapes = "Adds a diagram section that ties edges and labels to inspected code and keeps execution evidence separately identified."
-adapted = "Diagrams use native GitHub Mermaid inside the repository template's sections, as the smallest useful view, instead of the donor's fixed change-outline section."
+shapes = "Adds a diagram section that ties boxes and arrows to inspected code and keeps execution evidence separately identified."
+adapted = "Diagrams use native GitHub Mermaid beside the change they explain, limited by the invariant on diagrams, instead of the donor's fixed change-outline section or its owner, gate and failure-path detail."
 
 [[sources.declined]]
 feature = "A fixed body template with a one-sentence Why section, one to three notes and a change outline."
-reason = "Written repository rules and the template on the resolved base govern the body."
+reason = "Written repository rules and the template on the resolved base govern the body; without one, the user's default structure applies, with Review notes left out when the diff explains itself."
 
 [[sources.declined]]
 feature = "A final answer that lists every changed file."
@@ -636,9 +681,9 @@ adapted = "The strong example says compression instead of the donor's gzipping, 
 [[sources.ideas]]
 idea = "The body opens with the problem as the affected user or API consumer experiences it, taken from motivation evidence such as the request or ticket, followed by the resulting behavior, before any implementation detail."
 serves = "Lets the reviewer understand why the change exists before reading how it works, and prevents an opening that is an inventory of edits."
-where = ["references/review-packet.md#title-and-body"]
-shapes = "Names the source and perspective of the opening problem and adds a weak inventory opening beside a strong problem-first opening."
-adapted = "The donor takes the problem from the user's original prompt; here any motivation evidence the claims reference accepts can supply it, because an Update request often states no problem. The strong example uses neutral voice, since the person who raised the problem may not be the PR author."
+where = ["references/review-packet.md#default-structure"]
+shapes = "Makes the Why section, after the ticket line, state the problem from the ticket and its epic before What changes."
+adapted = "The donor takes the problem from the user's original prompt; here any motivation evidence the claims reference accepts can supply it, because an Update request often states no problem. The invariant on Why sets its business framing."
 
 [[sources.ideas]]
 idea = "The title convention comes from written rules, otherwise from the titles of recent merged PRs not authored by bots and the base branch's non-merge commit subjects, because titles often become squash commit messages. Titles are sampled whether or not their bodies are empty."
@@ -647,10 +692,10 @@ where = ["SKILL.md#understand-the-change-and-repository", "references/review-pac
 shapes = "Makes the convention reads apply before a title as well as a body, and extends the merged-PR query to return up to ten titles beside the non-empty body lengths that set the length budget."
 
 [[sources.ideas]]
-idea = "When gh api rate_limit shows the GraphQL primary limit exhausted, the exact-PR lookup, the create or update write, the detail comment and the read-back go through the REST API, whose primary limit is separate, keeping the intended draft state. The REST lookup qualifies the head with its owner, paginates and matches head ref and repository. Merged-PR convention evidence also has a REST query, and every REST call carries the target host off github.com. REST cannot upload attachments or change draft state, so captures follow the attachments reference's unavailable route, and draft and other metadata changes wait for the reset."
+idea = "When gh api rate_limit shows the GraphQL primary limit exhausted, the exact-PR lookup, the create or update write and the read-back go through the REST API, whose primary limit is separate, keeping the intended draft state. The REST lookup qualifies the head with its owner, paginates and matches head ref and repository. Merged-PR convention evidence also has a REST query, and every REST call carries the target host off github.com. REST cannot upload attachments or change draft state, so captures follow the attachments reference's unavailable route, and draft and other metadata changes wait for the reset."
 serves = "Keeps publication possible during GraphQL exhaustion without creating a duplicate PR or losing the draft default."
 where = ["SKILL.md#establish-identity-and-scope", "references/publication.md#create-or-update-metadata"]
-shapes = "Adds the REST lookup and host rule to the exact-PR step, a REST convention query beside the merged-PR query, and a REST paragraph after the update and detail-comment rules."
+shapes = "Adds the REST lookup and host rule to the exact-PR step, a REST convention query beside the merged-PR query, and a REST paragraph after the update rules."
 adapted = "The donor uses REST for creation only after a creation error; here the rate_limit endpoint detects exhaustion, as pr-followup does, so a secondary limit shared by both APIs does not trigger more writes, and every GraphQL step has a REST route or a stated wait."
 
 [[sources.declined]]

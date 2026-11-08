@@ -160,7 +160,7 @@ Publication never merges by itself.
 
 Report `created`, `updated`, `draft-only`, `handed-off` or `blocked`: URL when known, head/base,
 draft state, body length against its budget with the reason for any overrun,
-detail comment URL, validation, the review gate's result for Create, executed
+validation, the review gate's result for Create, executed
 commands/results, remaining work and coordination omitted
 from the body. Separate current execution from historical evidence. Draft-only
 returns the copy and confirms no mutation; blockers name the prerequisite or
