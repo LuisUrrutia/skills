@@ -66,7 +66,8 @@ Use these sections in order, leaving out any that has nothing to say.
    config in another repository or another service's deploy, in at most two
    bullets. Link the companion PR that carries the exact values when it exists.
 5. **How it was tested:** results, not steps, on the closest real environment,
-   with links to the runs or events they produced. Several cases from a real
+   with links to the runs or events they produced. Results from CI, including
+   which specs or stories it ran, stay out: the PR's checks show them. Several cases from a real
    end-to-end run go in a small Request | Before | After table; logic that unit
    tests cover gets no table. Name a layer only CI can run, or a step meant to run
    after merge, and why; any other untested layer

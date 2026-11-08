@@ -86,7 +86,7 @@ reason = "User decision on 2026-11-08, after comparing PR bodies for the user's 
 where = ["references/review-packet.md#default-structure"]
 
 [[invariants]]
-rule = "How it was tested states results on the closest real environment and names a layer only CI can run or a step meant to run after merge. It is left out when nothing runs. How to test gives numbered steps on the closest real environment for every changed layer; a test command is not a step."
+rule = "How it was tested states results on the closest real environment and names a layer only CI can run or a step meant to run after merge. CI results, including which specs or stories it ran, stay out because the PR's checks show them. It is left out when nothing runs. How to test gives numbered steps on the closest real environment for every changed layer; a test command is not a step."
 reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
 where = ["references/review-packet.md#default-structure"]
 
