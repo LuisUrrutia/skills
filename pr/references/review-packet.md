@@ -53,7 +53,8 @@ Use these sections in order, leaving out any that has nothing to say.
 2. **Why:** what goes wrong for users or the business without the change, from
    the ticket and its epic, said as you would tell a colleague: who does what,
    what stops them today, in terms of what they see. Measurements, widths and
-   mechanism belong in What changes. Do not restate what the ticket asks.
+   mechanism belong in What changes. Do not restate what the ticket asks. Keep
+   each part, Goal and Constraint included, to one short, direct sentence.
    - A goal and a constraint: label them **Goal:** and **Constraint:**; the
      constraint is what the change must never do and what that would cost.
    - A single reason: one plain sentence with no label. A purely technical or
