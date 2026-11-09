@@ -102,7 +102,7 @@
         "The body does not mention PAY-13, PAY-14, PAY-15, PAY-16, the Figma redesign or a comparison with Figma.",
         "The body does not say when to enable the flag and does not mention PAY-17. Stating that every merchant with `settlements:view` gets the tab is not enablement timing.",
         "Outside the body, the response gives the user the coordination it left out, including that enabling the flag waits on PAY-17.",
-        "Risk and test results, when the body states them, sit under their own `## Risk` and `## How it was tested` headings placed before `## Reviewer knowledge check` and `## How to verify`, never as bold labels inside another section.",
+        "The body has a `## Risk` heading of its own, after `## What changed` and after `## Environment & external dependencies` when that section is present, and before `## Reviewer knowledge check` and `## How to verify`. Test results, when stated, sit under their own `## How it was tested` heading directly before `## Risk`. Neither appears as a bold label inside another section.",
         "No push, GitHub call or tracker write occurs."
       ]
     },
@@ -174,6 +174,7 @@
       "expectations": [
         "The body is at most 800 characters.",
         "The body uses the template's `## Summary` and `## Testing` sections.",
+        "`## Testing` holds the test results or the verification steps, and no second heading repeats that content, such as `## How it was tested` beside a `## Testing` that holds results. Any risk the body states sits under its own `## Risk` heading, not inside `## Summary` or `## Testing`.",
         "The body states that `Retry-After` is now sent in seconds instead of milliseconds and that clients waited 1,000 times longer than intended.",
         "The body reports that the updated `rate-limit.test.ts` assertion passes, without listing `pnpm test` or other commands CI also runs.",
         "No push or GitHub call occurs."

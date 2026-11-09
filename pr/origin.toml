@@ -67,7 +67,7 @@ where = [
 ]
 
 [[invariants]]
-rule = "Written repository rules and the template on the resolved base govern the body's format. An exact enforced format applies unless the user explicitly overrides it."
+rule = "Written repository rules and the template on the resolved base govern the body's format, and the default sections a template lacks get headings of their own as the invariant on mapping the default structure onto a template states. An exact enforced format applies unless the user explicitly overrides it."
 where = ["SKILL.md#understand-the-change-and-repository", "references/review-packet.md#title-and-body"]
 
 [[invariants]]
@@ -76,8 +76,8 @@ reason = "User decision on 2026-11-08, after comparing PR bodies for the user's 
 where = ["references/review-packet.md#title-and-body", "references/review-packet.md#default-structure"]
 
 [[invariants]]
-rule = "With a template on the resolved base, the body keeps the template's sections, headings and order. Default-structure content goes under the template section whose subject it is. Each default section the template lacks, such as Risk or How it was tested, gets its own heading at the template's level with its default name, after the section holding the nearest earlier default content; never a bold label inside another section, even when a template comment invites that content there. When an enforced format admits no extra heading, the user decides where that content goes."
-reason = "User decision on 2026-11-09: bodies rewritten for aurora-payments/monorepo, whose template has no risk or testing section and whose How to verify comment asks for risks there too, carried Risk and testing as bold labels inside How to verify. The user wants Risk and How it was tested always as their own sections, and fixed those bodies by hand with the template's headings and the missing sections added in default order. The coordinator added the question for an enforced format that admits no extra heading, because the user also required keeping enforced formats."
+rule = "With a template on the resolved base, the body keeps the template's headings and their order. Default-structure content goes under the template section whose subject it is. Each default section the template lacks, such as Risk or How it was tested, gets its own heading with its default name, directly after the last section holding earlier default-structure content. A steps section holds only steps, even when its template comment invites risks there; no default section becomes a bold label inside another. When an enforced format or written rule allows no extra heading, the user decides."
+reason = "User decision on 2026-11-09: in aurora-payments/monorepo, whose template has no risk or testing section and asks for risks under How to verify, rewritten bodies carried Risk and testing as bold labels there. The user wants both always as sections of their own, and fixed those bodies by hand with the template's headings and the missing sections in default order. The coordinator added the question when no extra heading is allowed, because the user also required keeping enforced formats, and the placement rule, which keeps default order in a differently ordered template."
 where = ["references/review-packet.md#title-and-body"]
 
 [[invariants]]
@@ -781,7 +781,7 @@ where = [
   "references/review-packet.md#evidence-and-continuity",
 ]
 shapes = "Kept the reviewer-understanding test as the opening of the reference and the evidence condition for checklist items."
-adapted = "The earlier fixed fallback headings and the rule that a template's headings are the complete set gave way to sections chosen for the review decision, with a small extra section allowed when it substantially reduces review effort."
+adapted = "The earlier fixed fallback headings and the rule that a template's headings are the complete set gave way to the default structure, whose sections fill a template's matching sections and get headings of their own where the template lacks them, unless an enforced format or written rule allows no extra heading."
 
 [[dependencies]]
 kind = "local"

@@ -18,19 +18,20 @@ alone, files, generic editing or issue intent; state a figure only when measured
 
 Follow written repository rules and the base template's guidance, meaningful
 sections and required checklists. Preserve exact enforced formats unless the user
-explicitly overrides them; when one admits no extra heading, ask the user where
-the default sections it lacks go. Without a template, use the
-[default structure](#default-structure). With one, keep the template's sections in
-its order and map that structure onto them:
+explicitly overrides them; when one, or a written rule, allows no extra heading,
+ask the user where the default sections the template lacks go. Without a
+template, use the [default structure](#default-structure). With one, keep the
+template's headings and their order, and map that structure onto them:
 
 - Put each default section's content under the template section whose subject
   it is, with the template's heading, such as `What changed` for What changes.
-- Give each default section the template lacks its own heading at the template's
-  level and with the default name, after the section holding the nearest earlier
-  default content. The ticket line opens the body without a heading.
-- A template comment inviting other content, such as `Name risks or follow-ups
-  here too` under How to verify, moves nothing: write no `**Risk:**` or
-  `**Tested:**` label inside another section.
+- Give each default section the template lacks its own heading, at the template's
+  level (`##` when it has none) and with the default name. Place it directly after
+  the last section holding content from earlier in the default structure, or first
+  when none does. The ticket line opens the body without a heading.
+- A steps section such as How to verify holds only steps, even when its template
+  comment says `Name risks or follow-ups here too`: test results and risk go in
+  their own sections, never under a `**Tested:**` or `**Risk:**` label elsewhere.
 
 Write in plain words, with `communicate-clearly` when available: one line per fact
 and bullets, not dense prose. Link tickets named in prose and give gates their
