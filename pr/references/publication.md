@@ -37,7 +37,7 @@ print the actor; otherwise stop and report the blocker.
 Recheck exact PR, head repository/ref/SHA, local branch/HEAD, push URL, base and
 expected remote tip. Preserve unrelated work/index state. Use `commit` for
 uncommitted work included in publication; metadata-only work ships no new commits.
-Inspect selected content, the body and any detail comment for credentials, private
+Inspect selected content and the body for credentials, private
 data, private captures and unrelated artifacts; resolve suspected exposure even
 when already committed.
 
@@ -82,14 +82,9 @@ fork. Omit `--draft` for ready preference. Creation is non-interactive: never us
 For Update, use
 `gh pr edit <exact-url> --title <title> --body-file <file>` with only authorized
 metadata flags. Changing base, reviewers, labels, milestone, assignees or draft
-state needs covering authority. Description work posts no replies or approvals.
-Its only comment is one detail comment per PR, holding detail the
-[length budget](review-packet.md#length-budget) moves out of the body; this skill
-words it. Post it once the PR exists, link it from the body, and on later writes
-edit it, for example with
-`gh api -X PATCH repos/<owner>/<repo>/issues/comments/<id> -F body=@<file>`,
-instead of adding another. Feedback replies belong to `pr-followup`, their
-wording to `comment-style`.
+state needs covering authority. Description work posts no comments, replies or
+approvals. Feedback replies belong to `pr-followup`, their wording to
+`comment-style`.
 
 When GraphQL is exhausted as [exact PR](../SKILL.md#establish-identity-and-scope)
 defines, recheck through its REST lookup, then create with
@@ -97,9 +92,7 @@ defines, recheck through its REST lookup, then create with
 (omit `draft` for ready preference; for a fork head add
 `-F maintainer_can_modify=true`, and `-f head_repo=<head-repository-name>` when
 both repositories share an organization owner), update with
-`gh api -X PATCH repos/<target>/pulls/<number> -f title=<title> -F body=@<file>`,
-post the detail comment with
-`gh api repos/<target>/issues/<number>/comments -F body=@<file>`, and read back
+`gh api -X PATCH repos/<target>/pulls/<number> -f title=<title> -F body=@<file>`, and read back
 with `gh api repos/<target>/pulls/<number>`. REST has no `--attach`; follow
 attachments' unavailable route. Draft-state and other authorized metadata
 changes, such as reviewers, labels or assignees, wait for the GraphQL reset;
@@ -109,7 +102,7 @@ report them as pending.
 
 After every write, including failure/timeout, and before accepting an existing PR
 without writing, verify remote URL, head repository/ref/SHA, base, title, body,
-any detail comment, intended draft state and only requested metadata changes.
+intended draft state and only requested metadata changes.
 Resolve mismatches before declaring success or continuing; inspect uncertain
 outcomes before retrying.
 Report partial outcomes and failed prerequisites. Attachments require

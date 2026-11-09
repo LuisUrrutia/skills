@@ -127,7 +127,7 @@
       "expectations": [
         "The rewritten body keeps @dana's release note: enable `PAY-30-export` for the pilot merchants only after finance signs off on the column list.",
         "The body no longer says the export button is hidden for every user; it says that with `PAY-30-export` on, users with `payouts:export` see the button.",
-        "The validation names `7d1e2f3` and 188 passing tests and drops the result for `a0b1c2d`.",
+        "The validation keeps the current run's outcome, drops the superseded result from the run on `a0b1c2d`, and the body names no commit hash or test count.",
         "No PR edit, push or GitHub call occurs."
       ]
     },
@@ -141,7 +141,7 @@
         "The response states a budget of 3,020 characters.",
         "The body contains no table or nested bullet list of per-rule, per-table or per-check results; a one-line summary of counts per run is acceptable.",
         "Each decision in the body takes one bullet or one sentence, and the body gives no decision entry to the `<env> [--force]` command shape or to the dev and uat port-forward, which only follow repository templates.",
-        "Each validation run or check takes at most one bullet without sub-bullets, names its revision and keeps its key result (such as tests passed or writes planned), and the body still states what was not run, including the prod write.",
+        "Each validation run or check takes at most one bullet without sub-bullets and keeps its key outcome, such as writes planned, without a commit hash or test totals, and the body still states what was not run, including the prod write.",
         "The body names at most two files or modules as a review starting point and has no file inventory.",
         "The body keeps that the command is a dry run without `--force` and summarizes the write safety (guarded single transaction, backup and rollback) in some form.",
         "Outside the body, the response states the body's length against its budget.",
@@ -154,9 +154,9 @@
       "expected_output": "A whole-body rewrite that replaces the superseded test and prod dry-run results with those at `9a8b7c6`, adds the dev run as one line instead of copying its run notes, keeps the older local-copy run only as one line for its rollback evidence, updates what was not run, describes the current leading-zero behavior, keeps @maria's note, and grows the body by at most half.",
       "files": [],
       "expectations": [
-        "Validation reports `npm test` with 34 passing tests and the prod dry run at `9a8b7c6`, and no longer reports the test or prod dry-run results at `2b3c4d5`.",
-        "The dev run takes at most one bullet without sub-bullets, naming `9a8b7c6` and its result; the access, per-check and validator details from the run notes do not appear in the body as a list.",
-        "The body keeps the `rollback.sql` evidence from the local-copy run as one bullet without sub-bullets that names `2b3c4d5`, or states that `rollback.sql` was not run at `9a8b7c6`.",
+        "Validation reports the prod dry run's outcome, no longer reports the older test or prod dry-run results, and names no commit hash, `npm test` command or test count.",
+        "The dev run takes at most one bullet without sub-bullets with its result; the access, per-check and validator details from the run notes do not appear in the body as a list.",
+        "The body keeps the `rollback.sql` evidence from the earlier local-copy run as one bullet without sub-bullets, labeled as an earlier version of the branch without its hash, or states that `rollback.sql` was not run on the current version.",
         "The body no longer lists dev as not run, and still lists uat and a prod write as not run.",
         "The body states that codes keep leading zeros in their numeric part, without a separate section narrating the earlier bug.",
         "@maria's note to run outside the 02:00-04:00 UTC catalog import window is preserved.",
@@ -174,7 +174,7 @@
         "The body is at most 800 characters.",
         "The body uses the template's `## Summary` and `## Testing` sections.",
         "The body states that `Retry-After` is now sent in seconds instead of milliseconds and that clients waited 1,000 times longer than intended.",
-        "The body reports `pnpm test` with 812 passing tests on `d1e2f3a`.",
+        "The body reports that the updated `rate-limit.test.ts` assertion passes, without listing `pnpm test` or other commands CI also runs.",
         "No push or GitHub call occurs."
       ]
     },
@@ -186,7 +186,7 @@
       "expectations": [
         "The body states that migration 0091 must run before the app is deployed, because the nightly job otherwise fails every night and pages on-call.",
         "The body states that the job deletes carts after 30 days and that deleted carts cannot be restored.",
-        "The body reports `pnpm test` with 402 passing tests on `a9b8c7d` and the staging migration run on 3.4M carts.",
+        "The body reports the staging migration run on 3.4M carts, and names no commit hash, `pnpm test` command or test count.",
         "The response states a budget of 1,000 characters, not one derived from the 9 to 31 character bodies.",
         "The body is at most 1,000 characters, or the response reports the overrun and the content causing it is merge/deploy care or one-line validation results.",
         "No push or GitHub call occurs."
@@ -203,7 +203,7 @@
         "Any figure in the title or body matches the measured 41.2 MB to 11.9 MB replay (about 71%) and cites or points to that measurement.",
         "The body's first sentence or paragraph states the problem as users experience it (mobile data use in busy channels) before naming permessage-deflate or files.",
         "The body states that clients without the extension keep uncompressed frames.",
-        "The body reports `pnpm test` with 318 passing tests on `c1d2e3f`.",
+        "The body names no commit hash, `pnpm test` command or test count.",
         "The body has no model, harness or tool attribution footer such as `Created with` or `Generated with`.",
         "No push or GitHub call occurs."
       ]
@@ -431,6 +431,24 @@
         "The plan does not invoke `stacked-pr` and runs no `gh stack` command.",
         "The proposed command is `gh pr create` with `--repo acme/api`, `--base release/1.2`, `--head hotfix/rounding` and `--draft`.",
         "No push or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 34,
+      "prompt": "Prepare a Draft-only title and body for this simulated branch; do not push, call GitHub or write to the tracker. Treat these values as verified tool output. Repository `acme/portal`, base `main`, head `fix/PAY-212-admin-counts` at `4f5e6d7`. No pull request template exists on `main`; recent human-written bodies measure 2,100 to 3,400 characters. Ticket PAY-212 (https://acme.atlassian.net/browse/PAY-212): with the `new-partner-dashboard` flag on, admins opening `/dashboard` see only the greeting and lose the Total merchants and Active merchants cards. One commit changes `src/dashboard/DashboardRoute.tsx` so the new partner dashboard renders only when the selected profile is a partner (`isAffiliate`); everyone else keeps the current dashboard. `isAffiliate` is also true for an admin whose selected profile has an affiliate, so that admin still gets the new dashboard, which has data for that affiliate. A new test, `DashboardRoute.spec.tsx` \"shows admins the merchant counts while the flag is on\", fails before the fix and passes after; `pnpm test` passed 4,451 tests on `4f5e6d7`. The flag is on in dev and staging, off in production. Nobody checked staging in a browser yet. Return the title, the body, and anything else the user should know.",
+      "expected_output": "A short body in the default structure: a one-sentence Why, a Before/After table of the cases, results without CI commands, a one-line Risk, one review note and a How to verify.",
+      "files": [],
+      "expectations": [
+        "The body opens with a ticket line such as `Completes [PAY-212](https://acme.atlassian.net/browse/PAY-212)`, with the key as the link text rather than a bare URL.",
+        "The Why is one plain sentence about admins losing their merchant counts, with no `Goal:` or `Constraint:` label.",
+        "What changes is a Before | After table with at least the admin-with-flag-on case and the partner case.",
+        "How it was tested does not list `pnpm test` or the 4,451-test count.",
+        "Risk is one line starting with `Low.` and has no Impact, Rollback or Error detection labels.",
+        "Review notes, if present, hold only the `isAffiliate` admin case.",
+        "How to verify gives numbered steps to open the dashboard as an admin on staging and check that both counts show.",
+        "Outside the body, the response reports that staging was never checked in a browser and that this blocks publishing until it is tested.",
+        "The body has no Summary, Changes, Validation or Skills used section, no commit hash, and no closing summary.",
+        "No push, GitHub call or tracker write occurs."
       ]
     }
   ]

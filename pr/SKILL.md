@@ -143,6 +143,13 @@ prerequisites and retained evidence.
 
 ## Publish and verify
 
+Create and Update publish a body only when every changed layer ran through its
+How to verify flow on the closest real environment. A layer only CI can run, a
+step meant to run after merge such as a production write, and a change with
+nothing to run are exempt. Otherwise block publication: run `verify`
+within the request's authority, or report the untested layers as the blocker.
+Draft-only returns them beside the body.
+
 Before any Git/GitHub mutation, read [publication](references/publication.md) and
 execute the applicable steps. Prepare reviewable copy and necessary validation
 before seeking any remaining authorization. Apply its
@@ -160,7 +167,7 @@ Publication never merges by itself.
 
 Report `created`, `updated`, `draft-only`, `handed-off` or `blocked`: URL when known, head/base,
 draft state, body length against its budget with the reason for any overrun,
-detail comment URL, validation, the review gate's result for Create, executed
+validation, the review gate's result for Create, executed
 commands/results, remaining work and coordination omitted
 from the body. Separate current execution from historical evidence. Draft-only
 returns the copy and confirms no mutation; blockers name the prerequisite or

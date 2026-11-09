@@ -16,53 +16,102 @@ alone, files, generic editing or issue intent; state a figure only when measured
 - Weak: `perf(server): negotiate permessage-deflate on the websocket`
 - Strong: `perf(server): cut websocket frame size by 70%+ with compression`
 
-Open with the problem as the affected user or API consumer experiences it, from
-its [claims](claims.md) evidence such as the request or ticket, then the resulting
-behavior, before any implementation detail:
-
-- Weak: "Removed workspace carry-over from every new-thread entry point and
-  deleted `buildContextualThreadOptions`."
-- Strong: "New threads on existing worktrees ignored the 'new worktree' default.
-  Now the configured defaults always apply."
-
-Add a before/after example when it clarifies a trigger or boundary. Explain
-mechanisms only for correctness or consequential tradeoffs.
-
-Point to repository documentation, such as a README's rules, steps or counts,
-with at most a one-line summary instead of restating it. Do not restate commit
-messages. When one explains an effect beyond the headline, such as unflagged
-behavior, point to it in **one sentence** naming the commit, change and audience.
-Refer to its message for reasons and consequences; give it no section/table.
-Add only review-critical information the message lacks.
-
 Follow written repository rules and the base template's guidance, meaningful
 sections and required checklists. Preserve exact enforced formats unless the user
-explicitly overrides them. Otherwise use short sections for distinct purposes;
-`Summary`, `Changes` and `Validation` are a fallback. Combine empty/repeated
-sections; a few scannable lines can remain unsectioned. A small diff does not
-justify dense prose. Place useful missing context in an existing section or add
-one when it materially helps review; explain a material departure from convention.
+explicitly overrides them, and fit the [default structure](#default-structure)'s
+content into the template's sections. Without a template, use that structure.
 
-Use bullets for parallel changes/checks, cohesive prose for explanations and a
-brief opening; avoid repeating the summary in the change list. Answer each
-question below that the diff raises, in one line per item unless the reviewer
-needs more to judge it:
+Write in plain words, with `communicate-clearly` when available: one line per fact
+and bullets, not dense prose. Link tickets named in prose and give gates their
+default states. Describe what users and callers see; class names, design tokens,
+CSS and internal function names belong only in review-note links. Point to
+repository documentation or a commit message in one line instead of restating it.
+Leave out:
 
-- What changes for callers/users? Name gates and their default states.
-- Which decisions would a reviewer question, unlike choices that follow a
-  repository template or convention? Give the choice and its evidenced reason,
-  material alternative or compatibility tradeoff.
-- Where should review begin, if the reviewer would otherwise start in the wrong
-  place? Name the owning module, invariant or critical path, not a file inventory.
-- What ran on which revision, with what outcome, limits and accessible artifacts?
-  Keep each check's key result, such as tests passed or rows changed. Identify
-  missing checks.
-- What requires care at merge/deploy: migrations, compatibility, order, rollback
-  or irreversible effects? State consequences, not generic risk labels.
-- Which explicit asks of this PR's ticket/request remain partial or unimplemented?
-  Name them even if another ticket will deliver them; unrelated work is no gap.
+- Commit hashes and revisions, including those of captures and runs; reviewers
+  read the PR as a whole, so say "before this change" or "an earlier version of
+  this branch".
+- Who did what, closing summaries, and reassurance such as "no auth code changes".
+- Statistics or counts offered to justify the change.
+- Test commands and their totals, even when repository instructions ask for them
+  in the description; report those in the return.
+- Tables of checks, lines saying CI or Chromatic ran, and steps the team does on
+  every PR, such as accepting Chromatic changes or merging a stack in order.
 
-Use `communicate-clearly` when available, retaining technical meaning.
+Size every section to the diff: what a reviewer reads quickly in the diff gets a
+line or nothing, and a diff of a few lines never gets more text about what changed
+than the diff itself: one What changes bullet, with no mechanism.
+
+## Default structure
+
+Use these sections in order, leaving out any that has nothing to say.
+
+1. **Ticket line:** `Completes [KEY-1](<ticket URL>)` or `Part of [KEY-1](<ticket URL>)`,
+   followed on the same line by ` · [Design](<design URL>)` when a design exists.
+   A tracker policy's permitted link form sets the keyword, not the format: the
+   link keeps the ticket key as its text. No stack or "Stacked on" line.
+2. **Why:** what goes wrong for users or the business without the change, from
+   the ticket and its epic, said as you would tell a colleague: who does what,
+   what stops them today, in terms of what they see. Measurements, widths and
+   mechanism belong in What changes. Do not restate what the ticket asks. Keep
+   each part, Goal and Constraint included, to one short, direct sentence.
+   - A goal and a constraint: label them **Goal:** and **Constraint:**; the
+     constraint is what the change must never do and what that would cost.
+   - A single reason: one plain sentence with no label. A purely technical or
+     ticketless change says the problem or what the team gains.
+   - Product and code reasons that clearly differ: put them under **Product** and
+     **Code** headings, the code reason in one line.
+   - Name a cause by linking its upstream report or failing run, not with counts.
+     Make no argument that the fix is safe.
+3. **What changes:** the delivered behavior as a user would sum it up, in a few
+   bullets. Leave UI detail that the captures or the diff show, such as row
+   wording, empty, loading and error states, or layout at each width, to them.
+   - Several behaviors of one kind, each with a before and an after, even in a
+     tiny fix: a small Before | After table. A one-to-one mapping, such as
+     statuses to stages: a two-column table.
+   - Do not describe in words intended visual changes reviewers see in Storybook
+     or Chromatic anyway; captures still show them, and an unexpected visible
+     difference still goes in the body.
+   - Add [screenshots and diagrams](visual-evidence.md) beside the change they
+     show.
+   - End with a short `Not in this PR:` line for explicit asks of the ticket left
+     out.
+4. **Before turning it on** or **Depends on:** steps outside this PR, such as
+   config in another repository or another service's deploy, in at most two
+   bullets. Link the companion PR that carries the exact values when it exists.
+5. **How it was tested:** results, not steps, on the closest real environment,
+   with links to the runs or events they produced. Results from CI, including
+   which specs or stories it ran, stay out: the PR's checks show them. Several cases from a real
+   end-to-end run go in a small Request | Before | After table; logic that unit
+   tests cover gets no table. Name a layer only CI can run, or a step meant to run
+   after merge, and why; any other untested layer
+   [blocks publication](../SKILL.md#publish-and-verify). Leave the section out
+   when nothing runs, such as a Markdown-only change.
+6. **Risk:** consequences, not generic labels; unknowns go here, not in a separate
+   section.
+   - No real risk: one line, `Low.`, plus the only difference users notice or a
+     single non-obvious point, such as a parameter the API does not check.
+   - Otherwise, and for a shared component that reaches every place it is used:
+     **Impact:**, **Rollback:** with its real cost, and **Error detection:**,
+     saying plainly when only a person would notice.
+   - Money movement or wider data access: also who is and is not affected, who
+     notices first or who could see what they should not, what happens to
+     records made before a rollback, and how anyone can check the result.
+7. **Review notes:** only what the diff does not explain, one idea per note, each
+   saying why it matters: where to begin and why, a decision a reviewer would
+   question, a consequential trade-off, in plain words rather than token or
+   attribute names. Leave out implementation mechanics that the code or its
+   comments explain, notes about tests, such as which states lack one or where a
+   test lives, and what the PR page already shows, such as the base branch.
+   Keep at most three notes, the concrete points a reviewer should check; details
+   such as generated code, flag reads or matching time boundaries stay out. Link
+   code to its line in the PR diff,
+   `https://github.com/<owner>/<repo>/pull/<number>/files#diff-<sha256 of the path>R<line>`.
+   Leave the section out when the diff explains itself.
+8. **How to verify:** numbered steps on the closest real environment for every
+   changed layer, such as the processor's test environment for a payment change,
+   naming the screen to open and what to see. A test command is not a step. Every
+   PR has one.
 
 ## Length budget
 
@@ -77,11 +126,10 @@ stays in the body even when documentation or a commit message also states it.
 
 Sub-results within a run, such as each access, SQL or validator check, per-item
 counts, run logs and traces, stay out of the body, which keeps each run's outcome
-and conditions. Put detail that still matters in an artifact at the PR's
-visibility, such as an attachment or CI artifact but never a gist or external
-host, or in the PR's one [detail comment](publication.md#create-or-update-metadata),
-and link it. Draft-only returns it beside the body. Private local paths are not
-artifacts.
+and conditions. Put detail that still matters in a folded `<details>` block in the
+body, or in an artifact at the PR's visibility, such as an attachment or CI
+artifact but never a gist or external host, and link it. Private local paths are
+not artifacts.
 
 ## Evidence and continuity
 
