@@ -18,8 +18,20 @@ alone, files, generic editing or issue intent; state a figure only when measured
 
 Follow written repository rules and the base template's guidance, meaningful
 sections and required checklists. Preserve exact enforced formats unless the user
-explicitly overrides them, and fit the [default structure](#default-structure)'s
-content into the template's sections. Without a template, use that structure.
+explicitly overrides them; when one, or a written rule, allows no extra heading,
+ask the user where the default sections the template lacks go. Without a
+template, use the [default structure](#default-structure). With one, keep the
+template's headings and their order, and map that structure onto them:
+
+- Put each default section's content under the template section whose subject
+  it is, with the template's heading, such as `What changed` for What changes.
+- Give each default section the template lacks its own heading, at the template's
+  level (`##` when it has none) and with the default name. Place it directly after
+  the last section holding content from earlier in the default structure, or first
+  when none does. The ticket line opens the body without a heading.
+- A steps section such as How to verify holds only steps, even when its template
+  comment says `Name risks or follow-ups here too`: test results and risk go in
+  their own sections, never under a `**Tested:**` or `**Risk:**` label elsewhere.
 
 Write in plain words, with `communicate-clearly` when available: one line per fact
 and bullets, not dense prose. Link tickets named in prose and give gates their
@@ -145,7 +157,9 @@ re-measured against the length budget. Replace stale claims and report material
 corrections when useful. A new run enters as one line and replaces the run it
 supersedes, the same check or environment at an older revision; keep an older
 run, in one line, only for evidence the newer one lacks. Revalidate manual
-context, links, captures, evidence and completed checklist claims.
+context, links, captures, evidence and completed checklist claims. Point each diff
+link at the line that now holds its code on the published head, recomputing the
+path hash after a rename: any push can move that line.
 Preserve others' accurate notes and unresolved design questions: the reviewer
 boundary governs your new prose, not deletion of their notes. Evidence is required
 to complete an unchecked item. Repair history belongs in commits.

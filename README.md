@@ -659,7 +659,7 @@ Create or update a GitHub PR with a concise explanation and useful review eviden
 - Checks claims against implementation, requirements and current verification
 - Checks a task's review-size cap against the actual PR diff before publishing code or creating the PR
 - Before creating a PR, runs `review-code-changes` on Codex Sol at xhigh unless such a report covers the exact head, resolves every finding by a fix, evidence, a follow-up or your decision, and re-reviews until nothing remains to fix
-- Follows repository conventions while allowing useful additions where the format permits
+- Follows repository conventions; with a template, keeps its headings and gives each default section it lacks, such as Risk, a heading of its own
 - Keeps the body to what helps review the diff and returns project coordination, such as flag timing or other tickets' scope, to the user
 - Without a repository template, writes a default body: ticket line, Why, What changes, How it was tested, Risk, Review notes and How to verify, each sized to the diff
 - Sizes the body against the repository's recent merged PRs, gives each decision and check one line, replaces superseded runs on updates, and folds run detail in the body or links an artifact
@@ -668,7 +668,7 @@ Create or update a GitHub PR with a concise explanation and useful review eviden
 - Preserves uploaded URLs on rewrites and recovers partial uploads without duplicate PRs
 - Uses diagrams and measured comparisons when they aid review
 - Preserves draft preference, runs each `gh` command as the verified GitHub actor without changing the active account, and publishes over SSH
-- Refreshes the whole description after material publication under existing authorization
+- Refreshes the whole description after material publication under existing authorization, pointing diff links at the published head
 - Resolves ticket hints through `issue-workflow` and applies the project-selected review event after creation
 
 ### pr-followup

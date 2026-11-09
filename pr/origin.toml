@@ -48,6 +48,11 @@ reason = "In the body the user rejected on 2026-10-29, each rewrite kept every e
 where = ["references/review-packet.md#evidence-and-continuity"]
 
 [[invariants]]
+rule = "An Update points every link into the PR diff at the line that now holds its code on the published head, recomputing the path hash after a rename. A push that moves code such a link points to counts as material publication, so it triggers an Update."
+reason = "On 2026-11-09 the user found a Review notes link pointing at the wrong code after a later formatting commit moved the lines, fixed it by hand and suggested re-resolving these links on each Update. The coordinator adopted the suggestion and added the path hash after a rename and the Update trigger for a push that moves linked code, because a formatting push could otherwise count as not material."
+where = ["references/review-packet.md#evidence-and-continuity", "references/publication.md#publish-the-selected-branch"]
+
+[[invariants]]
 rule = "Sub-results within a run, run logs, per-item counts and traces stay out of the body. Detail that still matters goes in a folded details block in the body or in an artifact at the PR's visibility, never a gist or external host. Description work posts no PR comments."
 reason = "User decision on 2026-11-08: detail belongs folded in the description, not in a first comment. This replaces the user's 2026-10-29 choice of one detail comment per PR. Run logs of data fixes can hold production values, so private hosts stay excluded."
 where = ["references/review-packet.md#length-budget", "references/publication.md#create-or-update-metadata"]
@@ -62,13 +67,18 @@ where = [
 ]
 
 [[invariants]]
-rule = "Written repository rules and the template on the resolved base govern the body's format. An exact enforced format applies unless the user explicitly overrides it."
+rule = "Written repository rules and the template on the resolved base govern the body's format, and the default sections a template lacks get headings of their own as the invariant on mapping the default structure onto a template states. An exact enforced format applies unless the user explicitly overrides it."
 where = ["SKILL.md#understand-the-change-and-repository", "references/review-packet.md#title-and-body"]
 
 [[invariants]]
-rule = "Without a template on the resolved base, the body follows the default structure in order: a ticket line with ticket and design links labeled by name even when a tracker policy shows a bare URL, Why, What changes, steps outside the PR, How it was tested, Risk, Review notes and How to verify. A section with nothing to say is left out, except How to verify, which every PR has. With a template, the same content fills the template's sections."
+rule = "Without a template on the resolved base, the body follows the default structure in order: a ticket line with ticket and design links labeled by name even when a tracker policy shows a bare URL, Why, What changes, steps outside the PR, How it was tested, Risk, Review notes and How to verify. A section with nothing to say is left out, except How to verify, which every PR has."
 reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail. The user asked that the skill define the default structure for repositories without a template."
 where = ["references/review-packet.md#title-and-body", "references/review-packet.md#default-structure"]
+
+[[invariants]]
+rule = "With a template on the resolved base, the body keeps the template's headings and their order. Default-structure content goes under the template section whose subject it is. Each default section the template lacks, such as Risk or How it was tested, gets its own heading with its default name, directly after the last section holding earlier default-structure content. A steps section holds only steps, even when its template comment invites risks there; no default section becomes a bold label inside another. When an enforced format or written rule allows no extra heading, the user decides."
+reason = "User decision on 2026-11-09: in aurora-payments/monorepo, whose template has no risk or testing section and asks for risks under How to verify, rewritten bodies carried Risk and testing as bold labels there. The user wants both always as sections of their own, and fixed those bodies by hand with the template's headings and the missing sections in default order. The coordinator added the question when no extra heading is allowed, because the user also required keeping enforced formats, and the placement rule, which keeps default order in a differently ordered template."
+where = ["references/review-packet.md#title-and-body"]
 
 [[invariants]]
 rule = "The body uses plain words, one line per fact and bullets, and sizes every section to the diff; a few-line diff gets one What changes bullet and no mechanism. It leaves out who did what, closing summaries, statistics offered as justification or cause, test commands and totals even when repository instructions ask, tables of checks, CI lines, team-routine steps, stack lines and reassurance. It names no commit hashes or revisions, and keeps class names, design tokens and CSS out of Why and What changes."
@@ -771,7 +781,7 @@ where = [
   "references/review-packet.md#evidence-and-continuity",
 ]
 shapes = "Kept the reviewer-understanding test as the opening of the reference and the evidence condition for checklist items."
-adapted = "The earlier fixed fallback headings and the rule that a template's headings are the complete set gave way to sections chosen for the review decision, with a small extra section allowed when it substantially reduces review effort."
+adapted = "The earlier fixed fallback headings and the rule that a template's headings are the complete set gave way to the default structure, whose sections fill a template's matching sections and get headings of their own where the template lacks them, unless an enforced format or written rule allows no extra heading."
 
 [[dependencies]]
 kind = "local"

@@ -102,6 +102,7 @@
         "The body does not mention PAY-13, PAY-14, PAY-15, PAY-16, the Figma redesign or a comparison with Figma.",
         "The body does not say when to enable the flag and does not mention PAY-17. Stating that every merchant with `settlements:view` gets the tab is not enablement timing.",
         "Outside the body, the response gives the user the coordination it left out, including that enabling the flag waits on PAY-17.",
+        "The body has a `## Risk` heading of its own, after `## What changed` and after `## Environment & external dependencies` when that section is present, and before `## Reviewer knowledge check` and `## How to verify`. Test results, when stated, sit under their own `## How it was tested` heading directly before `## Risk`. Neither appears as a bold label inside another section.",
         "No push, GitHub call or tracker write occurs."
       ]
     },
@@ -173,6 +174,7 @@
       "expectations": [
         "The body is at most 800 characters.",
         "The body uses the template's `## Summary` and `## Testing` sections.",
+        "`## Testing` holds the test results or the verification steps, and no second heading repeats that content, such as `## How it was tested` beside a `## Testing` that holds results. Any risk the body states sits under its own `## Risk` heading, not inside `## Summary` or `## Testing`.",
         "The body states that `Retry-After` is now sent in seconds instead of milliseconds and that clients waited 1,000 times longer than intended.",
         "The body reports that the updated `rate-limit.test.ts` assertion passes, without listing `pnpm test` or other commands CI also runs.",
         "No push or GitHub call occurs."
@@ -449,6 +451,31 @@
         "Outside the body, the response reports that staging was never checked in a browser and that this blocks publishing until it is tested.",
         "The body has no Summary, Changes, Validation or Skills used section, no commit hash, and no closing summary.",
         "No push, GitHub call or tracker write occurs."
+      ]
+    },
+    {
+      "id": 38,
+      "prompt": "Prepare a Draft-only title and body for this simulated branch; do not push, call GitHub or write to the tracker. Treat these values as verified tool output. Repository `acme/portal`, base `main`, head `feature/pay-41-webhook-retries` at `3c4d5e6`. No written title rule exists; recent titles look like `PAY-38 fix(payouts): keep the payout date in the merchant's time zone`. The ten most recent merged bodies by humans measure 2,200 to 3,600 characters; the second-longest is 3,300. The template on `main` is:\n\n```markdown\n<!-- Keep it short. Delete any section you have nothing for, except Checklist. -->\n\n## Context\n\n<!-- The problem, in 1-3 sentences. -->\n\n## Changes\n\n<!-- 2-5 bullets or a Before / After table. -->\n\n## Rollout & dependencies\n\n<!-- Delete unless the code needs something outside this PR: env vars, secrets, flags, infra. -->\n\n## Reviewer focus\n\n<!-- Optional. 1-3 callouts a reviewer should confirm. -->\n\n## QA steps\n\n<!-- Numbered steps a reviewer can follow. Name risks or follow-ups here too. -->\n\n## Checklist\n\n<!-- Required by the PR check: keep both items and tick only what is true. -->\n- [ ] Tests added or updated\n- [ ] Docs updated\n```\n\n`issue-workflow` Inspect verified ticket https://acme.atlassian.net/browse/PAY-41 as a completing relation linked by full URL on the first line. PAY-41: when a merchant's webhook endpoint is briefly down, the payment webhook fails once and is dropped, so the merchant never learns that the payment settled. One commit, `feat(webhooks): retry failed deliveries with backoff`, retries a failed delivery up to five times over about an hour (after 1, 5, 10, 20 and 30 minutes), only when the environment variable `WEBHOOK_RETRY_ENABLED` is `true`; unset, delivery behaves as on `main`. Companion PR https://github.com/acme/infra/pull/310 sets the variable in dev only. Each retry resends the same event id. The API docs tell merchants to de-duplicate by event id, but a merchant that ignores it could record one payment twice. Turning retries off means unsetting the variable and redeploying; retries already queued are then dropped without being sent. Retry queue depth shows on the `webhooks` Grafana dashboard; no alert watches it. On dev with the variable set to `true`, a test endpoint that answered 503 twice and then 200 received three attempts with the same event id, and the merchant's webhook log showed the delivery as `delivered`; with the variable unset, the endpoint received one attempt and the log showed `failed`. A new unit test, `retry.spec.ts`, covers the schedule; `pnpm test` passed 1,204 tests on `3c4d5e6`. No documentation changed. Return the title, the body, and anything else the user should know.",
+      "expected_output": "A body that keeps the template's headings and order, adds How it was tested and Risk as sections of their own where the default structure places them, keeps risk out of QA steps despite the template's invitation, and keeps the required checklist last with only true items ticked.",
+      "files": [],
+      "expectations": [
+        "The body has `## How it was tested` and `## Risk` as headings of their own, at the template's `##` level.",
+        "No section carries risk or test results under a bold label such as `**Risk:**`, `**Tested:**` or `**Testing:**`, and `## QA steps` names no risk.",
+        "The body's headings appear in this order: `## Context`, `## Changes`, `## Rollout & dependencies`, `## How it was tested`, `## Risk`, `## Reviewer focus` when present, `## QA steps`, `## Checklist`. It has no `## Why`, `## What changes`, `## Before turning it on`, `## Depends on`, `## Review notes` or `## How to verify` heading.",
+        "Risk states that a merchant that does not de-duplicate by event id could record one payment twice.",
+        "`## Checklist` is the last section and keeps both items, with `Tests added or updated` ticked and `Docs updated` unticked.",
+        "No push, GitHub call or tracker write occurs."
+      ]
+    },
+    {
+      "id": 39,
+      "prompt": "Prepare a Draft-only rewrite of the body of open PR https://github.com/acme/portal/pull/88 after newly published commits; do not edit the PR, push or call GitHub. Treat these values as verified tool output. Target and head repository `acme/portal`, head `feature/pay-50-sentry` at `4b5c6d7`, base `main`; the exact owner and branch match is OPEN. The repository has no PR template. The author's agent wrote the whole current body:\n\n```markdown\nPart of [PAY-50](https://acme.atlassian.net/browse/PAY-50)\n\n## Why\n\nWhen the portal fails in a merchant's browser, nobody finds out unless the merchant complains.\n\n## What changes\n\n- The portal reports a failed request to Sentry when no backend answered and the browser is online.\n- Nothing is sent while `VITE_SENTRY_DSN` is unset.\n\n## How it was tested\n\nThe How to verify steps, run on the dev portal, produced one `Network Error` event in Sentry.\n\n## Risk\n\nLow. Nothing is sent until `VITE_SENTRY_DSN` is set for an environment.\n\n## Review notes\n\n- [`reportRequestFailure`](https://github.com/acme/portal/pull/88/files#diff-ab947b11e81504d16707ee8a2162d070a973e0813c32add239e228571252a23fR59) decides which failed requests become events. Check that skipping those with a correlation ID matches how support finds backend failures.\n- [Sentry starts after the token stash](https://github.com/acme/portal/pull/88/files#diff-1cd8b18798a1a103bfe13bef54354c1f3a3bea29a31c8eea1a0c67a3a839b811R47) on purpose: the first URL it records must not hold an invitation token.\n\n## How to verify\n\n1. On the dev portal, block the request that loads the merchants list in devtools and reload.\n2. Sentry project `portal`, environment `dev`, shows one `Network Error` event.\n```\n\nSince that body was written, one commit was pushed: `4b5c6d7 style(telemetry): put each import on its own line`. It adds no behavior, and its CI checks pass. Its diff adds four lines to the imports at the top of `src/telemetry/report.ts`, above `reportRequestFailure`, and changes nothing else; it does not touch `src/main.tsx`. The How to verify steps were run again on the dev portal at `4b5c6d7` and produced one `Network Error` event in Sentry. Return the rewritten body and anything else the user should know.",
+      "expected_output": "A full rewrite whose review-note links point at the lines on the published head: the formatting commit moved `reportRequestFailure` from line 59 to line 63, so that link changes, while the untouched `src/main.tsx` link keeps line 47.",
+      "files": [],
+      "expectations": [
+        "The `reportRequestFailure` note links `https://github.com/acme/portal/pull/88/files#diff-ab947b11e81504d16707ee8a2162d070a973e0813c32add239e228571252a23fR63`, not the `R59` anchor.",
+        "The token-stash note still links `https://github.com/acme/portal/pull/88/files#diff-1cd8b18798a1a103bfe13bef54354c1f3a3bea29a31c8eea1a0c67a3a839b811R47`.",
+        "No PR edit, push or GitHub call occurs."
       ]
     }
   ]
