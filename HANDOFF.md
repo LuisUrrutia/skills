@@ -85,7 +85,7 @@ Orca ownership must be resolved from the receiving environment when applicable.
 
 ## Current capability inventory
 
-The atlas currently has **42 entries**, including the deprecated activity alias.
+The atlas inventory has **47 entries**.
 This is repository presence, not proof of installation, automatic selection or
 production effectiveness. [README.md](README.md) describes the capabilities;
 the entrypoint for a named package is `<name>/SKILL.md`.
@@ -97,7 +97,7 @@ the entrypoint for a named package is `<name>/SKILL.md`.
 | Implementation and domain rules | `debug`, `tdd`, `error-handling`, `observability`, `performance-optimization`, `accessibility`, `typescript-best-practices`, `deprecate-and-remove` |
 | Verification and review | `verification-authoring`, `verify`, `simplify-code`, `review-code-changes` |
 | Git and delivery | `worktrunk`, `commit`, `pr`, `pr-followup`, `stacked-pr`, `github-actions`, `ci-cd-automation`, `issue-workflow` |
-| Communication and continuity | `communicate-clearly`, `write-documentation`, `handoff`, `report-work-activity`, `comment-style`, `daily-meeting-update` (deprecated alias) |
+| Communication and continuity | `communicate-clearly`, `write-documentation`, `handoff`, `report-work-activity`, `comment-style` |
 | Teaching and learning | `teach` |
 | Other retained personal capabilities | `article-processing`, `youtube-processing`, `people-memory` |
 

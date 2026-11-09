@@ -4557,14 +4557,6 @@ window.SKILL_ATLAS = {
         "section": "communication"
       },
       {
-        "name": "daily-meeting-update",
-        "category": "Writing and personal workflows",
-        "summary": "Deprecated explicit old-name alias for report-work-activity; legacy interview and OpenCode digest retired.",
-        "path": "daily-meeting-update/SKILL.md",
-        "sha256": "620ab5890a49f535a478ec491accf5987207bdb543004f4e6b2eac96a793f5d8",
-        "section": "report-work-activity"
-      },
-      {
         "name": "article-processing",
         "category": "Writing and personal workflows",
         "summary": "Save article content as deduplicated bilingual archive and study notes in Obsidian.",
@@ -4719,7 +4711,8 @@ window.SKILL_ATLAS = {
       "draft-review",
       "visual-change-explainer",
       "home-assistant",
-      "bird"
+      "bird",
+      "daily-meeting-update"
     ],
     "replacements": {
       "review-audit": "review-code-changes",

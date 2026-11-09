@@ -17,8 +17,6 @@ shapes. Verify the schema instead of guessing SQL. If a source is unsupported,
 record it rather than exporting the whole store. Matthew Blode's `chat-history`
 source documents canonical Codex records, Claude JSONL, indexed Cursor reads and
 explicit exports; its implementation is not bundled or promised by this skill.
-The old `daily-meeting-update` OpenCode helper is retired from this workflow:
-it selects session creation time and reads unbounded later messages.
 
 Give the Luna worker selected metadata and bounded message/tool-result excerpts.
 It returns a short summary of request, work, observed result and remaining

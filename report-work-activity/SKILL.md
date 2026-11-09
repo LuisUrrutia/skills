@@ -7,7 +7,7 @@ description: Summarize your activity over a period and your outstanding commitme
 
 Produce a concise HTML report with retained evidence and useful counts, separating
 work from open source. One collection supports both the historical report and a
-separate snapshot of outstanding work. This skill replaces `daily-meeting-update`.
+separate snapshot of outstanding work.
 It reports activity; code reviews, incident response and task execution keep their
 own workflows. A request for pending work alone uses the same evidence contract.
 
