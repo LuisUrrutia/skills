@@ -478,6 +478,19 @@
         "Risk says idempotency keys make those duplicates harmless, so the duplicate charges are a cleared risk stated for the reviewer rather than a failure.",
         "The title starts with `fix(auth):`."
       ]
+    },
+    {
+      "id": 37,
+      "prompt": "Do not run any command; this is a simulation. Treat these values as verified tool output, describe in order what you would do, and return the new title and body. Request: \"Refresh the body of https://github.com/acme/portal/pull/530; push nothing.\" The PR is open with head `feat/PAY-260-refund-reasons` at `2b3c4d5`, unchanged since its body was written. Its base was just changed from `release/2.3` to `main`: the base is now `main` at `8e9f0a1`, and `main...2b3c4d5` contains two more commits than `release/2.3...2b3c4d5`, both from `main`, one of which changes the shared `RefundService`. No pull request template exists on `main`. Earlier in this session an `analyze-change-effects` run on `release/2.3` at `6d7e8f9` to `2b3c4d5` reported no effect outside the refund reasons form. If `analyze-change-effects` runs on `8e9f0a1..2b3c4d5`, it reports from source inspection: the form now calls `RefundService.create`, whose new signature on `main` requires a currency argument the form does not pass, so a refund submitted from the form fails. Every changed layer ran its How to verify steps on staging against `release/2.3`.",
+      "expected_output": "The writer does not reuse the run on the old base, runs analyze-change-effects inspection-only on 8e9f0a1..2b3c4d5, and the Risk names the failing refund submission.",
+      "files": [],
+      "expectations": [
+        "The response invokes `analyze-change-effects` on `8e9f0a1..2b3c4d5` before writing Risk.",
+        "It does not reuse the earlier run, because that run's base `6d7e8f9` is not the PR's current base, even though the head is the same.",
+        "It makes no commit or push and changes no product files; the only write is the PR body edit.",
+        "Risk names that a refund submitted from the form fails against the new `RefundService.create` signature, as a consequence from source inspection rather than an observed failure.",
+        "Outside the body, the response reports that the staging checks ran against the old base, so the form against `main` is untested and blocks publication."
+      ]
     }
   ]
 }
