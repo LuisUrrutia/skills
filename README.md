@@ -12,6 +12,9 @@ to these names; the old names are not alias packages in this repository.
 study. Update explicit invocations and remove installed copies of
 `learning-plan`; the old name is not an alias package.
 
+`daily-meeting-update` is removed: `report-work-activity` replaces it. Update
+explicit invocations and remove installed copies of `daily-meeting-update`.
+
 ### teach
 
 Teach any subject at the learner's level, from one lesson in the conversation to
@@ -237,8 +240,7 @@ installation and supported activation mechanism.
 ### report-work-activity
 
 Explain activity over a chosen period and current outstanding work in a private
-HTML report with retained evidence. Replaces the deprecated `daily-meeting-update`;
-the old name remains an explicit migration alias, and its legacy digest is retired.
+HTML report with retained evidence.
 
 **Triggers:** `what did I do yesterday`, `summarize last month's work`, `what commitments are still open`
 
