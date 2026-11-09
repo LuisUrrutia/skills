@@ -88,7 +88,9 @@ Use these sections in order, leaving out any that has nothing to say.
    [blocks publication](../SKILL.md#publish-and-verify). Leave the section out
    when nothing runs, such as a Markdown-only change.
 6. **Risk:** consequences, not generic labels; unknowns go here, not in a separate
-   section.
+   section. Derive them from an `analyze-change-effects` run on the PR's exact base
+   and head: its confirmed breakage and unproven paths become consequences, and a
+   cleared risk appears only when a reviewer would otherwise assume it.
    - No real risk: one line, `Low.`, plus the only difference users notice or a
      single non-obvious point, such as a parameter the API does not check.
    - Otherwise, and for a shared component that reaches every place it is used:

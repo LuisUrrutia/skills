@@ -660,6 +660,7 @@ Create or update a GitHub PR with a concise explanation and useful review eviden
 - Follows repository conventions while allowing useful additions where the format permits
 - Keeps the body to what helps review the diff and returns project coordination, such as flag timing or other tickets' scope, to the user
 - Without a repository template, writes a default body: ticket line, Why, What changes, How it was tested, Risk, Review notes and How to verify, each sized to the diff
+- Writes Risk from an `analyze-change-effects` run on the exact base and head
 - Sizes the body against the repository's recent merged PRs, gives each decision and check one line, replaces superseded runs on updates, and folds run detail in the body or links an artifact
 - Captures visible UI changes and attaches real images through supported `gh --attach` operations
 - Continues into `pr-followup` after creating a PR unless you ask for it without follow-up

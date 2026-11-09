@@ -133,7 +133,10 @@ lookup hint, repository, base and evidence of completing/contributing scope. Use
 permitted link form and event policy, or `not applicable`; preserve valid links on
 Update. Draft-only grants no tracker writes.
 
-For every title/body, read [review packet](references/review-packet.md). When
+For every title/body, read [review packet](references/review-packet.md). Before
+writing Risk, invoke `analyze-change-effects` on the exact base and head, reusing
+a current run of that range; Draft-only and metadata-only work keep it
+inspection-only. When
 visuals clarify an interface, flow or structure, read
 [visual evidence](references/visual-evidence.md). For visible UI changes, capture
 and attach relevant app states when the app, capture tool and upload route are
