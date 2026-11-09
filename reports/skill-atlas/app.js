@@ -280,7 +280,7 @@ const clusters = [
       "HumanLayer/show-me"
     ],
     "text": "Las dos teach comparten nombre, pero una explica código y la otra mantiene un curso. Un resumen de actividad y un informe visual también atienden necesidades distintas.",
-    "why": "teach owns lessons and optional practice; learning-plan owns courses and learning progressions. explain-code and explain-decisions replace how and why. report-work-activity owns activity reporting; daily-meeting-update is a deprecated alias. walkthrough is absent, and visual-change-explainer is recorded only in the original local inventory."
+    "why": "teach owns lessons and optional practice; learning-plan owns courses and learning progressions. explain-code and explain-decisions replace how and why. report-work-activity owns activity reporting and replaced daily-meeting-update, which is removed. walkthrough is absent, and visual-change-explainer is recorded only in the original local inventory."
   }
 ];
 

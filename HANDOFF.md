@@ -85,8 +85,7 @@ Orca ownership must be resolved from the receiving environment when applicable.
 
 ## Current capability inventory
 
-The atlas has **42 entries**, including the `daily-meeting-update` alias removed
-after its capture.
+The atlas inventory has **47 entries**.
 This is repository presence, not proof of installation, automatic selection or
 production effectiveness. [README.md](README.md) describes the capabilities;
 the entrypoint for a named package is `<name>/SKILL.md`.
