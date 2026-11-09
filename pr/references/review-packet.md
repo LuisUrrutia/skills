@@ -156,7 +156,9 @@ re-measured against the length budget. Replace stale claims and report material
 corrections when useful. A new run enters as one line and replaces the run it
 supersedes, the same check or environment at an older revision; keep an older
 run, in one line, only for evidence the newer one lacks. Revalidate manual
-context, links, captures, evidence and completed checklist claims.
+context, links, captures, evidence and completed checklist claims. Point each diff
+link at the line that now holds its code on the published head, recomputing the
+path hash after a rename: any push can move that line.
 Preserve others' accurate notes and unresolved design questions: the reviewer
 boundary governs your new prose, not deletion of their notes. Evidence is required
 to complete an unchecked item. Repair history belongs in commits.

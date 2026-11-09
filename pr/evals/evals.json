@@ -465,6 +465,17 @@
         "`## Checklist` is the last section and keeps both items, with `Tests added or updated` ticked and `Docs updated` unticked.",
         "No push, GitHub call or tracker write occurs."
       ]
+    },
+    {
+      "id": 36,
+      "prompt": "Prepare a Draft-only rewrite of the body of open PR https://github.com/acme/portal/pull/88 after newly published commits; do not edit the PR, push or call GitHub. Treat these values as verified tool output. Target and head repository `acme/portal`, head `feature/pay-50-sentry` at `4b5c6d7`, base `main`; the exact owner and branch match is OPEN. The repository has no PR template. The author's agent wrote the whole current body:\n\n```markdown\nPart of [PAY-50](https://acme.atlassian.net/browse/PAY-50)\n\n## Why\n\nWhen the portal fails in a merchant's browser, nobody finds out unless the merchant complains.\n\n## What changes\n\n- The portal reports a failed request to Sentry when no backend answered and the browser is online.\n- Nothing is sent while `VITE_SENTRY_DSN` is unset.\n\n## How it was tested\n\nThe How to verify steps, run on the dev portal, produced one `Network Error` event in Sentry.\n\n## Risk\n\nLow. Nothing is sent until `VITE_SENTRY_DSN` is set for an environment.\n\n## Review notes\n\n- [`reportRequestFailure`](https://github.com/acme/portal/pull/88/files#diff-ab947b11e81504d16707ee8a2162d070a973e0813c32add239e228571252a23fR59) decides which failed requests become events. Check that skipping those with a correlation ID matches how support finds backend failures.\n- [Sentry starts after the token stash](https://github.com/acme/portal/pull/88/files#diff-1cd8b18798a1a103bfe13bef54354c1f3a3bea29a31c8eea1a0c67a3a839b811R47) on purpose: the first URL it records must not hold an invitation token.\n\n## How to verify\n\n1. On the dev portal, block the request that loads the merchants list in devtools and reload.\n2. Sentry project `portal`, environment `dev`, shows one `Network Error` event.\n```\n\nSince that body was written, one commit was pushed: `4b5c6d7 style(telemetry): put each import on its own line`. It adds no behavior, and its CI checks pass. Its diff adds four lines to the imports at the top of `src/telemetry/report.ts`, above `reportRequestFailure`, and changes nothing else; it does not touch `src/main.tsx`. The How to verify steps were run again on the dev portal at `4b5c6d7` and produced one `Network Error` event in Sentry. Return the rewritten body and anything else the user should know.",
+      "expected_output": "A full rewrite whose review-note links point at the lines on the published head: the formatting commit moved `reportRequestFailure` from line 59 to line 63, so that link changes, while the untouched `src/main.tsx` link keeps line 47.",
+      "files": [],
+      "expectations": [
+        "The `reportRequestFailure` note links `https://github.com/acme/portal/pull/88/files#diff-ab947b11e81504d16707ee8a2162d070a973e0813c32add239e228571252a23fR63`, not the `R59` anchor.",
+        "The token-stash note still links `https://github.com/acme/portal/pull/88/files#diff-1cd8b18798a1a103bfe13bef54354c1f3a3bea29a31c8eea1a0c67a3a839b811R47`.",
+        "No PR edit, push or GitHub call occurs."
+      ]
     }
   ]
 }

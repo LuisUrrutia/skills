@@ -48,6 +48,11 @@ reason = "In the body the user rejected on 2026-10-29, each rewrite kept every e
 where = ["references/review-packet.md#evidence-and-continuity"]
 
 [[invariants]]
+rule = "An Update points every link into the PR diff at the line that now holds its code on the published head, recomputing the path hash after a rename. A push that moves code such a link points to counts as material publication, so it triggers an Update."
+reason = "On 2026-11-09 the user found a Review notes link pointing at the wrong code after a later formatting commit moved the lines, fixed it by hand and suggested re-resolving these links on each Update. The coordinator adopted the suggestion and added the path hash after a rename and the Update trigger for a push that moves linked code, because a formatting push could otherwise count as not material."
+where = ["references/review-packet.md#evidence-and-continuity", "references/publication.md#publish-the-selected-branch"]
+
+[[invariants]]
 rule = "Sub-results within a run, run logs, per-item counts and traces stay out of the body. Detail that still matters goes in a folded details block in the body or in an artifact at the PR's visibility, never a gist or external host. Description work posts no PR comments."
 reason = "User decision on 2026-11-08: detail belongs folded in the description, not in a first comment. This replaces the user's 2026-10-29 choice of one detail comment per PR. Run logs of data fixes can hold production values, so private hosts stay excluded."
 where = ["references/review-packet.md#length-budget", "references/publication.md#create-or-update-metadata"]

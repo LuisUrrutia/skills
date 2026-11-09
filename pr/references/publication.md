@@ -59,8 +59,8 @@ Publish a rebase only with an exact recorded lease:
 recheck branch, exact PR head, remote and tip. If the tip moved, reconcile the new
 work before publishing; never blindly refresh the lease or use plain force.
 
-After material publication to an open PR, perform Update from its verified
-published diff. Recheck head/base before writing; movement invalidates prepared
+After material publication to an open PR, including a push that moves code a diff
+link in its body points to, perform Update from its verified published diff. Recheck head/base before writing; movement invalidates prepared
 claims. Continue according to the entrypoint's request/caller routing.
 
 ## Create or update metadata
