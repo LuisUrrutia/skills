@@ -520,7 +520,7 @@ review-audit skill; it preserves a read-only review phase and local reports.
 - Opens cross-repository seams and runs census checks for copies, stored-value writers, comments, and tests
 - Reads a private per-repository review profile from the first existing of `review-code-changes/profiles`, `pr-review/profiles` or `pr-review-draft/profiles` under `$XDG_CONFIG_HOME` (default `~/.config`), or `--profiles-dir`; generic reviews need none
 - Distinguishes required changes, optional improvements, and unresolved questions
-- Uses relevant specialists within the review's scope and permissions
+- Uses relevant specialists within the review's scope and permissions, always including `accessibility` for frontend or UI changes, styles and client-side behavior included
 - Delegates independent risk areas automatically when useful, with one coordinator validating evidence and complete coverage
 - Validates Markdown coverage against a path inventory and renders HTML with an external stylesheet
 - Records local snapshots and pinned review sources, including Compound Engineering, OpenClaw, and Alireza Rezvani

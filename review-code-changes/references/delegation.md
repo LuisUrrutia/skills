@@ -16,9 +16,10 @@ Choose the smallest useful set of assignments. Common facets include behavior
 and contracts, security, state and concurrency, structure, performance, or test
 validity. Combine overlapping questions. Load available domain skills through
 the specialist router; do not invent installed skill names or universal language
-rules. Keep requirements, seams, census checks, overall coverage, and
-cross-facet interactions with the coordinator; a facet worker runs seams or
-census checks only when assigned. Dividing files alone can hide the contract between them.
+rules. Keep requirements, seams, census checks, the frontend accessibility pass,
+overall coverage, and cross-facet interactions with the coordinator; a facet
+worker runs seams, census checks or that pass only when assigned. Dividing files
+alone can hide the contract between them.
 
 Use the host's actual delegation mechanism, available model catalog, and capacity.
 Choose a plain agent type whose whole brief is your prompt, not a specialist

@@ -103,6 +103,11 @@ reason = "User decisions of 2026-10-13, 2026-10-23 and 2026-10-25 for pr-review:
 where = ["references/protocol.md#correctness-compatibility-and-security", "references/protocol.md#calibrate-and-challenge-findings"]
 
 [[invariants]]
+rule = "A frontend or UI change, including styles or client-side behavior, always loads the accessibility skill as review practice for the flows it affects, inside the review's scope and read-only boundary. When that skill does not resolve, the reviewer checks those flows directly and states the limit. In a delegated review the coordinator owns this pass, and a facet worker runs it only when assigned."
+reason = "User request of 2026-11-09: review-code-changes should invoke accessibility whenever a frontend change is reviewed (original words: \"Review code changes deberia invocar a accesibility si cambio algo de frontend\"). pr-review already supplies the accessibility reference for rendered-UI diffs; this makes direct reviews do the same. Independent reviews by Codex and Claude on the same day widened the trigger from rendered UI to styles and client-side behavior, and kept the pass with the coordinator so each facet worker does not repeat it."
+where = ["SKILL.md#use-focused-support", "references/delegation.md#select-work-from-the-risks"]
+
+[[invariants]]
 rule = "Census checks for maintainability search first the packages a changed file imports from, then its app, then the repository; compare whole statements the change adds one member to; compare copies and writers of one stored value by the unit they count or match; and count a new writer's different rule as the change's even without a caller. Writer validation does not replace a constraint on a newly read key."
 reason = "User decisions of 2026-10-25 for pr-review. Benchmark reviews missed most maintainability issues another reviewer found, a fixture repeated in 30 files, a hand-written copy in an imported package, a backfill that trims differently, two length limits counting different units, a drifted predicate repeated in four handlers, and accepted writer canonicalization in place of a constraint."
 where = ["references/protocol.md#census-checks"]
@@ -1070,3 +1075,9 @@ kind = "local"
 name = "debug"
 required = false
 role = "Optional diagnosis-only reproduction and discriminating probes for a consequential suspected failure."
+
+[[dependencies]]
+kind = "local"
+name = "accessibility"
+required = false
+role = "Review practice loaded for every frontend or UI change; it returns evidence in this skill's report and starts no separate audit."
