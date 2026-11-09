@@ -436,7 +436,7 @@
     {
       "id": 34,
       "prompt": "Prepare a Draft-only title and body for this simulated branch; do not push, call GitHub or write to the tracker. Treat these values as verified tool output. Repository `acme/portal`, base `main`, head `fix/PAY-212-admin-counts` at `4f5e6d7`. No pull request template exists on `main`; recent human-written bodies measure 2,100 to 3,400 characters. Ticket PAY-212 (https://acme.atlassian.net/browse/PAY-212): with the `new-partner-dashboard` flag on, admins opening `/dashboard` see only the greeting and lose the Total merchants and Active merchants cards. One commit changes `src/dashboard/DashboardRoute.tsx` so the new partner dashboard renders only when the selected profile is a partner (`isAffiliate`); everyone else keeps the current dashboard. `isAffiliate` is also true for an admin whose selected profile has an affiliate, so that admin still gets the new dashboard, which has data for that affiliate. A new test, `DashboardRoute.spec.tsx` \"shows admins the merchant counts while the flag is on\", fails before the fix and passes after; `pnpm test` passed 4,451 tests on `4f5e6d7`. The flag is on in dev and staging, off in production. Nobody checked staging in a browser yet. Return the title, the body, and anything else the user should know.",
-      "expected_output": "A short body in the default structure: a one-sentence Why, a Before/After table of the cases, results without CI commands, a one-line Risk, one review note and a How to test.",
+      "expected_output": "A short body in the default structure: a one-sentence Why, a Before/After table of the cases, results without CI commands, a one-line Risk, one review note and a How to verify.",
       "files": [],
       "expectations": [
         "The body opens with a ticket line such as `Completes [PAY-212](https://acme.atlassian.net/browse/PAY-212)`, with the key as the link text rather than a bare URL.",
@@ -445,7 +445,7 @@
         "How it was tested does not list `pnpm test` or the 4,451-test count.",
         "Risk is one line starting with `Low.` and has no Impact, Rollback or Error detection labels.",
         "Review notes, if present, hold only the `isAffiliate` admin case.",
-        "How to test gives numbered steps to open the dashboard as an admin on staging and check that both counts show.",
+        "How to verify gives numbered steps to open the dashboard as an admin on staging and check that both counts show.",
         "Outside the body, the response reports that staging was never checked in a browser and that this blocks publishing until it is tested.",
         "The body has no Summary, Changes, Validation or Skills used section, no commit hash, and no closing summary.",
         "No push, GitHub call or tracker write occurs."

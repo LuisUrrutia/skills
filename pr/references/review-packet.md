@@ -108,7 +108,7 @@ Use these sections in order, leaving out any that has nothing to say.
    code to its line in the PR diff,
    `https://github.com/<owner>/<repo>/pull/<number>/files#diff-<sha256 of the path>R<line>`.
    Leave the section out when the diff explains itself.
-8. **How to test:** numbered steps on the closest real environment for every
+8. **How to verify:** numbered steps on the closest real environment for every
    changed layer, such as the processor's test environment for a payment change,
    naming the screen to open and what to see. A test command is not a step. Every
    PR has one.

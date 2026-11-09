@@ -66,7 +66,7 @@ rule = "Written repository rules and the template on the resolved base govern th
 where = ["SKILL.md#understand-the-change-and-repository", "references/review-packet.md#title-and-body"]
 
 [[invariants]]
-rule = "Without a template on the resolved base, the body follows the default structure in order: a ticket line with ticket and design links labeled by name even when a tracker policy shows a bare URL, Why, What changes, steps outside the PR, How it was tested, Risk, Review notes and How to test. A section with nothing to say is left out, except How to test, which every PR has. With a template, the same content fills the template's sections."
+rule = "Without a template on the resolved base, the body follows the default structure in order: a ticket line with ticket and design links labeled by name even when a tracker policy shows a bare URL, Why, What changes, steps outside the PR, How it was tested, Risk, Review notes and How to verify. A section with nothing to say is left out, except How to verify, which every PR has. With a template, the same content fills the template's sections."
 reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail. The user asked that the skill define the default structure for repositories without a template."
 where = ["references/review-packet.md#title-and-body", "references/review-packet.md#default-structure"]
 
@@ -86,12 +86,12 @@ reason = "User decision on 2026-11-08, after comparing PR bodies for the user's 
 where = ["references/review-packet.md#default-structure"]
 
 [[invariants]]
-rule = "How it was tested states results on the closest real environment and names a layer only CI can run or a step meant to run after merge. CI results, including which specs or stories it ran, stay out because the PR's checks show them. It is left out when nothing runs. How to test gives numbered steps on the closest real environment for every changed layer; a test command is not a step."
+rule = "How it was tested states results on the closest real environment and names a layer only CI can run or a step meant to run after merge. CI results, including which specs or stories it ran, stay out because the PR's checks show them. It is left out when nothing runs. How to verify gives numbered steps on the closest real environment for every changed layer; a test command is not a step."
 reason = "User decision on 2026-11-08, after comparing PR bodies for the user's own merged PRs in aurora-payments/monorepo; teammates had asked for shorter bodies without AI-sounding prose, giving context and goals rather than implementation detail."
 where = ["references/review-packet.md#default-structure"]
 
 [[invariants]]
-rule = "Create and Update publish a body only when every changed layer ran through its How to test flow on the closest real environment; a layer only CI can run, a step meant to run after merge such as a production write, and a change with nothing to run are exempt. Otherwise publication blocks: verify runs within the request's authority, or the untested layers are reported as the blocker. Draft-only returns them beside the body."
+rule = "Create and Update publish a body only when every changed layer ran through its How to verify flow on the closest real environment; a layer only CI can run, a step meant to run after merge such as a production write, and a change with nothing to run are exempt. Otherwise publication blocks: verify runs within the request's authority, or the untested layers are reported as the blocker. Draft-only returns them beside the body."
 reason = "User decision on 2026-11-08: a PR should block when its change was not tested. Running and judging the tests stays with verify."
 where = ["SKILL.md#publish-and-verify", "references/review-packet.md#default-structure"]
 

@@ -659,7 +659,7 @@ Create or update a GitHub PR with a concise explanation and useful review eviden
 - Before creating a PR, runs `review-code-changes` on Codex Sol at xhigh unless such a report covers the exact head, resolves every finding by a fix, evidence, a follow-up or your decision, and re-reviews until nothing remains to fix
 - Follows repository conventions while allowing useful additions where the format permits
 - Keeps the body to what helps review the diff and returns project coordination, such as flag timing or other tickets' scope, to the user
-- Without a repository template, writes a default body: ticket line, Why, What changes, How it was tested, Risk, Review notes and How to test, each sized to the diff
+- Without a repository template, writes a default body: ticket line, Why, What changes, How it was tested, Risk, Review notes and How to verify, each sized to the diff
 - Sizes the body against the repository's recent merged PRs, gives each decision and check one line, replaces superseded runs on updates, and folds run detail in the body or links an artifact
 - Captures visible UI changes and attaches real images through supported `gh --attach` operations
 - Continues into `pr-followup` after creating a PR unless you ask for it without follow-up

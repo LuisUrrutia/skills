@@ -144,7 +144,7 @@ prerequisites and retained evidence.
 ## Publish and verify
 
 Create and Update publish a body only when every changed layer ran through its
-How to test flow on the closest real environment. A layer only CI can run, a
+How to verify flow on the closest real environment. A layer only CI can run, a
 step meant to run after merge such as a production write, and a change with
 nothing to run are exempt. Otherwise block publication: run `verify`
 within the request's authority, or report the untested layers as the blocker.
