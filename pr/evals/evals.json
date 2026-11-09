@@ -450,6 +450,34 @@
         "The body has no Summary, Changes, Validation or Skills used section, no commit hash, and no closing summary.",
         "No push, GitHub call or tracker write occurs."
       ]
+    },
+    {
+      "id": 35,
+      "prompt": "Do not run any command; this is a simulation. Treat these values as verified tool output, describe in order what you would do, and return the title, the body and anything else the user should know. Request: \"Draft-only: write the PR title and body for this branch; do not push, call GitHub or write to the tracker.\" Repository `acme/portal`, base `main` at `1a2b3c4`, head `feat/PAY-230-currency-format` at `9a8b7c6`. No pull request template exists on `main`. Ticket PAY-230 (https://acme.atlassian.net/browse/PAY-230) asks the invoice list to show amounts with the merchant's currency symbol. Commits: `5d6e7f8 feat(invoices): show the currency symbol in the invoice list` and `9a8b7c6 refactor(money): make formatAmount always add the currency symbol`. Earlier in this session an `analyze-change-effects` run covered `1a2b3c4..5d6e7f8` only and found no effect outside the invoice list. If `analyze-change-effects` runs on `1a2b3c4..9a8b7c6`, it reports from source inspection: `formatAmount` is also called by the billing CSV export (`src/billing/export.ts:42`), whose column `amount` now gains a symbol, and the finance import script that reads that CSV parses the column as a plain number; no test covers the export. The invoice list was checked on staging and shows symbols; the CSV export was not run.",
+      "expected_output": "The writer runs analyze-change-effects on the exact range 1a2b3c4..9a8b7c6, inspection-only, instead of reusing the stale run, and the Risk names the billing CSV export as a consequence.",
+      "files": [],
+      "expectations": [
+        "Before writing Risk, the response invokes `analyze-change-effects` on `1a2b3c4..9a8b7c6`, not only on `1a2b3c4..5d6e7f8`.",
+        "It does not reuse the earlier run as the Risk source, because that run does not cover the head `9a8b7c6`.",
+        "It keeps the analysis inspection-only: no product file edits, commits, pushes or remote writes.",
+        "Risk is not a one-line `Low.` and names the billing CSV export gaining a currency symbol and the finance import that reads the column as a number.",
+        "Risk presents the import break as an unproven consequence from source inspection, not as an observed failure.",
+        "Outside the body, the response reports the CSV export as an untested layer that blocks publication.",
+        "No push, GitHub call or tracker write occurs."
+      ]
+    },
+    {
+      "id": 36,
+      "prompt": "Do not run any command; this is a simulation. Treat these values as verified tool output, describe in order what you would do, and return the new title and body. Request: \"Update the title of https://github.com/acme/portal/pull/512 to start with `fix(auth):` and refresh its body; push nothing.\" The PR is open with base `main` at `3c4d5e6` and head `fix/AUTH-41-session-refresh` at `7f8a9b0`; the remote head and base match these SHAs. No pull request template exists on `main`. Its current body was written for this head. Earlier in this session an `analyze-change-effects` run on `3c4d5e6..7f8a9b0` reported: the token refresh now retries once on a 401, every API client built on `createClient` gets the retry, and the payments client already retries on its own, so a payment request can be sent up to four times; idempotency keys make the payment duplicates harmless, as shown in `src/payments/client.ts:88`. Every changed layer ran its How to verify steps on staging.",
+      "expected_output": "The writer reuses the current analysis of the exact range without starting a new run, keeps the work metadata-only and inspection-only, and the Risk carries the payments retry consequence.",
+      "files": [],
+      "expectations": [
+        "The response reuses the earlier `analyze-change-effects` run because it covers exactly `3c4d5e6..7f8a9b0`, and does not start another run.",
+        "It makes no commit or push and changes no product files; the only write is the PR title and body edit.",
+        "Risk names that a payment request can be sent up to four times because both retries apply.",
+        "Risk says idempotency keys make those duplicates harmless, so the duplicate charges are a cleared risk stated for the reviewer rather than a failure.",
+        "The title starts with `fix(auth):`."
+      ]
     }
   ]
 }
