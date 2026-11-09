@@ -110,10 +110,14 @@ rationale is unavailable, state that limit rather than infer closure.
 ## Use focused support
 
 Resolve supporting skills by registered name only when a concrete review question
-needs them. Pass the same scope, read-only boundary, evidence needed, and output
-location. Read [references/specialists.md](references/specialists.md) when selecting
-support. Missing optional help permits direct investigation with stated limits;
-a missing requested specialist or essential source blocks only its affected claim.
+needs them. A frontend or UI change, including styles or client-side behavior,
+always raises one: load `accessibility` as review practice for the flows it
+affects, or, when that skill does not resolve, review those flows directly and
+state that limit. Pass the same scope, read-only boundary, evidence needed, and
+output location. Read [references/specialists.md](references/specialists.md) when
+selecting support. Missing optional help permits direct investigation with
+stated limits; a missing requested specialist or essential source blocks only
+its affected claim.
 
 For a straightforward change, perform the review directly. When the snapshot
 exposes distinct consequential risks that benefit from separate investigation,
@@ -123,9 +127,10 @@ their questions from the change, not a fixed roster or file-size threshold.
 
 An assigned facet worker or a `compare-solutions` participant performs its single
 assigned review without delegation and uses only the profile context its
-coordinator supplies. `compare-solutions` remains the owner of
-comparing independent complete audits; this skill's coordinator owns complementary
-facets of one review. Neither mode recursively starts the other.
+coordinator supplies; a facet worker applies `accessibility` only when assigned.
+`compare-solutions` remains the owner of comparing independent complete audits;
+this skill's coordinator owns complementary facets of one review. Neither mode
+recursively starts the other.
 
 ## Deliver the report
 
