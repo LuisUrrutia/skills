@@ -136,9 +136,9 @@ Update. Draft-only grants no tracker writes.
 For every title/body, read [review packet](references/review-packet.md). Before
 writing Risk, invoke `analyze-change-effects` on the exact base and head, reusing
 a current run of that range; Draft-only and metadata-only work keep it
-inspection-only. When
-visuals clarify an interface, flow or structure, read
-[visual evidence](references/visual-evidence.md). For visible UI changes, capture
+inspection-only. If the base or head moves before publication, run it again on
+the new range and rewrite Risk from that run. When visuals clarify an interface,
+flow or structure, read [visual evidence](references/visual-evidence.md). For visible UI changes, capture
 and attach relevant app states when the app, capture tool and upload route are
 available, reusing verified captures of that revision. Read
 [attachments](references/attachments.md) for placement/upload; report inaccessible

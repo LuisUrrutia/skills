@@ -518,6 +518,19 @@
         "Risk names that a refund submitted from the form fails against the new `RefundService.create` signature, as a consequence from source inspection rather than an observed failure.",
         "Outside the body, the response reports that the staging checks ran against the old base, so the form against `main` is untested and blocks publication."
       ]
+    },
+    {
+      "id": 40,
+      "prompt": "Do not run any command; this is a simulation. Treat these values as verified tool output, describe in order what you would do, and return the new title and body. Request: \"Refresh the body of https://github.com/acme/portal/pull/544; push nothing.\" The PR is open with base `main` and head `feat/PAY-275-partial-refunds` at `4c5d6e7`. No pull request template exists on `main`. At the start of the task, `main` was at `3a4b5c6`, and an `analyze-change-effects` run on `3a4b5c6..4c5d6e7` reported no effect outside the partial refund dialog. Every changed layer ran its How to verify steps on staging. When you recheck the PR immediately before editing the body, the head is still `4c5d6e7`, but `main` is now at `7f8a9b0`: one new commit on `main` makes the shared `LedgerClient.post` reject amounts that are not whole cents. If `analyze-change-effects` runs on `7f8a9b0..4c5d6e7`, it reports from source inspection: the dialog posts the prorated refund amount without rounding, so a partial refund of an odd amount is rejected by the ledger.",
+      "expected_output": "The writer notices the base moved before publication, does not publish the Risk from the run on 3a4b5c6, runs analyze-change-effects inspection-only on 7f8a9b0..4c5d6e7, and the Risk names the rejected partial refund.",
+      "files": [],
+      "expectations": [
+        "The response rechecks base and head immediately before the body edit and sees that `main` moved from `3a4b5c6` to `7f8a9b0`.",
+        "It does not publish the Risk written from the `3a4b5c6..4c5d6e7` run, because that range is no longer the PR's range, even though the head is unchanged.",
+        "It invokes `analyze-change-effects` inspection-only on `7f8a9b0..4c5d6e7` and rewrites Risk from that run before editing the body.",
+        "Risk names that a partial refund of an amount that is not whole cents is rejected by `LedgerClient.post`, as a consequence from source inspection rather than an observed failure.",
+        "It makes no commit or push and changes no product files; the only write is the PR body edit."
+      ]
     }
   ]
 }

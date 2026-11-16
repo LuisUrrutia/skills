@@ -106,7 +106,7 @@ reason = "User decision on 2026-11-08: a PR should block when its change was not
 where = ["SKILL.md#publish-and-verify", "references/review-packet.md#default-structure"]
 
 [[invariants]]
-rule = "Risk comes from an analyze-change-effects run on the exact base and head. It is one line starting with Low when the change carries no real risk. Otherwise, and for a shared component that reaches every place it is used, it gives Impact, Rollback with its real cost and Error detection. Money movement or wider data access adds who is affected, who notices first or could see what they should not, records made before a rollback, and how to check the result."
+rule = "Risk comes from an analyze-change-effects run on the exact base and head that are current when the body is published. It is one line starting with Low when the change carries no real risk. Otherwise, and for a shared component that reaches every place it is used, it gives Impact, Rollback with its real cost and Error detection. Money movement or wider data access adds who is affected, who notices first or could see what they should not, records made before a rollback, and how to check the result."
 reason = "User decisions on 2026-11-08 and 2026-11-09: teammates asked for shorter bodies with context rather than implementation detail, and the user asked that Risk come from analyze-change-effects instead of the writer's own guess."
 where = ["SKILL.md#compose-for-review", "references/review-packet.md#default-structure"]
 
