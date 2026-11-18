@@ -22,10 +22,11 @@ the host's ownership and handoff rules and `worktrunk` before the first edit.
 
 Establish the outcome, scope, acceptance evidence, and current authority. Preserve
 settled decisions and explicit limits such as diagnosis-only, read-only,
-planning-only, local-only, create-only, or keep-draft. A generic implementation
-request ends with the scoped change, required checks, and any commits required by
-the task or standing rules; publication,
-merge, deployment, and background scheduling require their own authority from
+planning-only, local-only, create-only, or keep-draft. When the user invokes this
+skill with a ticket or other implementation request, that work ends, within those
+limits, with a PR published through `pr` Create; this endpoint authorizes the work
+branch, commits, and publication it needs. Otherwise publication, like merge,
+release, deployment, and background scheduling, requires its own authority from
 the request or standing rules.
 
 Resolve accessible facts before asking. Ask immediately when an unanswered choice

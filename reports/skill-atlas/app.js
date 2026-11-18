@@ -561,7 +561,7 @@ const scenarios = {
       ],
       [
         "Después",
-        "Verify the change, review proportionately, and commit under the active rules. Use pr and its existing follow-up only when publication is included in the task."
+        "Verify the change, review proportionately, and commit under the active rules. Within the user's limits, publish through pr when the user invoked work-mode or the task includes publication; Create continues into its follow-up unless the user excluded it."
       ]
     ],
     "note": "React Native, View Transitions y GitHub Actions se cargan solo si la tarea introduce esas necesidades."

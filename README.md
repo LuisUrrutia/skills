@@ -89,8 +89,9 @@ gap: a defect, unresolved direction, missing approach, or ready implementation.
 **Triggers:** `carry this task through to completion`, `resume this implementation`, `coordinate this feature through delivery`
 
 Uses the existing planning, implementation, verification, review, and delivery
-owners. Small settled changes keep a direct route. Specialist-only requests keep
-their own endpoint, and PR publication follows the task's actual authority.
+owners. Small settled changes keep a direct route. When the user invokes it with
+a ticket or implementation request, it ends with a published PR unless the user
+sets a narrower limit; specialist-only requests keep their own endpoint.
 Ticket implementation triggers its configured workflow even without a PR;
 follow-up retains one owner and the host's resumable watch. The package records
 selected pstack and Compound Engineering sources in `work-mode/origin.toml`.
