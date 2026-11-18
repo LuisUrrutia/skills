@@ -10,15 +10,25 @@ reason = "Wrapping a donor coordinator would mean replacing its authority, tooli
 where = ["SKILL.md#work-mode", "SKILL.md#choose-the-next-necessary-phase"]
 
 [[invariants]]
-rule = "Authority stays task-specific. A generic implementation request ends with the scoped change, the required checks and any commits that the task or standing rules require; publication, merge, deployment and background scheduling need their own authority from the request or standing rules. Already-authorized phases need no new approval."
-where = ["SKILL.md#establish-the-task-and-endpoint", "references/delivery.md"]
+rule = "When the user invokes the skill with a ticket or other implementation request, that invocation authorizes the work branch, commits and publication of its default endpoint: a PR published through pr Create, within the user's explicit limits, with Create's own follow-up unless the user sets create-only. Otherwise publication, like merge, release, deployment and background scheduling, needs its own authority from the request or standing rules. Already-authorized phases need no new approval."
+reason = "User decision (2026-11-18): an invoked work-mode carries a ticket or implementation task to a published PR with pr Create's issue-workflow events, such as pr-ready; merge, release, deployment and scheduled tasks stay outside that default. Incident (2026-11-18): invoked with a Jira ticket URL, an agent stopped after a verified local commit, as the earlier rule ending a generic implementation request at its commits allowed. Keeping Create's follow-up lets a settled draft reach ready for review, unless the user sets keep-draft, and emit pr-ready where a tracker policy selects it."
+where = [
+  "SKILL.md#establish-the-task-and-endpoint",
+  "references/delivery.md#select-one-delivery-owner",
+  "references/delivery.md#preserve-continuation-and-waiting",
+]
+
+[[invariants]]
+rule = "The default endpoint adds no merge limit of its own. Inside the follow-up that pr Create starts, pr-followup's standing policy merges settled PRs only in the user's personal repositories; any other repository stops before merge unless the request authorizes it."
+reason = "User decision (2026-11-18): under the default endpoint, merge happens only in the user's personal repositories."
+where = ["SKILL.md#establish-the-task-and-endpoint", "references/delivery.md#preserve-continuation-and-waiting"]
 
 [[invariants]]
 rule = "When one branch of the work is blocked, the coordinator continues independent authorized work. It asks immediately about an unresolved choice that materially changes scope, behavior, a contract or execution authority, and it never turns agent assumptions into policy."
 where = ["SKILL.md#establish-the-task-and-endpoint", "SKILL.md#choose-the-next-necessary-phase"]
 
 [[invariants]]
-rule = "Delivery follows the request: review is proportionate and conditional, commits happen at completed atomic boundaries under task or standing authority, local-only work stays local, the delivery scope is explicit, and PR follow-up waits on events through a host-supported watch instead of polling or an unrequested recurring schedule."
+rule = "Delivery follows the request: review is proportionate and conditional, commits happen at completed atomic boundaries under task or standing authority, local-only work stays local, and PR follow-up waits on events through a host-supported watch instead of polling or an unrequested recurring schedule."
 where = [
   "SKILL.md#verify-review-and-repair",
   "references/delivery.md#preserve-continuation-and-waiting",
@@ -85,7 +95,7 @@ reason = "External writes need authority from the request or standing rules."
 
 [[sources.declined]]
 feature = "A universal PR tail: opening a PR at the end of every playbook."
-reason = "A task ends at its requested endpoint; PR work runs only when that endpoint includes it."
+reason = "Implementation work ends with a PR by default only when the user invokes the skill, under the invariant on that endpoint, or when the request or standing rules authorize publication; investigation, planning and other specialist-only routes end at their owner's result, and explicit limits such as local-only keep their endpoint."
 
 [[sources.declined]]
 feature = "A standing program in which one coordinator runs a multi-day project."
@@ -166,7 +176,7 @@ reason = "Independent authorized work continues across a blocked branch, and an 
 
 [[sources.declined]]
 feature = "A fixed shipping tail after every code change: simplification, review, learning capture, browser tests, commit, push, PR and CI watch."
-reason = "Review is conditional, commits are atomic, local-only work stays local, delivery scope is explicit, and follow-up is event-driven."
+reason = "Simplification and browser tests run only when the route or verification selects them, learning capture is a separate task, review before publication belongs to pr's review gate, and commits are atomic; push and PR come once, when the invariant on the endpoint of an invoked implementation request or other authority includes publication, and event-driven follow-up only as Create's continuation allows, which ends at verified publication for create-only."
 
 [[sources.reviews]]
 from_commit = "efcb657d9a5733ccc154c36cc7d3d78b4136eb23"
