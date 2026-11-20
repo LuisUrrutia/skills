@@ -72,6 +72,21 @@ rule = "A not-applicable reply gives the one fact, tradeoff, contract or answer 
 reason = "User correction of 2026-11-20, in the incident behind the invariant on reading an inline comment's claim: the agent's 85-word reply carried call counts and probe results, and the user said \"la forma de responderle a [the reviewer] fue muy AI\". Evidence that a request or a dispute calls for stays allowed, matching comment-style's evidence rule."
 where = ["references/feedback.md#replies-and-thread-resolution"]
 
+[[invariants]]
+rule = "In T3 Code, Drive on a single PR waits in one follow-up thread titled 'Follow-up <owner>/<repo>#<number>', which owns the watch, the checkout and every later Drive turn; a live one is reused. Each wake runs scripts/triage.py, and only an act or stop verdict or a user message delegates one Drive turn, with the ledger's authority and limits, to the model that started Drive. The follow-up thread never edits, pushes, replies or changes PR state. Stacks and Feedback scope keep their existing watch rules."
+reason = "User decision of 2026-11-20 after a cost analysis of the user's Claude Code transcripts: over 30 days pr-review-followup was the most expensive skill (493 runs, $247), almost all on Claude Opus 5.5, and most runs found nothing to act on. The user asked for the same pattern on the author side on 2026-11-20 ('Si claro'), chose a dedicated thread, and asked that it 'funcione super bien con t3 code'."
+where = ["references/triage.md", "references/ci-and-observation.md#t3-code", "SKILL.md#choose-scope-and-establish-state"]
+
+[[invariants]]
+rule = "The follow-up thread runs the newest Luna model of an enabled Codex provider, read from T3 Code's live model catalog rather than a pinned version; without one it runs the newest Claude Haiku, and without either the watch stays in the acting thread. It runs at the model's lowest effort."
+reason = "User decision of 2026-11-20: 'prefiero que use gpt luna (sin hardcodear uno en especifico, porque pronto probablemente saldra una nueva version de luna), y si no esta openai/codex, entonces usar haiku'. The lowest effort is inferred: the helper decides each verdict, so routing needs no reasoning."
+where = ["references/triage.md#start-it"]
+
+[[invariants]]
+rule = "scripts/triage.py acts only on a PR state no Drive turn has judged: head, base branch, draft, conflict and behind state, review decision, threads, published reviews, conversation comments, failed checks and whether any check is pending. Check progress without a failure or completion is not a change, and feedback lists compare their newest 100 items. A Drive turn that ends waiting runs record immediately before its final snapshot."
+reason = "Check progress causes most watch wakes and changes no Drive decision until a check fails or all finish, when Drive collects every channel again. New activity lands at the end of each list. Recording before the final snapshot keeps events that arrive during a turn from being marked as judged."
+where = ["scripts/triage.py", "references/triage.md"]
+
 [[sources]]
 id = "pstack-pr-followup"
 author = "Lauren Tan / pstack"
@@ -504,7 +519,7 @@ idea = "One observation owner per PR persists across fix and push cycles; an act
 serves = "Prevents duplicate watchers and lost events between cycles."
 where = ["references/ci-and-observation.md#observe-resume-and-stop"]
 shapes = "Sets one watch per PR and thread and keeps it across pushes and wakes."
-adapted = "The donor keeps the model in a continuous polling loop with its watcher script. Locally a host-managed watch resumes the task on events, and the agent turn ends while waiting."
+adapted = "The donor keeps the model in a continuous polling loop with its watcher script. Locally a host-managed watch resumes the task on events, and the agent turn ends while waiting. In T3 Code a single PR's owner is its follow-up thread."
 
 [[sources.declined]]
 feature = "Following openai/codex main for this skill or installing the skill from there."
