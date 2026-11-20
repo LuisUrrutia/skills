@@ -121,8 +121,9 @@ or `logout`: every session on the machine shares the active account.
    write. It skips a reply identical to the reviewer's last comment and a
    resolution already in place, reads back every write, and keeps an uncertain
    write in the state file so no later tick repeats it. It refuses a plan whose
-   `expected_seen` no longer matches the PR, then records what the tick judged
-   for `triage`; with nothing to write, apply a plan without other fields.
+   `expected_seen` no longer matches the PR, before any write; make the plan once
+   more from a fresh `state`. Otherwise it records what the tick judged for
+   `triage`; with nothing to write, apply a plan without other fields.
 6. **Approve through the gate.** `state` lists `approval_blockers`: an
    unreviewed or incomplete review of this head and base, standing required
    findings, open decisive questions, and unresolved threads that are required

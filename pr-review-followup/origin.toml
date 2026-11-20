@@ -94,7 +94,7 @@ reason = "Host constraint in T3 Code's PR watch source; a resolved thread still 
 where = ["references/cadence.md#t3-code-watch", "SKILL.md#run-one-tick"]
 
 [[invariants]]
-rule = "In T3 Code one follow-up thread titled 'Follow-up <owner>/<repo>#<number>' owns a PR's watch; a live one is reused, and the acting thread then answers only status questions. Each wake there runs the helper's triage command, and only an act verdict or a user message delegates one tick to the model that started the follow-up. The follow-up thread never writes to GitHub or the state file."
+rule = "In T3 Code one follow-up thread titled with the role, actor and PR URL owns a PR's watch; a live one is reused, and the acting thread then answers only status questions. Each wake there runs the helper's triage command, and only an act verdict or a user message delegates one tick to the model that started the follow-up. The follow-up thread never writes to GitHub or the state file."
 reason = "User decision of 2026-11-20 after a cost analysis of the user's Claude Code transcripts: over 30 days pr-review-followup was the most expensive skill (493 runs, $247), almost all on Claude Opus 5.5, and most runs found nothing to act on. The user chose a dedicated thread and asked that it 'funcione super bien con t3 code'. Reusing a live thread keeps a second owner from running duplicate reviews and replies."
 where = ["references/triage.md", "SKILL.md#start-the-follow-up"]
 
@@ -104,7 +104,7 @@ reason = "User decision of 2026-11-20: 'prefiero que use gpt luna (sin hardcodea
 where = ["references/triage.md#start-it"]
 
 [[invariants]]
-rule = "The helper's triage command decides each wake without judgment and writes nothing. It acts on a change to the head, base or reviewer threads since the state the last tick judged, and, while findings outside the reviewer's threads or decisive questions stand, on changes to the PR title, body, conversation, or other reviewers' threads and reviews. An unsubmitted review or an uncertain write comes before the approval stop. apply records the judged state, passed as expected_seen, plus its own writes, and refuses a plan when the PR changed since."
+rule = "The helper's triage command decides each wake without judgment and writes nothing. It acts on a change to the head, base or reviewer threads since the state the last tick judged, and, while findings outside the reviewer's threads or decisive questions stand, on changes to the PR title, body, conversation, or other reviewers' threads and reviews. A head with no review and none in progress also acts. An unsubmitted review or an uncertain write comes before the approval stop. apply records the judged state, passed as expected_seen, plus its own writes, and refuses a plan when the PR changed since."
 reason = "A cheap model routes safely only when code decides the verdict. Recording a read taken after the tick would mark events that arrived during it as judged. Standing findings and open questions are settled outside the reviewer's threads, as the settlement rules describe."
 where = ["scripts/followup.py", "SKILL.md#run-one-tick", "references/triage.md#route-a-wake"]
 
