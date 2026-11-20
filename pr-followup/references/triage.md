@@ -41,21 +41,24 @@ triage thread nor a delegated child:
    file's absolute path, the acting model, and: "Follow Route a wake once, then
    arm `watch_pull_request` for this PR as your last call unless the route ended
    Drive. Do not load the whole skill."
-6. Wait for that first run with `t3_thread_wait`, then read the thread. When its
-   background tasks show the PR watch, report the link: that thread now owns the
-   watch, the checkout and every later Drive turn. Otherwise, or when the launch
-   fails, report why and arm the watch here.
+6. Wait for that first run with `t3_thread_wait`, then list its pull requests
+   with `list_thread_pull_requests`. When this PR shows `watching: true`, report
+   the link: that thread now owns the watch, the checkout and every later Drive
+   turn. When that run ended Drive, report its result and arm nothing. Otherwise,
+   or when the launch fails or times out, call `unwatch_pull_request` with that
+   thread's ID, then arm the watch here and report why.
 
 ## Route a wake
 
-1. A message from the user: when it stops or limits Drive, cancel a running
-   child with `task_cancel` first and record the limit in the ledger. Then
-   unwatch and report for a stop; otherwise delegate the message as below once
-   no child runs.
+1. A message from the user: cancel a running child with `task_cancel`, since a
+   cancelled child never wakes you, and record any new limit in the ledger. Then
+   unwatch and report for a stop; otherwise delegate the message now as below,
+   with the user's words.
 2. A wake saying T3 stopped watching: report its exact message and end the turn.
 3. While this thread's Drive child is running, end the turn with one line; its
    completion wakes you.
-4. A wake saying no checks started: delegate one Drive turn.
+4. A wake saying no checks started, the PR left the merge queue, or a workflow
+   awaits approval: delegate one Drive turn.
 5. Otherwise run `triage`. When it exits nonzero, run it once more; a second
    failure unwatches and reports the exact message. Then follow its verdict:
    - `quiet`: end the turn without a message; the watch stays on.
@@ -66,7 +69,8 @@ triage thread nor a delegated child:
    wake or triage reasons, and: "Continue `pr-followup` Drive for this PR from a
    fresh snapshot, with the authority and limits the ledger records, and keep
    the ledger current. Leave the watch to the parent. When the turn ends
-   waiting, run `record` immediately before the final snapshot. Return the
+   waiting, run `record` immediately before the final snapshot; when it fails
+   because the head moved, judge the new head once and record again. Return the
    `record` result and whether Drive ends waiting or for the user; end with
    `PR <URL>, head <SHA>, checks and reviews <state>`."
 7. On its completion, relay its result. When Drive ends for the user, the child
