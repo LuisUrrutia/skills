@@ -83,15 +83,16 @@ A new finding, or a reply that raises or argues a technical point, goes to a
 reader who knows the code, such as the author or a reviewer. Give what goes
 wrong, the input, state or user that triggers it, the rule or ticket that makes
 it required, and the ask or question in one or two short sentences, usually
-under 40 words. Leave out how you established it, such as call chains, the code
-path that lets it through, configuration flags, defaults and ticket history, and
-extra examples, side observations and caveats met while fixing. Give them only
-when the reader asks for them or disputes the point or answer you gave.
-Otherwise, a question about whether the change is worth it gets the one point
-that decides it, and a reply draft over 40 words that answers a question keeps
-any `Fixed in <commit>.` and only the sentence that answers the question. Name
-at most one fix, preferably an existing pattern; do not join alternative fixes
-with "or". Fixing it here or tracking it in a ticket remains one ask.
+under 40 words. Leave out how you established it and the results behind it, such
+as call chains, the code path that lets it through, configuration flags,
+defaults, ticket history, counts and probe or log results, and extra examples,
+side observations and caveats met while fixing. Give them only when the reader
+asks for them or disputes the point or answer you gave. Otherwise, a question
+about whether the change is worth it gets the one point that decides it, and a
+reply draft over 40 words that answers a question keeps any `Fixed in <commit>.`
+and only the sentence that answers the question. Name at most one fix,
+preferably an existing pattern; do not join alternative fixes with "or". Fixing
+it here or tracking it in a ticket remains one ask.
 
 When the PR works without a change your own work depends on, the comment is a
 request, not a finding: usually one sentence with the ask and the work that
