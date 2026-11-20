@@ -95,7 +95,7 @@ where = ["references/cadence.md#t3-code-watch", "SKILL.md#run-one-tick"]
 
 [[invariants]]
 rule = "In T3 Code one follow-up thread titled with the role, actor and PR URL owns a PR's watch; a live one is reused, and the acting thread then answers only status questions. Each wake there runs the helper's triage command, and only an act verdict or a user message delegates one tick to the model that started the follow-up. The follow-up thread never writes to GitHub or the state file."
-reason = "User decision of 2026-11-20 after a cost analysis of the user's Claude Code transcripts: over 30 days pr-review-followup was the most expensive skill (493 runs, $247), almost all on Claude Opus 5.5, and most runs found nothing to act on. The user chose a dedicated thread and asked that it 'funcione super bien con t3 code'. Reusing a live thread keeps a second owner from running duplicate reviews and replies."
+reason = "User decision of 2026-11-20 after a cost analysis of the user's Claude Code transcripts: over 30 days pr-review-followup was the most expensive skill (493 runs), almost all on Claude Opus 5.5, and most runs found nothing to act on. The user chose a dedicated thread and asked that it 'funcione super bien con t3 code'. Reusing a live thread keeps a second owner from running duplicate reviews and replies."
 where = ["references/triage.md", "SKILL.md#start-the-follow-up"]
 
 [[invariants]]
