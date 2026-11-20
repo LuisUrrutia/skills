@@ -29,12 +29,19 @@ class FakeGitHub:
                 {'__typename': 'CheckRun', 'name': 'lint', 'status': 'QUEUED', 'conclusion': None},
                 {'__typename': 'StatusContext', 'context': 'deploy', 'state': 'PENDING'})}}}]},
         }
+        self.more_checks = []
         self.calls = []
 
     def call(self, endpoint, payload=None):
         self.calls.append(endpoint)
         if endpoint == 'user':
             return {'login': self.actor}
+        contexts = self.pr['commits']['nodes'][0]['commit']['statusCheckRollup']['contexts']
+        if payload['variables'].get('after') == 'page-2':
+            return {'data': {'repository': {'pullRequest': {'commits': {'nodes': [{'commit': {
+                'oid': self.pr['headRefOid'], 'statusCheckRollup': {'contexts': page(*self.more_checks)}}}]}}}}}
+        contexts['pageInfo'].update(hasNextPage=bool(self.more_checks), endCursor='page-2')
+        self.pr['commits']['nodes'][0]['commit']['oid'] = self.pr['headRefOid']
         return {'data': {'repository': {'pullRequest': self.pr}}}
 
     def contexts(self):
@@ -120,6 +127,17 @@ class TriageTests(unittest.TestCase):
         self.api.pr['comments']['pageInfo']['hasNextPage'] = True
 
         self.assertEqual(self.triage()['verdict'], 'act')
+
+    def test_checks_on_later_pages_count(self):
+        self.api.more_checks = [{'__typename': 'CheckRun', 'name': 'e2e', 'status': 'IN_PROGRESS', 'conclusion': None}]
+        self.record()
+        self.assertEqual(self.triage()['verdict'], 'quiet')
+
+        self.api.more_checks[0].update(status='COMPLETED', conclusion='FAILURE')
+        result = self.triage()
+
+        self.assertEqual(result['verdict'], 'act')
+        self.assertEqual(json.loads(self.state_file.read_text())['seen']['failed_checks'], [])
 
     def test_merged_or_closed_stops(self):
         for state in ('MERGED', 'CLOSED'):

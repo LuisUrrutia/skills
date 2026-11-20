@@ -11,13 +11,16 @@ import subprocess
 import sys
 from pathlib import Path
 
-QUERY = """query($owner:String!,$repo:String!,$number:Int!){repository(owner:$owner,name:$repo){pullRequest(number:$number){
+QUERY = """query($owner:String!,$repo:String!,$number:Int!,$after:String){repository(owner:$owner,name:$repo){pullRequest(number:$number){
   state isDraft headRefOid baseRefName mergeable reviewDecision
   reviewThreads(first:100){pageInfo{hasNextPage} nodes{id isResolved comments(first:100){pageInfo{hasNextPage} nodes{id body}}}}
   reviews(first:100){pageInfo{hasNextPage} nodes{id state body}}
   comments(first:100){pageInfo{hasNextPage} nodes{id body}}
-  commits(last:1){nodes{commit{statusCheckRollup{contexts(first:100){pageInfo{hasNextPage} nodes{
-    __typename ... on CheckRun{name status conclusion} ... on StatusContext{context state}}}}}}}}}}"""
+  commits(last:1){nodes{commit{%s}}}}}}"""
+CHECKS = """oid statusCheckRollup{contexts(first:100,after:$after){pageInfo{hasNextPage endCursor} nodes{
+  __typename ... on CheckRun{name status conclusion} ... on StatusContext{context state}}}}"""
+CHECKS_QUERY = """query($owner:String!,$repo:String!,$number:Int!,$after:String){repository(owner:$owner,name:$repo){
+  pullRequest(number:$number){commits(last:1){nodes{commit{%s}}}}}}""" % CHECKS
 FAILED = {"FAILURE", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE", "ERROR"}
 
 
@@ -57,15 +60,20 @@ def digest(value) -> str:
 def snapshot(target: dict, actor: str, api) -> tuple[str, dict, bool]:
     if (login := api.call("user").get("login")) != actor:
         raise TriageError(f"GitHub actor differs: gh authenticates as {login!r}; bind {actor}'s token to the command")
-    pr = api.call("graphql", {"query": QUERY, "variables": {
-        "owner": target["owner"], "repo": target["repo"], "number": target["number"]}})["data"]["repository"]["pullRequest"]
-    commits = pr["commits"]["nodes"]
-    rollup = (commits[0]["commit"]["statusCheckRollup"] or {}) if commits else {}
-    contexts = rollup.get("contexts") or {"pageInfo": {"hasNextPage": False}, "nodes": []}
-    connections = [pr["reviewThreads"], pr["reviews"], pr["comments"], contexts,
-                   *(t["comments"] for t in pr["reviewThreads"]["nodes"])]
+    variables = {"owner": target["owner"], "repo": target["repo"], "number": target["number"]}
+    pr = api.call("graphql", {"query": QUERY % CHECKS, "variables": variables})["data"]["repository"]["pullRequest"]
+    checks, commit = [], (pr["commits"]["nodes"] or [{"commit": {}}])[0]["commit"]
+    # Large repositories run more than one page of checks; each later page must still belong to the head.
+    while contexts := (commit.get("statusCheckRollup") or {}).get("contexts"):
+        checks += contexts["nodes"]
+        if not contexts["pageInfo"]["hasNextPage"]:
+            break
+        commit = api.call("graphql", {"query": CHECKS_QUERY, "variables": {
+            **variables, "after": contexts["pageInfo"]["endCursor"]}})["data"]["repository"]["pullRequest"]["commits"]["nodes"][0]["commit"]
+        if commit["oid"] != pr["headRefOid"]:
+            raise TriageError("the PR head moved while its checks were read; run triage again")
+    connections = [pr["reviewThreads"], pr["reviews"], pr["comments"], *(t["comments"] for t in pr["reviewThreads"]["nodes"])]
     partial = any(c["pageInfo"]["hasNextPage"] for c in connections)
-    checks = contexts["nodes"]
     # Progress between the first and the last check result changes no decision, so only failures and completion count.
     seen = {
         "head": pr["headRefOid"], "base": pr["baseRefName"], "draft": pr["isDraft"],
@@ -95,7 +103,7 @@ def triage(url: str, actor: str, state_file: Path, api=None) -> dict:
     pr_state, seen, partial = snapshot(target, actor, api or GitHub(target["host"]))
     if pr_state != "OPEN":
         return {"verdict": "stop", "reasons": [f"the PR is {pr_state.lower()}"]}
-    reasons = [r for r, hit in (("a feedback or check list is longer than one page", partial),
+    reasons = [r for r, hit in (("a feedback list is longer than one page", partial),
                                 ("no Drive turn has seen this PR state", data.get("seen") != seen)) if hit]
     return {"verdict": "act" if reasons else "quiet", "reasons": reasons}
 
