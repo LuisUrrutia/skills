@@ -46,7 +46,8 @@ or `logout`: every session on the machine shares the active account.
 3. If `pr-review` just reviewed the current head, record it from that run (step 3
    of a tick); otherwise the first tick performs the full review.
 4. Run the first tick immediately; [cadence.md](references/cadence.md) says how
-   to wait between ticks on this host.
+   to wait between ticks on this host. A wake of a T3 triage thread follows
+   [triage.md](references/triage.md) instead of running a tick.
 
 ## Run one tick
 
@@ -118,7 +119,8 @@ or `logout`: every session on the machine shares the active account.
    the actor, open state, head, base branch and unsubmitted reviews before each
    write. It skips a reply identical to the reviewer's last comment and a
    resolution already in place, reads back every write, and keeps an uncertain
-   write in the state file so no later tick repeats it.
+   write in the state file so no later tick repeats it. With nothing to write,
+   apply an empty plan: every `apply` records what the tick saw for `triage`.
 6. **Approve through the gate.** `state` lists `approval_blockers`: an
    unreviewed or incomplete review of this head and base, standing required
    findings, open decisive questions, and unresolved threads that are required
