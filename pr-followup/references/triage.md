@@ -44,8 +44,11 @@ triage thread nor a delegated child:
    timeout, then list its pull requests with `list_thread_pull_requests`. When
    this PR shows `watching: true`, report the link: that thread now owns the
    watch, the checkout and every later Drive turn. When that run ended Drive,
-   report its result and arm nothing. Otherwise, or when the launch fails, arm
-   the watch here and report why.
+   report its result and arm nothing. Otherwise read that thread with
+   `t3_thread_read`: when it has run again, it owns this PR, including any stop
+   the user gave it, so report its link and arm nothing. Arm the watch here only
+   when the launch failed or that first run, still its last, ended unwatched,
+   and report why.
 
 ## Route a wake
 
