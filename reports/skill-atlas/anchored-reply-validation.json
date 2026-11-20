@@ -315,6 +315,13 @@
     "host": "Codex and Claude",
     "round": 5,
     "result": "pass: both the request-only and the dispute-only follow-up give the dropped-Promise case."
+   },
+   {
+    "case": "E and F through pr-followup",
+    "arm": "0227bcf runtime (same files at f0dbba6)",
+    "host": "Codex and Claude",
+    "round": 6,
+    "result": "pass: each reply gives the dropped-Promise case, and both threads are Not applicable and left open."
    }
   ],
   "carryover": [
@@ -322,11 +329,16 @@
    "C to 0227bcf: feedback.md is unchanged since 721d4ae, where the added evidence clause applies only to a request or dispute; C's comment has neither, and its claim-scope sentence is unchanged since fd135b3.",
    "Slack, WhatsApp and social messages: comment-style/SKILL.md is unchanged, and review.md loads only for PR replies and inline comments."
   ],
-  "observedGain": "Case A failed on the baseline in all four runs and passed on every later candidate run since b5f3020 on both hosts; case D failed on the baseline and passed on 0227bcf on both hosts. The partial and failed Claude runs on earlier candidates led to the anchored-only answer and the worth-it precedence."
+  "observedGain": "In the retained replies, case A broke the length and evidence expectations on the baseline in all four runs and met them in every candidate run since b5f3020 on both hosts; case D broke them on the baseline and met them on 0227bcf on both hosts. The partial and failed Claude runs on earlier candidates led to the anchored-only answer and the worth-it precedence.",
+  "untested": [
+   "Every 'No command or GitHub mutation is executed' expectation: the replies cannot show actions, and the executors were only told to take none.",
+   "Which files each executor loaded beyond its own report; no trace is retained."
+  ]
  },
  "limits": [
+  "Grades cover only what each reply or plan shows; see evaluation.untested.",
   "Dry runs on staged files with one to three runs per case and host; no live PR thread, and installed skills were not exercised.",
-  "Executors reported the files they read; their full traces stay in local T3 threads.",
+  "A run's revision rests on the staged file hashes and the executor's own list of files read; full traces stay in local T3 threads.",
   "Grading by the coordinator, not blind."
  ],
  "review_gate": {
@@ -353,6 +365,15 @@
     "F4 (medium): a wrong digest for ci-and-observation.md, unequal round-1 rubrics and no traces. Fixed: full hashes, one rubric in both files, and the attribution limit stated in the runs file.",
     "F6 (low): B2 joined a request and a dispute. Fixed: cases E (request only) and F (dispute only) ran on both hosts.",
     "Q1: the runs file now gives B2's prior answer, dispute and request, and every B2 reply."
+   ]
+  },
+  "third": {
+   "scope": "00c71fcd39b59670da6772ba820c3c669feba13b..f0dbba662e8067a6fc2269cf2c94324858a0b0c7",
+   "previous": "F1, F2, F3 and F5 resolved; F4 and F6 partly resolved.",
+   "dispositions": [
+    "F4 (medium): grades and improvement claims went beyond what the replies show. Fixed: grades cover observable expectations only, action expectations are listed as untested, and the improvement claim is limited to the retained replies.",
+    "F6 (low): cases E and F skipped the pr-followup handoff. Fixed: round 6 ran them through pr-followup Feedback scope on both hosts, graded for the case and the open Not applicable thread.",
+    "The pr skill stops after a third review that still leaves work; the user chose to apply these fixes and publish without a fourth review."
    ]
   }
  },

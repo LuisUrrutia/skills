@@ -9,6 +9,10 @@ traces stay in local T3 threads, so a run's revision rests on the staged hashes
 and that report, not on a retained trace. The coordinator graded every run, not
 blind.
 
+A grade covers only what the reply or plan shows. Expectations about actions,
+such as running no command and making no GitHub call, cannot be seen there and
+stay untested; the executors were only told to take none.
+
 Round 1 used an earlier case A prompt that carried identifiers from the private
 incident. Its outputs below replace them with `<helper>`, `<count>` and
 `<test file>`.
@@ -69,7 +73,7 @@ Every executor read `pr-followup/SKILL.md`, `references/feedback.md` and both
 
 ## Round 1
 
-| Case | Arm | Host | Reply or result | Grade |
+| Case | Arm | Host | Reply or result | Grade (observable expectations) |
 | --- | --- | --- | --- | --- |
 | A | base | Codex | "The rule flags dropped promises so we can await them and keep failures tied to the test that started the work. In `<test file>`, a dropped promise settled after the test ended, so its failure surfaced through `unhandledRejection`. Bare `describe` and `it` calls from `node:test` are exempt. `<helper>` returns nothing, so none of its `<count>` calls needs `await`" (57 words) | A2 to A4 fail |
 | A | base | Claude | "it flags promises a test drops. `<test file>` had one that settled after its test ended, so the failure surfaced in the `unhandledRejection` hook instead of that test. tests stay easy to write: `<helper>` returns nothing, so none of its `<count>` calls needs `await`" (about 48 words) | A2 to A4 fail |
@@ -80,7 +84,7 @@ Every executor read `pr-followup/SKILL.md`, `references/feedback.md` and both
 
 ## Round 2
 
-| Case | Arm | Host | Reply or result | Grade |
+| Case | Arm | Host | Reply or result | Grade (observable expectations) |
 | --- | --- | --- | --- | --- |
 | A | base | Codex | "the rule catches dropped promises at lint time. In `session-cache.test.ts`, one rejected after the test ended, so the failure surfaced through `unhandledRejection` outside that test. Calls to `describe` and `it` from `node:test` are exempt, and all 84 `assertLogged` calls already satisfy the rule because it returns nothing" (47 words) | A2, A4 fail |
 | A | base | Claude | "it flags Promises a test drops. `session-cache.test.ts` had one that settled after its test ended, so its failure came from the `unhandledRejection` hook instead of that test. it shouldn't make tests harder to write either: `describe` and `it` are allowlisted, and `assertLogged` returns nothing, so none of its 84 calls needs `await`" (52 words) | A2, A4 fail |
@@ -94,7 +98,7 @@ Every executor read `pr-followup/SKILL.md`, `references/feedback.md` and both
 
 ## Round 3
 
-| Case | Arm | Host | Reply or result | Grade |
+| Case | Arm | Host | Reply or result | Grade (observable expectations) |
 | --- | --- | --- | --- | --- |
 | A | cand3 | Codex | "the rule exempts `node:test` calls to `describe` and `it` and catches dropped promises inside the tests" (16 words); Not applicable, open | pass |
 | A | cand3 | Claude 1 | "right, the runner handles `describe` and `it`, so the config exempts them and the rule only flags other promises a test drops" (22 words); Not applicable, open; probe results kept for a dispute | pass |
@@ -105,7 +109,7 @@ Every executor read `pr-followup/SKILL.md`, `references/feedback.md` and both
 Every run used cand4. Executors for evals 1 to 3 were told that skills other
 than the two staged ones are available but not staged.
 
-| Case | Host | Reply or result | Grade |
+| Case | Host | Reply or result | Grade (observable expectations) |
 | --- | --- | --- | --- |
 | Eval 1 | Codex | Hands both PRs and the originating request to `stacked-pr` as the stack's submission; collects feedback meanwhile; repairs, publication and batched watches wait for its result under its ownership. | pass |
 | Eval 1 | Claude | Reads both PRs, then hands them to `stacked-pr` with the request word for word, asking no question; no `gh stack` or `gh pr create`; watches armed once by `stacked-pr`. Did not read the `comment-style` files. | pass |
@@ -127,7 +131,7 @@ only the files its case needs: both `comment-style` files, plus
 `pr-followup/SKILL.md`, `feedback.md` and `github-collection.md` for evals 4
 and 5.
 
-| Case | Arm | Host | Reply or result | Grade |
+| Case | Arm | Host | Reply or result | Grade (observable expectations) |
 | --- | --- | --- | --- | --- |
 | Eval 4 | cand5 | Codex | "The rule exempts `node:test`'s `describe` and `it` calls and flags dropped promises in test code that could reject after the test ends" (22 words); Not applicable, open | pass |
 | Eval 4 | cand5 | Claude | "the rule skips `describe` and `it`, so writing tests is as easy as before, but it still flags any other promise a test drops" (24 words); Not applicable, open; probe results held for a dispute | pass |
@@ -141,3 +145,16 @@ and 5.
 | D | cand5 | Claude | "the provider only publishes new rates every 5 minutes, so a shorter TTL would just refetch the same values" | pass |
 | E and F | cand5 | Codex | E: "in `session-cache.test.ts`, the rule would have flagged a helper call that dropped a promise. It rejected after the test ended, so the failure surfaced in `unhandledRejection` and was attributed to the next test". F: "the timeout never fired because the test in `session-cache.test.ts` had already finished when the dropped promise rejected. The failure surfaced in the file's `unhandledRejection` hook and was attributed to the next test" | pass |
 | E and F | cand5 | Claude | E: "in `session-cache.test.ts` a helper call dropped a promise that rejected after its test ended, so the failure surfaced in the file's `unhandledRejection` hook and got blamed on the next test". F: "it doesn't when the promise rejects after the test finishes. in `session-cache.test.ts` a helper call dropped one like that, so the timeout never fired and the failure surfaced in the file's `unhandledRejection` hook, blamed on the next test" | pass |
+
+## Round 6
+
+Cases E and F ran through `pr-followup` Feedback scope on cand5, which matches
+the runtime files at `f0dbba6`. Both threads already held the one-sentence
+answer; the reviewer only asked for a place in the first and only disputed it
+in the second. Each passes when its reply gives the dropped-Promise case and
+the thread is Not applicable and left open.
+
+| Case | Host | Reply or result | Grade (observable expectations) |
+| --- | --- | --- | --- |
+| E and F | Codex | E: "in `session-cache.test.ts`, the rule would have flagged the helper call that dropped a promise which later rejected"; Not applicable, open. F: "the dropped promise in `session-cache.test.ts` rejected after its test had already ended, so the timeout never fired. The rejection surfaced in the `unhandledRejection` hook and was attributed to the next test"; Not applicable (disproved), open. The executor reported one attempted read outside D that failed because the file did not exist. | pass |
+| E and F | Claude | E: "in `session-cache.test.ts` a helper call dropped a promise that rejected after its test ended, so the failure showed up in the file's `unhandledRejection` hook and got blamed on the next test. the rule flags that call"; Not applicable, open. F: "the timeout only fires while the test is still running. in `session-cache.test.ts` a helper call dropped a promise that rejected after its test had finished, so the timeout never fired and the failure showed up in the file's `unhandledRejection` hook, blamed on the next test"; Not applicable (disproved), open. Left out the unrequested call count. | pass |
