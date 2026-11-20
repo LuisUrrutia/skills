@@ -1,10 +1,13 @@
 from __future__ import annotations
 
 import json
+import subprocess
 import tempfile
 import unittest
 from pathlib import Path
+from unittest import mock
 
+import triage as helper
 from triage import TriageError, record, triage
 
 PR = 'https://github.com/example-org/api/pull/12'
@@ -139,6 +142,17 @@ class TriageTests(unittest.TestCase):
 
         with self.assertRaisesRegex(TriageError, 'run triage again'):
             self.triage()
+
+    def test_the_gh_adapter_reads_every_rest_page(self):
+        pages = [[{'id': i} for i in range(100)], [{'id': 100}]]
+        done = subprocess.CompletedProcess([], 0, stdout=json.dumps(pages), stderr='')
+
+        with mock.patch.object(helper.subprocess, 'run', return_value=done) as run:
+            items = helper.GitHub('github.com').call('repos/o/r/issues/1/comments?per_page=100')
+
+        self.assertEqual(len(items), 101)
+        self.assertIn('--paginate', run.call_args.args[0])
+        self.assertIn('--slurp', run.call_args.args[0])
 
     def test_an_unknown_mergeable_state_is_not_a_change(self):
         self.record()
