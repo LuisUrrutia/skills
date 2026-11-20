@@ -30,19 +30,20 @@ thread nor a delegated child:
    reviewer's binding, this file's absolute path, the acting model, and: "Follow
    Route a wake once, then arm `watch_pull_request` for this PR as your last
    call unless the route ended the follow-up. Do not load the whole skill."
-5. Wait for that first run with `t3_thread_wait`, then list its pull requests
-   with `list_thread_pull_requests`. When this PR shows `watching: true`, report
-   the link: that thread now owns the watch and every later tick. When that run
-   ended the follow-up, report its result and arm nothing. Otherwise, or when
-   the launch fails or times out, call `unwatch_pull_request` with that thread's
-   ID, then arm the watch here and report why.
+5. Wait with `t3_thread_wait` until that first run ends, waiting again after a
+   timeout, then list its pull requests with `list_thread_pull_requests`. When
+   this PR shows `watching: true`, report the link: that thread now owns the
+   watch and every later tick. When that run ended the follow-up, report its
+   result and arm nothing. Otherwise, or when the launch fails, arm the watch
+   here and report why.
 
 ## Route a wake
 
-1. A message from the user: cancel a running child with `task_cancel`, since a
-   cancelled child never wakes you. Then unwatch and report for a stop;
-   otherwise delegate the message now as below, with the user's words, and carry
-   any new limit into every later task.
+1. A message from the user that only asks for status: answer from `state` and
+   leave any child and the watch alone. Any other message: cancel a running
+   child with `task_cancel`, since a cancelled child never wakes you. Then
+   unwatch and report for a stop; otherwise delegate the message now as below,
+   with the user's words, and carry any new limit into every later task.
 2. A wake saying T3 stopped watching: report its exact message and end the turn.
 3. While this thread's tick child is running, reply in one line and end the
    turn; its completion wakes you.

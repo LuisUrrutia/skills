@@ -41,22 +41,25 @@ triage thread nor a delegated child:
    file's absolute path, the acting model, and: "Follow Route a wake once, then
    arm `watch_pull_request` for this PR as your last call unless the route ended
    Drive. Do not load the whole skill."
-6. Wait for that first run with `t3_thread_wait`, then list its pull requests
-   with `list_thread_pull_requests`. When this PR shows `watching: true`, report
-   the link: that thread now owns the watch, the checkout and every later Drive
-   turn. When that run ended Drive, report its result and arm nothing. Otherwise,
-   or when the launch fails or times out, call `unwatch_pull_request` with that
-   thread's ID, then arm the watch here and report why.
+6. Wait with `t3_thread_wait` until that first run ends, waiting again after a
+   timeout, then list its pull requests with `list_thread_pull_requests`. When
+   this PR shows `watching: true`, report the link: that thread now owns the
+   watch, the checkout and every later Drive turn. When that run ended Drive,
+   report its result and arm nothing. Otherwise, or when the launch fails, arm
+   the watch here and report why.
 
 ## Route a wake
 
-1. A message from the user: cancel a running child with `task_cancel`, since a
-   cancelled child never wakes you, and record any new limit in the ledger. Then
-   unwatch and report for a stop; otherwise delegate the message now as below,
-   with the user's words.
+1. A message from the user that only asks for status: answer from the ledger
+   and a read of the PR, and leave any child and the watch alone. Any other
+   message: cancel a running child with `task_cancel`, since a cancelled child
+   never wakes you, and record any new limit in the ledger. Then unwatch and
+   report for a stop; otherwise delegate the message now as below, with the
+   user's words.
 2. A wake saying T3 stopped watching: report its exact message and end the turn.
 3. While this thread's Drive child is running, end the turn with one line; its
-   completion wakes you.
+   completion wakes you. When the wake is one of step 4's events, say so in that
+   line, so the completion step delegates it.
 4. A wake saying no checks started, the PR left the merge queue, or a workflow
    awaits approval: delegate one Drive turn.
 5. Otherwise run `triage`. When it exits nonzero, run it once more; a second
@@ -75,8 +78,9 @@ triage thread nor a delegated child:
    `PR <URL>, head <SHA>, checks and reviews <state>`."
 7. On its completion, relay its result. When Drive ends for the user, the child
    failed, or a turn that ends waiting returned no `record` result, unwatch
-   first and report. Otherwise run `triage` once more and follow its verdict,
-   which covers events that arrived during the turn.
+   first and report. Otherwise delegate a step 4 event noted during the turn, or
+   run `triage` once more and follow its verdict, which covers the other events
+   that arrived during the turn.
 
 A T3 tool can load late or under another namespace, such as
 `t3-code-direct.delegate_task`: search for it and call it once before reporting

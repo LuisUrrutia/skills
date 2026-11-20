@@ -83,7 +83,7 @@ reason = "User decision of 2026-11-20: 'prefiero que use gpt luna (sin hardcodea
 where = ["references/triage.md#start-it"]
 
 [[invariants]]
-rule = "scripts/triage.py acts only on a PR state no Drive turn has judged: head, base branch, draft, conflict and behind state, review decision, thread resolution, every inline comment, published review and conversation comment, each completed check result, and whether any check is pending. Running check states are not a change. Every page of every list is compared. A Drive turn that ends waiting runs record immediately before its final snapshot."
+rule = "scripts/triage.py acts only on a PR state no Drive turn has judged: head, base branch, draft, conflict and behind state, review decision, thread resolution, every inline comment, published review and conversation comment, each completed check run, and whether any check is pending. Running check states are not a change. Every page of every list is compared. A Drive turn that ends waiting runs record immediately before its final snapshot."
 reason = "T3 Code wakes on failed checks, on the required checks passing and when all checks finish, and each can carry reviewer output or decide readiness, while running states change no decision. An edit to any comment can be delivered as a wake, so no list is truncated. Recording before the final snapshot keeps events that arrive during a turn from being marked as judged."
 where = ["scripts/triage.py", "references/triage.md"]
 
