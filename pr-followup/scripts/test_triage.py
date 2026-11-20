@@ -10,42 +10,50 @@ from triage import TriageError, record, triage
 PR = 'https://github.com/example-org/api/pull/12'
 
 
-def page(*nodes, more=False):
-    return {'pageInfo': {'hasNextPage': more}, 'nodes': list(nodes)}
+def check(name, status='IN_PROGRESS', conclusion=None):
+    return {'__typename': 'CheckRun', 'name': name, 'status': status, 'conclusion': conclusion}
 
 
 class FakeGitHub:
+    """GitHub as triage reads it: PR fields, paged threads and checks over GraphQL, paged lists over REST."""
+
     def __init__(self):
         self.actor = 'author'
-        self.pr = {
-            'state': 'OPEN', 'isDraft': False, 'headRefOid': 'a' * 40, 'baseRefName': 'main',
-            'mergeable': 'MERGEABLE', 'mergeStateStatus': 'BLOCKED', 'reviewDecision': 'REVIEW_REQUIRED',
-            'reviewThreads': page({'id': 'T1', 'isResolved': False,
-                                   'comments': page({'id': 'C1', 'body': 'guard this write'})}),
-            'reviews': page({'id': 'R1', 'state': 'COMMENTED', 'body': 'a few points'}),
-            'comments': page({'id': 'I1', 'body': 'thanks for this'}),
-            'commits': {'nodes': [{'commit': {'statusCheckRollup': {'contexts': page(
-                {'__typename': 'CheckRun', 'name': 'test', 'status': 'IN_PROGRESS', 'conclusion': None},
-                {'__typename': 'CheckRun', 'name': 'lint', 'status': 'QUEUED', 'conclusion': None},
-                {'__typename': 'StatusContext', 'context': 'deploy', 'state': 'PENDING'})}}}]},
-        }
-        self.more_checks = []
+        self.pr = {'state': 'OPEN', 'isDraft': False, 'headRefOid': 'a' * 40, 'baseRefName': 'main',
+                   'mergeable': 'MERGEABLE', 'mergeStateStatus': 'BLOCKED', 'reviewDecision': 'REVIEW_REQUIRED'}
+        self.threads = [{'id': 'T1', 'isResolved': False}]
+        self.checks = [check('test'), check('lint', 'QUEUED'), {'__typename': 'StatusContext', 'context': 'deploy',
+                                                               'state': 'PENDING'}]
+        self.inline = [{'id': 1, 'body': 'guard this write'}]
+        self.reviews = [{'id': 2, 'state': 'COMMENTED', 'body': 'a few points'}]
+        self.conversation = [{'id': 3, 'body': 'thanks for this'}]
+        self.page_size = 100
+        self.head_moves_on_page_two = False
         self.calls = []
+
+    def page(self, nodes, after):
+        start = int(after or 0)
+        end = start + self.page_size
+        return {'pageInfo': {'hasNextPage': end < len(nodes), 'endCursor': str(end)}, 'nodes': nodes[start:end]}
 
     def call(self, endpoint, payload=None):
         self.calls.append(endpoint)
         if endpoint == 'user':
             return {'login': self.actor}
-        contexts = self.pr['commits']['nodes'][0]['commit']['statusCheckRollup']['contexts']
-        if payload['variables'].get('after') == 'page-2':
-            return {'data': {'repository': {'pullRequest': {'commits': {'nodes': [{'commit': {
-                'oid': self.pr['headRefOid'], 'statusCheckRollup': {'contexts': page(*self.more_checks)}}}]}}}}}
-        contexts['pageInfo'].update(hasNextPage=bool(self.more_checks), endCursor='page-2')
-        self.pr['commits']['nodes'][0]['commit']['oid'] = self.pr['headRefOid']
-        return {'data': {'repository': {'pullRequest': self.pr}}}
-
-    def contexts(self):
-        return self.pr['commits']['nodes'][0]['commit']['statusCheckRollup']['contexts']['nodes']
+        if endpoint == 'graphql':
+            after = payload['variables']['after']
+            pr = dict(self.pr)
+            if after and self.head_moves_on_page_two:
+                pr['headRefOid'] = 'c' * 40
+            if 'reviewThreads' in payload['query']:
+                pr['reviewThreads'] = self.page(self.threads, after)
+            else:
+                pr['commits'] = {'nodes': [{'commit': {'oid': pr['headRefOid'], 'statusCheckRollup': {
+                    'contexts': self.page(self.checks, after)}}}]}
+            return {'data': {'repository': {'pullRequest': pr}}}
+        lists = {'/pulls/12/comments?per_page=100': self.inline, '/pulls/12/reviews?per_page=100': self.reviews,
+                 '/issues/12/comments?per_page=100': self.conversation}
+        return next(items for suffix, items in lists.items() if endpoint.endswith(suffix))
 
 
 class TriageTests(unittest.TestCase):
@@ -73,40 +81,64 @@ class TriageTests(unittest.TestCase):
 
         self.assertFalse(self.state_file.exists())
 
-    def test_check_progress_without_a_failure_or_completion_stays_quiet(self):
+    def test_running_checks_that_change_state_without_finishing_stay_quiet(self):
         self.record()
 
-        self.api.contexts()[0].update(status='COMPLETED', conclusion='SUCCESS')
-        self.api.contexts()[1].update(status='IN_PROGRESS')
+        self.api.checks[1].update(status='IN_PROGRESS')
 
         self.assertEqual(self.triage()['verdict'], 'quiet')
 
     def test_acts_on_each_change_a_turn_must_judge(self):
         changes = {
-            'failed check': lambda pr, ctx: ctx[0].update(status='COMPLETED', conclusion='FAILURE'),
-            'failed status': lambda pr, ctx: ctx[2].update(state='ERROR'),
-            'all checks finished': lambda pr, ctx: [c.update(status='COMPLETED', conclusion='SUCCESS', state='SUCCESS')
-                                                    for c in ctx],
-            'thread reply': lambda pr, ctx: pr['reviewThreads']['nodes'][0]['comments']['nodes'].append(
-                {'id': 'C2', 'body': 'still racy'}),
-            'edited comment': lambda pr, ctx: pr['comments']['nodes'][0].update(body='please split this'),
-            'resolution': lambda pr, ctx: pr['reviewThreads']['nodes'][0].update(isResolved=True),
-            'review': lambda pr, ctx: pr['reviews']['nodes'].append({'id': 'R2', 'state': 'APPROVED', 'body': ''}),
-            'decision': lambda pr, ctx: pr.update(reviewDecision='APPROVED'),
-            'conflict': lambda pr, ctx: pr.update(mergeable='CONFLICTING'),
-            'behind': lambda pr, ctx: pr.update(mergeStateStatus='BEHIND'),
-            'head': lambda pr, ctx: pr.update(headRefOid='b' * 40),
-            'base': lambda pr, ctx: pr.update(baseRefName='release/1.2'),
-            'ready': lambda pr, ctx: pr.update(isDraft=True),
+            'failed check': lambda api: api.checks[0].update(status='COMPLETED', conclusion='FAILURE'),
+            'passed check while others run': lambda api: api.checks[0].update(status='COMPLETED', conclusion='SUCCESS'),
+            'failed status': lambda api: api.checks[2].update(state='ERROR'),
+            'thread reply': lambda api: api.inline.append({'id': 4, 'body': 'still racy'}),
+            'edited inline comment': lambda api: api.inline[0].update(body='guard both writes'),
+            'edited conversation comment': lambda api: api.conversation[0].update(body='please split this'),
+            'resolution': lambda api: api.threads[0].update(isResolved=True),
+            'review': lambda api: api.reviews.append({'id': 5, 'state': 'APPROVED', 'body': ''}),
+            'decision': lambda api: api.pr.update(reviewDecision='APPROVED'),
+            'conflict': lambda api: api.pr.update(mergeable='CONFLICTING'),
+            'behind': lambda api: api.pr.update(mergeStateStatus='BEHIND'),
+            'head': lambda api: api.pr.update(headRefOid='b' * 40),
+            'base': lambda api: api.pr.update(baseRefName='release/1.2'),
+            'draft': lambda api: api.pr.update(isDraft=True),
         }
         for name, change in changes.items():
             with self.subTest(change=name):
                 self.setUp()
                 self.record()
 
-                change(self.api.pr, self.api.contexts())
+                change(self.api)
 
                 self.assertEqual(self.triage()['verdict'], 'act')
+
+    def test_every_page_is_compared(self):
+        self.api.page_size = 1
+        self.api.threads += [{'id': 'T2', 'isResolved': False}]
+        self.record()
+
+        self.api.threads[1]['isResolved'] = True
+        self.assertEqual(self.triage()['verdict'], 'act')
+        self.record()
+        self.api.checks[2].update(state='SUCCESS')
+        self.assertEqual(self.triage()['verdict'], 'act')
+
+    def test_an_edit_to_an_old_item_of_a_long_list_acts(self):
+        self.api.conversation = [{'id': i, 'body': f'note {i}'} for i in range(150)]
+        self.record()
+
+        self.api.conversation[0]['body'] = 'note 0, edited'
+
+        self.assertEqual(self.triage()['verdict'], 'act')
+
+    def test_a_head_that_moves_between_pages_fails_for_a_retry(self):
+        self.api.page_size = 1
+        self.api.head_moves_on_page_two = True
+
+        with self.assertRaisesRegex(TriageError, 'run triage again'):
+            self.triage()
 
     def test_an_unknown_mergeable_state_is_not_a_change(self):
         self.record()
@@ -118,27 +150,9 @@ class TriageTests(unittest.TestCase):
     def test_a_pending_review_is_not_published_feedback(self):
         self.record()
 
-        self.api.pr['reviews']['nodes'].append({'id': 'R3', 'state': 'PENDING', 'body': 'draft'})
+        self.api.reviews.append({'id': 6, 'state': 'PENDING', 'body': 'draft'})
 
         self.assertEqual(self.triage()['verdict'], 'quiet')
-
-    def test_a_long_feedback_list_does_not_act_by_itself(self):
-        self.record()
-
-        self.api.pr['comments']['pageInfo']['hasNextPage'] = True
-
-        self.assertEqual(self.triage()['verdict'], 'quiet')
-
-    def test_checks_on_later_pages_count(self):
-        self.api.more_checks = [{'__typename': 'CheckRun', 'name': 'e2e', 'status': 'IN_PROGRESS', 'conclusion': None}]
-        self.record()
-        self.assertEqual(self.triage()['verdict'], 'quiet')
-
-        self.api.more_checks[0].update(status='COMPLETED', conclusion='FAILURE')
-        result = self.triage()
-
-        self.assertEqual(result['verdict'], 'act')
-        self.assertEqual(json.loads(self.state_file.read_text())['seen']['failed_checks'], [])
 
     def test_merged_or_closed_stops(self):
         for state in ('MERGED', 'CLOSED'):

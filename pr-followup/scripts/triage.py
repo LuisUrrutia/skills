@@ -12,16 +12,10 @@ import sys
 from pathlib import Path
 
 QUERY = """query($owner:String!,$repo:String!,$number:Int!,$after:String){repository(owner:$owner,name:$repo){pullRequest(number:$number){
-  state isDraft headRefOid baseRefName mergeable mergeStateStatus reviewDecision
-  reviewThreads(last:100){nodes{id isResolved comments(last:100){nodes{id body}}}}
-  reviews(last:100){nodes{id state body}}
-  comments(last:100){nodes{id body}}
-  commits(last:1){nodes{commit{%s}}}}}}"""
-CHECKS = """oid statusCheckRollup{contexts(first:100,after:$after){pageInfo{hasNextPage endCursor} nodes{
-  __typename ... on CheckRun{name status conclusion} ... on StatusContext{context state}}}}"""
-CHECKS_QUERY = """query($owner:String!,$repo:String!,$number:Int!,$after:String){repository(owner:$owner,name:$repo){
-  pullRequest(number:$number){commits(last:1){nodes{commit{%s}}}}}}""" % CHECKS
-FAILED = {"FAILURE", "CANCELLED", "TIMED_OUT", "ACTION_REQUIRED", "STARTUP_FAILURE", "ERROR"}
+  state isDraft headRefOid baseRefName mergeable mergeStateStatus reviewDecision %s}}}"""
+THREADS = "reviewThreads(first:100,after:$after){pageInfo{hasNextPage endCursor} nodes{id isResolved}}"
+CHECKS = """commits(last:1){nodes{commit{oid statusCheckRollup{contexts(first:100,after:$after){pageInfo{hasNextPage endCursor} nodes{
+  __typename ... on CheckRun{name status conclusion} ... on StatusContext{context state}}}}}}}"""
 
 
 class TriageError(RuntimeError):
@@ -33,7 +27,9 @@ class GitHub:
         self.host = host
 
     def call(self, endpoint: str, payload: dict | None = None):
+        paginate = "per_page=100" in endpoint
         command = ["gh", "api", "--hostname", self.host, endpoint] + (["--input", "-"] if payload else [])
+        command += ["--paginate", "--slurp"] if paginate else []
         result = subprocess.run(command, input=json.dumps(payload) if payload else "", capture_output=True,
                                 text=True, timeout=120, env={**os.environ, "GH_PROMPT_DISABLED": "1"})
         if result.returncode:
@@ -41,7 +37,7 @@ class GitHub:
         value = json.loads(result.stdout)
         if isinstance(value, dict) and value.get("errors"):
             raise TriageError(f"GraphQL errors: {value['errors']}")
-        return value
+        return [item for page in value for item in page] if paginate else value
 
 
 def parse_pr(url: str) -> dict:
@@ -57,33 +53,46 @@ def digest(value) -> str:
     return hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
 
 
+def pages(api, variables: dict, connection: str, path) -> tuple[dict, list]:
+    """Every node of one GraphQL connection, with the pull request read alongside its first page."""
+    nodes, after, first = [], None, None
+    while True:
+        pr = api.call("graphql", {"query": QUERY % connection, "variables": {**variables, "after": after}})[
+            "data"]["repository"]["pullRequest"]
+        first = first or pr
+        page = path(pr)
+        if after and pr["headRefOid"] != first["headRefOid"]:
+            raise TriageError("the PR head moved while it was read; run triage again")
+        nodes += page["nodes"] if page else []
+        if not page or not page["pageInfo"]["hasNextPage"]:
+            return first, nodes
+        after = page["pageInfo"]["endCursor"]
+
+
 def snapshot(target: dict, actor: str, api) -> tuple[str, dict]:
     if (login := api.call("user").get("login")) != actor:
         raise TriageError(f"GitHub actor differs: gh authenticates as {login!r}; bind {actor}'s token to the command")
     variables = {"owner": target["owner"], "repo": target["repo"], "number": target["number"]}
-    pr = api.call("graphql", {"query": QUERY % CHECKS, "variables": variables})["data"]["repository"]["pullRequest"]
-    checks, commit = [], (pr["commits"]["nodes"] or [{"commit": {}}])[0]["commit"]
-    # Large repositories run more than one page of checks; each later page must still belong to the head.
-    while contexts := (commit.get("statusCheckRollup") or {}).get("contexts"):
-        checks += contexts["nodes"]
-        if not contexts["pageInfo"]["hasNextPage"]:
-            break
-        commit = api.call("graphql", {"query": CHECKS_QUERY, "variables": {
-            **variables, "after": contexts["pageInfo"]["endCursor"]}})["data"]["repository"]["pullRequest"]["commits"]["nodes"][0]["commit"]
-        if commit["oid"] != pr["headRefOid"]:
-            raise TriageError("the PR head moved while its checks were read; run triage again")
-    # Progress between the first and the last check result changes no decision, so only failures and completion
-    # count. Feedback lists keep their newest 100 items, where new activity lands; edits to older items go unseen.
+    pr, checks = pages(api, variables, CHECKS, lambda pr: ((pr["commits"]["nodes"] or [{"commit": {}}])[0]["commit"]
+                                                         .get("statusCheckRollup") or {}).get("contexts"))
+    _, threads = pages(api, variables, THREADS, lambda pr: pr["reviewThreads"])
+    rest = f"repos/{target['owner']}/{target['repo']}"
+    inline = api.call(f"{rest}/pulls/{target['number']}/comments?per_page=100")
+    reviews = api.call(f"{rest}/pulls/{target['number']}/reviews?per_page=100")
+    conversation = api.call(f"{rest}/issues/{target['number']}/comments?per_page=100")
+    # Check progress counts only as completed results: T3 wakes on failures, on the required gate and when all
+    # checks finish, and each of those can carry feedback or decide readiness. Running states change no decision.
     seen = {
         "head": pr["headRefOid"], "base": pr["baseRefName"], "draft": pr["isDraft"],
         "conflicting": pr["mergeable"] == "CONFLICTING", "behind": pr["mergeStateStatus"] == "BEHIND",
         "decision": pr["reviewDecision"],
-        "threads": {t["id"]: digest([t["isResolved"], [c["body"] for c in t["comments"]["nodes"]]])
-                    for t in pr["reviewThreads"]["nodes"]},
-        "reviews": {r["id"]: digest([r["state"], r["body"]]) for r in pr["reviews"]["nodes"] if r["state"] != "PENDING"},
-        "comments": {c["id"]: digest(c["body"]) for c in pr["comments"]["nodes"]},
-        "failed_checks": sorted(c.get("name") or c.get("context") for c in checks
-                                if (c.get("conclusion") or c.get("state")) in FAILED),
+        "resolved": {t["id"]: t["isResolved"] for t in threads},
+        "inline": {str(c["id"]): digest(c["body"]) for c in inline},
+        "reviews": {str(r["id"]): digest([r["state"], r["body"]]) for r in reviews if r["state"] != "PENDING"},
+        "conversation": {str(c["id"]): digest(c["body"]) for c in conversation},
+        "completed_checks": sorted([c["name"], c["conclusion"]] if c["__typename"] == "CheckRun" else [c["context"], c["state"]]
+                                   for c in checks if c.get("status", "COMPLETED") == "COMPLETED"
+                                   and c.get("state") not in {"PENDING", "EXPECTED"}),
         "checks_pending": any(c.get("status", "COMPLETED") != "COMPLETED" or c.get("state") in {"PENDING", "EXPECTED"}
                               for c in checks),
     }
