@@ -11,8 +11,8 @@ In T3 Code, wait with `watch_pull_request`, armed through a triage thread as
 below instead. A triage thread's wake follows that file. Any other wake runs one
 `pr-review-followup` tick; reread this skill first if it is no longer in context.
 
-- When a tick ends waiting and no watch is on, arm it right after the tick's final
-  read and end the turn. End that report with the PR URL, reviewer, state file
+- When a tick ends waiting, no watch is on and no triage thread takes it, arm it
+  right after the tick's final read and end the turn. End that report with the PR URL, reviewer, state file
   path and what each wake runs, and say that a comment posted after that read,
   and the events below, wait for another wake or invocation.
 - It wakes on others' comments and reviews, check results, a push without checks,
@@ -49,7 +49,8 @@ identifier with the follow-up:
 The tick prompt must be self-contained: the PR URL, the reviewer actor, the state
 file path, the instruction to run one `pr-review-followup` tick, and the
 schedule's own title so the tick can find and delete it. Each scheduled tick runs
-the helper's `triage` first and ends in one line when it reports `quiet`.
+the helper's `triage` first and ends in one line when it reports `quiet`; it
+still runs on the scheduling thread's model.
 
 A full review can outlast one interval. A tick that finds a review in progress on
 the current head skips the review step and still settles threads; it does not

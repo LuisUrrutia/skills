@@ -110,17 +110,19 @@ or `logout`: every session on the machine shares the active account.
    and the tick report gives the deciding fact.
 5. **Apply** with `apply --plan "$PLAN" --receipt "$RECEIPT"`, a new plan and
    receipt per tick. The plan is `{"expected_head": SHA, "expected_base_ref":
-   BRANCH, "replies": [{"thread_id", "body"}], "resolve": [ids], "unresolve":
-   [ids], "verified": [ids], "required": [ids], "optional": [ids], "approve":
-   bool}`, with the head and base `state` reported; `verified` marks resolved
+   BRANCH, "expected_seen": SEEN, "replies": [{"thread_id", "body"}], "resolve":
+   [ids], "unresolve": [ids], "verified": [ids], "required": [ids], "optional":
+   [ids], "approve": bool}`, with the head, base and `seen` object from the
+   `state` read the plan judged; `verified` marks resolved
    threads the current head confirms, and `required` and `optional` record a
    thread's action. Before any write the helper validates the whole plan,
    rejects threads the reviewer did not start or cannot resolve, and rechecks
    the actor, open state, head, base branch and unsubmitted reviews before each
    write. It skips a reply identical to the reviewer's last comment and a
    resolution already in place, reads back every write, and keeps an uncertain
-   write in the state file so no later tick repeats it. With nothing to write,
-   apply an empty plan: every `apply` records what the tick saw for `triage`.
+   write in the state file so no later tick repeats it. It refuses a plan whose
+   `expected_seen` no longer matches the PR, then records what the tick judged
+   for `triage`; with nothing to write, apply a plan without other fields.
 6. **Approve through the gate.** `state` lists `approval_blockers`: an
    unreviewed or incomplete review of this head and base, standing required
    findings, open decisive questions, and unresolved threads that are required
