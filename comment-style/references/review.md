@@ -32,9 +32,9 @@ said, including their diagnosis or suggestion, and never narrate the
 implementation, its tests, or other additions; the commit shows them. Without a
 fix, give the answer or the concrete reason for disagreeing, then stop. When the
 reviewer questions something the PR already handles, even by asking whether the
-change is worth it, the whole answer is one sentence naming what handles it, such
-as "exactly, the rule skips the tests themselves (describe/it), but it's still
-on for any other code".
+change is worth it, and neither asks for evidence nor disputes your answer, the
+whole answer is one sentence naming what handles it, such as "exactly, the rule
+skips the tests themselves (describe/it), but it's still on for any other code".
 
 Distinguish proposed, changed locally, checked, published, and deployed. Say
 "fixed" only when the evidence supports the implied scope. Do not invent a test
@@ -80,19 +80,18 @@ out to other sites or resolve a discussion.
 ## Say enough to find the problem
 
 A new finding, or a reply that raises or argues a technical point, goes to a
-reader who knows the code, such as the author or a reviewer, and can investigate
-with an agent. Give what goes wrong, the input, state or user that triggers it,
-the rule or ticket that makes it required, and the ask or question in one or two
-short sentences, usually under 40 words. Leave out how you established it, such
-as call chains, the code path that lets it through, configuration flags, defaults
-and ticket history, and extra examples, side observations and caveats met while
-fixing. Give them only when the reader asks for them or disputes the point or
-answer you gave. Otherwise, a question about whether the change is worth it gets
-the one point that decides it, and a reply draft over 40 words that answers a
-question keeps any `Fixed in <commit>.` and only the sentence that answers the
-question. Name at most one fix, preferably an existing pattern; do not join
-alternative fixes with "or". Fixing it here or tracking it in a ticket remains
-one ask.
+reader who knows the code, such as the author or a reviewer. Give what goes
+wrong, the input, state or user that triggers it, the rule or ticket that makes
+it required, and the ask or question in one or two short sentences, usually
+under 40 words. Leave out how you established it, such as call chains, the code
+path that lets it through, configuration flags, defaults and ticket history, and
+extra examples, side observations and caveats met while fixing. Give them only
+when the reader asks for them or disputes the point or answer you gave.
+Otherwise, a question about whether the change is worth it gets the one point
+that decides it, and a reply draft over 40 words that answers a question keeps
+any `Fixed in <commit>.` and only the sentence that answers the question. Name
+at most one fix, preferably an existing pattern; do not join alternative fixes
+with "or". Fixing it here or tracking it in a ticket remains one ask.
 
 When the PR works without a change your own work depends on, the comment is a
 request, not a finding: usually one sentence with the ask and the work that
