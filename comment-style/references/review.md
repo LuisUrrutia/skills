@@ -90,9 +90,10 @@ side observations and caveats met while fixing. Give them only when the reader
 asks for them or disputes the point or answer you gave. Otherwise, a question
 about whether the change is worth it gets the one point that decides it, and a
 reply draft over 40 words that answers a question keeps any `Fixed in <commit>.`
-and only the sentence that answers the question. Name at most one fix,
-preferably an existing pattern; do not join alternative fixes with "or". Fixing
-it here or tracking it in a ticket remains one ask.
+with the deviation, scope or deferral sentence that form requires, and only the
+sentence that answers the question. Name at most one fix, preferably an existing
+pattern; do not join alternative fixes with "or". Fixing it here or tracking it
+in a ticket remains one ask.
 
 When the PR works without a change your own work depends on, the comment is a
 request, not a finding: usually one sentence with the ask and the work that
