@@ -52,13 +52,13 @@
     {
       "id": 5,
       "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output. Feedback scope on your own open PR https://github.com/acme/api/pull/912 (head `auth/token-retry`, base `main`). Reviewer `sam-o` left one inline comment on the retry loop in `src/auth/token.ts`, with no replies: \"This loop can spin forever when the token endpoint keeps returning 500. Please cap it. Also, why retry at all instead of failing fast?\" Commit `4e1c9a7`, which caps the loop at three attempts with exponential backoff and adds a test for the cap, is verified and published on the PR head. The token endpoint returns short 503 bursts while it deploys; last month's logs show 37 of them, each under four seconds, and every one recovered within two retries. Your draft reply is: \"Fixed in 4e1c9a7. I capped the loop at three attempts with exponential backoff starting at 200 ms and added a test that asserts we stop after the third failure. We retry instead of failing fast because the token endpoint returns short 503 bursts during its deploys; last month's logs show 37 of them, all under four seconds, and every one recovered within two retries.\" Classify this thread and give the exact reply text you would post.",
-      "expected_output": "Applied, then resolved after the reply is visible. The reply keeps `Fixed in 4e1c9a7.` and adds only one sentence that answers why the loop retries, the short 503 bursts during the endpoint's deploys, without the backoff, the test, the log counts or durations.",
+      "expected_output": "Applied, then resolved after the reply is visible. The reply keeps `Fixed in 4e1c9a7.` and adds only one sentence that answers why the loop retries, the short 503 bursts during the endpoint's deploys, without the backoff, the test or any log result.",
       "files": [],
       "expectations": [
         "The thread is classified as applied and resolved after the reply is visible.",
         "The reply starts with `Fixed in 4e1c9a7.`.",
         "After that, the reply has exactly one sentence, and it answers why the loop retries instead of failing fast.",
-        "The reply leaves out the backoff, the test, the 37 bursts and their durations.",
+        "The reply leaves out the backoff, the test and every log result: the 37 bursts, their durations and their recovery within two retries.",
         "No command or GitHub mutation is executed."
       ]
     }
