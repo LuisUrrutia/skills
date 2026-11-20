@@ -33,6 +33,7 @@ class FakeGitHub:
         self.head = HEAD
         self.base_ref = 'main'
         self.reviews = []
+        self.title, self.body, self.conversation = 'Guard writes', 'Adds a guard.', []
         self.threads = [thread('T1', ('reviewer', 'guard this write'), ('author', 'fixed in the last push')),
                         thread('T2', ('reviewer', 'cover the timezone case'), resolved=True, resolved_by='reviewer'),
                         thread('T3', ('other', 'nit: rename this'))]
@@ -55,10 +56,12 @@ class FakeGitHub:
                     self.threads[0].update(isResolved=False, resolvedBy=None)
             return {'data': {'repository': {'pullRequest': {
                 'id': 'PR_node', 'state': self.pr_state, 'headRefOid': self.head, 'baseRefName': self.base_ref,
-                'author': {'login': self.author},
+                'title': self.title, 'body': self.body, 'author': {'login': self.author},
                 'reviewThreads': {'pageInfo': {'hasNextPage': False}, 'nodes': self.threads}}}}}
         if endpoint.endswith('/reviews?per_page=100'):
             return self.reviews
+        if endpoint.endswith('/issues/12/comments?per_page=100'):
+            return self.conversation
         if endpoint.endswith('/replies'):
             number = int(endpoint.split('/')[-2])
             target = next(t for t in self.threads if t['comments']['nodes'][0]['databaseId'] == number)
@@ -194,7 +197,8 @@ class FollowupTests(unittest.TestCase):
         for data in ({'approve': 'false'}, {'resolve': 'T1'}, {'replies': [{'thread_id': 'T1', 'body': 3}]},
                      {'verified': [1]}, {'merge': True}, {'resolve': ['T1'], 'unresolve': ['T1']},
                      {'verified': ['T1']}, {'unresolve': ['T2'], 'verified': ['T2']}, {'expected_base_ref': 3},
-                     {'optional': 'T1'}, {'optional': ['T1'], 'required': ['T1']}):
+                     {'optional': 'T1'}, {'optional': ['T1'], 'required': ['T1']}, {'expected_seen': 'abc'},
+                     {'expected_seen': {'core': 'abc'}}):
             with self.subTest(data=data), self.assertRaisesRegex(FollowupError, 'plan'):
                 self.apply(**data)
         self.assertEqual(self.api.writes(), [])
@@ -509,11 +513,18 @@ class FollowupTests(unittest.TestCase):
     def triage(self):
         return triage(PR, 'reviewer', self.state_file, self.api)
 
-    def settled_tick(self):
-        self.record()
-        self.apply(verified=['T2'])
+    def judged_apply(self, **data):
+        return self.apply(expected_seen=state(PR, 'reviewer', self.state_file, self.api)['seen'], **data)
 
-    def test_triage_acts_until_a_tick_records_what_it_saw(self):
+    def settled_tick(self, **counts):
+        self.record(**counts)
+        self.judged_apply(verified=['T2'])
+
+    def author_says(self, thread_index, body):
+        self.api.threads[thread_index]['comments']['nodes'].append(
+            {'databaseId': 300 + len(body), 'author': {'login': 'author'}, 'body': body, 'createdAt': LATER})
+
+    def test_triage_acts_until_a_tick_records_what_it_judged(self):
         self.assertEqual(self.triage()['verdict'], 'act')
 
         self.settled_tick()
@@ -528,62 +539,100 @@ class FollowupTests(unittest.TestCase):
 
         self.assertEqual((self.state_file.read_text(), len(self.api.writes())), (before, writes))
 
-    def test_triage_acts_on_each_change_a_tick_must_judge(self):
+    def test_a_plan_without_expected_seen_records_nothing(self):
+        self.record()
+
+        self.apply(verified=['T2'])
+
+        self.assertEqual(self.triage()['verdict'], 'act')
+
+    def test_triage_acts_on_each_change_in_the_reviewers_threads(self):
         changes = {
-            'reply': lambda api: api.threads[0]['comments']['nodes'].append(
-                {'databaseId': 300, 'author': {'login': 'author'}, 'body': 'done now', 'createdAt': LATER}),
-            'edit': lambda api: api.threads[0]['comments']['nodes'][1].update(body='actually not fixed'),
-            'resolution': lambda api: api.threads[0].update(isResolved=True, resolvedBy={'login': 'author'}),
-            'head': lambda api: setattr(api, 'head', 'b' * 40),
-            'base': lambda api: setattr(api, 'base_ref', 'release/1.2'),
+            'reply': lambda: self.author_says(0, 'done now'),
+            'edit': lambda: self.api.threads[0]['comments']['nodes'][1].update(body='actually not fixed'),
+            'resolution': lambda: self.api.threads[0].update(isResolved=True, resolvedBy={'login': 'author'}),
+            'head': lambda: setattr(self.api, 'head', 'b' * 40),
+            'base': lambda: setattr(self.api, 'base_ref', 'release/1.2'),
         }
         for name, change in changes.items():
             with self.subTest(change=name):
                 self.setUp()
                 self.settled_tick()
 
-                change(self.api)
+                change()
 
                 self.assertEqual(self.triage()['verdict'], 'act')
 
-    def test_triage_ignores_other_reviewers_threads(self):
-        self.settled_tick()
+    def test_the_ticks_own_replies_and_resolutions_are_not_new_activity(self):
+        self.record()
 
-        self.api.threads[2]['comments']['nodes'].append(
-            {'databaseId': 301, 'author': {'login': 'author'}, 'body': 'renamed', 'createdAt': LATER})
+        self.judged_apply(replies=[{'thread_id': 'T1', 'body': 'this one is done'}], resolve=['T1'], verified=['T2'])
 
         self.assertEqual(self.triage()['verdict'], 'quiet')
 
-    def test_triage_acts_when_the_approval_gate_clears(self):
+    def test_a_comment_during_the_tick_is_never_absorbed(self):
         self.record()
-        self.apply(verified=['T2'], resolve=['T1'])
+        judged = state(PR, 'reviewer', self.state_file, self.api)['seen']
+        self.author_says(1, 'this regressed again')
 
-        result = self.triage()
+        with self.assertRaisesRegex(FollowupError, 'changed since the plan'):
+            self.apply(expected_seen=judged, verified=['T2'])
 
-        self.assertEqual(result['verdict'], 'act')
-        self.assertIn('the approval gate is clear', result['reasons'])
+        self.assertEqual(self.triage()['verdict'], 'act')
+        self.assertEqual(self.api.writes(), [])
+
+    def test_wider_discussion_counts_only_while_findings_or_questions_stand(self):
+        changes = {
+            'title': lambda: setattr(self.api, 'title', 'Guard writes (JIRA-12)'),
+            'conversation': lambda: self.api.conversation.append({'body': 'the decision is in ADR-7'}),
+            'other thread': lambda: self.author_says(2, 'renamed'),
+            'review body': lambda: self.api.reviews.append(
+                {'id': 8, 'state': 'COMMENTED', 'body': 'answered the question', 'user': {'login': 'author'}}),
+        }
+        for name, change in changes.items():
+            for questions, verdict in ((0, 'quiet'), (1, 'act')):
+                with self.subTest(change=name, questions=questions):
+                    self.setUp()
+                    self.settled_tick(questions=questions)
+
+                    change()
+
+                    self.assertEqual(self.triage()['verdict'], verdict)
+
+    def test_triage_does_not_repeat_on_state_a_tick_already_judged(self):
+        self.record()
+
+        self.judged_apply(verified=['T2'], resolve=['T1'])
+
+        self.assertEqual(self.triage()['verdict'], 'quiet')
 
     def test_triage_stops_on_approval_or_a_closed_pr(self):
         self.record()
-        self.apply(verified=['T2'], resolve=['T1'], approve=True)
+        self.judged_apply(verified=['T2'], resolve=['T1'], approve=True)
         self.assertEqual(self.triage()['verdict'], 'stop')
 
         self.api.pr_state = 'MERGED'
         self.assertEqual(self.triage(), {'verdict': 'stop', 'reasons': ['the PR is merged'], 'head': HEAD})
 
-    def test_triage_reports_what_belongs_to_the_user(self):
-        self.settled_tick()
+    def test_what_belongs_to_the_user_comes_before_an_approval_stop(self):
+        self.record()
+        self.judged_apply(verified=['T2'], resolve=['T1'], approve=True)
+        data = json.loads(self.state_file.read_text())
 
-        self.api.reviews.append({'id': 9, 'state': 'PENDING', 'user': {'login': 'reviewer'}})
-
+        self.state_file.write_text(json.dumps({**data, 'pending_operation': 'approve'}))
         self.assertEqual(self.triage()['verdict'], 'report')
 
-    def test_a_failed_tick_leaves_triage_acting(self):
-        self.record()
+        self.state_file.write_text(json.dumps(data))
+        self.api.reviews.append({'id': 9, 'state': 'PENDING', 'user': {'login': 'reviewer'}})
+        self.assertEqual(self.triage()['verdict'], 'report')
+
+    def test_a_failed_tick_after_a_change_leaves_triage_acting(self):
+        self.settled_tick()
+        self.author_says(0, 'fixed for real')
         self.api.reject_resolve = True
 
         with self.assertRaises(RejectedError):
-            self.apply(verified=['T2'], resolve=['T1'])
+            self.judged_apply(resolve=['T1'])
 
         self.assertEqual(self.triage()['verdict'], 'act')
 

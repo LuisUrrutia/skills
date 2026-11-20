@@ -15,7 +15,7 @@ from functools import wraps
 from pathlib import Path
 
 THREADS_QUERY = """query($owner:String!,$repo:String!,$number:Int!){repository(owner:$owner,name:$repo){pullRequest(number:$number){
-  id state headRefOid baseRefName author{login}
+  id state headRefOid baseRefName title body author{login}
   reviewThreads(first:100){pageInfo{hasNextPage} nodes{id isResolved isOutdated path line
     resolvedBy{login} viewerCanResolve viewerCanUnresolve
     comments(first:100){pageInfo{hasNextPage} nodes{databaseId author{login} body createdAt}}}}}}}"""
@@ -105,10 +105,11 @@ def read_pr(target: dict, actor: str, api) -> dict:
     if pr["reviewThreads"]["pageInfo"]["hasNextPage"]:
         raise FollowupError("more than 100 review threads; refusing to act on a partial view")
     roles = {actor: "reviewer", author: "author"}
-    threads = []
+    threads, others = [], []
     for node in pr["reviewThreads"]["nodes"]:
         comments = node["comments"]["nodes"]
         if not comments or (comments[0]["author"] or {}).get("login") != actor:
+            others.append([node["isResolved"], [c["body"] for c in comments]])
             continue
         if node["comments"]["pageInfo"]["hasNextPage"]:
             raise FollowupError(f"thread {node['id']} has more than 100 comments; refusing to act on a partial view")
@@ -123,10 +124,15 @@ def read_pr(target: dict, actor: str, api) -> dict:
             "last_reviewer_body": next(c["body"] for c in reversed(listed) if c["role"] == "reviewer"),
             "comments": listed,
         })
-    reviews = [r for r in api.call(target["prefix"] + "/reviews?per_page=100")
-               if (r.get("user") or {}).get("login") == actor]
+    published = api.call(target["prefix"] + "/reviews?per_page=100")
+    reviews = [r for r in published if (r.get("user") or {}).get("login") == actor]
+    conversation = api.call(f"repos/{target['owner']}/{target['repo']}/issues/{target['number']}/comments?per_page=100")
+    # Where standing findings and open questions get settled: the PR text, its conversation and others' threads and reviews.
+    discussion = [pr["title"], pr["body"], others, [c.get("body") for c in conversation],
+                  [r.get("body") for r in published if r not in reviews and r.get("state") != "PENDING"]]
     return {"state": pr["state"], "head": pr["headRefOid"], "base_ref": pr["baseRefName"], "author": author,
-            "threads": threads, "pending_review": any(r.get("state") == "PENDING" for r in reviews),
+            "threads": threads, "discussion": discussion,
+            "pending_review": any(r.get("state") == "PENDING" for r in reviews),
             "approved_head": any(r.get("state") == "APPROVED" and r.get("commit_id") == pr["headRefOid"]
                                  for r in reviews)}
 
@@ -135,11 +141,25 @@ def review_key(pr: dict) -> str:
     return f"{pr['head']}@{pr['base_ref']}"
 
 
+def digest(value) -> str:
+    return hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
+
+
 def fingerprint(pr: dict) -> dict:
-    """What a tick saw: the head, the base and each reviewer thread's comments and resolution."""
-    return {"head": pr["head"], "base_ref": pr["base_ref"], "threads": {
-        t["id"]: hashlib.sha256(json.dumps([t["resolved"], [c["body"] for c in t["comments"]]]).encode()).hexdigest()
-        for t in pr["threads"]}}
+    """What a tick judged: the head, base and reviewer threads, and separately the wider discussion."""
+    return {"core": digest([pr["head"], pr["base_ref"], {t["id"]: [t["resolved"], [c["body"] for c in t["comments"]]]
+                                                         for t in pr["threads"]}]),
+            "discussion": digest(pr["discussion"])}
+
+
+def after_writes(pr: dict, replied: list, resolved: list, reopened: list) -> dict:
+    """The judged PR with this plan's own writes applied, so they never read as new activity."""
+    threads = []
+    for t in pr["threads"]:
+        bodies = [r["body"] for r in replied if r["thread_id"] == t["id"]]
+        state = True if t["id"] in resolved else False if t["id"] in reopened else t["resolved"]
+        threads.append({**t, "resolved": state, "comments": t["comments"] + [{"body": b} for b in bodies]})
+    return {**pr, "threads": threads}
 
 
 def thread_actions(data: dict, plan: dict | None = None) -> dict:
@@ -218,33 +238,34 @@ def state(url: str, actor: str, state_file: Path, api=None) -> dict:
             "done": pr["approved_head"] and not view["blockers"], "approval_blockers": view["blockers"],
             "pending_operation": data.get("pending_operation"), "unresolved": len(view["unresolved"]),
             "open_optional": view["open_optional"], "needs_verification": view["unverified"],
-            "threads": [{**t, "action": actions.get(t["id"])} for t in pr["threads"]]}
+            "threads": [{**t, "action": actions.get(t["id"])} for t in pr["threads"]], "seen": fingerprint(pr)}
 
 
 def triage(url: str, actor: str, state_file: Path, api=None) -> dict:
-    """Route a wake without judgment: anything a tick has not seen acts. Writes nothing."""
+    """Route a wake without judgment: only what no tick has judged acts. Writes nothing."""
     target = parse_pr(url)
     data = load_state(state_file, target, actor)
     pr = read_pr(target, actor, api or GitHub(target["host"]))
     view = summarize(pr, data)
+
+    def verdict(name: str, reason: str | None) -> dict:
+        return {"verdict": name, "reasons": [reason] if reason else [], "head": pr["head"]}
+
     if pr["state"] != "OPEN":
-        return {"verdict": "stop", "reasons": [f"the PR is {pr['state'].lower()}"], "head": pr["head"]}
-    if pr["approved_head"] and not view["blockers"]:
-        return {"verdict": "stop", "reasons": ["the reviewer approved this head and the gate is clear"],
-                "head": pr["head"]}
+        return verdict("stop", f"the PR is {pr['state'].lower()}")
     if pr["pending_review"] or data.get("pending_operation"):
-        return {"verdict": "report", "reasons": ["an unsubmitted review or an uncertain write needs the user"],
-                "head": pr["head"]}
-    reasons = []
-    if data.get("seen") != fingerprint(pr):
-        reasons.append("no tick has seen the current head, base or reviewer threads")
-    if not view["current"] and not view["in_progress"]:
-        reasons.append("the current head has not been reviewed")
-    if view["unverified"]:
-        reasons.append("resolved threads await verification")
-    if not view["blockers"] and not pr["approved_head"]:
-        reasons.append("the approval gate is clear")
-    return {"verdict": "act" if reasons else "quiet", "reasons": reasons, "head": pr["head"]}
+        return verdict("report", "an unsubmitted review or an uncertain write needs the user")
+    if pr["approved_head"] and not view["blockers"]:
+        return verdict("stop", "the reviewer approved this head and the gate is clear")
+    seen, now = data.get("seen") if isinstance(data.get("seen"), dict) else None, fingerprint(pr)
+    if seen is None:
+        return verdict("act", "no tick has recorded what it judged")
+    if seen.get("core") != now["core"]:
+        return verdict("act", "the head, base or reviewer threads changed")
+    # Wider activity matters only while findings outside the reviewer's threads or decisive questions stand.
+    if (view["standing"] or view["questions"]) and seen.get("discussion") != now["discussion"]:
+        return verdict("act", "the discussion changed while findings or questions stand")
+    return verdict("quiet", None)
 
 
 @serialized
@@ -316,7 +337,7 @@ def settle(url: str, actor: str, state_file: Path, standing: int, questions: int
 
 
 def validate_plan(plan: object) -> dict:
-    fields = {"expected_head", "expected_base_ref", "replies", "resolve", "unresolve", "verified", "approve", *ACTIONS}
+    fields = {"expected_head", "expected_base_ref", "expected_seen", "replies", "resolve", "unresolve", "verified", "approve", *ACTIONS}
     if (not isinstance(plan, dict) or set(plan) - fields or not isinstance(plan.get("expected_head"), str)
             or not isinstance(plan.get("expected_base_ref"), str)):
         raise FollowupError(f"plan accepts {', '.join(sorted(fields))}, with expected_head and expected_base_ref required")
@@ -328,6 +349,9 @@ def validate_plan(plan: object) -> dict:
             isinstance(r, dict) and set(r) == {"thread_id", "body"} and isinstance(r["thread_id"], str)
             and isinstance(r["body"], str) and r["body"].strip() for r in replies):
         raise FollowupError("plan replies need only a string thread_id and a non-empty string body")
+    seen = plan.get("expected_seen", {"core": "", "discussion": ""})
+    if not isinstance(seen, dict) or set(seen) != {"core", "discussion"} or not all(isinstance(v, str) for v in seen.values()):
+        raise FollowupError("plan field expected_seen must be the seen object state reported")
     if not isinstance(plan.get("approve", False), bool):
         raise FollowupError("plan field approve must be a boolean")
     if set(plan.get("resolve", [])) & set(plan.get("unresolve", [])):
@@ -366,6 +390,8 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
         return pr
 
     pr = preflight()
+    if "expected_seen" in plan and fingerprint(pr) != plan["expected_seen"]:
+        raise FollowupError("the PR changed since the plan was made; reassess it from a new state")
     mine = {t["id"]: t for t in pr["threads"]}
     replies, resolve, unresolve = plan.get("replies", []), plan.get("resolve", []), plan.get("unresolve", [])
     classified = plan.get("required", []) + plan.get("optional", [])
@@ -464,8 +490,10 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
                 raise FollowupError("approval did not read back at the current head")
             finish("approve")
         result["approved"] = current["head"]
-    data["seen"] = fingerprint(read_pr(target, actor, api))
-    save(state_file, data)
+    if "expected_seen" in plan:
+        posted = [r for r in replies if r["thread_id"] in result["replied"]]
+        data["seen"] = fingerprint(after_writes(pr, posted, result["resolved"], result["reopened"]))
+        save(state_file, data)
     return result
 
 
