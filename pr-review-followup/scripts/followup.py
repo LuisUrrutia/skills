@@ -421,10 +421,16 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
     classify(data, {i: a for a in ACTIONS for i in plan.get(a, [])}, datetime.now(timezone.utc).isoformat())
     save(state_file, data)
 
+    def judged() -> dict:
+        posted = [r for r in replies if r["thread_id"] in result["replied"]]
+        return fingerprint(after_writes(pr, posted, result["resolved"], result["reopened"]))
+
     def write(key: str, endpoint: str, payload: dict, check=None):
         if key in done["completed"]:
             return None
         live = preflight()
+        if "expected_seen" in plan and fingerprint(live) != judged():
+            raise FollowupError("the PR changed since the plan was made; reassess it from a new state")
         if check:
             check(live)
         data["pending_operation"] = key
@@ -499,8 +505,7 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
             finish("approve")
         result["approved"] = current["head"]
     if "expected_seen" in plan:
-        posted = [r for r in replies if r["thread_id"] in result["replied"]]
-        data["seen"] = fingerprint(after_writes(pr, posted, result["resolved"], result["reopened"]))
+        data["seen"] = judged()
         save(state_file, data)
     return result
 

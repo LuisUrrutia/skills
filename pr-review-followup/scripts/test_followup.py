@@ -42,6 +42,7 @@ class FakeGitHub:
         self.reject_resolve = False
         self.more_comments = False
         self.reopen_after_reads = None
+        self.after_reply = None
 
     def call(self, endpoint, payload=None):
         self.calls.append((endpoint, payload))
@@ -73,6 +74,8 @@ class FakeGitHub:
             target = next(t for t in self.threads if t['comments']['nodes'][0]['databaseId'] == number)
             target['comments']['nodes'].append({'databaseId': 900, 'author': {'login': self.actor},
                                                 'body': payload['body'], 'createdAt': '2026-10-07T09:00:00Z'})
+            if self.after_reply:
+                self.after_reply()
             if self.lose_reply:
                 raise FollowupError('simulated lost response after reply')
             return {'id': 900, 'body': payload['body'], 'pull_request_review_id': 55}
@@ -587,6 +590,17 @@ class FollowupTests(unittest.TestCase):
 
         self.assertEqual(self.triage()['verdict'], 'act')
         self.assertEqual(self.api.writes(), [])
+
+    def test_a_comment_between_the_ticks_writes_stops_the_remaining_writes(self):
+        self.record()
+        self.api.after_reply = lambda: self.author_says(1, 'this regressed again')
+
+        with self.assertRaisesRegex(FollowupError, 'changed since the plan'):
+            self.judged_apply(replies=[{'thread_id': 'T1', 'body': 'this one is done'}], resolve=['T1'],
+                              verified=['T2'], approve=True)
+
+        self.assertEqual([e for e, _ in self.api.writes()], ['repos/example-org/api/pulls/12/comments/100/replies'])
+        self.assertEqual(self.triage()['verdict'], 'act')
 
     def test_wider_discussion_counts_only_while_findings_or_questions_stand(self):
         changes = {
