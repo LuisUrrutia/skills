@@ -15,7 +15,7 @@ QUERY = """query($owner:String!,$repo:String!,$number:Int!,$after:String){reposi
   state isDraft headRefOid baseRefName mergeable mergeStateStatus reviewDecision %s}}}"""
 THREADS = "reviewThreads(first:100,after:$after){pageInfo{hasNextPage endCursor} nodes{id isResolved}}"
 CHECKS = """commits(last:1){nodes{commit{oid statusCheckRollup{contexts(first:100,after:$after){pageInfo{hasNextPage endCursor} nodes{
-  __typename ... on CheckRun{name status conclusion} ... on StatusContext{context state}}}}}}}"""
+  __typename ... on CheckRun{databaseId name status conclusion} ... on StatusContext{context state createdAt}}}}}}}"""
 
 
 class TriageError(RuntimeError):
@@ -80,8 +80,9 @@ def snapshot(target: dict, actor: str, api) -> tuple[str, dict]:
     inline = api.call(f"{rest}/pulls/{target['number']}/comments?per_page=100")
     reviews = api.call(f"{rest}/pulls/{target['number']}/reviews?per_page=100")
     conversation = api.call(f"{rest}/issues/{target['number']}/comments?per_page=100")
-    # Check progress counts only as completed results: T3 wakes on failures, on the required gate and when all
-    # checks finish, and each of those can carry feedback or decide readiness. Running states change no decision.
+    # Check progress counts only as completed runs, identified so a rerun with the same result still counts: T3
+    # wakes on failures, on the required gate and when all checks finish, and each can carry feedback or decide
+    # readiness. Running states change no decision.
     seen = {
         "head": pr["headRefOid"], "base": pr["baseRefName"], "draft": pr["isDraft"],
         "conflicting": pr["mergeable"] == "CONFLICTING", "behind": pr["mergeStateStatus"] == "BEHIND",
@@ -90,7 +91,8 @@ def snapshot(target: dict, actor: str, api) -> tuple[str, dict]:
         "inline": {str(c["id"]): digest(c["body"]) for c in inline},
         "reviews": {str(r["id"]): digest([r["state"], r["body"]]) for r in reviews if r["state"] != "PENDING"},
         "conversation": {str(c["id"]): digest(c["body"]) for c in conversation},
-        "completed_checks": sorted([c["name"], c["conclusion"]] if c["__typename"] == "CheckRun" else [c["context"], c["state"]]
+        "completed_checks": sorted([c["name"], c["conclusion"], c["databaseId"]] if c["__typename"] == "CheckRun"
+                                   else [c["context"], c["state"], c["createdAt"]]
                                    for c in checks if c.get("status", "COMPLETED") == "COMPLETED"
                                    and c.get("state") not in {"PENDING", "EXPECTED"}),
         "checks_pending": any(c.get("status", "COMPLETED") != "COMPLETED" or c.get("state") in {"PENDING", "EXPECTED"}

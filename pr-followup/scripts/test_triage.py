@@ -13,8 +13,8 @@ from triage import TriageError, record, triage
 PR = 'https://github.com/example-org/api/pull/12'
 
 
-def check(name, status='IN_PROGRESS', conclusion=None):
-    return {'__typename': 'CheckRun', 'name': name, 'status': status, 'conclusion': conclusion}
+def check(name, status='IN_PROGRESS', conclusion=None, run=1):
+    return {'__typename': 'CheckRun', 'databaseId': run, 'name': name, 'status': status, 'conclusion': conclusion}
 
 
 class FakeGitHub:
@@ -25,8 +25,8 @@ class FakeGitHub:
         self.pr = {'state': 'OPEN', 'isDraft': False, 'headRefOid': 'a' * 40, 'baseRefName': 'main',
                    'mergeable': 'MERGEABLE', 'mergeStateStatus': 'BLOCKED', 'reviewDecision': 'REVIEW_REQUIRED'}
         self.threads = [{'id': 'T1', 'isResolved': False}]
-        self.checks = [check('test'), check('lint', 'QUEUED'), {'__typename': 'StatusContext', 'context': 'deploy',
-                                                               'state': 'PENDING'}]
+        self.checks = [check('test'), check('lint', 'QUEUED'), check('build', 'COMPLETED', 'SUCCESS'), {'__typename': 'StatusContext', 'context': 'deploy',
+                                                               'state': 'PENDING', 'createdAt': '2026-11-20T10:00:00Z'}]
         self.inline = [{'id': 1, 'body': 'guard this write'}]
         self.reviews = [{'id': 2, 'state': 'COMMENTED', 'body': 'a few points'}]
         self.conversation = [{'id': 3, 'body': 'thanks for this'}]
@@ -95,7 +95,8 @@ class TriageTests(unittest.TestCase):
         changes = {
             'failed check': lambda api: api.checks[0].update(status='COMPLETED', conclusion='FAILURE'),
             'passed check while others run': lambda api: api.checks[0].update(status='COMPLETED', conclusion='SUCCESS'),
-            'failed status': lambda api: api.checks[2].update(state='ERROR'),
+            'failed status': lambda api: api.checks[3].update(state='ERROR'),
+            'rerun with the same result': lambda api: api.checks[2].update(databaseId=2),
             'thread reply': lambda api: api.inline.append({'id': 4, 'body': 'still racy'}),
             'edited inline comment': lambda api: api.inline[0].update(body='guard both writes'),
             'edited conversation comment': lambda api: api.conversation[0].update(body='please split this'),
@@ -125,7 +126,7 @@ class TriageTests(unittest.TestCase):
         self.api.threads[1]['isResolved'] = True
         self.assertEqual(self.triage()['verdict'], 'act')
         self.record()
-        self.api.checks[2].update(state='SUCCESS')
+        self.api.checks[3].update(state='SUCCESS')
         self.assertEqual(self.triage()['verdict'], 'act')
 
     def test_an_edit_to_an_old_item_of_a_long_list_acts(self):
