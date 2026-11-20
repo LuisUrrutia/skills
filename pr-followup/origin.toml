@@ -63,12 +63,14 @@ reason = "On 2026-11-06 Drive was invoked for a two-PR stack whose PRs had been 
 where = ["SKILL.md#choose-scope-and-establish-state"]
 
 [[invariants]]
-rule = "An inline comment's claim is read as a concern about the commented line and the diff next to it, at the narrowest reading the anchor supports. When the diff already handles that concern, the reply names the part that handles it instead of defending the whole change, and a not-applicable reply gives the one fact, tradeoff, contract or answer that decides it."
-reason = "User correction of 2026-11-20: on the line of a PR that had turned a lint rule off for tests, a reviewer asked how the PR made the code better, although the PR already exempted node:test's describe and it. The agent defended the whole rule in 85 words with call counts and probe results. The user said \"la forma de responderle a [the reviewer] fue muy AI\"; the reply should have been \"Justamente la regla no se aplica para los tests, pero sí queda activada para cualquier código fuera de ellos\"."
-where = [
-  "references/feedback.md#collect-before-deciding",
-  "references/feedback.md#replies-and-thread-resolution",
-]
+rule = "An inline comment's claim is read as a concern about the commented line, the diff next to it and any other code the comment names, at the narrowest reading the anchor supports. When the diff already handles that concern, the reply answers with only the part that handles it instead of defending the whole change."
+reason = "User correction of 2026-11-20. A PR turned on a lint rule for tests that had been off, exempting node:test's describe and it. On the removed \"off\" line, a reviewer said it kept tests convenient and asked how the PR made the code better; the agent defended the whole rule. The user said the reply should have been something like \"Justamente la regla no se aplica para los tests, pero sí queda activada para cualquier código fuera de ellos\". Other code the comment names stays in the claim, so a correct finding about it is not narrowed away."
+where = ["references/feedback.md#collect-before-deciding"]
+
+[[invariants]]
+rule = "A not-applicable reply gives the one fact, tradeoff, contract or answer that decides it, or the evidence the reviewer asked for."
+reason = "User correction of 2026-11-20, in the incident behind the invariant on reading an inline comment's claim: the agent's 85-word reply carried call counts and probe results, and the user said \"la forma de responderle a [the reviewer] fue muy AI\". Evidence the reviewer asks for stays allowed, matching comment-style's rule for a reply to a request or a dispute."
+where = ["references/feedback.md#replies-and-thread-resolution"]
 
 [[sources]]
 id = "pstack-pr-followup"
