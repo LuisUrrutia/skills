@@ -104,7 +104,7 @@ reason = "User decision of 2026-11-20: 'prefiero que use gpt luna (sin hardcodea
 where = ["references/triage.md#start-it"]
 
 [[invariants]]
-rule = "The helper's triage command decides each wake without judgment and writes nothing. It acts on a change to the head, base or reviewer threads since the state the last tick judged, and, while findings outside the reviewer's threads or decisive questions stand, on changes to the PR title, body, conversation, or everyone else's comments, reviews and thread resolutions, every page read. A head with no review and none in progress also acts. An unsubmitted review or an uncertain write comes before the approval stop. apply records the judged state, passed as expected_seen, plus its own writes, and refuses a plan when the PR changed since."
+rule = "The helper's triage command decides each wake without judgment and writes nothing. It acts on a change to the head, base or reviewer threads since the state the last tick judged, on a head with no review and none in progress, and, while findings outside the reviewer's threads or decisive questions stand, on any change to the PR text or to everyone else's comments, reviews and thread resolutions. User-owned blockers come before the approval stop. apply records the judged state, passed as expected_seen, plus its own writes, and refuses a changed PR."
 reason = "A cheap model routes safely only when code decides the verdict. Recording a read taken after the tick would mark events that arrived during it as judged. Standing findings and open questions are settled outside the reviewer's threads, as the settlement rules describe."
 where = ["scripts/followup.py", "SKILL.md#run-one-tick", "references/triage.md#route-a-wake"]
 
