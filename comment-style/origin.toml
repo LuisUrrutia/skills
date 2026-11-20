@@ -245,6 +245,16 @@ change = "Replaced marking minor rule violations with `nit:` with marking a mino
 reason = "User decision of 2026-10-27 that open suggestions and nits never block a reviewer's approval. A review had labeled a required low-severity finding `nit:`."
 where = ["references/review.md#word-a-new-finding"]
 
+[[local_snapshots.deviations]]
+change = "Added to replies without a fix: when the reviewer questions something the PR already handles, the answer is one sentence that names what handles it, with an example reply."
+reason = "User correction of 2026-11-20: a reviewer asked how a PR that turned on a lint rule for tests made the code better, although the PR already exempted the test framework's describe and it. The reply defended the whole change; the user said it should have been \"Justamente la regla no se aplica para los tests, pero sí queda activada para cualquier código fuera de ellos\"."
+where = ["references/review.md#reply-to-the-actual-point"]
+
+[[local_snapshots.deviations]]
+change = "Extended the length and evidence budget for findings and technical replies to any reader who knows the code, a reviewer included. The evidence comes only when the reader asks for it or disputes the point or answer given, a question about whether the change is worth it gets the one point that decides it, and an unrequested reply draft over 40 words is cut to the sentence that answers the reader."
+reason = "User correction of 2026-11-20: the agent treated a reviewer's question about whether a PR made the code better as a dispute that called for evidence, and posted an 85-word reply with call counts and probe results. The user said \"la forma de responderle a [the reviewer] fue muy AI\"."
+where = ["references/review.md#say-enough-to-find-the-problem"]
+
 [[dependencies]]
 kind = "local"
 name = "communicate-clearly"
