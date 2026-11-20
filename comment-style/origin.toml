@@ -225,8 +225,8 @@ reason = "The goal is a message that fits its conversation, and a reply in the t
 where = ["SKILL.md#match-the-conversation"]
 
 [[local_snapshots.deviations]]
-change = "Added a length and evidence budget for a new finding or a reply that raises or argues a technical point: what goes wrong, the input, state or user that triggers it, the rule or ticket that makes it required, and the ask, usually under 40 words. The proof chain, including the code path that lets the problem through, extra examples, side observations and alternative fixes stay out until the author asks or disputes the point. Removed the rule to shorten the explanation but keep all of its evidence."
-reason = "User decision of 2026-10-22: published review comments carried their whole proof chain, and the user judged them far longer than needed because the author knows the code and investigates with an AI agent, so a comment needs only what makes the problem understood and findable."
+change = "Added a length and evidence budget for a new finding or a reply that raises or argues a technical point, for any reader who knows the code: what goes wrong, what triggers it, the rule or ticket that requires it, and the ask, usually under 40 words. The proof chain, such as the code path that lets the problem through, and extra examples, side observations and alternative fixes stay out until the reader asks for them or disputes the point or answer given. Removed the rule to shorten the explanation but keep all of its evidence."
+reason = "User decision of 2026-10-22: published review comments carried their whole proof chain, and the user judged them far longer than needed because the author knows the code and investigates with an AI agent, so a comment needs only what makes the problem understood and findable. The user correction of 2026-11-20 extended the reader to a reviewer."
 where = [
   "references/review.md#say-enough-to-find-the-problem",
   "references/review.md#word-a-new-finding",
@@ -246,13 +246,13 @@ reason = "User decision of 2026-10-27 that open suggestions and nits never block
 where = ["references/review.md#word-a-new-finding"]
 
 [[local_snapshots.deviations]]
-change = "Added to replies without a fix: when the reviewer questions something the PR already handles, the answer is one sentence that names what handles it, with an example reply."
-reason = "User correction of 2026-11-20: a reviewer asked how a PR that turned on a lint rule for tests made the code better, although the PR already exempted the test framework's describe and it. The reply defended the whole change; the user said it should have been \"Justamente la regla no se aplica para los tests, pero sí queda activada para cualquier código fuera de ellos\"."
+change = "Added to replies without a fix: when the reviewer questions something the PR already handles, the whole answer is one sentence that names what handles it, with an example reply."
+reason = "User correction of 2026-11-20: a reviewer asked how a PR that turned on a lint rule for tests made the code better, although the PR already exempted the test framework's describe and it. The reply defended the whole change; the user said it should have been something like \"Justamente la regla no se aplica para los tests, pero sí queda activada para cualquier código fuera de ellos\"."
 where = ["references/review.md#reply-to-the-actual-point"]
 
 [[local_snapshots.deviations]]
-change = "Extended the length and evidence budget for findings and technical replies to any reader who knows the code, a reviewer included. The evidence comes only when the reader asks for it or disputes the point or answer given, a question about whether the change is worth it gets the one point that decides it, and an unrequested reply draft over 40 words is cut to the sentence that answers the reader."
-reason = "User correction of 2026-11-20: the agent treated a reviewer's question about whether a PR made the code better as a dispute that called for evidence, and posted an 85-word reply with call counts and probe results. The user said \"la forma de responderle a [the reviewer] fue muy AI\"."
+change = "Added for a reply that answers a question, unless the reader asked for evidence or disputed the answer given: a question about whether the change is worth it gets the one point that decides it, and a draft over 40 words keeps any `Fixed in <commit>.` and only the sentence that answers the question."
+reason = "User correction of 2026-11-20: the agent treated a reviewer's question about whether a PR made the code better as a dispute that called for evidence, and posted an 85-word reply with call counts and probe results. The user said \"la forma de responderle a [the reviewer] fue muy AI\". Keeping `Fixed in <commit>.` preserves the fixed-reply invariant."
 where = ["references/review.md#say-enough-to-find-the-problem"]
 
 [[dependencies]]

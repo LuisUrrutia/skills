@@ -31,9 +31,9 @@ State only that difference, reason, or answer. Never restate what the reviewer
 said, including their diagnosis or suggestion, and never narrate the
 implementation, its tests, or other additions; the commit shows them. Without a
 fix, give the answer or the concrete reason for disagreeing, then stop. When the
-reviewer questions something the PR already handles, that answer is one sentence
-naming what handles it, such as "exactly, the rule skips the tests themselves
-(describe/it), but it's still on for any other code".
+reviewer questions something the PR already handles, the whole answer is one
+sentence naming what handles it, such as "exactly, the rule skips the tests
+themselves (describe/it), but it's still on for any other code".
 
 Distinguish proposed, changed locally, checked, published, and deployed. Say
 "fixed" only when the evidence supports the implied scope. Do not invent a test
@@ -84,14 +84,14 @@ with an agent. Give what goes wrong, the input, state or user that triggers it,
 the rule or ticket that makes it required, and the ask or question in one or two
 short sentences, usually under 40 words. Leave out how you established it, such
 as call chains, the code path that lets it through, configuration flags, defaults
-and ticket history, and extra examples, side observations and caveats the author
-will meet while fixing. Give them only when the reader asks for them or disputes
-the point or answer you gave; a question about whether the change is worth it
-gets the one point that decides it. Unless the reader asked for that evidence or
-disputed your answer, cut a reply draft over 40 words to the sentence that
-answers the reader. Name at most one fix, preferably an existing pattern; do not
-join alternative fixes with "or". Fixing it here or tracking it in a ticket
-remains one ask.
+and ticket history, and extra examples, side observations and caveats met while
+fixing. Give them only when the reader asks for them or disputes the point or
+answer you gave. Otherwise, a question about whether the change is worth it gets
+the one point that decides it, and a reply draft over 40 words that answers a
+question keeps any `Fixed in <commit>.` and only the sentence that answers the
+question. Name at most one fix, preferably an existing pattern; do not join
+alternative fixes with "or". Fixing it here or tracking it in a ticket remains
+one ask.
 
 When the PR works without a change your own work depends on, the comment is a
 request, not a finding: usually one sentence with the ask and the work that
