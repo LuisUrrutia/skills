@@ -35,6 +35,18 @@
         "The plan does not invoke `stacked-pr`.",
         "The plan collects feedback channels and investigates the failing lint job."
       ]
+    },
+    {
+      "id": 4,
+      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output. Feedback scope on your own open PR https://github.com/acme/web/pull/3120 (head `lint/floating-promises-tests`, base `main`), which turns on `@typescript-eslint/no-floating-promises` for the dashboard tests. Its diff of `apps/dashboard/eslint.config.mjs` replaces `\"@typescript-eslint/no-floating-promises\": \"off\",` with `\"@typescript-eslint/no-floating-promises\": [\"error\", { allowForKnownSafeCalls: [{ from: \"package\", package: \"node:test\", name: [\"describe\", \"it\"] }] }],`. Reviewer `dana-k` left one inline comment on the removed `\"off\"` line, with no replies: \"We turned this off on purpose so tests are convenient to write. The test framework has a built-in timeout and handles failures itself. How does this PR make the code better?\" Your earlier probes on this branch found that `expectLog` now returns nothing, so none of its 129 calls needs `await`, and that `request-context.test.ts` had a dropped Promise that settled after its test ended, so its failure came from the `unhandledRejection` hook instead of its own test. Classify this thread and give the exact reply text you would post.",
+      "expected_output": "The reply names the `describe`/`it` exemption as what keeps writing tests convenient while the rule still applies to other code, in 40 words or fewer, with no counts, probe results or investigation narrative.",
+      "files": [],
+      "expectations": [
+        "The reply is 40 words or fewer.",
+        "The reply names the `describe`/`it` exemption as what handles the reviewer's concern.",
+        "The reply contains no counts, probe results or investigation narrative, such as the 129 `expectLog` calls or the `unhandledRejection` finding.",
+        "No command or GitHub mutation is executed."
+      ]
     }
   ]
 }

@@ -62,6 +62,14 @@ rule = "In Feedback or Drive, a stack or dependent chain whose retained task sta
 reason = "On 2026-11-06 Drive was invoked for a two-PR stack whose PRs had been opened with plain gh pr create, and it armed watches without checking membership, so the stack stayed ordinary until the user linked it by hand. Recording the result, including a single layer's pending membership, keeps later watch wakes from invoking stacked-pr again."
 where = ["SKILL.md#choose-scope-and-establish-state"]
 
+[[invariants]]
+rule = "An inline comment's claim is read as a concern about the commented line and the diff next to it, at the narrowest reading the anchor supports. When the diff already handles that concern, the reply names the part that handles it instead of defending the whole change, and a not-applicable reply gives the one fact, tradeoff, contract or answer that decides it."
+reason = "User correction of 2026-11-20: on the line of a PR that had turned a lint rule off for tests, a reviewer asked how the PR made the code better, although the PR already exempted node:test's describe and it. The agent defended the whole rule in 85 words with call counts and probe results. The user said \"la forma de responderle a [the reviewer] fue muy AI\"; the reply should have been \"Justamente la regla no se aplica para los tests, pero sí queda activada para cualquier código fuera de ellos\"."
+where = [
+  "references/feedback.md#collect-before-deciding",
+  "references/feedback.md#replies-and-thread-resolution",
+]
+
 [[sources]]
 id = "pstack-pr-followup"
 author = "Lauren Tan / pstack"
