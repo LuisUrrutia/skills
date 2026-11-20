@@ -35,6 +35,32 @@
         "The plan does not invoke `stacked-pr`.",
         "The plan collects feedback channels and investigates the failing lint job."
       ]
+    },
+    {
+      "id": 4,
+      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output. Feedback scope on your own open PR https://github.com/acme/web/pull/3120 (head `lint/floating-promises-tests`, base `main`), which turns on `@typescript-eslint/no-floating-promises` for the admin app's tests. Its diff of `apps/admin/eslint.config.mjs` replaces `\"@typescript-eslint/no-floating-promises\": \"off\",` with `\"@typescript-eslint/no-floating-promises\": [\"error\", { allowForKnownSafeCalls: [{ from: \"package\", package: \"node:test\", name: [\"describe\", \"it\"] }] }],`. Reviewer `dana-k` left one inline comment on the removed `\"off\"` line, with no replies: \"We turned this off on purpose so tests are convenient to write. The test framework has a built-in timeout and handles failures itself. How does this PR make the code better?\" Your earlier probes on this branch found that `assertLogged` now returns nothing, so none of its 84 calls needs `await`, and that `session-cache.test.ts` had a dropped Promise that settled after its test ended, so its failure came from the `unhandledRejection` hook instead of its own test. Classify this thread and give the exact reply text you would post.",
+      "expected_output": "A question answered without a change: Not applicable, thread left open. The reply is one sentence of 40 words or fewer that names the `describe`/`it` exemption as what keeps writing tests convenient while the rule still applies to other code, with no counts, probe results or investigation narrative.",
+      "files": [],
+      "expectations": [
+        "The thread is classified as a question answered without a code change, gets the Not applicable disposition and stays open for the reviewer, with no `Fixed in` reply.",
+        "The reply is one sentence of 40 words or fewer.",
+        "The reply names the `describe`/`it` exemption as what handles the reviewer's concern and says the rule still applies to other code.",
+        "The reply contains no counts, probe results or investigation narrative, such as the 84 `assertLogged` calls or the `unhandledRejection` finding.",
+        "No command or GitHub mutation is executed."
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Do not run any command; this is a simulation. Treat the following as verified tool output. Feedback scope on your own open PR https://github.com/acme/api/pull/912 (head `auth/token-retry`, base `main`). Reviewer `sam-o` left one inline comment on the retry loop in `src/auth/token.ts`, with no replies: \"This loop can spin forever when the token endpoint keeps returning 500. Please cap it. Also, why retry at all instead of failing fast?\" Commit `4e1c9a7`, which caps the loop at three attempts with exponential backoff and adds a test for the cap, is verified and published on the PR head. The token endpoint returns short 503 bursts while it deploys; last month's logs show 37 of them, each under four seconds, and every one recovered within two retries. Your draft reply is: \"Fixed in 4e1c9a7. I capped the loop at three attempts with exponential backoff starting at 200 ms and added a test that asserts we stop after the third failure. We retry instead of failing fast because the token endpoint returns short 503 bursts during its deploys; last month's logs show 37 of them, all under four seconds, and every one recovered within two retries.\" Classify this thread and give the exact reply text you would post.",
+      "expected_output": "Applied, then resolved after the reply is visible. The reply keeps `Fixed in 4e1c9a7.` and adds only one sentence that answers why the loop retries, the short 503 bursts during the endpoint's deploys, without the backoff, the test or any log result.",
+      "files": [],
+      "expectations": [
+        "The thread is classified as applied and resolved after the reply is visible.",
+        "The reply starts with `Fixed in 4e1c9a7.`.",
+        "After that, the reply has exactly one sentence, and it answers why the loop retries instead of failing fast.",
+        "The reply leaves out the backoff, the test and every log result: the 37 bursts, their durations and their recovery within two retries.",
+        "No command or GitHub mutation is executed."
+      ]
     }
   ]
 }
