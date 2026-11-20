@@ -135,6 +135,13 @@ def review_key(pr: dict) -> str:
     return f"{pr['head']}@{pr['base_ref']}"
 
 
+def fingerprint(pr: dict) -> dict:
+    """What a tick saw: the head, the base and each reviewer thread's comments and resolution."""
+    return {"head": pr["head"], "base_ref": pr["base_ref"], "threads": {
+        t["id"]: hashlib.sha256(json.dumps([t["resolved"], [c["body"] for c in t["comments"]]]).encode()).hexdigest()
+        for t in pr["threads"]}}
+
+
 def thread_actions(data: dict, plan: dict | None = None) -> dict:
     stored = data.get("thread_actions") if isinstance(data.get("thread_actions"), dict) else {}
     actions = {i: e["action"] for i, e in stored.items() if isinstance(e, dict) and e.get("action") in ACTIONS}
@@ -212,6 +219,32 @@ def state(url: str, actor: str, state_file: Path, api=None) -> dict:
             "pending_operation": data.get("pending_operation"), "unresolved": len(view["unresolved"]),
             "open_optional": view["open_optional"], "needs_verification": view["unverified"],
             "threads": [{**t, "action": actions.get(t["id"])} for t in pr["threads"]]}
+
+
+def triage(url: str, actor: str, state_file: Path, api=None) -> dict:
+    """Route a wake without judgment: anything a tick has not seen acts. Writes nothing."""
+    target = parse_pr(url)
+    data = load_state(state_file, target, actor)
+    pr = read_pr(target, actor, api or GitHub(target["host"]))
+    view = summarize(pr, data)
+    if pr["state"] != "OPEN":
+        return {"verdict": "stop", "reasons": [f"the PR is {pr['state'].lower()}"], "head": pr["head"]}
+    if pr["approved_head"] and not view["blockers"]:
+        return {"verdict": "stop", "reasons": ["the reviewer approved this head and the gate is clear"],
+                "head": pr["head"]}
+    if pr["pending_review"] or data.get("pending_operation"):
+        return {"verdict": "report", "reasons": ["an unsubmitted review or an uncertain write needs the user"],
+                "head": pr["head"]}
+    reasons = []
+    if data.get("seen") != fingerprint(pr):
+        reasons.append("no tick has seen the current head, base or reviewer threads")
+    if not view["current"] and not view["in_progress"]:
+        reasons.append("the current head has not been reviewed")
+    if view["unverified"]:
+        reasons.append("resolved threads await verification")
+    if not view["blockers"] and not pr["approved_head"]:
+        reasons.append("the approval gate is clear")
+    return {"verdict": "act" if reasons else "quiet", "reasons": reasons, "head": pr["head"]}
 
 
 @serialized
@@ -431,6 +464,8 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
                 raise FollowupError("approval did not read back at the current head")
             finish("approve")
         result["approved"] = current["head"]
+    data["seen"] = fingerprint(read_pr(target, actor, api))
+    save(state_file, data)
     return result
 
 
@@ -438,11 +473,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
     read = commands.add_parser("state", help="report the PR, the recorded review, the approval gate and the reviewer's threads")
+    route = commands.add_parser("triage", help="decide whether a wake needs a full tick; writes nothing")
     start = commands.add_parser("begin", help="mark a full review of a head as in progress")
     mark = commands.add_parser("record", help="record the review a pr-review snapshot covered")
     close = commands.add_parser("settle", help="update the standing findings and open questions of the current review")
     write = commands.add_parser("apply", help="publish replies, settle threads and approve through the gate")
-    for command in (read, start, mark, close, write):
+    for command in (read, route, start, mark, close, write):
         command.add_argument("--pr", required=True)
         command.add_argument("--actor", required=True)
         command.add_argument("--state-file", required=True, type=Path)
@@ -460,6 +496,8 @@ def main() -> int:
     try:
         if args.command == "state":
             output = state(args.pr, args.actor, state_file)
+        elif args.command == "triage":
+            output = triage(args.pr, args.actor, state_file)
         elif args.command == "begin":
             output = begin(args.pr, args.actor, state_file, args.head)
         elif args.command == "record":

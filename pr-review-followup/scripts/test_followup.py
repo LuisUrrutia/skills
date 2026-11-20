@@ -7,7 +7,7 @@ import tempfile
 import unittest
 from pathlib import Path
 
-from followup import FollowupError, RejectedError, apply, begin, record, settle, state
+from followup import FollowupError, RejectedError, apply, begin, record, settle, state, triage
 
 PR = 'https://github.com/example-org/api/pull/12'
 HEAD = 'a' * 40
@@ -505,6 +505,87 @@ class FollowupTests(unittest.TestCase):
         with self.assertRaisesRegex(FollowupError, 'new plan and receipt'):
             apply(PR, 'reviewer', self.state_file, plan, receipt, self.api)
 
+
+    def triage(self):
+        return triage(PR, 'reviewer', self.state_file, self.api)
+
+    def settled_tick(self):
+        self.record()
+        self.apply(verified=['T2'])
+
+    def test_triage_acts_until_a_tick_records_what_it_saw(self):
+        self.assertEqual(self.triage()['verdict'], 'act')
+
+        self.settled_tick()
+
+        self.assertEqual(self.triage(), {'verdict': 'quiet', 'reasons': [], 'head': HEAD})
+
+    def test_triage_writes_nothing(self):
+        self.settled_tick()
+        before, writes = self.state_file.read_text(), len(self.api.writes())
+
+        self.triage()
+
+        self.assertEqual((self.state_file.read_text(), len(self.api.writes())), (before, writes))
+
+    def test_triage_acts_on_each_change_a_tick_must_judge(self):
+        changes = {
+            'reply': lambda api: api.threads[0]['comments']['nodes'].append(
+                {'databaseId': 300, 'author': {'login': 'author'}, 'body': 'done now', 'createdAt': LATER}),
+            'edit': lambda api: api.threads[0]['comments']['nodes'][1].update(body='actually not fixed'),
+            'resolution': lambda api: api.threads[0].update(isResolved=True, resolvedBy={'login': 'author'}),
+            'head': lambda api: setattr(api, 'head', 'b' * 40),
+            'base': lambda api: setattr(api, 'base_ref', 'release/1.2'),
+        }
+        for name, change in changes.items():
+            with self.subTest(change=name):
+                self.setUp()
+                self.settled_tick()
+
+                change(self.api)
+
+                self.assertEqual(self.triage()['verdict'], 'act')
+
+    def test_triage_ignores_other_reviewers_threads(self):
+        self.settled_tick()
+
+        self.api.threads[2]['comments']['nodes'].append(
+            {'databaseId': 301, 'author': {'login': 'author'}, 'body': 'renamed', 'createdAt': LATER})
+
+        self.assertEqual(self.triage()['verdict'], 'quiet')
+
+    def test_triage_acts_when_the_approval_gate_clears(self):
+        self.record()
+        self.apply(verified=['T2'], resolve=['T1'])
+
+        result = self.triage()
+
+        self.assertEqual(result['verdict'], 'act')
+        self.assertIn('the approval gate is clear', result['reasons'])
+
+    def test_triage_stops_on_approval_or_a_closed_pr(self):
+        self.record()
+        self.apply(verified=['T2'], resolve=['T1'], approve=True)
+        self.assertEqual(self.triage()['verdict'], 'stop')
+
+        self.api.pr_state = 'MERGED'
+        self.assertEqual(self.triage(), {'verdict': 'stop', 'reasons': ['the PR is merged'], 'head': HEAD})
+
+    def test_triage_reports_what_belongs_to_the_user(self):
+        self.settled_tick()
+
+        self.api.reviews.append({'id': 9, 'state': 'PENDING', 'user': {'login': 'reviewer'}})
+
+        self.assertEqual(self.triage()['verdict'], 'report')
+
+    def test_a_failed_tick_leaves_triage_acting(self):
+        self.record()
+        self.api.reject_resolve = True
+
+        with self.assertRaises(RejectedError):
+            self.apply(verified=['T2'], resolve=['T1'])
+
+        self.assertEqual(self.triage()['verdict'], 'act')
 
 if __name__ == '__main__':
     unittest.main()
