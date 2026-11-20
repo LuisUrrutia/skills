@@ -11,22 +11,25 @@
   "f772e694294279d9468b88429da35b2fb1a89793",
   "29635b942c3ec4fe42e25f1295dd80e5482e9416",
   "fd135b38b45e015fb15ce0a603f8c5a6bfe470a7",
-  "b5f30207ee3d71ce986e14a64da755fb4b06d3b5"
+  "b5f30207ee3d71ce986e14a64da755fb4b06d3b5",
+  "9c08da4f637ed694198e483f89cca632d4362c5c",
+  "721d4ae5b109e12f48e7d12f0cc159d4f7cb4819"
  ],
  "size": {
-  "method": "wc -w over SKILL.md and all references at the baseline and at b5f3020.",
+  "method": "wc -w over SKILL.md and each reference at the baseline and at 721d4ae; the comment-style base entry at its recorded private snapshot commit.",
   "comment-style": {
    "entry": {
     "before": 956,
-    "after": 956
+    "after": 956,
+    "base_snapshot": 1519
    },
    "references/review.md": {
     "before": 868,
-    "after": 966
+    "after": 969
    },
    "total": {
     "before": 1824,
-    "after": 1922
+    "after": 1925
    }
   },
   "pr-followup": {
@@ -36,22 +39,30 @@
    },
    "references/feedback.md": {
     "before": 880,
-    "after": 943
+    "after": 962
+   },
+   "references/github-collection.md": {
+    "before": 869,
+    "after": 869
+   },
+   "references/ci-and-observation.md": {
+    "before": 1385,
+    "after": 1385
    },
    "references_total": {
     "before": 3134,
-    "after": 3197
+    "after": 3216
    },
    "total": {
     "before": 5879,
-    "after": 5942
+    "after": 5961
    }
   }
  },
  "growth_reasons": [
   "feedback.md anchored-reading paragraph: the user's rule against widening an inline concern; 'any other code the comment names' keeps a correct finding about named code (both reviewers).",
-  "feedback.md not-applicable row: the user's 'one fact'; 'or the evidence the reviewer asked for' keeps it consistent with comment-style's dispute rule (Claude reviewer).",
-  "review.md reply sentence: the user's one-sentence answer and example; 'even by asking whether the change is worth it' resolves the conflict with the worth-it rule seen in a Claude run.",
+  "feedback.md not-applicable row and anchored paragraph: the user's 'one fact'; 'plus the evidence a request or a dispute from the reviewer calls for' keeps both consistent with comment-style's evidence rule (Claude reviewer, review gate F1).",
+  "review.md reply sentence: the user's one-sentence answer and example; 'even by asking whether the change is worth it' resolves the conflict with the worth-it rule seen in a Claude run, and 'neither asks for evidence nor disputes your answer' lets requested evidence follow (review gate F1).",
   "review.md budget paragraph: the user's reader widening, evidence condition, worth-it rule and 40-word check; the check is limited to answers to a question and keeps `Fixed in <commit>.` (both reviewers)."
  ],
  "review": {
@@ -82,14 +93,15 @@
    "Codex M1: the example reply 'skips the tests themselves (describe/it)' is the user's approved example, and its parenthesis and 'still on for any other code' state the exemption's scope.",
    "Codex and Claude: an exception for a comment that names a wider scope in general; a reviewer's 'this PR' would reopen the incident, so only other code the comment names is kept."
   ],
-  "after_review": "Commits 29635b9, fd135b3 and b5f3020 apply the adopted findings and the eval-driven precedence fix; they were not pair-reviewed again."
+  "after_review": "Commits 29635b9, fd135b3, b5f3020, 9c08da4 and 721d4ae apply the adopted findings, the eval-driven precedence fix and the review gate's findings; the model pair did not review them again."
  },
  "evaluation": {
-  "design": "Tool-free dry runs on fake PRs. Executors: T3 delegated tasks on Claude (claude-opus-5-5, effort xhigh) and Codex (gpt-6.2-sol, reasoningEffort xhigh), each told to read only staged copies of the arm's runtime files (both SKILL.md files and their references; no origin.toml, evals or notices) and to use no installed skill; each listed the files it read. The coordinator graded the outputs, not blind. Case A is pr-followup eval 4; round 1 used an earlier prompt with the incident's identifiers, replaced from round 2 on by invented ones.",
+  "design": "Tool-free dry runs on fake PRs. Executors: T3 delegated tasks on Claude (claude-opus-5-5, effort xhigh) and Codex (gpt-6.2-sol, reasoningEffort xhigh), each told to read only staged copies of the arm's runtime files (both SKILL.md files and their references; no origin.toml, evals or notices) and to use no installed skill; each listed the files it read. The coordinator graded the outputs, not blind. Case A is pr-followup eval 4; round 1 used an earlier prompt with the incident's identifiers, replaced from round 2 on by invented ones. Round 4 ran the whole pr-followup suite. Outputs, arm hashes and grades are in anchored-reply-runs.md.",
   "cases": {
    "A": "pr-followup eval 4: a reviewer questions something the diff already handles, with tempting probe results available.",
    "B": "comment-style regression: B1 a new inline finding with a supplied proof chain and two possible fixes; B2 a reply to a reviewer who disputes the earlier one-sentence answer and asks for a concrete case.",
-   "C": "pr-followup boundary: an inline comment on a catch block that also names two other handlers outside the diff."
+   "C": "pr-followup boundary: an inline comment on a catch block that also names two other handlers outside the diff.",
+   "suite": "pr-followup evals 1 to 5; eval 4 is case A and eval 5 cuts a long reply after a published fix to `Fixed in <commit>.` and one answering sentence."
   },
   "expectations": {
    "A": "pr-followup/evals/evals.json eval 4 (round 1 graded on its first three expectations).",
@@ -99,7 +111,8 @@
    ],
    "C": [
     "The claim covers the commented catch block and the two named handlers, and nothing wider."
-   ]
+   ],
+   "suite": "pr-followup/evals/evals.json."
   },
   "runs": [
    {
@@ -206,16 +219,80 @@
     "host": "Claude run 2",
     "round": 3,
     "result": "pass: one sentence, 26 words."
+   },
+   {
+    "case": "eval 1",
+    "arm": "721d4ae",
+    "host": "Codex and Claude",
+    "round": 4,
+    "result": "pass: stacked-pr first as the submission of the requested stack, no question to the user, no watch before membership, no gh pr create."
+   },
+   {
+    "case": "eval 2",
+    "arm": "721d4ae",
+    "host": "Codex and Claude",
+    "round": 4,
+    "result": "pass: pending membership accepted, no new stacked-pr call, the comment collected and evaluated, rebases left to stacked-pr."
+   },
+   {
+    "case": "eval 3",
+    "arm": "721d4ae",
+    "host": "Codex and Claude",
+    "round": 4,
+    "result": "pass: no stacked-pr, every channel collected and the lint failure investigated."
+   },
+   {
+    "case": "A (eval 4)",
+    "arm": "721d4ae",
+    "host": "Codex and Claude",
+    "round": 4,
+    "result": "pass: one sentence of 19 and 21 words naming the exemption and the rule's remaining scope, Not applicable, open."
+   },
+   {
+    "case": "eval 5",
+    "arm": "721d4ae",
+    "host": "Codex and Claude",
+    "round": 4,
+    "result": "pass: `Fixed in 4e1c9a7.` and one sentence on the 503 bursts during deploys, without the backoff, the test, the count or the durations; applied, resolved after the reply is visible."
+   },
+   {
+    "case": "B",
+    "arm": "721d4ae",
+    "host": "Codex and Claude",
+    "round": 4,
+    "result": "pass: B1 keeps one fix and the ticket with no proof chain; B2 gives the requested case."
    }
   ],
   "carryover": [
-   "B and C to b5f3020: that commit changes only the review.md sentence for a reviewer who questions something the PR already handles. B1 is a new finding, B2 answers a dispute that asks for a concrete case and C reports a defect, so none reaches the changed clause; feedback.md is unchanged.",
+   "C to 721d4ae: the later feedback.md change adds evidence only when the reviewer requests it or disputes the answer. C's comment does neither, and the claim-scope sentence it grades is unchanged since fd135b3.",
    "Slack, WhatsApp and social messages: comment-style/SKILL.md is unchanged, and review.md loads only for PR replies and inline comments."
   ],
-  "observedGain": "Case A failed on the baseline in all four runs and passed on b5f3020 in all three; the earlier candidates' partial and failed Claude runs led to the anchored-only answer and the worth-it precedence."
+  "observedGain": "Case A failed on the baseline in all four runs and passed on 721d4ae on both hosts, as on b5f3020 in all three runs; the earlier candidates' partial and failed Claude runs led to the anchored-only answer and the worth-it precedence."
  },
  "limits": [
-  "Dry runs on staged files with one to three runs per case and host; no live PR, and installed skills were not exercised.",
+  "Dry runs on staged files with one to three runs per case and host; no live PR thread, and installed skills were not exercised.",
+  "Executors reported the files they read; their full traces stay in local T3 threads.",
   "Grading by the coordinator, not blind."
+ ],
+ "review_gate": {
+  "skill": "review-code-changes",
+  "profile": {
+   "provider": "codex",
+   "model": "gpt-6.2-sol",
+   "effort": "xhigh"
+  },
+  "scope": "00c71fcd39b59670da6772ba820c3c669feba13b..062ecad282e22ee75f8834ea4ecdf060375153da",
+  "dispositions": [
+   "F1 (medium): the one-sentence answer could suppress evidence the reviewer asks for or a dispute calls for. Fixed in 9c08da4 and 721d4ae.",
+   "F2 (low): the budget still described its reader by access to an agent. Fixed in 721d4ae; the reason stays in the 2026-10-22 record.",
+   "F3 (medium): no case exercised the over-40-word cut with `Fixed in <commit>.`, and evals 1 to 3 had no recorded run. Fixed: eval 5 added in 9c08da4, and round 4 ran evals 1 to 5 on both hosts.",
+   "F4 (medium): the report kept no outputs. Fixed: anchored-reply-runs.md holds the arm hashes, each reply or result, the files read and the grade.",
+   "F5 (low): missing per-reference and base counts and record-check results. Fixed in this report.",
+   "Q1: case B2 disputes the earlier answer and asks for a case, so the F1 change reaches it; round 4 reran B on both hosts."
+  ]
+ },
+ "checks": [
+  "python3 skill-maintenance/scripts/check-origin.py --skill-dir pr-followup and --skill-dir comment-style at 721d4ae: no diagnostics, exit 0.",
+  "pr-followup/evals/evals.json parses as JSON with five cases."
  ]
 }
