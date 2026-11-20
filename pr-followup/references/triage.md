@@ -29,7 +29,7 @@ triage thread nor a delegated child:
 3. Choose the triage model from `orchestrator_capabilities`: search `luna` and
    take the newest `luna` model of an enabled Codex provider, the newest being
    the highest version in its ID. Otherwise search `haiku` and take the newest
-   Claude Haiku. Set its lowest effort option. When neither is offered, arm the
+   Claude Haiku. Set its `medium` effort. When neither is offered, arm the
    watch here as [ci-and-observation.md](ci-and-observation.md#t3-code) says.
 4. Write the ledger to its absolute path, including the Drive start time, the
    stopping point, any user deadline, and every authority and limit in force,
@@ -66,7 +66,8 @@ whatever the verdict, unless the route ended Drive.
    awaits approval: delegate one Drive turn.
 5. Otherwise run `triage`. When it exits nonzero, run it once more; a second
    failure unwatches and reports the exact message. Then follow its verdict:
-   - `quiet`: end the turn without a message; the watch stays on.
+   - `quiet`: end the turn without a message; the watch stays on. A quiet
+     verdict never delegates.
    - `act` or `stop`: delegate one Drive turn.
 6. Delegate with `delegate_task`: `mode: async`, `role: implementation`,
    `isolation: shared`, the acting model as `target`, and a task naming the PR
@@ -83,6 +84,12 @@ whatever the verdict, unless the route ended Drive.
    first and report. Otherwise delegate a step 4 event noted during the turn, or
    run `triage` once more and follow its verdict, which covers the other events
    that arrived during the turn.
+
+After delegating, end the turn at once, arming the watch first in the first
+turn. The child's completion wakes you, so never wait on it with
+`t3_thread_wait` or `task_status`, and never delegate again while it runs: a
+cheap model that waited and then re-delegated started a second acting turn on
+the same PR.
 
 A T3 tool can load late or under another namespace, such as
 `t3-code-direct.delegate_task`: search for it and call it once before reporting

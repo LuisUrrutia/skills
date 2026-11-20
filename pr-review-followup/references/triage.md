@@ -20,7 +20,7 @@ thread nor a delegated child:
 3. Choose the triage model from `orchestrator_capabilities`: search `luna` and
    take the newest `luna` model of an enabled Codex provider, the newest being
    the highest version in its ID. Otherwise search `haiku` and take the newest
-   Claude Haiku. Set its lowest effort option. When neither is offered, arm the
+   Claude Haiku. Set its `medium` effort. When neither is offered, arm the
    watch here as [cadence.md](cadence.md) says.
 4. Run `t3_thread_launch` with that `modelSelection`, this thread's workspace
    (`existing_worktree` with its path when this thread runs in a worktree,
@@ -51,7 +51,8 @@ whatever the verdict, unless the route ended the follow-up.
    turn; its completion wakes you.
 4. Run `triage`. When it exits nonzero, run it once more; a second failure
    unwatches and reports the exact message. Then follow its verdict:
-   - `quiet`: reply in one line and end the turn; the watch stays on.
+   - `quiet`: reply in one line and end the turn; the watch stays on. A quiet
+     verdict never delegates.
    - `stop` or `report`: run `state`, unwatch, and report the reasons, open
      optional threads and anything `state` shows that needs the user.
    - `act`: delegate one tick.
@@ -67,6 +68,12 @@ whatever the verdict, unless the route ended the follow-up.
    or returned no `apply` result, unwatch first and report. Otherwise run
    `triage` once more and follow its verdict, which covers events that arrived
    during the tick.
+
+After delegating, end the turn at once, arming the watch first in the first
+turn. The child's completion wakes you, so never wait on it with
+`t3_thread_wait` or `task_status`, and never delegate again while it runs: a
+cheap model that waited and then re-delegated started a second acting turn on
+the same PR.
 
 A T3 tool can load late or under another namespace, such as
 `t3-code-direct.delegate_task`: search for it and call it once before reporting

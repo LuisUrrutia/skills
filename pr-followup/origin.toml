@@ -78,8 +78,8 @@ reason = "User decision of 2026-11-20 after a cost analysis of the user's Claude
 where = ["references/triage.md", "references/ci-and-observation.md#t3-code", "SKILL.md#choose-scope-and-establish-state"]
 
 [[invariants]]
-rule = "The follow-up thread runs the newest Luna model of an enabled Codex provider, read from T3 Code's live model catalog rather than a pinned version; without one it runs the newest Claude Haiku, and without either the watch stays in the acting thread. It runs at the model's lowest effort."
-reason = "User decision of 2026-11-20: 'prefiero que use gpt luna (sin hardcodear uno en especifico, porque pronto probablemente saldra una nueva version de luna), y si no esta openai/codex, entonces usar haiku'. The lowest effort is inferred: the helper decides each verdict, so routing needs no reasoning."
+rule = "The follow-up thread runs the newest Luna model of an enabled Codex provider, read from T3 Code's live model catalog rather than a pinned version; without one it runs the newest Claude Haiku, and without either the watch stays in the acting thread. It runs at medium effort, ends its turn right after delegating, never waits on or re-delegates to a running child, and never delegates on a quiet verdict."
+reason = "User decision of 2026-11-20: 'prefiero que use gpt luna (sin hardcodear uno en especifico, porque pronto probablemente saldra una nueva version de luna), y si no esta openai/codex, entonces usar haiku'. On 2026-11-20, PR https://github.com/LuisUrrutia/skills/pull/88's own Drive ran a gpt-6-luna triage thread at low effort: it waited on its child, re-delegated after the wait timed out, and delegated on a quiet verdict; the user chose to harden and retest."
 where = ["references/triage.md#start-it"]
 
 [[invariants]]
