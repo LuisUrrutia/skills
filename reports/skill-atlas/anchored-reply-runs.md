@@ -34,6 +34,7 @@ SHA-256 of each staged runtime file. These four are the same in every arm:
 | cand3 | `b5f3020` | `d958e9c618fa1a2473dd23d98fe5546b6447167008c37dc916b47f1114fa764c` | `dea18aa894f65af50adda7a03feb4535e8a0a378614a7d0be067dc176fe8d167` |
 | cand4 | `721d4ae` | `50b16d9e0b92767eaaacc43acc170a2339bff67a673c0411f653159a4ad0380a` | `8ec5825603a5843cd0c624e93cf115dd5be089c50230ac8340d0efd8807a6de7` |
 | cand5 | `0227bcf` | `f1202abe0780604428a8bec888e0e5e434b6dabc8fda36086b83f97c70d5213f` | `8ec5825603a5843cd0c624e93cf115dd5be089c50230ac8340d0efd8807a6de7` |
+| cand6 | `03309dd` | `665d243e208df7cf447227856ed825ad26fc7b112fc8edee18e7e505dacf9370` | `8ec5825603a5843cd0c624e93cf115dd5be089c50230ac8340d0efd8807a6de7` |
 
 ## Cases
 
@@ -158,3 +159,18 @@ the thread is Not applicable and left open.
 | --- | --- | --- | --- |
 | E and F | Codex | E: "in `session-cache.test.ts`, the rule would have flagged the helper call that dropped a promise which later rejected"; Not applicable, open. F: "the dropped promise in `session-cache.test.ts` rejected after its test had already ended, so the timeout never fired. The rejection surfaced in the `unhandledRejection` hook and was attributed to the next test"; Not applicable (disproved), open. The executor reported one attempted read outside D that failed because the file did not exist. | pass |
 | E and F | Claude | E: "in `session-cache.test.ts` a helper call dropped a promise that rejected after its test ended, so the failure showed up in the file's `unhandledRejection` hook and got blamed on the next test. the rule flags that call"; Not applicable, open. F: "the timeout only fires while the test is still running. in `session-cache.test.ts` a helper call dropped a promise that rejected after its test had finished, so the timeout never fired and the failure showed up in the file's `unhandledRejection` hook, blamed on the next test"; Not applicable (disproved), open. Left out the unrequested call count. | pass |
+
+## Round 7
+
+Case G ran on cand6 after CodeRabbit found that the 40-word cut dropped a
+partial-fix sentence. The reviewer asked for a retry cap and retry logging and
+asked why the loop retries; the published fix caps the loop, logging is
+deferred to a ticket, and the draft also carries the backoff, the test and log
+counts. G passes when the reply keeps the fix reference, the deferral sentence
+with its ticket and one answering sentence, with no implementation detail or
+log result.
+
+| Case | Host | Reply or result | Grade (observable expectations) |
+| --- | --- | --- | --- |
+| G | Codex | "Retry cap fixed in 9b2d4f1. Retry logging is deferred to API-412 because this module's logger is being replaced. Retrying lets requests recover from brief 503s during token endpoint deploys." | pass; names the fixed part instead of the exact `Fixed in 9b2d4f1.` form |
+| G | Claude | "Fixed in 9b2d4f1. Logging each retry is deferred to API-412 because this module's logger is being replaced. We retry because the token endpoint returns short 503 bursts during deploys." | pass |

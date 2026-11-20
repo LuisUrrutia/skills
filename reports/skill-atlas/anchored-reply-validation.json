@@ -16,10 +16,12 @@
   "721d4ae5b109e12f48e7d12f0cc159d4f7cb4819",
   "68f8590bb208df4808e4e25697dfa5e1c79a311c",
   "070f0ea8fe85ddbfeba4d5aece42845b9d5f46c1",
-  "0227bcfc2e5bd489fe9888fd37f43698222ed974"
+  "0227bcfc2e5bd489fe9888fd37f43698222ed974",
+  "2c4ca18ce59a2a59d654817dcddfaccd2362be29",
+  "03309dd573b8c24f6389aee8099706ad208eab7a"
  ],
  "size": {
-  "method": "wc -w over SKILL.md and each reference at the baseline and at 0227bcf; the comment-style base entry at its recorded private snapshot commit.",
+  "method": "wc -w over SKILL.md and each reference at the baseline and at 03309dd; the comment-style base entry at its recorded private snapshot commit.",
   "comment-style": {
    "entry": {
     "before": 956,
@@ -28,11 +30,11 @@
    },
    "references/review.md": {
     "before": 868,
-    "after": 979
+    "after": 989
    },
    "total": {
     "before": 1824,
-    "after": 1935
+    "after": 1945
    }
   },
   "pr-followup": {
@@ -67,7 +69,8 @@
   "feedback.md not-applicable row and anchored paragraph: the user's 'one fact'; 'plus the evidence a request or a dispute from the reviewer calls for' keeps both consistent with comment-style's evidence rule (Claude reviewer, review gate F1).",
   "review.md reply sentence: the user's one-sentence answer and example; 'even by asking whether the change is worth it' resolves the conflict with the worth-it rule seen in a Claude run, and 'neither asks for evidence nor disputes your answer' lets requested evidence follow (review gate F1).",
   "review.md budget paragraph: the user's reader widening, evidence condition, worth-it rule and 40-word check; the check is limited to answers to a question and keeps `Fixed in <commit>.` (both reviewers).",
-  "review.md budget paragraph: 'and the results behind it' and 'counts and probe or log results' name the evidence the user's incident carried, after eval 5 runs packed a log result into the answering sentence (review gate repeat F3)."
+  "review.md budget paragraph: 'and the results behind it' and 'counts and probe or log results' name the evidence the user's incident carried, after eval 5 runs packed a log result into the answering sentence (review gate repeat F3).",
+  "review.md 40-word cut: 'with the deviation, scope or deferral sentence that form requires' keeps a partial fix from reading as complete (CodeRabbit on the PR)."
  ],
  "review": {
   "candidate": "Commit f772e694294279d9468b88429da35b2fb1a89793, tree 37baaa7495df4bbd20c7974a64d3771c2ef8565b; frozen diff 00c71fc..f772e69 sha256 d6087c28f1956716f3ea758d341b0b80b6d20a005463a71865bde16a9293b6e7.",
@@ -107,7 +110,8 @@
    "C": "pr-followup boundary: an inline comment on a catch block that also names two other handlers outside the diff.",
    "suite": "pr-followup evals 1 to 5; eval 4 is case A and eval 5 cuts a long reply after a published fix to `Fixed in <commit>.` and one answering sentence.",
    "D": "comment-style reply to a question about a cache TTL, with no fix and no request for evidence, given a draft with a count-based quota and a log check.",
-   "E and F": "follow-ups after case A's one-sentence answer: E only asks for a place the rule would have caught something, F only disputes the answer."
+   "E and F": "follow-ups after case A's one-sentence answer: E only asks for a place the rule would have caught something, F only disputes the answer.",
+   "G": "comment-style reply after a fix that covers one of two requests, with the other deferred to a ticket, plus a question, given a long draft with implementation detail and log counts."
   },
   "expectations": {
    "A": "pr-followup/evals/evals.json eval 4. Round 1 graded the case's first three expectations at that time, which match A2 without 'one sentence', A3 without the rule's remaining scope, and A4.",
@@ -124,6 +128,9 @@
    ],
    "E and F": [
     "Each reply gives the dropped-Promise case."
+   ],
+   "G": [
+    "The reply keeps the fix reference, the deferral sentence with its ticket and one answering sentence, with no implementation detail or log result."
    ]
   },
   "runs": [
@@ -322,9 +329,17 @@
     "host": "Codex and Claude",
     "round": 6,
     "result": "pass: each reply gives the dropped-Promise case, and both threads are Not applicable and left open."
+   },
+   {
+    "case": "G",
+    "arm": "03309dd",
+    "host": "Codex and Claude",
+    "round": 7,
+    "result": "pass on both hosts; Codex wrote 'Retry cap fixed in' instead of the exact `Fixed in <commit>.` form."
    }
   ],
   "carryover": [
+   "Earlier cases to 03309dd: that commit changes only the 40-word cut, adding the sentence a `Fixed in <commit>.` reply requires for a deviation, scope or deferral; no other case has such a sentence, since eval 5's fix matches its request and cases A, D, E and F have no fix.",
    "Evals 1 to 3 to 0227bcf: commits after 721d4ae change only comment-style/references/review.md and eval 5's grading; evals 1 to 3 grade stack routing, feedback collection and CI investigation, and two of the Claude runs did not read comment-style at all.",
    "C to 0227bcf: feedback.md is unchanged since 721d4ae, where the added evidence clause applies only to a request or dispute; C's comment has neither, and its claim-scope sentence is unchanged since fd135b3.",
    "Slack, WhatsApp and social messages: comment-style/SKILL.md is unchanged, and review.md loads only for PR replies and inline comments."
@@ -378,7 +393,13 @@
   }
  },
  "checks": [
-  "python3 skill-maintenance/scripts/check-origin.py --skill-dir pr-followup and --skill-dir comment-style at 0227bcf: no diagnostics, exit 0.",
+  "python3 skill-maintenance/scripts/check-origin.py --skill-dir pr-followup and --skill-dir comment-style at 03309dd: no diagnostics, exit 0.",
   "pr-followup/evals/evals.json parses as JSON with five cases."
- ]
+ ],
+ "pr_review": {
+  "reviewer": "CodeRabbit",
+  "findings": [
+   "Minor: the 40-word cut dropped the partial-fix, scope or deferral sentence that `Fixed in <commit>.` requires. Fixed in 03309dd; case G ran on both hosts."
+  ]
+ }
 }
