@@ -54,10 +54,13 @@ class FakeGitHub:
                 self.reopen_after_reads -= 1
                 if self.reopen_after_reads < 0:
                     self.threads[0].update(isResolved=False, resolvedBy=None)
+            capped = [{**t, 'comments': {'pageInfo': {'hasNextPage': t['comments']['pageInfo']['hasNextPage']
+                                                       or len(t['comments']['nodes']) > 100},
+                                         'nodes': t['comments']['nodes'][:100]}} for t in self.threads]
             return {'data': {'repository': {'pullRequest': {
                 'id': 'PR_node', 'state': self.pr_state, 'headRefOid': self.head, 'baseRefName': self.base_ref,
                 'title': self.title, 'body': self.body, 'author': {'login': self.author},
-                'reviewThreads': {'pageInfo': {'hasNextPage': False}, 'nodes': self.threads}}}}}
+                'reviewThreads': {'pageInfo': {'hasNextPage': False}, 'nodes': capped}}}}}
         if endpoint.endswith('/reviews?per_page=100'):
             return self.reviews
         if endpoint.endswith('/issues/12/comments?per_page=100'):
