@@ -28,8 +28,7 @@ thread nor a delegated child:
    reviewer, every limit the user set on this follow-up (such as no approval),
    the absolute state file path, the full helper command form under the
    reviewer's binding, this file's absolute path, the acting model, and: "Follow
-   Route a wake once, then arm `watch_pull_request` for this PR as your last
-   call unless the route ended the follow-up. Do not load the whole skill."
+   Route a wake. Do not load the whole skill."
 5. Wait with `t3_thread_wait` until that first run ends, waiting again after a
    timeout, then list its pull requests with `list_thread_pull_requests`. When
    this PR shows `watching: true`, report the link: that thread now owns the
@@ -38,6 +37,9 @@ thread nor a delegated child:
    here and report why.
 
 ## Route a wake
+
+In this thread's first turn, the last call is `watch_pull_request` for this PR
+whatever the verdict, unless the route ended the follow-up.
 
 1. A message from the user that only asks for status: answer from `state` and
    leave any child and the watch alone. Any other message: cancel a running

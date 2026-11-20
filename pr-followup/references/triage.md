@@ -38,9 +38,8 @@ triage thread nor a delegated child:
    (`existing_worktree` with its path when this thread runs in a worktree,
    otherwise `root`), that title, and a message that names the PR URL, the
    actor, the ledger and state file paths, both complete helper commands, this
-   file's absolute path, the acting model, and: "Follow Route a wake once, then
-   arm `watch_pull_request` for this PR as your last call unless the route ended
-   Drive. Do not load the whole skill."
+   file's absolute path, the acting model, and: "Follow Route a wake. Do not load
+   the whole skill."
 6. Wait with `t3_thread_wait` until that first run ends, waiting again after a
    timeout, then list its pull requests with `list_thread_pull_requests`. When
    this PR shows `watching: true`, report the link: that thread now owns the
@@ -49,6 +48,9 @@ triage thread nor a delegated child:
    the watch here and report why.
 
 ## Route a wake
+
+In this thread's first turn, the last call is `watch_pull_request` for this PR
+whatever the verdict, unless the route ended Drive.
 
 1. A message from the user that only asks for status: answer from the ledger
    and a read of the PR, and leave any child and the watch alone. Any other
