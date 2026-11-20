@@ -14,7 +14,9 @@ PR = 'https://github.com/example-org/api/pull/12'
 
 
 def check(name, status='IN_PROGRESS', conclusion=None, run=1):
-    return {'__typename': 'CheckRun', 'databaseId': run, 'name': name, 'status': status, 'conclusion': conclusion}
+    completed = '2026-11-20T10:05:00Z' if status == 'COMPLETED' else None
+    return {'__typename': 'CheckRun', 'databaseId': run, 'name': name, 'status': status, 'conclusion': conclusion,
+            'completedAt': completed}
 
 
 class FakeGitHub:
@@ -97,6 +99,7 @@ class TriageTests(unittest.TestCase):
             'passed check while others run': lambda api: api.checks[0].update(status='COMPLETED', conclusion='SUCCESS'),
             'failed status': lambda api: api.checks[3].update(state='ERROR'),
             'rerun with the same result': lambda api: api.checks[2].update(databaseId=2),
+            'same run completed again': lambda api: api.checks[2].update(completedAt='2026-11-20T11:00:00Z'),
             'thread reply': lambda api: api.inline.append({'id': 4, 'body': 'still racy'}),
             'edited inline comment': lambda api: api.inline[0].update(body='guard both writes'),
             'edited conversation comment': lambda api: api.conversation[0].update(body='please split this'),
@@ -117,6 +120,16 @@ class TriageTests(unittest.TestCase):
                 change(self.api)
 
                 self.assertEqual(self.triage()['verdict'], 'act')
+
+    def test_a_check_run_and_a_status_with_the_same_name_and_result_are_both_kept(self):
+        self.api.checks = [check('build', 'COMPLETED', 'SUCCESS'),
+                           {'__typename': 'StatusContext', 'context': 'build', 'state': 'SUCCESS',
+                            'createdAt': '2026-11-20T10:00:00Z'}]
+        self.record()
+
+        self.api.checks[1].update(createdAt='2026-11-20T11:00:00Z')
+
+        self.assertEqual(self.triage()['verdict'], 'act')
 
     def test_every_page_is_compared(self):
         self.api.page_size = 1
