@@ -262,6 +262,8 @@ def triage(url: str, actor: str, state_file: Path, api=None) -> dict:
         return verdict("act", "no tick has recorded what it judged")
     if seen.get("core") != now["core"]:
         return verdict("act", "the head, base or reviewer threads changed")
+    if not view["current"] and not view["in_progress"]:
+        return verdict("act", "the current head has no review and none is in progress")
     # Wider activity matters only while findings outside the reviewer's threads or decisive questions stand.
     if (view["standing"] or view["questions"]) and seen.get("discussion") != now["discussion"]:
         return verdict("act", "the discussion changed while findings or questions stand")

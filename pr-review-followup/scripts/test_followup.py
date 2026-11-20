@@ -606,6 +606,19 @@ class FollowupTests(unittest.TestCase):
 
         self.assertEqual(self.triage()['verdict'], 'quiet')
 
+    def test_a_review_attempt_that_outlives_its_window_acts_again(self):
+        self.settled_tick()
+        self.api.head = 'b' * 40
+        begin(PR, 'reviewer', self.state_file, self.api.head)
+        self.judged_apply(expected_head=self.api.head, verified=['T2'])
+        self.assertEqual(self.triage()['verdict'], 'quiet')
+
+        data = json.loads(self.state_file.read_text())
+        data['reviewing']['started_at'] = '2026-01-01T00:00:00+00:00'
+        self.state_file.write_text(json.dumps(data))
+
+        self.assertEqual(self.triage()['reasons'], ['the current head has no review and none is in progress'])
+
     def test_triage_stops_on_approval_or_a_closed_pr(self):
         self.record()
         self.judged_apply(verified=['T2'], resolve=['T1'], approve=True)
