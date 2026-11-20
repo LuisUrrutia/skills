@@ -1,0 +1,221 @@
+{
+ "skill": [
+  "pr-followup",
+  "comment-style"
+ ],
+ "date": "2026-11-20",
+ "request": "User correction of 2026-11-20 after a pr-followup reply to a reviewer on a PR in a private repository. The PR turned on @typescript-eslint/no-floating-promises for tests and exempted node:test's describe and it. On the removed \"off\" line the reviewer said the rule was off to keep tests convenient and asked how the PR made the code better. The agent read an objection to the whole rule and posted 85 words of counts and probe results. The user approved: read an inline comment against its line and diff, answer with what already handles the concern, give one deciding fact in a not-applicable reply, extend comment-style's length budget to reviewers with evidence only on request or dispute, cut an over-40-word answer to its answering sentence, record both, and add an eval case.",
+ "baseline_commit": "00c71fcd39b59670da6772ba820c3c669feba13b",
+ "commits": [
+  "14c9c5bcd96f28e0c46e20e2c5174b0df89d50b5",
+  "f772e694294279d9468b88429da35b2fb1a89793",
+  "29635b942c3ec4fe42e25f1295dd80e5482e9416",
+  "fd135b38b45e015fb15ce0a603f8c5a6bfe470a7",
+  "b5f30207ee3d71ce986e14a64da755fb4b06d3b5"
+ ],
+ "size": {
+  "method": "wc -w over SKILL.md and all references at the baseline and at b5f3020.",
+  "comment-style": {
+   "entry": {
+    "before": 956,
+    "after": 956
+   },
+   "references/review.md": {
+    "before": 868,
+    "after": 966
+   },
+   "total": {
+    "before": 1824,
+    "after": 1922
+   }
+  },
+  "pr-followup": {
+   "entry": {
+    "before": 2745,
+    "after": 2745
+   },
+   "references/feedback.md": {
+    "before": 880,
+    "after": 943
+   },
+   "references_total": {
+    "before": 3134,
+    "after": 3197
+   },
+   "total": {
+    "before": 5879,
+    "after": 5942
+   }
+  }
+ },
+ "growth_reasons": [
+  "feedback.md anchored-reading paragraph: the user's rule against widening an inline concern; 'any other code the comment names' keeps a correct finding about named code (both reviewers).",
+  "feedback.md not-applicable row: the user's 'one fact'; 'or the evidence the reviewer asked for' keeps it consistent with comment-style's dispute rule (Claude reviewer).",
+  "review.md reply sentence: the user's one-sentence answer and example; 'even by asking whether the change is worth it' resolves the conflict with the worth-it rule seen in a Claude run.",
+  "review.md budget paragraph: the user's reader widening, evidence condition, worth-it rule and 40-word check; the check is limited to answers to a question and keeps `Fixed in <commit>.` (both reviewers)."
+ ],
+ "review": {
+  "candidate": "Commit f772e694294279d9468b88429da35b2fb1a89793, tree 37baaa7495df4bbd20c7974a64d3771c2ef8565b; frozen diff 00c71fc..f772e69 sha256 d6087c28f1956716f3ea758d341b0b80b6d20a005463a71865bde16a9293b6e7.",
+  "profiles": [
+   {
+    "provider": "codex",
+    "model": "gpt-6.2-sol",
+    "effort": "xhigh",
+    "findings": "4 material, 2 minor"
+   },
+   {
+    "provider": "claudeAgent",
+    "model": "claude-opus-5-5",
+    "effort": "xhigh",
+    "findings": "3 material, 8 minor"
+   }
+  ],
+  "adopted": [
+   "Both: the 40-word cut used a narrower exception than the evidence rule and applied to every reply, so it could cut a disputed finding or a `Fixed in <commit>.` reply with its allowed sentence; it now covers only an answer to a question, under the same condition, and keeps `Fixed in <commit>.` (fd135b3).",
+   "Both: the anchored reading could drop other code the comment names; the claim now includes it (29635b9).",
+   "Both: the eval graded neither disposition, a single sentence nor the rule's remaining scope (29635b9).",
+   "Both: the comment-style records disagreed and the new entry read as a changelog; the 2026-10-22 entry now states the current rule (fd135b3).",
+   "Both: one pr-followup invariant held two decisions and its reason inverted the incident; split and corrected (29635b9).",
+   "Claude: the one-fact row blocked evidence the reviewer asks for (29635b9); the eval copied identifiers from the private incident (29635b9); 'the author' remained in the widened section (fd135b3); clauses added to the user's rule are now credited to the invariant they protect; 'should have been' became 'something like'."
+  ],
+  "declined": [
+   "Codex M1: the example reply 'skips the tests themselves (describe/it)' is the user's approved example, and its parenthesis and 'still on for any other code' state the exemption's scope.",
+   "Codex and Claude: an exception for a comment that names a wider scope in general; a reviewer's 'this PR' would reopen the incident, so only other code the comment names is kept."
+  ],
+  "after_review": "Commits 29635b9, fd135b3 and b5f3020 apply the adopted findings and the eval-driven precedence fix; they were not pair-reviewed again."
+ },
+ "evaluation": {
+  "design": "Tool-free dry runs on fake PRs. Executors: T3 delegated tasks on Claude (claude-opus-5-5, effort xhigh) and Codex (gpt-6.2-sol, reasoningEffort xhigh), each told to read only staged copies of the arm's runtime files (both SKILL.md files and their references; no origin.toml, evals or notices) and to use no installed skill; each listed the files it read. The coordinator graded the outputs, not blind. Case A is pr-followup eval 4; round 1 used an earlier prompt with the incident's identifiers, replaced from round 2 on by invented ones.",
+  "cases": {
+   "A": "pr-followup eval 4: a reviewer questions something the diff already handles, with tempting probe results available.",
+   "B": "comment-style regression: B1 a new inline finding with a supplied proof chain and two possible fixes; B2 a reply to a reviewer who disputes the earlier one-sentence answer and asks for a concrete case.",
+   "C": "pr-followup boundary: an inline comment on a catch block that also names two other handlers outside the diff."
+  },
+  "expectations": {
+   "A": "pr-followup/evals/evals.json eval 4 (round 1 graded on its first three expectations).",
+   "B": [
+    "B1 starts with the problem, its trigger and SHOP-219, names one fix, carries no proof chain or second fix and no optional label.",
+    "B2 gives the concrete case the reviewer asked for."
+   ],
+   "C": [
+    "The claim covers the commented catch block and the two named handlers, and nothing wider."
+   ]
+  },
+  "runs": [
+   {
+    "case": "A",
+    "arm": "baseline 00c71fc",
+    "host": "Codex",
+    "round": 1,
+    "result": "fail: 57 words, two paragraphs with the call count and the probe result."
+   },
+   {
+    "case": "A",
+    "arm": "baseline 00c71fc",
+    "host": "Claude",
+    "round": 1,
+    "result": "fail: about 48 words with the call count and the probe result."
+   },
+   {
+    "case": "A",
+    "arm": "f772e69",
+    "host": "Codex",
+    "round": 1,
+    "result": "pass: 20 words naming the describe/it exemption and the rule's remaining scope."
+   },
+   {
+    "case": "A",
+    "arm": "f772e69",
+    "host": "Claude",
+    "round": 1,
+    "result": "partial: 36 words naming the exemption, plus the probe result as an example."
+   },
+   {
+    "case": "B",
+    "arm": "f772e69",
+    "host": "Codex and Claude",
+    "round": 1,
+    "result": "pass."
+   },
+   {
+    "case": "A",
+    "arm": "baseline 00c71fc",
+    "host": "Codex",
+    "round": 2,
+    "result": "fail: 47 words with the call count and the probe result."
+   },
+   {
+    "case": "A",
+    "arm": "baseline 00c71fc",
+    "host": "Claude",
+    "round": 2,
+    "result": "fail: 52 words with the call count and the probe result."
+   },
+   {
+    "case": "A",
+    "arm": "fd135b3",
+    "host": "Codex",
+    "round": 2,
+    "result": "pass: one sentence, 16 words, Not applicable, thread open."
+   },
+   {
+    "case": "A",
+    "arm": "fd135b3",
+    "host": "Claude run 1",
+    "round": 2,
+    "result": "fail: read the question as whether the change is worth it, answered with the benefit and the probe result in 29 words, and left out the exemption."
+   },
+   {
+    "case": "A",
+    "arm": "fd135b3",
+    "host": "Claude run 2",
+    "round": 2,
+    "result": "pass: one sentence, 25 words."
+   },
+   {
+    "case": "B",
+    "arm": "fd135b3",
+    "host": "Codex and Claude",
+    "round": 2,
+    "result": "pass; Codex's B1 states the coupon example as the triggering input."
+   },
+   {
+    "case": "C",
+    "arm": "fd135b3",
+    "host": "Codex and Claude",
+    "round": 2,
+    "result": "pass: both keep the two named handlers in the claim and route them to a tracking ticket if confirmed outside the PR."
+   },
+   {
+    "case": "A",
+    "arm": "b5f3020",
+    "host": "Codex",
+    "round": 3,
+    "result": "pass: one sentence, 16 words."
+   },
+   {
+    "case": "A",
+    "arm": "b5f3020",
+    "host": "Claude run 1",
+    "round": 3,
+    "result": "pass: one sentence, 22 words, probe results kept out."
+   },
+   {
+    "case": "A",
+    "arm": "b5f3020",
+    "host": "Claude run 2",
+    "round": 3,
+    "result": "pass: one sentence, 26 words."
+   }
+  ],
+  "carryover": [
+   "B and C to b5f3020: that commit changes only the review.md sentence for a reviewer who questions something the PR already handles. B1 is a new finding, B2 answers a dispute that asks for a concrete case and C reports a defect, so none reaches the changed clause; feedback.md is unchanged.",
+   "Slack, WhatsApp and social messages: comment-style/SKILL.md is unchanged, and review.md loads only for PR replies and inline comments."
+  ],
+  "observedGain": "Case A failed on the baseline in all four runs and passed on b5f3020 in all three; the earlier candidates' partial and failed Claude runs led to the anchored-only answer and the worth-it precedence."
+ },
+ "limits": [
+  "Dry runs on staged files with one to three runs per case and host; no live PR, and installed skills were not exercised.",
+  "Grading by the coordinator, not blind."
+ ]
+}
