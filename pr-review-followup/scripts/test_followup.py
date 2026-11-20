@@ -62,6 +62,9 @@ class FakeGitHub:
             return self.reviews
         if endpoint.endswith('/issues/12/comments?per_page=100'):
             return self.conversation
+        if endpoint.endswith('/pulls/12/comments?per_page=100'):
+            return [{'id': c['databaseId'], 'user': c['author'], 'body': c['body']}
+                    for t in self.threads for c in t['comments']['nodes']]
         if endpoint.endswith('/replies'):
             number = int(endpoint.split('/')[-2])
             target = next(t for t in self.threads if t['comments']['nodes'][0]['databaseId'] == number)
@@ -521,8 +524,9 @@ class FollowupTests(unittest.TestCase):
         self.judged_apply(verified=['T2'])
 
     def author_says(self, thread_index, body):
-        self.api.threads[thread_index]['comments']['nodes'].append(
-            {'databaseId': 300 + len(body), 'author': {'login': 'author'}, 'body': body, 'createdAt': LATER})
+        nodes = self.api.threads[thread_index]['comments']['nodes']
+        nodes.append({'databaseId': 1000 * (thread_index + 1) + len(nodes), 'author': {'login': 'author'},
+                      'body': body, 'createdAt': LATER})
 
     def test_triage_acts_until_a_tick_records_what_it_judged(self):
         self.assertEqual(self.triage()['verdict'], 'act')
@@ -584,7 +588,8 @@ class FollowupTests(unittest.TestCase):
     def test_wider_discussion_counts_only_while_findings_or_questions_stand(self):
         changes = {
             'title': lambda: setattr(self.api, 'title', 'Guard writes (JIRA-12)'),
-            'conversation': lambda: self.api.conversation.append({'body': 'the decision is in ADR-7'}),
+            'conversation': lambda: self.api.conversation.append(
+                {'id': 7, 'body': 'the decision is in ADR-7', 'user': {'login': 'author'}}),
             'other thread': lambda: self.author_says(2, 'renamed'),
             'review body': lambda: self.api.reviews.append(
                 {'id': 8, 'state': 'COMMENTED', 'body': 'answered the question', 'user': {'login': 'author'}}),
@@ -598,6 +603,15 @@ class FollowupTests(unittest.TestCase):
                     change()
 
                     self.assertEqual(self.triage()['verdict'], verdict)
+
+    def test_an_edit_deep_in_another_reviewers_long_thread_acts_while_a_question_stands(self):
+        for i in range(150):
+            self.author_says(2, f'note {i:03}')
+        self.settled_tick(questions=1)
+
+        self.api.threads[2]['comments']['nodes'][120]['body'] = 'the answer is in ADR-7'
+
+        self.assertEqual(self.triage()['verdict'], 'act')
 
     def test_triage_does_not_repeat_on_state_a_tick_already_judged(self):
         self.record()

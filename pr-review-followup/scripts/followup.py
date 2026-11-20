@@ -105,11 +105,11 @@ def read_pr(target: dict, actor: str, api) -> dict:
     if pr["reviewThreads"]["pageInfo"]["hasNextPage"]:
         raise FollowupError("more than 100 review threads; refusing to act on a partial view")
     roles = {actor: "reviewer", author: "author"}
-    threads, others = [], []
+    threads, others = [], {}
     for node in pr["reviewThreads"]["nodes"]:
         comments = node["comments"]["nodes"]
         if not comments or (comments[0]["author"] or {}).get("login") != actor:
-            others.append([node["isResolved"], [c["body"] for c in comments]])
+            others[node["id"]] = node["isResolved"]
             continue
         if node["comments"]["pageInfo"]["hasNextPage"]:
             raise FollowupError(f"thread {node['id']} has more than 100 comments; refusing to act on a partial view")
@@ -127,9 +127,15 @@ def read_pr(target: dict, actor: str, api) -> dict:
     published = api.call(target["prefix"] + "/reviews?per_page=100")
     reviews = [r for r in published if (r.get("user") or {}).get("login") == actor]
     conversation = api.call(f"repos/{target['owner']}/{target['repo']}/issues/{target['number']}/comments?per_page=100")
-    # Where standing findings and open questions get settled: the PR text, its conversation and others' threads and reviews.
-    discussion = [pr["title"], pr["body"], others, [c.get("body") for c in conversation],
-                  [r.get("body") for r in published if r not in reviews and r.get("state") != "PENDING"]]
+    inline = api.call(target["prefix"] + "/comments?per_page=100")
+
+    def by_others(items):
+        return {str(i.get("id")): i.get("body") for i in items if (i.get("user") or {}).get("login") != actor}
+
+    # Where standing findings and open questions get settled: the PR text, everyone else's comments, reviews and
+    # thread resolutions. Every page is read, and the reviewer's own writes stay out so they never read as news.
+    discussion = [pr["title"], pr["body"], others, by_others(inline), by_others(conversation),
+                  by_others(r for r in published if r.get("state") != "PENDING")]
     return {"state": pr["state"], "head": pr["headRefOid"], "base_ref": pr["baseRefName"], "author": author,
             "threads": threads, "discussion": discussion,
             "pending_review": any(r.get("state") == "PENDING" for r in reviews),
