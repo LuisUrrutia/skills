@@ -31,9 +31,10 @@ State only that difference, reason, or answer. Never restate what the reviewer
 said, including their diagnosis or suggestion, and never narrate the
 implementation, its tests, or other additions; the commit shows them. Without a
 fix, give the answer or the concrete reason for disagreeing, then stop. When the
-reviewer questions something the PR already handles, the whole answer is one
-sentence naming what handles it, such as "exactly, the rule skips the tests
-themselves (describe/it), but it's still on for any other code".
+reviewer questions something the PR already handles, even by asking whether the
+change is worth it, the whole answer is one sentence naming what handles it, such
+as "exactly, the rule skips the tests themselves (describe/it), but it's still
+on for any other code".
 
 Distinguish proposed, changed locally, checked, published, and deployed. Say
 "fixed" only when the evidence supports the implied scope. Do not invent a test
