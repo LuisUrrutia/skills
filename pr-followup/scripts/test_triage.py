@@ -19,7 +19,7 @@ class FakeGitHub:
         self.actor = 'author'
         self.pr = {
             'state': 'OPEN', 'isDraft': False, 'headRefOid': 'a' * 40, 'baseRefName': 'main',
-            'mergeable': 'MERGEABLE', 'reviewDecision': 'REVIEW_REQUIRED',
+            'mergeable': 'MERGEABLE', 'mergeStateStatus': 'BLOCKED', 'reviewDecision': 'REVIEW_REQUIRED',
             'reviewThreads': page({'id': 'T1', 'isResolved': False,
                                    'comments': page({'id': 'C1', 'body': 'guard this write'})}),
             'reviews': page({'id': 'R1', 'state': 'COMMENTED', 'body': 'a few points'}),
@@ -94,6 +94,7 @@ class TriageTests(unittest.TestCase):
             'review': lambda pr, ctx: pr['reviews']['nodes'].append({'id': 'R2', 'state': 'APPROVED', 'body': ''}),
             'decision': lambda pr, ctx: pr.update(reviewDecision='APPROVED'),
             'conflict': lambda pr, ctx: pr.update(mergeable='CONFLICTING'),
+            'behind': lambda pr, ctx: pr.update(mergeStateStatus='BEHIND'),
             'head': lambda pr, ctx: pr.update(headRefOid='b' * 40),
             'base': lambda pr, ctx: pr.update(baseRefName='release/1.2'),
             'ready': lambda pr, ctx: pr.update(isDraft=True),
@@ -121,12 +122,12 @@ class TriageTests(unittest.TestCase):
 
         self.assertEqual(self.triage()['verdict'], 'quiet')
 
-    def test_a_partial_view_acts(self):
+    def test_a_long_feedback_list_does_not_act_by_itself(self):
         self.record()
 
         self.api.pr['comments']['pageInfo']['hasNextPage'] = True
 
-        self.assertEqual(self.triage()['verdict'], 'act')
+        self.assertEqual(self.triage()['verdict'], 'quiet')
 
     def test_checks_on_later_pages_count(self):
         self.api.more_checks = [{'__typename': 'CheckRun', 'name': 'e2e', 'status': 'IN_PROGRESS', 'conclusion': None}]

@@ -12,10 +12,10 @@ import sys
 from pathlib import Path
 
 QUERY = """query($owner:String!,$repo:String!,$number:Int!,$after:String){repository(owner:$owner,name:$repo){pullRequest(number:$number){
-  state isDraft headRefOid baseRefName mergeable reviewDecision
-  reviewThreads(first:100){pageInfo{hasNextPage} nodes{id isResolved comments(first:100){pageInfo{hasNextPage} nodes{id body}}}}
-  reviews(first:100){pageInfo{hasNextPage} nodes{id state body}}
-  comments(first:100){pageInfo{hasNextPage} nodes{id body}}
+  state isDraft headRefOid baseRefName mergeable mergeStateStatus reviewDecision
+  reviewThreads(last:100){nodes{id isResolved comments(last:100){nodes{id body}}}}
+  reviews(last:100){nodes{id state body}}
+  comments(last:100){nodes{id body}}
   commits(last:1){nodes{commit{%s}}}}}}"""
 CHECKS = """oid statusCheckRollup{contexts(first:100,after:$after){pageInfo{hasNextPage endCursor} nodes{
   __typename ... on CheckRun{name status conclusion} ... on StatusContext{context state}}}}"""
@@ -57,7 +57,7 @@ def digest(value) -> str:
     return hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
 
 
-def snapshot(target: dict, actor: str, api) -> tuple[str, dict, bool]:
+def snapshot(target: dict, actor: str, api) -> tuple[str, dict]:
     if (login := api.call("user").get("login")) != actor:
         raise TriageError(f"GitHub actor differs: gh authenticates as {login!r}; bind {actor}'s token to the command")
     variables = {"owner": target["owner"], "repo": target["repo"], "number": target["number"]}
@@ -72,12 +72,12 @@ def snapshot(target: dict, actor: str, api) -> tuple[str, dict, bool]:
             **variables, "after": contexts["pageInfo"]["endCursor"]}})["data"]["repository"]["pullRequest"]["commits"]["nodes"][0]["commit"]
         if commit["oid"] != pr["headRefOid"]:
             raise TriageError("the PR head moved while its checks were read; run triage again")
-    connections = [pr["reviewThreads"], pr["reviews"], pr["comments"], *(t["comments"] for t in pr["reviewThreads"]["nodes"])]
-    partial = any(c["pageInfo"]["hasNextPage"] for c in connections)
-    # Progress between the first and the last check result changes no decision, so only failures and completion count.
+    # Progress between the first and the last check result changes no decision, so only failures and completion
+    # count. Feedback lists keep their newest 100 items, where new activity lands; edits to older items go unseen.
     seen = {
         "head": pr["headRefOid"], "base": pr["baseRefName"], "draft": pr["isDraft"],
-        "conflicting": pr["mergeable"] == "CONFLICTING", "decision": pr["reviewDecision"],
+        "conflicting": pr["mergeable"] == "CONFLICTING", "behind": pr["mergeStateStatus"] == "BEHIND",
+        "decision": pr["reviewDecision"],
         "threads": {t["id"]: digest([t["isResolved"], [c["body"] for c in t["comments"]["nodes"]]])
                     for t in pr["reviewThreads"]["nodes"]},
         "reviews": {r["id"]: digest([r["state"], r["body"]]) for r in pr["reviews"]["nodes"] if r["state"] != "PENDING"},
@@ -87,7 +87,7 @@ def snapshot(target: dict, actor: str, api) -> tuple[str, dict, bool]:
         "checks_pending": any(c.get("status", "COMPLETED") != "COMPLETED" or c.get("state") in {"PENDING", "EXPECTED"}
                               for c in checks),
     }
-    return pr["state"], seen, partial
+    return pr["state"], seen
 
 
 def load(state_file: Path, target: dict, actor: str) -> dict:
@@ -100,12 +100,12 @@ def load(state_file: Path, target: dict, actor: str) -> dict:
 def triage(url: str, actor: str, state_file: Path, api=None) -> dict:
     target = parse_pr(url)
     data = load(state_file, target, actor)
-    pr_state, seen, partial = snapshot(target, actor, api or GitHub(target["host"]))
+    pr_state, seen = snapshot(target, actor, api or GitHub(target["host"]))
     if pr_state != "OPEN":
         return {"verdict": "stop", "reasons": [f"the PR is {pr_state.lower()}"]}
-    reasons = [r for r, hit in (("a feedback list is longer than one page", partial),
-                                ("no Drive turn has seen this PR state", data.get("seen") != seen)) if hit]
-    return {"verdict": "act" if reasons else "quiet", "reasons": reasons}
+    if data.get("seen") != seen:
+        return {"verdict": "act", "reasons": ["no Drive turn has judged this PR state"]}
+    return {"verdict": "quiet", "reasons": []}
 
 
 def record(url: str, actor: str, state_file: Path, api=None) -> dict:
