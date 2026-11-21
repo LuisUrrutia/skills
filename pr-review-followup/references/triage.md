@@ -40,8 +40,9 @@ thread nor a delegated child:
 
 ## Route a wake
 
-In this thread's first turn, the last call is `watch_pull_request` for this PR
-whatever the verdict, unless the route ended the follow-up.
+The launch message is not a user message: the first turn starts at step 4.
+Its last call is `watch_pull_request` for this PR whatever the verdict, unless
+the route ended the follow-up.
 
 1. A message from the user that only asks for status: answer from `state` and
    leave any child and the watch alone. Any other message: cancel a running
