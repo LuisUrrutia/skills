@@ -121,6 +121,8 @@ The host watch is `watch_pull_request`; `unwatch_pull_request` stops it. T3 chec
 on its own fixed cadence and wakes only on changes; do not disclose its interval.
 Feedback scope never arms it, even when an authorized merge waits on checks.
 
+- For a single PR, arm it through a triage thread as [triage.md](triage.md)
+  describes; a triage thread's wake follows that file.
 - Arm it immediately after the final snapshot, then end the turn. It never reports
   earlier comments, so one posted in between waits for the next wake, which may
   not come; disclose that gap.

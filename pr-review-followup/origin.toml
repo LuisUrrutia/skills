@@ -9,9 +9,9 @@ rule = "The skill is the reviewer-side counterpart of the pr-followup skill. Whe
 where = ["SKILL.md#pr-review-follow-up"]
 
 [[invariants]]
-rule = "In T3 Code, T3's PR watch wakes the follow-up, one tick per wake, unless the user names an interval. Otherwise one tick runs every 30 minutes or at the interval the user names."
+rule = "In T3 Code the PR watch lives on a dedicated follow-up thread, and only a change no tick has judged costs a tick; without that thread, T3's watch wakes one tick per wake. When the user names an interval, or outside T3 Code, one tick runs every 30 minutes or at the named interval, and each scheduled tick runs the helper's triage first."
 reason = "The 30-minute default was set at the user's direction when the skill was derived from the supervised PR 1982 follow-up session on 2026-10-07 (local snapshot pr-1982-followup-session). The user chose T3 Code's PR watch over that schedule in T3 Code on 2026-10-29. Using a named interval to select the schedule in T3 Code is inferred from the earlier rule that a named interval sets the cadence."
-where = ["references/cadence.md", "SKILL.md#start-the-follow-up"]
+where = ["references/cadence.md", "references/triage.md", "SKILL.md#start-the-follow-up"]
 
 [[invariants]]
 rule = "An author's reply, or a resolution by someone else, is a claim. A thread is settled only after its claim is checked on the current head, and a resolved thread that is not optional counts only once the current head and base confirm it."
@@ -92,6 +92,21 @@ where = ["references/cadence.md#t3-code-watch"]
 rule = "Each tick rechecks the events T3 Code's PR watch never reports: a thread resolved without a comment or push, a base change, a merge, comments by the account T3 Code reads with, and time passing. Arming discloses that they and comments posted after the final read wait for another wake or invocation."
 reason = "Host constraint in T3 Code's PR watch source; a resolved thread still needs verification on the current head before approval."
 where = ["references/cadence.md#t3-code-watch", "SKILL.md#run-one-tick"]
+
+[[invariants]]
+rule = "In T3 Code one follow-up thread titled with the role, actor and PR URL owns a PR's watch; a live one is reused, and the acting thread then answers only status questions. Each wake there runs the helper's triage command, and only an act verdict or a user message delegates one tick to the model that started the follow-up. The follow-up thread never writes to GitHub or the state file."
+reason = "User decision of 2026-11-20 after a cost analysis of the user's Claude Code transcripts: over 30 days pr-review-followup was the most expensive skill (493 runs), almost all on Claude Opus 5.5, and most runs found nothing to act on. The user chose a dedicated thread and asked that it 'funcione super bien con t3 code'. Reusing a live thread keeps a second owner from running duplicate reviews and replies."
+where = ["references/triage.md", "SKILL.md#start-the-follow-up"]
+
+[[invariants]]
+rule = "The follow-up thread runs the newest Luna model of an enabled Codex provider, read from T3 Code's live model catalog rather than a pinned version; without one it runs the newest Claude Haiku, and without either the watch stays in the acting thread. It runs at medium effort, ends its turn right after delegating, never waits on or re-delegates to a running child, and never delegates on a quiet verdict."
+reason = "User decision of 2026-11-20: 'prefiero que use gpt luna (sin hardcodear uno en especifico, porque pronto probablemente saldra una nueva version de luna), y si no esta openai/codex, entonces usar haiku'. On 2026-11-20, PR https://github.com/LuisUrrutia/skills/pull/88's own Drive ran a gpt-6-luna triage thread at low effort: it waited on its child, re-delegated after the wait timed out, and delegated on a quiet verdict; the user chose to harden and retest."
+where = ["references/triage.md#start-it"]
+
+[[invariants]]
+rule = "The helper's triage command decides each wake without judgment and writes nothing. It acts on a change to the head, base or reviewer threads since the state the last tick judged, on a head with no review and none in progress, and, while findings outside the reviewer's threads or decisive questions stand, on any change to the PR text or to everyone else's comments, reviews and thread resolutions. User-owned blockers come before the approval stop. apply records the judged state, passed as expected_seen, plus its own writes, and refuses a changed PR."
+reason = "A cheap model routes safely only when code decides the verdict. Recording a read taken after the tick would mark events that arrived during it as judged. Standing findings and open questions are settled outside the reviewer's threads, as the settlement rules describe."
+where = ["scripts/followup.py", "SKILL.md#run-one-tick", "references/triage.md#route-a-wake"]
 
 [[local_snapshots]]
 id = "pr-1982-followup-session"

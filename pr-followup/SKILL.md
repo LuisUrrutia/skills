@@ -41,7 +41,8 @@ Use host-managed event notifications and end the agent turn while waiting.
 Before arming, keeping, re-arming or stopping a watch, read
 [references/ci-and-observation.md](references/ci-and-observation.md), including
 its T3 Code subsection. A host watch notification resumes this skill and its
-retained task state. A delegated child or subagent never arms a watch; it returns
+retained task state, except in a T3 triage thread, which follows
+[references/triage.md](references/triage.md). A delegated child or subagent never arms a watch; it returns
 the PR URL, head SHA and pending check and review state to its parent. If no
 resumable watch is available, report that limitation instead of keeping the model
 in a polling loop or claiming unattended coverage. A separate

@@ -15,7 +15,7 @@ from functools import wraps
 from pathlib import Path
 
 THREADS_QUERY = """query($owner:String!,$repo:String!,$number:Int!){repository(owner:$owner,name:$repo){pullRequest(number:$number){
-  id state headRefOid baseRefName author{login}
+  id state headRefOid baseRefName title body author{login}
   reviewThreads(first:100){pageInfo{hasNextPage} nodes{id isResolved isOutdated path line
     resolvedBy{login} viewerCanResolve viewerCanUnresolve
     comments(first:100){pageInfo{hasNextPage} nodes{databaseId author{login} body createdAt}}}}}}}"""
@@ -105,10 +105,11 @@ def read_pr(target: dict, actor: str, api) -> dict:
     if pr["reviewThreads"]["pageInfo"]["hasNextPage"]:
         raise FollowupError("more than 100 review threads; refusing to act on a partial view")
     roles = {actor: "reviewer", author: "author"}
-    threads = []
+    threads, others = [], {}
     for node in pr["reviewThreads"]["nodes"]:
         comments = node["comments"]["nodes"]
         if not comments or (comments[0]["author"] or {}).get("login") != actor:
+            others[node["id"]] = node["isResolved"]
             continue
         if node["comments"]["pageInfo"]["hasNextPage"]:
             raise FollowupError(f"thread {node['id']} has more than 100 comments; refusing to act on a partial view")
@@ -123,16 +124,48 @@ def read_pr(target: dict, actor: str, api) -> dict:
             "last_reviewer_body": next(c["body"] for c in reversed(listed) if c["role"] == "reviewer"),
             "comments": listed,
         })
-    reviews = [r for r in api.call(target["prefix"] + "/reviews?per_page=100")
-               if (r.get("user") or {}).get("login") == actor]
+    published = api.call(target["prefix"] + "/reviews?per_page=100")
+    reviews = [r for r in published if (r.get("user") or {}).get("login") == actor]
+    conversation = api.call(f"repos/{target['owner']}/{target['repo']}/issues/{target['number']}/comments?per_page=100")
+    inline = api.call(target["prefix"] + "/comments?per_page=100")
+
+    def by_others(items):
+        return {str(i.get("id")): i.get("body") for i in items if (i.get("user") or {}).get("login") != actor}
+
+    # Where standing findings and open questions get settled: the PR text, everyone else's comments, reviews and
+    # thread resolutions. Every page is read, and the reviewer's own writes stay out so they never read as news.
+    discussion = [pr["title"], pr["body"], others, by_others(inline), by_others(conversation),
+                  by_others(r for r in published if r.get("state") != "PENDING")]
     return {"state": pr["state"], "head": pr["headRefOid"], "base_ref": pr["baseRefName"], "author": author,
-            "threads": threads, "pending_review": any(r.get("state") == "PENDING" for r in reviews),
+            "threads": threads, "discussion": discussion,
+            "pending_review": any(r.get("state") == "PENDING" for r in reviews),
             "approved_head": any(r.get("state") == "APPROVED" and r.get("commit_id") == pr["headRefOid"]
                                  for r in reviews)}
 
 
 def review_key(pr: dict) -> str:
     return f"{pr['head']}@{pr['base_ref']}"
+
+
+def digest(value) -> str:
+    return hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
+
+
+def fingerprint(pr: dict) -> dict:
+    """What a tick judged: the head, base and reviewer threads, and separately the wider discussion."""
+    return {"core": digest([pr["head"], pr["base_ref"], {t["id"]: [t["resolved"], [c["body"] for c in t["comments"]]]
+                                                         for t in pr["threads"]}]),
+            "discussion": digest(pr["discussion"])}
+
+
+def after_writes(pr: dict, replied: list, resolved: list, reopened: list) -> dict:
+    """The judged PR with this plan's own writes applied, so they never read as new activity."""
+    threads = []
+    for t in pr["threads"]:
+        bodies = [r["body"] for r in replied if r["thread_id"] == t["id"]]
+        state = True if t["id"] in resolved else False if t["id"] in reopened else t["resolved"]
+        threads.append({**t, "resolved": state, "comments": t["comments"] + [{"body": b} for b in bodies]})
+    return {**pr, "threads": threads}
 
 
 def thread_actions(data: dict, plan: dict | None = None) -> dict:
@@ -211,7 +244,36 @@ def state(url: str, actor: str, state_file: Path, api=None) -> dict:
             "done": pr["approved_head"] and not view["blockers"], "approval_blockers": view["blockers"],
             "pending_operation": data.get("pending_operation"), "unresolved": len(view["unresolved"]),
             "open_optional": view["open_optional"], "needs_verification": view["unverified"],
-            "threads": [{**t, "action": actions.get(t["id"])} for t in pr["threads"]]}
+            "threads": [{**t, "action": actions.get(t["id"])} for t in pr["threads"]], "seen": fingerprint(pr)}
+
+
+def triage(url: str, actor: str, state_file: Path, api=None) -> dict:
+    """Route a wake without judgment: only what no tick has judged acts. Writes nothing."""
+    target = parse_pr(url)
+    data = load_state(state_file, target, actor)
+    pr = read_pr(target, actor, api or GitHub(target["host"]))
+    view = summarize(pr, data)
+
+    def verdict(name: str, reason: str | None) -> dict:
+        return {"verdict": name, "reasons": [reason] if reason else [], "head": pr["head"]}
+
+    if pr["state"] != "OPEN":
+        return verdict("stop", f"the PR is {pr['state'].lower()}")
+    if pr["pending_review"] or data.get("pending_operation"):
+        return verdict("report", "an unsubmitted review or an uncertain write needs the user")
+    if pr["approved_head"] and not view["blockers"]:
+        return verdict("stop", "the reviewer approved this head and the gate is clear")
+    seen, now = data.get("seen") if isinstance(data.get("seen"), dict) else None, fingerprint(pr)
+    if seen is None:
+        return verdict("act", "no tick has recorded what it judged")
+    if seen.get("core") != now["core"]:
+        return verdict("act", "the head, base or reviewer threads changed")
+    if not view["current"] and not view["in_progress"]:
+        return verdict("act", "the current head has no review and none is in progress")
+    # Wider activity matters only while findings outside the reviewer's threads or decisive questions stand.
+    if (view["standing"] or view["questions"]) and seen.get("discussion") != now["discussion"]:
+        return verdict("act", "the discussion changed while findings or questions stand")
+    return verdict("quiet", None)
 
 
 @serialized
@@ -283,7 +345,7 @@ def settle(url: str, actor: str, state_file: Path, standing: int, questions: int
 
 
 def validate_plan(plan: object) -> dict:
-    fields = {"expected_head", "expected_base_ref", "replies", "resolve", "unresolve", "verified", "approve", *ACTIONS}
+    fields = {"expected_head", "expected_base_ref", "expected_seen", "replies", "resolve", "unresolve", "verified", "approve", *ACTIONS}
     if (not isinstance(plan, dict) or set(plan) - fields or not isinstance(plan.get("expected_head"), str)
             or not isinstance(plan.get("expected_base_ref"), str)):
         raise FollowupError(f"plan accepts {', '.join(sorted(fields))}, with expected_head and expected_base_ref required")
@@ -295,6 +357,9 @@ def validate_plan(plan: object) -> dict:
             isinstance(r, dict) and set(r) == {"thread_id", "body"} and isinstance(r["thread_id"], str)
             and isinstance(r["body"], str) and r["body"].strip() for r in replies):
         raise FollowupError("plan replies need only a string thread_id and a non-empty string body")
+    seen = plan.get("expected_seen", {"core": "", "discussion": ""})
+    if not isinstance(seen, dict) or set(seen) != {"core", "discussion"} or not all(isinstance(v, str) for v in seen.values()):
+        raise FollowupError("plan field expected_seen must be the seen object state reported")
     if not isinstance(plan.get("approve", False), bool):
         raise FollowupError("plan field approve must be a boolean")
     if set(plan.get("resolve", [])) & set(plan.get("unresolve", [])):
@@ -333,6 +398,8 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
         return pr
 
     pr = preflight()
+    if "expected_seen" in plan and fingerprint(pr) != plan["expected_seen"]:
+        raise FollowupError("the PR changed since the plan was made; reassess it from a new state")
     mine = {t["id"]: t for t in pr["threads"]}
     replies, resolve, unresolve = plan.get("replies", []), plan.get("resolve", []), plan.get("unresolve", [])
     classified = plan.get("required", []) + plan.get("optional", [])
@@ -354,10 +421,15 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
     classify(data, {i: a for a in ACTIONS for i in plan.get(a, [])}, datetime.now(timezone.utc).isoformat())
     save(state_file, data)
 
+    def judged() -> dict:
+        return fingerprint(after_writes(pr, posted, result["resolved"], result["reopened"]))
+
     def write(key: str, endpoint: str, payload: dict, check=None):
         if key in done["completed"]:
             return None
         live = preflight()
+        if "expected_seen" in plan and fingerprint(live) != judged():
+            raise FollowupError("the PR changed since the plan was made; reassess it from a new state")
         if check:
             check(live)
         data["pending_operation"] = key
@@ -379,6 +451,7 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
     verified = data["verified"] if isinstance(data.get("verified"), dict) else {}
     data["verified"] = verified
     result = {"replied": [], "skipped": [], "resolved": [], "reopened": [], "approved": None}
+    posted = []
     for thread_id in unresolve:
         if mine[thread_id]["resolved"]:
             thread = write(f"unresolve:{thread_id}", "graphql",
@@ -401,6 +474,7 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
             if comment.get("body") != reply["body"] or review.get("state") == "PENDING":
                 raise FollowupError("reply did not read back as a published comment; inspect the thread")
             finish(key)
+            posted.append(reply)
         result["replied"].append(thread_id)
     for thread_id in resolve:
         if not mine[thread_id]["resolved"]:
@@ -431,6 +505,9 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
                 raise FollowupError("approval did not read back at the current head")
             finish("approve")
         result["approved"] = current["head"]
+    if "expected_seen" in plan:
+        data["seen"] = judged()
+        save(state_file, data)
     return result
 
 
@@ -438,11 +515,12 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     commands = parser.add_subparsers(dest="command", required=True)
     read = commands.add_parser("state", help="report the PR, the recorded review, the approval gate and the reviewer's threads")
+    route = commands.add_parser("triage", help="decide whether a wake needs a full tick; writes nothing")
     start = commands.add_parser("begin", help="mark a full review of a head as in progress")
     mark = commands.add_parser("record", help="record the review a pr-review snapshot covered")
     close = commands.add_parser("settle", help="update the standing findings and open questions of the current review")
     write = commands.add_parser("apply", help="publish replies, settle threads and approve through the gate")
-    for command in (read, start, mark, close, write):
+    for command in (read, route, start, mark, close, write):
         command.add_argument("--pr", required=True)
         command.add_argument("--actor", required=True)
         command.add_argument("--state-file", required=True, type=Path)
@@ -460,6 +538,8 @@ def main() -> int:
     try:
         if args.command == "state":
             output = state(args.pr, args.actor, state_file)
+        elif args.command == "triage":
+            output = triage(args.pr, args.actor, state_file)
         elif args.command == "begin":
             output = begin(args.pr, args.actor, state_file, args.head)
         elif args.command == "record":

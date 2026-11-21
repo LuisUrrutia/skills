@@ -565,8 +565,10 @@ approved.
 
 **Triggers:** starts after `pr-review` publishes a Comment review unless you ask for the review without follow-up, or when you ask to follow up a PR you reviewed. A status question gets only the current state.
 
-In T3 Code it runs when T3's PR watch reports a change; elsewhere it runs every
-30 minutes by default. Each run re-reviews a new head with `pr-review`, replies
+In T3 Code, a follow-up thread on the newest Luna model, or Claude Haiku without
+Codex, watches the PR and hands each change that needs judgment to the model
+that started the follow-up; elsewhere it runs every 30 minutes by default. Each
+run re-reviews a new head with `pr-review`, replies
 in your own threads, resolves what the current head, a confirmed ticket or a
 recorded team decision the author cites settles,
 reopens a thread whose finding still stands, and approves only through a gate its
@@ -682,7 +684,7 @@ Evaluate feedback on an existing PR and resolve authorized code, CI and base pro
 **Features:**
 
 - Separates read-only checks, feedback repairs and host-managed babysitting under the applicable stopping policy
-- Ends watch wakes that change nothing without a message; in T3 Code, waits on its PR watch and unwatches before handing a turn back to you
+- Ends watch wakes that change nothing without a message; in T3 Code, a single PR waits in a follow-up thread on the newest Luna model, or Claude Haiku without Codex, which hands each change that needs judgment to the model that started Drive, and unwatches before handing a turn back to you
 - Collects threads, reviews, conversation, check annotations and reviewer logs
 - Reevaluates edited comments and new replies in resolved or outdated threads
 - Tests claims against current code and keeps independent repairs progressing
