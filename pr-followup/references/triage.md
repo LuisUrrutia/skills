@@ -52,8 +52,9 @@ triage thread nor a delegated child:
 ## Route a wake
 
 The launch message is not a user message: the first turn starts at step 5.
-Its last call is `watch_pull_request` for this PR whatever the verdict, unless
-the route ended Drive.
+Whenever no watch is on, as in the first turn or after the user answers a
+handback, the turn's last call is `watch_pull_request` for this PR whatever the
+verdict, unless the route ended Drive.
 
 1. A message from the user that only asks for status: answer from the ledger
    and a read of the PR, and leave any child and the watch alone. Any other
@@ -88,8 +89,8 @@ the route ended Drive.
    run `triage` once more and follow its verdict, which covers the other events
    that arrived during the turn.
 
-After delegating, end the turn at once, arming the watch first in the first
-turn. The child's completion wakes you, so never wait on it with
+After delegating, end the turn at once, arming the watch first when none is
+on. The child's completion wakes you, so never wait on it with
 `t3_thread_wait` or `task_status`, and never delegate again while it runs: a
 cheap model that waited and then re-delegated started a second acting turn on
 the same PR.
