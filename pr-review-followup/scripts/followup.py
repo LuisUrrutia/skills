@@ -422,7 +422,6 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
     save(state_file, data)
 
     def judged() -> dict:
-        posted = [r for r in replies if r["thread_id"] in result["replied"]]
         return fingerprint(after_writes(pr, posted, result["resolved"], result["reopened"]))
 
     def write(key: str, endpoint: str, payload: dict, check=None):
@@ -452,6 +451,7 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
     verified = data["verified"] if isinstance(data.get("verified"), dict) else {}
     data["verified"] = verified
     result = {"replied": [], "skipped": [], "resolved": [], "reopened": [], "approved": None}
+    posted = []
     for thread_id in unresolve:
         if mine[thread_id]["resolved"]:
             thread = write(f"unresolve:{thread_id}", "graphql",
@@ -474,6 +474,7 @@ def apply(url: str, actor: str, state_file: Path, plan_path: Path, receipt: Path
             if comment.get("body") != reply["body"] or review.get("state") == "PENDING":
                 raise FollowupError("reply did not read back as a published comment; inspect the thread")
             finish(key)
+            posted.append(reply)
         result["replied"].append(thread_id)
     for thread_id in resolve:
         if not mine[thread_id]["resolved"]:

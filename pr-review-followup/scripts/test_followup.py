@@ -580,6 +580,15 @@ class FollowupTests(unittest.TestCase):
 
         self.assertEqual(self.triage()['verdict'], 'quiet')
 
+    def test_two_replies_to_one_thread_both_post(self):
+        self.record()
+        replies = [{'thread_id': 'T1', 'body': 'this one is done'}, {'thread_id': 'T1', 'body': 'and the test covers it'}]
+
+        self.judged_apply(replies=replies, verified=['T2'])
+
+        self.assertEqual(len(self.api.writes()), 2)
+        self.assertEqual(self.triage()['verdict'], 'quiet')
+
     def test_a_comment_during_the_tick_is_never_absorbed(self):
         self.record()
         judged = state(PR, 'reviewer', self.state_file, self.api)['seen']
