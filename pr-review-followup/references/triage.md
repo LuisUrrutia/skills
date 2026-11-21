@@ -32,12 +32,11 @@ thread nor a delegated child:
 5. Wait with `t3_thread_wait` until that first run ends, waiting again after a
    timeout, then list its pull requests with `list_thread_pull_requests`. When
    this PR shows `watching: true`, report the link: that thread now owns the
-   watch and every later tick. When that run ended the follow-up, report its
-   result and arm nothing. Otherwise read that thread with `t3_thread_read`:
-   when it has run again, it owns this follow-up, including any stop the user
-   gave it, so report its link and arm nothing. Arm the watch here only when the
-   launch failed or that first run, still its last, ended unwatched, and report
-   why.
+   watch and every later tick. Otherwise report the link, that run's result,
+   and that nothing watches the PR, and arm nothing: that thread may already
+   hold a stop from the user, and no T3 call hands the watch back atomically.
+   Arm the watch here, and report why, only when the launch failed before it
+   created a thread.
 
 ## Route a wake
 
